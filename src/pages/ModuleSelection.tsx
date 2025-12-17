@@ -44,7 +44,7 @@ export default function ModuleSelection() {
     }
 
     updateSelectedModules(selectedModules);
-    navigate('/questions');
+    navigate('/dashboard');
   };
 
   if (!businessSnapshot) {

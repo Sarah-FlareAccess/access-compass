@@ -11,6 +11,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
+import NavBar from '../components/NavBar';
 import type { DIAPItem, DIAPDocument, DIAPStatus, DIAPPriority, DIAPCategory } from '../hooks/useDIAPManagement';
 import '../styles/diap.css';
 
@@ -113,17 +114,22 @@ export default function DIAPWorkspace() {
 
   if (isLoading) {
     return (
-      <div className="diap-page">
-        <div className="container">
-          <div className="loading-state">Loading your DIAP...</div>
+      <>
+        <NavBar />
+        <div className="diap-page">
+          <div className="container">
+            <div className="loading-state">Loading your DIAP...</div>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="diap-page">
-      <div className="container">
+    <>
+      <NavBar />
+      <div className="diap-page">
+        <div className="container">
         {/* Header */}
         <div className="diap-header">
           <div className="header-content">
@@ -326,8 +332,9 @@ export default function DIAPWorkspace() {
             Continue Review
           </Link>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

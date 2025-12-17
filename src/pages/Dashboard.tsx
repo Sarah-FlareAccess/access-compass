@@ -1,11 +1,12 @@
 /**
  * Dashboard Page
  *
- * Enhanced dashboard showing:
- * - Module progress organized by journey phase
- * - Overall accessibility score
- * - Priority actions from completed modules
- * - DIAP items preview
+ * Main hub showing:
+ * - Welcome message with org name
+ * - Quick action buttons (View Report, View DIAP)
+ * - Overall progress
+ * - Module grid organized by journey phase
+ * - Evidence library access
  */
 
 import { useEffect, useState, useMemo } from 'react';
@@ -14,28 +15,33 @@ import { getSession, getDiscoveryData } from '../utils/session';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { getModuleById, getModulesByGroup } from '../data/accessModules';
-import ReminderBanner from '../components/ReminderBanner';
+import NavBar from '../components/NavBar';
 import type { JourneyPhase } from '../types';
 import '../styles/dashboard.css';
+
+interface ModuleCardData {
+  id: string;
+  name: string;
+  code: string;
+  status: 'not-started' | 'in-progress' | 'completed';
+  questionCount: number;
+  answeredCount: number;
+  doingWellCount: number;
+  actionCount: number;
+}
 
 interface JourneyGroup {
   phase: JourneyPhase;
   label: string;
   icon: string;
-  modules: {
-    id: string;
-    name: string;
-    code: string;
-    status: 'not-started' | 'in-progress' | 'completed';
-    doingWellCount: number;
-    actionCount: number;
-  }[];
+  modules: ModuleCardData[];
 }
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState<'modules' | 'evidence'>('modules');
 
   // Get selected modules from session
   const selectedModuleIds: string[] = useMemo(() => {
@@ -90,6 +96,8 @@ export default function Dashboard() {
             name: m.name,
             code: m.code,
             status: moduleProgress?.status || 'not-started',
+            questionCount: moduleProgress?.totalQuestions || 0,
+            answeredCount: moduleProgress?.answeredQuestions || 0,
             doingWellCount: summary?.doingWell?.length || 0,
             actionCount: summary?.priorityActions?.length || 0,
           };
@@ -104,16 +112,13 @@ export default function Dashboard() {
     const overall = getOverallProgress();
     const diapStats = getStats();
 
-    // Calculate doing well vs needs attention
     let doingWellTotal = 0;
     let actionsTotal = 0;
-    let exploreTotal = 0;
 
     Object.values(progress).forEach(p => {
       if (p.summary) {
         doingWellTotal += p.summary.doingWell?.length || 0;
         actionsTotal += p.summary.priorityActions?.length || 0;
-        exploreTotal += p.summary.areasToExplore?.length || 0;
       }
     });
 
@@ -123,231 +128,193 @@ export default function Dashboard() {
       progressPercentage: overall.percentage,
       doingWellTotal,
       actionsTotal,
-      exploreTotal,
       diapStats,
     };
   }, [progress, getOverallProgress, getStats]);
 
-  // Get priority actions from all completed modules
-  const priorityActions = useMemo(() => {
-    const actions: { questionText: string; action: string; priority: string; module: string }[] = [];
-
-    Object.values(progress).forEach(p => {
-      if (p.summary?.priorityActions) {
-        p.summary.priorityActions.forEach(a => {
-          actions.push({
-            questionText: a.questionText,
-            action: a.action,
-            priority: a.priority,
-            module: p.moduleCode,
-          });
-        });
-      }
-    });
-
-    // Sort by priority
-    return actions.sort((a, b) => {
-      const order = { high: 0, medium: 1, low: 2 };
-      return (order[a.priority as keyof typeof order] || 2) - (order[b.priority as keyof typeof order] || 2);
-    });
-  }, [progress]);
-
   if (!session || progressLoading) {
     return (
-      <div className="dashboard-page">
-        <div className="container">
-          <div className="loading-state">Loading your dashboard...</div>
+      <>
+        <NavBar />
+        <div className="dashboard-page">
+          <div className="dashboard-container">
+            <div className="loading-state">Loading your dashboard...</div>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
-  const reviewMode = discoveryData?.reviewMode || 'foundation';
+  const orgName = session?.business_snapshot?.organisation_name || 'your organisation';
+  const hasCompletedModules = stats.modulesCompleted > 0;
+  const hasDIAPItems = stats.diapStats.total > 0;
 
   return (
-    <div className="dashboard-page">
-      <div className="container">
-        {/* Header */}
-        <div className="dashboard-header">
-          <h1>Your Accessibility Dashboard</h1>
-          <p className="subtext">
-            {reviewMode === 'foundation' ? 'Foundation Review' : 'Detailed Review'} for{' '}
-            {session?.business_snapshot?.organisation_name ||
-             session?.business_snapshot?.business_types?.[0]?.replace(/-/g, ' ') ||
-             session?.business_snapshot?.business_type?.replace(/-/g, ' ') ||
-             'your business'}
-          </p>
-        </div>
-
-        <ReminderBanner
-          type="professional"
-          compact
-        />
-
-        {/* Progress Overview */}
-        <div className="progress-overview">
-          <div className="progress-card main-progress">
-            <div className="progress-ring">
-              <svg viewBox="0 0 100 100">
-                <circle
-                  className="progress-ring-bg"
-                  cx="50"
-                  cy="50"
-                  r="45"
-                  fill="none"
-                  strokeWidth="8"
-                />
-                <circle
-                  className="progress-ring-fill"
-                  cx="50"
-                  cy="50"
-                  r="45"
-                  fill="none"
-                  strokeWidth="8"
-                  strokeDasharray={`${stats.progressPercentage * 2.83} 283`}
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div className="progress-ring-text">
-                <span className="progress-value">{stats.progressPercentage}%</span>
-                <span className="progress-label">Complete</span>
-              </div>
-            </div>
-            <div className="progress-details">
-              <h3>Review Progress</h3>
-              <p>{stats.modulesCompleted} of {stats.modulesTotal} modules completed</p>
-              {stats.modulesCompleted < stats.modulesTotal && (
-                <Link to="/questions" className="btn-continue-review">
-                  Continue Review
-                </Link>
-              )}
+    <>
+      <NavBar />
+      <div className="dashboard-page">
+        <div className="dashboard-container">
+          {/* Page Header */}
+          <div className="dashboard-header">
+            <div className="header-content">
+              <h1 className="page-title">Your Accessibility Pathway</h1>
+              <p className="page-subtitle">
+                Track progress, explore modules, and build your action plan.
+              </p>
             </div>
           </div>
 
-          <div className="stats-grid">
-            <div className="stat-card doing-well">
-              <span className="stat-icon">&#10003;</span>
-              <span className="stat-value">{stats.doingWellTotal}</span>
-              <span className="stat-label">Doing well</span>
+          {/* Welcome Card */}
+          <div className="welcome-card">
+            <div className="welcome-content">
+              <h2 className="welcome-title">Welcome back, {orgName}</h2>
+              <p className="welcome-text">Continue your accessibility self-audit below.</p>
             </div>
-            <div className="stat-card actions-needed">
-              <span className="stat-icon">!</span>
-              <span className="stat-value">{stats.actionsTotal}</span>
-              <span className="stat-label">Actions needed</span>
-            </div>
-            <div className="stat-card to-explore">
-              <span className="stat-icon">?</span>
-              <span className="stat-value">{stats.exploreTotal}</span>
-              <span className="stat-label">To explore</span>
+            <div className="welcome-actions">
+              <Link
+                to="/export"
+                className={`btn-action ${hasCompletedModules ? '' : 'btn-disabled'}`}
+              >
+                View Report
+              </Link>
+              <Link
+                to="/diap"
+                className={`btn-action ${hasDIAPItems ? '' : 'btn-disabled'}`}
+              >
+                View DIAP
+              </Link>
             </div>
           </div>
-        </div>
 
-        {/* Journey Phase Modules */}
-        <div className="journey-modules-section">
-          <h2>Your Modules by Journey Phase</h2>
-
-          {journeyGroups.map(group => (
-            <div key={group.phase} className={`journey-group journey-${group.phase}`}>
-              <div className="journey-group-header">
-                <span className="journey-icon">{group.icon}</span>
-                <h3>{group.label}</h3>
+          {/* Overall Progress */}
+          <div className="progress-section">
+            <h3 className="section-title">Overall Progress</h3>
+            <div className="progress-card">
+              <div className="progress-bar-container">
+                <div
+                  className="progress-bar-fill"
+                  style={{ width: `${stats.progressPercentage}%` }}
+                />
               </div>
+              <div className="progress-stats">
+                <span className="progress-count">
+                  {stats.modulesCompleted} of {stats.modulesTotal} modules completed
+                </span>
+                <span className="progress-percentage">{stats.progressPercentage}%</span>
+              </div>
+            </div>
+          </div>
 
-              <div className="module-cards">
-                {group.modules.map(module => (
-                  <div
-                    key={module.id}
-                    className={`module-card status-${module.status}`}
-                  >
-                    <div className="module-card-header">
-                      <span className="module-code">{module.code}</span>
-                      <span className={`status-badge ${module.status}`}>
-                        {module.status === 'completed' && '✓ Complete'}
-                        {module.status === 'in-progress' && 'In Progress'}
-                        {module.status === 'not-started' && 'Not Started'}
-                      </span>
-                    </div>
-                    <h4>{module.name}</h4>
-                    {module.status === 'completed' && (
-                      <div className="module-stats">
-                        <span className="stat-good">{module.doingWellCount} good</span>
-                        <span className="stat-actions">{module.actionCount} actions</span>
-                      </div>
-                    )}
+          {/* Tabs */}
+          <div className="dashboard-tabs">
+            <button
+              className={`tab-button ${activeTab === 'modules' ? 'active' : ''}`}
+              onClick={() => setActiveTab('modules')}
+            >
+              Modules
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'evidence' ? 'active' : ''}`}
+              onClick={() => setActiveTab('evidence')}
+            >
+              Evidence Library
+            </button>
+          </div>
+
+          {/* Tab Content */}
+          {activeTab === 'modules' && (
+            <div className="modules-section">
+              {journeyGroups.map(group => (
+                <div key={group.phase} className="journey-group">
+                  <div className="group-header">
+                    <span className="group-icon">{group.icon}</span>
+                    <h4 className="group-title">{group.label}</h4>
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Priority Actions */}
-        {priorityActions.length > 0 && (
-          <div className="priority-actions-section">
-            <div className="section-header">
-              <h2>Priority Actions</h2>
-              <Link to="/diap" className="view-all-link">View all in DIAP</Link>
-            </div>
-
-            <div className="priority-actions-list">
-              {priorityActions.slice(0, 5).map((action, index) => (
-                <div key={index} className={`priority-action-card priority-${action.priority}`}>
-                  <div className="priority-indicator" />
-                  <div className="action-content">
-                    <p className="action-text">{action.action}</p>
-                    <span className="action-module">{action.module}</span>
+                  <div className="modules-grid">
+                    {group.modules.map(module => (
+                      <Link
+                        key={module.id}
+                        to={`/questions?module=${module.id}`}
+                        className={`module-card status-${module.status}`}
+                      >
+                        <div className="module-header">
+                          <span className="module-code">{module.code}</span>
+                          <span className={`status-indicator ${module.status}`}>
+                            {module.status === 'completed' && '✓'}
+                            {module.status === 'in-progress' && '•••'}
+                          </span>
+                        </div>
+                        <h5 className="module-name">{module.name}</h5>
+                        {module.status === 'completed' ? (
+                          <div className="module-results">
+                            <span className="result-good">{module.doingWellCount} good</span>
+                            <span className="result-actions">{module.actionCount} actions</span>
+                          </div>
+                        ) : module.status === 'in-progress' ? (
+                          <div className="module-progress">
+                            {module.answeredCount} / {module.questionCount} questions
+                          </div>
+                        ) : (
+                          <div className="module-cta">Start review</div>
+                        )}
+                      </Link>
+                    ))}
                   </div>
                 </div>
               ))}
 
-              {priorityActions.length > 5 && (
-                <div className="more-actions">
-                  +{priorityActions.length - 5} more actions
+              {journeyGroups.length === 0 && (
+                <div className="empty-state">
+                  <p>No modules selected yet.</p>
+                  <Link to="/modules" className="btn-primary">
+                    Select Modules
+                  </Link>
                 </div>
               )}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* DIAP Summary */}
-        <div className="diap-summary-section">
-          <div className="diap-card">
-            <div className="diap-icon">📋</div>
-            <h3>Disability Inclusion Action Plan</h3>
-            <div className="diap-stats">
-              <div className="diap-stat">
-                <span className="stat-value">{stats.diapStats.total}</span>
-                <span className="stat-label">Total items</span>
-              </div>
-              <div className="diap-stat">
-                <span className="stat-value">{stats.diapStats.byStatus['in-progress']}</span>
-                <span className="stat-label">In progress</span>
-              </div>
-              <div className="diap-stat">
-                <span className="stat-value">{stats.diapStats.byStatus['completed']}</span>
-                <span className="stat-label">Completed</span>
+          {activeTab === 'evidence' && (
+            <div className="evidence-section">
+              <div className="evidence-placeholder">
+                <div className="placeholder-icon">📁</div>
+                <h4>Evidence Library</h4>
+                <p>
+                  Upload photos, documents, and links as you complete your review.
+                  Evidence helps demonstrate progress and supports your action plan.
+                </p>
+                {hasCompletedModules ? (
+                  <Link to="/questions" className="btn-secondary">
+                    Continue Review
+                  </Link>
+                ) : (
+                  <p className="placeholder-note">
+                    Complete module reviews to start adding evidence.
+                  </p>
+                )}
               </div>
             </div>
-            <Link to="/diap" className="btn btn-primary">
-              Manage DIAP
-            </Link>
-          </div>
-        </div>
+          )}
 
-        {/* Quick Actions */}
-        <div className="dashboard-actions">
-          <Link to="/questions" className="btn btn-secondary">
-            Continue Review
-          </Link>
-          <Link to="/diap" className="btn btn-secondary">
-            View Full DIAP
-          </Link>
-          <Link to="/export" className="btn btn-secondary">
-            Export Summary
-          </Link>
+          {/* Quick Stats Footer */}
+          {hasCompletedModules && (
+            <div className="quick-stats">
+              <div className="stat-item">
+                <span className="stat-value">{stats.doingWellTotal}</span>
+                <span className="stat-label">Doing well</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-value">{stats.actionsTotal}</span>
+                <span className="stat-label">Actions identified</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-value">{stats.diapStats.total}</span>
+                <span className="stat-label">DIAP items</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }

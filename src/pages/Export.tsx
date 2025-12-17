@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { getActions, getSession, clearSession } from '../utils/session';
 import { useState } from 'react';
+import NavBar from '../components/NavBar';
 
 export default function Export() {
   const navigate = useNavigate();
@@ -18,7 +19,9 @@ export default function Export() {
   };
 
   return (
-    <div className="form-page">
+    <>
+      <NavBar />
+      <div className="form-page">
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h1>Export your action plan</h1>
@@ -96,6 +99,7 @@ export default function Export() {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
