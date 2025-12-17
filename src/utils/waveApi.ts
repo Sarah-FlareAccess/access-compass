@@ -86,10 +86,178 @@ export interface WaveAnalysisResult {
     description: string;
     count: number;
     wcagCriteria?: string;
+    plainLanguage: string;
+    whyItMatters: string;
+    howToFix: string;
+    example?: string;
   }[];
   disclaimer: string;
   isLiveAnalysis: boolean;
 }
+
+// Plain language explanations for common WAVE issues
+const ISSUE_EXPLANATIONS: Record<string, {
+  plainLanguage: string;
+  whyItMatters: string;
+  howToFix: string;
+  example?: string;
+}> = {
+  // Errors
+  'alt_missing': {
+    plainLanguage: 'Images without descriptions',
+    whyItMatters: 'Screen reader users cannot understand what the image shows. They hear "image" with no context.',
+    howToFix: 'Add a short description to each image using the "alt" attribute. Describe what the image shows in 1-2 sentences.',
+    example: 'Instead of: <img src="team.jpg">\nUse: <img src="team.jpg" alt="Our friendly customer service team standing at the front desk">'
+  },
+  'alt_link_missing': {
+    plainLanguage: 'Linked images without descriptions',
+    whyItMatters: 'Users cannot understand where a clickable image will take them.',
+    howToFix: 'Add alt text that describes where the link goes, not just what the image shows.',
+    example: 'For a logo that links home: alt="Company Name - Go to homepage"'
+  },
+  'label_missing': {
+    plainLanguage: 'Form fields without labels',
+    whyItMatters: 'Users cannot understand what information to enter in a form field. Screen readers announce "edit text" with no context.',
+    howToFix: 'Add a visible label next to each form field (name, email, phone, etc.).',
+    example: 'Add "Your Name:" as a label before the name input field'
+  },
+  'input_empty': {
+    plainLanguage: 'Buttons or inputs with no text',
+    whyItMatters: 'Users cannot understand what a button does or what to enter.',
+    howToFix: 'Add descriptive text to buttons (e.g., "Submit Enquiry" instead of just an icon).',
+    example: 'Change a search button from just a magnifying glass icon to include "Search" text'
+  },
+  'link_empty': {
+    plainLanguage: 'Links with no text',
+    whyItMatters: 'Screen reader users hear "link" but have no idea where it leads.',
+    howToFix: 'Add meaningful text to links that describes where they go.',
+    example: 'Instead of "Click here", use "View our accessibility statement"'
+  },
+  'button_empty': {
+    plainLanguage: 'Buttons with no text',
+    whyItMatters: 'Users cannot understand what the button does.',
+    howToFix: 'Add text to buttons. If using an icon, add hidden text for screen readers.',
+    example: 'A menu button should say "Open menu" not just show three lines'
+  },
+  'th_empty': {
+    plainLanguage: 'Empty table headers',
+    whyItMatters: 'Users navigating tables cannot understand the data columns.',
+    howToFix: 'Add descriptive text to all table header cells.',
+    example: 'Label columns like "Service", "Price", "Duration" instead of leaving headers empty'
+  },
+  'blink': {
+    plainLanguage: 'Blinking or flashing content',
+    whyItMatters: 'Can trigger seizures and is extremely distracting for many users.',
+    howToFix: 'Remove all blinking and flashing effects. Use subtle animations if needed.',
+    example: 'Replace flashing "SALE!" text with a static banner'
+  },
+  'marquee': {
+    plainLanguage: 'Scrolling or moving text',
+    whyItMatters: 'Moving text is difficult to read and cannot be paused by users who need more time.',
+    howToFix: 'Replace scrolling text with static content or provide pause controls.',
+    example: 'Display announcements in a static list instead of a scrolling ticker'
+  },
+
+  // Contrast errors
+  'contrast': {
+    plainLanguage: 'Text that is hard to read due to low contrast',
+    whyItMatters: 'Users with low vision, colour blindness, or reading in bright light cannot read the text.',
+    howToFix: 'Make text darker on light backgrounds, or lighter on dark backgrounds. Use a contrast checker tool.',
+    example: 'Change light grey text (#999) on white to dark grey (#333) - this makes a big difference!'
+  },
+  'contrast_aa': {
+    plainLanguage: 'Text contrast does not meet accessibility standards',
+    whyItMatters: 'The colour combination makes text difficult to read for many users.',
+    howToFix: 'Increase contrast ratio to at least 4.5:1 for normal text, 3:1 for large text.',
+    example: 'If using blue text (#4A90D9) on white, darken it to (#2563EB) for better readability'
+  },
+
+  // Alerts
+  'alt_suspicious': {
+    plainLanguage: 'Image descriptions may not be helpful',
+    whyItMatters: 'Descriptions like "image1.jpg" or "photo" do not help users understand the content.',
+    howToFix: 'Replace generic descriptions with meaningful ones that convey the image purpose.',
+    example: 'Change "IMG_2847.jpg" to "Customer enjoying accessible outdoor seating area"'
+  },
+  'alt_redundant': {
+    plainLanguage: 'Image descriptions repeat nearby text',
+    whyItMatters: 'Screen reader users hear the same information twice, which is annoying and wastes time.',
+    howToFix: 'If text near the image already describes it, use an empty alt="" instead.',
+    example: 'If "About Us" heading is next to a team photo, the photo alt can be brief or empty'
+  },
+  'alt_long': {
+    plainLanguage: 'Image descriptions are too long',
+    whyItMatters: 'Very long descriptions are overwhelming and hard to remember.',
+    howToFix: 'Keep descriptions under 125 characters. Use a longer description link for complex images.',
+    example: 'Summarise a floor plan image briefly, then link to a detailed accessible description'
+  },
+  'title_redundant': {
+    plainLanguage: 'Link title repeats the link text',
+    whyItMatters: 'Screen reader users hear the same thing twice.',
+    howToFix: 'Remove the title attribute if it matches the link text, or add additional useful info.',
+    example: 'Link text "Contact Us" does not need title="Contact Us"'
+  },
+  'noscript': {
+    plainLanguage: 'Content may not work without JavaScript',
+    whyItMatters: 'Some users browse with JavaScript disabled for security or performance.',
+    howToFix: 'Ensure essential content is available without JavaScript, or provide alternatives.',
+    example: 'Show a message with your phone number if the booking widget requires JavaScript'
+  },
+  'heading_missing': {
+    plainLanguage: 'Page may be missing main headings',
+    whyItMatters: 'Users cannot quickly scan and understand the page structure.',
+    howToFix: 'Add clear headings (H1, H2, H3) to organise your content logically.',
+    example: 'Use "Our Services", "Prices", "Contact Us" as H2 headings to break up the page'
+  },
+  'heading_skipped': {
+    plainLanguage: 'Heading levels are skipped (e.g., H1 to H3)',
+    whyItMatters: 'Users navigating by headings may think content is missing.',
+    howToFix: 'Use headings in order: H1 for main title, H2 for sections, H3 for subsections.',
+    example: 'Do not jump from H1 "Welcome" to H3 "Services" - use H2 instead'
+  },
+  'link_redundant': {
+    plainLanguage: 'Multiple links go to the same place',
+    whyItMatters: 'Users hear the same link announced multiple times, which is confusing.',
+    howToFix: 'Combine adjacent links into a single link, or give each a distinct purpose.',
+    example: 'Instead of separate image and text links to the same page, wrap both in one link'
+  },
+  'link_pdf': {
+    plainLanguage: 'Link opens a PDF document',
+    whyItMatters: 'Users should know they are leaving the webpage and opening a different format.',
+    howToFix: 'Add "(PDF)" to the link text and ensure the PDF itself is accessible.',
+    example: 'Change "Menu" to "Menu (PDF, 2MB)" and ensure the PDF has proper headings and alt text'
+  },
+  'html5_video_audio': {
+    plainLanguage: 'Video or audio content detected',
+    whyItMatters: 'Videos need captions for deaf users; audio needs transcripts.',
+    howToFix: 'Add captions to all videos. Provide text transcripts for audio content.',
+    example: 'Upload captions when posting videos. Many platforms auto-generate captions you can edit'
+  },
+  'youtube_video': {
+    plainLanguage: 'YouTube video embedded',
+    whyItMatters: 'YouTube videos need captions for accessibility.',
+    howToFix: 'Enable captions on YouTube videos. Review auto-captions for accuracy.',
+    example: 'In YouTube Studio, go to Subtitles and add/review captions for each video'
+  },
+  'table_layout': {
+    plainLanguage: 'Table may be used for layout instead of data',
+    whyItMatters: 'Screen readers announce "table" which confuses users when there is no tabular data.',
+    howToFix: 'Use CSS for layout instead of tables. Reserve tables for actual data.',
+    example: 'Replace a 2-column table layout with CSS flexbox or grid'
+  },
+  'text_small': {
+    plainLanguage: 'Text may be too small',
+    whyItMatters: 'Small text is hard to read, especially for users with low vision.',
+    howToFix: 'Use at least 16px for body text. Ensure text can be zoomed to 200%.',
+    example: 'Change 12px body text to 16px or 18px for better readability'
+  },
+  'underline': {
+    plainLanguage: 'Underlined text that is not a link',
+    whyItMatters: 'Users expect underlined text to be clickable, causing confusion.',
+    howToFix: 'Remove underlines from non-link text. Use bold or colour for emphasis instead.',
+    example: 'Change underlined "Important:" to bold "Important:"'
+  }
+};
 
 /**
  * Analyze a website URL using WAVE API
@@ -143,6 +311,29 @@ async function performLiveWaveAnalysis(url: string): Promise<WaveAnalysisResult>
 }
 
 /**
+ * Get explanation for a WAVE issue ID
+ */
+function getIssueExplanation(issueId: string, fallbackDescription: string): {
+  plainLanguage: string;
+  whyItMatters: string;
+  howToFix: string;
+  example?: string;
+} {
+  const explanation = ISSUE_EXPLANATIONS[issueId];
+  if (explanation) {
+    return explanation;
+  }
+
+  // Fallback for unknown issues
+  return {
+    plainLanguage: fallbackDescription,
+    whyItMatters: 'This may create barriers for some users trying to access your website.',
+    howToFix: 'Review this issue and consider how it might affect users with disabilities.',
+    example: undefined,
+  };
+}
+
+/**
  * Normalize WAVE API response to our format
  */
 function normalizeWaveResponse(url: string, data: WaveApiResponse): WaveAnalysisResult {
@@ -166,62 +357,128 @@ function normalizeWaveResponse(url: string, data: WaveApiResponse): WaveAnalysis
   else if (score >= 50) status = 'needs-improvement';
   else status = 'poor';
 
-  // Extract detailed issues
+  // Extract detailed issues with plain language explanations
   const detailedIssues: WaveAnalysisResult['detailedIssues'] = [];
 
   if (categories.error?.items) {
-    Object.values(categories.error.items).forEach(item => {
+    Object.entries(categories.error.items).forEach(([id, item]) => {
+      const explanation = getIssueExplanation(id, item.description);
       detailedIssues.push({
         category: 'Errors',
         severity: 'error',
         description: item.description,
         count: item.count,
+        wcagCriteria: getWcagCriteria(id),
+        plainLanguage: explanation.plainLanguage,
+        whyItMatters: explanation.whyItMatters,
+        howToFix: explanation.howToFix,
+        example: explanation.example,
       });
     });
   }
 
   if (categories.contrast?.items) {
-    Object.values(categories.contrast.items).forEach(item => {
+    Object.entries(categories.contrast.items).forEach(([id, item]) => {
+      const explanation = getIssueExplanation(id, item.description);
       detailedIssues.push({
         category: 'Contrast',
         severity: 'error',
         description: item.description,
         count: item.count,
+        wcagCriteria: 'WCAG 1.4.3',
+        plainLanguage: explanation.plainLanguage,
+        whyItMatters: explanation.whyItMatters,
+        howToFix: explanation.howToFix,
+        example: explanation.example,
       });
     });
   }
 
   if (categories.alert?.items) {
-    Object.values(categories.alert.items).forEach(item => {
+    Object.entries(categories.alert.items).forEach(([id, item]) => {
+      const explanation = getIssueExplanation(id, item.description);
       detailedIssues.push({
         category: 'Alerts',
         severity: 'warning',
         description: item.description,
         count: item.count,
+        wcagCriteria: getWcagCriteria(id),
+        plainLanguage: explanation.plainLanguage,
+        whyItMatters: explanation.whyItMatters,
+        howToFix: explanation.howToFix,
+        example: explanation.example,
       });
     });
   }
 
-  // Generate strengths
+  // Generate user-friendly strengths
   const strengths: string[] = [];
-  if (errorCount === 0) strengths.push('No accessibility errors detected');
-  if (contrastCount === 0) strengths.push('All colour contrast meets WCAG guidelines');
-  if (featureCount > 0) strengths.push(`${featureCount} accessibility features present`);
-  if (structureCount > 5) strengths.push('Good page structure with proper headings');
-  if (ariaCount > 0) strengths.push('ARIA attributes used for enhanced accessibility');
+  if (errorCount === 0) {
+    strengths.push('Great news! No critical accessibility errors were found on your page.');
+  }
+  if (contrastCount === 0) {
+    strengths.push('Your text colours have good contrast, making content readable for users with low vision.');
+  }
+  if (featureCount > 0) {
+    strengths.push(`Your page includes ${featureCount} accessibility features like form labels and skip links.`);
+  }
+  if (structureCount > 5) {
+    strengths.push('Your page has good structure with proper headings, helping users navigate easily.');
+  }
+  if (ariaCount > 0) {
+    strengths.push('You are using ARIA attributes to provide extra information for screen reader users.');
+  }
 
-  // Generate improvements
+  // Generate actionable improvements
   const improvements: string[] = [];
-  if (errorCount > 0) improvements.push(`Fix ${errorCount} accessibility error(s)`);
-  if (contrastCount > 0) improvements.push(`Address ${contrastCount} colour contrast issue(s)`);
-  if (alertCount > 0) improvements.push(`Review ${alertCount} accessibility alert(s)`);
 
-  // Generate quick wins
+  // Prioritise by impact
+  if (errorCount > 0) {
+    const topError = detailedIssues.find(i => i.severity === 'error');
+    if (topError) {
+      improvements.push(`Priority: ${topError.plainLanguage} (${topError.count} found) - ${topError.howToFix}`);
+    }
+  }
+  if (contrastCount > 0) {
+    improvements.push(`Improve colour contrast in ${contrastCount} place(s) - use darker text on light backgrounds or lighter text on dark backgrounds.`);
+  }
+  if (alertCount > 2) {
+    improvements.push(`Review ${alertCount} potential issues that could affect some users.`);
+  }
+
+  // Generate specific quick wins (easy fixes with high impact)
   const quickWins: string[] = [];
-  if (improvements.length > 0) {
-    quickWins.push('Start with the most critical errors first');
-    if (contrastCount > 0) quickWins.push('Improve text contrast for better readability');
-    quickWins.push('Add missing alt text to images');
+
+  // Find quick wins from detailed issues
+  const altMissing = detailedIssues.find(i => i.description.toLowerCase().includes('alt') && i.severity === 'error');
+  if (altMissing) {
+    quickWins.push(`Add descriptions to ${altMissing.count} image(s) - describe what each image shows in a sentence.`);
+  }
+
+  const labelMissing = detailedIssues.find(i => i.description.toLowerCase().includes('label') && i.severity === 'error');
+  if (labelMissing) {
+    quickWins.push(`Add labels to ${labelMissing.count} form field(s) - ensure each input has a visible label like "Your Name:" or "Email:".`);
+  }
+
+  const contrastIssue = detailedIssues.find(i => i.category === 'Contrast');
+  if (contrastIssue) {
+    quickWins.push('Darken your text colours or lighten your backgrounds for better readability.');
+  }
+
+  if (quickWins.length === 0 && improvements.length > 0) {
+    quickWins.push('Start with the first improvement listed above - small changes can make a big difference!');
+  }
+
+  // Create user-friendly summary
+  let summary: string;
+  if (score >= 90) {
+    summary = `Excellent! Your website is performing well for accessibility. ${featureCount > 0 ? `We detected ${featureCount} accessibility features.` : ''} Keep up the good work and continue to test with real users.`;
+  } else if (score >= 70) {
+    summary = `Good progress! Your website has solid foundations but there are ${errorCount + contrastCount} issue(s) to address. The improvements below will help make your site more accessible.`;
+  } else if (score >= 50) {
+    summary = `Your website needs some attention. We found ${errorCount} error(s) and ${contrastCount} contrast issue(s) that may prevent some users from accessing your content. Focus on the quick wins first.`;
+  } else {
+    summary = `Your website has significant accessibility barriers. We found ${errorCount} error(s) that will affect users with disabilities. We recommend addressing the priority issues below and consider getting professional help.`;
   }
 
   return {
@@ -229,9 +486,7 @@ function normalizeWaveResponse(url: string, data: WaveApiResponse): WaveAnalysis
     analysisDate: new Date().toISOString(),
     overallScore: score,
     overallStatus: status,
-    summary: `Analysis found ${errorCount} errors, ${contrastCount} contrast issues, and ${alertCount} alerts. ${
-      score >= 70 ? 'The page meets basic accessibility standards.' : 'Significant improvements are recommended.'
-    }`,
+    summary,
     errorCount,
     contrastErrorCount: contrastCount,
     alertCount,
@@ -242,9 +497,32 @@ function normalizeWaveResponse(url: string, data: WaveApiResponse): WaveAnalysis
     improvements,
     quickWins,
     detailedIssues,
-    disclaimer: 'This analysis uses the WAVE Web Accessibility Evaluation Tool. Results are indicative and should be verified with manual testing and user feedback.',
+    disclaimer: 'This analysis checks common accessibility issues but cannot detect everything. Some issues require human judgement. We recommend testing with real users who have disabilities and considering a professional accessibility audit for comprehensive coverage.',
     isLiveAnalysis: true,
   };
+}
+
+/**
+ * Get WCAG criteria for common WAVE issue IDs
+ */
+function getWcagCriteria(issueId: string): string | undefined {
+  const wcagMap: Record<string, string> = {
+    'alt_missing': 'WCAG 1.1.1',
+    'alt_link_missing': 'WCAG 1.1.1, 2.4.4',
+    'label_missing': 'WCAG 1.3.1, 4.1.2',
+    'input_empty': 'WCAG 4.1.2',
+    'link_empty': 'WCAG 2.4.4',
+    'button_empty': 'WCAG 4.1.2',
+    'contrast': 'WCAG 1.4.3',
+    'contrast_aa': 'WCAG 1.4.3',
+    'heading_missing': 'WCAG 1.3.1',
+    'heading_skipped': 'WCAG 1.3.1',
+    'alt_suspicious': 'WCAG 1.1.1',
+    'html5_video_audio': 'WCAG 1.2.1, 1.2.2',
+    'blink': 'WCAG 2.2.2',
+    'marquee': 'WCAG 2.2.2',
+  };
+  return wcagMap[issueId];
 }
 
 /**
@@ -274,93 +552,142 @@ function generateMockWaveResult(url: string): WaveAnalysisResult {
   const improvements: string[] = [];
   const quickWins: string[] = [];
 
-  // Generate contextual feedback
+  // Generate user-friendly strengths
   if (errorCount === 0) {
-    strengths.push('No critical accessibility errors detected');
-  } else {
-    improvements.push(`Address ${errorCount} accessibility error(s) that may prevent some users from accessing content`);
-    quickWins.push('Focus on fixing errors first as they have the biggest impact');
+    strengths.push('Great news! No critical accessibility errors were found on your page.');
   }
 
   if (contrastCount === 0) {
-    strengths.push('Colour contrast appears to meet WCAG 2.1 AA standards');
-  } else {
-    improvements.push(`Improve colour contrast in ${contrastCount} area(s) to ensure text is readable for users with low vision`);
-    quickWins.push('Increase contrast between text and background colours');
+    strengths.push('Your text colours have good contrast, making content readable for users with low vision.');
   }
 
   if (featureCount > 5) {
-    strengths.push(`${featureCount} accessibility features detected including form labels and skip links`);
+    strengths.push(`Your page includes ${featureCount} accessibility features like form labels and skip links.`);
   }
 
   if (structureCount > 5) {
-    strengths.push('Good semantic structure with proper heading hierarchy');
-  } else {
-    improvements.push('Consider improving page structure with proper heading levels (H1, H2, H3)');
+    strengths.push('Your page has good structure with proper headings, helping users navigate easily.');
   }
 
   if (ariaCount > 0) {
-    strengths.push('ARIA attributes present to enhance screen reader experience');
-  } else {
-    improvements.push('Consider adding ARIA labels for interactive elements');
-    quickWins.push('Add aria-label attributes to buttons and links that lack descriptive text');
+    strengths.push('You are using ARIA attributes to provide extra information for screen reader users.');
+  }
+
+  // Generate actionable improvements with specific guidance
+  if (errorCount > 0) {
+    improvements.push(`Priority: Fix ${errorCount} issue(s) that create barriers - focus on form labels and image descriptions first.`);
+  }
+
+  if (contrastCount > 0) {
+    improvements.push(`Improve colour contrast in ${contrastCount} place(s) - make text darker on light backgrounds, or lighter on dark backgrounds.`);
+  }
+
+  if (structureCount <= 5) {
+    improvements.push('Add clear headings (H1, H2, H3) to help users scan your page - use "Our Services", "Contact Us" etc. as section headings.');
+  }
+
+  if (ariaCount === 0) {
+    improvements.push('Add descriptive text to buttons that only show icons - for example, add "Open menu" text to menu buttons.');
   }
 
   if (alertCount > 3) {
-    improvements.push(`Review ${alertCount} potential accessibility issues that may affect some users`);
+    improvements.push(`Review ${alertCount} potential issues - these may affect some users depending on your content.`);
   }
 
-  // Add general quick wins
-  quickWins.push('Ensure all images have meaningful alt text');
-  quickWins.push('Test your site with a screen reader');
+  // Generate specific, achievable quick wins
+  if (errorCount > 0) {
+    quickWins.push(`Add a visible label before each form field - write "Your Name:", "Email:", "Phone:" next to each input box.`);
+  }
 
+  if (contrastCount > 0) {
+    quickWins.push('Use a contrast checker tool (like WebAIM Contrast Checker) and aim for a ratio of 4.5:1 or higher.');
+  }
+
+  quickWins.push('Add descriptions to images - click on each image in your website editor and add text describing what it shows.');
+
+  if (quickWins.length < 3) {
+    quickWins.push('Test your website using only your keyboard (Tab, Enter, Arrow keys) - can you access everything?');
+  }
+
+  // Build detailed issues with plain language
   const detailedIssues: WaveAnalysisResult['detailedIssues'] = [];
 
   if (errorCount > 0) {
+    const labelExplanation = getIssueExplanation('label_missing', 'Missing form label');
     detailedIssues.push({
       category: 'Errors',
       severity: 'error',
       description: 'Missing form label - form controls must have associated labels',
       count: Math.max(1, errorCount - 1),
       wcagCriteria: 'WCAG 1.3.1, 4.1.2',
+      plainLanguage: labelExplanation.plainLanguage,
+      whyItMatters: labelExplanation.whyItMatters,
+      howToFix: labelExplanation.howToFix,
+      example: labelExplanation.example,
     });
+
     if (errorCount > 1) {
+      const linkExplanation = getIssueExplanation('link_empty', 'Empty link');
       detailedIssues.push({
         category: 'Errors',
         severity: 'error',
         description: 'Empty link - links must contain text or have accessible names',
         count: 1,
         wcagCriteria: 'WCAG 2.4.4',
+        plainLanguage: linkExplanation.plainLanguage,
+        whyItMatters: linkExplanation.whyItMatters,
+        howToFix: linkExplanation.howToFix,
+        example: linkExplanation.example,
       });
     }
   }
 
   if (contrastCount > 0) {
+    const contrastExplanation = getIssueExplanation('contrast', 'Low contrast text');
     detailedIssues.push({
       category: 'Contrast',
       severity: 'error',
       description: 'Low contrast text - text does not meet WCAG AA contrast ratio of 4.5:1',
       count: contrastCount,
       wcagCriteria: 'WCAG 1.4.3',
+      plainLanguage: contrastExplanation.plainLanguage,
+      whyItMatters: contrastExplanation.whyItMatters,
+      howToFix: contrastExplanation.howToFix,
+      example: contrastExplanation.example,
     });
   }
 
+  const altExplanation = getIssueExplanation('alt_suspicious', 'Suspicious alternative text');
   detailedIssues.push({
     category: 'Alerts',
     severity: 'warning',
     description: 'Suspicious alternative text - alt text may not adequately describe the image',
     count: Math.ceil(alertCount / 2),
     wcagCriteria: 'WCAG 1.1.1',
+    plainLanguage: altExplanation.plainLanguage,
+    whyItMatters: altExplanation.whyItMatters,
+    howToFix: altExplanation.howToFix,
+    example: altExplanation.example,
   });
+
+  // Create user-friendly summary
+  let summary: string;
+  if (score >= 90) {
+    summary = `Excellent! Your website is performing well for accessibility. ${featureCount > 0 ? `We detected ${featureCount} accessibility features.` : ''} Keep up the good work and continue to test with real users.`;
+  } else if (score >= 70) {
+    summary = `Good progress! Your website has solid foundations but there are ${errorCount + contrastCount} issue(s) to address. The quick wins below are easy changes that will help many users.`;
+  } else if (score >= 50) {
+    summary = `Your website needs some attention. We found ${errorCount} error(s) and ${contrastCount} contrast issue(s) that may prevent some customers from using your site. Start with the quick wins - they're easier than you think!`;
+  } else {
+    summary = `Your website has some accessibility barriers to address. We found ${errorCount} error(s) that will affect customers with disabilities. The good news is that many of these can be fixed without technical expertise. Focus on one issue at a time.`;
+  }
 
   return {
     url,
     analysisDate: new Date().toISOString(),
     overallScore: score,
     overallStatus: status,
-    summary: `Simulated analysis found ${errorCount} errors, ${contrastCount} contrast issues, and ${alertCount} alerts. ${
-      score >= 70 ? 'The page appears to meet basic accessibility standards.' : 'Improvements are recommended to enhance accessibility.'
-    }`,
+    summary,
     errorCount,
     contrastErrorCount: contrastCount,
     alertCount,
@@ -371,7 +698,7 @@ function generateMockWaveResult(url: string): WaveAnalysisResult {
     improvements: improvements.slice(0, 4),
     quickWins: quickWins.slice(0, 3),
     detailedIssues,
-    disclaimer: 'This is a simulated analysis for demonstration purposes. For accurate results, connect the WAVE API or conduct manual accessibility testing. Results do not guarantee WCAG compliance.',
+    disclaimer: 'This is a simulated analysis showing the type of feedback you would receive. For accurate results, we recommend connecting the live WAVE API. This analysis cannot detect all issues - some require human judgement and testing with real users.',
     isLiveAnalysis: false,
   };
 }
