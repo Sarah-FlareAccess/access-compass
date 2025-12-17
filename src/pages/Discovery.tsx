@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DiscoveryModule, ReviewModeSelection, CalibrationQuestions } from '../components/discovery';
-import { getSession, updateDiscoveryData } from '../utils/session';
+import { getSession, updateDiscoveryData, updateSelectedModules } from '../utils/session';
 import { calculateDepthRecommendation } from '../lib/recommendationEngine';
 import type { ReviewMode, RecommendationResult, CalibrationData } from '../types';
 
@@ -60,8 +60,11 @@ function Discovery() {
         action_timing: calibrationData?.timing,
       });
 
-      // Navigate to the module selection page
-      navigate('/modules');
+      // Also save the recommended modules as selected modules
+      updateSelectedModules(discoveryResults.recommendedModules);
+
+      // Navigate directly to dashboard (modules are auto-selected from discovery)
+      navigate('/dashboard');
     }
   };
 
