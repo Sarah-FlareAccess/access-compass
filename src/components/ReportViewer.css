@@ -714,6 +714,133 @@
   }
 }
 
+/* URL Analysis Section */
+.report-url-analysis .url-analysis-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.report-url-analysis .url-analysis-card:last-child {
+  margin-bottom: 0;
+}
+
+.url-analysis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.url-analysis-header .url-link {
+  font-size: 14px;
+  color: #7c3aed;
+  text-decoration: none;
+  word-break: break-all;
+  flex: 1;
+}
+
+.url-analysis-header .url-link:hover {
+  text-decoration: underline;
+}
+
+.url-analysis-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.url-analysis-score .score-badge {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.url-analysis-score .score-badge.score-excellent {
+  background: rgba(34, 197, 94, 0.15);
+  color: #166534;
+}
+
+.url-analysis-score .score-badge.score-good {
+  background: rgba(59, 130, 246, 0.15);
+  color: #1e3a8a;
+}
+
+.url-analysis-score .score-badge.score-needs-improvement {
+  background: rgba(251, 191, 36, 0.15);
+  color: #92400e;
+}
+
+.url-analysis-score .score-badge.score-missing {
+  background: rgba(239, 68, 68, 0.15);
+  color: #991b1b;
+}
+
+.url-analysis-score .score-status {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.url-analysis-summary {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #374151;
+  margin: 0 0 16px 0;
+  padding: 12px;
+  background: white;
+  border-radius: 6px;
+  border-left: 4px solid #7c3aed;
+}
+
+.url-analysis-strengths,
+.url-analysis-improvements {
+  margin-bottom: 12px;
+}
+
+.url-analysis-strengths:last-child,
+.url-analysis-improvements:last-child {
+  margin-bottom: 0;
+}
+
+.url-analysis-strengths h4 {
+  color: #166534;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+}
+
+.url-analysis-improvements h4 {
+  color: #92400e;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+}
+
+.url-analysis-strengths ul,
+.url-analysis-improvements ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.url-analysis-strengths li {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #166534;
+  margin-bottom: 4px;
+}
+
+.url-analysis-improvements li {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #92400e;
+  margin-bottom: 4px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .report-viewer-overlay {

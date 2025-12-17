@@ -48,6 +48,17 @@ export interface ModuleCompletionEvidence {
   actionsCount: number;
 }
 
+// URL Analysis result for the report
+export interface UrlAnalysisResult {
+  url: string;
+  questionText: string;
+  overallScore: number;
+  overallStatus: 'excellent' | 'good' | 'needs-improvement' | 'missing';
+  summary: string;
+  strengths: string[];
+  improvements: string[];
+}
+
 export interface Report {
   reportType: 'pulse-check' | 'deep-dive';
   generatedAt: string;
@@ -65,6 +76,9 @@ export interface Report {
 
   // Module completion evidence (who did what, when)
   moduleEvidence: ModuleCompletionEvidence[];
+
+  // URL Analysis results
+  urlAnalysisResults: UrlAnalysisResult[];
 
   // Main content sections
   sections: {
@@ -143,6 +157,9 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
         };
       });
 
+      // Extract URL analysis results
+      const urlAnalysisResults: UrlAnalysisResult[] = [];
+
       completedModules.forEach(moduleProgress => {
         if (moduleProgress.summary) {
           if (moduleProgress.summary.doingWell) {
@@ -160,6 +177,23 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
             allProfessionalReview.push(...moduleProgress.summary.professionalReview);
           }
         }
+
+        // Extract URL analysis from responses
+        const module = getModuleById(moduleProgress.moduleId);
+        moduleProgress.responses.forEach(response => {
+          if (response.urlAnalysis) {
+            const question = module?.questions.find(q => q.id === response.questionId);
+            urlAnalysisResults.push({
+              url: response.urlAnalysis.url,
+              questionText: question?.text || 'Website accessibility review',
+              overallScore: response.urlAnalysis.overallScore,
+              overallStatus: response.urlAnalysis.overallStatus,
+              summary: response.urlAnalysis.summary,
+              strengths: response.urlAnalysis.strengths || [],
+              improvements: response.urlAnalysis.improvements || [],
+            });
+          }
+        });
       });
 
       // Identify quick wins (areas with low effort, high impact)
@@ -189,6 +223,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
         organisation: organisationName,
         executiveSummary,
         moduleEvidence,
+        urlAnalysisResults,
         sections: {
           strengths: {
             title: "What's Going Well",

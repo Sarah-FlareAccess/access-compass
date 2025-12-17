@@ -150,6 +150,56 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
             </section>
           )}
 
+          {/* URL Analysis Results */}
+          {report.urlAnalysisResults && report.urlAnalysisResults.length > 0 && (
+            <section className="report-section report-url-analysis">
+              <h2>Website Accessibility Analysis</h2>
+              <p className="section-intro">
+                Analysis of your online accessibility information:
+              </p>
+              {report.urlAnalysisResults.map((analysis, index) => (
+                <div key={index} className="url-analysis-card">
+                  <div className="url-analysis-header">
+                    <a href={analysis.url} target="_blank" rel="noopener noreferrer" className="url-link">
+                      {analysis.url}
+                    </a>
+                    <div className="url-analysis-score">
+                      <span className={`score-badge score-${analysis.overallStatus}`}>
+                        {analysis.overallScore}/100
+                      </span>
+                      <span className="score-status">
+                        {analysis.overallStatus === 'excellent' ? 'Excellent' :
+                         analysis.overallStatus === 'good' ? 'Good' :
+                         analysis.overallStatus === 'needs-improvement' ? 'Needs Improvement' : 'Missing'}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="url-analysis-summary">{analysis.summary}</p>
+                  {analysis.strengths.length > 0 && (
+                    <div className="url-analysis-strengths">
+                      <h4>Strengths</h4>
+                      <ul>
+                        {analysis.strengths.map((strength, idx) => (
+                          <li key={idx}>{strength}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {analysis.improvements.length > 0 && (
+                    <div className="url-analysis-improvements">
+                      <h4>Areas for Improvement</h4>
+                      <ul>
+                        {analysis.improvements.map((improvement, idx) => (
+                          <li key={idx}>{improvement}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </section>
+          )}
+
           {/* What's Going Well */}
           {report.sections.strengths.content.length > 0 && (
             <section className="report-section">
