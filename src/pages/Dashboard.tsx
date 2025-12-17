@@ -218,10 +218,15 @@ export default function Dashboard() {
 
     const { assignedTo, targetDate } = assignmentModal.savedAssignment;
     const moduleName = assignmentModal.moduleName;
+    const moduleId = assignmentModal.moduleId;
     const orgName = session?.business_snapshot?.organisation_name || 'our organisation';
     const targetDateFormatted = targetDate
       ? new Date(targetDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })
       : null;
+
+    // Generate direct link to the module
+    const baseUrl = window.location.origin;
+    const moduleUrl = `${baseUrl}/questions?module=${moduleId}`;
 
     return `Hi ${assignedTo.split(' ')[0]},
 
@@ -229,12 +234,9 @@ You've been assigned to complete the "${moduleName}" accessibility self-review m
 
 This is part of our accessibility improvement initiative using Access Compass. The module will ask you questions about ${moduleName.toLowerCase()} and help identify what we're doing well and where we can improve.
 
-${targetDateFormatted ? `Target completion date: ${targetDateFormatted}` : ''}
-
-To get started:
-1. Go to the Access Compass dashboard
-2. Find the "${moduleName}" module
-3. Click "Start" or "Continue" to begin
+${targetDateFormatted ? `Target completion date: ${targetDateFormatted}\n` : ''}
+To get started, click here:
+${moduleUrl}
 
 The review should take about 10-15 minutes. Your insights will help us create a more inclusive experience for all our customers.
 
