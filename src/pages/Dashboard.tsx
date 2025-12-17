@@ -508,12 +508,21 @@ Thanks!`;
                               </Link>
                               <button
                                 type="button"
-                                className="btn-assign-module"
+                                className={`btn-assign-module ${status === 'completed' ? 'btn-assign-disabled' : ''}`}
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  handleOpenAssignment(module.id, module.name, ownership);
+                                  if (status !== 'completed') {
+                                    handleOpenAssignment(module.id, module.name, ownership);
+                                  }
                                 }}
-                                title={ownership?.assignedTo ? 'Edit assignment' : 'Assign module'}
+                                disabled={status === 'completed'}
+                                title={
+                                  status === 'completed'
+                                    ? 'Module already completed'
+                                    : ownership?.assignedTo
+                                    ? 'Edit assignment'
+                                    : 'Assign module (optional)'
+                                }
                               >
                                 {ownership?.assignedTo ? (
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

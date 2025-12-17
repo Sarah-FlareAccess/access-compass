@@ -885,9 +885,16 @@
   justify-content: center;
 }
 
-.btn-assign-module:hover {
+.btn-assign-module:hover:not(:disabled) {
   background: #e5e7eb;
   color: #374151;
+}
+
+.btn-assign-module:disabled,
+.btn-assign-module.btn-assign-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #f9fafb;
 }
 
 /* Confidence badge */
