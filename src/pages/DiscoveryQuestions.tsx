@@ -38,7 +38,7 @@ export default function DiscoveryQuestions() {
   const [directModuleAccess, setDirectModuleAccess] = useState(!!requestedModuleId);
 
   // Get the review mode from discovery data
-  const reviewMode: ReviewMode = discoveryData?.reviewMode || 'pulse-check';
+  const reviewMode: ReviewMode = discoveryData?.review_mode || 'pulse-check';
 
   // Get selected modules from session
   const selectedModuleIds: string[] = useMemo(() => {
