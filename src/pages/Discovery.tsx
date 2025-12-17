@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DiscoveryModule, ReviewModeSelection } from '../components/discovery';
+import { DiscoveryModule, ReviewModeSelection, OptionalQuestions } from '../components/discovery';
 import { getSession, updateDiscoveryData } from '../utils/session';
 import { calculateDepthRecommendation } from '../lib/recommendationEngine';
 import type { ReviewMode, RecommendationResult } from '../types';
 
-type DiscoveryStep = 'discovery' | 'review-mode';
+type DiscoveryStep = 'discovery' | 'review-mode' | 'optional-questions';
 
 function Discovery() {
   const navigate = useNavigate();
   const session = getSession();
   const [currentStep, setCurrentStep] = useState<DiscoveryStep>('discovery');
+  const [selectedReviewMode, setSelectedReviewMode] = useState<ReviewMode>('foundation');
 
   // Temporary storage for discovery results before review mode selection
   const [discoveryResults, setDiscoveryResults] = useState<{
@@ -22,7 +23,7 @@ function Discovery() {
   } | null>(null);
 
   // Get business type from session for industry-based recommendations
-  const industryId = session?.business_snapshot?.business_type || 'other';
+  const industryId = session?.business_snapshot?.business_types?.[0] || 'other';
 
   const handleDiscoveryComplete = (data: {
     selectedTouchpoints: string[];
@@ -36,25 +37,51 @@ function Discovery() {
   };
 
   const handleReviewModeSelect = (mode: ReviewMode) => {
+    setSelectedReviewMode(mode);
+    setCurrentStep('optional-questions');
+  };
+
+  const handleOptionalQuestionsComplete = (data: { budget?: string; priority?: string }) => {
     if (discoveryResults) {
-      // Save all discovery data including the selected review mode
+      // Save all discovery data including the selected review mode and optional answers
       updateDiscoveryData({
         discovery_data: {
           selectedTouchpoints: discoveryResults.selectedTouchpoints,
           selectedSubTouchpoints: discoveryResults.selectedSubTouchpoints,
         },
         recommendation_result: discoveryResults.recommendationResult,
-        review_mode: mode,
+        review_mode: selectedReviewMode,
+        recommended_modules: discoveryResults.recommendedModules,
+        budget_range: data.budget,
+        priority_timeframe: data.priority,
+      });
+
+      // Navigate to the module selection page
+      navigate('/modules');
+    }
+  };
+
+  const handleOptionalQuestionsSkip = () => {
+    if (discoveryResults) {
+      // Save discovery data without optional answers
+      updateDiscoveryData({
+        discovery_data: {
+          selectedTouchpoints: discoveryResults.selectedTouchpoints,
+          selectedSubTouchpoints: discoveryResults.selectedSubTouchpoints,
+        },
+        recommendation_result: discoveryResults.recommendationResult,
+        review_mode: selectedReviewMode,
         recommended_modules: discoveryResults.recommendedModules,
       });
 
-      // Navigate to the module selection page (or directly to dashboard)
       navigate('/modules');
     }
   };
 
   const handleBack = () => {
-    if (currentStep === 'review-mode') {
+    if (currentStep === 'optional-questions') {
+      setCurrentStep('review-mode');
+    } else if (currentStep === 'review-mode') {
       setCurrentStep('discovery');
     } else {
       navigate('/start');
@@ -91,6 +118,14 @@ function Discovery() {
           onBack={handleBack}
           touchpointCount={depthRecommendation.touchpointCount}
           reasoning={depthRecommendation.reasoning}
+        />
+      )}
+
+      {currentStep === 'optional-questions' && (
+        <OptionalQuestions
+          onComplete={handleOptionalQuestionsComplete}
+          onSkip={handleOptionalQuestionsSkip}
+          onBack={handleBack}
         />
       )}
     </>

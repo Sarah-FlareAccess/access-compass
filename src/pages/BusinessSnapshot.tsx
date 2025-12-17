@@ -124,8 +124,8 @@ export default function BusinessSnapshotPage() {
     <div className="form-page">
       <div className="container">
         <div className="form-container">
-          <h1>Tell us about your organisation</h1>
-          <p className="helper-text">This helps us show only what's relevant to you</p>
+          <h1>Let's get started</h1>
+          <p className="helper-text">First, a few details about your organisation</p>
 
           <form onSubmit={handleSubmit}>
             {/* Organisation Name */}
