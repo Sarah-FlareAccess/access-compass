@@ -2,7 +2,7 @@
 ## December 18, 2025
 
 ### Session Overview
-This session focused on enhancing the DIAP (Disability Inclusion Action Plan) functionality and cleaning up the navigation structure.
+This session focused on enhancing the DIAP (Disability Inclusion Action Plan) functionality, cleaning up the navigation structure, and improving the Discovery flow.
 
 ---
 
@@ -34,15 +34,30 @@ This session focused on enhancing the DIAP (Disability Inclusion Action Plan) fu
 **Changes:**
 - Removed duplicate header from Dashboard page (was showing both global NavBar and page-specific header with same options)
 - Updated NavBar to have right-aligned navigation options
+- Added "Discovery" to main navigation for easy access
 - Added visual divider between nav links and org name
+- Removed redundant "Review Discovery" card from Dashboard
 - Cleaner, more consistent navigation across all pages
 
 **New Layout:**
 ```
-[Access Compass logo] ........................... [Dashboard] [Report] [DIAP] | [Org Name]
+[Access Compass logo] ............... [Dashboard] [Discovery] [Report] [DIAP] | [Org Name]
 ```
 
-### 3. Import Functionality (From Previous Session)
+### 3. Discovery Summary Page
+**Files Modified:**
+- `src/pages/Discovery.tsx`
+- `src/components/discovery/discovery.css`
+
+**Features:**
+- When clicking Discovery in nav bar, returning users see a summary page first
+- Summary shows: current review mode, selected touchpoints grouped by journey phase, recommended modules
+- Warning notice that changes may impact recommended modules
+- "Make Changes" button to proceed to edit discovery responses
+- "Back to Dashboard" button to return without changes
+- Clean card-based layout matching app design
+
+### 4. Import Functionality (From Previous Session)
 **Files Modified:**
 - `src/hooks/useDIAPManagement.ts`
 - `src/pages/DIAPWorkspace.tsx`

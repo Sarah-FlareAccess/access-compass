@@ -1,5 +1,225 @@
 /* Discovery Module Styles */
 
+/* ============================================
+   DISCOVERY SUMMARY PAGE
+   ============================================ */
+.discovery-summary-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+  padding: 40px 20px;
+}
+
+.discovery-summary-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.summary-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.summary-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 8px 0;
+}
+
+.summary-header p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.summary-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.summary-section h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Review Mode Badge */
+.summary-mode-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(168, 85, 247, 0.04) 100%);
+  border-radius: 10px;
+  border: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+.mode-icon {
+  font-size: 32px;
+}
+
+.mode-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mode-info strong {
+  font-size: 16px;
+  color: #5b21b6;
+}
+
+.mode-info span {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Touchpoints by Phase */
+.touchpoints-by-phase {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.phase-group h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7c3aed;
+  margin: 0 0 8px 0;
+}
+
+.phase-group ul {
+  margin: 0;
+  padding: 0 0 0 20px;
+}
+
+.phase-group li {
+  font-size: 14px;
+  color: #444;
+  padding: 4px 0;
+}
+
+.no-data {
+  color: #888;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Module Chips */
+.module-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.module-chip {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: 16px;
+  font-size: 13px;
+  color: #5b21b6;
+}
+
+/* Summary Warning */
+.summary-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+
+.summary-warning .warning-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.summary-warning p {
+  margin: 0;
+  font-size: 14px;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+.summary-warning strong {
+  color: #78350f;
+}
+
+/* Summary Actions */
+.summary-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.summary-actions .btn-secondary {
+  padding: 14px 28px;
+  background: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a2e;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.summary-actions .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.summary-actions .btn-primary {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.summary-actions .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+}
+
+@media (max-width: 640px) {
+  .discovery-summary-page {
+    padding: 24px 16px;
+  }
+
+  .summary-header h1 {
+    font-size: 24px;
+  }
+
+  .summary-section {
+    padding: 20px;
+  }
+
+  .summary-actions {
+    flex-direction: column;
+  }
+
+  .summary-actions .btn-secondary,
+  .summary-actions .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 /* Journey Phase Section */
 .journey-phase-section {
   border-radius: 12px;

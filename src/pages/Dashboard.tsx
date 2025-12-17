@@ -277,7 +277,6 @@ Thanks!`;
 
   const orgName = session?.business_snapshot?.organisation_name || 'there';
   const hasCompletedModules = overallStats.modulesCompleted > 0;
-  const reviewMode = discoveryData?.review_mode || 'pulse-check';
 
   return (
     <div className="dashboard-page">
@@ -326,26 +325,6 @@ Thanks!`;
                   <span className="status-label">Not started</span>
                 </div>
               </div>
-            </div>
-          </section>
-
-          {/* Review Discovery Option */}
-          <section className="discovery-review-section">
-            <div className="discovery-review-card">
-              <div className="review-content">
-                <span className="review-icon">🔍</span>
-                <div className="review-text">
-                  <p className="review-label">
-                    Your pathway: <strong>{reviewMode === 'deep-dive' ? 'Deep Dive' : 'Pulse Check'}</strong>
-                  </p>
-                  <p className="review-hint">
-                    You can revisit or refine your discovery responses anytime.
-                  </p>
-                </div>
-              </div>
-              <Link to="/discovery" className="review-btn">
-                Review Discovery
-              </Link>
             </div>
           </section>
 

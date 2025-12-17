@@ -28,6 +28,12 @@ export default function NavBar() {
               Dashboard
             </Link>
             <Link
+              to="/discovery"
+              className={`nav-link ${isActive('/discovery') ? 'active' : ''}`}
+            >
+              Discovery
+            </Link>
+            <Link
               to="/export"
               className={`nav-link ${isActive('/export') ? 'active' : ''}`}
             >
