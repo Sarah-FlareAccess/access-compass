@@ -94,7 +94,7 @@ function saveLocalProgress(progress: Record<string, ModuleProgress>) {
   localStorage.setItem(MODULE_PROGRESS_KEY, JSON.stringify(progress));
 }
 
-interface CompletionMetadata {
+export interface CompletionMetadata {
   completedBy?: string;
   completedByRole?: string;
 }

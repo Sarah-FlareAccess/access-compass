@@ -14,7 +14,7 @@ import ReminderBanner from '../components/ReminderBanner';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import type { ReviewMode } from '../types';
-import type { QuestionResponse, ModuleSummary } from '../hooks/useModuleProgress';
+import type { QuestionResponse, ModuleSummary, CompletionMetadata } from '../hooks/useModuleProgress';
 import '../styles/questions.css';
 
 interface ModuleState {
@@ -161,6 +161,13 @@ export default function DiscoveryQuestions() {
     return moduleProgress?.responses || [];
   }, [currentModule, getModuleProgress]);
 
+  // Get assigned person for current module (to pre-fill "completed by")
+  const currentModuleAssignedTo = useMemo(() => {
+    if (!currentModule) return undefined;
+    const moduleProgress = getModuleProgress(currentModule.moduleId);
+    return moduleProgress?.ownership?.assignedTo;
+  }, [currentModule, getModuleProgress]);
+
   // Handle starting a module
   const handleStartModule = (index: number) => {
     const module = moduleStates[index];
@@ -176,12 +183,12 @@ export default function DiscoveryQuestions() {
   };
 
   // Handle completing a module
-  const handleCompleteModule = (summary: ModuleSummary) => {
+  const handleCompleteModule = (summary: ModuleSummary, metadata: CompletionMetadata) => {
     if (!currentModule) return;
 
     try {
-      // Complete the module
-      completeModule(currentModule.moduleId, summary);
+      // Complete the module with completion metadata
+      completeModule(currentModule.moduleId, summary, metadata);
 
       // Auto-generate DIAP items from responses (don't block navigation if this fails)
       try {
@@ -335,6 +342,7 @@ export default function DiscoveryQuestions() {
         onSaveResponse={handleSaveResponse}
         onComplete={handleCompleteModule}
         onBack={handleBackToList}
+        assignedTo={currentModuleAssignedTo}
       />
     </div>
   );

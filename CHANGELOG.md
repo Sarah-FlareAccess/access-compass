@@ -10,7 +10,9 @@ All notable changes to Access Compass will be documented in this file.
 - **Module Assignment System**: Assign modules to team members with name, email, and target completion date
 - **Person+Plus Icon**: Improved assign button with clear person-with-plus icon (previously ambiguous `+` symbol)
 - **Email Field**: Added optional email field for future notification capability
-- **Completion Metadata**: Auto-capture who completed each module and when
+- **Completion Confirmation**: At end of module, users confirm completion with "Completed by" name and role
+  - Pre-fills with assigned person if module was assigned
+  - Completion date is captured automatically
 - **Confidence Snapshot**: Automatic assessment of module confidence (Strong/Mixed/Needs Work) based on responses
 
 #### DIAP Integration

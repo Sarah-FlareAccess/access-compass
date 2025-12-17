@@ -8,16 +8,20 @@
  * - Items needing professional review
  */
 
-import type { ModuleSummary } from '../../hooks/useModuleProgress';
+import { useState } from 'react';
+import type { ModuleSummary, CompletionMetadata } from '../../hooks/useModuleProgress';
 import './questions.css';
+
+export type { CompletionMetadata };
 
 interface ModuleSummaryCardProps {
   moduleName: string;
   moduleCode: string;
   summary: ModuleSummary;
   totalQuestionsAnswered: number;
-  onComplete: () => void;
+  onComplete: (metadata: CompletionMetadata) => void;
   onReviewAnswers: () => void;
+  assignedTo?: string; // Pre-fill completedBy with assigned person
 }
 
 export function ModuleSummaryCard({
@@ -27,12 +31,29 @@ export function ModuleSummaryCard({
   totalQuestionsAnswered,
   onComplete,
   onReviewAnswers,
+  assignedTo,
 }: ModuleSummaryCardProps) {
   const { doingWell, priorityActions, areasToExplore, professionalReview } = summary;
 
   const highPriorityCount = priorityActions.filter((a) => a.priority === 'high').length;
   const mediumPriorityCount = priorityActions.filter((a) => a.priority === 'medium').length;
   const lowPriorityCount = priorityActions.filter((a) => a.priority === 'low').length;
+
+  // Completion confirmation state
+  const [showCompletionForm, setShowCompletionForm] = useState(false);
+  const [completedBy, setCompletedBy] = useState(assignedTo || '');
+  const [completedByRole, setCompletedByRole] = useState('');
+
+  const handleCompleteClick = () => {
+    setShowCompletionForm(true);
+  };
+
+  const handleConfirmComplete = () => {
+    onComplete({
+      completedBy: completedBy.trim(),
+      completedByRole: completedByRole.trim() || undefined,
+    });
+  };
 
   return (
     <div className="module-summary">
@@ -198,14 +219,65 @@ export function ModuleSummaryCard({
         )}
 
       {/* Actions */}
-      <div className="summary-actions-footer">
-        <button className="btn-review" onClick={onReviewAnswers}>
-          Review answers
-        </button>
-        <button className="btn-complete" onClick={onComplete}>
-          Complete module
-        </button>
-      </div>
+      {!showCompletionForm ? (
+        <div className="summary-actions-footer">
+          <button className="btn-review" onClick={onReviewAnswers}>
+            Review answers
+          </button>
+          <button className="btn-complete" onClick={handleCompleteClick}>
+            Complete module
+          </button>
+        </div>
+      ) : (
+        <div className="completion-form">
+          <h4 className="completion-form-title">Confirm Completion</h4>
+          <p className="completion-form-desc">
+            Record who completed this module for your records.
+          </p>
+
+          <div className="completion-field">
+            <label htmlFor="completedBy">Completed by</label>
+            <input
+              type="text"
+              id="completedBy"
+              value={completedBy}
+              onChange={(e) => setCompletedBy(e.target.value)}
+              placeholder="e.g., Jane Smith"
+              autoFocus
+            />
+          </div>
+
+          <div className="completion-field">
+            <label htmlFor="completedByRole">Role (optional)</label>
+            <input
+              type="text"
+              id="completedByRole"
+              value={completedByRole}
+              onChange={(e) => setCompletedByRole(e.target.value)}
+              placeholder="e.g., Visitor Experience Manager"
+            />
+          </div>
+
+          <div className="completion-form-note">
+            Completion date will be recorded automatically.
+          </div>
+
+          <div className="completion-form-actions">
+            <button
+              className="btn-cancel"
+              onClick={() => setShowCompletionForm(false)}
+            >
+              Back
+            </button>
+            <button
+              className="btn-confirm-complete"
+              onClick={handleConfirmComplete}
+            >
+              Confirm & Complete
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* DIAP note */}
       <p className="diap-note">

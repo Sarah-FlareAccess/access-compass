@@ -10,7 +10,7 @@ import { QuestionCard } from './QuestionCard';
 import { ModuleSummaryCard } from './ModuleSummaryCard';
 import { ReviewSummary } from './ReviewSummary';
 import { useBranchingLogic, needsProfessionalReview } from '../../hooks/useBranchingLogic';
-import type { QuestionResponse, ModuleSummary, ActionItem } from '../../hooks/useModuleProgress';
+import type { QuestionResponse, ModuleSummary, ActionItem, CompletionMetadata } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
 import './questions.css';
 
@@ -22,8 +22,9 @@ interface QuestionFlowProps {
   reviewMode: 'pulse-check' | 'deep-dive';
   initialResponses?: QuestionResponse[];
   onSaveResponse: (response: QuestionResponse) => void;
-  onComplete: (summary: ModuleSummary) => void;
+  onComplete: (summary: ModuleSummary, metadata: CompletionMetadata) => void;
   onBack: () => void;
+  assignedTo?: string; // Pre-fill "completed by" with assigned person
 }
 
 export function QuestionFlow({
@@ -36,6 +37,7 @@ export function QuestionFlow({
   onSaveResponse,
   onComplete,
   onBack,
+  assignedTo,
 }: QuestionFlowProps) {
   const [responses, setResponses] = useState<QuestionResponse[]>(initialResponses);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -197,9 +199,9 @@ export function QuestionFlow({
   }, [responses, questions]);
 
   // Handle completing the module
-  const handleComplete = useCallback(() => {
+  const handleComplete = useCallback((metadata: CompletionMetadata) => {
     const summary = generateSummary();
-    onComplete(summary);
+    onComplete(summary, metadata);
   }, [generateSummary, onComplete]);
 
   // Show review summary view
@@ -241,6 +243,7 @@ export function QuestionFlow({
           setShowSummary(false);
           setShowReviewSummary(true);
         }}
+        assignedTo={assignedTo}
       />
     );
   }
