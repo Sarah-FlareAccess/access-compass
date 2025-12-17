@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DiscoveryModule, ReviewModeSelection, OptionalQuestions } from '../components/discovery';
+import { DiscoveryModule, ReviewModeSelection, CalibrationQuestions } from '../components/discovery';
 import { getSession, updateDiscoveryData } from '../utils/session';
 import { calculateDepthRecommendation } from '../lib/recommendationEngine';
-import type { ReviewMode, RecommendationResult } from '../types';
+import type { ReviewMode, RecommendationResult, CalibrationData } from '../types';
 
-type DiscoveryStep = 'discovery' | 'review-mode' | 'optional-questions';
+type DiscoveryStep = 'discovery' | 'calibration' | 'pathway-decision';
 
 function Discovery() {
   const navigate = useNavigate();
   const session = getSession();
   const [currentStep, setCurrentStep] = useState<DiscoveryStep>('discovery');
-  const [selectedReviewMode, setSelectedReviewMode] = useState<ReviewMode>('foundation');
 
-  // Temporary storage for discovery results before review mode selection
+  // Temporary storage for discovery results
   const [discoveryResults, setDiscoveryResults] = useState<{
     selectedTouchpoints: string[];
     selectedSubTouchpoints: string[];
@@ -22,8 +21,12 @@ function Discovery() {
     recommendationResult: RecommendationResult;
   } | null>(null);
 
+  // Calibration data collected before pathway decision
+  const [calibrationData, setCalibrationData] = useState<CalibrationData | null>(null);
+
   // Get business type from session for industry-based recommendations
   const industryId = session?.business_snapshot?.business_types?.[0] || 'other';
+  const organisationSize = session?.business_snapshot?.organisation_size || 'small';
 
   const handleDiscoveryComplete = (data: {
     selectedTouchpoints: string[];
@@ -33,27 +36,28 @@ function Discovery() {
     recommendationResult: RecommendationResult;
   }) => {
     setDiscoveryResults(data);
-    setCurrentStep('review-mode');
+    setCurrentStep('calibration');
   };
 
-  const handleReviewModeSelect = (mode: ReviewMode) => {
-    setSelectedReviewMode(mode);
-    setCurrentStep('optional-questions');
+  const handleCalibrationComplete = (data: CalibrationData) => {
+    setCalibrationData(data);
+    setCurrentStep('pathway-decision');
   };
 
-  const handleOptionalQuestionsComplete = (data: { budget?: string; priority?: string }) => {
+  const handlePathwaySelect = (mode: ReviewMode) => {
     if (discoveryResults) {
-      // Save all discovery data including the selected review mode and optional answers
+      // Save all discovery data including calibration and selected pathway
       updateDiscoveryData({
         discovery_data: {
           selectedTouchpoints: discoveryResults.selectedTouchpoints,
           selectedSubTouchpoints: discoveryResults.selectedSubTouchpoints,
         },
         recommendation_result: discoveryResults.recommendationResult,
-        review_mode: selectedReviewMode,
+        review_mode: mode,
         recommended_modules: discoveryResults.recommendedModules,
-        budget_range: data.budget,
-        priority_timeframe: data.priority,
+        budget_range: calibrationData?.budget,
+        work_approach: calibrationData?.workApproach,
+        action_timing: calibrationData?.timing,
       });
 
       // Navigate to the module selection page
@@ -61,27 +65,10 @@ function Discovery() {
     }
   };
 
-  const handleOptionalQuestionsSkip = () => {
-    if (discoveryResults) {
-      // Save discovery data without optional answers
-      updateDiscoveryData({
-        discovery_data: {
-          selectedTouchpoints: discoveryResults.selectedTouchpoints,
-          selectedSubTouchpoints: discoveryResults.selectedSubTouchpoints,
-        },
-        recommendation_result: discoveryResults.recommendationResult,
-        review_mode: selectedReviewMode,
-        recommended_modules: discoveryResults.recommendedModules,
-      });
-
-      navigate('/modules');
-    }
-  };
-
   const handleBack = () => {
-    if (currentStep === 'optional-questions') {
-      setCurrentStep('review-mode');
-    } else if (currentStep === 'review-mode') {
+    if (currentStep === 'pathway-decision') {
+      setCurrentStep('calibration');
+    } else if (currentStep === 'calibration') {
       setCurrentStep('discovery');
     } else {
       navigate('/start');
@@ -90,13 +77,12 @@ function Discovery() {
 
   const handleSkipDiscovery = () => {
     // Skip discovery and go directly to module selection
-    // Will use industry defaults instead
     navigate('/modules');
   };
 
-  // Calculate depth recommendation for review mode selection
+  // Calculate depth recommendation based on discovery + calibration data
   const depthRecommendation = discoveryResults
-    ? calculateDepthRecommendation(discoveryResults.selectedTouchpoints)
+    ? calculateDepthRecommendation(discoveryResults.selectedTouchpoints, calibrationData)
     : { recommendedDepth: 'foundation' as ReviewMode, touchpointCount: 0, reasoning: '' };
 
   return (
@@ -111,21 +97,23 @@ function Discovery() {
         />
       )}
 
-      {currentStep === 'review-mode' && discoveryResults && (
-        <ReviewModeSelection
-          recommendedMode={depthRecommendation.recommendedDepth}
-          onSelect={handleReviewModeSelect}
+      {currentStep === 'calibration' && discoveryResults && (
+        <CalibrationQuestions
+          onComplete={handleCalibrationComplete}
           onBack={handleBack}
-          touchpointCount={depthRecommendation.touchpointCount}
-          reasoning={depthRecommendation.reasoning}
+          touchpointCount={discoveryResults.selectedTouchpoints.length}
         />
       )}
 
-      {currentStep === 'optional-questions' && (
-        <OptionalQuestions
-          onComplete={handleOptionalQuestionsComplete}
-          onSkip={handleOptionalQuestionsSkip}
+      {currentStep === 'pathway-decision' && discoveryResults && (
+        <ReviewModeSelection
+          recommendedMode={depthRecommendation.recommendedDepth}
+          onSelect={handlePathwaySelect}
           onBack={handleBack}
+          touchpointCount={depthRecommendation.touchpointCount}
+          reasoning={depthRecommendation.reasoning}
+          calibrationData={calibrationData}
+          organisationSize={organisationSize}
         />
       )}
     </>

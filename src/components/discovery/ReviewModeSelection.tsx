@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import type { ReviewMode } from '../../types';
+import { useState, useMemo } from 'react';
+import type { ReviewMode, CalibrationData, OrganisationSize } from '../../types';
 import './discovery.css';
 
 interface ReviewModeSelectionProps {
@@ -8,14 +8,72 @@ interface ReviewModeSelectionProps {
   onBack: () => void;
   touchpointCount: number;
   reasoning: string;
+  calibrationData?: CalibrationData | null;
+  organisationSize?: OrganisationSize;
 }
 
 export function ReviewModeSelection({
   recommendedMode,
   onSelect,
   onBack,
+  calibrationData,
+  organisationSize,
 }: ReviewModeSelectionProps) {
   const [selectedMode, setSelectedMode] = useState<ReviewMode>(recommendedMode);
+
+  // Generate smart recommendation message based on calibration data
+  const smartRecommendation = useMemo(() => {
+    if (!calibrationData) return null;
+
+    const { budget, workApproach, timing } = calibrationData;
+
+    // Determine if Deep Dive is more appropriate
+    const deepDiveSignals: string[] = [];
+    const pulseCheckSignals: string[] = [];
+
+    // Budget signals
+    if (budget === 'significant' || budget === 'moderate') {
+      deepDiveSignals.push('investment capacity');
+    } else if (budget === 'minimal') {
+      pulseCheckSignals.push('focused budget');
+    }
+
+    // Work approach signals
+    if (workApproach === 'with-team' || workApproach === 'external-support') {
+      deepDiveSignals.push('team involvement');
+    } else if (workApproach === 'myself') {
+      pulseCheckSignals.push('working independently');
+    }
+
+    // Timing signals
+    if (timing === 'now' || timing === 'next-3-months') {
+      deepDiveSignals.push('action readiness');
+    } else if (timing === 'later') {
+      pulseCheckSignals.push('exploratory stage');
+    }
+
+    // Organisation size factor
+    if (organisationSize === 'large' || organisationSize === 'medium') {
+      deepDiveSignals.push('organisation scale');
+    }
+
+    // Determine recommendation
+    const recommendDeepDive = deepDiveSignals.length >= 2;
+
+    if (recommendDeepDive && deepDiveSignals.length > 0) {
+      return {
+        mode: 'detailed' as ReviewMode,
+        message: 'Based on what you\'ve told us, most organisations like yours choose Deep Dive.',
+      };
+    } else if (pulseCheckSignals.length >= 2) {
+      return {
+        mode: 'foundation' as ReviewMode,
+        message: 'Based on what you\'ve told us, Pulse Check is a great way to get started.',
+      };
+    }
+
+    return null;
+  }, [calibrationData, organisationSize]);
 
   const handleContinue = () => {
     onSelect(selectedMode);
@@ -26,10 +84,15 @@ export function ReviewModeSelection({
       <div className="discovery-container">
         {/* Header */}
         <div className="discovery-header-card">
-          <h1 className="discovery-title">Select your pathway forward</h1>
+          <h1 className="discovery-title">How far do you want to take this?</h1>
           <p className="discovery-subtitle">
-            Choose the level of guidance that best matches your goals, time and capacity.
+            Choose the level of guidance that best matches your goals.
           </p>
+          {smartRecommendation && (
+            <p className="smart-recommendation">
+              {smartRecommendation.message}
+            </p>
+          )}
         </div>
 
         {/* Review Mode Cards - Side by Side */}

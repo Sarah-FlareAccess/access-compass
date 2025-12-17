@@ -864,6 +864,19 @@
   line-height: 1.6;
 }
 
+/* Smart Recommendation */
+.smart-recommendation {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 16px 0 0 0;
+  font-size: 14px;
+  color: #5b21b6;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
 /* Responsive for pathway cards */
 @media (max-width: 800px) {
   .pathway-cards {
@@ -967,6 +980,130 @@
 
 .btn-skip {
   background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%) !important;
+}
+
+/* Calibration Questions (Pre-pathway) */
+.calibration-container {
+  max-width: 640px;
+}
+
+.calibration-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.calibration-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  line-height: 1.3;
+}
+
+.calibration-subtitle {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.calibration-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.calibration-question {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.calibration-question-text {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+}
+
+.calibration-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calibration-options-inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.calibration-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calibration-options-inline .calibration-option {
+  flex: 1;
+  min-width: 120px;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.calibration-option:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+  background: rgba(124, 58, 237, 0.02);
+}
+
+.calibration-option.selected {
+  border-color: #7c3aed;
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.calibration-radio {
+  width: 18px;
+  height: 18px;
+  accent-color: #7c3aed;
+  flex-shrink: 0;
+}
+
+.calibration-option-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a2e;
+}
+
+.calibration-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+@media (max-width: 640px) {
+  .calibration-options-inline {
+    flex-direction: column;
+  }
+
+  .calibration-options-inline .calibration-option {
+    justify-content: flex-start;
+  }
+
+  .calibration-actions {
+    flex-direction: column;
+  }
+
+  .calibration-actions .btn-back,
+  .calibration-actions .btn-continue {
+    width: 100%;
+  }
 }
 
 /* Responsive */

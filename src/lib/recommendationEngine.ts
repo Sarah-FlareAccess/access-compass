@@ -19,6 +19,7 @@ import type {
   RecommendationWarning,
   WhySuggested,
   JourneyGroup,
+  CalibrationData,
 } from '../types';
 
 // ============================================================================
@@ -524,8 +525,24 @@ export interface DepthRecommendation {
   reasoning: string;
 }
 
+/**
+ * Calculate recommended review depth based on touchpoints and calibration data
+ *
+ * Deep Dive indicators:
+ * - Many touchpoints (6+) across multiple phases
+ * - Moderate or significant budget
+ * - Team or external support approach
+ * - Ready to act now or soon
+ *
+ * Pulse Check indicators:
+ * - Fewer touchpoints
+ * - Minimal budget
+ * - Working independently
+ * - Exploring/later timing
+ */
 export function calculateDepthRecommendation(
-  selectedTouchpoints: string[]
+  selectedTouchpoints: string[],
+  calibrationData?: CalibrationData | null
 ): DepthRecommendation {
   const selectedPhases = new Set<string>();
 
@@ -538,14 +555,59 @@ export function calculateDepthRecommendation(
 
   const touchpointCount = selectedTouchpoints.length;
   const phaseCount = selectedPhases.size;
-  const hasMultiplePhases = phaseCount >= 2;
-  const hasManyTouchpoints = touchpointCount >= 6;
 
-  const recommendedDepth = (hasManyTouchpoints && hasMultiplePhases) ? 'detailed' : 'foundation';
+  // Scoring system: positive = Deep Dive, negative = Pulse Check
+  let depthScore = 0;
 
-  const reasoning = recommendedDepth === 'detailed'
-    ? `You selected ${touchpointCount} touchpoints across ${phaseCount} journey phases. A detailed review will give you comprehensive guidance.`
-    : `You selected ${touchpointCount} touchpoint${touchpointCount !== 1 ? 's' : ''}. A foundation review will help you get started quickly.`;
+  // Touchpoint complexity signals
+  if (touchpointCount >= 8) depthScore += 2;
+  else if (touchpointCount >= 6) depthScore += 1;
+  else if (touchpointCount <= 3) depthScore -= 1;
+
+  if (phaseCount >= 3) depthScore += 1;
+  else if (phaseCount === 1) depthScore -= 1;
+
+  // Calibration signals (if provided)
+  if (calibrationData) {
+    const { budget, workApproach, timing } = calibrationData;
+
+    // Budget signals
+    if (budget === 'significant') depthScore += 2;
+    else if (budget === 'moderate') depthScore += 1;
+    else if (budget === 'minimal') depthScore -= 1;
+
+    // Work approach signals
+    if (workApproach === 'external-support') depthScore += 2;
+    else if (workApproach === 'with-team') depthScore += 1;
+    else if (workApproach === 'myself') depthScore -= 1;
+
+    // Timing signals
+    if (timing === 'now') depthScore += 1;
+    else if (timing === 'later') depthScore -= 1;
+  }
+
+  // Determine recommendation
+  const recommendedDepth = depthScore >= 2 ? 'detailed' : 'foundation';
+
+  // Generate reasoning
+  let reasoning: string;
+  if (recommendedDepth === 'detailed') {
+    if (calibrationData?.workApproach === 'external-support' || calibrationData?.workApproach === 'with-team') {
+      reasoning = 'With team or external support available, Deep Dive will help you build a structured plan everyone can work from.';
+    } else if (touchpointCount >= 6 && phaseCount >= 2) {
+      reasoning = `With ${touchpointCount} touchpoints across ${phaseCount} journey phases, Deep Dive will give you comprehensive guidance.`;
+    } else {
+      reasoning = 'Based on your situation, Deep Dive will help you build a structured plan you can actually deliver.';
+    }
+  } else {
+    if (calibrationData?.timing === 'later') {
+      reasoning = 'Since you\'re exploring for now, Pulse Check will help you understand priorities without overcommitting.';
+    } else if (calibrationData?.workApproach === 'myself') {
+      reasoning = 'Working independently, Pulse Check gives you clear direction you can act on right away.';
+    } else {
+      reasoning = `With ${touchpointCount} touchpoint${touchpointCount !== 1 ? 's' : ''} selected, Pulse Check will help you get started quickly.`;
+    }
+  }
 
   return {
     recommendedDepth,

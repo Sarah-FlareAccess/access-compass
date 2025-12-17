@@ -59,6 +59,17 @@ export type Timeframe =
   | 'later'
   | 'exploring';
 
+// Calibration question types (pre-pathway decision)
+export type InvestmentLevel = 'minimal' | 'moderate' | 'significant' | 'not-sure';
+export type WorkApproach = 'myself' | 'with-team' | 'external-support';
+export type ActionTiming = 'now' | 'next-3-months' | 'later';
+
+export interface CalibrationData {
+  budget?: InvestmentLevel;
+  workApproach?: WorkApproach;
+  timing?: ActionTiming;
+}
+
 export interface BusinessSnapshot {
   organisation_name: string;
   organisation_size: OrganisationSize;
