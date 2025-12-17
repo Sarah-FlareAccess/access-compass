@@ -88,6 +88,12 @@ export default function ModuleSelection() {
         </div>
 
         <div className="selection-footer">
+          <button
+            className="btn btn-secondary"
+            onClick={() => navigate('/discovery')}
+          >
+            ← Back
+          </button>
           <div className="module-counter">
             {selectedModules.length} module{selectedModules.length !== 1 ? 's' : ''} selected
           </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { initializeSession, updateBusinessSnapshot, getSession } from '../utils/session';
 import type { BusinessSnapshot, BusinessType, UserRole, OrganisationSize } from '../types';
 import '../styles/form-page.css';
@@ -300,8 +300,11 @@ export default function BusinessSnapshotPage() {
               </div>
             </div>
 
-            {/* Submit Button */}
+            {/* Buttons */}
             <div className="form-actions">
+              <Link to="/disclaimer" className="btn btn-secondary">
+                ← Back
+              </Link>
               <button type="submit" className="btn btn-primary">
                 Continue
               </button>
