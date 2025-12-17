@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { initializeSession, updateBusinessSnapshot, getSession } from '../utils/session';
-import ReminderBanner from '../components/ReminderBanner';
 import type { BusinessSnapshot, BusinessType, UserRole, OrganisationSize } from '../types';
 import '../styles/form-page.css';
 
@@ -9,6 +8,7 @@ interface BusinessTypeOption {
   value: BusinessType;
   label: string;
   examples: string;
+  icon: string;
 }
 
 const businessTypeOptions: BusinessTypeOption[] = [
@@ -16,41 +16,49 @@ const businessTypeOptions: BusinessTypeOption[] = [
     value: 'attractions',
     label: 'Attractions',
     examples: 'Museums, galleries, parks, tours, and visitor attractions',
+    icon: '🏛️',
   },
   {
     value: 'leisure-recreation',
     label: 'Leisure & Recreation',
     examples: 'Sports facilities, cinemas, entertainment venues, and recreation centres',
+    icon: '🎯',
   },
   {
     value: 'hospitality',
     label: 'Hospitality',
     examples: 'Hotels, restaurants, cafes, bars, and accommodation',
+    icon: '🍽️',
   },
   {
     value: 'events-venues',
     label: 'Events & Venues',
     examples: 'Conference centres, theatres, stadiums, and event spaces',
+    icon: '🎭',
   },
   {
     value: 'retail',
     label: 'Retail',
     examples: 'Shops, shopping centres, and retail services',
+    icon: '🛍️',
   },
   {
     value: 'local-government',
     label: 'Local Government',
     examples: 'Council facilities, public buildings, and community services',
+    icon: '🏢',
   },
   {
     value: 'health-wellness',
     label: 'Health & Wellness',
     examples: 'Gyms, spas, wellness centres, and health services',
+    icon: '💪',
   },
   {
     value: 'education-training',
     label: 'Education & Training',
     examples: 'Schools, training centres, and educational facilities',
+    icon: '🎓',
   },
 ];
 
@@ -119,12 +127,6 @@ export default function BusinessSnapshotPage() {
           <h1>Tell us about your organisation</h1>
           <p className="helper-text">This helps us show only what's relevant to you</p>
 
-          <ReminderBanner
-            type="guidance"
-            message="Answer honestly based on your current knowledge—you can mark items as 'unsure' if needed."
-            compact
-          />
-
           <form onSubmit={handleSubmit}>
             {/* Organisation Name */}
             <div className="form-group">
@@ -177,8 +179,11 @@ export default function BusinessSnapshotPage() {
                     className={`bubble-option ${formData.business_types.includes(option.value) ? 'selected' : ''}`}
                     onClick={() => toggleBusinessType(option.value)}
                   >
-                    <span className="bubble-label">{option.label}</span>
-                    <span className="bubble-description">{option.examples}</span>
+                    <span className="bubble-icon">{option.icon}</span>
+                    <div className="bubble-content">
+                      <span className="bubble-label">{option.label}</span>
+                      <span className="bubble-description">{option.examples}</span>
+                    </div>
                   </button>
                 ))}
               </div>
