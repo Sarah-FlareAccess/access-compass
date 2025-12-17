@@ -1,0 +1,130 @@
+.landing-page {
+  min-height: 100vh;
+}
+
+.landing-page .hero {
+  padding: 60px 20px;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-subheading {
+  font-size: 1.3rem;
+  margin-bottom: 40px;
+  opacity: 0.95;
+}
+
+/* Steps */
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 50px 0;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  min-width: 150px;
+}
+
+.step-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--button-gradient);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  box-shadow: var(--shadow-colored);
+}
+
+.step-icon {
+  font-size: 2rem;
+}
+
+.step-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Time Estimate */
+.time-estimate {
+  margin: 30px 0;
+}
+
+.time-estimate span {
+  display: inline-block;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-xl);
+  font-weight: 600;
+  font-size: 1.1rem;
+  backdrop-filter: blur(10px);
+}
+
+/* Trust Cues */
+.trust-cues {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 30px 0 40px;
+  flex-wrap: wrap;
+}
+
+.trust-cue {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+}
+
+.checkmark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  font-weight: 700;
+}
+
+/* CTA Button */
+.btn-large {
+  padding: 18px 40px;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .steps {
+    gap: 20px;
+  }
+
+  .step {
+    min-width: 120px;
+    padding: 15px;
+  }
+
+  .trust-cues {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .hero-subheading {
+    font-size: 1.1rem;
+  }
+}

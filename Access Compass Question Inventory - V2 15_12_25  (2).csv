@@ -1,0 +1,300 @@
+Complete Question Inventory – Access Compass,,,,,,,
+SECTION 1: Discovery Module Questions (Module 0),,,,,,,
+1A: Touchpoint Questions (DiscoveryModule.tsx),,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+finding-online,Discovery,Before they arrive,Discovery,Finding information online,Multi-select (checkbox),"Website, social media, search, listings",None
+finding-online::website,Discovery,Before they arrive,Discovery,Website,Sub-touchpoint checkbox,(sub-option),"Shown only if ""finding-online"" selected"
+finding-online::social-media,Discovery,Before they arrive,Discovery,Social media profiles,Sub-touchpoint checkbox,(sub-option),"Shown only if ""finding-online"" selected"
+finding-online::Online-listings-and-booking-platforms,Discovery,Before they arrive,Discovery,Online listings and booking platforms,Sub-touchpoint checkbox,(sub-option),"Shown only if ""finding-online"" selected"
+finding-online::Digital-campaings-and-advertisments,Discovery,Before they arrive,Discovery,Digital campaings and advertisments,Sub-touchpoint checkbox,(sub-option),"Shown only if ""finding-online"" selected"
+planning-visit,Discovery,Before they arrive,Discovery,Planning their visit,Multi-select (checkbox),"Menus or programs, special offers / packages, gallery, open hours, accessibility information",None
+planning-visit::menus-programs,Discovery,Before they arrive,Discovery,Menus or programs,Sub-touchpoint checkbox,(sub-option),"Shown only if ""planning-visit"" selected"
+planning-visit::schedules-and-opening-hours,Discovery,Before they arrive,Discovery,Schedules and opening hours,Sub-touchpoint checkbox,(sub-option),"Shown only if ""planning-visit"" selected"
+planning-visit::special-offers-and-packages,Discovery,Before they arrive,Discovery,Special offers / packages,Sub-touchpoint checkbox,(sub-option),"Shown only if ""planning-visit"" selected"
+planning-visit::accessibility-info,Discovery,Before they arrive,Discovery,Accessibility information,Sub-touchpoint checkbox,(sub-option),"Shown only if ""planning-visit"" selected"
+planning-visit::accessibility-gallery,Discovery,Before they arrive,Discovery,Gallery,Sub-touchpoint checkbox,(sub-option),"Shown only if ""planning-visit"" selected"
+costs-policies,Discovery,Before they arrive,Discovery,Understanding costs and policies,Multi-select (checkbox),"Pricing, cancellation, companion or support information",None
+booking,Discovery,Before they arrive,Discovery,Booking or registering,Multi-select (checkbox),"Online bookings, phone, email, ticketing",None
+booking::online-booking,Discovery,Before they arrive,Discovery,Online booking system,Sub-touchpoint checkbox,(sub-option),"Shown only if ""booking"" selected"
+booking::phone-booking,Discovery,Before they arrive,Discovery,Phone bookings,Sub-touchpoint checkbox,(sub-option),"Shown only if ""booking"" selected"
+booking::email- booking,Discovery,Before they arrive,Discovery,Email bookings,Sub-touchpoint checkbox,(sub-option),"Shown only if ""booking"" selected"
+booking::ticketing,Discovery,Before they arrive,Discovery,Ticketing systems,Sub-touchpoint checkbox,(sub-option),"Shown only if ""booking"" selected"
+enquiries,Discovery,Before they arrive,Discovery,Asking questions before arrival,Multi-select (checkbox),"Enquiries, contact methods, response handling",None
+enquiries::Email,Discovery,Before they arrive,Discovery,Email correspondance,Sub-touchpoint checkbox,(sub-option),"Shown only if ""enquiries"" selected"
+enquiries::Phone,Discovery,Before they arrive,Discovery,Phone correspondance,Sub-touchpoint checkbox,(sub-option),"Shown only if ""enquiries"" selected"
+enquiries::Chat-bot,Discovery,Before they arrive,Discovery,Chat bot,Sub-touchpoint checkbox,(sub-option),"Shown only if ""enquiries"" selected"
+getting-in,Discovery,When they're here,Discovery,Getting in and moving around,Multi-select (checkbox),"Parking, paths, entry, internal routes, queues",None
+getting-in::parking,Discovery,When they're here,Discovery,Parking or drop-off,Sub-touchpoint checkbox,(sub-option),"Shown only if ""getting-in"" selected"
+getting-in::path-entrance,Discovery,When they're here,Discovery,Path to the entrance,Sub-touchpoint checkbox,(sub-option),"Shown only if ""getting-in"" selected"
+getting-in::entry-doors,Discovery,When they're here,Discovery,Entry doors,Sub-touchpoint checkbox,(sub-option),"Shown only if ""getting-in"" selected"
+getting-in::internal-routes,Discovery,When they're here,Discovery,Internal routes or aisles,Sub-touchpoint checkbox,(sub-option),"Shown only if ""getting-in"" selected"
+getting-in::queues,Discovery,When they're here,Discovery,Queues or crowd flow,Sub-touchpoint checkbox,(sub-option),"Shown only if ""getting-in"" selected"
+using-space,Discovery,When they're here,Discovery,Using your space comfortably,Multi-select (checkbox),"Seating, counters, furniture, toilets",None
+using-space::seating,Discovery,When they're here,Discovery,Seating and dining options,Sub-touchpoint checkbox,(sub-option),"Shown only if ""using-space"" selected"
+using-space::counters,Discovery,When they're here,Discovery,Service counters,Sub-touchpoint checkbox,(sub-option),"Shown only if ""using-space"" selected"
+using-space::toilets,Discovery,When they're here,Discovery,Accessible toilets,Sub-touchpoint checkbox,(sub-option),"Shown only if ""using-space"" selected"
+wayfinding,Discovery,When they're here,Discovery,Finding their way,Multi-select (checkbox),"Signage, wayfinding, clarity of layout",None
+sensory,Discovery,When they're here,Discovery,The sensory environment,Multi-select (checkbox),"Lighting, noise, smells, busy vs quieter times",None
+staff-interaction,Discovery,When they're here,Discovery,Interacting with staff,Multi-select (checkbox),"Customer service, communication support, assistance animals",None
+staff-interaction::customer-service,Discovery,When they're here,Discovery,General customer service,Sub-touchpoint checkbox,(sub-option),"Shown only if ""staff-interaction"" selected"
+staff-interaction::communication-support,Discovery,When they're here,Discovery,Communication support,Sub-touchpoint checkbox,(sub-option),"Shown only if ""staff-interaction"" selected"
+staff-interaction::assistance-animals,Discovery,When they're here,Discovery,Assistance animals,Sub-touchpoint checkbox,(sub-option),"Shown only if ""staff-interaction"" selected"
+feedback,Discovery,Staying connected,Discovery,Gathering feedback,Multi-select (checkbox),"Surveys, reviews, complaints",None
+staying-connected-touchpoint,Discovery,Staying connected,Discovery,Staying connected,Multi-select (checkbox),"Emails, newsletters, social updates",None
+return-visits,Discovery,Staying connected,Discovery,Encouraging return visits,Multi-select (checkbox),"Loyalty, rebooking, memberships",None
+SECTION 2: Context Questions (ContextQuestion.tsx),,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+has_physical_location,Context,N/A,Foundation,Does your business have a physical location that customers visit?,Yes / No,(none),If No → hide A* physical space modules (arrival/entry/paths/seating/toilets/sensory/signage/safety)
+has_website,Context,N/A,Foundation,Does your business have a website or online presence customers use?,Yes / No,(none),"If No → hide B4* digital modules (website, forms, socials)"
+has_online_services,Context,N/A,Foundation,"Do you offer services that are delivered fully or partly online? (e.g. online coaching, telehealth, virtual programs, digital consultations)",Yes / No,(none),"If Yes → prioritise Digital accessibility module
+
+If No → still allow digital modules if Discovery triggers them (website, info, booking)
+
+has_online_services must never hide digital modules by itself
+It only affects:
+
+ordering
+
+examples
+
+language (client vs participant, session vs visit)
+
+This avoids punishing hybrid businesses."
+uses_partner_venues,Context,N/A,Foundation,"Do you deliver services in venues or spaces that you don’t own or control?
+(e.g. hired venues, partner sites, outdoor locations, walking tours, events)",Yes / No,(none),"Adjust wording inside physical modules
+(“If this is controlled by a venue partner…”)
+
+Add prompts about:
+
+what you can influence
+
+what to request from venue managers
+
+Adjust action phrasing:
+
+“confirm with venue”
+
+“include in venue brief”
+
+“request evidence”"
+takes_bookings,Context,N/A,Foundation,"Do customers book, register, or make appointments with you?",Yes / No,(none),"If No → hide booking-specific module/questions
+
+If Yes → show booking & transaction modules"
+has_printed_materials,Context,N/A,Foundation,"Do you use printed menus, brochures, or information materials?",Yes / No,(none),If No → hide B3 Menus & Printed Materials module
+SECTION 3: Module B1 – Pre-visit Information,,,,,,,
+Foundation Review Questions,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+B1-F-1,Pre-visit information,Before arrival,Foundation,Do you have accessibility information available for customers before they visit?,Yes / No / Not sure,"Examples: a dedicated accessibility page, accessibility guide, social story / visual narative, information included across relevant pages, or clear pre-visit guidance.",Always shown (Entry Point)
+B1-F-2A,Pre-visit information,Before arrival,Foundation,What's currently stopping you from sharing accessibility information?,"Multi-select: ""We're not sure what information to include"" / ""We're worried about getting it wrong"" / ""Our access features aren't consistent"" / ""Our website or platforms are hard to update"" / ""We've never been asked before"" / ""Other / Not sure""",Select all that apply,"Shown only if B1-F-1 = no, not-sure, or too-hard"
+B1-F-3A,Pre-visit information,Before arrival,Foundation,Where would it be easiest to start sharing accessibility information?,"Multi-select: ""Website"" / ""Booking platform"" / ""Social media"" / ""Email responses"" / ""On request only"" / ""Not sure yet""",Select one or more options,"Shown only if B1-F-1 = no, not-sure, or too-hard"
+B1-F-2B,Pre-visit information,Before arrival,Foundation,What types of accessibility information do you currently share?,"Multi-select: ""Physical access (parking, entrances, toilets, seating)"" / ""What to expect during a visit (layout, queues, timing)"" / ""Sensory considerations (noise, lighting, temperature, busy vs quieter times)"" / ""Communication support (hearing loops, visual info, QR code)"" / ""Companion or support information"" / ""Peak periods or quieter times"" / ""Social story / visual narrative"" ""Other / Not sure""",Select all that apply,Shown only if B1-F-1 = yes
+B1-F-3B,Pre-visit information,Before arrival,Foundation,How confident are you that this information is accurate and up to date?,"Single-select: ""Very confident"" / ""Somewhat confident"" / ""Not very confident"" / ""Not sure""",(none),Shown only if B1-F-1 = yes
+B1-1-4,Pre-visit information,Before arrival,Foundation,Would you like us to review a link to your accessibility information to help identify gaps and opportunities?,Yes / No / Not sure,(none),Shown only if B1-F-1 = yes
+B1-1-4-link,Pre-visit information,Before arrival,Foundation,Paste the link where your accessibility information is shared,Link input,This review is indicative only and based on publicly available information. It does not verify accuracy or confirm compliance.,Shown only if B1-F-1 = yes
+B1-F-5,Pre-visit information,Before arrival,Foundation,Can customers contact you in a variety of ways to ask accessibility questions before visiting?,"Single-select: ""Yes (multiple options available)"" / ""Limited options"" / ""Not sure"" / ""No""","Examples include phone, email, social media, contact forms, or booking enquiries.",Always shown
+B1-F-6,Pre-visit information,Before arrival,Foundation,Do staff know how to confidently respond to accessibility enquiries?,"Single-select: ""Yes, consistently"" / ""Sometimes"" / ""Not sure"" / ""No""",(none),Always shown
+SECTION 4: Module B4.1 – Website Basics,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+B4.1-1-1,Website basics,Before arrival,Foundation,Can all website content be accessed using only a keyboard (no mouse required)?,Yes / No / Not sure,"Try navigating your site using only Tab, Enter, and arrow keys.",None
+B4.1-1-2,Website basics,Before arrival,Foundation,Do all images on your website have alt text or image descriptions?,Yes / No / Not sure,"Alt text and image descriptions both help people understand images, but they are used in slightly different ways.
+
+Alt text is a short description added directly to an image. It is read automatically by screen readers and should briefly explain the purpose of the image in context.
+
+Image descriptions are longer explanations provided in nearby text or linked content. They are useful for complex images such as charts, diagrams, maps, or detailed visuals that need more explanation than a short alt text can provide.
+
+Both alt text and image descriptions should focus on what the image is communicating, not just what it looks like. This applies across your website and any embedded content where images are used to communicate information.
+
+Decorative images that do not add information do not need alt text or image descriptions. ",None
+B4.1-1-3,Website basics,Before arrival,Foundation,Is your website text easy to read with good contrast between text and background?,Yes / No / Not sure,"Good colour contrast makes text easier to read. Text should clearly stand out from the background, for example dark text on a light background, or light text on a dark background. Text that blends into the background, uses very light colours, or sits on busy images can be hard to read.
+
+If you need to strain your eyes, zoom in, or adjust your screen to read the text comfortably, or if you cannot easily scan the page, the contrast may not be strong enough.",None
+B4.1-1-4,Website basics,Before arrival,Foundation,Can users resize text up to 400% without losing content or functionality?,Yes / No / Not sure,"Text resizing allows users to increase the size of text without breaking the page. When text is increased, content should remain visible and usable. Text should not overlap, disappear, be cut off, or require sideways scrolling to read. Buttons, menus, and forms should still work as expected.
+
+You can usually test this by zooming your browser or increasing text size and checking whether the page still works smoothly.",None
+B4.1-1-5,Website basics,Before arrival,Foundation,Does your website work well on mobile devices?,Yes / No / Not sure,"A website that works well on mobile is easy to use on a phone or tablet, not just on a desktop computer.
+
+On mobile devices, text should be readable without zooming, buttons and links should be easy to tap, and content should fit the screen without needing to scroll sideways. Menus, forms, and key features should still work smoothly.
+
+You can check this by opening your website on a phone and trying to complete common tasks, such as finding information, using the menu, or submitting a form.",None
+SECTION 5: Module B4.2 – Booking Systems and Forms,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+B4.2-1-1,Booking systems and forms,Before arrival,Foundation,Can customers share their accessibility requirements when booking online?,Yes / No / Not sure,"This refers to whether customers have a clear way to tell you about their accessibility needs during the online booking process.
+
+This might include a dedicated accessibility question, a free-text field, a tick box, or a notes section where customers can share requirements such as mobility access, hearing or vision support, sensory considerations, or assistance needs.
+
+It should be easy to find, optional to complete, and reviewed by staff so requests can be acknowledged and responded to.",None
+B4.2-1-2,Booking systems and forms,Before arrival,Foundation,Are error messages on forms clear and helpful?,Yes / No / Not sure,Good error messages explain what went wrong and how to fix it.,None
+SECTION 6: Module B4.3 – Video and Social Media,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+B4.3-1-1,Video and social media,Before arrival,Foundation,Do your videos have captions or subtitles?,Yes / No / Not sure,"Captions or subtitles display spoken words and important sounds from a video as text on the screen. 
+Captions are especially important for videos that share information, instructions, or stories.
+
+Captions should be accurate, easy to read, and available for all spoken content, not just key moments.",None
+B4.3-1-2,Video and social media,Before arrival,Foundation,Do you include alt text and image descriptions when posting on social media?,Yes / No / Not sure,"Alt text and image descriptions both help people understand images, but they are used in slightly different ways.
+
+Alt text is a short description added directly to an image. It is read automatically by screen readers and should briefly explain the purpose of the image in context.
+
+Image descriptions are longer explanations provided in nearby text or linked content. They are useful for complex images such as charts, diagrams, maps, or detailed visuals that need more explanation than a short alt text can provide.
+
+Both alt text and image descriptions should focus on what the image is communicating, not just what it looks like. This applies across your website and any embedded content where images are used to communicate information.
+
+Decorative images that do not add information do not need alt text or image descriptions. ",None
+B4.3-1-3,Video and social media,Before arrival,Foundation,"Are video controls accessible (play, pause, volume)?",Yes / No / Not sure,"Accessible video controls allow users to easily play, pause, stop, and adjust the volume of a video.
+
+If a video plays automatically, users should be able to quickly pause or stop it. Controls should be easy to find, clearly labelled, and usable with a keyboard, mouse, or touch. ",None
+"SECTION 7: Module A1 – Arrival, Parking and Drop-off",,,,,,,
+Foundation Review Questions,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A1-F-1,"Arrival, parking and drop-off",Getting in and moving around,Foundation,Do you have designated accessible parking spaces?,Yes / No / Not sure,Designated accessible parking spaces are parking bays set aside for people with disability and mobility needs. These spaces are typically wider than standard bays and clearly identified with signage and ground markings so they are easy to recognise.,None
+A1-F-2,"Arrival, parking and drop-off",Getting in and moving around,Foundation,Are accessible parking spaces located close to the main entrance?,Yes / No / Not sure,Accessible parking should be positioned as close as reasonably possible to the main entrance to reduce the distance people need to travel.,None
+A1-F-3,"Arrival, parking and drop-off",Getting in and moving around,Foundation,Is there a drop-off zone near the entrance for customers who need it?,Yes / No / Not sure,"A drop-off zone allows customers to be safely set down close to the entrance without needing to park. This area should be step free and connected to the entrance by a clear, accessible path.",None
+A1-F-4,"Arrival, parking and drop-off",Getting in and moving around,Foundation,Is the path from accessible parking to the entrance smooth and level?,Yes / No / Not sure,"The path from parking to the entrance should be easy to move along without steps, sudden level changes, loose surfaces, or obstacles. ",None
+A1-F-5,"Arrival, parking and drop-off",Getting in and moving around,Foundation,"Is the path wide enough for people using mobility aides, walking with companions or using service animals (at least 1 metre)?",Yes / No / Not sure,"Paths should be wide enough for wheelchair users, people with walking aids, service animals, or those walking side by side. A minimum clear width of around 1 metre helps people move comfortably without needing to step aside or navigate obstacles.",None
+A1-F-6,"Arrival, parking and drop-off",Getting in and moving around,Foundation,Would a first-time visitor know where to find accessible parking?,Yes / No / Not sure,"Accessible parking should be easy to locate without prior knowledge of the site. Clear signage, logical placement, and visible pathways help first-time visitors feel confident and reduce the need to ask for assistance.",None
+A1-F-7,"Arrival, parking and drop-off",Getting in and moving around,Foundation,Do staff know how to direct customers to accessible parking and entry points?,Yes / No / Not sure,"Staff should be able to confidently explain where accessible parking, drop-off zones, and step-free entrances are located. This reduces stress for customers and avoids the need for them to navigate the site on their own.",None
+A1-F-8,"Arrival, parking and drop-off",Getting in and moving around,Foundation,Is the parking area well-lit for customers arriving in low light?,Yes / No / Not sure,"Good lighting helps customers feel safe and confident when arriving early in the morning, evening, or at night. Well-lit parking areas help everyone navigate paths, signage, and entrances more easily.",None
+Detailed Review Questions (Additional),,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A1-D-9,"Arrival, parking and drop-off",Getting in and moving around,Detailed,"During busy periods, are accessible parking spaces still available and not blocked?",Yes / No / Not sure,"This looks at what happens when your site is at its busiest. Accessible parking spaces should remain usable and not be blocked by other vehicles, deliveries, temporary signage, or bins, even during peak periods or events.",None
+A1-D-10,"Arrival, parking and drop-off",Getting in and moving around,Detailed,Is the path from parking protected from weather (covered or sheltered)?,Yes / No / Not sure,"A protected or sheltered path helps people move from parking to the entrance more comfortably in rain, heat, or strong sun.",None
+A1-D-11,"Arrival, parking and drop-off",Getting in and moving around,Detailed,Are there rest points or seating along longer paths from parking?,Yes / No / Not sure,Rest points or seating give people a chance to pause and recover if they need to walk longer distances from parking to the entrance.,None
+A1-D-12,"Arrival, parking and drop-off",Getting in and moving around,Detailed,Is the surface of accessible parking spaces firm and slip-resistant?,Yes / No / Not sure,"Accessible parking surfaces should be stable and easy to move across. Loose gravel, uneven paving, or slippery surfaces can make it difficult or unsafe for people using the space.",None
+A1-D-13,"Arrival, parking and drop-off",Getting in and moving around,Detailed,Are accessible parking spaces clearly marked with both ground markings and vertical signage?,Yes / No / Not sure,Take a photo of the accessible parking signage. (Evidence prompt),None
+A1-D-14,"Arrival, parking and drop-off",Getting in and moving around,Detailed,Do you have a policy for managing misuse of accessible parking spaces?,Yes / No / Not sure,This refers to whether your organisation has a clear approach for discouraging or responding to non-eligible use of accessible parking. A simple policy helps protect access for customers who rely on these spaces and supports staff to respond consistently and respectfully.,None
+A1-D-15,"Arrival, parking and drop-off",Getting in and moving around,Detailed,Is information about accessible parking included on your website?,Yes / No / Not sure,"Providing accessible parking information online helps customers plan their visit in advance. This might include the location of the nearest accessible spaces (even if you don't have one on-site), drop-off areas, or any relevant access considerations.",None
+A1-D-16,"Arrival, parking and drop-off",Getting in and moving around,Detailed,"In low light conditions, is the path clearly visible and safely navigable?",Yes / No / Not sure,"Paths should remain easy to see and follow in early mornings, evenings, or poor weather. Clear lighting, visible edges, and unobstructed paths help reduce trip risks.",None
+SECTION 8: Module A2 – Entry and Doors,,,,,,,
+Foundation Review Questions,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A2-F-1,Entry and doors,Getting in and moving around,Foundation,Is your main entrance step-free?,Yes / No / Not sure,"A step-free entrance allows customers to enter the building without needing to step up or down.
+
+This means there are no stairs, raised thresholds, changes in heoght between surfaces or sudden level changes at the main entrance.
+
+If a ramp is used, it should be clearly connected to the main entrance and easy to identify.",None
+A2-F-2,Entry and doors,Getting in and moving around,Foundation,Is the main entrance door at least 850mm?,Yes / No / Not sure,A clear opening of at least 850mm is a common benchmark for allowing safe and independent access. Measure the doorway at its narrowest point when the door is fully open.,None
+A2-F-3,Entry and doors,Getting in and moving around,Foundation,"Are entrance doors easy to open (automatic, light push, or lever handles)?",Yes / No / Not sure,"Entrance doors should be easy to use without requiring significant strength or complex movements. Automatic doors, doors with a light push force, or doors with lever or D handles are easier for people to use independently.",None
+A2-F-4,Entry and doors,Getting in and moving around,Foundation,Is the main entrance clearly visible and identifiable from the street or parking area?,Yes / No / Not sure,"Visitors should be able to easily see and recognise the main entrance as they approach the building. Clear sightlines, lighting, signage, and visual cues help reduce confusion and improve confidence, especially for first-time visitors.",None
+A2-F-5,Entry and doors,Getting in and moving around,Foundation,"If there is an alternative accessible entrance, is it clearly signed?",Yes / No / Not sure,"If the main entrance is not accessible, any alternative accessible entrance should be clearly signposted from the main approach. Signage should guide customers without requiring them to ask for assistance or search the site.",None
+A2-F-6,Entry and doors,Getting in and moving around,Foundation,Do staff know how to assist customers who need support entering the building?,Yes / No / Not sure,"Staff should be aware of how to support customers who may need assistance at the entrance, such as opening doors, explaining where to enter, or guiding people to an accessible entry point. Support should be offered respectfully and only when needed.",None
+A2-F-7,Entry and doors,Getting in and moving around,Foundation,Is there adequate lighting at the entrance for customers with low vision?,Yes / No / Not sure,"Good lighting at the entrance helps people identify doors, handles, signage, and level changes. This is especially important in low light conditions, at night, or during poor weather.",None
+A2-F-8,Entry and doors,Getting in and moving around,Foundation,Are there tactile ground surface indicators at key entry points?,Yes / No / Not sure,"Tactile ground surface indicators are textured ground surfaces, often made up of raised dots or bars, installed on the ground at key locations. They can be felt underfoot or with a cane.
+
+They help people who are blind or have low vision identify important points such as entrances, hazards, or changes in direction, and provide clear wayfinding and safety information at entry points.",None
+Detailed Review Questions (Additional),,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A2-D-9,Entry and doors,Getting in and moving around,Detailed,"If there is a ramp, does it have compliant handrails on both sides?",Yes / No / Not sure,Handrails on both sides of a ramp help users feel safer when moving up or down the ramp and allow people to choose the side that suits them best.,None
+A2-D-10,Entry and doors,Getting in and moving around,Detailed,What is the clear opening width of the main entrance door?,Measurement (mm),"This refers to the usable width of the doorway when the door is fully open, measured at the narrowest point. The clear opening determines whether wheelchair users and people with mobility aids can enter independently.",None
+A2-D-11,Entry and doors,Getting in and moving around,Detailed,Is the door handle at an accessible height (900-1100mm from floor)?,Yes / No / Not sure,"Door handles positioned within this height range are easier to reach for wheelchair users, people of short stature, and those with limited arm movement. Handles outside this range can be difficult or impossible for some people to use.",None
+A2-D-12,Entry and doors,Getting in and moving around,Detailed,Is there a level landing area at the entrance (at least 1500mm x 1500mm)?,Yes / No / Not sure,"A level landing provides space for people to stop, turn, or steady themselves before opening the door. This is especially important for wheelchair users, people using walking aids, or anyone who needs extra time to manage doors.",None
+A2-D-13,Entry and doors,Getting in and moving around,Detailed,Is the door threshold level? (The maximum height is 13mm),Yes / No / Not sure,Low thresholds reduce the effort needed to move into the building and lower the risk of wheels catching or people tripping. High or uneven thresholds can be a barrier for wheelchair users and people with mobility or balance challenges.,None
+A2-D-14,Entry and doors,Getting in and moving around,Detailed,Are glass doors marked with contrasting strips or patterns?,Yes / No / Not sure,"Clear glass doors can be difficult to see. Contrasting strips or patterns help people identify the door and avoid walking into it, supporting people with low vision as well as all visitors.",None
+A2-D-15,Entry and doors,Getting in and moving around,Detailed,"During busy periods, does the entrance become congested or blocked?",Yes / No / Not sure,"This considers how the entrance functions at peak times. Congestion from queues, furniture, displays, service coutners or security checks can make it difficult for people to enter safely.",None
+A2-D-16,Entry and doors,Getting in and moving around,Detailed,"If there is an intercom or bell, is it located at an accessible height between 900 and 1100mm from the floor?",Yes / No / Not sure / Not applicable,"An accessible intercom or bell allows customers to request entry or assistance independently, without needing to reach too high or stretch. It should be easy to see, reach, and use from a seated or standing position.",None
+A2-D-17,Entry and doors,Getting in and moving around,Detailed,"If automatic doors are used, do they stay open long enough for slow-moving visitors?",Yes / No / Not sure,Automatic doors should allow enough time for people who move more slowly to pass through safely. Doors that close too quickly can cause stress or increase the risk of injury.,None
+A2-D-18,Entry and doors,Getting in and moving around,Detailed,Is there a mat or surface change at the entrance that could cause a trip hazard?,Yes / No / Not sure,"Mats or surface changes should lie flat and be securely fixed. Loose edges, thick mats, or sudden changes in surface level can create trip hazards for people with low vision, balance issues, or mobility aids.",None
+SECTION 9: Module A3a – Paths and Aisles,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A3a-1-1,Paths and aisles,Getting in and moving around,Foundation,Are main circulation paths at least 1 metre wide?,Yes / No / Not sure,"Main circulation paths are the primary walkways people use to move through your space. A clear width of at least 1 metre helps wheelchair users, people using mobility aids, those walking with companions, or using service animals to move comfortably.",None
+A3a-1-2,Paths and aisles,Getting in and moving around,Foundation,Are paths kept clear of obstacles and trip hazards?,Yes / No / Not sure,"Circulation paths should be free from obstacles such as furniture, displays, cords, mats, bins, or clutter. Clear paths reduce trip risks and make it easier for people to move safely and confidently through the space.",None
+A3a-1-3,Paths and aisles,Getting in and moving around,Foundation,"If there are level changes, is there an accessible alternative (lift, ramp)?",Yes / No / Not sure / Not applicable,"Where there are steps or changes in level, there should be an accessible alternative such as a ramp or lift so all customers can reach the same areas.",None
+A3a-1-4,Paths and aisles,Getting in and moving around,Foundation,Would a customer using a mobility aid be able to navigate your space independently?,Yes / No / Not sure,"This considers the overall experience of moving through your space without assistance. Clear paths, adequate width, smooth surfaces, and accessible alternatives help customers navigate confidently and independently.",None
+SECTION 10: Module A3b – Queues and Busy Times,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A3b-1-1,Queues and busy times,Getting in and moving around,Foundation,Is there seating available in queue areas for people who cannot stand for long?,Yes / No / Not sure,"Seating in queue areas allows people with fatigue, chronic pain, mobility conditions, or health needs to rest while waiting. Even a small number of seats can make waiting more manageable and inclusive.",None
+A3b-1-2,Queues and busy times,Getting in and moving around,Foundation,Can customers request priority access when needed?,Yes / No / Not sure,"Priority access gives customers a way to avoid long waits when standing is difficult. This might include staff-managed entry, priority oprdering, alternative waiting arrangements, or clear processes for requesting assistance.",None
+A3b-1-3,Queues and busy times,Getting in and moving around,Foundation,Do staff know how to accommodate customers who need queue assistance?,Yes / No / Not sure,Staff should understand how to respond respectfully and confidently when a customer needs support with queuing. This includes offering alternatives without requiring customers to explain or justify their needs.,None
+"SECTION 11: Module A4 – Seating, Furniture and Layout",,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A4-1-1,"Seating, furniture and layout",During the visit,Foundation,"Is there a variety of seating options (with arms, without arms, different heights)?",Yes / No / Not sure,"Different seating types support different bodies and needs. Seats with arms can help people stand up, while varied heights and armless options support comfort and choice.",None
+A4-1-2,"Seating, furniture and layout",During the visit,Foundation,Is there space for wheelchair users alongside seated companions?,Yes / No / Not sure,"Seating areas should include space where wheelchair users can sit next to friends, family, or companions rather than being separated from the group. ",None
+A4-1-3,"Seating, furniture and layout",During the visit,Foundation,Are tables and counters at accessible heights for wheelchair users?,Yes / No / Not sure,"Accessible tables and counters allow wheelchair users to approach, sit, and use the surface comfortably. As a guide, an accessible table or counter is usually between 750 and 850mm high, with clear knee space underneath of at least 700mm high and 800mm wide. At least one accessible option should be available where customers interact, dine, or make transactions.",None
+A4-1-4,"Seating, furniture and layout",During the visit,Foundation,Can furniture be rearranged to accommodate different needs?,Yes / No / Not sure,"Flexible furniture allows spaces to adapt to different access needs. The ability to move chairs or tables can help create space for wheelchairs, prams, or service animals when required.",None
+SECTION 12: Module A5 – Toilets and Amenities,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A5-1-1,Toilets and amenities,During the visit,Foundation,Do you have at least one accessible toilet?,Yes / Yes – off-site nearby / No / Not sure,"An accessible toilet provides essential facilities for people with disability, mobility needs, or who require assistance. Having at least one accessible toilet supports longer and more comfortable visits.",None
+A5-1-2,Toilets and amenities,During the visit,Foundation,Do you know where the nearest accessible toilet is?,Yes / No / Not sure,"Staff should be able to confidently direct customers to the nearest accessible toilet, including providing clear directions or signage information. This helps customers avoid unnecessary searching or discomfort, especially in larger or shared spaces.","Shown only if A5-1-1 = no, not-sure, or too-hard"
+A5-1-3,Toilets and amenities,During the visit,Foundation,Is the accessible toilet clearly signed and easy to find?,Yes / No / Not sure,Clear signage helps customers locate the accessible toilet without needing to ask for assistance. Signage should be visible from key areas within the space.,Shown only if A5-1-1 = yes
+A5-1-4,Toilets and amenities,During the visit,Foundation,Is the accessible toilet kept clear of storage and obstacles?,Yes / No / Not sure,Accessible toilets should not be used for storage. Clear floor space and unobstructed fittings are necessary for safe and independent use.,Shown only if A5-1-1 = yes
+A5-1-5,Toilets and amenities,During the visit,Foundation,Is there an emergency alarm in the accessible toilet?,Yes / No / Not sure,"An emergency alarm allows users to call for assistance if needed. It should be clearly visible, reachable from the toilet and floor, and known to staff.",Shown only if A5-1-1 = yes
+"SECTION 13: Module A6 – Lighting, Sound and Sensory Environment",,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A6-1-1,"Lighting, sound and sensory environment",During the visit,Foundation,Is lighting adequate for reading and navigation?,Yes / No / Not sure,"Adequate lighting helps people read signs, see hazards, and move around safely. Poor lighting can make navigation difficult for people with low vision and increase trip risks for everyone.
+
+As a general guide, indoor circulation areas are often around 100–200 lux, while areas used for reading, forms, or detailed tasks are closer to 300–500 lux. Lighting levels can be roughly checked using a free light (lux) meter app on a smartphone. Lighting should be even, without strong glare or deep shadows.",None
+A6-1-2,"Lighting, sound and sensory environment",During the visit,Foundation,Are there quiet or reset spaces available for people who need a break from noise?,Yes / No / Not sure,"Quiet or reset spaces provide a calm area where people can step away from noise, crowds, or sensory input. These spaces support people with sensory sensitivities, anxiety, neurodivergence, fatigue, or health conditions.
+
+A quiet space does not need to be large or formal, but it should be clearly identified, reasonably quiet, and free from interruptions where possible.",None
+A6-1-3,"Lighting, sound and sensory environment",During the visit,Foundation,Is background noise at a level that allows conversation?,Yes / No / Not sure,"Background noise should allow people to speak and be heard without raising their voice. Consider whether music, machinery, crowds, or echoes make it hard to communicate, especially at service counters or seating areas.",None
+A6-1-4,"Lighting, sound and sensory environment",During the visit,Foundation,Are there any flashing lights or sudden loud noises that could affect some visitors?,Yes / No / Not sure,"Flashing lights, strobe effects, alarms, or sudden loud noises can be distressing or disorienting for some people, including those with sensory sensitivities, migraines, epilepsy, or anxiety.
+
+Where these elements are used, consider whether warnings are provided and whether quieter or calmer alternatives are available.",None
+A6-1-5,"Lighting, sound and sensory environment",During the visit,Foundation,Is the indoor temperature comfortable and able to be adjusted or managed for different needs?,Yes / No / Not sure,"Comfortable and stable indoor temperatures help people stay focused, safe, and well. Extreme heat or cold can affect people with health conditions, fatigue, sensory sensitivities, or those taking certain medications.
+
+Where possible, there should be ways to manage temperature, such as air conditioning, heating, fans, or shaded areas. Staff awareness of temperature issues and the ability to respond to concerns can also support comfort.",
+SECTION 14: Module B2 – Signage and Wayfinding,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+B2-1-1,Signage and wayfinding,During the visit,Foundation,"Is signage clear, with good contrast and readable font sizes?",Yes / No / Not sure,"Clear signage uses high contrast between text and background, simple fonts, title case, and text sizes that can be read at a distance. Signs should avoid overly decorative fonts, low contrast colours, or cluttered layouts.",None
+B2-1-2,Signage and wayfinding,During the visit,Foundation,Are signs placed at consistent heights and locations?,Yes / No / Not sure,"Consistent placement helps people know where to look for information. As a general guide, wall-mounted signs are often placed so the main information is between around 1200 and 1600mm from the floor, making them visible to people who are standing or seated.
+
+Signs should be positioned where people naturally pause or make decisions, such as entrances, intersections, and key facilities.",None
+B2-1-3,Signage and wayfinding,During the visit,Foundation,"Are accessible facilities (toilets, lifts) clearly signed?",Yes / No / Not sure,Accessible facilities should be clearly identified using recognisable symbols and plain language. Clear signage helps people find essential facilities without needing to ask for assistance or search the space.,None
+B2-1-4,Signage and wayfinding,During the visit,Foundation,Would a first-time visitor be able to navigate independently?,Yes / No / Not sure,"This question considers the overall experience of navigating your space for someone who has never visited before. Clear signage, logical layout, good lighting, manageable noise levels, and visible landmarks all support independent navigation.
+
+If someone unfamiliar with the space can find their way without assistance, the environment is likely working well.",None
+SECTION 15: Module B3 – Menus and Printed Materials,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+B3-1-1,Menus and printed materials,During the visit,Foundation,Are large print versions of key materials available?,Yes / No / Not sure,"Large print materials support people with low vision or who find standard text difficult to read. As a general guide, large print uses a minimum of 16–18 point font, clear sans serif typefaces, strong contrast, and simple layouts. Key materials might include menus, programs, safety instructions, guides, or forms.",None
+B3-1-2,Menus and printed materials,During the visit,Foundation,Can staff read menus or materials aloud for customers who need it?,Yes / No / Not sure,Some customers may prefer or require information to be read aloud. Staff should feel comfortable offering this support respectfully and without drawing attention to the customer.,None
+B3-1-3,Menus and printed materials,During the visit,Foundation,"Are digital alternatives available (QR codes, online menus)?",Yes / No / Not sure,"Digital alternatives allow customers to access information on their own devices using screen readers, zoom, or other accessibility settings. QR codes or online versions should link to accessible content that is easy to navigate and read.",None
+SECTION 16: Module C1 – Customer Service and Staff Confidence,,,,,,,
+Foundation Review Questions,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+C1-F-1,Customer service and staff confidence,Service and support,Foundation,Have staff received disability awareness or accessibility training?,Yes / No / Not sure,"Disability awareness or accessibility training helps staff understand different needs and respond respectfully and confidently. Training does not need to be complex, but it should cover inclusive communication, assistance etiquette, and common access considerations.",None
+C1-F-2,Customer service and staff confidence,Service and support,Foundation,Do staff know how to welcome and assist customers with assistance animals?,Yes / No / Not sure,"Staff should understand how to interact appropriately when a customer has an assistance animal. This includes allowing the animal to remain with the customer, not distracting or touching the animal, and offering assistance when appropriate.",None
+C1-F-3,Customer service and staff confidence,Service and support,Foundation,Do staff feel confident communicating with customers who have different needs?,Yes / No / Not sure,"This considers whether staff feel comfortable adapting their communication style, allowing extra time, or using different approaches when needed. Confidence helps create a welcoming and inclusive experience.",None
+C1-F-4,Customer service and staff confidence,Service and support,Foundation,Do you have a process for customers to request assistance before arriving?,Yes / No / Not sure,"A clear pre-arrival process allows customers to share their needs in advance, such as through a booking form, email, phone call, or website information. This helps staff prepare and respond effectively.",None
+C1-F-5,Customer service and staff confidence,Service and support,Foundation,Are staff trained in various communication strategies?,Yes / No / Not sure,Some customers use alternative or augmentative communication methods. Staff awareness of basic strategies or tools can support clearer communication and reduce frustration.,None
+C1-F-6,Customer service and staff confidence,Service and support,Foundation,Do staff know where accessible facilities are located to direct customers?,Yes / No / Not sure,"Staff should be able to quickly and accurately direct customers to accessible facilities such as toilets, lifts, seating, or step-free entrances. This reduces stress and unnecessary searching.",None
+C1-F-7,Customer service and staff confidence,Service and support,Foundation,Is there a clear process for handling accessibility complaints or feedback?,Yes / No / Not sure,A clear feedback process helps organisations identify barriers and respond to concerns respectfully. Customers should know how to provide feedback and feel confident it will be taken seriously.,None
+C1-F-8,Customer service and staff confidence,Service and support,Foundation,Do staff understand they cannot refuse service to someone with an assistance animal?,Yes / No / Not sure,"Staff should understand that customers with assistance animals must not be refused entry or service because of the animal. Assistance animals are generally permitted in areas open to the public, including food and dining areas.",None
+Detailed Review Questions (Additional),,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+C1-D-9,Customer service and staff confidence,Service and support,Detailed,Are staff trained to offer assistance without being condescending or over-helpful?,Yes / No / Not sure,"Offering assistance respectfully means asking first, listening, and following the customer’s lead. Support should be provided without assumptions, pressure, or taking over unless requested.",None
+C1-D-10,Customer service and staff confidence,Service and support,Detailed,Do staff know how to communicate with customers who are Deaf or hard of hearing?,Yes / No / Not sure,"This includes speaking clearly, facing the person, reducing background noise where possible, and using alternative communication methods such as writing or gestures when needed.",None
+C1-D-11,Customer service and staff confidence,Service and support,Detailed,Is pen and paper available for written communication if needed?,Yes / No / Not sure,Simple tools like pen and paper can support clear communication when speech or hearing barriers exist. They should be easy to access when required.,None
+C1-D-12,Customer service and staff confidence,Service and support,Detailed,Do staff know how to assist customers who may need extra time or have cognitive differences?,Yes / No / Not sure,"Some customers may process information more slowly or need instructions explained differently. Staff should feel comfortable allowing extra time, using plain language, and checking understanding.",None
+C1-D-13,Customer service and staff confidence,Service and support,Detailed,Is there a quiet space available for customers who become overwhelmed?,Yes / No / Not sure,"A quiet or low-stimulation space allows customers to step away from noise or crowds if they feel overwhelmed. This supports people with sensory sensitivities, anxiety, or fatigue.",None
+C1-D-14,Customer service and staff confidence,Service and support,Detailed,Do you have a documented policy on serving customers with disabilities?,Yes / No / Not sure,"A documented approach helps ensure consistent, respectful service across staff and situations. Policies do not need to be complex but should clearly support inclusion. Note the name and location of any policy documents. (Evidence prompt)",None
+C1-D-15,Customer service and staff confidence,Service and support,Detailed,Is accessibility training included in new staff onboarding?,Yes / No / Not sure,Including accessibility in onboarding helps new staff understand expectations from the start and builds confidence in providing inclusive service.,None
+C1-D-16,Customer service and staff confidence,Service and support,Detailed,Do staff know how to assist customers during an emergency evacuation?,Yes / No / Not sure,"Staff should understand how to support customers with different needs during emergencies, including providing clear instructions and offering assistance when appropriate.",None
+C1-D-17,Customer service and staff confidence,Service and support,Detailed,"Are staff aware of common accessibility equipment (e.g., hearing loops, wheelchairs for loan)?",Yes / No / Not sure,Staff should know what accessibility equipment is available on site and how customers can access or use it.,None
+C1-D-18,Customer service and staff confidence,Service and support,Detailed,Do you offer any assistive technology or equipment for customer use?,Yes / No / Not sure,"Assistive equipment may include hearing loops, portable seating, wheelchairs, or visual aids. Availability should be communicated clearly to staff and customers.",None
+C1-D-19,Customer service and staff confidence,Service and support,Detailed,Are carers or support people welcomed and accommodated appropriately?,Yes / No / Not sure,"Carers and support people play an important role for many customers. They should be welcomed, included, and able to accompany the person they support without barriers.",None
+C1-D-20,Customer service and staff confidence,Service and support,Detailed,Is there a process for providing information in alternative formats on request?,Yes / No / Not sure,"Alternative formats might include large print, digital versions, or verbal explanations. A clear process helps staff respond confidently and consistently.",None
+"SECTION 17: Module C2 – Bookings, Payments and Flexibility",,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+C2-1-1,"Bookings, payments and flexibility",Service and support,Foundation,Can customers easily modify bookings if their needs change?,Yes / No / Not sure,Flexible booking processes allow customers to update access requirements if circumstances change. This reduces stress and supports better planning.,None
+C2-1-2,"Bookings, payments and flexibility",Service and support,Foundation,Are payment terminals positioned at accessible heights?,Yes / No / Not sure / Not applicable,"Payment terminals should be reachable and usable by wheelchair users and people of different heights, without requiring stretching or awkward positioning.",None
+C2-1-3,"Bookings, payments and flexibility",Service and support,Foundation,Can staff bring payment terminals to customers if needed?,Yes / No / Not sure,Portable terminals allow transactions to be completed comfortably when fixed counters are difficult to access.,"Shown only if C2-1-2 = yes, no, not sure"
+C2-1-4,"Bookings, payments and flexibility",Service and support,Foundation,Is there flexibility in cancellation policies for disability-related changes?,Yes / No / Not sure,Flexible cancellation or rescheduling recognises that access needs or health conditions can change unexpectedly.,None
+SECTION 18: Module A7 – Safety and Emergencies,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+A7-1-1,Safety and emergencies,Service and support,Foundation,Do your emergency procedures include plans for people with disabilities?,Yes / No / Not sure,"Emergency procedures should consider people with mobility, sensory, or cognitive needs so everyone can be supported safely.",None
+A7-1-2,Safety and emergencies,Service and support,Foundation,Are emergency exits accessible to people with mobility aids?,Yes / No / Not sure,Accessible exits allow people with access needs to evacuate safely without encountering steps or barriers.,None
+A7-1-3,Safety and emergencies,Service and support,Foundation,Are there visual and audible alarms for emergencies?,Yes / No / Not sure,Using both visual and audible alarms helps ensure emergency alerts are accessible to people with hearing or vision access needs.,None
+A7-1-4,Safety and emergencies,Service and support,Foundation,Do staff know how to assist customers with different needs during an evacuation?,Yes / No / Not sure,Staff confidence and clarity during evacuations can reduce confusion and support safe outcomes for everyone.,None
+SECTION 19: Module C3 – Learning From Your Customers,,,,,,,
+Question ID,Module Name,Journey Phase,Review Depth,Question Text (Exact),Response Options,Helper Text,Conditional Logic
+C3-1-1,Learning from your customers,Service and support,Foundation,Do you have a way for customers to provide feedback about accessibility?,Yes / No / Not sure,"Accessible feedback options allow customers to share experiences, barriers, or suggestions. This might include online forms, email, phone, or in-person options.",None
+C3-1-2,Learning from your customers,Service and support,Foundation,Do you regularly review and act on accessibility feedback?,Yes / No / Not sure,Reviewing feedback and taking action shows commitment to improvement and helps prevent repeat issues.,None
+C3-1-3,Learning from your customers,Service and support,Foundation,"Is the feedback process itself accessible (multiple formats, easy to use)?",Yes / No / Not sure,"Feedback processes should be easy to find, simple to use, and available in more than one format so all customers can participate.",None
+,,,,,,,
+,,,,,,,
+SUMMARY STATISTICS,,,,,,,
+Category,Count,,,,,,
+Discovery Touchpoint Questions,28 (including sub-touchpoints),,,,,,
+Legacy Discovery Questions,9,,,,,,
+Context Questions,4,,,,,,
+Foundation Review Questions,~62 across all modules,,,,,,
+Detailed Review Questions (Additional),"~32 across A1, A2, C1",,,,,,
+TOTAL QUESTIONS,~135,,,,,,

@@ -1,0 +1,118 @@
+.module-selection-page {
+  min-height: 100vh;
+  padding: 60px 20px;
+  background: var(--ivory);
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.page-header h1 {
+  margin-bottom: 15px;
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.module-card {
+  position: relative;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.module-card.selected {
+  border-color: var(--deep-purple);
+  background: rgba(58, 11, 82, 0.03);
+}
+
+.recommended-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--button-gradient);
+  color: var(--white);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.module-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.module-card h3 {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+
+.module-card p {
+  color: var(--steel-gray);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.checkbox-indicator {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.checkbox-indicator input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.selection-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 30px;
+  border-top: 2px solid #ddd;
+}
+
+.module-counter {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--deep-purple);
+}
+
+@media (max-width: 768px) {
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .selection-footer {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .module-counter {
+    text-align: center;
+  }
+
+  .selection-footer button {
+    width: 100%;
+  }
+}

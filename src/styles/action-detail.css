@@ -1,0 +1,140 @@
+.action-detail-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: var(--ivory);
+}
+
+.action-detail-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-md);
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--deep-purple);
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: var(--warm-orange);
+}
+
+.action-header {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.priority-badge {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+.priority-act-now {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.priority-plan-next {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.priority-consider-later {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.module-badge {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  background: var(--steel-gray);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.action-detail-container h1 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.action-section {
+  margin-bottom: 40px;
+}
+
+.action-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: var(--deep-purple);
+}
+
+.steps-list {
+  list-style-position: outside;
+  padding-left: 25px;
+}
+
+.steps-list li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.example-text {
+  background: var(--ivory);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--warm-orange);
+  font-style: italic;
+}
+
+.diap-section {
+  background: var(--ivory);
+  border-radius: var(--radius-md);
+  padding: 30px;
+  margin: 40px 0;
+}
+
+.diap-section h2 {
+  margin-bottom: 25px;
+}
+
+.diap-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.action-footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .action-detail-container {
+    padding: 30px 20px;
+  }
+
+  .action-detail-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .action-footer {
+    justify-content: stretch;
+  }
+
+  .action-footer button {
+    width: 100%;
+  }
+}
