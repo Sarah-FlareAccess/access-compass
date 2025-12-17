@@ -3,15 +3,17 @@
 /* Design System: Bold & Warm */
 
 :root {
-  /* Colors */
-  --primary-gradient: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
-  --button-gradient: linear-gradient(135deg, #e67700 0%, #c91344 100%);
-  --deep-purple: #3a0b52;
-  --warm-orange: #e67700;
-  --focus-orange: #ff9015;
+  /* Colors - Dark purple with coral accents */
+  --primary-gradient: linear-gradient(135deg, #2d1b4e 0%, #4c1d6e 50%, #6b2d5b 100%);
+  --button-gradient: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #d97756 100%);
+  --deep-purple: #2d1b4e;
+  --medium-purple: #4c1d6e;
+  --light-purple: #7c3aed;
+  --coral-accent: #d97756;
+  --warm-coral: #e8856a;
   --charcoal: #2d2d2d;
   --steel-gray: #4a4a4a;
-  --ivory: #ece9e6;
+  --ivory: #f5f3f0;
   --white: #ffffff;
 
   /* Typography */
@@ -35,7 +37,7 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
-  --shadow-colored: 0 4px 12px rgba(230, 119, 0, 0.3);
+  --shadow-colored: 0 4px 12px rgba(124, 58, 237, 0.3);
 }
 
 /* Reset */
@@ -103,7 +105,7 @@ p {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(230, 119, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
 }
 
 .btn-primary:active {
