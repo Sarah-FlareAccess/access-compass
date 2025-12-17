@@ -1,0 +1,751 @@
+/* Discovery Module Styles */
+
+/* Journey Phase Section */
+.journey-phase-section {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.journey-phase-section.journey-before {
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+}
+
+.journey-phase-section.journey-during {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+}
+
+.journey-phase-section.journey-after {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(52, 211, 153, 0.05) 100%);
+}
+
+/* Phase Header */
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.phase-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.phase-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.phase-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.phase-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.phase-sublabel {
+  font-size: 14px;
+  color: #666;
+  margin: 4px 0 0 0;
+}
+
+.phase-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.selection-count {
+  font-size: 14px;
+  font-weight: 500;
+  color: #7c3aed;
+}
+
+.phase-chevron {
+  color: #666;
+  transition: transform 0.2s ease;
+  font-size: 12px;
+}
+
+.phase-chevron.rotated {
+  transform: rotate(180deg);
+}
+
+/* Phase Content */
+.phase-content {
+  padding: 0 20px 20px;
+}
+
+.phase-description {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 16px 0;
+}
+
+/* Touchpoint Blocks */
+.touchpoint-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.touchpoint-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.block-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+/* Touchpoint List */
+.touchpoint-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.touchpoint-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Touchpoint Item */
+.touchpoint-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.touchpoint-item:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+}
+
+.touchpoint-item.selected {
+  border-color: #7c3aed;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15);
+}
+
+.touchpoint-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: #7c3aed;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.touchpoint-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.touchpoint-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a2e;
+}
+
+.touchpoint-description {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.expand-button {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.expand-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.chevron {
+  display: inline-block;
+  font-size: 10px;
+  color: #666;
+  transition: transform 0.2s ease;
+}
+
+.chevron.rotated {
+  transform: rotate(180deg);
+}
+
+/* Sub-touchpoints */
+.sub-touchpoints {
+  margin-left: 36px;
+  padding-left: 16px;
+  border-left: 2px solid rgba(124, 58, 237, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sub-touchpoints-hint {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.sub-touchpoint-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sub-touchpoint-item:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+}
+
+.sub-touchpoint-item.selected {
+  border-color: rgba(124, 58, 237, 0.5);
+}
+
+.sub-touchpoint-label {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Discovery Page Container */
+.discovery-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+  padding: 40px 20px;
+}
+
+.discovery-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Discovery Header Card */
+.discovery-header-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.discovery-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 12px 0;
+}
+
+.discovery-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+/* Journey Orientation */
+.journey-orientation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #888;
+}
+
+.journey-orientation span {
+  font-weight: 500;
+}
+
+.journey-orientation .arrow {
+  color: #ccc;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.progress-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: background 0.2s ease;
+}
+
+.progress-dot.active {
+  background: #7c3aed;
+}
+
+.progress-line {
+  width: 32px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.progress-line.active {
+  background: #7c3aed;
+}
+
+.time-estimate {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Actions Card */
+.discovery-actions-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.discovery-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-back {
+  flex: 1;
+  padding: 14px 24px;
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-back:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.btn-continue {
+  flex: 1;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-continue:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+}
+
+.btn-continue:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.skip-link {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.skip-link button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.skip-link button:hover {
+  color: #666;
+}
+
+.skip-link p {
+  font-size: 12px;
+  color: #aaa;
+  margin: 4px 0 0 0;
+}
+
+/* Recommendation View */
+.recommendation-view {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recommendation-header {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Warning Banner */
+.warning-banner {
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.warning-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.warning-message {
+  font-size: 14px;
+  color: #92400e;
+  margin: 0;
+}
+
+/* Journey Group */
+.journey-group {
+  margin-bottom: 24px;
+}
+
+.journey-group-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+}
+
+/* Module Recommendation Card */
+.module-recommendation-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.module-recommendation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.module-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.module-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.module-code-badge {
+  font-size: 12px;
+  font-weight: 500;
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.module-card-time {
+  font-size: 13px;
+  color: #888;
+  margin: 4px 0 0 0;
+}
+
+.why-suggested {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+
+.why-suggested-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888;
+  margin: 0 0 4px 0;
+}
+
+.why-suggested-text {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+/* Also Relevant Section */
+.also-relevant-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.also-relevant-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 12px 0;
+}
+
+.also-relevant-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.also-relevant-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+.also-relevant-code {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-left: 8px;
+}
+
+.also-relevant-time {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Reassurance Text */
+.reassurance-text {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 24px 0;
+}
+
+/* Review Mode Selection */
+.review-mode-section {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.review-mode-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.review-mode-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 24px 0;
+  text-align: center;
+}
+
+.review-mode-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-mode-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  border: 2px solid #eee;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.review-mode-option:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+}
+
+.review-mode-option.selected {
+  border-color: #7c3aed;
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.review-mode-option.recommended {
+  position: relative;
+}
+
+.recommended-badge {
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  background: #7c3aed;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.review-mode-radio {
+  width: 20px;
+  height: 20px;
+  accent-color: #7c3aed;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.review-mode-content {
+  flex: 1;
+}
+
+.review-mode-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 4px 0;
+}
+
+.review-mode-description {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 8px 0;
+}
+
+.review-mode-details {
+  font-size: 13px;
+  color: #888;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .discovery-page {
+    padding: 20px 16px;
+  }
+
+  .discovery-header-card,
+  .discovery-actions-card,
+  .recommendation-header,
+  .review-mode-section {
+    padding: 24px 20px;
+  }
+
+  .discovery-title {
+    font-size: 24px;
+  }
+
+  .phase-header {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .phase-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .phase-label {
+    font-size: 16px;
+  }
+
+  .touchpoint-item {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .discovery-buttons {
+    flex-direction: column;
+  }
+
+  .btn-back,
+  .btn-continue {
+    flex: none;
+    width: 100%;
+  }
+}

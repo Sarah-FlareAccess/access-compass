@@ -9,6 +9,9 @@ import type {
   ModuleType,
   DiscoveryResponses,
   Constraints,
+  DiscoveryData,
+  RecommendationResult,
+  ReviewMode,
 } from '../types';
 
 const SESSION_KEY = 'access_compass_session';
@@ -77,12 +80,55 @@ export const updateConstraints = (constraints: Constraints): Session => {
   return updateSession({ constraints });
 };
 
+// ===== DISCOVERY DATA =====
+
+const DISCOVERY_KEY = 'access_compass_discovery';
+
+export interface StoredDiscoveryData {
+  discovery_data: DiscoveryData;
+  recommendation_result: RecommendationResult;
+  review_mode: ReviewMode;
+  recommended_modules: string[];
+}
+
+// Get discovery data
+export const getDiscoveryData = (): StoredDiscoveryData | null => {
+  const data = localStorage.getItem(DISCOVERY_KEY);
+  if (!data) return null;
+  return JSON.parse(data);
+};
+
+// Save discovery data
+export const saveDiscoveryData = (data: StoredDiscoveryData): void => {
+  localStorage.setItem(DISCOVERY_KEY, JSON.stringify(data));
+};
+
+// Update discovery data
+export const updateDiscoveryData = (updates: Partial<StoredDiscoveryData>): StoredDiscoveryData => {
+  const existing = getDiscoveryData() || {
+    discovery_data: { selectedTouchpoints: [], selectedSubTouchpoints: [] },
+    recommendation_result: {} as RecommendationResult,
+    review_mode: 'foundation' as ReviewMode,
+    recommended_modules: [],
+  };
+
+  const updated = { ...existing, ...updates };
+  saveDiscoveryData(updated);
+  return updated;
+};
+
+// Clear discovery data
+export const clearDiscoveryData = (): void => {
+  localStorage.removeItem(DISCOVERY_KEY);
+};
+
 // Clear session (start again)
 export const clearSession = (): void => {
   localStorage.removeItem(SESSION_KEY);
   localStorage.removeItem(ACTIONS_KEY);
   localStorage.removeItem(EVIDENCE_KEY);
   localStorage.removeItem(CLARIFICATIONS_KEY);
+  localStorage.removeItem(DISCOVERY_KEY);
 };
 
 // ===== ACTIONS =====

@@ -39,8 +39,8 @@ export default function BusinessSnapshotPage() {
     // Save to session
     updateBusinessSnapshot(formData);
 
-    // Navigate to module selection
-    navigate('/modules');
+    // Navigate to discovery (touchpoint-based module recommendations)
+    navigate('/discovery');
   };
 
   return (

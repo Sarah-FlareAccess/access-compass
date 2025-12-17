@@ -110,3 +110,251 @@
     font-size: 1.4rem;
   }
 }
+
+/* Module List View */
+.questions-page {
+  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+}
+
+.module-list-header {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.module-list-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 8px 0;
+}
+
+.module-list-header p {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 20px 0;
+}
+
+.overall-progress-bar {
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.overall-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Module List */
+.module-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.module-list-item {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.module-list-item:hover:not(.completed) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.module-list-item.completed {
+  opacity: 0.8;
+  cursor: default;
+}
+
+.module-status-indicator {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.module-list-item.pending .module-status-indicator {
+  background: #f3f4f6;
+  color: #666;
+}
+
+.module-list-item.in-progress .module-status-indicator {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: white;
+}
+
+.module-list-item.completed .module-status-indicator {
+  background: #22c55e;
+  color: white;
+}
+
+.status-check {
+  font-size: 18px;
+}
+
+.status-progress {
+  font-size: 24px;
+}
+
+.status-pending {
+  font-size: 16px;
+}
+
+.module-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.module-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 4px 0;
+}
+
+.module-code {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+.module-action {
+  flex-shrink: 0;
+}
+
+.completed-label {
+  font-size: 14px;
+  color: #22c55e;
+  font-weight: 500;
+}
+
+.btn-start-module,
+.btn-continue-module {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-start-module {
+  background: #f3f4f6;
+  color: #1a1a2e;
+}
+
+.btn-start-module:hover {
+  background: #e5e7eb;
+}
+
+.btn-continue-module {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: white;
+}
+
+.btn-continue-module:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+}
+
+/* Module List Actions */
+.module-list-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.module-list-actions .btn-back {
+  flex: 1;
+  padding: 14px 24px;
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.module-list-actions .btn-back:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.btn-view-results {
+  flex: 1;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-view-results:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+/* Loading State */
+.loading-state {
+  background: white;
+  border-radius: 16px;
+  padding: 60px;
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+
+@media (max-width: 640px) {
+  .module-list-item {
+    flex-wrap: wrap;
+  }
+
+  .module-action {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .btn-start-module,
+  .btn-continue-module {
+    width: 100%;
+  }
+
+  .module-list-actions {
+    flex-direction: column;
+  }
+
+  .module-list-actions .btn-back,
+  .btn-view-results {
+    width: 100%;
+  }
+}

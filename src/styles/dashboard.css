@@ -1,200 +1,504 @@
 .dashboard-page {
   min-height: 100vh;
-  padding: 60px 20px;
-  background: var(--ivory);
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+}
+
+.dashboard-page .container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .dashboard-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  color: white;
 }
 
 .dashboard-header h1 {
-  margin-bottom: 15px;
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: white;
 }
 
 .subtext {
   font-size: 1.1rem;
-  color: var(--steel-gray);
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.priorities-grid {
+/* Progress Overview */
+.progress-overview {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-bottom: 50px;
-}
-
-.priority-column {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: 30px;
-  box-shadow: var(--shadow-md);
-}
-
-.column-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.column-header h2 {
-  font-size: 1.5rem;
-  margin: 0;
-}
-
-.count {
-  font-size: 0.9rem;
-  color: var(--steel-gray);
-  font-weight: 600;
-}
-
-.column-subtext {
-  color: var(--steel-gray);
-  font-size: 0.95rem;
-  margin-bottom: 25px;
-}
-
-.action-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.action-card {
-  background: var(--ivory);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  text-decoration: none;
-  color: var(--charcoal);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
-
-.action-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--deep-purple);
-}
-
-.action-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  color: var(--deep-purple);
-}
-
-.why-preview {
-  font-size: 0.9rem;
-  color: var(--steel-gray);
-  margin-bottom: 15px;
-  line-height: 1.5;
-}
-
-.action-meta {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.badge {
-  padding: 4px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.effort-low {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.effort-medium {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.effort-high {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.cost {
-  background: var(--steel-gray);
-  color: var(--white);
-}
-
-.empty-state {
-  text-align: center;
-  color: var(--steel-gray);
-  padding: 30px;
-  font-style: italic;
-}
-
-.side-panels {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
   margin-bottom: 40px;
 }
 
-.panel {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: 30px;
-  box-shadow: var(--shadow-md);
+.progress-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.main-progress {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.progress-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.progress-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+  stroke: #eee;
+}
+
+.progress-ring-fill {
+  stroke: url(#progressGradient);
+  stroke: #7c3aed;
+  transition: stroke-dasharray 0.5s ease;
+}
+
+.progress-ring-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
 }
 
-.panel-icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
+.progress-value {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
 }
 
-.panel h3 {
-  margin-bottom: 10px;
+.progress-label {
+  display: block;
+  font-size: 13px;
+  color: #888;
 }
 
-.panel-count {
-  display: inline-block;
-  background: var(--button-gradient);
-  color: var(--white);
-  padding: 6px 16px;
-  border-radius: var(--radius-md);
+.progress-details h3 {
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 15px;
+  color: #1a1a2e;
+  margin: 0 0 8px 0;
 }
 
-.panel p {
-  color: var(--steel-gray);
+.progress-details p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 16px 0;
+}
+
+.btn-continue-review {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-continue-review:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.stat-card.doing-well .stat-icon {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+.stat-card.actions-needed .stat-icon {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.stat-card.to-explore .stat-icon {
+  background: rgba(251, 191, 36, 0.1);
+  color: #d97706;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+  margin-left: auto;
+}
+
+/* Journey Modules Section */
+.journey-modules-section {
+  margin-bottom: 40px;
+}
+
+.journey-modules-section h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 24px 0;
+}
+
+.journey-group {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.journey-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
-.modules-list {
-  list-style: none;
-  text-align: left;
-  margin: 20px 0;
+.journey-icon {
+  font-size: 24px;
 }
 
-.modules-list li {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
+.journey-group-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0;
 }
 
+.module-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.module-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.module-card.status-completed {
+  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.05);
+}
+
+.module-card.status-in-progress {
+  border-color: rgba(124, 58, 237, 0.3);
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.module-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.module-code {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.status-badge.completed {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+.status-badge.in-progress {
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+}
+
+.status-badge.not-started {
+  background: #f3f4f6;
+  color: #666;
+}
+
+.module-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 12px 0;
+}
+
+.module-stats {
+  display: flex;
+  gap: 12px;
+}
+
+.stat-good {
+  font-size: 13px;
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.stat-actions {
+  font-size: 13px;
+  color: #dc2626;
+  font-weight: 500;
+}
+
+/* Priority Actions Section */
+.priority-actions-section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.view-all-link {
+  font-size: 14px;
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.view-all-link:hover {
+  text-decoration: underline;
+}
+
+.priority-actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.priority-action-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.priority-indicator {
+  width: 4px;
+  height: 100%;
+  min-height: 40px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.priority-high .priority-indicator {
+  background: #dc2626;
+}
+
+.priority-medium .priority-indicator {
+  background: #d97706;
+}
+
+.priority-low .priority-indicator {
+  background: #16a34a;
+}
+
+.action-content {
+  flex: 1;
+}
+
+.action-text {
+  font-size: 14px;
+  color: #1a1a2e;
+  margin: 0 0 4px 0;
+}
+
+.action-module {
+  font-size: 12px;
+  color: #888;
+}
+
+.more-actions {
+  text-align: center;
+  font-size: 14px;
+  color: #7c3aed;
+  padding: 12px;
+}
+
+/* DIAP Summary Section */
+.diap-summary-section {
+  margin-bottom: 24px;
+}
+
+.diap-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.diap-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.diap-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 24px 0;
+}
+
+.diap-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 24px;
+}
+
+.diap-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.diap-stat .stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #7c3aed;
+}
+
+.diap-stat .stat-label {
+  font-size: 14px;
+  color: #666;
+  margin-left: 0;
+}
+
+/* Dashboard Actions */
 .dashboard-actions {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
+.dashboard-actions .btn {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.dashboard-actions .btn-primary {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: white;
+  border: none;
+}
+
+.dashboard-actions .btn-secondary {
+  background: white;
+  color: #1a1a2e;
+  border: 1px solid #ddd;
+}
+
+.dashboard-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading State */
+.loading-state {
+  background: white;
+  border-radius: 16px;
+  padding: 60px;
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Responsive */
 @media (max-width: 968px) {
-  .priorities-grid {
+  .progress-overview {
     grid-template-columns: 1fr;
   }
 
-  .side-panels {
-    grid-template-columns: 1fr;
+  .main-progress {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .diap-stats {
+    gap: 24px;
   }
 
   .dashboard-actions {
@@ -203,5 +507,20 @@
 
   .dashboard-actions .btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .module-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .diap-stats {
+    flex-direction: column;
+    gap: 16px;
   }
 }

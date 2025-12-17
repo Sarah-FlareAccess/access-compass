@@ -145,3 +145,100 @@ export interface Module {
   description: string;
   recommended_if: (snapshot: BusinessSnapshot) => boolean;
 }
+
+// ============================================================================
+// DISCOVERY TYPES (from Access Navigator)
+// ============================================================================
+
+export type JourneyPhase = 'before-arrival' | 'during-visit' | 'after-visit';
+
+export type ReviewMode = 'foundation' | 'detailed';
+
+export type DiscoveryResponse = 'yes' | 'no' | 'not-sure';
+
+export interface SubTouchpoint {
+  id: string;
+  label: string;
+}
+
+export interface Touchpoint {
+  id: string;
+  label: string;
+  description: string;
+  subTouchpoints?: SubTouchpoint[];
+  moduleMapping: string[];
+}
+
+export interface TouchpointBlock {
+  id: string;
+  label: string;
+  touchpointIds: string[];
+}
+
+export interface JourneyPhaseData {
+  id: string;
+  label: string;
+  subLabel: string;
+  description: string;
+  icon: string;
+  bgColorClass: string;
+  touchpoints: Touchpoint[];
+  blocks?: TouchpointBlock[];
+}
+
+export interface DiscoveryData {
+  selectedTouchpoints: string[];
+  selectedSubTouchpoints: string[];
+  responses?: Record<string, DiscoveryResponse>;
+}
+
+export interface ModuleScore {
+  moduleId: string;
+  score: number;
+  triggeringTouchpoints: string[];
+  triggeringQuestions: string[];
+}
+
+export interface WhySuggested {
+  type: 'discovery' | 'default-starter' | 'padding';
+  triggeringTouchpoints: string[];
+  triggeringQuestionTexts: string[];
+  industryName?: string;
+}
+
+export interface RecommendedModule {
+  moduleId: string;
+  moduleName: string;
+  moduleCode: string;
+  journeyTheme: JourneyPhase;
+  estimatedTime: number;
+  score: number;
+  whySuggested: WhySuggested;
+}
+
+export interface RecommendationWarning {
+  type: 'many-not-sure' | 'all-no' | 'too-many-modules' | 'discovery-incomplete';
+  message: string;
+}
+
+export interface RecommendationResult {
+  mode: 'discovery-driven' | 'default-starter-set';
+  recommendedModules: RecommendedModule[];
+  alsoRelevant: RecommendedModule[];
+  warnings: RecommendationWarning[];
+  reasoning: string;
+  confidenceLevel: 'high' | 'medium' | 'low';
+}
+
+export interface JourneyGroup {
+  phase: JourneyPhase;
+  label: string;
+  modules: RecommendedModule[];
+}
+
+// Extended Session with Discovery
+export interface DiscoverySession extends Session {
+  discovery_data?: DiscoveryData;
+  recommendation_result?: RecommendationResult;
+  review_mode?: ReviewMode;
+}

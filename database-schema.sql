@@ -356,6 +356,354 @@ CREATE TRIGGER update_session_on_action_change
 -- WHERE session_id = 'your-session-id' AND resolved = FALSE;
 
 -- ============================================
+-- DISCOVERY DATA TABLES (Phase 4)
+-- ============================================
+
+-- Review mode type
+CREATE TYPE review_mode AS ENUM ('foundation', 'detailed');
+
+-- Journey phase type
+CREATE TYPE journey_phase AS ENUM ('before-arrival', 'during-visit', 'after-visit');
+
+-- Discovery data table
+CREATE TABLE discovery_data (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  session_id UUID NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+
+  -- Selected touchpoints (array of touchpoint IDs)
+  selected_touchpoints TEXT[] DEFAULT '{}',
+  selected_sub_touchpoints TEXT[] DEFAULT '{}',
+
+  -- Touchpoint responses (touchpointId -> 'yes' | 'no' | 'not-sure')
+  touchpoint_responses JSONB DEFAULT '{}'::jsonb,
+
+  -- Recommendation result (full JSON from engine)
+  recommendation_result JSONB,
+
+  -- Selected review mode
+  review_mode review_mode DEFAULT 'foundation',
+
+  -- Recommended modules from discovery
+  recommended_modules TEXT[] DEFAULT '{}',
+
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+
+  CONSTRAINT discovery_data_session_unique UNIQUE (session_id)
+);
+
+CREATE INDEX idx_discovery_session_id ON discovery_data(session_id);
+
+-- Enable RLS
+ALTER TABLE discovery_data ENABLE ROW LEVEL SECURITY;
+
+-- Discovery data policies
+CREATE POLICY "Users can view their discovery data"
+  ON discovery_data FOR SELECT
+  USING (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = discovery_data.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can insert their discovery data"
+  ON discovery_data FOR INSERT
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = discovery_data.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can update their discovery data"
+  ON discovery_data FOR UPDATE
+  USING (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = discovery_data.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+-- ============================================
+-- MODULE PROGRESS TABLES (Phase 5)
+-- ============================================
+
+-- Module progress tracking
+CREATE TABLE module_progress (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  session_id UUID NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+
+  module_id TEXT NOT NULL,
+  module_code TEXT NOT NULL,
+
+  -- Progress tracking
+  status TEXT DEFAULT 'not-started', -- 'not-started', 'in-progress', 'completed'
+  started_at TIMESTAMP WITH TIME ZONE,
+  completed_at TIMESTAMP WITH TIME ZONE,
+
+  -- Question responses (JSONB array)
+  responses JSONB DEFAULT '[]'::jsonb,
+
+  -- Summary data (generated on completion)
+  summary JSONB,
+
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+
+  CONSTRAINT module_progress_unique UNIQUE (session_id, module_id)
+);
+
+CREATE INDEX idx_module_progress_session ON module_progress(session_id);
+CREATE INDEX idx_module_progress_status ON module_progress(status);
+
+-- Enable RLS
+ALTER TABLE module_progress ENABLE ROW LEVEL SECURITY;
+
+-- Module progress policies
+CREATE POLICY "Users can view their module progress"
+  ON module_progress FOR SELECT
+  USING (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = module_progress.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can insert their module progress"
+  ON module_progress FOR INSERT
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = module_progress.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can update their module progress"
+  ON module_progress FOR UPDATE
+  USING (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = module_progress.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+-- ============================================
+-- DIAP MANAGEMENT TABLES (Phase 7)
+-- ============================================
+
+-- DIAP category type
+CREATE TYPE diap_category AS ENUM (
+  'physical-access',
+  'digital-access',
+  'communication',
+  'customer-service',
+  'policy-procedure',
+  'training',
+  'other'
+);
+
+-- DIAP status type
+CREATE TYPE diap_status AS ENUM (
+  'not-started',
+  'in-progress',
+  'completed',
+  'on-hold',
+  'cancelled'
+);
+
+-- DIAP priority type
+CREATE TYPE diap_priority AS ENUM ('high', 'medium', 'low');
+
+-- DIAP items table
+CREATE TABLE diap_items (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  session_id UUID NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+
+  -- Core fields
+  objective TEXT NOT NULL,
+  action TEXT NOT NULL,
+  category diap_category DEFAULT 'other',
+  priority diap_priority DEFAULT 'medium',
+
+  -- Timeframe
+  timeframe TEXT, -- '0-30 days', '30-90 days', '3-12 months', 'Ongoing'
+
+  -- Assignment
+  responsible_role TEXT,
+  responsible_team TEXT,
+
+  -- Status tracking
+  status diap_status DEFAULT 'not-started',
+
+  -- Source tracking
+  module_source TEXT, -- Which module generated this
+  question_source TEXT, -- Which question generated this
+
+  -- Impact and details
+  impact_statement TEXT,
+  dependencies TEXT[],
+  resources TEXT[],
+  budget_estimate TEXT,
+
+  -- Notes
+  notes TEXT,
+
+  -- Timestamps
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  completed_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE INDEX idx_diap_items_session ON diap_items(session_id);
+CREATE INDEX idx_diap_items_priority ON diap_items(priority);
+CREATE INDEX idx_diap_items_status ON diap_items(status);
+CREATE INDEX idx_diap_items_category ON diap_items(category);
+
+-- Enable RLS
+ALTER TABLE diap_items ENABLE ROW LEVEL SECURITY;
+
+-- DIAP items policies
+CREATE POLICY "Users can view their DIAP items"
+  ON diap_items FOR SELECT
+  USING (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = diap_items.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can insert their DIAP items"
+  ON diap_items FOR INSERT
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = diap_items.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can update their DIAP items"
+  ON diap_items FOR UPDATE
+  USING (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = diap_items.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can delete their DIAP items"
+  ON diap_items FOR DELETE
+  USING (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = diap_items.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+-- DIAP documents table
+CREATE TABLE diap_documents (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  session_id UUID NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+
+  -- File info
+  filename TEXT NOT NULL,
+  file_type TEXT NOT NULL,
+  file_size INTEGER,
+  storage_path TEXT NOT NULL, -- Path in Supabase storage
+
+  -- Linking
+  linked_item_ids UUID[] DEFAULT '{}', -- Links to diap_items
+
+  -- Metadata
+  description TEXT,
+
+  uploaded_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_diap_documents_session ON diap_documents(session_id);
+
+-- Enable RLS
+ALTER TABLE diap_documents ENABLE ROW LEVEL SECURITY;
+
+-- DIAP documents policies
+CREATE POLICY "Users can view their DIAP documents"
+  ON diap_documents FOR SELECT
+  USING (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = diap_documents.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can insert their DIAP documents"
+  ON diap_documents FOR INSERT
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = diap_documents.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can delete their DIAP documents"
+  ON diap_documents FOR DELETE
+  USING (
+    EXISTS (
+      SELECT 1 FROM sessions
+      WHERE sessions.id = diap_documents.session_id
+      AND sessions.user_id = auth.uid()
+    )
+  );
+
+-- Trigger for DIAP items updated_at
+CREATE TRIGGER update_diap_items_updated_at
+  BEFORE UPDATE ON diap_items
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+
+-- Trigger for discovery_data updated_at
+CREATE TRIGGER update_discovery_data_updated_at
+  BEFORE UPDATE ON discovery_data
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+
+-- Trigger for module_progress updated_at
+CREATE TRIGGER update_module_progress_updated_at
+  BEFORE UPDATE ON module_progress
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+
+-- ============================================
+-- STORAGE BUCKET FOR DIAP DOCUMENTS
+-- ============================================
+-- Run this in Supabase Dashboard > Storage:
+--
+-- 1. Create bucket: "diap-documents"
+-- 2. Set bucket to private
+-- 3. Add RLS policy:
+--    - Allow authenticated users to upload to their session folder
+--    - Allow authenticated users to read from their session folder
+--
+-- Example storage policy SQL:
+-- CREATE POLICY "Users can upload to their session folder"
+-- ON storage.objects FOR INSERT
+-- WITH CHECK (
+--   bucket_id = 'diap-documents' AND
+--   auth.uid()::text = (storage.foldername(name))[1]
+-- );
+
+-- ============================================
 -- NOTES
 -- ============================================
 --
@@ -365,5 +713,11 @@ CREATE TRIGGER update_session_on_action_change
 -- 4. Timestamps are automatically managed
 -- 5. For MVP: user_id can be NULL (anonymous sessions)
 --    For Phase 2: user_id becomes required after authentication
+--
+-- NEW TABLES ADDED:
+-- - discovery_data: Stores touchpoint selections and recommendations
+-- - module_progress: Tracks question responses per module
+-- - diap_items: Full DIAP action items with categories
+-- - diap_documents: File attachments for DIAP
 --
 -- ============================================
