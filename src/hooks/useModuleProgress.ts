@@ -178,9 +178,9 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
               .select('*')
               .eq('session_id', session.session_id);
 
-            // Skip cloud sync if table doesn't exist or other error
+            // Skip cloud sync if table doesn't exist or other error (silently fall back)
             if (supabaseError) {
-              console.log('Supabase module_progress not available, using local storage');
+              // Table doesn't exist yet - this is expected if migrations haven't been run
             } else if (cloudProgress && cloudProgress.length > 0) {
               const cloudMap: Record<string, ModuleProgress> = {};
               cloudProgress.forEach(p => {

@@ -4,21 +4,24 @@
  * Comprehensive DIAP management with:
  * - 3-tab interface (All, In Progress, Completed)
  * - Document upload and management
+ * - Import from CSV and PDF
  * - Export functionality (CSV)
  * - Item status updates and editing
+ * - Calendar date picker for due dates
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { useModuleProgress } from '../hooks/useModuleProgress';
-import { getModuleById } from '../data/accessModules';
+import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { DIAP_SECTIONS, getDIAPSectionForModule } from '../data/diapMapping';
-import type { DIAPItem, DIAPDocument, DIAPStatus, DIAPPriority, DIAPCategory } from '../hooks/useDIAPManagement';
+import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
 import '../styles/diap.css';
 
 type TabType = 'all' | 'in-progress' | 'completed';
 type ViewMode = 'list' | 'by-section';
+type ImportResult = CSVImportResult | PDFImportResult | ExcelImportResult;
 
 export default function DIAPWorkspace() {
   const {
@@ -31,6 +34,12 @@ export default function DIAPWorkspace() {
     deleteItem,
     uploadDocument,
     deleteDocument,
+    importFromCSV,
+    importFromExcel,
+    importFromPDF,
+    exportToCSV,
+    getCSVTemplate,
+    generateFromResponses,
   } = useDIAPManagement();
 
   const [activeTab, setActiveTab] = useState<TabType>('all');
@@ -41,6 +50,14 @@ export default function DIAPWorkspace() {
   const [showDocuments, setShowDocuments] = useState(false);
   const [showEvidence, setShowEvidence] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importResult, setImportResult] = useState<ImportResult | null>(null);
+  const [isImporting, setIsImporting] = useState(false);
+  const csvInputRef = useRef<HTMLInputElement>(null);
+  const excelInputRef = useRef<HTMLInputElement>(null);
+  const pdfInputRef = useRef<HTMLInputElement>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generationResult, setGenerationResult] = useState<{ count: number; shown: boolean } | null>(null);
 
   // Get module progress for evidence layer
   const { progress: moduleProgress } = useModuleProgress([]);
@@ -69,8 +86,8 @@ export default function DIAPWorkspace() {
       .sort((a, b) => new Date(b.completedAt || 0).getTime() - new Date(a.completedAt || 0).getTime());
   }, [moduleProgress]);
 
-  // Group items by DIAP section
-  const itemsBySection = useMemo(() => {
+  // Group items by DIAP section (used in by-section view mode)
+  const _itemsBySection = useMemo(() => {
     const grouped: Record<string, DIAPItem[]> = {};
     DIAP_SECTIONS.forEach(section => {
       grouped[section.id] = [];
@@ -88,6 +105,7 @@ export default function DIAPWorkspace() {
 
     return grouped;
   }, [items]);
+  void _itemsBySection; // Reserved for future by-section view implementation
 
   // Filter items based on tab and filters
   const filteredItems = useMemo(() => {
@@ -129,21 +147,7 @@ export default function DIAPWorkspace() {
 
   // Handle export to CSV
   const handleExportCSV = () => {
-    const headers = ['Objective', 'Action', 'Category', 'Priority', 'Status', 'Timeframe', 'Created'];
-    const rows = items.map(item => [
-      item.objective,
-      item.action,
-      item.category,
-      item.priority,
-      item.status,
-      item.timeframe,
-      new Date(item.createdAt).toLocaleDateString(),
-    ]);
-
-    const csvContent = [headers, ...rows]
-      .map(row => row.map(cell => `"${cell || ''}"`).join(','))
-      .join('\n');
-
+    const csvContent = exportToCSV();
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -154,6 +158,127 @@ export default function DIAPWorkspace() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
+  // Handle download CSV template
+  const handleDownloadTemplate = () => {
+    const template = getCSVTemplate();
+    const blob = new Blob([template], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'DIAP-template.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // Handle CSV import
+  const handleCSVImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsImporting(true);
+    try {
+      const text = await file.text();
+      const result = importFromCSV(text);
+      setImportResult(result);
+    } catch (error) {
+      setImportResult({
+        success: false,
+        imported: 0,
+        errors: ['Failed to read CSV file'],
+        items: [],
+      });
+    } finally {
+      setIsImporting(false);
+      if (csvInputRef.current) csvInputRef.current.value = '';
+    }
+  };
+
+  // Handle Excel import
+  const handleExcelImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsImporting(true);
+    try {
+      const result = await importFromExcel(file);
+      setImportResult(result);
+    } catch (error) {
+      setImportResult({
+        success: false,
+        imported: 0,
+        errors: ['Failed to parse Excel file'],
+        items: [],
+        sheetsProcessed: [],
+      });
+    } finally {
+      setIsImporting(false);
+      if (excelInputRef.current) excelInputRef.current.value = '';
+    }
+  };
+
+  // Handle PDF import
+  const handlePDFImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsImporting(true);
+    try {
+      const result = await importFromPDF(file);
+      setImportResult(result);
+    } catch (error) {
+      setImportResult({
+        success: false,
+        imported: 0,
+        errors: ['Failed to parse PDF file'],
+        items: [],
+      });
+    } finally {
+      setIsImporting(false);
+      if (pdfInputRef.current) pdfInputRef.current.value = '';
+    }
+  };
+
+  // Handle generating DIAP items from completed assessments
+  const handleGenerateFromAssessment = useCallback(() => {
+    setIsGenerating(true);
+    let totalGenerated = 0;
+
+    try {
+      // Get all completed modules
+      const completedModules = Object.values(moduleProgress).filter(p => p.status === 'completed');
+
+      completedModules.forEach(moduleData => {
+        const module = getModuleById(moduleData.moduleId);
+        if (!module || !moduleData.responses) return;
+
+        // Get questions for this module
+        const questions = getQuestionsForMode(module, 'deep-dive');
+
+        // Generate DIAP items from responses
+        const count = generateFromResponses(
+          moduleData.responses,
+          questions,
+          module.name
+        );
+
+        totalGenerated += count;
+      });
+
+      setGenerationResult({ count: totalGenerated, shown: true });
+
+      // Hide the result message after 5 seconds
+      setTimeout(() => {
+        setGenerationResult(prev => prev ? { ...prev, shown: false } : null);
+      }, 5000);
+    } catch (error) {
+      console.error('Error generating DIAP items:', error);
+    } finally {
+      setIsGenerating(false);
+    }
+  }, [moduleProgress, generateFromResponses]);
 
   // Handle file upload
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,17 +292,6 @@ export default function DIAPWorkspace() {
   if (isLoading) {
     return (
       <div className="diap-page">
-        <header className="page-global-header">
-          <div className="header-brand">
-            <Link to="/dashboard" className="brand-link">
-              <span className="brand-name">Access Compass</span>
-              <span className="brand-byline">by Flare Access</span>
-            </Link>
-          </div>
-          <div className="header-actions">
-            <Link to="/dashboard" className="header-action-btn">Dashboard</Link>
-          </div>
-        </header>
         <div className="container">
           <div className="loading-state">Loading your DIAP...</div>
         </div>
@@ -187,17 +301,6 @@ export default function DIAPWorkspace() {
 
   return (
     <div className="diap-page">
-      <header className="page-global-header">
-        <div className="header-brand">
-          <Link to="/dashboard" className="brand-link">
-            <span className="brand-name">Access Compass</span>
-            <span className="brand-byline">by Flare Access</span>
-          </Link>
-        </div>
-        <div className="header-actions">
-          <Link to="/dashboard" className="header-action-btn">Dashboard</Link>
-        </div>
-      </header>
       <div className="container">
         {/* Header */}
         <div className="diap-header">
@@ -206,11 +309,212 @@ export default function DIAPWorkspace() {
             <p>Track and manage your accessibility improvements</p>
           </div>
           <div className="diap-header-actions">
+            <button className="btn-import" onClick={() => setShowImportModal(true)}>
+              Import DIAP
+            </button>
             <button className="btn-export" onClick={handleExportCSV}>
               Export CSV
             </button>
           </div>
         </div>
+
+        {/* Generation Result Notification */}
+        {generationResult?.shown && (
+          <div className="generation-notification">
+            <div className="success-icon">
+              {generationResult.count > 0 ? '✓' : 'ℹ'}
+            </div>
+            <div className="generation-notification-content">
+              {generationResult.count > 0 ? (
+                <>
+                  <h4>Items Generated</h4>
+                  <p>Added {generationResult.count} action item{generationResult.count !== 1 ? 's' : ''} from your assessment.</p>
+                </>
+              ) : (
+                <>
+                  <h4>Already Up to Date</h4>
+                  <p>All assessment findings are already in your DIAP.</p>
+                </>
+              )}
+            </div>
+            <button
+              className="close-btn"
+              onClick={() => setGenerationResult(prev => prev ? { ...prev, shown: false } : null)}
+            >
+              ×
+            </button>
+          </div>
+        )}
+
+        {/* Generate from Assessment Banner - Show when there are completed modules but no/few items */}
+        {completedModulesEvidence.length > 0 && items.length === 0 && (
+          <div className="generate-banner">
+            <div className="generate-banner-content">
+              <h3>✨ Generate DIAP from Your Assessment</h3>
+              <p>You have {completedModulesEvidence.length} completed module{completedModulesEvidence.length !== 1 ? 's' : ''}. Generate action items based on your assessment findings.</p>
+            </div>
+            <button
+              className="btn-generate"
+              onClick={handleGenerateFromAssessment}
+              disabled={isGenerating}
+            >
+              {isGenerating ? (
+                <>
+                  <span className="spinner"></span>
+                  Generating...
+                </>
+              ) : (
+                'Generate Action Items'
+              )}
+            </button>
+          </div>
+        )}
+
+        {/* Import Modal */}
+        {showImportModal && (
+          <div className="modal-overlay" onClick={() => { setShowImportModal(false); setImportResult(null); }}>
+            <div className="modal-content import-modal" onClick={e => e.stopPropagation()}>
+              <div className="modal-header">
+                <h2>Import Existing DIAP</h2>
+                <button className="modal-close" onClick={() => { setShowImportModal(false); setImportResult(null); }}>
+                  &times;
+                </button>
+              </div>
+
+              <div className="modal-body">
+                {!importResult ? (
+                  <>
+                    <p className="import-intro">
+                      Import your existing Disability Inclusion Action Plan from Excel, CSV, or PDF.
+                      Items will be added to your current DIAP.
+                    </p>
+
+                    <div className="import-options">
+                      {/* Excel Import - Primary Option */}
+                      <div className="import-option recommended">
+                        <div className="import-option-icon">📗</div>
+                        <h3>Import from Excel (Recommended)</h3>
+                        <p>Import directly from your existing Excel DIAP spreadsheet (.xlsx files).</p>
+                        <div className="import-option-actions">
+                          <label className="btn btn-primary">
+                            {isImporting ? 'Importing...' : 'Select Excel File'}
+                            <input
+                              ref={excelInputRef}
+                              type="file"
+                              accept=".xlsx,.xls"
+                              onChange={handleExcelImport}
+                              hidden
+                              disabled={isImporting}
+                            />
+                          </label>
+                        </div>
+                        <p className="import-note">
+                          Your spreadsheet should have columns for Action/Task, and optionally: Priority, Status, Due Date, Responsible Person.
+                        </p>
+                      </div>
+
+                      {/* CSV Import */}
+                      <div className="import-option">
+                        <div className="import-option-icon">📊</div>
+                        <h3>Import from CSV</h3>
+                        <p>Import a CSV file exported from Excel or Google Sheets.</p>
+                        <div className="import-option-actions">
+                          <button
+                            className="btn btn-secondary"
+                            onClick={handleDownloadTemplate}
+                          >
+                            Download Template
+                          </button>
+                          <label className="btn btn-primary">
+                            {isImporting ? 'Importing...' : 'Select CSV File'}
+                            <input
+                              ref={csvInputRef}
+                              type="file"
+                              accept=".csv"
+                              onChange={handleCSVImport}
+                              hidden
+                              disabled={isImporting}
+                            />
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* PDF Import */}
+                      <div className="import-option">
+                        <div className="import-option-icon">📄</div>
+                        <h3>Import from PDF</h3>
+                        <p>Extract action items from an existing DIAP PDF document.</p>
+                        <div className="import-option-actions">
+                          <label className="btn btn-primary">
+                            {isImporting ? 'Parsing PDF...' : 'Select PDF File'}
+                            <input
+                              ref={pdfInputRef}
+                              type="file"
+                              accept=".pdf"
+                              onChange={handlePDFImport}
+                              hidden
+                              disabled={isImporting}
+                            />
+                          </label>
+                        </div>
+                        <p className="import-note">
+                          Note: PDF import works best with well-structured documents.
+                          You may need to review and adjust imported items.
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="import-result">
+                    {importResult.success ? (
+                      <>
+                        <div className="import-success">
+                          <span className="success-icon">✓</span>
+                          <h3>Import Successful!</h3>
+                          <p>Imported {importResult.imported} item{importResult.imported !== 1 ? 's' : ''} to your DIAP.</p>
+                        </div>
+                        {importResult.errors.length > 0 && (
+                          <div className="import-warnings">
+                            <h4>Warnings:</h4>
+                            <ul>
+                              {importResult.errors.map((err, i) => (
+                                <li key={i}>{err}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="import-error">
+                        <span className="error-icon">!</span>
+                        <h3>Import Failed</h3>
+                        <ul>
+                          {importResult.errors.map((err, i) => (
+                            <li key={i}>{err}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    <div className="import-result-actions">
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => setImportResult(null)}
+                      >
+                        Import Another File
+                      </button>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => { setShowImportModal(false); setImportResult(null); }}
+                      >
+                        Done
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Stats Overview */}
         <div className="diap-stats-grid">
@@ -597,13 +901,38 @@ function DIAPItemForm({ item, onSave, onCancel }: DIAPItemFormProps) {
     priority: item?.priority || 'medium' as DIAPPriority,
     status: item?.status || 'not-started' as DIAPStatus,
     timeframe: item?.timeframe || '30-90 days',
+    dueDate: item?.dueDate || '',
     responsibleRole: item?.responsibleRole || '',
+    notes: item?.notes || '',
+    successIndicators: item?.successIndicators || '',
+    budgetEstimate: item?.budgetEstimate || '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.objective.trim()) return;
-    onSave(formData);
+    onSave({
+      ...formData,
+      importSource: item?.importSource || 'manual',
+    });
+  };
+
+  // Calculate suggested timeframe based on priority
+  const getSuggestedTimeframe = (priority: DIAPPriority) => {
+    switch (priority) {
+      case 'high': return '0-30 days';
+      case 'medium': return '30-90 days';
+      case 'low': return '3-12 months';
+      default: return '30-90 days';
+    }
+  };
+
+  const handlePriorityChange = (newPriority: DIAPPriority) => {
+    setFormData({
+      ...formData,
+      priority: newPriority,
+      timeframe: getSuggestedTimeframe(newPriority),
+    });
   };
 
   return (
@@ -625,12 +954,13 @@ function DIAPItemForm({ item, onSave, onCancel }: DIAPItemFormProps) {
 
       <div className="form-row">
         <label>
-          Action
+          Action *
           <textarea
             value={formData.action}
             onChange={(e) => setFormData({ ...formData, action: e.target.value })}
-            placeholder="What steps will you take?"
+            placeholder="What specific steps will you take?"
             rows={3}
+            required
           />
         </label>
       </div>
@@ -654,14 +984,29 @@ function DIAPItemForm({ item, onSave, onCancel }: DIAPItemFormProps) {
 
         <label>
           Priority
-          <select
-            value={formData.priority}
-            onChange={(e) => setFormData({ ...formData, priority: e.target.value as DIAPPriority })}
-          >
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
-          </select>
+          <div className="priority-toggle">
+            <button
+              type="button"
+              className={`priority-btn priority-high ${formData.priority === 'high' ? 'active' : ''}`}
+              onClick={() => handlePriorityChange('high')}
+            >
+              High
+            </button>
+            <button
+              type="button"
+              className={`priority-btn priority-medium ${formData.priority === 'medium' ? 'active' : ''}`}
+              onClick={() => handlePriorityChange('medium')}
+            >
+              Medium
+            </button>
+            <button
+              type="button"
+              className={`priority-btn priority-low ${formData.priority === 'low' ? 'active' : ''}`}
+              onClick={() => handlePriorityChange('low')}
+            >
+              Low
+            </button>
+          </div>
         </label>
       </div>
 
@@ -672,7 +1017,7 @@ function DIAPItemForm({ item, onSave, onCancel }: DIAPItemFormProps) {
             type="text"
             value={formData.responsibleRole}
             onChange={(e) => setFormData({ ...formData, responsibleRole: e.target.value })}
-            placeholder="Who's responsible?"
+            placeholder="e.g., Facilities Manager, HR Team"
           />
         </label>
 
@@ -682,11 +1027,70 @@ function DIAPItemForm({ item, onSave, onCancel }: DIAPItemFormProps) {
             value={formData.timeframe}
             onChange={(e) => setFormData({ ...formData, timeframe: e.target.value })}
           >
-            <option value="0-30 days">0-30 days</option>
-            <option value="30-90 days">30-90 days</option>
-            <option value="3-12 months">3-12 months</option>
+            <option value="0-30 days">Do now (0-30 days)</option>
+            <option value="30-90 days">Do next (30-90 days)</option>
+            <option value="3-12 months">Plan later (3-12 months)</option>
             <option value="Ongoing">Ongoing</option>
           </select>
+        </label>
+      </div>
+
+      <div className="form-row double">
+        <label>
+          Due Date
+          <input
+            type="date"
+            value={formData.dueDate}
+            onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
+            min={new Date().toISOString().split('T')[0]}
+          />
+        </label>
+
+        <label>
+          Status
+          <select
+            value={formData.status}
+            onChange={(e) => setFormData({ ...formData, status: e.target.value as DIAPStatus })}
+          >
+            <option value="not-started">Not Started</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="on-hold">On Hold</option>
+          </select>
+        </label>
+      </div>
+
+      <div className="form-row">
+        <label>
+          Success Indicators
+          <input
+            type="text"
+            value={formData.successIndicators}
+            onChange={(e) => setFormData({ ...formData, successIndicators: e.target.value })}
+            placeholder="How will you measure success?"
+          />
+        </label>
+      </div>
+
+      <div className="form-row double">
+        <label>
+          Budget Estimate
+          <input
+            type="text"
+            value={formData.budgetEstimate}
+            onChange={(e) => setFormData({ ...formData, budgetEstimate: e.target.value })}
+            placeholder="e.g., <$500, $1,000-$5,000"
+          />
+        </label>
+
+        <label>
+          Notes
+          <input
+            type="text"
+            value={formData.notes}
+            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+            placeholder="Additional notes"
+          />
         </label>
       </div>
 

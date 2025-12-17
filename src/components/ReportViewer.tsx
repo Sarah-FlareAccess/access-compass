@@ -6,6 +6,7 @@
  */
 
 import type { Report } from '../hooks/useReportGeneration';
+import { downloadPDFReport } from '../utils/pdfGenerator';
 import './ReportViewer.css';
 
 // Helper function to format analysis type for display
@@ -46,10 +47,14 @@ function formatStatus(status: string): string {
 interface ReportViewerProps {
   report: Report;
   onClose: () => void;
-  onDownload: () => void;
+  onDownload?: () => void;
 }
 
 export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps) {
+  const handleDownload = () => {
+    downloadPDFReport(report);
+    onDownload?.();
+  };
   const isPulseCheck = report.reportType === 'pulse-check';
 
   return (
@@ -61,7 +66,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
             {isPulseCheck ? 'Pulse Check Summary' : 'Deep Dive Report'}
           </h2>
           <div className="report-actions">
-            <button className="btn-download-report" onClick={onDownload}>
+            <button className="btn-download-report" onClick={handleDownload}>
               Download PDF
             </button>
             <button className="btn-close-report" onClick={onClose}>

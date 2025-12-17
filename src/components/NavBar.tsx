@@ -19,35 +19,41 @@ export default function NavBar() {
           </Link>
         </div>
 
-        <div className="nav-links">
-          <Link
-            to="/dashboard"
-            className={`nav-link ${isActive('/dashboard') ? 'active' : ''}`}
-          >
-            Dashboard
-          </Link>
-          <Link
-            to="/export"
-            className={`nav-link ${isActive('/export') ? 'active' : ''}`}
-          >
-            Report
-          </Link>
-          <Link
-            to="/diap"
-            className={`nav-link ${isActive('/diap') ? 'active' : ''}`}
-          >
-            DIAP
-          </Link>
-        </div>
-
-        <div className="nav-auth">
-          {orgName ? (
-            <span className="user-greeting">Signed in as {orgName}</span>
-          ) : (
-            <Link to="/start" className="nav-link sign-in">
-              Sign in
+        <div className="nav-right">
+          <div className="nav-links">
+            <Link
+              to="/dashboard"
+              className={`nav-link ${isActive('/dashboard') ? 'active' : ''}`}
+            >
+              Dashboard
             </Link>
+            <Link
+              to="/export"
+              className={`nav-link ${isActive('/export') ? 'active' : ''}`}
+            >
+              Report
+            </Link>
+            <Link
+              to="/diap"
+              className={`nav-link ${isActive('/diap') ? 'active' : ''}`}
+            >
+              DIAP
+            </Link>
+          </div>
+
+          {orgName && (
+            <span className="nav-divider"></span>
           )}
+
+          <div className="nav-auth">
+            {orgName ? (
+              <span className="user-greeting">{orgName}</span>
+            ) : (
+              <Link to="/start" className="nav-link sign-in">
+                Sign in
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </nav>

@@ -277,33 +277,10 @@ Thanks!`;
 
   const orgName = session?.business_snapshot?.organisation_name || 'there';
   const hasCompletedModules = overallStats.modulesCompleted > 0;
-  const hasDIAPItems = overallStats.diapItemCount > 0;
   const reviewMode = discoveryData?.review_mode || 'pulse-check';
 
   return (
     <div className="dashboard-page">
-      {/* Global Header */}
-      <header className="dashboard-global-header">
-        <div className="header-brand">
-          <span className="brand-name">Access Compass</span>
-          <span className="brand-byline">by Flare Access</span>
-        </div>
-        <div className="header-actions">
-          <Link
-            to="/export"
-            className={`header-action-btn ${!hasCompletedModules ? 'disabled' : ''}`}
-          >
-            View Report
-          </Link>
-          <Link
-            to="/diap"
-            className={`header-action-btn ${!hasDIAPItems ? 'disabled' : ''}`}
-          >
-            View DIAP
-          </Link>
-        </div>
-      </header>
-
       <main className="dashboard-main">
         <div className="dashboard-container">
           {/* Welcome + Context */}

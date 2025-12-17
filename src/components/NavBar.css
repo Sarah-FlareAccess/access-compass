@@ -42,11 +42,18 @@
   font-weight: 400;
 }
 
+/* Right Section (Nav + Auth) */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 /* Navigation Links */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 }
 
 .nav-link {
@@ -69,6 +76,13 @@
   background: rgba(124, 58, 237, 0.3);
 }
 
+/* Divider */
+.nav-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
 /* Auth Section */
 .nav-auth {
   flex-shrink: 0;
@@ -76,7 +90,8 @@
 
 .user-greeting {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
 }
 
 .sign-in {
@@ -103,8 +118,12 @@
     display: none;
   }
 
+  .nav-right {
+    gap: 8px;
+  }
+
   .nav-links {
-    gap: 4px;
+    gap: 2px;
   }
 
   .nav-link {
@@ -112,6 +131,7 @@
     font-size: 13px;
   }
 
+  .nav-divider,
   .user-greeting {
     display: none;
   }

@@ -40,6 +40,7 @@ export interface DIAPItem {
 
   // Timeframe
   timeframe: string; // '0-30 days', '30-90 days', '3-12 months', 'Ongoing'
+  dueDate?: string; // ISO date string for specific due date
 
   // Assignment
   responsibleRole?: string;
@@ -51,6 +52,7 @@ export interface DIAPItem {
   // Source tracking
   moduleSource?: string;
   questionSource?: string;
+  importSource?: 'audit' | 'manual' | 'csv' | 'pdf'; // Track where item came from
 
   // Details
   impactStatement?: string;
@@ -58,6 +60,7 @@ export interface DIAPItem {
   resources?: string[];
   budgetEstimate?: string;
   notes?: string;
+  successIndicators?: string; // How success will be measured
 
   // Timestamps
   createdAt: string;
@@ -99,6 +102,32 @@ function saveLocalDocuments(docs: DIAPDocument[]) {
   localStorage.setItem(DIAP_DOCUMENTS_KEY, JSON.stringify(docs));
 }
 
+// CSV Import result
+export interface CSVImportResult {
+  success: boolean;
+  imported: number;
+  errors: string[];
+  items: DIAPItem[];
+}
+
+// PDF Import result
+export interface PDFImportResult {
+  success: boolean;
+  imported: number;
+  errors: string[];
+  items: DIAPItem[];
+  rawText?: string;
+}
+
+// Excel Import result
+export interface ExcelImportResult {
+  success: boolean;
+  imported: number;
+  errors: string[];
+  items: DIAPItem[];
+  sheetsProcessed: string[];
+}
+
 interface UseDIAPManagementReturn {
   items: DIAPItem[];
   documents: DIAPDocument[];
@@ -112,6 +141,10 @@ interface UseDIAPManagementReturn {
 
   // Bulk operations
   createItemsFromResponses: (responses: ResponseForDIAP[]) => DIAPItem[];
+  importFromCSV: (csvContent: string) => CSVImportResult;
+  importFromExcel: (file: File) => Promise<ExcelImportResult>;
+  importFromPDF: (file: File) => Promise<PDFImportResult>;
+  generateFromResponses: (responses: any[], questions: any[], moduleName: string) => number;
 
   // Document operations
   uploadDocument: (file: File, linkedItemIds?: string[]) => Promise<DIAPDocument | null>;
@@ -124,6 +157,10 @@ interface UseDIAPManagementReturn {
   getItemsByTimeframe: (timeframe: string) => DIAPItem[];
   getItemsByCategory: (category: DIAPCategory) => DIAPItem[];
   getStats: () => DIAPStats;
+
+  // Export
+  exportToCSV: () => string;
+  getCSVTemplate: () => string;
 
   // Sync
   syncToCloud: () => Promise<void>;
@@ -220,9 +257,9 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
               .select('*')
               .eq('session_id', session.session_id);
 
-            // Skip cloud sync if table doesn't exist or other error
+            // Skip cloud sync if table doesn't exist or other error (silently fall back)
             if (itemsError) {
-              console.log('Supabase diap_items not available, using local storage');
+              // Table doesn't exist yet - this is expected if migrations haven't been run
             } else if (cloudItems && cloudItems.length > 0) {
               const mapped = cloudItems.map(item => ({
                 id: item.id,
@@ -256,9 +293,9 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
               .select('*')
               .eq('session_id', session.session_id);
 
-            // Skip cloud sync if table doesn't exist or other error
+            // Skip cloud sync if table doesn't exist or other error (silently fall back)
             if (docsError) {
-              console.log('Supabase diap_documents not available, using local storage');
+              // Table doesn't exist yet - this is expected if migrations haven't been run
             } else if (cloudDocs && cloudDocs.length > 0) {
               const mappedDocs = cloudDocs.map(doc => ({
                 id: doc.id,
@@ -531,6 +568,621 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     return { total, byStatus, byPriority, byTimeframe, completedPercentage };
   }, [items]);
 
+  // Import from CSV
+  const importFromCSV = useCallback((csvContent: string): CSVImportResult => {
+    const session = getSession();
+    const now = new Date().toISOString();
+    const errors: string[] = [];
+    const importedItems: DIAPItem[] = [];
+
+    try {
+      const lines = csvContent.split('\n').filter(line => line.trim());
+      if (lines.length < 2) {
+        return { success: false, imported: 0, errors: ['CSV file is empty or has no data rows'], items: [] };
+      }
+
+      // Parse header
+      const header = parseCSVLine(lines[0]).map(h => h.toLowerCase().trim());
+      const requiredCols = ['objective', 'action'];
+      const missingCols = requiredCols.filter(col => !header.includes(col));
+
+      if (missingCols.length > 0) {
+        return { success: false, imported: 0, errors: [`Missing required columns: ${missingCols.join(', ')}`], items: [] };
+      }
+
+      // Get column indices
+      const colIdx = {
+        objective: header.indexOf('objective'),
+        action: header.indexOf('action'),
+        category: header.indexOf('category'),
+        priority: header.indexOf('priority'),
+        status: header.indexOf('status'),
+        timeframe: header.indexOf('timeframe'),
+        dueDate: header.indexOf('due_date') !== -1 ? header.indexOf('due_date') : header.indexOf('duedate'),
+        responsible: header.indexOf('responsible') !== -1 ? header.indexOf('responsible') : header.indexOf('responsible_role'),
+        notes: header.indexOf('notes'),
+        successIndicators: header.indexOf('success_indicators') !== -1 ? header.indexOf('success_indicators') : header.indexOf('indicators'),
+        budgetEstimate: header.indexOf('budget_estimate') !== -1 ? header.indexOf('budget_estimate') : header.indexOf('budget'),
+      };
+
+      // Parse data rows
+      for (let i = 1; i < lines.length; i++) {
+        try {
+          const values = parseCSVLine(lines[i]);
+          if (values.length === 0 || values.every(v => !v.trim())) continue;
+
+          const objective = values[colIdx.objective]?.trim() || '';
+          const action = values[colIdx.action]?.trim() || '';
+
+          if (!objective && !action) {
+            errors.push(`Row ${i + 1}: Missing both objective and action`);
+            continue;
+          }
+
+          // Parse category
+          let category: DIAPCategory = 'other';
+          if (colIdx.category !== -1 && values[colIdx.category]) {
+            const catValue = values[colIdx.category].toLowerCase().trim().replace(/\s+/g, '-');
+            if (isValidCategory(catValue)) {
+              category = catValue as DIAPCategory;
+            }
+          }
+
+          // Parse priority
+          let priority: DIAPPriority = 'medium';
+          if (colIdx.priority !== -1 && values[colIdx.priority]) {
+            const prioValue = values[colIdx.priority].toLowerCase().trim();
+            if (['high', 'medium', 'low'].includes(prioValue)) {
+              priority = prioValue as DIAPPriority;
+            }
+          }
+
+          // Parse status
+          let status: DIAPStatus = 'not-started';
+          if (colIdx.status !== -1 && values[colIdx.status]) {
+            const statusValue = values[colIdx.status].toLowerCase().trim().replace(/\s+/g, '-');
+            if (isValidStatus(statusValue)) {
+              status = statusValue as DIAPStatus;
+            }
+          }
+
+          // Parse timeframe
+          let timeframe = '30-90 days';
+          if (colIdx.timeframe !== -1 && values[colIdx.timeframe]) {
+            timeframe = values[colIdx.timeframe].trim();
+          }
+
+          // Parse due date
+          let dueDate: string | undefined;
+          if (colIdx.dueDate !== -1 && values[colIdx.dueDate]) {
+            const parsed = new Date(values[colIdx.dueDate].trim());
+            if (!isNaN(parsed.getTime())) {
+              dueDate = parsed.toISOString().split('T')[0];
+            }
+          }
+
+          const item: DIAPItem = {
+            id: uuidv4(),
+            sessionId: session?.session_id || '',
+            objective: objective || action,
+            action: action || objective,
+            category,
+            priority,
+            status,
+            timeframe,
+            dueDate,
+            responsibleRole: colIdx.responsible !== -1 ? values[colIdx.responsible]?.trim() : undefined,
+            notes: colIdx.notes !== -1 ? values[colIdx.notes]?.trim() : undefined,
+            successIndicators: colIdx.successIndicators !== -1 ? values[colIdx.successIndicators]?.trim() : undefined,
+            budgetEstimate: colIdx.budgetEstimate !== -1 ? values[colIdx.budgetEstimate]?.trim() : undefined,
+            importSource: 'csv',
+            createdAt: now,
+            updatedAt: now,
+          };
+
+          importedItems.push(item);
+        } catch (rowError) {
+          errors.push(`Row ${i + 1}: Parse error`);
+        }
+      }
+
+      if (importedItems.length > 0) {
+        setItems(prev => {
+          const updated = [...prev, ...importedItems];
+          saveLocalItems(updated);
+          return updated;
+        });
+      }
+
+      return {
+        success: importedItems.length > 0,
+        imported: importedItems.length,
+        errors,
+        items: importedItems,
+      };
+    } catch (err) {
+      console.error('CSV import error:', err);
+      return { success: false, imported: 0, errors: ['Failed to parse CSV file'], items: [] };
+    }
+  }, []);
+
+  // Import from Excel (.xlsx)
+  const importFromExcel = useCallback(async (file: File): Promise<ExcelImportResult> => {
+    const session = getSession();
+    const now = new Date().toISOString();
+    const errors: string[] = [];
+    const importedItems: DIAPItem[] = [];
+    const sheetsProcessed: string[] = [];
+
+    try {
+      const XLSX = await import('xlsx');
+      const arrayBuffer = await file.arrayBuffer();
+      const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+
+      // Process each sheet
+      for (const sheetName of workbook.SheetNames) {
+        sheetsProcessed.push(sheetName);
+        const worksheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as any[][];
+
+        if (jsonData.length < 2) continue;
+
+        // Get headers from first row
+        const headers = (jsonData[0] as string[]).map(h => String(h || '').toLowerCase().trim());
+
+        // Find column indices
+        const colIdx = {
+          objective: headers.findIndex(h => h.includes('objective') || h.includes('goal')),
+          action: headers.findIndex(h => h.includes('action') || h.includes('task') || h.includes('item')),
+          category: headers.findIndex(h => h.includes('category') || h.includes('area') || h.includes('pillar')),
+          priority: headers.findIndex(h => h.includes('priority')),
+          status: headers.findIndex(h => h.includes('status')),
+          timeframe: headers.findIndex(h => h.includes('timeframe') || h.includes('timeline')),
+          dueDate: headers.findIndex(h => h.includes('due') || h.includes('date') || h.includes('deadline')),
+          responsible: headers.findIndex(h => h.includes('responsible') || h.includes('owner') || h.includes('who') || h.includes('assigned')),
+          notes: headers.findIndex(h => h.includes('note') || h.includes('comment')),
+          successIndicators: headers.findIndex(h => h.includes('indicator') || h.includes('measure') || h.includes('kpi')),
+          budgetEstimate: headers.findIndex(h => h.includes('budget') || h.includes('cost') || h.includes('resource')),
+        };
+
+        // Check if we have at least objective or action column
+        if (colIdx.objective === -1 && colIdx.action === -1) {
+          errors.push(`Sheet "${sheetName}": No objective or action column found`);
+          continue;
+        }
+
+        // Process data rows
+        for (let i = 1; i < jsonData.length; i++) {
+          const row = jsonData[i];
+          if (!row || row.every(cell => !cell)) continue;
+
+          const getValue = (idx: number) => idx !== -1 && row[idx] ? String(row[idx]).trim() : '';
+
+          const objective = getValue(colIdx.objective);
+          const action = getValue(colIdx.action);
+
+          if (!objective && !action) continue;
+
+          // Parse category
+          let category: DIAPCategory = 'other';
+          const catValue = getValue(colIdx.category).toLowerCase().replace(/\s+/g, '-');
+          if (isValidCategory(catValue)) {
+            category = catValue as DIAPCategory;
+          } else {
+            // Try to categorize from text
+            category = categorizeFromText(action || objective);
+          }
+
+          // Parse priority
+          let priority: DIAPPriority = 'medium';
+          const prioValue = getValue(colIdx.priority).toLowerCase();
+          if (['high', 'medium', 'low'].includes(prioValue)) {
+            priority = prioValue as DIAPPriority;
+          } else if (prioValue.includes('1') || prioValue.includes('urgent')) {
+            priority = 'high';
+          } else if (prioValue.includes('3') || prioValue.includes('low')) {
+            priority = 'low';
+          }
+
+          // Parse status
+          let status: DIAPStatus = 'not-started';
+          const statusValue = getValue(colIdx.status).toLowerCase();
+          if (statusValue.includes('progress') || statusValue.includes('ongoing')) {
+            status = 'in-progress';
+          } else if (statusValue.includes('complete') || statusValue.includes('done')) {
+            status = 'completed';
+          } else if (statusValue.includes('hold') || statusValue.includes('pause')) {
+            status = 'on-hold';
+          }
+
+          // Parse timeframe
+          let timeframe = '30-90 days';
+          const tfValue = getValue(colIdx.timeframe).toLowerCase();
+          if (tfValue.includes('immediate') || tfValue.includes('0-30') || tfValue.includes('month')) {
+            timeframe = '0-30 days';
+          } else if (tfValue.includes('year') || tfValue.includes('12') || tfValue.includes('long')) {
+            timeframe = '3-12 months';
+          } else if (tfValue.includes('ongoing')) {
+            timeframe = 'Ongoing';
+          }
+
+          // Parse due date
+          let dueDate: string | undefined;
+          const dateValue = getValue(colIdx.dueDate);
+          if (dateValue) {
+            // Handle Excel date serial numbers
+            if (!isNaN(Number(dateValue))) {
+              const excelDate = new Date((Number(dateValue) - 25569) * 86400 * 1000);
+              if (!isNaN(excelDate.getTime())) {
+                dueDate = excelDate.toISOString().split('T')[0];
+              }
+            } else {
+              const parsed = new Date(dateValue);
+              if (!isNaN(parsed.getTime())) {
+                dueDate = parsed.toISOString().split('T')[0];
+              }
+            }
+          }
+
+          const item: DIAPItem = {
+            id: uuidv4(),
+            sessionId: session?.session_id || '',
+            objective: objective || action,
+            action: action || objective,
+            category,
+            priority,
+            status,
+            timeframe,
+            dueDate,
+            responsibleRole: getValue(colIdx.responsible) || undefined,
+            notes: getValue(colIdx.notes) || undefined,
+            successIndicators: getValue(colIdx.successIndicators) || undefined,
+            budgetEstimate: getValue(colIdx.budgetEstimate) || undefined,
+            importSource: 'csv', // Using 'csv' as Excel is similar
+            createdAt: now,
+            updatedAt: now,
+          };
+
+          importedItems.push(item);
+        }
+      }
+
+      if (importedItems.length > 0) {
+        setItems(prev => {
+          const updated = [...prev, ...importedItems];
+          saveLocalItems(updated);
+          return updated;
+        });
+      } else if (errors.length === 0) {
+        errors.push('No valid DIAP items found in the Excel file');
+      }
+
+      return {
+        success: importedItems.length > 0,
+        imported: importedItems.length,
+        errors,
+        items: importedItems,
+        sheetsProcessed,
+      };
+    } catch (err) {
+      console.error('Excel import error:', err);
+      return {
+        success: false,
+        imported: 0,
+        errors: ['Failed to parse Excel file. Please ensure it is a valid .xlsx file.'],
+        items: [],
+        sheetsProcessed,
+      };
+    }
+  }, []);
+
+  // Import from PDF - extracts text and attempts to parse DIAP items
+  const importFromPDF = useCallback(async (file: File): Promise<PDFImportResult> => {
+    const session = getSession();
+    const now = new Date().toISOString();
+    const errors: string[] = [];
+    const importedItems: DIAPItem[] = [];
+
+    try {
+      // Use PDF.js to extract text
+      const arrayBuffer = await file.arrayBuffer();
+      const pdfjsLib = await import('pdfjs-dist');
+
+      // Set worker source
+      pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let fullText = '';
+
+      // Extract text from all pages
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items
+          .map((item: any) => item.str)
+          .join(' ');
+        fullText += pageText + '\n';
+      }
+
+      // Attempt to parse DIAP items from text
+      // Look for common patterns in DIAP documents
+      const patterns = [
+        // Pattern: "Action: ... Responsible: ... Timeframe: ..."
+        /(?:Action|Item|Task)[:\s]*([^.]+?)\s*(?:Responsible|Owner|Who)[:\s]*([^.]+?)\s*(?:Timeframe|Due|By|Date)[:\s]*([^\n.]+)/gi,
+        // Pattern: Numbered items "1. Action text"
+        /^\s*\d+[.)]\s*(.+?)(?:\n|$)/gm,
+        // Pattern: Bullet points
+        /^[\s•\-*]\s*(.+?)(?:\n|$)/gm,
+      ];
+
+      // Try to extract structured items
+      const actionPattern = /(?:Action|Item|Task|Objective)[:\s]+([^.\n]+)/gi;
+      let match;
+
+      while ((match = actionPattern.exec(fullText)) !== null) {
+        const actionText = match[1].trim();
+        if (actionText.length > 10 && actionText.length < 500) {
+          // Try to find associated responsibility
+          const contextStart = Math.max(0, match.index - 200);
+          const contextEnd = Math.min(fullText.length, match.index + match[0].length + 200);
+          const context = fullText.slice(contextStart, contextEnd);
+
+          let responsible: string | undefined;
+          const respMatch = context.match(/(?:Responsible|Owner|Who|Assigned)[:\s]+([^\n,]+)/i);
+          if (respMatch) {
+            responsible = respMatch[1].trim();
+          }
+
+          let dueDate: string | undefined;
+          const dateMatch = context.match(/(?:Due|By|Date|Timeframe)[:\s]+(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}|\w+\s+\d{4})/i);
+          if (dateMatch) {
+            const parsed = new Date(dateMatch[1]);
+            if (!isNaN(parsed.getTime())) {
+              dueDate = parsed.toISOString().split('T')[0];
+            }
+          }
+
+          // Categorize based on keywords
+          const category = categorizeFromText(actionText);
+          const priority = prioritizeFromText(actionText);
+
+          const item: DIAPItem = {
+            id: uuidv4(),
+            sessionId: session?.session_id || '',
+            objective: actionText,
+            action: actionText,
+            category,
+            priority,
+            status: 'not-started',
+            timeframe: priority === 'high' ? '0-30 days' : priority === 'medium' ? '30-90 days' : '3-12 months',
+            dueDate,
+            responsibleRole: responsible,
+            importSource: 'pdf',
+            createdAt: now,
+            updatedAt: now,
+          };
+
+          // Avoid duplicates
+          if (!importedItems.some(i => i.action === item.action)) {
+            importedItems.push(item);
+          }
+        }
+      }
+
+      // If no structured items found, try to extract numbered or bulleted items
+      if (importedItems.length === 0) {
+        const bulletPattern = /(?:^|\n)\s*(?:\d+[.)]\s*|[•\-*]\s*)(.{20,200})(?:\n|$)/g;
+        while ((match = bulletPattern.exec(fullText)) !== null) {
+          const text = match[1].trim();
+          if (text && !text.match(/^(page|copyright|table of contents)/i)) {
+            const item: DIAPItem = {
+              id: uuidv4(),
+              sessionId: session?.session_id || '',
+              objective: text,
+              action: text,
+              category: categorizeFromText(text),
+              priority: 'medium',
+              status: 'not-started',
+              timeframe: '30-90 days',
+              importSource: 'pdf',
+              createdAt: now,
+              updatedAt: now,
+            };
+            importedItems.push(item);
+          }
+        }
+      }
+
+      if (importedItems.length === 0) {
+        errors.push('Could not extract DIAP items from PDF. Try using CSV import instead.');
+      } else {
+        setItems(prev => {
+          const updated = [...prev, ...importedItems];
+          saveLocalItems(updated);
+          return updated;
+        });
+      }
+
+      return {
+        success: importedItems.length > 0,
+        imported: importedItems.length,
+        errors,
+        items: importedItems,
+        rawText: fullText.slice(0, 5000), // Return first 5000 chars for review
+      };
+    } catch (err) {
+      console.error('PDF import error:', err);
+      return {
+        success: false,
+        imported: 0,
+        errors: ['Failed to parse PDF file. Make sure it contains readable text.'],
+        items: [],
+      };
+    }
+  }, []);
+
+  // Generate DIAP items from module responses (including media and URL analysis)
+  const generateFromResponses = useCallback((responses: any[], questions: any[], moduleName: string) => {
+    const session = getSession();
+    const now = new Date().toISOString();
+    const newItems: DIAPItem[] = [];
+
+    // Get existing items to avoid duplicates
+    const existingItems = getLocalItems();
+    const existingQuestionSources = new Set(existingItems.map(i => i.questionSource).filter(Boolean));
+
+    responses.forEach(response => {
+      // Skip if we already have a DIAP item for this question
+      if (existingQuestionSources.has(response.questionId)) {
+        return;
+      }
+
+      const question = questions.find((q: any) => q.id === response.questionId);
+      if (!question) return;
+
+      // Generate items for "no" or "not-sure" answers
+      if (response.answer === 'no' || response.answer === 'not-sure') {
+        const priority: DIAPPriority = question.safetyRelated ? 'high' :
+          question.impactLevel === 'high' ? 'high' :
+          question.impactLevel === 'medium' ? 'medium' : 'low';
+
+        const item: DIAPItem = {
+          id: uuidv4(),
+          sessionId: session?.session_id || '',
+          objective: generateObjective(question.text, moduleName),
+          action: questionToAction(question.text),
+          category: mapModuleToCategory(moduleName),
+          priority,
+          status: 'not-started',
+          timeframe: priority === 'high' ? '0-30 days' : priority === 'medium' ? '30-90 days' : '3-12 months',
+          moduleSource: moduleName,
+          questionSource: response.questionId,
+          importSource: 'audit',
+          impactStatement: question.safetyRelated
+            ? 'This is a safety-related item requiring immediate attention.'
+            : undefined,
+          createdAt: now,
+          updatedAt: now,
+        };
+
+        newItems.push(item);
+      }
+
+      // Generate items from media analysis improvements
+      if (response.mediaAnalysis && response.mediaAnalysis.improvements?.length > 0) {
+        const analysisType = response.mediaAnalysis.analysisType || 'media';
+        const priority: DIAPPriority = response.mediaAnalysis.needsProfessionalReview ? 'high' :
+          response.mediaAnalysis.overallScore < 50 ? 'high' :
+          response.mediaAnalysis.overallScore < 70 ? 'medium' : 'low';
+
+        response.mediaAnalysis.improvements.forEach((improvement: string, idx: number) => {
+          const itemId = `${response.questionId}-media-${idx}`;
+          if (existingQuestionSources.has(itemId)) return;
+
+          const item: DIAPItem = {
+            id: uuidv4(),
+            sessionId: session?.session_id || '',
+            objective: `Improve ${formatAnalysisType(analysisType)} accessibility`,
+            action: improvement,
+            category: mapAnalysisTypeToCategory(analysisType),
+            priority,
+            status: 'not-started',
+            timeframe: priority === 'high' ? '0-30 days' : priority === 'medium' ? '30-90 days' : '3-12 months',
+            moduleSource: moduleName,
+            questionSource: itemId,
+            importSource: 'audit',
+            notes: `From ${formatAnalysisType(analysisType)} analysis (Score: ${response.mediaAnalysis.overallScore}/100)`,
+            createdAt: now,
+            updatedAt: now,
+          };
+
+          newItems.push(item);
+        });
+      }
+
+      // Generate items from URL/website analysis improvements
+      if (response.urlAnalysis && response.urlAnalysis.improvements?.length > 0) {
+        const priority: DIAPPriority = response.urlAnalysis.overallScore < 50 ? 'high' :
+          response.urlAnalysis.overallScore < 70 ? 'medium' : 'low';
+
+        response.urlAnalysis.improvements.forEach((improvement: string, idx: number) => {
+          const itemId = `${response.questionId}-url-${idx}`;
+          if (existingQuestionSources.has(itemId)) return;
+
+          const item: DIAPItem = {
+            id: uuidv4(),
+            sessionId: session?.session_id || '',
+            objective: 'Improve website accessibility',
+            action: improvement,
+            category: 'digital-access',
+            priority,
+            status: 'not-started',
+            timeframe: priority === 'high' ? '0-30 days' : priority === 'medium' ? '30-90 days' : '3-12 months',
+            moduleSource: moduleName,
+            questionSource: itemId,
+            importSource: 'audit',
+            notes: `From website audit of ${response.urlAnalysis.url} (Score: ${response.urlAnalysis.overallScore}/100)`,
+            createdAt: now,
+            updatedAt: now,
+          };
+
+          newItems.push(item);
+        });
+      }
+    });
+
+    if (newItems.length > 0) {
+      setItems(prev => {
+        const updated = [...prev, ...newItems];
+        saveLocalItems(updated);
+        return updated;
+      });
+    }
+
+    return newItems.length;
+  }, []);
+
+  // Export to CSV
+  const exportToCSV = useCallback((): string => {
+    const headers = ['objective', 'action', 'category', 'priority', 'status', 'timeframe', 'due_date', 'responsible', 'notes', 'success_indicators', 'budget_estimate', 'created_at'];
+    const rows = items.map(item => [
+      escapeCSV(item.objective),
+      escapeCSV(item.action),
+      item.category,
+      item.priority,
+      item.status,
+      item.timeframe,
+      item.dueDate || '',
+      escapeCSV(item.responsibleRole || ''),
+      escapeCSV(item.notes || ''),
+      escapeCSV(item.successIndicators || ''),
+      escapeCSV(item.budgetEstimate || ''),
+      item.createdAt,
+    ]);
+
+    return [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+  }, [items]);
+
+  // Get CSV template
+  const getCSVTemplate = useCallback((): string => {
+    const headers = ['objective', 'action', 'category', 'priority', 'status', 'timeframe', 'due_date', 'responsible', 'notes', 'success_indicators', 'budget_estimate'];
+    const example = [
+      '"Improve entrance accessibility"',
+      '"Install automatic door opener at main entrance"',
+      'physical-access',
+      'high',
+      'not-started',
+      '0-30 days',
+      '2025-03-01',
+      '"Facilities Manager"',
+      '"Quote received from contractor"',
+      '"Door opener installed and operational"',
+      '"$2,000-$5,000"',
+    ];
+
+    return [headers.join(','), example.join(',')].join('\n');
+  }, []);
+
   // Sync to cloud
   const syncToCloud = useCallback(async () => {
     if (!isSupabaseEnabled() || !supabase) return;
@@ -594,6 +1246,10 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     updateItem,
     deleteItem,
     createItemsFromResponses,
+    importFromCSV,
+    importFromExcel,
+    importFromPDF,
+    generateFromResponses,
     uploadDocument,
     deleteDocument,
     linkDocumentToItem,
@@ -602,6 +1258,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     getItemsByTimeframe,
     getItemsByCategory,
     getStats,
+    exportToCSV,
+    getCSVTemplate,
     syncToCloud,
   };
 }
@@ -614,4 +1272,189 @@ function fileToBase64(file: File): Promise<string> {
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = error => reject(error);
   });
+}
+
+// Helper: Parse CSV line handling quoted fields
+function parseCSVLine(line: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+
+  result.push(current.trim());
+  return result;
+}
+
+// Helper: Escape CSV value
+function escapeCSV(value: string): string {
+  if (value.includes(',') || value.includes('"') || value.includes('\n')) {
+    return `"${value.replace(/"/g, '""')}"`;
+  }
+  return value;
+}
+
+// Helper: Validate category
+function isValidCategory(value: string): boolean {
+  const validCategories = ['physical-access', 'digital-access', 'communication', 'customer-service', 'policy-procedure', 'training', 'other'];
+  return validCategories.includes(value);
+}
+
+// Helper: Validate status
+function isValidStatus(value: string): boolean {
+  const validStatuses = ['not-started', 'in-progress', 'completed', 'on-hold', 'cancelled'];
+  return validStatuses.includes(value);
+}
+
+// Helper: Categorize DIAP item from text
+function categorizeFromText(text: string): DIAPCategory {
+  const lower = text.toLowerCase();
+
+  if (lower.match(/entrance|door|ramp|lift|elevator|parking|toilet|restroom|path|access|mobility|wheelchair/)) {
+    return 'physical-access';
+  }
+  if (lower.match(/website|online|digital|app|software|screen reader|wcag|alt text|caption/)) {
+    return 'digital-access';
+  }
+  if (lower.match(/sign|braille|auslan|interpreter|language|document|format|font|print/)) {
+    return 'communication';
+  }
+  if (lower.match(/staff|training|customer|service|greeting|assistance|welcome/)) {
+    return 'customer-service';
+  }
+  if (lower.match(/policy|procedure|guideline|standard|compliance|audit|review/)) {
+    return 'policy-procedure';
+  }
+  if (lower.match(/training|education|awareness|learning|skill/)) {
+    return 'training';
+  }
+
+  return 'other';
+}
+
+// Helper: Determine priority from text
+function prioritizeFromText(text: string): DIAPPriority {
+  const lower = text.toLowerCase();
+
+  if (lower.match(/urgent|immediate|critical|safety|emergency|hazard|danger|asap/)) {
+    return 'high';
+  }
+  if (lower.match(/important|significant|soon|priority/)) {
+    return 'medium';
+  }
+
+  return 'medium';
+}
+
+// Helper: Map module name to category
+function mapModuleToCategory(moduleName: string): DIAPCategory {
+  const lower = moduleName.toLowerCase();
+
+  if (lower.match(/entrance|arrival|parking|path|physical|toilet|facility/)) {
+    return 'physical-access';
+  }
+  if (lower.match(/website|digital|online|technology/)) {
+    return 'digital-access';
+  }
+  if (lower.match(/communication|information|signage|document/)) {
+    return 'communication';
+  }
+  if (lower.match(/customer|service|staff/)) {
+    return 'customer-service';
+  }
+  if (lower.match(/policy|procedure/)) {
+    return 'policy-procedure';
+  }
+  if (lower.match(/training/)) {
+    return 'training';
+  }
+
+  return 'other';
+}
+
+// Helper: Map analysis type to category
+function mapAnalysisTypeToCategory(analysisType: string): DIAPCategory {
+  const typeMap: Record<string, DIAPCategory> = {
+    'menu': 'communication',
+    'brochure': 'communication',
+    'flyer': 'communication',
+    'large-print': 'communication',
+    'signage': 'communication',
+    'lighting': 'physical-access',
+    'ground-surface': 'physical-access',
+    'pathway': 'physical-access',
+    'entrance': 'physical-access',
+    'ramp': 'physical-access',
+    'stairs': 'physical-access',
+    'door': 'physical-access',
+    'social-media-post': 'digital-access',
+    'social-media-url': 'digital-access',
+    'website-wave': 'digital-access',
+  };
+  return typeMap[analysisType] || 'other';
+}
+
+// Helper: Format analysis type for display
+function formatAnalysisType(analysisType: string): string {
+  const labels: Record<string, string> = {
+    'menu': 'menu',
+    'brochure': 'brochure',
+    'flyer': 'flyer',
+    'large-print': 'large print document',
+    'signage': 'signage',
+    'lighting': 'lighting',
+    'ground-surface': 'ground surface',
+    'pathway': 'pathway',
+    'entrance': 'entrance',
+    'ramp': 'ramp',
+    'stairs': 'stairs',
+    'door': 'door',
+    'social-media-post': 'social media',
+    'social-media-url': 'social media profile',
+    'website-wave': 'website',
+  };
+  return labels[analysisType] || analysisType;
+}
+
+// Helper: Generate objective from question text
+function generateObjective(questionText: string, moduleName: string): string {
+  // Extract key concepts from the question
+  const lower = questionText.toLowerCase();
+
+  if (lower.includes('accessible') || lower.includes('accessibility')) {
+    return `Ensure accessibility of ${moduleName.toLowerCase()}`;
+  }
+  if (lower.includes('clear') || lower.includes('visible')) {
+    return `Improve clarity and visibility in ${moduleName.toLowerCase()}`;
+  }
+  if (lower.includes('safe') || lower.includes('safety')) {
+    return `Address safety concerns in ${moduleName.toLowerCase()}`;
+  }
+  if (lower.includes('train') || lower.includes('staff')) {
+    return `Improve staff awareness and training`;
+  }
+  if (lower.includes('sign') || lower.includes('wayfinding')) {
+    return `Enhance signage and wayfinding`;
+  }
+  if (lower.includes('website') || lower.includes('digital')) {
+    return `Improve digital accessibility`;
+  }
+
+  return `Improve ${moduleName.toLowerCase()} accessibility`;
 }

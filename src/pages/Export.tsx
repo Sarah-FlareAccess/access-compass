@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useReportGeneration } from '../hooks/useReportGeneration';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { ReportViewer } from '../components/ReportViewer';
+import { downloadPDFReport } from '../utils/pdfGenerator';
 import type { ReviewMode } from '../types/index';
 import type { Report } from '../hooks';
 
@@ -70,10 +71,7 @@ export default function Export() {
 
   const handleDownloadPDF = () => {
     if (!currentReport) return;
-
-    // For now, open print dialog (browser print to PDF)
-    // TODO: Implement actual PDF generation with jsPDF or similar
-    window.print();
+    downloadPDFReport(currentReport);
   };
 
   const handleStartAgain = () => {
@@ -96,18 +94,6 @@ export default function Export() {
   return (
     <>
       <div className="export-page">
-        <header className="page-global-header">
-          <div className="header-brand">
-            <Link to="/dashboard" className="brand-link">
-              <span className="brand-name">Access Compass</span>
-              <span className="brand-byline">by Flare Access</span>
-            </Link>
-          </div>
-          <div className="header-actions">
-            <Link to="/dashboard" className="header-action-btn">Dashboard</Link>
-          </div>
-        </header>
-
         <div className="export-container">
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <h1>Your Accessibility Report</h1>
