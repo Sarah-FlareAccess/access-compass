@@ -76,18 +76,20 @@ export const MODULES: ModuleDefinition[] = [
 ];
 
 // Map new module IDs to existing module codes for backward compatibility
+// These must match the 'code' field in accessModules.ts
 export const MODULE_ID_TO_CODE: Record<string, string> = {
   'M01': 'B4.1',  // Digital accessibility -> Website Basics
   'M02': 'B1',    // Information & communication -> Pre-visit Information
-  'M03': 'B4.2',  // Booking & transactions -> Online Transactions
-  'M04': 'B2',    // Policies, pricing -> Information Access
-  'M05': 'A1',    // Arrival & entry -> Arrival and Parking (includes A2)
-  'M06': 'A3a',   // Internal movement -> Internal Movement
-  'M07': 'A6',    // Seating, amenities, toilets -> Toilets & Amenities (includes A4, A5)
+  'M03': 'B4.2',  // Booking & transactions -> Online Transactions (not yet in accessModules)
+  'M04': 'B2',    // Policies, pricing -> Information Access (not yet in accessModules)
+  'M05': 'A1',    // Arrival & entry -> Arrival and Parking
+  'M05b': 'A2',   // Entry & Doors
+  'M06': 'A3',    // Internal movement -> Internal Movement & Wayfinding
+  'M07': 'A6',    // Seating, amenities, toilets -> Toilets & Amenities
   'M08': 'A7',    // Sensory environment -> Sensory Environment
   'M09': 'C1',    // Customer service -> Customer Service
   'M10': 'C3',    // Feedback & complaints -> Complaints & Feedback
-  'M11': 'B3',    // Staying connected -> Feedback Systems
+  'M11': 'B3',    // Staying connected -> Feedback Systems (not yet in accessModules)
 };
 
 export const CODE_TO_MODULE_ID: Record<string, string> = Object.entries(MODULE_ID_TO_CODE).reduce(

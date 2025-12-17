@@ -48,13 +48,21 @@ export default function Dashboard() {
 
   // Get recommended modules from discovery, falling back to selected modules
   const recommendedModuleIds: string[] = useMemo(() => {
+    // Backward compatibility: map old codes to new codes
+    const normalizeCode = (code: string): string => {
+      const codeMap: Record<string, string> = {
+        'A3a': 'A3',  // Old internal movement code
+      };
+      return codeMap[code] || code;
+    };
+
     // First try recommended modules from discovery
     if (discoveryData?.recommended_modules?.length > 0) {
-      return discoveryData.recommended_modules;
+      return discoveryData.recommended_modules.map(normalizeCode);
     }
     // Fall back to selected modules from session
     if (session?.selected_modules?.length > 0) {
-      return session.selected_modules;
+      return session.selected_modules.map(normalizeCode);
     }
     // If nothing selected, show all modules
     return accessModules.map(m => m.id);
