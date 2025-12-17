@@ -212,7 +212,7 @@ export function DiscoveryModule({
             {/* Header */}
             <div className="recommendation-header">
               <h1 className="discovery-title">
-                Based on what you've told us, accessibility shows up in these areas
+                Based on what you've told us, these areas are relevant to your business
               </h1>
               <p className="discovery-subtitle">
                 You can adjust these at any time. Nothing is locked in.
@@ -231,37 +231,66 @@ export function DiscoveryModule({
               </div>
             )}
 
-            {/* Grouped module recommendations */}
-            {groupModulesByJourney(recommendationResult.recommendedModules).map(group => (
-              <div key={group.phase} className="journey-group">
-                <h3 className="journey-group-label">{group.label}</h3>
-                <div className="module-cards">
-                  {group.modules.map(module => (
-                    <ModuleRecommendationCard
-                      key={module.moduleId}
-                      module={module}
-                      showWhySuggested={true}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
+            {/* All modules as categorized tiles */}
+            {(() => {
+              // Combine all modules
+              const allModules = [
+                ...recommendationResult.recommendedModules,
+                ...recommendationResult.alsoRelevant,
+              ];
 
-            {/* Also relevant section */}
-            {recommendationResult.alsoRelevant.length > 0 && (
-              <div className="also-relevant-section">
-                <h3 className="also-relevant-label">Also relevant later</h3>
-                {recommendationResult.alsoRelevant.map(module => (
-                  <div key={module.moduleId} className="also-relevant-item">
-                    <div>
-                      <span className="also-relevant-name">{module.moduleName}</span>
-                      <span className="also-relevant-code">{module.moduleCode}</span>
+              // Define categories
+              const categories = [
+                {
+                  id: 'before-visit',
+                  label: 'Before visit',
+                  codes: ['B1', 'B2', 'B3', 'B4.1', 'B4.2'],
+                },
+                {
+                  id: 'during-visit',
+                  label: 'During visit',
+                  codes: ['A1', 'A2', 'A3', 'A3a', 'A6', 'A7', 'C1'],
+                },
+                {
+                  id: 'after-visit',
+                  label: 'After visit',
+                  codes: ['C3'],
+                },
+              ];
+
+              return categories.map(category => {
+                const categoryModules = allModules.filter(m =>
+                  category.codes.some(code => m.moduleCode.startsWith(code))
+                );
+
+                if (categoryModules.length === 0) return null;
+
+                return (
+                  <div key={category.id} className="module-category">
+                    <h3 className="category-label">{category.label}</h3>
+                    <div className="module-tiles">
+                      {categoryModules.map(module => (
+                        <div key={module.moduleId} className="module-tile">
+                          <div className="tile-header">
+                            <span className="tile-name">{module.moduleName}</span>
+                            <span className="tile-code">{module.moduleCode}</span>
+                          </div>
+                          <span className="tile-time">{module.estimatedTime} min</span>
+                          {module.whySuggested && module.whySuggested.triggeringTouchpoints.length > 0 && (
+                            <div className="tile-why">
+                              <span className="why-label">Why suggested</span>
+                              <span className="why-text">
+                                {module.whySuggested.triggeringTouchpoints.slice(0, 2).join('; ')}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
                     </div>
-                    <span className="also-relevant-time">{module.estimatedTime} min</span>
                   </div>
-                ))}
-              </div>
-            )}
+                );
+              });
+            })()}
 
             {/* Reassurance text */}
             <p className="reassurance-text">
