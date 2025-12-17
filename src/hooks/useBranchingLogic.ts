@@ -20,7 +20,7 @@ export interface BranchingQuestion {
   example?: string;
   type: 'yes-no-unsure' | 'measurement' | 'text' | 'multi-select' | 'single-select' | 'link-input' | 'evidence';
   category?: 'lived-experience' | 'operational' | 'information' | 'measurement' | 'policy' | 'evidence';
-  reviewMode?: 'foundation' | 'detailed' | 'both';
+  reviewMode?: 'pulse-check' | 'deep-dive' | 'both';
   impactLevel?: 'high' | 'medium' | 'low';
   safetyRelated?: boolean;
   showWhen?: BranchCondition;
@@ -39,7 +39,7 @@ export interface BranchingQuestion {
 interface UseBranchingLogicProps {
   questions: BranchingQuestion[];
   responses: QuestionResponse[];
-  reviewMode: 'foundation' | 'detailed';
+  reviewMode: 'pulse-check' | 'deep-dive';
 }
 
 interface UseBranchingLogicReturn {
@@ -83,10 +83,10 @@ export function useBranchingLogic({
 
     // Check review mode filter
     if (question.reviewMode) {
-      if (question.reviewMode === 'foundation' && reviewMode === 'detailed') {
-        // Foundation-only questions visible in both modes
-      } else if (question.reviewMode === 'detailed' && reviewMode === 'foundation') {
-        // Detailed-only questions hidden in foundation mode
+      if (question.reviewMode === 'pulse-check' && reviewMode === 'deep-dive') {
+        // Pulse check questions visible in both modes
+      } else if (question.reviewMode === 'deep-dive' && reviewMode === 'pulse-check') {
+        // Deep dive questions hidden in pulse check mode
         return false;
       }
       // 'both' is always visible

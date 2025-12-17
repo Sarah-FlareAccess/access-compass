@@ -539,7 +539,7 @@ export function groupModulesByJourney(modules: RecommendedModule[]): JourneyGrou
 // ============================================================================
 
 export interface DepthRecommendation {
-  recommendedDepth: 'foundation' | 'detailed';
+  recommendedDepth: 'pulse-check' | 'deep-dive';
   touchpointCount: number;
   phaseCount: number;
   reasoning: string;
@@ -607,11 +607,11 @@ export function calculateDepthRecommendation(
   }
 
   // Determine recommendation
-  const recommendedDepth = depthScore >= 2 ? 'detailed' : 'foundation';
+  const recommendedDepth = depthScore >= 2 ? 'deep-dive' : 'pulse-check';
 
   // Generate reasoning
   let reasoning: string;
-  if (recommendedDepth === 'detailed') {
+  if (recommendedDepth === 'deep-dive') {
     if (calibrationData?.workApproach === 'external-support' || calibrationData?.workApproach === 'with-team') {
       reasoning = 'With team or external support available, Deep Dive will help you build a structured plan everyone can work from.';
     } else if (touchpointCount >= 6 && phaseCount >= 2) {

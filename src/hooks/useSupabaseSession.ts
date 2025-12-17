@@ -123,7 +123,7 @@ export function useSupabaseSession(): UseSupabaseSessionReturn {
             responses: cloudDiscovery.touchpoint_responses || {},
           },
           recommendation_result: cloudDiscovery.recommendation_result,
-          review_mode: cloudDiscovery.review_mode || 'foundation',
+          review_mode: cloudDiscovery.review_mode || 'pulse-check',
           recommended_modules: cloudDiscovery.recommended_modules || [],
         };
         saveDiscoveryData(discoveryUpdate);
@@ -209,7 +209,7 @@ export function useSupabaseSession(): UseSupabaseSessionReturn {
       const existing = getDiscoveryData() || {
         discovery_data: { selectedTouchpoints: [], selectedSubTouchpoints: [] },
         recommendation_result: {} as RecommendationResult,
-        review_mode: 'foundation' as ReviewMode,
+        review_mode: 'pulse-check' as ReviewMode,
         recommended_modules: [],
       };
 

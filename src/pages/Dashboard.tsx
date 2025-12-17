@@ -169,7 +169,7 @@ export default function Dashboard() {
   const orgName = session?.business_snapshot?.organisation_name || 'there';
   const hasCompletedModules = overallStats.modulesCompleted > 0;
   const hasDIAPItems = overallStats.diapItemCount > 0;
-  const reviewMode = discoveryData?.review_mode || 'foundation';
+  const reviewMode = discoveryData?.review_mode || 'pulse-check';
 
   return (
     <div className="dashboard-page">
@@ -250,7 +250,7 @@ export default function Dashboard() {
                 <span className="review-icon">🔍</span>
                 <div className="review-text">
                   <p className="review-label">
-                    Your pathway: <strong>{reviewMode === 'detailed' ? 'Deep Dive' : 'Pulse Check'}</strong>
+                    Your pathway: <strong>{reviewMode === 'deep-dive' ? 'Deep Dive' : 'Pulse Check'}</strong>
                   </p>
                   <p className="review-hint">
                     You can revisit or refine your discovery responses anytime.

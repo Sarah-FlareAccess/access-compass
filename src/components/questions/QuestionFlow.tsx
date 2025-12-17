@@ -18,7 +18,7 @@ interface QuestionFlowProps {
   moduleName: string;
   moduleCode: string;
   questions: BranchingQuestion[];
-  reviewMode: 'foundation' | 'detailed';
+  reviewMode: 'pulse-check' | 'deep-dive';
   initialResponses?: QuestionResponse[];
   onSaveResponse: (response: QuestionResponse) => void;
   onComplete: (summary: ModuleSummary) => void;

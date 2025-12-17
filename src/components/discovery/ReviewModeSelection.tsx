@@ -62,12 +62,12 @@ export function ReviewModeSelection({
 
     if (recommendDeepDive && deepDiveSignals.length > 0) {
       return {
-        mode: 'detailed' as ReviewMode,
+        mode: 'deep-dive' as ReviewMode,
         message: 'Based on what you\'ve told us, most organisations like yours choose Deep Dive.',
       };
     } else if (pulseCheckSignals.length >= 2) {
       return {
-        mode: 'foundation' as ReviewMode,
+        mode: 'pulse-check' as ReviewMode,
         message: 'Based on what you\'ve told us, Pulse Check is a great way to get started.',
       };
     }
@@ -99,15 +99,15 @@ export function ReviewModeSelection({
         <div className="pathway-cards">
           {/* Pulse Check */}
           <div
-            className={`pathway-card ${selectedMode === 'foundation' ? 'selected' : ''}`}
-            onClick={() => setSelectedMode('foundation')}
+            className={`pathway-card ${selectedMode === 'pulse-check' ? 'selected' : ''}`}
+            onClick={() => setSelectedMode('pulse-check')}
           >
             <div className="pathway-header">
               <input
                 type="radio"
                 className="pathway-radio"
-                checked={selectedMode === 'foundation'}
-                onChange={() => setSelectedMode('foundation')}
+                checked={selectedMode === 'pulse-check'}
+                onChange={() => setSelectedMode('pulse-check')}
               />
               <div>
                 <h3 className="pathway-name">Pulse Check</h3>
@@ -143,15 +143,15 @@ export function ReviewModeSelection({
 
           {/* Deep Dive */}
           <div
-            className={`pathway-card pathway-featured ${selectedMode === 'detailed' ? 'selected' : ''}`}
-            onClick={() => setSelectedMode('detailed')}
+            className={`pathway-card pathway-featured ${selectedMode === 'deep-dive' ? 'selected' : ''}`}
+            onClick={() => setSelectedMode('deep-dive')}
           >
             <div className="pathway-header">
               <input
                 type="radio"
                 className="pathway-radio"
-                checked={selectedMode === 'detailed'}
-                onChange={() => setSelectedMode('detailed')}
+                checked={selectedMode === 'deep-dive'}
+                onChange={() => setSelectedMode('deep-dive')}
               />
               <div>
                 <h3 className="pathway-name">Deep Dive</h3>
@@ -213,7 +213,7 @@ export function ReviewModeSelection({
               ← Back
             </button>
             <button className="btn-continue" onClick={handleContinue}>
-              Continue with {selectedMode === 'foundation' ? 'Pulse Check' : 'Deep Dive'} →
+              Continue with {selectedMode === 'pulse-check' ? 'Pulse Check' : 'Deep Dive'} →
             </button>
           </div>
         </div>

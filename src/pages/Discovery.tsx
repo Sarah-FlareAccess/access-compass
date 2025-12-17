@@ -83,7 +83,7 @@ function Discovery() {
   // Calculate depth recommendation based on discovery + calibration data
   const depthRecommendation = discoveryResults
     ? calculateDepthRecommendation(discoveryResults.selectedTouchpoints, calibrationData)
-    : { recommendedDepth: 'foundation' as ReviewMode, touchpointCount: 0, reasoning: '' };
+    : { recommendedDepth: 'pulse-check' as ReviewMode, touchpointCount: 0, reasoning: '' };
 
   return (
     <>

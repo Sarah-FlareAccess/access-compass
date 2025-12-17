@@ -172,7 +172,7 @@ export interface Module {
 
 export type JourneyPhase = 'before-arrival' | 'during-visit' | 'after-visit';
 
-export type ReviewMode = 'foundation' | 'detailed';
+export type ReviewMode = 'pulse-check' | 'deep-dive';
 
 export type DiscoveryResponse = 'yes' | 'no' | 'not-sure';
 

@@ -108,7 +108,7 @@ export const updateDiscoveryData = (updates: Partial<StoredDiscoveryData>): Stor
   const existing = getDiscoveryData() || {
     discovery_data: { selectedTouchpoints: [], selectedSubTouchpoints: [] },
     recommendation_result: {} as RecommendationResult,
-    review_mode: 'foundation' as ReviewMode,
+    review_mode: 'pulse-check' as ReviewMode,
     recommended_modules: [],
   };
 

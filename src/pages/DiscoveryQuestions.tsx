@@ -33,7 +33,7 @@ export default function DiscoveryQuestions() {
   const [showModuleList, setShowModuleList] = useState(true);
 
   // Get the review mode from discovery data
-  const reviewMode: ReviewMode = discoveryData?.reviewMode || 'foundation';
+  const reviewMode: ReviewMode = discoveryData?.reviewMode || 'pulse-check';
 
   // Get selected modules from session
   const selectedModuleIds: string[] = useMemo(() => {
@@ -207,7 +207,7 @@ export default function DiscoveryQuestions() {
           <div className="module-list-header">
             <h1>Your Accessibility Review</h1>
             <p>
-              {reviewMode === 'foundation' ? 'Foundation Review' : 'Detailed Review'} -{' '}
+              {reviewMode === 'pulse-check' ? 'Pulse Check' : 'Deep Dive'} -{' '}
               {overallProgress.completed} of {overallProgress.total} modules complete
             </p>
 

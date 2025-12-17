@@ -14,7 +14,7 @@ export interface AccessModule {
   description: string;
   group: 'before-arrival' | 'getting-in' | 'during-visit' | 'service-support';
   estimatedTime: number;
-  estimatedTimeDetailed?: number;
+  estimatedTimeDeepDive?: number;
   icon: string;
   questions: BranchingQuestion[];
 }
@@ -55,7 +55,7 @@ export const accessModules: AccessModule[] = [
     description: 'How you share accessibility information before customers visit',
     group: 'before-arrival',
     estimatedTime: 12,
-    estimatedTimeDetailed: 20,
+    estimatedTimeDeepDive: 20,
     icon: 'ℹ️',
     questions: [
       {
@@ -65,7 +65,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         isEntryPoint: true,
       },
       {
@@ -75,7 +75,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         options: [
           { id: 'not-sure-content', label: "We're not sure what information to include" },
           { id: 'worried-wrong', label: "We're worried about getting it wrong" },
@@ -93,7 +93,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         options: [
           { id: 'website', label: 'Website' },
           { id: 'booking-platform', label: 'Booking platform' },
@@ -111,7 +111,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         options: [
           { id: 'physical-access', label: 'Physical access (parking, entrances, toilets, seating)' },
           { id: 'what-to-expect', label: 'What to expect during a visit (layout, queues, timing)' },
@@ -130,7 +130,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         options: [
           { id: 'very-confident', label: 'Very confident' },
           { id: 'somewhat-confident', label: 'Somewhat confident' },
@@ -145,7 +145,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'low',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
       },
       {
@@ -155,7 +155,7 @@ export const accessModules: AccessModule[] = [
         type: 'text-input',
         category: 'information',
         impactLevel: 'low',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         showWhen: { questionId: 'B1-F-4', answers: ['yes'] },
       },
       {
@@ -165,7 +165,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         options: [
           { id: 'yes-multiple', label: 'Yes (multiple options available)' },
           { id: 'limited', label: 'Limited options' },
@@ -179,7 +179,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         options: [
           { id: 'yes-consistently', label: 'Yes, consistently' },
           { id: 'sometimes', label: 'Sometimes' },
@@ -198,7 +198,7 @@ export const accessModules: AccessModule[] = [
     description: 'Basic accessibility of your website for all visitors',
     group: 'before-arrival',
     estimatedTime: 15,
-    estimatedTimeDetailed: 25,
+    estimatedTimeDeepDive: 25,
     icon: '💻',
     questions: [
       {
@@ -208,7 +208,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B4.1-F-2',
@@ -217,7 +217,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B4.1-F-3',
@@ -226,7 +226,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B4.1-F-4',
@@ -235,7 +235,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B4.1-F-5',
@@ -244,7 +244,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -257,7 +257,7 @@ export const accessModules: AccessModule[] = [
     description: 'Accessibility of your online booking and form systems',
     group: 'before-arrival',
     estimatedTime: 10,
-    estimatedTimeDetailed: 18,
+    estimatedTimeDeepDive: 18,
     icon: '📅',
     questions: [
       {
@@ -267,7 +267,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B4.2-F-2',
@@ -276,7 +276,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -289,7 +289,7 @@ export const accessModules: AccessModule[] = [
     description: 'Accessibility of your video content and social media presence',
     group: 'before-arrival',
     estimatedTime: 10,
-    estimatedTimeDetailed: 18,
+    estimatedTimeDeepDive: 18,
     icon: '🎬',
     questions: [
       {
@@ -299,7 +299,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B4.3-F-2',
@@ -308,7 +308,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B4.3-F-3',
@@ -317,7 +317,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -334,7 +334,7 @@ export const accessModules: AccessModule[] = [
     description: 'How customers arrive at and enter your premises',
     group: 'getting-in',
     estimatedTime: 15,
-    estimatedTimeDetailed: 25,
+    estimatedTimeDeepDive: 25,
     icon: '🅿️',
     questions: [
       {
@@ -344,7 +344,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A1-F-2',
@@ -353,7 +353,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A1-F-3',
@@ -362,7 +362,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A1-F-4',
@@ -371,7 +371,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A1-F-5',
@@ -380,7 +380,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'measurement',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A1-F-6',
@@ -389,7 +389,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A1-F-7',
@@ -398,7 +398,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A1-F-8',
@@ -407,7 +407,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       // Detailed questions
       {
@@ -417,7 +417,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A1-D-10',
@@ -426,7 +426,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'low',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A1-D-11',
@@ -435,7 +435,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A1-D-12',
@@ -445,7 +445,7 @@ export const accessModules: AccessModule[] = [
         category: 'lived-experience',
         impactLevel: 'high',
         safetyRelated: true,
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A1-D-13',
@@ -454,7 +454,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A1-D-14',
@@ -463,7 +463,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'policy',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A1-D-15',
@@ -472,7 +472,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A1-D-16',
@@ -482,7 +482,7 @@ export const accessModules: AccessModule[] = [
         category: 'lived-experience',
         impactLevel: 'medium',
         safetyRelated: true,
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
     ],
   },
@@ -495,7 +495,7 @@ export const accessModules: AccessModule[] = [
     description: 'How customers enter your building',
     group: 'getting-in',
     estimatedTime: 12,
-    estimatedTimeDetailed: 22,
+    estimatedTimeDeepDive: 22,
     icon: '🚪',
     questions: [
       {
@@ -505,7 +505,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A2-F-2',
@@ -514,7 +514,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'measurement',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A2-F-3',
@@ -523,7 +523,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A2-F-4',
@@ -532,7 +532,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A2-F-5',
@@ -541,7 +541,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A2-F-6',
@@ -550,7 +550,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A2-F-7',
@@ -559,7 +559,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A2-F-8',
@@ -568,7 +568,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       // Detailed questions
       {
@@ -578,7 +578,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A2-D-10',
@@ -587,7 +587,7 @@ export const accessModules: AccessModule[] = [
         type: 'text-input',
         category: 'measurement',
         impactLevel: 'high',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A2-D-11',
@@ -596,7 +596,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'measurement',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A2-D-12',
@@ -605,7 +605,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'measurement',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A2-D-13',
@@ -614,7 +614,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'measurement',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A2-D-14',
@@ -623,7 +623,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A2-D-15',
@@ -632,7 +632,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A2-D-16',
@@ -641,7 +641,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'measurement',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A2-D-17',
@@ -650,7 +650,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'A2-D-18',
@@ -660,7 +660,7 @@ export const accessModules: AccessModule[] = [
         category: 'lived-experience',
         impactLevel: 'medium',
         safetyRelated: true,
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
     ],
   },
@@ -673,7 +673,7 @@ export const accessModules: AccessModule[] = [
     description: 'Internal circulation and movement routes',
     group: 'getting-in',
     estimatedTime: 12,
-    estimatedTimeDetailed: 20,
+    estimatedTimeDeepDive: 20,
     icon: '🧭',
     questions: [
       {
@@ -683,7 +683,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'measurement',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A3a-F-2',
@@ -693,7 +693,7 @@ export const accessModules: AccessModule[] = [
         category: 'lived-experience',
         impactLevel: 'high',
         safetyRelated: true,
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A3a-F-3',
@@ -702,7 +702,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A3a-F-4',
@@ -711,7 +711,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -724,7 +724,7 @@ export const accessModules: AccessModule[] = [
     description: 'Managing queues and crowded periods',
     group: 'getting-in',
     estimatedTime: 10,
-    estimatedTimeDetailed: 16,
+    estimatedTimeDeepDive: 16,
     icon: '⏳',
     questions: [
       {
@@ -734,7 +734,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A3b-F-2',
@@ -743,7 +743,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A3b-F-3',
@@ -752,7 +752,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -769,7 +769,7 @@ export const accessModules: AccessModule[] = [
     description: 'Physical comfort and usability of your space',
     group: 'during-visit',
     estimatedTime: 12,
-    estimatedTimeDetailed: 20,
+    estimatedTimeDeepDive: 20,
     icon: '🪑',
     questions: [
       {
@@ -779,7 +779,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A4-F-2',
@@ -788,7 +788,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A4-F-3',
@@ -797,7 +797,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A4-F-4',
@@ -806,7 +806,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -819,7 +819,7 @@ export const accessModules: AccessModule[] = [
     description: 'Accessible toilet and amenity facilities',
     group: 'during-visit',
     estimatedTime: 15,
-    estimatedTimeDetailed: 22,
+    estimatedTimeDeepDive: 22,
     icon: '🚻',
     questions: [
       {
@@ -829,7 +829,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
           { id: 'yes-offsite', label: 'Yes - off-site nearby' },
@@ -844,7 +844,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-F-1', answers: ['no', 'not-sure'] },
       },
       {
@@ -854,7 +854,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-F-1', answers: ['yes', 'yes-offsite'] },
       },
       {
@@ -864,7 +864,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-F-1', answers: ['yes'] },
       },
       {
@@ -875,7 +875,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         safetyRelated: true,
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-F-1', answers: ['yes'] },
       },
     ],
@@ -889,7 +889,7 @@ export const accessModules: AccessModule[] = [
     description: 'Sensory aspects of your environment',
     group: 'during-visit',
     estimatedTime: 12,
-    estimatedTimeDetailed: 20,
+    estimatedTimeDeepDive: 20,
     icon: '💡',
     questions: [
       {
@@ -899,7 +899,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A6-F-2',
@@ -908,7 +908,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A6-F-3',
@@ -917,7 +917,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A6-F-4',
@@ -927,7 +927,7 @@ export const accessModules: AccessModule[] = [
         category: 'lived-experience',
         impactLevel: 'high',
         safetyRelated: true,
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A6-F-5',
@@ -936,7 +936,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -949,7 +949,7 @@ export const accessModules: AccessModule[] = [
     description: 'How customers find their way around',
     group: 'during-visit',
     estimatedTime: 12,
-    estimatedTimeDetailed: 18,
+    estimatedTimeDeepDive: 18,
     icon: '🪧',
     questions: [
       {
@@ -959,7 +959,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B2-F-2',
@@ -968,7 +968,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B2-F-3',
@@ -977,7 +977,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B2-F-4',
@@ -986,7 +986,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'lived-experience',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -999,7 +999,7 @@ export const accessModules: AccessModule[] = [
     description: 'Accessibility of printed information',
     group: 'during-visit',
     estimatedTime: 10,
-    estimatedTimeDetailed: 16,
+    estimatedTimeDeepDive: 16,
     icon: '📋',
     questions: [
       {
@@ -1009,7 +1009,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B3-F-2',
@@ -1018,7 +1018,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'B3-F-3',
@@ -1027,7 +1027,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -1044,7 +1044,7 @@ export const accessModules: AccessModule[] = [
     description: 'How your team supports customers with different needs',
     group: 'service-support',
     estimatedTime: 15,
-    estimatedTimeDetailed: 30,
+    estimatedTimeDeepDive: 30,
     icon: '👥',
     questions: [
       {
@@ -1054,7 +1054,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C1-F-2',
@@ -1063,7 +1063,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'policy',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C1-F-3',
@@ -1072,7 +1072,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C1-F-4',
@@ -1081,7 +1081,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C1-F-5',
@@ -1090,7 +1090,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C1-F-6',
@@ -1099,7 +1099,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C1-F-7',
@@ -1108,7 +1108,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'policy',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C1-F-8',
@@ -1117,7 +1117,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'policy',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       // Detailed questions
       {
@@ -1127,7 +1127,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-10',
@@ -1136,7 +1136,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-11',
@@ -1145,7 +1145,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'low',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-12',
@@ -1154,7 +1154,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-13',
@@ -1163,7 +1163,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-14',
@@ -1172,7 +1172,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'policy',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-15',
@@ -1181,7 +1181,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-16',
@@ -1191,7 +1191,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         safetyRelated: true,
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-17',
@@ -1200,7 +1200,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-18',
@@ -1209,7 +1209,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-19',
@@ -1218,7 +1218,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'policy',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
       {
         id: 'C1-D-20',
@@ -1227,7 +1227,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'detailed',
+        reviewMode: 'deep-dive',
       },
     ],
   },
@@ -1240,7 +1240,7 @@ export const accessModules: AccessModule[] = [
     description: 'Flexibility in your booking and payment processes',
     group: 'service-support',
     estimatedTime: 10,
-    estimatedTimeDetailed: 16,
+    estimatedTimeDeepDive: 16,
     icon: '💳',
     questions: [
       {
@@ -1250,7 +1250,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'policy',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C2-F-2',
@@ -1259,7 +1259,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C2-F-3',
@@ -1268,7 +1268,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C2-F-4',
@@ -1277,7 +1277,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'policy',
         impactLevel: 'high',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -1290,7 +1290,7 @@ export const accessModules: AccessModule[] = [
     description: 'Emergency procedures that include everyone',
     group: 'service-support',
     estimatedTime: 12,
-    estimatedTimeDetailed: 20,
+    estimatedTimeDeepDive: 20,
     icon: '🚨',
     questions: [
       {
@@ -1301,7 +1301,7 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'high',
         safetyRelated: true,
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A7-F-2',
@@ -1311,7 +1311,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         safetyRelated: true,
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A7-F-3',
@@ -1321,7 +1321,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         safetyRelated: true,
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'A7-F-4',
@@ -1331,7 +1331,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         safetyRelated: true,
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -1344,7 +1344,7 @@ export const accessModules: AccessModule[] = [
     description: 'Gathering and acting on customer feedback',
     group: 'service-support',
     estimatedTime: 10,
-    estimatedTimeDetailed: 18,
+    estimatedTimeDeepDive: 18,
     icon: '📝',
     questions: [
       {
@@ -1354,7 +1354,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C3-F-2',
@@ -1363,7 +1363,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
       {
         id: 'C3-F-3',
@@ -1372,7 +1372,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
-        reviewMode: 'foundation',
+        reviewMode: 'pulse-check',
       },
     ],
   },
@@ -1391,23 +1391,23 @@ export function getModulesByGroup(group: string): AccessModule[] {
 // Helper to get questions for a review mode
 export function getQuestionsForMode(
   module: AccessModule,
-  reviewMode: 'foundation' | 'detailed'
+  reviewMode: 'pulse-check' | 'deep-dive'
 ): BranchingQuestion[] {
-  if (reviewMode === 'foundation') {
+  if (reviewMode === 'pulse-check') {
     return module.questions.filter(
-      q => q.reviewMode === 'foundation' || q.reviewMode === 'both'
+      q => q.reviewMode === 'pulse-check' || q.reviewMode === 'both'
     );
   }
-  // Detailed includes all questions
+  // Deep dive includes all questions
   return module.questions;
 }
 
 // Calculate estimated time based on review mode
 export function getEstimatedTime(
   module: AccessModule,
-  reviewMode: 'foundation' | 'detailed'
+  reviewMode: 'pulse-check' | 'deep-dive'
 ): number {
-  return reviewMode === 'detailed' && module.estimatedTimeDetailed
-    ? module.estimatedTimeDetailed
+  return reviewMode === 'deep-dive' && module.estimatedTimeDeepDive
+    ? module.estimatedTimeDeepDive
     : module.estimatedTime;
 }
