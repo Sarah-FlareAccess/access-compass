@@ -121,7 +121,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
 
       // Aggregate all summaries
       const allStrengths: string[] = [];
-      const allActions: DIAPItem[] = diapItems.filter(item => item.priority === 'high' || item.priority === 'medium');
+      const allPriorityActions: string[] = [];
       const allAreasToExplore: string[] = [];
       const allProfessionalReview: string[] = [];
 
@@ -148,6 +148,11 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
           if (moduleProgress.summary.doingWell) {
             allStrengths.push(...moduleProgress.summary.doingWell);
           }
+          if (moduleProgress.summary.priorityActions) {
+            allPriorityActions.push(...moduleProgress.summary.priorityActions.map(a =>
+              `${a.action} (${a.priority} priority)`
+            ));
+          }
           if (moduleProgress.summary.areasToExplore) {
             allAreasToExplore.push(...moduleProgress.summary.areasToExplore);
           }
@@ -171,7 +176,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
         modulesCompleted: completedModules.length,
         totalModules: selectedModuleIds.length,
         strengthsCount: allStrengths.length,
-        actionsCount: allActions.length,
+        actionsCount: allPriorityActions.length,
         areasToExploreCount: allAreasToExplore.length,
         completionPercentage: selectedModuleIds.length > 0
           ? Math.round((completedModules.length / selectedModuleIds.length) * 100)
@@ -192,9 +197,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
           },
           priorityActions: {
             title: 'Priority Actions',
-            content: allActions.map(item =>
-              `${item.action} (${item.priority} priority, ${item.timeframe})`
-            ),
+            content: allPriorityActions,
             type: 'list',
           },
           areasToExplore: {
