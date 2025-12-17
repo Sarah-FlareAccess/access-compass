@@ -110,7 +110,7 @@ export default function Export() {
 
         <div className="export-container">
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <h1>Export your action plan</h1>
+            <h1>Your Accessibility Report</h1>
             <p className="helper-text">
               {isPulseCheck
                 ? 'Download and share your 1-page summary with your team'
