@@ -18,7 +18,7 @@ export interface BranchingQuestion {
   text: string;
   helpText?: string;
   example?: string;
-  type: 'yes-no-unsure' | 'measurement' | 'text' | 'multi-select' | 'single-select' | 'link-input' | 'evidence';
+  type: 'yes-no-unsure' | 'measurement' | 'text' | 'multi-select' | 'single-select' | 'link-input' | 'evidence' | 'url-analysis';
   category?: 'lived-experience' | 'operational' | 'information' | 'measurement' | 'policy' | 'evidence';
   reviewMode?: 'pulse-check' | 'deep-dive' | 'both';
   impactLevel?: 'high' | 'medium' | 'low';

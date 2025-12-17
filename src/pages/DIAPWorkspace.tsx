@@ -11,10 +11,14 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
+import { useModuleProgress } from '../hooks/useModuleProgress';
+import { getModuleById } from '../data/accessModules';
+import { DIAP_SECTIONS, getDIAPSectionForModule } from '../data/diapMapping';
 import type { DIAPItem, DIAPDocument, DIAPStatus, DIAPPriority, DIAPCategory } from '../hooks/useDIAPManagement';
 import '../styles/diap.css';
 
 type TabType = 'all' | 'in-progress' | 'completed';
+type ViewMode = 'list' | 'by-section';
 
 export default function DIAPWorkspace() {
   const {
@@ -35,6 +39,55 @@ export default function DIAPWorkspace() {
   const [filterCategory, setFilterCategory] = useState<DIAPCategory | 'all'>('all');
   const [filterPriority, setFilterPriority] = useState<DIAPPriority | 'all'>('all');
   const [showDocuments, setShowDocuments] = useState(false);
+  const [showEvidence, setShowEvidence] = useState(true);
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
+
+  // Get module progress for evidence layer
+  const { progress: moduleProgress } = useModuleProgress([]);
+
+  // Get completed modules as evidence
+  const completedModulesEvidence = useMemo(() => {
+    return Object.values(moduleProgress)
+      .filter(p => p.status === 'completed')
+      .map(p => {
+        const module = getModuleById(p.moduleId);
+        const diapSection = getDIAPSectionForModule(p.moduleId);
+        return {
+          moduleId: p.moduleId,
+          moduleName: module?.name || p.moduleCode,
+          moduleCode: p.moduleCode,
+          completedAt: p.completedAt,
+          completedBy: p.ownership?.completedBy,
+          completedByRole: p.ownership?.completedByRole,
+          confidenceSnapshot: p.confidenceSnapshot,
+          diapSection: diapSection?.name || 'General',
+          diapSectionId: diapSection?.id || 'policy-procedure',
+          doingWellCount: p.summary?.doingWell?.length || 0,
+          actionsCount: p.summary?.priorityActions?.length || 0,
+        };
+      })
+      .sort((a, b) => new Date(b.completedAt || 0).getTime() - new Date(a.completedAt || 0).getTime());
+  }, [moduleProgress]);
+
+  // Group items by DIAP section
+  const itemsBySection = useMemo(() => {
+    const grouped: Record<string, DIAPItem[]> = {};
+    DIAP_SECTIONS.forEach(section => {
+      grouped[section.id] = [];
+    });
+
+    items.forEach(item => {
+      const sectionId = item.moduleSource
+        ? (getDIAPSectionForModule(item.moduleSource)?.id || 'policy-procedure')
+        : 'policy-procedure';
+      if (!grouped[sectionId]) {
+        grouped[sectionId] = [];
+      }
+      grouped[sectionId].push(item);
+    });
+
+    return grouped;
+  }, [items]);
 
   // Filter items based on tab and filters
   const filteredItems = useMemo(() => {
@@ -181,6 +234,83 @@ export default function DIAPWorkspace() {
             <span className="stat-value">{stats.byPriority['high']}</span>
             <span className="stat-label">High Priority</span>
           </div>
+        </div>
+
+        {/* Evidence Layer - Module Completion Metadata */}
+        {completedModulesEvidence.length > 0 && (
+          <div className="evidence-layer">
+            <div
+              className="evidence-layer-header"
+              onClick={() => setShowEvidence(!showEvidence)}
+            >
+              <h2>Assessment Evidence ({completedModulesEvidence.length} modules completed)</h2>
+              <span className={`chevron ${showEvidence ? 'open' : ''}`}>&#9660;</span>
+            </div>
+
+            {showEvidence && (
+              <div className="evidence-layer-content">
+                <p className="evidence-intro">
+                  These completed reviews provide the evidence base for your DIAP.
+                  Each module's findings have been used to generate suggested actions.
+                </p>
+
+                <div className="evidence-grid">
+                  {completedModulesEvidence.map(evidence => (
+                    <div key={evidence.moduleId} className="evidence-card">
+                      <div className="evidence-card-header">
+                        <span className="evidence-module-name">{evidence.moduleName}</span>
+                        <span className={`evidence-confidence confidence-${evidence.confidenceSnapshot || 'mixed'}`}>
+                          {evidence.confidenceSnapshot === 'strong' && 'Strong'}
+                          {evidence.confidenceSnapshot === 'mixed' && 'Mixed'}
+                          {evidence.confidenceSnapshot === 'needs-work' && 'Needs work'}
+                          {!evidence.confidenceSnapshot && 'Reviewed'}
+                        </span>
+                      </div>
+                      <div className="evidence-card-body">
+                        <span className="evidence-diap-section">{evidence.diapSection}</span>
+                        <div className="evidence-stats">
+                          <span className="evidence-stat positive">{evidence.doingWellCount} strengths</span>
+                          <span className="evidence-stat action">{evidence.actionsCount} actions</span>
+                        </div>
+                      </div>
+                      <div className="evidence-card-footer">
+                        {evidence.completedBy && (
+                          <span className="evidence-completed-by">
+                            Completed by: {evidence.completedBy}
+                          </span>
+                        )}
+                        {evidence.completedAt && (
+                          <span className="evidence-completed-date">
+                            {new Date(evidence.completedAt).toLocaleDateString('en-AU', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                            })}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* View Mode Toggle */}
+        <div className="view-mode-toggle">
+          <button
+            className={`view-mode-btn ${viewMode === 'list' ? 'active' : ''}`}
+            onClick={() => setViewMode('list')}
+          >
+            List View
+          </button>
+          <button
+            className={`view-mode-btn ${viewMode === 'by-section' ? 'active' : ''}`}
+            onClick={() => setViewMode('by-section')}
+          >
+            By DIAP Section
+          </button>
         </div>
 
         {/* Tabs and Filters */}

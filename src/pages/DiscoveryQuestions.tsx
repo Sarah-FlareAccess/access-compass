@@ -179,35 +179,28 @@ export default function DiscoveryQuestions() {
   const handleCompleteModule = (summary: ModuleSummary) => {
     if (!currentModule) return;
 
-    // Complete the module
-    completeModule(currentModule.moduleId, summary);
+    try {
+      // Complete the module
+      completeModule(currentModule.moduleId, summary);
 
-    // Auto-generate DIAP items from responses
-    const moduleProgress = getModuleProgress(currentModule.moduleId);
-    if (moduleProgress?.responses) {
-      generateFromResponses(
-        moduleProgress.responses,
-        currentQuestions,
-        currentModule.moduleName
-      );
-    }
-
-    // If accessed directly from dashboard, go back to dashboard
-    if (directModuleAccess) {
-      navigate('/dashboard');
-      return;
-    }
-
-    // Move to next module or show list
-    const nextIncompleteIndex = moduleStates.findIndex(
-      (m, i) => i > currentModuleIndex && m.status !== 'completed'
-    );
-
-    if (nextIncompleteIndex >= 0) {
-      // Show module list to let user choose
-      setShowModuleList(true);
-    } else {
-      // All modules complete
+      // Auto-generate DIAP items from responses (don't block navigation if this fails)
+      try {
+        const moduleProgress = getModuleProgress(currentModule.moduleId);
+        if (moduleProgress?.responses) {
+          generateFromResponses(
+            moduleProgress.responses,
+            currentQuestions,
+            currentModule.moduleName
+          );
+        }
+      } catch (diapError) {
+        console.error('Error generating DIAP items:', diapError);
+        // Continue with navigation even if DIAP generation fails
+      }
+    } catch (error) {
+      console.error('Error completing module:', error);
+    } finally {
+      // Always navigate back to dashboard
       navigate('/dashboard');
     }
   };

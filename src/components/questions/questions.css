@@ -347,12 +347,16 @@
   color: #1a1a2e;
 }
 
-/* Single-select Options */
+/* Single-select Section */
+.single-select-section {
+  margin-bottom: 24px;
+}
+
 .single-select-options {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .single-select-option {
@@ -369,6 +373,47 @@
 .single-select-option:hover {
   border-color: #7c3aed;
   background: rgba(124, 58, 237, 0.05);
+}
+
+.single-select-option.selected {
+  border-color: #7c3aed;
+  background: rgba(124, 58, 237, 0.1);
+}
+
+/* Other Description Input */
+.other-description-input {
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.other-description-input label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.other-text-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.other-text-input:focus {
+  outline: none;
+  border-color: #7c3aed;
+}
+
+/* Submit button spacing for single-select section */
+.single-select-section .submit-btn {
+  width: 100%;
 }
 
 /* Link Input */
@@ -527,7 +572,61 @@
 .summary-module-name {
   font-size: 16px;
   color: #666;
+  margin: 0 0 8px 0;
+}
+
+.summary-stats-brief {
+  font-size: 14px;
+  color: #888;
   margin: 0;
+}
+
+/* Summary Overview Cards */
+.summary-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.overview-item {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  border-left: 4px solid;
+}
+
+.overview-item.overview-success {
+  border-left-color: #22c55e;
+}
+
+.overview-item.overview-actions {
+  border-left-color: #ef4444;
+}
+
+.overview-item.overview-explore {
+  border-left-color: #f59e0b;
+}
+
+.overview-item.overview-review {
+  border-left-color: #6366f1;
+}
+
+.overview-number {
+  display: block;
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.overview-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
 }
 
 /* Summary Sections */

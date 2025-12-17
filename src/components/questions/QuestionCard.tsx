@@ -8,6 +8,7 @@
 import { useState, useCallback } from 'react';
 import type { QuestionResponse } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
+import { UrlAnalysisInput } from './UrlAnalysisInput';
 import './questions.css';
 
 interface QuestionCardProps {
@@ -37,7 +38,21 @@ export function QuestionCard({
   const [selectedOptions, setSelectedOptions] = useState<string[]>(
     currentResponse?.multiSelectValues || []
   );
+  const [selectedSingleOption, setSelectedSingleOption] = useState<string | null>(
+    currentResponse?.multiSelectValues?.[0] || null
+  );
   const [linkValue, setLinkValue] = useState(currentResponse?.linkValue || '');
+  const [otherDescription, setOtherDescription] = useState(currentResponse?.otherDescription || '');
+
+  // Check if "other" option is selected (multi-select)
+  const hasOtherSelected = selectedOptions.some(
+    (opt) => opt === 'other' || opt.toLowerCase().includes('other')
+  );
+
+  // Check if "other" option is selected (single-select)
+  const hasSingleOtherSelected = selectedSingleOption
+    ? selectedSingleOption === 'other' || selectedSingleOption.toLowerCase().includes('other')
+    : false;
 
   const handleYesNoAnswer = useCallback(
     (answer: 'yes' | 'no' | 'not-sure' | 'too-hard') => {
@@ -74,25 +89,38 @@ export function QuestionCard({
       questionId: question.id,
       answer: null,
       multiSelectValues: selectedOptions,
+      otherDescription: hasOtherSelected && otherDescription.trim() ? otherDescription.trim() : undefined,
       notes: notes.trim() || undefined,
       timestamp: new Date().toISOString(),
     };
     onAnswer(response);
-  }, [question.id, selectedOptions, notes, onAnswer]);
+  }, [question.id, selectedOptions, hasOtherSelected, otherDescription, notes, onAnswer]);
 
-  const handleSingleSelectSubmit = useCallback(
+  const handleSingleSelectClick = useCallback(
     (optionId: string) => {
-      const response: QuestionResponse = {
-        questionId: question.id,
-        answer: null,
-        multiSelectValues: [optionId],
-        notes: notes.trim() || undefined,
-        timestamp: new Date().toISOString(),
-      };
-      onAnswer(response);
+      // Just select the option, don't submit yet
+      setSelectedSingleOption(optionId);
+      // Clear other description if switching away from "other"
+      const isOther = optionId === 'other' || optionId.toLowerCase().includes('other');
+      if (!isOther) {
+        setOtherDescription('');
+      }
     },
-    [question.id, notes, onAnswer]
+    []
   );
+
+  const handleSingleSelectSubmit = useCallback(() => {
+    if (!selectedSingleOption) return;
+    const response: QuestionResponse = {
+      questionId: question.id,
+      answer: null,
+      multiSelectValues: [selectedSingleOption],
+      otherDescription: hasSingleOtherSelected && otherDescription.trim() ? otherDescription.trim() : undefined,
+      notes: notes.trim() || undefined,
+      timestamp: new Date().toISOString(),
+    };
+    onAnswer(response);
+  }, [question.id, selectedSingleOption, hasSingleOtherSelected, otherDescription, notes, onAnswer]);
 
   const handleLinkSubmit = useCallback(() => {
     const response: QuestionResponse = {
@@ -104,6 +132,34 @@ export function QuestionCard({
     };
     onAnswer(response);
   }, [question.id, linkValue, notes, onAnswer]);
+
+  const handleUrlAnalysisSubmit = useCallback((urlAnalysisResult: {
+    url: string;
+    overallScore: number;
+    overallStatus: 'excellent' | 'good' | 'needs-improvement' | 'missing';
+    summary: string;
+    strengths: string[];
+    improvements: string[];
+  }) => {
+    const response: QuestionResponse = {
+      questionId: question.id,
+      answer: null,
+      urlAnalysis: urlAnalysisResult,
+      notes: notes.trim() || undefined,
+      timestamp: new Date().toISOString(),
+    };
+    onAnswer(response);
+  }, [question.id, notes, onAnswer]);
+
+  const handleUrlAnalysisSkip = useCallback(() => {
+    const response: QuestionResponse = {
+      questionId: question.id,
+      answer: null,
+      notes: notes.trim() || undefined,
+      timestamp: new Date().toISOString(),
+    };
+    onAnswer(response);
+  }, [question.id, notes, onAnswer]);
 
   const toggleOption = (optionId: string) => {
     setSelectedOptions((prev) =>
@@ -286,10 +342,23 @@ export function QuestionCard({
               <span className="option-label">{option.label}</span>
             </label>
           ))}
+          {hasOtherSelected && (
+            <div className="other-description-input">
+              <label htmlFor="other-description">Please describe:</label>
+              <input
+                type="text"
+                id="other-description"
+                value={otherDescription}
+                onChange={(e) => setOtherDescription(e.target.value)}
+                placeholder="Enter details..."
+                className="other-text-input"
+              />
+            </div>
+          )}
           <button
             className="submit-btn"
             onClick={handleMultiSelectSubmit}
-            disabled={selectedOptions.length === 0}
+            disabled={selectedOptions.length === 0 || (hasOtherSelected && !otherDescription.trim())}
           >
             Continue
           </button>
@@ -298,16 +367,42 @@ export function QuestionCard({
 
       {/* Single-select Question Type */}
       {question.type === 'single-select' && question.options && (
-        <div className="single-select-options">
-          {question.options.map((option) => (
+        <div className="single-select-section">
+          <div className="single-select-options">
+            {question.options.map((option) => (
+              <button
+                key={option.id}
+                className={`single-select-option ${selectedSingleOption === option.id ? 'selected' : ''}`}
+                onClick={() => handleSingleSelectClick(option.id)}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+
+          {hasSingleOtherSelected && (
+            <div className="other-description-input">
+              <label htmlFor="single-other-description">Please describe:</label>
+              <input
+                type="text"
+                id="single-other-description"
+                value={otherDescription}
+                onChange={(e) => setOtherDescription(e.target.value)}
+                placeholder="Enter details..."
+                className="other-text-input"
+              />
+            </div>
+          )}
+
+          {selectedSingleOption && (
             <button
-              key={option.id}
-              className="single-select-option"
-              onClick={() => handleSingleSelectSubmit(option.id)}
+              className="submit-btn"
+              onClick={handleSingleSelectSubmit}
+              disabled={hasSingleOtherSelected && !otherDescription.trim()}
             >
-              {option.label}
+              Continue
             </button>
-          ))}
+          )}
         </div>
       )}
 
@@ -357,8 +452,17 @@ export function QuestionCard({
         </div>
       )}
 
+      {/* URL Analysis Question Type */}
+      {question.type === 'url-analysis' && (
+        <UrlAnalysisInput
+          currentValue={currentResponse?.urlAnalysis}
+          onSubmit={handleUrlAnalysisSubmit}
+          onSkip={handleUrlAnalysisSkip}
+        />
+      )}
+
       {/* Notes section for non-text questions */}
-      {question.type !== 'text' && (
+      {question.type !== 'text' && question.type !== 'url-analysis' && (
         <div className="notes-section">
           <label htmlFor="question-notes">Add notes (optional)</label>
           <input

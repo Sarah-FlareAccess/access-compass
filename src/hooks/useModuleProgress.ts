@@ -21,7 +21,35 @@ export interface QuestionResponse {
   };
   multiSelectValues?: string[];
   linkValue?: string;
+  otherDescription?: string;
+  urlAnalysis?: {
+    url: string;
+    analysisDate: string;
+    overallScore: number;
+    overallStatus: 'excellent' | 'good' | 'needs-improvement' | 'missing';
+    summary: string;
+    strengths: string[];
+    improvements: string[];
+    parameterResults: Array<{
+      parameterId: string;
+      parameterName: string;
+      status: 'excellent' | 'good' | 'needs-improvement' | 'missing';
+      score: number;
+      feedback: string;
+      suggestions?: string[];
+      evidenceFound?: string[];
+    }>;
+    disclaimer: string;
+  };
   timestamp: string;
+}
+
+export interface ModuleOwnership {
+  assignedTo?: string;           // Free text - person's name or role
+  assignedToEmail?: string;      // Email for future notification capability
+  targetCompletionDate?: string; // ISO date string
+  completedBy?: string;          // Auto-captured on completion
+  completedByRole?: string;      // Optional role/title of completer
 }
 
 export interface ModuleProgress {
@@ -32,6 +60,10 @@ export interface ModuleProgress {
   completedAt?: string;
   responses: QuestionResponse[];
   summary?: ModuleSummary;
+  // Ownership and accountability
+  ownership?: ModuleOwnership;
+  // Confidence snapshot for DIAP
+  confidenceSnapshot?: 'strong' | 'mixed' | 'needs-work';
 }
 
 export interface ModuleSummary {
@@ -62,13 +94,21 @@ function saveLocalProgress(progress: Record<string, ModuleProgress>) {
   localStorage.setItem(MODULE_PROGRESS_KEY, JSON.stringify(progress));
 }
 
+interface CompletionMetadata {
+  completedBy?: string;
+  completedByRole?: string;
+}
+
 interface UseModuleProgressReturn {
   progress: Record<string, ModuleProgress>;
   isLoading: boolean;
 
   // Module actions
   startModule: (moduleId: string, moduleCode: string) => void;
-  completeModule: (moduleId: string, summary?: ModuleSummary) => void;
+  completeModule: (moduleId: string, summary?: ModuleSummary, completionMetadata?: CompletionMetadata) => void;
+
+  // Ownership actions
+  updateModuleOwnership: (moduleId: string, ownership: Partial<ModuleOwnership>) => void;
 
   // Response actions
   saveResponse: (moduleId: string, response: QuestionResponse) => void;
@@ -161,11 +201,30 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     });
   }, []);
 
+  // Calculate confidence snapshot based on responses
+  const calculateConfidenceSnapshot = (responses: QuestionResponse[]): 'strong' | 'mixed' | 'needs-work' => {
+    if (responses.length === 0) return 'needs-work';
+
+    const yesCount = responses.filter(r => r.answer === 'yes').length;
+    const noCount = responses.filter(r => r.answer === 'no').length;
+    const unsureCount = responses.filter(r => r.answer === 'not-sure' || r.answer === 'too-hard').length;
+    const total = responses.length;
+
+    const yesPercentage = (yesCount / total) * 100;
+    const negativePercentage = ((noCount + unsureCount) / total) * 100;
+
+    if (yesPercentage >= 70) return 'strong';
+    if (negativePercentage >= 50) return 'needs-work';
+    return 'mixed';
+  };
+
   // Complete a module
-  const completeModule = useCallback((moduleId: string, summary?: ModuleSummary) => {
+  const completeModule = useCallback((moduleId: string, summary?: ModuleSummary, completionMetadata?: CompletionMetadata) => {
     setProgress(prev => {
       const existing = prev[moduleId];
       if (!existing) return prev;
+
+      const confidenceSnapshot = calculateConfidenceSnapshot(existing.responses);
 
       const updated = {
         ...prev,
@@ -174,6 +233,38 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
           status: 'completed' as const,
           completedAt: new Date().toISOString(),
           summary,
+          confidenceSnapshot,
+          ownership: {
+            ...existing.ownership,
+            completedBy: completionMetadata?.completedBy || existing.ownership?.assignedTo,
+            completedByRole: completionMetadata?.completedByRole,
+          },
+        },
+      };
+
+      saveLocalProgress(updated);
+      return updated;
+    });
+  }, []);
+
+  // Update module ownership (assignment and target date)
+  const updateModuleOwnership = useCallback((moduleId: string, ownership: Partial<ModuleOwnership>) => {
+    setProgress(prev => {
+      const existing = prev[moduleId] || {
+        moduleId,
+        moduleCode: moduleId,
+        status: 'not-started' as const,
+        responses: [],
+      };
+
+      const updated = {
+        ...prev,
+        [moduleId]: {
+          ...existing,
+          ownership: {
+            ...existing.ownership,
+            ...ownership,
+          },
         },
       };
 
@@ -267,6 +358,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     isLoading,
     startModule,
     completeModule,
+    updateModuleOwnership,
     saveResponse,
     getResponse,
     getModuleProgress,

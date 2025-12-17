@@ -11,13 +11,14 @@
  * This is NOT a summary screen - it's the central navigation point.
  */
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { accessModules, moduleGroups } from '../data/accessModules';
 import type { AccessModule } from '../data/accessModules';
+import type { ModuleOwnership } from '../hooks/useModuleProgress';
 import '../styles/dashboard.css';
 
 type TabType = 'modules' | 'evidence';
@@ -29,6 +30,9 @@ interface ModuleWithProgress {
   totalQuestions: number;
   doingWellCount: number;
   actionCount: number;
+  ownership?: ModuleOwnership;
+  completedAt?: string;
+  confidenceSnapshot?: 'strong' | 'mixed' | 'needs-work';
 }
 
 interface ModuleGroupWithProgress {
@@ -71,7 +75,15 @@ export default function Dashboard() {
   }, [discoveryData, session]);
 
   // Module progress hook
-  const { progress, isLoading: progressLoading, getOverallProgress } = useModuleProgress(recommendedModuleIds);
+  const { progress, isLoading: progressLoading, getOverallProgress, updateModuleOwnership } = useModuleProgress(recommendedModuleIds);
+
+  // Assignment modal state
+  const [assignmentModal, setAssignmentModal] = useState<{
+    isOpen: boolean;
+    moduleId: string;
+    moduleName: string;
+    currentOwnership?: ModuleOwnership;
+  } | null>(null);
 
   // DIAP management hook
   const { items: diapItems, getStats: getDIAPStats } = useDIAPManagement();
@@ -102,10 +114,13 @@ export default function Dashboard() {
           return {
             module,
             status: moduleProgress?.status || 'not-started',
-            answeredCount: moduleProgress?.answeredQuestions || 0,
-            totalQuestions: moduleProgress?.totalQuestions || module.questions.length,
+            answeredCount: moduleProgress?.responses?.length || 0,
+            totalQuestions: module.questions.length,
             doingWellCount: moduleProgress?.summary?.doingWell?.length || 0,
             actionCount: moduleProgress?.summary?.priorityActions?.length || 0,
+            ownership: moduleProgress?.ownership,
+            completedAt: moduleProgress?.completedAt,
+            confidenceSnapshot: moduleProgress?.confidenceSnapshot,
           };
         });
 
@@ -153,6 +168,36 @@ export default function Dashboard() {
       case 'completed':
         return { text: 'Review', className: 'btn-review' };
     }
+  };
+
+  // Open assignment modal
+  const handleOpenAssignment = useCallback((moduleId: string, moduleName: string, currentOwnership?: ModuleOwnership) => {
+    setAssignmentModal({
+      isOpen: true,
+      moduleId,
+      moduleName,
+      currentOwnership,
+    });
+  }, []);
+
+  // Save assignment
+  const handleSaveAssignment = useCallback((assignedTo: string, assignedToEmail: string, targetDate: string) => {
+    if (!assignmentModal) return;
+
+    updateModuleOwnership(assignmentModal.moduleId, {
+      assignedTo: assignedTo || undefined,
+      assignedToEmail: assignedToEmail || undefined,
+      targetCompletionDate: targetDate || undefined,
+    });
+
+    setAssignmentModal(null);
+  }, [assignmentModal, updateModuleOwnership]);
+
+  // Format date for display
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
   };
 
   if (!session || progressLoading) {
@@ -303,7 +348,7 @@ export default function Dashboard() {
                   </div>
 
                   <div className="module-tiles">
-                    {group.modules.map(({ module, status, answeredCount, totalQuestions, doingWellCount, actionCount }) => {
+                    {group.modules.map(({ module, status, answeredCount, totalQuestions, doingWellCount, actionCount, ownership, completedAt, confidenceSnapshot }) => {
                       const action = getActionButton(status);
                       return (
                         <div key={module.id} className={`module-tile status-${status}`}>
@@ -330,6 +375,38 @@ export default function Dashboard() {
                               </span>
                             </div>
 
+                            {/* Ownership info - only show if filled */}
+                            {(ownership?.assignedTo || ownership?.targetCompletionDate) && (
+                              <div className="module-ownership">
+                                {ownership.assignedTo && (
+                                  <span className="ownership-assigned">
+                                    Assigned to: {ownership.assignedTo}
+                                  </span>
+                                )}
+                                {ownership.targetCompletionDate && (
+                                  <span className="ownership-target">
+                                    Target: {formatDate(ownership.targetCompletionDate)}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+
+                            {/* Completion metadata for completed modules */}
+                            {status === 'completed' && (ownership?.completedBy || completedAt) && (
+                              <div className="module-completion-info">
+                                {ownership?.completedBy && (
+                                  <span className="completion-by">
+                                    Completed by: {ownership.completedBy}
+                                  </span>
+                                )}
+                                {completedAt && (
+                                  <span className="completion-date">
+                                    {formatDate(completedAt)}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+
                             {/* Progress indicator for in-progress modules */}
                             {status === 'in-progress' && (
                               <div className="module-progress-indicator">
@@ -348,15 +425,46 @@ export default function Dashboard() {
                               <div className="module-results">
                                 <span className="result-good">{doingWellCount} doing well</span>
                                 <span className="result-actions">{actionCount} actions</span>
+                                {confidenceSnapshot && (
+                                  <span className={`confidence-badge confidence-${confidenceSnapshot}`}>
+                                    {confidenceSnapshot === 'strong' && 'Strong'}
+                                    {confidenceSnapshot === 'mixed' && 'Mixed'}
+                                    {confidenceSnapshot === 'needs-work' && 'Needs work'}
+                                  </span>
+                                )}
                               </div>
                             )}
 
-                            <Link
-                              to={`/questions?module=${module.id}`}
-                              className={`module-action-btn ${action.className}`}
-                            >
-                              {action.text}
-                            </Link>
+                            <div className="module-actions">
+                              <Link
+                                to={`/questions?module=${module.id}`}
+                                className={`module-action-btn ${action.className}`}
+                              >
+                                {action.text}
+                              </Link>
+                              <button
+                                type="button"
+                                className="btn-assign-module"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleOpenAssignment(module.id, module.name, ownership);
+                                }}
+                                title={ownership?.assignedTo ? 'Edit assignment' : 'Assign module'}
+                              >
+                                {ownership?.assignedTo ? (
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                                  </svg>
+                                ) : (
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <line x1="19" y1="8" x2="19" y2="14"/>
+                                    <line x1="22" y1="11" x2="16" y2="11"/>
+                                  </svg>
+                                )}
+                              </button>
+                            </div>
                           </div>
                         </div>
                       );
@@ -399,6 +507,77 @@ export default function Dashboard() {
           )}
         </div>
       </main>
+
+      {/* Assignment Modal */}
+      {assignmentModal && (
+        <div className="assignment-modal-overlay" onClick={() => setAssignmentModal(null)}>
+          <div className="assignment-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="assignment-modal-header">
+              <h3>Assign Module</h3>
+              <button
+                className="btn-close-modal"
+                onClick={() => setAssignmentModal(null)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="assignment-modal-content">
+              <p className="assignment-module-name">{assignmentModal.moduleName}</p>
+
+              <div className="assignment-field">
+                <label htmlFor="assignedTo">Assigned to</label>
+                <input
+                  type="text"
+                  id="assignedTo"
+                  placeholder="e.g., Jane Smith, Visitor Experience Manager"
+                  defaultValue={assignmentModal.currentOwnership?.assignedTo || ''}
+                />
+                <span className="field-hint">Name or role responsible for this module</span>
+              </div>
+
+              <div className="assignment-field">
+                <label htmlFor="assignedToEmail">Email (optional)</label>
+                <input
+                  type="email"
+                  id="assignedToEmail"
+                  placeholder="e.g., jane.smith@example.com"
+                  defaultValue={assignmentModal.currentOwnership?.assignedToEmail || ''}
+                />
+                <span className="field-hint">For future notification capability</span>
+              </div>
+
+              <div className="assignment-field">
+                <label htmlFor="targetDate">Target completion date</label>
+                <input
+                  type="date"
+                  id="targetDate"
+                  defaultValue={assignmentModal.currentOwnership?.targetCompletionDate?.split('T')[0] || ''}
+                />
+                <span className="field-hint">Optional - when should this be completed?</span>
+              </div>
+            </div>
+            <div className="assignment-modal-actions">
+              <button
+                className="btn-cancel"
+                onClick={() => setAssignmentModal(null)}
+              >
+                Cancel
+              </button>
+              <button
+                className="btn-save-assignment"
+                onClick={() => {
+                  const assignedTo = (document.getElementById('assignedTo') as HTMLInputElement)?.value || '';
+                  const assignedToEmail = (document.getElementById('assignedToEmail') as HTMLInputElement)?.value || '';
+                  const targetDate = (document.getElementById('targetDate') as HTMLInputElement)?.value || '';
+                  handleSaveAssignment(assignedTo, assignedToEmail, targetDate);
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -8,6 +8,7 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import { QuestionCard } from './QuestionCard';
 import { ModuleSummaryCard } from './ModuleSummaryCard';
+import { ReviewSummary } from './ReviewSummary';
 import { useBranchingLogic, needsProfessionalReview } from '../../hooks/useBranchingLogic';
 import type { QuestionResponse, ModuleSummary, ActionItem } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
@@ -39,6 +40,7 @@ export function QuestionFlow({
   const [responses, setResponses] = useState<QuestionResponse[]>(initialResponses);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
+  const [showReviewSummary, setShowReviewSummary] = useState(false);
 
   // Use branching logic to determine visible questions
   const { visibleQuestions, getNextQuestion, getPreviousQuestion } = useBranchingLogic({
@@ -117,12 +119,15 @@ export function QuestionFlow({
 
       // Check if needs professional review
       if (needsProfessionalReview(question, response)) {
-        professionalReview.push(question.text);
+        professionalReview.push(convertQuestionToStatement(question.text));
       }
 
-      // Categorize based on answer
+      // Determine response sentiment for categorization
+      const sentiment = categorizeResponseSentiment(response, question);
+
+      // Categorize based on answer type
       if (response.answer === 'yes') {
-        doingWell.push(question.text);
+        doingWell.push(convertQuestionToStatement(question.text));
       } else if (response.answer === 'no') {
         // Generate action item
         const priority = question.safetyRelated
@@ -138,7 +143,29 @@ export function QuestionFlow({
           impactStatement: generateImpactStatement(question),
         });
       } else if (response.answer === 'not-sure') {
-        areasToExplore.push(question.text);
+        areasToExplore.push(convertQuestionToStatement(question.text));
+      } else if (response.multiSelectValues || response.linkValue || response.urlAnalysis) {
+        // Handle multi-select, single-select, links, and URL analysis
+        if (sentiment === 'positive') {
+          const statement = convertQuestionToStatement(question.text);
+          const details = getResponseDetails(response, question);
+          doingWell.push(details ? `${statement} (${details})` : statement);
+        } else if (sentiment === 'negative') {
+          const priority = question.safetyRelated
+            ? 'high'
+            : question.impactLevel || 'medium';
+
+          priorityActions.push({
+            questionId: question.id,
+            questionText: question.text,
+            action: generateActionText(question.text),
+            priority: priority as 'high' | 'medium' | 'low',
+            timeframe: priority === 'high' ? 'Within 1 month' : priority === 'medium' ? 'Within 3 months' : 'Within 6 months',
+            impactStatement: generateImpactStatement(question),
+          });
+        } else if (sentiment === 'neutral') {
+          areasToExplore.push(convertQuestionToStatement(question.text));
+        }
       }
 
       // Handle measurement responses
@@ -155,7 +182,8 @@ export function QuestionFlow({
             timeframe: 'Within 3 months',
           });
         } else if (ideal !== undefined && value >= ideal) {
-          doingWell.push(`${question.text} (${value}${question.measurementUnit})`);
+          const statement = convertQuestionToStatement(question.text);
+          doingWell.push(`${statement} (${value}${question.measurementUnit})`);
         }
       }
     });
@@ -174,6 +202,31 @@ export function QuestionFlow({
     onComplete(summary);
   }, [generateSummary, onComplete]);
 
+  // Show review summary view
+  if (showReviewSummary) {
+    return (
+      <ReviewSummary
+        moduleName={moduleName}
+        moduleCode={moduleCode}
+        questions={questions}
+        responses={responses}
+        onBack={() => {
+          setShowReviewSummary(false);
+          setShowSummary(true);
+        }}
+        onEditAnswer={(questionId) => {
+          // Find the question index and go to it
+          const questionIndex = visibleQuestions.findIndex(q => q.id === questionId);
+          if (questionIndex >= 0) {
+            setCurrentIndex(questionIndex);
+            setShowReviewSummary(false);
+            setShowSummary(false);
+          }
+        }}
+      />
+    );
+  }
+
   // Show summary view
   if (showSummary) {
     const summary = generateSummary();
@@ -182,10 +235,11 @@ export function QuestionFlow({
         moduleName={moduleName}
         moduleCode={moduleCode}
         summary={summary}
+        totalQuestionsAnswered={responses.length}
         onComplete={handleComplete}
         onReviewAnswers={() => {
           setShowSummary(false);
-          setCurrentIndex(0);
+          setShowReviewSummary(true);
         }}
       />
     );
@@ -246,17 +300,228 @@ export function QuestionFlow({
   );
 }
 
-// Helper functions for generating action items
-function generateActionText(questionText: string): string {
-  // Remove question markers and convert to action
-  let action = questionText
-    .replace(/^Do you have |^Does your |^Is there |^Are there |^Can |^Have you /i, '')
-    .replace(/\?$/, '');
+// Helper functions for response analysis and summary generation
 
-  // Capitalize first letter
+/**
+ * Categorize the sentiment of a response (positive/negative/neutral)
+ * based on the selected options or values
+ */
+function categorizeResponseSentiment(
+  response: QuestionResponse,
+  question: BranchingQuestion
+): 'positive' | 'negative' | 'neutral' | null {
+  // Handle yes/no answers
+  if (response.answer) {
+    return null; // Handled separately in generateSummary
+  }
+
+  // Handle multi-select and single-select
+  if (response.multiSelectValues && response.multiSelectValues.length > 0) {
+    const selectedOptionIds = response.multiSelectValues;
+    const selectedLabels = selectedOptionIds
+      .map(id => question.options?.find(opt => opt.id === id)?.label || id)
+      .join(' ');
+
+    // Positive indicators
+    const positiveKeywords = [
+      'yes', 'consistently', 'confident', 'multiple', 'all', 'excellent',
+      'good', 'very', 'always', 'easy', 'clear', 'accessible'
+    ];
+
+    // Negative indicators
+    const negativeKeywords = [
+      'no', 'none', 'limited', 'poor', 'never', 'difficult', 'hard',
+      'inaccessible', 'missing', 'lack'
+    ];
+
+    // Neutral/uncertain indicators
+    const neutralKeywords = [
+      'sometimes', 'somewhat', 'not sure', 'unsure', 'maybe', 'partially',
+      'moderate', 'fair', 'average'
+    ];
+
+    const lowerLabels = selectedLabels.toLowerCase();
+
+    // Check for neutral indicators FIRST (they take priority over positive/negative)
+    // This ensures "somewhat confident" is neutral, not positive
+    if (neutralKeywords.some(keyword => lowerLabels.includes(keyword))) {
+      return 'neutral';
+    }
+
+    // Check for negative indicators
+    if (negativeKeywords.some(keyword => lowerLabels.includes(keyword))) {
+      return 'negative';
+    }
+
+    // Check for positive indicators
+    if (positiveKeywords.some(keyword => lowerLabels.includes(keyword))) {
+      return 'positive';
+    }
+
+    // If multiple options selected (multi-select), generally positive
+    if (selectedOptionIds.length > 1) {
+      return 'positive';
+    }
+  }
+
+  // Handle URL analysis
+  if (response.urlAnalysis) {
+    const score = response.urlAnalysis.overallScore;
+    if (score >= 70) return 'positive';
+    if (score >= 40) return 'neutral';
+    return 'negative';
+  }
+
+  // Handle link values - presence of link is slightly positive
+  if (response.linkValue) {
+    return 'neutral';
+  }
+
+  return null;
+}
+
+/**
+ * Get a brief detail string for a response to show in summary
+ */
+function getResponseDetails(
+  response: QuestionResponse,
+  question: BranchingQuestion
+): string | null {
+  // For single-select, show the selected option
+  if (response.multiSelectValues && response.multiSelectValues.length === 1) {
+    const optionId = response.multiSelectValues[0];
+    const option = question.options?.find(opt => opt.id === optionId);
+    return option?.label || null;
+  }
+
+  // For multi-select with few options, show count
+  if (response.multiSelectValues && response.multiSelectValues.length > 1) {
+    return `${response.multiSelectValues.length} selected`;
+  }
+
+  // For URL analysis, show score
+  if (response.urlAnalysis) {
+    return `${response.urlAnalysis.overallScore}/100`;
+  }
+
+  return null;
+}
+
+// Helper functions for generating action items and converting questions to statements
+
+/**
+ * Convert a question to a statement format for better readability
+ * E.g., "Do you have accessible parking?" → "You have accessible parking"
+ */
+function convertQuestionToStatement(questionText: string): string {
+  let statement = questionText;
+
+  // Remove question mark
+  statement = statement.replace(/\?$/, '');
+
+  // Convert various question formats to statements
+  const conversions: Array<[RegExp, string]> = [
+    // Do questions
+    [/^Do you have /i, 'You have '],
+    [/^Do you /i, 'You '],
+    [/^Do staff /i, 'Staff '],
+    [/^Do customers /i, 'Customers '],
+    [/^Do visitors /i, 'Visitors '],
+    [/^Do people /i, 'People '],
+    [/^Do your /i, 'Your '],
+    [/^Does your /i, 'Your '],
+    [/^Does /i, 'Your business '],
+
+    // Are questions
+    [/^Are you /i, 'You are '],
+    [/^Are your /i, 'Your '],
+    [/^Are staff /i, 'Staff are '],
+    [/^Are customers /i, 'Customers are '],
+    [/^Are visitors /i, 'Visitors are '],
+    [/^Are there /i, 'There are '],
+    [/^Are /i, 'There are '],
+
+    // Is questions
+    [/^Is your /i, 'Your '],
+    [/^Is there /i, 'There is '],
+    [/^Is /i, 'Your business '],
+
+    // Can questions
+    [/^Can you /i, 'You can '],
+    [/^Can your /i, 'Your '],
+    [/^Can customers /i, 'Customers can '],
+    [/^Can visitors /i, 'Visitors can '],
+    [/^Can people /i, 'People can '],
+    [/^Can staff /i, 'Staff can '],
+    [/^Can all /i, 'All '],
+    [/^Can /i, 'Customers can '],
+
+    // Have/Has questions
+    [/^Have you /i, 'You have '],
+    [/^Have your /i, 'Your '],
+    [/^Has your /i, 'Your '],
+
+    // Would/Could questions
+    [/^Would you like /i, 'You would like '],
+    [/^Would you /i, 'You would '],
+    [/^Could you /i, 'You could '],
+
+    // What questions - convert to statements maintaining the verb
+    [/^What types? of (.+?) do you currently (.+)/i, 'You currently $2 $1'],
+    [/^What types? of (.+?) do you (.+)/i, 'You $2 $1'],
+    [/^What (.+?) do you currently (.+)/i, 'You currently $2 $1'],
+    [/^What (.+?) do you (.+)/i, 'You $2 $1'],
+
+    // How questions - convert to statements
+    [/^How confident are you that (.+)/i, 'You are confident that $1'],
+    [/^How confident are you (.+)/i, 'You are confident $1'],
+    [/^How (.+?) are you that (.+)/i, 'You are $1 that $2'],
+    [/^How (.+?) are you (.+)/i, 'You are $1 $2'],
+    [/^How (.+?) is your (.+)/i, 'Your $2 is $1'],
+    [/^How (.+?) do you (.+)/i, 'You $2 $1'],
+  ];
+
+  for (const [pattern, replacement] of conversions) {
+    if (pattern.test(statement)) {
+      statement = statement.replace(pattern, replacement);
+      break;
+    }
+  }
+
+  // Ensure first letter is capitalized
+  statement = statement.charAt(0).toUpperCase() + statement.slice(1);
+
+  return statement;
+}
+
+function generateActionText(questionText: string): string {
+  // Convert to statement and use as action description
+  const statement = convertQuestionToStatement(questionText);
+
+  // For "no" answers, we want to address the gap
+  // Convert positive statement to action needed
+  let action = statement;
+
+  // Convert "You have" to "Provide"
+  action = action.replace(/^You have /i, 'Provide ');
+  action = action.replace(/^You are /i, 'Ensure you are ');
+  action = action.replace(/^You can /i, 'Ensure you can ');
+  action = action.replace(/^You /i, 'Ensure you ');
+
+  // Convert "Your [thing] is/are" to "Ensure your [thing] is/are"
+  action = action.replace(/^Your (.+?) (is|are) /i, 'Ensure your $1 $2 ');
+  action = action.replace(/^Your /i, 'Review your ');
+
+  // Convert "There is/are" to "Provide"
+  action = action.replace(/^There (is|are) /i, 'Provide ');
+
+  // Convert "Customers/Visitors can" to "Ensure customers/visitors can"
+  action = action.replace(/^(Customers|Visitors|People|Staff|All) can /i, 'Ensure $1 can ');
+
+  // Ensure first letter is capitalized
   action = action.charAt(0).toUpperCase() + action.slice(1);
 
-  return `Review and address: ${action}`;
+  return action;
 }
 
 function generateImpactStatement(question: BranchingQuestion): string {

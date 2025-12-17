@@ -15,6 +15,7 @@ interface ModuleSummaryCardProps {
   moduleName: string;
   moduleCode: string;
   summary: ModuleSummary;
+  totalQuestionsAnswered: number;
   onComplete: () => void;
   onReviewAnswers: () => void;
 }
@@ -23,6 +24,7 @@ export function ModuleSummaryCard({
   moduleName,
   moduleCode,
   summary,
+  totalQuestionsAnswered,
   onComplete,
   onReviewAnswers,
 }: ModuleSummaryCardProps) {
@@ -42,6 +44,34 @@ export function ModuleSummaryCard({
         <p className="summary-module-name">
           {moduleName} ({moduleCode})
         </p>
+        <p className="summary-stats-brief">
+          {totalQuestionsAnswered} question{totalQuestionsAnswered !== 1 ? 's' : ''} answered
+          {priorityActions.length > 0 && (
+            <> · {priorityActions.length} action{priorityActions.length !== 1 ? 's' : ''} identified</>
+          )}
+        </p>
+      </div>
+
+      {/* Quick Overview */}
+      <div className="summary-overview">
+        <div className="overview-item overview-success">
+          <span className="overview-number">{doingWell.length}</span>
+          <span className="overview-label">Going well</span>
+        </div>
+        <div className="overview-item overview-actions">
+          <span className="overview-number">{priorityActions.length}</span>
+          <span className="overview-label">Priority actions</span>
+        </div>
+        <div className="overview-item overview-explore">
+          <span className="overview-number">{areasToExplore.length}</span>
+          <span className="overview-label">To explore</span>
+        </div>
+        {professionalReview.length > 0 && (
+          <div className="overview-item overview-review">
+            <span className="overview-number">{professionalReview.length}</span>
+            <span className="overview-label">Professional review</span>
+          </div>
+        )}
       </div>
 
       {/* What's Going Well */}

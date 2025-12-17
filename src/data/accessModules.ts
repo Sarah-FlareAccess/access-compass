@@ -166,7 +166,7 @@ export const accessModules: AccessModule[] = [
         id: 'B1-F-4-link',
         text: 'Paste the link where your accessibility information is shared',
         helpText: 'This review is indicative only and based on publicly available information. It does not verify accuracy or confirm compliance.',
-        type: 'single-select',
+        type: 'url-analysis',
         category: 'evidence',
         impactLevel: 'low',
         reviewMode: 'pulse-check',
