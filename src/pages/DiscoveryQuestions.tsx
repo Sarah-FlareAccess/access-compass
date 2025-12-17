@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { QuestionFlow } from '../components/questions';
@@ -26,11 +26,16 @@ interface ModuleState {
 
 export default function DiscoveryQuestions() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [moduleStates, setModuleStates] = useState<ModuleState[]>([]);
   const [currentModuleIndex, setCurrentModuleIndex] = useState(0);
-  const [showModuleList, setShowModuleList] = useState(true);
+
+  // Check if a specific module was requested via URL parameter
+  const requestedModuleId = searchParams.get('module');
+  const [showModuleList, setShowModuleList] = useState(!requestedModuleId);
+  const [directModuleAccess, setDirectModuleAccess] = useState(!!requestedModuleId);
 
   // Get the review mode from discovery data
   const reviewMode: ReviewMode = discoveryData?.reviewMode || 'pulse-check';
@@ -59,6 +64,31 @@ export default function DiscoveryQuestions() {
     const currentSession = getSession();
     const currentDiscovery = getDiscoveryData();
 
+    // If accessing a specific module directly, we don't require selected_modules
+    if (requestedModuleId) {
+      const requestedModule = getModuleById(requestedModuleId);
+      if (!requestedModule) {
+        navigate('/dashboard');
+        return;
+      }
+
+      setSession(currentSession || {});
+      setDiscoveryData(currentDiscovery);
+
+      // Create a single module state for the requested module
+      const states: ModuleState[] = [{
+        moduleId: requestedModuleId,
+        moduleCode: requestedModule.code,
+        moduleName: requestedModule.name,
+        status: 'pending' as const,
+      }];
+
+      setModuleStates(states);
+      setCurrentModuleIndex(0);
+      setShowModuleList(false);
+      return;
+    }
+
     if (!currentSession || !currentSession.selected_modules?.length) {
       navigate('/discovery');
       return;
@@ -79,7 +109,7 @@ export default function DiscoveryQuestions() {
     });
 
     setModuleStates(states);
-  }, [navigate]);
+  }, [navigate, requestedModuleId]);
 
   // Update module states based on progress
   useEffect(() => {
@@ -101,6 +131,14 @@ export default function DiscoveryQuestions() {
       })
     );
   }, [progress]);
+
+  // Auto-start module when accessed directly from dashboard
+  useEffect(() => {
+    if (directModuleAccess && moduleStates.length > 0 && !showModuleList) {
+      const module = moduleStates[0];
+      startModule(module.moduleId, module.moduleCode);
+    }
+  }, [directModuleAccess, moduleStates, showModuleList, startModule]);
 
   // Get current module
   const currentModule = useMemo(() => {
@@ -154,6 +192,12 @@ export default function DiscoveryQuestions() {
       );
     }
 
+    // If accessed directly from dashboard, go back to dashboard
+    if (directModuleAccess) {
+      navigate('/dashboard');
+      return;
+    }
+
     // Move to next module or show list
     const nextIncompleteIndex = moduleStates.findIndex(
       (m, i) => i > currentModuleIndex && m.status !== 'completed'
@@ -168,9 +212,14 @@ export default function DiscoveryQuestions() {
     }
   };
 
-  // Handle going back to module list
+  // Handle going back to module list or dashboard
   const handleBackToList = () => {
-    setShowModuleList(true);
+    if (directModuleAccess) {
+      // If accessed directly from dashboard, go back to dashboard
+      navigate('/dashboard');
+    } else {
+      setShowModuleList(true);
+    }
   };
 
   // Calculate overall progress
