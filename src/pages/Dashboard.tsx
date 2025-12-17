@@ -6,6 +6,7 @@
  * - Manage progress across modules
  * - Access outputs (Report, DIAP)
  * - View and manage evidence
+ * - Review/refine discovery responses
  *
  * This is NOT a summary screen - it's the central navigation point.
  */
@@ -15,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
-import { accessModules, moduleGroups, getModulesByGroup } from '../data/accessModules';
+import { accessModules, moduleGroups } from '../data/accessModules';
 import type { AccessModule } from '../data/accessModules';
 import '../styles/dashboard.css';
 
@@ -45,14 +46,22 @@ export default function Dashboard() {
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<TabType>('modules');
 
-  // Get selected modules from session
-  const selectedModuleIds: string[] = useMemo(() => {
-    if (!session?.selected_modules) return [];
-    return session.selected_modules;
-  }, [session]);
+  // Get recommended modules from discovery, falling back to selected modules
+  const recommendedModuleIds: string[] = useMemo(() => {
+    // First try recommended modules from discovery
+    if (discoveryData?.recommended_modules?.length > 0) {
+      return discoveryData.recommended_modules;
+    }
+    // Fall back to selected modules from session
+    if (session?.selected_modules?.length > 0) {
+      return session.selected_modules;
+    }
+    // If nothing selected, show all modules
+    return accessModules.map(m => m.id);
+  }, [discoveryData, session]);
 
   // Module progress hook
-  const { progress, isLoading: progressLoading, getOverallProgress } = useModuleProgress(selectedModuleIds);
+  const { progress, isLoading: progressLoading, getOverallProgress } = useModuleProgress(recommendedModuleIds);
 
   // DIAP management hook
   const { items: diapItems, getStats: getDIAPStats } = useDIAPManagement();
@@ -76,7 +85,7 @@ export default function Dashboard() {
     return moduleGroups.map(group => {
       const groupModules = accessModules
         .filter(m => m.group === group.id)
-        .filter(m => selectedModuleIds.length === 0 || selectedModuleIds.includes(m.id))
+        .filter(m => recommendedModuleIds.includes(m.id))
         .map(module => {
           const moduleProgress = progress[module.id];
           return {
@@ -100,31 +109,38 @@ export default function Dashboard() {
         totalCount: groupModules.length,
       };
     }).filter(g => g.modules.length > 0);
-  }, [selectedModuleIds, progress]);
+  }, [recommendedModuleIds, progress]);
 
   // Calculate overall stats
   const overallStats = useMemo(() => {
-    const overall = getOverallProgress();
     const diapStats = getDIAPStats();
 
-    // Count total modules across all groups
     const totalModules = groupedModules.reduce((sum, g) => sum + g.totalCount, 0);
     const completedModules = groupedModules.reduce((sum, g) => sum + g.completedCount, 0);
+    const inProgressModules = groupedModules.reduce(
+      (sum, g) => sum + g.modules.filter(m => m.status === 'in-progress').length,
+      0
+    );
 
     return {
       modulesCompleted: completedModules,
+      modulesInProgress: inProgressModules,
+      modulesNotStarted: totalModules - completedModules - inProgressModules,
       modulesTotal: totalModules,
       progressPercentage: totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0,
       diapItemCount: diapStats.total,
     };
-  }, [groupedModules, getOverallProgress, getDIAPStats]);
+  }, [groupedModules, getDIAPStats]);
 
-  // Get action button text based on status
-  const getActionText = (status: 'not-started' | 'in-progress' | 'completed') => {
+  // Get action button text and style based on status
+  const getActionButton = (status: 'not-started' | 'in-progress' | 'completed') => {
     switch (status) {
-      case 'not-started': return 'Start';
-      case 'in-progress': return 'Continue';
-      case 'completed': return 'Review';
+      case 'not-started':
+        return { text: 'Start', className: 'btn-start' };
+      case 'in-progress':
+        return { text: 'Continue', className: 'btn-continue' };
+      case 'completed':
+        return { text: 'Review', className: 'btn-review' };
     }
   };
 
@@ -142,6 +158,7 @@ export default function Dashboard() {
   const orgName = session?.business_snapshot?.organisation_name || 'there';
   const hasCompletedModules = overallStats.modulesCompleted > 0;
   const hasDIAPItems = overallStats.diapItemCount > 0;
+  const reviewMode = discoveryData?.review_mode || 'foundation';
 
   return (
     <div className="dashboard-page">
@@ -193,6 +210,45 @@ export default function Dashboard() {
                 </div>
                 <span className="progress-percentage">{overallStats.progressPercentage}%</span>
               </div>
+
+              {/* Progress Status Summary */}
+              <div className="progress-status-summary">
+                <div className="status-item status-completed">
+                  <span className="status-dot"></span>
+                  <span className="status-count">{overallStats.modulesCompleted}</span>
+                  <span className="status-label">Completed</span>
+                </div>
+                <div className="status-item status-in-progress">
+                  <span className="status-dot"></span>
+                  <span className="status-count">{overallStats.modulesInProgress}</span>
+                  <span className="status-label">In progress</span>
+                </div>
+                <div className="status-item status-not-started">
+                  <span className="status-dot"></span>
+                  <span className="status-count">{overallStats.modulesNotStarted}</span>
+                  <span className="status-label">Not started</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Review Discovery Option */}
+          <section className="discovery-review-section">
+            <div className="discovery-review-card">
+              <div className="review-content">
+                <span className="review-icon">🔍</span>
+                <div className="review-text">
+                  <p className="review-label">
+                    Your pathway: <strong>{reviewMode === 'detailed' ? 'Deep Dive' : 'Pulse Check'}</strong>
+                  </p>
+                  <p className="review-hint">
+                    You can revisit or refine your discovery responses anytime.
+                  </p>
+                </div>
+              </div>
+              <Link to="/discovery" className="review-btn">
+                Review Discovery
+              </Link>
             </div>
           </section>
 
@@ -222,48 +278,78 @@ export default function Dashboard() {
                       <h3 className="group-title">{group.label}</h3>
                       <p className="group-description">{group.description}</p>
                     </div>
-                    <span className="group-counter">
-                      {group.completedCount}/{group.totalCount}
-                    </span>
+                    <div className="group-progress">
+                      <span className="group-counter">
+                        {group.completedCount}/{group.totalCount}
+                      </span>
+                      <div className="group-progress-bar">
+                        <div
+                          className="group-progress-fill"
+                          style={{ width: `${group.totalCount > 0 ? (group.completedCount / group.totalCount) * 100 : 0}%` }}
+                        />
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="module-cards">
-                    {group.modules.map(({ module, status, answeredCount, totalQuestions, doingWellCount, actionCount }) => (
-                      <div key={module.id} className={`module-card status-${status}`}>
-                        <div className="module-card-header">
-                          <span className="module-icon">{module.icon}</span>
-                          <span className={`status-badge status-${status}`}>
-                            {status === 'not-started' && 'Not started'}
-                            {status === 'in-progress' && 'In progress'}
-                            {status === 'completed' && 'Completed'}
-                          </span>
+                  <div className="module-tiles">
+                    {group.modules.map(({ module, status, answeredCount, totalQuestions, doingWellCount, actionCount }) => {
+                      const action = getActionButton(status);
+                      return (
+                        <div key={module.id} className={`module-tile status-${status}`}>
+                          {/* Status Indicator Bar */}
+                          <div className={`status-bar status-${status}`}></div>
+
+                          <div className="tile-content">
+                            <div className="tile-header">
+                              <span className="module-icon">{module.icon}</span>
+                              <span className={`status-badge status-${status}`}>
+                                {status === 'not-started' && 'Not started'}
+                                {status === 'in-progress' && 'In progress'}
+                                {status === 'completed' && 'Completed'}
+                              </span>
+                            </div>
+
+                            <h4 className="module-title">{module.name}</h4>
+                            <p className="module-description">{module.description}</p>
+
+                            <div className="module-meta">
+                              <span className="module-time">
+                                <span className="time-icon">⏱</span>
+                                {module.estimatedTime}–{module.estimatedTime + 5} min
+                              </span>
+                            </div>
+
+                            {/* Progress indicator for in-progress modules */}
+                            {status === 'in-progress' && (
+                              <div className="module-progress-indicator">
+                                <div className="mini-progress-bar">
+                                  <div
+                                    className="mini-progress-fill"
+                                    style={{ width: `${totalQuestions > 0 ? (answeredCount / totalQuestions) * 100 : 0}%` }}
+                                  />
+                                </div>
+                                <span className="progress-text">{answeredCount}/{totalQuestions} questions</span>
+                              </div>
+                            )}
+
+                            {/* Results for completed modules */}
+                            {status === 'completed' && (
+                              <div className="module-results">
+                                <span className="result-good">{doingWellCount} doing well</span>
+                                <span className="result-actions">{actionCount} actions</span>
+                              </div>
+                            )}
+
+                            <Link
+                              to={`/questions?module=${module.id}`}
+                              className={`module-action-btn ${action.className}`}
+                            >
+                              {action.text}
+                            </Link>
+                          </div>
                         </div>
-
-                        <h4 className="module-title">{module.name}</h4>
-                        <p className="module-description">{module.description}</p>
-
-                        <div className="module-meta">
-                          <span className="module-time">{module.estimatedTime}–{module.estimatedTime + 5} min</span>
-                          {status === 'in-progress' && (
-                            <span className="module-progress-text">
-                              {answeredCount}/{totalQuestions} questions
-                            </span>
-                          )}
-                          {status === 'completed' && (
-                            <span className="module-results-text">
-                              {doingWellCount} good · {actionCount} actions
-                            </span>
-                          )}
-                        </div>
-
-                        <Link
-                          to={`/questions?module=${module.id}`}
-                          className={`module-action-btn status-${status}`}
-                        >
-                          {getActionText(status)}
-                        </Link>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </section>
               ))}

@@ -4,8 +4,13 @@
  * Design principles:
  * - Guided journey feel, not SaaS dashboard
  * - Warm and professional, not charts-heavy
- * - Clear progress without scoring
- * - Modular cards with time estimates
+ * - Clear progress with color-coded status indicators
+ * - Modular tiles with time estimates
+ *
+ * Status Colors:
+ * - Not started: Gray (#9ca3af)
+ * - In progress: Purple (#7c3aed)
+ * - Completed: Green (#16a34a)
  */
 
 /* Page Container */
@@ -110,7 +115,7 @@
 }
 
 .dashboard-container {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -118,7 +123,7 @@
    WELCOME SECTION
    ============================================ */
 .welcome-section {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .welcome-title {
@@ -138,7 +143,7 @@
    PROGRESS CARD
    ============================================ */
 .progress-section {
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 
 .progress-card {
@@ -171,29 +176,137 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-bottom: 20px;
 }
 
 .progress-bar {
   flex: 1;
-  height: 10px;
+  height: 12px;
   background: #e8e6e3;
-  border-radius: 5px;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .progress-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, #7c3aed 0%, #a855f7 100%);
-  border-radius: 5px;
+  border-radius: 6px;
   transition: width 0.5s ease;
 }
 
 .progress-percentage {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: #7c3aed;
-  min-width: 48px;
+  min-width: 52px;
   text-align: right;
+}
+
+/* Progress Status Summary */
+.progress-status-summary {
+  display: flex;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f0eeeb;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.status-item.status-completed .status-dot {
+  background: #16a34a;
+}
+
+.status-item.status-in-progress .status-dot {
+  background: #7c3aed;
+}
+
+.status-item.status-not-started .status-dot {
+  background: #9ca3af;
+}
+
+.status-count {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.status-label {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ============================================
+   DISCOVERY REVIEW SECTION
+   ============================================ */
+.discovery-review-section {
+  margin-bottom: 24px;
+}
+
+.discovery-review-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.review-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.review-icon {
+  font-size: 24px;
+}
+
+.review-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.review-label {
+  font-size: 14px;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.review-hint {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+.review-btn {
+  padding: 10px 18px;
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  color: #1a1a2e;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.review-btn:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
 }
 
 /* ============================================
@@ -202,7 +315,7 @@
 .dashboard-tabs {
   display: flex;
   gap: 8px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   border-bottom: 1px solid #e5e5e5;
   padding-bottom: 0;
 }
@@ -235,13 +348,13 @@
 .modules-content {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 28px;
 }
 
 .module-group {
   background: #ffffff;
   border-radius: 16px;
-  padding: 28px;
+  padding: 24px 28px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
@@ -271,51 +384,96 @@
   margin: 0;
 }
 
+.group-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
 .group-counter {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: #7c3aed;
-  background: rgba(124, 58, 237, 0.08);
-  padding: 6px 12px;
-  border-radius: 20px;
-  flex-shrink: 0;
+}
+
+.group-progress-bar {
+  width: 80px;
+  height: 6px;
+  background: #e8e6e3;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.group-progress-fill {
+  height: 100%;
+  background: #16a34a;
+  border-radius: 3px;
+  transition: width 0.3s ease;
 }
 
 /* ============================================
-   MODULE CARDS
+   MODULE TILES
    ============================================ */
-.module-cards {
+.module-tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
 }
 
-.module-card {
+.module-tile {
   background: #fafaf9;
   border: 1px solid #e8e6e3;
   border-radius: 12px;
-  padding: 20px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: all 0.2s ease;
 }
 
-.module-card:hover {
+.module-tile:hover {
   border-color: rgba(124, 58, 237, 0.3);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
-.module-card.status-in-progress {
+/* Status Bar at top of tile */
+.status-bar {
+  height: 4px;
+  width: 100%;
+}
+
+.status-bar.status-not-started {
+  background: #9ca3af;
+}
+
+.status-bar.status-in-progress {
+  background: #7c3aed;
+}
+
+.status-bar.status-completed {
+  background: #16a34a;
+}
+
+/* Tile backgrounds based on status */
+.module-tile.status-in-progress {
   background: rgba(124, 58, 237, 0.03);
-  border-color: rgba(124, 58, 237, 0.2);
+  border-color: rgba(124, 58, 237, 0.15);
 }
 
-.module-card.status-completed {
+.module-tile.status-completed {
   background: rgba(34, 197, 94, 0.03);
-  border-color: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.15);
 }
 
-.module-card-header {
+.tile-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tile-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -323,28 +481,30 @@
 }
 
 .module-icon {
-  font-size: 24px;
+  font-size: 28px;
 }
 
 .status-badge {
   font-size: 11px;
-  font-weight: 500;
-  padding: 4px 10px;
+  font-weight: 600;
+  padding: 5px 10px;
   border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .status-badge.status-not-started {
-  background: #f0eeeb;
-  color: #888;
+  background: #f3f4f6;
+  color: #6b7280;
 }
 
 .status-badge.status-in-progress {
-  background: rgba(124, 58, 237, 0.1);
+  background: rgba(124, 58, 237, 0.12);
   color: #7c3aed;
 }
 
 .status-badge.status-completed {
-  background: rgba(34, 197, 94, 0.1);
+  background: rgba(34, 197, 94, 0.12);
   color: #16a34a;
 }
 
@@ -365,66 +525,114 @@
 }
 
 .module-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
+  margin-bottom: 14px;
 }
 
 .module-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 12px;
   color: #888;
 }
 
-.module-progress-text {
+.time-icon {
+  font-size: 14px;
+}
+
+/* Mini progress bar for in-progress modules */
+.module-progress-indicator {
+  margin-bottom: 14px;
+}
+
+.mini-progress-bar {
+  height: 6px;
+  background: #e8e6e3;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.mini-progress-fill {
+  height: 100%;
+  background: #7c3aed;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
   font-size: 12px;
   color: #7c3aed;
   font-weight: 500;
 }
 
-.module-results-text {
-  font-size: 12px;
-  color: #16a34a;
-  font-weight: 500;
+/* Results for completed modules */
+.module-results {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
+.result-good {
+  font-size: 12px;
+  color: #16a34a;
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.1);
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.result-actions {
+  font-size: 12px;
+  color: #dc2626;
+  font-weight: 600;
+  background: rgba(220, 38, 38, 0.1);
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+/* Action buttons */
 .module-action-btn {
   display: block;
   width: 100%;
   padding: 12px 16px;
-  background: #1a1a2e;
-  color: #ffffff;
   text-align: center;
   text-decoration: none;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   transition: all 0.2s ease;
+  margin-top: auto;
 }
 
-.module-action-btn:hover {
+.module-action-btn.btn-start {
+  background: #1a1a2e;
+  color: #ffffff;
+}
+
+.module-action-btn.btn-start:hover {
   background: #2d2d4a;
   transform: translateY(-1px);
 }
 
-.module-action-btn.status-in-progress {
+.module-action-btn.btn-continue {
   background: #7c3aed;
+  color: #ffffff;
 }
 
-.module-action-btn.status-in-progress:hover {
+.module-action-btn.btn-continue:hover {
   background: #6d28d9;
+  transform: translateY(-1px);
 }
 
-.module-action-btn.status-completed {
+.module-action-btn.btn-review {
   background: transparent;
-  color: #1a1a2e;
-  border: 1px solid #ddd;
+  color: #16a34a;
+  border: 2px solid #16a34a;
 }
 
-.module-action-btn.status-completed:hover {
-  background: #f5f5f5;
-  border-color: #ccc;
+.module-action-btn.btn-review:hover {
+  background: rgba(34, 197, 94, 0.08);
 }
 
 /* ============================================
@@ -531,11 +739,26 @@
     font-size: 22px;
   }
 
+  .progress-status-summary {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .discovery-review-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .review-btn {
+    text-align: center;
+  }
+
   .module-group {
     padding: 20px;
   }
 
-  .module-cards {
+  .module-tiles {
     grid-template-columns: 1fr;
   }
 
@@ -544,8 +767,14 @@
     gap: 12px;
   }
 
-  .group-counter {
-    align-self: flex-start;
+  .group-progress {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .group-progress-bar {
+    width: 60px;
   }
 }
 
@@ -579,5 +808,15 @@
     padding: 10px 16px;
     font-size: 14px;
     white-space: nowrap;
+  }
+
+  .progress-status-summary {
+    justify-content: space-between;
+  }
+
+  .status-item {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
   }
 }
