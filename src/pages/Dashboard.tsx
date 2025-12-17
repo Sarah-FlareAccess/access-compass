@@ -85,7 +85,8 @@ export default function Dashboard() {
     return moduleGroups.map(group => {
       const groupModules = accessModules
         .filter(m => m.group === group.id)
-        .filter(m => recommendedModuleIds.includes(m.id))
+        // Match by both module ID (e.g., 'M05') and code (e.g., 'A1')
+        .filter(m => recommendedModuleIds.includes(m.id) || recommendedModuleIds.includes(m.code))
         .map(module => {
           const moduleProgress = progress[module.id];
           return {
