@@ -1,8 +1,8 @@
 /**
  * Access Modules with Full Question Inventory
  *
- * Ported from Access Navigator with comprehensive questions
- * supporting Foundation and Detailed review modes.
+ * Complete module set matching Access Navigator structure.
+ * 17 modules across 4 journey phases.
  */
 
 import type { BranchingQuestion } from '../hooks/useBranchingLogic';
@@ -13,7 +13,7 @@ export interface AccessModule {
   name: string;
   description: string;
   group: 'before-arrival' | 'getting-in' | 'during-visit' | 'service-support';
-  estimatedTime: number; // Foundation mode
+  estimatedTime: number;
   estimatedTimeDetailed?: number;
   icon: string;
   questions: BranchingQuestion[];
@@ -28,210 +28,31 @@ export const moduleGroups = [
   {
     id: 'getting-in',
     label: 'Getting in and moving around',
-    description: 'Arrival, entry, circulation, and physical navigation',
+    description: 'Physical access and navigation',
   },
   {
     id: 'during-visit',
     label: 'During the visit',
-    description: 'Experiences, amenities, signage, lighting, and sensory considerations',
+    description: 'The experience while on-site',
   },
   {
     id: 'service-support',
     label: 'Service and support',
-    description: 'Staff interactions, policies, emergencies, and ongoing support',
+    description: 'How you serve and support customers',
   },
 ];
 
 export const accessModules: AccessModule[] = [
   // ============================================
-  // MODULE A1: ARRIVAL & PARKING
+  // BEFORE THEY ARRIVE (4 modules)
   // ============================================
-  {
-    id: 'M05',
-    code: 'A1',
-    name: 'Arrival & Parking',
-    description: 'Accessible parking, drop-off zones, and paths to entrance',
-    group: 'getting-in',
-    estimatedTime: 12,
-    estimatedTimeDetailed: 20,
-    icon: '🅿️',
-    questions: [
-      {
-        id: 'A1-F-1',
-        text: 'Do you have designated accessible parking spaces?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A1-F-2',
-        text: 'Are accessible parking spaces located close to the main entrance?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A1-F-3',
-        text: 'Is there a drop-off zone near the entrance for customers who need it?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A1-F-4',
-        text: 'Is the path from accessible parking to the entrance smooth and level?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'high',
-        helpText: 'Consider what a wheelchair user or someone with a mobility aid would experience.',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A1-F-5',
-        text: 'Is the path wide enough for wheelchair users (at least 1.2 metres)?',
-        type: 'yes-no-unsure',
-        category: 'measurement',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A1-F-6',
-        text: 'Would a first-time visitor know where to find accessible parking?',
-        type: 'yes-no-unsure',
-        category: 'information',
-        impactLevel: 'medium',
-        helpText: 'Consider signage, website information, and visibility.',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A1-F-7',
-        text: 'Do staff know how to direct customers to accessible parking and entry points?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A1-F-8',
-        text: 'Is the parking area well-lit for customers arriving in low light?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      // Detailed questions
-      {
-        id: 'A1-D-9',
-        text: 'During busy periods, are accessible parking spaces still available and not blocked?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'high',
-        reviewMode: 'detailed',
-      },
-      {
-        id: 'A1-D-10',
-        text: 'Is the path from parking protected from weather (covered or sheltered)?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'low',
-        reviewMode: 'detailed',
-      },
-      {
-        id: 'A1-D-11',
-        text: 'Is the surface of accessible parking spaces firm and slip-resistant?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'high',
-        safetyRelated: true,
-        reviewMode: 'detailed',
-      },
-    ],
-  },
 
-  // ============================================
-  // MODULE A2: ENTRY & DOORS
-  // ============================================
+  // B1: Pre-visit Information
   {
-    id: 'M05b',
-    code: 'A2',
-    name: 'Entry & Doors',
-    description: 'Entrance accessibility and door operation',
-    group: 'getting-in',
-    estimatedTime: 10,
-    estimatedTimeDetailed: 18,
-    icon: '🚪',
-    questions: [
-      {
-        id: 'A2-F-1',
-        text: 'Is your main entrance step-free?',
-        helpText: 'No steps or a ramp is available.',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A2-F-2',
-        text: 'Is the main entrance door wide enough for wheelchair users (at least 850mm)?',
-        type: 'yes-no-unsure',
-        category: 'measurement',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A2-F-3',
-        text: 'Are entrance doors easy to open (automatic, light push, or lever handles)?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A2-F-4',
-        text: 'Is the main entrance clearly visible and identifiable from the street?',
-        type: 'yes-no-unsure',
-        category: 'information',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A2-F-5',
-        text: 'If there is an alternative accessible entrance, is it clearly signed?',
-        type: 'yes-no-unsure',
-        category: 'information',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A2-F-6',
-        text: 'Do staff know how to assist customers who need help entering the building?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A2-F-7',
-        text: 'Is there adequate lighting at the entrance for customers with low vision?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-    ],
-  },
-
-  // ============================================
-  // MODULE B1: PRE-VISIT INFORMATION
-  // ============================================
-  {
-    id: 'M02',
+    id: 'B1',
     code: 'B1',
-    name: 'Pre-visit Information',
-    description: 'Accessibility information shared before customers visit',
+    name: 'Pre-visit information',
+    description: 'How you share accessibility information before customers visit',
     group: 'before-arrival',
     estimatedTime: 12,
     estimatedTimeDetailed: 20,
@@ -302,14 +123,730 @@ export const accessModules: AccessModule[] = [
     ],
   },
 
-  // ============================================
-  // MODULE C1: CUSTOMER SERVICE
-  // ============================================
+  // B4.1: Website Basics
   {
-    id: 'M09',
+    id: 'B4.1',
+    code: 'B4.1',
+    name: 'Website basics',
+    description: 'Basic accessibility of your website for all visitors',
+    group: 'before-arrival',
+    estimatedTime: 15,
+    estimatedTimeDetailed: 25,
+    icon: '💻',
+    questions: [
+      {
+        id: 'B4.1-F-1',
+        text: 'Can all website content be accessed using only a keyboard (no mouse required)?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.1-F-2',
+        text: 'Do all images on your website have alternative text descriptions?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.1-F-3',
+        text: 'Is there good colour contrast between text and background?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.1-F-4',
+        text: 'Can text be resized without breaking the layout?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.1-F-5',
+        text: 'Are forms properly labelled so screen readers can identify each field?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.1-F-6',
+        text: 'Is your website mobile-friendly and responsive?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // B4.2: Booking Systems and Forms
+  {
+    id: 'B4.2',
+    code: 'B4.2',
+    name: 'Booking systems and forms',
+    description: 'Accessibility of your online booking and form systems',
+    group: 'before-arrival',
+    estimatedTime: 10,
+    estimatedTimeDetailed: 18,
+    icon: '📅',
+    questions: [
+      {
+        id: 'B4.2-F-1',
+        text: 'Can customers complete bookings without using a mouse?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.2-F-2',
+        text: 'Do booking forms allow customers to request accessibility support or adjustments?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.2-F-3',
+        text: 'Are error messages clear and easy to understand?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.2-F-4',
+        text: 'Can customers save their progress and return later to complete a booking?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.2-F-5',
+        text: 'Is there an alternative way to book (phone, email) if the online system is difficult?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // B4.3: Video and Social Media
+  {
+    id: 'B4.3',
+    code: 'B4.3',
+    name: 'Video and social media',
+    description: 'Accessibility of your video content and social media presence',
+    group: 'before-arrival',
+    estimatedTime: 10,
+    estimatedTimeDetailed: 18,
+    icon: '🎬',
+    questions: [
+      {
+        id: 'B4.3-F-1',
+        text: 'Do your videos have captions or subtitles?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.3-F-2',
+        text: 'Are transcripts available for audio or video content?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.3-F-3',
+        text: 'Do you include image descriptions when posting on social media?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.3-F-4',
+        text: 'Do you avoid flashing or rapidly moving content that could affect people with epilepsy?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        safetyRelated: true,
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B4.3-F-5',
+        text: 'Can videos be paused, stopped, or have autoplay disabled?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // ============================================
+  // GETTING IN AND MOVING AROUND (4 modules)
+  // ============================================
+
+  // A1: Arrival, Parking and Drop-off
+  {
+    id: 'A1',
+    code: 'A1',
+    name: 'Arrival, parking and drop-off',
+    description: 'How customers arrive at and enter your premises',
+    group: 'getting-in',
+    estimatedTime: 15,
+    estimatedTimeDetailed: 22,
+    icon: '🅿️',
+    questions: [
+      {
+        id: 'A1-F-1',
+        text: 'Do you have designated accessible parking spaces?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A1-F-2',
+        text: 'Are accessible parking spaces located close to the main entrance?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A1-F-3',
+        text: 'Is there a drop-off zone near the entrance for customers who need it?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A1-F-4',
+        text: 'Is the path from accessible parking to the entrance smooth and level?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        helpText: 'Consider what a wheelchair user or someone with a mobility aid would experience.',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A1-F-5',
+        text: 'Is the path wide enough for wheelchair users (at least 1.2 metres)?',
+        type: 'yes-no-unsure',
+        category: 'measurement',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A1-F-6',
+        text: 'Would a first-time visitor know where to find accessible parking?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        helpText: 'Consider signage, website information, and visibility.',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A1-F-7',
+        text: 'Is the parking area well-lit for customers arriving in low light?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // A2: Entry and Doors
+  {
+    id: 'A2',
+    code: 'A2',
+    name: 'Entry and doors',
+    description: 'How customers enter your building',
+    group: 'getting-in',
+    estimatedTime: 12,
+    estimatedTimeDetailed: 18,
+    icon: '🚪',
+    questions: [
+      {
+        id: 'A2-F-1',
+        text: 'Is your main entrance step-free?',
+        helpText: 'No steps or a ramp is available.',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A2-F-2',
+        text: 'Is the main entrance door wide enough for wheelchair users (at least 850mm)?',
+        type: 'yes-no-unsure',
+        category: 'measurement',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A2-F-3',
+        text: 'Are entrance doors easy to open (automatic, light push, or lever handles)?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A2-F-4',
+        text: 'Is the main entrance clearly visible and identifiable from the street?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A2-F-5',
+        text: 'If there is an alternative accessible entrance, is it clearly signed?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A2-F-6',
+        text: 'Is there adequate lighting at the entrance for customers with low vision?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // A3a: Paths and Aisles
+  {
+    id: 'A3a',
+    code: 'A3a',
+    name: 'Paths and aisles',
+    description: 'Internal circulation and movement routes',
+    group: 'getting-in',
+    estimatedTime: 12,
+    estimatedTimeDetailed: 20,
+    icon: '🧭',
+    questions: [
+      {
+        id: 'A3a-F-1',
+        text: 'Are main circulation routes wide enough for wheelchair users (at least 1.2m)?',
+        type: 'yes-no-unsure',
+        category: 'measurement',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A3a-F-2',
+        text: 'Are pathways kept clear of obstacles and trip hazards?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        safetyRelated: true,
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A3a-F-3',
+        text: 'Are floor surfaces stable, firm, and slip-resistant?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        safetyRelated: true,
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A3a-F-4',
+        text: 'If you have multiple levels, is there step-free access between them?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A3a-F-5',
+        text: 'Are there rest points or seating along longer routes?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A3a-F-6',
+        text: 'Are changes in floor level clearly marked with contrasting colours?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // A3b: Queues and Busy Times
+  {
+    id: 'A3b',
+    code: 'A3b',
+    name: 'Queues and busy times',
+    description: 'Managing queues and crowded periods',
+    group: 'getting-in',
+    estimatedTime: 10,
+    estimatedTimeDetailed: 16,
+    icon: '⏳',
+    questions: [
+      {
+        id: 'A3b-F-1',
+        text: 'Is there seating available for customers who cannot stand for long periods while queuing?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A3b-F-2',
+        text: 'Do staff know how to offer priority service or queue adjustments for customers who need them?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A3b-F-3',
+        text: 'Do you share information about busy times so customers can plan their visit?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A3b-F-4',
+        text: 'Is there enough space in queuing areas for wheelchair users and mobility aids?',
+        type: 'yes-no-unsure',
+        category: 'measurement',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A3b-F-5',
+        text: 'Can customers request a quieter time or appointment to avoid crowds?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // ============================================
+  // DURING THE VISIT (5 modules)
+  // ============================================
+
+  // A4: Seating, Furniture and Layout
+  {
+    id: 'A4',
+    code: 'A4',
+    name: 'Seating, furniture and layout',
+    description: 'Physical comfort and usability of your space',
+    group: 'during-visit',
+    estimatedTime: 12,
+    estimatedTimeDetailed: 20,
+    icon: '🪑',
+    questions: [
+      {
+        id: 'A4-F-1',
+        text: 'Is there a variety of seating options for different needs?',
+        helpText: 'Examples: chairs with arms, different heights, space for wheelchairs.',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A4-F-2',
+        text: 'Is there seating available in waiting or queuing areas?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A4-F-3',
+        text: 'Are service counters at an accessible height or is an alternative available?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A4-F-4',
+        text: 'Can furniture be rearranged to accommodate wheelchair users or mobility aids?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A4-F-5',
+        text: 'Is there clear space for customers using wheelchairs to sit alongside companions?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // A5: Toilets and Amenities
+  {
+    id: 'A5',
+    code: 'A5',
+    name: 'Toilets and amenities',
+    description: 'Accessible toilet and amenity facilities',
+    group: 'during-visit',
+    estimatedTime: 15,
+    estimatedTimeDetailed: 22,
+    icon: '🚻',
+    questions: [
+      {
+        id: 'A5-F-1',
+        text: 'Do you have accessible toilets on site?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A5-F-2',
+        text: 'Are accessible toilets clearly signed and easy to find?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A5-F-3',
+        text: 'Is the accessible toilet kept clear of storage items?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A5-F-4',
+        text: 'Are grab rails and emergency pull cords in working order?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        safetyRelated: true,
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A5-F-5',
+        text: 'Is there a baby change facility that is accessible?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A5-F-6',
+        text: 'Do staff know where accessible facilities are to direct customers?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // A6: Lighting, Sound and Sensory Environment
+  {
+    id: 'A6',
+    code: 'A6',
+    name: 'Lighting, sound and sensory environment',
+    description: 'Sensory aspects of your environment',
+    group: 'during-visit',
+    estimatedTime: 12,
+    estimatedTimeDetailed: 20,
+    icon: '💡',
+    questions: [
+      {
+        id: 'A6-F-1',
+        text: 'Is lighting consistent and adequate throughout your space?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A6-F-2',
+        text: 'Are there quiet times or spaces for customers who are sensitive to noise?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A6-F-3',
+        text: 'Do you inform customers about sensory conditions they might encounter?',
+        helpText: 'Examples: loud music, strong smells, flashing lights, crowded periods.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A6-F-4',
+        text: 'Can background music or announcements be adjusted or turned down if needed?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'low',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'A6-F-5',
+        text: 'Is there good contrast between surfaces to help with visibility?',
+        helpText: 'Examples: contrasting edges on steps, door frames that stand out from walls.',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // B2: Signage and Wayfinding
+  {
+    id: 'B2',
+    code: 'B2',
+    name: 'Signage and wayfinding',
+    description: 'How customers find their way around',
+    group: 'during-visit',
+    estimatedTime: 12,
+    estimatedTimeDetailed: 18,
+    icon: '🪧',
+    questions: [
+      {
+        id: 'B2-F-1',
+        text: 'Is there directional signage throughout your space?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B2-F-2',
+        text: 'Is signage at a readable height for wheelchair users and people of different heights?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B2-F-3',
+        text: 'Does signage use clear, simple language and symbols?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B2-F-4',
+        text: 'Is there good contrast between sign text and background?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B2-F-5',
+        text: 'Are there clear sightlines so customers can see where they need to go?',
+        type: 'yes-no-unsure',
+        category: 'lived-experience',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // B3: Menus and Printed Materials
+  {
+    id: 'B3',
+    code: 'B3',
+    name: 'Menus and printed materials',
+    description: 'Accessibility of printed information',
+    group: 'during-visit',
+    estimatedTime: 10,
+    estimatedTimeDetailed: 16,
+    icon: '📋',
+    questions: [
+      {
+        id: 'B3-F-1',
+        text: 'Are printed materials available in large print if requested?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B3-F-2',
+        text: 'Is text on menus and brochures easy to read (clear font, good contrast)?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B3-F-3',
+        text: 'Can staff read menus or materials aloud for customers who need it?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B3-F-4',
+        text: 'Are digital versions of menus or information available (QR codes, website)?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'B3-F-5',
+        text: 'Do you use plain language that avoids jargon?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+    ],
+  },
+
+  // ============================================
+  // SERVICE AND SUPPORT (4 modules)
+  // ============================================
+
+  // C1: Customer Service and Staff Confidence
+  {
+    id: 'C1',
     code: 'C1',
-    name: 'Customer Service & Staff Confidence',
-    description: 'Staff training and customer interaction',
+    name: 'Customer service and staff confidence',
+    description: 'How your team supports customers with different needs',
     group: 'service-support',
     estimatedTime: 15,
     estimatedTimeDetailed: 25,
@@ -358,22 +895,6 @@ export const accessModules: AccessModule[] = [
       },
       {
         id: 'C1-F-6',
-        text: 'Do staff know where accessible facilities are located to direct customers?',
-        type: 'yes-no-unsure',
-        category: 'information',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'C1-F-7',
-        text: 'Is there a clear process for handling accessibility complaints or feedback?',
-        type: 'yes-no-unsure',
-        category: 'policy',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'C1-F-8',
         text: 'Do staff understand they cannot refuse service to someone with an assistance animal?',
         type: 'yes-no-unsure',
         category: 'policy',
@@ -383,274 +904,125 @@ export const accessModules: AccessModule[] = [
     ],
   },
 
-  // ============================================
-  // MODULE M06: INTERNAL MOVEMENT
-  // ============================================
+  // C2: Bookings, Payments and Flexibility
   {
-    id: 'M06',
-    code: 'A3',
-    name: 'Internal Movement & Wayfinding',
-    description: 'Moving through your space and finding the way',
-    group: 'getting-in',
-    estimatedTime: 12,
-    estimatedTimeDetailed: 22,
-    icon: '🧭',
+    id: 'C2',
+    code: 'C2',
+    name: 'Bookings, payments and flexibility',
+    description: 'Flexibility in your booking and payment processes',
+    group: 'service-support',
+    estimatedTime: 10,
+    estimatedTimeDetailed: 16,
+    icon: '💳',
     questions: [
       {
-        id: 'A3-F-1',
-        text: 'Are main circulation routes wide enough for wheelchair users (at least 1.2m)?',
+        id: 'C2-F-1',
+        text: 'Do you offer flexible booking or cancellation policies for customers with disabilities?',
         type: 'yes-no-unsure',
-        category: 'measurement',
+        category: 'policy',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'C2-F-2',
+        text: 'Can customers pay using a variety of methods (card, cash, contactless)?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'C2-F-3',
+        text: 'Are payment terminals positioned at an accessible height?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'foundation',
+      },
+      {
+        id: 'C2-F-4',
+        text: 'Do you offer companion or carer tickets free or at a reduced rate?',
+        type: 'yes-no-unsure',
+        category: 'policy',
         impactLevel: 'high',
         reviewMode: 'foundation',
       },
       {
-        id: 'A3-F-2',
-        text: 'Are there clear sightlines so customers can see where they need to go?',
+        id: 'C2-F-5',
+        text: 'Can customers easily request adjustments when booking?',
         type: 'yes-no-unsure',
-        category: 'lived-experience',
+        category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'foundation',
       },
+    ],
+  },
+
+  // A7: Safety and Emergencies
+  {
+    id: 'A7',
+    code: 'A7',
+    name: 'Safety and emergencies',
+    description: 'Emergency procedures that include everyone',
+    group: 'service-support',
+    estimatedTime: 12,
+    estimatedTimeDetailed: 20,
+    icon: '🚨',
+    questions: [
       {
-        id: 'A3-F-3',
-        text: 'Is there directional signage throughout your space?',
+        id: 'A7-F-1',
+        text: 'Do your emergency procedures include provisions for people with disabilities?',
         type: 'yes-no-unsure',
-        category: 'information',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A3-F-4',
-        text: 'Are floor surfaces stable, firm, and slip-resistant?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
+        category: 'policy',
         impactLevel: 'high',
         safetyRelated: true,
         reviewMode: 'foundation',
       },
       {
-        id: 'A3-F-5',
-        text: 'If you have multiple levels, is there step-free access between them?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A3-F-6',
-        text: 'Are there rest points or seating along longer routes?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-    ],
-  },
-
-  // ============================================
-  // MODULE M07: SEATING & AMENITIES
-  // ============================================
-  {
-    id: 'M07',
-    code: 'A6',
-    name: 'Seating, Amenities & Toilets',
-    description: 'Seating options and accessible facilities',
-    group: 'during-visit',
-    estimatedTime: 15,
-    estimatedTimeDetailed: 25,
-    icon: '🚻',
-    questions: [
-      {
-        id: 'A6-F-1',
-        text: 'Do you have accessible toilets on site?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A6-F-2',
-        text: 'Are accessible toilets clearly signed and easy to find?',
-        type: 'yes-no-unsure',
-        category: 'information',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A6-F-3',
-        text: 'Is there a variety of seating options for different needs?',
-        helpText: 'Examples: chairs with arms, different heights, space for wheelchairs.',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A6-F-4',
-        text: 'Is there seating available in waiting or queuing areas?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A6-F-5',
-        text: 'Are service counters at an accessible height or is an alternative available?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'A6-F-6',
-        text: 'Do staff know where accessible facilities are to direct customers?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-    ],
-  },
-
-  // ============================================
-  // MODULE M08: SENSORY ENVIRONMENT
-  // ============================================
-  {
-    id: 'M08',
-    code: 'A7',
-    name: 'Sensory Environment',
-    description: 'Lighting, noise, and sensory considerations',
-    group: 'during-visit',
-    estimatedTime: 12,
-    estimatedTimeDetailed: 20,
-    icon: '👁️',
-    questions: [
-      {
-        id: 'A7-F-1',
-        text: 'Is lighting consistent and adequate throughout your space?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
         id: 'A7-F-2',
-        text: 'Are there quiet times or spaces for customers who are sensitive to noise?',
+        text: 'Are emergency alarms both audible and visual?',
         type: 'yes-no-unsure',
         category: 'operational',
-        impactLevel: 'medium',
+        impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'foundation',
       },
       {
         id: 'A7-F-3',
-        text: 'Do you inform customers about sensory conditions they might encounter?',
-        helpText: 'Examples: loud music, strong smells, flashing lights, crowded periods.',
+        text: 'Do staff know how to assist customers with disabilities during an emergency?',
         type: 'yes-no-unsure',
-        category: 'information',
-        impactLevel: 'medium',
+        category: 'operational',
+        impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'foundation',
       },
       {
         id: 'A7-F-4',
-        text: 'Can background music or announcements be adjusted or turned down if needed?',
+        text: 'Are evacuation routes accessible for wheelchair users?',
         type: 'yes-no-unsure',
         category: 'operational',
-        impactLevel: 'low',
+        impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'foundation',
       },
       {
         id: 'A7-F-5',
-        text: 'Is there good contrast between surfaces to help with visibility?',
-        helpText: 'Examples: contrasting edges on steps, door frames that stand out from walls.',
+        text: 'Is there a refuge area or safe waiting point for people who cannot use stairs?',
         type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'medium',
+        category: 'operational',
+        impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'foundation',
       },
     ],
   },
 
-  // ============================================
-  // MODULE M01: DIGITAL ACCESSIBILITY
-  // ============================================
+  // C3: Learning from Your Customers
   {
-    id: 'M01',
-    code: 'B4.1',
-    name: 'Website & Digital Accessibility',
-    description: 'Website and online content accessibility',
-    group: 'before-arrival',
-    estimatedTime: 15,
-    estimatedTimeDetailed: 25,
-    icon: '💻',
-    questions: [
-      {
-        id: 'B4-F-1',
-        text: 'Can all website content be accessed using only a keyboard (no mouse required)?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'B4-F-2',
-        text: 'Do all images on your website have alternative text descriptions?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'B4-F-3',
-        text: 'Is there good colour contrast between text and background?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'B4-F-4',
-        text: 'Can text be resized without breaking the layout?',
-        type: 'yes-no-unsure',
-        category: 'lived-experience',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'B4-F-5',
-        text: 'Are forms properly labelled so screen readers can identify each field?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'high',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'B4-F-6',
-        text: 'Do videos have captions or transcripts available?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-      {
-        id: 'B4-F-7',
-        text: 'Is your website mobile-friendly and responsive?',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'medium',
-        reviewMode: 'foundation',
-      },
-    ],
-  },
-
-  // ============================================
-  // MODULE M10: FEEDBACK & COMPLAINTS
-  // ============================================
-  {
-    id: 'M10',
+    id: 'C3',
     code: 'C3',
-    name: 'Feedback & Complaints',
-    description: 'How you collect and respond to feedback',
+    name: 'Learning from your customers',
+    description: 'Gathering and acting on customer feedback',
     group: 'service-support',
     estimatedTime: 10,
     estimatedTimeDetailed: 18,
@@ -700,7 +1072,7 @@ export const accessModules: AccessModule[] = [
   },
 ];
 
-// Helper to get module by ID
+// Helper to get module by ID or code
 export function getModuleById(id: string): AccessModule | undefined {
   return accessModules.find(m => m.id === id || m.code === id);
 }

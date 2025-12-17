@@ -51,7 +51,9 @@ export default function Dashboard() {
     // Backward compatibility: map old codes to new codes
     const normalizeCode = (code: string): string => {
       const codeMap: Record<string, string> = {
-        'A3a': 'A3',  // Old internal movement code
+        'A3': 'A3a',   // Old internal movement -> Paths and aisles
+        'A7': 'A6',    // Old sensory environment code (if used)
+        'A6': 'A5',    // Map old A6 toilets to new A5
       };
       return codeMap[code] || code;
     };

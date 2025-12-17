@@ -75,21 +75,30 @@ export const MODULES: ModuleDefinition[] = [
   { id: 'M11', name: 'Staying connected & return visits', journeyTheme: 'after-visit', estimatedTime: 10 },
 ];
 
-// Map new module IDs to existing module codes for backward compatibility
-// These must match the 'code' field in accessModules.ts
+// Map recommendation engine module IDs to accessModules codes
+// All 17 modules now exist in accessModules.ts
 export const MODULE_ID_TO_CODE: Record<string, string> = {
-  'M01': 'B4.1',  // Digital accessibility -> Website Basics
-  'M02': 'B1',    // Information & communication -> Pre-visit Information
-  'M03': 'B4.2',  // Booking & transactions -> Online Transactions (not yet in accessModules)
-  'M04': 'B2',    // Policies, pricing -> Information Access (not yet in accessModules)
-  'M05': 'A1',    // Arrival & entry -> Arrival and Parking
-  'M05b': 'A2',   // Entry & Doors
-  'M06': 'A3',    // Internal movement -> Internal Movement & Wayfinding
-  'M07': 'A6',    // Seating, amenities, toilets -> Toilets & Amenities
-  'M08': 'A7',    // Sensory environment -> Sensory Environment
-  'M09': 'C1',    // Customer service -> Customer Service
-  'M10': 'C3',    // Feedback & complaints -> Complaints & Feedback
-  'M11': 'B3',    // Staying connected -> Feedback Systems (not yet in accessModules)
+  // Before they arrive
+  'M01': 'B4.1',  // Website basics
+  'M02': 'B1',    // Pre-visit information
+  'M03': 'B4.2',  // Booking systems and forms
+  'M04': 'B4.3',  // Video and social media
+  // Getting in and moving around
+  'M05': 'A1',    // Arrival, parking and drop-off
+  'M05b': 'A2',   // Entry and doors
+  'M06': 'A3a',   // Paths and aisles
+  'M06b': 'A3b',  // Queues and busy times
+  // During the visit
+  'M07': 'A4',    // Seating, furniture and layout
+  'M07b': 'A5',   // Toilets and amenities
+  'M08': 'A6',    // Lighting, sound and sensory environment
+  'M08b': 'B2',   // Signage and wayfinding
+  'M08c': 'B3',   // Menus and printed materials
+  // Service and support
+  'M09': 'C1',    // Customer service and staff confidence
+  'M09b': 'C2',   // Bookings, payments and flexibility
+  'M10': 'A7',    // Safety and emergencies
+  'M11': 'C3',    // Learning from your customers
 };
 
 export const CODE_TO_MODULE_ID: Record<string, string> = Object.entries(MODULE_ID_TO_CODE).reduce(
