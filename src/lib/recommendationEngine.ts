@@ -62,69 +62,78 @@ export interface ModuleDefinition {
 }
 
 export const MODULES: ModuleDefinition[] = [
-  { id: 'M01', name: 'Digital accessibility (website & online content)', journeyTheme: 'before-arrival', estimatedTime: 15 },
-  { id: 'M02', name: 'Information & communication (pre-visit info, materials)', journeyTheme: 'before-arrival', estimatedTime: 12 },
-  { id: 'M03', name: 'Booking & transactions', journeyTheme: 'before-arrival', estimatedTime: 12 },
-  { id: 'M04', name: 'Policies, pricing & support information', journeyTheme: 'before-arrival', estimatedTime: 10 },
-  { id: 'M05', name: 'Arrival & entry', journeyTheme: 'during-visit', estimatedTime: 12 },
-  { id: 'M06', name: 'Internal movement & wayfinding', journeyTheme: 'during-visit', estimatedTime: 12 },
-  { id: 'M07', name: 'Seating, amenities & toilets', journeyTheme: 'during-visit', estimatedTime: 15 },
-  { id: 'M08', name: 'Sensory environment (lighting, noise, calm spaces)', journeyTheme: 'during-visit', estimatedTime: 12 },
-  { id: 'M09', name: 'Customer service & staff confidence', journeyTheme: 'during-visit', estimatedTime: 15 },
-  { id: 'M10', name: 'Feedback & complaints', journeyTheme: 'after-visit', estimatedTime: 10 },
-  { id: 'M11', name: 'Staying connected & return visits', journeyTheme: 'after-visit', estimatedTime: 10 },
+  // Before they arrive (4 modules)
+  { id: 'B1', name: 'Pre-visit information', journeyTheme: 'before-arrival', estimatedTime: 12 },
+  { id: 'B4.1', name: 'Website basics', journeyTheme: 'before-arrival', estimatedTime: 15 },
+  { id: 'B4.2', name: 'Booking systems and forms', journeyTheme: 'before-arrival', estimatedTime: 10 },
+  { id: 'B4.3', name: 'Video and social media', journeyTheme: 'before-arrival', estimatedTime: 10 },
+  // Getting in and moving around (4 modules)
+  { id: 'A1', name: 'Arrival, parking and drop-off', journeyTheme: 'during-visit', estimatedTime: 15 },
+  { id: 'A2', name: 'Entry and doors', journeyTheme: 'during-visit', estimatedTime: 12 },
+  { id: 'A3a', name: 'Paths and aisles', journeyTheme: 'during-visit', estimatedTime: 12 },
+  { id: 'A3b', name: 'Queues and busy times', journeyTheme: 'during-visit', estimatedTime: 10 },
+  // During the visit (5 modules)
+  { id: 'A4', name: 'Seating, furniture and layout', journeyTheme: 'during-visit', estimatedTime: 12 },
+  { id: 'A5', name: 'Toilets and amenities', journeyTheme: 'during-visit', estimatedTime: 15 },
+  { id: 'A6', name: 'Lighting, sound and sensory environment', journeyTheme: 'during-visit', estimatedTime: 12 },
+  { id: 'B2', name: 'Signage and wayfinding', journeyTheme: 'during-visit', estimatedTime: 12 },
+  { id: 'B3', name: 'Menus and printed materials', journeyTheme: 'during-visit', estimatedTime: 10 },
+  // Service and support (4 modules)
+  { id: 'C1', name: 'Customer service and staff confidence', journeyTheme: 'during-visit', estimatedTime: 15 },
+  { id: 'C2', name: 'Bookings, payments and flexibility', journeyTheme: 'during-visit', estimatedTime: 10 },
+  { id: 'A7', name: 'Safety and emergencies', journeyTheme: 'during-visit', estimatedTime: 12 },
+  { id: 'C3', name: 'Learning from your customers', journeyTheme: 'after-visit', estimatedTime: 10 },
 ];
 
-// Map recommendation engine module IDs to accessModules codes
-// All 17 modules now exist in accessModules.ts
+// Module IDs now match codes directly (no mapping needed)
+// This is kept for backward compatibility
 export const MODULE_ID_TO_CODE: Record<string, string> = {
-  // Before they arrive
-  'M01': 'B4.1',  // Website basics
-  'M02': 'B1',    // Pre-visit information
-  'M03': 'B4.2',  // Booking systems and forms
-  'M04': 'B4.3',  // Video and social media
-  // Getting in and moving around
-  'M05': 'A1',    // Arrival, parking and drop-off
-  'M05b': 'A2',   // Entry and doors
-  'M06': 'A3a',   // Paths and aisles
-  'M06b': 'A3b',  // Queues and busy times
-  // During the visit
-  'M07': 'A4',    // Seating, furniture and layout
-  'M07b': 'A5',   // Toilets and amenities
-  'M08': 'A6',    // Lighting, sound and sensory environment
-  'M08b': 'B2',   // Signage and wayfinding
-  'M08c': 'B3',   // Menus and printed materials
-  // Service and support
-  'M09': 'C1',    // Customer service and staff confidence
-  'M09b': 'C2',   // Bookings, payments and flexibility
-  'M10': 'A7',    // Safety and emergencies
-  'M11': 'C3',    // Learning from your customers
+  'B1': 'B1',
+  'B4.1': 'B4.1',
+  'B4.2': 'B4.2',
+  'B4.3': 'B4.3',
+  'A1': 'A1',
+  'A2': 'A2',
+  'A3a': 'A3a',
+  'A3b': 'A3b',
+  'A4': 'A4',
+  'A5': 'A5',
+  'A6': 'A6',
+  'B2': 'B2',
+  'B3': 'B3',
+  'C1': 'C1',
+  'C2': 'C2',
+  'A7': 'A7',
+  'C3': 'C3',
 };
 
-export const CODE_TO_MODULE_ID: Record<string, string> = Object.entries(MODULE_ID_TO_CODE).reduce(
-  (acc, [moduleId, code]) => ({ ...acc, [code]: moduleId }),
-  {}
-);
+export const CODE_TO_MODULE_ID: Record<string, string> = { ...MODULE_ID_TO_CODE };
 
 // ============================================================================
 // DISCOVERY -> MODULE MAPPING TABLE
 // ============================================================================
 
-// Maps touchpoint IDs to module IDs
+// Maps touchpoint IDs to module codes
+// Each touchpoint can trigger multiple relevant modules
 export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
-  'finding-online': ['M01', 'M02'],
-  'booking': ['M03', 'M01'],
-  'planning-visit': ['M02'],
-  'costs-policies': ['M04'],
-  'enquiries': ['M09'],
-  'getting-in': ['M05', 'M06'],
-  'using-space': ['M07'],
-  'wayfinding': ['M06', 'M02'],
-  'sensory': ['M08'],
-  'staff-interaction': ['M09', 'M04'],
-  'feedback': ['M10'],
-  'staying-connected-touchpoint': ['M11'],
-  'return-visits': ['M11', 'M10'],
+  // Before arrival touchpoints
+  'finding-online': ['B4.1', 'B1', 'B4.3'],           // Website, pre-visit info, video/social
+  'booking': ['B4.2', 'B4.1', 'C2'],                  // Booking systems, website, payments
+  'planning-visit': ['B1', 'B4.1'],                   // Pre-visit info, website
+  'costs-policies': ['C2', 'B1'],                     // Payments/flexibility, pre-visit info
+  'enquiries': ['C1', 'B1'],                          // Customer service, pre-visit info
+
+  // During visit touchpoints
+  'getting-in': ['A1', 'A2', 'A3a', 'A3b'],           // Arrival, entry, paths, queues
+  'using-space': ['A4', 'A5', 'A3b'],                 // Seating, toilets, queues
+  'wayfinding': ['B2', 'A3a', 'B3'],                  // Signage, paths, printed materials
+  'sensory': ['A6', 'A4'],                            // Sensory environment, seating
+  'staff-interaction': ['C1', 'C2', 'A7'],            // Customer service, payments, safety
+
+  // After visit touchpoints
+  'feedback': ['C3', 'C1'],                           // Learning from customers, service
+  'staying-connected-touchpoint': ['C3', 'B4.3'],     // Learning, video/social
+  'return-visits': ['C3', 'C2'],                      // Learning, payments/flexibility
 };
 
 // ============================================================================
@@ -177,32 +186,32 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
 // ============================================================================
 
 export const INDUSTRY_DEFAULT_MODULES: Record<string, string[]> = {
-  'tourism': ['M05', 'M09', 'M02', 'M06'],
-  'hospitality': ['M09', 'M07', 'M08', 'M05'],
-  'accommodation': ['M03', 'M07', 'M05', 'M09'],
-  'events': ['M05', 'M06', 'M09', 'M08'],
-  'retail': ['M05', 'M06', 'M09', 'M03'],
-  'corporate': ['M01', 'M02', 'M09', 'M06'],
-  'local-government': ['M01', 'M02', 'M04', 'M09'],
-  'health': ['M09', 'M05', 'M07', 'M04'],
-  'education': ['M02', 'M09', 'M06', 'M01'],
-  'cafe-restaurant': ['M09', 'M07', 'M08', 'M05'],
-  'tour-operator': ['M09', 'M05', 'M06', 'M02'],
-  'attraction-museum-gallery': ['M05', 'M06', 'M09', 'M08'],
-  'visitor-centre': ['M02', 'M09', 'M05', 'M06'],
-  'other': ['M09', 'M02', 'M05'],
+  'tourism': ['A1', 'C1', 'B1', 'A3a'],
+  'hospitality': ['C1', 'A4', 'A6', 'A1'],
+  'accommodation': ['B4.2', 'A5', 'A1', 'C1'],
+  'events': ['A1', 'A3a', 'C1', 'A6'],
+  'retail': ['A1', 'A3a', 'C1', 'B4.2'],
+  'corporate': ['B4.1', 'B1', 'C1', 'A3a'],
+  'local-government': ['B4.1', 'B1', 'C2', 'C1'],
+  'health': ['C1', 'A1', 'A5', 'C2'],
+  'education': ['B1', 'C1', 'A3a', 'B4.1'],
+  'cafe-restaurant': ['C1', 'A4', 'A6', 'A1', 'B3'],
+  'tour-operator': ['C1', 'A1', 'A3a', 'B1'],
+  'attraction-museum-gallery': ['A1', 'A3a', 'C1', 'A6', 'B2'],
+  'visitor-centre': ['B1', 'C1', 'A1', 'A3a'],
+  'other': ['C1', 'B1', 'A1'],
 };
 
 // Service type priority for tie-breaking
 export const SERVICE_TYPE_PRIORITY: Record<string, string[]> = {
-  'restaurant': ['M08', 'M07', 'M09', 'M05'],
-  'cafe': ['M08', 'M07', 'M09', 'M05'],
-  'bar': ['M08', 'M07', 'M09', 'M05'],
-  'hotel': ['M07', 'M05', 'M09', 'M03'],
-  'tour': ['M09', 'M05', 'M06', 'M02'],
-  'corporate': ['M01', 'M02', 'M09', 'M06'],
-  'retail': ['M05', 'M06', 'M09', 'M03'],
-  'event': ['M05', 'M08', 'M06', 'M09'],
+  'restaurant': ['A6', 'A4', 'C1', 'A1', 'B3'],
+  'cafe': ['A6', 'A4', 'C1', 'A1', 'B3'],
+  'bar': ['A6', 'A4', 'C1', 'A1'],
+  'hotel': ['A5', 'A1', 'C1', 'B4.2'],
+  'tour': ['C1', 'A1', 'A3a', 'B1'],
+  'corporate': ['B4.1', 'B1', 'C1', 'A3a'],
+  'retail': ['A1', 'A3a', 'C1', 'B4.2'],
+  'event': ['A1', 'A6', 'A3a', 'C1'],
   'other': [],
 };
 
