@@ -172,7 +172,10 @@ export default function Dashboard() {
           <h1>Your Accessibility Dashboard</h1>
           <p className="subtext">
             {reviewMode === 'foundation' ? 'Foundation Review' : 'Detailed Review'} for{' '}
-            {session?.business_snapshot?.business_type?.replace(/-/g, ' ') || 'your business'}
+            {session?.business_snapshot?.organisation_name ||
+             session?.business_snapshot?.business_types?.[0]?.replace(/-/g, ' ') ||
+             session?.business_snapshot?.business_type?.replace(/-/g, ' ') ||
+             'your business'}
           </p>
         </div>
 

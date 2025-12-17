@@ -12,7 +12,10 @@ export default function ModuleSelection() {
 
   useEffect(() => {
     const session = getSession();
-    if (!session || !session.business_snapshot?.business_type) {
+    // Check for business_types (new) or business_type (legacy)
+    const hasBusinessInfo = session?.business_snapshot?.business_types?.length > 0 ||
+                            session?.business_snapshot?.business_type;
+    if (!session || !hasBusinessInfo) {
       // Redirect to business snapshot if not completed
       navigate('/start');
       return;
