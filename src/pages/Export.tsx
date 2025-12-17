@@ -47,7 +47,7 @@ export default function Export() {
   }, [discoveryData, session]);
 
   // Get review mode
-  const reviewMode: ReviewMode = discoveryData?.reviewMode || 'pulse-check';
+  const reviewMode: ReviewMode = discoveryData?.review_mode || 'pulse-check';
   const isPulseCheck = reviewMode === 'pulse-check';
 
   // Initialize report generation
