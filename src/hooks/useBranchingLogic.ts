@@ -34,6 +34,10 @@ export interface BranchingQuestion {
     ideal?: number;
     interpretation?: string;
   };
+  // Evidence upload support
+  supportsEvidence?: boolean;
+  evidenceTypes?: ('photo' | 'document' | 'link')[];
+  evidenceHint?: string; // e.g., "Upload a photo of the entrance" or "Attach your accessibility policy"
 }
 
 interface UseBranchingLogicProps {

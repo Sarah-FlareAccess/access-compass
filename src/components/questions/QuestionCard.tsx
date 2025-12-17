@@ -6,9 +6,10 @@
  */
 
 import { useState, useCallback } from 'react';
-import type { QuestionResponse } from '../../hooks/useModuleProgress';
+import type { QuestionResponse, EvidenceFile } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
 import { UrlAnalysisInput } from './UrlAnalysisInput';
+import { EvidenceUpload } from './EvidenceUpload';
 import './questions.css';
 
 interface QuestionCardProps {
@@ -43,6 +44,7 @@ export function QuestionCard({
   );
   const [linkValue, setLinkValue] = useState(currentResponse?.linkValue || '');
   const [otherDescription, setOtherDescription] = useState(currentResponse?.otherDescription || '');
+  const [evidence, setEvidence] = useState<EvidenceFile[]>(currentResponse?.evidence || []);
 
   // Check if "other" option is selected (multi-select)
   const hasOtherSelected = selectedOptions.some(
@@ -60,11 +62,12 @@ export function QuestionCard({
         questionId: question.id,
         answer,
         notes: notes.trim() || undefined,
+        evidence: evidence.length > 0 ? evidence : undefined,
         timestamp: new Date().toISOString(),
       };
       onAnswer(response);
     },
-    [question.id, notes, onAnswer]
+    [question.id, notes, evidence, onAnswer]
   );
 
   const handleMeasurementSubmit = useCallback(() => {
@@ -79,10 +82,11 @@ export function QuestionCard({
         confidence: measurementConfidence,
       },
       notes: notes.trim() || undefined,
+      evidence: evidence.length > 0 ? evidence : undefined,
       timestamp: new Date().toISOString(),
     };
     onAnswer(response);
-  }, [question.id, question.measurementUnit, measurementValue, measurementConfidence, notes, onAnswer]);
+  }, [question.id, question.measurementUnit, measurementValue, measurementConfidence, notes, evidence, onAnswer]);
 
   const handleMultiSelectSubmit = useCallback(() => {
     const response: QuestionResponse = {
@@ -91,10 +95,11 @@ export function QuestionCard({
       multiSelectValues: selectedOptions,
       otherDescription: hasOtherSelected && otherDescription.trim() ? otherDescription.trim() : undefined,
       notes: notes.trim() || undefined,
+      evidence: evidence.length > 0 ? evidence : undefined,
       timestamp: new Date().toISOString(),
     };
     onAnswer(response);
-  }, [question.id, selectedOptions, hasOtherSelected, otherDescription, notes, onAnswer]);
+  }, [question.id, selectedOptions, hasOtherSelected, otherDescription, notes, evidence, onAnswer]);
 
   const handleSingleSelectClick = useCallback(
     (optionId: string) => {
@@ -117,10 +122,11 @@ export function QuestionCard({
       multiSelectValues: [selectedSingleOption],
       otherDescription: hasSingleOtherSelected && otherDescription.trim() ? otherDescription.trim() : undefined,
       notes: notes.trim() || undefined,
+      evidence: evidence.length > 0 ? evidence : undefined,
       timestamp: new Date().toISOString(),
     };
     onAnswer(response);
-  }, [question.id, selectedSingleOption, hasSingleOtherSelected, otherDescription, notes, onAnswer]);
+  }, [question.id, selectedSingleOption, hasSingleOtherSelected, otherDescription, notes, evidence, onAnswer]);
 
   const handleLinkSubmit = useCallback(() => {
     const response: QuestionResponse = {
@@ -168,6 +174,10 @@ export function QuestionCard({
         : [...prev, optionId]
     );
   };
+
+  const handleEvidenceChange = useCallback((newEvidence: EvidenceFile[]) => {
+    setEvidence(newEvidence);
+  }, []);
 
   const renderImpactBadge = () => {
     if (!question.impactLevel) return null;
@@ -442,6 +452,7 @@ export function QuestionCard({
                 questionId: question.id,
                 answer: null,
                 notes: notes.trim() || undefined,
+                evidence: evidence.length > 0 ? evidence : undefined,
                 timestamp: new Date().toISOString(),
               };
               onAnswer(response);
@@ -458,6 +469,16 @@ export function QuestionCard({
           currentValue={currentResponse?.urlAnalysis}
           onSubmit={handleUrlAnalysisSubmit}
           onSkip={handleUrlAnalysisSkip}
+        />
+      )}
+
+      {/* Evidence Upload Section */}
+      {question.supportsEvidence && (
+        <EvidenceUpload
+          evidence={evidence}
+          onEvidenceChange={handleEvidenceChange}
+          allowedTypes={question.evidenceTypes || ['photo', 'document', 'link']}
+          hint={question.evidenceHint}
         />
       )}
 

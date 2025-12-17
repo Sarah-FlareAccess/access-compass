@@ -468,11 +468,14 @@ export const accessModules: AccessModule[] = [
       {
         id: 'A1-D-13',
         text: 'Are accessible parking spaces clearly marked with both ground markings and vertical signage?',
-        helpText: 'Take a photo of the accessible parking signage. (Evidence prompt)',
+        helpText: 'Take a photo of the accessible parking signage.',
         type: 'yes-no-unsure',
         category: 'evidence',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        supportsEvidence: true,
+        evidenceTypes: ['photo'],
+        evidenceHint: 'Upload a photo of your accessible parking signage and ground markings',
       },
       {
         id: 'A1-D-14',
@@ -482,6 +485,9 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        supportsEvidence: true,
+        evidenceTypes: ['document', 'link'],
+        evidenceHint: 'Upload or link to your parking policy document',
       },
       {
         id: 'A1-D-15',
@@ -525,6 +531,9 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        supportsEvidence: true,
+        evidenceTypes: ['photo'],
+        evidenceHint: 'Upload a photo of your main entrance showing step-free access',
       },
       {
         id: 'A2-F-2',
@@ -598,6 +607,9 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        supportsEvidence: true,
+        evidenceTypes: ['photo'],
+        evidenceHint: 'Upload a photo of your entrance ramp showing handrails',
       },
       {
         id: 'A2-D-10',
@@ -644,6 +656,9 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        supportsEvidence: true,
+        evidenceTypes: ['photo'],
+        evidenceHint: 'Upload a photo showing contrast markings on your glass doors',
       },
       {
         id: 'A2-D-15',
@@ -878,6 +893,9 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-1-1', answers: ['yes', 'yes-offsite'] },
+        supportsEvidence: true,
+        evidenceTypes: ['photo'],
+        evidenceHint: 'Upload a photo of your accessible toilet signage',
       },
       {
         id: 'A5-1-4',
@@ -984,6 +1002,9 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        supportsEvidence: true,
+        evidenceTypes: ['photo'],
+        evidenceHint: 'Upload photos of your wayfinding signage',
       },
       {
         id: 'B2-1-2',
@@ -1035,6 +1056,9 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        supportsEvidence: true,
+        evidenceTypes: ['photo', 'document'],
+        evidenceHint: 'Upload examples of your large print materials (menus, brochures, guides)',
       },
       {
         id: 'B3-1-2',
@@ -1082,6 +1106,9 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        supportsEvidence: true,
+        evidenceTypes: ['document', 'link'],
+        evidenceHint: 'Upload training materials or certificates, or link to your training program',
       },
       {
         id: 'C1-F-2',
@@ -1136,6 +1163,9 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        supportsEvidence: true,
+        evidenceTypes: ['document', 'link'],
+        evidenceHint: 'Upload your feedback or complaints process document',
       },
       {
         id: 'C1-F-8',
@@ -1195,11 +1225,14 @@ export const accessModules: AccessModule[] = [
       {
         id: 'C1-D-14',
         text: 'Do you have a documented policy on serving customers with disabilities?',
-        helpText: 'A documented approach helps ensure consistent, respectful service across staff and situations. Policies do not need to be complex but should clearly support inclusion. Note the name and location of any policy documents. (Evidence prompt)',
+        helpText: 'A documented approach helps ensure consistent, respectful service across staff and situations. Policies do not need to be complex but should clearly support inclusion.',
         type: 'yes-no-unsure',
         category: 'policy',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        supportsEvidence: true,
+        evidenceTypes: ['document', 'link'],
+        evidenceHint: 'Upload your customer accessibility policy or provide a link',
       },
       {
         id: 'C1-D-15',
@@ -1331,6 +1364,9 @@ export const accessModules: AccessModule[] = [
         safetyRelated: true,
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        supportsEvidence: true,
+        evidenceTypes: ['document', 'link'],
+        evidenceHint: 'Upload your emergency evacuation procedures document',
       },
       {
         id: 'A7-1-2',

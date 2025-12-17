@@ -4,3 +4,4 @@ export { ModuleSummaryCard } from './ModuleSummaryCard';
 export type { CompletionMetadata } from './ModuleSummaryCard';
 export { UrlAnalysisInput } from './UrlAnalysisInput';
 export { ReviewSummary } from './ReviewSummary';
+export { EvidenceUpload } from './EvidenceUpload';

@@ -9,11 +9,25 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
 
+// Evidence file attached to a question
+export interface EvidenceFile {
+  id: string;
+  type: 'photo' | 'document' | 'link';
+  name: string;           // Display name
+  url?: string;           // For links or uploaded file URLs
+  dataUrl?: string;       // Base64 data URL for local storage (photos/docs)
+  mimeType?: string;      // e.g., 'image/jpeg', 'application/pdf'
+  size?: number;          // File size in bytes
+  uploadedAt: string;     // ISO timestamp
+  description?: string;   // Optional description/caption
+}
+
 export interface QuestionResponse {
   questionId: string;
   answer: 'yes' | 'no' | 'not-sure' | 'too-hard' | null;
   notes?: string;
-  photos?: string[];
+  photos?: string[];      // Legacy - kept for backwards compatibility
+  evidence?: EvidenceFile[]; // New evidence storage
   measurement?: {
     value: number;
     unit: string;
