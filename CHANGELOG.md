@@ -13,6 +13,10 @@ All notable changes to Access Compass will be documented in this file.
 - **Completion Confirmation**: At end of module, users confirm completion with "Completed by" name and role
   - Pre-fills with assigned person if module was assigned
   - Completion date is captured automatically
+- **Email Notification Template**: After assigning with email, generates a copyable message for:
+  - Email, Slack, or Teams notification
+  - Includes module name, organisation, target date, and getting started instructions
+  - One-click copy to clipboard
 - **Confidence Snapshot**: Automatic assessment of module confidence (Strong/Mixed/Needs Work) based on responses
 
 #### DIAP Integration
@@ -35,7 +39,9 @@ All notable changes to Access Compass will be documented in this file.
   - Count of strengths and actions identified
 
 ### Changed
-- Assignment modal now includes email field for future notifications
+- Assignment modal header now shows "(optional)" label
+- Assignment modal shows email template after saving (if email provided)
+- Email field hint updated to explain notification message generation
 - Assign button shows edit (pencil) icon when module already has assignment
 - Improved tooltip messages for assignment button
 

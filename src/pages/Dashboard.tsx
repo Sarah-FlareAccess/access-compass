@@ -83,7 +83,16 @@ export default function Dashboard() {
     moduleId: string;
     moduleName: string;
     currentOwnership?: ModuleOwnership;
+    showEmailTemplate?: boolean;
+    savedAssignment?: {
+      assignedTo: string;
+      assignedToEmail: string;
+      targetDate: string;
+    };
   } | null>(null);
+
+  // Copy to clipboard state
+  const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
   // DIAP management hook
   const { items: diapItems, getStats: getDIAPStats } = useDIAPManagement();
@@ -190,8 +199,61 @@ export default function Dashboard() {
       targetCompletionDate: targetDate || undefined,
     });
 
-    setAssignmentModal(null);
+    // If we have an email, show the email template
+    if (assignedTo && assignedToEmail) {
+      setAssignmentModal({
+        ...assignmentModal,
+        showEmailTemplate: true,
+        savedAssignment: { assignedTo, assignedToEmail, targetDate },
+      });
+      setCopiedToClipboard(false);
+    } else {
+      setAssignmentModal(null);
+    }
   }, [assignmentModal, updateModuleOwnership]);
+
+  // Generate email template
+  const generateEmailTemplate = useCallback(() => {
+    if (!assignmentModal?.savedAssignment) return '';
+
+    const { assignedTo, targetDate } = assignmentModal.savedAssignment;
+    const moduleName = assignmentModal.moduleName;
+    const orgName = session?.business_snapshot?.organisation_name || 'our organisation';
+    const targetDateFormatted = targetDate
+      ? new Date(targetDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })
+      : null;
+
+    return `Hi ${assignedTo.split(' ')[0]},
+
+You've been assigned to complete the "${moduleName}" accessibility self-review module for ${orgName}.
+
+This is part of our accessibility improvement initiative using Access Compass. The module will ask you questions about ${moduleName.toLowerCase()} and help identify what we're doing well and where we can improve.
+
+${targetDateFormatted ? `Target completion date: ${targetDateFormatted}` : ''}
+
+To get started:
+1. Go to the Access Compass dashboard
+2. Find the "${moduleName}" module
+3. Click "Start" or "Continue" to begin
+
+The review should take about 10-15 minutes. Your insights will help us create a more inclusive experience for all our customers.
+
+If you have any questions or need access, please let me know.
+
+Thanks!`;
+  }, [assignmentModal, session]);
+
+  // Copy email to clipboard
+  const handleCopyEmail = useCallback(async () => {
+    const emailText = generateEmailTemplate();
+    try {
+      await navigator.clipboard.writeText(emailText);
+      setCopiedToClipboard(true);
+      setTimeout(() => setCopiedToClipboard(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  }, [generateEmailTemplate]);
 
   // Format date for display
   const formatDate = (dateString?: string) => {
@@ -512,69 +574,120 @@ export default function Dashboard() {
       {assignmentModal && (
         <div className="assignment-modal-overlay" onClick={() => setAssignmentModal(null)}>
           <div className="assignment-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="assignment-modal-header">
-              <h3>Assign Module</h3>
-              <button
-                className="btn-close-modal"
-                onClick={() => setAssignmentModal(null)}
-              >
-                ✕
-              </button>
-            </div>
-            <div className="assignment-modal-content">
-              <p className="assignment-module-name">{assignmentModal.moduleName}</p>
+            {!assignmentModal.showEmailTemplate ? (
+              <>
+                <div className="assignment-modal-header">
+                  <h3>Assign Module <span className="optional-badge">(optional)</span></h3>
+                  <button
+                    className="btn-close-modal"
+                    onClick={() => setAssignmentModal(null)}
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div className="assignment-modal-content">
+                  <p className="assignment-module-name">{assignmentModal.moduleName}</p>
 
-              <div className="assignment-field">
-                <label htmlFor="assignedTo">Assigned to</label>
-                <input
-                  type="text"
-                  id="assignedTo"
-                  placeholder="e.g., Jane Smith, Visitor Experience Manager"
-                  defaultValue={assignmentModal.currentOwnership?.assignedTo || ''}
-                />
-                <span className="field-hint">Name or role responsible for this module</span>
-              </div>
+                  <div className="assignment-field">
+                    <label htmlFor="assignedTo">Assigned to</label>
+                    <input
+                      type="text"
+                      id="assignedTo"
+                      placeholder="e.g., Jane Smith, Visitor Experience Manager"
+                      defaultValue={assignmentModal.currentOwnership?.assignedTo || ''}
+                    />
+                    <span className="field-hint">Name or role responsible for this module</span>
+                  </div>
 
-              <div className="assignment-field">
-                <label htmlFor="assignedToEmail">Email (optional)</label>
-                <input
-                  type="email"
-                  id="assignedToEmail"
-                  placeholder="e.g., jane.smith@example.com"
-                  defaultValue={assignmentModal.currentOwnership?.assignedToEmail || ''}
-                />
-                <span className="field-hint">For future notification capability</span>
-              </div>
+                  <div className="assignment-field">
+                    <label htmlFor="assignedToEmail">Email</label>
+                    <input
+                      type="email"
+                      id="assignedToEmail"
+                      placeholder="e.g., jane.smith@example.com"
+                      defaultValue={assignmentModal.currentOwnership?.assignedToEmail || ''}
+                    />
+                    <span className="field-hint">Add email to generate a notification message</span>
+                  </div>
 
-              <div className="assignment-field">
-                <label htmlFor="targetDate">Target completion date</label>
-                <input
-                  type="date"
-                  id="targetDate"
-                  defaultValue={assignmentModal.currentOwnership?.targetCompletionDate?.split('T')[0] || ''}
-                />
-                <span className="field-hint">Optional - when should this be completed?</span>
-              </div>
-            </div>
-            <div className="assignment-modal-actions">
-              <button
-                className="btn-cancel"
-                onClick={() => setAssignmentModal(null)}
-              >
-                Cancel
-              </button>
-              <button
-                className="btn-save-assignment"
-                onClick={() => {
-                  const assignedTo = (document.getElementById('assignedTo') as HTMLInputElement)?.value || '';
-                  const assignedToEmail = (document.getElementById('assignedToEmail') as HTMLInputElement)?.value || '';
-                  const targetDate = (document.getElementById('targetDate') as HTMLInputElement)?.value || '';
-                  handleSaveAssignment(assignedTo, assignedToEmail, targetDate);
-                }}
-              >
-                Save
-              </button>
-            </div>
+                  <div className="assignment-field">
+                    <label htmlFor="targetDate">Target completion date</label>
+                    <input
+                      type="date"
+                      id="targetDate"
+                      defaultValue={assignmentModal.currentOwnership?.targetCompletionDate?.split('T')[0] || ''}
+                    />
+                    <span className="field-hint">Optional - when should this be completed?</span>
+                  </div>
+                </div>
+                <div className="assignment-modal-actions">
+                  <button
+                    className="btn-cancel"
+                    onClick={() => setAssignmentModal(null)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn-save-assignment"
+                    onClick={() => {
+                      const assignedTo = (document.getElementById('assignedTo') as HTMLInputElement)?.value || '';
+                      const assignedToEmail = (document.getElementById('assignedToEmail') as HTMLInputElement)?.value || '';
+                      const targetDate = (document.getElementById('targetDate') as HTMLInputElement)?.value || '';
+                      handleSaveAssignment(assignedTo, assignedToEmail, targetDate);
+                    }}
+                  >
+                    Save
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="assignment-modal-header">
+                  <h3>Assignment Saved</h3>
+                  <button
+                    className="btn-close-modal"
+                    onClick={() => setAssignmentModal(null)}
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div className="assignment-modal-content">
+                  <div className="email-template-intro">
+                    <div className="success-icon">✓</div>
+                    <p>
+                      <strong>{assignmentModal.savedAssignment?.assignedTo}</strong> has been assigned to{' '}
+                      <strong>{assignmentModal.moduleName}</strong>.
+                    </p>
+                    <p className="email-template-hint">
+                      Copy the message below to notify them via email, Slack, or Teams:
+                    </p>
+                  </div>
+
+                  <div className="email-template-container">
+                    <textarea
+                      readOnly
+                      className="email-template-text"
+                      value={generateEmailTemplate()}
+                      rows={12}
+                    />
+                  </div>
+                </div>
+                <div className="assignment-modal-actions">
+                  <button
+                    className="btn-cancel"
+                    onClick={() => setAssignmentModal(null)}
+                  >
+                    Done
+                  </button>
+                  <button
+                    className="btn-copy-email"
+                    onClick={handleCopyEmail}
+                  >
+                    {copiedToClipboard ? '✓ Copied!' : 'Copy Message'}
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
