@@ -655,100 +655,226 @@
   margin: 24px 0;
 }
 
-/* Review Mode Selection */
-.review-mode-section {
+/* Pathway Selection Cards */
+.pathway-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.pathway-card {
   background: white;
   border-radius: 16px;
-  padding: 32px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.review-mode-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a1a2e;
-  margin: 0 0 8px 0;
-  text-align: center;
-}
-
-.review-mode-subtitle {
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 24px 0;
-  text-align: center;
-}
-
-.review-mode-options {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.review-mode-option {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 20px;
-  border: 2px solid #eee;
-  border-radius: 12px;
+  padding: 28px;
   cursor: pointer;
   transition: all 0.2s ease;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
 }
 
-.review-mode-option:hover {
+.pathway-card:hover {
   border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-2px);
 }
 
-.review-mode-option.selected {
+.pathway-card.selected {
   border-color: #7c3aed;
-  background: rgba(124, 58, 237, 0.05);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
 }
 
-.review-mode-option.recommended {
-  position: relative;
+.pathway-card.pathway-featured {
+  border-color: rgba(124, 58, 237, 0.15);
+  background: linear-gradient(135deg, #ffffff 0%, #faf8ff 100%);
 }
 
-.recommended-badge {
-  position: absolute;
-  top: -10px;
-  right: 16px;
-  background: #7c3aed;
-  color: white;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 12px;
+.pathway-card.pathway-featured.selected {
+  border-color: #7c3aed;
 }
 
-.review-mode-radio {
-  width: 20px;
-  height: 20px;
+.pathway-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.pathway-radio {
+  width: 22px;
+  height: 22px;
   accent-color: #7c3aed;
   margin-top: 2px;
   flex-shrink: 0;
 }
 
-.review-mode-content {
-  flex: 1;
-}
-
-.review-mode-label {
-  font-size: 16px;
-  font-weight: 600;
+.pathway-name {
+  font-size: 20px;
+  font-weight: 700;
   color: #1a1a2e;
   margin: 0 0 4px 0;
 }
 
-.review-mode-description {
+.pathway-tagline {
   font-size: 14px;
   color: #666;
-  margin: 0 0 8px 0;
+  margin: 0;
+  font-weight: 500;
 }
 
-.review-mode-details {
+.pathway-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pathway-intro {
+  font-size: 14px;
+  color: #555;
+  margin: 0 0 12px 0;
+}
+
+.pathway-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.pathway-benefits li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.pathway-benefits li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #7c3aed;
+  font-weight: bold;
+}
+
+.pathway-outcomes {
+  background: #f8f6ff;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.outcomes-label {
   font-size: 13px;
+  font-weight: 600;
+  color: #5b21b6;
+  margin: 0 0 10px 0;
+}
+
+.outcomes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.outcomes-list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 13px;
+  color: #4c1d6e;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.outcomes-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.outcomes-list li:last-child {
+  margin-bottom: 0;
+}
+
+.pathway-best-for {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.best-for-label {
+  font-size: 12px;
+  font-weight: 600;
   color: #888;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.best-for-text {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Pathway Comparison */
+.pathway-comparison {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.comparison-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.comparison-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f5f3f0;
+}
+
+.comparison-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+}
+
+/* Pathway Reassurance */
+.pathway-reassurance {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.pathway-reassurance p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Responsive for pathway cards */
+@media (max-width: 800px) {
+  .pathway-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .pathway-comparison {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
 }
 
 /* Responsive */

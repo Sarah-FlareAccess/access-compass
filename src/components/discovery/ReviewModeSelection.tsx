@@ -14,8 +14,6 @@ export function ReviewModeSelection({
   recommendedMode,
   onSelect,
   onBack,
-  touchpointCount,
-  reasoning,
 }: ReviewModeSelectionProps) {
   const [selectedMode, setSelectedMode] = useState<ReviewMode>(recommendedMode);
 
@@ -28,75 +26,120 @@ export function ReviewModeSelection({
       <div className="discovery-container">
         {/* Header */}
         <div className="discovery-header-card">
-          <h1 className="discovery-title">Choose your review depth</h1>
+          <h1 className="discovery-title">Select your pathway forward</h1>
           <p className="discovery-subtitle">
-            {reasoning}
+            Choose the level of guidance that best matches your goals, time and capacity.
           </p>
         </div>
 
-        {/* Review Mode Options */}
-        <div className="review-mode-section">
-          <div className="review-mode-options">
-            {/* Foundation Option */}
-            <div
-              className={`review-mode-option ${selectedMode === 'foundation' ? 'selected' : ''} ${recommendedMode === 'foundation' ? 'recommended' : ''}`}
-              onClick={() => setSelectedMode('foundation')}
-            >
-              {recommendedMode === 'foundation' && (
-                <span className="recommended-badge">Recommended</span>
-              )}
+        {/* Review Mode Cards - Side by Side */}
+        <div className="pathway-cards">
+          {/* Pulse Check */}
+          <div
+            className={`pathway-card ${selectedMode === 'foundation' ? 'selected' : ''}`}
+            onClick={() => setSelectedMode('foundation')}
+          >
+            <div className="pathway-header">
               <input
                 type="radio"
-                className="review-mode-radio"
+                className="pathway-radio"
                 checked={selectedMode === 'foundation'}
                 onChange={() => setSelectedMode('foundation')}
               />
-              <div className="review-mode-content">
-                <h3 className="review-mode-label">Foundation Review</h3>
-                <p className="review-mode-description">
-                  Quick assessment of key accessibility areas. Perfect for getting started or time-limited reviews.
-                </p>
-                <p className="review-mode-details">
-                  8-12 questions per module • ~15 min per module • Focus on high-impact items
-                </p>
+              <div>
+                <h3 className="pathway-name">Pulse Check</h3>
+                <p className="pathway-tagline">Get clear direction fast</p>
               </div>
             </div>
 
-            {/* Detailed Option */}
-            <div
-              className={`review-mode-option ${selectedMode === 'detailed' ? 'selected' : ''} ${recommendedMode === 'detailed' ? 'recommended' : ''}`}
-              onClick={() => setSelectedMode('detailed')}
-            >
-              {recommendedMode === 'detailed' && (
-                <span className="recommended-badge">Recommended</span>
-              )}
+            <div className="pathway-body">
+              <p className="pathway-intro">
+                A quick compass check that shows:
+              </p>
+              <ul className="pathway-benefits">
+                <li>where you're already doing well</li>
+                <li>the most important gaps holding customers back</li>
+                <li>the top actions that will make the biggest difference right now</li>
+              </ul>
+
+              <div className="pathway-outcomes">
+                <p className="outcomes-label">You'll walk away with:</p>
+                <ul className="outcomes-list">
+                  <li>clear, prioritised actions</li>
+                  <li>confidence about what to do next</li>
+                  <li>a practical starting point you can share with your team</li>
+                </ul>
+              </div>
+
+              <div className="pathway-best-for">
+                <span className="best-for-label">Best for:</span>
+                <span className="best-for-text">getting started, limited time, first pass, small or straightforward sites</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Deep Dive */}
+          <div
+            className={`pathway-card pathway-featured ${selectedMode === 'detailed' ? 'selected' : ''}`}
+            onClick={() => setSelectedMode('detailed')}
+          >
+            <div className="pathway-header">
               <input
                 type="radio"
-                className="review-mode-radio"
+                className="pathway-radio"
                 checked={selectedMode === 'detailed'}
                 onChange={() => setSelectedMode('detailed')}
               />
-              <div className="review-mode-content">
-                <h3 className="review-mode-label">Detailed Review</h3>
-                <p className="review-mode-description">
-                  Comprehensive assessment with measurements and evidence gathering. Best for thorough audits.
-                </p>
-                <p className="review-mode-details">
-                  15-20 questions per module • ~25 min per module • Includes measurements & evidence
-                </p>
+              <div>
+                <h3 className="pathway-name">Deep Dive</h3>
+                <p className="pathway-tagline">Build a structured plan you can actually deliver</p>
+              </div>
+            </div>
+
+            <div className="pathway-body">
+              <p className="pathway-intro">
+                A detailed navigation guide that helps you:
+              </p>
+              <ul className="pathway-benefits">
+                <li>translate gaps into clear actions and responsibilities</li>
+                <li>track progress over time</li>
+                <li>build a realistic, staged roadmap for improvement</li>
+              </ul>
+
+              <div className="pathway-outcomes">
+                <p className="outcomes-label">You'll walk away with:</p>
+                <ul className="outcomes-list">
+                  <li>a structured DIAP-style action plan</li>
+                  <li>assigned actions, timeframes and evidence</li>
+                  <li>a comprehensive roadmap you can use for planning, funding or upgrades</li>
+                </ul>
+              </div>
+
+              <div className="pathway-best-for">
+                <span className="best-for-label">Best for:</span>
+                <span className="best-for-text">complex sites, planning ahead, multiple barriers, deeper implementation</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Information Card */}
-        <div className="discovery-header-card">
-          <h3 style={{ fontSize: '16px', fontWeight: 600, margin: '0 0 8px 0' }}>
-            You can change this later
-          </h3>
-          <p style={{ fontSize: '14px', color: '#666', margin: 0 }}>
-            Start with Foundation to get quick wins, then switch to Detailed for deeper analysis.
-            Your progress is saved regardless of which mode you choose.
+        {/* One-line comparison */}
+        <div className="pathway-comparison">
+          <div className="comparison-item">
+            <span className="comparison-name">Pulse Check:</span>
+            <span className="comparison-text">"Show me where to start."</span>
+          </div>
+          <div className="comparison-item">
+            <span className="comparison-name">Deep Dive:</span>
+            <span className="comparison-text">"Help me plan and deliver real change."</span>
+          </div>
+        </div>
+
+        {/* Reassurance */}
+        <div className="pathway-reassurance">
+          <p>
+            You can change your pathway at any time. Start with Pulse Check to get quick direction,
+            then move to Deep Dive when you're ready to go further. Your progress is always saved.
           </p>
         </div>
 
@@ -107,7 +150,7 @@ export function ReviewModeSelection({
               ← Back
             </button>
             <button className="btn-continue" onClick={handleContinue}>
-              Start {selectedMode === 'foundation' ? 'Foundation' : 'Detailed'} Review →
+              Continue with {selectedMode === 'foundation' ? 'Pulse Check' : 'Deep Dive'} →
             </button>
           </div>
         </div>
