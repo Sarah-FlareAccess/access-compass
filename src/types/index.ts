@@ -1,12 +1,17 @@
 // Access Compass - Type Definitions
 
 export type BusinessType =
-  | 'cafe-restaurant'
-  | 'accommodation'
-  | 'tour-operator'
-  | 'attraction-museum-gallery'
-  | 'visitor-centre'
+  | 'attractions'
+  | 'leisure-recreation'
+  | 'hospitality'
+  | 'events-venues'
+  | 'retail'
+  | 'local-government'
+  | 'health-wellness'
+  | 'education-training'
   | 'other';
+
+export type OrganisationSize = 'small' | 'medium' | 'large';
 
 export type UserRole =
   | 'owner'
@@ -55,11 +60,15 @@ export type Timeframe =
   | 'exploring';
 
 export interface BusinessSnapshot {
-  business_type: BusinessType;
+  organisation_name: string;
+  organisation_size: OrganisationSize;
+  business_types: BusinessType[];
   user_role: UserRole;
   has_physical_venue: boolean;
   has_online_presence: boolean;
   serves_public_customers: boolean;
+  // Legacy support
+  business_type?: BusinessType;
 }
 
 export interface QuestionResponse {

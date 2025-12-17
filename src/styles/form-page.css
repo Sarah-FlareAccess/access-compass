@@ -75,6 +75,82 @@
   background: rgba(58, 11, 82, 0.1);
 }
 
+.field-helper {
+  font-size: 0.9rem;
+  color: var(--steel-gray);
+  margin-top: -6px;
+  margin-bottom: 12px;
+}
+
+/* Bubble Select Styles */
+.bubble-select {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bubble-select.size-bubbles {
+  gap: 16px;
+}
+
+.bubble-select.type-bubbles {
+  gap: 12px;
+}
+
+.bubble-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: var(--radius-md);
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-family: inherit;
+}
+
+.size-bubbles .bubble-option {
+  flex: 1;
+  min-width: 120px;
+  align-items: center;
+  text-align: center;
+}
+
+.type-bubbles .bubble-option {
+  flex: 1 1 calc(50% - 6px);
+  min-width: 280px;
+}
+
+.bubble-option:hover {
+  border-color: var(--light-purple);
+  background: rgba(124, 58, 237, 0.04);
+}
+
+.bubble-option.selected {
+  border-color: var(--deep-purple);
+  background: rgba(45, 27, 78, 0.08);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.bubble-label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--charcoal);
+  margin-bottom: 4px;
+}
+
+.bubble-option.selected .bubble-label {
+  color: var(--deep-purple);
+}
+
+.bubble-description {
+  font-size: 0.85rem;
+  color: var(--steel-gray);
+  line-height: 1.4;
+}
+
 .form-actions {
   margin-top: 40px;
   display: flex;
@@ -92,6 +168,22 @@
   }
 
   .radio-label {
+    min-width: 100%;
+  }
+
+  .bubble-select {
+    flex-direction: column;
+  }
+
+  .size-bubbles .bubble-option {
+    flex: none;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .type-bubbles .bubble-option {
+    flex: none;
     min-width: 100%;
   }
 
