@@ -14,6 +14,7 @@ import { getSession, getDiscoveryData } from '../utils/session';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { getModuleById, getModulesByGroup } from '../data/accessModules';
+import ReminderBanner from '../components/ReminderBanner';
 import type { JourneyPhase } from '../types';
 import '../styles/dashboard.css';
 
@@ -174,6 +175,11 @@ export default function Dashboard() {
             {session?.business_snapshot?.business_type?.replace(/-/g, ' ') || 'your business'}
           </p>
         </div>
+
+        <ReminderBanner
+          type="professional"
+          compact
+        />
 
         {/* Progress Overview */}
         <div className="progress-overview">

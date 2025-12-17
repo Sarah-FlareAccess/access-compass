@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { initializeSession, updateBusinessSnapshot, getSession } from '../utils/session';
+import ReminderBanner from '../components/ReminderBanner';
 import type { BusinessSnapshot, BusinessType, UserRole } from '../types';
 import '../styles/form-page.css';
 
@@ -49,6 +50,12 @@ export default function BusinessSnapshotPage() {
         <div className="form-container">
           <h1>Tell us about your business</h1>
           <p className="helper-text">This helps us show only what's relevant to you</p>
+
+          <ReminderBanner
+            type="guidance"
+            message="Answer honestly based on your current knowledge—you can mark items as 'unsure' if needed."
+            compact
+          />
 
           <form onSubmit={handleSubmit}>
             {/* Business Type */}

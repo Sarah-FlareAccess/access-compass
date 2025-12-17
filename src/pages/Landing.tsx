@@ -22,7 +22,7 @@ export default function Landing() {
           </div>
 
           {/* CTA Button */}
-          <Link to="/start" className="btn btn-primary btn-large">
+          <Link to="/disclaimer" className="btn btn-primary btn-large">
             Start your free accessibility check
           </Link>
 
@@ -84,7 +84,7 @@ export default function Landing() {
 
           {/* Secondary CTA */}
           <div className="features-cta">
-            <Link to="/start" className="btn btn-primary btn-large">
+            <Link to="/disclaimer" className="btn btn-primary btn-large">
               Get started
             </Link>
           </div>

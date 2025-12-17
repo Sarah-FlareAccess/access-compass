@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
+import Disclaimer from './pages/Disclaimer';
 import BusinessSnapshot from './pages/BusinessSnapshot';
 import Discovery from './pages/Discovery';
 import ModuleSelection from './pages/ModuleSelection';
@@ -18,6 +19,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="/start" element={<BusinessSnapshot />} />
         <Route path="/discovery" element={<Discovery />} />
         <Route path="/modules" element={<ModuleSelection />} />

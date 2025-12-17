@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { QuestionFlow } from '../components/questions';
+import ReminderBanner from '../components/ReminderBanner';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import type { ReviewMode } from '../types';
@@ -198,6 +199,11 @@ export default function DiscoveryQuestions() {
     return (
       <div className="questions-page">
         <div className="container">
+          <ReminderBanner
+            type="info"
+            compact
+          />
+
           <div className="module-list-header">
             <h1>Your Accessibility Review</h1>
             <p>

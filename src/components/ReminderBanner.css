@@ -1,0 +1,53 @@
+/* Reminder Banner Styles */
+
+.reminder-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.reminder-banner.compact {
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.reminder-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.reminder-text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: inherit;
+}
+
+.reminder-banner.compact .reminder-text {
+  font-size: 0.9rem;
+}
+
+/* Info type - subtle purple */
+.reminder-info {
+  background: #f3f0ff;
+  border-left: 4px solid #7c3aed;
+  color: #4c1d6e;
+}
+
+/* Guidance type - warm amber */
+.reminder-guidance {
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  color: #78350f;
+}
+
+/* Professional type - soft blue-gray */
+.reminder-professional {
+  background: #f0f9ff;
+  border-left: 4px solid #0ea5e9;
+  color: #0c4a6e;
+}
