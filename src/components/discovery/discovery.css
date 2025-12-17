@@ -56,13 +56,13 @@
 .phase-label {
   font-size: 18px;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #f5f3f0;
   margin: 0;
 }
 
 .phase-sublabel {
   font-size: 14px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.85);
   margin: 4px 0 0 0;
 }
 
@@ -76,11 +76,11 @@
 .selection-count {
   font-size: 14px;
   font-weight: 500;
-  color: #7c3aed;
+  color: #f5f3f0;
 }
 
 .phase-chevron {
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   transition: transform 0.2s ease;
   font-size: 12px;
 }
@@ -96,7 +96,7 @@
 
 .phase-description {
   font-size: 14px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0 0 16px 0;
 }
 
@@ -116,7 +116,7 @@
 .block-label {
   font-size: 13px;
   font-weight: 600;
-  color: #666;
+  color: rgba(255, 255, 255, 0.9);
   letter-spacing: 0.3px;
   margin: 0;
 }
