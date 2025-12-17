@@ -11,7 +11,6 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
-import NavBar from '../components/NavBar';
 import type { DIAPItem, DIAPDocument, DIAPStatus, DIAPPriority, DIAPCategory } from '../hooks/useDIAPManagement';
 import '../styles/diap.css';
 
@@ -114,29 +113,46 @@ export default function DIAPWorkspace() {
 
   if (isLoading) {
     return (
-      <>
-        <NavBar />
-        <div className="diap-page">
-          <div className="container">
-            <div className="loading-state">Loading your DIAP...</div>
+      <div className="diap-page">
+        <header className="page-global-header">
+          <div className="header-brand">
+            <Link to="/dashboard" className="brand-link">
+              <span className="brand-name">Access Compass</span>
+              <span className="brand-byline">by Flare Access</span>
+            </Link>
           </div>
+          <div className="header-actions">
+            <Link to="/dashboard" className="header-action-btn">Dashboard</Link>
+          </div>
+        </header>
+        <div className="container">
+          <div className="loading-state">Loading your DIAP...</div>
         </div>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
-      <NavBar />
-      <div className="diap-page">
-        <div className="container">
+    <div className="diap-page">
+      <header className="page-global-header">
+        <div className="header-brand">
+          <Link to="/dashboard" className="brand-link">
+            <span className="brand-name">Access Compass</span>
+            <span className="brand-byline">by Flare Access</span>
+          </Link>
+        </div>
+        <div className="header-actions">
+          <Link to="/dashboard" className="header-action-btn">Dashboard</Link>
+        </div>
+      </header>
+      <div className="container">
         {/* Header */}
         <div className="diap-header">
           <div className="header-content">
             <h1>Disability Inclusion Action Plan</h1>
             <p>Track and manage your accessibility improvements</p>
           </div>
-          <div className="header-actions">
+          <div className="diap-header-actions">
             <button className="btn-export" onClick={handleExportCSV}>
               Export CSV
             </button>
@@ -332,9 +348,8 @@ export default function DIAPWorkspace() {
             Continue Review
           </Link>
         </div>
-        </div>
       </div>
-    </>
+    </div>
   );
 }
 

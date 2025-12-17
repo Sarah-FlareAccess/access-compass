@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { getActions, getSession, clearSession } from '../utils/session';
 import { useState } from 'react';
-import NavBar from '../components/NavBar';
 
 export default function Export() {
   const navigate = useNavigate();
@@ -19,10 +18,19 @@ export default function Export() {
   };
 
   return (
-    <>
-      <NavBar />
-      <div className="form-page">
-      <div className="container">
+    <div className="export-page">
+      <header className="page-global-header">
+        <div className="header-brand">
+          <Link to="/dashboard" className="brand-link">
+            <span className="brand-name">Access Compass</span>
+            <span className="brand-byline">by Flare Access</span>
+          </Link>
+        </div>
+        <div className="header-actions">
+          <Link to="/dashboard" className="header-action-btn">Dashboard</Link>
+        </div>
+      </header>
+      <div className="export-container">
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h1>Export your action plan</h1>
           <p className="helper-text">Download and share your priorities with your team</p>
@@ -99,7 +107,6 @@ export default function Export() {
           </button>
         </div>
       </div>
-      </div>
-    </>
+    </div>
   );
 }

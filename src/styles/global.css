@@ -324,3 +324,88 @@ label {
     transform: rotate(360deg);
   }
 }
+
+/* ============================================
+   SHARED PAGE HEADER (for DIAP, Export, etc.)
+   ============================================ */
+.page-global-header {
+  background: #1a1a2e;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.page-global-header .header-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.page-global-header .brand-link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.page-global-header .brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+
+.page-global-header .brand-byline {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.page-global-header .header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.page-global-header .header-action-btn {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.page-global-header .header-action-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Export Page Styles */
+.export-page {
+  min-height: 100vh;
+  background: #f8f7f5;
+}
+
+.export-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+@media (max-width: 768px) {
+  .page-global-header {
+    padding: 0 20px;
+  }
+
+  .page-global-header .header-action-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}

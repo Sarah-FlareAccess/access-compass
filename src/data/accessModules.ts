@@ -23,22 +23,22 @@ export const moduleGroups = [
   {
     id: 'before-arrival',
     label: 'Before they arrive',
-    description: 'How customers find and plan their visit',
+    description: 'How customers find information and plan their visit',
   },
   {
     id: 'getting-in',
     label: 'Getting in and moving around',
-    description: 'Physical access and navigation',
+    description: 'Arrival, entry, circulation, and physical navigation',
   },
   {
     id: 'during-visit',
     label: 'During the visit',
-    description: 'The experience while on-site',
+    description: 'Experiences, amenities, signage, lighting, and sensory considerations',
   },
   {
     id: 'service-support',
     label: 'Service and support',
-    description: 'How you serve and support customers',
+    description: 'Staff interactions, policies, emergencies, and ongoing support',
   },
 ];
 
