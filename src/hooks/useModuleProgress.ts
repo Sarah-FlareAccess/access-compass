@@ -98,12 +98,15 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
         if (isSupabaseEnabled() && supabase) {
           const session = getSession();
           if (session?.session_id) {
-            const { data: cloudProgress } = await supabase
+            const { data: cloudProgress, error: supabaseError } = await supabase
               .from('module_progress')
               .select('*')
               .eq('session_id', session.session_id);
 
-            if (cloudProgress && cloudProgress.length > 0) {
+            // Skip cloud sync if table doesn't exist or other error
+            if (supabaseError) {
+              console.log('Supabase module_progress not available, using local storage');
+            } else if (cloudProgress && cloudProgress.length > 0) {
               const cloudMap: Record<string, ModuleProgress> = {};
               cloudProgress.forEach(p => {
                 cloudMap[p.module_id] = {

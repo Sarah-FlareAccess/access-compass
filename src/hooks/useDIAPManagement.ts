@@ -215,12 +215,15 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         if (isSupabaseEnabled() && supabase) {
           const session = getSession();
           if (session?.session_id) {
-            const { data: cloudItems } = await supabase
+            const { data: cloudItems, error: itemsError } = await supabase
               .from('diap_items')
               .select('*')
               .eq('session_id', session.session_id);
 
-            if (cloudItems && cloudItems.length > 0) {
+            // Skip cloud sync if table doesn't exist or other error
+            if (itemsError) {
+              console.log('Supabase diap_items not available, using local storage');
+            } else if (cloudItems && cloudItems.length > 0) {
               const mapped = cloudItems.map(item => ({
                 id: item.id,
                 sessionId: item.session_id,
@@ -248,12 +251,15 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
               saveLocalItems(mapped);
             }
 
-            const { data: cloudDocs } = await supabase
+            const { data: cloudDocs, error: docsError } = await supabase
               .from('diap_documents')
               .select('*')
               .eq('session_id', session.session_id);
 
-            if (cloudDocs && cloudDocs.length > 0) {
+            // Skip cloud sync if table doesn't exist or other error
+            if (docsError) {
+              console.log('Supabase diap_documents not available, using local storage');
+            } else if (cloudDocs && cloudDocs.length > 0) {
               const mappedDocs = cloudDocs.map(doc => ({
                 id: doc.id,
                 sessionId: doc.session_id,
