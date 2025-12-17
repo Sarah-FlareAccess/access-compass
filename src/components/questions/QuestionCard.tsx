@@ -8,8 +8,10 @@
 import { useState, useCallback } from 'react';
 import type { QuestionResponse, EvidenceFile } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
+import type { MediaAnalysisResult, MediaAnalysisType } from '../../types/mediaAnalysis';
 import { UrlAnalysisInput } from './UrlAnalysisInput';
 import { EvidenceUpload } from './EvidenceUpload';
+import { MediaAnalysisInput } from './MediaAnalysisInput';
 import './questions.css';
 
 interface QuestionCardProps {
@@ -158,6 +160,46 @@ export function QuestionCard({
   }, [question.id, notes, onAnswer]);
 
   const handleUrlAnalysisSkip = useCallback(() => {
+    const response: QuestionResponse = {
+      questionId: question.id,
+      answer: null,
+      notes: notes.trim() || undefined,
+      timestamp: new Date().toISOString(),
+    };
+    onAnswer(response);
+  }, [question.id, notes, onAnswer]);
+
+  const handleMediaAnalysisSubmit = useCallback((result: MediaAnalysisResult) => {
+    const response: QuestionResponse = {
+      questionId: question.id,
+      answer: null,
+      mediaAnalysis: {
+        id: result.id,
+        analysisType: result.analysisType,
+        inputType: result.inputType,
+        fileName: result.fileName,
+        fileSize: result.fileSize,
+        url: result.url,
+        thumbnailDataUrl: result.thumbnailDataUrl,
+        analysisDate: result.analysisDate,
+        overallScore: result.overallScore,
+        overallStatus: result.overallStatus,
+        summary: result.summary,
+        strengths: result.strengths,
+        improvements: result.improvements,
+        quickWins: result.quickWins,
+        standardsAssessed: result.standardsAssessed,
+        needsProfessionalReview: result.needsProfessionalReview,
+        professionalReviewReason: result.professionalReviewReason,
+        disclaimer: result.disclaimer,
+      },
+      notes: notes.trim() || undefined,
+      timestamp: new Date().toISOString(),
+    };
+    onAnswer(response);
+  }, [question.id, notes, onAnswer]);
+
+  const handleMediaAnalysisSkip = useCallback(() => {
     const response: QuestionResponse = {
       questionId: question.id,
       answer: null,
@@ -469,6 +511,37 @@ export function QuestionCard({
           currentValue={currentResponse?.urlAnalysis}
           onSubmit={handleUrlAnalysisSubmit}
           onSkip={handleUrlAnalysisSkip}
+        />
+      )}
+
+      {/* Media Analysis Question Type */}
+      {question.type === 'media-analysis' && (
+        <MediaAnalysisInput
+          preselectedType={question.mediaAnalysisType as MediaAnalysisType | undefined}
+          currentValue={currentResponse?.mediaAnalysis ? {
+            id: currentResponse.mediaAnalysis.id,
+            analysisType: currentResponse.mediaAnalysis.analysisType as MediaAnalysisType,
+            inputType: currentResponse.mediaAnalysis.inputType,
+            fileName: currentResponse.mediaAnalysis.fileName,
+            fileSize: currentResponse.mediaAnalysis.fileSize,
+            url: currentResponse.mediaAnalysis.url,
+            thumbnailDataUrl: currentResponse.mediaAnalysis.thumbnailDataUrl,
+            analysisDate: currentResponse.mediaAnalysis.analysisDate,
+            overallScore: currentResponse.mediaAnalysis.overallScore,
+            overallStatus: currentResponse.mediaAnalysis.overallStatus,
+            summary: currentResponse.mediaAnalysis.summary,
+            strengths: currentResponse.mediaAnalysis.strengths,
+            improvements: currentResponse.mediaAnalysis.improvements,
+            quickWins: currentResponse.mediaAnalysis.quickWins,
+            standardsAssessed: currentResponse.mediaAnalysis.standardsAssessed,
+            needsProfessionalReview: currentResponse.mediaAnalysis.needsProfessionalReview,
+            professionalReviewReason: currentResponse.mediaAnalysis.professionalReviewReason,
+            disclaimer: currentResponse.mediaAnalysis.disclaimer,
+            criteriaResults: [],
+          } : undefined}
+          onAnalysisComplete={handleMediaAnalysisSubmit}
+          onSkip={handleMediaAnalysisSkip}
+          hint={question.mediaAnalysisHint}
         />
       )}
 

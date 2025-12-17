@@ -18,7 +18,7 @@ export interface BranchingQuestion {
   text: string;
   helpText?: string;
   example?: string;
-  type: 'yes-no-unsure' | 'measurement' | 'text' | 'multi-select' | 'single-select' | 'link-input' | 'evidence' | 'url-analysis';
+  type: 'yes-no-unsure' | 'measurement' | 'text' | 'multi-select' | 'single-select' | 'link-input' | 'evidence' | 'url-analysis' | 'media-analysis';
   category?: 'lived-experience' | 'operational' | 'information' | 'measurement' | 'policy' | 'evidence';
   reviewMode?: 'pulse-check' | 'deep-dive' | 'both';
   impactLevel?: 'high' | 'medium' | 'low';
@@ -38,6 +38,9 @@ export interface BranchingQuestion {
   supportsEvidence?: boolean;
   evidenceTypes?: ('photo' | 'document' | 'link')[];
   evidenceHint?: string; // e.g., "Upload a photo of the entrance" or "Attach your accessibility policy"
+  // Media analysis support
+  mediaAnalysisType?: string; // Pre-selected media type (e.g., 'menu', 'signage', 'lighting')
+  mediaAnalysisHint?: string; // Help text for media analysis
 }
 
 interface UseBranchingLogicProps {

@@ -8,6 +8,41 @@
 import type { Report } from '../hooks/useReportGeneration';
 import './ReportViewer.css';
 
+// Helper function to format analysis type for display
+function formatAnalysisType(analysisType: string): string {
+  const labels: Record<string, string> = {
+    'menu': 'Menu',
+    'brochure': 'Brochure',
+    'flyer': 'Flyer',
+    'large-print': 'Large Print',
+    'signage': 'Signage',
+    'lighting': 'Lighting',
+    'ground-surface': 'Ground Surface',
+    'pathway': 'Pathway',
+    'entrance': 'Entrance',
+    'ramp': 'Ramp',
+    'stairs': 'Stairs',
+    'door': 'Door',
+    'social-media-post': 'Social Media Post',
+    'social-media-url': 'Social Media Profile',
+    'website-wave': 'Website Audit',
+  };
+  return labels[analysisType] || analysisType;
+}
+
+// Helper function to format status for display
+function formatStatus(status: string): string {
+  const labels: Record<string, string> = {
+    'excellent': 'Excellent',
+    'good': 'Good',
+    'needs-improvement': 'Needs Improvement',
+    'poor': 'Poor',
+    'not-assessable': 'Not Assessable',
+    'missing': 'Missing',
+  };
+  return labels[status] || status;
+}
+
 interface ReportViewerProps {
   report: Report;
   onClose: () => void;
@@ -193,6 +228,100 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                           <li key={idx}>{improvement}</li>
                         ))}
                       </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </section>
+          )}
+
+          {/* Media Analysis Results */}
+          {report.mediaAnalysisResults && report.mediaAnalysisResults.length > 0 && (
+            <section className="report-section report-media-analysis">
+              <h2>Media Analysis Results</h2>
+              <p className="section-intro">
+                Accessibility analysis of uploaded materials and media:
+              </p>
+              {report.mediaAnalysisResults.map((analysis, index) => (
+                <div key={index} className="media-analysis-card">
+                  <div className="media-analysis-header">
+                    <div className="media-analysis-type">
+                      <span className="analysis-type-badge">
+                        {formatAnalysisType(analysis.analysisType)}
+                      </span>
+                      {analysis.fileName && (
+                        <span className="analysis-filename">{analysis.fileName}</span>
+                      )}
+                      {analysis.url && !analysis.fileName && (
+                        <a href={analysis.url} target="_blank" rel="noopener noreferrer" className="analysis-url">
+                          {analysis.url}
+                        </a>
+                      )}
+                    </div>
+                    <div className="media-analysis-score">
+                      <span className={`score-badge score-${analysis.overallStatus}`}>
+                        {analysis.overallScore}/100
+                      </span>
+                      <span className="score-status">
+                        {formatStatus(analysis.overallStatus)}
+                      </span>
+                    </div>
+                  </div>
+
+                  {analysis.thumbnailDataUrl && (
+                    <div className="media-analysis-thumbnail">
+                      <img src={analysis.thumbnailDataUrl} alt="Analyzed media thumbnail" />
+                    </div>
+                  )}
+
+                  <p className="media-analysis-summary">{analysis.summary}</p>
+
+                  {analysis.standardsAssessed.length > 0 && (
+                    <div className="media-analysis-standards">
+                      <span className="standards-label">Standards:</span>
+                      {analysis.standardsAssessed.map((standard, idx) => (
+                        <span key={idx} className="standard-badge">{standard}</span>
+                      ))}
+                    </div>
+                  )}
+
+                  {analysis.strengths.length > 0 && (
+                    <div className="media-analysis-strengths">
+                      <h4>Strengths</h4>
+                      <ul>
+                        {analysis.strengths.map((strength, idx) => (
+                          <li key={idx}>{strength}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {analysis.quickWins.length > 0 && (
+                    <div className="media-analysis-quickwins">
+                      <h4>Quick Wins</h4>
+                      <ul>
+                        {analysis.quickWins.map((win, idx) => (
+                          <li key={idx}>{win}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {analysis.improvements.length > 0 && (
+                    <div className="media-analysis-improvements">
+                      <h4>Areas for Improvement</h4>
+                      <ul>
+                        {analysis.improvements.map((improvement, idx) => (
+                          <li key={idx}>{improvement}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {analysis.needsProfessionalReview && (
+                    <div className="media-analysis-professional">
+                      <strong>Professional Review Recommended:</strong>
+                      <p>{analysis.professionalReviewReason}</p>
                     </div>
                   )}
                 </div>

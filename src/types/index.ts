@@ -262,3 +262,6 @@ export interface DiscoverySession extends Session {
   recommendation_result?: RecommendationResult;
   review_mode?: ReviewMode;
 }
+
+// Re-export Media Analysis types
+export * from './mediaAnalysis';

@@ -59,6 +59,26 @@ export interface UrlAnalysisResult {
   improvements: string[];
 }
 
+// Media Analysis result for the report
+export interface MediaAnalysisReportResult {
+  id: string;
+  questionText: string;
+  analysisType: string;
+  inputType: 'photo' | 'document' | 'url' | 'screenshot';
+  fileName?: string;
+  url?: string;
+  thumbnailDataUrl?: string;
+  overallScore: number;
+  overallStatus: 'excellent' | 'good' | 'needs-improvement' | 'poor' | 'not-assessable';
+  summary: string;
+  strengths: string[];
+  improvements: string[];
+  quickWins: string[];
+  standardsAssessed: string[];
+  needsProfessionalReview: boolean;
+  professionalReviewReason?: string;
+}
+
 export interface Report {
   reportType: 'pulse-check' | 'deep-dive';
   generatedAt: string;
@@ -79,6 +99,9 @@ export interface Report {
 
   // URL Analysis results
   urlAnalysisResults: UrlAnalysisResult[];
+
+  // Media Analysis results
+  mediaAnalysisResults: MediaAnalysisReportResult[];
 
   // Main content sections
   sections: {
@@ -160,6 +183,9 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
       // Extract URL analysis results
       const urlAnalysisResults: UrlAnalysisResult[] = [];
 
+      // Extract Media analysis results
+      const mediaAnalysisResults: MediaAnalysisReportResult[] = [];
+
       completedModules.forEach(moduleProgress => {
         if (moduleProgress.summary) {
           if (moduleProgress.summary.doingWell) {
@@ -193,6 +219,36 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
               improvements: response.urlAnalysis.improvements || [],
             });
           }
+
+          // Extract media analysis from responses
+          if (response.mediaAnalysis) {
+            const question = module?.questions.find(q => q.id === response.questionId);
+            mediaAnalysisResults.push({
+              id: response.mediaAnalysis.id,
+              questionText: question?.text || 'Media analysis',
+              analysisType: response.mediaAnalysis.analysisType,
+              inputType: response.mediaAnalysis.inputType,
+              fileName: response.mediaAnalysis.fileName,
+              url: response.mediaAnalysis.url,
+              thumbnailDataUrl: response.mediaAnalysis.thumbnailDataUrl,
+              overallScore: response.mediaAnalysis.overallScore,
+              overallStatus: response.mediaAnalysis.overallStatus,
+              summary: response.mediaAnalysis.summary,
+              strengths: response.mediaAnalysis.strengths || [],
+              improvements: response.mediaAnalysis.improvements || [],
+              quickWins: response.mediaAnalysis.quickWins || [],
+              standardsAssessed: response.mediaAnalysis.standardsAssessed || [],
+              needsProfessionalReview: response.mediaAnalysis.needsProfessionalReview,
+              professionalReviewReason: response.mediaAnalysis.professionalReviewReason,
+            });
+
+            // Add media analysis recommendations to professional review if needed
+            if (response.mediaAnalysis.needsProfessionalReview && response.mediaAnalysis.professionalReviewReason) {
+              allProfessionalReview.push(
+                `${getAnalysisTypeLabel(response.mediaAnalysis.analysisType)}: ${response.mediaAnalysis.professionalReviewReason}`
+              );
+            }
+          }
         });
       });
 
@@ -224,6 +280,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
         executiveSummary,
         moduleEvidence,
         urlAnalysisResults,
+        mediaAnalysisResults,
         sections: {
           strengths: {
             title: "What's Going Well",
@@ -474,4 +531,26 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
       issues,
     };
   }).filter((finding): finding is NonNullable<typeof finding> => finding !== null && finding.issues.length > 0);
+}
+
+// Helper: Get human-readable label for analysis type
+function getAnalysisTypeLabel(analysisType: string): string {
+  const labels: Record<string, string> = {
+    'menu': 'Menu Analysis',
+    'brochure': 'Brochure Analysis',
+    'flyer': 'Flyer Analysis',
+    'large-print': 'Large Print Analysis',
+    'signage': 'Signage Analysis',
+    'lighting': 'Lighting Analysis',
+    'ground-surface': 'Ground Surface Analysis',
+    'pathway': 'Pathway Analysis',
+    'entrance': 'Entrance Analysis',
+    'ramp': 'Ramp Analysis',
+    'stairs': 'Stairs Analysis',
+    'door': 'Door Analysis',
+    'social-media-post': 'Social Media Post Analysis',
+    'social-media-url': 'Social Media Profile Analysis',
+    'website-wave': 'Website Accessibility Audit',
+  };
+  return labels[analysisType] || 'Media Analysis';
 }

@@ -55,6 +55,27 @@ export interface QuestionResponse {
     }>;
     disclaimer: string;
   };
+  // Media analysis results (photos, documents, social media, etc.)
+  mediaAnalysis?: {
+    id: string;
+    analysisType: string;
+    inputType: 'photo' | 'document' | 'url' | 'screenshot';
+    fileName?: string;
+    fileSize?: number;
+    url?: string;
+    thumbnailDataUrl?: string;
+    analysisDate: string;
+    overallScore: number;
+    overallStatus: 'excellent' | 'good' | 'needs-improvement' | 'poor' | 'not-assessable';
+    summary: string;
+    strengths: string[];
+    improvements: string[];
+    quickWins: string[];
+    standardsAssessed: string[];
+    needsProfessionalReview: boolean;
+    professionalReviewReason?: string;
+    disclaimer: string;
+  };
   timestamp: string;
 }
 
