@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { DiscoveryModule, ReviewModeSelection, CalibrationQuestions } from '../components/discovery';
 import { getSession, updateDiscoveryData, updateSelectedModules } from '../utils/session';
 import { calculateDepthRecommendation } from '../lib/recommendationEngine';
@@ -9,8 +9,15 @@ type DiscoveryStep = 'discovery' | 'calibration' | 'pathway-decision';
 
 function Discovery() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const session = getSession();
-  const [currentStep, setCurrentStep] = useState<DiscoveryStep>('discovery');
+
+  // Check if coming from manual module selection
+  const fromModuleSelection = searchParams.get('step') === 'calibration';
+
+  const [currentStep, setCurrentStep] = useState<DiscoveryStep>(
+    fromModuleSelection ? 'calibration' : 'discovery'
+  );
 
   // Temporary storage for discovery results
   const [discoveryResults, setDiscoveryResults] = useState<{
@@ -45,34 +52,42 @@ function Discovery() {
   };
 
   const handlePathwaySelect = (mode: ReviewMode) => {
+    // Get selected modules from session (either from discovery or manual selection)
+    const selectedModules = discoveryResults?.recommendedModules || session?.selected_modules || [];
+
+    // Save all discovery data including calibration and selected pathway
+    updateDiscoveryData({
+      discovery_data: {
+        selectedTouchpoints: discoveryResults?.selectedTouchpoints || [],
+        selectedSubTouchpoints: discoveryResults?.selectedSubTouchpoints || [],
+      },
+      recommendation_result: discoveryResults?.recommendationResult || ({} as RecommendationResult),
+      review_mode: mode,
+      recommended_modules: selectedModules,
+      budget_range: calibrationData?.budget,
+      work_approach: calibrationData?.workApproach,
+      action_timing: calibrationData?.timing,
+    });
+
+    // Save the modules as selected modules (if from discovery flow)
     if (discoveryResults) {
-      // Save all discovery data including calibration and selected pathway
-      updateDiscoveryData({
-        discovery_data: {
-          selectedTouchpoints: discoveryResults.selectedTouchpoints,
-          selectedSubTouchpoints: discoveryResults.selectedSubTouchpoints,
-        },
-        recommendation_result: discoveryResults.recommendationResult,
-        review_mode: mode,
-        recommended_modules: discoveryResults.recommendedModules,
-        budget_range: calibrationData?.budget,
-        work_approach: calibrationData?.workApproach,
-        action_timing: calibrationData?.timing,
-      });
-
-      // Also save the recommended modules as selected modules
       updateSelectedModules(discoveryResults.recommendedModules);
-
-      // Navigate directly to dashboard (modules are auto-selected from discovery)
-      navigate('/dashboard');
     }
+
+    // Navigate directly to dashboard
+    navigate('/dashboard');
   };
 
   const handleBack = () => {
     if (currentStep === 'pathway-decision') {
       setCurrentStep('calibration');
     } else if (currentStep === 'calibration') {
-      setCurrentStep('discovery');
+      if (fromModuleSelection) {
+        // Go back to module selection if we came from there
+        navigate('/modules');
+      } else {
+        setCurrentStep('discovery');
+      }
     } else {
       navigate('/start');
     }
@@ -100,15 +115,15 @@ function Discovery() {
         />
       )}
 
-      {currentStep === 'calibration' && discoveryResults && (
+      {currentStep === 'calibration' && (discoveryResults || fromModuleSelection) && (
         <CalibrationQuestions
           onComplete={handleCalibrationComplete}
           onBack={handleBack}
-          touchpointCount={discoveryResults.selectedTouchpoints.length}
+          touchpointCount={discoveryResults?.selectedTouchpoints.length || session?.selected_modules?.length || 0}
         />
       )}
 
-      {currentStep === 'pathway-decision' && discoveryResults && (
+      {currentStep === 'pathway-decision' && (discoveryResults || fromModuleSelection) && (
         <ReviewModeSelection
           recommendedMode={depthRecommendation.recommendedDepth}
           onSelect={handlePathwaySelect}

@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getSession, updateSelectedModules, updateDiscoveryData } from '../utils/session';
+import { getSession, updateSelectedModules } from '../utils/session';
 import { accessModules, moduleGroups } from '../data/accessModules';
-import type { ReviewMode } from '../types';
 import '../styles/module-selection.css';
 
 export default function ModuleSelection() {
   const navigate = useNavigate();
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
-  const [reviewMode, setReviewMode] = useState<ReviewMode>('pulse-check');
 
   useEffect(() => {
     const session = getSession();
@@ -69,17 +67,8 @@ export default function ModuleSelection() {
     // Save selected modules
     updateSelectedModules(selectedModules);
 
-    // Save discovery data with manual selection flag and review mode
-    updateDiscoveryData({
-      discovery_data: {
-        selectedTouchpoints: [],
-        selectedSubTouchpoints: [],
-      },
-      review_mode: reviewMode,
-      recommended_modules: selectedModules,
-    });
-
-    navigate('/dashboard');
+    // Navigate to discovery flow starting at calibration step
+    navigate('/discovery?step=calibration');
   };
 
   // Group modules by their journey phase
@@ -88,13 +77,11 @@ export default function ModuleSelection() {
     modules: accessModules.filter(m => m.group === group.id),
   }));
 
-  // Calculate estimated time
+  // Calculate estimated time (using base time, review mode selected later)
   const totalTime = selectedModules.reduce((total, moduleId) => {
     const module = accessModules.find(m => m.id === moduleId);
     if (!module) return total;
-    return total + (reviewMode === 'deep-dive' && module.estimatedTimeDeepDive
-      ? module.estimatedTimeDeepDive
-      : module.estimatedTime);
+    return total + module.estimatedTime;
   }, 0);
 
   return (
@@ -106,27 +93,6 @@ export default function ModuleSelection() {
             Select the accessibility areas you'd like to review. You can choose individual modules
             or select entire groups. Come back anytime to review additional areas.
           </p>
-        </div>
-
-        {/* Review Mode Selection */}
-        <div className="review-mode-selector">
-          <label className="review-mode-label">Review depth:</label>
-          <div className="review-mode-options">
-            <button
-              className={`review-mode-btn ${reviewMode === 'pulse-check' ? 'active' : ''}`}
-              onClick={() => setReviewMode('pulse-check')}
-            >
-              <span className="mode-name">Pulse Check</span>
-              <span className="mode-desc">Quick overview</span>
-            </button>
-            <button
-              className={`review-mode-btn ${reviewMode === 'deep-dive' ? 'active' : ''}`}
-              onClick={() => setReviewMode('deep-dive')}
-            >
-              <span className="mode-name">Deep Dive</span>
-              <span className="mode-desc">Comprehensive review</span>
-            </button>
-          </div>
         </div>
 
         {/* Select All */}
@@ -161,9 +127,6 @@ export default function ModuleSelection() {
               <div className="modules-grid">
                 {group.modules.map((module) => {
                   const isSelected = selectedModules.includes(module.id);
-                  const estimatedTime = reviewMode === 'deep-dive' && module.estimatedTimeDeepDive
-                    ? module.estimatedTimeDeepDive
-                    : module.estimatedTime;
 
                   return (
                     <div
@@ -187,7 +150,7 @@ export default function ModuleSelection() {
                         <p className="module-description">{module.description}</p>
                         <div className="module-meta">
                           <span className="module-code">{module.code}</span>
-                          <span className="module-time">~{estimatedTime} min</span>
+                          <span className="module-time">~{module.estimatedTime} min</span>
                         </div>
                       </div>
                     </div>
@@ -220,7 +183,7 @@ export default function ModuleSelection() {
             onClick={handleContinue}
             disabled={selectedModules.length === 0}
           >
-            Continue to dashboard →
+            Continue →
           </button>
         </div>
       </div>
