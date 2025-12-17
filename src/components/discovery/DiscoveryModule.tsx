@@ -136,10 +136,16 @@ export function DiscoveryModule({
             {/* Header */}
             <div className="discovery-header-card">
               <h1 className="discovery-title">
-                Where does accessibility matter in your business?
+                Let's understand where accessibility shows up in your business
               </h1>
               <p className="discovery-subtitle">
-                Think about a typical customer visit. Select the parts of the journey that apply to your business.
+                This short discovery helps us recommend the most relevant modules and suggest the right level of detail for your review.
+              </p>
+              <p className="discovery-subtitle">
+                We'll walk through a typical customer visit and ask which parts apply to your business.
+              </p>
+              <p className="discovery-note">
+                This is not an assessment. You're simply sharing context so we can tailor what comes next.
               </p>
               {/* Journey orientation cue */}
               <div className="journey-orientation">
