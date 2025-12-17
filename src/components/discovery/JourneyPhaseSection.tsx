@@ -60,6 +60,20 @@ export function JourneyPhaseSection({
     );
   };
 
+  const handleTouchpointToggle = (touchpoint: Touchpoint) => {
+    const isCurrentlySelected = selectedTouchpoints.includes(touchpoint.id);
+    const hasSubTouchpoints = touchpoint.subTouchpoints && touchpoint.subTouchpoints.length > 0;
+
+    // If selecting (not deselecting) and has sub-touchpoints, auto-expand
+    if (!isCurrentlySelected && hasSubTouchpoints) {
+      setExpandedTouchpoints(prev =>
+        prev.includes(touchpoint.id) ? prev : [...prev, touchpoint.id]
+      );
+    }
+
+    onToggleTouchpoint(touchpoint.id);
+  };
+
   const renderTouchpoint = (touchpoint: Touchpoint) => {
     const isSelected = selectedTouchpoints.includes(touchpoint.id);
     const isExpanded = expandedTouchpoints.includes(touchpoint.id);
@@ -69,12 +83,12 @@ export function JourneyPhaseSection({
       <div key={touchpoint.id} className="touchpoint-wrapper">
         <div
           className={`touchpoint-item ${isSelected ? 'selected' : ''}`}
-          onClick={() => onToggleTouchpoint(touchpoint.id)}
+          onClick={() => handleTouchpointToggle(touchpoint)}
         >
           <input
             type="checkbox"
             checked={isSelected}
-            onChange={() => onToggleTouchpoint(touchpoint.id)}
+            onChange={() => handleTouchpointToggle(touchpoint)}
             onClick={(e) => e.stopPropagation()}
             className="touchpoint-checkbox"
           />
