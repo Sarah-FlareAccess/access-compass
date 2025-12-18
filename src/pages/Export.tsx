@@ -107,7 +107,7 @@ export default function Export() {
     <>
       <div className="export-page">
         <div className="export-container">
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <div className="export-header">
             <h1>Your Accessibility Report</h1>
             <p className="helper-text">
               {isPulseCheck
