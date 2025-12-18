@@ -43,19 +43,16 @@ function App() {
       <Router>
         <ScrollToTop />
         <Routes>
-          {/* ============================================
-              PUBLIC PAGES (no nav, no auth required)
-              ============================================ */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/disclaimer" element={<Disclaimer />} />
-
-          {/* Auth callback (handles OAuth redirects) */}
+          {/* Auth callback (handles OAuth redirects - no nav needed) */}
           <Route path="/auth/callback" element={<AuthCallback />} />
 
           {/* ============================================
-              DISCOVERY FLOW (with nav, anonymous allowed)
+              ALL PAGES WITH NAVBAR
               ============================================ */}
           <Route element={<AppLayout />}>
+            {/* Public pages */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
             {/* Business snapshot - captures org info */}
             <Route path="/start" element={<BusinessSnapshot />} />
 

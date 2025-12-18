@@ -104,10 +104,10 @@ export function RouteGuard({
   const { isAuthenticated, isLoading, hasAccessLevel } = useAuth();
   const location = useLocation();
 
-  // 🚨 DEVELOPMENT MODE: Bypass all auth checks
-  const isDevelopment = import.meta.env.DEV;
-  if (isDevelopment) {
-    console.log('[RouteGuard] DEV MODE: Bypassing auth checks');
+  // 🚨 PAYWALL DISABLED: Bypass all auth checks
+  // TODO: Re-enable paywall when ready for production
+  const bypassPaywall = true; // Set to false to re-enable paywall
+  if (bypassPaywall) {
     return <>{children ?? <Outlet />}</>;
   }
 
