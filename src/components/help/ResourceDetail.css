@@ -1,17 +1,33 @@
 /**
  * Resource Detail Styles
+ * Warm depth treatment with elevated surfaces
  */
 
 .resource-detail {
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 16px;
 }
 
-/* Header */
+/* Header - Hero Treatment */
 .resource-detail-header {
   margin-bottom: 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 28px 32px;
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.04) 0%, rgba(73, 14, 103, 0.08) 100%);
+  border-radius: var(--radius-xl, 20px);
+  border: 1px solid rgba(73, 14, 103, 0.08);
+  position: relative;
+}
+
+.resource-detail-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 32px;
+  right: 32px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--amethyst-diamond) 0%, var(--aussie-dark, #CC7700) 100%);
+  border-radius: 0 0 4px 4px;
 }
 
 .resource-detail-meta {
@@ -50,13 +66,24 @@
   margin: 0;
 }
 
-/* Sections */
+/* Sections - Elevated warm cards */
 .resource-section {
   margin-bottom: 28px;
   padding: 24px;
-  background: white;
-  border-radius: 12px;
-  border: 1px solid #e8e8e8;
+  background: linear-gradient(135deg, #ffffff 0%, var(--ivory, #FAF8F5) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(62, 43, 47, 0.06);
+  box-shadow:
+    0 4px 16px rgba(62, 43, 47, 0.06),
+    0 1px 3px rgba(62, 43, 47, 0.04);
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.resource-section:hover {
+  box-shadow:
+    0 6px 24px rgba(62, 43, 47, 0.08),
+    0 2px 6px rgba(62, 43, 47, 0.04);
 }
 
 .section-header {
@@ -87,10 +114,13 @@
   margin: 0;
 }
 
-/* Why It Matters */
+/* Why It Matters - Warm amber treatment */
 .why-it-matters {
-  background: #fef3c7;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
   border-color: #f59e0b;
+  box-shadow:
+    0 4px 16px rgba(245, 158, 11, 0.1),
+    0 1px 3px rgba(245, 158, 11, 0.06);
 }
 
 .why-it-matters .section-icon {
@@ -101,10 +131,13 @@
   display: flex;
   gap: 16px;
   padding: 20px;
-  background: white;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--ivory-tusk, #ece9e6) 100%);
+  border-radius: 12px;
   margin-top: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 12px rgba(62, 43, 47, 0.08),
+    0 1px 3px rgba(62, 43, 47, 0.04);
+  border: 1px solid rgba(62, 43, 47, 0.06);
 }
 
 .statistic-icon {
@@ -138,10 +171,14 @@
 .quote-card {
   position: relative;
   padding: 20px 20px 20px 48px;
-  background: white;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--ivory-tusk, #ece9e6) 100%);
+  border-radius: 12px;
   margin-top: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 12px rgba(62, 43, 47, 0.08),
+    0 1px 3px rgba(62, 43, 47, 0.04);
+  border: 1px solid rgba(62, 43, 47, 0.06);
+  border-left: 4px solid var(--amethyst-diamond);
 }
 
 .quote-icon {
@@ -166,10 +203,13 @@
   font-style: normal;
 }
 
-/* Tips */
+/* Tips - Warm green treatment */
 .tips-section {
-  background: #f0fdf4;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
   border-color: #22c55e;
+  box-shadow:
+    0 4px 16px rgba(34, 197, 94, 0.1),
+    0 1px 3px rgba(34, 197, 94, 0.06);
 }
 
 .tips-section .section-icon {
@@ -186,9 +226,20 @@
   display: flex;
   gap: 14px;
   padding: 16px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  border-radius: 12px;
+  box-shadow:
+    0 2px 8px rgba(34, 197, 94, 0.08),
+    0 1px 2px rgba(34, 197, 94, 0.04);
+  border: 1px solid rgba(34, 197, 94, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tip-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 16px rgba(34, 197, 94, 0.12),
+    0 2px 4px rgba(34, 197, 94, 0.06);
 }
 
 .tip-icon {
@@ -266,9 +317,10 @@
 
 /* Checklist */
 .checklist-content {
-  background: #f8f9fa;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--ivory, #FAF8F5) 100%);
+  border-radius: 12px;
   padding: 20px !important;
+  border: 1px solid rgba(62, 43, 47, 0.06);
 }
 
 .checklist-tools,
@@ -331,9 +383,10 @@
 
 /* Standards */
 .standards-content {
-  background: #f8f9fa;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--ivory, #FAF8F5) 100%);
+  border-radius: 12px;
   padding: 20px !important;
+  border: 1px solid rgba(62, 43, 47, 0.06);
 }
 
 .standard-primary {
@@ -453,9 +506,21 @@
 }
 
 .example-card {
-  background: #f8f9fa;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--ivory, #FAF8F5) 100%);
+  border-radius: 12px;
   overflow: hidden;
+  border: 1px solid rgba(62, 43, 47, 0.08);
+  box-shadow:
+    0 4px 12px rgba(62, 43, 47, 0.06),
+    0 1px 3px rgba(62, 43, 47, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.example-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 20px rgba(62, 43, 47, 0.1),
+    0 2px 6px rgba(62, 43, 47, 0.06);
 }
 
 .example-header {
@@ -660,7 +725,8 @@
 
 /* Related Resources */
 .related-section {
-  background: #f8f9fa;
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.03) 0%, rgba(73, 14, 103, 0.06) 100%);
+  border: 1px solid rgba(73, 14, 103, 0.08);
 }
 
 .related-list {
@@ -675,17 +741,20 @@
   align-items: center;
   gap: 10px;
   padding: 14px 16px;
-  background: white;
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--ivory-tusk, #ece9e6) 100%);
+  border: 1px solid rgba(62, 43, 47, 0.08);
+  border-radius: 10px;
   text-align: left;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(62, 43, 47, 0.04);
 }
 
 .related-item:hover {
   border-color: var(--amethyst-diamond);
-  background: #faf5ff;
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.04) 0%, rgba(73, 14, 103, 0.08) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.12);
 }
 
 .related-module {
@@ -712,8 +781,9 @@
 
 /* Feedback */
 .feedback-section {
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #ffffff 0%, var(--ivory, #FAF8F5) 100%);
   text-align: center;
+  border: 1px solid rgba(62, 43, 47, 0.06);
 }
 
 .feedback-prompt {
@@ -739,23 +809,27 @@
   gap: 6px;
   padding: 10px 20px;
   background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  border: 2px solid rgba(62, 43, 47, 0.1);
+  border-radius: 10px;
   color: var(--text-muted);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(62, 43, 47, 0.04);
 }
 
 .feedback-btn:hover:not(:disabled) {
   border-color: var(--amethyst-diamond);
   color: var(--amethyst-diamond);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.1);
 }
 
 .feedback-btn.active {
   background: var(--amethyst-diamond);
   border-color: var(--amethyst-diamond);
   color: white;
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.2);
 }
 
 .feedback-btn:disabled {
