@@ -26,7 +26,7 @@ export default function DiscoverySummary() {
 
   // Check if user has completed discovery
   const discoveryData = storedDiscovery?.discovery_data;
-  const hasCompletedDiscovery = discoveryData?.selectedTouchpoints?.length > 0;
+  const hasCompletedDiscovery = (discoveryData?.selectedTouchpoints?.length ?? 0) > 0;
 
   // Local state for editing
   const [isEditingContext, setIsEditingContext] = useState(false);
@@ -100,7 +100,10 @@ export default function DiscoverySummary() {
   const handleSaveContext = () => {
     updateSession({
       business_snapshot: {
-        ...session?.business_snapshot,
+        organisation_name: session?.business_snapshot?.organisation_name ?? '',
+        organisation_size: session?.business_snapshot?.organisation_size ?? 'small',
+        business_types: session?.business_snapshot?.business_types ?? [],
+        user_role: session?.business_snapshot?.user_role ?? 'owner',
         has_physical_venue: businessContext.hasPhysicalVenue ?? false,
         has_online_presence: businessContext.hasOnlinePresence ?? false,
         serves_public_customers: businessContext.servesPublicCustomers ?? false,

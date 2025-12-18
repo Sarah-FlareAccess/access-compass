@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { DiscoveryModule, ReviewModeSelection, CalibrationQuestions } from '../components/discovery';
+import { DiscoveryModule, CalibrationQuestions } from '../components/discovery';
 import { getSession, getDiscoveryData, updateDiscoveryData, updateSelectedModules } from '../utils/session';
-import { calculateDepthRecommendation } from '../lib/recommendationEngine';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { accessModules } from '../data/accessModules';
 import type { ReviewMode, RecommendationResult, CalibrationData, ModuleType } from '../types';
@@ -46,7 +45,7 @@ function Discovery() {
   } | null>(null);
 
   // Calibration data collected before pathway decision
-  const [calibrationData, setCalibrationData] = useState<CalibrationData | null>(null);
+  const [, setCalibrationData] = useState<CalibrationData | null>(null);
 
   // Get business type from session for industry-based recommendations
   const industryId = session?.business_snapshot?.business_types?.[0] || 'other';
@@ -125,7 +124,7 @@ function Discovery() {
     }
 
     // Determine recommended mode
-    const recommendedMode = deepDiveSignals.length >= 2 ? 'deep_dive' : 'pulse';
+    const recommendedMode: ReviewMode = deepDiveSignals.length >= 2 ? 'deep-dive' : 'pulse-check';
 
     // Get selected modules from session
     const selectedModules = discoveryResults?.recommendedModules || session?.selected_modules || [];
@@ -154,10 +153,6 @@ function Discovery() {
     navigate(`/decision?recommended=${recommendedMode}`);
   };
 
-  const handlePathwaySelect = (mode: ReviewMode) => {
-    // This is now unused but keeping for backwards compatibility
-    navigate('/decision');
-  };
 
   const handleBack = () => {
     if (currentStep === 'calibration') {
@@ -187,10 +182,6 @@ function Discovery() {
     setCurrentStep('discovery');
   };
 
-  // Calculate depth recommendation based on discovery + calibration data
-  const depthRecommendation = discoveryResults
-    ? calculateDepthRecommendation(discoveryResults.selectedTouchpoints, calibrationData)
-    : { recommendedDepth: 'pulse-check' as ReviewMode, touchpointCount: 0, reasoning: '' };
 
   // Summary view for returning users
   if (currentStep === 'summary') {

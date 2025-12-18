@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
-import { DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategory } from '../data/diapMapping';
+import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategory } from '../data/diapMapping';
 import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
 import '../styles/diap.css';
 

@@ -97,7 +97,7 @@ export const accessModules: AccessModule[] = [
           { id: 'never-asked', label: "We've never been asked before" },
           { id: 'other', label: 'Other / Not sure' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['no', 'not-sure'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['no', 'unable-to-check'] },
       },
       {
         id: 'B1-F-3A',
@@ -115,7 +115,7 @@ export const accessModules: AccessModule[] = [
           { id: 'on-request', label: 'On request only' },
           { id: 'not-sure', label: 'Not sure yet' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['no', 'not-sure'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['no', 'unable-to-check'] },
       },
       {
         id: 'B1-F-2B',
@@ -791,7 +791,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         mediaAnalysisType: 'ramp',
         mediaAnalysisHint: 'Take a photo showing the full ramp from top or side, including handrails and landing areas.',
-        showWhen: { questionId: 'A2-D-9', answers: ['yes', 'not-sure'] },
+        showWhen: { questionId: 'A2-D-9', answers: ['yes', 'unable-to-check'] },
       },
     ],
   },
@@ -1002,7 +1002,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
-        showWhen: { questionId: 'A5-1-1', answers: ['no', 'not-sure'] },
+        showWhen: { questionId: 'A5-1-1', answers: ['no', 'unable-to-check'] },
       },
       {
         id: 'A5-1-3',

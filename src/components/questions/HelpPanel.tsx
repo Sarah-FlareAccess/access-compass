@@ -17,7 +17,7 @@ interface HelpPanelProps {
   questionText?: string;
 }
 
-export function HelpPanel({ isOpen, onClose, content, questionText }: HelpPanelProps) {
+export function HelpPanel({ isOpen, onClose, content, questionText: _questionText }: HelpPanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const [isClosing, setIsClosing] = useState(false);
 

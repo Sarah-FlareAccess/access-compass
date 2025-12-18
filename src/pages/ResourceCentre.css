@@ -16,13 +16,13 @@
 .resource-centre-title-section h1 {
   font-size: 2rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--text-primary);
   margin: 0 0 8px;
 }
 
 .resource-centre-subtitle {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-muted);
   margin: 0;
   max-width: 600px;
 }
@@ -35,7 +35,7 @@
   background: white;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  color: #666;
+  color: var(--text-muted);
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -69,7 +69,7 @@
   left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: #999;
+  color: #757575;
   pointer-events: none;
 }
 
@@ -84,7 +84,7 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #7c3aed;
+  border-color: var(--amethyst-diamond);
 }
 
 .search-clear {
@@ -101,7 +101,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .search-clear:hover {
@@ -110,7 +110,7 @@
 
 .btn-search {
   padding: 12px 24px;
-  background: linear-gradient(135deg, #3a0b52 0%, #7c3aed 100%);
+  background: var(--amethyst-diamond);
   color: white;
   border: none;
   border-radius: 10px;
@@ -133,7 +133,7 @@
   background: white;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
-  color: #666;
+  color: var(--text-muted);
   font-size: 0.95rem;
   cursor: pointer;
   position: relative;
@@ -142,8 +142,8 @@
 
 .btn-filter:hover,
 .btn-filter.active {
-  border-color: #7c3aed;
-  color: #7c3aed;
+  border-color: var(--amethyst-diamond);
+  color: var(--amethyst-diamond);
 }
 
 .filter-badge {
@@ -152,7 +152,7 @@
   right: 8px;
   width: 8px;
   height: 8px;
-  background: #7c3aed;
+  background: var(--amethyst-diamond);
   border-radius: 50%;
 }
 
@@ -175,7 +175,7 @@
 .filter-section h3 {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #666;
+  color: var(--text-muted);
   margin: 0 0 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -196,19 +196,19 @@
   border: 2px solid #e0e0e0;
   border-radius: 20px;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--text-muted);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .filter-chip:hover {
-  border-color: var(--chip-color, #7c3aed);
-  color: var(--chip-color, #7c3aed);
+  border-color: var(--chip-color, var(--amethyst-diamond));
+  color: var(--chip-color, var(--amethyst-diamond));
 }
 
 .filter-chip.active {
-  background: var(--chip-color, #7c3aed);
-  border-color: var(--chip-color, #7c3aed);
+  background: var(--chip-color, var(--amethyst-diamond));
+  border-color: var(--chip-color, var(--amethyst-diamond));
   color: white;
 }
 
@@ -221,7 +221,7 @@
   padding: 8px 16px;
   background: transparent;
   border: none;
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   font-size: 0.9rem;
   cursor: pointer;
   text-decoration: underline;
@@ -288,13 +288,13 @@
 .category-content h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1a1a2e;
+  color: var(--text-primary);
   margin: 0 0 6px;
 }
 
 .category-content p {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--text-muted);
   margin: 0 0 12px;
   line-height: 1.4;
 }
@@ -318,23 +318,23 @@
 }
 
 .no-results p {
-  color: #666;
+  color: var(--text-muted);
   margin: 0 0 16px;
 }
 
 .btn-secondary {
   padding: 10px 20px;
   background: white;
-  border: 2px solid #7c3aed;
+  border: 2px solid var(--amethyst-diamond);
   border-radius: 8px;
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: #7c3aed;
+  background: var(--amethyst-diamond);
   color: white;
 }
 
@@ -352,7 +352,7 @@
 .featured-resources h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--text-primary);
   margin: 0 0 24px;
 }
 

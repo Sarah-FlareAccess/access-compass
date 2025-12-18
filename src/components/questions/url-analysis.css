@@ -39,7 +39,7 @@
 }
 
 .url-input-field::placeholder {
-  color: #999;
+  color: #757575;
 }
 
 .url-error {
@@ -62,7 +62,7 @@
   justify-content: center;
   gap: 8px;
   padding: 14px 24px;
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  background: var(--amethyst-diamond);
   border: none;
   border-radius: 10px;
   font-size: 15px;
@@ -107,7 +107,7 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   font-size: 14px;
-  color: #666;
+  color: var(--text-muted);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -126,7 +126,7 @@
 .url-input-note p {
   margin: 0;
   font-size: 13px;
-  color: #666;
+  color: var(--text-muted);
   line-height: 1.5;
 }
 
@@ -209,7 +209,7 @@
 
 .btn-continue-confirmed {
   padding: 12px 24px;
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  background: #22c55e;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -241,7 +241,7 @@
 
 .url-label {
   font-size: 13px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .url-link {
@@ -278,7 +278,7 @@
 
 .score-label {
   font-size: 14px;
-  color: #888;
+  color: #757575;
 }
 
 .score-status {
@@ -410,7 +410,7 @@
   margin: 0 0 10px 0;
   font-size: 12px;
   font-weight: 600;
-  color: #888;
+  color: #757575;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -450,7 +450,7 @@
 .parameter-feedback {
   margin: 0;
   font-size: 12px;
-  color: #666;
+  color: var(--text-muted);
   line-height: 1.4;
 }
 
@@ -461,7 +461,7 @@
 
 .parameter-suggestions li {
   font-size: 11px;
-  color: #888;
+  color: #757575;
   line-height: 1.4;
   margin-bottom: 2px;
 }
@@ -494,7 +494,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 14px;
-  color: #666;
+  color: var(--text-muted);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -507,7 +507,7 @@
 .btn-continue-analysis {
   flex: 1;
   padding: 12px 20px;
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  background: #22c55e;
   border: none;
   border-radius: 8px;
   font-size: 14px;

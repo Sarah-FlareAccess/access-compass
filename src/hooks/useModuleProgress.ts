@@ -275,7 +275,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
 
     const yesCount = responses.filter(r => r.answer === 'yes').length;
     const noCount = responses.filter(r => r.answer === 'no').length;
-    const unsureCount = responses.filter(r => r.answer === 'not-sure' || r.answer === 'too-hard').length;
+    const unsureCount = responses.filter(r => r.answer === 'unable-to-check').length;
     const total = responses.length;
 
     const yesPercentage = (yesCount / total) * 100;

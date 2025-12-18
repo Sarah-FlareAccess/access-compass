@@ -40,7 +40,7 @@
   margin: 0;
   font-size: 20px;
   font-weight: 600;
-  color: #1a1a2e;
+  color: var(--text-primary);
 }
 
 .report-actions {
@@ -49,9 +49,14 @@
   align-items: center;
 }
 
+.report-actions .btn-download-report,
+.report-actions .btn-close-report {
+  min-height: 40px;
+}
+
 .btn-download-report {
   padding: 8px 16px;
-  background: #7c3aed;
+  background: var(--amethyst-diamond);
   color: white;
   border: none;
   border-radius: 6px;
@@ -62,7 +67,7 @@
 }
 
 .btn-download-report:hover {
-  background: #6d28d9;
+  background: var(--amethyst-dark);
   transform: translateY(-1px);
 }
 
@@ -102,13 +107,13 @@
 .report-title {
   font-size: 32px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--text-primary);
   margin: 0 0 8px 0;
 }
 
 .report-subtitle {
   font-size: 18px;
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   font-weight: 600;
   margin-bottom: 24px;
 }
@@ -134,10 +139,10 @@
 .report-section h2 {
   font-size: 22px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--text-primary);
   margin: 0 0 16px 0;
   padding-bottom: 8px;
-  border-bottom: 2px solid #7c3aed;
+  border-bottom: 2px solid var(--amethyst-diamond);
 }
 
 .report-section h3 {
@@ -195,7 +200,7 @@
 .stat-number {
   font-size: 36px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--text-primary);
   line-height: 1;
   margin-bottom: 8px;
 }
@@ -230,7 +235,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+  background: var(--amethyst-diamond);
   transition: width 0.3s ease;
 }
 
@@ -267,7 +272,7 @@
   font-size: 12px;
   font-weight: 700;
   padding: 4px 8px;
-  background: #7c3aed;
+  background: var(--amethyst-diamond);
   color: white;
   border-radius: 4px;
   letter-spacing: 0.5px;
@@ -380,8 +385,8 @@
 
 .report-list-professional li {
   background: rgba(124, 58, 237, 0.08);
-  border-left: 4px solid #7c3aed;
-  color: #5b21b6;
+  border-left: 4px solid var(--amethyst-diamond);
+  color: var(--amethyst-diamond);
 }
 
 /* Quick Wins */
@@ -447,7 +452,7 @@
 
 .badge-impact.medium {
   background: rgba(139, 92, 246, 0.15);
-  color: #5b21b6;
+  color: var(--amethyst-diamond);
 }
 
 .quick-win-card p {
@@ -549,7 +554,7 @@
 }
 
 .resource-link {
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   text-decoration: none;
   font-weight: 500;
   display: inline-flex;
@@ -559,7 +564,7 @@
 }
 
 .resource-link:hover {
-  color: #5b21b6;
+  color: var(--amethyst-diamond);
   text-decoration: underline;
 }
 
@@ -603,7 +608,7 @@
   content: '•';
   position: absolute;
   left: 14px;
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   font-size: 18px;
   font-weight: bold;
 }
@@ -619,7 +624,7 @@
   padding: 12px 16px;
   margin-bottom: 10px;
   background: #f9fafb;
-  border-left: 4px solid #7c3aed;
+  border-left: 4px solid var(--amethyst-diamond);
   border-radius: 6px;
   font-size: 15px;
   line-height: 1.5;
@@ -642,7 +647,7 @@
 .support-recommendation p {
   margin: 0;
   font-size: 15px;
-  color: #5b21b6;
+  color: var(--amethyst-diamond);
 }
 
 .support-disclaimer {
@@ -663,7 +668,7 @@
 }
 
 .support-link {
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   font-weight: 600;
 }
 
@@ -704,7 +709,7 @@
 }
 
 .report-branding strong {
-  color: #1a1a2e;
+  color: var(--text-primary);
 }
 
 /* Print Styles */
@@ -758,7 +763,7 @@
 
 .url-analysis-header .url-link {
   font-size: 14px;
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   text-decoration: none;
   word-break: break-all;
   flex: 1;
@@ -816,7 +821,7 @@
   padding: 12px;
   background: white;
   border-radius: 6px;
-  border-left: 4px solid #7c3aed;
+  border-left: 4px solid var(--amethyst-diamond);
 }
 
 .url-analysis-strengths,
@@ -893,7 +898,7 @@
 .analysis-type-badge {
   display: inline-block;
   padding: 4px 10px;
-  background: #7c3aed;
+  background: var(--amethyst-diamond);
   color: white;
   border-radius: 12px;
   font-size: 12px;
@@ -911,7 +916,7 @@
 
 .analysis-url {
   font-size: 14px;
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   text-decoration: none;
   word-break: break-all;
 }
@@ -987,7 +992,7 @@
   padding: 12px;
   background: white;
   border-radius: 6px;
-  border-left: 4px solid #7c3aed;
+  border-left: 4px solid var(--amethyst-diamond);
 }
 
 .media-analysis-standards {
@@ -1010,7 +1015,7 @@
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
 }
 
 .media-analysis-strengths,
@@ -1082,7 +1087,7 @@
 .media-analysis-professional strong {
   display: block;
   font-size: 14px;
-  color: #5b21b6;
+  color: var(--amethyst-diamond);
   margin-bottom: 4px;
 }
 
@@ -1118,7 +1123,7 @@
 .note-module {
   font-size: 12px;
   font-weight: 600;
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -1165,7 +1170,7 @@
   padding: 12px;
   background: white;
   border-radius: 6px;
-  border-left: 4px solid #a78bfa;
+  border-left: 4px solid var(--amethyst-light);
 }
 
 /* Evidence Section */
@@ -1195,7 +1200,7 @@
   font-weight: 600;
   padding: 4px 10px;
   background: rgba(124, 58, 237, 0.1);
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   border-radius: 12px;
   text-transform: capitalize;
   display: flex;

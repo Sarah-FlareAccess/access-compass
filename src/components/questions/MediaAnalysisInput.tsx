@@ -21,7 +21,7 @@ import { getMediaAnalysisConfig } from '../../data/mediaAnalysisCriteria';
 import { analyzeWithWave, isWaveApiEnabled } from '../../utils/waveApi';
 import {
   analyzeMultipleImages,
-  isVisionApiEnabled,
+  isVisionApiEnabled as _isVisionApiEnabled,
   type VisionAnalysisResult,
 } from '../../utils/visionAnalysis';
 import './media-analysis.css';
@@ -576,24 +576,6 @@ export function MediaAnalysisInput({
   );
 }
 
-// Helper to format status
-function formatStatus(status: MediaAnalysisStatus): string {
-  switch (status) {
-    case 'excellent':
-      return 'Excellent';
-    case 'good':
-      return 'Good';
-    case 'needs-improvement':
-      return 'Needs Improvement';
-    case 'poor':
-      return 'Poor';
-    case 'not-assessable':
-      return 'Unable to Assess';
-    default:
-      return status;
-  }
-}
-
 // Generate mock analysis (to be replaced with real AI integration)
 function generateMockAnalysis(
   type: MediaAnalysisType,
@@ -735,7 +717,7 @@ function generateSummary(
 function convertVisionToMediaResult(
   visionResult: VisionAnalysisResult,
   analysisType: MediaAnalysisType,
-  config: ReturnType<typeof getMediaAnalysisConfig>
+  _config: ReturnType<typeof getMediaAnalysisConfig>
 ): MediaAnalysisResult {
   // Map vision findings to criteria results
   const criteriaResults: CriterionResult[] = visionResult.findings.map((finding, idx) => {

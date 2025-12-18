@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import AppLayout from './components/AppLayout';
 import { RouteGuard } from './components/guards/RouteGuard';
+import { ScrollToTop } from './components/ScrollToTop';
 
 // Public pages
 import Landing from './pages/Landing';
@@ -40,6 +41,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           {/* ============================================
               PUBLIC PAGES (no nav, no auth required)

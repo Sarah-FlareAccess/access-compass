@@ -189,7 +189,7 @@ const styles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #f8f7f6 0%, #ece9e6 100%);
+    background: var(--ivory-tusk, #ece9e6);
     padding: 40px 20px;
   }
 
@@ -204,7 +204,7 @@ const styles = `
 
   .back-link {
     display: inline-block;
-    color: #666;
+    color: var(--text-muted, #6b6360);
     text-decoration: none;
     margin-bottom: 24px;
     font-size: 0.95rem;
@@ -270,7 +270,7 @@ const styles = `
 
   .item-bundle {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-muted, #6b6360);
   }
 
   .item-price {
@@ -287,7 +287,7 @@ const styles = `
   .total-row {
     display: flex;
     justify-content: space-between;
-    color: #666;
+    color: var(--text-muted, #6b6360);
     font-size: 0.95rem;
   }
 
@@ -305,7 +305,7 @@ const styles = `
   }
 
   .inclusions-summary h4 {
-    color: #666;
+    color: var(--text-muted, #6b6360);
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -346,7 +346,7 @@ const styles = `
   .btn-checkout {
     width: 100%;
     padding: 18px 24px;
-    background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+    background: var(--amethyst-diamond, #490E67);
     color: white;
     border: none;
     border-radius: 12px;
@@ -369,7 +369,7 @@ const styles = `
 
   .security-note {
     text-align: center;
-    color: #666;
+    color: var(--text-muted, #6b6360);
     font-size: 0.9rem;
     margin: 0;
     display: flex;

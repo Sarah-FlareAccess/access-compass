@@ -142,7 +142,7 @@ const styles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #f8f7f6 0%, #ece9e6 100%);
+    background: var(--ivory-tusk, #ece9e6);
     padding: 40px 20px;
   }
 
@@ -173,7 +173,7 @@ const styles = `
   .success-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    background: #22c55e;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -263,7 +263,7 @@ const styles = `
   .btn-primary {
     display: inline-block;
     padding: 16px 32px;
-    background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+    background: var(--amethyst-diamond, #490E67);
     color: white;
     border: none;
     border-radius: 12px;
@@ -280,7 +280,7 @@ const styles = `
   }
 
   .support-note {
-    color: #666;
+    color: var(--text-muted, #6b6360);
     font-size: 0.9rem;
     margin: 0;
   }

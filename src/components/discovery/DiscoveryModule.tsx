@@ -161,9 +161,6 @@ export function DiscoveryModule({
     });
   }, [hasPhysicalVenue, hasOnlinePresence]);
 
-  // Check if any journey phases will be shown
-  const hasRelevantPhases = filteredJourneyPhases.length > 0;
-
   // Initialize custom module selection when entering recommendation step
   useEffect(() => {
     if (currentStep === 'recommendation' && customSelectedModules.length === 0) {

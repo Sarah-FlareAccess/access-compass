@@ -43,7 +43,9 @@ interface ResourceDetailProps {
 
 // Get Lucide icon by name
 function getIcon(iconName: string, size: number = 20): React.ReactNode {
-  const IconComponent = (LucideIcons as Record<string, React.ComponentType<{ size?: number }>>)[iconName];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const icons = LucideIcons as any;
+  const IconComponent = icons[iconName];
   if (IconComponent) {
     return <IconComponent size={size} />;
   }

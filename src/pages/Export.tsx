@@ -128,7 +128,7 @@ export default function Export() {
             >
               <div style={{ fontSize: '2rem', marginBottom: '12px' }}>📋</div>
               <h3>No modules completed yet</h3>
-              <p style={{ color: 'var(--steel-gray)', margin: '12px 0' }}>
+              <p style={{ color: 'var(--text-muted)', margin: '12px 0' }}>
                 Complete at least one module to generate your accessibility report.
               </p>
               <Link to="/dashboard" className="btn btn-primary" style={{ marginTop: '12px' }}>
@@ -141,7 +141,7 @@ export default function Export() {
           {hasCompletedModules && (
             <div className="card" style={{ marginBottom: '30px' }}>
               <h2 style={{ marginBottom: '16px' }}>Report Options</h2>
-              <p style={{ color: 'var(--steel-gray)', marginBottom: '20px' }}>
+              <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
                 Choose what to include in your report:
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -154,7 +154,7 @@ export default function Export() {
                   />
                   <div>
                     <strong style={{ display: 'block', marginBottom: '2px' }}>Include your notes</strong>
-                    <span style={{ fontSize: '14px', color: 'var(--steel-gray)' }}>
+                    <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
                       Notes and observations you recorded during the self-review
                     </span>
                   </div>
@@ -168,7 +168,7 @@ export default function Export() {
                   />
                   <div>
                     <strong style={{ display: 'block', marginBottom: '2px' }}>Include photos and documents</strong>
-                    <span style={{ fontSize: '14px', color: 'var(--steel-gray)' }}>
+                    <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
                       Evidence photos and documents you uploaded as supporting evidence
                     </span>
                   </div>
@@ -183,7 +183,7 @@ export default function Export() {
               <div className="card">
                 <div style={{ fontSize: '3rem', marginBottom: '20px', textAlign: 'center' }}>👀</div>
                 <h2>View Report in App</h2>
-                <p style={{ color: 'var(--steel-gray)', marginBottom: '20px' }}>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
                   {isPulseCheck
                     ? 'Read your 1-page pulse check summary directly in the app before downloading'
                     : 'Review your detailed deep-dive report with findings, priorities, and resources'}
@@ -207,7 +207,7 @@ export default function Export() {
               <div className="card">
                 <div style={{ fontSize: '3rem', marginBottom: '20px', textAlign: 'center' }}>📄</div>
                 <h2>Download PDF</h2>
-                <p style={{ color: 'var(--steel-gray)', marginBottom: '20px' }}>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
                   {isPulseCheck
                     ? 'Download a 1-page PDF summary—perfect for team briefings and quick sharing'
                     : 'Download a comprehensive PDF report with detailed findings, action steps, and resource links'}
@@ -244,40 +244,40 @@ export default function Export() {
               <h2>What's included in your report</h2>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginTop: '20px' }}>
                 <div>
-                  <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#22c55e' }}>✓ What's going well</h3>
-                  <p style={{ fontSize: '14px', color: 'var(--steel-gray)', margin: 0 }}>
+                  <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#15803d' }}>✓ What's going well</h3>
+                  <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: 0 }}>
                     Strengths and positive accessibility features you already have in place
                   </p>
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#ef4444' }}>⚡ Priority actions</h3>
-                  <p style={{ fontSize: '14px', color: 'var(--steel-gray)', margin: 0 }}>
+                  <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#b91c1c' }}>⚡ Priority actions</h3>
+                  <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: 0 }}>
                     High-impact improvements with timeframes and priorities
                   </p>
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#fbbf24' }}>🔍 Areas to explore</h3>
-                  <p style={{ fontSize: '14px', color: 'var(--steel-gray)', margin: 0 }}>
+                  <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#b45309' }}>🔍 Areas to explore</h3>
+                  <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: 0 }}>
                     Opportunities to clarify and potentially improve accessibility
                   </p>
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#7c3aed' }}>📋 Suggested next steps</h3>
-                  <p style={{ fontSize: '14px', color: 'var(--steel-gray)', margin: 0 }}>
+                  <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#6d28d9' }}>📋 Suggested next steps</h3>
+                  <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: 0 }}>
                     Practical guidance on what to do now and what to plan for later
                   </p>
                 </div>
                 {!isPulseCheck && (
                   <>
                     <div>
-                      <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#3b82f6' }}>🔬 Detailed findings</h3>
-                      <p style={{ fontSize: '14px', color: 'var(--steel-gray)', margin: 0 }}>
+                      <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#1d4ed8' }}>🔬 Detailed findings</h3>
+                      <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: 0 }}>
                         In-depth analysis of issues with reasoning and recommended actions
                       </p>
                     </div>
                     <div>
-                      <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#8b5cf6' }}>🔗 Resource links</h3>
-                      <p style={{ fontSize: '14px', color: 'var(--steel-gray)', margin: 0 }}>
+                      <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#6d28d9' }}>🔗 Resource links</h3>
+                      <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: 0 }}>
                         Direct links to relevant resources and guidance (coming soon)
                       </p>
                     </div>
@@ -343,7 +343,7 @@ export default function Export() {
                 <a href="#" style={{ color: '#7c3aed', fontWeight: 600, textDecoration: 'none' }}>
                   Learn about professional support →
                 </a>
-                <span style={{ color: 'var(--steel-gray)', marginLeft: '12px', fontSize: '14px' }}>
+                <span style={{ color: 'var(--text-muted)', marginLeft: '12px', fontSize: '14px' }}>
                   (Coming soon)
                 </span>
               </div>

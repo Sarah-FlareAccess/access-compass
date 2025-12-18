@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Compass - Style Mockups</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f5;
+      padding: 40px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .style-section {
+      background: white;
+      border-radius: 24px;
+      padding: 48px;
+      margin-bottom: 60px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .style-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .style-info h2 {
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+    }
+
+    .style-info p {
+      color: #666;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
+    .style-meta {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .meta-group h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    .meta-group p {
+      color: #333;
+      font-weight: 500;
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 8px;
+    }
+
+    .swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 2px solid rgba(0,0,0,0.1);
+    }
+
+    .mockup-container {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    /* ========================================
+       STYLE 1: MODERN CORPORATE
+       ======================================== */
+    .style-1 .style-info h2 { color: #0f172a; }
+
+    .mockup-1 {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+    }
+
+    .mockup-1 .nav {
+      background: #0f172a;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mockup-1 .nav-brand {
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mockup-1 .nav-brand span {
+      color: #38bdf8;
+    }
+
+    .mockup-1 .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .mockup-1 .nav-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .mockup-1 .nav-links a.active {
+      color: white;
+    }
+
+    .mockup-1 .content {
+      padding: 48px;
+    }
+
+    .mockup-1 .page-title {
+      font-size: 1.75rem;
+      color: #0f172a;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .mockup-1 .page-subtitle {
+      color: #64748b;
+      margin-bottom: 32px;
+    }
+
+    .mockup-1 .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .mockup-1 .stat-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .mockup-1 .stat-label {
+      font-size: 0.8rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .mockup-1 .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .mockup-1 .stat-card.highlight {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      border: none;
+    }
+
+    .mockup-1 .stat-card.highlight .stat-label,
+    .mockup-1 .stat-card.highlight .stat-value {
+      color: white;
+    }
+
+    .mockup-1 .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .mockup-1 .resource-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.2s;
+    }
+
+    .mockup-1 .resource-card:hover {
+      border-color: #0ea5e9;
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+    }
+
+    .mockup-1 .card-badge {
+      display: inline-block;
+      background: #f0f9ff;
+      color: #0369a1;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .mockup-1 .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .mockup-1 .card-desc {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    /* ========================================
+       STYLE 2: WARM & WELCOMING
+       ======================================== */
+    .style-2 .style-info h2 { color: #1e3a5f; }
+
+    .mockup-2 {
+      font-family: 'Nunito', sans-serif;
+      background: #fef7f0;
+    }
+
+    .mockup-2 .nav {
+      background: white;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #fde8d7;
+    }
+
+    .mockup-2 .nav-brand {
+      color: #1e3a5f;
+      font-weight: 800;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mockup-2 .nav-brand .icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .mockup-2 .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mockup-2 .nav-links a {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 24px;
+      transition: all 0.2s;
+    }
+
+    .mockup-2 .nav-links a.active {
+      background: #fff7ed;
+      color: #ea580c;
+    }
+
+    .mockup-2 .content {
+      padding: 48px;
+    }
+
+    .mockup-2 .welcome-banner {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mockup-2 .welcome-text h1 {
+      color: white;
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .mockup-2 .welcome-text p {
+      color: #a5c4e4;
+      font-size: 1.05rem;
+    }
+
+    .mockup-2 .welcome-cta {
+      background: #f97316;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .mockup-2 .section-title {
+      font-size: 1.25rem;
+      color: #1e3a5f;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mockup-2 .section-title .emoji {
+      font-size: 1.5rem;
+    }
+
+    .mockup-2 .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .mockup-2 .resource-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .mockup-2 .resource-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(249, 115, 22, 0.15);
+      border-color: #fdba74;
+    }
+
+    .mockup-2 .card-icon {
+      width: 48px;
+      height: 48px;
+      background: #fff7ed;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    .mockup-2 .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+
+    .mockup-2 .card-desc {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    .mockup-2 .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #f97316;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-top: 16px;
+      text-decoration: none;
+    }
+
+    /* ========================================
+       STYLE 3: BOLD & ACCESSIBLE
+       ======================================== */
+    .style-3 .style-info h2 { color: #1a1a2e; }
+
+    .mockup-3 {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #1a1a2e;
+    }
+
+    .mockup-3 .nav {
+      background: #16162a;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #00d4aa;
+    }
+
+    .mockup-3 .nav-brand {
+      color: white;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mockup-3 .nav-brand .logo {
+      width: 40px;
+      height: 40px;
+      background: #00d4aa;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #1a1a2e;
+      font-size: 1.2rem;
+    }
+
+    .mockup-3 .nav-links {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mockup-3 .nav-links a {
+      color: #a0a0b8;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .mockup-3 .nav-links a.active {
+      background: #00d4aa;
+      color: #1a1a2e;
+    }
+
+    .mockup-3 .content {
+      padding: 48px;
+    }
+
+    .mockup-3 .page-header {
+      margin-bottom: 40px;
+    }
+
+    .mockup-3 .page-title {
+      font-size: 2.5rem;
+      color: white;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .mockup-3 .page-title span {
+      color: #00d4aa;
+    }
+
+    .mockup-3 .page-subtitle {
+      color: #a0a0b8;
+      font-size: 1.1rem;
+    }
+
+    .mockup-3 .category-pills {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .mockup-3 .pill {
+      background: #252544;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mockup-3 .pill.active {
+      background: #00d4aa;
+      color: #1a1a2e;
+    }
+
+    .mockup-3 .pill:hover:not(.active) {
+      border-color: #00d4aa;
+    }
+
+    .mockup-3 .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .mockup-3 .resource-card {
+      background: #252544;
+      border-radius: 16px;
+      padding: 32px;
+      border-left: 5px solid #00d4aa;
+      transition: all 0.2s;
+    }
+
+    .mockup-3 .resource-card:hover {
+      background: #2d2d52;
+      transform: translateX(8px);
+    }
+
+    .mockup-3 .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .mockup-3 .card-badge {
+      background: #ff6b9d;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .mockup-3 .card-badge.green { background: #00d4aa; color: #1a1a2e; }
+    .mockup-3 .card-badge.purple { background: #a855f7; }
+    .mockup-3 .card-badge.blue { background: #38bdf8; color: #1a1a2e; }
+
+    .mockup-3 .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .mockup-3 .card-desc {
+      font-size: 0.95rem;
+      color: #a0a0b8;
+      line-height: 1.6;
+    }
+
+    .mockup-3 .card-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .mockup-3 .tag {
+      background: #1a1a2e;
+      color: #00d4aa;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Footer comparison */
+    .comparison-footer {
+      background: #1a1a1a;
+      color: white;
+      padding: 48px;
+      border-radius: 24px;
+      text-align: center;
+    }
+
+    .comparison-footer h3 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      text-align: left;
+    }
+
+    .comparison-col h4 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #333;
+    }
+
+    .comparison-col ul {
+      list-style: none;
+    }
+
+    .comparison-col li {
+      padding: 8px 0;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .comparison-col li strong {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>Access Compass Style Mockups</h1>
+    <p>Three distinct visual directions for the application. Each brings a different personality while maintaining accessibility standards.</p>
+  </div>
+
+  <!-- STYLE 1: MODERN CORPORATE -->
+  <section class="style-section style-1">
+    <div class="style-header">
+      <div class="style-info">
+        <h2>Style 1: Modern Corporate</h2>
+        <p>Clean, professional, and trustworthy. Perfect for enterprise clients, government organizations, and businesses that want to convey authority and reliability.</p>
+      </div>
+      <div class="style-meta">
+        <div class="meta-group">
+          <h4>Color Palette</h4>
+          <div class="color-swatches">
+            <div class="swatch" style="background: #0f172a;" title="Slate 900"></div>
+            <div class="swatch" style="background: #0ea5e9;" title="Sky 500"></div>
+            <div class="swatch" style="background: #64748b;" title="Slate 500"></div>
+            <div class="swatch" style="background: #f8fafc;" title="Slate 50"></div>
+          </div>
+        </div>
+        <div class="meta-group">
+          <h4>Typography</h4>
+          <p>Inter - Clean & Neutral</p>
+        </div>
+        <div class="meta-group">
+          <h4>Overall Feel</h4>
+          <p>Minimal, Structured, Professional</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-container mockup-1">
+      <nav class="nav">
+        <div class="nav-brand">
+          Access<span>Compass</span>
+        </div>
+        <div class="nav-links">
+          <a href="#">Dashboard</a>
+          <a href="#">Discovery</a>
+          <a href="#" class="active">Resources</a>
+          <a href="#">Report</a>
+          <a href="#">DIAP</a>
+        </div>
+      </nav>
+      <div class="content">
+        <h1 class="page-title">Resource Centre</h1>
+        <p class="page-subtitle">Guides, standards, and best practices for accessibility compliance</p>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Total Resources</div>
+            <div class="stat-value">14</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Categories</div>
+            <div class="stat-value">4</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Video Guides</div>
+            <div class="stat-value">6</div>
+          </div>
+          <div class="stat-card highlight">
+            <div class="stat-label">Your Progress</div>
+            <div class="stat-value">73%</div>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="resource-card">
+            <span class="card-badge">Before Arrival</span>
+            <h3 class="card-title">Accessible Website Information</h3>
+            <p class="card-desc">Guidelines for presenting accessibility details on your website clearly and effectively.</p>
+          </div>
+          <div class="resource-card">
+            <span class="card-badge">Getting In</span>
+            <h3 class="card-title">Accessible Parking Spaces</h3>
+            <p class="card-desc">Requirements for designated accessible parking bays and their proper signage.</p>
+          </div>
+          <div class="resource-card">
+            <span class="card-badge">Service</span>
+            <h3 class="card-title">Disability Awareness Training</h3>
+            <p class="card-desc">Essential training modules for staff to provide inclusive customer service.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STYLE 2: WARM & WELCOMING -->
+  <section class="style-section style-2">
+    <div class="style-header">
+      <div class="style-info">
+        <h2>Style 2: Warm & Welcoming</h2>
+        <p>Friendly, approachable, and human-centered. Ideal for community organizations, tourism operators, and businesses focused on creating inclusive experiences.</p>
+      </div>
+      <div class="style-meta">
+        <div class="meta-group">
+          <h4>Color Palette</h4>
+          <div class="color-swatches">
+            <div class="swatch" style="background: #1e3a5f;" title="Navy"></div>
+            <div class="swatch" style="background: #f97316;" title="Orange 500"></div>
+            <div class="swatch" style="background: #14b8a6;" title="Teal 500"></div>
+            <div class="swatch" style="background: #fef7f0;" title="Warm White"></div>
+          </div>
+        </div>
+        <div class="meta-group">
+          <h4>Typography</h4>
+          <p>Nunito - Rounded & Friendly</p>
+        </div>
+        <div class="meta-group">
+          <h4>Overall Feel</h4>
+          <p>Approachable, Encouraging, Supportive</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-container mockup-2">
+      <nav class="nav">
+        <div class="nav-brand">
+          <div class="icon">&#9992;</div>
+          Access Compass
+        </div>
+        <div class="nav-links">
+          <a href="#">Dashboard</a>
+          <a href="#">Discovery</a>
+          <a href="#" class="active">Resources</a>
+          <a href="#">Report</a>
+          <a href="#">DIAP</a>
+        </div>
+      </nav>
+      <div class="content">
+        <div class="welcome-banner">
+          <div class="welcome-text">
+            <h1>Your Accessibility Journey</h1>
+            <p>Helpful guides and tips to make your space welcoming for everyone</p>
+          </div>
+          <button class="welcome-cta">Start Learning</button>
+        </div>
+
+        <h2 class="section-title"><span class="emoji">&#128218;</span> Popular Resources</h2>
+
+        <div class="cards-grid">
+          <div class="resource-card">
+            <div class="card-icon">&#127967;</div>
+            <h3 class="card-title">Making Your Entrance Welcoming</h3>
+            <p class="card-desc">Simple changes that help everyone feel confident entering your space.</p>
+            <a href="#" class="card-link">Read the guide &#8594;</a>
+          </div>
+          <div class="resource-card">
+            <div class="card-icon">&#128587;</div>
+            <h3 class="card-title">Friendly Staff Training</h3>
+            <p class="card-desc">How to help your team provide great service to customers with disability.</p>
+            <a href="#" class="card-link">Read the guide &#8594;</a>
+          </div>
+          <div class="resource-card">
+            <div class="card-icon">&#128241;</div>
+            <h3 class="card-title">Website Accessibility 101</h3>
+            <p class="card-desc">Making sure everyone can find and use your online information.</p>
+            <a href="#" class="card-link">Read the guide &#8594;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STYLE 3: BOLD & ACCESSIBLE -->
+  <section class="style-section style-3">
+    <div class="style-header">
+      <div class="style-info">
+        <h2>Style 3: Bold & Accessible</h2>
+        <p>High contrast, vibrant, and energetic. The design itself demonstrates accessibility principles with strong color contrast and clear visual hierarchy.</p>
+      </div>
+      <div class="style-meta">
+        <div class="meta-group">
+          <h4>Color Palette</h4>
+          <div class="color-swatches">
+            <div class="swatch" style="background: #1a1a2e;" title="Deep Navy"></div>
+            <div class="swatch" style="background: #00d4aa;" title="Mint"></div>
+            <div class="swatch" style="background: #ff6b9d;" title="Pink"></div>
+            <div class="swatch" style="background: #a855f7;" title="Purple"></div>
+          </div>
+        </div>
+        <div class="meta-group">
+          <h4>Typography</h4>
+          <p>Space Grotesk - Bold & Modern</p>
+        </div>
+        <div class="meta-group">
+          <h4>Overall Feel</h4>
+          <p>Dynamic, High-Contrast, Confident</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-container mockup-3">
+      <nav class="nav">
+        <div class="nav-brand">
+          <div class="logo">AC</div>
+          Access Compass
+        </div>
+        <div class="nav-links">
+          <a href="#">Dashboard</a>
+          <a href="#">Discovery</a>
+          <a href="#" class="active">Resources</a>
+          <a href="#">Report</a>
+          <a href="#">DIAP</a>
+        </div>
+      </nav>
+      <div class="content">
+        <div class="page-header">
+          <h1 class="page-title">Learn. Improve. <span>Include.</span></h1>
+          <p class="page-subtitle">Everything you need to create accessible experiences</p>
+        </div>
+
+        <div class="category-pills">
+          <span class="pill active">All Resources</span>
+          <span class="pill">Before Arrival</span>
+          <span class="pill">Getting In</span>
+          <span class="pill">During Visit</span>
+          <span class="pill">Service & Support</span>
+        </div>
+
+        <div class="cards-grid">
+          <div class="resource-card">
+            <div class="card-header">
+              <span class="card-badge green">Quick Win</span>
+            </div>
+            <h3 class="card-title">Accessible Parking Spaces</h3>
+            <p class="card-desc">Get the fundamentals right with properly sized and located accessible parking bays.</p>
+            <div class="card-tags">
+              <span class="tag">AS1428.1</span>
+              <span class="tag">Video</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="card-header">
+              <span class="card-badge purple">Essential</span>
+            </div>
+            <h3 class="card-title">Staff Disability Training</h3>
+            <p class="card-desc">Empower your team with knowledge and confidence to assist all customers.</p>
+            <div class="card-tags">
+              <span class="tag">Training</span>
+              <span class="tag">Checklist</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="card-header">
+              <span class="card-badge">Digital</span>
+            </div>
+            <h3 class="card-title">Website Accessibility</h3>
+            <p class="card-desc">WCAG guidelines made simple. Ensure your online presence works for everyone.</p>
+            <div class="card-tags">
+              <span class="tag">WCAG 2.1</span>
+              <span class="tag">Examples</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="card-header">
+              <span class="card-badge blue">Popular</span>
+            </div>
+            <h3 class="card-title">Accessible Toilets Guide</h3>
+            <p class="card-desc">Complete requirements for accessible sanitary facilities that meet standards.</p>
+            <div class="card-tags">
+              <span class="tag">AS1428.1</span>
+              <span class="tag">Diagrams</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON FOOTER -->
+  <div class="comparison-footer">
+    <h3>Quick Comparison</h3>
+    <div class="comparison-grid">
+      <div class="comparison-col">
+        <h4>Modern Corporate</h4>
+        <ul>
+          <li><strong>Best for:</strong> Enterprise, Government</li>
+          <li><strong>Tone:</strong> Professional, Authoritative</li>
+          <li><strong>Colors:</strong> Navy, Sky Blue, Slate</li>
+          <li><strong>Typography:</strong> Inter (sans-serif)</li>
+          <li><strong>Key trait:</strong> Data-driven, structured</li>
+        </ul>
+      </div>
+      <div class="comparison-col">
+        <h4>Warm & Welcoming</h4>
+        <ul>
+          <li><strong>Best for:</strong> Tourism, Community</li>
+          <li><strong>Tone:</strong> Friendly, Supportive</li>
+          <li><strong>Colors:</strong> Navy, Orange, Teal</li>
+          <li><strong>Typography:</strong> Nunito (rounded)</li>
+          <li><strong>Key trait:</strong> Human, encouraging</li>
+        </ul>
+      </div>
+      <div class="comparison-col">
+        <h4>Bold & Accessible</h4>
+        <ul>
+          <li><strong>Best for:</strong> Modern brands, Advocacy</li>
+          <li><strong>Tone:</strong> Confident, Dynamic</li>
+          <li><strong>Colors:</strong> Dark navy, Mint, Pink</li>
+          <li><strong>Typography:</strong> Space Grotesk (bold)</li>
+          <li><strong>Key trait:</strong> High contrast, energetic</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

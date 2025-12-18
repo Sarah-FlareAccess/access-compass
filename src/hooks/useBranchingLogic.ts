@@ -206,11 +206,11 @@ export function needsProfessionalReview(
   question: BranchingQuestion,
   response: QuestionResponse
 ): boolean {
-  // "Too hard" always triggers professional review
-  if (response.answer === 'too-hard') return true;
+  // "Unable to check" always triggers professional review
+  if (response.answer === 'unable-to-check') return true;
 
-  // Safety-related questions with "no" or "not-sure" trigger review
-  if (question.safetyRelated && (response.answer === 'no' || response.answer === 'not-sure')) {
+  // Safety-related questions with "no" trigger review (unable-to-check already handled above)
+  if (question.safetyRelated && response.answer === 'no') {
     return true;
   }
 

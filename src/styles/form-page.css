@@ -1,37 +1,39 @@
 .form-page {
   min-height: 100vh;
-  padding: 60px 20px;
-  background: var(--ivory);
+  padding: var(--spacing-xxl) var(--spacing-md);
+  background: var(--ivory-pure);
 }
 
 .form-container {
   max-width: 700px;
   margin: 0 auto;
-  background: var(--white);
-  padding: 40px;
+  background: white;
+  padding: var(--spacing-xl);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
 
 .form-container h1 {
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-sm);
+  color: var(--amethyst-diamond);
 }
 
 .helper-text {
-  color: var(--steel-gray);
+  color: var(--text-secondary);
   font-size: 1.05rem;
-  margin-bottom: 30px;
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.6;
 }
 
 .form-group {
-  margin-bottom: 28px;
+  margin-bottom: var(--spacing-lg);
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing-xs);
   font-weight: 600;
-  color: var(--charcoal);
+  color: var(--text-primary);
 }
 
 .required {
@@ -40,37 +42,44 @@
 
 .radio-group {
   display: flex;
-  gap: 20px;
+  gap: var(--spacing-md);
   flex-wrap: wrap;
 }
 
 .radio-label {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-xs);
   cursor: pointer;
   padding: 12px 20px;
   border: 2px solid #ddd;
   border-radius: var(--radius-sm);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   flex: 1;
   min-width: 120px;
+  min-height: 48px;
 }
 
 .radio-label:hover {
-  border-color: var(--deep-purple);
-  background: rgba(58, 11, 82, 0.05);
+  border-color: var(--amethyst-diamond);
+  background: rgba(73, 14, 103, 0.05);
+}
+
+.radio-label:focus-within {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
 }
 
 .radio-label input[type="radio"] {
   margin: 0;
-  margin-right: 8px;
-  width: 18px;
-  height: 18px;
+  margin-right: var(--spacing-xs);
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   vertical-align: middle;
   position: relative;
   top: -1px;
+  accent-color: var(--amethyst-diamond);
 }
 
 .radio-label span {
@@ -82,44 +91,45 @@
 }
 
 .radio-label:has(input:checked) {
-  border-color: var(--deep-purple);
-  background: rgba(58, 11, 82, 0.1);
+  border-color: var(--amethyst-diamond);
+  background: rgba(73, 14, 103, 0.08);
 }
 
 .field-helper {
   font-size: 0.9rem;
-  color: var(--steel-gray);
-  margin-top: -6px;
-  margin-bottom: 12px;
+  color: var(--text-secondary);
+  margin-top: calc(-1 * var(--spacing-xs));
+  margin-bottom: var(--spacing-sm);
 }
 
 /* Bubble Select Styles */
 .bubble-select {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--spacing-sm);
 }
 
 .bubble-select.size-bubbles {
-  gap: 16px;
+  gap: var(--spacing-md);
 }
 
 .bubble-select.type-bubbles {
-  gap: 12px;
+  gap: var(--spacing-sm);
 }
 
 .bubble-option {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 16px 20px;
-  border: 2px solid #e0e0e0;
+  padding: var(--spacing-md) var(--spacing-md);
+  border: 2px solid #ddd;
   border-radius: var(--radius-md);
-  background: var(--white);
+  background: white;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
   font-family: inherit;
+  min-height: 48px;
 }
 
 .size-bubbles .bubble-option {
@@ -134,7 +144,7 @@
   min-width: 280px;
   flex-direction: row;
   align-items: flex-start;
-  gap: 14px;
+  gap: var(--spacing-sm);
 }
 
 .bubble-icon {
@@ -150,38 +160,45 @@
 }
 
 .bubble-option:hover {
-  border-color: var(--light-purple);
-  background: rgba(124, 58, 237, 0.04);
+  border-color: var(--amethyst-light);
+  background: rgba(73, 14, 103, 0.04);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.bubble-option:focus {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
 }
 
 .bubble-option.selected {
-  border-color: var(--deep-purple);
-  background: rgba(45, 27, 78, 0.08);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+  border-color: var(--amethyst-diamond);
+  background: rgba(73, 14, 103, 0.08);
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.15);
 }
 
 .bubble-label {
   font-weight: 600;
   font-size: 1rem;
-  color: var(--charcoal);
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .bubble-option.selected .bubble-label {
-  color: var(--deep-purple);
+  color: var(--amethyst-diamond);
 }
 
 .bubble-description {
   font-size: 0.85rem;
-  color: var(--steel-gray);
+  color: var(--text-secondary);
   line-height: 1.4;
 }
 
 .form-actions {
-  margin-top: 40px;
+  margin-top: var(--spacing-xl);
   display: flex;
   justify-content: flex-end;
-  gap: 15px;
+  gap: var(--spacing-md);
 }
 
 @media (max-width: 768px) {

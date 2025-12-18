@@ -7,7 +7,7 @@
  */
 
 import { useState, useMemo } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import {
   Search,
   BookOpen,
@@ -18,7 +18,7 @@ import {
   Filter,
   X,
 } from 'lucide-react';
-import { allHelpContent, searchHelp, getHelpByModule, getHelpByDIAPCategory } from '../data/help';
+import { allHelpContent, searchHelp } from '../data/help';
 import type { HelpContent, ModuleGroup, DIAPCategory } from '../data/help/types';
 import { ResourceCard } from '../components/help/ResourceCard';
 import { ResourceDetail } from '../components/help/ResourceDetail';
@@ -73,7 +73,6 @@ const DIAP_LABELS: Record<DIAPCategory, string> = {
 
 export function ResourceCentre() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   // Get state from URL params
   const selectedResourceId = searchParams.get('resource');

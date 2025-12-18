@@ -8,8 +8,12 @@
 
 .decision-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f7f6 0%, #ece9e6 100%);
-  padding: 40px 20px;
+  background: var(--ivory-warm);
+  background-image:
+    radial-gradient(ellipse at top, rgba(255, 255, 255, 0.8) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(73, 14, 103, 0.03) 0%, transparent 40%);
+  background-attachment: fixed;
+  padding: var(--spacing-xl) var(--spacing-md);
 }
 
 .decision-container {
@@ -23,48 +27,52 @@
 
 .decision-header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: var(--spacing-xl);
 }
 
 .decision-header h1 {
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   font-weight: 700;
-  color: #3a0b52;
-  margin: 0 0 12px;
+  color: var(--amethyst-diamond);
+  margin: 0 0 var(--spacing-sm);
+  letter-spacing: -0.02em;
 }
 
 .decision-helper {
-  font-size: 1.1rem;
-  color: #4a4a4a;
-  max-width: 600px;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 580px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* ============================================
-   TIER SELECTOR
+   TIER SELECTOR - Surface Level 2
    ============================================ */
 
 .tier-selector {
-  background: white;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, white 0%, rgba(250, 248, 245, 0.8) 100%);
+  border-radius: 20px;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  box-shadow:
+    0 2px 4px rgba(62, 43, 47, 0.05),
+    0 8px 24px rgba(62, 43, 47, 0.08);
+  border: 1px solid rgba(62, 43, 47, 0.06);
 }
 
 .tier-label {
   display: block;
   font-weight: 600;
-  color: #2d2d2d;
-  margin-bottom: 16px;
+  color: var(--amethyst-diamond);
+  margin-bottom: var(--spacing-md);
   font-size: 1rem;
 }
 
 .tier-options {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: var(--spacing-sm);
 }
 
 @media (max-width: 768px) {
@@ -83,45 +91,55 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 12px;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  background: white;
+  padding: var(--spacing-md) var(--spacing-sm);
+  border: 2px solid rgba(62, 43, 47, 0.1);
+  border-radius: 14px;
+  background: linear-gradient(135deg, white 0%, rgba(250, 248, 245, 0.5) 100%);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  min-height: 76px;
+  justify-content: center;
 }
 
 .tier-option:hover {
-  border-color: #3a0b52;
-  background: #faf9f8;
+  border-color: rgba(73, 14, 103, 0.25);
+  background: linear-gradient(135deg, white 0%, rgba(73, 14, 103, 0.03) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.1);
+}
+
+.tier-option:focus-visible {
+  outline: 2px solid var(--amethyst-diamond);
+  outline-offset: 2px;
 }
 
 .tier-option.selected {
-  border-color: #3a0b52;
-  background: linear-gradient(135deg, rgba(58, 11, 82, 0.05) 0%, rgba(201, 19, 68, 0.05) 100%);
+  border-color: var(--amethyst-diamond);
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.04) 0%, rgba(73, 14, 103, 0.08) 100%);
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
 .tier-option-label {
   font-weight: 600;
-  color: #2d2d2d;
-  font-size: 1rem;
+  color: var(--text-primary);
+  font-size: 0.9375rem;
 }
 
 .tier-option-desc {
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
   margin-top: 4px;
 }
 
 /* ============================================
-   PATHWAY CARDS
+   PATHWAY CARDS - Hero Region
    ============================================ */
 
 .pathway-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 @media (max-width: 768px) {
@@ -131,24 +149,37 @@
 }
 
 .pathway-card {
-  background: white;
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: var(--surface-2);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  box-shadow: var(--surface-2-shadow);
   display: flex;
   flex-direction: column;
   position: relative;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
+  border: 1px solid var(--surface-2-border);
+  transition: all var(--transition-slow);
 }
 
 .pathway-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--surface-2-hover-border);
 }
 
+.pathway-card:focus-within {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
+/* Featured pathway - hero card styling */
 .pathway-featured {
-  border-color: #3a0b52;
+  background: var(--surface-hero);
+  border: 1.5px solid var(--surface-hero-border);
+  box-shadow: var(--surface-hero-shadow);
+}
+
+.pathway-featured:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 .pathway-badge {
@@ -156,30 +187,34 @@
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+  background: var(--amethyst-diamond);
   color: white;
   padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.8rem;
+  border-radius: 16px;
+  font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.25);
 }
 
 .pathway-card-header {
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-md);
 }
 
 .pathway-card-header h2 {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #3a0b52;
-  margin: 0 0 8px;
+  color: var(--amethyst-diamond);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
 }
 
 .pathway-tagline {
-  font-size: 1rem;
-  color: #666;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
   margin: 0;
+  line-height: 1.5;
 }
 
 /* ============================================
@@ -195,7 +230,7 @@
 .price-starting {
   display: block;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 4px;
 }
 
@@ -208,14 +243,14 @@
 .price-suffix {
   display: block;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--text-muted);
   margin-top: 4px;
 }
 
 .price-contact {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
 }
 
 /* ============================================
@@ -230,7 +265,7 @@
 .pathway-inclusions h4 {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #666;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin: 0 0 12px;
@@ -258,43 +293,57 @@
 }
 
 /* ============================================
-   BUTTONS
+   BUTTONS - Enhanced CTA hierarchy
    ============================================ */
 
 .btn-pathway {
   width: 100%;
   padding: 16px 24px;
   border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
+  min-height: 52px;
 }
 
+.btn-pathway:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
+/* Secondary pathway button */
 .btn-pulse {
-  background: linear-gradient(135deg, #e67700 0%, #c91344 100%);
-  color: white;
+  background: transparent;
+  color: var(--amethyst-diamond);
+  border: 2px solid rgba(73, 14, 103, 0.25);
 }
 
 .btn-pulse:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(201, 19, 68, 0.3);
+  background: rgba(73, 14, 103, 0.04);
+  border-color: var(--amethyst-diamond);
 }
 
+/* Primary pathway button */
 .btn-deep-dive {
-  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+  background: var(--amethyst-diamond);
   color: white;
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.2);
 }
 
 .btn-deep-dive:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(58, 11, 82, 0.3);
+  box-shadow: 0 6px 20px rgba(73, 14, 103, 0.3);
+  background: var(--amethyst-light);
 }
 
 .btn-pathway:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* ============================================
@@ -310,7 +359,7 @@
 }
 
 .existing-access p {
-  color: #666;
+  color: var(--text-muted);
   margin: 0 0 12px;
 }
 
@@ -323,13 +372,13 @@
 }
 
 .divider {
-  color: #999;
+  color: #757575;
 }
 
 .link-btn {
   background: none;
   border: none;
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
   font-weight: 600;
   cursor: pointer;
   padding: 0;
@@ -339,7 +388,7 @@
 }
 
 .link-btn:hover {
-  color: #c91344;
+  color: var(--coral-flare);
 }
 
 .signed-in-as {
@@ -358,7 +407,7 @@
 }
 
 .consultation-cta p {
-  color: #666;
+  color: var(--text-muted);
   margin: 0 0 8px;
 }
 
@@ -371,12 +420,12 @@
 }
 
 .back-link a {
-  color: #666;
+  color: var(--text-muted);
   text-decoration: none;
 }
 
 .back-link a:hover {
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
   text-decoration: underline;
 }
 
@@ -396,7 +445,7 @@
 .back-btn {
   background: none;
   border: none;
-  color: #666;
+  color: var(--text-muted);
   cursor: pointer;
   padding: 0;
   font-size: 0.95rem;
@@ -407,18 +456,18 @@
 }
 
 .back-btn:hover {
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
 }
 
 .auth-container h2 {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
   margin: 0 0 8px;
 }
 
 .auth-subtitle {
-  color: #666;
+  color: var(--text-muted);
   margin: 0 0 24px;
 }
 
@@ -454,7 +503,7 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #3a0b52;
+  border-color: var(--amethyst-diamond);
   box-shadow: 0 0 0 3px rgba(58, 11, 82, 0.1);
 }
 
@@ -480,16 +529,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #666;
+  color: var(--text-muted);
   transition: color 0.2s ease;
 }
 
 .password-toggle:hover {
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
 }
 
 .password-toggle:focus {
-  outline: 2px solid #3a0b52;
+  outline: 2px solid var(--amethyst-diamond);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -497,14 +546,14 @@
 .field-hint {
   display: block;
   font-size: 0.85rem;
-  color: #666;
+  color: var(--text-muted);
   margin-top: 6px;
 }
 
 .btn-primary {
   width: 100%;
   padding: 16px 24px;
-  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+  background: var(--amethyst-diamond);
   color: white;
   border: none;
   border-radius: 12px;
@@ -569,7 +618,7 @@
 }
 
 .auth-switch p {
-  color: #666;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -589,7 +638,7 @@
   width: 48px;
   height: 48px;
   border: 4px solid #e0e0e0;
-  border-top-color: #3a0b52;
+  border-top-color: var(--amethyst-diamond);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 16px;
@@ -607,14 +656,14 @@
 
 .decision-subtitle {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-muted);
   max-width: 600px;
   margin: 0 auto 32px;
   line-height: 1.6;
 }
 
 .recommendation-banner {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  background: #fef3c7;
   border: 2px solid #f59e0b;
   border-radius: 12px;
   padding: 16px 24px;
@@ -638,46 +687,105 @@
 .pathway-cards-simple {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 28px;
   margin-bottom: 32px;
 }
 
+/* Base pathway card */
 .pathway-card-simple {
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 16px;
-  padding: 32px 24px;
+  background: linear-gradient(135deg, white 0%, rgba(250, 248, 245, 0.6) 100%);
+  border: 2px solid rgba(62, 43, 47, 0.08);
+  border-radius: 20px;
+  padding: 36px 28px;
   transition: all 0.3s ease;
   position: relative;
+  box-shadow:
+    0 2px 4px rgba(62, 43, 47, 0.04),
+    0 4px 12px rgba(62, 43, 47, 0.06);
 }
 
 .pathway-card-simple:hover {
-  border-color: #7c3aed;
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.12);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
 }
 
+/* ============================================
+   PULSE CHECK - Quick, lighter option (Orange theme)
+   ============================================ */
+.pathway-card-simple.pulse-check {
+  border-color: rgba(204, 119, 0, 0.15);
+  border-left: 5px solid var(--aussie-dark);
+  background: linear-gradient(135deg, white 0%, rgba(255, 248, 240, 0.6) 100%);
+}
+
+.pathway-card-simple.pulse-check:hover {
+  border-color: var(--aussie-dark);
+  box-shadow:
+    0 8px 24px rgba(204, 119, 0, 0.15),
+    0 0 0 4px rgba(204, 119, 0, 0.08);
+}
+
+.pathway-card-simple.pulse-check h2 {
+  color: var(--aussie-dark);
+}
+
+.pathway-card-simple.pulse-check .pathway-outcomes li:before {
+  color: var(--aussie-dark);
+}
+
+/* Pulse Check badge */
+.pathway-card-simple.pulse-check .pathway-badge-simple {
+  background: linear-gradient(135deg, var(--aussie-dark) 0%, #e68a00 100%);
+  box-shadow: 0 2px 8px rgba(204, 119, 0, 0.3);
+}
+
+/* ============================================
+   DEEP DIVE - Comprehensive option (Purple theme)
+   ============================================ */
+.pathway-card-simple.deep-dive {
+  border-color: rgba(73, 14, 103, 0.12);
+  border-left: 5px solid var(--amethyst-diamond);
+  background: linear-gradient(135deg, white 0%, rgba(73, 14, 103, 0.03) 50%, rgba(250, 248, 245, 0.6) 100%);
+}
+
+.pathway-card-simple.deep-dive:hover {
+  border-color: var(--amethyst-diamond);
+  box-shadow:
+    0 8px 24px rgba(73, 14, 103, 0.15),
+    0 0 0 4px rgba(73, 14, 103, 0.08);
+}
+
+.pathway-card-simple.deep-dive h2 {
+  color: var(--amethyst-diamond);
+}
+
+.pathway-card-simple.deep-dive .pathway-outcomes li:before {
+  color: var(--amethyst-diamond);
+}
+
+/* Deep Dive badge */
 .pathway-badge-simple {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  background: linear-gradient(135deg, var(--amethyst-diamond) 0%, #6b21a8 100%);
   color: white;
-  padding: 6px 12px;
+  padding: 7px 14px;
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.3);
 }
 
+/* Fallback for cards without specific class */
 .pathway-card-simple h2 {
   font-size: 1.75rem;
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
   margin: 0 0 8px;
 }
 
 .pathway-outcome {
   font-size: 1.05rem;
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 20px;
 }
 
@@ -699,26 +807,71 @@
   font-weight: 700;
 }
 
+/* ============================================
+   PATHWAY BUTTONS
+   ============================================ */
 .btn-pathway-simple {
   width: 100%;
   padding: 14px 24px;
-  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
-  color: white;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 52px;
 }
 
-.btn-pathway-simple:hover {
+.btn-pathway-simple:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Pulse Check button - Orange */
+.btn-pathway-simple.btn-pulse-check {
+  background: linear-gradient(135deg, var(--aussie-dark) 0%, #e68a00 100%);
+  color: white;
+  box-shadow:
+    0 2px 8px rgba(204, 119, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn-pathway-simple.btn-pulse-check:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 20px rgba(204, 119, 0, 0.35),
+    0 0 0 4px rgba(204, 119, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #B36600 0%, var(--aussie-dark) 100%);
+}
+
+/* Deep Dive button - Purple */
+.btn-pathway-simple.btn-deep-dive {
+  background: linear-gradient(135deg, var(--amethyst-diamond) 0%, #6b21a8 100%);
+  color: white;
+  box-shadow:
+    0 2px 8px rgba(73, 14, 103, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn-pathway-simple.btn-deep-dive:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 20px rgba(73, 14, 103, 0.35),
+    0 0 0 4px rgba(73, 14, 103, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #5b1897 0%, var(--amethyst-diamond) 100%);
+}
+
+/* Legacy/fallback button styles */
+.btn-pathway-simple:not(.btn-pulse-check):not(.btn-deep-dive) {
+  background: var(--amethyst-diamond);
+  color: white;
+}
+
+.btn-pathway-simple:not(.btn-pulse-check):not(.btn-deep-dive):hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(58, 11, 82, 0.3);
-}
-
-.btn-pathway-simple.btn-deep-dive {
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
 }
 
 .pathway-reassurance {
@@ -730,7 +883,7 @@
 }
 
 .pathway-reassurance p {
-  color: #666;
+  color: var(--text-muted);
   margin: 0;
   font-size: 0.95rem;
 }
@@ -753,7 +906,7 @@
 
 .commitment-divider {
   height: 2px;
-  background: linear-gradient(to right, transparent, #7c3aed, transparent);
+  background: var(--amethyst-diamond);
   margin: 40px 0 32px;
 }
 
@@ -766,14 +919,14 @@
 
 .commitment-header h2 {
   font-size: 1.75rem;
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
   margin: 0;
 }
 
 .link-btn-small {
   background: none;
   border: none;
-  color: #7c3aed;
+  color: var(--amethyst-diamond);
   font-size: 0.9rem;
   cursor: pointer;
   text-decoration: underline;
@@ -781,7 +934,7 @@
 
 .commitment-pricing {
   background: white;
-  border: 2px solid #7c3aed;
+  border: 2px solid var(--amethyst-diamond);
   border-radius: 16px;
   padding: 32px;
   margin-bottom: 32px;
@@ -797,27 +950,27 @@
 .price-amount-large {
   font-size: 3rem;
   font-weight: 700;
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
   display: block;
 }
 
 .price-suffix-large {
   font-size: 1rem;
-  color: #666;
+  color: var(--text-muted);
   display: block;
   margin-top: 8px;
 }
 
 .price-starting {
   font-size: 1rem;
-  color: #666;
+  color: var(--text-muted);
   display: block;
   margin-bottom: 8px;
 }
 
 .commitment-inclusions h4 {
   font-size: 1.1rem;
-  color: #3a0b52;
+  color: var(--amethyst-diamond);
   margin: 0 0 16px;
 }
 
@@ -866,7 +1019,7 @@
 
 .btn-primary-large {
   padding: 18px 48px;
-  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+  background: var(--amethyst-diamond);
   color: white;
   border: none;
   border-radius: 12px;
@@ -896,5 +1049,517 @@
   .commitment-header {
     flex-direction: column;
     align-items: start;
+  }
+}
+
+/* ============================================
+   REDESIGNED PATHWAY CHOICE PAGE
+   ============================================ */
+
+/* Hero Section */
+.pathway-hero {
+  background: linear-gradient(
+    135deg,
+    var(--amethyst-dark) 0%,
+    var(--amethyst-diamond) 40%,
+    #5b1897 100%
+  );
+  margin: calc(-1 * var(--spacing-xl)) calc(-1 * var(--spacing-md)) var(--spacing-xl);
+  padding: 60px var(--spacing-xl) 70px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 32px 32px;
+}
+
+/* Lighter hero variant - less heavy */
+.pathway-hero.pathway-hero-light {
+  background: linear-gradient(
+    135deg,
+    rgba(73, 14, 103, 0.06) 0%,
+    rgba(73, 14, 103, 0.12) 100%
+  );
+  padding: 40px var(--spacing-xl) 48px;
+  border-radius: 0 0 24px 24px;
+  border-bottom: 3px solid var(--amethyst-diamond);
+}
+
+.pathway-hero.pathway-hero-light h1 {
+  color: var(--amethyst-diamond);
+  font-size: 2.5rem;
+  text-shadow: none;
+}
+
+.pathway-hero.pathway-hero-light .pathway-hero-subtitle {
+  color: var(--text-secondary);
+}
+
+.pathway-hero.pathway-hero-light::before,
+.pathway-hero.pathway-hero-light::after {
+  display: none;
+}
+
+.pathway-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 80%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.pathway-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, rgba(250, 248, 245, 0.15) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.pathway-hero-content {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.pathway-hero-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 24px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pathway-hero h1 {
+  font-size: 2.5rem;
+  color: white;
+  margin: 0 0 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pathway-hero-subtitle {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* New Recommendation Banner */
+.recommendation-banner-new {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 2px solid #f59e0b;
+  border-radius: 16px;
+  padding: 18px 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+}
+
+.recommendation-icon-wrap {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.3);
+}
+
+.recommendation-icon-wrap .recommendation-icon {
+  font-size: 22px;
+}
+
+.recommendation-content {
+  flex: 1;
+}
+
+.recommendation-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #92400e;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.recommendation-content p {
+  margin: 0;
+  color: #78350f;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Pathway Choice Grid */
+.pathway-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 32px;
+}
+
+/* Individual Pathway Cards */
+.pathway-choice-card {
+  background: linear-gradient(135deg, white 0%, rgba(250, 248, 245, 0.7) 100%);
+  border: 2px solid rgba(62, 43, 47, 0.08);
+  border-radius: 24px;
+  padding: 32px 28px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 2px 4px rgba(62, 43, 47, 0.04),
+    0 8px 24px rgba(62, 43, 47, 0.06);
+}
+
+.pathway-choice-card:hover {
+  transform: translateY(-6px);
+}
+
+.pathway-choice-card.recommended {
+  box-shadow:
+    0 4px 8px rgba(62, 43, 47, 0.06),
+    0 12px 32px rgba(62, 43, 47, 0.1);
+}
+
+/* Pulse Check Card Styles */
+.pathway-choice-card.pulse {
+  border-left: 5px solid var(--aussie-dark);
+}
+
+.pathway-choice-card.pulse:hover {
+  border-color: var(--aussie-dark);
+  box-shadow:
+    0 12px 32px rgba(204, 119, 0, 0.15),
+    0 0 0 4px rgba(204, 119, 0, 0.06);
+}
+
+.pathway-choice-card.pulse.recommended::before {
+  content: 'Recommended';
+  position: absolute;
+  top: -12px;
+  right: 24px;
+  background: linear-gradient(135deg, var(--aussie-dark) 0%, #e68a00 100%);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(204, 119, 0, 0.3);
+}
+
+/* Deep Dive Card Styles */
+.pathway-choice-card.deep {
+  border-left: 5px solid var(--amethyst-diamond);
+  background: linear-gradient(135deg, white 0%, rgba(73, 14, 103, 0.03) 50%, rgba(250, 248, 245, 0.7) 100%);
+}
+
+.pathway-choice-card.deep:hover {
+  border-color: var(--amethyst-diamond);
+  box-shadow:
+    0 12px 32px rgba(73, 14, 103, 0.15),
+    0 0 0 4px rgba(73, 14, 103, 0.06);
+}
+
+.pathway-choice-card.deep.recommended::before {
+  content: 'Recommended';
+  position: absolute;
+  top: -12px;
+  right: 24px;
+  background: linear-gradient(135deg, var(--amethyst-diamond) 0%, #6b21a8 100%);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.3);
+}
+
+/* Badge for "Most Comprehensive" */
+.pathway-choice-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, var(--amethyst-diamond) 0%, #6b21a8 100%);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.3);
+}
+
+/* Card Header */
+.pathway-choice-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.pathway-icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pathway-icon-circle span {
+  font-size: 26px;
+}
+
+.pathway-icon-circle.pulse {
+  background: linear-gradient(135deg, rgba(204, 119, 0, 0.12) 0%, rgba(204, 119, 0, 0.2) 100%);
+  border: 2px solid rgba(204, 119, 0, 0.2);
+}
+
+.pathway-icon-circle.deep {
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.1) 0%, rgba(73, 14, 103, 0.18) 100%);
+  border: 2px solid rgba(73, 14, 103, 0.15);
+}
+
+.pathway-meta h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.pathway-choice-card.pulse .pathway-meta h2 {
+  color: var(--aussie-dark);
+}
+
+.pathway-choice-card.deep .pathway-meta h2 {
+  color: var(--amethyst-diamond);
+}
+
+.pathway-tagline-new {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Description */
+.pathway-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0 0 24px;
+}
+
+/* Features List */
+.pathway-features {
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.pathway-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.pathway-feature .feature-icon {
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.pathway-choice-card.pulse .feature-icon,
+.pathway-choice-card.deep .feature-icon {
+  color: #22c55e;
+}
+
+.pathway-feature.highlight {
+  font-weight: 600;
+  color: var(--amethyst-diamond);
+}
+
+/* Ideal For Section */
+.pathway-ideal {
+  background: linear-gradient(135deg, rgba(250, 248, 245, 0.8) 0%, rgba(62, 43, 47, 0.04) 100%);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ideal-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ideal-text {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* CTA Buttons */
+.btn-pathway-choice {
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+}
+
+.btn-pathway-choice:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
+}
+
+.btn-pathway-choice .btn-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.btn-pathway-choice:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Pulse Check Button */
+.btn-pathway-choice.pulse {
+  background: linear-gradient(135deg, var(--aussie-dark) 0%, #e68a00 100%);
+  color: white;
+  box-shadow:
+    0 2px 8px rgba(204, 119, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn-pathway-choice.pulse:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 24px rgba(204, 119, 0, 0.35),
+    0 0 0 4px rgba(204, 119, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #B36600 0%, var(--aussie-dark) 100%);
+}
+
+/* Deep Dive Button */
+.btn-pathway-choice.deep {
+  background: linear-gradient(135deg, var(--amethyst-diamond) 0%, #6b21a8 100%);
+  color: white;
+  box-shadow:
+    0 2px 8px rgba(73, 14, 103, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn-pathway-choice.deep:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 24px rgba(73, 14, 103, 0.35),
+    0 0 0 4px rgba(73, 14, 103, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #5b1897 0%, var(--amethyst-diamond) 100%);
+}
+
+/* New Reassurance Section */
+.pathway-reassurance-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  padding: 24px 32px;
+  background: linear-gradient(135deg, white 0%, rgba(250, 248, 245, 0.6) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(62, 43, 47, 0.06);
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(62, 43, 47, 0.04);
+}
+
+.reassurance-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.pathway-reassurance-new p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.pathway-reassurance-new strong {
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pathway-choice-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .pathway-hero {
+    padding: 48px var(--spacing-md) 56px;
+    margin: calc(-1 * var(--spacing-xl)) calc(-1 * var(--spacing-md)) var(--spacing-lg);
+    border-radius: 0 0 24px 24px;
+  }
+
+  .pathway-hero h1 {
+    font-size: 2rem;
+  }
+
+  .pathway-hero-subtitle {
+    font-size: 1.05rem;
+  }
+
+  .pathway-choice-card {
+    padding: 28px 24px;
+  }
+
+  .recommendation-banner-new {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .pathway-reassurance-new {
+    flex-direction: column;
+    gap: 8px;
   }
 }

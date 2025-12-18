@@ -8,9 +8,10 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { getSession } from '../utils/session';
-import { calculatePrice, isPurchasable } from '../lib/pricingEngine';
+import { calculatePrice } from '../lib/pricingEngine';
 import type { BusinessSizeTier, ModuleBundle, AccessLevel } from '../types/access';
 import './Decision.css';
 
@@ -19,7 +20,6 @@ import './Decision.css';
 // ============================================
 
 const CONSULT_BOOKING_URL = import.meta.env.VITE_CONSULT_BOOKING_URL || '#';
-const SALES_BOOKING_URL = import.meta.env.VITE_SALES_BOOKING_URL || CONSULT_BOOKING_URL;
 
 const SIZE_TIER_OPTIONS: { value: BusinessSizeTier; label: string; description: string }[] = [
   { value: 'small', label: 'Small', description: '1-20 staff' },
@@ -129,23 +129,6 @@ export default function Decision() {
     setTimeout(() => {
       document.getElementById('commitment-section')?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
-  };
-
-  const handleProceed = async () => {
-    if (!isAuthenticated) {
-      setStep('login');
-      return;
-    }
-
-    if (!selectedPathway) return;
-
-    if (isPurchasable(selectedTier, selectedPathway)) {
-      const bundle = selectedPathway === 'pulse' ? selectedBundle : 'full';
-      const checkoutUrl = `/checkout?tier=${selectedTier}&level=${selectedPathway}&bundle=${bundle}`;
-      navigate(checkoutUrl);
-    } else {
-      window.open(SALES_BOOKING_URL, '_blank');
-    }
   };
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -290,68 +273,138 @@ export default function Decision() {
 
   const renderPathwayChoice = () => (
     <>
-      {/* Header */}
-      <div className="decision-header">
-        <h1>Select your pathway</h1>
-        <p className="decision-subtitle">
-          Choose the level of support that fits where you're at right now.
-        </p>
+      {/* Hero Header */}
+      <div className="pathway-hero pathway-hero-light">
+        <div className="pathway-hero-content">
+          <h1>Choose your accessibility path</h1>
+          <p className="pathway-hero-subtitle">
+            Two pathways, one goal. Pick the approach that fits where you're at right now.
+          </p>
+        </div>
       </div>
 
       {/* Recommendation Banner */}
       {recommendedMode && (
-        <div className="recommendation-banner">
-          <span className="recommendation-icon">💡</span>
-          <p>
-            Based on what you've told us, <strong>{recommendedMode === 'pulse' ? 'Pulse Check' : 'Deep Dive'}</strong> is recommended for your organisation.
-          </p>
+        <div className="recommendation-banner-new">
+          <div className="recommendation-icon-wrap">
+            <span className="recommendation-icon">💡</span>
+          </div>
+          <div className="recommendation-content">
+            <span className="recommendation-label">Based on your discovery</span>
+            <p>
+              <strong>{recommendedMode === 'pulse' ? 'Pulse Check' : 'Deep Dive'}</strong> looks like a great fit for your organisation.
+            </p>
+          </div>
         </div>
       )}
 
       {/* Pathway Cards */}
-      <div className="pathway-cards-simple">
+      <div className="pathway-choice-grid">
         {/* Pulse Check */}
-        <div className={`pathway-card-simple ${selectedPathway === 'pulse' ? 'selected' : ''}`}>
-          <h2>Pulse Check</h2>
-          <p className="pathway-outcome">Get clear direction fast</p>
-          <ul className="pathway-outcomes">
-            <li>Identify quick wins and priorities</li>
-            <li>Practical action plan with resources</li>
-            <li>Progress tracking dashboard</li>
-            <li>Self-guided with expert-curated content</li>
-          </ul>
+        <div className={`pathway-choice-card pulse ${selectedPathway === 'pulse' ? 'selected' : ''} ${recommendedMode === 'pulse' ? 'recommended' : ''}`}>
+          <div className="pathway-choice-header">
+            <div className="pathway-icon-circle pulse">
+              <span>⚡</span>
+            </div>
+            <div className="pathway-meta">
+              <h2>Pulse Check</h2>
+              <span className="pathway-tagline-new">Quick wins, clear direction</span>
+            </div>
+          </div>
+
+          <p className="pathway-description">
+            Get a snapshot of where you stand and a practical action plan to start making progress immediately.
+          </p>
+
+          <div className="pathway-features">
+            <div className="pathway-feature">
+              <span className="feature-icon">✓</span>
+              <span>Identify quick wins and priorities</span>
+            </div>
+            <div className="pathway-feature">
+              <span className="feature-icon">✓</span>
+              <span>Practical action plan with resources</span>
+            </div>
+            <div className="pathway-feature">
+              <span className="feature-icon">✓</span>
+              <span>Progress tracking dashboard</span>
+            </div>
+            <div className="pathway-feature">
+              <span className="feature-icon">✓</span>
+              <span>Self-guided, expert-curated content</span>
+            </div>
+          </div>
+
+          <div className="pathway-ideal">
+            <span className="ideal-label">Ideal for</span>
+            <span className="ideal-text">Getting started or limited resources</span>
+          </div>
+
           <button
-            className="btn-pathway-simple"
+            className="btn-pathway-choice pulse"
             onClick={() => handlePathwaySelect('pulse')}
           >
-            Continue with Pulse Check →
+            <span>Start with Pulse Check</span>
+            <span className="btn-arrow">→</span>
           </button>
         </div>
 
         {/* Deep Dive */}
-        <div className={`pathway-card-simple ${selectedPathway === 'deep_dive' ? 'selected' : ''}`}>
-          <div className="pathway-badge-simple">Most comprehensive</div>
-          <h2>Deep Dive</h2>
-          <p className="pathway-outcome">Build a structured plan you can deliver</p>
-          <ul className="pathway-outcomes">
-            <li>Everything in Pulse Check, plus:</li>
-            <li>Full DIAP (Disability Inclusion Action Plan) builder</li>
-            <li>Multi-site and precinct management</li>
-            <li>Consultation session included</li>
-          </ul>
+        <div className={`pathway-choice-card deep ${selectedPathway === 'deep_dive' ? 'selected' : ''} ${recommendedMode === 'deep_dive' ? 'recommended' : ''}`}>
+          <div className="pathway-choice-badge">Most Comprehensive</div>
+          <div className="pathway-choice-header">
+            <div className="pathway-icon-circle deep">
+              <span>🎯</span>
+            </div>
+            <div className="pathway-meta">
+              <h2>Deep Dive</h2>
+              <span className="pathway-tagline-new">Full strategy, expert support</span>
+            </div>
+          </div>
+
+          <p className="pathway-description">
+            Build a comprehensive Disability Inclusion Action Plan with professional guidance and ongoing support.
+          </p>
+
+          <div className="pathway-features">
+            <div className="pathway-feature highlight">
+              <span className="feature-icon">★</span>
+              <span>Everything in Pulse Check, plus:</span>
+            </div>
+            <div className="pathway-feature">
+              <span className="feature-icon">✓</span>
+              <span>Full DIAP builder with templates</span>
+            </div>
+            <div className="pathway-feature">
+              <span className="feature-icon">✓</span>
+              <span>Multi-site and precinct management</span>
+            </div>
+            <div className="pathway-feature">
+              <span className="feature-icon">✓</span>
+              <span>Consultation session included</span>
+            </div>
+          </div>
+
+          <div className="pathway-ideal">
+            <span className="ideal-label">Ideal for</span>
+            <span className="ideal-text">Serious commitment or compliance needs</span>
+          </div>
+
           <button
-            className="btn-pathway-simple btn-deep-dive"
+            className="btn-pathway-choice deep"
             onClick={() => handlePathwaySelect('deep_dive')}
           >
-            Continue with Deep Dive →
+            <span>Go Deep Dive</span>
+            <span className="btn-arrow">→</span>
           </button>
         </div>
       </div>
 
       {/* Reassurance */}
-      <div className="pathway-reassurance">
+      <div className="pathway-reassurance-new">
+        <div className="reassurance-icon">🔄</div>
         <p>
-          You can always upgrade from Pulse Check to Deep Dive later. Your progress is always saved.
+          <strong>No pressure.</strong> You can always upgrade from Pulse Check to Deep Dive later. Your progress is always saved.
         </p>
       </div>
     </>
@@ -486,7 +539,7 @@ export default function Decision() {
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? '👁️' : '👁️‍🗨️'}
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
           </div>
@@ -563,7 +616,7 @@ export default function Decision() {
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? '👁️' : '👁️‍🗨️'}
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
             <span className="field-hint">Minimum 8 characters</span>

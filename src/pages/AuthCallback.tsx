@@ -160,7 +160,7 @@ export default function AuthCallback() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #f8f7f6 0%, #ece9e6 100%);
+          background: var(--ivory-tusk, #ece9e6);
           padding: 20px;
         }
 
@@ -221,13 +221,13 @@ export default function AuthCallback() {
         }
 
         p {
-          color: #666;
+          color: var(--text-muted, #6b6360);
           margin: 0 0 24px;
         }
 
         .btn-primary {
           padding: 14px 28px;
-          background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+          background: var(--amethyst-diamond, #490E67);
           color: white;
           border: none;
           border-radius: 10px;

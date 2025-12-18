@@ -10,6 +10,7 @@
 
 import { useState } from 'react';
 import type { ModuleSummary, CompletionMetadata } from '../../hooks/useModuleProgress';
+import { Confetti, useConfetti } from '../Confetti';
 import './questions.css';
 
 export type { CompletionMetadata };
@@ -44,34 +45,52 @@ export function ModuleSummaryCard({
   const [completedBy, setCompletedBy] = useState(assignedTo || '');
   const [completedByRole, setCompletedByRole] = useState('');
 
+  // Confetti celebration
+  const { showConfetti, triggerConfetti, handleConfettiComplete } = useConfetti();
+
   const handleCompleteClick = () => {
     setShowCompletionForm(true);
   };
 
   const handleConfirmComplete = () => {
-    onComplete({
-      completedBy: completedBy.trim(),
-      completedByRole: completedByRole.trim() || undefined,
-    });
+    // Trigger celebration confetti
+    triggerConfetti();
+
+    // Complete after a short delay to let celebration start
+    setTimeout(() => {
+      onComplete({
+        completedBy: completedBy.trim(),
+        completedByRole: completedByRole.trim() || undefined,
+      });
+    }, 300);
   };
 
   return (
-    <div className="module-summary">
-      <div className="summary-header">
-        <div className="summary-icon">
-          <span>&#10003;</span>
+    <>
+      {/* Celebration confetti on completion */}
+      <Confetti
+        isActive={showConfetti}
+        onComplete={handleConfettiComplete}
+        pieceCount={60}
+        duration={3500}
+      />
+
+      <div className="module-summary">
+        <div className="summary-header">
+          <div className="summary-icon">
+            <span>&#10003;</span>
+          </div>
+          <h2 className="summary-title">Module Complete</h2>
+          <p className="summary-module-name">
+            {moduleName} ({moduleCode})
+          </p>
+          <p className="summary-stats-brief">
+            {totalQuestionsAnswered} question{totalQuestionsAnswered !== 1 ? 's' : ''} answered
+            {priorityActions.length > 0 && (
+              <> · {priorityActions.length} action{priorityActions.length !== 1 ? 's' : ''} identified</>
+            )}
+          </p>
         </div>
-        <h2 className="summary-title">Module Complete</h2>
-        <p className="summary-module-name">
-          {moduleName} ({moduleCode})
-        </p>
-        <p className="summary-stats-brief">
-          {totalQuestionsAnswered} question{totalQuestionsAnswered !== 1 ? 's' : ''} answered
-          {priorityActions.length > 0 && (
-            <> · {priorityActions.length} action{priorityActions.length !== 1 ? 's' : ''} identified</>
-          )}
-        </p>
-      </div>
 
       {/* Quick Overview */}
       <div className="summary-overview">
@@ -280,9 +299,10 @@ export function ModuleSummaryCard({
       )}
 
       {/* DIAP note */}
-      <p className="diap-note">
-        Priority actions will be automatically added to your Disability Inclusion Action Plan (DIAP).
-      </p>
-    </div>
+        <p className="diap-note">
+          Priority actions will be automatically added to your Disability Inclusion Action Plan (DIAP).
+        </p>
+      </div>
+    </>
   );
 }

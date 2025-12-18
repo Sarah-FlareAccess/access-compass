@@ -1,68 +1,132 @@
+/* Access Compass - Root Styles */
+
+@import url('https://fonts.cdnfonts.com/css/circular-std');
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  /* Brand Colors */
+  --amethyst-diamond: #490E67;
+  --ivory-tusk: #ECE9E6;
+  --aussie-sunrise: #FF9015;
+  --coral-flare: #ea0b3f;
+  --antique-walnut: #3E2B2F;
+
+  /* Derived Colors */
+  --amethyst-light: #6b2d8a;
+  --amethyst-dark: #350a4d;
+  --ivory-pure: #F7F5F3;
+  --walnut-soft: #5a4347;
+
+  /* WCAG AA Compliant Text Colors */
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #6a6a6a;
+
+  /* Typography */
+  font-family: 'Circular Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Colors */
+  color: var(--text-primary);
+  background-color: var(--ivory-tusk);
 
+  /* Font Rendering */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Universal Focus Indicator - WCAG AA */
+*:focus {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
+/* Links */
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  color: var(--amethyst-diamond);
+  text-decoration: underline;
+  transition: color 0.2s;
 }
 
+a:hover {
+  color: var(--amethyst-light);
+}
+
+/* Body */
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'Circular Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
+/* Headings */
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
 }
 
+h2 {
+  font-size: 1.75rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--amethyst-diamond);
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Buttons - Base Styles */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  border-radius: 12px;
+  border: none;
+  padding: 14px 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.2s;
+  min-height: 48px;
+  min-width: 48px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

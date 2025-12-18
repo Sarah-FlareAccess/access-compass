@@ -1,6 +1,6 @@
-/* Main Navigation Bar */
+/* Main Navigation Bar - Access Compass Brand */
 .main-nav {
-  background: #1a1a2e;
+  background: var(--amethyst-diamond);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: sticky;
   top: 0;
@@ -10,11 +10,11 @@
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 var(--spacing-md);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: 68px;
 }
 
 /* Brand */
@@ -29,16 +29,22 @@
   gap: 2px;
 }
 
+.brand-link:focus {
+  outline: 2px solid white;
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
 .brand-name {
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: white;
   letter-spacing: -0.3px;
 }
 
 .brand-byline {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
   font-weight: 400;
 }
 
@@ -46,7 +52,7 @@
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--spacing-sm);
 }
 
 /* Navigation Links */
@@ -57,30 +63,38 @@
 }
 
 .nav-link {
-  padding: 8px 16px;
-  font-size: 14px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   transition: all 0.2s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .nav-link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-link:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
 }
 
 .nav-link.active {
-  color: #ffffff;
-  background: rgba(124, 58, 237, 0.3);
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Divider */
 .nav-divider {
   width: 1px;
   height: 24px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Auth Section */
@@ -89,29 +103,30 @@
 }
 
 .user-greeting {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
   font-weight: 400;
 }
 
+/* Sign In Button - Using Aussie Sunrise accent */
 .sign-in {
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  background: var(--aussie-sunrise);
   color: white !important;
 }
 
 .sign-in:hover {
-  background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%) !important;
+  background: #e68213 !important;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .nav-container {
-    padding: 0 16px;
-    height: 56px;
+    padding: 0 var(--spacing-sm);
+    height: 64px;
   }
 
   .brand-name {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .brand-byline {
@@ -119,7 +134,7 @@
   }
 
   .nav-right {
-    gap: 8px;
+    gap: var(--spacing-xs);
   }
 
   .nav-links {
@@ -127,8 +142,8 @@
   }
 
   .nav-link {
-    padding: 6px 12px;
-    font-size: 13px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
   }
 
   .nav-divider,
@@ -139,7 +154,7 @@
 
 @media (max-width: 480px) {
   .nav-link {
-    padding: 6px 8px;
-    font-size: 12px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
 }

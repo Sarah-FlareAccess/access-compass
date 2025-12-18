@@ -80,13 +80,13 @@ export function ConsultationCTA({ variant, className = '' }: ConsultationCTAProp
         }
 
         .consultation-cta-link.included {
-          background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.1) 100%);
+          background: rgba(34, 197, 94, 0.1);
           border: 2px solid #22c55e;
           color: #16a34a;
         }
 
         .consultation-cta-link.included:hover {
-          background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(22, 163, 74, 0.15) 100%);
+          background: rgba(34, 197, 94, 0.15);
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
         }

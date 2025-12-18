@@ -48,7 +48,7 @@ export default function ClarifyLater() {
 
               <div style={{ marginBottom: '20px' }}>
                 <h4 style={{ fontSize: '1rem', marginBottom: '8px' }}>Why it matters</h4>
-                <p style={{ color: 'var(--steel-gray)' }}>{clarification.why_matters}</p>
+                <p style={{ color: 'var(--text-muted)' }}>{clarification.why_matters}</p>
               </div>
 
               <div style={{ marginBottom: '20px', background: 'var(--ivory)', padding: '20px', borderRadius: 'var(--radius-md)' }}>
@@ -71,7 +71,7 @@ export default function ClarifyLater() {
             <div className="card" style={{ textAlign: 'center', padding: '60px 20px' }}>
               <div style={{ fontSize: '3rem', marginBottom: '20px' }}>✅</div>
               <h3>All items resolved!</h3>
-              <p style={{ color: 'var(--steel-gray)', marginTop: '10px' }}>
+              <p style={{ color: 'var(--text-muted)', marginTop: '10px' }}>
                 Great work clarifying your accessibility features
               </p>
             </div>
