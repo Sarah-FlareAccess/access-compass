@@ -1,9 +1,24 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import AppLayout from './components/AppLayout';
+import { RouteGuard } from './components/guards/RouteGuard';
+
+// Public pages
 import Landing from './pages/Landing';
 import Disclaimer from './pages/Disclaimer';
+
+// Discovery flow (open to anonymous)
 import BusinessSnapshot from './pages/BusinessSnapshot';
 import Discovery from './pages/Discovery';
+import DiscoverySummary from './pages/DiscoverySummary';
+
+// Paywall / Auth pages
+import Decision from './pages/Decision';
+import Checkout from './pages/Checkout';
+import CheckoutSuccess from './pages/CheckoutSuccess';
+import AuthCallback from './pages/AuthCallback';
+
+// Protected pages (require auth + access)
 import ModuleSelection from './pages/ModuleSelection';
 import DiscoveryQuestions from './pages/DiscoveryQuestions';
 import Constraints from './pages/Constraints';
@@ -12,33 +27,126 @@ import ActionDetail from './pages/ActionDetail';
 import DIAPWorkspace from './pages/DIAPWorkspace';
 import ClarifyLater from './pages/ClarifyLater';
 import Export from './pages/Export';
+
+// Dev/test pages
 import SupabaseTest from './pages/SupabaseTest';
+
 import './styles/global.css';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Pages without global nav (entry/onboarding) */}
-        <Route path="/" element={<Landing />} />
-        <Route path="/disclaimer" element={<Disclaimer />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* ============================================
+              PUBLIC PAGES (no nav, no auth required)
+              ============================================ */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
 
-        {/* All other pages with global nav */}
-        <Route element={<AppLayout />}>
-          <Route path="/start" element={<BusinessSnapshot />} />
-          <Route path="/discovery" element={<Discovery />} />
-          <Route path="/modules" element={<ModuleSelection />} />
-          <Route path="/questions" element={<DiscoveryQuestions />} />
-          <Route path="/constraints" element={<Constraints />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/action/:id" element={<ActionDetail />} />
-          <Route path="/diap" element={<DIAPWorkspace />} />
-          <Route path="/clarify" element={<ClarifyLater />} />
-          <Route path="/export" element={<Export />} />
-          <Route path="/test-supabase" element={<SupabaseTest />} />
-        </Route>
-      </Routes>
-    </Router>
+          {/* Auth callback (handles OAuth redirects) */}
+          <Route path="/auth/callback" element={<AuthCallback />} />
+
+          {/* ============================================
+              DISCOVERY FLOW (with nav, anonymous allowed)
+              ============================================ */}
+          <Route element={<AppLayout />}>
+            {/* Business snapshot - captures org info */}
+            <Route path="/start" element={<BusinessSnapshot />} />
+
+            {/* Discovery - touchpoints, calibration, pathway selection */}
+            <Route path="/discovery" element={<Discovery />} />
+
+            {/* Discovery Summary - for returning users to review/modify */}
+            <Route path="/discovery/summary" element={<DiscoverySummary />} />
+
+            {/* Decision/paywall page - handles auth internally */}
+            <Route path="/decision" element={<Decision />} />
+
+            {/* Checkout flow */}
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout/success" element={<CheckoutSuccess />} />
+
+            {/* ============================================
+                PROTECTED ROUTES (require auth + pulse access)
+                ============================================ */}
+            <Route
+              path="/modules"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <ModuleSelection />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/questions"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <DiscoveryQuestions />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/constraints"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <Constraints />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <Dashboard />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/action/:id"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <ActionDetail />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/clarify"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <ClarifyLater />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/export"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <Export />
+                </RouteGuard>
+              }
+            />
+
+            {/* ============================================
+                DEEP DIVE ONLY (require deep_dive access)
+                ============================================ */}
+            <Route
+              path="/diap"
+              element={
+                <RouteGuard requireAuth requireAccess="deep_dive">
+                  <DIAPWorkspace />
+                </RouteGuard>
+              }
+            />
+
+            {/* ============================================
+                DEV/TEST ROUTES
+                ============================================ */}
+            <Route path="/test-supabase" element={<SupabaseTest />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

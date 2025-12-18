@@ -9,9 +9,10 @@ export type BusinessType =
   | 'local-government'
   | 'health-wellness'
   | 'education-training'
+  | 'online-services'
   | 'other';
 
-export type OrganisationSize = 'small' | 'medium' | 'large';
+export type OrganisationSize = 'small' | 'medium' | 'large' | 'enterprise';
 
 export type UserRole =
   | 'owner'
@@ -78,6 +79,7 @@ export interface BusinessSnapshot {
   has_physical_venue: boolean;
   has_online_presence: boolean;
   serves_public_customers: boolean;
+  has_online_services: boolean;
   // Legacy support
   business_type?: BusinessType;
 }
@@ -184,7 +186,9 @@ export interface SubTouchpoint {
 export interface Touchpoint {
   id: string;
   label: string;
+  labelOnline?: string; // Alternative label for online-only businesses
   description: string;
+  descriptionOnline?: string; // Alternative description for online-only businesses
   subTouchpoints?: SubTouchpoint[];
   moduleMapping: string[];
 }
@@ -192,14 +196,18 @@ export interface Touchpoint {
 export interface TouchpointBlock {
   id: string;
   label: string;
+  labelOnline?: string; // Alternative label for online-only businesses
   touchpointIds: string[];
 }
 
 export interface JourneyPhaseData {
   id: string;
   label: string;
+  labelOnline?: string; // Alternative label for online-only businesses
   subLabel: string;
+  subLabelOnline?: string; // Alternative subLabel for online-only businesses
   description: string;
+  descriptionOnline?: string; // Alternative description for online-only businesses
   icon: string;
   bgColorClass: string;
   touchpoints: Touchpoint[];
@@ -265,3 +273,6 @@ export interface DiscoverySession extends Session {
 
 // Re-export Media Analysis types
 export * from './mediaAnalysis';
+
+// Re-export Access System types
+export * from './access';

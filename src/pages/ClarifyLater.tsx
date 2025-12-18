@@ -80,7 +80,7 @@ export default function ClarifyLater() {
 
         <div style={{ marginTop: '40px', textAlign: 'center' }}>
           <Link to="/dashboard" className="btn btn-secondary">
-            Back to dashboard
+            ← Back to dashboard
           </Link>
         </div>
       </div>

@@ -27,7 +27,7 @@ const timingOptions: { value: ActionTiming; label: string }[] = [
   { value: 'later', label: 'Later' },
 ];
 
-export function CalibrationQuestions({ onComplete, onBack, touchpointCount }: CalibrationQuestionsProps) {
+export function CalibrationQuestions({ onComplete, onBack, touchpointCount: _touchpointCount }: CalibrationQuestionsProps) {
   const [budget, setBudget] = useState<InvestmentLevel | undefined>();
   const [workApproach, setWorkApproach] = useState<WorkApproach | undefined>();
   const [timing, setTiming] = useState<ActionTiming | undefined>();
@@ -37,7 +37,6 @@ export function CalibrationQuestions({ onComplete, onBack, touchpointCount }: Ca
   };
 
   // Allow continue even if not all answered - these inform recommendations but aren't required
-  const hasAnyAnswer = budget || workApproach || timing;
 
   return (
     <div className="discovery-page">

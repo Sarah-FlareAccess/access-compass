@@ -7,10 +7,30 @@
 
 import { useMemo, useCallback } from 'react';
 import type { QuestionResponse } from './useModuleProgress';
+import type { ResponseOption } from '../constants/responseOptions';
 
 export interface BranchCondition {
   questionId: string;
-  answers: ('yes' | 'no' | 'not-sure' | 'too-hard')[];
+  // Standard 4 response options plus 'yes-offsite' for single-select toilet questions
+  answers: (ResponseOption | 'yes-offsite')[];
+}
+
+// Help content for visual examples, videos, and educational materials
+export interface HelpExample {
+  type: 'good' | 'poor' | 'info';
+  imageUrl?: string; // Path in /public folder, e.g., '/help/signage-good.jpg'
+  caption: string;
+  details?: string;
+}
+
+export interface HelpContent {
+  title?: string; // Override default "Understanding [question topic]"
+  summary?: string; // Brief explanation
+  examples?: HelpExample[];
+  videoUrl?: string; // Vimeo URL
+  videoCaption?: string;
+  tips?: string[]; // Quick tips list
+  learnMoreUrl?: string; // External resource link
 }
 
 export interface BranchingQuestion {
@@ -41,6 +61,10 @@ export interface BranchingQuestion {
   // Media analysis support
   mediaAnalysisType?: string; // Pre-selected media type (e.g., 'menu', 'signage', 'lighting')
   mediaAnalysisHint?: string; // Help text for media analysis
+  // Rich help content for visual examples and videos
+  helpContent?: HelpContent;
+  // Whether this question has multiple elements that can be partially met
+  allowPartial?: boolean;
 }
 
 interface UseBranchingLogicProps {

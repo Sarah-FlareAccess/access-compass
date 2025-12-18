@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
-import { DIAP_SECTIONS, getDIAPSectionForModule } from '../data/diapMapping';
+import { DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategory } from '../data/diapMapping';
 import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
 import '../styles/diap.css';
 
@@ -47,6 +47,7 @@ export default function DIAPWorkspace() {
   const [editingItem, setEditingItem] = useState<DIAPItem | null>(null);
   const [filterCategory, setFilterCategory] = useState<DIAPCategory | 'all'>('all');
   const [filterPriority, setFilterPriority] = useState<DIAPPriority | 'all'>('all');
+  const [filterResponsible, setFilterResponsible] = useState<string>('all');
   const [showDocuments, setShowDocuments] = useState(false);
   const [showEvidence, setShowEvidence] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
@@ -58,6 +59,20 @@ export default function DIAPWorkspace() {
   const pdfInputRef = useRef<HTMLInputElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationResult, setGenerationResult] = useState<{ count: number; shown: boolean } | null>(null);
+
+  // One-time edit hint - show only on first visit
+  const HINT_KEY = 'diap_edit_hint_shown';
+  const [showEditHint, setShowEditHint] = useState(() => {
+    return !localStorage.getItem(HINT_KEY);
+  });
+
+  // Dismiss hint after first interaction
+  const dismissHint = useCallback(() => {
+    if (showEditHint) {
+      setShowEditHint(false);
+      localStorage.setItem(HINT_KEY, 'true');
+    }
+  }, [showEditHint]);
 
   // Get module progress for evidence layer
   const { progress: moduleProgress } = useModuleProgress([]);
@@ -86,26 +101,141 @@ export default function DIAPWorkspace() {
       .sort((a, b) => new Date(b.completedAt || 0).getTime() - new Date(a.completedAt || 0).getTime());
   }, [moduleProgress]);
 
-  // Group items by DIAP section (used in by-section view mode)
-  const _itemsBySection = useMemo(() => {
-    const grouped: Record<string, DIAPItem[]> = {};
-    DIAP_SECTIONS.forEach(section => {
-      grouped[section.id] = [];
+  // Collect evidence from completed module responses (photos, documents)
+  interface CollectedEvidence {
+    id: string;
+    type: 'photo' | 'document' | 'media-analysis';
+    name: string;
+    dataUrl?: string;
+    moduleName: string;
+    moduleCode: string;
+    questionText?: string;
+    uploadedAt: string;
+  }
+
+  const collectedEvidence = useMemo(() => {
+    const evidence: CollectedEvidence[] = [];
+
+    Object.values(moduleProgress).forEach(mp => {
+      if (mp.status !== 'completed' || !mp.responses) return;
+
+      const module = getModuleById(mp.moduleId);
+      const moduleName = module?.name || mp.moduleCode;
+      const moduleCode = mp.moduleCode;
+      const questions = module ? getQuestionsForMode(module, 'deep-dive') : [];
+
+      mp.responses.forEach(response => {
+        const question = questions.find(q => q.id === response.questionId);
+        const questionText = question?.text || response.questionId;
+
+        // Collect evidence files
+        if (response.evidence && response.evidence.length > 0) {
+          response.evidence.forEach(ev => {
+            evidence.push({
+              id: ev.id,
+              type: ev.type === 'photo' ? 'photo' : 'document',
+              name: ev.name,
+              dataUrl: ev.dataUrl,
+              moduleName,
+              moduleCode,
+              questionText,
+              uploadedAt: ev.uploadedAt,
+            });
+          });
+        }
+
+        // Collect media analysis photos
+        if (response.mediaAnalysis?.photoPreviews) {
+          response.mediaAnalysis.photoPreviews.forEach((preview, idx) => {
+            evidence.push({
+              id: `${response.questionId}-photo-${idx}`,
+              type: 'media-analysis',
+              name: `${response.mediaAnalysis!.analysisType} photo ${idx + 1}`,
+              dataUrl: preview,
+              moduleName,
+              moduleCode,
+              questionText,
+              uploadedAt: response.mediaAnalysis!.analysisDate || response.timestamp,
+            });
+          });
+        }
+      });
     });
 
-    items.forEach(item => {
-      const sectionId = item.moduleSource
-        ? (getDIAPSectionForModule(item.moduleSource)?.id || 'policy-procedure')
-        : 'policy-procedure';
-      if (!grouped[sectionId]) {
-        grouped[sectionId] = [];
+    return evidence;
+  }, [moduleProgress]);
+
+  // Group collected evidence by module
+  const evidenceByModule = useMemo(() => {
+    const grouped: Record<string, { moduleName: string; moduleCode: string; items: CollectedEvidence[] }> = {};
+
+    collectedEvidence.forEach(ev => {
+      if (!grouped[ev.moduleCode]) {
+        grouped[ev.moduleCode] = {
+          moduleName: ev.moduleName,
+          moduleCode: ev.moduleCode,
+          items: [],
+        };
       }
-      grouped[sectionId].push(item);
+      grouped[ev.moduleCode].items.push(ev);
     });
 
-    return grouped;
+    return Object.values(grouped);
+  }, [collectedEvidence]);
+
+  // Track which module folders are expanded
+  const [expandedFolders, setExpandedFolders] = useState<Record<string, boolean>>({});
+
+  const toggleFolder = (moduleCode: string) => {
+    setExpandedFolders(prev => ({
+      ...prev,
+      [moduleCode]: !prev[moduleCode],
+    }));
+  };
+
+  // Track which category groups are expanded (start all expanded)
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    DIAP_CATEGORIES.forEach(cat => {
+      initial[cat.id] = true;
+    });
+    return initial;
+  });
+
+  const toggleCategory = (categoryId: string) => {
+    setExpandedCategories(prev => ({
+      ...prev,
+      [categoryId]: !prev[categoryId],
+    }));
+  };
+
+  // Get unique list of responsible people from all items (for dropdown)
+  const responsiblePeople = useMemo(() => {
+    const people = new Set<string>();
+    items.forEach(item => {
+      if (item.responsibleRole && item.responsibleRole.trim()) {
+        people.add(item.responsibleRole.trim());
+      }
+    });
+    // Also check localStorage for previously assigned people
+    const storedPeople = localStorage.getItem('diap_responsible_people');
+    if (storedPeople) {
+      try {
+        const parsed = JSON.parse(storedPeople) as string[];
+        parsed.forEach(p => people.add(p));
+      } catch {
+        // Ignore parse errors
+      }
+    }
+    return Array.from(people).sort((a, b) => a.localeCompare(b));
   }, [items]);
-  void _itemsBySection; // Reserved for future by-section view implementation
+
+  // Save responsible people to localStorage when items change
+  useMemo(() => {
+    if (responsiblePeople.length > 0) {
+      localStorage.setItem('diap_responsible_people', JSON.stringify(responsiblePeople));
+    }
+  }, [responsiblePeople]);
 
   // Filter items based on tab and filters
   const filteredItems = useMemo(() => {
@@ -128,6 +258,11 @@ export default function DIAPWorkspace() {
       filtered = filtered.filter(i => i.priority === filterPriority);
     }
 
+    // Filter by responsible person
+    if (filterResponsible !== 'all') {
+      filtered = filtered.filter(i => i.responsibleRole === filterResponsible);
+    }
+
     // Sort by priority (high > medium > low)
     const priorityOrder = { high: 0, medium: 1, low: 2 };
     filtered.sort((a, b) =>
@@ -135,7 +270,12 @@ export default function DIAPWorkspace() {
     );
 
     return filtered;
-  }, [items, activeTab, filterCategory, filterPriority]);
+  }, [items, activeTab, filterCategory, filterPriority, filterResponsible]);
+
+  // Group filtered items by category for the by-section view
+  const itemsByCategory = useMemo(() => {
+    return groupItemsByCategory(filteredItems);
+  }, [filteredItems]);
 
   // Get stats
   const stats = getStats();
@@ -306,7 +446,7 @@ export default function DIAPWorkspace() {
         <div className="diap-header">
           <div className="header-content">
             <h1>Disability Inclusion Action Plan</h1>
-            <p>Track and manage your accessibility improvements</p>
+            <p className="header-subtitle">Management System</p>
           </div>
           <div className="diap-header-actions">
             <button className="btn-import" onClick={() => setShowImportModal(true)}>
@@ -648,12 +788,10 @@ export default function DIAPWorkspace() {
             >
               <option value="all">All Categories</option>
               <option value="physical-access">Physical Access</option>
-              <option value="digital-access">Digital Access</option>
-              <option value="communication">Communication</option>
+              <option value="information-communication-marketing">Information, Communication & Marketing</option>
               <option value="customer-service">Customer Service</option>
-              <option value="policy-procedure">Policy & Procedure</option>
-              <option value="training">Training</option>
-              <option value="other">Other</option>
+              <option value="operations-policy-procedure">Operations, Policy & Procedure</option>
+              <option value="people-culture">People & Culture</option>
             </select>
 
             <select
@@ -667,6 +805,17 @@ export default function DIAPWorkspace() {
               <option value="low">Low Priority</option>
             </select>
 
+            <select
+              value={filterResponsible}
+              onChange={(e) => setFilterResponsible(e.target.value)}
+              className="filter-select"
+            >
+              <option value="all">All Assigned</option>
+              {responsiblePeople.map(person => (
+                <option key={person} value={person}>{person}</option>
+              ))}
+            </select>
+
             <button
               className={`btn-add-item ${showAddForm ? 'active' : ''}`}
               onClick={() => setShowAddForm(!showAddForm)}
@@ -676,47 +825,138 @@ export default function DIAPWorkspace() {
           </div>
         </div>
 
-        {/* Add/Edit Form */}
-        {(showAddForm || editingItem) && (
+        {/* Add Form (only for new items - edit is inline) */}
+        {showAddForm && (
           <DIAPItemForm
-            item={editingItem}
+            item={null}
             onSave={(data) => {
-              if (editingItem) {
-                updateItem(editingItem.id, data);
-              } else {
-                createItem(data as Omit<DIAPItem, 'id' | 'sessionId' | 'createdAt' | 'updatedAt'>);
-              }
+              createItem(data as Omit<DIAPItem, 'id' | 'sessionId' | 'createdAt' | 'updatedAt'>);
               setShowAddForm(false);
-              setEditingItem(null);
             }}
             onCancel={() => {
               setShowAddForm(false);
-              setEditingItem(null);
             }}
+            responsiblePeopleList={responsiblePeople}
           />
         )}
 
-        {/* Items List */}
-        <div className="diap-items-list">
-          {filteredItems.length === 0 ? (
-            <div className="empty-state">
-              <p>No items found.</p>
-              {activeTab !== 'all' && (
-                <button onClick={() => setActiveTab('all')}>View all items</button>
-              )}
-            </div>
-          ) : (
-            filteredItems.map((item) => (
-              <DIAPItemCard
-                key={item.id}
-                item={item}
-                onStatusChange={handleStatusChange}
-                onEdit={() => setEditingItem(item)}
-                onDelete={() => deleteItem(item.id)}
-              />
-            ))
-          )}
-        </div>
+        {/* Items - List View or By Category View */}
+        {viewMode === 'list' ? (
+          <div className="diap-items-list">
+            {filteredItems.length === 0 ? (
+              <div className="empty-state">
+                <p>No items found.</p>
+                {activeTab !== 'all' && (
+                  <button onClick={() => setActiveTab('all')}>View all items</button>
+                )}
+              </div>
+            ) : (
+              filteredItems.map((item, index) => (
+                editingItem?.id === item.id ? (
+                  <div key={item.id} className="inline-edit-wrapper">
+                    <DIAPItemForm
+                      item={editingItem}
+                      onSave={(data) => {
+                        updateItem(editingItem.id, data);
+                        setEditingItem(null);
+                      }}
+                      onCancel={() => {
+                        setEditingItem(null);
+                      }}
+                      responsiblePeopleList={responsiblePeople}
+                    />
+                  </div>
+                ) : (
+                  <DIAPItemCard
+                    key={item.id}
+                    item={item}
+                    onStatusChange={handleStatusChange}
+                    onEdit={() => {
+                      dismissHint();
+                      setEditingItem(item);
+                    }}
+                    onDelete={() => deleteItem(item.id)}
+                    showEditHint={showEditHint && index === 0}
+                  />
+                )
+              ))
+            )}
+          </div>
+        ) : (
+          /* By Category View - Grouped into 3 main groups */
+          <div className="diap-category-view">
+            {itemsByCategory.map(({ group, subcategories }) => {
+              const totalItemsInGroup = subcategories.reduce((sum, s) => sum + s.items.length, 0);
+              const isExpanded = expandedCategories[group.id];
+
+              return (
+                <div key={group.id} className={`diap-category-group ${isExpanded ? 'expanded' : ''}`}>
+                  <button
+                    className="category-header"
+                    onClick={() => toggleCategory(group.id)}
+                    aria-expanded={isExpanded}
+                  >
+                    <span className="category-icon" aria-hidden="true">{group.icon}</span>
+                    <div className="category-info">
+                      <span className="category-name">{group.name}</span>
+                      <span className="category-description">{group.description}</span>
+                    </div>
+                    <span className="category-count">{totalItemsInGroup}</span>
+                    <span className="category-chevron" aria-hidden="true">&#9660;</span>
+                  </button>
+
+                  {isExpanded && (
+                    <div className="category-content">
+                      {subcategories.map(({ id, label, items: categoryItems }) => (
+                        <div key={id} className="diap-section-block">
+                          <div className="section-label">
+                            <span className="section-name">{label}</span>
+                            <span className="section-count">{categoryItems.length}</span>
+                          </div>
+                          {categoryItems.length === 0 ? (
+                            <p className="section-empty">No items in this category</p>
+                          ) : (
+                            <div className="section-items">
+                              {categoryItems.map((item, index) => (
+                                editingItem?.id === item.id ? (
+                                  <div key={item.id} className="inline-edit-wrapper">
+                                    <DIAPItemForm
+                                      item={editingItem}
+                                      onSave={(data) => {
+                                        updateItem(editingItem.id, data);
+                                        setEditingItem(null);
+                                      }}
+                                      onCancel={() => {
+                                        setEditingItem(null);
+                                      }}
+                                      responsiblePeopleList={responsiblePeople}
+                                    />
+                                  </div>
+                                ) : (
+                                  <DIAPItemCard
+                                    key={item.id}
+                                    item={item}
+                                    onStatusChange={handleStatusChange}
+                                    onEdit={() => {
+                                      dismissHint();
+                                      setEditingItem(item);
+                                    }}
+                                    onDelete={() => deleteItem(item.id)}
+                                    showEditHint={showEditHint && index === 0 && group.id === 'access'}
+                                  />
+                                )
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         {/* Documents Section */}
         <div className="documents-section">
@@ -724,51 +964,116 @@ export default function DIAPWorkspace() {
             className="section-header"
             onClick={() => setShowDocuments(!showDocuments)}
           >
-            <h2>Supporting Documents ({documents.length})</h2>
+            <h2>Supporting Documents ({documents.length + collectedEvidence.length})</h2>
             <span className={`chevron ${showDocuments ? 'open' : ''}`}>&#9660;</span>
           </div>
 
           {showDocuments && (
             <div className="documents-content">
-              <div className="upload-area">
-                <label className="upload-label">
-                  <input
-                    type="file"
-                    onChange={handleFileUpload}
-                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                    hidden
-                  />
-                  <span className="upload-icon">+</span>
-                  <span>Upload document</span>
-                </label>
-                <p className="upload-hint">PDF, Word, or images up to 10MB</p>
-              </div>
+              {/* Auto-collected evidence from modules - grouped by folder */}
+              {evidenceByModule.length > 0 && (
+                <div className="evidence-from-modules">
+                  <h3 className="evidence-subsection-title">
+                    <span className="auto-badge">Auto-collected</span>
+                    Evidence from Assessments ({collectedEvidence.length})
+                  </h3>
+                  <p className="evidence-subsection-desc">
+                    Photos and documents uploaded during your accessibility reviews
+                  </p>
 
-              {documents.length > 0 && (
-                <div className="documents-list">
-                  {documents.map((doc) => (
-                    <div key={doc.id} className="document-item">
-                      <div className="document-icon">
-                        {getFileIcon(doc.fileType)}
-                      </div>
-                      <div className="document-info">
-                        <span className="document-name">{doc.filename}</span>
-                        <span className="document-meta">
-                          {formatFileSize(doc.fileSize || 0)} • {new Date(doc.uploadedAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <div className="document-actions">
+                  <div className="evidence-folders">
+                    {evidenceByModule.map((folder) => (
+                      <div
+                        key={folder.moduleCode}
+                        className={`evidence-folder ${expandedFolders[folder.moduleCode] ? 'expanded' : ''}`}
+                      >
                         <button
-                          className="btn-doc-action delete"
-                          onClick={() => deleteDocument(doc.id)}
+                          className="folder-header"
+                          onClick={() => toggleFolder(folder.moduleCode)}
+                          aria-expanded={expandedFolders[folder.moduleCode]}
                         >
-                          Delete
+                          <span className="folder-icon" aria-hidden="true">
+                            {expandedFolders[folder.moduleCode] ? '📂' : '📁'}
+                          </span>
+                          <span className="folder-name">{folder.moduleName}</span>
+                          <span className="folder-count">{folder.items.length}</span>
+                          <span className="folder-chevron" aria-hidden="true">&#9660;</span>
                         </button>
+
+                        {expandedFolders[folder.moduleCode] && (
+                          <div className="folder-contents">
+                            <div className="folder-evidence-grid">
+                              {folder.items.map((ev) => (
+                                <div key={ev.id} className="folder-evidence-item">
+                                  {ev.dataUrl && ev.type !== 'document' ? (
+                                    <div className="folder-evidence-thumb">
+                                      <img src={ev.dataUrl} alt={ev.name} />
+                                    </div>
+                                  ) : (
+                                    <div className="folder-evidence-thumb is-doc">
+                                      <span className="doc-icon">📄</span>
+                                    </div>
+                                  )}
+                                  <div className="folder-evidence-info">
+                                    <span className="folder-evidence-name">{ev.name}</span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               )}
+
+              {/* Manual upload area */}
+              <div className="manual-documents">
+                <h3 className="evidence-subsection-title">
+                  <span className="folder-icon" aria-hidden="true">📎</span>
+                  Additional Documents {documents.length > 0 && `(${documents.length})`}
+                </h3>
+                <div className="upload-area">
+                  <label className="upload-label">
+                    <input
+                      type="file"
+                      onChange={handleFileUpload}
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                      hidden
+                    />
+                    <span className="upload-icon">+</span>
+                    <span>Upload document</span>
+                  </label>
+                  <p className="upload-hint">PDF, Word, or images up to 10MB</p>
+                </div>
+
+                {documents.length > 0 && (
+                  <div className="documents-list">
+                    {documents.map((doc) => (
+                      <div key={doc.id} className="document-item">
+                        <div className="document-icon">
+                          {getFileIcon(doc.fileType)}
+                        </div>
+                        <div className="document-info">
+                          <span className="document-name">{doc.filename}</span>
+                          <span className="document-meta">
+                            {formatFileSize(doc.fileSize || 0)} • {new Date(doc.uploadedAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <div className="document-actions">
+                          <button
+                            className="btn-doc-action delete"
+                            onClick={() => deleteDocument(doc.id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -776,7 +1081,7 @@ export default function DIAPWorkspace() {
         {/* Quick Actions */}
         <div className="diap-actions">
           <Link to="/dashboard" className="btn btn-secondary">
-            Back to Dashboard
+            ← Back to Dashboard
           </Link>
           <Link to="/questions" className="btn btn-secondary">
             Continue Review
@@ -793,9 +1098,10 @@ interface DIAPItemCardProps {
   onStatusChange: (id: string, status: DIAPStatus) => void;
   onEdit: () => void;
   onDelete: () => void;
+  showEditHint?: boolean;
 }
 
-function DIAPItemCard({ item, onStatusChange, onEdit, onDelete }: DIAPItemCardProps) {
+function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, showEditHint }: DIAPItemCardProps) {
   const [showStatusMenu, setShowStatusMenu] = useState(false);
 
   const priorityColors = {
@@ -814,11 +1120,49 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete }: DIAPItemCardPr
 
   const colors = priorityColors[item.priority];
 
+  // Handle card click (opens edit)
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't trigger edit if clicking on interactive elements
+    const target = e.target as HTMLElement;
+    if (
+      target.closest('.status-selector') ||
+      target.closest('.item-actions') ||
+      target.closest('button')
+    ) {
+      return;
+    }
+    onEdit();
+  };
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      // Don't trigger if focus is on a button inside
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'BUTTON') return;
+      e.preventDefault();
+      onEdit();
+    }
+  };
+
   return (
     <div
-      className={`diap-item-card status-${item.status}`}
+      className={`diap-item-card status-${item.status} clickable-card`}
       style={{ borderLeftColor: colors.border }}
+      onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-label={`Editable item: ${item.objective}. Press Enter to edit.`}
     >
+      {/* One-time helper text */}
+      {showEditHint && (
+        <div className="edit-hint" role="status">
+          <span className="hint-icon">💡</span>
+          Click anywhere on a card to edit it
+        </div>
+      )}
+
       <div className="item-header">
         <div className="item-badges">
           <span
@@ -830,29 +1174,75 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete }: DIAPItemCardPr
           <span className="category-badge">{item.category.replace(/-/g, ' ')}</span>
         </div>
         <div className="item-actions">
-          <button className="action-btn" onClick={onEdit}>Edit</button>
-          <button className="action-btn delete" onClick={onDelete}>Delete</button>
+          <button
+            className="action-btn delete"
+            onClick={(e) => { e.stopPropagation(); onDelete(); }}
+            aria-label={`Delete ${item.objective}`}
+          >
+            Delete
+          </button>
         </div>
       </div>
 
-      <h3 className="item-title">{item.objective}</h3>
+      <div className="item-title-row">
+        <h3 className="item-title">{item.objective}</h3>
+        <button
+          className="inline-edit-btn"
+          onClick={(e) => { e.stopPropagation(); onEdit(); }}
+          aria-label="Edit objective"
+          title="Edit"
+        >
+          <span aria-hidden="true">✏️</span>
+        </button>
+      </div>
 
       {item.action && (
         <p className="item-description">{item.action}</p>
       )}
 
+      {/* Key details row - owner and timeline */}
+      {(item.responsibleRole || item.dueDate || item.timeframe) && (
+        <div className="item-details-row">
+          {item.responsibleRole && (
+            <div className="detail-chip owner-chip">
+              <span className="detail-icon" aria-hidden="true">👤</span>
+              <span className="detail-text">{item.responsibleRole}</span>
+            </div>
+          )}
+          {item.dueDate ? (
+            <div className="detail-chip date-chip">
+              <span className="detail-icon" aria-hidden="true">📅</span>
+              <span className="detail-text">
+                {new Date(item.dueDate).toLocaleDateString('en-AU', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric'
+                })}
+              </span>
+            </div>
+          ) : item.timeframe && (
+            <div className="detail-chip timeframe-chip">
+              <span className="detail-icon" aria-hidden="true">⏱️</span>
+              <span className="detail-text">{item.timeframe}</span>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="item-footer">
-        <div className="status-selector">
+        <div className="status-selector" onClick={(e) => e.stopPropagation()}>
           <button
             className={`status-btn status-${item.status}`}
             onClick={() => setShowStatusMenu(!showStatusMenu)}
+            aria-haspopup="listbox"
+            aria-expanded={showStatusMenu}
           >
             {statusLabels[item.status]}
-            <span className="dropdown-arrow">&#9660;</span>
+            <span className="dropdown-arrow" aria-hidden="true">&#9660;</span>
           </button>
 
           {showStatusMenu && (
-            <div className="status-menu">
+            <div className="status-menu" role="listbox" aria-label="Select status">
               {Object.entries(statusLabels).map(([status, label]) => (
                 <button
                   key={status}
@@ -861,18 +1251,13 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete }: DIAPItemCardPr
                     onStatusChange(item.id, status as DIAPStatus);
                     setShowStatusMenu(false);
                   }}
+                  role="option"
+                  aria-selected={status === item.status}
                 >
                   {label}
                 </button>
               ))}
             </div>
-          )}
-        </div>
-
-        <div className="item-meta">
-          {item.responsibleRole && <span className="owner">Owner: {item.responsibleRole}</span>}
-          {item.timeframe && (
-            <span className="due-date">Timeframe: {item.timeframe}</span>
           )}
         </div>
       </div>
@@ -891,9 +1276,10 @@ interface DIAPItemFormProps {
   item?: DIAPItem | null;
   onSave: (data: Partial<DIAPItem>) => void;
   onCancel: () => void;
+  responsiblePeopleList?: string[];
 }
 
-function DIAPItemForm({ item, onSave, onCancel }: DIAPItemFormProps) {
+function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DIAPItemFormProps) {
   const [formData, setFormData] = useState({
     objective: item?.objective || '',
     action: item?.action || '',
@@ -973,12 +1359,10 @@ function DIAPItemForm({ item, onSave, onCancel }: DIAPItemFormProps) {
             onChange={(e) => setFormData({ ...formData, category: e.target.value as DIAPCategory })}
           >
             <option value="physical-access">Physical Access</option>
-            <option value="digital-access">Digital Access</option>
-            <option value="communication">Communication</option>
+            <option value="information-communication-marketing">Information, Communication & Marketing</option>
             <option value="customer-service">Customer Service</option>
-            <option value="policy-procedure">Policy & Procedure</option>
-            <option value="training">Training</option>
-            <option value="other">Other</option>
+            <option value="operations-policy-procedure">Operations, Policy & Procedure</option>
+            <option value="people-culture">People & Culture</option>
           </select>
         </label>
 
@@ -1018,7 +1402,16 @@ function DIAPItemForm({ item, onSave, onCancel }: DIAPItemFormProps) {
             value={formData.responsibleRole}
             onChange={(e) => setFormData({ ...formData, responsibleRole: e.target.value })}
             placeholder="e.g., Facilities Manager, HR Team"
+            list="responsible-people-list"
+            autoComplete="off"
           />
+          {responsiblePeopleList.length > 0 && (
+            <datalist id="responsible-people-list">
+              {responsiblePeopleList.map(person => (
+                <option key={person} value={person} />
+              ))}
+            </datalist>
+          )}
         </label>
 
         <label>

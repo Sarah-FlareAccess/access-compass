@@ -8,6 +8,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
+import type { ResponseOption } from '../constants/responseOptions';
 
 // Evidence file attached to a question
 export interface EvidenceFile {
@@ -24,8 +25,9 @@ export interface EvidenceFile {
 
 export interface QuestionResponse {
   questionId: string;
-  answer: 'yes' | 'no' | 'not-sure' | 'too-hard' | null;
+  answer: ResponseOption | null;
   notes?: string;
+  partialDescription?: string; // Description when 'partially' is selected
   photos?: string[];      // Legacy - kept for backwards compatibility
   evidence?: EvidenceFile[]; // New evidence storage
   measurement?: {
@@ -64,6 +66,7 @@ export interface QuestionResponse {
     fileSize?: number;
     url?: string;
     thumbnailDataUrl?: string;
+    photoPreviews?: string[];
     analysisDate: string;
     overallScore: number;
     overallStatus: 'excellent' | 'good' | 'needs-improvement' | 'poor' | 'not-assessable';
@@ -126,7 +129,37 @@ function getLocalProgress(): Record<string, ModuleProgress> {
 }
 
 function saveLocalProgress(progress: Record<string, ModuleProgress>) {
-  localStorage.setItem(MODULE_PROGRESS_KEY, JSON.stringify(progress));
+  try {
+    localStorage.setItem(MODULE_PROGRESS_KEY, JSON.stringify(progress));
+  } catch (error) {
+    // Handle quota exceeded error
+    if (error instanceof DOMException && error.name === 'QuotaExceededError') {
+      console.error('localStorage quota exceeded. Clearing evidence data to free space...');
+
+      // Try to save without evidence data to free up space
+      const reducedProgress: Record<string, ModuleProgress> = {};
+      for (const [key, module] of Object.entries(progress)) {
+        reducedProgress[key] = {
+          ...module,
+          responses: module.responses.map(r => ({
+            ...r,
+            evidence: undefined, // Remove evidence to save space
+          })),
+        };
+      }
+
+      try {
+        localStorage.setItem(MODULE_PROGRESS_KEY, JSON.stringify(reducedProgress));
+        console.warn('Saved progress without evidence data due to storage limits.');
+        alert('Storage limit reached. Your answers are saved but uploaded files could not be stored locally. Consider completing your session to sync data.');
+      } catch (retryError) {
+        console.error('Failed to save even reduced progress:', retryError);
+        alert('Unable to save progress. Please try refreshing the page or clearing browser data.');
+      }
+    } else {
+      console.error('Error saving to localStorage:', error);
+    }
+  }
 }
 
 export interface CompletionMetadata {

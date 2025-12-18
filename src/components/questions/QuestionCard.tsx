@@ -5,14 +5,44 @@
  * based on the question type (yes-no-unsure, measurement, text, etc.)
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { QuestionResponse, EvidenceFile } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
 import type { MediaAnalysisResult, MediaAnalysisType } from '../../types/mediaAnalysis';
 import { UrlAnalysisInput } from './UrlAnalysisInput';
 import { EvidenceUpload } from './EvidenceUpload';
 import { MediaAnalysisInput } from './MediaAnalysisInput';
+import { HelpPanel } from './HelpPanel';
+import { getHelpContent, generateDefaultHelpContent } from '../../data/helpContent';
+import {
+  RESPONSE_LABELS,
+  RESPONSE_CSS_CLASSES,
+  UNABLE_TO_CHECK_HELPER,
+  type ResponseOption,
+} from '../../constants/responseOptions';
 import './questions.css';
+import './help-panel.css';
+
+/**
+ * Extract the first sentence from help text for brief display under the question.
+ * Full text goes into the "See examples & tips" panel.
+ */
+function getShortHelpText(helpText: string | undefined): string | undefined {
+  if (!helpText) return undefined;
+
+  // Find first sentence ending with . or ! or ?
+  const match = helpText.match(/^[^.!?]+[.!?]/);
+  if (match) {
+    return match[0].trim();
+  }
+
+  // If no sentence found, return first 80 chars with ellipsis
+  if (helpText.length > 80) {
+    return helpText.slice(0, 80).trim() + '...';
+  }
+
+  return helpText;
+}
 
 interface QuestionCardProps {
   question: BranchingQuestion;
@@ -48,6 +78,69 @@ export function QuestionCard({
   const [otherDescription, setOtherDescription] = useState(currentResponse?.otherDescription || '');
   const [evidence, setEvidence] = useState<EvidenceFile[]>(currentResponse?.evidence || []);
 
+  // Help panel state
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const helpContent = getHelpContent(question.id)
+    || question.helpContent
+    || generateDefaultHelpContent(question.helpText)
+    || {
+      title: 'About this question',
+      summary: question.helpText || question.text,
+      examples: [
+        {
+          type: 'good' as const,
+          imageUrl: '/help/placeholder-good.svg',
+          caption: 'Good example',
+          details: 'This meets accessibility requirements',
+        },
+        {
+          type: 'poor' as const,
+          imageUrl: '/help/placeholder-poor.svg',
+          caption: 'Needs improvement',
+          details: 'This could be improved for better accessibility',
+        },
+      ],
+      tips: [
+        'Take your time to consider the question carefully',
+        'Select "Partially" if some elements are in place but not all',
+        'Add notes to capture observations for later',
+        'Upload photos or documents as supporting evidence',
+      ],
+    };
+
+  // Selected answer state (for manual continue flow)
+  const [selectedAnswer, setSelectedAnswer] = useState<ResponseOption | null>(
+    currentResponse?.answer || null
+  );
+
+  // Partial answer state
+  const [partialDescription, setPartialDescription] = useState(
+    currentResponse?.partialDescription || ''
+  );
+  const [showPartialInput, setShowPartialInput] = useState(
+    currentResponse?.answer === 'partially'
+  );
+
+  // Notes info tooltip state
+  const [showNotesInfo, setShowNotesInfo] = useState(false);
+
+  // Reset all state when question changes
+  useEffect(() => {
+    setNotes(currentResponse?.notes || '');
+    setMeasurementValue(currentResponse?.measurement?.value?.toString() || '');
+    setMeasurementConfidence(currentResponse?.measurement?.confidence || 'somewhat-confident');
+    setSelectedOptions(currentResponse?.multiSelectValues || []);
+    setSelectedSingleOption(currentResponse?.multiSelectValues?.[0] || null);
+    setLinkValue(currentResponse?.linkValue || '');
+    setOtherDescription(currentResponse?.otherDescription || '');
+    setEvidence(currentResponse?.evidence || []);
+    setSelectedAnswer(currentResponse?.answer || null);
+    setPartialDescription(currentResponse?.partialDescription || '');
+    setShowPartialInput(currentResponse?.answer === 'partially');
+    setShowNotesInfo(false);
+    setIsHelpOpen(false);
+  }, [question.id, currentResponse]);
+
   // Check if "other" option is selected (multi-select)
   const hasOtherSelected = selectedOptions.some(
     (opt) => opt === 'other' || opt.toLowerCase().includes('other')
@@ -58,19 +151,36 @@ export function QuestionCard({
     ? selectedSingleOption === 'other' || selectedSingleOption.toLowerCase().includes('other')
     : false;
 
-  const handleYesNoAnswer = useCallback(
-    (answer: 'yes' | 'no' | 'not-sure' | 'too-hard') => {
-      const response: QuestionResponse = {
-        questionId: question.id,
-        answer,
-        notes: notes.trim() || undefined,
-        evidence: evidence.length > 0 ? evidence : undefined,
-        timestamp: new Date().toISOString(),
-      };
-      onAnswer(response);
+  // Handle selecting an answer (just sets state, doesn't submit)
+  const handleYesNoSelect = useCallback(
+    (answer: ResponseOption) => {
+      setSelectedAnswer(answer);
+      // If selecting "partially", show the input field
+      if (answer === 'partially') {
+        setShowPartialInput(true);
+      } else {
+        // Reset partial state if selecting another answer
+        setShowPartialInput(false);
+        setPartialDescription('');
+      }
     },
-    [question.id, notes, evidence, onAnswer]
+    []
   );
+
+  // Submit yes-no-unsure answer (called by Continue button)
+  const handleYesNoSubmit = useCallback(() => {
+    if (!selectedAnswer) return;
+
+    const response: QuestionResponse = {
+      questionId: question.id,
+      answer: selectedAnswer,
+      partialDescription: selectedAnswer === 'partially' ? (partialDescription.trim() || undefined) : undefined,
+      notes: notes.trim() || undefined,
+      evidence: evidence.length > 0 ? evidence : undefined,
+      timestamp: new Date().toISOString(),
+    };
+    onAnswer(response);
+  }, [question.id, selectedAnswer, partialDescription, notes, evidence, onAnswer]);
 
   const handleMeasurementSubmit = useCallback(() => {
     if (!measurementValue) return;
@@ -136,10 +246,11 @@ export function QuestionCard({
       answer: null,
       linkValue: linkValue.trim() || undefined,
       notes: notes.trim() || undefined,
+      evidence: evidence.length > 0 ? evidence : undefined,
       timestamp: new Date().toISOString(),
     };
     onAnswer(response);
-  }, [question.id, linkValue, notes, onAnswer]);
+  }, [question.id, linkValue, notes, evidence, onAnswer]);
 
   const handleUrlAnalysisSubmit = useCallback((urlAnalysisResult: {
     url: string;
@@ -152,7 +263,12 @@ export function QuestionCard({
     const response: QuestionResponse = {
       questionId: question.id,
       answer: null,
-      urlAnalysis: urlAnalysisResult,
+      urlAnalysis: {
+        ...urlAnalysisResult,
+        analysisDate: new Date().toISOString(),
+        parameterResults: [],
+        disclaimer: 'This analysis provides guidance only and should be verified by accessibility professionals.',
+      },
       notes: notes.trim() || undefined,
       timestamp: new Date().toISOString(),
     };
@@ -181,6 +297,7 @@ export function QuestionCard({
         fileSize: result.fileSize,
         url: result.url,
         thumbnailDataUrl: result.thumbnailDataUrl,
+        photoPreviews: result.photoPreviews,
         analysisDate: result.analysisDate,
         overallScore: result.overallScore,
         overallStatus: result.overallStatus,
@@ -262,7 +379,7 @@ export function QuestionCard({
       <h2 className="question-text">{question.text}</h2>
 
       {question.helpText && (
-        <p className="question-help-text">{question.helpText}</p>
+        <p className="question-help-text">{getShortHelpText(question.helpText)}</p>
       )}
 
       {question.example && (
@@ -271,238 +388,593 @@ export function QuestionCard({
         </div>
       )}
 
-      {/* Yes/No/Unsure Question Type */}
+      {/* Help trigger button - shows if question has help content */}
+      {helpContent && (
+        <button
+          className="help-trigger"
+          onClick={() => setIsHelpOpen(true)}
+          type="button"
+        >
+          <span className="help-trigger-icon">?</span>
+          See examples &amp; tips
+        </button>
+      )}
+
+      {/* Yes/No Question Type - 4 standardized response options */}
       {question.type === 'yes-no-unsure' && (
-        <div className="answer-options">
-          <button
-            className={`answer-btn answer-yes ${
-              currentResponse?.answer === 'yes' ? 'selected' : ''
-            }`}
-            onClick={() => handleYesNoAnswer('yes')}
-          >
-            Yes
-          </button>
-          <button
-            className={`answer-btn answer-no ${
-              currentResponse?.answer === 'no' ? 'selected' : ''
-            }`}
-            onClick={() => handleYesNoAnswer('no')}
-          >
-            No
-          </button>
-          <button
-            className={`answer-btn answer-not-sure ${
-              currentResponse?.answer === 'not-sure' ? 'selected' : ''
-            }`}
-            onClick={() => handleYesNoAnswer('not-sure')}
-          >
-            Not sure
-          </button>
-          <button
-            className={`answer-btn answer-too-hard ${
-              currentResponse?.answer === 'too-hard' ? 'selected' : ''
-            }`}
-            onClick={() => handleYesNoAnswer('too-hard')}
-          >
-            Too hard to do
-          </button>
-        </div>
+        <>
+          <div className="answer-options">
+            <button
+              className={`answer-btn ${RESPONSE_CSS_CLASSES['yes']} ${
+                selectedAnswer === 'yes' ? 'selected' : ''
+              }`}
+              onClick={() => handleYesNoSelect('yes')}
+            >
+              {RESPONSE_LABELS['yes']}
+            </button>
+            <button
+              className={`answer-btn ${RESPONSE_CSS_CLASSES['partially']} ${
+                selectedAnswer === 'partially' ? 'selected' : ''
+              }`}
+              onClick={() => handleYesNoSelect('partially')}
+            >
+              {RESPONSE_LABELS['partially']}
+            </button>
+            <button
+              className={`answer-btn ${RESPONSE_CSS_CLASSES['no']} ${
+                selectedAnswer === 'no' ? 'selected' : ''
+              }`}
+              onClick={() => handleYesNoSelect('no')}
+            >
+              {RESPONSE_LABELS['no']}
+            </button>
+            <button
+              className={`answer-btn ${RESPONSE_CSS_CLASSES['unable-to-check']} ${
+                selectedAnswer === 'unable-to-check' ? 'selected' : ''
+              }`}
+              onClick={() => handleYesNoSelect('unable-to-check')}
+            >
+              {RESPONSE_LABELS['unable-to-check']}
+            </button>
+          </div>
+
+          {/* Subtle helper text for Unable to check */}
+          {selectedAnswer === 'unable-to-check' && (
+            <p className="unable-to-check-helper">{UNABLE_TO_CHECK_HELPER}</p>
+          )}
+
+          {/* Partial description input */}
+          {showPartialInput && (
+            <div className="partial-description-section">
+              <label htmlFor="partial-description">
+                Please describe what's in place and what's missing:
+              </label>
+              <textarea
+                id="partial-description"
+                value={partialDescription}
+                onChange={(e) => setPartialDescription(e.target.value)}
+                placeholder="E.g., 'We have good contrast but font size is too small' or 'Some signs meet standards but not all'"
+                rows={3}
+              />
+            </div>
+          )}
+
+          {/* Notes section with info tooltip */}
+          <div className="notes-section-enhanced">
+            <div className="notes-header">
+              <label htmlFor="question-notes-yesno">Add notes (optional)</label>
+              <button
+                type="button"
+                className="notes-info-btn"
+                onClick={() => setShowNotesInfo(!showNotesInfo)}
+                aria-label="Notes information"
+              >
+                <span className="info-icon">i</span>
+              </button>
+            </div>
+            {showNotesInfo && (
+              <div className="notes-info-tooltip">
+                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+              </div>
+            )}
+            <textarea
+              id="question-notes-yesno"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Observations, questions, or notes for later..."
+              rows={2}
+            />
+          </div>
+
+          {/* Evidence upload (optional) */}
+          <div className="evidence-section-optional">
+            <div className="evidence-section-header">
+              <span className="evidence-section-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                </svg>
+                Add supporting evidence
+              </span>
+              <span className="evidence-section-optional-badge">Optional</span>
+            </div>
+            <EvidenceUpload
+              evidence={evidence}
+              onEvidenceChange={handleEvidenceChange}
+              allowedTypes={['photo', 'document']}
+              hint="Photos or documents to support your answer"
+            />
+          </div>
+
+          {/* Continue button */}
+          {selectedAnswer && (
+            <div className="continue-section">
+              <button
+                className="btn-continue"
+                onClick={handleYesNoSubmit}
+                disabled={selectedAnswer === 'partially' && !partialDescription.trim()}
+              >
+                Continue
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {/* Measurement Question Type */}
       {question.type === 'measurement' && (
-        <div className="measurement-input">
-          <div className="measurement-field">
-            <input
-              type="number"
-              value={measurementValue}
-              onChange={(e) => setMeasurementValue(e.target.value)}
-              placeholder="Enter measurement"
-              className="measurement-value-input"
-            />
-            <span className="measurement-unit">
-              {question.measurementUnit || 'mm'}
-            </span>
+        <>
+          <div className="measurement-input">
+            <div className="measurement-field">
+              <input
+                type="number"
+                value={measurementValue}
+                onChange={(e) => setMeasurementValue(e.target.value)}
+                placeholder="Enter measurement"
+                className="measurement-value-input"
+              />
+              <span className="measurement-unit">
+                {question.measurementUnit || 'mm'}
+              </span>
+            </div>
+
+            {question.measurementGuidance && (
+              <div className="measurement-guidance">
+                {question.measurementGuidance.interpretation && (
+                  <p className="guidance-text">
+                    {question.measurementGuidance.interpretation}
+                  </p>
+                )}
+                {question.measurementGuidance.ideal && (
+                  <p className="guidance-ideal">
+                    Recommended: {question.measurementGuidance.ideal}
+                    {question.measurementUnit || 'mm'}
+                  </p>
+                )}
+              </div>
+            )}
+
+            <div className="confidence-selector">
+              <label>How confident are you in this measurement?</label>
+              <div className="confidence-options">
+                <button
+                  type="button"
+                  className={`confidence-btn ${
+                    measurementConfidence === 'confident' ? 'selected' : ''
+                  }`}
+                  onClick={() => setMeasurementConfidence('confident')}
+                >
+                  Confident
+                </button>
+                <button
+                  type="button"
+                  className={`confidence-btn ${
+                    measurementConfidence === 'somewhat-confident' ? 'selected' : ''
+                  }`}
+                  onClick={() => setMeasurementConfidence('somewhat-confident')}
+                >
+                  Somewhat confident
+                </button>
+                <button
+                  type="button"
+                  className={`confidence-btn ${
+                    measurementConfidence === 'not-confident' ? 'selected' : ''
+                  }`}
+                  onClick={() => setMeasurementConfidence('not-confident')}
+                >
+                  Not confident
+                </button>
+              </div>
+            </div>
           </div>
 
-          {question.measurementGuidance && (
-            <div className="measurement-guidance">
-              {question.measurementGuidance.interpretation && (
-                <p className="guidance-text">
-                  {question.measurementGuidance.interpretation}
-                </p>
-              )}
-              {question.measurementGuidance.ideal && (
-                <p className="guidance-ideal">
-                  Recommended: {question.measurementGuidance.ideal}
-                  {question.measurementUnit || 'mm'}
-                </p>
-              )}
+          {/* Notes section with info tooltip */}
+          <div className="notes-section-enhanced">
+            <div className="notes-header">
+              <label htmlFor="question-notes-measurement">Add notes (optional)</label>
+              <button
+                type="button"
+                className="notes-info-btn"
+                onClick={() => setShowNotesInfo(!showNotesInfo)}
+                aria-label="Notes information"
+              >
+                <span className="info-icon">i</span>
+              </button>
+            </div>
+            {showNotesInfo && (
+              <div className="notes-info-tooltip">
+                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+              </div>
+            )}
+            <textarea
+              id="question-notes-measurement"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Observations, questions, or notes for later..."
+              rows={2}
+            />
+          </div>
+
+          {/* Evidence upload (optional) */}
+          <div className="evidence-section-optional">
+            <div className="evidence-section-header">
+              <span className="evidence-section-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                </svg>
+                Add supporting evidence
+              </span>
+              <span className="evidence-section-optional-badge">Optional</span>
+            </div>
+            <EvidenceUpload
+              evidence={evidence}
+              onEvidenceChange={handleEvidenceChange}
+              allowedTypes={['photo', 'document']}
+              hint="Photos or documents to support your measurement"
+            />
+          </div>
+
+          {/* Continue button */}
+          {measurementValue && (
+            <div className="continue-section">
+              <button
+                className="btn-continue"
+                onClick={handleMeasurementSubmit}
+              >
+                Continue
+              </button>
             </div>
           )}
-
-          <div className="confidence-selector">
-            <label>How confident are you in this measurement?</label>
-            <div className="confidence-options">
-              <button
-                className={`confidence-btn ${
-                  measurementConfidence === 'confident' ? 'selected' : ''
-                }`}
-                onClick={() => setMeasurementConfidence('confident')}
-              >
-                Confident
-              </button>
-              <button
-                className={`confidence-btn ${
-                  measurementConfidence === 'somewhat-confident' ? 'selected' : ''
-                }`}
-                onClick={() => setMeasurementConfidence('somewhat-confident')}
-              >
-                Somewhat confident
-              </button>
-              <button
-                className={`confidence-btn ${
-                  measurementConfidence === 'not-confident' ? 'selected' : ''
-                }`}
-                onClick={() => setMeasurementConfidence('not-confident')}
-              >
-                Not confident
-              </button>
-            </div>
-          </div>
-
-          <button
-            className="submit-btn"
-            onClick={handleMeasurementSubmit}
-            disabled={!measurementValue}
-          >
-            Submit measurement
-          </button>
-        </div>
+        </>
       )}
 
       {/* Multi-select Question Type */}
       {question.type === 'multi-select' && question.options && (
-        <div className="multi-select-options">
-          {question.options.map((option) => (
-            <label key={option.id} className="multi-select-option">
-              <input
-                type="checkbox"
-                checked={selectedOptions.includes(option.id)}
-                onChange={() => toggleOption(option.id)}
-              />
-              <span className="option-label">{option.label}</span>
-            </label>
-          ))}
-          {hasOtherSelected && (
-            <div className="other-description-input">
-              <label htmlFor="other-description">Please describe:</label>
-              <input
-                type="text"
-                id="other-description"
-                value={otherDescription}
-                onChange={(e) => setOtherDescription(e.target.value)}
-                placeholder="Enter details..."
-                className="other-text-input"
-              />
+        <>
+          <div className="multi-select-options">
+            {question.options.map((option) => (
+              <label key={option.id} className="multi-select-option">
+                <input
+                  type="checkbox"
+                  checked={selectedOptions.includes(option.id)}
+                  onChange={() => toggleOption(option.id)}
+                />
+                <span className="option-label">{option.label}</span>
+              </label>
+            ))}
+            {hasOtherSelected && (
+              <div className="other-description-input">
+                <label htmlFor="other-description">Please describe:</label>
+                <input
+                  type="text"
+                  id="other-description"
+                  value={otherDescription}
+                  onChange={(e) => setOtherDescription(e.target.value)}
+                  placeholder="Enter details..."
+                  className="other-text-input"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Notes section with info tooltip */}
+          <div className="notes-section-enhanced">
+            <div className="notes-header">
+              <label htmlFor="question-notes-multiselect">Add notes (optional)</label>
+              <button
+                type="button"
+                className="notes-info-btn"
+                onClick={() => setShowNotesInfo(!showNotesInfo)}
+                aria-label="Notes information"
+              >
+                <span className="info-icon">i</span>
+              </button>
+            </div>
+            {showNotesInfo && (
+              <div className="notes-info-tooltip">
+                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+              </div>
+            )}
+            <textarea
+              id="question-notes-multiselect"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Observations, questions, or notes for later..."
+              rows={2}
+            />
+          </div>
+
+          {/* Evidence upload (optional) */}
+          <div className="evidence-section-optional">
+            <div className="evidence-section-header">
+              <span className="evidence-section-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                </svg>
+                Add supporting evidence
+              </span>
+              <span className="evidence-section-optional-badge">Optional</span>
+            </div>
+            <EvidenceUpload
+              evidence={evidence}
+              onEvidenceChange={handleEvidenceChange}
+              allowedTypes={['photo', 'document']}
+              hint="Photos or documents to support your answer"
+            />
+          </div>
+
+          {/* Continue button */}
+          {selectedOptions.length > 0 && (
+            <div className="continue-section">
+              <button
+                className="btn-continue"
+                onClick={handleMultiSelectSubmit}
+                disabled={hasOtherSelected && !otherDescription.trim()}
+              >
+                Continue
+              </button>
             </div>
           )}
-          <button
-            className="submit-btn"
-            onClick={handleMultiSelectSubmit}
-            disabled={selectedOptions.length === 0 || (hasOtherSelected && !otherDescription.trim())}
-          >
-            Continue
-          </button>
-        </div>
+        </>
       )}
 
       {/* Single-select Question Type */}
       {question.type === 'single-select' && question.options && (
-        <div className="single-select-section">
-          <div className="single-select-options">
-            {question.options.map((option) => (
-              <button
-                key={option.id}
-                className={`single-select-option ${selectedSingleOption === option.id ? 'selected' : ''}`}
-                onClick={() => handleSingleSelectClick(option.id)}
-              >
-                {option.label}
-              </button>
-            ))}
+        <>
+          <div className="single-select-section">
+            <div className="single-select-options">
+              {question.options.map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  className={`single-select-option ${selectedSingleOption === option.id ? 'selected' : ''}`}
+                  onClick={() => handleSingleSelectClick(option.id)}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+
+            {hasSingleOtherSelected && (
+              <div className="other-description-input">
+                <label htmlFor="single-other-description">Please describe:</label>
+                <input
+                  type="text"
+                  id="single-other-description"
+                  value={otherDescription}
+                  onChange={(e) => setOtherDescription(e.target.value)}
+                  placeholder="Enter details..."
+                  className="other-text-input"
+                />
+              </div>
+            )}
           </div>
 
-          {hasSingleOtherSelected && (
-            <div className="other-description-input">
-              <label htmlFor="single-other-description">Please describe:</label>
-              <input
-                type="text"
-                id="single-other-description"
-                value={otherDescription}
-                onChange={(e) => setOtherDescription(e.target.value)}
-                placeholder="Enter details..."
-                className="other-text-input"
-              />
+          {/* Notes section with info tooltip */}
+          <div className="notes-section-enhanced">
+            <div className="notes-header">
+              <label htmlFor="question-notes-singleselect">Add notes (optional)</label>
+              <button
+                type="button"
+                className="notes-info-btn"
+                onClick={() => setShowNotesInfo(!showNotesInfo)}
+                aria-label="Notes information"
+              >
+                <span className="info-icon">i</span>
+              </button>
+            </div>
+            {showNotesInfo && (
+              <div className="notes-info-tooltip">
+                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+              </div>
+            )}
+            <textarea
+              id="question-notes-singleselect"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Observations, questions, or notes for later..."
+              rows={2}
+            />
+          </div>
+
+          {/* Evidence upload (optional) */}
+          <div className="evidence-section-optional">
+            <div className="evidence-section-header">
+              <span className="evidence-section-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                </svg>
+                Add supporting evidence
+              </span>
+              <span className="evidence-section-optional-badge">Optional</span>
+            </div>
+            <EvidenceUpload
+              evidence={evidence}
+              onEvidenceChange={handleEvidenceChange}
+              allowedTypes={['photo', 'document']}
+              hint="Photos or documents to support your answer"
+            />
+          </div>
+
+          {/* Continue button */}
+          {selectedSingleOption && (
+            <div className="continue-section">
+              <button
+                className="btn-continue"
+                onClick={handleSingleSelectSubmit}
+                disabled={hasSingleOtherSelected && !otherDescription.trim()}
+              >
+                Continue
+              </button>
             </div>
           )}
-
-          {selectedSingleOption && (
-            <button
-              className="submit-btn"
-              onClick={handleSingleSelectSubmit}
-              disabled={hasSingleOtherSelected && !otherDescription.trim()}
-            >
-              Continue
-            </button>
-          )}
-        </div>
+        </>
       )}
 
       {/* Link Input Question Type */}
       {question.type === 'link-input' && (
-        <div className="link-input-section">
-          <input
-            type="url"
-            value={linkValue}
-            onChange={(e) => setLinkValue(e.target.value)}
-            placeholder="https://..."
-            className="link-input"
-          />
-          <button
-            className="submit-btn"
-            onClick={handleLinkSubmit}
-          >
-            {linkValue ? 'Submit' : 'Skip'}
-          </button>
-        </div>
+        <>
+          <div className="link-input-section">
+            <input
+              type="url"
+              value={linkValue}
+              onChange={(e) => setLinkValue(e.target.value)}
+              placeholder="https://..."
+              className="link-input"
+            />
+          </div>
+
+          {/* Notes section with info tooltip */}
+          <div className="notes-section-enhanced">
+            <div className="notes-header">
+              <label htmlFor="question-notes-link">Add notes (optional)</label>
+              <button
+                type="button"
+                className="notes-info-btn"
+                onClick={() => setShowNotesInfo(!showNotesInfo)}
+                aria-label="Notes information"
+              >
+                <span className="info-icon">i</span>
+              </button>
+            </div>
+            {showNotesInfo && (
+              <div className="notes-info-tooltip">
+                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+              </div>
+            )}
+            <textarea
+              id="question-notes-link"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Observations, questions, or notes for later..."
+              rows={2}
+            />
+          </div>
+
+          {/* Evidence upload (optional) */}
+          <div className="evidence-section-optional">
+            <div className="evidence-section-header">
+              <span className="evidence-section-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                </svg>
+                Add supporting evidence
+              </span>
+              <span className="evidence-section-optional-badge">Optional</span>
+            </div>
+            <EvidenceUpload
+              evidence={evidence}
+              onEvidenceChange={handleEvidenceChange}
+              allowedTypes={['photo', 'document']}
+              hint="Photos or documents to support your answer"
+            />
+          </div>
+
+          {/* Continue button */}
+          <div className="continue-section">
+            <button
+              className="btn-continue"
+              onClick={handleLinkSubmit}
+            >
+              {linkValue ? 'Continue' : 'Skip'}
+            </button>
+          </div>
+        </>
       )}
 
       {/* Text Input Question Type */}
       {question.type === 'text' && (
-        <div className="text-input-section">
-          <textarea
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            placeholder="Enter your response..."
-            className="text-input"
-            rows={4}
-          />
-          <button
-            className="submit-btn"
-            onClick={() => {
-              const response: QuestionResponse = {
-                questionId: question.id,
-                answer: null,
-                notes: notes.trim() || undefined,
-                evidence: evidence.length > 0 ? evidence : undefined,
-                timestamp: new Date().toISOString(),
-              };
-              onAnswer(response);
-            }}
-          >
-            {notes.trim() ? 'Submit' : 'Skip'}
-          </button>
-        </div>
+        <>
+          <div className="text-input-section">
+            <div className="notes-header">
+              <label htmlFor="question-text-input">Your response</label>
+              <button
+                type="button"
+                className="notes-info-btn"
+                onClick={() => setShowNotesInfo(!showNotesInfo)}
+                aria-label="Notes information"
+              >
+                <span className="info-icon">i</span>
+              </button>
+            </div>
+            {showNotesInfo && (
+              <div className="notes-info-tooltip">
+                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
+                <p>This response can be included in your DIAP and report if you choose.</p>
+              </div>
+            )}
+            <textarea
+              id="question-text-input"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Enter your response..."
+              className="text-input"
+              rows={4}
+            />
+          </div>
+
+          {/* Evidence upload (optional) */}
+          <div className="evidence-section-optional">
+            <div className="evidence-section-header">
+              <span className="evidence-section-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                </svg>
+                Add supporting evidence
+              </span>
+              <span className="evidence-section-optional-badge">Optional</span>
+            </div>
+            <EvidenceUpload
+              evidence={evidence}
+              onEvidenceChange={handleEvidenceChange}
+              allowedTypes={['photo', 'document']}
+              hint="Photos or documents to support your response"
+            />
+          </div>
+
+          {/* Continue button */}
+          <div className="continue-section">
+            <button
+              className="btn-continue"
+              onClick={() => {
+                const response: QuestionResponse = {
+                  questionId: question.id,
+                  answer: null,
+                  notes: notes.trim() || undefined,
+                  evidence: evidence.length > 0 ? evidence : undefined,
+                  timestamp: new Date().toISOString(),
+                };
+                onAnswer(response);
+              }}
+            >
+              {notes.trim() ? 'Continue' : 'Skip'}
+            </button>
+          </div>
+        </>
       )}
 
       {/* URL Analysis Question Type */}
@@ -526,7 +998,9 @@ export function QuestionCard({
             fileSize: currentResponse.mediaAnalysis.fileSize,
             url: currentResponse.mediaAnalysis.url,
             thumbnailDataUrl: currentResponse.mediaAnalysis.thumbnailDataUrl,
+            photoPreviews: currentResponse.mediaAnalysis.photoPreviews,
             analysisDate: currentResponse.mediaAnalysis.analysisDate,
+            analysisVersion: '1.0',
             overallScore: currentResponse.mediaAnalysis.overallScore,
             overallStatus: currentResponse.mediaAnalysis.overallStatus,
             summary: currentResponse.mediaAnalysis.summary,
@@ -545,28 +1019,14 @@ export function QuestionCard({
         />
       )}
 
-      {/* Evidence Upload Section */}
-      {question.supportsEvidence && (
-        <EvidenceUpload
-          evidence={evidence}
-          onEvidenceChange={handleEvidenceChange}
-          allowedTypes={question.evidenceTypes || ['photo', 'document', 'link']}
-          hint={question.evidenceHint}
+      {/* Help Panel */}
+      {helpContent && (
+        <HelpPanel
+          isOpen={isHelpOpen}
+          onClose={() => setIsHelpOpen(false)}
+          content={helpContent}
+          questionText={question.text}
         />
-      )}
-
-      {/* Notes section for non-text questions */}
-      {question.type !== 'text' && question.type !== 'url-analysis' && (
-        <div className="notes-section">
-          <label htmlFor="question-notes">Add notes (optional)</label>
-          <input
-            type="text"
-            id="question-notes"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            placeholder="Any additional details..."
-          />
-        </div>
       )}
     </div>
   );

@@ -35,7 +35,7 @@ export default function DiscoveryQuestions() {
   // Check if a specific module was requested via URL parameter
   const requestedModuleId = searchParams.get('module');
   const [showModuleList, setShowModuleList] = useState(!requestedModuleId);
-  const [directModuleAccess, setDirectModuleAccess] = useState(!!requestedModuleId);
+  const [directModuleAccess] = useState(!!requestedModuleId);
 
   // Get the review mode from discovery data
   const reviewMode: ReviewMode = discoveryData?.review_mode || 'pulse-check';
@@ -309,7 +309,7 @@ export default function DiscoveryQuestions() {
 
           <div className="module-list-actions">
             <button className="btn-back" onClick={() => navigate('/discovery')}>
-              Back to Discovery
+              ← Back to Discovery
             </button>
             {overallProgress.completed === overallProgress.total && (
               <button

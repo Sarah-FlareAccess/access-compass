@@ -14,7 +14,11 @@ export default function Export() {
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [showReport, setShowReport] = useState(false);
   const [currentReport, setCurrentReport] = useState<Report | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
+
+  // Report options
+  const [includeNotes, setIncludeNotes] = useState(true);
+  const [includePhotos, setIncludePhotos] = useState(true);
 
   // Load session and discovery data
   useEffect(() => {
@@ -65,7 +69,15 @@ export default function Export() {
   const handleViewReport = () => {
     if (!isReady) return;
     const report = generateReport(reviewMode, organisationName);
-    setCurrentReport(report);
+
+    // Apply filters based on options
+    const filteredReport = {
+      ...report,
+      questionNotes: includeNotes ? report.questionNotes : [],
+      questionEvidence: includePhotos ? report.questionEvidence : [],
+    };
+
+    setCurrentReport(filteredReport);
     setShowReport(true);
   };
 
@@ -125,6 +137,46 @@ export default function Export() {
             </div>
           )}
 
+          {/* Report Options */}
+          {hasCompletedModules && (
+            <div className="card" style={{ marginBottom: '30px' }}>
+              <h2 style={{ marginBottom: '16px' }}>Report Options</h2>
+              <p style={{ color: 'var(--steel-gray)', marginBottom: '20px' }}>
+                Choose what to include in your report:
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={includeNotes}
+                    onChange={(e) => setIncludeNotes(e.target.checked)}
+                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <div>
+                    <strong style={{ display: 'block', marginBottom: '2px' }}>Include your notes</strong>
+                    <span style={{ fontSize: '14px', color: 'var(--steel-gray)' }}>
+                      Notes and observations you recorded during the self-review
+                    </span>
+                  </div>
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={includePhotos}
+                    onChange={(e) => setIncludePhotos(e.target.checked)}
+                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <div>
+                    <strong style={{ display: 'block', marginBottom: '2px' }}>Include photos and documents</strong>
+                    <span style={{ fontSize: '14px', color: 'var(--steel-gray)' }}>
+                      Evidence photos and documents you uploaded as supporting evidence
+                    </span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          )}
+
           {hasCompletedModules && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginBottom: '40px' }}>
               {/* View in App */}
@@ -170,7 +222,12 @@ export default function Export() {
                   className="btn btn-primary"
                   onClick={() => {
                     const report = generateReport(reviewMode, organisationName);
-                    setCurrentReport(report);
+                    const filteredReport = {
+                      ...report,
+                      questionNotes: includeNotes ? report.questionNotes : [],
+                      questionEvidence: includePhotos ? report.questionEvidence : [],
+                    };
+                    setCurrentReport(filteredReport);
                     setTimeout(() => handleDownloadPDF(), 100);
                   }}
                   disabled={!isReady}
@@ -322,7 +379,7 @@ export default function Export() {
           {/* Actions */}
           <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/dashboard" className="btn btn-secondary">
-              Back to dashboard
+              ← Back to dashboard
             </Link>
             <button className="btn btn-secondary" onClick={handleStartAgain}>
               Start again

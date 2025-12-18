@@ -7,6 +7,7 @@
 
 import type { Report } from '../hooks/useReportGeneration';
 import { downloadPDFReport } from '../utils/pdfGenerator';
+import { RESPONSE_LABELS } from '../constants/responseOptions';
 import './ReportViewer.css';
 
 // Helper function to format analysis type for display
@@ -331,6 +332,66 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                   )}
                 </div>
               ))}
+            </section>
+          )}
+
+          {/* User Notes */}
+          {report.questionNotes && report.questionNotes.length > 0 && (
+            <section className="report-section report-notes">
+              <h2>Your Notes & Observations</h2>
+              <p className="section-intro">
+                Notes recorded during your self-review:
+              </p>
+              <div className="notes-list">
+                {report.questionNotes.map((note, index) => (
+                  <div key={index} className="note-card">
+                    <div className="note-header">
+                      <span className="note-module">{note.moduleName}</span>
+                      {note.answer && (
+                        <span className={`note-answer answer-${note.answer}`}>
+                          {RESPONSE_LABELS[note.answer as keyof typeof RESPONSE_LABELS] || note.answer}
+                        </span>
+                      )}
+                    </div>
+                    <div className="note-question">{note.questionText}</div>
+                    <div className="note-content">{note.notes}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Evidence Photos & Documents */}
+          {report.questionEvidence && report.questionEvidence.length > 0 && (
+            <section className="report-section report-evidence">
+              <h2>Supporting Evidence</h2>
+              <p className="section-intro">
+                Photos and documents uploaded during your self-review:
+              </p>
+              <div className="evidence-grid">
+                {report.questionEvidence.map((evidence, index) => (
+                  <div key={index} className="evidence-card">
+                    <div className="evidence-header">
+                      <span className="evidence-type-badge">
+                        {evidence.evidenceType === 'photo' ? '📷' :
+                         evidence.evidenceType === 'document' ? '📄' : '🔗'}
+                        {evidence.evidenceType}
+                      </span>
+                      <span className="evidence-module">{evidence.moduleName}</span>
+                    </div>
+                    {evidence.evidenceType === 'photo' && evidence.dataUrl && (
+                      <div className="evidence-image">
+                        <img src={evidence.dataUrl} alt={evidence.fileName} />
+                      </div>
+                    )}
+                    <div className="evidence-filename">{evidence.fileName}</div>
+                    <div className="evidence-question">{evidence.questionText}</div>
+                    {evidence.description && (
+                      <div className="evidence-description">{evidence.description}</div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </section>
           )}
 

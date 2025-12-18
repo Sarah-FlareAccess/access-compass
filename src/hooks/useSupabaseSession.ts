@@ -15,7 +15,7 @@ import {
   saveDiscoveryData,
   type StoredDiscoveryData,
 } from '../utils/session';
-import type { Session, DiscoveryData, RecommendationResult, ReviewMode } from '../types';
+import type { Session, RecommendationResult, ReviewMode } from '../types';
 
 interface UseSupabaseSessionReturn {
   session: Session | null;

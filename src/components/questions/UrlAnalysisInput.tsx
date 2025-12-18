@@ -43,7 +43,7 @@ export function UrlAnalysisInput({ currentValue, onSubmit, onSkip }: UrlAnalysis
   const [analysisResult, setAnalysisResult] = useState<UrlAnalysisResult | null>(
     currentValue || null
   );
-  const { isAnalyzing, error, result, analyzeUrl, reset } = useUrlAnalysis();
+  const { isAnalyzing, error, analyzeUrl, reset } = useUrlAnalysis();
 
   // If we have a currentValue, mark as analyzed
   useEffect(() => {

@@ -2,25 +2,174 @@
    EVIDENCE UPLOAD COMPONENT
    ============================================ */
 
+/* Toggle button - default dark theme */
 .evidence-toggle-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 10px;
+  padding: 12px 18px;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px dashed rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
   color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   margin-top: 16px;
+  width: 100%;
+  justify-content: center;
 }
 
 .evidence-toggle-btn:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.5);
   color: white;
+}
+
+/* Toggle button icons wrapper */
+.evidence-toggle-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.evidence-toggle-icons svg {
+  opacity: 0.7;
+}
+
+/* ============================================
+   LIGHT THEME (inside question card)
+   ============================================ */
+.evidence-section-optional .evidence-toggle-btn,
+.question-card .evidence-toggle-btn {
+  background: #faf5ff;
+  border: 2px dashed #c4b5fd;
+  color: #7c3aed;
+  padding: 16px 24px;
+  border-radius: 12px;
+  margin-top: 0;
+}
+
+.evidence-section-optional .evidence-toggle-btn:hover,
+.question-card .evidence-toggle-btn:hover {
+  background: #f3e8ff;
+  border-color: #7c3aed;
+  color: #5b21b6;
+}
+
+.evidence-section-optional .evidence-toggle-icons svg,
+.question-card .evidence-toggle-icons svg {
+  opacity: 1;
+}
+
+/* Light theme for standalone evidence upload in question card */
+.question-card > .evidence-upload {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+/* When inside evidence-section-optional wrapper, remove background */
+.evidence-section-optional .evidence-upload {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-top: 8px;
+}
+
+.evidence-section-optional .evidence-title,
+.question-card .evidence-title {
+  color: #1f2937;
+}
+
+.evidence-section-optional .evidence-hint,
+.question-card .evidence-hint {
+  color: #6b7280;
+}
+
+.evidence-section-optional .evidence-item,
+.question-card .evidence-item {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+}
+
+.evidence-section-optional .evidence-item:hover,
+.question-card .evidence-item:hover {
+  background: #e5e7eb;
+}
+
+.evidence-section-optional .evidence-item-name,
+.question-card .evidence-item-name {
+  color: #1f2937;
+}
+
+.evidence-section-optional .evidence-item-size,
+.question-card .evidence-item-size {
+  color: #6b7280;
+}
+
+.evidence-section-optional .evidence-item-icon,
+.question-card .evidence-item-icon {
+  background: #e5e7eb;
+  color: #6b7280;
+}
+
+.evidence-section-optional .evidence-photo .evidence-item-icon,
+.question-card .evidence-photo .evidence-item-icon {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.evidence-section-optional .evidence-document .evidence-item-icon,
+.question-card .evidence-document .evidence-item-icon {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.evidence-section-optional .evidence-remove-btn,
+.question-card .evidence-remove-btn {
+  color: #9ca3af;
+  background: #f3f4f6;
+  border-radius: 6px;
+}
+
+.evidence-section-optional .evidence-remove-btn:hover,
+.question-card .evidence-remove-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+}
+
+.evidence-section-optional .evidence-upload-btn,
+.question-card .evidence-upload-btn {
+  background: rgba(124, 58, 237, 0.1);
+  border: 2px dashed #c4b5fd;
+  color: #7c3aed;
+}
+
+.evidence-section-optional .evidence-upload-btn:hover,
+.question-card .evidence-upload-btn:hover {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: #7c3aed;
+}
+
+.evidence-section-optional .evidence-collapse-btn,
+.question-card .evidence-collapse-btn {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+}
+
+.evidence-section-optional .evidence-collapse-btn:hover,
+.question-card .evidence-collapse-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.evidence-section-optional .evidence-note,
+.question-card .evidence-note {
+  color: #9ca3af;
 }
 
 .evidence-upload {

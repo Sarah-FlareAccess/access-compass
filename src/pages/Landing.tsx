@@ -23,7 +23,7 @@ export default function Landing() {
 
           {/* CTA Button */}
           <Link to="/disclaimer" className="btn btn-primary btn-large">
-            Start your free accessibility check
+            Start your accessibility check
           </Link>
 
           <p className="action-text">

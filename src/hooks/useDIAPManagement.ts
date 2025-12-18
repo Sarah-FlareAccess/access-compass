@@ -12,12 +12,10 @@ import { getSession } from '../utils/session';
 
 export type DIAPCategory =
   | 'physical-access'
-  | 'digital-access'
-  | 'communication'
+  | 'information-communication-marketing'
   | 'customer-service'
-  | 'policy-procedure'
-  | 'training'
-  | 'other';
+  | 'operations-policy-procedure'
+  | 'people-culture';
 
 export type DIAPStatus =
   | 'not-started'
@@ -399,7 +397,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         sessionId: session?.session_id || '',
         objective: `Improve ${response.moduleName.toLowerCase()}`,
         action: questionToAction(response.questionText),
-        category: response.category || 'other',
+        category: response.category || 'operations-policy-procedure',
         priority,
         timeframe,
         status: 'not-started',
@@ -620,7 +618,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           }
 
           // Parse category
-          let category: DIAPCategory = 'other';
+          let category: DIAPCategory = 'operations-policy-procedure';
           if (colIdx.category !== -1 && values[colIdx.category]) {
             const catValue = values[colIdx.category].toLowerCase().trim().replace(/\s+/g, '-');
             if (isValidCategory(catValue)) {
@@ -764,7 +762,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           if (!objective && !action) continue;
 
           // Parse category
-          let category: DIAPCategory = 'other';
+          let category: DIAPCategory = 'operations-policy-procedure';
           const catValue = getValue(colIdx.category).toLowerCase().replace(/\s+/g, '-');
           if (isValidCategory(catValue)) {
             category = catValue as DIAPCategory;
@@ -906,14 +904,10 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
 
       // Attempt to parse DIAP items from text
       // Look for common patterns in DIAP documents
-      const patterns = [
-        // Pattern: "Action: ... Responsible: ... Timeframe: ..."
-        /(?:Action|Item|Task)[:\s]*([^.]+?)\s*(?:Responsible|Owner|Who)[:\s]*([^.]+?)\s*(?:Timeframe|Due|By|Date)[:\s]*([^\n.]+)/gi,
-        // Pattern: Numbered items "1. Action text"
-        /^\s*\d+[.)]\s*(.+?)(?:\n|$)/gm,
-        // Pattern: Bullet points
-        /^[\s•\-*]\s*(.+?)(?:\n|$)/gm,
-      ];
+      // Reserved patterns for future structured parsing:
+      // - "Action: ... Responsible: ... Timeframe: ..."
+      // - Numbered items "1. Action text"
+      // - Bullet points
 
       // Try to extract structured items
       const actionPattern = /(?:Action|Item|Task|Objective)[:\s]+([^.\n]+)/gi;
@@ -1114,7 +1108,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             sessionId: session?.session_id || '',
             objective: 'Improve website accessibility',
             action: improvement,
-            category: 'digital-access',
+            category: 'information-communication-marketing',
             priority,
             status: 'not-started',
             timeframe: priority === 'high' ? '0-30 days' : priority === 'medium' ? '30-90 days' : '3-12 months',
@@ -1312,7 +1306,7 @@ function escapeCSV(value: string): string {
 
 // Helper: Validate category
 function isValidCategory(value: string): boolean {
-  const validCategories = ['physical-access', 'digital-access', 'communication', 'customer-service', 'policy-procedure', 'training', 'other'];
+  const validCategories = ['physical-access', 'information-communication-marketing', 'customer-service', 'operations-policy-procedure', 'people-culture'];
   return validCategories.includes(value);
 }
 
@@ -1326,26 +1320,28 @@ function isValidStatus(value: string): boolean {
 function categorizeFromText(text: string): DIAPCategory {
   const lower = text.toLowerCase();
 
-  if (lower.match(/entrance|door|ramp|lift|elevator|parking|toilet|restroom|path|access|mobility|wheelchair/)) {
+  // Physical Access - physical spaces, facilities, navigation
+  if (lower.match(/entrance|door|ramp|lift|elevator|parking|toilet|restroom|path|access|mobility|wheelchair|wayfinding|seating|furniture/)) {
     return 'physical-access';
   }
-  if (lower.match(/website|online|digital|app|software|screen reader|wcag|alt text|caption/)) {
-    return 'digital-access';
+  // Information, Communication & Marketing - digital, print, signage, marketing
+  if (lower.match(/website|online|digital|app|software|screen reader|wcag|alt text|caption|sign|braille|auslan|interpreter|language|document|format|font|print|marketing|brochure|flyer|menu/)) {
+    return 'information-communication-marketing';
   }
-  if (lower.match(/sign|braille|auslan|interpreter|language|document|format|font|print/)) {
-    return 'communication';
-  }
-  if (lower.match(/staff|training|customer|service|greeting|assistance|welcome/)) {
+  // Customer Service - service delivery, customer interactions
+  if (lower.match(/customer|service|greeting|assistance|welcome|feedback|complaint|booking|reservation/)) {
     return 'customer-service';
   }
-  if (lower.match(/policy|procedure|guideline|standard|compliance|audit|review/)) {
-    return 'policy-procedure';
+  // Operations, Policy & Procedure - organisational operations
+  if (lower.match(/policy|procedure|guideline|standard|compliance|audit|review|operations|process|system|equipment/)) {
+    return 'operations-policy-procedure';
   }
-  if (lower.match(/training|education|awareness|learning|skill/)) {
-    return 'training';
+  // People & Culture - staff, training, HR
+  if (lower.match(/staff|training|education|awareness|learning|skill|team|employee|hr|culture|recruitment|induction/)) {
+    return 'people-culture';
   }
 
-  return 'other';
+  return 'operations-policy-procedure';
 }
 
 // Helper: Determine priority from text
@@ -1366,36 +1362,43 @@ function prioritizeFromText(text: string): DIAPPriority {
 function mapModuleToCategory(moduleName: string): DIAPCategory {
   const lower = moduleName.toLowerCase();
 
-  if (lower.match(/entrance|arrival|parking|path|physical|toilet|facility/)) {
+  // Physical Access
+  if (lower.match(/entrance|arrival|parking|path|physical|toilet|facility|wayfinding|seating|sensory/)) {
     return 'physical-access';
   }
-  if (lower.match(/website|digital|online|technology/)) {
-    return 'digital-access';
+  // Information, Communication & Marketing
+  if (lower.match(/communication|information|signage|document|website|digital|online|technology|marketing/)) {
+    return 'information-communication-marketing';
   }
-  if (lower.match(/communication|information|signage|document/)) {
-    return 'communication';
-  }
-  if (lower.match(/customer|service|staff/)) {
+  // Customer Service
+  if (lower.match(/customer|service|experience|service point/)) {
     return 'customer-service';
   }
-  if (lower.match(/policy|procedure/)) {
-    return 'policy-procedure';
+  // People & Culture
+  if (lower.match(/staff|training|awareness/)) {
+    return 'people-culture';
   }
-  if (lower.match(/training/)) {
-    return 'training';
+  // Operations, Policy & Procedure (default)
+  if (lower.match(/policy|procedure|operations/)) {
+    return 'operations-policy-procedure';
   }
 
-  return 'other';
+  return 'operations-policy-procedure';
 }
 
 // Helper: Map analysis type to category
 function mapAnalysisTypeToCategory(analysisType: string): DIAPCategory {
   const typeMap: Record<string, DIAPCategory> = {
-    'menu': 'communication',
-    'brochure': 'communication',
-    'flyer': 'communication',
-    'large-print': 'communication',
-    'signage': 'communication',
+    // Information, Communication & Marketing
+    'menu': 'information-communication-marketing',
+    'brochure': 'information-communication-marketing',
+    'flyer': 'information-communication-marketing',
+    'large-print': 'information-communication-marketing',
+    'signage': 'information-communication-marketing',
+    'social-media-post': 'information-communication-marketing',
+    'social-media-url': 'information-communication-marketing',
+    'website-wave': 'information-communication-marketing',
+    // Physical Access
     'lighting': 'physical-access',
     'ground-surface': 'physical-access',
     'pathway': 'physical-access',
@@ -1403,11 +1406,8 @@ function mapAnalysisTypeToCategory(analysisType: string): DIAPCategory {
     'ramp': 'physical-access',
     'stairs': 'physical-access',
     'door': 'physical-access',
-    'social-media-post': 'digital-access',
-    'social-media-url': 'digital-access',
-    'website-wave': 'digital-access',
   };
-  return typeMap[analysisType] || 'other';
+  return typeMap[analysisType] || 'operations-policy-procedure';
 }
 
 // Helper: Format analysis type for display

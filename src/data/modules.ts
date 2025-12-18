@@ -39,8 +39,8 @@ export const modules: Module[] = [
     description: 'Signs, maps, directions, and helping people find their way around',
     recommended_if: (snapshot: BusinessSnapshot) =>
       snapshot.has_physical_venue === true &&
-      (snapshot.business_type === 'attraction-museum-gallery' ||
-        snapshot.business_type === 'accommodation'),
+      (snapshot.business_types?.includes('attractions') ||
+        snapshot.business_types?.includes('hospitality')),
   },
   {
     id: 'sensory-considerations',

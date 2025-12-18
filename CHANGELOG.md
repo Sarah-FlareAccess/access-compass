@@ -2,7 +2,63 @@
 
 All notable changes to Access Compass will be documented in this file.
 
-## [Unreleased]
+## [Unreleased] - December 2024
+
+### Added
+
+#### DIAP 5-Category Structure
+The DIAP workspace now uses a standardised 5-category structure aligned with Australian DIAP frameworks:
+
+1. **Physical Access** - Physical spaces, facilities, and navigation
+2. **Information, Communication & Marketing** - Digital, print, signage, and marketing materials
+3. **Customer Service** - Service delivery and customer interactions
+4. **Operations, Policy & Procedure** - Organisational operations and compliance
+5. **People & Culture** - Staff capability, training, and workplace culture
+
+#### DIAP Workspace Enhancements
+- **Heading Update**: Changed to "Disability Inclusion Action Plan - Management System"
+- **By Category View**: New collapsible category view with expand/collapse functionality for reduced cognitive load
+- **Filter by Responsible Person**: Dropdown filter to search items by assigned person
+- **Responsible Person Autocomplete**: Form suggests previously assigned people (persisted in localStorage)
+- **Consistent Categorisation**: All DIAP items, filters, and groupings use the new 5-category structure
+
+#### Access System & Authentication
+- Supabase authentication integration
+- Access control hooks (`useAuth`, `useAccessCheck`)
+- Pathway decision flow (Pulse Check vs Deep Dive)
+- Checkout and payment integration structure
+- Discovery summary page for returning users
+
+#### Media Analysis Framework
+- Comprehensive media analysis for accessibility assessment
+- WAVE API integration for website accessibility audits
+- Vision-based analysis for printed materials and physical environments
+- Social media accessibility checking
+- Plain language explanations and actionable guidance
+
+#### UI/UX Improvements
+- Help panel with contextual guidance
+- Evidence upload enhancements with image optimisation
+- Review summary improvements
+- Navigation bar updates
+- Form page styling refinements
+
+### Changed
+- DIAP sections now map to the 5-category structure via `categoryId`
+- Updated `DIAPCategory` type definition
+- Updated categorisation functions: `categorizeFromText`, `mapModuleToCategory`, `mapAnalysisTypeToCategory`
+- Discovery process unchanged (uses customer journey language: Before Arrival, When Here, Staying Connected)
+
+### Technical
+- Updated `src/hooks/useDIAPManagement.ts` - DIAP state management with new category types
+- Updated `src/data/diapMapping.ts` - Category definitions, DIAP_CATEGORIES, CATEGORY_TO_GROUP
+- Added grouping functions: `groupItemsByCategory`, `getCategoriesForGroup`, `getCategoryLabel`
+- New files: `useAuth.ts`, `useAccessCheck.ts`, `Decision.tsx`, `DiscoverySummary.tsx`, `HelpPanel.tsx`
+- Added `src/utils/visionAnalysis.ts` and `src/utils/imageOptimization.ts`
+
+---
+
+## [0.2.0] - Previous Updates
 
 ### Added
 

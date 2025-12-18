@@ -20,7 +20,7 @@ export async function testSupabaseConnection() {
   // Step 2: Test database connection
   console.log('Step 2: Testing database connection...');
   try {
-    const { data, error } = await supabase!.from('sessions').select('count').limit(1);
+    const { error } = await supabase!.from('sessions').select('count').limit(1);
 
     if (error) {
       console.error('❌ Database connection failed:', error.message);
@@ -94,7 +94,7 @@ export async function testDatabaseOperations() {
 
     // Test select
     console.log('Testing select...');
-    const { data: selectData, error: selectError } = await supabase!
+    const { error: selectError } = await supabase!
       .from('sessions')
       .select('*')
       .eq('id', insertData.id)

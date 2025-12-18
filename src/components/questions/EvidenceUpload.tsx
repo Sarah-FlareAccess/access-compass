@@ -30,8 +30,12 @@ const DOCUMENT_TYPES = [
   'text/plain',
 ];
 
-// Max file size (5MB for localStorage compatibility)
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
+// Max file size (2MB for localStorage compatibility - images will be compressed)
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
+
+// Image compression settings
+const MAX_IMAGE_DIMENSION = 800; // Max width or height
+const IMAGE_QUALITY = 0.6; // JPEG quality (0-1)
 
 export function EvidenceUpload({
   evidence,
@@ -93,15 +97,27 @@ export function EvidenceUpload({
         continue;
       }
 
-      // Convert to base64
+      // Convert to base64 (compress photos, keep documents as-is)
       try {
-        const dataUrl = await fileToBase64(file);
+        let dataUrl: string;
+        if (isPhoto) {
+          // Compress images to reduce localStorage usage
+          dataUrl = await compressImage(file);
+        } else {
+          // Documents stored as-is (check size limit)
+          if (file.size > MAX_FILE_SIZE) {
+            setError(`Document "${file.name}" is too large. Maximum size is 2MB.`);
+            continue;
+          }
+          dataUrl = await fileToBase64(file);
+        }
+
         newEvidence.push({
           id: generateId(),
           type: isPhoto ? 'photo' : 'document',
           name: file.name,
           dataUrl,
-          mimeType: file.type,
+          mimeType: isPhoto ? 'image/jpeg' : file.type, // Photos converted to JPEG
           size: file.size,
           uploadedAt: new Date().toISOString(),
         });
@@ -120,7 +136,53 @@ export function EvidenceUpload({
     }
   }, [evidence, maxFiles, onEvidenceChange]);
 
-  // Convert file to base64
+  // Compress image using canvas
+  const compressImage = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      img.onload = () => {
+        // Calculate new dimensions
+        let { width, height } = img;
+
+        if (width > height) {
+          if (width > MAX_IMAGE_DIMENSION) {
+            height = Math.round((height * MAX_IMAGE_DIMENSION) / width);
+            width = MAX_IMAGE_DIMENSION;
+          }
+        } else {
+          if (height > MAX_IMAGE_DIMENSION) {
+            width = Math.round((width * MAX_IMAGE_DIMENSION) / height);
+            height = MAX_IMAGE_DIMENSION;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // Draw and compress
+        ctx?.drawImage(img, 0, 0, width, height);
+
+        // Convert to JPEG for better compression
+        const dataUrl = canvas.toDataURL('image/jpeg', IMAGE_QUALITY);
+        resolve(dataUrl);
+      };
+
+      img.onerror = () => reject(new Error('Failed to load image'));
+
+      // Read file as data URL to load into image
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsDataURL(file);
+    });
+  };
+
+  // Convert file to base64 (for documents)
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -218,9 +280,21 @@ export function EvidenceUpload({
         className="evidence-toggle-btn"
         onClick={() => setIsExpanded(true)}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
-        </svg>
+        <span className="evidence-toggle-icons">
+          {allowedTypes.includes('photo') && (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          )}
+          {allowedTypes.includes('document') && (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+          )}
+        </span>
         Add evidence (optional)
       </button>
     );
@@ -345,10 +419,9 @@ export function EvidenceUpload({
       </div>
 
       <p className="evidence-note">
-        Supported: {allowedTypes.includes('photo') && 'Images (JPG, PNG) '}
-        {allowedTypes.includes('document') && 'Documents (PDF, Word) '}
+        Supported: {allowedTypes.includes('photo') && 'Images (JPG, PNG - auto-compressed) '}
+        {allowedTypes.includes('document') && 'Documents (PDF, Word - max 2MB) '}
         {allowedTypes.includes('link') && 'Links'}
-        {' · Max 5MB per file'}
       </p>
     </div>
   );

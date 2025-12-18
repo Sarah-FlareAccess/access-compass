@@ -89,6 +89,10 @@ export interface StoredDiscoveryData {
   recommendation_result: RecommendationResult;
   review_mode: ReviewMode;
   recommended_modules: string[];
+  // Calibration data (optional)
+  budget_range?: string;
+  work_approach?: string;
+  action_timing?: string;
 }
 
 // Get discovery data

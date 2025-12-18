@@ -75,7 +75,7 @@ export default function Dashboard() {
   }, [discoveryData, session]);
 
   // Module progress hook
-  const { progress, isLoading: progressLoading, getOverallProgress, updateModuleOwnership } = useModuleProgress(recommendedModuleIds);
+  const { progress, isLoading: progressLoading, updateModuleOwnership } = useModuleProgress(recommendedModuleIds);
 
   // Assignment modal state
   const [assignmentModal, setAssignmentModal] = useState<{
@@ -95,7 +95,7 @@ export default function Dashboard() {
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
   // DIAP management hook
-  const { items: diapItems, getStats: getDIAPStats } = useDIAPManagement();
+  const { getStats: getDIAPStats } = useDIAPManagement();
 
   // Load session and discovery data
   useEffect(() => {

@@ -61,7 +61,7 @@ export default function Disclaimer() {
 
           <div className="disclaimer-actions">
             <Link to="/" className="btn btn-secondary">
-              Back
+              ← Back
             </Link>
             <button
               className="btn btn-primary"

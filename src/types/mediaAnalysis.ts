@@ -67,6 +67,7 @@ export interface MediaAnalysisResult {
   fileSize?: number;
   url?: string;               // For URL-based analysis
   thumbnailDataUrl?: string;  // Preview image (base64)
+  photoPreviews?: string[];   // Multiple photo previews (base64 data URLs)
 
   // Analysis metadata
   analysisDate: string;

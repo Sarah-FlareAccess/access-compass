@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { initializeSession, updateBusinessSnapshot, getSession } from '../utils/session';
+import { initializeSession, updateBusinessSnapshot } from '../utils/session';
 import type { BusinessSnapshot, BusinessType, UserRole, OrganisationSize } from '../types';
 import '../styles/form-page.css';
 
@@ -66,6 +66,7 @@ const organisationSizeOptions: { value: OrganisationSize; label: string; descrip
   { value: 'small', label: 'Small', description: '1-20 staff' },
   { value: 'medium', label: 'Medium', description: '21-100 staff' },
   { value: 'large', label: 'Large', description: '100+ staff' },
+  { value: 'enterprise', label: 'Enterprise', description: 'Multi-site or precinct' },
 ];
 
 export default function BusinessSnapshotPage() {
@@ -78,6 +79,7 @@ export default function BusinessSnapshotPage() {
     has_physical_venue: false,
     has_online_presence: false,
     serves_public_customers: false,
+    has_online_services: false,
   });
 
   useEffect(() => {
@@ -208,96 +210,6 @@ export default function BusinessSnapshotPage() {
                 <option value="operations-lead">Operations Lead</option>
                 <option value="other">Other</option>
               </select>
-            </div>
-
-            {/* Physical Venue */}
-            <div className="form-group">
-              <label>
-                Do you have a physical venue customers visit? <span className="required">*</span>
-              </label>
-              <div className="radio-group">
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="has_physical_venue"
-                    checked={formData.has_physical_venue === true}
-                    onChange={() => setFormData({ ...formData, has_physical_venue: true })}
-                    required
-                  />
-                  <span>Yes</span>
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="has_physical_venue"
-                    checked={formData.has_physical_venue === false}
-                    onChange={() => setFormData({ ...formData, has_physical_venue: false })}
-                    required
-                  />
-                  <span>No</span>
-                </label>
-              </div>
-            </div>
-
-            {/* Online Presence */}
-            <div className="form-group">
-              <label>
-                Do you have an online presence (website, booking system)?{' '}
-                <span className="required">*</span>
-              </label>
-              <div className="radio-group">
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="has_online_presence"
-                    checked={formData.has_online_presence === true}
-                    onChange={() => setFormData({ ...formData, has_online_presence: true })}
-                    required
-                  />
-                  <span>Yes</span>
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="has_online_presence"
-                    checked={formData.has_online_presence === false}
-                    onChange={() => setFormData({ ...formData, has_online_presence: false })}
-                    required
-                  />
-                  <span>No</span>
-                </label>
-              </div>
-            </div>
-
-            {/* Public-Facing Customers */}
-            <div className="form-group">
-              <label>
-                Do you serve public-facing customers? <span className="required">*</span>
-              </label>
-              <div className="radio-group">
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="serves_public_customers"
-                    checked={formData.serves_public_customers === true}
-                    onChange={() => setFormData({ ...formData, serves_public_customers: true })}
-                    required
-                  />
-                  <span>Yes</span>
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="serves_public_customers"
-                    checked={formData.serves_public_customers === false}
-                    onChange={() =>
-                      setFormData({ ...formData, serves_public_customers: false })
-                    }
-                    required
-                  />
-                  <span>No</span>
-                </label>
-              </div>
             </div>
 
             {/* Buttons */}

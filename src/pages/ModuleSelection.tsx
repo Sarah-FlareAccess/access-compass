@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSession, updateSelectedModules } from '../utils/session';
 import { accessModules, moduleGroups } from '../data/accessModules';
+import type { ModuleType } from '../types';
 import '../styles/module-selection.css';
 
 export default function ModuleSelection() {
@@ -11,7 +12,7 @@ export default function ModuleSelection() {
   useEffect(() => {
     const session = getSession();
     // Check for business_types (new) or business_type (legacy)
-    const hasBusinessInfo = session?.business_snapshot?.business_types?.length > 0 ||
+    const hasBusinessInfo = (session?.business_snapshot?.business_types?.length ?? 0) > 0 ||
                             session?.business_snapshot?.business_type;
     if (!session || !hasBusinessInfo) {
       // Redirect to business snapshot if not completed
@@ -65,7 +66,7 @@ export default function ModuleSelection() {
     }
 
     // Save selected modules
-    updateSelectedModules(selectedModules);
+    updateSelectedModules(selectedModules as ModuleType[]);
 
     // Navigate to discovery flow starting at calibration step
     navigate('/discovery?step=calibration');

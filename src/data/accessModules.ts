@@ -242,6 +242,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        allowPartial: true, // Some pages may have good contrast, others not
       },
       {
         id: 'B4.1-1-4',
@@ -1107,6 +1108,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        allowPartial: true, // Multiple elements: contrast, font size, clarity
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload photos of your wayfinding signage',

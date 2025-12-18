@@ -5,6 +5,7 @@ import './discovery.css';
 interface TouchpointBlock {
   id: string;
   label: string;
+  labelOnline?: string;
   touchpoints: Touchpoint[];
 }
 
@@ -25,16 +26,18 @@ interface JourneyPhaseSectionProps {
   isFirst?: boolean;
   isLast?: boolean;
   bgColorClass: string;
+  useOnlineLabels?: boolean; // Whether to use online-specific labels
 }
 
 const ICON_MAP: Record<string, string> = {
   'search': '🔍',
   'map-pin': '📍',
   'message-circle': '💬',
+  'users': '👥',
 };
 
 export function JourneyPhaseSection({
-  phaseId,
+  phaseId: _phaseId,
   label,
   subLabel,
   description,
@@ -48,6 +51,7 @@ export function JourneyPhaseSection({
   isOpen,
   onOpenChange,
   bgColorClass,
+  useOnlineLabels = false,
 }: JourneyPhaseSectionProps) {
   const [expandedTouchpoints, setExpandedTouchpoints] = useState<string[]>([]);
 
@@ -79,6 +83,10 @@ export function JourneyPhaseSection({
     const isExpanded = expandedTouchpoints.includes(touchpoint.id);
     const hasSubTouchpoints = touchpoint.subTouchpoints && touchpoint.subTouchpoints.length > 0;
 
+    // Use online-specific labels when applicable
+    const touchpointLabel = useOnlineLabels && touchpoint.labelOnline ? touchpoint.labelOnline : touchpoint.label;
+    const touchpointDescription = useOnlineLabels && touchpoint.descriptionOnline ? touchpoint.descriptionOnline : touchpoint.description;
+
     return (
       <div key={touchpoint.id} className="touchpoint-wrapper">
         <div
@@ -93,8 +101,8 @@ export function JourneyPhaseSection({
             className="touchpoint-checkbox"
           />
           <div className="touchpoint-content">
-            <div className="touchpoint-label">{touchpoint.label}</div>
-            <div className="touchpoint-description">{touchpoint.description}</div>
+            <div className="touchpoint-label">{touchpointLabel}</div>
+            <div className="touchpoint-description">{touchpointDescription}</div>
           </div>
           {hasSubTouchpoints && isSelected && (
             <button
@@ -179,14 +187,17 @@ export function JourneyPhaseSection({
           {/* Render by blocks if provided, otherwise flat list */}
           {touchpointBlocks && touchpointBlocks.length > 0 ? (
             <div className="touchpoint-blocks">
-              {touchpointBlocks.map((block) => (
-                <div key={block.id} className="touchpoint-block">
-                  <h4 className="block-label">{block.label}</h4>
-                  <div className="touchpoint-list">
-                    {block.touchpoints.map(renderTouchpoint)}
+              {touchpointBlocks.map((block) => {
+                const blockLabel = useOnlineLabels && block.labelOnline ? block.labelOnline : block.label;
+                return (
+                  <div key={block.id} className="touchpoint-block">
+                    <h4 className="block-label">{blockLabel}</h4>
+                    <div className="touchpoint-list">
+                      {block.touchpoints.map(renderTouchpoint)}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="touchpoint-list">

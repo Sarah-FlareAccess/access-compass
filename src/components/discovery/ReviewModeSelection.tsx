@@ -84,9 +84,9 @@ export function ReviewModeSelection({
       <div className="discovery-container">
         {/* Header */}
         <div className="discovery-header-card">
-          <h1 className="discovery-title">How far do you want to take this?</h1>
+          <h1 className="discovery-title">Select your pathway</h1>
           <p className="discovery-subtitle">
-            Choose the level of guidance that best matches your goals.
+            Choose the level of support that fits where you're at right now.
           </p>
           {smartRecommendation && (
             <p className="smart-recommendation">

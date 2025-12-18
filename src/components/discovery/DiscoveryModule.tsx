@@ -1,14 +1,13 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { ReviewMode, DiscoveryData, RecommendationResult } from '../../types';
 import { JOURNEY_PHASES, getTouchpointBlocks } from '../../data/touchpoints';
 import {
   generateRecommendations,
-  groupModulesByJourney,
   moduleIdsToCodes,
   calculateDepthRecommendation,
+  MODULES,
 } from '../../lib/recommendationEngine';
 import { JourneyPhaseSection } from './JourneyPhaseSection';
-import { ModuleRecommendationCard } from './ModuleRecommendationCard';
 import './discovery.css';
 
 interface DiscoveryModuleProps {
@@ -36,6 +35,24 @@ export function DiscoveryModule({
   const [selectedSubTouchpoints, setSelectedSubTouchpoints] = useState<string[]>([]);
   const [openPhases, setOpenPhases] = useState<string[]>(['before-arrival']);
   const [currentStep, setCurrentStep] = useState<'touchpoints' | 'recommendation'>('touchpoints');
+
+  // Business context questions
+  const [hasPhysicalVenue, setHasPhysicalVenue] = useState<boolean | null>(null);
+  const [hasOnlinePresence, setHasOnlinePresence] = useState<boolean | null>(null);
+  const [servesPublicCustomers, setServesPublicCustomers] = useState<boolean | null>(null);
+  const [hasOnlineServices, setHasOnlineServices] = useState<boolean | null>(null);
+
+  // Customized module selection (user can modify recommendations)
+  const [customSelectedModules, setCustomSelectedModules] = useState<string[]>([]);
+  const [showAllModules, setShowAllModules] = useState(false);
+
+  const toggleModuleSelection = (moduleId: string) => {
+    setCustomSelectedModules(prev =>
+      prev.includes(moduleId)
+        ? prev.filter(id => id !== moduleId)
+        : [...prev, moduleId]
+    );
+  };
 
   const toggleTouchpoint = (id: string) => {
     setSelectedTouchpoints(prev => {
@@ -88,14 +105,83 @@ export function DiscoveryModule({
     return calculateDepthRecommendation(selectedTouchpoints);
   }, [selectedTouchpoints]);
 
+  // Filter journey phases based on business context answers
+  const filteredJourneyPhases = useMemo(() => {
+    // Only filter once all context questions are answered
+    const allAnswered = hasPhysicalVenue !== null && hasOnlinePresence !== null;
+
+    if (!allAnswered) {
+      // Show all phases until questions are answered
+      return JOURNEY_PHASES;
+    }
+
+    return JOURNEY_PHASES.filter(phase => {
+      // "When they're here" phase is only relevant for physical venues
+      if (phase.id === 'when-here' && !hasPhysicalVenue) {
+        return false;
+      }
+
+      // These phases are always relevant (apply to both online and physical businesses):
+      // - "before-arrival": finding info, planning, booking
+      // - "customer-service": staff interaction, service flexibility
+      // - "staying-connected": feedback, ongoing communication
+      return true;
+    }).map(phase => {
+      // For the "before-arrival" phase, filter touchpoints based on context
+      if (phase.id === 'before-arrival') {
+        let filteredTouchpoints = [...phase.touchpoints];
+
+        // If no online presence, filter out purely online touchpoints
+        if (!hasOnlinePresence) {
+          filteredTouchpoints = filteredTouchpoints.filter(tp => {
+            // Keep enquiries (can be phone-based)
+            // Keep costs-policies (general info)
+            // Filter finding-online if no online presence
+            if (tp.id === 'finding-online') return false;
+            return true;
+          });
+        }
+
+        // If no physical venue, adjust descriptions or filter physical-only items
+        // (most before-arrival touchpoints apply to online businesses too)
+
+        return {
+          ...phase,
+          touchpoints: filteredTouchpoints,
+          blocks: phase.blocks?.map(block => ({
+            ...block,
+            touchpointIds: block.touchpointIds.filter(id =>
+              filteredTouchpoints.some(tp => tp.id === id)
+            ),
+          })).filter(block => block.touchpointIds.length > 0),
+        };
+      }
+
+      return phase;
+    });
+  }, [hasPhysicalVenue, hasOnlinePresence]);
+
+  // Check if any journey phases will be shown
+  const hasRelevantPhases = filteredJourneyPhases.length > 0;
+
+  // Initialize custom module selection when entering recommendation step
+  useEffect(() => {
+    if (currentStep === 'recommendation' && customSelectedModules.length === 0) {
+      // Initialize with all recommended modules
+      const allRecommended = [
+        ...recommendationResult.recommendedModules.map(m => m.moduleId),
+        ...recommendationResult.alsoRelevant.map(m => m.moduleId),
+      ];
+      setCustomSelectedModules(allRecommended);
+    }
+  }, [currentStep, recommendationResult, customSelectedModules.length]);
+
   const handleContinue = () => {
     if (currentStep === 'touchpoints') {
       setCurrentStep('recommendation');
     } else {
-      // Convert module IDs to codes for backward compatibility
-      const moduleCodes = moduleIdsToCodes(
-        recommendationResult.recommendedModules.map(m => m.moduleId)
-      );
+      // Use custom selected modules (user may have modified)
+      const moduleCodes = moduleIdsToCodes(customSelectedModules);
 
       onComplete({
         selectedTouchpoints,
@@ -147,39 +233,199 @@ export function DiscoveryModule({
               <p className="discovery-note">
                 This is not an assessment. You're simply sharing context so we can tailor what comes next.
               </p>
-              {/* Journey orientation cue */}
+              {/* Journey orientation cue - dynamic based on business context */}
               <div className="journey-orientation">
                 <span>Before arrival</span>
                 <span className="arrow">→</span>
-                <span>During visit</span>
+                {(hasPhysicalVenue === null || hasPhysicalVenue === true) && (
+                  <>
+                    <span>Physical space</span>
+                    <span className="arrow">→</span>
+                  </>
+                )}
+                <span>Customer service</span>
                 <span className="arrow">→</span>
                 <span>Staying connected</span>
               </div>
             </div>
 
+            {/* Business Context Questions */}
+            <div className="business-context-questions">
+              {/* Physical Venue */}
+              <div className="context-question">
+                <label>
+                  Do you have a physical venue customers visit? <span className="required">*</span>
+                </label>
+                <p className="field-helper">e.g. shop, office, facility, or site</p>
+                <div className="radio-group">
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="has_physical_venue"
+                      checked={hasPhysicalVenue === true}
+                      onChange={() => setHasPhysicalVenue(true)}
+                      required
+                    />
+                    <span>Yes</span>
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="has_physical_venue"
+                      checked={hasPhysicalVenue === false}
+                      onChange={() => setHasPhysicalVenue(false)}
+                      required
+                    />
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Online Presence */}
+              <div className="context-question">
+                <label>
+                  Do you have an online presence (website, booking system)?{' '}
+                  <span className="required">*</span>
+                </label>
+                <p className="field-helper">e.g. website, app, online booking, or digital services</p>
+                <div className="radio-group">
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="has_online_presence"
+                      checked={hasOnlinePresence === true}
+                      onChange={() => setHasOnlinePresence(true)}
+                      required
+                    />
+                    <span>Yes</span>
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="has_online_presence"
+                      checked={hasOnlinePresence === false}
+                      onChange={() => setHasOnlinePresence(false)}
+                      required
+                    />
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Public-Facing Customers */}
+              <div className="context-question">
+                <label>
+                  Do you serve public-facing customers? <span className="required">*</span>
+                </label>
+                <p className="field-helper">e.g. visitors, guests, clients, or members of the public</p>
+                <div className="radio-group">
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="serves_public_customers"
+                      checked={servesPublicCustomers === true}
+                      onChange={() => setServesPublicCustomers(true)}
+                      required
+                    />
+                    <span>Yes</span>
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="serves_public_customers"
+                      checked={servesPublicCustomers === false}
+                      onChange={() => setServesPublicCustomers(false)}
+                      required
+                    />
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Online Services */}
+              <div className="context-question">
+                <label>
+                  Do you operate online services? <span className="required">*</span>
+                </label>
+                <p className="field-helper">e.g. online retail, business coaching, consulting, digital services</p>
+                <div className="radio-group">
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="has_online_services"
+                      checked={hasOnlineServices === true}
+                      onChange={() => setHasOnlineServices(true)}
+                      required
+                    />
+                    <span>Yes</span>
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="has_online_services"
+                      checked={hasOnlineServices === false}
+                      onChange={() => setHasOnlineServices(false)}
+                      required
+                    />
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Context-aware message */}
+            {hasPhysicalVenue === false && hasOnlinePresence !== null && (
+              <div className="context-message">
+                <span className="context-icon">💡</span>
+                <p>
+                  Since you don't have a physical venue, we've tailored the journey to focus on
+                  digital touchpoints. Physical premises questions have been removed.
+                </p>
+              </div>
+            )}
+
+            {hasOnlinePresence === false && hasPhysicalVenue !== null && (
+              <div className="context-message">
+                <span className="context-icon">💡</span>
+                <p>
+                  Since you don't have an online presence, we've adjusted the journey to focus on
+                  in-person touchpoints. Some digital-only questions have been removed.
+                </p>
+              </div>
+            )}
+
             {/* Journey Phase Cards */}
             <div className="journey-phases">
-              {JOURNEY_PHASES.map((phase, index) => (
-                <JourneyPhaseSection
-                  key={phase.id}
-                  phaseId={phase.id}
-                  label={phase.label}
-                  subLabel={phase.subLabel}
-                  description={phase.description}
-                  icon={phase.icon}
-                  touchpoints={phase.touchpoints}
-                  touchpointBlocks={getTouchpointBlocks(phase)}
-                  selectedTouchpoints={selectedTouchpoints}
-                  selectedSubTouchpoints={selectedSubTouchpoints}
-                  onToggleTouchpoint={toggleTouchpoint}
-                  onToggleSubTouchpoint={toggleSubTouchpoint}
-                  isOpen={openPhases.includes(phase.id)}
-                  onOpenChange={(open) => togglePhaseOpen(phase.id, open)}
-                  isFirst={index === 0}
-                  isLast={index === JOURNEY_PHASES.length - 1}
-                  bgColorClass={phase.bgColorClass}
-                />
-              ))}
+              {filteredJourneyPhases.map((phase, index) => {
+                // Use online-specific labels when user has no physical venue
+                const useOnlineLabels = hasPhysicalVenue === false;
+                const phaseLabel = useOnlineLabels && phase.labelOnline ? phase.labelOnline : phase.label;
+                const phaseSubLabel = useOnlineLabels && phase.subLabelOnline ? phase.subLabelOnline : phase.subLabel;
+                const phaseDescription = useOnlineLabels && phase.descriptionOnline ? phase.descriptionOnline : phase.description;
+
+                return (
+                  <JourneyPhaseSection
+                    key={phase.id}
+                    phaseId={phase.id}
+                    label={phaseLabel}
+                    subLabel={phaseSubLabel}
+                    description={phaseDescription}
+                    icon={phase.icon}
+                    touchpoints={phase.touchpoints}
+                    touchpointBlocks={getTouchpointBlocks(phase)}
+                    selectedTouchpoints={selectedTouchpoints}
+                    selectedSubTouchpoints={selectedSubTouchpoints}
+                    onToggleTouchpoint={toggleTouchpoint}
+                    onToggleSubTouchpoint={toggleSubTouchpoint}
+                    isOpen={openPhases.includes(phase.id)}
+                    onOpenChange={(open) => togglePhaseOpen(phase.id, open)}
+                    isFirst={index === 0}
+                    isLast={index === filteredJourneyPhases.length - 1}
+                    bgColorClass={phase.bgColorClass}
+                    useOnlineLabels={useOnlineLabels}
+                  />
+                );
+              })}
             </div>
 
             {/* Actions */}
@@ -191,7 +437,13 @@ export function DiscoveryModule({
                 <button
                   className="btn-continue"
                   onClick={handleContinue}
-                  disabled={selectedTouchpoints.length === 0}
+                  disabled={
+                    selectedTouchpoints.length === 0 ||
+                    hasPhysicalVenue === null ||
+                    hasOnlinePresence === null ||
+                    servesPublicCustomers === null ||
+                    hasOnlineServices === null
+                  }
                 >
                   Continue →
                 </button>
@@ -231,70 +483,137 @@ export function DiscoveryModule({
               </div>
             )}
 
-            {/* All modules as categorized tiles */}
-            {(() => {
-              // Combine all modules
-              const allModules = [
-                ...recommendationResult.recommendedModules,
-                ...recommendationResult.alsoRelevant,
-              ];
+            {/* Selected modules count */}
+            <div className="module-selection-summary">
+              <span className="selection-count-label">
+                {customSelectedModules.length} module{customSelectedModules.length !== 1 ? 's' : ''} selected
+              </span>
+              <span className="selection-time">
+                ~{MODULES.filter(m => customSelectedModules.includes(m.id))
+                  .reduce((sum, m) => sum + m.estimatedTime, 0)} min total
+              </span>
+            </div>
 
-              // Define categories
+            {/* Selectable module tiles by category */}
+            {(() => {
+              // Get recommended module IDs for highlighting
+              const recommendedIds = new Set([
+                ...recommendationResult.recommendedModules.map(m => m.moduleId),
+                ...recommendationResult.alsoRelevant.map(m => m.moduleId),
+              ]);
+
+              // Define categories with all module codes
               const categories = [
                 {
                   id: 'before-visit',
                   label: 'Before visit',
-                  codes: ['B1', 'B2', 'B3', 'B4.1', 'B4.2'],
+                  description: 'Digital presence and pre-arrival information',
+                  codes: ['B1', 'B2', 'B3', 'B4.1', 'B4.2', 'B4.3'],
                 },
                 {
                   id: 'during-visit',
                   label: 'During visit',
-                  codes: ['A1', 'A2', 'A3', 'A3a', 'A6', 'A7', 'C1'],
+                  description: 'Physical space and on-site experience',
+                  codes: ['A1', 'A2', 'A3a', 'A3b', 'A4', 'A5', 'A6', 'A7'],
+                },
+                {
+                  id: 'service',
+                  label: 'Service and support',
+                  description: 'Customer service and communication',
+                  codes: ['C1', 'C2'],
                 },
                 {
                   id: 'after-visit',
                   label: 'After visit',
+                  description: 'Feedback and continuous improvement',
                   codes: ['C3'],
                 },
               ];
 
               return categories.map(category => {
-                const categoryModules = allModules.filter(m =>
-                  category.codes.some(code => m.moduleCode.startsWith(code))
+                // Get all modules for this category
+                const categoryModules = MODULES.filter(m =>
+                  category.codes.includes(m.id)
                 );
 
-                if (categoryModules.length === 0) return null;
+                // Filter based on showAllModules toggle
+                const visibleModules = showAllModules
+                  ? categoryModules
+                  : categoryModules.filter(m =>
+                      recommendedIds.has(m.id) || customSelectedModules.includes(m.id)
+                    );
+
+                if (visibleModules.length === 0) return null;
 
                 return (
                   <div key={category.id} className="module-category">
                     <h3 className="category-label">{category.label}</h3>
-                    <div className="module-tiles">
-                      {categoryModules.map(module => (
-                        <div key={module.moduleId} className="module-tile">
-                          <div className="tile-header">
-                            <span className="tile-name">{module.moduleName}</span>
-                            <span className="tile-code">{module.moduleCode}</span>
-                          </div>
-                          <span className="tile-time">{module.estimatedTime} min</span>
-                          {module.whySuggested && module.whySuggested.triggeringTouchpoints.length > 0 && (
-                            <div className="tile-why">
-                              <span className="why-label">Why suggested</span>
-                              <span className="why-text">
-                                {module.whySuggested.triggeringTouchpoints.slice(0, 2).join('; ')}
-                              </span>
+                    <p className="category-description">{category.description}</p>
+                    <div className="module-tiles selectable">
+                      {visibleModules.map(module => {
+                        const isSelected = customSelectedModules.includes(module.id);
+                        const isRecommended = recommendedIds.has(module.id);
+
+                        return (
+                          <div
+                            key={module.id}
+                            className={`module-tile selectable ${isSelected ? 'selected' : ''} ${isRecommended ? 'recommended' : ''}`}
+                            onClick={() => toggleModuleSelection(module.id)}
+                            role="checkbox"
+                            aria-checked={isSelected}
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                toggleModuleSelection(module.id);
+                              }
+                            }}
+                          >
+                            <div className="tile-checkbox">
+                              <input
+                                type="checkbox"
+                                checked={isSelected}
+                                onChange={() => toggleModuleSelection(module.id)}
+                                onClick={(e) => e.stopPropagation()}
+                              />
                             </div>
-                          )}
-                        </div>
-                      ))}
+                            <div className="tile-content">
+                              <div className="tile-header">
+                                <span className="tile-name">{module.name}</span>
+                                <span className="tile-code">{module.id}</span>
+                              </div>
+                              <span className="tile-time">{module.estimatedTime} min</span>
+                              {isRecommended && (
+                                <span className="tile-badge">Recommended</span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 );
               });
             })()}
 
+            {/* Show more/less modules toggle */}
+            <div className="show-all-toggle">
+              <button
+                className="btn-toggle-modules"
+                onClick={() => setShowAllModules(!showAllModules)}
+              >
+                {showAllModules ? '− Show fewer modules' : '+ Show all available modules'}
+              </button>
+              <p className="toggle-hint">
+                {showAllModules
+                  ? 'Showing all modules. Click to show only recommended.'
+                  : 'Want to add more? Click to see all available modules.'}
+              </p>
+            </div>
+
             {/* Reassurance text */}
             <p className="reassurance-text">
-              You can revisit or refine your discovery responses later from your dashboard.
+              Click modules to add or remove them. Your selections will be saved.
             </p>
 
             {/* Actions */}

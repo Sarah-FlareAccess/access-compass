@@ -12,12 +12,10 @@
 import type {
   JourneyPhase,
   DiscoveryData,
-  DiscoveryResponse,
   ModuleScore,
   RecommendedModule,
   RecommendationResult,
   RecommendationWarning,
-  WhySuggested,
   JourneyGroup,
   CalibrationData,
 } from '../types';
@@ -379,7 +377,7 @@ export function generateRecommendations(
 
 function generateDefaultStarterSet(
   industryId: string,
-  serviceType: string,
+  _serviceType: string,
   reason: 'skipped' | 'insufficient-signal',
   existingWarnings: RecommendationWarning[] = []
 ): RecommendationResult {
@@ -470,7 +468,7 @@ function orderModules(
   });
 }
 
-function toRecommendedModule(score: ModuleScore, discoveryData: DiscoveryData | null): RecommendedModule {
+function toRecommendedModule(score: ModuleScore, _discoveryData: DiscoveryData | null): RecommendedModule {
   const module = MODULES.find(m => m.id === score.moduleId)!;
 
   // Determine "why suggested" type

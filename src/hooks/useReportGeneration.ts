@@ -8,11 +8,12 @@
 
 import { useMemo } from 'react';
 import { useModuleProgress } from './useModuleProgress';
-import type { ModuleProgress, QuestionResponse } from './useModuleProgress';
+import type { ModuleProgress } from './useModuleProgress';
 import { useDIAPManagement } from './useDIAPManagement';
 import type { DIAPItem } from './useDIAPManagement';
 import { getModuleById } from '../data/accessModules';
 import type { ReviewMode } from '../types/index';
+import { needsFollowUp, isNegativeResponse } from '../constants/responseOptions';
 
 export interface ReportSection {
   title: string;
@@ -79,6 +80,31 @@ export interface MediaAnalysisReportResult {
   professionalReviewReason?: string;
 }
 
+// User notes from question responses
+export interface QuestionNote {
+  moduleId: string;
+  moduleName: string;
+  questionId: string;
+  questionText: string;
+  answer: string | null;
+  notes: string;
+  timestamp: string;
+}
+
+// Evidence file attached to a question
+export interface QuestionEvidence {
+  moduleId: string;
+  moduleName: string;
+  questionId: string;
+  questionText: string;
+  evidenceType: 'photo' | 'document' | 'link';
+  fileName: string;
+  dataUrl?: string;
+  url?: string;
+  description?: string;
+  uploadedAt: string;
+}
+
 export interface Report {
   reportType: 'pulse-check' | 'deep-dive';
   generatedAt: string;
@@ -102,6 +128,12 @@ export interface Report {
 
   // Media Analysis results
   mediaAnalysisResults: MediaAnalysisReportResult[];
+
+  // User notes from questions
+  questionNotes: QuestionNote[];
+
+  // Evidence files attached to questions
+  questionEvidence: QuestionEvidence[];
 
   // Main content sections
   sections: {
@@ -186,6 +218,12 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
       // Extract Media analysis results
       const mediaAnalysisResults: MediaAnalysisReportResult[] = [];
 
+      // Extract user notes from questions
+      const questionNotes: QuestionNote[] = [];
+
+      // Extract evidence files from questions
+      const questionEvidence: QuestionEvidence[] = [];
+
       completedModules.forEach(moduleProgress => {
         if (moduleProgress.summary) {
           if (moduleProgress.summary.doingWell) {
@@ -249,6 +287,39 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
               );
             }
           }
+
+          // Extract user notes
+          if (response.notes && response.notes.trim()) {
+            const question = module?.questions.find(q => q.id === response.questionId);
+            questionNotes.push({
+              moduleId: moduleProgress.moduleId,
+              moduleName: module?.name || moduleProgress.moduleCode,
+              questionId: response.questionId,
+              questionText: question?.text || 'Question',
+              answer: response.answer,
+              notes: response.notes,
+              timestamp: response.timestamp,
+            });
+          }
+
+          // Extract evidence files
+          if (response.evidence && response.evidence.length > 0) {
+            const question = module?.questions.find(q => q.id === response.questionId);
+            response.evidence.forEach(ev => {
+              questionEvidence.push({
+                moduleId: moduleProgress.moduleId,
+                moduleName: module?.name || moduleProgress.moduleCode,
+                questionId: response.questionId,
+                questionText: question?.text || 'Question',
+                evidenceType: ev.type,
+                fileName: ev.name,
+                dataUrl: ev.dataUrl,
+                url: ev.url,
+                description: ev.description,
+                uploadedAt: ev.uploadedAt,
+              });
+            });
+          }
         });
       });
 
@@ -281,6 +352,8 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
         moduleEvidence,
         urlAnalysisResults,
         mediaAnalysisResults,
+        questionNotes,
+        questionEvidence,
         sections: {
           strengths: {
             title: "What's Going Well",
@@ -324,7 +397,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
 }
 
 // Helper: Identify quick wins
-function identifyQuickWins(completedModules: ModuleProgress[], diapItems: DIAPItem[]): QuickWin[] {
+function identifyQuickWins(_completedModules: ModuleProgress[], diapItems: DIAPItem[]): QuickWin[] {
   const quickWins: QuickWin[] = [];
 
   // Look for low-effort, high-impact actions
@@ -361,7 +434,7 @@ function assessProfessionalSupport(
 
   completedModules.forEach(module => {
     module.responses.forEach(response => {
-      if (response.answer === 'no' || response.answer === 'not-sure') {
+      if (isNegativeResponse(response.answer) || needsFollowUp(response.answer)) {
         const hasStructuralKeyword = structuralKeywords.some(keyword =>
           JSON.stringify(response).toLowerCase().includes(keyword)
         );
@@ -378,15 +451,15 @@ function assessProfessionalSupport(
     detected: structuralIssuesDetected,
   });
 
-  // Check for uncertainty
-  const uncertaintyCount = completedModules.reduce((count, module) => {
-    return count + module.responses.filter(r => r.answer === 'not-sure' || r.answer === 'too-hard').length;
+  // Check for items needing follow-up ("Unable to check" responses)
+  const followUpCount = completedModules.reduce((count, module) => {
+    return count + module.responses.filter(r => needsFollowUp(r.answer)).length;
   }, 0);
 
   indicators.push({
-    category: 'Complex Assessment',
-    reason: "You're unsure how different access elements work together",
-    detected: uncertaintyCount > 5,
+    category: 'Areas to Confirm',
+    reason: 'Some items need follow-up or verification',
+    detected: followUpCount > 5,
   });
 
   // Check for professional review items
@@ -441,12 +514,12 @@ function generateNextSteps(
     exploreNow.push('Review areas marked as opportunities to improve');
   }
 
-  const uncertainResponses = completedModules.reduce((count, module) => {
-    return count + module.responses.filter(r => r.answer === 'not-sure').length;
+  const toConfirmResponses = completedModules.reduce((count, module) => {
+    return count + module.responses.filter(r => needsFollowUp(r.answer)).length;
   }, 0);
 
-  if (uncertainResponses > 0) {
-    exploreNow.push('Clarify any "Not sure" responses with your team');
+  if (toConfirmResponses > 0) {
+    exploreNow.push('Follow up on "Unable to check" items with your team');
   }
 
   exploreNow.push('Identify quick wins that require minimal effort');
@@ -481,25 +554,26 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
     if (!module) return null;
 
     const issues = moduleProgress.responses
-      .filter(response => response.answer === 'no' || response.answer === 'not-sure')
+      .filter(response => isNegativeResponse(response.answer) || needsFollowUp(response.answer))
       .map(response => {
         // Find the question
         const question = module.questions.find(q => q.id === response.questionId);
         if (!question) return null;
 
         // Determine priority based on answer and question metadata
+        // 'no' = high priority, 'unable-to-check' = medium priority (needs follow-up, not a failure)
         const priority: 'high' | 'medium' | 'low' =
-          response.answer === 'no' ? 'high' :
-          response.answer === 'not-sure' ? 'medium' : 'low';
+          isNegativeResponse(response.answer) ? 'high' :
+          needsFollowUp(response.answer) ? 'medium' : 'low';
 
         // Generate reasoning
-        const reasoning = response.answer === 'no'
+        const reasoning = isNegativeResponse(response.answer)
           ? 'This accessibility feature is currently not in place, creating a potential barrier for customers with disabilities.'
-          : 'There is uncertainty about this accessibility feature, which may indicate a gap in current knowledge or inconsistent implementation.';
+          : 'This item needs follow-up to confirm. This may indicate a need for additional information or verification from another team member.';
 
         // Generate recommended actions based on question type
         const recommendedActions: string[] = [];
-        if (response.answer === 'no') {
+        if (isNegativeResponse(response.answer)) {
           recommendedActions.push(`Assess feasibility of implementing ${question.text.toLowerCase().replace(/\?$/, '')}`);
           recommendedActions.push('Consult with accessibility expert if needed');
           recommendedActions.push('Create action plan with timeline and budget');

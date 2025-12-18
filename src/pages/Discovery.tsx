@@ -3,9 +3,9 @@ import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { DiscoveryModule, ReviewModeSelection, CalibrationQuestions } from '../components/discovery';
 import { getSession, getDiscoveryData, updateDiscoveryData, updateSelectedModules } from '../utils/session';
 import { calculateDepthRecommendation } from '../lib/recommendationEngine';
-import { getTouchpointById, JOURNEY_PHASES } from '../data/touchpoints';
+import { JOURNEY_PHASES } from '../data/touchpoints';
 import { accessModules } from '../data/accessModules';
-import type { ReviewMode, RecommendationResult, CalibrationData } from '../types';
+import type { ReviewMode, RecommendationResult, CalibrationData, ModuleType } from '../types';
 import '../components/discovery/discovery.css';
 
 type DiscoveryStep = 'summary' | 'discovery' | 'calibration' | 'pathway-decision';
@@ -16,16 +16,21 @@ function Discovery() {
   const session = getSession();
   const existingDiscovery = getDiscoveryData();
 
-  // Check if user has existing discovery data
-  const hasExistingDiscovery = existingDiscovery?.recommended_modules && existingDiscovery.recommended_modules.length > 0;
+  // Check if user has existing discovery data with actual touchpoints selected
+  const hasExistingDiscovery = existingDiscovery?.discovery_data?.selectedTouchpoints &&
+    existingDiscovery.discovery_data.selectedTouchpoints.length > 0;
 
   // Check if coming from manual module selection
   const fromModuleSelection = searchParams.get('step') === 'calibration';
 
+  // Check if explicitly reviewing existing discovery (from dashboard)
+  const isReviewMode = searchParams.get('review') === 'true';
+
   // Determine initial step
   const getInitialStep = (): DiscoveryStep => {
     if (fromModuleSelection) return 'calibration';
-    if (hasExistingDiscovery) return 'summary';
+    // Only show summary if explicitly reviewing AND has actual touchpoints
+    if (isReviewMode && hasExistingDiscovery) return 'summary';
     return 'discovery';
   };
 
@@ -47,14 +52,6 @@ function Discovery() {
   const industryId = session?.business_snapshot?.business_types?.[0] || 'other';
   const organisationSize = session?.business_snapshot?.organisation_size || 'small';
 
-  // Get touchpoint names for display
-  const getSelectedTouchpointNames = () => {
-    const touchpointIds = existingDiscovery?.discovery_data?.selectedTouchpoints || [];
-    return touchpointIds.map(id => {
-      const touchpoint = getTouchpointById(id);
-      return touchpoint?.label || id;
-    });
-  };
 
   // Get module names for display
   const getRecommendedModuleNames = () => {
@@ -95,52 +92,89 @@ function Discovery() {
 
   const handleCalibrationComplete = (data: CalibrationData) => {
     setCalibrationData(data);
-    setCurrentStep('pathway-decision');
-  };
 
-  const handlePathwaySelect = (mode: ReviewMode) => {
-    // Get selected modules from session (either from discovery or manual selection)
+    // Calculate recommendation based on calibration data
+    const { budget, workApproach, timing } = data;
+    const deepDiveSignals = [];
+    const pulseCheckSignals = [];
+
+    // Budget signals
+    if (budget === 'significant' || budget === 'moderate') {
+      deepDiveSignals.push('investment');
+    } else if (budget === 'minimal') {
+      pulseCheckSignals.push('budget');
+    }
+
+    // Work approach signals
+    if (workApproach === 'with-team' || workApproach === 'external-support') {
+      deepDiveSignals.push('team');
+    } else if (workApproach === 'myself') {
+      pulseCheckSignals.push('solo');
+    }
+
+    // Timing signals
+    if (timing === 'now' || timing === 'next-3-months') {
+      deepDiveSignals.push('timing');
+    } else if (timing === 'later') {
+      pulseCheckSignals.push('timing');
+    }
+
+    // Organisation size factor
+    if (organisationSize === 'large' || organisationSize === 'enterprise') {
+      deepDiveSignals.push('size');
+    }
+
+    // Determine recommended mode
+    const recommendedMode = deepDiveSignals.length >= 2 ? 'deep_dive' : 'pulse';
+
+    // Get selected modules from session
     const selectedModules = discoveryResults?.recommendedModules || session?.selected_modules || [];
 
-    // Save all discovery data including calibration and selected pathway
+    // Save all discovery data including calibration
     updateDiscoveryData({
       discovery_data: {
         selectedTouchpoints: discoveryResults?.selectedTouchpoints || [],
         selectedSubTouchpoints: discoveryResults?.selectedSubTouchpoints || [],
       },
       recommendation_result: discoveryResults?.recommendationResult || ({} as RecommendationResult),
-      review_mode: mode,
+      review_mode: recommendedMode,
       recommended_modules: selectedModules,
-      budget_range: calibrationData?.budget,
-      work_approach: calibrationData?.workApproach,
-      action_timing: calibrationData?.timing,
+      budget_range: data.budget,
+      work_approach: data.workApproach,
+      action_timing: data.timing,
     });
 
     // Save the modules as selected modules (if from discovery flow)
     if (discoveryResults) {
-      updateSelectedModules(discoveryResults.recommendedModules);
+      updateSelectedModules(discoveryResults.recommendedModules as ModuleType[]);
     }
 
-    // Navigate directly to dashboard
-    navigate('/dashboard');
+    // Navigate directly to decision page with recommendation
+    console.log('Navigating to decision with recommendation:', recommendedMode);
+    navigate(`/decision?recommended=${recommendedMode}`);
+  };
+
+  const handlePathwaySelect = (mode: ReviewMode) => {
+    // This is now unused but keeping for backwards compatibility
+    navigate('/decision');
   };
 
   const handleBack = () => {
-    if (currentStep === 'pathway-decision') {
-      setCurrentStep('calibration');
-    } else if (currentStep === 'calibration') {
+    if (currentStep === 'calibration') {
       if (fromModuleSelection) {
         navigate('/modules');
       } else {
         setCurrentStep('discovery');
       }
     } else if (currentStep === 'discovery') {
-      if (hasExistingDiscovery) {
+      // Only go back to summary if in review mode, otherwise go to business snapshot
+      if (isReviewMode && hasExistingDiscovery) {
         setCurrentStep('summary');
       } else {
         navigate('/start');
       }
     } else {
+      // From summary, go back to dashboard
       navigate('/dashboard');
     }
   };
@@ -237,7 +271,7 @@ function Discovery() {
           {/* Actions */}
           <div className="summary-actions">
             <Link to="/dashboard" className="btn-secondary">
-              Back to Dashboard
+              ← Back to Dashboard
             </Link>
             <button className="btn-primary" onClick={handleMakeChanges}>
               Make Changes
@@ -265,18 +299,6 @@ function Discovery() {
           onComplete={handleCalibrationComplete}
           onBack={handleBack}
           touchpointCount={discoveryResults?.selectedTouchpoints.length || session?.selected_modules?.length || 0}
-        />
-      )}
-
-      {currentStep === 'pathway-decision' && (discoveryResults || fromModuleSelection) && (
-        <ReviewModeSelection
-          recommendedMode={depthRecommendation.recommendedDepth}
-          onSelect={handlePathwaySelect}
-          onBack={handleBack}
-          touchpointCount={depthRecommendation.touchpointCount}
-          reasoning={depthRecommendation.reasoning}
-          calibrationData={calibrationData}
-          organisationSize={organisationSize}
         />
       )}
     </>

@@ -5,7 +5,7 @@
  * Handles navigation, progress tracking, and summary generation.
  */
 
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { QuestionCard } from './QuestionCard';
 import { ModuleSummaryCard } from './ModuleSummaryCard';
 import { ReviewSummary } from './ReviewSummary';
@@ -28,7 +28,7 @@ interface QuestionFlowProps {
 }
 
 export function QuestionFlow({
-  moduleId,
+  moduleId: _moduleId,
   moduleName,
   moduleCode,
   questions,
@@ -45,7 +45,7 @@ export function QuestionFlow({
   const [showReviewSummary, setShowReviewSummary] = useState(false);
 
   // Use branching logic to determine visible questions
-  const { visibleQuestions, getNextQuestion, getPreviousQuestion } = useBranchingLogic({
+  const { visibleQuestions } = useBranchingLogic({
     questions,
     responses,
     reviewMode,
@@ -131,7 +131,7 @@ export function QuestionFlow({
       if (response.answer === 'yes') {
         doingWell.push(convertQuestionToStatement(question.text));
       } else if (response.answer === 'no') {
-        // Generate action item
+        // Generate high/medium priority action item
         const priority = question.safetyRelated
           ? 'high'
           : question.impactLevel || 'medium';
@@ -144,8 +144,60 @@ export function QuestionFlow({
           timeframe: priority === 'high' ? 'Within 1 month' : priority === 'medium' ? 'Within 3 months' : 'Within 6 months',
           impactStatement: generateImpactStatement(question),
         });
-      } else if (response.answer === 'not-sure') {
+      } else if (response.answer === 'partially') {
+        // Partially in place - acknowledge progress but note improvement needed
+        const statement = convertQuestionToStatement(question.text);
+        const partialDescription = response.notes?.trim();
+
+        // Add to "Going well" with description if provided
+        if (partialDescription) {
+          doingWell.push(`${statement} (partially in place): ${partialDescription}`);
+        } else {
+          doingWell.push(`${statement} (partially in place)`);
+        }
+
+        // Also add a lower-priority action to complete implementation
+        priorityActions.push({
+          questionId: question.id,
+          questionText: question.text,
+          action: `Complete improvements to: ${statement.toLowerCase()}`,
+          priority: 'low',
+          timeframe: 'Within 6 months',
+          impactStatement: partialDescription
+            ? `Current status: ${partialDescription}`
+            : 'Partial measures are in place. Complete implementation for full accessibility.',
+        });
+      } else if (response.answer === 'unable-to-check' || response.answer === 'not-sure') {
+        // Unable to check / not sure - needs follow-up
         areasToExplore.push(convertQuestionToStatement(question.text));
+      } else if (response.mediaAnalysis) {
+        // Media analysis response - acknowledge evidence provided
+        const analysisType = response.mediaAnalysis.analysisType || 'item';
+        const score = response.mediaAnalysis.overallScore;
+        const status = response.mediaAnalysis.overallStatus;
+
+        if (status === 'excellent' || status === 'good') {
+          doingWell.push(`${analysisType.charAt(0).toUpperCase() + analysisType.slice(1)} analysis: ${score}/100 - ${status}`);
+        } else if (status === 'poor') {
+          priorityActions.push({
+            questionId: question.id,
+            questionText: question.text,
+            action: `Address ${analysisType} accessibility issues identified in analysis`,
+            priority: 'high',
+            timeframe: 'Within 1 month',
+            impactStatement: `Analysis score: ${score}/100. Significant improvements needed.`,
+          });
+        } else {
+          // needs-improvement or not-assessable
+          priorityActions.push({
+            questionId: question.id,
+            questionText: question.text,
+            action: `Review and improve ${analysisType} based on analysis findings`,
+            priority: 'medium',
+            timeframe: 'Within 3 months',
+            impactStatement: `Analysis score: ${score}/100. Some improvements recommended.`,
+          });
+        }
       } else if (response.multiSelectValues || response.linkValue || response.urlAnalysis) {
         // Handle multi-select, single-select, links, and URL analysis
         if (sentiment === 'positive') {
@@ -173,7 +225,7 @@ export function QuestionFlow({
       // Handle measurement responses
       if (response.measurement && question.measurementGuidance) {
         const { value } = response.measurement;
-        const { min, max, ideal } = question.measurementGuidance;
+        const { min, max: _max, ideal } = question.measurementGuidance;
 
         if (min !== undefined && value < min) {
           priorityActions.push({

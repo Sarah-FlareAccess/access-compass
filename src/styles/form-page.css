@@ -64,6 +64,17 @@
 
 .radio-label input[type="radio"] {
   margin: 0;
+  margin-right: 8px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.radio-label span {
+  line-height: 1;
 }
 
 .radio-label input[type="radio"]:checked + span {

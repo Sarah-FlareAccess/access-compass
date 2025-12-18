@@ -19,6 +19,11 @@ import {
 } from '../../types/mediaAnalysis';
 import { getMediaAnalysisConfig } from '../../data/mediaAnalysisCriteria';
 import { analyzeWithWave, isWaveApiEnabled } from '../../utils/waveApi';
+import {
+  analyzeMultipleImages,
+  isVisionApiEnabled,
+  type VisionAnalysisResult,
+} from '../../utils/visionAnalysis';
 import './media-analysis.css';
 
 interface MediaAnalysisInputProps {
@@ -38,6 +43,13 @@ interface MediaAnalysisInputProps {
 const PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 const DOCUMENT_TYPES = ['application/pdf'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_PHOTOS = 3; // Maximum number of photos allowed
+
+interface UploadedFile {
+  file: File;
+  preview: string | null;
+  id: string;
+}
 
 export function MediaAnalysisInput({
   preselectedType,
@@ -50,13 +62,14 @@ export function MediaAnalysisInput({
     preselectedType || null
   );
   const [inputType, setInputType] = useState<MediaInputType | null>(null);
-  const [file, setFile] = useState<File | null>(null);
-  const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [urlInput, setUrlInput] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<MediaAnalysisResult | null>(
     currentValue || null
   );
+  // Track if result was loaded from props (returning to question) vs just generated
+  const [isLoadedFromProps, setIsLoadedFromProps] = useState(!!currentValue);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -76,8 +89,7 @@ export function MediaAnalysisInput({
   const handleTypeSelect = (type: MediaAnalysisType) => {
     setSelectedType(type);
     setInputType(null);
-    setFile(null);
-    setFilePreview(null);
+    setUploadedFiles([]);
     setUrlInput('');
     setError(null);
     setAnalysisResult(null);
@@ -86,47 +98,75 @@ export function MediaAnalysisInput({
   // Handle input type selection
   const handleInputTypeSelect = (type: MediaInputType) => {
     setInputType(type);
-    setFile(null);
-    setFilePreview(null);
+    setUploadedFiles([]);
     setUrlInput('');
     setError(null);
   };
 
-  // Handle file selection
+  // Handle file selection (supports multiple photos)
   const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    const selectedFile = files[0];
     setError(null);
 
-    // Check file size
-    if (selectedFile.size > MAX_FILE_SIZE) {
-      setError('File is too large. Maximum size is 10MB.');
-      return;
+    // Process each selected file
+    const newFiles: UploadedFile[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const selectedFile = files[i];
+
+      // Check if we've reached the limit
+      if (uploadedFiles.length + newFiles.length >= MAX_PHOTOS) {
+        setError(`Maximum ${MAX_PHOTOS} photos allowed.`);
+        break;
+      }
+
+      // Check file size
+      if (selectedFile.size > MAX_FILE_SIZE) {
+        setError(`${selectedFile.name} is too large. Maximum size is 10MB.`);
+        continue;
+      }
+
+      // Check file type
+      const isPhoto = PHOTO_TYPES.includes(selectedFile.type);
+      const isDocument = DOCUMENT_TYPES.includes(selectedFile.type);
+
+      if (!isPhoto && !isDocument) {
+        setError(`${selectedFile.name}: Unsupported file type. Please upload an image or PDF.`);
+        continue;
+      }
+
+      // Create preview for images
+      let preview: string | null = null;
+      if (isPhoto) {
+        preview = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target?.result as string);
+          reader.readAsDataURL(selectedFile);
+        });
+      }
+
+      newFiles.push({
+        file: selectedFile,
+        preview,
+        id: `file_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      });
     }
 
-    // Check file type
-    const isPhoto = PHOTO_TYPES.includes(selectedFile.type);
-    const isDocument = DOCUMENT_TYPES.includes(selectedFile.type);
-
-    if (!isPhoto && !isDocument) {
-      setError('Unsupported file type. Please upload an image or PDF.');
-      return;
+    if (newFiles.length > 0) {
+      setUploadedFiles(prev => [...prev, ...newFiles]);
     }
 
-    setFile(selectedFile);
-
-    // Create preview for images
-    if (isPhoto) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setFilePreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(selectedFile);
-    } else {
-      setFilePreview(null);
+    // Reset the input so the same file can be selected again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
+  }, [uploadedFiles.length]);
+
+  // Remove a specific file
+  const handleRemoveFile = useCallback((fileId: string) => {
+    setUploadedFiles(prev => prev.filter(f => f.id !== fileId));
   }, []);
 
   // Handle URL input
@@ -138,7 +178,7 @@ export function MediaAnalysisInput({
   // Validate URL
   const validateUrl = (url: string): boolean => {
     try {
-      const parsed = new URL(url.startsWith('http') ? url : `https://${url}`);
+      new URL(url.startsWith('http') ? url : `https://${url}`);
       return true;
     } catch {
       return false;
@@ -189,12 +229,30 @@ export function MediaAnalysisInput({
             : undefined,
           disclaimer: waveResult.disclaimer,
         };
-      } else {
-        // Simulate API delay for mock analysis
-        await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1500));
+      } else if (uploadedFiles.length > 0 && (inputType === 'photo' || inputType === 'screenshot')) {
+        // Use AI Vision for photo analysis
+        const files = uploadedFiles.map(uf => uf.file);
+        const visionResult = await analyzeMultipleImages(files, selectedType);
 
-        // Generate mock analysis result for other types
-        result = generateMockAnalysis(selectedType, config, file, urlInput);
+        // Convert vision result to MediaAnalysisResult format
+        result = convertVisionToMediaResult(visionResult, selectedType, config);
+
+        // Store photo previews for persistence
+        result.photoPreviews = uploadedFiles
+          .map(uf => uf.preview)
+          .filter((p): p is string => p !== null);
+      } else {
+        // Fallback to mock analysis for documents or other types
+        await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1500));
+        const primaryFile = uploadedFiles[0]?.file || null;
+        result = generateMockAnalysis(selectedType, config, primaryFile, urlInput);
+
+        // Store photo previews for persistence (if any)
+        if (uploadedFiles.length > 0) {
+          result.photoPreviews = uploadedFiles
+            .map(uf => uf.preview)
+            .filter((p): p is string => p !== null);
+        }
       }
 
       setAnalysisResult(result);
@@ -210,7 +268,7 @@ export function MediaAnalysisInput({
   const canAnalyze = () => {
     if (!selectedType || !inputType) return false;
     if (inputType === 'url' && !validateUrl(urlInput)) return false;
-    if ((inputType === 'photo' || inputType === 'document' || inputType === 'screenshot') && !file) return false;
+    if ((inputType === 'photo' || inputType === 'document' || inputType === 'screenshot') && uploadedFiles.length === 0) return false;
     return true;
   };
 
@@ -218,100 +276,52 @@ export function MediaAnalysisInput({
   const handleReset = () => {
     setSelectedType(preselectedType || null);
     setInputType(null);
-    setFile(null);
-    setFilePreview(null);
+    setUploadedFiles([]);
     setUrlInput('');
     setAnalysisResult(null);
+    setIsLoadedFromProps(false);
     setError(null);
   };
 
-  // If we have a result, show it
-  if (analysisResult) {
+  // If we have a result from a previously answered question, show acknowledgment
+  // (Don't show if result was just generated - parent will navigate to summary)
+  if (analysisResult && isLoadedFromProps) {
+    // Get previews from either current uploads or stored in result
+    const previews = uploadedFiles.length > 0
+      ? uploadedFiles.map(f => f.preview).filter((p): p is string => p !== null)
+      : analysisResult.photoPreviews || [];
+    const photoCount = previews.length || (analysisResult.fileName ? 1 : 0);
+
     return (
-      <div className="media-analysis-result">
-        <div className="result-header">
-          <div className="result-type">
-            <span className="result-icon">{config?.icon || '📊'}</span>
-            <span className="result-type-name">{config?.name || 'Analysis'}</span>
-          </div>
-          <div className={`result-score score-${analysisResult.overallStatus}`}>
-            <span className="score-value">{analysisResult.overallScore}/100</span>
-            <span className="score-label">{formatStatus(analysisResult.overallStatus)}</span>
+      <div className="media-analysis-acknowledged">
+        <div className="acknowledged-header">
+          <span className="acknowledged-icon">✓</span>
+          <div className="acknowledged-text">
+            <h4>Photos uploaded</h4>
+            <p>{photoCount} photo{photoCount !== 1 ? 's' : ''} saved for analysis</p>
           </div>
         </div>
 
-        {filePreview && (
-          <div className="result-preview">
-            <img src={filePreview} alt="Analyzed content" />
+        {previews.length > 0 && (
+          <div className="acknowledged-previews">
+            {previews.map((preview, idx) => (
+              <div key={idx} className="acknowledged-preview">
+                <img src={preview} alt={`Uploaded photo ${idx + 1}`} />
+              </div>
+            ))}
           </div>
         )}
 
-        {analysisResult.url && (
-          <div className="result-url">
-            <a href={analysisResult.url} target="_blank" rel="noopener noreferrer">
-              {analysisResult.url}
-            </a>
-          </div>
-        )}
-
-        <div className="result-summary">
-          <p>{analysisResult.summary}</p>
+        <div className="acknowledged-info">
+          <p>
+            <span className="info-icon">ℹ️</span>
+            Full accessibility analysis will be included in your report and DIAP.
+          </p>
         </div>
 
-        <div className="result-standards">
-          <span className="standards-label">Standards assessed:</span>
-          {analysisResult.standardsAssessed.map((standard, idx) => (
-            <span key={idx} className="standard-badge">{standard}</span>
-          ))}
-        </div>
-
-        {analysisResult.strengths.length > 0 && (
-          <div className="result-section result-strengths">
-            <h4>Strengths</h4>
-            <ul>
-              {analysisResult.strengths.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {analysisResult.improvements.length > 0 && (
-          <div className="result-section result-improvements">
-            <h4>Areas for Improvement</h4>
-            <ul>
-              {analysisResult.improvements.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {analysisResult.quickWins.length > 0 && (
-          <div className="result-section result-quickwins">
-            <h4>Quick Wins</h4>
-            <ul>
-              {analysisResult.quickWins.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {analysisResult.needsProfessionalReview && (
-          <div className="result-professional">
-            <strong>Professional Review Recommended</strong>
-            <p>{analysisResult.professionalReviewReason}</p>
-          </div>
-        )}
-
-        <div className="result-disclaimer">
-          <p>{analysisResult.disclaimer}</p>
-        </div>
-
-        <div className="result-actions">
-          <button className="btn-secondary" onClick={handleReset}>
-            Analyze Another
+        <div className="acknowledged-actions">
+          <button className="btn-change-photos" onClick={handleReset}>
+            Change photos
           </button>
         </div>
       </div>
@@ -431,7 +441,7 @@ export function MediaAnalysisInput({
             </div>
           </div>
 
-          {/* File upload */}
+          {/* File upload - supports multiple photos */}
           {(inputType === 'photo' || inputType === 'screenshot' || inputType === 'document') && (
             <div className="file-upload-section">
               <input
@@ -441,9 +451,52 @@ export function MediaAnalysisInput({
                 onChange={handleFileSelect}
                 className="file-input-hidden"
                 id="media-file-input"
+                multiple={inputType === 'photo' || inputType === 'screenshot'}
               />
 
-              {!file ? (
+              {/* Show uploaded files grid */}
+              {uploadedFiles.length > 0 && (
+                <div className="uploaded-files-grid">
+                  {uploadedFiles.map((uploadedFile) => (
+                    <div key={uploadedFile.id} className="uploaded-file-card">
+                      {uploadedFile.preview ? (
+                        <div className="file-preview">
+                          <img src={uploadedFile.preview} alt="Preview" />
+                        </div>
+                      ) : (
+                        <div className="file-preview file-preview-doc">
+                          <span className="doc-icon">📄</span>
+                        </div>
+                      )}
+                      <div className="file-info">
+                        <span className="file-name">{uploadedFile.file.name}</span>
+                        <span className="file-size">
+                          {(uploadedFile.file.size / 1024 / 1024).toFixed(2)} MB
+                        </span>
+                      </div>
+                      <button
+                        className="btn-remove-file"
+                        onClick={() => handleRemoveFile(uploadedFile.id)}
+                        aria-label={`Remove ${uploadedFile.file.name}`}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+
+                  {/* Add more button (if under limit) */}
+                  {uploadedFiles.length < MAX_PHOTOS && (inputType === 'photo' || inputType === 'screenshot') && (
+                    <label htmlFor="media-file-input" className="add-more-card">
+                      <span className="add-icon">+</span>
+                      <span className="add-text">Add photo</span>
+                      <span className="add-count">{uploadedFiles.length}/{MAX_PHOTOS}</span>
+                    </label>
+                  )}
+                </div>
+              )}
+
+              {/* Initial upload prompt (when no files) */}
+              {uploadedFiles.length === 0 && (
                 <label htmlFor="media-file-input" className="file-upload-label">
                   <div className="upload-icon">
                     {inputType === 'photo' && '📷'}
@@ -454,35 +507,11 @@ export function MediaAnalysisInput({
                     Click to upload or drag and drop
                   </span>
                   <span className="upload-hint">
-                    {inputType === 'document' ? 'PDF files up to 10MB' : 'JPG, PNG, WebP up to 10MB'}
+                    {inputType === 'document'
+                      ? 'PDF files up to 10MB'
+                      : `JPG, PNG, WebP up to 10MB (max ${MAX_PHOTOS} photos)`}
                   </span>
                 </label>
-              ) : (
-                <div className="file-selected">
-                  {filePreview && (
-                    <div className="file-preview">
-                      <img src={filePreview} alt="Preview" />
-                    </div>
-                  )}
-                  <div className="file-info">
-                    <span className="file-name">{file.name}</span>
-                    <span className="file-size">
-                      {(file.size / 1024 / 1024).toFixed(2)} MB
-                    </span>
-                  </div>
-                  <button
-                    className="btn-remove-file"
-                    onClick={() => {
-                      setFile(null);
-                      setFilePreview(null);
-                      if (fileInputRef.current) {
-                        fileInputRef.current.value = '';
-                      }
-                    }}
-                  >
-                    Remove
-                  </button>
-                </div>
               )}
             </div>
           )}
@@ -615,7 +644,7 @@ function generateMockAnalysis(
 
   // Professional review needed if score is low or certain issues found
   const needsProfessionalReview = overallScore < 50 ||
-    criteriaResults.some(r => r.status === 'poor' && config.criteria.find(c => c.id === r.criterionId)?.weight > 20);
+    criteriaResults.some(r => r.status === 'poor' && (config.criteria.find(c => c.id === r.criterionId)?.weight ?? 0) > 20);
 
   return {
     id: `ma_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -698,4 +727,67 @@ function generateSummary(
   };
 
   return summaries[status];
+}
+
+/**
+ * Convert VisionAnalysisResult to MediaAnalysisResult format
+ */
+function convertVisionToMediaResult(
+  visionResult: VisionAnalysisResult,
+  analysisType: MediaAnalysisType,
+  config: ReturnType<typeof getMediaAnalysisConfig>
+): MediaAnalysisResult {
+  // Map vision findings to criteria results
+  const criteriaResults: CriterionResult[] = visionResult.findings.map((finding, idx) => {
+    const statusMap: Record<string, MediaAnalysisStatus> = {
+      'pass': 'excellent',
+      'partial': 'needs-improvement',
+      'fail': 'poor',
+      'not-applicable': 'not-assessable',
+    };
+
+    const scoreMap: Record<string, number> = {
+      'pass': 90,
+      'partial': 65,
+      'fail': 35,
+      'not-applicable': 0,
+    };
+
+    return {
+      criterionId: `vision_${idx}`,
+      criterionName: finding.category,
+      standard: 'AS 1428.1 / WCAG 2.1',
+      status: statusMap[finding.status] || 'needs-improvement',
+      score: scoreMap[finding.status] || 50,
+      finding: finding.description,
+      recommendation: finding.recommendation,
+    };
+  });
+
+  // Determine if professional review is needed
+  const hasFailures = visionResult.findings.some(f => f.status === 'fail');
+  const needsProfessionalReview = visionResult.overallScore < 50 || hasFailures;
+
+  return {
+    id: visionResult.id,
+    analysisType,
+    inputType: 'photo',
+    analysisDate: visionResult.timestamp,
+    analysisVersion: visionResult.cached ? '1.0.0-vision-cached' : '1.0.0-vision',
+    overallScore: visionResult.overallScore,
+    overallStatus: visionResult.overallStatus,
+    summary: visionResult.summary,
+    criteriaResults,
+    strengths: visionResult.strengths,
+    improvements: visionResult.improvements,
+    quickWins: visionResult.quickWins,
+    standardsAssessed: visionResult.standardsChecked,
+    needsProfessionalReview,
+    professionalReviewReason: needsProfessionalReview
+      ? 'Some accessibility aspects require professional evaluation for accurate assessment.'
+      : undefined,
+    disclaimer: `AI-powered accessibility analysis based on ${visionResult.standardsChecked.join(', ')}. ${
+      visionResult.cached ? 'Result retrieved from cache. ' : ''
+    }Results are indicative only and should be verified by a qualified accessibility professional. This analysis does not constitute legal advice or certification of compliance.`,
+  };
 }

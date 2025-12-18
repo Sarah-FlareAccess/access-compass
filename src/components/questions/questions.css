@@ -202,24 +202,294 @@
   border-color: #dc2626;
 }
 
-.answer-not-sure {
-  color: #d97706;
-}
-
-.answer-not-sure:hover,
-.answer-not-sure.selected {
-  background: rgba(251, 191, 36, 0.1);
-  border-color: #d97706;
-}
-
-.answer-too-hard {
+/* Unable to check - neutral, non-judgmental */
+.answer-unable {
   color: #6b7280;
 }
 
-.answer-too-hard:hover,
-.answer-too-hard.selected {
+.answer-unable:hover,
+.answer-unable.selected {
   background: rgba(107, 114, 128, 0.1);
   border-color: #6b7280;
+}
+
+/* Helper text for Unable to check option - subtle and supportive */
+.unable-to-check-helper {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  background: rgba(107, 114, 128, 0.05);
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+/* Partially answer button */
+.answer-partial {
+  color: #f59e0b;
+}
+
+.answer-partial:hover,
+.answer-partial.selected {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: #f59e0b;
+}
+
+/* Partial description section */
+.partial-description-section {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(245, 158, 11, 0.05);
+  border: 2px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.partial-description-section label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #92400e;
+  margin-bottom: 10px;
+}
+
+.partial-description-section textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.partial-description-section textarea:focus {
+  outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.partial-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.btn-cancel-partial {
+  padding: 10px 20px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel-partial:hover {
+  background: #f5f5f5;
+  border-color: #999;
+}
+
+.btn-submit-partial {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-submit-partial:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* ============================================
+   ENHANCED NOTES SECTION
+   ============================================ */
+.notes-section-enhanced {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.notes-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.notes-header label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  margin: 0;
+}
+
+.notes-info-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #6c757d;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.notes-info-btn:hover {
+  background: #495057;
+}
+
+.notes-info-btn .info-icon {
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  font-style: italic;
+  font-family: Georgia, serif;
+}
+
+.notes-info-tooltip {
+  background: #e7f3ff;
+  border: 1px solid #b6d4fe;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  animation: slideDown 0.2s ease-out;
+}
+
+.notes-info-tooltip p {
+  font-size: 13px;
+  color: #084298;
+  margin: 0 0 8px 0;
+  line-height: 1.5;
+}
+
+.notes-info-tooltip p:last-child {
+  margin-bottom: 0;
+}
+
+.notes-section-enhanced textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 60px;
+  background: white;
+}
+
+.notes-section-enhanced textarea:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.notes-section-enhanced textarea::placeholder {
+  color: #adb5bd;
+}
+
+/* ============================================
+   OPTIONAL EVIDENCE SECTION
+   ============================================ */
+.evidence-section-optional {
+  margin-top: 20px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.04) 0%, rgba(168, 85, 247, 0.04) 100%);
+  border: 1px solid #e9d5ff;
+  border-radius: 12px;
+}
+
+/* Evidence upload container styling is in evidence-upload.css */
+
+/* Evidence section header */
+.evidence-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.evidence-section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.evidence-section-label svg {
+  color: #9ca3af;
+}
+
+.evidence-section-optional-badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: #9ca3af;
+  background: #f3f4f6;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================
+   CONTINUE BUTTON SECTION
+   ============================================ */
+.continue-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-continue {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #3a0b52 0%, #c91344 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-continue:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(58, 11, 82, 0.3);
+}
+
+.btn-continue:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Measurement Input */
@@ -441,6 +711,39 @@
   margin-bottom: 24px;
 }
 
+.text-input-section .notes-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.text-input-section .notes-header label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  margin: 0;
+}
+
+.text-input-section .notes-info-tooltip {
+  background: #e7f3ff;
+  border: 1px solid #b6d4fe;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.text-input-section .notes-info-tooltip p {
+  font-size: 13px;
+  color: #084298;
+  margin: 0 0 8px 0;
+  line-height: 1.5;
+}
+
+.text-input-section .notes-info-tooltip p:last-child {
+  margin-bottom: 0;
+}
+
 .text-input {
   width: 100%;
   padding: 14px 16px;
@@ -449,7 +752,7 @@
   font-size: 15px;
   font-family: inherit;
   resize: vertical;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   transition: border-color 0.2s ease;
 }
 

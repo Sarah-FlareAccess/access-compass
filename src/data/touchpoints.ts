@@ -11,14 +11,18 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
   {
     id: 'before-arrival',
     label: 'Before they arrive',
+    labelOnline: 'Before they engage',
     subLabel: 'Planning and booking',
+    subLabelOnline: 'Discovery and booking',
     description: 'How people find you, plan their visit, and decide whether to engage.',
+    descriptionOnline: 'How people find you, explore your offering, and decide to get started.',
     icon: 'search',
     bgColorClass: 'journey-before',
     blocks: [
       {
         id: 'info-planning',
         label: 'Information and planning',
+        labelOnline: 'Information and discovery',
         touchpointIds: ['finding-online', 'planning-visit', 'costs-policies'],
       },
       {
@@ -42,7 +46,9 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'planning-visit',
         label: 'Planning their visit',
+        labelOnline: 'Exploring your offering',
         description: 'Menus, programs, schedules, photos, accessibility information',
+        descriptionOnline: 'Services, programs, pricing, and what to expect',
         subTouchpoints: [
           { id: 'menus-programs', label: 'Menus or programs' },
           { id: 'schedules', label: 'Schedules and opening hours' },
@@ -70,6 +76,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'enquiries',
         label: 'Asking questions before arrival',
+        labelOnline: 'Asking questions before engaging',
         description: 'Enquiries, contact methods, response handling',
         moduleMapping: ['C1', 'B4.3'],
       },
@@ -78,7 +85,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
   {
     id: 'when-here',
     label: "When they're here",
-    subLabel: 'Space and service',
+    subLabel: 'Physical space',
     description: 'What the experience involves once someone is onsite.',
     icon: 'map-pin',
     bgColorClass: 'journey-during',
@@ -89,9 +96,9 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         touchpointIds: ['getting-in', 'using-space', 'wayfinding'],
       },
       {
-        id: 'experience-service',
-        label: 'Experience and service',
-        touchpointIds: ['sensory', 'staff-interaction'],
+        id: 'sensory-experience',
+        label: 'Sensory experience',
+        touchpointIds: ['sensory'],
       },
     ],
     touchpoints: [
@@ -131,6 +138,16 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         description: 'Lighting, noise, smells, busy vs quieter times',
         moduleMapping: ['A4', 'A7'],
       },
+    ],
+  },
+  {
+    id: 'customer-service',
+    label: 'Customer service',
+    subLabel: 'Staff and communication',
+    description: 'How your team interacts with and supports customers.',
+    icon: 'users',
+    bgColorClass: 'journey-service',
+    touchpoints: [
       {
         id: 'staff-interaction',
         label: 'Interacting with staff',
@@ -140,6 +157,12 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
           { id: 'communication-support', label: 'Communication support' },
           { id: 'assistance-animals', label: 'Assistance animals' },
         ],
+        moduleMapping: ['C1', 'C2'],
+      },
+      {
+        id: 'service-flexibility',
+        label: 'Service flexibility',
+        description: 'Adjustments, accommodations, and alternative options',
         moduleMapping: ['C1', 'C2'],
       },
     ],

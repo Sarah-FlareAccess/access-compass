@@ -7,6 +7,7 @@
 
 import type { QuestionResponse } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
+import { RESPONSE_LABELS, RESPONSE_CSS_CLASSES } from '../../constants/responseOptions';
 import './review-summary.css';
 
 interface ReviewSummaryProps {
@@ -30,19 +31,18 @@ export function ReviewSummary({
   const stats = {
     total: responses.length,
     yes: responses.filter(r => r.answer === 'yes').length,
+    partially: responses.filter(r => r.answer === 'partially').length,
     no: responses.filter(r => r.answer === 'no').length,
-    notSure: responses.filter(r => r.answer === 'not-sure').length,
-    tooHard: responses.filter(r => r.answer === 'too-hard').length,
+    unableToCheck: responses.filter(r => r.answer === 'unable-to-check').length,
     withNotes: responses.filter(r => r.notes && r.notes.trim()).length,
     measurements: responses.filter(r => r.measurement).length,
     urlAnalysis: responses.filter(r => r.urlAnalysis).length,
   };
 
   const getAnswerLabel = (response: QuestionResponse): string => {
-    if (response.answer === 'yes') return 'Yes';
-    if (response.answer === 'no') return 'No';
-    if (response.answer === 'not-sure') return 'Not sure';
-    if (response.answer === 'too-hard') return 'Too hard to do';
+    if (response.answer && response.answer in RESPONSE_LABELS) {
+      return RESPONSE_LABELS[response.answer as keyof typeof RESPONSE_LABELS];
+    }
     if (response.multiSelectValues && response.multiSelectValues.length > 0) {
       return 'Selected options';
     }
@@ -53,10 +53,9 @@ export function ReviewSummary({
   };
 
   const getAnswerColorClass = (response: QuestionResponse): string => {
-    if (response.answer === 'yes') return 'answer-yes';
-    if (response.answer === 'no') return 'answer-no';
-    if (response.answer === 'not-sure') return 'answer-not-sure';
-    if (response.answer === 'too-hard') return 'answer-too-hard';
+    if (response.answer && response.answer in RESPONSE_CSS_CLASSES) {
+      return RESPONSE_CSS_CLASSES[response.answer as keyof typeof RESPONSE_CSS_CLASSES];
+    }
     return 'answer-other';
   };
 
@@ -83,18 +82,20 @@ export function ReviewSummary({
           <span className="stat-value">{stats.yes}</span>
           <span className="stat-label">Yes</span>
         </div>
+        {stats.partially > 0 && (
+          <div className="stat-card stat-partial">
+            <span className="stat-value">{stats.partially}</span>
+            <span className="stat-label">Partially</span>
+          </div>
+        )}
         <div className="stat-card stat-no">
           <span className="stat-value">{stats.no}</span>
           <span className="stat-label">No</span>
         </div>
-        <div className="stat-card stat-not-sure">
-          <span className="stat-value">{stats.notSure}</span>
-          <span className="stat-label">Not Sure</span>
-        </div>
-        {stats.tooHard > 0 && (
-          <div className="stat-card stat-too-hard">
-            <span className="stat-value">{stats.tooHard}</span>
-            <span className="stat-label">Too Hard</span>
+        {stats.unableToCheck > 0 && (
+          <div className="stat-card stat-unable">
+            <span className="stat-value">{stats.unableToCheck}</span>
+            <span className="stat-label">To Confirm</span>
           </div>
         )}
       </div>
@@ -212,10 +213,35 @@ export function ReviewSummary({
                   </div>
                 )}
 
-                {/* Notes */}
+                {/* Media Analysis */}
+                {response.mediaAnalysis && (
+                  <div className="response-details media-analysis-summary">
+                    <div className="media-analysis-header">
+                      <span className="media-type">
+                        {response.mediaAnalysis.analysisType.charAt(0).toUpperCase() +
+                         response.mediaAnalysis.analysisType.slice(1)} Analysis
+                      </span>
+                      <span className={`score-badge score-${response.mediaAnalysis.overallStatus}`}>
+                        {response.mediaAnalysis.overallScore}/100
+                      </span>
+                    </div>
+                    <p className="media-summary">{response.mediaAnalysis.summary}</p>
+                    {response.mediaAnalysis.photoPreviews && response.mediaAnalysis.photoPreviews.length > 0 && (
+                      <div className="media-previews">
+                        {response.mediaAnalysis.photoPreviews.map((preview, idx) => (
+                          <img key={idx} src={preview} alt={`Photo ${idx + 1}`} className="media-preview-thumb" />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Notes / Partial description */}
                 {response.notes && (
                   <div className="response-notes">
-                    <span className="notes-label">Notes:</span>
+                    <span className="notes-label">
+                      {response.answer === 'partially' ? "What's in place / missing:" : 'Notes:'}
+                    </span>
                     <p className="notes-text">{response.notes}</p>
                   </div>
                 )}
