@@ -428,53 +428,56 @@ export default function Decision() {
           </button>
         </div>
 
-        {/* Organisation Size Selector */}
-        <div className="tier-selector">
-          <label className="tier-label">Your organisation size:</label>
-          <div className="tier-options">
-            {SIZE_TIER_OPTIONS.map((tier) => (
-              <button
-                key={tier.value}
-                className={`tier-option ${selectedTier === tier.value ? 'selected' : ''}`}
-                onClick={() => setSelectedTier(tier.value)}
-                type="button"
-              >
-                <span className="tier-option-label">{tier.label}</span>
-                <span className="tier-option-desc">{tier.description}</span>
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* Organisation Size Selector and Pricing - HIDDEN FOR NOW */}
+        {false && (
+          <>
+            <div className="tier-selector">
+              <label className="tier-label">Your organisation size:</label>
+              <div className="tier-options">
+                {SIZE_TIER_OPTIONS.map((tier) => (
+                  <button
+                    key={tier.value}
+                    className={`tier-option ${selectedTier === tier.value ? 'selected' : ''}`}
+                    onClick={() => setSelectedTier(tier.value)}
+                    type="button"
+                  >
+                    <span className="tier-option-label">{tier.label}</span>
+                    <span className="tier-option-desc">{tier.description}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
-        {/* Pricing */}
-        <div className="commitment-pricing">
-          <div className="price-display">
-            {pricing.isPurchasable ? (
-              <>
-                <span className="price-amount-large">{pricing.label}</span>
-                <span className="price-suffix-large">AUD + GST</span>
-              </>
-            ) : (
-              <>
-                <span className="price-starting">From</span>
-                <span className="price-amount-large">$10,000</span>
-                <span className="price-suffix-large">AUD + GST (enterprise and precinct)</span>
-              </>
-            )}
-          </div>
+            <div className="commitment-pricing">
+              <div className="price-display">
+                {pricing?.isPurchasable ? (
+                  <>
+                    <span className="price-amount-large">{pricing?.label}</span>
+                    <span className="price-suffix-large">AUD + GST</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="price-starting">From</span>
+                    <span className="price-amount-large">$10,000</span>
+                    <span className="price-suffix-large">AUD + GST (enterprise and precinct)</span>
+                  </>
+                )}
+              </div>
 
-          <div className="commitment-inclusions">
-            <h4>What's included:</h4>
-            <ul>
-              {pricing.inclusions.map((item, i) => (
-                <li key={i}>
-                  <span className="inclusion-check">✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+              <div className="commitment-inclusions">
+                <h4>What's included:</h4>
+                <ul>
+                  {pricing?.inclusions.map((item, i) => (
+                    <li key={i}>
+                      <span className="inclusion-check">✓</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </>
+        )}
 
         {/* Proceed Button - Auth bypassed for development */}
         <div className="commitment-actions">
