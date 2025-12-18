@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { DiscoveryModule, CalibrationQuestions } from '../components/discovery';
-import { getSession, getDiscoveryData, updateDiscoveryData, updateSelectedModules } from '../utils/session';
+import { getSession, getDiscoveryData, updateDiscoveryData, updateSelectedModules, updateSession } from '../utils/session';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { accessModules } from '../data/accessModules';
 import type { ReviewMode, RecommendationResult, CalibrationData, ModuleType } from '../types';
@@ -42,6 +42,12 @@ function Discovery() {
     recommendedModules: string[];
     recommendedDepth: ReviewMode;
     recommendationResult: RecommendationResult;
+    businessContext: {
+      hasPhysicalVenue: boolean;
+      hasOnlinePresence: boolean;
+      servesPublicCustomers: boolean;
+      hasOnlineServices: boolean;
+    };
   } | null>(null);
 
   // Calibration data collected before pathway decision
@@ -84,8 +90,31 @@ function Discovery() {
     recommendedModules: string[];
     recommendedDepth: ReviewMode;
     recommendationResult: RecommendationResult;
+    businessContext: {
+      hasPhysicalVenue: boolean;
+      hasOnlinePresence: boolean;
+      servesPublicCustomers: boolean;
+      hasOnlineServices: boolean;
+    };
   }) => {
     setDiscoveryResults(data);
+
+    // Save business context to session immediately
+    const currentSession = getSession();
+    updateSession({
+      business_snapshot: {
+        ...currentSession?.business_snapshot,
+        organisation_name: currentSession?.business_snapshot?.organisation_name ?? '',
+        organisation_size: currentSession?.business_snapshot?.organisation_size ?? 'small',
+        business_types: currentSession?.business_snapshot?.business_types ?? [],
+        user_role: currentSession?.business_snapshot?.user_role ?? 'owner',
+        has_physical_venue: data.businessContext.hasPhysicalVenue,
+        has_online_presence: data.businessContext.hasOnlinePresence,
+        serves_public_customers: data.businessContext.servesPublicCustomers,
+        has_online_services: data.businessContext.hasOnlineServices,
+      },
+    });
+
     setCurrentStep('calibration');
   };
 

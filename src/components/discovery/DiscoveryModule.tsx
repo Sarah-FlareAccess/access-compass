@@ -17,6 +17,12 @@ interface DiscoveryModuleProps {
     recommendedModules: string[];
     recommendedDepth: ReviewMode;
     recommendationResult: RecommendationResult;
+    businessContext: {
+      hasPhysicalVenue: boolean;
+      hasOnlinePresence: boolean;
+      servesPublicCustomers: boolean;
+      hasOnlineServices: boolean;
+    };
   }) => void;
   onBack: () => void;
   onSkip: () => void;
@@ -186,6 +192,12 @@ export function DiscoveryModule({
         recommendedModules: moduleCodes,
         recommendedDepth: depthRecommendation.recommendedDepth,
         recommendationResult,
+        businessContext: {
+          hasPhysicalVenue: hasPhysicalVenue ?? false,
+          hasOnlinePresence: hasOnlinePresence ?? false,
+          servesPublicCustomers: servesPublicCustomers ?? false,
+          hasOnlineServices: hasOnlineServices ?? false,
+        },
       });
     }
   };
