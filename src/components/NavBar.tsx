@@ -40,6 +40,12 @@ export default function NavBar() {
               Report
             </Link>
             <Link
+              to="/resources"
+              className={`nav-link ${isActive('/resources') ? 'active' : ''}`}
+            >
+              Resources
+            </Link>
+            <Link
               to="/diap"
               className={`nav-link ${isActive('/diap') ? 'active' : ''}`}
             >

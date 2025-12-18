@@ -31,6 +31,9 @@ import Export from './pages/Export';
 // Dev/test pages
 import SupabaseTest from './pages/SupabaseTest';
 
+// Resource Centre (publicly accessible)
+import ResourceCentre from './pages/ResourceCentre';
+
 import './styles/global.css';
 
 function App() {
@@ -66,6 +69,9 @@ function App() {
             {/* Checkout flow */}
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
+
+            {/* Resource Centre - publicly accessible */}
+            <Route path="/resources" element={<ResourceCentre />} />
 
             {/* ============================================
                 PROTECTED ROUTES (require auth + pulse access)

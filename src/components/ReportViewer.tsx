@@ -500,9 +500,20 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                       <div className="issue-resources">
                         <strong>Resources:</strong>
                         <ul>
-                          {issue.resourceLinks.map((link, linkIndex) => (
-                            <li key={linkIndex}>{link}</li>
-                          ))}
+                          {issue.resourceLinks.map((link, linkIndex) => {
+                            // Parse resource links in format "Label → /path"
+                            const parts = link.split(' → ');
+                            if (parts.length === 2 && parts[1].startsWith('/')) {
+                              return (
+                                <li key={linkIndex}>
+                                  <a href={parts[1]} className="resource-link">
+                                    {parts[0]}
+                                  </a>
+                                </li>
+                              );
+                            }
+                            return <li key={linkIndex}>{link}</li>;
+                          })}
                         </ul>
                       </div>
                     </div>

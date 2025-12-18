@@ -14,6 +14,7 @@ import type { DIAPItem } from './useDIAPManagement';
 import { getModuleById } from '../data/accessModules';
 import type { ReviewMode } from '../types/index';
 import { needsFollowUp, isNegativeResponse } from '../constants/responseOptions';
+import { getReportResourceLinks } from '../utils/resourceLinks';
 
 export interface ReportSection {
   title: string;
@@ -547,6 +548,295 @@ function generateNextSteps(
   return { exploreNow, planForLater };
 }
 
+// Specific recommendations based on question/module context
+interface RecommendationContext {
+  keywords: string[];
+  specificActions: string[];
+  reasoning: string;
+  resources: string[];
+}
+
+const RECOMMENDATION_CONTEXTS: RecommendationContext[] = [
+  // Pre-visit information
+  {
+    keywords: ['pre-visit', 'website', 'accessibility information', 'online', 'accessibility page'],
+    specificActions: [
+      'Include specific measurements: doorway widths, ramp gradients, lift dimensions, and accessible parking space sizes',
+      'Add high-quality photos or videos showing accessible features, entrances, and pathways',
+      'Include clear contact information for accessibility enquiries (phone, email, and operating hours)',
+      'Provide a map or directions to accessible entrances and parking',
+      'List available accessibility equipment (wheelchairs, hearing loops, large print)',
+      'Describe sensory environment (lighting, noise levels, crowd expectations)',
+    ],
+    reasoning: 'Pre-visit accessibility information allows people with disabilities to plan their visit with confidence. Without detailed information, potential visitors may not feel safe visiting or may encounter unexpected barriers.',
+    resources: ['[Guide: Creating Accessible Website Content]', '[Checklist: Pre-visit Information Essentials]'],
+  },
+  // Entrance and access
+  {
+    keywords: ['entrance', 'entry', 'door', 'doorway', 'accessible entrance'],
+    specificActions: [
+      'Measure and document doorway width (minimum 850mm clear opening under AS1428.1)',
+      'Install automatic or power-assisted doors if doorway force exceeds 20 Newtons',
+      'Ensure there are no steps or lips at the entrance (maximum threshold 5mm)',
+      'Add high-contrast tactile ground surface indicators at entrance',
+      'Install accessible door hardware (lever handles, not knobs)',
+      'Add clear signage directing to accessible entrance if main entrance is not accessible',
+      'Consider installing a video intercom for after-hours accessible entry',
+    ],
+    reasoning: 'An accessible entrance is the first point of contact for visitors. Barriers at the entrance can prevent people from accessing your venue entirely.',
+    resources: ['[AS1428.1 Door Requirements]', '[Guide: Accessible Entrance Design]'],
+  },
+  // Ramps and gradients
+  {
+    keywords: ['ramp', 'gradient', 'slope', 'incline'],
+    specificActions: [
+      'Measure ramp gradient (maximum 1:14 for new builds, 1:8 for short ramps under AS1428.1)',
+      'Ensure ramp width is minimum 1000mm (1200mm preferred)',
+      'Install handrails on both sides at 865-1000mm height',
+      'Add landing platforms at top and bottom (minimum 1200mm x 1200mm)',
+      'Install tactile ground surface indicators at top and bottom of ramp',
+      'Ensure ramp surface is non-slip, especially when wet',
+      'Add edge protection (kerbs or rails) to prevent wheelchairs rolling off',
+    ],
+    reasoning: 'Ramps that are too steep, too narrow, or lack handrails create significant safety risks and barriers for wheelchair users and people with mobility impairments.',
+    resources: ['[AS1428.1 Ramp Specifications]', '[Ramp Gradient Calculator]'],
+  },
+  // Lifts and vertical circulation
+  {
+    keywords: ['lift', 'elevator', 'vertical'],
+    specificActions: [
+      'Ensure lift dimensions meet minimum requirements (1400mm deep x 1100mm wide for AS1428.2)',
+      'Install tactile and Braille buttons at appropriate height (900-1100mm)',
+      'Add audible announcements for floor levels',
+      'Install mirror on back wall to assist wheelchair users exiting',
+      'Ensure adequate lighting inside lift car (minimum 100 lux)',
+      'Provide emergency communication system accessible from seated position',
+      'Display lift capacity and wheelchair capacity clearly',
+    ],
+    reasoning: 'Lifts are essential for multi-level access. Inaccessible lifts can strand people with mobility impairments on a single level.',
+    resources: ['[AS1735.12 Accessible Lift Requirements]', '[Lift Accessibility Checklist]'],
+  },
+  // Toilets and amenities
+  {
+    keywords: ['toilet', 'bathroom', 'amenities', 'restroom', 'washroom', 'accessible toilet'],
+    specificActions: [
+      'Ensure accessible toilet meets minimum dimensions (2400mm x 1700mm turning space)',
+      'Install grab rails at correct height and position (800-810mm height, specific placement required)',
+      'Ensure toilet seat height is 460-480mm from floor',
+      'Install accessible basin at 800-840mm height with knee clearance',
+      'Add emergency pull cord reaching to floor level',
+      'Ensure door opens outward or is a sliding door (minimum 850mm clear opening)',
+      'Install accessible coat hook at 1200mm height and full-length mirror',
+      'Provide adequate colour contrast on fixtures and grab rails',
+    ],
+    reasoning: 'Accessible toilets are a fundamental requirement. Toilets that do not meet standards can prevent people from staying at your venue for any length of time.',
+    resources: ['[AS1428.1 Accessible Toilet Design]', '[Toilet Accessibility Audit Checklist]'],
+  },
+  // Parking
+  {
+    keywords: ['parking', 'car park', 'accessible parking'],
+    specificActions: [
+      'Ensure accessible spaces are minimum 2400mm wide with 2400mm shared space or 3200mm wide for single spaces',
+      'Locate accessible parking closest to accessible entrance (within 30m where possible)',
+      'Install bollard-mounted signage showing international symbol of access',
+      'Paint ground markings in contrasting colour with access symbol',
+      'Ensure path from parking to entrance is step-free with appropriate gradient',
+      'Provide adequate lighting for safety (minimum 40 lux)',
+      'Remove any overhanging obstacles below 2000mm height',
+    ],
+    reasoning: 'Accessible parking is often the starting point for a visit. Spaces that are too far from the entrance, too narrow, or lack kerb ramps create significant barriers.',
+    resources: ['[AS2890.6 Accessible Parking Requirements]', '[Parking Space Calculator]'],
+  },
+  // Wayfinding and signage
+  {
+    keywords: ['signage', 'wayfinding', 'signs', 'navigation', 'directions'],
+    specificActions: [
+      'Ensure signage uses high colour contrast (minimum 30% luminance contrast)',
+      'Use clear, simple fonts (sans-serif, minimum 15mm character height for close reading)',
+      'Install signs at consistent heights throughout venue (1400-1600mm for standing, 1200mm for seated)',
+      'Add Braille and tactile signage on permanent room identification signs',
+      'Use internationally recognised accessibility symbols',
+      'Ensure signage is well-lit (minimum 100 lux) and glare-free',
+      'Provide floor plans or maps with tactile elements at key decision points',
+    ],
+    reasoning: 'Clear wayfinding helps everyone navigate your venue independently. Poor signage can cause confusion and anxiety, particularly for people with vision or cognitive disabilities.',
+    resources: ['[AS1428.1 Signage Requirements]', '[Accessible Signage Design Guide]'],
+  },
+  // Hearing and communication
+  {
+    keywords: ['hearing', 'loop', 'audio', 'amplification', 'deaf', 'auslan', 'captioning'],
+    specificActions: [
+      'Install a hearing loop system in key service areas (reception, counters, meeting rooms)',
+      'Display the hearing loop symbol where systems are installed',
+      'Test hearing loop coverage regularly with a loop listener',
+      'Provide portable assistive listening devices for tours or presentations',
+      'Offer Auslan interpretation for events and key services (book interpreters in advance)',
+      'Add captions to video content and live presentations where possible',
+      'Train staff in basic deaf awareness and communication strategies',
+    ],
+    reasoning: 'Approximately 1 in 6 Australians experience hearing loss. Without hearing augmentation, people may miss critical information or be unable to participate in activities.',
+    resources: ['[Access to Premises Standard - Hearing Augmentation]', '[Hearing Loop Installation Guide]'],
+  },
+  // Vision and lighting
+  {
+    keywords: ['vision', 'blind', 'lighting', 'contrast', 'braille', 'tactile', 'low vision'],
+    specificActions: [
+      'Ensure adequate lighting levels (minimum 150 lux in circulation areas, 300 lux in task areas)',
+      'Avoid glare from reflective surfaces and direct sunlight',
+      'Provide high colour contrast on stairs, doors, and hazards (minimum 30% luminance contrast)',
+      'Install tactile ground surface indicators at hazards and decision points',
+      'Offer information in alternative formats: large print (minimum 18pt), Braille, audio',
+      'Train staff to offer verbal descriptions and sighted guide assistance',
+      'Ensure digital content meets WCAG 2.1 AA standards',
+    ],
+    reasoning: 'Adequate lighting and contrast are essential for people with low vision to navigate safely. Tactile indicators and alternative formats enable independence for people who are blind.',
+    resources: ['[AS1428.1 Vision and Lighting Requirements]', '[Guide: Creating Alternative Formats]'],
+  },
+  // Sensory and autism-friendly
+  {
+    keywords: ['sensory', 'autism', 'quiet', 'relaxed', 'calm'],
+    specificActions: [
+      'Create or designate a quiet space with reduced sensory stimulation',
+      'Provide sensory kits with items like ear plugs, fidget tools, sunglasses',
+      'Offer relaxed or sensory-friendly sessions with reduced crowds, lighting, and sounds',
+      'Publish sensory maps or guides describing noise levels, lighting, and crowds',
+      'Train staff in autism awareness and sensory sensitivities',
+      'Provide visual supports: schedules, social stories, wayfinding aids',
+      'Allow early or priority entry to avoid crowded periods',
+    ],
+    reasoning: 'Sensory overload can prevent autistic people and others with sensory sensitivities from accessing spaces. Simple accommodations can make a significant difference.',
+    resources: ['[Guide: Creating Sensory-Friendly Spaces]', '[Sensory Kit Contents Checklist]'],
+  },
+  // Staff training
+  {
+    keywords: ['staff', 'training', 'disability awareness', 'customer service'],
+    specificActions: [
+      'Provide disability awareness training for all customer-facing staff',
+      'Include accessibility procedures in staff induction programs',
+      'Train staff on how to use accessibility equipment (hearing loops, wheelchairs)',
+      'Develop communication protocols for assisting customers with different needs',
+      'Ensure staff know accessibility features and can direct visitors appropriately',
+      'Include people with lived experience of disability in training delivery',
+      'Refresh training annually and when accessibility features change',
+    ],
+    reasoning: 'Even the best physical accessibility can be undermined by staff who do not know how to assist customers with disabilities appropriately and respectfully.',
+    resources: ['[Disability Awareness Training Resources]', '[Staff Accessibility Induction Checklist]'],
+  },
+  // Printed materials
+  {
+    keywords: ['print', 'brochure', 'menu', 'material', 'document', 'large print', 'easy read'],
+    specificActions: [
+      'Offer large print versions of key documents (minimum 18pt, preferably 24pt)',
+      'Use sans-serif fonts (Arial, Helvetica, Verdana) for better readability',
+      'Ensure high contrast between text and background (black on white or cream)',
+      'Avoid text over images or patterned backgrounds',
+      'Create Easy Read versions for people with intellectual disability',
+      'Use plain English: short sentences, simple words, clear headings',
+      'Make digital versions available that work with screen readers',
+    ],
+    reasoning: 'Printed materials that are too small, use poor contrast, or are written in complex language exclude people with vision or cognitive disabilities.',
+    resources: ['[Guide: Creating Accessible Documents]', '[Easy Read Style Guide]'],
+  },
+  // Companion card and pricing
+  {
+    keywords: ['companion', 'pricing', 'discount', 'concession', 'carer'],
+    specificActions: [
+      'Register as a Companion Card affiliate to provide free entry for carers',
+      'Display Companion Card acceptance on your website and at entry points',
+      'Train staff on Companion Card procedures and eligibility',
+      'Offer accessible pricing information in alternative formats',
+      'Consider concession pricing for people with disabilities',
+      'Ensure online booking systems have options for accessibility requirements',
+    ],
+    reasoning: 'Many people with disabilities require a support person to access venues. Charging full price for carers creates a financial barrier to participation.',
+    resources: ['[Companion Card Program Information]', '[Accessible Pricing Strategies]'],
+  },
+  // Emergency and evacuation
+  {
+    keywords: ['emergency', 'evacuation', 'fire', 'egress', 'refuge'],
+    specificActions: [
+      'Develop Personal Emergency Evacuation Plans (PEEPs) for staff and regular visitors with disabilities',
+      'Identify and sign evacuation refuges or safe waiting areas on each floor',
+      'Install visual fire alarms (flashing beacons) in addition to audible alarms',
+      'Ensure evacuation routes are accessible and clearly marked',
+      'Train staff on evacuation procedures for people with disabilities',
+      'Provide evacuation chairs or equipment at stair locations',
+      'Test emergency procedures with people with different disabilities',
+    ],
+    reasoning: 'People with disabilities may need different evacuation procedures. Without planning, they may be at greater risk during emergencies.',
+    resources: ['[Emergency Evacuation Planning Guide]', '[PEEP Template]'],
+  },
+  // Website and digital
+  {
+    keywords: ['website', 'digital', 'online', 'app', 'web', 'wcag'],
+    specificActions: [
+      'Conduct a WCAG 2.1 AA audit of your website and fix critical issues',
+      'Ensure all images have meaningful alt text',
+      'Provide captions and transcripts for video content',
+      'Ensure keyboard navigation works for all interactive elements',
+      'Test with screen readers (NVDA, VoiceOver, JAWS)',
+      'Ensure sufficient colour contrast (4.5:1 for text, 3:1 for large text)',
+      'Provide clear link text that makes sense out of context',
+      'Make forms accessible with proper labels and error messaging',
+    ],
+    reasoning: 'Digital accessibility is essential for people to find information and engage with your services. Inaccessible websites exclude people with vision, motor, and cognitive disabilities.',
+    resources: ['[WCAG 2.1 Quick Reference]', '[Website Accessibility Testing Tools]'],
+  },
+  // Policy and DIAP
+  {
+    keywords: ['policy', 'diap', 'disability inclusion', 'action plan', 'procurement'],
+    specificActions: [
+      'Develop a formal accessibility policy and publish it on your website',
+      'Create a Disability Inclusion Action Plan (DIAP) with measurable goals',
+      'Include accessibility requirements in procurement and contract documents',
+      'Appoint an accessibility champion or coordinator',
+      'Engage people with disabilities in planning and review processes',
+      'Set regular review dates and track progress against actions',
+      'Report on accessibility progress in annual reports or publications',
+    ],
+    reasoning: 'Formal policies and action plans demonstrate commitment and create accountability for accessibility improvements over time.',
+    resources: ['[DIAP Development Guide]', '[Accessible Procurement Checklist]'],
+  },
+];
+
+// Helper: Get specific recommendations based on question context
+function getSpecificRecommendations(
+  questionText: string,
+  moduleCode: string,
+  _answer: string | null
+): { actions: string[]; reasoning: string; resources: string[] } {
+  const questionLower = questionText.toLowerCase();
+  const codeLower = moduleCode.toLowerCase();
+
+  // Find matching context based on keywords
+  for (const context of RECOMMENDATION_CONTEXTS) {
+    const matchesKeyword = context.keywords.some(
+      keyword => questionLower.includes(keyword) || codeLower.includes(keyword)
+    );
+    if (matchesKeyword) {
+      return {
+        actions: context.specificActions.slice(0, 6), // Take top 6 actions
+        reasoning: context.reasoning,
+        resources: context.resources,
+      };
+    }
+  }
+
+  // Default recommendations if no specific match
+  return {
+    actions: [
+      'Document current state with photos and measurements',
+      'Consult Australian Standards AS1428.1 for specific requirements',
+      'Consider engaging an access consultant for professional assessment',
+      'Develop a costed action plan with realistic timeframes',
+      'Communicate planned improvements on your accessibility page',
+      'Track and report on progress',
+    ],
+    reasoning: 'This accessibility feature is not currently in place, creating a potential barrier for customers with disabilities.',
+    resources: ['[Australian Human Rights Commission - Disability Standards]', '[Access Consultants Australia Directory]'],
+  };
+}
+
 // Helper: Generate detailed findings for deep-dive mode
 function generateDetailedFindings(completedModules: ModuleProgress[]): Report['detailedFindings'] {
   return completedModules.map(moduleProgress => {
@@ -561,33 +851,39 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
         if (!question) return null;
 
         // Determine priority based on answer and question metadata
-        // 'no' = high priority, 'unable-to-check' = medium priority (needs follow-up, not a failure)
         const priority: 'high' | 'medium' | 'low' =
           isNegativeResponse(response.answer) ? 'high' :
           needsFollowUp(response.answer) ? 'medium' : 'low';
 
-        // Generate reasoning
-        const reasoning = isNegativeResponse(response.answer)
-          ? 'This accessibility feature is currently not in place, creating a potential barrier for customers with disabilities.'
-          : 'This item needs follow-up to confirm. This may indicate a need for additional information or verification from another team member.';
+        // Get specific recommendations based on question context
+        const recommendations = getSpecificRecommendations(
+          question.text,
+          module.code,
+          response.answer
+        );
 
-        // Generate recommended actions based on question type
+        // Generate contextual reasoning
+        const reasoning = isNegativeResponse(response.answer)
+          ? recommendations.reasoning
+          : 'This item needs follow-up to confirm. Conduct an internal audit to clarify current status and document findings for your team.';
+
+        // Build recommended actions
         const recommendedActions: string[] = [];
         if (isNegativeResponse(response.answer)) {
-          recommendedActions.push(`Assess feasibility of implementing ${question.text.toLowerCase().replace(/\?$/, '')}`);
-          recommendedActions.push('Consult with accessibility expert if needed');
-          recommendedActions.push('Create action plan with timeline and budget');
+          recommendedActions.push(...recommendations.actions);
         } else {
-          recommendedActions.push('Conduct internal audit to clarify current status');
-          recommendedActions.push('Document findings and share with team');
-          recommendedActions.push('Update accessibility information based on findings');
+          // For "unable to check" responses
+          recommendedActions.push(
+            'Conduct a site walk-through to verify current accessibility features',
+            'Take photos or measurements to document current state',
+            'Consult with team members who may have more information',
+            'Update your accessibility records based on findings',
+            'Schedule follow-up review to confirm status',
+          );
         }
 
-        // Placeholder resource links (will be replaced with actual resource center links)
-        const resourceLinks = [
-          `[Resource: ${module.name}] (Coming soon)`,
-          '[General Accessibility Guidelines] (Coming soon)',
-        ];
+        // Build resource links - use real Resource Centre links
+        const resourceLinks = getReportResourceLinks(question.id, module.code);
 
         return {
           questionText: question.text,
