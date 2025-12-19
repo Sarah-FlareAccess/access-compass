@@ -470,14 +470,22 @@ export function DiscoveryModule({
 
         {currentStep === 'recommendation' && (
           <div className="recommendation-view">
-            {/* Header */}
+            {/* Header with value messaging */}
             <div className="recommendation-header">
+              <div className="header-icon-wrapper">
+                <span className="header-icon">🎯</span>
+              </div>
               <h1 className="discovery-title">
-                Based on what you've told us, these areas are relevant to your business
+                Your personalised accessibility priorities
               </h1>
               <p className="discovery-subtitle">
-                You can adjust these at any time. Nothing is locked in.
+                We've identified the areas that matter most for your business. Each module gives you practical actions you can take right away.
               </p>
+              <div className="header-value-points">
+                <span className="value-point"><span className="check-icon">✓</span> Tailored to your business type</span>
+                <span className="value-point"><span className="check-icon">✓</span> Clear, actionable priorities</span>
+                <span className="value-point"><span className="check-icon">✓</span> Downloadable report included</span>
+              </div>
             </div>
 
             {/* Warnings */}
@@ -492,15 +500,29 @@ export function DiscoveryModule({
               </div>
             )}
 
-            {/* Selected modules count */}
+            {/* Selected modules count - enhanced */}
             <div className="module-selection-summary">
-              <span className="selection-count-label">
-                {customSelectedModules.length} module{customSelectedModules.length !== 1 ? 's' : ''} selected
-              </span>
-              <span className="selection-time">
-                ~{MODULES.filter(m => customSelectedModules.includes(m.id))
-                  .reduce((sum, m) => sum + m.estimatedTime, 0)} min total
-              </span>
+              <div className="selection-info">
+                <span className="selection-count">
+                  {customSelectedModules.length}
+                </span>
+                <span className="selection-label">
+                  module{customSelectedModules.length !== 1 ? 's' : ''} in your review
+                </span>
+              </div>
+              <div className="selection-time-wrapper">
+                <span className="time-icon">⏱</span>
+                <span className="selection-time">
+                  ~{MODULES.filter(m => customSelectedModules.includes(m.id))
+                    .reduce((sum, m) => sum + m.estimatedTime, 0)} min total
+                </span>
+              </div>
+            </div>
+
+            {/* Instruction prompt */}
+            <div className="selection-instruction">
+              <span className="instruction-icon">👆</span>
+              <p>Review the recommended modules below. <strong>Click to select or deselect</strong> based on what's relevant to your business.</p>
             </div>
 
             {/* Selectable module tiles by category */}
@@ -511,30 +533,38 @@ export function DiscoveryModule({
                 ...recommendationResult.alsoRelevant.map(m => m.moduleId),
               ]);
 
-              // Define categories with all module codes
+              // Define categories with all module codes - enhanced with icons and outcomes
               const categories = [
                 {
                   id: 'before-visit',
                   label: 'Before visit',
-                  description: 'Digital presence and pre-arrival information',
+                  icon: '🔍',
+                  description: 'Help customers find you and plan their visit with confidence',
+                  outcome: 'Customers arrive prepared and feeling welcome',
                   codes: ['B1', 'B2', 'B3', 'B4.1', 'B4.2', 'B4.3'],
                 },
                 {
                   id: 'during-visit',
                   label: 'During visit',
-                  description: 'Physical space and on-site experience',
+                  icon: '🏪',
+                  description: 'Create a physical space where everyone can participate fully',
+                  outcome: 'Customers navigate and engage independently',
                   codes: ['A1', 'A2', 'A3a', 'A3b', 'A4', 'A5', 'A6', 'A7'],
                 },
                 {
                   id: 'service',
                   label: 'Service and support',
-                  description: 'Customer service and communication',
+                  icon: '🤝',
+                  description: 'Communicate and serve customers with diverse needs',
+                  outcome: 'Every customer interaction is inclusive',
                   codes: ['C1', 'C2'],
                 },
                 {
                   id: 'after-visit',
                   label: 'After visit',
-                  description: 'Feedback and continuous improvement',
+                  icon: '📈',
+                  description: 'Gather feedback and continuously improve',
+                  outcome: 'Your accessibility grows over time',
                   codes: ['C3'],
                 },
               ];
@@ -555,9 +585,17 @@ export function DiscoveryModule({
                 if (visibleModules.length === 0) return null;
 
                 return (
-                  <div key={category.id} className="module-category">
-                    <h3 className="category-label">{category.label}</h3>
-                    <p className="category-description">{category.description}</p>
+                  <div key={category.id} className={`module-category category-${category.id}`}>
+                    <div className="category-header">
+                      <span className="category-icon">{category.icon}</span>
+                      <div className="category-info">
+                        <h3 className="category-label">{category.label}</h3>
+                        <p className="category-description">{category.description}</p>
+                      </div>
+                    </div>
+                    <p className="category-outcome">
+                      <span className="outcome-label">Outcome:</span> {category.outcome}
+                    </p>
                     <div className="module-tiles selectable">
                       {visibleModules.map(module => {
                         const isSelected = customSelectedModules.includes(module.id);
@@ -591,10 +629,13 @@ export function DiscoveryModule({
                                 <span className="tile-name">{module.name}</span>
                                 <span className="tile-code">{module.id}</span>
                               </div>
-                              <span className="tile-time">{module.estimatedTime} min</span>
-                              {isRecommended && (
-                                <span className="tile-badge">Recommended</span>
-                              )}
+                              <p className="tile-description">{module.description}</p>
+                              <div className="tile-meta">
+                                <span className="tile-time">{module.estimatedTime} min</span>
+                                {isRecommended && (
+                                  <span className="tile-badge">Recommended</span>
+                                )}
+                              </div>
                             </div>
                           </div>
                         );
@@ -620,21 +661,32 @@ export function DiscoveryModule({
               </p>
             </div>
 
-            {/* Reassurance text */}
-            <p className="reassurance-text">
-              Click modules to add or remove them. Your selections will be saved.
-            </p>
+            {/* Reassurance section */}
+            <div className="reassurance-section">
+              <p className="reassurance-text">
+                <strong>Not sure what to include?</strong> Start with our recommendations – you can always add more later.
+              </p>
+              <p className="reassurance-subtext">
+                Click any module to add or remove it from your review.
+              </p>
+            </div>
 
             {/* Actions */}
             <div className="discovery-actions-card">
+              <p className="action-context">
+                Ready to start? Your review will take approximately {MODULES.filter(m => customSelectedModules.includes(m.id)).reduce((sum, m) => sum + m.estimatedTime, 0)} minutes.
+              </p>
               <div className="discovery-buttons" style={{ flexDirection: 'column' }}>
                 <button className="btn-continue" onClick={handleContinue}>
-                  Continue →
+                  Continue to review →
                 </button>
                 <button className="btn-back" onClick={handleBack}>
-                  ← Back to adjust selections
+                  ← Back to adjust answers
                 </button>
               </div>
+              <p className="action-reassurance">
+                You'll get a downloadable report with prioritised actions at the end.
+              </p>
             </div>
           </div>
         )}

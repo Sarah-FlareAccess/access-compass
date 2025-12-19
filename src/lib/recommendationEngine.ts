@@ -57,30 +57,48 @@ export interface ModuleDefinition {
   name: string;
   journeyTheme: JourneyPhase;
   estimatedTime: number;
+  description: string;
 }
 
 export const MODULES: ModuleDefinition[] = [
   // Before they arrive (4 modules)
-  { id: 'B1', name: 'Pre-visit information', journeyTheme: 'before-arrival', estimatedTime: 12 },
-  { id: 'B4.1', name: 'Website basics', journeyTheme: 'before-arrival', estimatedTime: 15 },
-  { id: 'B4.2', name: 'Booking systems and forms', journeyTheme: 'before-arrival', estimatedTime: 10 },
-  { id: 'B4.3', name: 'Video and social media', journeyTheme: 'before-arrival', estimatedTime: 10 },
+  { id: 'B1', name: 'Pre-visit information', journeyTheme: 'before-arrival', estimatedTime: 12,
+    description: 'Helps customers plan their visit with confidence. Relevant if people research you online before arriving.' },
+  { id: 'B4.1', name: 'Website basics', journeyTheme: 'before-arrival', estimatedTime: 15,
+    description: 'Ensures your website works for everyone. Relevant if customers find you through your website.' },
+  { id: 'B4.2', name: 'Booking systems and forms', journeyTheme: 'before-arrival', estimatedTime: 10,
+    description: 'Makes online booking accessible. Relevant if you take bookings or have online forms.' },
+  { id: 'B4.3', name: 'Video and social media', journeyTheme: 'before-arrival', estimatedTime: 10,
+    description: 'Ensures your content reaches everyone. Relevant if you use video or social media marketing.' },
   // Getting in and moving around (4 modules)
-  { id: 'A1', name: 'Arrival, parking and drop-off', journeyTheme: 'during-visit', estimatedTime: 15 },
-  { id: 'A2', name: 'Entry and doors', journeyTheme: 'during-visit', estimatedTime: 12 },
-  { id: 'A3a', name: 'Paths and aisles', journeyTheme: 'during-visit', estimatedTime: 12 },
-  { id: 'A3b', name: 'Queues and busy times', journeyTheme: 'during-visit', estimatedTime: 10 },
+  { id: 'A1', name: 'Arrival, parking and drop-off', journeyTheme: 'during-visit', estimatedTime: 15,
+    description: 'Helps customers get to your door. Relevant if you have a physical location customers visit.' },
+  { id: 'A2', name: 'Entry and doors', journeyTheme: 'during-visit', estimatedTime: 12,
+    description: 'Ensures everyone can get inside. Relevant if your entrance has steps, heavy doors, or narrow access.' },
+  { id: 'A3a', name: 'Paths and aisles', journeyTheme: 'during-visit', estimatedTime: 12,
+    description: 'Makes moving around easy. Relevant if customers navigate through your space.' },
+  { id: 'A3b', name: 'Queues and busy times', journeyTheme: 'during-visit', estimatedTime: 10,
+    description: 'Manages crowds comfortably. Relevant if customers wait in line or you have peak periods.' },
   // During the visit (5 modules)
-  { id: 'A4', name: 'Seating, furniture and layout', journeyTheme: 'during-visit', estimatedTime: 12 },
-  { id: 'A5', name: 'Toilets and amenities', journeyTheme: 'during-visit', estimatedTime: 15 },
-  { id: 'A6', name: 'Lighting, sound and sensory environment', journeyTheme: 'during-visit', estimatedTime: 12 },
-  { id: 'B2', name: 'Signage and wayfinding', journeyTheme: 'during-visit', estimatedTime: 12 },
-  { id: 'B3', name: 'Menus and printed materials', journeyTheme: 'during-visit', estimatedTime: 10 },
+  { id: 'A4', name: 'Seating, furniture and layout', journeyTheme: 'during-visit', estimatedTime: 12,
+    description: 'Provides comfortable options for all. Relevant if customers sit, dine, or spend time in your space.' },
+  { id: 'A5', name: 'Toilets and amenities', journeyTheme: 'during-visit', estimatedTime: 15,
+    description: 'Ensures facilities work for everyone. Relevant if you have customer toilets or changing facilities.' },
+  { id: 'A6', name: 'Lighting, sound and sensory environment', journeyTheme: 'during-visit', estimatedTime: 12,
+    description: 'Creates a comfortable atmosphere. Relevant if your space has music, lighting, or could be overwhelming.' },
+  { id: 'B2', name: 'Signage and wayfinding', journeyTheme: 'during-visit', estimatedTime: 12,
+    description: 'Helps people find their way. Relevant if customers need to navigate or find specific areas.' },
+  { id: 'B3', name: 'Menus and printed materials', journeyTheme: 'during-visit', estimatedTime: 10,
+    description: 'Makes information readable for all. Relevant if you have menus, brochures, or price lists.' },
   // Service and support (4 modules)
-  { id: 'C1', name: 'Customer service and staff confidence', journeyTheme: 'during-visit', estimatedTime: 15 },
-  { id: 'C2', name: 'Bookings, payments and flexibility', journeyTheme: 'during-visit', estimatedTime: 10 },
-  { id: 'A7', name: 'Safety and emergencies', journeyTheme: 'during-visit', estimatedTime: 12 },
-  { id: 'C3', name: 'Learning from your customers', journeyTheme: 'after-visit', estimatedTime: 10 },
+  { id: 'C1', name: 'Customer service and staff confidence', journeyTheme: 'during-visit', estimatedTime: 15,
+    description: 'Prepares your team to help everyone. Relevant for any business with customer-facing staff.' },
+  { id: 'C2', name: 'Bookings, payments and flexibility', journeyTheme: 'during-visit', estimatedTime: 10,
+    description: 'Makes transactions smooth for all. Relevant if customers book, pay, or need flexible options.' },
+  { id: 'A7', name: 'Safety and emergencies', journeyTheme: 'during-visit', estimatedTime: 12,
+    description: 'Keeps everyone safe. Relevant if you need evacuation plans or safety procedures.' },
+  { id: 'C3', name: 'Learning from your customers', journeyTheme: 'after-visit', estimatedTime: 10,
+    description: 'Helps you improve over time. Relevant if you want ongoing feedback to guide improvements.' },
 ];
 
 // Module IDs now match codes directly (no mapping needed)

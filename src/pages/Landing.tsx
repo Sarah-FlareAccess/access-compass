@@ -6,87 +6,116 @@ export default function Landing() {
     <div className="landing-page">
       {/* Hero Section */}
       <section className="hero">
-        <div className="container">
-          <h1>Understand accessibility in your business</h1>
-          <p className="hero-subheading">
-            Clear, practical accessibility priorities for your business so you can take confident action.
-          </p>
-
-          <div className="hero-message">
-            <p className="journey-text">
-              Accessibility is a journey, not a one-off task
-            </p>
-            <p className="support-text">
-              Access Compass supports gradual, meaningful improvement—helping you reduce barriers over time, within your capacity.
-            </p>
+        <div className="container hero-layout">
+          {/* Compass visual element */}
+          <div className="hero-compass" aria-hidden="true">
+            <div className="compass-ring">
+              <div className="compass-needle"></div>
+            </div>
           </div>
 
-          {/* CTA Button */}
-          <Link to="/disclaimer" className="btn btn-primary btn-large">
-            Start your accessibility check
-          </Link>
+          <div className="hero-content">
+            <h1>Understand accessibility in your business</h1>
+            <p className="hero-subheading">
+              Clear, practical priorities so you can take confident action.
+            </p>
 
-          <p className="action-text">
-            Take your next steps with confidence
+            {/* Quick info badges */}
+            <div className="hero-badges">
+              <span className="hero-badge">10-15 min check</span>
+              <span className="hero-badge">Instant priorities</span>
+              <span className="hero-badge">Free to start</span>
+            </div>
+
+            {/* CTA Button */}
+            <Link to="/disclaimer" className="btn btn-primary btn-large">
+              Start your accessibility check
+            </Link>
+
+            {/* Who it's for */}
+            <p className="hero-audience">
+              Built for cafes, retail, tourism, and service businesses across Australia.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Value proposition bridge */}
+      <section className="value-bridge">
+        <div className="container">
+          <p className="value-statement">
+            <strong>Accessibility is a journey, not a one-off task.</strong>
+            {' '}Access Compass helps you make meaningful progress—step by step, within your capacity.
           </p>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="features-section">
+      {/* What You Get - 4 Cards */}
+      <section className="benefits-section">
         <div className="container">
-          <h2>How Access Compass helps</h2>
-          <p className="features-intro">
-            Move from insight to action with practical tools and support designed for real-world capacity.
-          </p>
+          <h2>What you'll get</h2>
+          <div className="benefits-grid">
+            <div className="benefit-card">
+              <span className="benefit-icon">🎯</span>
+              <h3>Personalised priorities</h3>
+              <p>Recommendations tailored to your business type, not generic checklists.</p>
+            </div>
+            <div className="benefit-card">
+              <span className="benefit-icon">📋</span>
+              <h3>Actionable report</h3>
+              <p>A downloadable summary you can share with your team or stakeholders.</p>
+            </div>
+            <div className="benefit-card">
+              <span className="benefit-icon">💡</span>
+              <h3>Practical guidance</h3>
+              <p>Clear explanations of what to do and why it matters for your customers.</p>
+            </div>
+            <div className="benefit-card">
+              <span className="benefit-icon">🚀</span>
+              <h3>Quick to complete</h3>
+              <p>Most businesses finish in 15 minutes. Start now, come back anytime.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">
-                <span>1</span>
+      {/* How It Works Section */}
+      <section className="how-section">
+        <div className="container">
+          <h2>How it works</h2>
+
+          <div className="steps-list">
+            <div className="step">
+              <div className="step-number">1</div>
+              <div className="step-content">
+                <h3>Tell us about your business</h3>
+                <p>Answer simple questions about your customer experience, physical space, and digital presence.</p>
               </div>
-              <h3>Guided Self-Review</h3>
-              <p>
-                Understand where accessibility matters across your business experience.
-              </p>
             </div>
 
-            <div className="feature-card">
-              <div className="feature-icon">
-                <span>2</span>
+            <div className="step">
+              <div className="step-number">2</div>
+              <div className="step-content">
+                <h3>Get your priorities</h3>
+                <p>We analyse your responses and show you what matters most for your specific situation.</p>
               </div>
-              <h3>Clear priorities, not overwhelm</h3>
-              <p>
-                Know what will make the biggest difference first.
-              </p>
             </div>
 
-            <div className="feature-card">
-              <div className="feature-icon">
-                <span>3</span>
+            <div className="step">
+              <div className="step-number">3</div>
+              <div className="step-content">
+                <h3>Take action with confidence</h3>
+                <p>Download your report, share it with stakeholders, and start making improvements that count.</p>
               </div>
-              <h3>Practical reports and plans</h3>
-              <p>
-                Turn your insights into documents and plans you can actually use.
-              </p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">
-                <span>4</span>
-              </div>
-              <h3>Next step support and resources</h3>
-              <p>
-                Access curated guides, examples, tools and expert support to help you implement improvements, brief staff or suppliers and build confidence across your organisation and customers.
-              </p>
             </div>
           </div>
 
-          {/* Secondary CTA */}
+          {/* Final CTA */}
           <div className="features-cta">
             <Link to="/disclaimer" className="btn btn-primary btn-large">
-              Get started
+              Start your accessibility check
             </Link>
+            <p className="cta-note">Takes about 15 minutes. No signup required.</p>
           </div>
         </div>
       </section>
