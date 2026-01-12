@@ -577,7 +577,6 @@ label {
   color: white;
   padding: var(--spacing-xxl) var(--spacing-md);
   text-align: center;
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
 .hero h1 {

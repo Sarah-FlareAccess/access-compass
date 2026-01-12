@@ -15,17 +15,10 @@ export default function Landing() {
           </div>
 
           <div className="hero-content">
-            <h1>Understand accessibility in your business</h1>
+            <h1>Make your business more accessible — step by step</h1>
             <p className="hero-subheading">
-              Clear, practical priorities so you can take confident action.
+              Access Compass cuts through the complexity — giving you a clear, prioritised action plan tailored to your business, your budget, and your capacity. No expertise required. Just practical next steps you can actually take.
             </p>
-
-            {/* Quick info badges */}
-            <div className="hero-badges">
-              <span className="hero-badge">10-15 min check</span>
-              <span className="hero-badge">Instant priorities</span>
-              <span className="hero-badge">Free to start</span>
-            </div>
 
             {/* CTA Button */}
             <Link to="/disclaimer" className="btn btn-primary btn-large">
@@ -34,7 +27,7 @@ export default function Landing() {
 
             {/* Who it's for */}
             <p className="hero-audience">
-              Built for cafes, retail, tourism, and service businesses across Australia.
+              Helping hospitality, retail, accommodation, tourism, events, recreation, and service businesses improve accessibility for people with disability — and welcome more customers.
             </p>
           </div>
         </div>
@@ -45,7 +38,7 @@ export default function Landing() {
         <div className="container">
           <p className="value-statement">
             <strong>Accessibility is a journey, not a one-off task.</strong>
-            {' '}Access Compass helps you make meaningful progress—step by step, within your capacity.
+            {' '}Access Compass supports progress over perfection, helping you make meaningful improvements one step at a time, within your capacity.
           </p>
         </div>
       </section>
@@ -72,8 +65,8 @@ export default function Landing() {
             </div>
             <div className="benefit-card">
               <span className="benefit-icon">🚀</span>
-              <h3>Quick to complete</h3>
-              <p>Most businesses finish in 15 minutes. Start now, come back anytime.</p>
+              <h3>Built for busy people</h3>
+              <p>Start now, save your progress, and come back anytime. Work at your own pace.</p>
             </div>
           </div>
         </div>
@@ -115,7 +108,6 @@ export default function Landing() {
             <Link to="/disclaimer" className="btn btn-primary btn-large">
               Start your accessibility check
             </Link>
-            <p className="cta-note">Takes about 15 minutes. No signup required.</p>
           </div>
         </div>
       </section>
