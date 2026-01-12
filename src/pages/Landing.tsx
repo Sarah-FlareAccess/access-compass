@@ -6,14 +6,16 @@ export default function Landing() {
     <div className="landing-page">
       {/* Hero Section */}
       <section className="hero">
-        <div className="container hero-layout">
-          {/* Compass visual element */}
-          <div className="hero-compass" aria-hidden="true">
-            <div className="compass-ring">
-              <div className="compass-needle"></div>
-            </div>
-          </div>
+        {/* Directional background elements - decorative only */}
+        <div className="hero-compass-bg" aria-hidden="true">
+          <div className="compass-marks"></div>
+          <div className="compass-needle"></div>
+          <div className="guide-arc"></div>
+        </div>
+        {/* Visible directional line: compass → CTA → down */}
+        <div className="hero-directional-line" aria-hidden="true"></div>
 
+        <div className="container hero-layout">
           <div className="hero-content">
             <h1>Make your business more accessible — step by step</h1>
             <p className="hero-subheading">
@@ -21,25 +23,15 @@ export default function Landing() {
             </p>
 
             {/* CTA Button */}
-            <Link to="/disclaimer" className="btn btn-primary btn-large">
+            <Link to="/disclaimer" className="btn btn-primary btn-large hero-cta">
               Start your accessibility check
             </Link>
 
-            {/* Who it's for */}
-            <p className="hero-audience">
-              Helping hospitality, retail, accommodation, tourism, events, recreation, and service businesses improve accessibility for people with disability — and welcome more customers.
+            {/* Trust signal */}
+            <p className="hero-trust">
+              Built by access consultants and universal design experts who understand your business needs.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Value proposition bridge */}
-      <section className="value-bridge">
-        <div className="container">
-          <p className="value-statement">
-            <strong>Accessibility is a journey, not a one-off task.</strong>
-            {' '}Access Compass supports progress over perfection, helping you make meaningful improvements one step at a time, within your capacity.
-          </p>
         </div>
       </section>
 
@@ -68,6 +60,29 @@ export default function Landing() {
               <h3>Built for busy people</h3>
               <p>Start now, save your progress, and come back anytime. Work at your own pace.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Who It's For Section */}
+      <section className="audience-section">
+        <div className="container">
+          <h2>Who it's for</h2>
+          <p className="audience-intro">
+            Access Compass is designed for customer-facing businesses ready to welcome more people.
+          </p>
+          <p className="audience-stage">
+            Whether you're just beginning your accessibility journey or looking to advance your progress, we'll meet you where you are.
+          </p>
+          <div className="audience-grid">
+            <div className="audience-item">Hospitality</div>
+            <div className="audience-item">Retail</div>
+            <div className="audience-item">Accommodation</div>
+            <div className="audience-item">Tourism</div>
+            <div className="audience-item">Events</div>
+            <div className="audience-item">Recreation</div>
+            <div className="audience-item">Health & Wellness</div>
+            <div className="audience-item">Professional Services</div>
           </div>
         </div>
       </section>
@@ -102,6 +117,16 @@ export default function Landing() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Journey reinforcement - after process explanation */}
+      <section className="journey-section">
+        <div className="container">
+          <p className="value-statement">
+            <strong>Accessibility is a journey, not a one-off task.</strong>
+            {' '}Access Compass supports progress over perfection, helping you make meaningful improvements one step at a time, within your capacity.
+          </p>
 
           {/* Final CTA */}
           <div className="features-cta">
