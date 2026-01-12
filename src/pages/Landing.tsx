@@ -29,7 +29,7 @@ export default function Landing() {
 
             {/* Trust signal */}
             <p className="hero-trust">
-              Built by access consultants and universal design experts who understand your business needs.
+              Created by accessibility consultants who work with businesses like yours.
             </p>
           </div>
         </div>
@@ -74,15 +74,15 @@ export default function Landing() {
           <p className="audience-stage">
             Whether you're just beginning your accessibility journey or looking to advance your progress, we'll meet you where you are.
           </p>
-          <div className="audience-grid">
-            <div className="audience-item">Hospitality</div>
-            <div className="audience-item">Retail</div>
-            <div className="audience-item">Accommodation</div>
-            <div className="audience-item">Tourism</div>
-            <div className="audience-item">Events</div>
-            <div className="audience-item">Recreation</div>
-            <div className="audience-item">Health & Wellness</div>
-            <div className="audience-item">Professional Services</div>
+          <div className="audience-grid" role="list" aria-label="Business types we serve">
+            <span className="audience-item" role="listitem">Attractions</span>
+            <span className="audience-item" role="listitem">Leisure & Recreation</span>
+            <span className="audience-item" role="listitem">Hospitality</span>
+            <span className="audience-item" role="listitem">Events & Venues</span>
+            <span className="audience-item" role="listitem">Retail</span>
+            <span className="audience-item" role="listitem">Local Government</span>
+            <span className="audience-item" role="listitem">Health & Wellness</span>
+            <span className="audience-item" role="listitem">Education & Training</span>
           </div>
         </div>
       </section>
@@ -105,7 +105,7 @@ export default function Landing() {
               <div className="step-number">2</div>
               <div className="step-content">
                 <h3>Get your priorities</h3>
-                <p>We analyse your responses and show you what matters most for your specific situation.</p>
+                <p>We analyse your responses and show you what will make the biggest difference for your customers.</p>
               </div>
             </div>
 
@@ -113,7 +113,7 @@ export default function Landing() {
               <div className="step-number">3</div>
               <div className="step-content">
                 <h3>Take action with confidence</h3>
-                <p>Download your report, share it with stakeholders, and start making improvements that count.</p>
+                <p>Download your report, share it with stakeholders, and start making changes your customers will notice.</p>
               </div>
             </div>
           </div>
