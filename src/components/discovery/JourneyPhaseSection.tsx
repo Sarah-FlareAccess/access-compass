@@ -14,6 +14,7 @@ interface JourneyPhaseSectionProps {
   label: string;
   subLabel: string;
   description: string;
+  tip?: string; // Helpful tip for this phase
   icon: string;
   touchpoints: Touchpoint[];
   touchpointBlocks?: TouchpointBlock[];
@@ -34,6 +35,7 @@ const ICON_MAP: Record<string, string> = {
   'map-pin': '📍',
   'message-circle': '💬',
   'users': '👥',
+  'clipboard': '📋',
 };
 
 export function JourneyPhaseSection({
@@ -41,6 +43,7 @@ export function JourneyPhaseSection({
   label,
   subLabel,
   description,
+  tip,
   icon,
   touchpoints,
   touchpointBlocks,
@@ -103,6 +106,9 @@ export function JourneyPhaseSection({
           <div className="touchpoint-content">
             <div className="touchpoint-label">{touchpointLabel}</div>
             <div className="touchpoint-description">{touchpointDescription}</div>
+            {touchpoint.example && (
+              <div className="touchpoint-example">{touchpoint.example}</div>
+            )}
           </div>
           {hasSubTouchpoints && isSelected && (
             <button
@@ -183,6 +189,12 @@ export function JourneyPhaseSection({
       {isOpen && (
         <div className="phase-content">
           <p className="phase-description">{description}</p>
+          {tip && (
+            <div className="phase-tip">
+              <span className="tip-icon">💡</span>
+              <span className="tip-text">{tip}</span>
+            </div>
+          )}
 
           {/* Render by blocks if provided, otherwise flat list */}
           {touchpointBlocks && touchpointBlocks.length > 0 ? (

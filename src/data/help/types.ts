@@ -100,6 +100,9 @@ export interface HelpContent {
   /** External resources */
   resources?: HelpResource[];
 
+  /** Graded solutions by resource level */
+  solutions?: GradedSolution[];
+
   /** Related question IDs for navigation */
   relatedQuestions?: RelatedQuestion[];
 
@@ -287,6 +290,39 @@ export interface RelatedQuestion {
 
   /** Module code */
   moduleCode: ModuleCode;
+}
+
+/** Resource level for solution grading */
+export type ResourceLevel = 'low' | 'medium' | 'high';
+
+/** Solution graded by resource requirements */
+export interface GradedSolution {
+  /** Solution title */
+  title: string;
+
+  /** Description of what to do */
+  description: string;
+
+  /** Resource level required */
+  resourceLevel: ResourceLevel;
+
+  /** Estimated cost range (e.g., "Free", "$50-200", "$1000+") */
+  costRange: string;
+
+  /** Time/effort required (e.g., "1 hour", "1-2 days", "Ongoing") */
+  timeRequired: string;
+
+  /** Who can do this (e.g., "DIY", "Staff", "Contractor") */
+  implementedBy: 'diy' | 'staff' | 'contractor' | 'specialist';
+
+  /** Impact level of this solution */
+  impact: 'quick-win' | 'moderate' | 'significant';
+
+  /** Specific steps to implement */
+  steps?: string[];
+
+  /** Additional notes or considerations */
+  notes?: string;
 }
 
 // Lookup function types

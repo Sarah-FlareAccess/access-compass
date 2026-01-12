@@ -39,7 +39,7 @@ export interface BranchingQuestion {
   helpText?: string;
   example?: string;
   type: 'yes-no-unsure' | 'measurement' | 'text' | 'multi-select' | 'single-select' | 'link-input' | 'evidence' | 'url-analysis' | 'media-analysis';
-  category?: 'lived-experience' | 'operational' | 'information' | 'measurement' | 'policy' | 'evidence';
+  category?: 'lived-experience' | 'operational' | 'information' | 'measurement' | 'policy' | 'evidence' | 'employment' | 'training' | 'procurement' | 'improvement';
   reviewMode?: 'pulse-check' | 'deep-dive' | 'both';
   impactLevel?: 'high' | 'medium' | 'low';
   safetyRelated?: boolean;

@@ -271,6 +271,11 @@
   border-left: 4px solid rgba(249, 115, 22, 0.5);
 }
 
+.journey-phase-section.journey-policy {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.06) 0%, rgba(20, 184, 166, 0.1) 100%);
+  border-left: 4px solid rgba(20, 184, 166, 0.5);
+}
+
 /* Phase Header */
 .phase-header {
   display: flex;
@@ -325,10 +330,11 @@
   flex-shrink: 0;
 }
 
-.selection-count {
+/* Selection count in journey phase headers */
+.phase-actions .selection-count {
   font-size: 14px;
-  font-weight: 500;
-  color: var(--text-primary);
+  font-weight: 600;
+  color: #490E67;
 }
 
 .phase-chevron {
@@ -349,7 +355,32 @@
 .phase-description {
   font-size: 14px;
   color: var(--text-secondary);
-  margin: 0 0 16px 0;
+  margin: 0 0 12px 0;
+}
+
+/* Phase tip styling */
+.phase-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.06) 0%, rgba(73, 14, 103, 0.02) 100%);
+  border-radius: 10px;
+  border-left: 3px solid rgba(73, 14, 103, 0.4);
+  margin-bottom: 20px;
+}
+
+.phase-tip .tip-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.phase-tip .tip-text {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
 }
 
 /* Touchpoint Blocks */
@@ -439,6 +470,15 @@
   font-size: 13px;
   color: var(--text-muted);
   margin-top: 4px;
+}
+
+.touchpoint-example {
+  font-size: 12px;
+  color: #777;
+  margin-top: 6px;
+  font-style: italic;
+  padding-left: 12px;
+  border-left: 2px solid rgba(73, 14, 103, 0.2);
 }
 
 .expand-button {
@@ -1644,18 +1684,38 @@
   position: relative;
 }
 
-.business-context-questions::before {
-  content: '📍 Quick Context';
-  position: absolute;
-  top: -14px;
-  left: 32px;
+/* Step header inside context questions */
+.context-step-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(73, 14, 103, 0.1);
+}
+
+.context-step-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+  margin: 0;
+}
+
+/* Shared step number badge style */
+.instruction-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 12px;
   background: linear-gradient(135deg, var(--amethyst-diamond) 0%, #6b21a8 100%);
   color: white;
-  padding: 8px 20px;
-  border-radius: 24px;
+  border-radius: 16px;
   font-size: 0.85rem;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.3);
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(73, 14, 103, 0.25);
+  flex-shrink: 0;
 }
 
 .context-question {
@@ -1741,6 +1801,31 @@
   color: var(--coral-flare);
 }
 
+/* Field tip styling for context questions */
+.field-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(73, 14, 103, 0.04);
+  border-radius: 8px;
+  border-left: 3px solid rgba(73, 14, 103, 0.3);
+}
+
+.field-tip .tip-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+.field-tip {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
 /* ============================================
    CONTEXT-AWARE MESSAGE
    ============================================ */
@@ -1767,6 +1852,44 @@
   font-size: 14px;
   color: #1e40af;
   line-height: 1.5;
+}
+
+/* ============================================
+   JOURNEY INSTRUCTION (Step 2 Transition)
+   ============================================ */
+
+.journey-instruction {
+  background: linear-gradient(135deg, white 0%, rgba(73, 14, 103, 0.04) 100%);
+  border: 2px solid rgba(73, 14, 103, 0.15);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin: 32px 0 24px;
+}
+
+.journey-instruction .instruction-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.journey-instruction .instruction-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+  margin: 0;
+}
+
+.journey-instruction .instruction-detail {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding-left: 48px;
+}
+
+.journey-instruction .instruction-detail strong {
+  color: var(--text-primary);
 }
 
 /* ============================================
@@ -1818,6 +1941,31 @@
 }
 
 .selection-time {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.selection-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.selection-cost-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+.cost-icon {
+  font-size: 1rem;
+}
+
+.selection-cost-total {
   color: white;
   font-size: 0.95rem;
   font-weight: 600;
@@ -2030,6 +2178,15 @@
   color: var(--text-muted);
   background: #f0f0f0;
   padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.module-tile.selectable .tile-cost {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #166534;
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  padding: 3px 10px;
   border-radius: 4px;
 }
 

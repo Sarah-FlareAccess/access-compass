@@ -768,9 +768,9 @@ export default function Decision() {
           </a>
         </div>
 
-        {/* Back to Discovery */}
+        {/* Back to adjust modules */}
         <div className="back-link-wrapper">
-          <Link to="/discovery" className="back-link">← Back to discovery</Link>
+          <Link to="/discovery?modules=true" className="back-link">← Back to adjust modules</Link>
         </div>
       </div>
     </div>

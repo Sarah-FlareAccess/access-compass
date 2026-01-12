@@ -265,6 +265,143 @@ export const gettingInHelp: HelpContent[] = [
       }
     ],
 
+    solutions: [
+      {
+        title: 'Doorbell at wheelchair height',
+        description: 'Install a simple doorbell or call button at 900mm height so customers can request assistance getting through the door.',
+        resourceLevel: 'low',
+        costRange: '$30-80',
+        timeRequired: '30 minutes',
+        implementedBy: 'diy',
+        impact: 'quick-win',
+        steps: [
+          'Purchase a wireless doorbell or call button',
+          'Mount at 900mm height beside the door',
+          'Add signage: "Press for assistance"',
+          'Train staff to respond immediately'
+        ],
+        notes: 'A temporary solution while planning more permanent improvements. Ensure staff respond within 30 seconds.'
+      },
+      {
+        title: 'Replace door handle with lever',
+        description: 'Swap round doorknobs for lever-style handles that can be operated with one hand, a closed fist, or an elbow.',
+        resourceLevel: 'low',
+        costRange: '$50-150',
+        timeRequired: '1-2 hours',
+        implementedBy: 'diy',
+        impact: 'moderate',
+        steps: [
+          'Measure your door thickness and backset',
+          'Purchase compatible lever handles',
+          'Remove existing hardware',
+          'Install new lever handles',
+          'Test that door still closes and latches properly'
+        ]
+      },
+      {
+        title: 'Portable ramp for steps',
+        description: 'Purchase a high-quality portable ramp for entrances with 1-2 steps. Store near the door with staff trained to deploy it quickly.',
+        resourceLevel: 'low',
+        costRange: '$300-600',
+        timeRequired: '1 hour setup',
+        implementedBy: 'staff',
+        impact: 'significant',
+        steps: [
+          'Measure the height of steps to determine ramp length needed',
+          'Purchase ramp with non-slip surface (ensure 1:8 or gentler gradient)',
+          'Designate storage location just inside the door',
+          'Add "Ramp Available" signage at entrance',
+          'Train all staff on quick deployment'
+        ],
+        notes: 'Check gradient: for 150mm step, you need at least 1.2m ramp length for safe gradient.'
+      },
+      {
+        title: 'Door pressure adjustment',
+        description: 'Adjust the door closer to reduce opening force. Most closers have adjustment screws that can reduce resistance.',
+        resourceLevel: 'low',
+        costRange: 'Free - $100',
+        timeRequired: '30 minutes',
+        implementedBy: 'staff',
+        impact: 'quick-win',
+        steps: [
+          'Locate the door closer mechanism at top of door',
+          'Find the adjustment screws (usually labelled S, L, BC)',
+          'Turn screws counter-clockwise to reduce force',
+          'Test until door can be opened with one finger but still closes properly',
+          'If adjustment insufficient, consider replacing closer'
+        ]
+      },
+      {
+        title: 'Door hold-open device',
+        description: 'Install a magnetic hold-open device that keeps the door open during business hours, removing the door barrier entirely.',
+        resourceLevel: 'medium',
+        costRange: '$150-400',
+        timeRequired: '2-4 hours',
+        implementedBy: 'contractor',
+        impact: 'significant',
+        steps: [
+          'Check fire regulations—fire doors may need special hold-open devices',
+          'Select appropriate device (magnetic with fire alarm release for fire doors)',
+          'Install floor plate or wall mount',
+          'Connect to fire alarm if required',
+          'Train staff on operation'
+        ],
+        notes: 'Must comply with fire safety requirements. Fire doors need devices that release automatically on alarm.'
+      },
+      {
+        title: 'Power-assist door opener',
+        description: 'Install a push-button operated power assist that helps swing the door open when activated.',
+        resourceLevel: 'medium',
+        costRange: '$1,500-3,000',
+        timeRequired: '4-8 hours',
+        implementedBy: 'contractor',
+        impact: 'significant',
+        steps: [
+          'Assess door type and frame condition',
+          'Get quotes from accessibility equipment suppliers',
+          'Schedule installation (usually half day)',
+          'Mount activation button at accessible height (900-1100mm)',
+          'Test and adjust opening speed'
+        ]
+      },
+      {
+        title: 'Fully automatic sliding door',
+        description: 'Replace the manual door with automatic sliding doors that open via motion sensor—the gold standard for accessibility.',
+        resourceLevel: 'high',
+        costRange: '$5,000-15,000',
+        timeRequired: '1-2 days',
+        implementedBy: 'specialist',
+        impact: 'significant',
+        steps: [
+          'Consult with door automation specialist',
+          'Assess structural requirements and power supply',
+          'Select door style (sliding preferred for accessibility)',
+          'Schedule installation',
+          'Configure motion sensors for appropriate sensitivity',
+          'Arrange regular maintenance schedule'
+        ],
+        notes: 'Consider glass safety requirements and emergency breakout functionality.'
+      },
+      {
+        title: 'Permanent ramped entrance',
+        description: 'Construct a permanent ramp compliant with AS1428.1, fully integrated with your building entrance.',
+        resourceLevel: 'high',
+        costRange: '$5,000-20,000',
+        timeRequired: '1-2 weeks',
+        implementedBy: 'specialist',
+        impact: 'significant',
+        steps: [
+          'Engage access consultant to design compliant ramp',
+          'Check council permits and heritage requirements',
+          'Get quotes from builders experienced in access work',
+          'Construction typically takes 3-5 days',
+          'Include handrails, tactile indicators, and edge protection',
+          'Ensure landing areas at top and bottom'
+        ],
+        notes: 'Cost varies significantly based on height change, material choice, and site conditions. Heritage buildings may need special approvals.'
+      }
+    ],
+
     resources: [
       {
         title: 'AS1428.1 Door Requirements Summary',

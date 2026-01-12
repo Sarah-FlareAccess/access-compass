@@ -43,9 +43,25 @@ export const DISCOVERY_QUESTIONS: DiscoveryQuestion[] = [
   { id: 'DQ09', text: 'Do customers use toilet facilities during their visit?', journeyPhase: 'during-visit', touchpointId: 'using-space' },
   { id: 'DQ10', text: 'Is lighting, noise, or sensory environment relevant to your space?', journeyPhase: 'during-visit', touchpointId: 'sensory' },
   { id: 'DQ11', text: 'Do staff regularly interact directly with customers?', journeyPhase: 'during-visit', touchpointId: 'staff-interaction' },
+  { id: 'DQ11a', text: 'Do you offer service adjustments or flexible options for customers?', journeyPhase: 'during-visit', touchpointId: 'service-flexibility' },
   { id: 'DQ12', text: 'Do you support customers with assistance animals or specific support needs?', journeyPhase: 'during-visit', touchpointId: 'staff-interaction' },
   { id: 'DQ13', text: 'Do you collect feedback or handle complaints?', journeyPhase: 'after-visit', touchpointId: 'feedback' },
-  { id: 'DQ14', text: 'Do you stay connected with customers after their visit?', journeyPhase: 'after-visit', touchpointId: 'staying-connected-touchpoint' },
+  { id: 'DQ14', text: 'Do you use surveys or feedback forms?', journeyPhase: 'after-visit', touchpointId: 'surveys-forms' },
+  { id: 'DQ14a', text: 'Do customers leave online reviews or ratings?', journeyPhase: 'after-visit', touchpointId: 'online-reviews' },
+  { id: 'DQ14b', text: 'Do you stay connected with customers after their visit?', journeyPhase: 'after-visit', touchpointId: 'staying-connected-touchpoint' },
+  { id: 'DQ14c', text: 'Do you send newsletters or marketing emails?', journeyPhase: 'after-visit', touchpointId: 'newsletters-email' },
+  { id: 'DQ14d', text: 'Do you offer discounts, promotions, or special offers?', journeyPhase: 'after-visit', touchpointId: 'offers-promotions' },
+  { id: 'DQ14e', text: 'Do you have a loyalty or rewards program?', journeyPhase: 'after-visit', touchpointId: 'loyalty-programs' },
+  { id: 'DQ14f', text: 'Do you have a referral program?', journeyPhase: 'after-visit', touchpointId: 'referrals' },
+  // Policy and operations touchpoints
+  { id: 'DQ15', text: 'Do you have accessibility policies or statements?', journeyPhase: 'policy-operations', touchpointId: 'accessibility-policy' },
+  { id: 'DQ16', text: 'Do staff receive accessibility training?', journeyPhase: 'policy-operations', touchpointId: 'staff-training' },
+  { id: 'DQ17', text: 'Is accessibility considered in procurement and partnerships?', journeyPhase: 'policy-operations', touchpointId: 'procurement-partnerships' },
+  { id: 'DQ18', text: 'Do you track and improve accessibility over time?', journeyPhase: 'policy-operations', touchpointId: 'continuous-improvement' },
+  { id: 'DQ19', text: 'Do you actively recruit or employ people with disability?', journeyPhase: 'policy-operations', touchpointId: 'inclusive-employment' },
+  { id: 'DQ20', text: 'Do you provide workplace adjustments for employees?', journeyPhase: 'policy-operations', touchpointId: 'workplace-adjustments' },
+  { id: 'DQ21', text: 'Do you require accessibility standards from suppliers?', journeyPhase: 'policy-operations', touchpointId: 'supplier-accessibility' },
+  { id: 'DQ22', text: 'Do you report on accessibility progress?', journeyPhase: 'policy-operations', touchpointId: 'accessibility-reporting' },
 ];
 
 // ============================================================================
@@ -58,47 +74,61 @@ export interface ModuleDefinition {
   journeyTheme: JourneyPhase;
   estimatedTime: number;
   description: string;
+  cost: number; // Placeholder cost in AUD
 }
 
 export const MODULES: ModuleDefinition[] = [
   // Before they arrive (4 modules)
-  { id: 'B1', name: 'Pre-visit information', journeyTheme: 'before-arrival', estimatedTime: 12,
+  { id: 'B1', name: 'Pre-visit information', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 85,
     description: 'Helps customers plan their visit with confidence. Relevant if people research you online before arriving.' },
-  { id: 'B4.1', name: 'Website basics', journeyTheme: 'before-arrival', estimatedTime: 15,
+  { id: 'B4.1', name: 'Website basics', journeyTheme: 'before-arrival', estimatedTime: 15, cost: 120,
     description: 'Ensures your website works for everyone. Relevant if customers find you through your website.' },
-  { id: 'B4.2', name: 'Booking systems and forms', journeyTheme: 'before-arrival', estimatedTime: 10,
+  { id: 'B4.2', name: 'Booking systems and forms', journeyTheme: 'before-arrival', estimatedTime: 10, cost: 75,
     description: 'Makes online booking accessible. Relevant if you take bookings or have online forms.' },
-  { id: 'B4.3', name: 'Video and social media', journeyTheme: 'before-arrival', estimatedTime: 10,
+  { id: 'B4.3', name: 'Video and social media', journeyTheme: 'before-arrival', estimatedTime: 10, cost: 65,
     description: 'Ensures your content reaches everyone. Relevant if you use video or social media marketing.' },
   // Getting in and moving around (4 modules)
-  { id: 'A1', name: 'Arrival, parking and drop-off', journeyTheme: 'during-visit', estimatedTime: 15,
+  { id: 'A1', name: 'Arrival, parking and drop-off', journeyTheme: 'during-visit', estimatedTime: 15, cost: 110,
     description: 'Helps customers get to your door. Relevant if you have a physical location customers visit.' },
-  { id: 'A2', name: 'Entry and doors', journeyTheme: 'during-visit', estimatedTime: 12,
+  { id: 'A2', name: 'Entry and doors', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Ensures everyone can get inside. Relevant if your entrance has steps, heavy doors, or narrow access.' },
-  { id: 'A3a', name: 'Paths and aisles', journeyTheme: 'during-visit', estimatedTime: 12,
+  { id: 'A3a', name: 'Paths and aisles', journeyTheme: 'during-visit', estimatedTime: 12, cost: 85,
     description: 'Makes moving around easy. Relevant if customers navigate through your space.' },
-  { id: 'A3b', name: 'Queues and busy times', journeyTheme: 'during-visit', estimatedTime: 10,
+  { id: 'A3b', name: 'Queues and busy times', journeyTheme: 'during-visit', estimatedTime: 10, cost: 65,
     description: 'Manages crowds comfortably. Relevant if customers wait in line or you have peak periods.' },
   // During the visit (5 modules)
-  { id: 'A4', name: 'Seating, furniture and layout', journeyTheme: 'during-visit', estimatedTime: 12,
+  { id: 'A4', name: 'Seating, furniture and layout', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Provides comfortable options for all. Relevant if customers sit, dine, or spend time in your space.' },
-  { id: 'A5', name: 'Toilets and amenities', journeyTheme: 'during-visit', estimatedTime: 15,
+  { id: 'A5', name: 'Toilets and amenities', journeyTheme: 'during-visit', estimatedTime: 15, cost: 120,
     description: 'Ensures facilities work for everyone. Relevant if you have customer toilets or changing facilities.' },
-  { id: 'A6', name: 'Lighting, sound and sensory environment', journeyTheme: 'during-visit', estimatedTime: 12,
+  { id: 'A6', name: 'Lighting, sound and sensory environment', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Creates a comfortable atmosphere. Relevant if your space has music, lighting, or could be overwhelming.' },
-  { id: 'B2', name: 'Signage and wayfinding', journeyTheme: 'during-visit', estimatedTime: 12,
+  { id: 'B2', name: 'Signage and wayfinding', journeyTheme: 'during-visit', estimatedTime: 12, cost: 85,
     description: 'Helps people find their way. Relevant if customers need to navigate or find specific areas.' },
-  { id: 'B3', name: 'Menus and printed materials', journeyTheme: 'during-visit', estimatedTime: 10,
+  { id: 'B3', name: 'Menus and printed materials', journeyTheme: 'during-visit', estimatedTime: 10, cost: 65,
     description: 'Makes information readable for all. Relevant if you have menus, brochures, or price lists.' },
   // Service and support (4 modules)
-  { id: 'C1', name: 'Customer service and staff confidence', journeyTheme: 'during-visit', estimatedTime: 15,
+  { id: 'C1', name: 'Customer service and staff confidence', journeyTheme: 'during-visit', estimatedTime: 15, cost: 130,
     description: 'Prepares your team to help everyone. Relevant for any business with customer-facing staff.' },
-  { id: 'C2', name: 'Bookings, payments and flexibility', journeyTheme: 'during-visit', estimatedTime: 10,
+  { id: 'C2', name: 'Bookings, payments and flexibility', journeyTheme: 'during-visit', estimatedTime: 10, cost: 75,
     description: 'Makes transactions smooth for all. Relevant if customers book, pay, or need flexible options.' },
-  { id: 'A7', name: 'Safety and emergencies', journeyTheme: 'during-visit', estimatedTime: 12,
+  { id: 'A7', name: 'Safety and emergencies', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Keeps everyone safe. Relevant if you need evacuation plans or safety procedures.' },
-  { id: 'C3', name: 'Learning from your customers', journeyTheme: 'after-visit', estimatedTime: 10,
-    description: 'Helps you improve over time. Relevant if you want ongoing feedback to guide improvements.' },
+  { id: 'C3', name: 'Feedback and reviews', journeyTheme: 'after-visit', estimatedTime: 10, cost: 65,
+    description: 'Gathering accessible feedback and managing reviews. Relevant if you collect surveys, ratings, or online reviews.' },
+  { id: 'C4', name: 'Staying connected', journeyTheme: 'after-visit', estimatedTime: 10, cost: 70,
+    description: 'Accessible ongoing engagement with customers. Relevant if you send newsletters, promotions, or have loyalty programs.' },
+  // Policy and operations (5 modules)
+  { id: 'P1', name: 'Accessibility policy and commitment', journeyTheme: 'policy-operations', estimatedTime: 15, cost: 140,
+    description: 'Formalises your accessibility commitment. Relevant if you want documented policies and inclusion statements.' },
+  { id: 'P2', name: 'Employing people with disability', journeyTheme: 'policy-operations', estimatedTime: 20, cost: 160,
+    description: 'Creates an inclusive workplace. Relevant if you want to attract, hire, and support employees with disability.' },
+  { id: 'P3', name: 'Staff training and awareness', journeyTheme: 'policy-operations', estimatedTime: 15, cost: 130,
+    description: 'Builds disability confidence across your team. Relevant if you want consistent, respectful service from all staff.' },
+  { id: 'P4', name: 'Accessible procurement', journeyTheme: 'policy-operations', estimatedTime: 12, cost: 110,
+    description: 'Ensures suppliers and partners meet accessibility standards. Relevant if you purchase products, services, or work with contractors.' },
+  { id: 'P5', name: 'Continuous improvement and reporting', journeyTheme: 'policy-operations', estimatedTime: 12, cost: 100,
+    description: 'Tracks progress and drives ongoing improvement. Relevant if you want to measure, report, and improve accessibility over time.' },
 ];
 
 // Module IDs now match codes directly (no mapping needed)
@@ -121,6 +151,12 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   'C2': 'C2',
   'A7': 'A7',
   'C3': 'C3',
+  'C4': 'C4',
+  'P1': 'P1',
+  'P2': 'P2',
+  'P3': 'P3',
+  'P4': 'P4',
+  'P5': 'P5',
 };
 
 export const CODE_TO_MODULE_ID: Record<string, string> = { ...MODULE_ID_TO_CODE };
@@ -145,11 +181,28 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   'wayfinding': ['B2', 'A3a', 'B3'],                  // Signage, paths, printed materials
   'sensory': ['A6', 'A4'],                            // Sensory environment, seating
   'staff-interaction': ['C1', 'C2', 'A7'],            // Customer service, payments, safety
+  'service-flexibility': ['C1', 'C2'],                // Customer service, payments/flexibility
 
   // After visit touchpoints
-  'feedback': ['C3', 'C1'],                           // Learning from customers, service
-  'staying-connected-touchpoint': ['C3', 'B4.3'],     // Learning, video/social
-  'return-visits': ['C3', 'C2'],                      // Learning, payments/flexibility
+  'feedback': ['C3'],                                 // Feedback and reviews
+  'surveys-forms': ['C3'],                            // Feedback and reviews
+  'online-reviews': ['C3'],                           // Feedback and reviews
+  'staying-connected-touchpoint': ['C4', 'B4.3'],     // Staying connected, video/social
+  'newsletters-email': ['C4', 'B4.3'],                // Staying connected
+  'offers-promotions': ['C4', 'C2'],                  // Staying connected, payments
+  'loyalty-programs': ['C4', 'C2'],                   // Staying connected, payments
+  'referrals': ['C4'],                                // Staying connected
+  'return-visits': ['C4', 'C3'],                      // Staying connected, feedback
+
+  // Policy and operations touchpoints
+  'accessibility-policy': ['P1'],                     // Accessibility policy and commitment
+  'staff-training': ['P3', 'C1'],                     // Staff training + customer service
+  'procurement-partnerships': ['P4'],                 // Accessible procurement
+  'continuous-improvement': ['P5', 'C3'],             // Continuous improvement + learning
+  'inclusive-employment': ['P2'],                     // Employing people with disability
+  'workplace-adjustments': ['P2', 'P1'],              // Employment + policy
+  'supplier-accessibility': ['P4'],                   // Accessible procurement
+  'accessibility-reporting': ['P5', 'P1'],            // Reporting + policy
 };
 
 // ============================================================================
@@ -246,9 +299,25 @@ const TOUCHPOINT_LABELS: Record<string, string> = {
   'wayfinding': 'Customers find their way around',
   'sensory': 'Lighting, noise, or sensory environment is relevant',
   'staff-interaction': 'Staff regularly interact with customers',
+  'service-flexibility': 'You offer adjustments or flexible service options',
   'feedback': 'You collect feedback or handle complaints',
+  'surveys-forms': 'You use surveys or feedback forms',
+  'online-reviews': 'Customers leave online reviews or ratings',
   'staying-connected-touchpoint': 'You stay connected after visits',
+  'newsletters-email': 'You send newsletters or marketing emails',
+  'offers-promotions': 'You offer discounts or promotions',
+  'loyalty-programs': 'You have a loyalty or rewards program',
+  'referrals': 'You have a referral program',
   'return-visits': 'You encourage return visits',
+  // Policy and operations
+  'accessibility-policy': 'You have or want accessibility policies',
+  'staff-training': 'Staff receive accessibility training',
+  'procurement-partnerships': 'Accessibility is considered in procurement',
+  'continuous-improvement': 'You track and improve accessibility over time',
+  'inclusive-employment': 'You recruit or employ people with disability',
+  'workplace-adjustments': 'You provide workplace adjustments for employees',
+  'supplier-accessibility': 'You require accessibility standards from suppliers',
+  'accessibility-reporting': 'You report on accessibility progress',
 };
 
 // ============================================================================
@@ -347,7 +416,7 @@ export function generateRecommendations(
   if (recommended.length >= 10) {
     warnings.push({
       type: 'too-many-modules',
-      message: `Accessibility touches many parts of your business (${recommended.length} modules). Most organizations start with 5-6 priority modules and add more over time.`,
+      message: `Accessibility touches many parts of your business (${recommended.length} modules). Identify the modules that you can complete the easiest or that will have the highest impact. You can always save and come back to them at any time.`,
     });
   }
 
@@ -378,7 +447,13 @@ export function generateRecommendations(
   });
 
   const phaseDisplay = Array.from(selectedPhaseNames)
-    .map(p => p === 'before-arrival' ? 'before they arrive' : p === 'during-visit' ? 'during their visit' : 'staying connected')
+    .map(p => {
+      if (p === 'before-arrival') return 'before they arrive';
+      if (p === 'during-visit') return 'during their visit';
+      if (p === 'after-visit') return 'staying connected';
+      if (p === 'policy-operations') return 'policy and operations';
+      return p;
+    })
     .join(', ');
 
   const reasoning = `Based on what you shared, accessibility shows up most in areas related to ${phaseDisplay}. These modules help you focus on those areas first. You can add or remove modules at any time.`;
@@ -444,6 +519,7 @@ function orderModules(
     'before-arrival': 0,
     'during-visit': 0,
     'after-visit': 0,
+    'policy-operations': 0,
   };
 
   discoveryData.selectedTouchpoints.forEach(t => {
@@ -537,6 +613,7 @@ export function groupModulesByJourney(modules: RecommendedModule[]): JourneyGrou
     { phase: 'before-arrival', label: 'Before arrival', modules: [] },
     { phase: 'during-visit', label: 'During visit', modules: [] },
     { phase: 'after-visit', label: 'After visit', modules: [] },
+    { phase: 'policy-operations', label: 'Policy and operations', modules: [] },
   ];
 
   modules.forEach(module => {

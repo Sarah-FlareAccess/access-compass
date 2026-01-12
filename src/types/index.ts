@@ -172,7 +172,7 @@ export interface Module {
 // DISCOVERY TYPES (from Access Navigator)
 // ============================================================================
 
-export type JourneyPhase = 'before-arrival' | 'during-visit' | 'after-visit';
+export type JourneyPhase = 'before-arrival' | 'during-visit' | 'after-visit' | 'policy-operations';
 
 export type ReviewMode = 'pulse-check' | 'deep-dive';
 
@@ -189,6 +189,7 @@ export interface Touchpoint {
   labelOnline?: string; // Alternative label for online-only businesses
   description: string;
   descriptionOnline?: string; // Alternative description for online-only businesses
+  example?: string; // Example text to help users understand what this includes
   subTouchpoints?: SubTouchpoint[];
   moduleMapping: string[];
 }
@@ -208,6 +209,8 @@ export interface JourneyPhaseData {
   subLabelOnline?: string; // Alternative subLabel for online-only businesses
   description: string;
   descriptionOnline?: string; // Alternative description for online-only businesses
+  tip?: string; // Helpful tip to guide users
+  tipOnline?: string; // Alternative tip for online-only businesses
   icon: string;
   bgColorClass: string;
   touchpoints: Touchpoint[];

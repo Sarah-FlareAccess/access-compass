@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import type { ReviewMode, DiscoveryData, RecommendationResult } from '../../types';
 import { JOURNEY_PHASES, getTouchpointBlocks } from '../../data/touchpoints';
 import {
@@ -28,6 +28,18 @@ interface DiscoveryModuleProps {
   onSkip: () => void;
   industryId?: string;
   serviceType?: string;
+  initialStep?: 'touchpoints' | 'recommendation';
+  existingData?: {
+    selectedTouchpoints?: string[];
+    selectedSubTouchpoints?: string[];
+    recommendedModules?: string[];
+    businessContext?: {
+      hasPhysicalVenue?: boolean;
+      hasOnlinePresence?: boolean;
+      servesPublicCustomers?: boolean;
+      hasOnlineServices?: boolean;
+    };
+  };
 }
 
 export function DiscoveryModule({
@@ -36,21 +48,43 @@ export function DiscoveryModule({
   onSkip,
   industryId = 'other',
   serviceType = 'other',
+  initialStep = 'touchpoints',
+  existingData,
 }: DiscoveryModuleProps) {
-  const [selectedTouchpoints, setSelectedTouchpoints] = useState<string[]>([]);
-  const [selectedSubTouchpoints, setSelectedSubTouchpoints] = useState<string[]>([]);
+  const [selectedTouchpoints, setSelectedTouchpoints] = useState<string[]>(
+    existingData?.selectedTouchpoints || []
+  );
+  const [selectedSubTouchpoints, setSelectedSubTouchpoints] = useState<string[]>(
+    existingData?.selectedSubTouchpoints || []
+  );
   const [openPhases, setOpenPhases] = useState<string[]>(['before-arrival']);
-  const [currentStep, setCurrentStep] = useState<'touchpoints' | 'recommendation'>('touchpoints');
+  const [currentStep, setCurrentStep] = useState<'touchpoints' | 'recommendation'>(initialStep);
 
   // Business context questions
-  const [hasPhysicalVenue, setHasPhysicalVenue] = useState<boolean | null>(null);
-  const [hasOnlinePresence, setHasOnlinePresence] = useState<boolean | null>(null);
-  const [servesPublicCustomers, setServesPublicCustomers] = useState<boolean | null>(null);
-  const [hasOnlineServices, setHasOnlineServices] = useState<boolean | null>(null);
+  const [hasPhysicalVenue, setHasPhysicalVenue] = useState<boolean | null>(
+    existingData?.businessContext?.hasPhysicalVenue ?? null
+  );
+  const [hasOnlinePresence, setHasOnlinePresence] = useState<boolean | null>(
+    existingData?.businessContext?.hasOnlinePresence ?? null
+  );
+  const [servesPublicCustomers, setServesPublicCustomers] = useState<boolean | null>(
+    existingData?.businessContext?.servesPublicCustomers ?? null
+  );
+  const [hasOnlineServices, setHasOnlineServices] = useState<boolean | null>(
+    existingData?.businessContext?.hasOnlineServices ?? null
+  );
 
   // Customized module selection (user can modify recommendations)
-  const [customSelectedModules, setCustomSelectedModules] = useState<string[]>([]);
+  const [customSelectedModules, setCustomSelectedModules] = useState<string[]>(
+    existingData?.recommendedModules || []
+  );
   const [showAllModules, setShowAllModules] = useState(false);
+
+  // Track whether we've initialized modules for fresh discovery
+  // Only true if explicitly returning to adjust modules (initialStep='recommendation' with existing data)
+  const hasInitializedModules = useRef(
+    initialStep === 'recommendation' && !!existingData?.recommendedModules?.length
+  );
 
   const toggleModuleSelection = (moduleId: string) => {
     setCustomSelectedModules(prev =>
@@ -169,19 +203,32 @@ export function DiscoveryModule({
 
   // Initialize custom module selection when entering recommendation step
   useEffect(() => {
-    if (currentStep === 'recommendation' && customSelectedModules.length === 0) {
+    // Only initialize once when transitioning to recommendation step for fresh discovery
+    if (currentStep === 'recommendation' && !hasInitializedModules.current) {
       // Initialize with all recommended modules
       const allRecommended = [
         ...recommendationResult.recommendedModules.map(m => m.moduleId),
         ...recommendationResult.alsoRelevant.map(m => m.moduleId),
       ];
       setCustomSelectedModules(allRecommended);
+      hasInitializedModules.current = true;
     }
-  }, [currentStep, recommendationResult, customSelectedModules.length]);
+  }, [currentStep, recommendationResult]);
 
   const handleContinue = () => {
     if (currentStep === 'touchpoints') {
+      // Initialize all recommended modules when transitioning to recommendation step
+      // (only if not already initialized from existingData)
+      if (!hasInitializedModules.current) {
+        const allRecommended = [
+          ...recommendationResult.recommendedModules.map(m => m.moduleId),
+          ...recommendationResult.alsoRelevant.map(m => m.moduleId),
+        ];
+        setCustomSelectedModules(allRecommended);
+        hasInitializedModules.current = true;
+      }
       setCurrentStep('recommendation');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Use custom selected modules (user may have modified)
       const moduleCodes = moduleIdsToCodes(customSelectedModules);
@@ -255,11 +302,18 @@ export function DiscoveryModule({
                 <span>Customer service</span>
                 <span className="arrow">→</span>
                 <span>Staying connected</span>
+                <span className="arrow">→</span>
+                <span>Policy</span>
               </div>
             </div>
 
             {/* Business Context Questions */}
             <div className="business-context-questions">
+              <div className="context-step-header">
+                <span className="instruction-number">Step 1</span>
+                <h2>Tell us about your business</h2>
+              </div>
+
               {/* Physical Venue */}
               <div className="context-question">
                 <label>
@@ -288,6 +342,10 @@ export function DiscoveryModule({
                     <span>No</span>
                   </label>
                 </div>
+                <p className="field-tip">
+                  <span className="tip-icon">💡</span>
+                  Select "Yes" even for small spaces like a pop-up stall, market booth, or shared office where customers come to you.
+                </p>
               </div>
 
               {/* Online Presence */}
@@ -319,6 +377,10 @@ export function DiscoveryModule({
                     <span>No</span>
                   </label>
                 </div>
+                <p className="field-tip">
+                  <span className="tip-icon">💡</span>
+                  This includes a Facebook page, Google Business listing, or any way customers find information about you online.
+                </p>
               </div>
 
               {/* Public-Facing Customers */}
@@ -349,6 +411,10 @@ export function DiscoveryModule({
                     <span>No</span>
                   </label>
                 </div>
+                <p className="field-tip">
+                  <span className="tip-icon">💡</span>
+                  If anyone outside your organisation interacts with your services — whether as a customer, client, patient, or visitor — select "Yes".
+                </p>
               </div>
 
               {/* Online Services */}
@@ -379,6 +445,10 @@ export function DiscoveryModule({
                     <span>No</span>
                   </label>
                 </div>
+                <p className="field-tip">
+                  <span className="tip-icon">💡</span>
+                  This means customers can complete a transaction or receive a service entirely online — not just find information.
+                </p>
               </div>
             </div>
 
@@ -403,6 +473,17 @@ export function DiscoveryModule({
               </div>
             )}
 
+            {/* Transition instruction - always visible */}
+            <div className="journey-instruction">
+              <div className="instruction-header">
+                <span className="instruction-number">Step 2</span>
+                <h2>Select the touchpoints that apply to your business</h2>
+              </div>
+              <p className="instruction-detail">
+                Below are the stages of a typical customer journey. <strong>Expand each section</strong> and tick the touchpoints where customers interact with your business. This helps us recommend the right accessibility modules for you.
+              </p>
+            </div>
+
             {/* Journey Phase Cards */}
             <div className="journey-phases">
               {filteredJourneyPhases.map((phase, index) => {
@@ -411,6 +492,7 @@ export function DiscoveryModule({
                 const phaseLabel = useOnlineLabels && phase.labelOnline ? phase.labelOnline : phase.label;
                 const phaseSubLabel = useOnlineLabels && phase.subLabelOnline ? phase.subLabelOnline : phase.subLabel;
                 const phaseDescription = useOnlineLabels && phase.descriptionOnline ? phase.descriptionOnline : phase.description;
+                const phaseTip = useOnlineLabels && phase.tipOnline ? phase.tipOnline : phase.tip;
 
                 return (
                   <JourneyPhaseSection
@@ -419,6 +501,7 @@ export function DiscoveryModule({
                     label={phaseLabel}
                     subLabel={phaseSubLabel}
                     description={phaseDescription}
+                    tip={phaseTip}
                     icon={phase.icon}
                     touchpoints={phase.touchpoints}
                     touchpointBlocks={getTouchpointBlocks(phase)}
@@ -488,18 +571,6 @@ export function DiscoveryModule({
               </div>
             </div>
 
-            {/* Warnings */}
-            {recommendationResult.warnings.length > 0 && (
-              <div className="warnings-section">
-                {recommendationResult.warnings.map((warning, i) => (
-                  <div key={i} className="warning-banner">
-                    <span className="warning-icon">⚠️</span>
-                    <p className="warning-message">{warning.message}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-
             {/* Selected modules count - enhanced */}
             <div className="module-selection-summary">
               <div className="selection-info">
@@ -510,12 +581,21 @@ export function DiscoveryModule({
                   module{customSelectedModules.length !== 1 ? 's' : ''} in your review
                 </span>
               </div>
-              <div className="selection-time-wrapper">
-                <span className="time-icon">⏱</span>
-                <span className="selection-time">
-                  ~{MODULES.filter(m => customSelectedModules.includes(m.id))
-                    .reduce((sum, m) => sum + m.estimatedTime, 0)} min total
-                </span>
+              <div className="selection-stats">
+                <div className="selection-time-wrapper">
+                  <span className="time-icon">⏱</span>
+                  <span className="selection-time">
+                    ~{MODULES.filter(m => customSelectedModules.includes(m.id))
+                      .reduce((sum, m) => sum + m.estimatedTime, 0)} min
+                  </span>
+                </div>
+                <div className="selection-cost-wrapper">
+                  <span className="cost-icon">💰</span>
+                  <span className="selection-cost-total">
+                    ${MODULES.filter(m => customSelectedModules.includes(m.id))
+                      .reduce((sum, m) => sum + m.cost, 0)}
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -563,9 +643,17 @@ export function DiscoveryModule({
                   id: 'after-visit',
                   label: 'After visit',
                   icon: '📈',
-                  description: 'Gather feedback and continuously improve',
-                  outcome: 'Your accessibility grows over time',
-                  codes: ['C3'],
+                  description: 'Gather feedback and stay connected with customers',
+                  outcome: 'Learn and build lasting relationships',
+                  codes: ['C3', 'C4'],
+                },
+                {
+                  id: 'policy-operations',
+                  label: 'Policy and operations',
+                  icon: '📋',
+                  description: 'Embed accessibility into your organisational practices',
+                  outcome: 'Accessibility becomes part of how you operate',
+                  codes: ['P1', 'P2', 'P3', 'P4', 'P5'],
                 },
               ];
 
@@ -632,6 +720,7 @@ export function DiscoveryModule({
                               <p className="tile-description">{module.description}</p>
                               <div className="tile-meta">
                                 <span className="tile-time">{module.estimatedTime} min</span>
+                                <span className="tile-cost">${module.cost}</span>
                                 {isRecommended && (
                                   <span className="tile-badge">Recommended</span>
                                 )}
@@ -674,18 +763,18 @@ export function DiscoveryModule({
             {/* Actions */}
             <div className="discovery-actions-card">
               <p className="action-context">
-                Ready to start? Your review will take approximately {MODULES.filter(m => customSelectedModules.includes(m.id)).reduce((sum, m) => sum + m.estimatedTime, 0)} minutes.
+                You've selected {customSelectedModules.length} modules to review.
               </p>
               <div className="discovery-buttons" style={{ flexDirection: 'column' }}>
                 <button className="btn-continue" onClick={handleContinue}>
-                  Continue to review →
+                  Choose your path →
                 </button>
                 <button className="btn-back" onClick={handleBack}>
                   ← Back to adjust answers
                 </button>
               </div>
               <p className="action-reassurance">
-                You'll get a downloadable report with prioritised actions at the end.
+                Next, you'll choose between a quick pulse check or a comprehensive deep dive.
               </p>
             </div>
           </div>
