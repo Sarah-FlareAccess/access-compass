@@ -550,11 +550,237 @@ function convertQuestionToStatement(questionText: string): string {
 }
 
 function generateActionText(questionText: string): string {
-  // Convert to statement and use as action description
-  const statement = convertQuestionToStatement(questionText);
+  // Remove question mark for processing
+  const cleanQuestion = questionText.replace(/\?$/, '').trim();
+  const lowerQuestion = cleanQuestion.toLowerCase();
 
-  // For "no" answers, we want to address the gap
-  // Convert positive statement to action needed
+  // Specific action text patterns for common question types
+  // These provide clear, actionable recommendations rather than restated questions
+
+  // Ownership and responsibility questions
+  if (lowerQuestion.includes('who is responsible') || lowerQuestion.includes('who maintains')) {
+    return 'Identify a person or team responsible for maintaining accessibility information';
+  }
+
+  // Staff training questions
+  if (lowerQuestion.includes('staff') && (lowerQuestion.includes('training') || lowerQuestion.includes('trained'))) {
+    if (lowerQuestion.includes('disability awareness') || lowerQuestion.includes('accessibility')) {
+      return 'Provide disability awareness training to all customer-facing staff';
+    }
+    if (lowerQuestion.includes('assistance animal') || lowerQuestion.includes('service animal')) {
+      return 'Train staff on assistance animal policies and how to welcome customers with assistance animals';
+    }
+    if (lowerQuestion.includes('evacuation') || lowerQuestion.includes('emergency')) {
+      return 'Train staff on emergency evacuation procedures for people with disability';
+    }
+    return 'Provide relevant accessibility training to staff';
+  }
+
+  // Staff confidence and knowledge questions
+  if (lowerQuestion.includes('staff') && (lowerQuestion.includes('confident') || lowerQuestion.includes('know how'))) {
+    if (lowerQuestion.includes('respond') || lowerQuestion.includes('enquir')) {
+      return 'Develop guidance for staff on responding to accessibility enquiries';
+    }
+    if (lowerQuestion.includes('assist') || lowerQuestion.includes('support')) {
+      return 'Provide staff with clear guidelines on offering assistance to customers with disability';
+    }
+    return 'Build staff confidence through training and clear accessibility guidelines';
+  }
+
+  // Guidance and documentation questions
+  if (lowerQuestion.includes('guidance') && lowerQuestion.includes('managed')) {
+    return 'Document accessibility guidance and make it accessible to all staff';
+  }
+
+  // Escalation questions
+  if (lowerQuestion.includes('escalation') || (lowerQuestion.includes('doesn\'t know') && lowerQuestion.includes('answer'))) {
+    return 'Establish a clear escalation path for accessibility questions staff cannot answer';
+  }
+
+  // Feedback questions
+  if (lowerQuestion.includes('feedback') && lowerQuestion.includes('accuracy')) {
+    return 'Create a simple process for customers to provide feedback on accessibility information';
+  }
+  if (lowerQuestion.includes('feedback') && lowerQuestion.includes('accessib')) {
+    return 'Establish accessible channels for customers to provide accessibility feedback';
+  }
+
+  // Consistency questions
+  if (lowerQuestion.includes('consistent') && lowerQuestion.includes('platform')) {
+    return 'Audit and align accessibility information across all platforms and channels';
+  }
+
+  // Limitations and negative disclosure questions
+  if (lowerQuestion.includes('limitations') || lowerQuestion.includes('barriers that still exist')) {
+    return 'Clearly communicate known accessibility limitations on your website and materials';
+  }
+
+  // Contact channel questions
+  if (lowerQuestion.includes('contact') && (lowerQuestion.includes('variety') || lowerQuestion.includes('ways'))) {
+    return 'Provide multiple contact options for accessibility enquiries (phone, email, online form)';
+  }
+  if (lowerQuestion.includes('contact') && lowerQuestion.includes('without calling')) {
+    return 'Offer non-phone contact options such as email, online chat, or contact forms';
+  }
+  if (lowerQuestion.includes('proactively invite') && lowerQuestion.includes('question')) {
+    return 'Add prompts inviting accessibility questions on your website and booking confirmations';
+  }
+  if (lowerQuestion.includes('tested') && lowerQuestion.includes('contact channel')) {
+    return 'Test contact channels for accessibility and address any barriers identified';
+  }
+
+  // Accessibility information questions
+  if (lowerQuestion.includes('accessibility information') && lowerQuestion.includes('available')) {
+    return 'Create and publish accessibility information for customers before they visit';
+  }
+  if (lowerQuestion.includes('accessibility information') && lowerQuestion.includes('published')) {
+    return 'Publish accessibility information on a dedicated, easy-to-find page';
+  }
+  if (lowerQuestion.includes('easy') && lowerQuestion.includes('find') && lowerQuestion.includes('accessib')) {
+    return 'Make accessibility information findable within one or two clicks from your homepage';
+  }
+  if (lowerQuestion.includes('written') && (lowerQuestion.includes('customer') || lowerQuestion.includes('compliance'))) {
+    return 'Rewrite accessibility information to focus on helping customers plan their visit';
+  }
+  if (lowerQuestion.includes('accurate') && lowerQuestion.includes('up to date')) {
+    return 'Establish a process for regularly reviewing and updating accessibility information';
+  }
+  if (lowerQuestion.includes('last reviewed') || lowerQuestion.includes('last updated')) {
+    return 'Schedule regular reviews of accessibility information (at least every 6 months)';
+  }
+  if (lowerQuestion.includes('checked against') || lowerQuestion.includes('verified')) {
+    return 'Verify accessibility information through site inspections or customer feedback';
+  }
+
+  // Physical access questions
+  if (lowerQuestion.includes('physical access') && lowerQuestion.includes('details')) {
+    return 'Add specific physical access details including measurements, photos, and route descriptions';
+  }
+  if (lowerQuestion.includes('what to expect') && lowerQuestion.includes('sensory')) {
+    return 'Describe the sensory environment including noise levels, lighting, and crowd expectations';
+  }
+
+  // Parking questions
+  if (lowerQuestion.includes('accessible parking')) {
+    if (lowerQuestion.includes('close') || lowerQuestion.includes('near')) {
+      return 'Relocate accessible parking spaces closer to the main entrance';
+    }
+    if (lowerQuestion.includes('designated') || lowerQuestion.includes('have')) {
+      return 'Provide designated accessible parking spaces that meet Australian Standards';
+    }
+    return 'Review and improve accessible parking provision';
+  }
+
+  // Entrance and door questions
+  if (lowerQuestion.includes('entrance') && lowerQuestion.includes('step-free')) {
+    return 'Provide step-free access to the main entrance';
+  }
+  if (lowerQuestion.includes('door') && lowerQuestion.includes('width')) {
+    return 'Ensure entrance doors provide a minimum 850mm clear opening width';
+  }
+  if (lowerQuestion.includes('door') && (lowerQuestion.includes('easy to open') || lowerQuestion.includes('automatic'))) {
+    return 'Install automatic doors or reduce door opening force for easier access';
+  }
+
+  // Toilet questions
+  if (lowerQuestion.includes('accessible toilet')) {
+    if (lowerQuestion.includes('clear') || lowerQuestion.includes('storage')) {
+      return 'Keep the accessible toilet clear of storage and obstacles at all times';
+    }
+    return 'Ensure accessible toilet facilities meet Australian Standards requirements';
+  }
+
+  // Familiarisation visit questions
+  if (lowerQuestion.includes('familiarisation') || lowerQuestion.includes('orientation session')) {
+    if (lowerQuestion.includes('barrier')) {
+      return 'Address barriers to offering familiarisation visits and develop a simple process';
+    }
+    if (lowerQuestion.includes('communicated')) {
+      return 'Promote familiarisation visit availability on your website and in booking communications';
+    }
+    return 'Offer familiarisation visits or orientation sessions for customers who need them';
+  }
+
+  // Transport questions
+  if (lowerQuestion.includes('transport') && lowerQuestion.includes('information')) {
+    return 'Provide detailed accessible transport information including the approach to your venue';
+  }
+  if (lowerQuestion.includes('last 50 metres') || lowerQuestion.includes('final approach')) {
+    return 'Document the final approach to your venue including surfaces, distances, and any obstacles';
+  }
+
+  // Equipment and resources questions
+  if (lowerQuestion.includes('equipment') && lowerQuestion.includes('offer')) {
+    return 'Provide accessible equipment such as wheelchairs, sensory kits, or communication aids';
+  }
+  if (lowerQuestion.includes('equipment') && lowerQuestion.includes('customer') && lowerQuestion.includes('know')) {
+    return 'Communicate available equipment on your website and in pre-visit information';
+  }
+  if (lowerQuestion.includes('quiet space') || lowerQuestion.includes('chill-out')) {
+    return 'Designate a quiet space where customers can take a break from sensory stimulation';
+  }
+  if (lowerQuestion.includes('sensory kit') || lowerQuestion.includes('sensory support')) {
+    return 'Provide sensory support items such as ear plugs, fidget tools, or sunglasses';
+  }
+
+  // Signage questions
+  if (lowerQuestion.includes('signage') && lowerQuestion.includes('clear')) {
+    return 'Improve signage with high contrast, clear fonts, and consistent placement';
+  }
+
+  // Emergency questions
+  if (lowerQuestion.includes('emergency') && lowerQuestion.includes('procedure')) {
+    return 'Develop emergency procedures that include specific provisions for people with disability';
+  }
+  if (lowerQuestion.includes('alarm') && (lowerQuestion.includes('visual') || lowerQuestion.includes('audible'))) {
+    return 'Install both visual and audible emergency alarms throughout the venue';
+  }
+
+  // Policy questions
+  if (lowerQuestion.includes('policy') && lowerQuestion.includes('assistance animal')) {
+    return 'Develop and communicate a clear assistance animal policy';
+  }
+  if (lowerQuestion.includes('disability inclusion') && lowerQuestion.includes('plan')) {
+    return 'Develop a Disability Inclusion Action Plan with measurable goals and timeframes';
+  }
+
+  // Website and digital questions
+  if (lowerQuestion.includes('keyboard') && lowerQuestion.includes('access')) {
+    return 'Ensure all website functionality is accessible via keyboard navigation';
+  }
+  if (lowerQuestion.includes('alt text') || lowerQuestion.includes('image description')) {
+    return 'Add meaningful alt text or descriptions to all images on your website';
+  }
+  if (lowerQuestion.includes('caption') || lowerQuestion.includes('subtitle')) {
+    return 'Add captions or subtitles to all video content';
+  }
+  if (lowerQuestion.includes('contrast') && lowerQuestion.includes('text')) {
+    return 'Improve colour contrast between text and background to meet WCAG standards';
+  }
+
+  // Hearing and communication questions
+  if (lowerQuestion.includes('hearing loop') || lowerQuestion.includes('assisted listening')) {
+    return 'Install hearing loop or assistive listening systems in key service areas';
+  }
+  if (lowerQuestion.includes('auslan') || lowerQuestion.includes('sign language')) {
+    return 'Establish a process for arranging Auslan interpretation when needed';
+  }
+
+  // Companion card questions
+  if (lowerQuestion.includes('companion card')) {
+    return 'Register as a Companion Card affiliate to support customers who need attendant care';
+  }
+
+  // Large print and alternative format questions
+  if (lowerQuestion.includes('large print')) {
+    return 'Provide large print versions of key materials (minimum 18pt font)';
+  }
+  if (lowerQuestion.includes('alternative format') || lowerQuestion.includes('easy read')) {
+    return 'Create alternative format versions of key information (Easy Read, Plain English)';
+  }
+
+  // Fallback: Use improved generic conversion
+  const statement = convertQuestionToStatement(cleanQuestion);
   let action = statement;
 
   // Convert "You have" to "Provide"
@@ -562,15 +788,9 @@ function generateActionText(questionText: string): string {
   action = action.replace(/^You are /i, 'Ensure you are ');
   action = action.replace(/^You can /i, 'Ensure you can ');
   action = action.replace(/^You /i, 'Ensure you ');
-
-  // Convert "Your [thing] is/are" to "Ensure your [thing] is/are"
   action = action.replace(/^Your (.+?) (is|are) /i, 'Ensure your $1 $2 ');
   action = action.replace(/^Your /i, 'Review your ');
-
-  // Convert "There is/are" to "Provide"
   action = action.replace(/^There (is|are) /i, 'Provide ');
-
-  // Convert "Customers/Visitors can" to "Ensure customers/visitors can"
   action = action.replace(/^(Customers|Visitors|People|Staff|All) can /i, 'Ensure $1 can ');
 
   // Ensure first letter is capitalized

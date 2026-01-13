@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { getSession, clearSession, getDiscoveryData } from '../utils/session';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useReportGeneration } from '../hooks/useReportGeneration';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { ReportViewer } from '../components/ReportViewer';
+import { ReportConfigSelector, type ReportConfig } from '../components/ReportConfigSelector';
 import { downloadPDFReport } from '../utils/pdfGenerator';
 import type { ReviewMode } from '../types/index';
 import type { Report } from '../hooks';
@@ -19,6 +20,7 @@ export default function Export() {
   // Report options
   const [includeNotes, setIncludeNotes] = useState(true);
   const [includePhotos, setIncludePhotos] = useState(true);
+  const [reportConfig, setReportConfig] = useState<ReportConfig | undefined>(undefined);
 
   // Load session and discovery data
   useEffect(() => {
@@ -56,8 +58,13 @@ export default function Export() {
   const isPulseCheck = reviewMode === 'pulse-check';
 
   // Initialize report generation
-  const { generateReport, isReady } = useReportGeneration(selectedModuleIds);
+  const { generateReport, isReady, getModuleRuns } = useReportGeneration(selectedModuleIds);
   const { progress } = useModuleProgress(selectedModuleIds);
+
+  // Handler for report config changes
+  const handleReportConfigChange = useCallback((config: ReportConfig) => {
+    setReportConfig(config);
+  }, []);
 
   // Check if user has completed any modules
   const hasCompletedModules = useMemo(() => {
@@ -68,7 +75,7 @@ export default function Export() {
 
   const handleViewReport = () => {
     if (!isReady) return;
-    const report = generateReport(reviewMode, organisationName);
+    const report = generateReport(reviewMode, organisationName, reportConfig);
 
     // Apply filters based on options
     const filteredReport = {
@@ -141,8 +148,18 @@ export default function Export() {
           {hasCompletedModules && (
             <div className="card" style={{ marginBottom: '30px' }}>
               <h2 style={{ marginBottom: '16px' }}>Report Options</h2>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
-                Choose what to include in your report:
+
+              {/* Report Config Selector - for filtering by context/runs */}
+              <ReportConfigSelector
+                selectedModuleIds={selectedModuleIds}
+                getModuleRuns={getModuleRuns}
+                currentProgress={progress}
+                onConfigChange={handleReportConfigChange}
+                initialConfig={reportConfig}
+              />
+
+              <p style={{ color: 'var(--text-muted)', marginBottom: '20px', marginTop: '20px' }}>
+                Additional options:
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
@@ -221,7 +238,7 @@ export default function Export() {
                 <button
                   className="btn btn-primary"
                   onClick={() => {
-                    const report = generateReport(reviewMode, organisationName);
+                    const report = generateReport(reviewMode, organisationName, reportConfig);
                     const filteredReport = {
                       ...report,
                       questionNotes: includeNotes ? report.questionNotes : [],

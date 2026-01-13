@@ -8,13 +8,14 @@
 
 import { useMemo } from 'react';
 import { useModuleProgress } from './useModuleProgress';
-import type { ModuleProgress } from './useModuleProgress';
+import type { ModuleProgress, ModuleRun } from './useModuleProgress';
 import { useDIAPManagement } from './useDIAPManagement';
 import type { DIAPItem } from './useDIAPManagement';
 import { getModuleById } from '../data/accessModules';
 import type { ReviewMode } from '../types/index';
 import { needsFollowUp, isNegativeResponse } from '../constants/responseOptions';
 import { getReportResourceLinks } from '../utils/resourceLinks';
+import type { ReportConfig } from '../components/ReportConfigSelector';
 
 export interface ReportSection {
   title: string;
@@ -171,23 +172,97 @@ export interface Report {
     exploreNow: string[];
     planForLater: string[];
   };
+
+  // Progress comparison (when comparing runs)
+  progressComparison?: {
+    enabled: boolean;
+    comparisons: Array<{
+      moduleId: string;
+      moduleName: string;
+      currentRun: {
+        contextName: string;
+        completedAt?: string;
+      };
+      previousRun: {
+        contextName: string;
+        completedAt?: string;
+      };
+      improvements: number;
+      regressions: number;
+      unchanged: number;
+      trend: 'improving' | 'declining' | 'stable' | 'mixed';
+      scoreChange: number;
+    }>;
+    overallSummary: {
+      totalImprovements: number;
+      totalRegressions: number;
+      overallTrend: 'improving' | 'declining' | 'stable' | 'mixed';
+    };
+  };
+
+  // Report context/filter info
+  reportContext?: {
+    filterType: 'all' | 'context' | 'custom';
+    contextName?: string;
+    modulesIncluded: number;
+    modulesExcluded: number;
+  };
 }
 
 interface UseReportGenerationReturn {
-  generateReport: (reviewMode: ReviewMode, organisationName?: string) => Report;
+  generateReport: (reviewMode: ReviewMode, organisationName?: string, reportConfig?: ReportConfig) => Report;
   isReady: boolean;
+  getModuleRuns: (moduleId: string) => ModuleRun[];
 }
 
 export function useReportGeneration(selectedModuleIds: string[]): UseReportGenerationReturn {
-  const { progress, isLoading } = useModuleProgress(selectedModuleIds);
+  const { progress, isLoading, getModuleRuns, compareRuns } = useModuleProgress(selectedModuleIds);
   const { items: diapItems } = useDIAPManagement();
 
   const isReady = !isLoading && Object.keys(progress).length > 0;
 
   const generateReport = useMemo(() => {
-    return (reviewMode: ReviewMode, organisationName: string = 'Your Organisation'): Report => {
+    return (reviewMode: ReviewMode, organisationName: string = 'Your Organisation', reportConfig?: ReportConfig): Report => {
       const now = new Date().toISOString();
-      const completedModules = Object.values(progress).filter(p => p.status === 'completed');
+
+      // Build module progress list based on report config
+      let completedModules: ModuleProgress[];
+      let modulesIncluded = 0;
+      let modulesExcluded = 0;
+
+      if (reportConfig && reportConfig.filterType !== 'all') {
+        // Filter based on selected runs
+        completedModules = [];
+        reportConfig.moduleSelections.forEach(selection => {
+          if (selection.selectedRunId) {
+            const moduleProgress = progress[selection.moduleId];
+            if (moduleProgress) {
+              const run = moduleProgress.runs?.find(r => r.id === selection.selectedRunId);
+              if (run && run.status === 'completed') {
+                // Create a progress object from the specific run
+                completedModules.push({
+                  ...moduleProgress,
+                  responses: run.responses,
+                  summary: run.summary,
+                  completedAt: run.completedAt,
+                  ownership: run.ownership,
+                  confidenceSnapshot: run.confidenceSnapshot,
+                });
+                modulesIncluded++;
+              } else {
+                modulesExcluded++;
+              }
+            }
+          } else {
+            modulesExcluded++;
+          }
+        });
+      } else {
+        // Use all current/default progress
+        completedModules = Object.values(progress).filter(p => p.status === 'completed');
+        modulesIncluded = completedModules.length;
+        modulesExcluded = selectedModuleIds.length - completedModules.length;
+      }
 
       // Aggregate all summaries
       const allStrengths: string[] = [];
@@ -345,6 +420,94 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
           : 0,
       };
 
+      // Generate progress comparison if enabled
+      let progressComparison: Report['progressComparison'] = undefined;
+
+      if (reportConfig?.includeProgressComparison) {
+        const comparisons: NonNullable<Report['progressComparison']>['comparisons'] = [];
+        let totalImprovements = 0;
+        let totalRegressions = 0;
+
+        // For each module, compare selected run with previous run
+        reportConfig.moduleSelections.forEach(selection => {
+          if (!selection.selectedRunId) return;
+
+          const moduleProgress = progress[selection.moduleId];
+          if (!moduleProgress?.runs || moduleProgress.runs.length < 2) return;
+
+          const currentRun = moduleProgress.runs.find(r => r.id === selection.selectedRunId);
+          if (!currentRun) return;
+
+          // Find the most recent completed run before the current one
+          const currentRunDate = new Date(currentRun.startedAt);
+          const previousRuns = moduleProgress.runs
+            .filter(r => r.id !== selection.selectedRunId && r.status === 'completed')
+            .filter(r => new Date(r.startedAt) < currentRunDate)
+            .sort((a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime());
+
+          const previousRun = previousRuns[0];
+          if (!previousRun) return;
+
+          // Calculate comparison
+          const comparison = compareRuns(selection.moduleId, previousRun.id, currentRun.id);
+          if (!comparison) return;
+
+          const module = getModuleById(selection.moduleId);
+          comparisons.push({
+            moduleId: selection.moduleId,
+            moduleName: module?.name || selection.moduleName,
+            currentRun: {
+              contextName: currentRun.context.name,
+              completedAt: currentRun.completedAt,
+            },
+            previousRun: {
+              contextName: previousRun.context.name,
+              completedAt: previousRun.completedAt,
+            },
+            improvements: comparison.improvements.length,
+            regressions: comparison.regressions.length,
+            unchanged: comparison.unchanged.length,
+            trend: comparison.overallTrend,
+            scoreChange: comparison.scoreChange,
+          });
+
+          totalImprovements += comparison.improvements.length;
+          totalRegressions += comparison.regressions.length;
+        });
+
+        if (comparisons.length > 0) {
+          // Determine overall trend
+          let overallTrend: 'improving' | 'declining' | 'stable' | 'mixed';
+          if (totalImprovements > totalRegressions * 2) {
+            overallTrend = 'improving';
+          } else if (totalRegressions > totalImprovements * 2) {
+            overallTrend = 'declining';
+          } else if (totalImprovements === 0 && totalRegressions === 0) {
+            overallTrend = 'stable';
+          } else {
+            overallTrend = 'mixed';
+          }
+
+          progressComparison = {
+            enabled: true,
+            comparisons,
+            overallSummary: {
+              totalImprovements,
+              totalRegressions,
+              overallTrend,
+            },
+          };
+        }
+      }
+
+      // Build report context info
+      const reportContext: Report['reportContext'] = reportConfig ? {
+        filterType: reportConfig.filterType,
+        contextName: reportConfig.contextFilter,
+        modulesIncluded,
+        modulesExcluded,
+      } : undefined;
+
       const report: Report = {
         reportType: reviewMode === 'pulse-check' ? 'pulse-check' : 'deep-dive',
         generatedAt: now,
@@ -380,6 +543,8 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
         quickWins,
         professionalSupport,
         nextSteps,
+        progressComparison,
+        reportContext,
       };
 
       // Add detailed findings for deep-dive mode
@@ -389,11 +554,12 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
 
       return report;
     };
-  }, [progress, diapItems, selectedModuleIds]);
+  }, [progress, diapItems, selectedModuleIds, compareRuns]);
 
   return {
     generateReport,
     isReady,
+    getModuleRuns,
   };
 }
 

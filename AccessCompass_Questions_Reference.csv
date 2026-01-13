@@ -1,0 +1,655 @@
+Group,Module Code,Module Name,Question ID,Review Mode,Impact Level,Question Text,Helper Text,Response Options,Condition
+Before Arrival,B1,Pre-visit information,B1-F-1,Pulse Check,high,Do you have accessibility information available for customers before they visit?,"Examples: a dedicated accessibility page, accessibility guide, social story or visual narrative, information included across relevant pages, or clear pre-visit guidance.","Yes | Partially | No | Not sure",
+Before Arrival,B1,Pre-visit information,B1-F-2A,Pulse Check,medium,What's currently stopping you from sharing accessibility information?,"Select all that apply","Not sure what to include | Don't have time or resources | Concerned about accuracy | Don't think it's needed | Other",B1-F-1 = No OR Not sure
+Before Arrival,B1,Pre-visit information,B1-F-3A,Pulse Check,medium,Where would it be easiest to start sharing accessibility information?,Select one or more options,"Website | Social media | Booking confirmation emails | Printed materials | Google Business Profile | Other",B1-F-1 = No OR Not sure
+Before Arrival,B1,Pre-visit information,B1-F-2B,Pulse Check,medium,What types of accessibility information do you currently share?,"Select all that apply. This might include physical access details, sensory environment, what to expect during a visit, transport and parking, or information about equipment and resources available such as sensory kits, sensory maps, or wheelchair hire.","Physical access (entrances, parking, toilets) | Sensory environment (noise, lighting, crowds) | What to expect during a visit | Transport and parking | Equipment and resources available (sensory kits, sensory maps, wheelchair hire) | Contact information for accessibility questions | None of these",B1-F-1 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-F-3B,Pulse Check,medium,How confident are you that this information is accurate and up to date?,,"Very confident | Fairly confident | Not very confident | Not sure",B1-F-1 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-F-4,Deep Dive,low,Would you like us to review a link to your accessibility information to help identify gaps and opportunities?,This review is indicative only and based on publicly available information. It does not verify accuracy or confirm compliance.,"Yes | No",B1-F-1 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-F-4-link,Deep Dive,low,Paste the link where your accessibility information is shared,This review is indicative only and based on publicly available information. It does not verify accuracy or confirm compliance.,Free text (URL),B1-F-4 = Yes
+Before Arrival,B1,Pre-visit information,B1-F-5,Pulse Check,high,Can customers contact you in a variety of ways to ask accessibility questions before visiting?,"Examples include phone, email, social media, contact forms, or booking enquiries.","Yes | Limited options | No | Not sure",
+Before Arrival,B1,Pre-visit information,B1-F-6,Pulse Check,high,Do staff know how to confidently respond to accessibility enquiries?,,"Yes | Sometimes | No | Not sure",
+Before Arrival,B1,Pre-visit information,B1-F-7,Pulse Check,medium,Do you offer familiarisation visits or orientation sessions?,"Familiarisation visits allow people to visit your venue before their main visit to become comfortable with the environment, layout, staff, and what to expect. This is especially helpful for people with autism, anxiety, cognitive disabilities, or sensory sensitivities.
+
+Familiarisation might include:
+• Pre-visit tours at quieter times
+• Virtual walkthroughs or video tours
+• Social stories or visual guides
+• Meeting key staff beforehand
+• Exploring the space without pressure to participate
+
+This can significantly reduce anxiety and improve the overall experience.","Yes | On request | Considering it | No",
+Before Arrival,B1,Pre-visit information,B1-F-8,Pulse Check,medium,Do you provide information about accessible transport options to reach your venue?,"Transport information helps people plan their journey. This might include:
+
+• Nearest accessible public transport stops
+• Accessible parking locations
+• Drop-off points and pick-up arrangements
+• Walking distances from transport
+• Taxi or ride-share drop-off information
+• Accessible route maps
+
+This information is particularly helpful when included in pre-visit communications or on your website.","Yes | Partially | No | Not sure",
+Before Arrival,B1,Pre-visit information,B1-D-1a,Deep Dive,high,Where is your accessibility information published?,"Select all that apply. Understanding where your information lives helps identify whether customers can find it easily, and whether it's consistent across platforms.
+
+Note: Accessibility information buried in FAQs or general information pages can be difficult for customers to find. A dedicated, clearly labelled accessibility page is easier to locate and signals that accessibility matters to your organisation.","Dedicated accessibility page | Scattered across multiple pages | Within FAQs or general information | PDFs or downloadable documents | Third-party platforms (Google, booking sites) | Social media only | Other",B1-F-1 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-D-1b,Deep Dive,high,How easy is it to find your accessibility information from your homepage?,"This measures findability, which is one of the most common real-world failures in accessibility information. Even well-written content has limited value if customers cannot locate it.","One click | Two to three clicks | Hard to locate or requires searching | Not sure",B1-F-1 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-D-1c,Deep Dive,medium,Is this information written primarily for customers or for compliance?,"Customer-focused information helps people make decisions and plan visits. Compliance-focused information often uses technical language and may not answer the questions customers actually have.
+
+The most useful accessibility information does both: it meets obligations while genuinely helping people understand what to expect.","Primarily for customers | Primarily for compliance | A mix of both | Not sure",B1-F-1 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-D-2a,Deep Dive,high,Does your physical access information include specific details that help customers plan?,"Select all that apply. Decision-enabling information goes beyond general statements to include specifics that help people assess whether your venue works for them.
+
+This might include:
+• Measurements (door widths, gradients)
+• Photos of entrances and toilets
+• Step-free route descriptions
+• Notes about limitations or constraints
+
+General statements like 'we are accessible' are less useful than specific, honest details.","Measurements (door widths, gradients) | Photos of entrances and toilets | Step-free route descriptions | Notes about limitations or constraints | None of these",B1-F-2B includes Physical access
+Before Arrival,B1,Pre-visit information,B1-D-2b,Deep Dive,high,Does your 'what to expect' information describe the sensory and social environment?,"Select all that apply. This type of information helps people prepare for their visit and reduces anxiety.
+
+Useful details might include:
+• Queuing and waiting expectations
+• Noise levels at different times
+• Lighting conditions and changes
+• Crowd density at peak and quiet times
+• Staff interactions and what to expect at key touchpoints
+
+This is especially valuable for autistic visitors, people with anxiety, or those with sensory sensitivities.","Queuing and waiting expectations | Noise levels at different times | Lighting conditions and changes | Crowd density at peak and quiet times | Staff interactions and what to expect | None of these",B1-F-2B includes What to expect during a visit
+Before Arrival,B1,Pre-visit information,B1-D-3a,Deep Dive,medium,When was your accessibility information last reviewed or updated?,"Regular review helps ensure information stays accurate as your venue, services, or staff change. Outdated information can lead to poor experiences and erode trust.","Within the last 6 months | 6 to 12 months ago | More than a year ago | Not sure",B1-F-3B != Very confident
+Before Arrival,B1,Pre-visit information,B1-D-3b,Deep Dive,medium,Has your accessibility information been checked against any of these sources?,"Select all that apply. Verification helps ensure accuracy and builds confidence that the information reflects reality.
+
+If you haven't verified your information recently, this is an area to prioritise.","A site inspection or walkthrough | Staff knowledge review | Customer feedback | An access consultant audit | Not checked",B1-F-3B != Very confident
+Before Arrival,B1,Pre-visit information,B1-D-5a,Deep Dive,high,How are accessibility enquiries handled when they come in?,"This explores whether accessibility questions receive consistent, confident responses.
+
+Consistent handling helps customers feel confident their needs will be understood.","Routed to trained staff who can answer confidently | Handled by whoever is available at the time | Sometimes missed, delayed, or answered inconsistently | Not sure",B1-F-5 = Yes OR Limited options
+Before Arrival,B1,Pre-visit information,B1-D-5b,Deep Dive,medium,Do customers have a way to ask accessibility questions without calling?,"Phone calls can be a barrier for some customers, including Deaf people, those with anxiety, or people who prefer written communication.
+
+Alternative options might include email, contact forms, live chat, social media messaging, or text/SMS. The key is ensuring these channels are monitored and responded to reliably.","Yes - multiple options | Yes - one alternative | No - phone only | Not sure",B1-F-5 = Yes OR Limited options
+Before Arrival,B1,Pre-visit information,B1-D-5c,Deep Dive,medium,Do you proactively invite accessibility questions?,"Proactive invitations signal that accessibility matters to your organisation and that questions are welcome.
+
+This might include:
+• A prompt on your website encouraging accessibility questions
+• Text in booking confirmations inviting people to share requirements
+• Staff trained to ask if there's anything they can help with
+
+This removes the burden from customers to initiate the conversation.","Yes | Sometimes | No | Not sure",B1-F-5 = Yes OR Limited options
+Before Arrival,B1,Pre-visit information,B1-D-5d,Deep Dive,high,Have you tested whether your contact channels are accessible and usable for customers with disability?,"This includes things like contact forms, enquiry emails, booking requests, or website layouts. Testing might involve trying these yourself, getting feedback from customers, or reviewing them with accessibility in mind.
+
+Having channels available is different from having channels that work well for everyone.","Yes - we've tested them and are confident they work well | We've tested some channels, but not all | We haven't formally tested them, but we haven't had issues raised | Not sure - we've never checked this | No - we haven't tested this yet",
+Before Arrival,B1,Pre-visit information,B1-D-5e,Deep Dive,medium,Which contact channels have been tested for accessibility?,"Select all that apply. This helps identify gaps and prioritise areas for review.
+
+If testing hasn't happened, Access Compass can provide an indicative review of publicly accessible channels.","Website contact forms | Booking or enquiry forms | Email responses and attachments | Mobile experience | Confirmation emails or follow-up communications | None / not sure",B1-D-5d != Yes - we've tested them and are confident they work well
+Before Arrival,B1,Pre-visit information,B1-D-5f,Deep Dive,medium,Would you like Access Compass to review your contact channels as part of this assessment?,"This review is indicative only and based on publicly available information. It helps identify potential barriers but does not replace a full technical audit.
+
+We can assess things like whether forms have visible labels, whether required fields are clearly indicated, and whether obvious contrast or navigation issues exist.","Yes - please review this for me | No - note this as an area to review later",B1-D-5d = Not sure OR No - we haven't tested this yet
+Before Arrival,B1,Pre-visit information,B1-D-6a,Deep Dive,medium,How is guidance for responding to accessibility enquiries managed?,"This explores whether staff have clear, consistent information to draw on when responding to questions.
+
+Documented guidance helps ensure consistent, confident responses.","Written down and accessible to staff | Shared informally between team members | Based on individual knowledge and experience | No guidance exists | Not sure",B1-F-6 = Yes OR Sometimes
+Before Arrival,B1,Pre-visit information,B1-D-6b,Deep Dive,medium,What happens when the first staff member doesn't know the answer to an accessibility question?,"This explores escalation and follow-through. Good practice includes:
+
+• A clear person or resource to consult
+• Permission and encouragement to say 'I'll find out'
+• A process for following up with the customer
+
+Customers understand when staff need to check. What matters is that follow-through happens.","Clear escalation path and follow-up process | Staff usually find someone who knows | Often left unresolved | Not sure",B1-F-6 = Yes OR Sometimes
+Before Arrival,B1,Pre-visit information,B1-D-6c,Deep Dive,low,Are staff encouraged to say 'I don't know, but I'll find out' when needed?,"This reflects your service culture. Staff who feel safe acknowledging uncertainty are more likely to provide accurate information than those who feel pressured to answer immediately.
+
+Encouraging honest responses builds trust with customers and improves information quality over time.","Yes - this is encouraged | Sometimes | No - staff feel they should always have an answer | Not sure",B1-F-6 = Yes OR Sometimes
+Before Arrival,B1,Pre-visit information,B1-D-7a,Deep Dive,medium,What's the main barrier to offering familiarisation visits?,"Select all that apply. Understanding barriers helps identify practical solutions.
+
+Even simple options like quiet arrival times or virtual tours can make a significant difference.","Time or scheduling constraints | Staffing availability | Lack of awareness or established process | Unclear demand or customer interest | Liability or safety concerns | Other",B1-F-7 = Considering it OR No
+Before Arrival,B1,Pre-visit information,B1-D-7b,Deep Dive,medium,How are familiarisation visits communicated to customers?,"If you offer familiarisation visits, consider how customers would know this is available.
+
+Is it mentioned on your website, in booking communications, or when customers enquire about accessibility? Is the process documented anywhere for staff reference?
+
+Visibility matters. An excellent offer has limited value if customers don't know it exists.","Mentioned on website | Included in booking communications | Offered when customers enquire | Staff know to offer when relevant | Not actively communicated | Other",B1-F-7 = Yes OR On request
+Before Arrival,B1,Pre-visit information,B1-D-8a,Deep Dive,medium,Is your transport information specific to accessibility needs?,"Generic directions are less useful than accessibility-specific guidance.
+
+Transport information that stops at 'nearest bus stop' may not address real planning needs.","Yes - specifically addresses accessibility | Partially - some accessibility detail | No - generic directions only | Not sure",B1-F-8 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-D-8b,Deep Dive,high,Does your transport information describe the 'last 50 metres' of the journey?,"The final approach to your venue is often where visits fail. This might include:
+
+• Distance from drop-off or parking to entrance
+• Surface conditions (gravel, slopes, uneven ground)
+• Whether the path is under cover
+• Any level changes or obstacles
+• Where to go if the main entrance isn't accessible
+
+This detail helps customers complete their journey confidently.","Yes - includes detailed approach information | Partially - some detail | No - not covered | Not sure",B1-F-8 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-D-9,Deep Dive,high,Is your accessibility information consistent across all platforms?,"Inconsistent information creates confusion and erodes trust.
+
+Check whether information matches across:
+• Your website
+• Booking platforms
+• Google Business Profile and third-party listings
+• Printed materials and signage
+
+Discrepancies often occur when information is updated in one place but not others.","Yes - consistent everywhere | Mostly consistent | No - known inconsistencies | Not sure - haven't checked",B1-F-1 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-D-10,Deep Dive,high,Do you clearly state limitations or barriers that still exist?,"Negative disclosure builds trust and helps customers make informed decisions.
+
+Honest statements like 'Our upper floor is not accessible by lift' or 'Background noise can be high during peak times' are more useful than silence.
+
+Customers would rather know about limitations in advance than discover them on arrival.","Yes - we clearly state known limitations | Partially - some limitations mentioned | No - we only highlight positives | Not sure",B1-F-1 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-D-11,Deep Dive,medium,Do you invite feedback about the accuracy of your accessibility information?,"Customers often notice things that internal reviews miss.
+
+This creates a feedback loop that keeps information accurate over time.","Yes - we actively invite feedback | We accept feedback but don't actively invite it | No | Not sure",B1-F-1 = Yes OR Partially
+Before Arrival,B1,Pre-visit information,B1-D-12,Deep Dive,medium,Who is responsible for maintaining your accessibility information?,"Clear ownership helps ensure information stays current.
+
+When no one is responsible, information often becomes outdated without anyone noticing.","A named role or individual | Shared across multiple people | No clear owner | Not sure",B1-F-1 = Yes OR Partially
+Before Arrival,B4.1,Website basics,B4.1-1-1,Pulse Check,high,Can all website content be accessed using only a keyboard (no mouse required)?,"Try navigating your site using only Tab, Enter, and arrow keys.","Yes | Partially | No | Not sure",
+Before Arrival,B4.1,Website basics,B4.1-1-2,Pulse Check,high,Do all images on your website have alt text or image descriptions?,"Alt text and image descriptions both help people understand images, but they are used in slightly different ways.
+
+Alt text is a short description added directly to an image. It is read automatically by screen readers and should briefly explain the purpose of the image in context.
+
+Image descriptions are longer explanations provided in nearby text or linked content. They are useful for complex images such as charts, diagrams, maps, or detailed visuals that need more explanation than a short alt text allows.","Yes | Some images | No | Not sure",
+Before Arrival,B4.1,Website basics,B4.1-1-3,Pulse Check,high,Is your website text easy to read with good contrast between text and background?,"Good colour contrast makes text easier to read. Text should clearly stand out from the background, for example dark text on a light background, or light text on a dark background. Text that blends into the background, uses very light colours, or sits on busy images can be hard to read.
+
+If you need to strain your eyes, zoom in, or adjust your screen to read the text comfortably, or if you cannot easily scan the page, the contrast may not be strong enough.","Yes | Mostly | No | Not sure",
+Before Arrival,B4.1,Website basics,B4.1-1-4,Pulse Check,medium,Can users resize text up to 400% without losing content or functionality?,"Text resizing allows users to increase the size of text without breaking the page. When text is increased, content should remain visible and usable. Text should not overlap, disappear, be cut off, or require sideways scrolling to read. Buttons, menus, and forms should still work as expected.
+
+You can usually test this by zooming your browser or increasing text size and checking whether the page still works smoothly.","Yes | Partially | No | Not sure",
+Before Arrival,B4.1,Website basics,B4.1-1-5,Pulse Check,medium,Does your website work well on mobile devices?,"A website that works well on mobile is easy to use on a phone or tablet, not just on a desktop computer.
+
+On mobile devices, text should be readable without zooming, buttons and links should be easy to tap, and content should fit the screen without needing to scroll sideways. Menus, forms, and key features should still work smoothly.
+
+You can check this by opening your website on a phone and trying to complete common tasks, such as finding information, using the menu, or submitting a form.","Yes | Partially | No | Not sure",
+Before Arrival,B4.1,Website basics,B4.1-MA-1,Deep Dive,high,Enter your website URL for accessibility analysis,"We can perform an automated accessibility audit of your website using industry-standard tools (WAVE integration coming soon). This checks for WCAG 2.1 compliance including contrast, structure, labels, and more.",Free text (URL),
+Before Arrival,B4.2,Booking systems and forms,B4.2-1-1,Pulse Check,high,Can customers share their accessibility requirements when booking online?,"This refers to whether customers have a clear way to tell you about their accessibility needs during the online booking process.
+
+This might include a dedicated accessibility question, a free-text field, a tick box, or a notes section where customers can share requirements such as mobility access, hearing or vision support, sensory considerations, or assistance needs.
+
+It should be easy to find, optional to complete, and reviewed by staff so requests can be acknowledged and responded to.","Yes | Partially | No | We don't have online booking | Not sure",
+Before Arrival,B4.2,Booking systems and forms,B4.2-1-2,Pulse Check,medium,Are error messages on forms clear and helpful?,Good error messages explain what went wrong and how to fix it.,"Yes | Partially | No | Not sure",
+Before Arrival,B4.3,Video and social media,B4.3-1-1,Pulse Check,high,Do your videos have captions or subtitles?,"Captions or subtitles display spoken words and important sounds from a video as text on the screen. Captions are especially important for videos that share information, instructions, or stories.
+
+Captions should be accurate, easy to read, and available for all spoken content, not just key moments.","Yes - all videos | Some videos | No | We don't use video | Not sure",
+Before Arrival,B4.3,Video and social media,B4.3-1-2,Pulse Check,medium,Do you include alt text and image descriptions when posting on social media?,"Alt text and image descriptions both help people understand images, but they are used in slightly different ways.
+
+Alt text is a short description added directly to an image. It is read automatically by screen readers and should briefly explain the purpose of the image in context.
+
+Image descriptions are longer explanations provided in nearby text or linked content. They are useful for complex images such as charts, diagrams, maps, or detailed visuals that need more explanation than a short alt text allows.","Yes - always | Sometimes | No | We don't use social media | Not sure",
+Before Arrival,B4.3,Video and social media,B4.3-1-3,Pulse Check,medium,"Are video controls accessible (play, pause, volume)?","Accessible video controls allow users to easily play, pause, stop, and adjust the volume of a video.
+
+If a video plays automatically, users should be able to quickly pause or stop it. Controls should be easy to find, clearly labelled, and usable with a keyboard, mouse, or touch.","Yes | Partially | No | We don't use video | Not sure",
+Before Arrival,B4.3,Video and social media,B4.3-MA-1,Deep Dive,medium,Upload a screenshot of a social media post for accessibility analysis,"Our AI will analyze your social media posts for accessibility features like alt text presence, caption readability, contrast, and inclusive language.",File upload,
+Before Arrival,B4.3,Video and social media,B4.3-MA-2,Deep Dive,medium,Enter a social media profile URL for accessibility review,"We can review your social media presence for accessibility practices including alt text usage, caption quality, and content accessibility.",Free text (URL),
+Getting In,A1,"Arrival, parking and drop-off",A1-F-1,Pulse Check,high,Do you have designated accessible parking spaces?,Designated accessible parking spaces are parking bays set aside for people with disability and mobility needs. These spaces are typically wider than standard bays and clearly identified with signage and ground markings so they are easy to recognise.,"Yes | No | Not applicable (no parking)",
+Getting In,A1,"Arrival, parking and drop-off",A1-F-2,Pulse Check,high,Are accessible parking spaces located close to the main entrance?,Accessible parking should be positioned as close as reasonably possible to the main entrance to reduce the distance people need to travel.,"Yes | Partially | No | Not sure",A1-F-1 = Yes
+Getting In,A1,"Arrival, parking and drop-off",A1-F-3,Pulse Check,medium,Is there a drop-off zone near the entrance for customers who need it?,"A drop-off zone allows customers to be safely set down close to the entrance without needing to park. This area should be step free and connected to the entrance by a clear, accessible path.","Yes | No | Not sure",
+Getting In,A1,"Arrival, parking and drop-off",A1-F-4,Pulse Check,high,Is the path from accessible parking to the entrance smooth and level?,"The path from parking to the entrance should be easy to move along without steps, sudden level changes, loose surfaces, or obstacles.","Yes | Mostly | No | Not sure",A1-F-1 = Yes
+Getting In,A1,"Arrival, parking and drop-off",A1-F-5,Pulse Check,medium,"Is the path wide enough for people using mobility aids, walking with companions or using service animals (at least 1 metre)?","Paths should be wide enough for wheelchair users, people with walking aids, service animals, or those walking side by side. A minimum clear width of around 1 metre helps people move comfortably without needing to step aside or navigate obstacles.","Yes | Mostly | No | Not sure",
+Getting In,A1,"Arrival, parking and drop-off",A1-F-6,Pulse Check,medium,Would a first-time visitor know where to find accessible parking?,"Accessible parking should be easy to locate without prior knowledge of the site. Clear signage, logical placement, and visible pathways help first-time visitors feel confident and reduce the need to ask for assistance.","Yes | Probably | No | Not sure",A1-F-1 = Yes
+Getting In,A1,"Arrival, parking and drop-off",A1-F-7,Pulse Check,medium,Do staff know how to direct customers to accessible parking and entry points?,"Staff should be able to confidently explain where accessible parking, drop-off zones, and step-free entrances are located. This reduces stress for customers and avoids the need for them to navigate the site on their own.","Yes | Some staff | No | Not sure",
+Getting In,A1,"Arrival, parking and drop-off",A1-F-8,Pulse Check,medium,Is the parking area well-lit for customers arriving in low light?,"Good lighting helps customers feel safe and confident when arriving early in the morning, evening, or at night. Well-lit parking areas help everyone navigate paths, signage, and entrances more easily.","Yes | Partially | No | Not sure",
+Getting In,A1,"Arrival, parking and drop-off",A1-D-9,Deep Dive,medium,"During busy periods, are accessible parking spaces still available and not blocked?","This looks at what happens when your site is at its busiest. Accessible parking spaces should remain usable and not be blocked by other vehicles, deliveries, temporary signage, or bins, even during peak periods or events.","Yes - always protected | Usually | Sometimes blocked | Not sure",A1-F-1 = Yes
+Getting In,A1,"Arrival, parking and drop-off",A1-D-10,Deep Dive,low,Is the path from parking protected from weather (covered or sheltered)?,"A protected or sheltered path helps people move from parking to the entrance more comfortably in rain, heat, or strong sun.","Yes - fully covered | Partially covered | No | Not applicable",
+Getting In,A1,"Arrival, parking and drop-off",A1-D-11,Deep Dive,low,Are there rest points or seating along longer paths from parking?,Rest points or seating give people a chance to pause and recover if they need to walk longer distances from parking to the entrance.,"Yes | No | Not applicable (short distance)",
+Getting In,A1,"Arrival, parking and drop-off",A1-D-12,Deep Dive,medium,Is the surface of accessible parking spaces firm and slip-resistant?,"Accessible parking surfaces should be stable and easy to move across. Loose gravel, uneven paving, or slippery surfaces can make it difficult or unsafe for people using the space.","Yes | Partially | No | Not sure",A1-F-1 = Yes
+Getting In,A1,"Arrival, parking and drop-off",A1-D-13,Deep Dive,medium,Are accessible parking spaces clearly marked with both ground markings and vertical signage?,Take a photo of the accessible parking signage.,"Yes - both | Ground markings only | Vertical signage only | Neither | Not sure",A1-F-1 = Yes
+Getting In,A1,"Arrival, parking and drop-off",A1-D-14,Deep Dive,low,Do you have a policy for managing misuse of accessible parking spaces?,This refers to whether your organisation has a clear approach for discouraging or responding to non-eligible use of accessible parking. A simple policy helps protect access for customers who rely on these spaces and supports staff to respond consistently and respectfully.,"Yes | Informal approach | No | Not sure",A1-F-1 = Yes
+Getting In,A1,"Arrival, parking and drop-off",A1-D-15,Deep Dive,medium,Is information about accessible parking included on your website?,"Providing accessible parking information online helps customers plan their visit in advance. This might include the location of the nearest accessible spaces (even if you don't have one on-site), drop-off areas, or any relevant access considerations.","Yes | Partially | No | Not sure",
+Getting In,A1,"Arrival, parking and drop-off",A1-D-16,Deep Dive,medium,"In low light conditions, is the path clearly visible and safely navigable?","Paths should remain easy to see and follow in early mornings, evenings, or poor weather. Clear lighting, visible edges, and unobstructed paths help reduce trip risks.","Yes | Partially | No | Not sure",
+Getting In,A2,Entry and doors,A2-F-1,Pulse Check,high,Is your main entrance step-free?,"A step-free entrance allows customers to enter the building without needing to step up or down.
+
+This means there are no stairs, raised thresholds, changes in height between surfaces or sudden level changes at the main entrance.
+
+If a ramp is used, it should be clearly connected to the main entrance and easy to identify.","Yes | No",
+Getting In,A2,Entry and doors,A2-F-2,Pulse Check,high,Is the main entrance door at least 850mm wide?,A clear opening of at least 850mm is a common benchmark for allowing safe and independent access. Measure the doorway at its narrowest point when the door is fully open.,"Yes | No | Not sure",
+Getting In,A2,Entry and doors,A2-F-3,Pulse Check,high,"Are entrance doors easy to open (automatic, light push, or lever handles)?","Entrance doors should be easy to use without requiring significant strength or complex movements. Automatic doors, doors with a light push force, or doors with lever or D handles are easier for people to use independently.","Yes - automatic | Yes - easy to open manually | No - heavy or difficult | Not sure",
+Getting In,A2,Entry and doors,A2-F-4,Pulse Check,medium,Is the main entrance clearly visible and identifiable from the street or parking area?,"Visitors should be able to easily see and recognise the main entrance as they approach the building. Clear sightlines, lighting, signage, and visual cues help reduce confusion and improve confidence, especially for first-time visitors.","Yes | Partially | No | Not sure",
+Getting In,A2,Entry and doors,A2-F-5,Pulse Check,high,"If there is an alternative accessible entrance, is it clearly signed?","If the main entrance is not accessible, any alternative accessible entrance should be clearly signposted from the main approach. Signage should guide customers without requiring them to ask for assistance or search the site.","Yes | Partially | No | Not applicable (main entrance is accessible)",A2-F-1 = No
+Getting In,A2,Entry and doors,A2-F-6,Pulse Check,medium,Do staff know how to assist customers who need support entering the building?,"Staff should be aware of how to support customers who may need assistance at the entrance, such as opening doors, explaining where to enter, or guiding people to an accessible entry point. Support should be offered respectfully and only when needed.","Yes | Some staff | No | Not sure",
+Getting In,A2,Entry and doors,A2-F-7,Pulse Check,medium,Is there adequate lighting at the entrance for customers with low vision?,"Good lighting at the entrance helps people identify doors, handles, signage, and level changes. This is especially important in low light conditions, at night, or during poor weather.","Yes | Partially | No | Not sure",
+Getting In,A2,Entry and doors,A2-F-8,Pulse Check,medium,Are there tactile ground surface indicators at key entry points?,"Tactile ground surface indicators are textured ground surfaces, often made up of raised dots or bars, installed on the ground at key locations. They can be felt underfoot or with a cane.
+
+They help people who are blind or have low vision identify important points such as entrances, hazards, or changes in direction, and provide clear wayfinding and safety information at entry points.","Yes | Partially | No | Not sure",
+Getting In,A2,Entry and doors,A2-D-9,Deep Dive,medium,"If there is a ramp, does it have compliant handrails on both sides?",Handrails on both sides of a ramp help users feel safer when moving up or down the ramp and allow people to choose the side that suits them best.,"Yes | One side only | No | Not applicable (no ramp)",
+Getting In,A2,Entry and doors,A2-D-10,Deep Dive,high,What is the clear opening width of the main entrance door?,"This refers to the usable width of the doorway when the door is fully open, measured at the narrowest point. The clear opening determines whether wheelchair users and people with mobility aids can enter independently.",Free text (measurement),
+Getting In,A2,Entry and doors,A2-D-11,Deep Dive,medium,Is the door handle at an accessible height (900-1100mm from floor)?,"Door handles positioned within this height range are easier to reach for wheelchair users, people of short stature, and those with limited arm movement. Handles outside this range can be difficult or impossible for some people to use.","Yes | No | Not sure | Not applicable (automatic doors)",
+Getting In,A2,Entry and doors,A2-D-12,Deep Dive,medium,Is there a level landing area at the entrance (at least 1500mm x 1500mm)?,"A level landing provides space for people to stop, turn, or steady themselves before opening the door. This is especially important for wheelchair users, people using walking aids, or anyone who needs extra time to manage doors.","Yes | Partially | No | Not sure",
+Getting In,A2,Entry and doors,A2-D-13,Deep Dive,medium,Is the door threshold level? (The maximum height is 13mm),Low thresholds reduce the effort needed to move into the building and lower the risk of wheels catching or people tripping. High or uneven thresholds can be a barrier for wheelchair users and people with mobility or balance challenges.,"Yes (13mm or less) | No (higher than 13mm) | Not sure",
+Getting In,A2,Entry and doors,A2-D-14,Deep Dive,medium,Are glass doors marked with contrasting strips or patterns?,"Clear glass doors can be difficult to see. Contrasting strips or patterns help people identify the door and avoid walking into it, supporting people with low vision as well as all visitors.","Yes | No | Not applicable (no glass doors)",
+Getting In,A2,Entry and doors,A2-D-15,Deep Dive,medium,"During busy periods, does the entrance become congested or blocked?","This considers how the entrance functions at peak times. Congestion from queues, furniture, displays, service counters or security checks can make it difficult for people to enter safely.","No - stays clear | Sometimes | Yes - often congested | Not sure",
+Getting In,A2,Entry and doors,A2-D-16,Deep Dive,low,"If there is an intercom or bell, is it located at an accessible height between 900 and 1100mm from the floor?","An accessible intercom or bell allows customers to request entry or assistance independently, without needing to reach too high or stretch. It should be easy to see, reach, and use from a seated or standing position.","Yes | No | Not applicable",
+Getting In,A2,Entry and doors,A2-D-17,Deep Dive,medium,"If automatic doors are used, do they stay open long enough for slow-moving visitors?",Automatic doors should allow enough time for people who move more slowly to pass through safely. Doors that close too quickly can cause stress or increase the risk of injury.,"Yes | No | Not applicable | Not sure",A2-F-3 = Yes - automatic
+Getting In,A2,Entry and doors,A2-D-18,Deep Dive,medium,Is there a mat or surface change at the entrance that could cause a trip hazard?,"Mats or surface changes should lie flat and be securely fixed. Loose edges, thick mats, or sudden changes in surface level can create trip hazards for people with low vision, balance issues, or mobility aids.","No hazard present | Potential hazard | Not sure",
+Getting In,A2,Entry and doors,A2-MA-1,Deep Dive,high,Upload a photo of your entrance for accessibility analysis,"Our AI will analyze your entrance against AS 1428.1 and Access to Premises Standards for door width, threshold, visibility, and step-free access.",File upload,
+Getting In,A2,Entry and doors,A2-MA-2,Deep Dive,medium,Upload a photo of your entrance door for analysis,"We can analyze door width, handle type, threshold height, and visual contrast against accessibility standards.",File upload,
+Getting In,A2,Entry and doors,A2-MA-3,Deep Dive,high,Upload a photo of any ramp at your entrance,"We can analyze ramp gradient, width, handrails, and landing areas against AS 1428.1 requirements.",File upload,
+Getting In,A3a,Paths and aisles,A3a-1-1,Pulse Check,high,Are main circulation paths at least 1 metre wide?,"Main circulation paths are the primary walkways people use to move through your space. A clear width of at least 1 metre helps wheelchair users, people using mobility aids, those walking with companions, or using service animals to move comfortably.","Yes | Mostly | No | Not sure",
+Getting In,A3a,Paths and aisles,A3a-1-2,Pulse Check,high,Are paths kept clear of obstacles and trip hazards?,"Circulation paths should be free from obstacles such as furniture, displays, cords, mats, bins, or clutter. Clear paths reduce trip risks and make it easier for people to move safely and confidently through the space.","Yes | Mostly | No | Not sure",
+Getting In,A3a,Paths and aisles,A3a-1-3,Pulse Check,high,"If there are level changes, is there an accessible alternative (lift, ramp)?","Where there are steps or changes in level, there should be an accessible alternative such as a ramp or lift so all customers can reach the same areas.","Yes | Partially | No | Not applicable (single level)",
+Getting In,A3a,Paths and aisles,A3a-1-4,Pulse Check,high,Would a customer using a mobility aid be able to navigate your space independently?,"This considers the overall experience of moving through your space without assistance. Clear paths, adequate width, smooth surfaces, and accessible alternatives help customers navigate confidently and independently.","Yes | Mostly | With difficulty | No | Not sure",
+Getting In,A3a,Paths and aisles,A3a-MA-1,Deep Dive,medium,Upload a photo of your pathways for accessibility analysis,"Our AI will analyze your pathways for width, surface condition, obstacles, and trip hazards based on AS 1428.1 standards.",File upload,
+Getting In,A3a,Paths and aisles,A3a-MA-2,Deep Dive,medium,Upload a photo of your ground surfaces for analysis,"We can analyze floor surfaces for slip resistance, level changes, and accessibility compliance.",File upload,
+Getting In,A3b,Queues and busy times,A3b-1-1,Pulse Check,high,Is there seating available in queue areas for people who cannot stand for long?,"Seating in queue areas allows people with fatigue, chronic pain, mobility conditions, or health needs to rest while waiting. Even a small number of seats can make waiting more manageable and inclusive.","Yes | Limited | No | Not applicable (no queues)",
+Getting In,A3b,Queues and busy times,A3b-1-2,Pulse Check,high,Can customers request priority access when needed?,"Priority access gives customers a way to avoid long waits when standing is difficult. This might include staff-managed entry, priority ordering, alternative waiting arrangements, or clear processes for requesting assistance.","Yes | Sometimes | No | Not sure",
+Getting In,A3b,Queues and busy times,A3b-1-3,Pulse Check,medium,Do staff know how to accommodate customers who need queue assistance?,Staff should understand how to respond respectfully and confidently when a customer needs support with queuing. This includes offering alternatives without requiring customers to explain or justify their needs.,"Yes | Some staff | No | Not sure",
+During Visit,A4,"Seating, furniture and layout",A4-1-1,Pulse Check,high,"Is there a variety of seating options (with arms, without arms, different heights)?","Different seating types support different bodies and needs. Seats with arms can help people stand up, while varied heights and armless options support comfort and choice.","Yes | Limited variety | No | Not applicable",
+During Visit,A4,"Seating, furniture and layout",A4-1-2,Pulse Check,high,Is there space for wheelchair users alongside seated companions?,"Seating areas should include space where wheelchair users can sit next to friends, family, or companions rather than being separated from the group.","Yes | Sometimes | No | Not sure",
+During Visit,A4,"Seating, furniture and layout",A4-1-3,Pulse Check,high,Are tables and counters at accessible heights for wheelchair users?,"Accessible tables and counters allow wheelchair users to approach, sit, and use the surface comfortably. As a guide, an accessible table or counter is usually between 750 and 850mm high, with clear knee space underneath of at least 700mm high and 800mm wide. At least one accessible option should be available where customers interact, dine, or make transactions.","Yes | Some | No | Not sure",
+During Visit,A4,"Seating, furniture and layout",A4-1-4,Pulse Check,medium,Can furniture be rearranged to accommodate different needs?,"Flexible furniture allows spaces to adapt to different access needs. The ability to move chairs or tables can help create space for wheelchairs, prams, or service animals when required.","Yes | Some furniture | No | Not sure",
+During Visit,A5,Toilets and amenities,A5-1-1,Pulse Check,high,Do you have at least one accessible toilet?,"An accessible toilet provides essential facilities for people with disability, mobility needs, or who require assistance. Having at least one accessible toilet supports longer and more comfortable visits.","Yes | No",
+During Visit,A5,Toilets and amenities,A5-1-2,Pulse Check,high,Do you know where the nearest accessible toilet is?,"Staff should be able to confidently direct customers to the nearest accessible toilet, including providing clear directions or signage information. This helps customers avoid unnecessary searching or discomfort, especially in larger or shared spaces.","Yes | Not sure",
+During Visit,A5,Toilets and amenities,A5-1-3,Pulse Check,medium,Is the accessible toilet clearly signed and easy to find?,Clear signage helps customers locate the accessible toilet without needing to ask for assistance. Signage should be visible from key areas within the space.,"Yes | Partially | No | Not sure",A5-1-1 = Yes
+During Visit,A5,Toilets and amenities,A5-1-4,Pulse Check,high,Is the accessible toilet kept clear of storage and obstacles?,Accessible toilets should not be used for storage. Clear floor space and unobstructed fittings are necessary for safe and independent use.,"Yes | Sometimes used for storage | No | Not sure",A5-1-1 = Yes
+During Visit,A5,Toilets and amenities,A5-1-5,Pulse Check,high,Is there an emergency alarm in the accessible toilet?,"An emergency alarm allows users to call for assistance if needed. It should be clearly visible, reachable from the toilet and floor, and known to staff.","Yes | No | Not sure",A5-1-1 = Yes
+During Visit,A6,"Lighting, sound and sensory environment",A6-1-1,Pulse Check,high,Is lighting adequate for reading and navigation?,"Adequate lighting helps people read signs, see hazards, and move around safely. Poor lighting can make navigation difficult for people with low vision and increase trip risks for everyone.
+
+As a general guide, indoor circulation areas are often around 100–200 lux, while areas used for reading, forms, or detailed tasks are closer to 300–500 lux. Lighting levels can be roughly checked using a free light (lux) meter app on a smartphone. Lighting should be even, without strong glare or deep shadows.","Yes | Mostly | No | Not sure",
+During Visit,A6,"Lighting, sound and sensory environment",A6-1-2,Pulse Check,medium,Are there quiet or reset spaces available for people who need a break from noise?,"Quiet or reset spaces provide a calm area where people can step away from noise, crowds, or sensory input. These spaces support people with sensory sensitivities, anxiety, neurodivergence, fatigue, or health conditions.
+
+A quiet space does not need to be large or formal, but it should be clearly identified, reasonably quiet, and free from interruptions where possible.","Yes | Informal options | No | Not sure",
+During Visit,A6,"Lighting, sound and sensory environment",A6-1-3,Pulse Check,medium,Is background noise at a level that allows conversation?,"Background noise should allow people to speak and be heard without raising their voice. Consider whether music, machinery, crowds, or echoes make it hard to communicate, especially at service counters or seating areas.","Yes | Sometimes | No | Not sure",
+During Visit,A6,"Lighting, sound and sensory environment",A6-1-4,Pulse Check,medium,Are there any flashing lights or sudden loud noises that could affect some visitors?,"Flashing lights, strobe effects, alarms, or sudden loud noises can be distressing or disorienting for some people, including those with sensory sensitivities, migraines, epilepsy, or anxiety.
+
+Where these elements are used, consider whether warnings are provided and whether quieter or calmer alternatives are available.","No | Yes - with warnings | Yes - without warnings | Not sure",
+During Visit,A6,"Lighting, sound and sensory environment",A6-1-5,Pulse Check,low,Is the indoor temperature comfortable and able to be adjusted or managed for different needs?,"Comfortable and stable indoor temperatures help people stay focused, safe, and well. Extreme heat or cold can affect people with health conditions, fatigue, sensory sensitivities, or those taking certain medications.
+
+Where possible, there should be ways to manage temperature, such as air conditioning, heating, fans, or shaded areas. Staff awareness of temperature issues and the ability to respond to concerns can also support comfort.","Yes | Partially | No | Not sure",
+During Visit,A6,"Lighting, sound and sensory environment",A6-1-6,Pulse Check,medium,Are sensory kits or supports available for customers and visitors?,"Sensory kits typically include items like noise-cancelling headphones or ear plugs, fidget tools, sunglasses, communication cards, or weighted lap pads. These supports help people with sensory sensitivities, autism, anxiety, or other conditions manage their environment and feel more comfortable during their visit.
+
+Kits do not need to be elaborate—even a small selection of items available on request can make a significant difference.","Yes | Limited selection | No | Considering it",
+During Visit,A6,"Lighting, sound and sensory environment",A6-1-7,Pulse Check,medium,Do you offer relaxed or sensory-friendly sessions?,"Relaxed or sensory-friendly sessions are modified experiences with reduced sensory input. This might include lower lighting, reduced sound levels, fewer crowds, quieter music or no music, and a more flexible atmosphere.
+
+These sessions support people with autism, sensory processing differences, anxiety, dementia, or anyone who benefits from a calmer environment. They are commonly offered by cinemas, museums, theatres, and retail venues.","Yes - regularly | Yes - occasionally | No | Considering it | Not applicable",
+During Visit,A6,"Lighting, sound and sensory environment",A6-1-8,Pulse Check,high,Do you offer assisted listening devices or hearing augmentation?,"Assisted listening devices help people who are deaf or hard of hearing to hear more clearly. These include:
+
+• Hearing loops (induction loops) – transmit sound directly to hearing aids with T-coil
+• FM systems – use radio signals to transmit sound to a receiver
+• Infrared systems – use light to transmit sound
+• Personal amplifiers – portable devices that amplify sound
+
+Note: Under the Access to Premises Standard, venues with inbuilt amplification systems (such as PA systems or performance venues) are required to provide hearing augmentation.","Yes | No | Not applicable | Not sure",
+During Visit,A6,"Lighting, sound and sensory environment",A6-MA-1,Deep Dive,medium,Upload a photo of your venue lighting for analysis,"Our AI will analyze your venue lighting for adequacy, contrast, glare, and even distribution based on accessibility standards.",File upload,
+During Visit,A6a,Equipment and resources,A6a-F-1,Pulse Check,high,Do you offer equipment or resources that customers can use during their visit?,"This might include wheelchairs for loan, sensory kits, communication cards, magnifiers, portable seating, or hearing loop receivers.
+
+Even a small selection of equipment can make a significant difference to some visitors.","Yes - multiple items available | Yes - limited selection | No - but considering it | No | Not sure",
+During Visit,A6a,Equipment and resources,A6a-F-2,Pulse Check,high,Do customers know what equipment is available before they visit?,"Customers need to know what's available in order to plan. If equipment exists but isn't communicated, it may not be used.
+
+This information might appear on your website, in booking confirmations, or in pre-visit information.","Yes - clearly communicated on website and in pre-visit information | Mentioned if customers ask | Not currently communicated | Not sure",A6a-F-1 = Yes - multiple items available OR Yes - limited selection
+During Visit,A6a,Equipment and resources,A6a-F-3,Pulse Check,medium,Is it easy for customers to access or request equipment when they arrive?,"Equipment should be easy to find or request without customers needing to search or ask multiple staff members.
+
+Consider whether equipment is visible, clearly signed, or whether staff proactively offer it.","Visible and available for self-service | Easy to request from staff | Staff proactively offer when relevant | Can be difficult to access | Not sure",A6a-F-1 = Yes - multiple items available OR Yes - limited selection
+During Visit,A6a,Equipment and resources,A6a-D-1,Deep Dive,medium,What equipment or resources are available for customers?,"Select all that apply. Understanding what you offer helps identify gaps and opportunities to better support customers.","Wheelchairs or mobility aids for loan | Mobility scooters | Walking aids (frames, sticks) | Sensory kits (ear plugs, fidget tools, sunglasses) | Sensory maps or guides | Communication cards or boards | Magnifiers or large print materials | Portable seating or stools | Hearing loop receivers | Other assistive listening devices | Quiet space or chill-out zone | Weighted blankets or lap pads | Other",A6a-F-1 = Yes - multiple items available OR Yes - limited selection
+During Visit,A6a,Equipment and resources,A6a-D-2,Deep Dive,medium,Is there a designated quiet space or chill-out zone available?,"A quiet space provides a low-stimulation environment where customers can take a break from noise, crowds, or sensory input.
+
+This is especially valuable for autistic visitors, people with anxiety, sensory sensitivities, or those who become overwhelmed.","Yes - dedicated quiet room or space | Yes - informal quiet area available | Available on request | Considering offering this | No",
+During Visit,A6a,Equipment and resources,A6a-D-3,Deep Dive,high,Do you offer wheelchairs or mobility aids for customer use?,"Wheelchairs or mobility aids for loan can help customers who have limited mobility but don't use their own wheelchair, find walking long distances difficult, experience fatigue during longer visits, or have temporary mobility issues.
+
+Even one or two wheelchairs can significantly improve accessibility for some visitors.","Yes - available for loan | Yes - can be booked in advance | Limited availability | Considering offering this | Not applicable to our venue | No",
+During Visit,A6a,Equipment and resources,A6a-D-4,Deep Dive,medium,Do you provide sensory support items?,"Sensory support items help people manage sensory input during their visit. These might include noise-cancelling headphones or ear plugs, fidget tools or stress balls, sunglasses for bright environments, weighted lap pads, or sensory maps showing quiet and busy areas.
+
+Items can be provided in kits or individually. Even a small selection can make a significant difference.","Yes - sensory kits available | Yes - individual items available | Limited items available | Considering offering this | No",
+During Visit,A6a,Equipment and resources,A6a-D-5,Deep Dive,medium,Do you have communication aids available?,"Communication aids support customers who communicate in different ways. These might include picture communication boards, symbol cards, writing materials (pen and paper), text-to-speech apps on tablets, or basic sign language guides.
+
+Simple tools can support clearer communication when speech or hearing barriers exist.","Yes - multiple options available | Yes - basic options (pen and paper) | Considering offering this | No",
+During Visit,A6a,Equipment and resources,A6a-D-6,Deep Dive,medium,Is equipment well-maintained and regularly checked?,"Equipment should be in good working condition, clean, and safe to use.
+
+Regular checks help ensure equipment is ready when customers need it. Faulty or poorly maintained equipment can create safety issues or a poor experience.","Yes - regularly maintained and checked | Yes - checked when issues arise | Not sure | No formal maintenance process",A6a-F-1 = Yes - multiple items available OR Yes - limited selection
+During Visit,A6a,Equipment and resources,A6a-D-7,Deep Dive,medium,Do staff know what equipment is available and how to provide it?,"Staff should be able to quickly identify what equipment is available, know where equipment is stored, understand how to offer it respectfully, and provide basic guidance on use if needed.
+
+Confident staff help customers access equipment without unnecessary delay or awkwardness.","Yes - all staff know | Some staff know | Not sure | No - staff awareness is limited",A6a-F-1 = Yes - multiple items available OR Yes - limited selection
+During Visit,A6a,Equipment and resources,A6a-D-8,Deep Dive,low,What would help you offer more equipment or resources?,Understanding barriers helps identify practical solutions and priorities for improvement.,"Budget or funding | Knowing what to offer | Storage space | Maintenance and upkeep | Staff training | Understanding customer demand | We're happy with current provision | Other",A6a-F-1 = No - but considering it OR No OR Yes - limited selection
+During Visit,B2,Signage and wayfinding,B2-1-1,Pulse Check,high,"Is signage clear, with good contrast and readable font sizes?","Clear signage uses high contrast between text and background, simple fonts, title case, and text sizes that can be read at a distance. Signs should avoid overly decorative fonts, low contrast colours, or cluttered layouts.","Yes | Mostly | No | Not sure",
+During Visit,B2,Signage and wayfinding,B2-1-2,Pulse Check,medium,Are signs placed at consistent heights and locations?,"Consistent placement helps people know where to look for information. As a general guide, wall-mounted signs are often placed so the main information is between around 1200 and 1600mm from the floor, making them visible to people who are standing or seated.
+
+Signs should be positioned where people naturally pause or make decisions, such as entrances, intersections, and key facilities.","Yes | Mostly | No | Not sure",
+During Visit,B2,Signage and wayfinding,B2-1-3,Pulse Check,high,"Are accessible facilities (toilets, lifts) clearly signed?",Accessible facilities should be clearly identified using recognisable symbols and plain language. Clear signage helps people find essential facilities without needing to ask for assistance or search the space.,"Yes | Partially | No | Not sure",
+During Visit,B2,Signage and wayfinding,B2-1-4,Pulse Check,high,Would a first-time visitor be able to navigate independently?,"This question considers the overall experience of navigating your space for someone who has never visited before. Clear signage, logical layout, good lighting, manageable noise levels, and visible landmarks all support independent navigation.
+
+If someone unfamiliar with the space can find their way without assistance, the environment is likely working well.","Yes | Mostly | With difficulty | No | Not sure",
+During Visit,B2,Signage and wayfinding,B2-MA-1,Deep Dive,medium,Upload a photo of your signage for accessibility analysis,"Our AI will analyze your signage against AS 1428.1 and AS 1428.2 standards for contrast, text size, font style, placement, and readability.",File upload,
+During Visit,B3,Menus and printed materials,B3-1-1,Pulse Check,medium,Are large print versions of key materials available?,"Large print materials support people with low vision or who find standard text difficult to read. As a general guide, large print uses a minimum of 16–18 point font, clear sans serif typefaces, strong contrast, and simple layouts. Key materials might include menus, programs, safety instructions, guides, or forms.","Yes | Some materials | No | Not sure",
+During Visit,B3,Menus and printed materials,B3-1-2,Pulse Check,medium,Can staff read menus or materials aloud for customers who need it?,Some customers may prefer or require information to be read aloud. Staff should feel comfortable offering this support respectfully and without drawing attention to the customer.,"Yes | Sometimes | No | Not sure",
+During Visit,B3,Menus and printed materials,B3-1-3,Pulse Check,medium,"Are digital alternatives available (QR codes, online menus)?","Digital alternatives allow customers to access information on their own devices using screen readers, zoom, or other accessibility settings. QR codes or online versions should link to accessible content that is easy to navigate and read.","Yes | Partially | No | Not sure",
+During Visit,B3,Menus and printed materials,B3-1-4,Pulse Check,medium,Do you offer key information in alternative formats such as Easy Read or Plain English?,"Alternative formats help people with different reading abilities, cognitive disabilities, or those who speak English as a second language.
+
+**Easy Read** uses simple words, short sentences, and images to explain information. It is designed for people with intellectual disability or learning difficulties.
+
+**Plain English** uses clear, straightforward language that avoids jargon, technical terms, and complex sentences. It makes information accessible to a wider audience.
+
+Key information might include safety instructions, service descriptions, or booking information.","Yes | Some materials | No | Not sure",
+During Visit,B3,Menus and printed materials,B3-MA-1,Deep Dive,medium,Upload a menu or printed material for accessibility analysis,"Our AI will analyze your menu, brochure, or printed material against accessibility standards including font size, contrast, layout clarity, and readability.",File upload,
+During Visit,B3,Menus and printed materials,B3-MA-2,Deep Dive,low,Upload a brochure or flyer for accessibility analysis,"We can analyze your promotional materials for accessibility features like contrast, text size, and clear layout.",File upload,
+During Visit,B3,Menus and printed materials,B3-MA-3,Deep Dive,medium,Upload your large print materials for verification,"We can verify that your large print materials meet recommended standards (minimum 16-18pt font, good contrast, clear layout).",File upload,B3-1-1 = Yes OR Some materials
+Service & Support,A7,Safety and emergencies,A7-1-1,Pulse Check,high,Do your emergency procedures include plans for people with disabilities?,"Emergency procedures should consider people with mobility, sensory, or cognitive needs so everyone can be supported safely.","Yes | Partially | No | Not sure",
+Service & Support,A7,Safety and emergencies,A7-1-2,Pulse Check,high,Are emergency exits accessible to people with mobility aids?,Accessible exits allow people with access needs to evacuate safely without encountering steps or barriers.,"Yes | Some exits | No | Not sure",
+Service & Support,A7,Safety and emergencies,A7-1-3,Pulse Check,high,Are there visual and audible alarms for emergencies?,Using both visual and audible alarms helps ensure emergency alerts are accessible to people with hearing or vision access needs.,"Yes - both | Audible only | Visual only | Not sure",
+Service & Support,A7,Safety and emergencies,A7-1-4,Pulse Check,high,Do staff know how to assist customers with different needs during an evacuation?,Staff confidence and clarity during evacuations can reduce confusion and support safe outcomes for everyone.,"Yes | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-F-1,Pulse Check,high,Have staff received disability awareness or accessibility training?,"Disability awareness or accessibility training helps staff understand different needs and respond respectfully and confidently. Training does not need to be complex, but it should cover inclusive communication, assistance etiquette, and common access considerations.","Yes - all staff | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-F-1b,Pulse Check,high,Do you provide disability inclusion training to support an inclusive workplace culture?,"Disability inclusion training goes beyond customer service to build a workplace culture that values and includes people with disability as employees, customers, and community members.
+
+This might include training on:
+• Understanding disability as part of diversity
+• Unconscious bias and attitudes towards disability
+• Creating welcoming and respectful environments
+• The social model of disability
+• Inclusive language and communication
+
+This training helps staff see accessibility as a core value rather than a task to complete.","Yes | Partially | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-F-2,Pulse Check,high,Do staff know how to welcome and assist customers with assistance animals?,"Staff should understand how to interact appropriately when a customer has an assistance animal. This includes allowing the animal to remain with the customer, not distracting or touching the animal, and offering assistance when appropriate.","Yes | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-F-3,Pulse Check,high,Do staff feel confident communicating with customers who have different needs?,"This considers whether staff feel comfortable adapting their communication style, allowing extra time, or using different approaches when needed. Confidence helps create a welcoming and inclusive experience.","Yes | Sometimes | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-F-4,Pulse Check,medium,Do you have a process for customers to request assistance before arriving?,"A clear pre-arrival process allows customers to share their needs in advance, such as through a booking form, email, phone call, or website information. This helps staff prepare and respond effectively.","Yes | Informal process | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-F-5,Pulse Check,medium,Are staff trained in various communication strategies?,Some customers use alternative or augmentative communication methods. Staff awareness of basic strategies or tools can support clearer communication and reduce frustration.,"Yes | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-F-6,Pulse Check,medium,Do staff know where accessible facilities are located to direct customers?,"Staff should be able to quickly and accurately direct customers to accessible facilities such as toilets, lifts, seating, or step-free entrances. This reduces stress and unnecessary searching.","Yes | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-F-7,Pulse Check,medium,Is there a clear process for handling accessibility complaints or feedback?,A clear feedback process helps organisations identify barriers and respond to concerns respectfully. Customers should know how to provide feedback and feel confident it will be taken seriously.,"Yes | Informal process | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-9,Deep Dive,medium,Are staff trained to offer assistance without being condescending or over-helpful?,"Offering assistance respectfully means asking first, listening, and following the customer's lead. Support should be provided without assumptions, pressure, or taking over unless requested.","Yes | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-10,Deep Dive,medium,Do staff know how to communicate with customers who are Deaf or hard of hearing?,"This includes speaking clearly, facing the person, reducing background noise where possible, and using alternative communication methods such as writing or gestures when needed.","Yes | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-11,Deep Dive,low,Is pen and paper available for written communication if needed?,Simple tools like pen and paper can support clear communication when speech or hearing barriers exist. They should be easy to access when required.,"Yes | Sometimes | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-12,Deep Dive,medium,Do staff know how to assist customers who may need extra time or have cognitive differences?,"Some customers may process information more slowly or need instructions explained differently. Staff should feel comfortable allowing extra time, using plain language, and checking understanding.","Yes | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-13,Deep Dive,medium,Is there a quiet space available for customers who become overwhelmed?,"A quiet or low-stimulation space allows customers to step away from noise or crowds if they feel overwhelmed. This supports people with sensory sensitivities, anxiety, or fatigue.","Yes | Informal options | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-14,Deep Dive,medium,Do you have a documented policy on serving customers with disabilities?,"A documented approach helps ensure consistent, respectful service across staff and situations. Policies do not need to be complex but should clearly support inclusion.","Yes | Informal approach | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-15,Deep Dive,medium,Is accessibility training included in new staff onboarding?,Including accessibility in onboarding helps new staff understand expectations from the start and builds confidence in providing inclusive service.,"Yes | Sometimes | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-16,Deep Dive,high,Do staff know how to assist customers during an emergency evacuation?,"Staff should understand how to support customers with different needs during emergencies, including providing clear instructions and offering assistance when appropriate.","Yes | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-17,Deep Dive,low,"Are staff aware of common accessibility equipment (e.g., hearing loops, wheelchairs for loan)?",Staff should know what accessibility equipment is available on site and how customers can access or use it.,"Yes | Some staff | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-18,Deep Dive,low,Do you offer any assistive technology or equipment for customer use?,"Assistive equipment may include hearing loops, portable seating, wheelchairs, or visual aids. Availability should be communicated clearly to staff and customers.","Yes | Limited | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-18b,Deep Dive,medium,Can you arrange Auslan (Australian Sign Language) interpretation when needed?,"Auslan interpretation allows Deaf customers to communicate and participate fully. This might include:
+
+• Booking Auslan interpreters for appointments or events
+• Having staff who know basic Auslan or key signs
+• Knowing how to arrange interpreters at short notice
+• Video relay services for phone calls
+• Partnerships with Deaf community organisations
+
+Even if interpretation is not always available, knowing how to arrange it when needed is valuable.","Yes | Sometimes | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-19,Deep Dive,medium,Are carers or support people welcomed and accommodated appropriately?,"Carers and support people play an important role for many customers. They should be welcomed, included, and able to accompany the person they support without barriers.","Yes | Usually | No | Not sure",
+Service & Support,C1,Customer service and staff confidence,C1-D-20,Deep Dive,low,Is there a process for providing information in alternative formats on request?,"Alternative formats might include large print, digital versions, or verbal explanations. A clear process helps staff respond confidently and consistently.","Yes | Informal process | No | Not sure",
+Service & Support,C2,"Bookings, payments and flexibility",C2-1-1,Pulse Check,medium,Can customers easily modify bookings if their needs change?,Flexible booking processes allow customers to update access requirements if circumstances change. This reduces stress and supports better planning.,"Yes | Sometimes | No | Not applicable | Not sure",
+Service & Support,C2,"Bookings, payments and flexibility",C2-1-2,Pulse Check,medium,Are payment terminals positioned at accessible heights?,"Payment terminals should be reachable and usable by wheelchair users and people of different heights, without requiring stretching or awkward positioning.","Yes | Some | No | Not sure",
+Service & Support,C2,"Bookings, payments and flexibility",C2-1-3,Pulse Check,low,Can staff bring payment terminals to customers if needed?,Portable terminals allow transactions to be completed comfortably when fixed counters are difficult to access.,"Yes | Sometimes | No | Not applicable | Not sure",
+Service & Support,C2,"Bookings, payments and flexibility",C2-1-4,Pulse Check,medium,Is there flexibility in cancellation policies for disability-related changes?,Flexible cancellation or rescheduling recognises that access needs or health conditions can change unexpectedly.,"Yes | Case by case | No | Not sure",
+Service & Support,C3,Feedback and reviews,C3-F-1,Pulse Check,high,Do you have a way for customers to provide feedback about accessibility?,"Accessible feedback options allow customers to share experiences, barriers, or suggestions. This might include online forms, email, phone, or in-person options.
+
+Make it easy for people to tell you about barriers they experienced or suggestions they have.","Yes | Limited options | No | Not sure",
+Service & Support,C3,Feedback and reviews,C3-F-2,Pulse Check,high,Are your surveys and feedback forms accessible?,"Accessible surveys and forms ensure everyone can provide feedback. Consider:
+
+• Screen reader compatibility
+• Clear labels and instructions
+• Sufficient colour contrast
+• Keyboard navigation
+• Alternative formats (phone, paper)
+• Plain language questions","Yes | Partially | No | Not sure",
+Service & Support,C3,Feedback and reviews,C3-F-3,Pulse Check,medium,Do you actively monitor and respond to online reviews?,"Online reviews on Google, TripAdvisor, Facebook, and other platforms are often the first thing potential customers see.
+
+Responding to reviews—especially those mentioning accessibility—shows you care and helps others understand your accessibility efforts.","Yes | Sometimes | No | Not sure",
+Service & Support,C3,Feedback and reviews,C3-F-4,Pulse Check,high,Do you regularly review and act on accessibility feedback?,"Reviewing feedback and taking action shows commitment to improvement. This includes:
+
+• Regular review of feedback
+• Identifying common themes
+• Prioritising improvements
+• Closing the loop with customers
+• Sharing learnings with staff","Yes | Sometimes | No | Not sure",
+Service & Support,C3,Feedback and reviews,C3-D-1,Deep Dive,medium,Do you offer multiple ways for customers to provide feedback?,"Different people prefer different communication methods. Offering multiple channels ensures more people can share feedback:
+
+• Online form
+• Email
+• Phone
+• In-person
+• Paper form
+• Social media","Yes - multiple channels | Limited options | Single channel only | Not sure",
+Service & Support,C3,Feedback and reviews,C3-D-2,Deep Dive,medium,Have you received and responded to accessibility-related reviews?,How you respond to accessibility feedback in public reviews matters. Positive responses can include thanking for feedback and explaining improvements. Negative experiences should be addressed professionally with an offer to discuss further.,"Yes - received and responded | Received but not responded | Not received any | Not sure",
+Service & Support,C3,Feedback and reviews,C3-D-3,Deep Dive,low,Do you track accessibility feedback to identify patterns?,"Tracking feedback over time helps identify:
+
+• Common barriers
+• Recurring issues
+• Improvement opportunities
+• Success stories
+• Training needs","Yes | Informally | No | Not sure",
+Service & Support,C4,Staying connected,C4-F-1,Pulse Check,high,Are your marketing emails and newsletters accessible?,"Accessible email marketing ensures all customers can read your updates. Key considerations:
+
+• Good colour contrast
+• Alt text for images
+• Clear link text (not ""click here"")
+• Simple, consistent layout
+• Plain text alternative
+• Readable font sizes","Yes | Partially | No | Not applicable | Not sure",
+Service & Support,C4,Staying connected,C4-F-2,Pulse Check,medium,Can customers easily manage their communication preferences?,"Customers should be able to:
+
+• Choose which communications they receive
+• Select preferred formats
+• Update preferences easily
+• Unsubscribe without barriers
+• Request alternative formats","Yes | Partially | No | Not sure",
+Service & Support,C4,Staying connected,C4-F-3,Pulse Check,medium,Are your promotional offers and discounts accessible to everyone?,"Promotions should be accessible in both delivery and redemption:
+
+• Offer codes work with screen readers
+• Visual promotions have text alternatives
+• Terms and conditions are clear
+• Redemption process is accessible
+• No barriers to accessing discounts","Yes | Partially | No | Not applicable | Not sure",
+Service & Support,C4,Staying connected,C4-F-4,Pulse Check,medium,Is your loyalty or rewards program accessible?,"Loyalty programs should be accessible to join, use, and manage:
+
+• Accessible signup process
+• Points/rewards easy to check
+• Rewards can be redeemed accessibly
+• Cards/apps work with assistive technology
+• Alternative to app-only programs","Yes | Partially | No | Not applicable | Not sure",
+Service & Support,C4,Staying connected,C4-D-1,Deep Dive,low,Do you offer SMS or text alternatives to email communications?,"Some customers prefer or need text/SMS communications:
+
+• Appointment reminders
+• Order updates
+• Important announcements
+• Two-way communication option","Yes | Partially | No | Not applicable | Not sure",
+Service & Support,C4,Staying connected,C4-D-2,Deep Dive,low,Is your referral program accessible?,"If you have a referral program, ensure:
+
+• Referral process is screen reader compatible
+• Sharing options work for everyone
+• Rewards are accessible to claim
+• Terms are in plain language","Yes | Partially | No | Not applicable | Not sure",
+Service & Support,C4,Staying connected,C4-D-3,Deep Dive,low,Do you include accessibility information in your ongoing communications?,"Regularly sharing accessibility information keeps it top of mind:
+
+• Mention accessibility features in newsletters
+• Highlight new accessibility improvements
+• Share accessibility tips relevant to customers
+• Include access information in event promotions","Yes | Sometimes | No | Not sure",
+Service & Support,P1,"Policy, procurement and inclusion",P1-F-1,Pulse Check,high,Do you have a documented accessibility or disability inclusion policy?,"An accessibility policy sets out your organisation's commitment to disability inclusion. It might cover customer service, employment, procurement, communications, and continuous improvement.
+
+A documented policy helps ensure consistency, accountability, and clear expectations for staff and stakeholders.","Yes | In development | No | Not sure",
+Service & Support,P1,"Policy, procurement and inclusion",P1-F-2,Pulse Check,medium,Do you provide information about accessibility practices to procurement partners to support inclusive service delivery?,"Inclusive procurement means considering accessibility when selecting suppliers, contractors, and partners. This ensures that products, services, and experiences delivered by third parties also meet accessibility standards.
+
+This might include:
+• Including accessibility requirements in contracts and tenders
+• Asking suppliers about their accessibility practices
+• Sharing your accessibility expectations with partners
+• Choosing accessible products and services where possible
+• Working with suppliers who prioritise accessibility","Yes | Sometimes | No | Not sure",
+Service & Support,P1,"Policy, procurement and inclusion",P1-F-3,Pulse Check,high,Do you have a Disability Inclusion Action Plan (DIAP) or equivalent?,"A Disability Inclusion Action Plan (DIAP) is a documented plan that outlines specific actions your organisation will take to improve accessibility and inclusion over time.
+
+DIAPs typically cover:
+• Current accessibility status
+• Goals and priorities
+• Specific actions with timeframes
+• Responsibilities and accountability
+• How progress will be measured
+
+A DIAP demonstrates commitment and provides a roadmap for continuous improvement.","Yes | In development | No | Not sure",
+Service & Support,P1,"Policy, procurement and inclusion",P1-F-4,Pulse Check,medium,Do you accept the Companion Card for carers or support people?,"The Companion Card is an Australian program that allows people with disability who require attendant care support to participate in community activities without having to pay for their companion's entry.
+
+Accepting the Companion Card means providing free or discounted entry for the cardholder's companion to ticketed venues, events, or activities.","Yes | No | Not applicable | Not sure",
+Service & Support,P1,"Policy, procurement and inclusion",P1-F-5,Pulse Check,medium,Do you have accessible pricing or concession options?,"Accessible pricing recognises that some people with disability may face additional costs or barriers to participation. This might include:
+
+• Concession pricing for people with disability
+• Free or discounted entry for carers/companions
+• Flexible payment options
+• No penalty for accessibility-related cancellations
+• Discounts for assistive technology users","Yes | Some options | No | Not applicable | Not sure",
+Service & Support,P1,"Policy, procurement and inclusion",P1-F-6,Pulse Check,high,Does your organisation have a policy on assistance animals?,"An assistance animal policy ensures staff understand that customers with assistance animals must not be refused entry or service. Assistance animals are generally permitted in all areas open to the public, including food and dining areas.
+
+A clear policy helps staff respond confidently and consistently when customers arrive with assistance animals.","Yes | Informal understanding | No | Not sure",
+Service & Support,P1,"Policy, procurement and inclusion",P1-D-6,Deep Dive,medium,Is accessibility considered in your marketing and communications strategy?,"Accessible marketing ensures your promotional materials reach and resonate with people with disability. This includes:
+
+• Using accessible formats for marketing materials
+• Including people with disability in imagery and messaging
+• Ensuring social media content is accessible
+• Highlighting accessibility features in promotions
+• Using inclusive language","Yes | Sometimes | No | Not sure",
+Service & Support,P1,"Policy, procurement and inclusion",P1-D-7,Deep Dive,medium,Do you engage with people with disability in planning or reviewing your services?,"Engaging people with disability in planning helps ensure services meet real needs. This might include:
+
+• Consulting with disability organisations
+• Including people with disability on advisory groups
+• User testing with people with disability
+• Seeking feedback from customers with disability
+• Co-design processes","Yes | Sometimes | No | Not sure",
+Service & Support,P1,"Policy, procurement and inclusion",P1-D-8,Deep Dive,low,Do you track and report on accessibility improvements?,"Tracking progress helps demonstrate commitment and identify areas needing attention. This might include:
+
+• Regular accessibility audits
+• Tracking customer feedback
+• Measuring staff training completion
+• Reporting on DIAP progress
+• Setting and reviewing accessibility KPIs","Yes | Informally | No | Not sure",
+Service & Support,P2,Employing people with disability,P2-F-1,Pulse Check,high,Does your organisation actively recruit people with disability?,"Active recruitment means taking deliberate steps to attract candidates with disability. This might include:
+
+• Posting jobs on disability employment services
+• Using inclusive language in job ads
+• Offering alternative application formats
+• Partnering with disability employment organisations
+• Attending disability-focused career fairs","Yes | Sometimes | No | Not sure",
+Service & Support,P2,Employing people with disability,P2-F-2,Pulse Check,high,Is your recruitment process accessible to people with disability?,"An accessible recruitment process ensures all candidates can apply and participate equally. Consider:
+
+• Job ads in accessible formats
+• Application forms that work with screen readers
+• Interview locations that are physically accessible
+• Offering adjustments during interviews
+• Clear information about accessibility support available","Yes | Partially | No | Not sure",
+Service & Support,P2,Employing people with disability,P2-F-3,Pulse Check,high,Do you provide workplace adjustments for employees with disability?,"Workplace adjustments (reasonable adjustments) are changes to the work environment, schedule, or role that enable employees with disability to perform their job effectively. Examples include:
+
+• Modified workstations or equipment
+• Flexible working hours or locations
+• Assistive technology (screen readers, voice recognition)
+• Modified duties or job restructuring
+• Support workers or job coaches
+• Additional breaks or quiet spaces","Yes | Case by case | No | Not sure",
+Service & Support,P2,Employing people with disability,P2-D-1,Deep Dive,medium,Do you have a process for employees to request workplace adjustments?,"A clear process helps employees feel comfortable requesting support. Best practice includes:
+
+• Information about available adjustments
+• Clear point of contact for requests
+• Confidential discussion process
+• Reasonable timeframes for implementation
+• Regular review of adjustments","Yes | Informal process | No | Not sure",
+Service & Support,P2,Employing people with disability,P2-D-2,Deep Dive,medium,Do you track the employment of people with disability in your organisation?,"Tracking employment data (with appropriate consent and privacy protections) helps you understand your workforce diversity and set improvement goals. This might include:
+
+• Voluntary disclosure surveys
+• Tracking adjustment requests
+• Monitoring retention rates
+• Setting employment targets","Yes | Informally | No | Not sure",
+Service & Support,P2,Employing people with disability,P2-D-3,Deep Dive,medium,Do managers receive training on supporting employees with disability?,"Manager training helps create a supportive environment. Training might cover:
+
+• Understanding disability and inclusion
+• Having conversations about adjustments
+• Legal obligations and rights
+• Creating inclusive team environments
+• Supporting career development","Yes | Some managers | No | Not sure",
+Service & Support,P3,Staff training and awareness,P3-F-1,Pulse Check,high,Do all customer-facing staff receive disability awareness training?,"Disability awareness training helps staff interact confidently and respectfully with customers with disability. Good training covers:
+
+• Understanding different types of disability
+• Communication approaches
+• Offering assistance appropriately
+• Using accessible facilities and equipment
+• Responding to specific requests","Yes - all staff | Some staff | No | Not sure",
+Service & Support,P3,Staff training and awareness,P3-F-2,Pulse Check,high,Is disability awareness included in staff onboarding?,"Including accessibility in onboarding ensures all new staff start with the right foundation. This might include:
+
+• Introduction to your accessibility commitment
+• Overview of accessible facilities and features
+• How to assist customers with disability
+• Who to contact for support
+• Key policies and procedures","Yes | Sometimes | No | Not sure",
+Service & Support,P3,Staff training and awareness,P3-F-3,Pulse Check,high,Do staff know how to use accessibility features and equipment?,"Staff should be familiar with accessibility features at your venue, such as:
+
+• Hearing loops and how to activate them
+• Portable ramps and where they are stored
+• Accessible toilet features (Changing Places, hoists)
+• Assistive listening devices
+• Wheelchair-accessible routes","Yes | Some staff | No | Not applicable | Not sure",
+Service & Support,P3,Staff training and awareness,P3-D-1,Deep Dive,medium,Is disability training refreshed regularly?,"Regular refresher training helps maintain awareness and incorporate new learning. Consider:
+
+• Annual refresher sessions
+• Updates when new features are added
+• Including accessibility in team meetings
+• Sharing customer feedback and learnings","Yes | Sometimes | No | Not sure",
+Service & Support,P3,Staff training and awareness,P3-D-2,Deep Dive,medium,Have staff received training from people with lived experience of disability?,"Training delivered by people with disability provides authentic insights and builds genuine understanding. This might include:
+
+• Guest speakers with disability
+• Training organisations led by people with disability
+• Customer panels sharing their experiences
+• Disability consultants","Yes | Sometimes | No | Not sure",
+Service & Support,P3,Staff training and awareness,P3-D-3,Deep Dive,low,Do staff have access to resources about accessibility and disability?,"Ongoing resources help staff build knowledge over time. Resources might include:
+
+• Quick reference guides
+• Intranet resources
+• Contact details for questions
+• Links to external resources
+• Regular accessibility updates","Yes | Limited | No | Not sure",
+Service & Support,P4,Accessible procurement,P4-F-1,Pulse Check,high,Do you consider accessibility when selecting suppliers and partners?,"Accessible procurement ensures that products, services, and experiences delivered by third parties also meet accessibility standards. Consider accessibility when:
+
+• Purchasing software or technology
+• Hiring contractors for events or services
+• Selecting venue partners
+• Buying equipment or furniture
+• Commissioning communications or marketing","Yes | Sometimes | No | Not sure",
+Service & Support,P4,Accessible procurement,P4-F-2,Pulse Check,high,Do you include accessibility requirements in contracts and tenders?,"Including accessibility in contracts sets clear expectations. Requirements might cover:
+
+• WCAG compliance for digital products
+• Physical accessibility standards
+• Accessible document formats
+• Captioning and audio description
+• Staff training requirements","Yes | Sometimes | No | Not sure",
+Service & Support,P4,Accessible procurement,P4-D-1,Deep Dive,medium,Do you ask suppliers about their accessibility practices?,"Understanding supplier practices helps make informed choices. Questions might cover:
+
+• Their accessibility policy
+• WCAG compliance status
+• Experience with accessibility requirements
+• Willingness to meet your standards
+• References from other accessibility-focused clients","Yes | Sometimes | No | Not sure",
+Service & Support,P4,Accessible procurement,P4-D-2,Deep Dive,medium,Do you prioritise suppliers with strong accessibility practices?,"Choosing accessible suppliers supports the broader accessibility ecosystem. Consider:
+
+• Suppliers owned by people with disability
+• Disability employment services
+• Certified accessible businesses
+• Suppliers with documented accessibility commitments","Yes | Sometimes | No | Not sure",
+Service & Support,P4,Accessible procurement,P4-D-3,Deep Dive,medium,Do you verify that delivered products and services meet accessibility requirements?,"Verification ensures requirements are actually met. This might include:
+
+• Accessibility testing before acceptance
+• Review against stated requirements
+• User testing with people with disability
+• Regular compliance audits","Yes | Sometimes | No | Not sure",
+Service & Support,P5,Continuous improvement and reporting,P5-F-1,Pulse Check,high,Do you regularly review your accessibility performance?,"Regular reviews help identify progress and areas for improvement. Reviews might cover:
+
+• Progress against action plans
+• Customer feedback analysis
+• Audit findings
+• Staff training completion
+• Complaint trends","Yes | Sometimes | No | Not sure",
+Service & Support,P5,Continuous improvement and reporting,P5-F-2,Pulse Check,high,Do you set accessibility improvement goals?,"Clear goals help drive progress. Goals might include:
+
+• WCAG compliance targets
+• Training completion rates
+• Customer satisfaction scores
+• Specific facility improvements
+• Staff disability employment targets","Yes | Informal goals | No | Not sure",
+Service & Support,P5,Continuous improvement and reporting,P5-F-3,Pulse Check,medium,Do you report on accessibility progress to leadership or stakeholders?,"Reporting creates accountability and visibility. Reports might go to:
+
+• Board or executive team
+• Managers and team leaders
+• Disability advisory groups
+• Public annual reports
+• Regulatory bodies (if required)","Yes | Sometimes | No | Not sure",
+Service & Support,P5,Continuous improvement and reporting,P5-D-1,Deep Dive,medium,Do you conduct regular accessibility audits?,"Accessibility audits provide independent assessment of your accessibility performance. Types include:
+
+• Physical access audits
+• Website accessibility testing
+• Document accessibility reviews
+• Customer journey audits
+• Mystery shopper assessments","Yes | Occasionally | No | Not sure",
+Service & Support,P5,Continuous improvement and reporting,P5-D-2,Deep Dive,medium,Do you track accessibility-related metrics or KPIs?,"Metrics help demonstrate progress over time. Examples include:
+
+• WCAG conformance level
+• Customer satisfaction scores
+• Complaint resolution times
+• Training completion rates
+• Physical accessibility features added","Yes | Some metrics | No | Not sure",
+Service & Support,P5,Continuous improvement and reporting,P5-D-3,Deep Dive,low,Do you publish accessibility information publicly?,"Public reporting demonstrates commitment and helps customers make informed choices. This might include:
+
+• Accessibility statement on website
+• Annual accessibility report
+• DIAP published online
+• Access information on booking sites
+• Accessibility awards or certifications","Yes | Partially | No | Not sure",

@@ -7,12 +7,11 @@
 
 import { useMemo, useCallback } from 'react';
 import type { QuestionResponse } from './useModuleProgress';
-import type { ResponseOption } from '../constants/responseOptions';
 
 export interface BranchCondition {
   questionId: string;
-  // Standard 4 response options plus 'yes-offsite' for single-select toilet questions
-  answers: (ResponseOption | 'yes-offsite')[];
+  // Can be standard ResponseOption values OR custom option IDs from single-select/multi-select questions
+  answers: string[];
 }
 
 // Help content for visual examples, videos, and educational materials

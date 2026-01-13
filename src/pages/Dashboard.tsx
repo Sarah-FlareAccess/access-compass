@@ -16,9 +16,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
-import { accessModules, moduleGroups } from '../data/accessModules';
+import { accessModules, moduleGroups, getModuleById } from '../data/accessModules';
 import type { AccessModule } from '../data/accessModules';
-import type { ModuleOwnership } from '../hooks/useModuleProgress';
+import type { ModuleOwnership, ModuleRunContext, RunComparison } from '../hooks/useModuleProgress';
+import { ModuleRunSelector } from '../components/ModuleRunSelector';
+import { RunComparisonView } from '../components/RunComparisonView';
 import '../styles/dashboard.css';
 
 type TabType = 'modules' | 'evidence';
@@ -33,6 +35,8 @@ interface ModuleWithProgress {
   ownership?: ModuleOwnership;
   completedAt?: string;
   confidenceSnapshot?: 'strong' | 'mixed' | 'needs-work';
+  runsCount: number;
+  activeRunContext?: ModuleRunContext;  // Current run context being viewed
 }
 
 interface ModuleGroupWithProgress {
@@ -75,7 +79,32 @@ export default function Dashboard() {
   }, [discoveryData, session]);
 
   // Module progress hook
-  const { progress, isLoading: progressLoading, updateModuleOwnership } = useModuleProgress(recommendedModuleIds);
+  const {
+    progress,
+    isLoading: progressLoading,
+    updateModuleOwnership,
+    startNewRun,
+    getModuleRuns,
+    switchToRun,
+    deleteRun,
+    compareRuns,
+  } = useModuleProgress(recommendedModuleIds);
+
+  // Run selector modal state
+  const [runSelectorModal, setRunSelectorModal] = useState<{
+    isOpen: boolean;
+    moduleId: string;
+    moduleName: string;
+    moduleCode: string;
+  } | null>(null);
+
+  // Comparison view state
+  const [comparisonView, setComparisonView] = useState<{
+    isOpen: boolean;
+    comparison: RunComparison;
+    moduleId: string;
+    moduleName: string;
+  } | null>(null);
 
   // Assignment modal state
   const [assignmentModal, setAssignmentModal] = useState<{
@@ -120,6 +149,18 @@ export default function Dashboard() {
         .filter(m => recommendedModuleIds.includes(m.id) || recommendedModuleIds.includes(m.code))
         .map(module => {
           const moduleProgress = progress[module.id];
+          const runs = getModuleRuns(module.id);
+
+          // Get the active run context
+          let activeRunContext: ModuleRunContext | undefined;
+          if (moduleProgress?.activeRunId && runs.length > 0) {
+            const activeRun = runs.find(r => r.id === moduleProgress.activeRunId);
+            activeRunContext = activeRun?.context;
+          } else if (runs.length > 0) {
+            // Default to the most recent run's context
+            activeRunContext = runs[runs.length - 1]?.context;
+          }
+
           return {
             module,
             status: moduleProgress?.status || 'not-started',
@@ -130,6 +171,8 @@ export default function Dashboard() {
             ownership: moduleProgress?.ownership,
             completedAt: moduleProgress?.completedAt,
             confidenceSnapshot: moduleProgress?.confidenceSnapshot,
+            runsCount: runs.length,
+            activeRunContext,
           };
         });
 
@@ -368,7 +411,7 @@ Thanks!`;
                   </div>
 
                   <div className="module-tiles">
-                    {group.modules.map(({ module, status, answeredCount, totalQuestions, doingWellCount, actionCount, ownership, completedAt, confidenceSnapshot }) => {
+                    {group.modules.map(({ module, status, answeredCount, totalQuestions, doingWellCount, actionCount, ownership, completedAt, confidenceSnapshot, runsCount, activeRunContext }) => {
                       const action = getActionButton(status);
                       return (
                         <div key={module.id} className={`module-tile status-${status}`}>
@@ -386,6 +429,26 @@ Thanks!`;
                             </div>
 
                             <h4 className="module-title">{module.name}</h4>
+
+                            {/* Active run context indicator - show when there are multiple runs or a non-general context */}
+                            {activeRunContext && (runsCount > 1 || activeRunContext.type !== 'general') && (
+                              <div className="active-run-indicator">
+                                <span className="run-context-icon">
+                                  {activeRunContext.type === 'team' && '👥'}
+                                  {activeRunContext.type === 'department' && '🏢'}
+                                  {activeRunContext.type === 'event' && '📅'}
+                                  {activeRunContext.type === 'location' && '📍'}
+                                  {activeRunContext.type === 'experience' && '🎯'}
+                                  {activeRunContext.type === 'general' && '📋'}
+                                  {activeRunContext.type === 'other' && '📝'}
+                                </span>
+                                <span className="run-context-name">{activeRunContext.name}</span>
+                                {runsCount > 1 && (
+                                  <span className="run-count-hint">({runsCount} assessments)</span>
+                                )}
+                              </div>
+                            )}
+
                             <p className="module-description">{module.description}</p>
 
                             <div className="module-meta">
@@ -492,6 +555,26 @@ Thanks!`;
                                     <line x1="22" y1="11" x2="16" y2="11"/>
                                   </svg>
                                 )}
+                              </button>
+                              <button
+                                type="button"
+                                className="btn-run-history"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setRunSelectorModal({
+                                    isOpen: true,
+                                    moduleId: module.id,
+                                    moduleName: module.name,
+                                    moduleCode: module.code,
+                                  });
+                                }}
+                                title={runsCount > 0 ? `${runsCount} assessment${runsCount !== 1 ? 's' : ''} - View history or start new` : 'Start new assessment or repeat checklist'}
+                              >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <polyline points="1 4 1 10 7 10"/>
+                                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                </svg>
+                                {runsCount > 1 && <span className="runs-badge">{runsCount}</span>}
                               </button>
                             </div>
                           </div>
@@ -657,6 +740,49 @@ Thanks!`;
             )}
           </div>
         </div>
+      )}
+
+      {/* Run Selector Modal */}
+      {runSelectorModal && (
+        <ModuleRunSelector
+          moduleId={runSelectorModal.moduleId}
+          moduleName={runSelectorModal.moduleName}
+          runs={getModuleRuns(runSelectorModal.moduleId)}
+          activeRunId={progress[runSelectorModal.moduleId]?.activeRunId}
+          onStartNewRun={(context: ModuleRunContext) => {
+            startNewRun(runSelectorModal.moduleId, runSelectorModal.moduleCode, context);
+            setRunSelectorModal(null);
+          }}
+          onSwitchRun={(runId: string) => {
+            switchToRun(runSelectorModal.moduleId, runId);
+            setRunSelectorModal(null);
+          }}
+          onDeleteRun={(runId: string) => {
+            deleteRun(runSelectorModal.moduleId, runId);
+          }}
+          onCompareRuns={(runIdA: string, runIdB: string) => {
+            const comparison = compareRuns(runSelectorModal.moduleId, runIdA, runIdB);
+            if (comparison) {
+              setComparisonView({
+                isOpen: true,
+                comparison,
+                moduleId: runSelectorModal.moduleId,
+                moduleName: runSelectorModal.moduleName,
+              });
+            }
+          }}
+          onClose={() => setRunSelectorModal(null)}
+        />
+      )}
+
+      {/* Comparison View Modal */}
+      {comparisonView && (
+        <RunComparisonView
+          comparison={comparisonView.comparison}
+          questions={getModuleById(comparisonView.moduleId)?.questions || []}
+          moduleName={comparisonView.moduleName}
+          onClose={() => setComparisonView(null)}
+        />
       )}
     </div>
   );

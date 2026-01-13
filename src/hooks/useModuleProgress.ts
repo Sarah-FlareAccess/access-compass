@@ -90,6 +90,38 @@ export interface ModuleOwnership {
   completedByRole?: string;      // Optional role/title of completer
 }
 
+// Context for a module run (team, department, event, etc.)
+export interface ModuleRunContext {
+  type: 'team' | 'department' | 'event' | 'location' | 'experience' | 'general' | 'other';
+  name: string;           // e.g., "Marketing Team", "Summer Festival 2024", "Main Entrance"
+  description?: string;   // Optional additional context
+}
+
+// A single run/instance of a module checklist
+export interface ModuleRun {
+  id: string;                    // Unique run ID (e.g., "run-1699999999999")
+  context: ModuleRunContext;     // What this run is for
+  startedAt: string;             // ISO timestamp
+  completedAt?: string;          // ISO timestamp when completed
+  status: 'not-started' | 'in-progress' | 'completed';
+  responses: QuestionResponse[];
+  summary?: ModuleSummary;
+  ownership?: ModuleOwnership;
+  confidenceSnapshot?: 'strong' | 'mixed' | 'needs-work';
+}
+
+// Comparison result between two runs
+export interface RunComparison {
+  runA: ModuleRun;
+  runB: ModuleRun;
+  improvements: string[];        // Questions that improved (no -> yes, etc.)
+  regressions: string[];         // Questions that got worse
+  unchanged: string[];           // Questions with same answer
+  newQuestions: string[];        // Questions only in one run
+  overallTrend: 'improving' | 'declining' | 'stable' | 'mixed';
+  scoreChange: number;           // Percentage change in positive responses
+}
+
 export interface ModuleProgress {
   moduleId: string;
   moduleCode: string;
@@ -102,6 +134,9 @@ export interface ModuleProgress {
   ownership?: ModuleOwnership;
   // Confidence snapshot for DIAP
   confidenceSnapshot?: 'strong' | 'mixed' | 'needs-work';
+  // Multiple runs support
+  activeRunId?: string;          // Currently active run ID
+  runs?: ModuleRun[];            // History of all runs for this module
 }
 
 export interface ModuleSummary {
@@ -185,6 +220,14 @@ interface UseModuleProgressReturn {
   // Progress queries
   getModuleProgress: (moduleId: string) => ModuleProgress | undefined;
   getOverallProgress: () => { completed: number; total: number; percentage: number };
+
+  // Run management (repeat checklist functionality)
+  startNewRun: (moduleId: string, moduleCode: string, context: ModuleRunContext) => string;
+  getModuleRuns: (moduleId: string) => ModuleRun[];
+  switchToRun: (moduleId: string, runId: string) => void;
+  deleteRun: (moduleId: string, runId: string) => void;
+  compareRuns: (moduleId: string, runIdA: string, runIdB: string) => RunComparison | null;
+  archiveCurrentAsRun: (moduleId: string, context: ModuleRunContext) => string | null;
 
   // Sync
   syncToCloud: () => Promise<void>;
@@ -421,6 +464,301 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     }
   }, [progress]);
 
+  // ============================================
+  // RUN MANAGEMENT FUNCTIONS
+  // ============================================
+
+  // Archive current progress as a run (saves current state before starting fresh)
+  const archiveCurrentAsRun = useCallback((moduleId: string, context: ModuleRunContext): string | null => {
+    const existing = progress[moduleId];
+    if (!existing || existing.responses.length === 0) {
+      return null; // Nothing to archive
+    }
+
+    const runId = `run-${Date.now()}`;
+    const newRun: ModuleRun = {
+      id: runId,
+      context,
+      startedAt: existing.startedAt || new Date().toISOString(),
+      completedAt: existing.completedAt,
+      status: existing.status,
+      responses: [...existing.responses],
+      summary: existing.summary,
+      ownership: existing.ownership,
+      confidenceSnapshot: existing.confidenceSnapshot,
+    };
+
+    setProgress(prev => {
+      const current = prev[moduleId];
+      const existingRuns = current?.runs || [];
+
+      const updated = {
+        ...prev,
+        [moduleId]: {
+          ...current,
+          runs: [...existingRuns, newRun],
+        },
+      };
+
+      saveLocalProgress(updated);
+      return updated;
+    });
+
+    return runId;
+  }, [progress]);
+
+  // Start a new run with context (team, department, event, etc.)
+  const startNewRun = useCallback((moduleId: string, moduleCode: string, context: ModuleRunContext): string => {
+    const runId = `run-${Date.now()}`;
+    const now = new Date().toISOString();
+
+    setProgress(prev => {
+      const existing = prev[moduleId];
+      const existingRuns = existing?.runs || [];
+
+      // If there's current progress that's not archived, archive it first
+      let runsToSave = [...existingRuns];
+      if (existing && existing.responses.length > 0 && existing.status !== 'not-started') {
+        // Check if current progress is already saved as a run
+        const isAlreadyArchived = existingRuns.some(run =>
+          run.startedAt === existing.startedAt &&
+          run.responses.length === existing.responses.length
+        );
+
+        if (!isAlreadyArchived) {
+          // Auto-archive previous progress
+          const previousRun: ModuleRun = {
+            id: `run-${Date.now() - 1}`,
+            context: { type: 'general', name: 'Previous assessment' },
+            startedAt: existing.startedAt || now,
+            completedAt: existing.completedAt,
+            status: existing.status,
+            responses: [...existing.responses],
+            summary: existing.summary,
+            ownership: existing.ownership,
+            confidenceSnapshot: existing.confidenceSnapshot,
+          };
+          runsToSave = [...runsToSave, previousRun];
+        }
+      }
+
+      // Create new run entry
+      const newRun: ModuleRun = {
+        id: runId,
+        context,
+        startedAt: now,
+        status: 'in-progress',
+        responses: [],
+      };
+
+      const updated = {
+        ...prev,
+        [moduleId]: {
+          moduleId,
+          moduleCode,
+          status: 'in-progress' as const,
+          startedAt: now,
+          responses: [],
+          activeRunId: runId,
+          runs: [...runsToSave, newRun],
+        },
+      };
+
+      saveLocalProgress(updated);
+      return updated;
+    });
+
+    return runId;
+  }, []);
+
+  // Get all runs for a module
+  const getModuleRuns = useCallback((moduleId: string): ModuleRun[] => {
+    const moduleProgress = progress[moduleId];
+    if (!moduleProgress) return [];
+
+    const runs = moduleProgress.runs || [];
+
+    // If there's current progress not in runs, include it as "current"
+    if (moduleProgress.responses.length > 0) {
+      const isCurrentInRuns = runs.some(run => run.id === moduleProgress.activeRunId);
+      if (!isCurrentInRuns && moduleProgress.status !== 'not-started') {
+        // Add current progress as a virtual run
+        const currentRun: ModuleRun = {
+          id: moduleProgress.activeRunId || 'current',
+          context: { type: 'general', name: 'Current assessment' },
+          startedAt: moduleProgress.startedAt || new Date().toISOString(),
+          completedAt: moduleProgress.completedAt,
+          status: moduleProgress.status,
+          responses: moduleProgress.responses,
+          summary: moduleProgress.summary,
+          ownership: moduleProgress.ownership,
+          confidenceSnapshot: moduleProgress.confidenceSnapshot,
+        };
+        return [...runs, currentRun];
+      }
+    }
+
+    return runs;
+  }, [progress]);
+
+  // Switch to a different run (load its responses)
+  const switchToRun = useCallback((moduleId: string, runId: string) => {
+    setProgress(prev => {
+      const existing = prev[moduleId];
+      if (!existing) return prev;
+
+      const runs = existing.runs || [];
+      const targetRun = runs.find(r => r.id === runId);
+      if (!targetRun) return prev;
+
+      const updated = {
+        ...prev,
+        [moduleId]: {
+          ...existing,
+          status: targetRun.status,
+          startedAt: targetRun.startedAt,
+          completedAt: targetRun.completedAt,
+          responses: [...targetRun.responses],
+          summary: targetRun.summary,
+          ownership: targetRun.ownership,
+          confidenceSnapshot: targetRun.confidenceSnapshot,
+          activeRunId: runId,
+        },
+      };
+
+      saveLocalProgress(updated);
+      return updated;
+    });
+  }, []);
+
+  // Delete a run
+  const deleteRun = useCallback((moduleId: string, runId: string) => {
+    setProgress(prev => {
+      const existing = prev[moduleId];
+      if (!existing) return prev;
+
+      const runs = existing.runs || [];
+      const filteredRuns = runs.filter(r => r.id !== runId);
+
+      // Check if deleting the active run OR the "current" virtual run
+      // The "current" virtual run has ID 'current' when activeRunId is undefined
+      const isActiveRun = existing.activeRunId === runId ||
+        (runId === 'current' && !existing.activeRunId);
+
+      // Also check if we're deleting the currently loaded progress
+      // (when progress exists but isn't formally saved as a run)
+      const isDeletingCurrentProgress = isActiveRun ||
+        (runId === 'current' && existing.responses.length > 0);
+
+      const updated = {
+        ...prev,
+        [moduleId]: {
+          ...existing,
+          runs: filteredRuns,
+          ...(isDeletingCurrentProgress ? {
+            status: 'not-started' as const,
+            responses: [],
+            summary: undefined,
+            completedAt: undefined,
+            startedAt: undefined,
+            activeRunId: undefined,
+            ownership: undefined,
+            confidenceSnapshot: undefined,
+          } : {}),
+        },
+      };
+
+      saveLocalProgress(updated);
+      return updated;
+    });
+  }, []);
+
+  // Compare two runs and generate comparison results
+  const compareRuns = useCallback((moduleId: string, runIdA: string, runIdB: string): RunComparison | null => {
+    const runs = getModuleRuns(moduleId);
+    const runA = runs.find(r => r.id === runIdA);
+    const runB = runs.find(r => r.id === runIdB);
+
+    if (!runA || !runB) return null;
+
+    const improvements: string[] = [];
+    const regressions: string[] = [];
+    const unchanged: string[] = [];
+    const newQuestions: string[] = [];
+
+    // Create response maps
+    const responsesA = new Map(runA.responses.map(r => [r.questionId, r]));
+    const responsesB = new Map(runB.responses.map(r => [r.questionId, r]));
+
+    // Get all unique question IDs
+    const allQuestionIds = new Set([...responsesA.keys(), ...responsesB.keys()]);
+
+    // Score helper: higher is better
+    const getScore = (answer: string | null): number => {
+      if (answer === 'yes') return 3;
+      if (answer === 'partially') return 2;
+      if (answer === 'unable-to-check' || answer === 'not-sure') return 1;
+      if (answer === 'no') return 0;
+      return 1; // Default for other responses
+    };
+
+    let totalScoreA = 0;
+    let totalScoreB = 0;
+    let comparableQuestions = 0;
+
+    allQuestionIds.forEach(questionId => {
+      const responseA = responsesA.get(questionId);
+      const responseB = responsesB.get(questionId);
+
+      if (!responseA && responseB) {
+        newQuestions.push(questionId);
+      } else if (responseA && !responseB) {
+        newQuestions.push(questionId);
+      } else if (responseA && responseB) {
+        const scoreA = getScore(responseA.answer);
+        const scoreB = getScore(responseB.answer);
+        totalScoreA += scoreA;
+        totalScoreB += scoreB;
+        comparableQuestions++;
+
+        if (scoreB > scoreA) {
+          improvements.push(questionId);
+        } else if (scoreB < scoreA) {
+          regressions.push(questionId);
+        } else {
+          unchanged.push(questionId);
+        }
+      }
+    });
+
+    // Calculate overall trend
+    let overallTrend: 'improving' | 'declining' | 'stable' | 'mixed';
+    const scoreChange = comparableQuestions > 0
+      ? ((totalScoreB - totalScoreA) / (comparableQuestions * 3)) * 100
+      : 0;
+
+    if (improvements.length > regressions.length * 2) {
+      overallTrend = 'improving';
+    } else if (regressions.length > improvements.length * 2) {
+      overallTrend = 'declining';
+    } else if (improvements.length === 0 && regressions.length === 0) {
+      overallTrend = 'stable';
+    } else {
+      overallTrend = 'mixed';
+    }
+
+    return {
+      runA,
+      runB,
+      improvements,
+      regressions,
+      unchanged,
+      newQuestions,
+      overallTrend,
+      scoreChange: Math.round(scoreChange * 10) / 10,
+    };
+  }, [getModuleRuns]);
+
   return {
     progress,
     isLoading,
@@ -431,6 +769,13 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     getResponse,
     getModuleProgress,
     getOverallProgress,
+    // Run management
+    startNewRun,
+    getModuleRuns,
+    switchToRun,
+    deleteRun,
+    compareRuns,
+    archiveCurrentAsRun,
     syncToCloud,
   };
 }

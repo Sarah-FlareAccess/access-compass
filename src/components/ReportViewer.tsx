@@ -128,7 +128,110 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 />
               </div>
             </div>
+
+            {/* Report Context Info */}
+            {report.reportContext && report.reportContext.filterType !== 'all' && (
+              <div className="report-context-info">
+                <span className="context-label">Report filtered by:</span>
+                <span className="context-value">
+                  {report.reportContext.filterType === 'context'
+                    ? report.reportContext.contextName
+                    : 'Custom selection'}
+                </span>
+                <span className="context-modules">
+                  ({report.reportContext.modulesIncluded} module{report.reportContext.modulesIncluded !== 1 ? 's' : ''} included)
+                </span>
+              </div>
+            )}
           </section>
+
+          {/* Progress Comparison Section */}
+          {report.progressComparison && report.progressComparison.enabled && (
+            <section className="report-section report-progress-comparison">
+              <h2>Progress Comparison</h2>
+              <p className="section-intro">
+                Changes compared to previous assessments:
+              </p>
+
+              {/* Overall Summary */}
+              <div className={`comparison-overall-summary trend-${report.progressComparison.overallSummary.overallTrend}`}>
+                <div className="trend-icon">
+                  {report.progressComparison.overallSummary.overallTrend === 'improving' && '↑'}
+                  {report.progressComparison.overallSummary.overallTrend === 'declining' && '↓'}
+                  {report.progressComparison.overallSummary.overallTrend === 'stable' && '→'}
+                  {report.progressComparison.overallSummary.overallTrend === 'mixed' && '↔'}
+                </div>
+                <div className="trend-details">
+                  <div className="trend-label">
+                    {report.progressComparison.overallSummary.overallTrend === 'improving' && 'Overall Improving'}
+                    {report.progressComparison.overallSummary.overallTrend === 'declining' && 'Attention Needed'}
+                    {report.progressComparison.overallSummary.overallTrend === 'stable' && 'Stable'}
+                    {report.progressComparison.overallSummary.overallTrend === 'mixed' && 'Mixed Results'}
+                  </div>
+                  <div className="trend-stats">
+                    <span className="stat-improving">{report.progressComparison.overallSummary.totalImprovements} improvements</span>
+                    <span className="stat-declining">{report.progressComparison.overallSummary.totalRegressions} areas needing attention</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Module-by-module comparison */}
+              <div className="comparison-modules-list">
+                {report.progressComparison.comparisons.map((comparison, index) => (
+                  <div key={index} className={`comparison-module-card trend-${comparison.trend}`}>
+                    <div className="comparison-module-header">
+                      <h4>{comparison.moduleName}</h4>
+                      <span className={`trend-badge trend-${comparison.trend}`}>
+                        {comparison.trend === 'improving' && '↑ Improving'}
+                        {comparison.trend === 'declining' && '↓ Attention'}
+                        {comparison.trend === 'stable' && '→ Stable'}
+                        {comparison.trend === 'mixed' && '↔ Mixed'}
+                      </span>
+                    </div>
+                    <div className="comparison-module-runs">
+                      <div className="run-info previous">
+                        <span className="run-label">Previous:</span>
+                        <span className="run-name">{comparison.previousRun.contextName}</span>
+                        {comparison.previousRun.completedAt && (
+                          <span className="run-date">
+                            ({new Date(comparison.previousRun.completedAt).toLocaleDateString('en-AU', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                            })})
+                          </span>
+                        )}
+                      </div>
+                      <div className="run-arrow">→</div>
+                      <div className="run-info current">
+                        <span className="run-label">Current:</span>
+                        <span className="run-name">{comparison.currentRun.contextName}</span>
+                        {comparison.currentRun.completedAt && (
+                          <span className="run-date">
+                            ({new Date(comparison.currentRun.completedAt).toLocaleDateString('en-AU', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                            })})
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="comparison-module-stats">
+                      <span className="stat stat-improvements">{comparison.improvements} improved</span>
+                      <span className="stat stat-unchanged">{comparison.unchanged} unchanged</span>
+                      <span className="stat stat-regressions">{comparison.regressions} need attention</span>
+                      {comparison.scoreChange !== 0 && (
+                        <span className={`stat stat-score ${comparison.scoreChange > 0 ? 'positive' : 'negative'}`}>
+                          {comparison.scoreChange > 0 ? '+' : ''}{comparison.scoreChange}% change
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Module Completion Evidence */}
           {report.moduleEvidence && report.moduleEvidence.length > 0 && (
