@@ -757,59 +757,61 @@
 
 /* Invite Code Display */
 .invite-code-display {
-  background: linear-gradient(135deg, rgba(73, 14, 103, 0.04) 0%, rgba(73, 14, 103, 0.08) 100%);
-  border-radius: 14px;
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-xl);
-  border: 1px solid rgba(73, 14, 103, 0.12);
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.03) 0%, rgba(73, 14, 103, 0.06) 100%);
+  border-radius: 20px;
+  padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+  margin: var(--spacing-lg) 0 var(--spacing-xl);
+  border: 1px solid rgba(73, 14, 103, 0.1);
 }
 
 .invite-code-label {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 500;
   color: var(--text-secondary);
-  margin: 0 0 var(--spacing-sm) 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  margin: 0 0 var(--spacing-md) 0;
+  text-align: center;
 }
 
 .invite-code-box {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
   background: white;
-  border: 2px dashed var(--amethyst-diamond);
-  border-radius: 10px;
-  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--amethyst-diamond);
+  border-radius: 14px;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.08);
 }
 
 .invite-code-value {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   font-family: 'Courier New', monospace;
   color: var(--amethyst-diamond);
-  letter-spacing: 4px;
+  letter-spacing: 6px;
 }
 
 .invite-code-copy {
-  padding: 8px 16px;
+  padding: 12px 24px;
   background: var(--amethyst-diamond);
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 0.875rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 .invite-code-copy:hover {
   background: var(--amethyst-dark);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.25);
 }
 
 .invite-code-copy.copied {
@@ -819,8 +821,9 @@
 .invite-code-hint {
   font-size: 0.85rem;
   color: var(--text-secondary);
-  margin: var(--spacing-sm) 0 0 0;
+  margin: var(--spacing-md) 0 0 0;
   line-height: 1.5;
+  text-align: center;
 }
 
 /* Continue Button */
@@ -922,12 +925,17 @@
 
   .invite-code-box {
     flex-direction: column;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
   }
 
   .invite-code-value {
-    font-size: 1.4rem;
-    letter-spacing: 3px;
+    font-size: 1.6rem;
+    letter-spacing: 4px;
+  }
+
+  .invite-code-copy {
+    width: 100%;
+    justify-content: center;
   }
 }
