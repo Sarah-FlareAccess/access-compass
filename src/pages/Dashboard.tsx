@@ -326,12 +326,28 @@ Thanks!`;
     return date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
   };
 
-  if (!session || progressLoading) {
+  // Show loading only briefly, then show empty state if no session
+  if (progressLoading) {
     return (
       <div className="dashboard-page">
         <div className="dashboard-loading">
           <div className="loading-spinner"></div>
           <p>Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If no session, show a helpful message instead of infinite loading
+  if (!session) {
+    return (
+      <div className="dashboard-page">
+        <div className="dashboard-loading">
+          <h2>No active session found</h2>
+          <p style={{ marginBottom: '1rem' }}>You need to complete the setup process first.</p>
+          <Link to="/start" className="btn btn-primary">
+            Start Setup
+          </Link>
         </div>
       </div>
     );
