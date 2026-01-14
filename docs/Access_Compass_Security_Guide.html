@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Access Compass - Security Guide</title>
+  <style>
+    body {
+      font-family: Calibri, Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px;
+      color: #333;
+    }
+    h1 {
+      color: #490e67;
+      font-size: 24pt;
+      border-bottom: 3px solid #490e67;
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+    h2 {
+      color: #490e67;
+      font-size: 16pt;
+      margin-top: 30px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    h3 {
+      color: #666;
+      font-size: 13pt;
+      margin-top: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 15px 0;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #490e67;
+      color: white;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .highlight-box {
+      background-color: #f5f0f7;
+      border-left: 4px solid #490e67;
+      padding: 15px 20px;
+      margin: 20px 0;
+    }
+    .warning-box {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px 20px;
+      margin: 20px 0;
+    }
+    .important-box {
+      background-color: #f8d7da;
+      border-left: 4px solid #dc3545;
+      padding: 15px 20px;
+      margin: 20px 0;
+    }
+    .checklist {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .checklist li {
+      padding: 8px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+    .checklist li:before {
+      content: "\2610";
+      position: absolute;
+      left: 0;
+      font-size: 14pt;
+    }
+    .flow-diagram {
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: Consolas, monospace;
+      font-size: 10pt;
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    .footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      font-size: 9pt;
+      color: #666;
+      text-align: center;
+    }
+    .toc {
+      background-color: #f9f9f9;
+      padding: 20px 30px;
+      margin: 20px 0;
+    }
+    .toc h3 {
+      margin-top: 0;
+      color: #490e67;
+    }
+    .toc ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .toc li {
+      padding: 5px 0;
+    }
+    .toc a {
+      color: #490e67;
+      text-decoration: none;
+    }
+    code {
+      background-color: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: Consolas, monospace;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Access Compass<br>Security &amp; Administration Guide</h1>
+
+<p><strong>Version:</strong> 1.0<br>
+<strong>Last Updated:</strong> January 2026<br>
+<strong>Classification:</strong> Internal / Client Reference</p>
+
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ul>
+    <li>1. Overview</li>
+    <li>2. Role Hierarchy &amp; Permissions</li>
+    <li>3. Membership Management</li>
+    <li>4. Organisation Ownership</li>
+    <li>5. Invite Code System</li>
+    <li>6. Security Settings</li>
+    <li>7. Audit Logging</li>
+    <li>8. Admin Override Procedures</li>
+    <li>9. Client FAQ</li>
+  </ul>
+</div>
+
+<h2>1. Overview</h2>
+
+<p>Access Compass implements enterprise-grade security features designed for organisations of all sizes, including large councils, government bodies, and private enterprises. This guide covers all security processes, role hierarchies, and administrative procedures.</p>
+
+<div class="highlight-box">
+  <strong>Key Security Features:</strong>
+  <ul>
+    <li>6-tier role-based access control</li>
+    <li>Membership approval workflow</li>
+    <li>Secure invite code system with expiration</li>
+    <li>Session timeout management</li>
+    <li>Comprehensive audit logging</li>
+    <li>Data isolation between organisations</li>
+    <li>Admin override capabilities for support</li>
+  </ul>
+</div>
+
+<h2 class="page-break">2. Role Hierarchy &amp; Permissions</h2>
+
+<p>Access Compass uses a 6-tier role system to provide granular access control:</p>
+
+<table>
+  <tr>
+    <th>Role</th>
+    <th>Level</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><strong>Owner</strong></td>
+    <td>6 (Highest)</td>
+    <td>Full control. Can transfer ownership, manage all settings, delete organisation</td>
+  </tr>
+  <tr>
+    <td><strong>Admin</strong></td>
+    <td>5</td>
+    <td>Manage members, invites, security settings. Cannot transfer ownership</td>
+  </tr>
+  <tr>
+    <td><strong>Approver</strong></td>
+    <td>4</td>
+    <td>Approve or reject new member requests</td>
+  </tr>
+  <tr>
+    <td><strong>Editor</strong></td>
+    <td>3</td>
+    <td>Edit module responses and assessment data</td>
+  </tr>
+  <tr>
+    <td><strong>Member</strong></td>
+    <td>2</td>
+    <td>Standard access to dashboard and assessments</td>
+  </tr>
+  <tr>
+    <td><strong>Viewer</strong></td>
+    <td>1 (Lowest)</td>
+    <td>Read-only access to shared data</td>
+  </tr>
+</table>
+
+<h3>Permissions Matrix</h3>
+
+<table>
+  <tr>
+    <th>Capability</th>
+    <th>Owner</th>
+    <th>Admin</th>
+    <th>Approver</th>
+    <th>Editor</th>
+    <th>Member</th>
+    <th>Viewer</th>
+  </tr>
+  <tr>
+    <td>View dashboard</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>Edit assessments</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Approve members</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Manage invites</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Change user roles</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Security settings</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Transfer ownership</td>
+    <td>Yes</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>Delete organisation</td>
+    <td>Yes</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+</table>
+
+<h2 class="page-break">3. Membership Management</h2>
+
+<h3>Member Status Types</h3>
+
+<table>
+  <tr>
+    <th>Status</th>
+    <th>Description</th>
+    <th>Access Level</th>
+  </tr>
+  <tr>
+    <td><strong>Pending</strong></td>
+    <td>User has requested to join, awaiting approval</td>
+    <td>No access</td>
+  </tr>
+  <tr>
+    <td><strong>Active</strong></td>
+    <td>Full access to the organisation</td>
+    <td>Full access (per role)</td>
+  </tr>
+  <tr>
+    <td><strong>Suspended</strong></td>
+    <td>Temporarily disabled, can be reactivated</td>
+    <td>No access</td>
+  </tr>
+  <tr>
+    <td><strong>Rejected</strong></td>
+    <td>Join request was denied</td>
+    <td>No access</td>
+  </tr>
+</table>
+
+<h3>How Users Join an Organisation</h3>
+
+<div class="flow-diagram">
+User Signs Up
+     |
+     v
++----------------------------------+
+|  Check email domain auto-join    |
++----------------------------------+
+     |
+     +-- Domain matches --> Auto-join as 'member'
+     |                           |
+     |                           v
+     |                    [If approval required]
+     |                           |
+     |                           v
+     |                    Status: PENDING
+     |
+     +-- No match --> Check for invite code
+              |
+              +-- Has valid code --> Join organisation
+              |                           |
+              |                           v
+              |                    [If approval required]
+              |                           |
+              |                           v
+              |                    Status: PENDING
+              |
+              +-- No code --> Cannot join
+</div>
+
+<h3>Approval Workflow</h3>
+
+<p>When <strong>Require Approval</strong> is enabled:</p>
+<ol>
+  <li>New user joins via domain match or invite code</li>
+  <li>User status is set to <strong>Pending</strong></li>
+  <li>Admins/Approvers see notification badge in Organisation Settings</li>
+  <li>Admin reviews the request and approves or rejects</li>
+  <li>On approval, status changes to <strong>Active</strong></li>
+  <li>Audit log entry is created</li>
+</ol>
+
+<h2 class="page-break">4. Organisation Ownership</h2>
+
+<h3>Who is the Owner?</h3>
+
+<p>When a new organisation is created, the creator automatically becomes the <strong>Owner</strong>. There can only be one owner per organisation.</p>
+
+<div class="highlight-box">
+  <strong>Owner Responsibilities:</strong>
+  <ul>
+    <li>Ultimate authority over organisation settings</li>
+    <li>Only person who can transfer ownership</li>
+    <li>Only person who can delete the organisation</li>
+    <li>Cannot be removed by other admins</li>
+  </ul>
+</div>
+
+<h3>Transferring Ownership</h3>
+
+<table>
+  <tr>
+    <th>Requirement</th>
+    <th>Details</th>
+  </tr>
+  <tr>
+    <td>Who can transfer?</td>
+    <td>Only the current Owner</td>
+  </tr>
+  <tr>
+    <td>Who can receive?</td>
+    <td>Must be an Admin (or higher) and Active member</td>
+  </tr>
+  <tr>
+    <td>Confirmation</td>
+    <td>Owner must explicitly confirm the transfer</td>
+  </tr>
+  <tr>
+    <td>After transfer</td>
+    <td>Previous owner becomes Admin</td>
+  </tr>
+  <tr>
+    <td>Reversibility</td>
+    <td>Only the new owner can transfer back</td>
+  </tr>
+</table>
+
+<h3>Owner Leaving the Organisation</h3>
+
+<div class="warning-box">
+  <strong>Scenario 1: Owner with other members</strong><br>
+  Owner <strong>must transfer ownership</strong> before leaving. The system prevents leaving without transfer.
+</div>
+
+<div class="warning-box">
+  <strong>Scenario 2: Owner is the only member</strong><br>
+  Owner can leave, which <strong>deletes the entire organisation</strong>. Confirmation is required.
+</div>
+
+<h2 class="page-break">5. Invite Code System</h2>
+
+<h3>Invite Code Features</h3>
+
+<table>
+  <tr>
+    <th>Feature</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><strong>Expiration</strong></td>
+    <td>Codes expire after specified days (1-365 days)</td>
+  </tr>
+  <tr>
+    <td><strong>Usage Limits</strong></td>
+    <td>Set maximum number of uses, or allow unlimited</td>
+  </tr>
+  <tr>
+    <td><strong>Labels</strong></td>
+    <td>Optional labels for tracking (e.g., "IT Department", "New Hires 2026")</td>
+  </tr>
+  <tr>
+    <td><strong>Revocation</strong></td>
+    <td>Admins can revoke codes at any time</td>
+  </tr>
+</table>
+
+<h3>Code Invalidation</h3>
+
+<p>Invite codes automatically become invalid when:</p>
+<ul>
+  <li>Expiration date passes</li>
+  <li>Maximum uses reached</li>
+  <li>Manually revoked by admin</li>
+  <li>Organisation is deleted</li>
+</ul>
+
+<h2>6. Security Settings</h2>
+
+<h3>Configurable Options</h3>
+
+<table>
+  <tr>
+    <th>Setting</th>
+    <th>Options</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><strong>Require Approval</strong></td>
+    <td>On / Off</td>
+    <td>New members must be approved by an admin</td>
+  </tr>
+  <tr>
+    <td><strong>Require MFA</strong></td>
+    <td>On / Off</td>
+    <td>All members must set up multi-factor authentication</td>
+  </tr>
+  <tr>
+    <td><strong>Session Timeout</strong></td>
+    <td>30min - 24hr</td>
+    <td>Automatically log out inactive users</td>
+  </tr>
+</table>
+
+<h3>Session Timeout Options</h3>
+
+<ul>
+  <li>30 minutes</li>
+  <li>1 hour</li>
+  <li>2 hours</li>
+  <li>4 hours</li>
+  <li>8 hours</li>
+  <li>24 hours</li>
+</ul>
+
+<p>Users receive a warning 5 minutes before timeout with options to extend or log out.</p>
+
+<h2 class="page-break">7. Audit Logging</h2>
+
+<h3>Logged Events</h3>
+
+<table>
+  <tr>
+    <th>Event</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>member_joined</td>
+    <td>New member joined the organisation</td>
+  </tr>
+  <tr>
+    <td>member_approved</td>
+    <td>Pending member was approved</td>
+  </tr>
+  <tr>
+    <td>member_rejected</td>
+    <td>Pending member was rejected</td>
+  </tr>
+  <tr>
+    <td>member_suspended</td>
+    <td>Member was suspended</td>
+  </tr>
+  <tr>
+    <td>member_reactivated</td>
+    <td>Suspended member was reactivated</td>
+  </tr>
+  <tr>
+    <td>member_removed</td>
+    <td>Member was removed from organisation</td>
+  </tr>
+  <tr>
+    <td>member_role_changed</td>
+    <td>Member's role was changed</td>
+  </tr>
+  <tr>
+    <td>invite_created</td>
+    <td>New invite code was created</td>
+  </tr>
+  <tr>
+    <td>invite_used</td>
+    <td>Invite code was used</td>
+  </tr>
+  <tr>
+    <td>invite_revoked</td>
+    <td>Invite code was revoked</td>
+  </tr>
+  <tr>
+    <td>org_settings_changed</td>
+    <td>Organisation settings were modified</td>
+  </tr>
+  <tr>
+    <td>data_exported</td>
+    <td>User data was exported</td>
+  </tr>
+</table>
+
+<p><strong>Retention:</strong> Logs are retained and viewable for 30 days in Organisation Settings > Activity Log.</p>
+
+<h2 class="page-break">8. Admin Override Procedures</h2>
+
+<div class="important-box">
+  <strong>When to Use Admin Overrides</strong><br>
+  Admin overrides should ONLY be used when:
+  <ul>
+    <li>Owner account is inaccessible (deleted, locked, abandoned)</li>
+    <li>Owner is unreachable and organisation needs management</li>
+    <li>Emergency access is required for business continuity</li>
+    <li>A verified support ticket has been filed</li>
+  </ul>
+</div>
+
+<h3>Available Override Functions</h3>
+
+<h4>1. Reassign Ownership</h4>
+<p><strong>Function:</strong> <code>admin_reassign_ownership</code></p>
+<p><strong>Purpose:</strong> Force transfer ownership to a specific user</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+  <li>Service role access (backend/admin panel only)</li>
+  <li>Target user must be an active member</li>
+  <li>Reason is required (for audit trail)</li>
+  <li>Support ticket ID recommended</li>
+</ul>
+
+<h4>2. Auto-Promote Owner</h4>
+<p><strong>Function:</strong> <code>admin_auto_promote_owner</code></p>
+<p><strong>Purpose:</strong> Automatically promote the longest-serving admin to owner when no owner exists</p>
+<p><strong>Selection Priority:</strong></p>
+<ol>
+  <li>Longest-serving active Admin</li>
+  <li>If no Admin exists, longest-serving active member of any role</li>
+</ol>
+
+<h4>3. Get Organisation Status</h4>
+<p><strong>Function:</strong> <code>admin_get_org_status</code></p>
+<p><strong>Purpose:</strong> Check organisation status before performing overrides</p>
+<p><strong>Returns:</strong> Organisation name, member count, owner status, admin count</p>
+
+<h3 class="page-break">Override Procedure Checklist</h3>
+
+<p>Before performing any admin override, complete this checklist:</p>
+
+<ul class="checklist">
+  <li>Verify the support ticket is legitimate</li>
+  <li>Confirm the organisation needs intervention</li>
+  <li>Check organisation status using <code>admin_get_org_status</code></li>
+  <li>Document the reason for override</li>
+  <li>Perform the override action</li>
+  <li>Verify the action was successful</li>
+  <li>Notify relevant parties (new owner, organisation contacts)</li>
+  <li>Close the support ticket with resolution notes</li>
+</ul>
+
+<div class="important-box">
+  <strong>Security Reminders:</strong>
+  <ul>
+    <li>Never share service role credentials</li>
+    <li>Always document reasons for overrides</li>
+    <li>Link to support tickets when possible</li>
+    <li>Review audit logs after override actions</li>
+    <li>Notify affected users when appropriate</li>
+  </ul>
+</div>
+
+<h2 class="page-break">9. Client FAQ</h2>
+
+<h3>Q: What happens if our organisation owner leaves?</h3>
+<p><strong>A:</strong> The owner must transfer ownership to another admin before leaving. If they forget or become unreachable, our support team can assist with reassigning ownership using the admin override process.</p>
+
+<h3>Q: Can users from other organisations see our data?</h3>
+<p><strong>A:</strong> No. Row Level Security (RLS) ensures complete data isolation between organisations. There is no way for one organisation to access another's data.</p>
+
+<h3>Q: How do we control who joins our organisation?</h3>
+<p><strong>A:</strong> You have multiple options:</p>
+<ul>
+  <li><strong>Email domain matching:</strong> Users with your company email domain can auto-join</li>
+  <li><strong>Invite codes:</strong> Share codes with specific expiration and usage limits</li>
+  <li><strong>Admin approval:</strong> Require approval for all new members</li>
+</ul>
+
+<h3>Q: What audit trail is available?</h3>
+<p><strong>A:</strong> All member changes, invite usage, role changes, and security setting modifications are logged. Admins can view the last 30 days of activity in Organisation Settings > Activity Log.</p>
+
+<h3>Q: Can we export our data?</h3>
+<p><strong>A:</strong> Yes. Admins can export all organisation data in JSON format from Organisation Settings > Security > Export Data.</p>
+
+<h3>Q: What happens to our data if we cancel?</h3>
+<p><strong>A:</strong> You can export all your data before cancellation. Upon request, we can delete all organisation data in compliance with GDPR and privacy regulations.</p>
+
+<h3>Q: How secure is the login process?</h3>
+<p><strong>A:</strong> Access Compass supports:</p>
+<ul>
+  <li>Secure password authentication</li>
+  <li>Email verification</li>
+  <li>Optional multi-factor authentication (MFA)</li>
+  <li>Configurable session timeouts</li>
+</ul>
+
+<div class="footer">
+  <p><strong>Access Compass Security Guide</strong><br>
+  Document Version 1.0 | January 2026<br>
+  For internal use and client reference</p>
+</div>
+
+</body>
+</html>
