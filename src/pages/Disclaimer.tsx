@@ -421,21 +421,33 @@ export default function Disclaimer() {
                   <button
                     type="button"
                     className="org-option-card"
-                    onClick={() => setOrgOption('invite')}
+                    onClick={() => setOrgOption('create')}
                   >
-                    <span className="org-option-icon">🔗</span>
-                    <span className="org-option-title">I have an invite code</span>
-                    <span className="org-option-desc">Join your team's existing organisation</span>
+                    <div className="org-option-icon-wrapper create">
+                      <span className="org-option-icon">+</span>
+                    </div>
+                    <div className="org-option-text">
+                      <span className="org-option-title">Create new organisation</span>
+                      <span className="org-option-desc">
+                        Set up your organisation and invite your team to collaborate
+                      </span>
+                    </div>
                   </button>
 
                   <button
                     type="button"
                     className="org-option-card"
-                    onClick={() => setOrgOption('create')}
+                    onClick={() => setOrgOption('invite')}
                   >
-                    <span className="org-option-icon">✨</span>
-                    <span className="org-option-title">Create new organisation</span>
-                    <span className="org-option-desc">Set up your organisation and invite your team</span>
+                    <div className="org-option-icon-wrapper join">
+                      <span className="org-option-icon">&#8594;</span>
+                    </div>
+                    <div className="org-option-text">
+                      <span className="org-option-title">I have an invite code</span>
+                      <span className="org-option-desc">
+                        Join your team's existing organisation with a code
+                      </span>
+                    </div>
                   </button>
                 </div>
               )}
