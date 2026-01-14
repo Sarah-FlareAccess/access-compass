@@ -33,7 +33,8 @@ const ROLE_LABELS: Record<OrgRole, string> = {
   viewer: 'Viewer',
 };
 
-const ROLE_DESCRIPTIONS: Record<OrgRole, string> = {
+// Role descriptions for tooltips/help text (used in future enhancement)
+const _ROLE_DESCRIPTIONS: Record<OrgRole, string> = {
   owner: 'Full control, can change security settings',
   admin: 'Manage members and invites',
   approver: 'Approve new member requests',
@@ -41,6 +42,7 @@ const ROLE_DESCRIPTIONS: Record<OrgRole, string> = {
   member: 'Standard access',
   viewer: 'Read-only access',
 };
+void _ROLE_DESCRIPTIONS; // Suppress unused warning
 
 export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
   const { accessState, user } = useAuth();

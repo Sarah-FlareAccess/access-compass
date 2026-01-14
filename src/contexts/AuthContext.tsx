@@ -168,26 +168,46 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isSupabaseEnabled() || !supabase) {
+      console.log('[AuthContext] Supabase not enabled, skipping auth');
       setIsLoading(false);
       return;
     }
 
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session: initialSession } }) => {
-      setSession(initialSession);
-      setUser(initialSession?.user ?? null);
+    // Get initial session with timeout
+    console.log('[AuthContext] Getting initial session...');
 
-      if (initialSession?.user) {
-        fetchAccessState(initialSession.user.id).then(setAccessState);
-      }
-
+    // Timeout after 30 seconds if Supabase doesn't respond (increased for high-latency regions)
+    const timeoutId = setTimeout(() => {
+      console.warn('[AuthContext] Session check timed out - Supabase may be unavailable');
       setIsLoading(false);
-    });
+    }, 30000);
+
+    supabase.auth.getSession()
+      .then(({ data: { session: initialSession } }) => {
+        clearTimeout(timeoutId);
+        console.log('[AuthContext] Session retrieved:', initialSession ? 'exists' : 'none');
+        setSession(initialSession);
+        setUser(initialSession?.user ?? null);
+
+        if (initialSession?.user) {
+          console.log('[AuthContext] Fetching access state for user:', initialSession.user.id);
+          fetchAccessState(initialSession.user.id).then(setAccessState);
+        }
+
+        setIsLoading(false);
+        console.log('[AuthContext] Loading complete');
+      })
+      .catch((error) => {
+        clearTimeout(timeoutId);
+        console.error('[AuthContext] Error getting session:', error);
+        setIsLoading(false);
+      });
 
     // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, newSession) => {
+      console.log('[AuthContext] Auth state changed:', event, newSession?.user?.email);
       setSession(newSession);
       setUser(newSession?.user ?? null);
 
@@ -222,19 +242,65 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     console.log('[AuthContext.signUp] Calling supabase.auth.signUp...');
 
     try {
-      const { error } = await supabase.auth.signUp({
+      // Start signUp but don't wait forever
+      let signUpCompleted = false;
+
+      const signUpPromise = supabase.auth.signUp({
         email,
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback`,
         },
+      }).then(result => {
+        signUpCompleted = true;
+        return result;
       });
 
-      console.log('[AuthContext.signUp] Result:', { error });
-      return { error };
+      // Wait up to 30 seconds for signUp (increased for high-latency regions)
+      const timeoutPromise = new Promise<null>((resolve) => {
+        setTimeout(() => resolve(null), 30000);
+      });
+
+      const result = await Promise.race([signUpPromise, timeoutPromise]);
+
+      if (result && 'error' in result) {
+        console.log('[AuthContext.signUp] Result:', { error: result.error });
+        return { error: result.error };
+      }
+
+      if (!signUpCompleted) {
+        // SignUp timed out - try signing in to see if account was created
+        console.log('[AuthContext.signUp] Timed out, checking if account was created...');
+
+        try {
+          const { error: signInError } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+
+          if (!signInError) {
+            console.log('[AuthContext.signUp] Account was created, sign in successful');
+            return { error: null };
+          } else if (signInError.message?.includes('Invalid login credentials')) {
+            // Account wasn't created or password is wrong
+            console.log('[AuthContext.signUp] Account not created or wrong password');
+            return { error: { message: 'Sign up timed out. Please try again.' } as AuthError };
+          } else {
+            console.log('[AuthContext.signUp] Sign in failed:', signInError);
+            return { error: signInError };
+          }
+        } catch (signInErr) {
+          console.error('[AuthContext.signUp] Sign in check failed:', signInErr);
+          return { error: { message: 'Sign up timed out. Please try again.' } as AuthError };
+        }
+      }
+
+      console.log('[AuthContext.signUp] Success');
+      return { error: null };
     } catch (err) {
       console.error('[AuthContext.signUp] Exception:', err);
-      return { error: { message: 'Failed to sign up' } as AuthError };
+      const message = err instanceof Error ? err.message : 'Failed to sign up';
+      return { error: { message } as AuthError };
     }
   }, []);
 
@@ -306,10 +372,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       console.log('[createOrganisation] Starting with data:', data);
+      console.log('[createOrganisation] User ID:', user.id);
 
       try {
-        // Call RPC function to create org with admin
-        const { data: result, error: createError } = await supabase.rpc(
+        // Call RPC function with timeout
+        console.log('[createOrganisation] Calling RPC create_organisation_with_admin...');
+
+        const rpcPromise = supabase.rpc(
           'create_organisation_with_admin',
           {
             p_name: data.name,
@@ -320,20 +389,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
         );
 
+        // Timeout after 30 seconds (increased for slow connections)
+        const timeoutPromise = new Promise<{ data: null; error: { message: string } }>((resolve) => {
+          setTimeout(() => {
+            console.warn('[createOrganisation] RPC call timed out after 30 seconds');
+            resolve({ data: null, error: { message: 'Request timed out. Please check your connection and try again.' } });
+          }, 30000);
+        });
+
+        const { data: result, error: createError } = await Promise.race([rpcPromise, timeoutPromise]);
+
         console.log('[createOrganisation] RPC result:', { result, createError });
 
         if (createError) {
           console.error('[createOrganisation] Error:', createError);
-          return { error: 'Failed to create organisation' };
+          // Check for specific error types
+          if (createError.message?.includes('function') && createError.message?.includes('does not exist')) {
+            return { error: 'Database not configured. Please run the migration: 003_org_creation.sql' };
+          }
+          return { error: createError.message || 'Failed to create organisation' };
         }
 
         if (!result || result.length === 0) {
-          return { error: 'Failed to create organisation' };
+          console.error('[createOrganisation] No result returned');
+          return { error: 'Failed to create organisation - no data returned' };
         }
 
         const orgResult = result[0];
+        console.log('[createOrganisation] Org created:', orgResult);
 
         // Fetch full organisation details
+        console.log('[createOrganisation] Fetching full org details...');
         const { data: fullOrg } = await supabase
           .from('organisations')
           .select('*')
@@ -341,6 +427,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           .single();
 
         // Refresh access state
+        console.log('[createOrganisation] Refreshing access state...');
         await refreshAccessState();
 
         console.log('[createOrganisation] Success:', { fullOrg, inviteCode: orgResult.invite_code });
@@ -352,7 +439,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         };
       } catch (error) {
         console.error('[createOrganisation] Exception:', error);
-        return { error: 'An error occurred' };
+        return { error: 'An error occurred while creating the organisation' };
       }
     },
     [user, refreshAccessState]

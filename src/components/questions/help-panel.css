@@ -262,6 +262,16 @@
   background: rgba(124, 58, 237, 0.15);
 }
 
+.learn-more-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 12px 0 0 0;
+  padding: 12px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
 /* Footer */
 .help-panel-footer {
   padding: 16px 24px;

@@ -188,11 +188,14 @@ export function HelpPanel({ isOpen, onClose, content, questionText: _questionTex
                 rel="noopener noreferrer"
                 className="learn-more-link"
               >
-                Learn more
+                {content.learnMoreText || 'Learn more'}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
                 </svg>
               </a>
+              {content.learnMoreNote && (
+                <p className="learn-more-note">{content.learnMoreNote}</p>
+              )}
             </div>
           )}
         </div>

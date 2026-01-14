@@ -367,9 +367,12 @@ export function MediaAnalysisInput({
       {/* Step 2: Select input method */}
       {selectedType && !inputType && config && (
         <div className="input-selection">
-          <button className="btn-back" onClick={() => setSelectedType(null)}>
-            ← Back to type selection
-          </button>
+          {/* Only show back button if type wasn't preselected */}
+          {!preselectedType && (
+            <button className="btn-back" onClick={() => setSelectedType(null)}>
+              ← Back to type selection
+            </button>
+          )}
 
           <div className="selected-type-header">
             <span className="selected-type-icon">{config.icon}</span>

@@ -48,6 +48,16 @@ export default function Disclaimer() {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  // When user becomes authenticated while on disclaimer or auth step, move to organisation step
+  useEffect(() => {
+    if (isAuthenticated && (currentStep === 'disclaimer' || currentStep === 'auth')) {
+      console.log('[Disclaimer] User authenticated, moving to organisation step from:', currentStep);
+      setIsSubmitting(false);
+      setError(null);
+      setCurrentStep('organisation');
+    }
+  }, [isAuthenticated, currentStep]);
+
   // Check org status when authenticated
   useEffect(() => {
     const checkOrgStatus = async () => {
@@ -150,16 +160,19 @@ export default function Disclaimer() {
 
   const handleCreateOrg = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('[Disclaimer] handleCreateOrg called', { orgName, orgSize, contactEmail, contactName });
     setError(null);
     setIsSubmitting(true);
 
     try {
+      console.log('[Disclaimer] Calling createOrganisation...');
       const { error, organisation, inviteCode: newInviteCode } = await createOrganisation({
         name: orgName,
         size: orgSize,
         contactEmail,
         contactName,
       });
+      console.log('[Disclaimer] createOrganisation result:', { error, organisation, newInviteCode });
 
       if (error) {
         setError(error);
@@ -190,6 +203,13 @@ export default function Disclaimer() {
     }
   };
 
+  // If authenticated and has org, skip to complete
+  useEffect(() => {
+    if (isAuthenticated && accessState.organisation && currentStep === 'disclaimer') {
+      setCurrentStep('complete');
+    }
+  }, [isAuthenticated, accessState.organisation, currentStep]);
+
   // Loading state
   if (authLoading) {
     return (
@@ -203,17 +223,12 @@ export default function Disclaimer() {
     );
   }
 
-  // If authenticated and has org, redirect to start
-  if (isAuthenticated && accessState.organisation && currentStep === 'disclaimer') {
-    setCurrentStep('complete');
-  }
-
   return (
     <div className="disclaimer-page">
       <div className="container">
         <div className="disclaimer-card">
           {/* Step 1: Disclaimer */}
-          {currentStep === 'disclaimer' && (
+          {currentStep === 'disclaimer' && !isAuthenticated && (
             <>
               <h1>Before you begin</h1>
               <p className="disclaimer-intro">

@@ -7,6 +7,96 @@
 }
 
 /* ============================================
+   HEADER NAVIGATION
+   ============================================ */
+
+.landing-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--spacing-md) 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 1.75rem;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: -0.01em;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.nav-link,
+.nav-link:link,
+.nav-link:visited {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 8px 0;
+  transition: color 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link:active {
+  color: #fbbf24;
+  border-bottom-color: rgba(251, 191, 36, 0.5);
+}
+
+.btn-nav {
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  background: linear-gradient(
+    165deg,
+    #f59e0b 0%,
+    #d97706 50%,
+    #b45309 100%
+  );
+  color: #1a1a1a;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-nav:hover {
+  background: linear-gradient(
+    165deg,
+    #fbbf24 0%,
+    #f59e0b 50%,
+    #d97706 100%
+  );
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(217, 119, 6, 0.4);
+}
+
+/* ============================================
    HERO SECTION
    Rich purple with compass visual element
    ============================================ */
@@ -290,16 +380,16 @@
   border-left: 2px solid transparent;
   border-bottom: 2px solid transparent;
   border-radius: 0 0 0 50%;
-  /* Gradient border effect - builds toward CTA */
+  /* Gradient border effect - subtle, doesn't compete with content */
   background:
     linear-gradient(to bottom, transparent, transparent) padding-box,
     linear-gradient(
       200deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.06) 30%,
-      rgba(255, 255, 255, 0.09) 60%,
-      rgba(255, 255, 255, 0.07) 80%,
-      rgba(255, 255, 255, 0.04) 100%
+      rgba(255, 255, 255, 0.015) 0%,
+      rgba(255, 255, 255, 0.03) 30%,
+      rgba(255, 255, 255, 0.04) 60%,
+      rgba(255, 255, 255, 0.03) 80%,
+      rgba(255, 255, 255, 0.02) 100%
     ) border-box;
   filter: blur(0.5px);
 }
@@ -315,7 +405,7 @@
   height: 60px;
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.03) 0%,
     transparent 70%
   );
   filter: blur(2px);
@@ -410,12 +500,16 @@
 
 /* Trust signal */
 .hero-trust {
-  margin-top: var(--spacing-lg);
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-  max-width: 420px;
+  margin-top: var(--spacing-xl);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 480px;
   line-height: 1.5;
-  font-style: italic;
+  font-weight: 500;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid rgba(255, 255, 255, 0.6);
+  border-radius: 0 8px 8px 0;
 }
 
 /* ============================================
@@ -763,31 +857,45 @@
   margin-top: var(--spacing-xl);
 }
 
-.features-cta .btn-primary {
+.landing-page .features-cta .btn-primary {
   background: linear-gradient(
-    135deg,
-    var(--aussie-sunrise) 0%,
-    #e8a030 100%
+    165deg,
+    #f59e0b 0%,
+    #d97706 50%,
+    #b45309 100%
   );
-  color: var(--antique-walnut);
-  box-shadow: 0 4px 20px rgba(255, 144, 21, 0.3);
+  color: #1a1a1a;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.25),
+    0 6px 20px rgba(217, 119, 6, 0.45),
+    0 12px 40px rgba(255, 144, 21, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
   border: none;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
   border-radius: var(--radius-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.features-cta .btn-primary:hover {
+.landing-page .features-cta .btn-primary:hover {
   background: linear-gradient(
-    135deg,
-    #ffa030 0%,
-    var(--aussie-sunrise) 100%
+    165deg,
+    #fbbf24 0%,
+    #f59e0b 50%,
+    #d97706 100%
   );
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(255, 144, 21, 0.4);
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 12px 32px rgba(217, 119, 6, 0.5),
+    0 20px 50px rgba(255, 144, 21, 0.25),
+    0 0 80px rgba(255, 144, 21, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
-.features-cta .btn-primary:focus-visible {
-  outline: 3px solid #490E67;
+.landing-page .features-cta .btn-primary:focus-visible {
+  outline: 3px solid #ffffff;
   outline-offset: 3px;
 }
 
@@ -851,23 +959,73 @@
   font-weight: 600;
 }
 
-.journey-section .features-cta {
+.landing-page .journey-section .features-cta {
   margin-top: 0;
 }
 
-/* Final CTA with depth */
-.journey-section .features-cta .btn-primary {
+/* Final CTA - matches hero CTA exactly */
+.landing-page .journey-section .features-cta .btn-primary {
   box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.1),
-    0 6px 20px rgba(255, 144, 21, 0.35),
-    0 12px 40px rgba(255, 144, 21, 0.15);
+    0 2px 4px rgba(0, 0, 0, 0.25),
+    0 6px 20px rgba(217, 119, 6, 0.45),
+    0 12px 40px rgba(255, 144, 21, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
-.journey-section .features-cta .btn-primary:hover {
+.landing-page .journey-section .features-cta .btn-primary:hover {
+  background: linear-gradient(
+    165deg,
+    #fbbf24 0%,
+    #f59e0b 50%,
+    #d97706 100%
+  );
+  transform: translateY(-3px);
   box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.1),
-    0 12px 32px rgba(255, 144, 21, 0.45),
-    0 20px 50px rgba(255, 144, 21, 0.2);
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 12px 32px rgba(217, 119, 6, 0.5),
+    0 20px 50px rgba(255, 144, 21, 0.25),
+    0 0 80px rgba(255, 144, 21, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.landing-footer {
+  background: var(--amethyst-diamond);
+  padding: var(--spacing-xl) var(--spacing-md);
+  text-align: center;
+}
+
+.landing-footer .container {
+  max-width: 800px;
+}
+
+.footer-brand {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+}
+
+.footer-brand a,
+.footer-brand a:link,
+.footer-brand a:visited {
+  color: #fbbf24;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-brand a:hover {
+  color: #fcd34d;
+}
+
+.footer-copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  margin: 0;
 }
 
 /* ============================================
@@ -875,8 +1033,40 @@
    ============================================ */
 
 @media (max-width: 768px) {
+  .landing-header {
+    padding: var(--spacing-sm) 0;
+  }
+
+  .header-container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .header-nav {
+    gap: var(--spacing-md);
+  }
+
+  .nav-link,
+  .nav-link:link,
+  .nav-link:visited {
+    font-size: 0.9rem;
+    padding: 6px 0;
+  }
+
+  .btn-nav {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
+  }
+
   .landing-page .hero {
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: calc(var(--spacing-xxl) + 30px) var(--spacing-md) var(--spacing-xl);
     min-height: auto;
     overflow: hidden;
   }
@@ -973,12 +1163,18 @@
   }
 
   .benefits-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-md);
   }
 
   .benefit-card {
     padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 540px) {
+  .benefits-grid {
+    grid-template-columns: 1fr;
   }
 
   .benefit-icon {

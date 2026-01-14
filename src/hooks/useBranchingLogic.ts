@@ -30,6 +30,8 @@ export interface HelpContent {
   videoCaption?: string;
   tips?: string[]; // Quick tips list
   learnMoreUrl?: string; // External resource link
+  learnMoreText?: string; // Custom link text (default: "Learn more")
+  learnMoreNote?: string; // Disclaimer or usage instructions for the external link
 }
 
 export interface BranchingQuestion {
@@ -64,6 +66,8 @@ export interface BranchingQuestion {
   helpContent?: HelpContent;
   // Whether this question has multiple elements that can be partially met
   allowPartial?: boolean;
+  // Custom placeholder text for the "partially" description field
+  partialPlaceholder?: string;
 }
 
 interface UseBranchingLogicProps {

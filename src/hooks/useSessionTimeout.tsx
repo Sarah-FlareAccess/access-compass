@@ -44,9 +44,9 @@ export function useSessionTimeout(options: UseSessionTimeoutOptions = {}): UseSe
   const [isWarningVisible, setIsWarningVisible] = useState(false);
   const [remainingSeconds, setRemainingSeconds] = useState(timeoutMinutes * 60);
 
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const warningRef = useRef<NodeJS.Timeout | null>(null);
-  const countdownRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const warningRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastActivityRef = useRef<number>(Date.now());
 
   // Clear all timers

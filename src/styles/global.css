@@ -156,6 +156,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Global link reset - remove default blue */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--amethyst-diamond);
+}
+
 /* Typography Hierarchy - Enhanced contrast between levels */
 h1 {
   font-size: 2.25rem;
@@ -263,7 +273,7 @@ p {
 }
 
 .btn-primary:hover {
-  background: var(--amethyst-light);
+  background: var(--amethyst-dark);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(73, 14, 103, 0.28);
 }
@@ -283,9 +293,10 @@ p {
 }
 
 .btn-secondary:hover {
-  background: rgba(73, 14, 103, 0.04);
+  background: rgba(73, 14, 103, 0.12);
   border-color: var(--amethyst-diamond);
   transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.15);
 }
 
 /* Outline Button - Ghost style for tertiary actions */
@@ -298,8 +309,9 @@ p {
 }
 
 .btn-outline:hover {
-  background: rgba(73, 14, 103, 0.04);
+  background: rgba(73, 14, 103, 0.1);
   border-color: var(--amethyst-diamond);
+  box-shadow: 0 2px 6px rgba(73, 14, 103, 0.12);
 }
 
 /* Accent Button - For special emphasis */

@@ -2,28 +2,55 @@
 
 # Access Compass - Spec Sheet (Reviewed & Updated)
 
+> **Last Updated:** January 2026
+> **Related Docs:** See `/docs/MODULES.md`, `/docs/USER-FLOWS.md`, `/docs/RESOURCE-CENTRE.md` for detailed specifications.
+
 ## Layer 1: Product Spec
 
 ### Problem It Solves
-Time-poor visitor economy business owners are overwhelmed by accessibility standards and don't know where to start. Access Compass gives them clear, prioritised actions tailored to their business in 10-15 minutes, replacing confusion with confident next steps.
+Time-poor visitor economy business owners are overwhelmed by accessibility standards and don't know where to start. Access Compass gives them clear, prioritised actions tailored to their business, replacing confusion with confident next steps. Users can complete a quick Pulse Check (~10-15 min per module) or comprehensive Deep Dive (~18-25 min per module).
 
 ### Users
-Owner-operators and managers of small-to-medium visitor economy businesses in Australia (cafes, restaurants, accommodation, tour operators, attractions, museums, galleries, visitor centres) who are responsible for accessibility outcomes but are not accessibility experts.
+Owner-operators and managers of small-to-medium customer-facing businesses in Australia (cafes, restaurants, accommodation, tour operators, attractions, museums, galleries, visitor centres, retail, events, health & wellness, professional services) who are responsible for accessibility outcomes but are not accessibility experts.
 
 ### Success Metric
 Users can confidently identify and prioritise their top 3-5 accessibility actions for "Act Now", understand effort/cost/impact, and have a shareable DIAP (Disability Inclusion Action Plan) they can act on immediately.
+
+### Module Structure
+
+Access Compass includes **17 accessibility modules** organised across **4 customer journey phases**:
+
+| Phase | Modules | Description |
+|-------|---------|-------------|
+| **Before They Arrive** | B1, B4.1, B4.2, B4.3 | How customers find information and plan their visit |
+| **Getting In and Moving Around** | A1, A2, A3a, A3b | Physical access and navigation |
+| **During the Visit** | A4, A5, A6, B2, B3 | The experience while on-site |
+| **Service and Support** | C1, C2, A7, C3 | How you serve and support customers |
+
+Additional **Policy & Operations modules** (P1-P5) cover accessibility policy, inclusive employment, staff training, accessible procurement, and continuous improvement.
+
+See `/docs/MODULES.md` for full module details.
+
+### Review Modes
+
+| Mode | Description | Time per Module | Best For |
+|------|-------------|-----------------|----------|
+| **Pulse Check** | Quick overview with foundation questions only | ~10-15 minutes | Initial assessment, time-limited reviews |
+| **Deep Dive** | Comprehensive review with all questions | ~18-25 minutes | Thorough assessment, DIAP preparation |
 
 ### Core Prompt
 ```
 You are an accessibility advisor for the Australian visitor economy. The user runs a {{business_type}} and their role is {{user_role}}. They have selected these modules to review: {{selected_modules}}.
 
+Review mode: {{review_mode}} (pulse-check or deep-dive)
+
 Based on their responses to discovery questions:
 {{discovery_responses}}
 
-And their constraints:
+And their calibration inputs:
 - Budget: {{budget_range}}
-- Capacity: {{diy_or_support}}
-- Timeframe: {{timeframe}}
+- Work approach: {{work_approach}}
+- Timing: {{action_timing}}
 
 Generate a prioritised action plan with:
 1. "Act Now" actions (3-5 items): High impact, low-to-medium effort, within their budget
@@ -37,6 +64,7 @@ For each action, provide:
 - Cost band ($0-500, $500-2k, $2k-10k, $10k+)
 - Simple how-to steps (3-5 bullet points)
 - Example relevant to {{business_type}}
+- Link to relevant Resource Centre guide if available
 
 Also identify items they marked as "Not sure" and provide plain-English guidance on how to check or clarify each one.
 
@@ -46,18 +74,18 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
 **Data Structure for {{discovery_responses}}:**
 ```json
 {
-  "Physical access": {
-    "Is there level access to your entrance?": {
+  "A1": {
+    "A1-F-1": {
       "answer": "no",
       "notes": "2 steps at front door"
     },
-    "Do you have an accessible bathroom?": {
+    "A1-F-2": {
       "answer": "not_sure",
       "notes": ""
     }
   },
-  "Online and bookings": {
-    "Can visitors easily find accessibility information on your website?": {
+  "B1": {
+    "B1-F-1": {
       "answer": "no",
       "notes": ""
     }
@@ -67,27 +95,58 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
 
 ### UI & Flow
 
+> **Flow Overview:** Access Compass offers two pathways:
+> 1. **Guided Discovery** (recommended) - Select touchpoints → Get module recommendations → Calibrate → Choose review depth → Dashboard
+> 2. **Manual Selection** - Skip discovery → Choose modules manually → Calibrate → Choose review depth → Dashboard
+>
+> See `/docs/USER-FLOWS.md` for detailed flow diagrams.
+
+---
+
 **Step 1: Landing Page**
 
-**What's on screen:**
-- Hero section with gradient background (purple to coral)
-- Headline: "Clear, practical accessibility priorities for your business"
-- Subheading: "Plain English. No expertise required. Built for the visitor economy."
-- 3-step visual with icons:
-  - Step 1: "Select areas" (with checkmark icon)
-  - Step 2: "Answer questions" (with chat bubble icon)
-  - Step 3: "Get your action plan" (with document icon)
-- Time estimate badge: "10–15 minutes"
-- Trust cues (2 items with checkmarks):
-  - "Not a compliance certificate"
-  - "Designed for Australian businesses"
-- Large gradient CTA button: "Start your free accessibility check"
+**Route:** `/`
 
-**User action:** Clicks CTA button → Navigates to /start
+**What's on screen:**
+
+**Hero section:**
+- Solid purple background (#490E67)
+- Decorative compass elements with directional line (aria-hidden)
+- Headline: "Make your business more accessible — step by step"
+- Subheading: "Access Compass cuts through the complexity — giving you a clear, prioritised action plan tailored to your business, your budget, and your capacity. No expertise required. Just practical next steps you can actually take."
+- Large CTA button: "Start your accessibility check"
+- Trust signal: "Created by accessibility consultants who work with businesses like yours."
+
+**What you'll get section (4 cards):**
+- Personalised priorities - Recommendations tailored to your business type
+- Actionable report - A downloadable summary you can share
+- Practical guidance - Clear explanations of what to do and why
+- Built for busy people - Start now, save progress, come back anytime
+
+**Who it's for section:**
+- Intro: "Access Compass is designed for customer-facing businesses ready to welcome more people."
+- Stage message: "Whether you're just beginning your accessibility journey or looking to advance your progress, we'll meet you where you are."
+- Business type pills: Attractions, Leisure & Recreation, Hospitality, Events & Venues, Retail, Local Government, Health & Wellness, Education & Training
+
+**How it works section (6 steps):**
+1. Select what's relevant to you - Choose accessibility areas that matter most
+2. Choose your depth - Pulse Check for a snapshot, or Deep Dive for comprehensive review
+3. Answer at your own pace - Work through questions, flag anything you're unsure about
+4. Get a prioritised action plan - Recommendations organised by impact with cost/effort estimates
+5. Access the Resource Centre - How-to guides, checklists, examples, and standards references
+6. Track progress and share your plan - Assign owners, set timeframes, export for stakeholders
+
+**Journey reinforcement section:**
+- Value statement: "Accessibility is a journey, not a one-off task. Access Compass supports progress over perfection."
+- Final CTA button: "Start your accessibility check"
+
+**User action:** Clicks CTA button → Navigates to /disclaimer → /start
 
 ---
 
 **Step 2: Business Snapshot**
+
+**Route:** `/start`
 
 **What's on screen:**
 - Page title: "Tell us about your business"
@@ -99,6 +158,9 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
      - Tour Operator
      - Attraction/Museum/Gallery
      - Visitor Centre
+     - Retail
+     - Events & Venues
+     - Health & Wellness
      - Other
   2. **Your role** (Dropdown):
      - Owner
@@ -112,72 +174,183 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
 
 **System behavior:** Stores responses in localStorage under session key. Generates session_id (UUID) if not exists.
 
-**User action:** Completes form → Clicks Continue → Navigates to /modules
+**User action:** Completes form → Clicks Continue → Navigates to /discovery
 
 ---
 
-**Step 3: Module Selection**
+**Step 3: Discovery (Guided Flow)**
+
+**Route:** `/discovery`
+
+**What's on screen:**
+- Page title: "Let's understand where accessibility shows up in your business"
+- Touchpoint categories organised by customer journey phase:
+  - **Before They Arrive** - Finding you online, booking, planning their visit
+  - **Getting In** - Parking, arriving, entering your space
+  - **During Their Visit** - Moving around, using facilities, experiencing your service
+  - **After Their Visit** - Feedback, reviews, staying connected
+  - **Behind the Scenes** - Policies, staff training, procurement
+- Each category expands to show specific touchpoints (checkboxes)
+- Skip link: "Skip discovery and choose modules manually" → Navigates to /modules
+
+**System behavior:**
+- Selected touchpoints map to recommended modules via `TOUCHPOINT_TO_MODULES` mapping
+- Modules with score >= 2 are recommended
+- Stores `selectedTouchpoints` and `selectedSubTouchpoints` in session
+
+**User action:**
+- Selects relevant touchpoints → Clicks Continue → Sees module recommendations
+- OR clicks "Skip discovery" → Navigates to /modules
+
+---
+
+**Step 3b: Module Recommendations (from Discovery)**
+
+**Route:** `/discovery` (step 2)
+
+**What's on screen:**
+- Page title: "Based on your selections, we recommend these modules"
+- Recommended modules shown as cards with checkboxes (pre-selected)
+- Users can toggle individual modules on/off
+- Module count and estimated time displayed
+- "Back to adjust touchpoints" link
+- Continue button: "Choose your path →"
+
+**User action:** Adjusts module selection → Clicks Continue → Navigates to Calibration
+
+---
+
+**Step 4: Manual Module Selection**
+
+**Route:** `/modules`
 
 **What's on screen:**
 - Page title: "Choose what you want to review today"
 - Subheading: "Select the areas most relevant to your business. You can come back to other areas later."
-- 7 module cards in grid (2-3 columns depending on screen size):
+- 17 modules organised by journey phase (expandable groups):
 
-  **Card structure (repeated for each module):**
-  - Module icon (emoji or simple icon)
-  - Module title (bold, 1.5rem)
-  - Short description (2-3 sentences, 0.95rem)
-  - "Recommended" badge (appears on some cards based on Business Snapshot responses)
-  - Checkbox or click-to-select interaction
-  - Subtle border highlight when selected
+**Before They Arrive (4 modules):**
+| Code | Module | Description | Time |
+|------|--------|-------------|------|
+| B1 | Pre-visit information | How you share accessibility information before customers visit | 12 min |
+| B4.1 | Website basics | Basic accessibility of your website for all visitors | 15 min |
+| B4.2 | Booking systems and forms | Accessibility of your online booking and form systems | 10 min |
+| B4.3 | Video and social media | Accessibility of your video content and social media | 10 min |
 
-  **7 Modules:**
-  1. **Physical access** 🚪
-     - Description: "Entrances, doorways, bathrooms, parking, and moving through your space"
-     - Recommended if: Physical venue = Yes
-  
-  2. **Communication and information** 💬
-     - Description: "Menus, signs, brochures, audio announcements, and other ways you share information"
-     - Recommended if: Always shown
-  
-  3. **Customer service and staff** 👥
-     - Description: "How your team supports customers with different access needs"
-     - Recommended if: Public-facing customers = Yes
-  
-  4. **Online and bookings** 💻
-     - Description: "Website accessibility, booking systems, and digital information"
-     - Recommended if: Online presence = Yes
-  
-  5. **Wayfinding and signage** 🗺️
-     - Description: "Signs, maps, directions, and helping people find their way around"
-     - Recommended if: Physical venue = Yes AND (Business type = Attraction/Museum/Gallery OR Accommodation)
-  
-  6. **Sensory considerations** 👂👃
-     - Description: "Lighting, noise, sounds, smells, and creating comfortable environments"
-     - Recommended if: Physical venue = Yes
-  
-  7. **Emergency and safety** 🚨
-     - Description: "Evacuation plans, emergency communication, and safety procedures"
-     - Recommended if: Physical venue = Yes
+**Getting In and Moving Around (4 modules):**
+| Code | Module | Description | Time |
+|------|--------|-------------|------|
+| A1 | Arrival, parking and drop-off | How customers arrive at and enter your premises | 15 min |
+| A2 | Entry and doors | How customers enter your building | 12 min |
+| A3a | Paths and aisles | Internal circulation and movement routes | 12 min |
+| A3b | Queues and busy times | Managing queues and crowded periods | 10 min |
 
-- Module counter: "3 selected" (updates dynamically)
+**During the Visit (5 modules):**
+| Code | Module | Description | Time |
+|------|--------|-------------|------|
+| A4 | Seating, furniture and layout | Physical comfort and usability of your space | 12 min |
+| A5 | Toilets and amenities | Accessible toilet and amenity facilities | 15 min |
+| A6 | Lighting, sound and sensory environment | Sensory aspects of your environment | 12 min |
+| B2 | Signage and wayfinding | How customers find their way around | 12 min |
+| B3 | Menus and printed materials | Accessibility of printed information | 10 min |
+
+**Service and Support (4 modules):**
+| Code | Module | Description | Time |
+|------|--------|-------------|------|
+| C1 | Customer service and staff confidence | How your team supports customers with different needs | 15 min |
+| C2 | Bookings, payments and flexibility | Flexibility in your booking and payment processes | 10 min |
+| A7 | Safety and emergencies | Emergency procedures that include everyone | 12 min |
+| C3 | Learning from your customers | Gathering and acting on customer feedback | 10 min |
+
+**Features:**
+- "Select all" for entire groups
+- "Select all modules" for everything
+- Module counter with total estimated time
 - Continue button (disabled until at least 1 module selected)
 
-**System behavior:** 
-- Marks recommended modules with badge
-- Allows selecting 1-7 modules
+**System behavior:**
 - Stores selected_modules array in session
+- Calculates estimated time based on selected modules
 
-**User action:** Selects 1+ modules → Clicks Continue → Navigates to /questions
+**User action:** Selects 1+ modules → Clicks Continue → Navigates to Calibration
 
 ---
 
-**Step 4: Discovery Questions**
+**Step 5: Calibration**
+
+**Route:** `/discovery?step=calibration` or integrated in discovery flow
 
 **What's on screen:**
-- Progress bar at top: "Physical access - Question 3 of 8" (updates dynamically)
-- Module name displayed prominently
+- Page title: "A few quick questions to help us prioritise"
+- Form with 3 required fields:
+
+  1. **What's your realistic budget for accessibility improvements this year?** (Dropdown)
+     - Under $500
+     - $500 - $2,000
+     - $2,000 - $10,000
+     - $10,000+
+     - Not sure yet
+
+  2. **How will you approach this work?** (Dropdown)
+     - I can do most things myself
+     - I can do some things myself, but need support for complex items
+     - I'll need to hire someone for most items
+     - Working with a team
+     - Not sure yet
+
+  3. **When do you want to start taking action?** (Dropdown)
+     - Now (this month)
+     - Soon (next 3 months)
+     - Later this year
+     - Just exploring for now
+
+- Continue button
+
+**System behavior:** Stores calibration responses in session.
+
+**User action:** Completes form → Clicks Continue → Navigates to Pathway Selection
+
+---
+
+**Step 6: Pathway Selection**
+
+**Route:** `/discovery` (final step) or `/decision`
+
+**What's on screen:**
+- Page title: "How far do you want to take this?"
+- Two pathway cards:
+
+**Pulse Check card:**
+- Icon and title: "Pulse Check"
+- Description: "Quick overview of your accessibility"
+- Time: "~10-15 minutes per module"
+- Best for: "Initial assessment, getting started"
+
+**Deep Dive card:**
+- Icon and title: "Deep Dive"
+- Description: "Comprehensive accessibility review"
+- Time: "~18-25 minutes per module"
+- Best for: "Thorough assessment, DIAP preparation"
+
+- Selected modules summary with count
+- Total estimated time based on selection
+- Continue button: "Continue with [selected path] →"
+
+**System behavior:** Stores `review_mode` in session ('pulse-check' or 'deep-dive').
+
+**User action:** Selects pathway → Clicks Continue → Navigates to /dashboard
+
+---
+
+**Step 7: Module Questions**
+
+**Route:** `/questions`
+
+**What's on screen:**
+- Progress bar at top: "A1: Arrival, parking and drop-off - Question 3 of 8" (updates dynamically)
+- Module name and code displayed prominently
 - Question text (large, clear, 1.15rem font)
+- Question ID displayed (e.g., "A1-F-1" for foundation questions, "A1-D-1" for detailed questions)
 - Optional helper text below question (smaller, gray, explains context)
 - 4 answer buttons (large touch targets, 44px min height):
   - **Yes** (green border on hover)
@@ -194,154 +367,162 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
 **Question Flow Logic:**
 - Questions displayed one at a time
 - System loads questions for first selected module
+- **Review mode determines questions shown:**
+  - Pulse Check: Foundation questions only (prefix F, e.g., A1-F-1)
+  - Deep Dive: All questions including detailed (prefix D, e.g., A1-D-1)
 - After answering, automatically advances to next question
 - **Branching logic:** Some questions only appear based on previous answers:
   - Example: If "Do you have a bathroom?" = Yes → Show bathroom accessibility questions
   - Example: If "Do you have a bathroom?" = No or Not applicable → Skip bathroom questions
 - **Business snapshot filtering:** Questions filtered based on Step 2 responses:
-  - Example: If "Online presence" = No → Skip all "Online and bookings" module
-  - Example: If "Physical venue" = No → Skip questions about physical doorways
+  - Example: If "Online presence" = No → Skip digital modules
+  - Example: If "Physical venue" = No → Skip physical access modules
 - When module complete, auto-advances to next selected module
-- Final module shows "Continue to priorities" instead of "Next"
+- Final module shows "Continue to your report" instead of "Next"
 
 **System behavior:**
-- Stores each response in discovery_responses object (nested by module)
+- Stores each response in discovery_responses object (nested by module code)
 - Tracks "Not sure" responses separately for clarifications table
 - Calculates completion % per module
 - Validates at least 1 question answered per module before allowing continuation
 
-**User action:** Answers all questions across selected modules → Clicks "Continue to priorities" → Navigates to /constraints
+**User action:** Answers all questions across selected modules → Clicks "Continue to your report" → Navigates to /dashboard
 
-> **📋 QUESTION INVENTORY REFERENCE:**  
-> The complete list of discovery questions, organized by module with branching logic and conditional display rules, is maintained in:  
-> **"Access Compass Question Inventory - V2 15_12_25 (2)"**  
-> This file contains all questions for the 7 modules with exact question text, answer types, branching rules, and helper text.
-
----
-
-**Step 5: Constraints & Context**
-
-**What's on screen:**
-- Page title: "Help us prioritise realistically"
-- Subheading: "We want to suggest actions that actually work for your situation"
-- Form with 3 required fields + 1 optional:
-  
-  1. **What's your realistic budget for accessibility improvements this year?** (Dropdown)
-     - Under $500
-     - $500 - $2,000
-     - $2,000 - $10,000
-     - $10,000+
-     - Not sure yet
-  
-  2. **What's your capacity to implement changes?** (Dropdown)
-     - I can do most things myself
-     - I can do some things myself, but need support for complex items
-     - I'll need to hire someone for most items
-     - Not sure yet
-  
-  3. **When do you want to start taking action?** (Dropdown)
-     - Now (this month)
-     - Soon (next 3 months)
-     - Later this year
-     - Just exploring for now
-  
-  4. **Anything else we should know?** (Optional textarea)
-     - Placeholder: "e.g., upcoming renovations, specific customer feedback, tight deadlines..."
-     - 500 character limit
-
-- Large gradient CTA button: "Get my priorities"
-- Loading state appears when clicked (gradient animation, "Creating your action plan...")
-
-**System behavior:**
-- Stores constraints in session
-- On submit, calls Claude API with full session data
-- Shows loading screen (3-8 seconds typically)
-- Parses API response into actions and clarifications
-- Stores in actions and clarifications tables (localStorage)
-
-**User action:** Completes form → Clicks "Get my priorities" → Loading screen → Navigates to /dashboard
+> **📋 QUESTION INVENTORY REFERENCE:**
+> The complete list of discovery questions, organized by module with branching logic and conditional display rules, is maintained in:
+> - **`AccessCompass_Questions_Reference.csv`** - Full question database
+> - **`/docs/MODULES.md`** - Module descriptions and key questions
+> - **`src/data/accessModules.ts`** - Code implementation
 
 ---
 
-**Step 6: Priority Dashboard (✨ Magic Moment)**
+**Step 8: Dashboard**
+
+**Route:** `/dashboard`
 
 **What's on screen:**
 
 **Header section:**
-- Congratulations message: "Here are your accessibility priorities, [Business Name]"
+- Overall progress indicator showing completion across selected modules
+- Review mode badge: "Pulse Check" or "Deep Dive"
+- "Review Discovery" link to revisit touchpoints/module selection
+
+**Module cards grid:**
+Each selected module displayed as a card showing:
+- Module code and name (e.g., "A1: Arrival, parking and drop-off")
+- Progress indicator (not started / in progress / complete)
+- Question count: "8 questions"
+- Estimated time remaining
+- Status badge with color coding
+- Click to continue/start module
+
+**Side panel (right side or below on mobile):**
+- **Progress summary** card:
+  - Modules completed vs total
+  - Questions answered vs total
+  - Visual progress bar
+
+- **Items to clarify** card:
+  - Icon: ❓
+  - Count badge: "5 items"
+  - Description: "Questions you marked 'Not sure'"
+  - "Review items" button → /clarify
+
+**Bottom actions:**
+- "View Report" button (primary) - Available when modules complete
+- "View DIAP" button (secondary) → /diap
+- "Export" button (secondary) → /export
+
+**System behavior:**
+- Loads session data from localStorage
+- Tracks completion status per module
+- Calculates overall progress
+- Real-time updates as user completes questions
+
+**User action:**
+- Clicks module card → Navigates to /questions for that module
+- Clicks "View Report" → Navigates to /report
+- Clicks "View DIAP" → Navigates to /diap
+- Clicks "Export" → Navigates to /export
+
+---
+
+**Step 9: Report View**
+
+**Route:** `/report`
+
+**What's on screen:**
+
+**Header section:**
+- Page title: "Your Accessibility Report"
 - Summary text: "Based on your responses, here's what matters most for your [business type]"
+- Review mode and date generated
 
-**Main content - 3 columns (responsive: stacks on mobile):**
+**Main content - 3 priority columns (responsive: stacks on mobile):**
 
-**Column 1: Act now 🟢**
-- Column header with emoji and count: "Act now (4 actions)"
+**Column 1: Act Now 🟢**
+- Column header with count: "Act now (4 actions)"
 - Subheading: "High impact, achievable with your budget"
 - 2-4 action cards, each showing:
   - Action title (bold, 1.1rem)
-  - "Why it matters" preview (2 lines max, truncated with "...")
-  - Effort badge: Low/Medium/High (color-coded: green/yellow/orange)
+  - Module badge (e.g., "A1")
+  - "Why it matters" preview (2 lines max, truncated)
+  - Effort badge: Low/Medium/High (color-coded)
   - Cost badge: "$0-500" / "$500-2k" / "$2k-10k" / "$10k+"
+  - Link to Resource Centre guide if available
   - Click anywhere to expand
 
-**Column 2: Plan next 🟡**
+**Column 2: Plan Next 🟡**
 - Column header: "Plan next (5 actions)"
 - Subheading: "Prioritise these in the next 3-6 months"
 - 3-5 action cards (same structure as Column 1)
 
-**Column 3: Consider later 🔵**
+**Column 3: Consider Later 🔵**
 - Column header: "Consider later (3 actions)"
 - Subheading: "Longer-term improvements for future planning"
 - 2-3 action cards (same structure as Column 1)
 
-**Side panel (right side or below on mobile):**
-- **Items to clarify later** card:
-  - Icon: ❓
-  - Title: "Items to clarify later"
-  - Count badge: "5 items"
-  - Description: "Questions you weren't sure about—we'll help you check these"
-  - "Review items" button
-  
+**Side panel:**
 - **Modules reviewed** card:
-  - Icon: ✅
-  - List of completed modules with checkmarks:
-    - ✓ Physical access
-    - ✓ Online and bookings
-    - ✓ Customer service and staff
-  
+  - List of completed modules with codes:
+    - ✓ A1: Arrival, parking and drop-off
+    - ✓ B1: Pre-visit information
+    - ✓ C1: Customer service and staff confidence
+
 - **Confidence snapshot** card:
-  - Icon: 📊
-  - Visual: Simple progress-style graphic showing:
-    - Green section: Questions answered confidently (Yes/No)
-    - Orange section: Questions marked "Not sure"
-    - No numerical score shown
-  - Text: "You answered [X]% of questions confidently. We've flagged [Y] items for you to clarify."
+  - Visual progress showing:
+    - Green: Questions answered Yes/No
+    - Orange: Questions marked "Not sure"
+  - Text: "You answered [X]% of questions confidently."
 
 **Bottom actions:**
-- "View full DIAP" button (secondary style)
-- "Export summary" button (secondary style)
-- "Start again" link (small, subtle)
+- "View full DIAP" button → /diap
+- "Export report" button → /export
+- "Back to dashboard" link
 
 **System behavior:**
-- Loads actions from localStorage grouped by priority
-- Cards are clickable—clicking navigates to /action/:id
-- Real-time data, updates if user edits actions
+- Generates report from completed module responses
+- Groups actions by priority (Act Now / Plan Next / Consider Later)
+- Links actions to Resource Centre guides where available
 
-**User action:** 
-- Clicks action card → Navigates to /action/:id
-- Clicks "Review items" → Navigates to /clarify
+**User action:**
+- Clicks action card → Expands to show full details
+- Clicks resource link → Opens Resource Centre guide
 - Clicks "View full DIAP" → Navigates to /diap
-- Clicks "Export summary" → Navigates to /export
+- Clicks "Export report" → Navigates to /export
 
 ---
 
-**Step 7: Action Detail View**
+**Step 10: Action Detail View**
+
+**Route:** `/action/:id`
 
 **What's on screen:**
 
 **Header:**
-- Back button: "← Back to dashboard"
+- Back button: "← Back to report"
 - Priority badge: "Act now" / "Plan next" / "Consider later" (colored)
-- Module badge: Shows which module this action belongs to
+- Module badge: Shows module code and name (e.g., "A1: Arrival")
 
 **Main content:**
 - **Action title** (large, 2rem, bold)
@@ -354,19 +535,17 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
   - Subheading: "Simple steps"
   - Numbered list (3-5 steps) in plain English
   - Each step is actionable and specific
-  
+
 - **Example for your business** section:
   - Subheading: "Example for [business type]"
   - Specific scenario relevant to their business
   - "A café like yours might..." / "Tour operators often..."
 
-- **Helpful resources** section:
+- **Resource Centre links** section:
   - Subheading: "Resources"
-  - 2-4 linked resources:
-    - Link text (underlined)
-    - Format indicator: [PDF] [Checklist] [Guide] [Video]
-    - Brief description
-  - Example: "Accessible Bathroom Checklist [PDF] - Measure doorways, clearances, and fixtures"
+  - Links to relevant Resource Centre guides
+  - Format indicators: [Guide] [Checklist] [Video]
+  - Example: "Accessible Parking Spaces → /resources?resource=A1-F-1"
 
 **DIAP fields (editable form):**
 - White card with subtle border
@@ -375,16 +554,16 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
   1. **Owner** (Text input)
      - Placeholder: "Who's responsible?"
      - Example: "Sarah (Manager)"
-  
+
   2. **Timeframe** (Date input or dropdown)
      - Options: "This month", "Next 3 months", "This year", "Custom date"
-  
+
   3. **Status** (Dropdown)
      - Not started
      - In progress
      - Complete
      - On hold
-  
+
   4. **Notes** (Textarea)
      - Placeholder: "Add any notes, progress updates, or blockers..."
      - 1000 character limit
@@ -405,7 +584,7 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
   - Delete button (×)
 
 **Bottom actions:**
-- "Save & return to dashboard" button (primary)
+- "Save & return to report" button (primary)
 - "Next action" button (secondary) - Shows if more actions exist
 
 **System behavior:**
@@ -414,15 +593,18 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
 - Evidence uploads stored in evidence table with action_id
 - Files stored as base64 in localStorage for MVP (future: cloud storage)
 
-**User action:** 
+**User action:**
 - Edits DIAP fields → Auto-saved
 - Uploads evidence → Stored and displayed
-- Clicks "Save & return" → Navigates to /dashboard
+- Clicks resource link → Opens Resource Centre in new tab
+- Clicks "Save & return" → Navigates to /report
 - Clicks "Next action" → Navigates to /action/:next_id
 
 ---
 
-**Step 8: DIAP Workspace**
+**Step 11: DIAP Workspace**
+
+**Route:** `/diap`
 
 **What's on screen:**
 
@@ -431,7 +613,7 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
 - Subheading: "Track and manage all your accessibility actions"
 
 **Filters section (horizontal bar):**
-- Filter by module: Dropdown (All modules / Physical access / Online / etc.)
+- Filter by module: Dropdown (All modules / A1: Arrival / B1: Pre-visit / etc.)
 - Filter by priority: Dropdown (All priorities / Act now / Plan next / Consider later)
 - Filter by status: Dropdown (All statuses / Not started / In progress / Complete / On hold)
 - Search box: "Search actions..."
@@ -446,7 +628,7 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
 **Table view:**
 - Responsive table (switches to cards on mobile)
 - Sortable columns (click header to sort):
-  - **Module** - Shows module name with colored dot
+  - **Module** - Shows module code with colored dot (e.g., "A1")
   - **Priority** - Shows badge (Act now/Plan next/Consider later)
   - **Action** - Shows action title (clickable, truncated if long)
   - **Owner** - Shows owner name or "—" if empty
@@ -463,7 +645,7 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
 - "Show more" button at bottom (infinite scroll alternative)
 
 **Bottom actions:**
-- "Export DIAP" button (secondary)
+- "Export DIAP" button (secondary) → /export
 - "Back to dashboard" link
 
 **System behavior:**
@@ -481,33 +663,38 @@ Use supportive, non-judgmental tone. Frame everything as incremental improvement
 
 ---
 
-**Step 9: Clarify Later**
+**Step 12: Clarify Later**
+
+**Route:** `/clarify`
 
 **What's on screen:**
 
 **Header:**
-- Page title: "Items to clarify later"
+- Page title: "Items to clarify"
 - Count badge: "[X] items"
-- Subheading: "Questions you weren't sure about—here's how to check each one"
+- Subheading: "Questions you marked 'Not sure' — here's how to check each one"
 
 **List of clarification items:**
 
 Each item is a card showing:
-- **Module badge** - Shows which module this question belongs to
+- **Module badge** - Shows module code (e.g., "A1")
+- **Question ID** - Shows question reference (e.g., "A1-F-3")
 - **Original question** (bold, 1.1rem) - Exact question text from discovery
 - **Why it matters** section:
   - Brief explanation (2-3 sentences) of why knowing this answer helps
-  - Example: "Knowing your doorway width helps determine if wheelchair users can access your bathroom independently"
+  - Example: "Knowing your doorway width helps determine if wheelchair users can access independently"
 - **How to check** section:
   - Icon: 🔍
   - Step-by-step instructions in plain English
-  - Example: "Use a tape measure to measure the narrowest point of the doorway. You need at least 850mm clear width when the door is open."
+  - Example: "Use a tape measure to measure the narrowest point of the doorway. You need at least 850mm clear width."
+- **Resource Centre link** (if available):
+  - Links to relevant guide for more information
 - **Status indicator:**
   - Unresolved: Orange dot + "Not checked yet"
   - Resolved: Green checkmark + "Resolved on [date]"
 - **Action buttons:**
   - "Mark as resolved" button (primary, only if unresolved)
-  - "Update my answer" button (secondary) - Opens modal to change answer from "Not sure" to Yes/No
+  - "Update my answer" button (secondary) - Opens modal to change answer
 
 **Modal for updating answer:**
 - Title: "Update your answer"
@@ -534,11 +721,14 @@ Each item is a card showing:
 **User action:**
 - Clicks "Mark as resolved" → Updates status, moves to resolved list
 - Clicks "Update my answer" → Opens modal → Saves new answer
+- Clicks resource link → Opens Resource Centre guide
 - Clicks "Back to dashboard" → Navigates to /dashboard
 
 ---
 
-**Step 10: Export & Share**
+**Step 13: Export & Share**
+
+**Route:** `/export`
 
 **What's on screen:**
 
@@ -586,12 +776,14 @@ Each item is a card showing:
 - "Start again" link (clears session)
 
 **System behavior:**
-- Generates PDFs using library (e.g., jsPDF or react-pdf)
+- Generates PDFs using jsPDF library
 - **1-Page Summary includes:**
   - Business name and type
   - Date generated
+  - Review mode (Pulse Check / Deep Dive)
   - "Act now" actions (2-4 items) with:
     - Action title
+    - Module code
     - Why it matters (abbreviated)
     - Effort and cost
   - Footer: "Generated by Access Compass | accesscompass.com.au"
@@ -610,6 +802,78 @@ Each item is a card showing:
 - Clicks "Download full DIAP" → PDF downloads
 - Clicks "Back to dashboard" → Navigates to /dashboard
 - Clicks "Start again" → Confirmation dialog → Clears localStorage → Navigates to /
+
+---
+
+**Step 14: Resource Centre**
+
+**Route:** `/resources`
+
+**What's on screen:**
+
+> See `/docs/RESOURCE-CENTRE.md` for full documentation.
+
+**Header:**
+- Page title: "Resource Centre"
+- Search box: Full-text search across all resources
+
+**Browse by Category (4 tabs):**
+- **Before Arrival** - Website, booking, communication accessibility
+- **Getting In** - Parking, paths, entrances, wayfinding
+- **During Your Visit** - Interior spaces, facilities, amenities
+- **Service & Support** - Staff training, policies, assistance
+
+**DIAP Category Filter:**
+- Attitudes & Engagement
+- Liveable Communities
+- Employment
+- Systems & Processes
+
+**Resource Cards:**
+Each resource displayed as a card showing:
+- Title
+- Module code badge
+- Summary (2 lines)
+- DIAP category tag
+- Click to view full resource
+
+**Resource Detail View (when resource selected):**
+Collapsible sections:
+- **Why It Matters** - Business case and impact statistics
+- **Quick Tips** - Actionable implementation guidance
+- **How to Check** - Self-assessment instructions
+- **Standards Reference** - Australian Standards citations (AS1428.1, etc.)
+- **Real-World Examples** - Industry-specific implementations
+- **Video Tutorial** - Embedded video content (where available)
+- **Helpful Resources** - External links and downloads
+- **Related Topics** - Cross-references to other resources
+
+**URL Parameters:**
+| Parameter | Purpose | Example |
+|-----------|---------|---------|
+| `resource` | Select specific resource | `/resources?resource=A1-F-1` |
+| `category` | Filter by module group | `/resources?category=getting-in` |
+| `diap` | Filter by DIAP category | `/resources?diap=liveable-communities` |
+
+**Current Resources (14+):**
+- Accessible Parking Spaces (A1-F-1)
+- Accessible Pathways (A2-F-1)
+- Clear Wayfinding Signage (A2-F-3)
+- Accessible Toilet Facilities (A6-1-6)
+- Disability Awareness Training (C1-F-1b)
+- And more...
+
+**System behavior:**
+- Standalone browsable library accessible from main navigation
+- Report links directly to relevant resources
+- Search indexes titles, summaries, tips content
+- Filters apply immediately
+
+**User action:**
+- Searches for topic → Results update instantly
+- Clicks category tab → Filters to that category
+- Clicks resource card → Opens full resource view
+- Clicks external link → Opens in new tab
 
 ---
 
@@ -650,7 +914,7 @@ Bold gradient backgrounds that grab attention, combined with friendly white card
 
 **Test User Journey:**
 
-**Step 1:** User lands on homepage → Clicks "Start your free accessibility check"
+**Step 1:** User lands on homepage → Clicks "Start your accessibility check" → Accepts disclaimer
 
 **Step 2: Business Snapshot**
 - Business type: **Café/Restaurant**
@@ -660,82 +924,90 @@ Bold gradient backgrounds that grab attention, combined with friendly white card
 - Public-facing customers: **Yes**
 - System generates session_id: `550e8400-e29b-41d4-a716-446655440000`
 
-**Step 3: Module Selection**
-User sees 7 modules, 5 marked "Recommended":
-- Physical access ✓ (Recommended)
-- Communication and information (Recommended)
-- Customer service and staff ✓ (Recommended)
-- Online and bookings ✓ (Recommended)
-- Wayfinding and signage
-- Sensory considerations (Recommended)
-- Emergency and safety (Recommended)
+**Step 3: Discovery (Guided Flow)**
+User selects touchpoints:
+- ✓ Website and online presence
+- ✓ Parking and arrival
+- ✓ Entering your space
+- ✓ Moving around inside
+- ✓ Using facilities (toilets, etc.)
+- ✓ Customer service interactions
 
-User selects: **Physical access, Online and bookings, Customer service and staff**
+System recommends modules based on touchpoints:
+- A1: Arrival, parking and drop-off ✓
+- A2: Entry and doors ✓
+- A5: Toilets and amenities ✓
+- B1: Pre-visit information ✓
+- C1: Customer service and staff confidence ✓
 
-**Step 4: Discovery Questions**
+User accepts recommended modules.
 
-*Physical Access module (8 questions):*
-1. "Is there level access to your entrance?" → **No** + Notes: "2 steps at front door"
-2. "Do you have an accessible bathroom?" → **Not sure**
-3. "Can someone using a wheelchair move through your main customer areas?" → **Yes** + Notes: "Tables can be rearranged"
-4. "Are doorways at least 850mm wide?" → **Not sure**
-5. "Is there accessible parking nearby?" → **Yes**
-6. "Do you have seating options for people who need to rest?" → **Yes**
-7. "Are pathways clear of obstacles?" → **Yes**
-8. "Is your counter at an accessible height?" → **No**
+**Step 4: Calibration**
+- Budget: **$500 - $2,000**
+- Work approach: **I can do some things myself, but need support for complex items**
+- Timing: **Now (this month)**
 
-*Online and Bookings module (6 questions):*
-1. "Can visitors easily find accessibility information on your website?" → **No**
-2. "Is your booking system accessible (keyboard navigation, screen readers)?" → **Not sure**
-3. "Do you provide accessibility info in confirmation emails?" → **No**
-4. "Can customers indicate access needs when booking?" → **No**
-5. "Are your menus available online?" → **Yes**
-6. "Is your website mobile-friendly?" → **Yes**
+**Step 5: Pathway Selection**
+User selects: **Pulse Check** (quick overview, foundation questions only)
 
-*Customer Service and Staff module (5 questions):*
-1. "Do you train staff on how to support customers with access needs?" → **No**
-2. "Do you ask customers about access needs when they book?" → **Not applicable** (walk-in only)
-3. "Can customers contact you to ask about accessibility before visiting?" → **Yes** + Notes: "Phone and email"
-4. "Do you have a process for responding to accessibility feedback?" → **Not sure**
-5. "Are staff aware of accessible features at your venue?" → **No**
+**Step 6: Module Questions (Pulse Check)**
+
+*A1: Arrival, parking and drop-off (Foundation questions):*
+1. A1-F-1: "Do you have designated accessible parking?" → **No**
+2. A1-F-2: "Is there a drop-off zone near the entrance?" → **Yes**
+3. A1-F-3: "Is the path from parking smooth and level?" → **Not sure**
+4. A1-F-4: "Is the parking area well-lit?" → **Yes**
+
+*A2: Entry and doors (Foundation questions):*
+1. A2-F-1: "Is your main entrance step-free?" → **No** + Notes: "2 steps at front door"
+2. A2-F-2: "Is the entrance door wide enough (850mm+)?" → **Not sure**
+3. A2-F-3: "Are entrance doors easy to open?" → **Yes**
+
+*A5: Toilets and amenities (Foundation questions):*
+1. A5-F-1: "Do you have accessible toilets on site?" → **Not sure**
+2. A5-F-2: "Are accessible toilets clearly signed?" → **Not applicable**
+3. A5-F-3: "Is the accessible toilet kept clear of storage?" → **Not applicable**
+
+*B1: Pre-visit information (Foundation questions):*
+1. B1-F-1: "Do you have accessibility information on your website?" → **No**
+2. B1-F-2: "Can customers contact you about accessibility before visiting?" → **Yes** + Notes: "Phone and email"
+3. B1-F-3: "Do staff know how to respond to accessibility enquiries?" → **No**
+
+*C1: Customer service and staff confidence (Foundation questions):*
+1. C1-F-1: "Have staff received disability awareness training?" → **No**
+2. C1-F-2: "Do staff know how to assist customers with assistance animals?" → **Not sure**
+3. C1-F-3: "Do staff feel confident supporting customers with different needs?" → **No**
 
 **Questions marked "Not sure" (for Clarify Later):**
-- "Do you have an accessible bathroom?" (Physical access)
-- "Are doorways at least 850mm wide?" (Physical access)
-- "Is your booking system accessible?" (Online and bookings)
-- "Do you have a process for accessibility feedback?" (Customer service)
+- A1-F-3: "Is the path from parking smooth and level?" (A1)
+- A2-F-2: "Is the entrance door wide enough (850mm+)?" (A2)
+- A5-F-1: "Do you have accessible toilets on site?" (A5)
+- C1-F-2: "Do staff know how to assist customers with assistance animals?" (C1)
 
-**Step 5: Constraints & Context**
-- Budget: **$1,000-$5,000**
-- Capacity: **I can do some things myself, but need support for complex items**
-- Timeframe: **Now (this month)**
-- Additional notes: "We have a renovation planned in 6 months, so some changes might wait until then"
-
-**Step 6: Expected Dashboard Output**
+**Step 7: Expected Report Output**
 
 **Act now (4 actions):**
-1. Add temporary ramp at entrance | Low effort | $200-500 | Physical access
-2. Create accessibility info page on website | Low effort | $0-200 | Online and bookings
-3. Staff training session on supporting customers with access needs | Medium effort | $0-500 | Customer service
-4. Add accessibility info to confirmation emails | Low effort | $0 | Online and bookings
+1. Add accessibility info page on website | Low effort | $0-200 | B1
+2. Staff training session on disability awareness | Medium effort | $0-500 | C1
+3. Add temporary ramp at entrance | Low effort | $200-500 | A2
+4. Train staff on assistance animal requirements | Low effort | $0 | C1
 
-**Plan next (5 actions):**
-1. Measure doorways and bathroom to confirm accessibility | Low effort | $0 | Physical access
-2. Lower counter or add accessible service point | Medium effort | $500-2k | Physical access
-3. Upgrade bathroom to accessible standard | High effort | $5k-15k | Physical access
-4. Add accessibility questions to booking system | Medium effort | $500-2k | Online and bookings
-5. Create accessibility feedback process | Low effort | $0-200 | Customer service
+**Plan next (4 actions):**
+1. Measure entrance door width to confirm accessibility | Low effort | $0 | A2
+2. Check and document toilet accessibility | Low effort | $0 | A5
+3. Improve path from street/parking to entrance | Medium effort | $500-2k | A1
+4. Create staff accessibility response guide | Low effort | $0-200 | B1
 
 **Consider later (3 actions):**
-1. Permanent accessible entrance (coordinate with renovation) | High effort | $3k-10k | Physical access
-2. Full website accessibility audit | Medium effort | $1k-3k | Online and bookings
-3. Develop comprehensive accessibility policy | Medium effort | $0-500 | Customer service
+1. Permanent accessible entrance (coordinate with renovation) | High effort | $3k-10k | A2
+2. Upgrade bathroom to accessible standard | High effort | $5k-15k | A5
+3. Develop comprehensive accessibility policy | Medium effort | $0-500 | C1
 
 **Clarify later (4 items):**
-1. "Do you have an accessible bathroom?" - Module: Physical access
-2. "Are doorways at least 850mm wide?" - Module: Physical access
-3. "Is your booking system accessible?" - Module: Online and bookings
-4. "Do you have a process for accessibility feedback?" - Module: Customer service
+1. A1-F-3: "Is the path from parking smooth and level?" - Module: A1
+2. A2-F-2: "Is the entrance door wide enough?" - Module: A2
+3. A5-F-1: "Do you have accessible toilets?" - Module: A5
+4. C1-F-2: "Do staff know about assistance animals?" - Module: C1
 
 ---
 
@@ -745,19 +1017,29 @@ User selects: **Physical access, Online and bookings, Customer service and staff
 
 **Session Creation:**
 1. User lands on / → No session exists
-2. User clicks "Start" → Navigates to /start
+2. User clicks "Start" → Navigates to /disclaimer → /start
 3. /start page loads → JavaScript checks localStorage for `access_compass_session_id`
 4. If not found → Generate new UUID → Store as `access_compass_session_id`
 5. Create session object in localStorage:
 ```javascript
 {
   session_id: "550e8400-e29b-41d4-a716-446655440000",
-  created_at: "2025-12-17T10:30:00Z",
-  last_updated: "2025-12-17T10:30:00Z",
+  created_at: "2026-01-14T10:30:00Z",
+  last_updated: "2026-01-14T10:30:00Z",
   business_snapshot: {},
-  selected_modules: [],
-  discovery_responses: {},
-  constraints: {},
+  discovery_data: {
+    selectedTouchpoints: [],
+    selectedSubTouchpoints: []
+  },
+  recommended_modules: [],    // Module codes like 'A1', 'B1', 'C1'
+  selected_modules: [],       // User's final module selection
+  review_mode: null,          // 'pulse-check' or 'deep-dive'
+  calibration: {
+    budget: null,
+    work_approach: null,
+    timing: null
+  },
+  discovery_responses: {},    // Nested by module code: { A1: { 'A1-F-1': { answer, notes } } }
   ai_response: null
 }
 ```
@@ -800,16 +1082,20 @@ localStorage is browser-specific, so sessions don't sync across devices. This is
 
 | Page | Route | What's on it | Data Source |
 |------|-------|--------------|-------------|
-| Landing | / | Hero, 3-step visual, CTA | Static content |
+| Landing | / | Hero, 6-step how it works, who it's for, CTA | Static content |
+| Disclaimer | /disclaimer | Legal disclaimer before starting | Static content |
 | Business Snapshot | /start | 5-field form | Creates/updates session.business_snapshot |
-| Module Selection | /modules | 7 module cards, checkboxes | Updates session.selected_modules |
-| Discovery Questions | /questions | Adaptive question flow | References Question Inventory file, updates session.discovery_responses |
-| Constraints | /constraints | 3 dropdowns + textarea, API call | Updates session.constraints, calls Claude API |
-| Priority Dashboard | /dashboard | 3 columns of actions, side panels | Displays actions grouped by priority |
-| Action Detail | /action/:id | Action details, DIAP form, evidence upload | Displays single action by ID, updates action fields |
+| Discovery | /discovery | Touchpoint selection, module recommendations, calibration, pathway selection | Updates session.discovery_data, recommended_modules, review_mode |
+| Manual Module Selection | /modules | 17 module cards in 4 groups | Updates session.selected_modules |
+| Decision | /decision | Pathway selection (Pulse Check / Deep Dive) | Updates session.review_mode |
+| Dashboard | /dashboard | Module cards with progress, overall status | Displays session progress |
+| Module Questions | /questions | Adaptive question flow by module | Updates session.discovery_responses |
+| Report | /report | 3 columns of prioritised actions | Displays generated report |
+| Action Detail | /action/:id | Action details, DIAP form, evidence upload, resource links | Displays single action, updates action fields |
 | DIAP Workspace | /diap | Table view of all actions, filters | Displays all actions in table format |
-| Clarify Later | /clarify | List of "Not sure" items | Displays clarifications where resolved=false |
+| Clarify Later | /clarify | List of "Not sure" items with guidance | Displays clarifications where resolved=false |
 | Export | /export | PDF previews, download buttons | Generates PDFs from actions data |
+| Resource Centre | /resources | Browsable library of guides and tips | Static help content, linked from reports |
 
 ### Auth Requirements
 

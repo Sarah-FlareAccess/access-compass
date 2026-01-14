@@ -4,6 +4,21 @@ import '../styles/landing.css';
 export default function Landing() {
   return (
     <div className="landing-page">
+      {/* Header Navigation */}
+      <header className="landing-header">
+        <div className="container header-container">
+          <div className="logo">
+            <span className="logo-icon">🧭</span>
+            <span className="logo-text">Access Compass</span>
+          </div>
+          <nav className="header-nav">
+            <a href="mailto:hello@accesscompass.com.au" className="nav-link">Contact</a>
+            <Link to="/login" className="nav-link">Login</Link>
+            <Link to="/disclaimer" className="btn btn-nav">Get started</Link>
+          </nav>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="hero">
         {/* Directional background elements - decorative only */}
@@ -29,36 +44,36 @@ export default function Landing() {
 
             {/* Trust signal */}
             <p className="hero-trust">
-              Created by accessibility consultants who work with businesses like yours.
+              Built by <strong>Flare Access</strong>. Accessibility and inclusion consultants helping businesses like yours turn intent into confident, practical action.
             </p>
           </div>
         </div>
       </section>
 
-      {/* What You Get - 4 Cards */}
+      {/* What You Get - 4 Cards - Outcomes focused */}
       <section className="benefits-section">
         <div className="container">
           <h2>What you'll get</h2>
           <div className="benefits-grid">
             <div className="benefit-card">
-              <span className="benefit-icon">🎯</span>
-              <h3>Personalised priorities</h3>
-              <p>Recommendations tailored to your business type, not generic checklists.</p>
+              <span className="benefit-icon">🧭</span>
+              <h3>Clarity on where to start</h3>
+              <p>No more guessing or getting overwhelmed by compliance documents. We guide you through your customer journey, so you understand what matters at each touchpoint. No more uncertainty — just clear priorities for your situation.</p>
+            </div>
+            <div className="benefit-card">
+              <span className="benefit-icon">💪</span>
+              <h3>Confidence to take action</h3>
+              <p>Every recommendation is backed by Australian standards, universal design and best practice with real-world examples — so you can move forward knowing you're on the right track.</p>
             </div>
             <div className="benefit-card">
               <span className="benefit-icon">📋</span>
-              <h3>Actionable report</h3>
-              <p>A downloadable summary you can share with your team or stakeholders.</p>
+              <h3>Evidence of action</h3>
+              <p>Turn good intentions into demonstrable action. Your report documents where you are, what you're doing, and your opportunities ahead — ready for leadership, funding applications, and budget discussions.</p>
             </div>
             <div className="benefit-card">
-              <span className="benefit-icon">💡</span>
-              <h3>Practical guidance</h3>
-              <p>Clear explanations of what to do and why it matters for your customers.</p>
-            </div>
-            <div className="benefit-card">
-              <span className="benefit-icon">🚀</span>
-              <h3>Built for busy people</h3>
-              <p>Start now, save your progress, and come back anytime. Work at your own pace.</p>
+              <span className="benefit-icon">📈</span>
+              <h3>Visible progress, together</h3>
+              <p>Give your whole team access to a shared plan. Track what's done, see what's next, and build a culture where accessibility is everyone's responsibility.</p>
             </div>
           </div>
         </div>
@@ -96,24 +111,48 @@ export default function Landing() {
             <div className="step">
               <div className="step-number">1</div>
               <div className="step-content">
-                <h3>Tell us about your business</h3>
-                <p>Answer simple questions about your customer experience, physical space, and digital presence.</p>
+                <h3>Select what's relevant to you</h3>
+                <p>Choose the accessibility areas that matter most — from physical access and signage to customer service and online bookings. Focus on one area or tackle several at once.</p>
               </div>
             </div>
 
             <div className="step">
               <div className="step-number">2</div>
               <div className="step-content">
-                <h3>Get your priorities</h3>
-                <p>We analyse your responses and show you what will make the biggest difference for your customers.</p>
+                <h3>Choose your depth</h3>
+                <p>Go with a quick Pulse Check for a snapshot of where you stand, or take a Deep Dive for a comprehensive review. Either way, you'll get clear, tailored recommendations.</p>
               </div>
             </div>
 
             <div className="step">
               <div className="step-number">3</div>
               <div className="step-content">
-                <h3>Take action with confidence</h3>
-                <p>Download your report, share it with stakeholders, and start making changes your customers will notice.</p>
+                <h3>Answer at your own pace</h3>
+                <p>Work through questions about your current setup — answer what you know, and flag anything you're unsure about. We'll provide guidance to help you check those items later.</p>
+              </div>
+            </div>
+
+            <div className="step">
+              <div className="step-number">4</div>
+              <div className="step-content">
+                <h3>Get a prioritised action plan</h3>
+                <p>Receive recommendations organised by impact — what to act on now, plan next, or consider later. Your plan is tailored to your situation, so you know exactly where to start.</p>
+              </div>
+            </div>
+
+            <div className="step">
+              <div className="step-number">5</div>
+              <div className="step-content">
+                <h3>Access the Resource Centre</h3>
+                <p>Every recommendation links to practical support — how-to guides, checklists, real examples, and Australian standards references. Everything you need to move from plan to action.</p>
+              </div>
+            </div>
+
+            <div className="step">
+              <div className="step-number">6</div>
+              <div className="step-content">
+                <h3>Track progress and share your plan</h3>
+                <p>Assign owners, set timeframes, and mark items complete as you go. Export a polished summary to share with your team, leadership, or include in funding applications.</p>
               </div>
             </div>
           </div>
@@ -136,6 +175,18 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="landing-footer">
+        <div className="container">
+          <p className="footer-brand">
+            Access Compass is a <a href="https://flareaccess.com.au" target="_blank" rel="noopener noreferrer">Flare Access</a> product designed to help organisations understand, prioritise and take action on accessibility.
+          </p>
+          <p className="footer-copyright">
+            © {new Date().getFullYear()} Flare Access. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

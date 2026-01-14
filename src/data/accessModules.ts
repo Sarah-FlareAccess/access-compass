@@ -83,6 +83,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Some info on our website but not comprehensive' or 'We mention parking but not entrances or toilets'",
       },
       {
         id: 'B1-F-2A',
@@ -363,6 +364,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        partialPlaceholder: "E.g., 'Happy for some pages to be reviewed but not all' or 'Only want main accessibility page checked'",
       },
       {
         id: 'B1-F-4-link',
@@ -621,6 +623,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Parking info available but not public transport options' or 'Directions provided but not accessibility-specific details'",
       },
       {
         id: 'B1-D-8a',
@@ -665,67 +668,518 @@ export const accessModules: AccessModule[] = [
     description: 'Basic accessibility of your website for all visitors',
     group: 'before-arrival',
     estimatedTime: 15,
-    estimatedTimeDeepDive: 20,
+    estimatedTimeDeepDive: 25,
     icon: '🌐',
     questions: [
+      // ============================================
+      // KEYBOARD ACCESS
+      // ============================================
       {
         id: 'B4.1-1-1',
         text: 'Can all website content be accessed using only a keyboard (no mouse required)?',
-        helpText: 'Try navigating your site using only Tab, Enter, and arrow keys.',
+        helpText: 'Keyboard access matters because many people cannot use a mouse, including people who use screen readers, people with motor impairments, and power users who prefer keyboard navigation.\n\nTo test: Try navigating your website using only Tab (move forward), Shift+Tab (move backward), Enter (activate), and arrow keys (within menus). Can you reach all links, buttons, forms, and interactive content? Can you always see where you are on the page (a visible focus indicator)?',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Main navigation works but dropdown menus are not accessible' or 'Most pages work but booking forms require a mouse'",
+        helpContent: {
+          summary: 'Keyboard access allows people to navigate and use your website without a mouse.',
+          tips: [
+            'Press Tab to move through interactive elements - you should see a visible outline showing where you are',
+            'Try to complete a booking or enquiry using only the keyboard',
+            'Check that dropdown menus can be opened and navigated with arrow keys',
+            'Ensure you can always "escape" from menus and return to the main page',
+          ],
+        },
       },
       {
+        id: 'B4.1-1-1a',
+        text: 'Where does keyboard access break down?',
+        helpText: 'Understanding where keyboard access fails helps prioritise fixes. Issues in booking or navigation have higher customer impact than issues in less-used areas.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'focus-invisible', label: 'Cannot see where focus is (no visible outline)' },
+          { id: 'main-nav', label: 'Main navigation menu' },
+          { id: 'dropdowns', label: 'Dropdown menus' },
+          { id: 'forms', label: 'Forms or input fields' },
+          { id: 'booking', label: 'Booking or checkout process' },
+          { id: 'embedded', label: 'Embedded content (maps, videos, widgets)' },
+          { id: 'modals', label: 'Pop-ups or modal windows' },
+          { id: 'not-sure', label: 'Not sure where it fails' },
+        ],
+        showWhen: { questionId: 'B4.1-1-1', answers: ['no', 'partially', 'unable-to-check'] },
+        helpContent: {
+          summary: 'Each option refers to a common area where keyboard navigation often fails. Understanding these helps you communicate issues to a developer.',
+          tips: [
+            'Focus indicator: The outline or highlight that shows which element is currently selected when using Tab',
+            'Main navigation: The primary menu at the top of your website with links to main sections',
+            'Dropdown menus: Menus that open when you hover over or click a navigation item to show sub-pages',
+            'Forms/input fields: Text boxes, checkboxes, date pickers, and other places where users enter information',
+            'Embedded content: Third-party elements added to your site like Google Maps, YouTube videos, or booking widgets',
+            'Modal windows: Pop-up boxes that appear over the page, such as "Sign up for our newsletter" or image galleries that open in a lightbox',
+          ],
+        },
+      },
+      {
+        id: 'B4.1-1-1b',
+        text: 'When using the keyboard, can you always see which element is currently focused?',
+        helpText: 'A visible focus indicator (usually an outline or highlight) shows keyboard users where they are on the page. Without it, keyboard navigation becomes guesswork.\n\nTo test: Press Tab and watch for a visible outline or colour change on each element. The focus should be obvious, not subtle or invisible.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Focus visible on buttons but not on links' or 'Header menu shows focus but footer doesn't'",
+        helpContent: {
+          summary: 'Focus visibility is one of the most common accessibility issues and often one of the easiest to fix.',
+          tips: [
+            'Good focus indicators use a clear outline, background change, or border',
+            'The focus should be visible on ALL interactive elements, not just some',
+            'Some sites accidentally hide focus with CSS like "outline: none"',
+            'This is often a quick win - a small CSS change can fix it site-wide',
+          ],
+        },
+        showWhen: { questionId: 'B4.1-1-1', answers: ['yes', 'partially'] },
+      },
+      // ============================================
+      // ALT TEXT
+      // ============================================
+      {
         id: 'B4.1-1-2',
-        text: 'Do all images on your website have alt text or image descriptions?',
-        helpText: 'Alt text and image descriptions both help people understand images, but they are used in slightly different ways.\n\nAlt text is a short description added directly to an image. It is read automatically by screen readers and should briefly explain the purpose of the image in context.\n\nImage descriptions are longer explanations provided in nearby text or linked content. They are useful for complex images such as charts, diagrams, maps, or detailed visuals that need more explanation than a short alt text can provide.\n\nBoth alt text and image descriptions should focus on what the image is communicating, not just what it looks like. Decorative images that do not add information do not need alt text or image descriptions.',
+        text: 'Do images on your website have alt text or image descriptions?',
+        helpText: 'Alt text is a short description added to images so screen reader users understand what the image shows. Good alt text describes the purpose of the image in context, not just what it looks like.\n\nTo check: Right-click an image and select "Inspect" to see if alt text exists, or use a browser extension like WAVE. Alternatively, try using your site with a screen reader to hear how images are announced.',
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Key venue photos have alt text but decorative images don't' or 'Blog posts have alt text but older pages don't'",
+        helpContent: {
+          summary: 'Alt text helps screen reader users understand images they cannot see.',
+          tips: [
+            'Good: "Customer using wheelchair accessing main entrance via ramp" - describes what matters',
+            'Poor: "IMG_2847.jpg" or "image" - provides no useful information',
+            'Decorative images (backgrounds, dividers) should have empty alt text (alt="")',
+            'Complex images like maps, charts, or infographics need image descriptions - longer explanations in nearby text that fully describe the visual information',
+            'Image descriptions can be placed in a caption, an expandable section, or linked text nearby',
+          ],
+        },
       },
+      {
+        id: 'B4.1-1-2a',
+        text: 'How consistently is alt text added to images?',
+        helpText: 'This helps us understand whether alt text is part of your regular content process or happens inconsistently.',
+        type: 'single-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'always', label: 'Always added as part of our process' },
+          { id: 'sometimes', label: 'Added sometimes, but not consistently' },
+          { id: 'auto', label: 'Added automatically by our website system' },
+          { id: 'rarely', label: 'Rarely added or not sure' },
+        ],
+        showWhen: { questionId: 'B4.1-1-2', answers: ['yes', 'partially'] },
+      },
+      {
+        id: 'B4.1-1-2b',
+        text: 'Who typically adds alt text to images?',
+        helpText: 'Knowing who handles alt text helps identify where training or process improvements might help.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'low',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'content-team', label: 'Website editor or content team' },
+          { id: 'marketing', label: 'Marketing team' },
+          { id: 'external', label: 'External agency or developer' },
+          { id: 'no-one', label: 'No one specifically / not sure' },
+        ],
+        showWhen: { questionId: 'B4.1-1-2', answers: ['yes', 'partially'] },
+      },
+      // ============================================
+      // CONTRAST AND READABILITY
+      // ============================================
       {
         id: 'B4.1-1-3',
         text: 'Is your website text easy to read with good contrast between text and background?',
-        helpText: 'Good colour contrast makes text easier to read. Text should clearly stand out from the background, for example dark text on a light background, or light text on a dark background. Text that blends into the background, uses very light colours, or sits on busy images can be hard to read.\n\nIf you need to strain your eyes, zoom in, or adjust your screen to read the text comfortably, or if you cannot easily scan the page, the contrast may not be strong enough.',
+        helpText: 'Good contrast means text clearly stands out from its background. Dark text on light backgrounds (or vice versa) is easier to read than low-contrast combinations like light grey on white.\n\nTo check: Look at your website and notice if any text is hard to read, especially smaller text, text on images, or text in headers and footers. If you need to squint or lean closer, contrast may be too low.',
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
-        allowPartial: true, // Some pages may have good contrast, others not
+        allowPartial: true,
+        partialPlaceholder: "E.g., 'Main text is fine but footer links are hard to read' or 'Text on hero images lacks contrast'",
+        helpContent: {
+          summary: 'Good contrast helps everyone read your content, especially people with low vision or in bright environments.',
+          tips: [
+            'Body text should have a contrast ratio of at least 4.5:1',
+            'Large headings can have slightly lower contrast (3:1 minimum)',
+            'Avoid light grey text, especially on white or light backgrounds',
+            'Be careful with text over images - it often fails contrast requirements',
+            'Commonly missed areas to check: footer text, placeholder text in forms, navigation links, button text, error messages, and captions',
+            'Also check: text on coloured backgrounds, links within paragraphs, and any "subtle" or "muted" design elements',
+          ],
+          learnMoreUrl: 'https://webaim.org/resources/contrastchecker/',
+          learnMoreText: 'Try a contrast checker tool',
+          learnMoreNote: 'This link opens the WebAIM Contrast Checker, a free online tool. To use it: enter the foreground colour (text) and background colour using the colour pickers or by entering hex codes (e.g., #333333). The tool will show if your combination passes accessibility standards. We are not affiliated with WebAIM - this is simply a helpful external resource.',
+        },
       },
       {
+        id: 'B4.1-1-3a',
+        text: 'Has your website contrast been formally measured or audited?',
+        helpText: 'While the contrast checker linked above helps test individual colours, a full contrast audit checks your entire website systematically. This is typically done during website development, as part of an accessibility audit, or when updating your site design.\n\nThis helps us understand if contrast has been verified objectively or is based on visual impression only.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'yes-recent', label: 'Yes, formally checked within the last year' },
+          { id: 'yes-older', label: 'Yes, but more than a year ago' },
+          { id: 'no-spot-checks', label: 'Only informal spot checks' },
+          { id: 'no', label: 'No, never formally measured' },
+        ],
+        showWhen: { questionId: 'B4.1-1-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+      },
+      {
+        id: 'B4.1-1-3b',
+        text: 'Are there areas where text sits on images or coloured backgrounds?',
+        helpText: 'Text over images or gradient backgrounds often has contrast problems because the background varies. These areas are common sources of readability issues.',
+        type: 'single-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'yes-hero', label: 'Yes, in hero banners or headers' },
+          { id: 'yes-throughout', label: 'Yes, throughout the site' },
+          { id: 'minimal', label: 'Minimal or none' },
+          { id: 'not-sure', label: 'Not sure' },
+        ],
+        showWhen: { questionId: 'B4.1-1-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+      },
+      // ============================================
+      // TEXT RESIZING
+      // ============================================
+      {
         id: 'B4.1-1-4',
-        text: 'Can users resize text up to 400% without losing content or functionality?',
-        helpText: 'Text resizing allows users to increase the size of text without breaking the page. When text is increased, content should remain visible and usable. Text should not overlap, disappear, be cut off, or require sideways scrolling to read. Buttons, menus, and forms should still work as expected.\n\nYou can usually test this by zooming your browser or increasing text size and checking whether the page still works smoothly.',
+        text: 'Can users resize text or zoom the page without losing content or functionality?',
+        helpText: 'Many people zoom their browser or increase text size to read more comfortably. When zoomed, your website should still work properly.\n\nTo test: Press Ctrl/Cmd and + to zoom to 200%, then try using your site. Check that text does not overlap, content is not cut off, and you can still navigate and complete tasks. Also try zooming to 400% - this tests extreme cases that matter for people with significant vision impairments.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Works at 200% but breaks at higher zoom' or 'Content readable but navigation menu gets cut off'",
+        helpContent: {
+          summary: 'Text resizing and zoom allows people with low vision to read your content comfortably. About 1 in 6 Australians have some form of vision impairment.',
+          tips: [
+            'How to test: Press Ctrl and + (Windows) or Cmd and + (Mac) to zoom in. Press Ctrl/Cmd and 0 to reset.',
+            'Test at 200% zoom as a minimum - this level is required by accessibility standards (WCAG)',
+            'At 200% zoom: All content should still be visible without horizontal scrolling. Menus should still work. Text should not overlap or get cut off.',
+            'At 400% zoom: The layout may become single-column, which is expected. The key is that all content remains accessible and usable.',
+            'Common issues: Navigation menus disappearing or overlapping, text running off the screen, buttons becoming unreachable, fixed headers covering content',
+            'Good zoom behaviour: Text reflows to fit the screen width, navigation adapts (hamburger menu is fine), all interactive elements remain usable',
+          ],
+        },
       },
+      {
+        id: 'B4.1-1-4a',
+        text: 'What issues have you noticed when zooming?',
+        helpText: 'Select all the issues you have observed. This helps prioritise fixes based on how they affect usability.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'text-overlap', label: 'Text overlaps or runs together' },
+          { id: 'content-cut-off', label: 'Content is cut off or hidden' },
+          { id: 'horizontal-scroll', label: 'Need to scroll sideways to read' },
+          { id: 'nav-hidden', label: 'Navigation menu disappears or is inaccessible' },
+          { id: 'buttons-unreachable', label: 'Buttons or links become hard to reach' },
+          { id: 'forms-broken', label: 'Forms become difficult to use' },
+          { id: 'not-sure-specifics', label: 'Issues exist but not sure of specifics' },
+        ],
+        showWhen: { questionId: 'B4.1-1-4', answers: ['no', 'partially'] },
+        helpContent: {
+          summary: 'Understanding specific zoom issues helps identify the right fixes.',
+          tips: [
+            'Text overlap: Usually a CSS issue where text containers have fixed widths',
+            'Content cut off: Often caused by overflow:hidden or fixed-height containers',
+            'Horizontal scrolling: Layout is not responsive - uses fixed pixel widths instead of percentages',
+            'Navigation issues: Menu may need a mobile-style hamburger menu at high zoom levels',
+            'Buttons unreachable: May be positioned off-screen or covered by other elements',
+          ],
+        },
+      },
+      // ============================================
+      // MOBILE USABILITY
+      // ============================================
       {
         id: 'B4.1-1-5',
         text: 'Does your website work well on mobile devices?',
-        helpText: 'A website that works well on mobile is easy to use on a phone or tablet, not just on a desktop computer.\n\nOn mobile devices, text should be readable without zooming, buttons and links should be easy to tap, and content should fit the screen without needing to scroll sideways. Menus, forms, and key features should still work smoothly.\n\nYou can check this by opening your website on a phone and trying to complete common tasks, such as finding information, using the menu, or submitting a form.',
+        helpText: 'Many customers, especially in the visitor economy, access websites primarily on mobile devices. A site that works well on mobile has readable text without zooming, easy-to-tap buttons, content that fits the screen, and menus that work smoothly.\n\nTo test: Open your website on a mobile phone and try to find key information, use the menu, and complete a booking or enquiry.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Content reads well but menus are hard to use' or 'Works on iPhone but issues on Android'",
+        helpContent: {
+          summary: 'Mobile access is often the primary way customers find and interact with your business. Over 60% of website visits in tourism and hospitality come from mobile devices.',
+          tips: [
+            'Text should be readable without pinching to zoom - if visitors need to zoom, text is too small',
+            'Buttons and links should be large enough to tap easily (at least 44x44 pixels)',
+            'Content should not require horizontal scrolling - everything should fit the screen width',
+            'Forms should be easy to complete with a mobile keyboard - use appropriate input types for email, phone, etc.',
+            'Images should be responsive - they should resize to fit the screen without overflowing or becoming tiny',
+            'Large images should load appropriately sized versions on mobile to avoid slow loading and data usage',
+            'Check that image galleries and carousels work with swipe gestures',
+            'Test on both portrait and landscape orientations - content should work in both',
+          ],
+        },
       },
-      // Media Analysis Questions
+      {
+        id: 'B4.1-1-5a',
+        text: 'What have you tested on mobile devices?',
+        helpText: 'Different tasks may work differently on mobile. Knowing what has been tested helps identify potential gaps.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'reading', label: 'Reading content and information' },
+          { id: 'menus', label: 'Using navigation menus' },
+          { id: 'forms', label: 'Completing forms or bookings' },
+          { id: 'accessibility-info', label: 'Finding accessibility information' },
+          { id: 'not-tested', label: 'Have not specifically tested on mobile' },
+        ],
+        showWhen: { questionId: 'B4.1-1-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+      },
+      {
+        id: 'B4.1-1-5b',
+        text: 'Which device types have been used to test your website?',
+        helpText: 'Different devices can behave differently. Testing on both major platforms helps ensure broad compatibility.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'low',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'iphone', label: 'iPhone' },
+          { id: 'android', label: 'Android phone' },
+          { id: 'ipad', label: 'iPad or tablet' },
+          { id: 'not-tested', label: 'Not specifically tested' },
+        ],
+        showWhen: { questionId: 'B4.1-1-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+      },
+      {
+        id: 'B4.1-1-5c',
+        text: 'Are buttons and links easy to tap on mobile without accidentally hitting the wrong thing?',
+        helpText: 'Touch targets that are too small or too close together cause frustration and errors. This is especially important for people with motor impairments or larger fingers.\n\nTo check: Try tapping various buttons, links, and menu items on a phone. Do you ever miss or hit the wrong thing?',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Main buttons fine but footer links too small' or 'Easy on most pages but filter buttons are cramped'",
+        helpContent: {
+          summary: 'Adequate touch target size prevents frustration and errors for all mobile users.',
+          tips: [
+            'Touch targets should be at least 44x44 pixels (about 9mm)',
+            'Leave enough space between targets to prevent accidental taps',
+            'Common problem areas: footer links, navigation items, form fields',
+            'Test with your thumb, not just your fingertip',
+          ],
+        },
+        showWhen: { questionId: 'B4.1-1-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+      },
+      // ============================================
+      // VIDEO AND AUDIO CONTENT
+      // ============================================
+      {
+        id: 'B4.1-1-6',
+        text: 'Does your website include video or audio content?',
+        helpText: 'This includes promotional videos, virtual tours, instructional content, podcasts, or any embedded media with sound or moving images.\n\nSelect "Yes" if you have any video or audio content on your website, even if it is just one video.',
+        type: 'single-select',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        options: [
+          { id: 'yes', label: 'Yes, we have video or audio content' },
+          { id: 'no', label: 'No video or audio content' },
+          { id: 'not-sure', label: 'Not sure' },
+        ],
+      },
+      {
+        id: 'B4.1-1-6a',
+        text: 'Do your videos have captions?',
+        helpText: 'Captions are text versions of spoken content that appear on screen. They help people who are deaf or hard of hearing, people in noisy environments, and anyone who prefers to read along.\n\nAuto-generated captions (like YouTube\'s automatic captions) are better than nothing but often contain errors, especially with names, technical terms, or accents.',
+        type: 'single-select',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'yes-accurate', label: 'Yes, accurate captions (human-created or corrected)' },
+          { id: 'yes-auto', label: 'Yes, but auto-generated only' },
+          { id: 'some', label: 'Some videos have captions, others do not' },
+          { id: 'no', label: 'No captions' },
+          { id: 'not-sure', label: 'Not sure' },
+        ],
+        showWhen: { questionId: 'B4.1-1-6', answers: ['yes'] },
+      },
+      {
+        id: 'B4.1-1-6b',
+        text: 'Is there a text alternative for video content (such as a transcript or written summary)?',
+        helpText: 'Transcripts provide a complete text version of video content, including both speech and important visual information. They help people who cannot watch video, prefer reading, or want to search the content.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Main promotional video has transcript but tour videos don't' or 'Written summaries but not full transcripts'",
+        showWhen: { questionId: 'B4.1-1-6', answers: ['yes'] },
+      },
+      // ============================================
+      // LINK TEXT QUALITY
+      // ============================================
+      {
+        id: 'B4.1-1-7',
+        text: 'Do links on your website clearly describe where they go?',
+        helpText: 'Screen reader users often navigate by jumping between links. Links that say "click here", "read more", or "learn more" do not make sense out of context.\n\nTo check: Scan your pages for link text. Would someone understand where each link goes without reading the surrounding text?\n\nGood: "View our accessibility information" or "Book a tour"\nPoor: "Click here" or "Read more"',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Main navigation is clear but blog posts use generic Read more links' or 'Most links good but some Click here remain'",
+        helpContent: {
+          summary: 'Clear link text helps everyone understand navigation, especially screen reader users who often navigate by tabbing through links.',
+          tips: [
+            'Good examples: "View our accessibility guide", "Book a table", "Download menu (PDF)", "Contact our team"',
+            'Poor examples: "Click here", "Read more", "Learn more", "Here", "This page"',
+            'Each link should make sense on its own, without needing to read surrounding text',
+            'Screen reader users often pull up a list of all links on a page - imagine hearing "click here, click here, click here, read more, read more"',
+            'If linking to a file, include the format: "Annual report (PDF, 2MB)" is better than just "Annual report"',
+            'Links to external sites can indicate this: "Tourism Australia (opens in new tab)"',
+          ],
+          examples: [
+            { type: 'good', caption: '"Book an accessible room" - Clear destination, includes context' },
+            { type: 'good', caption: '"View our accessibility statement" - Specific and meaningful' },
+            { type: 'poor', caption: '"Click here to book" - Generic, "here" has no meaning' },
+            { type: 'poor', caption: '"Read more" (repeated 5 times on page) - Ambiguous and repetitive' },
+          ],
+        },
+      },
+      // ============================================
+      // SCREEN READER TESTING
+      // ============================================
+      {
+        id: 'B4.1-1-8',
+        text: 'Has your website been tested with a screen reader?',
+        helpText: 'Screen readers are software that reads website content aloud for people who are blind or have low vision. Testing with a screen reader reveals issues that visual checks cannot catch, such as missing labels, confusing navigation order, or unclear content structure.\n\nThis is one of the most valuable accessibility tests, but it requires some learning. We provide guidance below if you would like to try it.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'yes-regular', label: 'Yes, we test regularly' },
+          { id: 'yes-once', label: 'Yes, we have tested at least once' },
+          { id: 'no-will-try', label: 'No, but we would like to try' },
+          { id: 'no-too-complex', label: 'No, this feels too technical for us right now' },
+        ],
+        helpContent: {
+          summary: 'Screen reader testing reveals how your site works for people who cannot see the screen. This is one of the most valuable accessibility tests because it catches issues that visual checks miss.',
+          tips: [
+            'What is a screen reader? Software that reads website content aloud. It announces text, describes images (using alt text), and reads out form labels and buttons.',
+            'Free screen readers: NVDA (free download for Windows), VoiceOver (built into Mac, iPhone, iPad), TalkBack (built into Android phones)',
+            'Start simple: Try just your homepage first. Listen to how the page is announced. Can you understand what the page is about? Can you find the main navigation?',
+            'Key things to listen for: Are headings announced in logical order? Do images have descriptions? Are form fields announced with their labels? Can you tell what buttons do?',
+            'Common issues discovered: Missing alt text on images (announced as "image" or "graphic"), form fields without labels (announced as "edit text" with no context), confusing heading structure, links that just say "click here"',
+            'Time expectation: A basic test of your homepage takes about 10-15 minutes. Testing your full booking flow might take 30-45 minutes.',
+          ],
+          examples: [
+            { type: 'info', caption: 'VoiceOver (Mac): Press Cmd+F5 to turn on/off. Use Tab to move between elements.' },
+            { type: 'info', caption: 'NVDA (Windows): Free download from nvaccess.org. Press Insert+Q to quit.' },
+            { type: 'info', caption: 'iPhone/iPad: Go to Settings > Accessibility > VoiceOver to enable. Triple-click home/side button to toggle.' },
+          ],
+        },
+      },
+      {
+        id: 'B4.1-1-8a',
+        text: 'Would you like guidance on how to do a basic screen reader test?',
+        helpText: 'We can provide step-by-step instructions for testing your website with a free screen reader. This typically takes 15-30 minutes for a basic check.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'low',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'yes-guide', label: 'Yes, send me a guide' },
+          { id: 'yes-later', label: 'Maybe later' },
+          { id: 'no-thanks', label: 'No thanks' },
+        ],
+        showWhen: { questionId: 'B4.1-1-8', answers: ['no-will-try'] },
+      },
+      {
+        id: 'B4.1-1-8b',
+        text: 'Would you like Access Compass to conduct a professional screen reader review of your website?',
+        helpText: 'Our accessibility specialists can test your website using screen readers and other assistive technologies, providing a detailed report of issues found and prioritised recommendations.\n\nThis is available as an add-on service for organisations that want expert testing without building internal capability.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'yes-interested', label: 'Yes, I would like to know more' },
+          { id: 'maybe-later', label: 'Not right now, but maybe in the future' },
+          { id: 'no-thanks', label: 'No thanks' },
+        ],
+        showWhen: { questionId: 'B4.1-1-8', answers: ['no-too-complex'] },
+      },
+      // ============================================
+      // AUTOMATED ANALYSIS (Deep Dive)
+      // ============================================
       {
         id: 'B4.1-MA-1',
-        text: 'Enter your website URL for accessibility analysis',
-        helpText: 'We can perform an automated accessibility audit of your website using industry-standard tools (WAVE integration coming soon). This checks for WCAG 2.1 compliance including contrast, structure, labels, and more.',
+        text: 'Would you like an automated accessibility check of your website?',
+        helpText: 'Automated tools can scan your website and identify many common accessibility issues quickly, giving you a concrete starting point for improvements.\n\nThis check analyses up to 3 pages of your website for issues like missing alt text, poor contrast, heading structure problems, missing form labels, and other technical accessibility issues.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         mediaAnalysisType: 'website-wave',
-        mediaAnalysisHint: 'Enter your website URL (e.g., https://yourbusiness.com.au) for an automated accessibility check against WCAG 2.1 guidelines.',
+        mediaAnalysisHint: 'Enter your website homepage URL (e.g., https://yourbusiness.com.au). We will check up to 3 key pages.',
+        helpContent: {
+          summary: 'Automated accessibility checking provides a quick snapshot of technical accessibility issues on your website.',
+          tips: [
+            'What gets checked: This scan analyses up to 3 pages - typically your homepage, a key content page, and a booking or contact page',
+            'What it finds: Missing alt text, colour contrast issues, heading structure problems, missing form labels, empty links, and other code-level issues',
+            'What it cannot find: Whether alt text is actually meaningful, if content makes sense, whether the site is usable with a keyboard, or how the experience feels for real users',
+            'Accuracy note: Automated tools catch about 30-40% of accessibility issues. They are excellent for finding obvious technical problems but cannot replace human testing',
+            'Results are indicative: Some issues flagged may be false positives, and some real issues may be missed. Use results as a guide, not a complete audit',
+            'Good for: Getting started, identifying quick wins, tracking progress over time, communicating issues to developers',
+          ],
+        },
+      },
+      {
+        id: 'B4.1-MA-2',
+        text: 'Would you like a professional digital accessibility audit?',
+        helpText: 'Automated tools are a great starting point, but they only catch about 30-40% of accessibility issues. A professional audit provides comprehensive human testing that automated tools cannot replicate.\n\nOur accessibility specialists test your website using screen readers, keyboard navigation, and other assistive technologies. We review your key user journeys, identify barriers that affect real users, and provide prioritised recommendations with clear guidance on how to fix issues.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'yes-interested', label: 'Yes, I would like to learn more' },
+          { id: 'yes-quote', label: 'Yes, please send me a quote' },
+          { id: 'maybe-later', label: 'Not right now, but maybe in the future' },
+          { id: 'no-thanks', label: 'No thanks' },
+        ],
+        helpContent: {
+          summary: 'A professional audit goes beyond automated checking to test how real users with disabilities experience your website.',
+          tips: [
+            'What is included: Screen reader testing, keyboard navigation testing, review of key user journeys (e.g., finding information, making a booking), colour and contrast verification, form usability testing',
+            'What you receive: A detailed report of issues found, prioritised by impact and effort to fix, with clear explanations and recommendations',
+            'Why human testing matters: Automated tools cannot assess whether content makes sense, whether navigation is logical, or whether the experience is frustrating - only human testers can evaluate these',
+            'Typical turnaround: 5-10 business days depending on website size and complexity',
+            'Who conducts the audit: Accessibility specialists with experience in assistive technology and WCAG guidelines',
+          ],
+        },
       },
     ],
   },
@@ -750,6 +1204,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'There is a general notes field but nothing specifically for accessibility' or 'We can receive requests but no dedicated prompt'",
       },
       {
         id: 'B4.2-1-2',
@@ -759,6 +1214,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some errors are explained but others just say \"invalid\"' or 'Messages appear but position is not always clear'",
       },
     ],
   },
@@ -783,6 +1239,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Main promotional videos have captions but social media clips do not' or 'Auto-captions only, not reviewed for accuracy'",
       },
       {
         id: 'B4.3-1-2',
@@ -792,6 +1249,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'We add alt text on Instagram but not on Facebook' or 'Important posts have descriptions but not all'",
       },
       {
         id: 'B4.3-1-3',
@@ -801,6 +1259,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'YouTube embeds are accessible but our custom player has issues' or 'Controls work with mouse but not keyboard'",
       },
       // Media Analysis Questions
       {
@@ -853,6 +1312,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'We have one but it may not meet current width standards' or 'Spaces exist nearby in a shared car park'",
       },
       {
         id: 'A1-F-2',
@@ -862,6 +1322,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Close to an entrance but not the main one' or 'Closer spaces exist but are not designated accessible'",
       },
       {
         id: 'A1-F-3',
@@ -871,6 +1332,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Drop-off possible but not clearly marked or designated' or 'Kerbside drop-off but path to entrance is not ideal'",
       },
       {
         id: 'A1-F-4',
@@ -880,6 +1342,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Mostly smooth but one section has uneven pavers' or 'Level but surface is gravel rather than concrete'",
       },
       {
         id: 'A1-F-5',
@@ -889,6 +1352,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Wide enough in most areas but narrower near bins or signage' or 'Wide but sometimes blocked by outdoor furniture'",
       },
       {
         id: 'A1-F-6',
@@ -898,6 +1362,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Signage exists but is small or hard to see from the road' or 'Clearly marked in car park but not on approach'",
       },
       {
         id: 'A1-F-7',
@@ -907,6 +1372,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some staff know but not all, especially casual staff' or 'Front desk staff know but phone staff may not'",
       },
       {
         id: 'A1-F-8',
@@ -916,6 +1382,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Main areas lit but path to entrance has dark spots' or 'Street lighting only, no dedicated car park lights'",
       },
       // Deep Dive Questions
       {
@@ -926,6 +1393,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Usually available but blocked during deliveries' or 'Available most times but full during major events'",
       },
       {
         id: 'A1-D-10',
@@ -935,6 +1403,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Covered near the entrance but not the whole path' or 'Some shade from trees but no awning'",
       },
       {
         id: 'A1-D-11',
@@ -944,6 +1413,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Bench near the entrance but not along the path' or 'Seating available but not at regular intervals'",
       },
       {
         id: 'A1-D-12',
@@ -953,6 +1423,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Firm surface but can be slippery when wet' or 'Mostly sealed but some gravel patches'",
       },
       {
         id: 'A1-D-13',
@@ -965,6 +1436,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo of your accessible parking signage and ground markings',
+        partialPlaceholder: "E.g., 'Ground markings present but sign is faded' or 'Vertical sign but no ground markings'",
       },
       {
         id: 'A1-D-14',
@@ -977,6 +1449,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload or link to your parking policy document',
+        partialPlaceholder: "E.g., 'Informal approach but not documented' or 'Staff address it when noticed but no formal policy'",
       },
       {
         id: 'A1-D-15',
@@ -986,6 +1459,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Mentioned in FAQs but not on main contact page' or 'States parking available but no accessibility details'",
       },
       {
         id: 'A1-D-16',
@@ -995,6 +1469,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Lit near entrance but middle section is darker' or 'Path edges not always visible at night'",
       },
     ],
   },
@@ -1023,6 +1498,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo of your main entrance showing step-free access',
+        partialPlaceholder: "E.g., 'Flat entrance but has a raised threshold' or 'Ramp available but not at the main entrance'",
       },
       {
         id: 'A2-F-2',
@@ -1032,6 +1508,7 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Main door is wide but inner vestibule door is narrower' or 'One leaf is 850mm but both don't open easily'",
       },
       {
         id: 'A2-F-3',
@@ -1041,6 +1518,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Lever handles but door is heavy to push' or 'Automatic but button is hard to reach'",
       },
       {
         id: 'A2-F-4',
@@ -1050,6 +1528,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Visible from street but not from car park' or 'Signage exists but is small or unclear'",
       },
       {
         id: 'A2-F-5',
@@ -1059,6 +1538,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Sign exists but is easy to miss' or 'Directions given if asked but no permanent signage'",
       },
       {
         id: 'A2-F-6',
@@ -1068,6 +1548,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Reception staff trained but not all team members' or 'Staff willing to help but unsure of best approach'",
       },
       {
         id: 'A2-F-7',
@@ -1077,6 +1558,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Well-lit during business hours but dim at night' or 'Main door lit but approach path is darker'",
       },
       {
         id: 'A2-F-8',
@@ -1086,6 +1568,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'TGSIs at main entrance but not alternative entrance' or 'Warning indicators at steps but no directional guidance'",
       },
       // Deep Dive Questions
       {
@@ -1099,6 +1582,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo of your entrance ramp showing handrails',
+        partialPlaceholder: "E.g., 'Handrail on one side only' or 'Handrails exist but may not meet current height requirements'",
       },
       {
         id: 'A2-D-10',
@@ -1109,6 +1593,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         measurementUnit: 'mm',
+        partialPlaceholder: "E.g., 'Approximately 800mm - close but may not meet minimum' or 'Haven't measured precisely'",
       },
       {
         id: 'A2-D-11',
@@ -1118,6 +1603,7 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Main door handle OK but automatic button is too high' or 'Haven't measured precisely'",
       },
       {
         id: 'A2-D-12',
@@ -1127,6 +1613,7 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Level space exists but may be smaller than 1500mm' or 'Landing present but has a slight slope'",
       },
       {
         id: 'A2-D-13',
@@ -1136,6 +1623,7 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Small lip present, unsure if under 13mm' or 'Level but mat creates a bump'",
       },
       {
         id: 'A2-D-14',
@@ -1148,6 +1636,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo showing contrast markings on your glass doors',
+        partialPlaceholder: "E.g., 'Logo on door but may not provide enough contrast' or 'Some glass marked but not all panels'",
       },
       {
         id: 'A2-D-15',
@@ -1157,6 +1646,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Clear most times but congested at opening or events' or 'Queue occasionally blocks the path'",
       },
       {
         id: 'A2-D-16',
@@ -1166,6 +1656,7 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Intercom present but height not measured' or 'Slightly higher than ideal but reachable'",
       },
       {
         id: 'A2-D-17',
@@ -1175,6 +1666,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Adequate timing but can be rushed during peak times' or 'Sensors sometimes miss slower walkers'",
       },
       {
         id: 'A2-D-18',
@@ -1184,6 +1676,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Mat is mostly flat but edges sometimes curl' or 'Recessed mat well but grate has wide gaps'",
       },
       // Media Analysis Questions
       {
@@ -1243,6 +1736,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Main aisles are wide but some areas narrow near displays' or 'Most paths OK but one bottleneck exists'",
       },
       {
         id: 'A3a-1-2',
@@ -1252,6 +1746,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Usually clear but displays sometimes encroach' or 'Paths clear but cables across floor in some areas'",
       },
       {
         id: 'A3a-1-3',
@@ -1261,6 +1756,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Lift available but doesn't reach all floors' or 'Ramp exists but is steep or around the back'",
       },
       {
         id: 'A3a-1-4',
@@ -1270,6 +1766,7 @@ export const accessModules: AccessModule[] = [
         category: 'lived-experience',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Main areas accessible but would need help in some sections' or 'Mostly independent but staff assistance needed for one area'",
       },
       // Media Analysis Questions
       {
@@ -1317,6 +1814,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Some seating nearby but not directly in queue area' or 'Seats available but limited number'",
       },
       {
         id: 'A3b-1-2',
@@ -1326,6 +1824,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Staff accommodate when asked but no formal process' or 'Available for some services but not all'",
       },
       {
         id: 'A3b-1-3',
@@ -1335,6 +1834,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some staff trained but approach varies' or 'Willing to help but unsure of best approach'",
       },
     ],
   },
@@ -1363,6 +1863,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Variety in main area but not in waiting zone' or 'Some chairs have arms but heights are all standard'",
       },
       {
         id: 'A4-1-2',
@@ -1372,6 +1873,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Space available in some areas but not all' or 'Furniture can be moved but space is tight'",
       },
       {
         id: 'A4-1-3',
@@ -1381,6 +1883,7 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some tables are accessible but main counter is high' or 'Staff can serve at table but no low counter section'",
       },
       {
         id: 'A4-1-4',
@@ -1390,6 +1893,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some furniture is fixed but chairs can move' or 'Staff can rearrange but requires effort'",
       },
     ],
   },
@@ -1430,6 +1934,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-1-1', answers: ['no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'Some staff know but not all' or 'Know the general location but not sure of access features'",
       },
       {
         id: 'A5-1-3',
@@ -1443,6 +1948,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo of your accessible toilet signage',
+        partialPlaceholder: "E.g., 'Sign on door but not visible from main area' or 'Small sign that can be missed'",
       },
       {
         id: 'A5-1-4',
@@ -1453,6 +1959,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-1-1', answers: ['yes', 'yes-offsite'] },
+        partialPlaceholder: "E.g., 'Usually clear but sometimes has cleaning supplies stored' or 'Clear but bin takes up floor space'",
       },
       {
         id: 'A5-1-5',
@@ -1464,6 +1971,7 @@ export const accessModules: AccessModule[] = [
         safetyRelated: true,
         reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-1-1', answers: ['yes', 'yes-offsite'] },
+        partialPlaceholder: "E.g., 'Alarm exists but not sure if it's connected or monitored' or 'Cord present but may not reach floor level'",
       },
     ],
   },
@@ -1488,6 +1996,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Good in main areas but darker corners exist' or 'Varies throughout the day with natural light'",
       },
       {
         id: 'A6-1-2',
@@ -1497,6 +2006,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Quieter areas exist but not designated' or 'Staff can offer a space on request but not always available'",
       },
       {
         id: 'A6-1-3',
@@ -1506,6 +2016,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Usually fine but noisy at peak times' or 'OK in main area but acoustics echo in some spaces'",
       },
       {
         id: 'A6-1-4',
@@ -1516,6 +2027,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         safetyRelated: true,
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Occasional alarms but warnings given' or 'Some flashing elements during events only'",
       },
       {
         id: 'A6-1-5',
@@ -1525,6 +2037,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Air con available but can be uneven' or 'Comfortable most times but affected by weather extremes'",
       },
       {
         id: 'A6-1-6',
@@ -1534,6 +2047,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Have some items but not a formal kit' or 'Available on request but not advertised'",
       },
       {
         id: 'A6-1-7',
@@ -1813,6 +2327,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload photos of your wayfinding signage',
+        partialPlaceholder: "E.g., 'Main signs are clear but some older signs have poor contrast' or 'Good font sizes but decorative styling on some'",
       },
       {
         id: 'B2-1-2',
@@ -1822,6 +2337,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Consistent in main building but varied in annex' or 'Heights OK but locations not always at decision points'",
       },
       {
         id: 'B2-1-3',
@@ -1831,6 +2347,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Toilets signed but lift signage is unclear' or 'Signed on the facility but not from main areas'",
       },
       {
         id: 'B2-1-4',
@@ -1840,6 +2357,7 @@ export const accessModules: AccessModule[] = [
         category: 'lived-experience',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Main areas fine but back sections confusing' or 'Navigation OK for ground floor but upper levels less clear'",
       },
       // Media Analysis Questions
       {
@@ -1879,6 +2397,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['photo', 'document'],
         evidenceHint: 'Upload examples of your large print materials (menus, brochures, guides)',
+        partialPlaceholder: "E.g., 'Large print menu available but not brochures' or 'Can enlarge on request but no pre-made versions'",
       },
       {
         id: 'B3-1-2',
@@ -1888,6 +2407,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Staff willing but not all have been briefed on this' or 'Can do when asked but don't proactively offer'",
       },
       {
         id: 'B3-1-3',
@@ -1897,6 +2417,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'QR code available but links to PDF that's hard to read on mobile' or 'Online menu exists but not accessible'",
       },
       {
         id: 'B3-1-4',
@@ -1981,6 +2502,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload training materials or certificates, or link to your training program',
+        partialPlaceholder: "E.g., 'Some staff trained but not all' or 'Covered in onboarding but no ongoing refreshers'",
       },
       {
         id: 'C1-F-1b',
@@ -2006,6 +2528,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Know to allow entry but unsure of best practices' or 'Some staff trained but not consistent across team'",
       },
       {
         id: 'C1-F-3',
@@ -2015,6 +2538,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Confident with some situations but unsure in others' or 'Willing but express uncertainty about best approach'",
       },
       {
         id: 'C1-F-4',
@@ -2024,6 +2548,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Can contact us but no dedicated process' or 'Booking form allows notes but not accessibility-specific'",
       },
       {
         id: 'C1-F-5',
@@ -2033,6 +2558,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Basic awareness but no formal training' or 'Some strategies known but not practiced'",
       },
       {
         id: 'C1-F-6',
@@ -2042,6 +2568,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Know main facilities but not all' or 'Front-of-house staff know but not all team members'",
       },
       {
         id: 'C1-F-7',
@@ -2054,6 +2581,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload your feedback or complaints process document',
+        partialPlaceholder: "E.g., 'General complaints process but not accessibility-specific' or 'Handled ad-hoc rather than formal process'",
       },
       // Deep Dive Questions
       {
@@ -2064,6 +2592,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Discussed informally but not formally trained' or 'Good intentions but approach varies'",
       },
       {
         id: 'C1-D-10',
@@ -2073,6 +2602,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Some awareness but not all staff confident' or 'Know basics but not all strategies'",
       },
       {
         id: 'C1-D-11',
@@ -2082,6 +2612,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Available if staff think to offer it' or 'Somewhere on site but not immediately accessible'",
       },
       {
         id: 'C1-D-12',
@@ -2091,6 +2622,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Patient and willing but not specifically trained' or 'Some staff more confident than others'",
       },
       {
         id: 'C1-D-13',
@@ -2100,6 +2632,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Could use an office or back area if needed' or 'Quieter spot available but not designated'",
       },
       {
         id: 'C1-D-14',
@@ -2112,6 +2645,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload your customer accessibility policy or provide a link',
+        partialPlaceholder: "E.g., 'Part of general customer service policy but not dedicated document' or 'Informal expectations but not documented'",
       },
       {
         id: 'C1-D-15',
@@ -2121,6 +2655,7 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Briefly mentioned but not comprehensive' or 'Included for some roles but not all'",
       },
       {
         id: 'C1-D-16',
@@ -2131,6 +2666,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         safetyRelated: true,
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'General evacuation training but not disability-specific' or 'Some staff trained but not consistent'",
       },
       {
         id: 'C1-D-17',
@@ -2140,6 +2676,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Know what's available but not always how to use it' or 'Front desk staff aware but not all team'",
       },
       {
         id: 'C1-D-18',
@@ -2149,6 +2686,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Some items available but limited selection' or 'Available on request but not advertised'",
       },
       {
         id: 'C1-D-18b',
@@ -2175,6 +2713,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Welcome but no specific provisions or discounts' or 'Allowed but seating together can be limited'",
       },
       {
         id: 'C1-D-20',
@@ -2184,6 +2723,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Staff can help but no formal process' or 'Can provide on request but may take time'",
       },
     ],
   },
@@ -2208,6 +2748,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Can modify with some restrictions or fees' or 'Depends on booking type or timing'",
       },
       {
         id: 'C2-1-2',
@@ -2217,6 +2758,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Main terminal is but not all locations' or 'Counter height may be borderline'",
       },
       {
         id: 'C2-1-3',
@@ -2226,6 +2768,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'We have portable terminals but not always available' or 'Can sometimes but depends on staffing'",
       },
       {
         id: 'C2-1-4',
@@ -2235,6 +2778,7 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Considered case by case but no formal policy' or 'Flexibility for some services but not all'",
       },
     ],
   },
@@ -2263,6 +2807,7 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload your emergency evacuation procedures document',
+        partialPlaceholder: "E.g., 'General awareness but not documented' or 'Plans exist but not recently reviewed'",
       },
       {
         id: 'A7-1-2',
@@ -2273,6 +2818,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         safetyRelated: true,
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Main exit is accessible but secondary exits have steps' or 'Requires staff assistance'",
       },
       {
         id: 'A7-1-3',
@@ -2283,6 +2829,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         safetyRelated: true,
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Audible alarm only, no visual alerts' or 'Visual in some areas but not all'",
       },
       {
         id: 'A7-1-4',
@@ -2293,6 +2840,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         safetyRelated: true,
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some staff trained but not all' or 'General awareness but no formal training'",
       },
     ],
   },
@@ -2317,6 +2865,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        partialPlaceholder: "E.g., 'General contact form but not specific to accessibility' or 'Can provide feedback in person but no formal process'",
       },
       {
         id: 'C3-F-2',
@@ -2357,6 +2906,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Review when received but no regular schedule' or 'Act on major issues but not systematically'",
       },
       {
         id: 'C3-D-1',
@@ -2396,6 +2946,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Keep notes but no formal tracking system' or 'Track major issues only'",
       },
     ],
   },
@@ -2436,6 +2987,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Can unsubscribe but limited format options' or 'Need to contact us to change preferences'",
       },
       {
         id: 'C4-F-3',
@@ -2477,6 +3029,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'SMS for some things like reminders' or 'Can request but not standard option'",
       },
       {
         id: 'C4-D-2',
@@ -2501,6 +3054,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Sometimes when relevant but not regularly' or 'Include in some communications but not all'",
       },
     ],
   },
@@ -2629,6 +3183,7 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Some materials are accessible but not all' or 'Considered informally but not documented in strategy'",
       },
       {
         id: 'P1-D-7',
@@ -2653,6 +3208,7 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Track informally but no formal reporting' or 'Report on some areas but not comprehensive'",
       },
     ],
   },
@@ -2724,6 +3280,7 @@ export const accessModules: AccessModule[] = [
         category: 'employment',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Handled case by case but no formal process' or 'Managers handle informally'",
       },
       {
         id: 'P2-D-2',
@@ -2733,6 +3290,7 @@ export const accessModules: AccessModule[] = [
         category: 'employment',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Know informally but no formal data collection' or 'Track adjustment requests only'",
       },
       {
         id: 'P2-D-3',
@@ -2742,6 +3300,7 @@ export const accessModules: AccessModule[] = [
         category: 'employment',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Some managers but not all' or 'Basic awareness but no specific manager training'",
       },
     ],
   },
@@ -2782,6 +3341,7 @@ export const accessModules: AccessModule[] = [
         category: 'training',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Brief mention but not comprehensive' or 'Covered verbally but not in formal onboarding'",
       },
       {
         id: 'P3-F-3',
@@ -2807,6 +3367,7 @@ export const accessModules: AccessModule[] = [
         category: 'training',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Occasional reminders but no regular schedule' or 'Only when issues arise'",
       },
       {
         id: 'P3-D-2',
@@ -2816,6 +3377,7 @@ export const accessModules: AccessModule[] = [
         category: 'training',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Once but not ongoing' or 'Some staff but not all'",
       },
       {
         id: 'P3-D-3',
@@ -2825,6 +3387,7 @@ export const accessModules: AccessModule[] = [
         category: 'training',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Some resources but not comprehensive' or 'Available but not well promoted'",
       },
     ],
   },
@@ -2880,6 +3443,7 @@ export const accessModules: AccessModule[] = [
         category: 'procurement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'For some purchases but not all' or 'Ask informally but not part of selection process'",
       },
       {
         id: 'P4-D-2',
@@ -2889,6 +3453,7 @@ export const accessModules: AccessModule[] = [
         category: 'procurement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Consider when relevant but not a standard factor' or 'Would prioritise but don't actively seek'",
       },
       {
         id: 'P4-D-3',
@@ -2898,6 +3463,7 @@ export const accessModules: AccessModule[] = [
         category: 'procurement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Basic review but no formal testing' or 'Verify major purchases only'",
       },
     ],
   },
@@ -2937,6 +3503,7 @@ export const accessModules: AccessModule[] = [
         category: 'improvement',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Informal goals but not documented' or 'Goals for some areas but not comprehensive'",
       },
       {
         id: 'P5-F-3',
@@ -2977,6 +3544,7 @@ export const accessModules: AccessModule[] = [
         category: 'improvement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Track some metrics informally' or 'Have data but not organized as KPIs'",
       },
       {
         id: 'P5-D-3',

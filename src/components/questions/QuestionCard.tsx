@@ -453,7 +453,7 @@ export function QuestionCard({
                 id="partial-description"
                 value={partialDescription}
                 onChange={(e) => setPartialDescription(e.target.value)}
-                placeholder="E.g., 'We have good contrast but font size is too small' or 'Some signs meet standards but not all'"
+                placeholder={question.partialPlaceholder || "Describe what's working and what still needs attention..."}
                 rows={3}
               />
             </div>
