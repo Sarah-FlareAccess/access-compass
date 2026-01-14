@@ -24,8 +24,11 @@ export type EntitlementScope = 'user' | 'org';
 /** Purchase status */
 export type PurchaseStatus = 'pending' | 'completed' | 'refunded' | 'cancelled';
 
-/** Organisation member role */
-export type OrgRole = 'admin' | 'member';
+/** Organisation member role - hierarchical */
+export type OrgRole = 'owner' | 'admin' | 'approver' | 'editor' | 'member' | 'viewer';
+
+/** Membership status for approval workflow */
+export type MembershipStatus = 'pending' | 'active' | 'suspended' | 'rejected';
 
 /** How the entitlement was granted */
 export type EntitlementSource = 'purchase' | 'admin' | 'trial' | 'enterprise' | 'pilot' | 'sponsorship';
@@ -39,6 +42,7 @@ export interface Organisation {
   id: string;
   name: string;
   slug: string;
+  size?: BusinessSizeTier;
   allowed_email_domains?: string[];
   invite_code?: string;
   allow_domain_auto_join: boolean;
@@ -48,6 +52,12 @@ export interface Organisation {
   notes?: string;
   created_at: string;
   updated_at: string;
+
+  // Security settings
+  require_approval?: boolean;
+  require_mfa?: boolean;
+  session_timeout_minutes?: number;
+  allowed_ip_ranges?: string[];
 }
 
 /** Organisation membership - links a user to an organisation */
@@ -55,13 +65,104 @@ export interface OrganisationMembership {
   id: string;
   organisation_id: string;
   user_id: string;
+  user_email?: string;
   role: OrgRole;
+  status: MembershipStatus;
   joined_at: string;
   invited_by?: string;
   invite_accepted_at?: string;
+  approved_by?: string;
+  approved_at?: string;
+  suspended_reason?: string;
+  suspended_at?: string;
+  suspended_by?: string;
   created_at: string;
   // Joined data (when fetched with organisation)
   organisation?: Organisation;
+}
+
+/** Invite code for organisation */
+export interface InviteCode {
+  id: string;
+  organisation_id: string;
+  code: string;
+  created_by: string;
+  expires_at?: string;
+  max_uses?: number;
+  times_used: number;
+  is_active: boolean;
+  allowed_email_domains?: string[];
+  allowed_roles: OrgRole[];
+  label?: string;
+  notes?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Audit action types */
+export type AuditAction =
+  | 'user_login'
+  | 'user_logout'
+  | 'user_signup'
+  | 'password_reset'
+  | 'mfa_enabled'
+  | 'mfa_disabled'
+  | 'org_created'
+  | 'org_updated'
+  | 'org_settings_changed'
+  | 'member_invited'
+  | 'member_joined'
+  | 'member_approved'
+  | 'member_rejected'
+  | 'member_suspended'
+  | 'member_reactivated'
+  | 'member_removed'
+  | 'member_role_changed'
+  | 'invite_created'
+  | 'invite_used'
+  | 'invite_revoked'
+  | 'invite_expired'
+  | 'module_started'
+  | 'module_completed'
+  | 'response_submitted'
+  | 'response_updated'
+  | 'evidence_uploaded'
+  | 'evidence_deleted'
+  | 'report_generated'
+  | 'report_exported'
+  | 'data_exported'
+  | 'data_deleted'
+  | 'access_denied'
+  | 'suspicious_activity'
+  | 'ip_blocked'
+  | 'rate_limit_exceeded';
+
+/** Audit log entry */
+export interface AuditLog {
+  id: string;
+  user_id?: string;
+  user_email?: string;
+  organisation_id?: string;
+  action: AuditAction;
+  resource_type?: string;
+  resource_id?: string;
+  details?: Record<string, unknown>;
+  previous_values?: Record<string, unknown>;
+  new_values?: Record<string, unknown>;
+  ip_address?: string;
+  user_agent?: string;
+  session_id?: string;
+  created_at: string;
+  expires_at?: string;
+}
+
+/** Organisation security settings */
+export interface OrgSecuritySettings {
+  require_approval: boolean;
+  require_mfa: boolean;
+  session_timeout_minutes: number;
+  has_ip_restrictions: boolean;
+  pending_member_count: number;
 }
 
 // ============================================

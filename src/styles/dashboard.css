@@ -134,6 +134,137 @@
 }
 
 /* ============================================
+   ORGANISATION INVITE CARD
+   ============================================ */
+.org-invite-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.org-invite-card {
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.04) 0%, rgba(73, 14, 103, 0.08) 100%);
+  border: 1px solid rgba(73, 14, 103, 0.15);
+  border-radius: 14px;
+  padding: var(--spacing-lg);
+}
+
+.org-invite-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.org-invite-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.org-invite-info {
+  flex: 1;
+}
+
+.org-invite-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond);
+  margin: 0 0 2px 0;
+}
+
+.org-invite-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.org-invite-code-wrapper {
+  background: white;
+  border-radius: 10px;
+  padding: var(--spacing-md);
+}
+
+.org-invite-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.org-invite-code-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(73, 14, 103, 0.04);
+  border: 2px dashed var(--amethyst-diamond);
+  border-radius: 8px;
+}
+
+.org-invite-code-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  color: var(--amethyst-diamond);
+  letter-spacing: 3px;
+}
+
+.org-invite-copy-btn {
+  padding: 8px 16px;
+  background: var(--amethyst-diamond);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 70px;
+}
+
+.org-invite-copy-btn:hover {
+  background: var(--amethyst-dark);
+}
+
+.org-invite-copy-btn.copied {
+  background: #22c55e;
+}
+
+.org-invite-hint {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: var(--spacing-sm) 0 0 0;
+  line-height: 1.4;
+}
+
+.org-admin-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(73, 14, 103, 0.08);
+  border: 1px solid rgba(73, 14, 103, 0.15);
+  border-radius: 8px;
+  color: var(--amethyst-diamond);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.org-admin-btn:hover {
+  background: rgba(73, 14, 103, 0.15);
+  border-color: var(--amethyst-diamond);
+}
+
+.org-admin-btn svg {
+  flex-shrink: 0;
+}
+
+/* ============================================
    PROGRESS CARD - HERO REGION (Warm & Elevated)
    ============================================ */
 .progress-section {
@@ -1350,6 +1481,26 @@
 
   .welcome-title {
     font-size: 1.5rem;
+  }
+
+  .org-invite-card {
+    padding: var(--spacing-md);
+  }
+
+  .org-invite-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .org-invite-code-box {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+  }
+
+  .org-invite-code-value {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
   }
 
   .progress-status-summary {

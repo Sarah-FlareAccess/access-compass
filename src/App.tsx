@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { SessionManager } from './components/SessionManager';
 import AppLayout from './components/AppLayout';
 import { RouteGuard } from './components/guards/RouteGuard';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -7,6 +8,7 @@ import { ScrollToTop } from './components/ScrollToTop';
 // Public pages
 import Landing from './pages/Landing';
 import Disclaimer from './pages/Disclaimer';
+import Login from './pages/Login';
 
 // Discovery flow (open to anonymous)
 import BusinessSnapshot from './pages/BusinessSnapshot';
@@ -40,9 +42,10 @@ import './styles/global.css';
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <ScrollToTop />
-        <Routes>
+      <SessionManager>
+        <Router>
+          <ScrollToTop />
+          <Routes>
           {/* Auth callback (handles OAuth redirects - no nav needed) */}
           <Route path="/auth/callback" element={<AuthCallback />} />
 
@@ -53,6 +56,7 @@ function App() {
             {/* Public pages */}
             <Route path="/" element={<Landing />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/login" element={<Login />} />
             {/* Business snapshot - captures org info */}
             <Route path="/start" element={<BusinessSnapshot />} />
 
@@ -149,8 +153,9 @@ function App() {
                 ============================================ */}
             <Route path="/test-supabase" element={<SupabaseTest />} />
           </Route>
-        </Routes>
-      </Router>
+          </Routes>
+        </Router>
+      </SessionManager>
     </AuthProvider>
   );
 }

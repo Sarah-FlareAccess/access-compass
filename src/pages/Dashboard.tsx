@@ -16,11 +16,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
+import { useAuth } from '../contexts/AuthContext';
 import { accessModules, moduleGroups, getModuleById } from '../data/accessModules';
 import type { AccessModule } from '../data/accessModules';
 import type { ModuleOwnership, ModuleRunContext, RunComparison } from '../hooks/useModuleProgress';
 import { ModuleRunSelector } from '../components/ModuleRunSelector';
 import { RunComparisonView } from '../components/RunComparisonView';
+import { OrgAdminPanel } from '../components/OrgAdminPanel';
 import '../styles/dashboard.css';
 
 type TabType = 'modules' | 'evidence';
@@ -50,9 +52,12 @@ interface ModuleGroupWithProgress {
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const { accessState } = useAuth();
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<TabType>('modules');
+  const [inviteCodeCopied, setInviteCodeCopied] = useState(false);
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
 
   // Get recommended modules from discovery, falling back to selected modules
   const recommendedModuleIds: string[] = useMemo(() => {
@@ -300,6 +305,20 @@ Thanks!`;
     }
   }, [generateEmailTemplate]);
 
+  // Copy invite code to clipboard
+  const handleCopyInviteCode = useCallback(async () => {
+    const inviteCode = accessState.organisation?.invite_code;
+    if (!inviteCode) return;
+
+    try {
+      await navigator.clipboard.writeText(inviteCode);
+      setInviteCodeCopied(true);
+      setTimeout(() => setInviteCodeCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy invite code:', err);
+    }
+  }, [accessState.organisation?.invite_code]);
+
   // Format date for display
   const formatDate = (dateString?: string) => {
     if (!dateString) return '';
@@ -330,6 +349,49 @@ Thanks!`;
             <h1 className="welcome-title">Welcome back, {orgName}</h1>
             <p className="welcome-subtitle">Continue your accessibility self-audit below.</p>
           </section>
+
+          {/* Organisation Invite Code Card */}
+          {accessState.organisation?.invite_code && (
+            <section className="org-invite-section">
+              <div className="org-invite-card">
+                <div className="org-invite-header">
+                  <span className="org-invite-icon">🏢</span>
+                  <div className="org-invite-info">
+                    <h3 className="org-invite-title">{accessState.organisation.name}</h3>
+                    <p className="org-invite-subtitle">Invite team members to join your organisation</p>
+                  </div>
+                  <button
+                    type="button"
+                    className="org-admin-btn"
+                    onClick={() => setShowAdminPanel(true)}
+                    title="Organisation Settings"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="3"/>
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                    Settings
+                  </button>
+                </div>
+                <div className="org-invite-code-wrapper">
+                  <span className="org-invite-label">Invite Code</span>
+                  <div className="org-invite-code-box">
+                    <span className="org-invite-code-value">{accessState.organisation.invite_code}</span>
+                    <button
+                      type="button"
+                      className={`org-invite-copy-btn ${inviteCodeCopied ? 'copied' : ''}`}
+                      onClick={handleCopyInviteCode}
+                    >
+                      {inviteCodeCopied ? 'Copied!' : 'Copy'}
+                    </button>
+                  </div>
+                  <p className="org-invite-hint">
+                    Share this code with team members so they can join your organisation when creating their account.
+                  </p>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Overall Progress Card */}
           <section className="progress-section">
@@ -784,6 +846,12 @@ Thanks!`;
           onClose={() => setComparisonView(null)}
         />
       )}
+
+      {/* Organisation Admin Panel */}
+      <OrgAdminPanel
+        isOpen={showAdminPanel}
+        onClose={() => setShowAdminPanel(false)}
+      />
     </div>
   );
 }

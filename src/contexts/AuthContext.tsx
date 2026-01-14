@@ -44,6 +44,16 @@ interface AuthContextValue {
   resetPassword: (email: string) => Promise<{ error: AuthError | null }>;
 
   // Organisation actions
+  createOrganisation: (data: {
+    name: string;
+    size: 'small' | 'medium' | 'large' | 'enterprise';
+    contactEmail: string;
+    contactName: string;
+  }) => Promise<{
+    error: string | null;
+    organisation?: Organisation;
+    inviteCode?: string;
+  }>;
   joinOrganisation: (inviteCode: string) => Promise<{
     error: string | null;
     organisation?: Organisation;
@@ -284,6 +294,70 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // ORGANISATION ACTIONS
   // ============================================
 
+  const createOrganisation = useCallback(
+    async (data: {
+      name: string;
+      size: 'small' | 'medium' | 'large' | 'enterprise';
+      contactEmail: string;
+      contactName: string;
+    }): Promise<{ error: string | null; organisation?: Organisation; inviteCode?: string }> => {
+      if (!supabase || !user) {
+        return { error: 'Not authenticated' };
+      }
+
+      console.log('[createOrganisation] Starting with data:', data);
+
+      try {
+        // Call RPC function to create org with admin
+        const { data: result, error: createError } = await supabase.rpc(
+          'create_organisation_with_admin',
+          {
+            p_name: data.name,
+            p_size: data.size,
+            p_contact_email: data.contactEmail,
+            p_contact_name: data.contactName,
+            p_creator_user_id: user.id,
+          }
+        );
+
+        console.log('[createOrganisation] RPC result:', { result, createError });
+
+        if (createError) {
+          console.error('[createOrganisation] Error:', createError);
+          return { error: 'Failed to create organisation' };
+        }
+
+        if (!result || result.length === 0) {
+          return { error: 'Failed to create organisation' };
+        }
+
+        const orgResult = result[0];
+
+        // Fetch full organisation details
+        const { data: fullOrg } = await supabase
+          .from('organisations')
+          .select('*')
+          .eq('id', orgResult.organisation_id)
+          .single();
+
+        // Refresh access state
+        await refreshAccessState();
+
+        console.log('[createOrganisation] Success:', { fullOrg, inviteCode: orgResult.invite_code });
+
+        return {
+          error: null,
+          organisation: fullOrg as Organisation,
+          inviteCode: orgResult.invite_code,
+        };
+      } catch (error) {
+        console.error('[createOrganisation] Exception:', error);
+        return { error: 'An error occurred' };
+      }
+    },
+    [user, refreshAccessState]
+  );
+
   const joinOrganisation = useCallback(
     async (inviteCode: string): Promise<{ error: string | null; organisation?: Organisation }> => {
       if (!supabase || !user) {
@@ -486,6 +560,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signIn,
       signOut,
       resetPassword,
+      createOrganisation,
       joinOrganisation,
       checkDomainAutoJoin,
       mergeAnonymousSession,
@@ -502,6 +577,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signIn,
       signOut,
       resetPassword,
+      createOrganisation,
       joinOrganisation,
       checkDomainAutoJoin,
       mergeAnonymousSession,
