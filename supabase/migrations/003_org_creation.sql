@@ -223,6 +223,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- =====================================================
 
 -- Allow authenticated users to create organisations
+DROP POLICY IF EXISTS "Users can create organisations" ON organisations;
 CREATE POLICY "Users can create organisations"
   ON organisations FOR INSERT
   WITH CHECK (auth.uid() IS NOT NULL);
