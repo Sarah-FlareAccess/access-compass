@@ -23,6 +23,7 @@ import type { ModuleOwnership, ModuleRunContext, RunComparison } from '../hooks/
 import { ModuleRunSelector } from '../components/ModuleRunSelector';
 import { RunComparisonView } from '../components/RunComparisonView';
 import { OrgAdminPanel } from '../components/OrgAdminPanel';
+import { ReportProblem, ReportProblemTrigger } from '../components/ReportProblem';
 import '../styles/dashboard.css';
 
 type TabType = 'modules' | 'evidence';
@@ -58,6 +59,29 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabType>('modules');
   const [inviteCodeCopied, setInviteCodeCopied] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [showReportProblem, setShowReportProblem] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
+
+  // Group icons mapping
+  const groupIcons: Record<string, string> = {
+    'before-arrival': '🔍',
+    'getting-in': '🚪',
+    'during-visit': '🏛️',
+    'service-support': '🤝',
+  };
+
+  // Toggle group expansion
+  const toggleGroupExpansion = (groupId: string) => {
+    setExpandedGroups(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(groupId)) {
+        newSet.delete(groupId);
+      } else {
+        newSet.add(groupId);
+      }
+      return newSet;
+    });
+  };
 
   // Get recommended modules from discovery, falling back to selected modules
   const recommendedModuleIds: string[] = useMemo(() => {
@@ -358,59 +382,216 @@ Thanks!`;
 
   return (
     <div className="dashboard-page">
-      <main className="dashboard-main">
-        <div className="dashboard-container">
-          {/* Welcome + Context */}
-          <section className="welcome-section">
-            <h1 className="welcome-title">Welcome back, {orgName}</h1>
-            <p className="welcome-subtitle">Continue your accessibility self-audit below.</p>
-          </section>
+      <div className="dashboard-layout">
+        {/* Left Sidebar */}
+        <aside className="dashboard-sidebar">
+          {/* Organisation Identity */}
+          {accessState.organisation && (
+            <div className="sidebar-org-identity">
+              <span className="sidebar-org-icon">🏢</span>
+              <div className="sidebar-org-info">
+                <h2 className="sidebar-org-name">{accessState.organisation.name}</h2>
+                <span className="sidebar-user-role">
+                  {accessState.membership?.role === 'owner' ? 'Owner' :
+                   accessState.membership?.role === 'admin' ? 'Admin' : 'Member'}
+                </span>
+              </div>
+            </div>
+          )}
 
-          {/* Organisation Invite Code Card */}
+          {/* Invite Code Section */}
           {accessState.organisation?.invite_code && (
-            <section className="org-invite-section">
-              <div className="org-invite-card">
-                <div className="org-invite-header">
-                  <span className="org-invite-icon">🏢</span>
-                  <div className="org-invite-info">
-                    <h3 className="org-invite-title">{accessState.organisation.name}</h3>
-                    <p className="org-invite-subtitle">Invite team members to join your organisation</p>
-                  </div>
-                  <button
-                    type="button"
-                    className="org-admin-btn"
-                    onClick={() => setShowAdminPanel(true)}
-                    title="Organisation Settings"
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="3"/>
-                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                    </svg>
-                    Settings
-                  </button>
+            <div className="sidebar-section">
+              <h3 className="sidebar-section-title">Invite Team</h3>
+              <div className="sidebar-invite-code">
+                <span className="sidebar-code-value">{accessState.organisation.invite_code}</span>
+                <button
+                  type="button"
+                  className={`sidebar-copy-btn ${inviteCodeCopied ? 'copied' : ''}`}
+                  onClick={handleCopyInviteCode}
+                  title="Copy invite code"
+                >
+                  {inviteCodeCopied ? '✓' : 'Copy'}
+                </button>
+              </div>
+              <p className="sidebar-hint">Share this code with team members</p>
+            </div>
+          )}
+
+          {/* Discovery Section */}
+          <div className="sidebar-section">
+            <h3 className="sidebar-section-title">Discovery</h3>
+            <p className="sidebar-hint">Your business context and module selection</p>
+            <nav className="sidebar-nav">
+              <Link to="/discovery/summary" className="sidebar-nav-item sidebar-nav-featured">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+                View Discovery Summary
+              </Link>
+              <Link to="/discovery" className="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                Edit Discovery
+              </Link>
+            </nav>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="sidebar-section">
+            <h3 className="sidebar-section-title">Settings</h3>
+            <nav className="sidebar-nav">
+              <button
+                type="button"
+                className="sidebar-nav-item"
+                onClick={() => setShowAdminPanel(true)}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                Organisation Settings
+              </button>
+            </nav>
+          </div>
+
+          {/* Outputs Section */}
+          <div className="sidebar-section">
+            <h3 className="sidebar-section-title">Your Outputs</h3>
+            <nav className="sidebar-nav">
+              <Link to="/export" className="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                Accessibility Report
+              </Link>
+              <Link to="/diap" className="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 20h9"/>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+                DIAP Workspace
+              </Link>
+            </nav>
+          </div>
+
+          {/* Quick Stats */}
+          {hasCompletedModules && (
+            <div className="sidebar-section sidebar-stats">
+              <h3 className="sidebar-section-title">Quick Stats</h3>
+              <div className="sidebar-stats-grid">
+                <div className="stat-item">
+                  <span className="stat-value">{overallStats.progressPercentage}%</span>
+                  <span className="stat-label">Complete</span>
                 </div>
-                <div className="org-invite-code-wrapper">
-                  <span className="org-invite-label">Invite Code</span>
-                  <div className="org-invite-code-box">
-                    <span className="org-invite-code-value">{accessState.organisation.invite_code}</span>
-                    <button
-                      type="button"
-                      className={`org-invite-copy-btn ${inviteCodeCopied ? 'copied' : ''}`}
-                      onClick={handleCopyInviteCode}
-                    >
-                      {inviteCodeCopied ? 'Copied!' : 'Copy'}
-                    </button>
-                  </div>
-                  <p className="org-invite-hint">
-                    Share this code with team members so they can join your organisation when creating their account.
-                  </p>
+                <div className="stat-item">
+                  <span className="stat-value">{overallStats.modulesCompleted}</span>
+                  <span className="stat-label">Modules done</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Help Section */}
+          <div className="sidebar-section sidebar-help">
+            <h3 className="sidebar-section-title">Need Help?</h3>
+            <p className="sidebar-hint">Questions about accessibility auditing or using Access Compass?</p>
+            <a href="mailto:support@accesscompass.com.au" className="sidebar-help-link">
+              Contact Support
+            </a>
+            <ReportProblemTrigger
+              variant="sidebar"
+              onClick={() => setShowReportProblem(true)}
+            />
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="dashboard-main">
+          <div className="dashboard-container">
+            {/* Orientation Bar */}
+            <section className="orientation-bar">
+              <h1 className="orientation-title">Welcome back, {orgName}</h1>
+              <div className="orientation-progress">
+                <span className="orientation-progress-text">
+                  {overallStats.modulesCompleted} of {overallStats.modulesTotal} modules complete
+                </span>
+                <div className="orientation-progress-bar">
+                  <div
+                    className="orientation-progress-fill"
+                    style={{ width: `${overallStats.progressPercentage}%` }}
+                  />
                 </div>
               </div>
             </section>
-          )}
 
-          {/* Overall Progress Card */}
-          <section className="progress-section">
+            {/* Primary Action Hero - Clickable */}
+            {overallStats.modulesInProgress > 0 ? (
+              <button
+                type="button"
+                className="primary-action-hero clickable"
+                onClick={() => {
+                  // Find the first group with in-progress modules and expand it
+                  const groupWithInProgress = groupedModules.find(g =>
+                    g.modules.some(m => m.status === 'in-progress')
+                  );
+                  if (groupWithInProgress) {
+                    setExpandedGroups(prev => new Set([...prev, groupWithInProgress.id]));
+                    // Scroll to modules section
+                    document.querySelector('.modules-content')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                <span className="hero-icon">▶</span>
+                <div className="hero-text">
+                  <span className="hero-title">Continue where you left off</span>
+                  <span className="hero-subtitle">
+                    {overallStats.modulesInProgress} module{overallStats.modulesInProgress !== 1 ? 's' : ''} in progress
+                  </span>
+                </div>
+                <span className="hero-arrow">→</span>
+              </button>
+            ) : overallStats.modulesNotStarted > 0 ? (
+              <button
+                type="button"
+                className="primary-action-hero clickable"
+                onClick={() => {
+                  // Expand the first group with not-started modules
+                  const groupWithNotStarted = groupedModules.find(g =>
+                    g.modules.some(m => m.status === 'not-started')
+                  );
+                  if (groupWithNotStarted) {
+                    setExpandedGroups(prev => new Set([...prev, groupWithNotStarted.id]));
+                    document.querySelector('.modules-content')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                <span className="hero-icon">🚀</span>
+                <div className="hero-text">
+                  <span className="hero-title">Ready to begin?</span>
+                  <span className="hero-subtitle">Start your accessibility self-audit</span>
+                </div>
+                <span className="hero-arrow">→</span>
+              </button>
+            ) : (
+              <div className="primary-action-hero completed-state">
+                <span className="hero-icon">✓</span>
+                <div className="hero-text">
+                  <span className="hero-title">All modules complete!</span>
+                  <span className="hero-subtitle">Review your results below</span>
+                </div>
+              </div>
+            )}
+
+            {/* Overall Progress Card */}
+            <section className="progress-section">
             <div className="progress-card">
               <div className="progress-header">
                 <h2 className="progress-title">Overall Progress</h2>
@@ -468,27 +649,55 @@ Thanks!`;
           {/* Tab Content */}
           {activeTab === 'modules' && (
             <div className="modules-content">
-              {groupedModules.map(group => (
-                <section key={group.id} className="module-group">
-                  <div className="group-header">
-                    <div className="group-info">
-                      <h3 className="group-title">{group.label}</h3>
-                      <p className="group-description">{group.description}</p>
-                    </div>
-                    <div className="group-progress">
-                      <span className="group-counter">
-                        {group.completedCount}/{group.totalCount}
-                      </span>
-                      <div className="group-progress-bar">
-                        <div
-                          className="group-progress-fill"
-                          style={{ width: `${group.totalCount > 0 ? (group.completedCount / group.totalCount) * 100 : 0}%` }}
-                        />
-                      </div>
-                    </div>
-                  </div>
+              {groupedModules.map(group => {
+                const isExpanded = expandedGroups.has(group.id);
+                const groupProgress = group.totalCount > 0 ? Math.round((group.completedCount / group.totalCount) * 100) : 0;
+                const inProgressCount = group.modules.filter(m => m.status === 'in-progress').length;
 
-                  <div className="module-tiles">
+                return (
+                  <section key={group.id} className="module-group">
+                    {/* Topic Tile - Always visible */}
+                    <button
+                      type="button"
+                      className={`topic-tile ${isExpanded ? 'expanded' : ''} ${group.completedCount === group.totalCount && group.totalCount > 0 ? 'completed' : ''}`}
+                      onClick={() => toggleGroupExpansion(group.id)}
+                      aria-expanded={isExpanded}
+                    >
+                      <span className="topic-icon">{groupIcons[group.id] || '📋'}</span>
+                      <div className="topic-info">
+                        <h3 className="topic-title">{group.label}</h3>
+                        <p className="topic-description">{group.description}</p>
+                        <div className="topic-meta">
+                          <span className="topic-module-count">{group.totalCount} modules</span>
+                          {inProgressCount > 0 && (
+                            <span className="topic-in-progress">{inProgressCount} in progress</span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="topic-progress-section">
+                        <div className="topic-progress-ring">
+                          <svg viewBox="0 0 36 36" className="progress-ring-svg">
+                            <path
+                              className="progress-ring-bg"
+                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path
+                              className="progress-ring-fill"
+                              strokeDasharray={`${groupProgress}, 100`}
+                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                          </svg>
+                          <span className="progress-ring-text">{groupProgress}%</span>
+                        </div>
+                        <span className="topic-expand-icon">
+                          {isExpanded ? '−' : '+'}
+                        </span>
+                      </div>
+                    </button>
+
+                    {/* Expanded Module Tiles */}
+                    {isExpanded && (
+                      <div className="module-tiles">
                     {group.modules.map(({ module, status, answeredCount, totalQuestions, doingWellCount, actionCount, ownership, completedAt, confidenceSnapshot, runsCount, activeRunContext }) => {
                       const action = getActionButton(status);
                       return (
@@ -659,9 +868,11 @@ Thanks!`;
                         </div>
                       );
                     })}
-                  </div>
-                </section>
-              ))}
+                      </div>
+                    )}
+                  </section>
+                );
+              })}
 
               {/* Subtle Guidance Footer */}
               <footer className="guidance-footer">
@@ -697,6 +908,7 @@ Thanks!`;
           )}
         </div>
       </main>
+      </div>
 
       {/* Assignment Modal */}
       {assignmentModal && (
@@ -867,6 +1079,12 @@ Thanks!`;
       <OrgAdminPanel
         isOpen={showAdminPanel}
         onClose={() => setShowAdminPanel(false)}
+      />
+
+      {/* Report Problem Modal */}
+      <ReportProblem
+        isOpen={showReportProblem}
+        onClose={() => setShowReportProblem(false)}
       />
     </div>
   );

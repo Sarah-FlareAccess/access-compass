@@ -246,18 +246,25 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         setItems(localItems);
         setDocuments(localDocs);
 
-        // Sync from cloud if available
+        // Sync from cloud if available (with timeout to handle latency)
         if (isSupabaseEnabled() && supabase) {
           const session = getSession();
           if (session?.session_id) {
-            const { data: cloudItems, error: itemsError } = await supabase
+            // Add timeout to prevent hanging on slow connections
+            const timeoutPromise = <T,>() => new Promise<{ data: T | null; error: Error }>((resolve) => {
+              setTimeout(() => resolve({ data: null, error: new Error('Supabase query timeout') }), 10000);
+            });
+
+            const itemsQueryPromise = supabase
               .from('diap_items')
               .select('*')
               .eq('session_id', session.session_id);
 
-            // Skip cloud sync if table doesn't exist or other error (silently fall back)
+            const { data: cloudItems, error: itemsError } = await Promise.race([itemsQueryPromise, timeoutPromise<any[]>()]);
+
+            // Skip cloud sync if table doesn't exist, timeout, or other error (silently fall back)
             if (itemsError) {
-              // Table doesn't exist yet - this is expected if migrations haven't been run
+              console.log('[useDIAPManagement] Items cloud sync skipped:', itemsError.message);
             } else if (cloudItems && cloudItems.length > 0) {
               const mapped = cloudItems.map(item => ({
                 id: item.id,
@@ -286,14 +293,16 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
               saveLocalItems(mapped);
             }
 
-            const { data: cloudDocs, error: docsError } = await supabase
+            const docsQueryPromise = supabase
               .from('diap_documents')
               .select('*')
               .eq('session_id', session.session_id);
 
-            // Skip cloud sync if table doesn't exist or other error (silently fall back)
+            const { data: cloudDocs, error: docsError } = await Promise.race([docsQueryPromise, timeoutPromise<any[]>()]);
+
+            // Skip cloud sync if table doesn't exist, timeout, or other error (silently fall back)
             if (docsError) {
-              // Table doesn't exist yet - this is expected if migrations haven't been run
+              console.log('[useDIAPManagement] Docs cloud sync skipped:', docsError.message);
             } else if (cloudDocs && cloudDocs.length > 0) {
               const mappedDocs = cloudDocs.map(doc => ({
                 id: doc.id,

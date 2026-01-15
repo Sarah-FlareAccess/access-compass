@@ -5,9 +5,11 @@ import { useReportGeneration } from '../hooks/useReportGeneration';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { ReportViewer } from '../components/ReportViewer';
 import { ReportConfigSelector, type ReportConfig } from '../components/ReportConfigSelector';
+import { PageFooter } from '../components/PageFooter';
 import { downloadPDFReport } from '../utils/pdfGenerator';
 import type { ReviewMode } from '../types/index';
 import type { Report } from '../hooks';
+import './Export.css';
 
 export default function Export() {
   const navigate = useNavigate();
@@ -402,6 +404,8 @@ export default function Export() {
               Start again
             </button>
           </div>
+
+          <PageFooter />
         </div>
       </div>
 

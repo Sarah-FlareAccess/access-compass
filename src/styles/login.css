@@ -194,9 +194,9 @@
 
 .login-page .login-submit:hover:not(:disabled),
 .login-page .login-submit.btn-primary:hover:not(:disabled) {
+  background: #723d8d;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(73, 14, 103, 0.35);
-  background: var(--amethyst-dark);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .login-page .login-submit:disabled,

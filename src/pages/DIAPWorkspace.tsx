@@ -13,6 +13,7 @@
 import { useState, useMemo, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
+import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategory } from '../data/diapMapping';
@@ -1087,6 +1088,8 @@ export default function DIAPWorkspace() {
             Continue Review
           </Link>
         </div>
+
+        <PageFooter />
       </div>
     </div>
   );

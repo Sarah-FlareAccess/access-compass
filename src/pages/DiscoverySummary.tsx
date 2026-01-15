@@ -9,6 +9,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { getSession, updateSession, getDiscoveryData, updateDiscoveryData, clearDiscoveryData } from '../utils/session';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { MODULES } from '../lib/recommendationEngine';
+import { PageFooter } from '../components/PageFooter';
 import '../components/discovery/discovery.css';
 import './DiscoverySummary.css';
 
@@ -359,6 +360,8 @@ export default function DiscoverySummary() {
         <div className="back-link-wrapper">
           <Link to="/dashboard" className="back-link">← Back to Dashboard</Link>
         </div>
+
+        <PageFooter />
       </div>
     </div>
   );

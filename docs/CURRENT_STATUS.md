@@ -98,6 +98,12 @@ All migrations have been run in Supabase:
 4. **Pre-Launch Checklist**
    - See `docs/DEPLOYMENT_CHECKLIST.md` for full list
 
+5. **User Account Management**
+   - Add "Delete Account" option for users
+   - Should delete from: auth.users, public.users, organisation_memberships
+   - Handle org ownership transfer or deletion when owner deletes account
+   - Add confirmation dialog with warning about data loss
+
 ---
 
 ## Environment Details

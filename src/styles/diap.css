@@ -61,8 +61,11 @@
 }
 
 .btn-export:hover {
-  background: rgba(73, 14, 103, 0.04);
-  border-color: var(--amethyst-diamond);
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-export:focus-visible {
@@ -179,8 +182,10 @@
 }
 
 .tab:hover {
-  background: rgba(73, 14, 103, 0.08);
-  color: var(--amethyst-diamond);
+  background: #723d8d;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .tab:focus-visible {
@@ -236,9 +241,9 @@
 }
 
 .btn-add-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.3);
-  background: var(--amethyst-light);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-add-item:focus-visible {
@@ -788,8 +793,9 @@
 }
 
 .btn-save:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 /* Documents Section */
@@ -811,7 +817,8 @@
 }
 
 .documents-section .section-header:hover {
-  background: #f8f9fa;
+  background: rgba(114, 61, 141, 0.08);
+  box-shadow: inset 0 0 0 2px rgba(114, 61, 141, 0.15);
 }
 
 .documents-section h2 {
@@ -927,8 +934,11 @@
 }
 
 .btn-doc-action:hover {
-  border-color: var(--amethyst-diamond);
-  color: var(--amethyst-diamond);
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(114, 61, 141, 0.3);
 }
 
 .btn-doc-action.delete {
@@ -1179,7 +1189,8 @@
 }
 
 .evidence-layer-header:hover {
-  background: rgba(124, 58, 237, 0.06);
+  background: rgba(114, 61, 141, 0.12);
+  box-shadow: inset 0 0 0 2px rgba(114, 61, 141, 0.2);
 }
 
 .evidence-layer-header h2 {
@@ -1331,8 +1342,11 @@
 }
 
 .view-mode-btn:hover {
-  border-color: #d1d5db;
-  color: #374151;
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .view-mode-btn.active {
@@ -1577,8 +1591,11 @@
 }
 
 .import-option .btn-secondary:hover {
-  border-color: var(--amethyst-diamond);
-  color: var(--amethyst-diamond);
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .import-option .btn-primary {
@@ -1587,8 +1604,9 @@
 }
 
 .import-option .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .import-note {
@@ -1718,7 +1736,11 @@
 }
 
 .import-result-actions .btn-secondary:hover {
-  background: #e5e7eb;
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .import-result-actions .btn-primary {
@@ -1727,8 +1749,9 @@
 }
 
 .import-result-actions .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 /* ============================================
@@ -1842,8 +1865,9 @@
 }
 
 .btn-generate:hover:not(:disabled) {
+  background: #723d8d;
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-generate:disabled {
@@ -2020,7 +2044,8 @@
 }
 
 .category-header:hover {
-  background: rgba(73, 14, 103, 0.06);
+  background: rgba(114, 61, 141, 0.12);
+  box-shadow: inset 0 0 0 2px rgba(114, 61, 141, 0.15);
 }
 
 .category-header:focus {
@@ -2219,7 +2244,8 @@
 }
 
 .folder-header:hover {
-  background: rgba(124, 58, 237, 0.04);
+  background: rgba(114, 61, 141, 0.12);
+  box-shadow: inset 0 0 0 2px rgba(114, 61, 141, 0.15);
 }
 
 .folder-header:focus {

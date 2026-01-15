@@ -177,8 +177,11 @@
 }
 
 .summary-actions .btn-secondary:hover {
-  background: #f5f5f5;
-  border-color: var(--amethyst-diamond);
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .summary-actions .btn-secondary:focus {
@@ -707,9 +710,11 @@
 }
 
 .btn-back:hover {
-  background: rgba(73, 14, 103, 0.06);
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.15);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-continue {

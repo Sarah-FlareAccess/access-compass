@@ -271,7 +271,11 @@
 }
 
 .custom-modal-footer .btn-secondary:hover {
-  background: #f3f4f6;
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .custom-modal-footer .btn-primary {

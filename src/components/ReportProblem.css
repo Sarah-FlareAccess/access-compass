@@ -1,0 +1,472 @@
+/* Report Problem Modal */
+.report-problem-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: var(--spacing-md);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.report-problem-modal {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.report-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(73, 14, 103, 0.08);
+  border-radius: 8px;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.report-close-btn:hover {
+  background: #723d8d;
+  color: white;
+}
+
+/* Header */
+.report-header {
+  padding: 24px 24px 0;
+}
+
+.report-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+  margin: 0 0 8px 0;
+}
+
+.report-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Form */
+.report-form {
+  padding: 24px;
+}
+
+.report-form .form-group {
+  margin-bottom: 20px;
+}
+
+.report-form label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.report-form .form-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0 0 10px 0;
+}
+
+/* Issue Type Selector */
+.issue-type-selector {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.issue-type-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 12px;
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.issue-type-btn:hover {
+  border-color: rgba(114, 61, 141, 0.4);
+  background: rgba(114, 61, 141, 0.04);
+}
+
+.issue-type-btn.active {
+  border-color: var(--amethyst-diamond);
+  background: rgba(73, 14, 103, 0.06);
+}
+
+.issue-type-icon {
+  font-size: 1.5rem;
+}
+
+.issue-type-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.issue-type-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Textarea */
+.report-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.report-form textarea:focus {
+  outline: none;
+  border-color: var(--amethyst-diamond);
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
+}
+
+.report-form textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* Screenshot Upload */
+.screenshot-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  border: 2px dashed #d1d5db;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.screenshot-upload:hover {
+  border-color: var(--amethyst-diamond);
+  background: rgba(73, 14, 103, 0.02);
+  color: var(--amethyst-diamond);
+}
+
+.screenshot-upload .upload-icon {
+  font-size: 1.5rem;
+}
+
+.hidden-input {
+  display: none;
+}
+
+/* Screenshot Preview */
+.screenshot-preview {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #e5e7eb;
+}
+
+.screenshot-preview img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  background: #f9fafb;
+}
+
+.remove-screenshot-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.remove-screenshot-btn:hover {
+  background: #dc2626;
+}
+
+/* Page Context */
+.page-context {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #f9fafb;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.context-label {
+  color: var(--text-muted);
+}
+
+.context-value {
+  color: var(--text-primary);
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+/* Actions */
+.report-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.report-actions .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success State */
+.report-success {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.report-success .success-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0 auto 20px;
+}
+
+.report-success h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.report-success p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0 0 24px 0;
+}
+
+/* ============================================
+   TRIGGER BUTTONS
+   ============================================ */
+
+/* Sidebar Trigger */
+.report-trigger-sidebar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid rgba(73, 14, 103, 0.1);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.report-trigger-sidebar:hover {
+  background: rgba(114, 61, 141, 0.1);
+  border-color: rgba(114, 61, 141, 0.25);
+  color: var(--amethyst-diamond);
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(114, 61, 141, 0.1);
+}
+
+.report-trigger-sidebar svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.report-trigger-sidebar:hover svg {
+  color: var(--amethyst-diamond);
+}
+
+/* Footer Trigger */
+.report-trigger-footer {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(73, 14, 103, 0.15);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.report-trigger-footer:hover {
+  background: #723d8d;
+  border-color: #723d8d;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(114, 61, 141, 0.3);
+}
+
+.report-trigger-footer .trigger-icon {
+  font-size: 1rem;
+}
+
+/* Icon-only Trigger (for floating button) */
+.report-trigger-icon {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  background: var(--amethyst-diamond);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(73, 14, 103, 0.3);
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.report-trigger-icon:hover {
+  background: #723d8d;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 24px rgba(114, 61, 141, 0.4);
+}
+
+/* ============================================
+   PAGE FOOTER WITH REPORT LINK
+   ============================================ */
+.page-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: var(--spacing-lg) var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  border-top: 1px solid rgba(73, 14, 103, 0.08);
+}
+
+.page-footer-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.page-footer-divider {
+  width: 4px;
+  height: 4px;
+  background: rgba(73, 14, 103, 0.2);
+  border-radius: 50%;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 640px) {
+  .report-problem-modal {
+    max-width: 100%;
+    margin: 0 10px;
+    max-height: 95vh;
+  }
+
+  .issue-type-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .issue-type-btn {
+    flex-direction: row;
+    text-align: left;
+    gap: 12px;
+  }
+
+  .issue-type-icon {
+    font-size: 1.25rem;
+  }
+
+  .report-actions {
+    flex-direction: column;
+  }
+
+  .report-actions .btn {
+    width: 100%;
+  }
+
+  .report-trigger-icon {
+    bottom: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+}

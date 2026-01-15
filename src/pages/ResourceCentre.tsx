@@ -22,6 +22,7 @@ import { allHelpContent, searchHelp } from '../data/help';
 import type { HelpContent, ModuleGroup, DIAPCategory } from '../data/help/types';
 import { ResourceCard } from '../components/help/ResourceCard';
 import { ResourceDetail } from '../components/help/ResourceDetail';
+import { PageFooter } from '../components/PageFooter';
 import './ResourceCentre.css';
 
 // Category configuration
@@ -371,6 +372,8 @@ export function ResourceCentre() {
           </div>
         </div>
       )}
+
+      <PageFooter />
     </div>
   );
 }

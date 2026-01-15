@@ -67,8 +67,9 @@
 }
 
 .btn-download-report:hover {
-  background: var(--amethyst-dark);
-  transform: translateY(-1px);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-close-report {

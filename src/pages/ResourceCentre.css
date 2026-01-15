@@ -61,10 +61,11 @@
 }
 
 .btn-back:hover {
-  background: var(--ivory-tusk, #ece9e6);
-  color: var(--amethyst-diamond);
-  border-color: var(--amethyst-diamond);
-  transform: translateX(-2px);
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 /* Search and Controls */
@@ -145,8 +146,9 @@
 }
 
 .btn-search:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-filter {
@@ -391,8 +393,11 @@
 }
 
 .btn-secondary:hover {
-  background: var(--amethyst-diamond);
+  background: #723d8d;
   color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .resource-grid {

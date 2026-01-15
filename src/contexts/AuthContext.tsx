@@ -214,11 +214,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (newSession?.user) {
         const newAccessState = await fetchAccessState(newSession.user.id);
         setAccessState(newAccessState);
-
-        // On sign in, check for domain auto-join
-        if (event === 'SIGNED_IN') {
-          checkDomainAutoJoin();
-        }
+        // Note: Domain auto-join is handled by Disclaimer page, not here
+        // This allows users to see the organisation selection step
       } else {
         setAccessState(defaultAccessState);
       }

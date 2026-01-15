@@ -516,7 +516,7 @@
 }
 
 .summary-actions .btn-primary {
-  background: var(--aussie-dark);
+  background: #490e67;
   color: white;
   border: none;
   padding: 18px 40px;
@@ -525,19 +525,20 @@
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: 0 2px 8px rgba(204, 119, 0, 0.25);
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.2);
   min-height: 56px;
 }
 
 .summary-actions .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(204, 119, 0, 0.35), var(--glow-warm);
-  background: #B36600;
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  background: #723d8d;
 }
 
 .summary-actions .btn-primary:focus-visible {
-  outline: 3px solid var(--aussie-dark);
-  outline-offset: 2px;
+  outline: 3px solid #490e67;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.15);
 }
 
 .summary-actions .btn-secondary {
@@ -555,10 +556,11 @@
 }
 
 .summary-actions .btn-secondary:hover {
-  transform: translateY(-2px);
-  background: var(--amethyst-diamond);
+  background: #723d8d;
   color: white;
-  box-shadow: 0 6px 20px rgba(73, 14, 103, 0.25);
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .summary-actions .btn-secondary:focus-visible {

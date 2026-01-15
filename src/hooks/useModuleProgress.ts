@@ -245,18 +245,25 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
         const localProgress = getLocalProgress();
         setProgress(localProgress);
 
-        // If Supabase is enabled, sync from cloud
+        // If Supabase is enabled, sync from cloud (with timeout to handle latency)
         if (isSupabaseEnabled() && supabase) {
           const session = getSession();
           if (session?.session_id) {
-            const { data: cloudProgress, error: supabaseError } = await supabase
+            // Add timeout to prevent hanging on slow connections
+            const timeoutPromise = new Promise<{ data: null; error: Error }>((resolve) => {
+              setTimeout(() => resolve({ data: null, error: new Error('Supabase query timeout') }), 10000);
+            });
+
+            const queryPromise = supabase
               .from('module_progress')
               .select('*')
               .eq('session_id', session.session_id);
 
-            // Skip cloud sync if table doesn't exist or other error (silently fall back)
+            const { data: cloudProgress, error: supabaseError } = await Promise.race([queryPromise, timeoutPromise]);
+
+            // Skip cloud sync if table doesn't exist, timeout, or other error (silently fall back)
             if (supabaseError) {
-              // Table doesn't exist yet - this is expected if migrations haven't been run
+              console.log('[useModuleProgress] Cloud sync skipped:', supabaseError.message);
             } else if (cloudProgress && cloudProgress.length > 0) {
               const cloudMap: Record<string, ModuleProgress> = {};
               cloudProgress.forEach(p => {

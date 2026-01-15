@@ -238,7 +238,19 @@ p {
   margin-bottom: var(--spacing-sm);
 }
 
-/* Button Hierarchy - Enhanced CTA prominence */
+/* ============================================
+   BUTTON SYSTEM - Access Compass Brand
+   ============================================
+   Hierarchy:
+   - Primary (Deep Purple): Core workflow actions - one per screen
+   - Secondary (Outlined): Navigation and support actions
+   - Accent (Orange): Optional/promotional actions - use sparingly
+   - Destructive (Red): Delete, cancel, remove actions
+
+   All buttons must meet WCAG AA contrast requirements.
+   Focus states must be visible and not rely on color alone.
+   ============================================ */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -250,96 +262,183 @@ p {
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all var(--transition-normal);
+  transition: all 0.2s ease;
   text-decoration: none;
   text-align: center;
   min-height: 48px;
   min-width: 120px;
   gap: 8px;
+  position: relative;
 }
 
+/* Focus state - visible ring that doesn't rely on color alone */
 .btn:focus-visible {
   outline: 3px solid var(--amethyst-diamond);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.15);
 }
 
-/* Primary Button - The obvious next step */
+/* ----------------------------------------
+   PRIMARY BUTTON - Core workflow actions
+   Background: Deep Purple #490e67
+   Text: White
+   ---------------------------------------- */
 .btn-primary {
-  background: var(--amethyst-diamond);
+  background: #490e67;
   color: white;
   padding: 16px 32px;
   font-size: 1rem;
   box-shadow: 0 2px 8px rgba(73, 14, 103, 0.2);
 }
 
-.btn-primary:hover {
-  background: var(--amethyst-dark);
+.btn-primary:hover:not(:disabled) {
+  background: #723d8d;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(73, 14, 103, 0.28);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
-.btn-primary:active {
+.btn-primary:active:not(:disabled) {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(73, 14, 103, 0.2);
 }
 
-/* Secondary Button - Reduced visual weight */
+.btn-primary:focus-visible {
+  outline-color: #490e67;
+  box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.2);
+}
+
+/* ----------------------------------------
+   SECONDARY BUTTON - Navigation/support
+   Background: Transparent or off-white
+   Text & Border: Deep Purple #490e67
+   ---------------------------------------- */
 .btn-secondary {
-  background: transparent;
-  color: var(--amethyst-diamond);
-  border: 2px solid rgba(73, 14, 103, 0.25);
+  background: white;
+  color: #490e67;
+  border: 2px solid #490e67;
   padding: 12px 24px;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
 }
 
-.btn-secondary:hover {
-  background: rgba(73, 14, 103, 0.12);
-  border-color: var(--amethyst-diamond);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.15);
+.btn-secondary:hover:not(:disabled) {
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
-/* Outline Button - Ghost style for tertiary actions */
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(0);
+  background: #490e67;
+  color: white;
+  border-color: #490e67;
+}
+
+.btn-secondary:focus-visible {
+  outline-color: #490e67;
+}
+
+/* ----------------------------------------
+   OUTLINE BUTTON - Tertiary/ghost style
+   Same as secondary but lighter border
+   ---------------------------------------- */
 .btn-outline {
   background: transparent;
-  color: var(--amethyst-diamond);
-  border: 1.5px solid rgba(73, 14, 103, 0.2);
+  color: #490e67;
+  border: 1.5px solid rgba(73, 14, 103, 0.3);
   padding: 12px 24px;
   font-size: 0.875rem;
 }
 
-.btn-outline:hover {
-  background: rgba(73, 14, 103, 0.1);
-  border-color: var(--amethyst-diamond);
-  box-shadow: 0 2px 6px rgba(73, 14, 103, 0.12);
-}
-
-/* Accent Button - For special emphasis */
-.btn-accent {
-  background: var(--aussie-dark);
+.btn-outline:hover:not(:disabled) {
+  background: #723d8d;
   color: white;
-  box-shadow: 0 2px 8px rgba(204, 119, 0, 0.2);
-}
-
-.btn-accent:hover {
-  background: #B36600;
+  border-color: #723d8d;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(204, 119, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
-/* Disabled State */
+.btn-outline:focus-visible {
+  outline-color: #490e67;
+}
+
+/* ----------------------------------------
+   ACCENT BUTTON - Optional/promotional
+   Background: Orange #FF9015
+   Text: Dark Brown #3e2b2f (WCAG compliant)
+   Use sparingly for upgrades, learn more
+   ---------------------------------------- */
+.btn-accent {
+  background: #FF9015;
+  color: #3e2b2f;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(255, 144, 21, 0.25);
+}
+
+.btn-accent:hover:not(:disabled) {
+  background: #e68000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 144, 21, 0.35);
+}
+
+.btn-accent:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-accent:focus-visible {
+  outline-color: #FF9015;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.2);
+}
+
+/* ----------------------------------------
+   DESTRUCTIVE BUTTON - Delete/remove
+   Background: Red #EA0B3F
+   Text: White
+   ---------------------------------------- */
+.btn-destructive,
+.btn-danger {
+  background: #EA0B3F;
+  color: white;
+  box-shadow: 0 2px 8px rgba(234, 11, 63, 0.2);
+}
+
+.btn-destructive:hover:not(:disabled),
+.btn-danger:hover:not(:disabled) {
+  background: #c90936;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 11, 63, 0.3);
+}
+
+.btn-destructive:active:not(:disabled),
+.btn-danger:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-destructive:focus-visible,
+.btn-danger:focus-visible {
+  outline-color: #EA0B3F;
+  box-shadow: 0 0 0 6px rgba(234, 11, 63, 0.2);
+}
+
+/* ----------------------------------------
+   DISABLED STATE - All button types
+   ---------------------------------------- */
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
-/* Button Sizes */
+/* ----------------------------------------
+   BUTTON SIZES
+   ---------------------------------------- */
 .btn-sm {
   padding: 10px 20px;
   font-size: 0.8125rem;
   min-height: 40px;
+  min-width: 100px;
 }
 
 .btn-lg {
@@ -349,7 +448,7 @@ p {
   box-shadow: 0 3px 12px rgba(73, 14, 103, 0.2);
 }
 
-.btn-lg:hover {
+.btn-lg:hover:not(:disabled) {
   box-shadow: 0 8px 28px rgba(73, 14, 103, 0.25);
 }
 

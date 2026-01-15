@@ -1,0 +1,12 @@
+/* Export Page Styles */
+
+/* Primary buttons use Deep Purple per brand system */
+.export-page .btn-primary {
+  background: #490e67;
+  color: white;
+}
+
+.export-page .btn-primary:hover:not(:disabled) {
+  background: #723d8d;
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+}

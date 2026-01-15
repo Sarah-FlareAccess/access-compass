@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../utils/supabase';
 import '../styles/disclaimer.css';
 
 type Step = 'disclaimer' | 'auth' | 'organisation' | 'complete';
@@ -11,6 +12,7 @@ export default function Disclaimer() {
   const {
     signIn,
     signUp,
+    signOut,
     isAuthenticated,
     isLoading: authLoading,
     accessState,
@@ -58,27 +60,24 @@ export default function Disclaimer() {
     }
   }, [isAuthenticated, currentStep]);
 
-  // Check org status when authenticated
+  // Check org status when authenticated - only skip if user ALREADY has an org (returning user)
   useEffect(() => {
     const checkOrgStatus = async () => {
+      console.log('[Disclaimer] checkOrgStatus:', { isAuthenticated, currentStep, hasOrg: !!accessState.organisation });
       if (isAuthenticated && currentStep === 'organisation') {
-        // If user already has an org, go to complete
+        // If user already has an org (returning user), go to complete
         if (accessState.organisation) {
+          console.log('[Disclaimer] User already has org, skipping to complete:', accessState.organisation.name);
           setCurrentStep('complete');
           return;
         }
-
-        // Try domain auto-join
-        const { organisation } = await checkDomainAutoJoin();
-        if (organisation) {
-          setSuccessMessage(`You've been added to ${organisation.name}`);
-          setCurrentStep('complete');
-        }
+        // Don't auto-join here - let user choose their path on the organisation step
+        console.log('[Disclaimer] User has no org, showing organisation selection');
       }
     };
 
     checkOrgStatus();
-  }, [isAuthenticated, currentStep, accessState.organisation, checkDomainAutoJoin]);
+  }, [isAuthenticated, currentStep, accessState.organisation]);
 
   // Pre-fill contact email when user is available
   useEffect(() => {
@@ -205,7 +204,9 @@ export default function Disclaimer() {
 
   // If authenticated and has org, skip to complete
   useEffect(() => {
+    console.log('[Disclaimer] Skip check:', { isAuthenticated, hasOrg: !!accessState.organisation, currentStep });
     if (isAuthenticated && accessState.organisation && currentStep === 'disclaimer') {
+      console.log('[Disclaimer] Skipping to complete - user has org:', accessState.organisation.name);
       setCurrentStep('complete');
     }
   }, [isAuthenticated, accessState.organisation, currentStep]);
@@ -414,7 +415,27 @@ export default function Disclaimer() {
           {/* Step 3: Organisation */}
           {currentStep === 'organisation' && (
             <>
-              <h1>Join or create an organisation</h1>
+              <div className="step-header-with-action">
+                <h1>Join or create an organisation</h1>
+                <button
+                  type="button"
+                  className="text-link logout-link"
+                  onClick={() => {
+                    console.log('[Disclaimer] Forcing sign out - clearing all local storage');
+                    // Force clear all Supabase auth data from localStorage
+                    Object.keys(localStorage).forEach(key => {
+                      if (key.startsWith('sb-') || key.includes('supabase')) {
+                        localStorage.removeItem(key);
+                      }
+                    });
+                    sessionStorage.clear();
+                    // Reload the page
+                    window.location.href = '/disclaimer';
+                  }}
+                >
+                  Sign out
+                </button>
+              </div>
               <p className="auth-subtitle">
                 Connect with your team to share progress and collaborate on accessibility improvements.
               </p>
@@ -578,7 +599,16 @@ export default function Disclaimer() {
                 <button
                   type="button"
                   className="btn btn-secondary"
-                  onClick={() => setCurrentStep('auth')}
+                  onClick={() => {
+                    // Sign out and go back to start
+                    Object.keys(localStorage).forEach(key => {
+                      if (key.startsWith('sb-') || key.includes('supabase')) {
+                        localStorage.removeItem(key);
+                      }
+                    });
+                    sessionStorage.clear();
+                    window.location.href = '/disclaimer';
+                  }}
                 >
                   ← Back
                 </button>
@@ -602,7 +632,16 @@ export default function Disclaimer() {
                 {createdInviteCode && (
                   <div className="invite-code-display">
                     <p className="invite-code-label">Your invite code (share with your team):</p>
-                    <div className="invite-code-box">
+                    <div
+                      className="invite-code-box"
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '24px',
+                        padding: '32px 40px'
+                      }}
+                    >
                       <span className="invite-code-value">{createdInviteCode}</span>
                       <button
                         type="button"
@@ -631,6 +670,27 @@ export default function Disclaimer() {
                   onClick={handleContinue}
                 >
                   Continue to setup
+                </button>
+              </div>
+
+              <div className="complete-signout">
+                <button
+                  type="button"
+                  className="text-link logout-link"
+                  onClick={() => {
+                    console.log('[Disclaimer] Forcing sign out - clearing all local storage');
+                    // Force clear all Supabase auth data from localStorage
+                    Object.keys(localStorage).forEach(key => {
+                      if (key.startsWith('sb-') || key.includes('supabase')) {
+                        localStorage.removeItem(key);
+                      }
+                    });
+                    sessionStorage.clear();
+                    // Reload the page
+                    window.location.href = '/disclaimer';
+                  }}
+                >
+                  Sign out and start over
                 </button>
               </div>
             </>

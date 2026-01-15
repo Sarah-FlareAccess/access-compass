@@ -293,8 +293,9 @@
 }
 
 .btn-continue-module:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.4);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-continue-module:focus {
@@ -328,9 +329,11 @@
 }
 
 .module-list-actions .btn-back:hover {
-  background: #e5e5e5;
-  border-color: var(--amethyst-diamond);
-  color: var(--amethyst-diamond);
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .module-list-actions .btn-back:focus {

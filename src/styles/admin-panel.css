@@ -285,7 +285,9 @@
 }
 
 .btn-reactivate:hover:not(:disabled) {
-  background: var(--amethyst-dark);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-remove {
@@ -331,7 +333,9 @@
 }
 
 .btn-create-invite:hover {
-  background: var(--amethyst-dark);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .create-invite-form {
@@ -410,7 +414,9 @@
 }
 
 .btn-create:hover:not(:disabled) {
-  background: var(--amethyst-dark);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-create:disabled {
@@ -475,7 +481,9 @@
 }
 
 .btn-copy-code:hover:not(:disabled) {
-  background: var(--amethyst-dark);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-copy-code:disabled {
@@ -644,7 +652,9 @@
 }
 
 .btn-export:hover:not(:disabled) {
-  background: var(--amethyst-dark);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-export:disabled {
@@ -792,7 +802,9 @@
 }
 
 .btn-timeout-extend:hover {
-  background: var(--amethyst-dark);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 /* ============================================
@@ -837,7 +849,9 @@
 }
 
 .btn-transfer:hover:not(:disabled) {
-  background: var(--amethyst-dark);
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-transfer:disabled {
