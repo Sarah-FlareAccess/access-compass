@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { initializeSession, updateBusinessSnapshot } from '../utils/session';
+import { initializeSession, updateBusinessSnapshot, getSession, getDiscoveryData } from '../utils/session';
 import type { BusinessSnapshot, BusinessType, UserRole, OrganisationSize } from '../types';
 import '../styles/form-page.css';
 
@@ -83,6 +83,22 @@ export default function BusinessSnapshotPage() {
   });
 
   useEffect(() => {
+    // Check if user has existing progress - if so, go to dashboard
+    const existingSession = getSession();
+    const discoveryData = getDiscoveryData();
+
+    // If user has selected modules and has discovery data, they're returning - go to dashboard
+    if (
+      existingSession?.selected_modules &&
+      existingSession.selected_modules.length > 0 &&
+      discoveryData?.recommended_modules &&
+      discoveryData.recommended_modules.length > 0
+    ) {
+      console.log('[BusinessSnapshot] Returning user with progress, redirecting to dashboard');
+      navigate('/dashboard');
+      return;
+    }
+
     // Initialize session if needed
     const session = initializeSession();
 
@@ -90,7 +106,7 @@ export default function BusinessSnapshotPage() {
     if (session.business_snapshot && session.business_snapshot.organisation_name) {
       setFormData(session.business_snapshot);
     }
-  }, []);
+  }, [navigate]);
 
   const toggleBusinessType = (type: BusinessType) => {
     setFormData((prev) => ({

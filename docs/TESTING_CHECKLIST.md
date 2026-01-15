@@ -407,6 +407,87 @@ SELECT * FROM organisation_invite_codes WHERE code = 'YOUR_CODE';
 
 ---
 
+## Test 15: Pre-registered Email Invites
+
+### Pre-requisites
+- [ ] Run migration `006_pre_registered_emails.sql` in Supabase
+
+### Setup
+- [ ] Create a new organisation (or use existing)
+
+### Test Steps - Registration Flow
+1. [ ] Start new org registration on Disclaimer page
+2. [ ] Fill in org details (name, size, contact info)
+3. [ ] Add 2-3 team member emails in the "Team Member Emails" section
+4. [ ] Complete registration
+5. [ ] Note the invite code
+
+### Expected Results
+- [ ] Team emails are saved to `organisation_allowed_emails` table
+- [ ] Registration shows count of emails added
+- [ ] Org has `require_email_preregistration = true`
+
+### Test Steps - Join Validation
+1. [ ] Try joining with invite code using a NON-registered email
+2. [ ] Try joining with invite code using a REGISTERED email
+
+### Expected Results
+- [ ] Non-registered email: Shows error "Your email address has not been registered for this organisation"
+- [ ] Registered email: Successfully joins organisation
+- [ ] Email is marked as "used" after joining
+
+### Test Steps - Admin Panel Management
+1. [ ] Log in as org admin/owner
+2. [ ] Go to Settings > Invites tab
+3. [ ] Scroll to "Pre-registered Emails" section
+4. [ ] Add new emails using the form
+5. [ ] Remove an unused email
+6. [ ] Try to remove a "used" email
+
+### Expected Results
+- [ ] All pre-registered emails are listed
+- [ ] Shows "pending" vs "joined" counts
+- [ ] Can add new emails (comma/newline separated)
+- [ ] Can remove unused emails
+- [ ] Cannot remove emails that are already used (joined)
+
+### Verify in Supabase
+```sql
+-- Check allowed emails for org
+SELECT * FROM organisation_allowed_emails
+WHERE organisation_id = 'YOUR_ORG_ID';
+
+-- Check org setting
+SELECT require_email_preregistration FROM organisations
+WHERE id = 'YOUR_ORG_ID';
+```
+
+---
+
+## Test 16: Forms & Contact Links Audit
+
+### Test Steps
+1. [ ] Check PageFooter "Report a problem" link - does modal open?
+2. [ ] Check all "Contact Us" links across the app
+3. [ ] Check all mailto: links - correct email addresses?
+4. [ ] Check form submissions - where do they go?
+5. [ ] Test Report an Issue modal - does submission work?
+
+### Expected Results
+- [ ] All contact links point to valid destinations
+- [ ] Email links use correct addresses
+- [ ] Forms submit to correct endpoints
+- [ ] Report a problem modal works correctly
+
+### Locations to Check
+- [ ] PageFooter component
+- [ ] Help/Support pages
+- [ ] Error pages
+- [ ] Navigation menus
+- [ ] Any "Need help?" or "Contact" buttons
+
+---
+
 ## Test Complete Checklist
 
 - [ ] Test 1: Organisation Creation
@@ -423,5 +504,31 @@ SELECT * FROM organisation_invite_codes WHERE code = 'YOUR_CODE';
 - [ ] Test 12: Admin Override
 - [ ] Test 13: Suspend/Reactivate
 - [ ] Test 14: Data Export
+- [ ] Test 15: Pre-registered Email Invites
+- [ ] Test 16: Forms & Contact Links Audit
 
 **All tests passed?** Your security implementation is working correctly!
+
+---
+
+## Developer Notes
+
+### When Updating Module Questions
+
+When adding or modifying questions in `src/data/accessModules.ts`, ensure:
+
+1. **DIAP Integration** (`src/hooks/useDIAPManagement.ts`):
+   - New questions will automatically generate DIAP items for "no", "not-sure", and "partially" responses
+   - Verify the `mapModuleToCategory()` function maps the module to the correct DIAP category
+   - Test that DIAP items are created with appropriate priorities
+
+2. **Question-Specific Recommendations** (`src/hooks/useReportGeneration.ts`):
+   - Add entries to `QUESTION_SPECIFIC_RECOMMENDATIONS` for each new question ID
+   - Include: specific actions (4-6), reasoning, and resource links
+   - If no specific recommendation can be created, the admin fallback will be used
+
+3. **Testing**:
+   - Complete the module in both Pulse Check and Deep Dive modes
+   - Verify recommendations appear in the report
+   - Check DIAP items are generated correctly
+   - Confirm the admin fallback displays for questions without specific recommendations

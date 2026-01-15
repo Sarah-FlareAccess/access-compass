@@ -160,14 +160,25 @@ export default function Dashboard() {
     const currentSession = getSession();
     const currentDiscovery = getDiscoveryData();
 
+    // Only redirect unauthenticated users to home
+    // Authenticated users with an org should see the "no session" state, not be redirected
     if (!currentSession || !currentSession.session_id) {
+      // If user is authenticated with an org, don't redirect - let them see the empty state
+      // which has a helpful link to /start
+      if (accessState.isAuthenticated && accessState.organisation) {
+        console.log('[Dashboard] Authenticated user with org but no session - showing empty state');
+        // Don't redirect - the component will show the "No active session" state
+        return;
+      }
+      // Unauthenticated users or users without an org should go to home
+      console.log('[Dashboard] No session and not authenticated with org, redirecting to /');
       navigate('/');
       return;
     }
 
     setSession(currentSession);
     setDiscoveryData(currentDiscovery);
-  }, [navigate]);
+  }, [navigate, accessState.isAuthenticated, accessState.organisation]);
 
   // Organize modules by group with progress
   const groupedModules = useMemo((): ModuleGroupWithProgress[] => {
@@ -364,13 +375,18 @@ Thanks!`;
 
   // If no session, show a helpful message instead of infinite loading
   if (!session) {
+    const isReturningUser = accessState.isAuthenticated && accessState.organisation;
     return (
       <div className="dashboard-page">
         <div className="dashboard-loading">
-          <h2>No active session found</h2>
-          <p style={{ marginBottom: '1rem' }}>You need to complete the setup process first.</p>
+          <h2>{isReturningUser ? 'Welcome back!' : 'No active session found'}</h2>
+          <p style={{ marginBottom: '1rem' }}>
+            {isReturningUser
+              ? 'Your local session data was cleared. Let\'s get you back on track by selecting your modules again.'
+              : 'You need to complete the setup process first.'}
+          </p>
           <Link to="/start" className="btn btn-primary">
-            Start Setup
+            {isReturningUser ? 'Select Modules' : 'Start Setup'}
           </Link>
         </div>
       </div>

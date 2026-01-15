@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../utils/supabase';
 import '../styles/disclaimer.css';
 
 type Step = 'disclaimer' | 'auth' | 'organisation' | 'complete';
@@ -12,11 +11,9 @@ export default function Disclaimer() {
   const {
     signIn,
     signUp,
-    signOut,
     isAuthenticated,
     isLoading: authLoading,
     accessState,
-    checkDomainAutoJoin,
     joinOrganisation,
     createOrganisation,
     user,
@@ -45,6 +42,10 @@ export default function Disclaimer() {
   const [contactEmail, setContactEmail] = useState('');
   const [createdInviteCode, setCreatedInviteCode] = useState<string | null>(null);
 
+  // Team member emails (pre-registered for invite code access)
+  const [teamEmails, setTeamEmails] = useState<string[]>(['']);
+  const [emailsAdded, setEmailsAdded] = useState<number>(0);
+
   // UI state
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,23 +53,43 @@ export default function Disclaimer() {
 
   // When user becomes authenticated while on disclaimer or auth step, move to organisation step
   useEffect(() => {
+    // Wait for auth to finish loading before making decisions
+    if (authLoading) return;
+
     if (isAuthenticated && (currentStep === 'disclaimer' || currentStep === 'auth')) {
-      console.log('[Disclaimer] User authenticated, moving to organisation step from:', currentStep);
+      console.log('[Disclaimer] User authenticated, checking organisation status...');
       setIsSubmitting(false);
       setError(null);
+
+      // If returning user already has an org, go to start page (handles session properly)
+      if (accessState.organisation) {
+        console.log('[Disclaimer] Returning user with org, redirecting to start:', accessState.organisation.name);
+        navigate('/start');
+        return;
+      }
+
+      // New user or user without org - go to organisation step
+      console.log('[Disclaimer] User needs organisation, moving to organisation step');
       setCurrentStep('organisation');
     }
-  }, [isAuthenticated, currentStep]);
+  }, [isAuthenticated, authLoading, currentStep, accessState.organisation, navigate]);
 
   // Check org status when authenticated - only skip if user ALREADY has an org (returning user)
   useEffect(() => {
     const checkOrgStatus = async () => {
-      console.log('[Disclaimer] checkOrgStatus:', { isAuthenticated, currentStep, hasOrg: !!accessState.organisation });
+      console.log('[Disclaimer] checkOrgStatus:', { isAuthenticated, currentStep, hasOrg: !!accessState.organisation, authLoading });
+
+      // Wait for auth to finish loading before making decisions
+      if (authLoading) {
+        console.log('[Disclaimer] Auth still loading, waiting...');
+        return;
+      }
+
       if (isAuthenticated && currentStep === 'organisation') {
-        // If user already has an org (returning user), go to complete
+        // If user already has an org (returning user), go to start page
         if (accessState.organisation) {
-          console.log('[Disclaimer] User already has org, skipping to complete:', accessState.organisation.name);
-          setCurrentStep('complete');
+          console.log('[Disclaimer] Returning user with org, redirecting to start:', accessState.organisation.name);
+          navigate('/start');
           return;
         }
         // Don't auto-join here - let user choose their path on the organisation step
@@ -77,7 +98,7 @@ export default function Disclaimer() {
     };
 
     checkOrgStatus();
-  }, [isAuthenticated, currentStep, accessState.organisation]);
+  }, [isAuthenticated, currentStep, accessState.organisation, authLoading, navigate]);
 
   // Pre-fill contact email when user is available
   useEffect(() => {
@@ -159,24 +180,27 @@ export default function Disclaimer() {
 
   const handleCreateOrg = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('[Disclaimer] handleCreateOrg called', { orgName, orgSize, contactEmail, contactName });
+    const validEmails = getValidTeamEmails();
+    console.log('[Disclaimer] handleCreateOrg called', { orgName, orgSize, contactEmail, contactName, teamEmails: validEmails });
     setError(null);
     setIsSubmitting(true);
 
     try {
       console.log('[Disclaimer] Calling createOrganisation...');
-      const { error, organisation, inviteCode: newInviteCode } = await createOrganisation({
+      const { error, organisation, inviteCode: newInviteCode, emailsAdded: addedCount } = await createOrganisation({
         name: orgName,
         size: orgSize,
         contactEmail,
         contactName,
+        allowedEmails: validEmails,
       });
-      console.log('[Disclaimer] createOrganisation result:', { error, organisation, newInviteCode });
+      console.log('[Disclaimer] createOrganisation result:', { error, organisation, newInviteCode, addedCount });
 
       if (error) {
         setError(error);
       } else {
         setCreatedInviteCode(newInviteCode || null);
+        setEmailsAdded(addedCount || 0);
         setSuccessMessage(`${organisation?.name} has been created!`);
         setCurrentStep('complete');
       }
@@ -193,6 +217,42 @@ export default function Disclaimer() {
     setSuccessMessage(null);
     setPassword('');
     setConfirmPassword('');
+  };
+
+  // Team email management helpers
+  const getMaxTeamEmails = () => {
+    switch (orgSize) {
+      case 'small': return 4; // 5 total - 1 admin
+      case 'medium': return 14;
+      case 'large': return 49;
+      case 'enterprise': return 99; // Cap at 99 for UI
+      default: return 4;
+    }
+  };
+
+  const handleTeamEmailChange = (index: number, value: string) => {
+    const newEmails = [...teamEmails];
+    newEmails[index] = value;
+    setTeamEmails(newEmails);
+  };
+
+  const addTeamEmailField = () => {
+    if (teamEmails.length < getMaxTeamEmails()) {
+      setTeamEmails([...teamEmails, '']);
+    }
+  };
+
+  const removeTeamEmailField = (index: number) => {
+    if (teamEmails.length > 1) {
+      const newEmails = teamEmails.filter((_, i) => i !== index);
+      setTeamEmails(newEmails);
+    }
+  };
+
+  const getValidTeamEmails = () => {
+    return teamEmails
+      .map(e => e.trim().toLowerCase())
+      .filter(e => e && e.includes('@'));
   };
 
   const copyInviteCode = () => {
@@ -576,6 +636,76 @@ export default function Disclaimer() {
                     />
                   </div>
 
+                  {/* Team member emails - pre-registration */}
+                  <div className="form-group" style={{ marginTop: '24px' }}>
+                    <label>Team member emails</label>
+                    <p className="field-hint" style={{ marginBottom: '12px' }}>
+                      Pre-register team members who can join using your invite code.
+                      Only these email addresses will be able to join your organisation.
+                    </p>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      {teamEmails.map((email, index) => (
+                        <div key={index} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => handleTeamEmailChange(index, e.target.value)}
+                            placeholder={`team.member${index + 1}@example.com`}
+                            style={{ flex: 1 }}
+                          />
+                          {teamEmails.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeTeamEmailField(index)}
+                              style={{
+                                width: '36px',
+                                height: '36px',
+                                padding: 0,
+                                background: '#fee2e2',
+                                border: '1px solid #fecaca',
+                                borderRadius: '8px',
+                                color: '#dc2626',
+                                cursor: 'pointer',
+                                fontSize: '18px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                              aria-label="Remove email"
+                            >
+                              ×
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+
+                    {teamEmails.length < getMaxTeamEmails() && (
+                      <button
+                        type="button"
+                        onClick={addTeamEmailField}
+                        style={{
+                          marginTop: '12px',
+                          padding: '8px 16px',
+                          background: 'rgba(73, 14, 103, 0.06)',
+                          border: '1px dashed rgba(73, 14, 103, 0.3)',
+                          borderRadius: '8px',
+                          color: 'var(--amethyst-diamond)',
+                          cursor: 'pointer',
+                          fontSize: '0.9rem',
+                          fontWeight: 500,
+                        }}
+                      >
+                        + Add another team member
+                      </button>
+                    )}
+
+                    <p className="field-hint" style={{ marginTop: '12px', fontSize: '0.8rem' }}>
+                      You can add up to {getMaxTeamEmails()} team members. More can be added later from your admin panel.
+                    </p>
+                  </div>
+
                   <button
                     type="submit"
                     className="btn btn-primary auth-submit"
@@ -651,8 +781,24 @@ export default function Disclaimer() {
                         Copy
                       </button>
                     </div>
+
+                    {emailsAdded > 0 && (
+                      <p style={{
+                        marginTop: '16px',
+                        padding: '12px 16px',
+                        background: 'rgba(34, 197, 94, 0.1)',
+                        borderRadius: '8px',
+                        color: '#15803d',
+                        fontSize: '0.9rem',
+                        textAlign: 'center',
+                      }}>
+                        {emailsAdded} team member email{emailsAdded !== 1 ? 's' : ''} pre-registered
+                      </p>
+                    )}
+
                     <p className="invite-code-hint">
-                      You can also access this code from your dashboard at any time.
+                      Only pre-registered email addresses can join using this code.
+                      You can manage team members from your admin panel.
                     </p>
                   </div>
                 )}

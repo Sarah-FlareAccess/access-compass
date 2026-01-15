@@ -333,7 +333,9 @@
 }
 
 .password-toggle:hover {
-  color: var(--amethyst-dark);
+  color: #723d8d;
+  background: rgba(114, 61, 141, 0.08);
+  border-radius: 4px;
 }
 
 .disclaimer-page .auth-submit,
@@ -397,7 +399,7 @@
 }
 
 .disclaimer-page .text-link:hover {
-  color: var(--amethyst-dark);
+  color: #723d8d;
 }
 
 /* Authenticated state */
@@ -522,7 +524,8 @@
 .org-option-card:hover {
   border-color: var(--amethyst-diamond);
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(73, 14, 103, 0.15);
+  box-shadow: 0 8px 24px rgba(114, 61, 141, 0.2);
+  background: rgba(114, 61, 141, 0.03);
 }
 
 .org-option-card:hover .org-option-icon-wrapper {
@@ -648,6 +651,9 @@
 
 .size-option:hover {
   border-color: var(--amethyst-diamond);
+  background: rgba(114, 61, 141, 0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(114, 61, 141, 0.15);
 }
 
 .size-option.selected {

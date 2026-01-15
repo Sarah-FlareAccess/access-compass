@@ -49,10 +49,12 @@ interface AuthContextValue {
     size: 'small' | 'medium' | 'large' | 'enterprise';
     contactEmail: string;
     contactName: string;
+    allowedEmails?: string[];
   }) => Promise<{
     error: string | null;
     organisation?: Organisation;
     inviteCode?: string;
+    emailsAdded?: number;
   }>;
   joinOrganisation: (inviteCode: string) => Promise<{
     error: string | null;
@@ -363,7 +365,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       size: 'small' | 'medium' | 'large' | 'enterprise';
       contactEmail: string;
       contactName: string;
-    }): Promise<{ error: string | null; organisation?: Organisation; inviteCode?: string }> => {
+      allowedEmails?: string[];
+    }): Promise<{ error: string | null; organisation?: Organisation; inviteCode?: string; emailsAdded?: number }> => {
       if (!supabase || !user) {
         return { error: 'Not authenticated' };
       }
@@ -372,17 +375,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.log('[createOrganisation] User ID:', user.id);
 
       try {
-        // Call RPC function with timeout
-        console.log('[createOrganisation] Calling RPC create_organisation_with_admin...');
+        // Try the new RPC function first (with email pre-registration)
+        console.log('[createOrganisation] Calling RPC create_organisation_with_admin_and_emails...');
 
         const rpcPromise = supabase.rpc(
-          'create_organisation_with_admin',
+          'create_organisation_with_admin_and_emails',
           {
             p_name: data.name,
             p_size: data.size,
             p_contact_email: data.contactEmail,
             p_contact_name: data.contactName,
             p_creator_user_id: user.id,
+            p_allowed_emails: data.allowedEmails || [],
           }
         );
 
@@ -394,16 +398,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }, 30000);
         });
 
-        const { data: result, error: createError } = await Promise.race([rpcPromise, timeoutPromise]);
+        let { data: result, error: createError } = await Promise.race([rpcPromise, timeoutPromise]);
+
+        // Fallback to old RPC if new one doesn't exist
+        if (createError?.message?.includes('function') && createError?.message?.includes('does not exist')) {
+          console.log('[createOrganisation] Falling back to create_organisation_with_admin...');
+          const fallbackResult = await supabase.rpc(
+            'create_organisation_with_admin',
+            {
+              p_name: data.name,
+              p_size: data.size,
+              p_contact_email: data.contactEmail,
+              p_contact_name: data.contactName,
+              p_creator_user_id: user.id,
+            }
+          );
+          result = fallbackResult.data;
+          createError = fallbackResult.error;
+        }
 
         console.log('[createOrganisation] RPC result:', { result, createError });
 
         if (createError) {
           console.error('[createOrganisation] Error:', createError);
-          // Check for specific error types
-          if (createError.message?.includes('function') && createError.message?.includes('does not exist')) {
-            return { error: 'Database not configured. Please run the migration: 003_org_creation.sql' };
-          }
           return { error: createError.message || 'Failed to create organisation' };
         }
 
@@ -427,12 +444,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.log('[createOrganisation] Refreshing access state...');
         await refreshAccessState();
 
-        console.log('[createOrganisation] Success:', { fullOrg, inviteCode: orgResult.invite_code });
+        console.log('[createOrganisation] Success:', { fullOrg, inviteCode: orgResult.invite_code, emailsAdded: orgResult.emails_added });
 
         return {
           error: null,
           organisation: fullOrg as Organisation,
           inviteCode: orgResult.invite_code,
+          emailsAdded: orgResult.emails_added || 0,
         };
       } catch (error) {
         console.error('[createOrganisation] Exception:', error);
@@ -451,32 +469,89 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.log('[joinOrganisation] Starting with code:', inviteCode);
 
       try {
-        // Find organisation by invite code using RPC
-        console.log('[joinOrganisation] Calling find_org_by_invite_code RPC...');
-        const { data: orgData, error: findError } = await supabase.rpc('find_org_by_invite_code', {
+        // First try the new validation RPC that checks email pre-registration
+        console.log('[joinOrganisation] Calling validate_invite_code_for_email RPC...');
+        const { data: validationData, error: validationError } = await supabase.rpc('validate_invite_code_for_email', {
           p_invite_code: inviteCode,
+          p_email: user.email,
         });
 
-        console.log('[joinOrganisation] RPC result:', { orgData, findError });
+        console.log('[joinOrganisation] Validation result:', { validationData, validationError });
 
-        if (findError || !orgData || orgData.length === 0) {
-          console.log('[joinOrganisation] Invalid invite code');
+        // If the new RPC doesn't exist, fall back to the old behavior
+        if (validationError?.message?.includes('function') && validationError?.message?.includes('does not exist')) {
+          console.log('[joinOrganisation] Falling back to find_org_by_invite_code...');
+          const { data: orgData, error: findError } = await supabase.rpc('find_org_by_invite_code', {
+            p_invite_code: inviteCode,
+          });
+
+          if (findError || !orgData || orgData.length === 0) {
+            return { error: 'Invalid invite code' };
+          }
+
+          const org = orgData[0];
+
+          // Check if already a member
+          const { data: existingMembership } = await supabase
+            .from('organisation_memberships')
+            .select('id')
+            .eq('organisation_id', org.id)
+            .eq('user_id', user.id)
+            .single();
+
+          if (existingMembership) {
+            return { error: 'Already a member of this organisation' };
+          }
+
+          // Create membership (old flow without email validation)
+          const { error: memberError } = await supabase.from('organisation_memberships').insert({
+            organisation_id: org.id,
+            user_id: user.id,
+            role: 'member',
+            invite_accepted_at: new Date().toISOString(),
+          });
+
+          if (memberError) {
+            return { error: 'Failed to join organisation' };
+          }
+
+          const { data: fullOrg } = await supabase
+            .from('organisations')
+            .select('*')
+            .eq('id', org.id)
+            .single();
+
+          await refreshAccessState();
+          return { error: null, organisation: fullOrg as Organisation };
+        }
+
+        // Handle validation result from new RPC
+        if (validationError) {
+          console.error('[joinOrganisation] Validation error:', validationError);
+          return { error: 'Failed to validate invite code' };
+        }
+
+        if (!validationData || validationData.length === 0) {
           return { error: 'Invalid invite code' };
         }
 
-        const org = orgData[0];
-        console.log('[joinOrganisation] Found org:', org);
+        const validation = validationData[0];
+        console.log('[joinOrganisation] Validation:', validation);
+
+        // Check if validation passed
+        if (!validation.is_valid) {
+          console.log('[joinOrganisation] Validation failed:', validation.error_code, validation.error_message);
+          return { error: validation.error_message || 'Unable to join organisation' };
+        }
 
         // Check if already a member
         console.log('[joinOrganisation] Checking existing membership...');
         const { data: existingMembership } = await supabase
           .from('organisation_memberships')
           .select('id')
-          .eq('organisation_id', org.id)
+          .eq('organisation_id', validation.organisation_id)
           .eq('user_id', user.id)
           .single();
-
-        console.log('[joinOrganisation] Existing membership:', existingMembership);
 
         if (existingMembership) {
           console.log('[joinOrganisation] Already a member');
@@ -486,25 +561,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Create membership
         console.log('[joinOrganisation] Creating membership...');
         const { error: memberError } = await supabase.from('organisation_memberships').insert({
-          organisation_id: org.id,
+          organisation_id: validation.organisation_id,
           user_id: user.id,
           role: 'member',
           invite_accepted_at: new Date().toISOString(),
         });
-
-        console.log('[joinOrganisation] Membership creation result:', { memberError });
 
         if (memberError) {
           console.error('Error creating membership:', memberError);
           return { error: 'Failed to join organisation' };
         }
 
+        // Mark the allowed email as used
+        console.log('[joinOrganisation] Marking email as used...');
+        await supabase.rpc('mark_allowed_email_as_used', {
+          p_org_id: validation.organisation_id,
+          p_email: user.email,
+          p_user_id: user.id,
+        });
+
         // Fetch full organisation details
         console.log('[joinOrganisation] Fetching full org details...');
         const { data: fullOrg } = await supabase
           .from('organisations')
           .select('*')
-          .eq('id', org.id)
+          .eq('id', validation.organisation_id)
           .single();
 
         console.log('[joinOrganisation] Full org:', fullOrg);

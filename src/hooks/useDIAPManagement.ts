@@ -1043,17 +1043,42 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       const question = questions.find((q: any) => q.id === response.questionId);
       if (!question) return;
 
-      // Generate items for "no" or "not-sure" answers
-      if (response.answer === 'no' || response.answer === 'not-sure') {
-        const priority: DIAPPriority = question.safetyRelated ? 'high' :
-          question.impactLevel === 'high' ? 'high' :
-          question.impactLevel === 'medium' ? 'medium' : 'low';
+      // Generate items for "no", "not-sure", or "partially" answers
+      if (response.answer === 'no' || response.answer === 'not-sure' || response.answer === 'partially') {
+        // Determine priority based on answer type and question metadata
+        let priority: DIAPPriority;
+        let impactStatement: string | undefined;
+
+        if (response.answer === 'partially') {
+          // Partial implementation - lower priority to complete
+          priority = 'low';
+          impactStatement = response.notes?.trim()
+            ? `Partial measures in place: ${response.notes.trim()}. Complete implementation for full accessibility.`
+            : 'Partial measures are in place. Complete implementation for full accessibility.';
+        } else if (response.answer === 'not-sure') {
+          // Uncertain - needs investigation
+          priority = 'medium';
+          impactStatement = 'This area needs further investigation to confirm current status.';
+        } else {
+          // No - full implementation needed
+          priority = question.safetyRelated ? 'high' :
+            question.impactLevel === 'high' ? 'high' :
+            question.impactLevel === 'medium' ? 'medium' : 'low';
+          impactStatement = question.safetyRelated
+            ? 'This is a safety-related item requiring immediate attention.'
+            : undefined;
+        }
+
+        // Generate action text based on response type
+        const action = response.answer === 'partially'
+          ? `Complete improvements to: ${questionToAction(question.text).toLowerCase()}`
+          : questionToAction(question.text);
 
         const item: DIAPItem = {
           id: uuidv4(),
           sessionId: session?.session_id || '',
           objective: generateObjective(question.text, moduleName),
-          action: questionToAction(question.text),
+          action,
           category: mapModuleToCategory(moduleName),
           priority,
           status: 'not-started',
@@ -1061,9 +1086,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           moduleSource: moduleName,
           questionSource: response.questionId,
           importSource: 'audit',
-          impactStatement: question.safetyRelated
-            ? 'This is a safety-related item requiring immediate attention.'
-            : undefined,
+          impactStatement,
           createdAt: now,
           updatedAt: now,
         };

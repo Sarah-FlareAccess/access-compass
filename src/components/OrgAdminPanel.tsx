@@ -15,6 +15,7 @@ import type {
   OrgSecuritySettings,
   OrgRole,
 } from '../types/access';
+import type { AllowedEmail } from '../hooks/useOrgAdmin';
 import '../styles/admin-panel.css';
 
 type AdminTab = 'members' | 'invites' | 'security' | 'audit';
@@ -54,6 +55,7 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
   const [inviteCodes, setInviteCodes] = useState<InviteCode[]>([]);
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [securitySettings, setSecuritySettings] = useState<OrgSecuritySettings | null>(null);
+  const [allowedEmails, setAllowedEmails] = useState<AllowedEmail[]>([]);
 
   // UI state
   const [showCreateInvite, setShowCreateInvite] = useState(false);
@@ -68,6 +70,8 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
   const [showTransferModal, setShowTransferModal] = useState(false);
   const [selectedTransferUser, setSelectedTransferUser] = useState<string | null>(null);
   const [currentUserIsOwner, setCurrentUserIsOwner] = useState(false);
+  const [showAddEmails, setShowAddEmails] = useState(false);
+  const [newEmailsText, setNewEmailsText] = useState('');
 
   const orgId = accessState.organisation?.id;
 
@@ -86,8 +90,12 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
         break;
 
       case 'invites':
-        const codes = await orgAdmin.getInviteCodes(orgId);
+        const [codes, emails] = await Promise.all([
+          orgAdmin.getInviteCodes(orgId),
+          orgAdmin.getAllowedEmails(orgId),
+        ]);
         setInviteCodes(codes);
+        setAllowedEmails(emails);
         break;
 
       case 'security':
@@ -251,6 +259,47 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
     } catch (err) {
       console.error('Failed to copy:', err);
     }
+  };
+
+  // Allowed emails actions
+  const handleAddAllowedEmails = async () => {
+    if (!orgId || !newEmailsText.trim()) return;
+    setActionLoading('add-emails');
+
+    // Parse emails from text (comma, semicolon, newline, or space separated)
+    const emailsArray = newEmailsText
+      .split(/[,;\n\s]+/)
+      .map(e => e.trim().toLowerCase())
+      .filter(e => e && e.includes('@'));
+
+    if (emailsArray.length === 0) {
+      alert('Please enter valid email addresses');
+      setActionLoading(null);
+      return;
+    }
+
+    const result = await orgAdmin.addAllowedEmails(orgId, emailsArray);
+    if (result) {
+      setShowAddEmails(false);
+      setNewEmailsText('');
+      await loadData();
+      if (result.skippedCount > 0) {
+        alert(`Added ${result.addedCount} emails. ${result.skippedCount} were already registered.`);
+      }
+    }
+    setActionLoading(null);
+  };
+
+  const handleRemoveAllowedEmail = async (emailId: string) => {
+    if (!orgId) return;
+    if (!window.confirm('Remove this email from the allowed list?')) return;
+
+    setActionLoading(emailId);
+    const success = await orgAdmin.removeAllowedEmail(orgId, emailId);
+    if (success) {
+      await loadData();
+    }
+    setActionLoading(null);
   };
 
   // Security settings
@@ -725,6 +774,109 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
                     </div>
                   ))
                 )}
+              </div>
+
+              {/* ALLOWED EMAILS SECTION */}
+              <div className="allowed-emails-section">
+                <div className="invites-header">
+                  <div>
+                    <h3>Pre-registered Emails</h3>
+                    <p className="section-description">
+                      Only these email addresses can join using your invite code.
+                    </p>
+                  </div>
+                  <button
+                    className="btn-create-invite"
+                    onClick={() => setShowAddEmails(true)}
+                  >
+                    + Add Emails
+                  </button>
+                </div>
+
+                {showAddEmails && (
+                  <div className="create-invite-form">
+                    <h4>Add Pre-registered Emails</h4>
+                    <p className="form-help">
+                      Enter email addresses separated by commas, semicolons, or new lines.
+                    </p>
+                    <div className="form-row">
+                      <textarea
+                        className="emails-textarea"
+                        placeholder="john@company.com, jane@company.com..."
+                        value={newEmailsText}
+                        onChange={(e) => setNewEmailsText(e.target.value)}
+                        rows={4}
+                      />
+                    </div>
+                    <div className="form-actions">
+                      <button
+                        className="btn-cancel"
+                        onClick={() => {
+                          setShowAddEmails(false);
+                          setNewEmailsText('');
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="btn-create"
+                        onClick={handleAddAllowedEmails}
+                        disabled={actionLoading === 'add-emails' || !newEmailsText.trim()}
+                      >
+                        {actionLoading === 'add-emails' ? 'Adding...' : 'Add Emails'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                <div className="allowed-emails-list">
+                  {allowedEmails.length === 0 ? (
+                    <p className="no-invites">
+                      No pre-registered emails yet. Add emails above to allow team members to join.
+                    </p>
+                  ) : (
+                    <>
+                      <div className="emails-summary">
+                        <span className="email-count">
+                          {allowedEmails.filter(e => !e.isUsed).length} pending
+                        </span>
+                        <span className="email-count used">
+                          {allowedEmails.filter(e => e.isUsed).length} joined
+                        </span>
+                      </div>
+                      {allowedEmails.map((email) => (
+                        <div
+                          key={email.id}
+                          className={`allowed-email-card ${email.isUsed ? 'used' : ''}`}
+                        >
+                          <div className="email-info">
+                            <span className="email-address">{email.email}</span>
+                            <span className="email-status">
+                              {email.isUsed ? (
+                                <>Joined {formatDate(email.usedAt!)}</>
+                              ) : (
+                                <>Added {formatDate(email.addedAt)}</>
+                              )}
+                            </span>
+                          </div>
+                          {!email.isUsed && (
+                            <button
+                              className="btn-remove-email"
+                              onClick={() => handleRemoveAllowedEmail(email.id)}
+                              disabled={actionLoading === email.id}
+                              title="Remove email"
+                            >
+                              {actionLoading === email.id ? '...' : '×'}
+                            </button>
+                          )}
+                          {email.isUsed && (
+                            <span className="joined-badge">Joined</span>
+                          )}
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           )}

@@ -528,6 +528,151 @@
 }
 
 /* ============================================
+   ALLOWED EMAILS SECTION
+   ============================================ */
+
+.allowed-emails-section {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 2px solid rgba(73, 14, 103, 0.1);
+}
+
+.allowed-emails-section .invites-header {
+  margin-bottom: var(--spacing-md);
+}
+
+.allowed-emails-section .invites-header h3 {
+  margin-bottom: 4px;
+}
+
+.section-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.form-help {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.emails-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.emails-textarea:focus {
+  outline: none;
+  border-color: var(--amethyst-diamond);
+}
+
+.emails-textarea::placeholder {
+  color: #999;
+}
+
+.allowed-emails-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.emails-summary {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  margin-bottom: var(--spacing-sm);
+}
+
+.email-count {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--amethyst-diamond);
+  padding: 4px 12px;
+  background: rgba(73, 14, 103, 0.08);
+  border-radius: 20px;
+}
+
+.email-count.used {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.allowed-email-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  background: rgba(73, 14, 103, 0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(73, 14, 103, 0.08);
+}
+
+.allowed-email-card.used {
+  background: rgba(34, 197, 94, 0.05);
+  border-color: rgba(34, 197, 94, 0.15);
+}
+
+.email-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.email-address {
+  font-weight: 500;
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.email-status {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.btn-remove-email {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-remove-email:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.btn-remove-email:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.joined-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #22c55e;
+  padding: 4px 10px;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* ============================================
    SECURITY TAB
    ============================================ */
 
@@ -1059,5 +1204,20 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-sm);
+  }
+
+  .allowed-email-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .allowed-email-card .btn-remove-email,
+  .allowed-email-card .joined-badge {
+    align-self: flex-end;
+  }
+
+  .emails-summary {
+    flex-wrap: wrap;
   }
 }

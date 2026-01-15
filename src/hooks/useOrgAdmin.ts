@@ -14,6 +14,15 @@ import type {
   OrgRole,
 } from '../types/access';
 
+// Type for allowed email entries
+export interface AllowedEmail {
+  id: string;
+  email: string;
+  addedAt: string;
+  usedAt: string | null;
+  isUsed: boolean;
+}
+
 interface UseOrgAdminResult {
   // Loading states
   isLoading: boolean;
@@ -48,6 +57,11 @@ interface UseOrgAdminResult {
     }
   ) => Promise<{ code: string; expiresAt: string | null } | null>;
   revokeInviteCode: (code: string) => Promise<boolean>;
+
+  // Pre-registered email management
+  getAllowedEmails: (orgId: string) => Promise<AllowedEmail[]>;
+  addAllowedEmails: (orgId: string, emails: string[]) => Promise<{ addedCount: number; skippedCount: number }>;
+  removeAllowedEmail: (orgId: string, emailId: string) => Promise<boolean>;
 
   // Audit logs
   getAuditLogs: (
@@ -517,6 +531,111 @@ export function useOrgAdmin(): UseOrgAdminResult {
   }, []);
 
   // ============================================
+  // PRE-REGISTERED EMAIL MANAGEMENT
+  // ============================================
+
+  const getAllowedEmails = useCallback(async (orgId: string): Promise<AllowedEmail[]> => {
+    if (!supabase) return [];
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { data, error: fetchError } = await supabase.rpc('get_allowed_emails', {
+        p_org_id: orgId,
+      });
+
+      if (fetchError) {
+        // If function doesn't exist, return empty (feature not enabled)
+        if (fetchError.message?.includes('does not exist')) {
+          return [];
+        }
+        setError(fetchError.message);
+        return [];
+      }
+
+      return (data || []).map((e: Record<string, unknown>) => ({
+        id: e.id as string,
+        email: e.email as string,
+        addedAt: e.added_at as string,
+        usedAt: e.used_at as string | null,
+        isUsed: e.is_used as boolean,
+      }));
+    } catch (err) {
+      setError('Failed to fetch allowed emails');
+      return [];
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const addAllowedEmails = useCallback(
+    async (orgId: string, emails: string[]): Promise<{ addedCount: number; skippedCount: number }> => {
+      if (!supabase) return { addedCount: 0, skippedCount: 0 };
+
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        if (!userData?.user?.id) {
+          setError('Not authenticated');
+          return { addedCount: 0, skippedCount: 0 };
+        }
+
+        const { data, error: addError } = await supabase.rpc('add_allowed_emails', {
+          p_org_id: orgId,
+          p_emails: emails,
+          p_added_by: userData.user.id,
+        });
+
+        if (addError) {
+          setError(addError.message);
+          return { addedCount: 0, skippedCount: 0 };
+        }
+
+        const result = data?.[0] || { added_count: 0, skipped_count: 0 };
+        return {
+          addedCount: result.added_count || 0,
+          skippedCount: result.skipped_count || 0,
+        };
+      } catch (err) {
+        setError('Failed to add allowed emails');
+        return { addedCount: 0, skippedCount: 0 };
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
+
+  const removeAllowedEmail = useCallback(async (orgId: string, emailId: string): Promise<boolean> => {
+    if (!supabase) return false;
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { data, error: removeError } = await supabase.rpc('remove_allowed_email', {
+        p_org_id: orgId,
+        p_email_id: emailId,
+      });
+
+      if (removeError) {
+        setError(removeError.message);
+        return false;
+      }
+
+      return data === true;
+    } catch (err) {
+      setError('Failed to remove allowed email');
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // ============================================
   // AUDIT LOGS
   // ============================================
 
@@ -712,6 +831,9 @@ export function useOrgAdmin(): UseOrgAdminResult {
     getInviteCodes,
     createInviteCode,
     revokeInviteCode,
+    getAllowedEmails,
+    addAllowedEmails,
+    removeAllowedEmail,
     getAuditLogs,
     getSecuritySettings,
     updateSecuritySettings,

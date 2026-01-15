@@ -260,6 +260,12 @@ export interface UserAccessState {
   /** The organisation they belong to (if any) */
   organisation?: Organisation | null;
 
+  /** The user's membership details (role, status) */
+  membership?: {
+    role?: string;
+    status?: string;
+  };
+
   /** The entitlement ID (for reference) */
   entitlementId?: string;
 }
