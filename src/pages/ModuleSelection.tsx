@@ -150,7 +150,6 @@ export default function ModuleSelection() {
                         <h3 className="module-title">{module.name}</h3>
                         <p className="module-description">{module.description}</p>
                         <div className="module-meta">
-                          <span className="module-code">{module.code}</span>
                           <span className="module-time">~{module.estimatedTime} min</span>
                         </div>
                       </div>

@@ -117,7 +117,7 @@
   font-size: 12px;
   font-weight: 600;
   color: #7c3aed;
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.5px;
 }
 
@@ -488,7 +488,7 @@
   background: #f3f4f6;
   padding: 3px 8px;
   border-radius: 4px;
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.3px;
 }
 

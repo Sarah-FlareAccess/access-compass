@@ -411,7 +411,7 @@
   font-size: 12px;
   font-weight: 600;
   color: #757575;
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.5px;
 }
 

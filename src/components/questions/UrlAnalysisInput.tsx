@@ -97,6 +97,7 @@ export function UrlAnalysisInput({ currentValue, onSubmit, onSkip }: UrlAnalysis
               placeholder="https://yourwebsite.com/accessibility"
               className="url-input-field"
               disabled={isAnalyzing}
+              aria-label="Website URL to analyse"
             />
           </div>
           {error && <p className="url-error">{error}</p>}
@@ -111,12 +112,12 @@ export function UrlAnalysisInput({ currentValue, onSubmit, onSkip }: UrlAnalysis
             {isAnalyzing ? (
               <>
                 <span className="analyzing-spinner"></span>
-                Analyzing...
+                Analysing...
               </>
             ) : (
               <>
                 <span className="analyze-icon">🔍</span>
-                Analyze & Save
+                Analyse & Save
               </>
             )}
           </button>
@@ -144,7 +145,7 @@ export function UrlAnalysisInput({ currentValue, onSubmit, onSkip }: UrlAnalysis
         </div>
 
         <div className="confirmation-content">
-          <h4>Accessibility Information Analyzed</h4>
+          <h4>Accessibility Information Analysed</h4>
           <div className="analyzed-url">
             <span className="url-label">Page:</span>
             <a href={analysisResult.url} target="_blank" rel="noopener noreferrer" className="url-link">
@@ -152,14 +153,14 @@ export function UrlAnalysisInput({ currentValue, onSubmit, onSkip }: UrlAnalysis
             </a>
           </div>
           <p className="confirmation-message">
-            Your accessibility information has been analyzed and the detailed feedback
+            Your accessibility information has been analysed and the detailed feedback
             has been saved. You'll see the full analysis in your report.
           </p>
         </div>
 
         <div className="confirmation-actions">
           <button className="btn-change-url" onClick={handleChange}>
-            Analyze Different URL
+            Analyse Different URL
           </button>
           <button className="btn-continue-confirmed" onClick={handleSubmit}>
             Continue

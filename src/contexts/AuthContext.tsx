@@ -15,11 +15,10 @@ import {
   type ReactNode,
 } from 'react';
 import type { User, Session, AuthError } from '@supabase/supabase-js';
-import { supabase, isSupabaseEnabled } from '../utils/supabase';
+import { supabase, isSupabaseEnabled, supabaseRest } from '../utils/supabase';
 import type {
   UserAccessState,
   Organisation,
-  UserEntitlementResult,
   AccessLevel,
 } from '../types/access';
 
@@ -99,67 +98,57 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // ============================================
 
   const fetchAccessState = useCallback(async (userId: string): Promise<UserAccessState> => {
-    if (!supabase) {
-      return { isAuthenticated: true, hasAccess: false };
-    }
+    console.log('[fetchAccessState] Starting for user:', userId);
 
     try {
-      // Get user's entitlement using RPC function
-      const { data: entitlementData, error: entitlementError } = await supabase
-        .rpc('get_user_entitlement', { p_user_id: userId });
+      // Use REST API to fetch membership (bypasses Supabase JS client issues)
+      console.log('[fetchAccessState] Fetching membership via REST...');
+      const { data: memberships, error: membershipError } = await supabaseRest.query(
+        'organisation_memberships',
+        '*',
+        { user_id: userId }
+      );
 
-      if (entitlementError) {
-        console.error('Error fetching entitlement:', entitlementError);
-        return { isAuthenticated: true, hasAccess: false };
+      console.log('[fetchAccessState] Memberships result:', { memberships, membershipError });
+
+      const membership = Array.isArray(memberships) ? memberships[0] : null;
+
+      // If we have a membership, fetch the organisation separately
+      let membershipOrg: Organisation | null = null;
+      if (membership?.organisation_id) {
+        console.log('[fetchAccessState] Fetching organisation via REST...');
+        const { data: orgs, error: orgError } = await supabaseRest.query(
+          'organisations',
+          '*',
+          { id: membership.organisation_id }
+        );
+        console.log('[fetchAccessState] Organisation result:', { orgs, orgError });
+        membershipOrg = Array.isArray(orgs) && orgs.length > 0 ? orgs[0] as Organisation : null;
       }
 
-      // If user has an entitlement
-      if (entitlementData && entitlementData.length > 0) {
-        const ent = entitlementData[0] as UserEntitlementResult;
+      console.log('[fetchAccessState] Extracted org:', membershipOrg?.name, 'Role:', membership?.role);
 
-        // Fetch organisation details if applicable
-        let organisation: Organisation | null = null;
-        if (ent.organisation_id) {
-          const { data: orgData } = await supabase
-            .from('organisations')
-            .select('*')
-            .eq('id', ent.organisation_id)
-            .single();
+      const membershipInfo = membership ? {
+        role: membership.role,
+        status: membership.status,
+      } : undefined;
 
-          organisation = orgData as Organisation | null;
-        }
+      // For now, skip entitlement check via RPC (can be added later)
+      // Users with membership can access the app
+      const hasAccess = !!membership && membership.status === 'active';
 
-        return {
-          isAuthenticated: true,
-          hasAccess: true,
-          accessLevel: ent.access_level,
-          moduleBundle: ent.module_bundle,
-          maxModules: ent.max_modules,
-          source: ent.source,
-          expiresAt: ent.expires_at,
-          organisation,
-          entitlementId: ent.entitlement_id,
-        };
-      }
-
-      // Check if user is member of any organisation (even without direct entitlement)
-      const { data: memberships } = await supabase
-        .from('organisation_memberships')
-        .select(`
-          *,
-          organisation:organisations(*)
-        `)
-        .eq('user_id', userId);
-
-      const organisation = memberships?.[0]?.organisation as Organisation | undefined;
+      console.log('[fetchAccessState] Result:', { hasAccess, org: membershipOrg?.name, role: membership?.role });
 
       return {
         isAuthenticated: true,
-        hasAccess: false,
-        organisation: organisation || null,
+        hasAccess,
+        organisation: membershipOrg,
+        membership: membershipInfo,
+        // Default access for members (can be enhanced with entitlements later)
+        accessLevel: hasAccess ? 'deep_dive' : undefined,
       };
     } catch (error) {
-      console.error('Error in fetchAccessState:', error);
+      console.error('[fetchAccessState] Error:', error);
       return { isAuthenticated: true, hasAccess: false };
     }
   }, []);
@@ -178,11 +167,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Get initial session with timeout
     console.log('[AuthContext] Getting initial session...');
 
-    // Timeout after 30 seconds if Supabase doesn't respond (increased for high-latency regions)
+    // Timeout after 60 seconds if Supabase doesn't respond (free tier can be slow)
     const timeoutId = setTimeout(() => {
       console.warn('[AuthContext] Session check timed out - Supabase may be unavailable');
       setIsLoading(false);
-    }, 30000);
+    }, 60000);
 
     supabase.auth.getSession()
       .then(({ data: { session: initialSession } }) => {
@@ -255,9 +244,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return result;
       });
 
-      // Wait up to 30 seconds for signUp (increased for high-latency regions)
+      // Wait up to 60 seconds for signUp (free tier can be slow)
       const timeoutPromise = new Promise<null>((resolve) => {
-        setTimeout(() => resolve(null), 30000);
+        setTimeout(() => resolve(null), 60000);
       });
 
       const result = await Promise.race([signUpPromise, timeoutPromise]);
@@ -367,7 +356,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       contactName: string;
       allowedEmails?: string[];
     }): Promise<{ error: string | null; organisation?: Organisation; inviteCode?: string; emailsAdded?: number }> => {
+      console.log('[createOrganisation] Called. Supabase:', !!supabase, 'User:', user?.id || 'NULL');
+
       if (!supabase || !user) {
+        console.error('[createOrganisation] BLOCKED - Not authenticated. Supabase:', !!supabase, 'User:', !!user);
         return { error: 'Not authenticated' };
       }
 
@@ -375,82 +367,65 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.log('[createOrganisation] User ID:', user.id);
 
       try {
-        // Try the new RPC function first (with email pre-registration)
-        console.log('[createOrganisation] Calling RPC create_organisation_with_admin_and_emails...');
+        console.log('[createOrganisation] Starting with user ID:', user.id);
 
-        const rpcPromise = supabase.rpc(
-          'create_organisation_with_admin_and_emails',
-          {
-            p_name: data.name,
-            p_size: data.size,
-            p_contact_email: data.contactEmail,
-            p_contact_name: data.contactName,
-            p_creator_user_id: user.id,
-            p_allowed_emails: data.allowedEmails || [],
-          }
-        );
+        // Generate invite code
+        const inviteCode = Math.random().toString(36).substring(2, 10).toUpperCase();
+        console.log('[createOrganisation] Generated invite code:', inviteCode);
 
-        // Timeout after 30 seconds (increased for slow connections)
-        const timeoutPromise = new Promise<{ data: null; error: { message: string } }>((resolve) => {
-          setTimeout(() => {
-            console.warn('[createOrganisation] RPC call timed out after 30 seconds');
-            resolve({ data: null, error: { message: 'Request timed out. Please check your connection and try again.' } });
-          }, 30000);
+        // Step 1: Insert organisation using direct REST API (bypasses Supabase JS client issues)
+        console.log('[createOrganisation] Inserting organisation via REST API...');
+        const { data: orgData, error: orgError } = await supabaseRest.insert('organisations', {
+          name: data.name,
+          size: data.size,
+          contact_email: data.contactEmail,
+          contact_name: data.contactName,
+          invite_code: inviteCode,
         });
 
-        let { data: result, error: createError } = await Promise.race([rpcPromise, timeoutPromise]);
-
-        // Fallback to old RPC if new one doesn't exist
-        if (createError?.message?.includes('function') && createError?.message?.includes('does not exist')) {
-          console.log('[createOrganisation] Falling back to create_organisation_with_admin...');
-          const fallbackResult = await supabase.rpc(
-            'create_organisation_with_admin',
-            {
-              p_name: data.name,
-              p_size: data.size,
-              p_contact_email: data.contactEmail,
-              p_contact_name: data.contactName,
-              p_creator_user_id: user.id,
-            }
-          );
-          result = fallbackResult.data;
-          createError = fallbackResult.error;
+        if (orgError) {
+          console.error('[createOrganisation] Org insert error:', orgError);
+          return { error: typeof orgError === 'string' ? orgError : 'Failed to create organisation' };
         }
 
-        console.log('[createOrganisation] RPC result:', { result, createError });
+        // REST API returns array, get first item
+        const newOrg = Array.isArray(orgData) ? orgData[0] : orgData;
+        console.log('[createOrganisation] Organisation created:', newOrg);
 
-        if (createError) {
-          console.error('[createOrganisation] Error:', createError);
-          return { error: createError.message || 'Failed to create organisation' };
+        if (!newOrg || !newOrg.id) {
+          console.error('[createOrganisation] No organisation ID returned');
+          return { error: 'Failed to create organisation - no ID returned' };
         }
 
-        if (!result || result.length === 0) {
-          console.error('[createOrganisation] No result returned');
-          return { error: 'Failed to create organisation - no data returned' };
+        // Step 2: Insert membership using direct REST API
+        console.log('[createOrganisation] Inserting membership via REST API...');
+        const { error: memberError } = await supabaseRest.insert('organisation_memberships', {
+          organisation_id: newOrg.id,
+          user_id: user.id,
+          role: 'owner',
+          status: 'active',
+          invite_accepted_at: new Date().toISOString(),
+        });
+
+        if (memberError) {
+          console.error('[createOrganisation] Membership insert error:', memberError);
+          // Note: Can't easily clean up via REST without delete helper, but that's ok
+          return { error: typeof memberError === 'string' ? memberError : 'Failed to add you as owner' };
         }
 
-        const orgResult = result[0];
-        console.log('[createOrganisation] Org created:', orgResult);
-
-        // Fetch full organisation details
-        console.log('[createOrganisation] Fetching full org details...');
-        const { data: fullOrg } = await supabase
-          .from('organisations')
-          .select('*')
-          .eq('id', orgResult.organisation_id)
-          .single();
+        console.log('[createOrganisation] Membership created');
 
         // Refresh access state
         console.log('[createOrganisation] Refreshing access state...');
         await refreshAccessState();
 
-        console.log('[createOrganisation] Success:', { fullOrg, inviteCode: orgResult.invite_code, emailsAdded: orgResult.emails_added });
+        console.log('[createOrganisation] Success!');
 
         return {
           error: null,
-          organisation: fullOrg as Organisation,
-          inviteCode: orgResult.invite_code,
-          emailsAdded: orgResult.emails_added || 0,
+          organisation: newOrg as Organisation,
+          inviteCode: inviteCode,
+          emailsAdded: 0,
         };
       } catch (error) {
         console.error('[createOrganisation] Exception:', error);

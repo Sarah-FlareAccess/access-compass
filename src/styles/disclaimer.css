@@ -194,21 +194,16 @@
 }
 
 .disclaimer-actions .btn-primary {
-  background: linear-gradient(135deg, var(--aussie-dark) 0%, #e68a00 100%);
+  background: var(--amethyst-diamond);
   border: none;
   color: white;
-  box-shadow:
-    0 2px 8px rgba(204, 119, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.25);
 }
 
 .disclaimer-actions .btn-primary:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow:
-    0 8px 20px rgba(204, 119, 0, 0.35),
-    0 0 0 4px rgba(204, 119, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  background: linear-gradient(135deg, #B36600 0%, var(--aussie-dark) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  background: #723d8d;
 }
 
 .disclaimer-actions .btn-primary:disabled {

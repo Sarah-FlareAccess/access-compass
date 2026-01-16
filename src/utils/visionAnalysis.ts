@@ -70,7 +70,7 @@ export interface UsageLogEntry {
 // ============================================
 
 const ANALYSIS_PROMPTS: Record<string, string> = {
-  signage: `Analyze this signage image for accessibility compliance. Evaluate:
+  signage: `Analyse this signage image for accessibility compliance. Evaluate:
 
 1. **Text Legibility**
    - Font size (minimum 18pt for primary text)
@@ -78,10 +78,10 @@ const ANALYSIS_PROMPTS: Record<string, string> = {
    - Letter spacing
    - Text contrast ratio against background
 
-2. **Color & Contrast**
+2. **Colour & Contrast**
    - Contrast ratio (minimum 4.5:1 for normal text, 3:1 for large text)
-   - Color combinations that work for color blindness
-   - Avoid relying on color alone to convey information
+   - Colour combinations that work for colour blindness
+   - Avoid relying on colour alone to convey information
 
 3. **Symbol Recognition**
    - Use of International Symbol of Access where appropriate
@@ -107,7 +107,7 @@ Standards reference: AS 1428.1, WCAG 2.1 AA, ADA Signage Guidelines
 
 Provide specific, actionable findings. Be constructive, not punitive.`,
 
-  menu: `Analyze this menu for accessibility. Evaluate:
+  menu: `Analyse this menu for accessibility. Evaluate:
 
 1. **Text Readability**
    - Font size (minimum 14pt, 18pt+ preferred)
@@ -115,7 +115,7 @@ Provide specific, actionable findings. Be constructive, not punitive.`,
    - Line spacing (1.5x minimum)
    - Text contrast
 
-2. **Layout & Organization**
+2. **Layout & Organisation**
    - Clear section headings
    - Logical flow
    - White space usage
@@ -126,10 +126,10 @@ Provide specific, actionable findings. Be constructive, not punitive.`,
    - Symbols explained in legend
    - Vegetarian/vegan markers
 
-4. **Color Usage**
+4. **Colour Usage**
    - Sufficient contrast
-   - Not relying on color alone
-   - Readable for color blindness
+   - Not relying on colour alone
+   - Readable for colour blindness
 
 5. **Large Print Availability** (if shown)
    - Font size 18pt+
@@ -139,7 +139,7 @@ Standards reference: WCAG 2.1 AA, Food Standards Code
 
 Be specific and constructive in your feedback.`,
 
-  lighting: `Analyze this image for lighting accessibility. Evaluate:
+  lighting: `Analyse this image for lighting accessibility. Evaluate:
 
 1. **Illumination Levels**
    - Overall brightness
@@ -156,15 +156,15 @@ Be specific and constructive in your feedback.`,
    - Hazard highlighting
    - Step/edge definition
 
-4. **Color Rendering**
-   - Natural color appearance
+4. **Colour Rendering**
+   - Natural colour appearance
    - Signage readability under lighting
 
 Standards reference: AS 1428.1, Building Code of Australia
 
 Provide practical recommendations.`,
 
-  'entrance': `Analyze this entrance/doorway for accessibility. Evaluate:
+  'entrance': `Analyse this entrance/doorway for accessibility. Evaluate:
 
 1. **Door Characteristics**
    - Door width (minimum 850mm clear)
@@ -191,7 +191,7 @@ Standards reference: AS 1428.1, Disability Discrimination Act
 
 Be specific about measurements where visible.`,
 
-  default: `Analyze this image for accessibility considerations. Evaluate:
+  default: `Analyse this image for accessibility considerations. Evaluate:
 
 1. **Visual Accessibility**
    - Contrast and color usage

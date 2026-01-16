@@ -87,7 +87,7 @@
 
 .compared-run .run-label {
   font-size: 0.7rem;
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.05em;
   color: #6b7280;
   display: block;

@@ -297,7 +297,7 @@ export function MediaAnalysisInput({
         <div className="acknowledged-header">
           <span className="acknowledged-icon">✓</span>
           <div className="acknowledged-text">
-            <h4>Photos uploaded</h4>
+            <strong className="acknowledged-title">Photos uploaded</strong>
             <p>{photoCount} photo{photoCount !== 1 ? 's' : ''} saved for analysis</p>
           </div>
         </div>
@@ -335,14 +335,14 @@ export function MediaAnalysisInput({
       {/* Step 1: Select material type */}
       {!selectedType && (
         <div className="type-selection">
-          <h4>What would you like to analyze?</h4>
+          <strong className="type-selection-title">What would you like to analyse?</strong>
           <p className="type-selection-help">
             Select the type of material or environment you want to check for accessibility
           </p>
 
           {Object.entries(groupedOptions).map(([category, options]) => (
             <div key={category} className="type-category">
-              <h5>{MEDIA_CATEGORY_LABELS[category as keyof typeof MEDIA_CATEGORY_LABELS]}</h5>
+              <strong className="type-category-label">{MEDIA_CATEGORY_LABELS[category as keyof typeof MEDIA_CATEGORY_LABELS]}</strong>
               <div className="type-options">
                 {options.map((option) => (
                   <button
@@ -377,12 +377,12 @@ export function MediaAnalysisInput({
           <div className="selected-type-header">
             <span className="selected-type-icon">{config.icon}</span>
             <div>
-              <h4>{config.name}</h4>
+              <strong className="config-name">{config.name}</strong>
               <p>{config.description}</p>
             </div>
           </div>
 
-          <h5>How would you like to provide the content?</h5>
+          <p className="input-type-prompt">How would you like to provide the content?</p>
 
           <div className="input-options">
             {config.acceptedInputTypes.includes('photo') && (
@@ -439,7 +439,7 @@ export function MediaAnalysisInput({
           <div className="selected-type-header">
             <span className="selected-type-icon">{config.icon}</span>
             <div>
-              <h4>{config.name}</h4>
+              <strong className="config-name">{config.name}</strong>
               <p>{config.examplePrompt}</p>
             </div>
           </div>
@@ -534,6 +534,7 @@ export function MediaAnalysisInput({
                     : 'https://...'
                 }
                 className="url-input"
+                aria-label="URL to analyse"
               />
               {selectedType === 'website-wave' && (
                 <p className="wave-notice">
@@ -556,10 +557,10 @@ export function MediaAnalysisInput({
               {isAnalyzing ? (
                 <>
                   <span className="spinner"></span>
-                  Analyzing...
+                  Analysing...
                 </>
               ) : (
-                'Analyze for Accessibility'
+                'Analyse for Accessibility'
               )}
             </button>
             <button className="btn-skip" onClick={onSkip}>

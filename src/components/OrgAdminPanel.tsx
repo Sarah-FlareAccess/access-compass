@@ -654,30 +654,34 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
                 <div className="create-invite-form">
                   <h4>Create New Invite Code</h4>
                   <div className="form-row">
-                    <label>Label (optional)</label>
-                    <input
-                      type="text"
-                      placeholder="e.g., IT Department"
-                      value={inviteForm.label}
-                      onChange={(e) =>
-                        setInviteForm({ ...inviteForm, label: e.target.value })
-                      }
-                    />
+                    <label>
+                      Label (optional)
+                      <input
+                        type="text"
+                        placeholder="e.g., IT Department"
+                        value={inviteForm.label}
+                        onChange={(e) =>
+                          setInviteForm({ ...inviteForm, label: e.target.value })
+                        }
+                      />
+                    </label>
                   </div>
                   <div className="form-row">
-                    <label>Expires in (days)</label>
-                    <input
-                      type="number"
-                      min="1"
-                      max="365"
-                      value={inviteForm.expiresInDays}
-                      onChange={(e) =>
-                        setInviteForm({
-                          ...inviteForm,
-                          expiresInDays: parseInt(e.target.value) || 30,
-                        })
-                      }
-                    />
+                    <label>
+                      Expires in (days)
+                      <input
+                        type="number"
+                        min="1"
+                        max="365"
+                        value={inviteForm.expiresInDays}
+                        onChange={(e) =>
+                          setInviteForm({
+                            ...inviteForm,
+                            expiresInDays: parseInt(e.target.value) || 30,
+                          })
+                        }
+                      />
+                    </label>
                   </div>
                   <div className="form-row">
                     <label>
@@ -693,19 +697,21 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
                   </div>
                   {!inviteForm.unlimitedUses && (
                     <div className="form-row">
-                      <label>Maximum uses</label>
-                      <input
-                        type="number"
-                        min="1"
-                        max="1000"
-                        value={inviteForm.maxUses}
-                        onChange={(e) =>
-                          setInviteForm({
-                            ...inviteForm,
-                            maxUses: parseInt(e.target.value) || 1,
-                          })
-                        }
-                      />
+                      <label>
+                        Maximum uses
+                        <input
+                          type="number"
+                          min="1"
+                          max="1000"
+                          value={inviteForm.maxUses}
+                          onChange={(e) =>
+                            setInviteForm({
+                              ...inviteForm,
+                              maxUses: parseInt(e.target.value) || 1,
+                            })
+                          }
+                        />
+                      </label>
                     </div>
                   )}
                   <div className="form-actions">
@@ -932,6 +938,7 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
                     handleUpdateSecurity('sessionTimeoutMinutes', parseInt(e.target.value))
                   }
                   disabled={actionLoading === 'security-sessionTimeoutMinutes'}
+                  aria-label="Session timeout duration"
                 >
                   <option value={30}>30 minutes</option>
                   <option value={60}>1 hour</option>

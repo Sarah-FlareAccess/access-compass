@@ -40,11 +40,6 @@ export default function Disclaimer() {
   const [orgSize, setOrgSize] = useState<'small' | 'medium' | 'large' | 'enterprise'>('small');
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
-  const [createdInviteCode, setCreatedInviteCode] = useState<string | null>(null);
-
-  // Team member emails (pre-registered for invite code access)
-  const [teamEmails, setTeamEmails] = useState<string[]>(['']);
-  const [emailsAdded, setEmailsAdded] = useState<number>(0);
 
   // UI state
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -180,27 +175,23 @@ export default function Disclaimer() {
 
   const handleCreateOrg = async (e: React.FormEvent) => {
     e.preventDefault();
-    const validEmails = getValidTeamEmails();
-    console.log('[Disclaimer] handleCreateOrg called', { orgName, orgSize, contactEmail, contactName, teamEmails: validEmails });
+    console.log('[Disclaimer] handleCreateOrg called', { orgName, orgSize, contactEmail, contactName });
     setError(null);
     setIsSubmitting(true);
 
     try {
       console.log('[Disclaimer] Calling createOrganisation...');
-      const { error, organisation, inviteCode: newInviteCode, emailsAdded: addedCount } = await createOrganisation({
+      const { error, organisation } = await createOrganisation({
         name: orgName,
         size: orgSize,
         contactEmail,
         contactName,
-        allowedEmails: validEmails,
       });
-      console.log('[Disclaimer] createOrganisation result:', { error, organisation, newInviteCode, addedCount });
+      console.log('[Disclaimer] createOrganisation result:', { error, organisation });
 
       if (error) {
         setError(error);
       } else {
-        setCreatedInviteCode(newInviteCode || null);
-        setEmailsAdded(addedCount || 0);
         setSuccessMessage(`${organisation?.name} has been created!`);
         setCurrentStep('complete');
       }
@@ -217,49 +208,6 @@ export default function Disclaimer() {
     setSuccessMessage(null);
     setPassword('');
     setConfirmPassword('');
-  };
-
-  // Team email management helpers
-  const getMaxTeamEmails = () => {
-    switch (orgSize) {
-      case 'small': return 4; // 5 total - 1 admin
-      case 'medium': return 14;
-      case 'large': return 49;
-      case 'enterprise': return 99; // Cap at 99 for UI
-      default: return 4;
-    }
-  };
-
-  const handleTeamEmailChange = (index: number, value: string) => {
-    const newEmails = [...teamEmails];
-    newEmails[index] = value;
-    setTeamEmails(newEmails);
-  };
-
-  const addTeamEmailField = () => {
-    if (teamEmails.length < getMaxTeamEmails()) {
-      setTeamEmails([...teamEmails, '']);
-    }
-  };
-
-  const removeTeamEmailField = (index: number) => {
-    if (teamEmails.length > 1) {
-      const newEmails = teamEmails.filter((_, i) => i !== index);
-      setTeamEmails(newEmails);
-    }
-  };
-
-  const getValidTeamEmails = () => {
-    return teamEmails
-      .map(e => e.trim().toLowerCase())
-      .filter(e => e && e.includes('@'));
-  };
-
-  const copyInviteCode = () => {
-    if (createdInviteCode) {
-      navigator.clipboard.writeText(createdInviteCode);
-      setSuccessMessage('Invite code copied to clipboard!');
-    }
   };
 
   // If authenticated and has org, skip to complete
@@ -636,76 +584,6 @@ export default function Disclaimer() {
                     />
                   </div>
 
-                  {/* Team member emails - pre-registration */}
-                  <div className="form-group" style={{ marginTop: '24px' }}>
-                    <label>Team member emails</label>
-                    <p className="field-hint" style={{ marginBottom: '12px' }}>
-                      Pre-register team members who can join using your invite code.
-                      Only these email addresses will be able to join your organisation.
-                    </p>
-
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      {teamEmails.map((email, index) => (
-                        <div key={index} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                          <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => handleTeamEmailChange(index, e.target.value)}
-                            placeholder={`team.member${index + 1}@example.com`}
-                            style={{ flex: 1 }}
-                          />
-                          {teamEmails.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => removeTeamEmailField(index)}
-                              style={{
-                                width: '36px',
-                                height: '36px',
-                                padding: 0,
-                                background: '#fee2e2',
-                                border: '1px solid #fecaca',
-                                borderRadius: '8px',
-                                color: '#dc2626',
-                                cursor: 'pointer',
-                                fontSize: '18px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}
-                              aria-label="Remove email"
-                            >
-                              ×
-                            </button>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-
-                    {teamEmails.length < getMaxTeamEmails() && (
-                      <button
-                        type="button"
-                        onClick={addTeamEmailField}
-                        style={{
-                          marginTop: '12px',
-                          padding: '8px 16px',
-                          background: 'rgba(73, 14, 103, 0.06)',
-                          border: '1px dashed rgba(73, 14, 103, 0.3)',
-                          borderRadius: '8px',
-                          color: 'var(--amethyst-diamond)',
-                          cursor: 'pointer',
-                          fontSize: '0.9rem',
-                          fontWeight: 500,
-                        }}
-                      >
-                        + Add another team member
-                      </button>
-                    )}
-
-                    <p className="field-hint" style={{ marginTop: '12px', fontSize: '0.8rem' }}>
-                      You can add up to {getMaxTeamEmails()} team members. More can be added later from your admin panel.
-                    </p>
-                  </div>
-
                   <button
                     type="submit"
                     className="btn btn-primary auth-submit"
@@ -757,50 +635,6 @@ export default function Disclaimer() {
                   <p className="complete-org">
                     Organisation: <strong>{accessState.organisation.name}</strong>
                   </p>
-                )}
-
-                {createdInviteCode && (
-                  <div className="invite-code-display">
-                    <p className="invite-code-label">Your invite code (share with your team):</p>
-                    <div
-                      className="invite-code-box"
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        gap: '24px',
-                        padding: '32px 40px'
-                      }}
-                    >
-                      <span className="invite-code-value">{createdInviteCode}</span>
-                      <button
-                        type="button"
-                        className="invite-code-copy"
-                        onClick={copyInviteCode}
-                      >
-                        Copy
-                      </button>
-                    </div>
-
-                    {emailsAdded > 0 && (
-                      <p style={{
-                        marginTop: '16px',
-                        padding: '12px 16px',
-                        background: 'rgba(34, 197, 94, 0.1)',
-                        borderRadius: '8px',
-                        color: '#15803d',
-                        fontSize: '0.9rem',
-                        textAlign: 'center',
-                      }}>
-                        {emailsAdded} team member email{emailsAdded !== 1 ? 's' : ''} pre-registered
-                      </p>
-                    )}
-
-                    <p className="invite-code-hint">
-                      Only pre-registered email addresses can join using this code.
-                      You can manage team members from your admin panel.
-                    </p>
-                  </div>
                 )}
 
                 {successMessage && (

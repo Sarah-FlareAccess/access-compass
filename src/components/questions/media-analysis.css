@@ -36,7 +36,7 @@
   font-size: 13px;
   font-weight: 700;
   color: #5a3d8a;
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.5px;
 }
 

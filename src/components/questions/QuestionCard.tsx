@@ -526,14 +526,19 @@ export function QuestionCard({
         <>
           <div className="measurement-input">
             <div className="measurement-field">
+              <label htmlFor="measurement-value" className="visually-hidden">
+                Enter measurement in {question.measurementUnit || 'mm'}
+              </label>
               <input
                 type="number"
+                id="measurement-value"
                 value={measurementValue}
                 onChange={(e) => setMeasurementValue(e.target.value)}
                 placeholder="Enter measurement"
                 className="measurement-value-input"
+                aria-describedby="measurement-unit"
               />
-              <span className="measurement-unit">
+              <span className="measurement-unit" id="measurement-unit">
                 {question.measurementUnit || 'mm'}
               </span>
             </div>
@@ -838,8 +843,12 @@ export function QuestionCard({
       {question.type === 'link-input' && (
         <>
           <div className="link-input-section">
+            <label htmlFor="link-input" className="visually-hidden">
+              Enter URL
+            </label>
             <input
               type="url"
+              id="link-input"
               value={linkValue}
               onChange={(e) => setLinkValue(e.target.value)}
               placeholder="https://..."

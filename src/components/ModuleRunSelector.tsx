@@ -638,19 +638,34 @@ export function ModuleRunSelector({
                   onClick={async () => {
                     setIsDeleting(true);
                     const assessmentName = deleteConfirm.context.name;
-                    // Backup to Supabase before deleting
-                    const result = await backupDeletedAssessment(
-                      moduleId,
-                      moduleName,
-                      deleteConfirm
-                    );
-                    // Proceed with deletion
+                    let recoveryCode = 'N/A';
+
+                    try {
+                      // Backup to Supabase before deleting (optional - don't block on failure)
+                      // Add 5 second timeout to prevent indefinite hanging
+                      const backupPromise = backupDeletedAssessment(
+                        moduleId,
+                        moduleName,
+                        deleteConfirm
+                      );
+                      const timeoutPromise = new Promise<{ success: false; recoveryCode?: string }>((resolve) =>
+                        setTimeout(() => resolve({ success: false }), 5000)
+                      );
+
+                      const result = await Promise.race([backupPromise, timeoutPromise]);
+                      recoveryCode = result.recoveryCode || 'N/A';
+                    } catch (err) {
+                      console.error('Error during backup:', err);
+                    }
+
+                    // Always proceed with local deletion
                     onDeleteRun(deleteConfirm.id);
                     setDeleteConfirm(null);
                     setIsDeleting(false);
-                    // Show success modal with recovery code
+
+                    // Show success modal
                     setDeletionSuccess({
-                      recoveryCode: result.recoveryCode,
+                      recoveryCode,
                       assessmentName,
                     });
                   }}

@@ -25,18 +25,21 @@ export interface AccessModule {
   code: string;
   name: string;
   description: string;
-  group: 'before-arrival' | 'getting-in' | 'during-visit' | 'service-support';
+  group: 'before-arrival' | 'getting-in' | 'during-visit' | 'service-support' | 'organisational-commitment';
   estimatedTime: number;
   estimatedTimeDeepDive?: number;
   icon: string;
   questions: BranchingQuestion[];
+  // Universal modules are recommended to all businesses regardless of touchpoints selected
+  isUniversal?: boolean;
+  universalReason?: string;
 }
 
 export const moduleGroups = [
   {
     id: 'before-arrival',
     label: 'Before they arrive',
-    description: 'How customers find information and plan their visit',
+    description: 'How customers find information, communicate with you, and plan their visit',
   },
   {
     id: 'getting-in',
@@ -51,7 +54,12 @@ export const moduleGroups = [
   {
     id: 'service-support',
     label: 'Service and support',
-    description: 'How you serve and support customers',
+    description: 'How you serve, support, and stay connected with customers',
+  },
+  {
+    id: 'organisational-commitment',
+    label: 'Organisational commitment',
+    description: 'How your organisation embeds accessibility into policies, employment, and operations',
   },
 ];
 
@@ -1185,87 +1193,1531 @@ export const accessModules: AccessModule[] = [
   },
 
   // B4.2: Booking Systems and Forms
+  // End-to-end accessibility assessment of booking processes
+  // This module helps assess whether customers with disability can understand booking requirements,
+  // complete the process independently, share accessibility needs, and access the same products as others.
   {
     id: 'B4.2',
     code: 'B4.2',
-    name: 'Booking systems and forms',
-    description: 'Accessibility of your online booking and form systems',
+    name: 'Booking & ticketing systems',
+    description: 'End-to-end accessibility of your booking and ticketing process, including payments and flexibility',
     group: 'before-arrival',
-    estimatedTime: 10,
-    estimatedTimeDeepDive: 15,
+    estimatedTime: 12,
+    estimatedTimeDeepDive: 25,
     icon: '📝',
     questions: [
+      // ============================================
+      // PULSE CHECK QUESTIONS (8 questions)
+      // High-level, fast, confidence-building
+      // Answers: "Is accessibility meaningfully considered in our booking process at all?"
+      // ============================================
+
+      // Pulse Check Q1: Keyboard accessibility of booking
       {
-        id: 'B4.2-1-1',
-        text: 'Can customers share their accessibility requirements when booking online?',
-        helpText: 'This refers to whether customers have a clear way to tell you about their accessibility needs during the online booking process.\n\nThis might include a dedicated accessibility question, a free-text field, a tick box, or a notes section where customers can share requirements such as mobility access, hearing or vision support, sensory considerations, or assistance needs.\n\nIt should be easy to find, optional to complete, and reviewed by staff so requests can be acknowledged and responded to.',
+        id: 'B4.2-PC-1',
+        text: 'Have you tested whether someone can complete your booking using only a keyboard (no mouse)?',
+        helpText: 'Keyboard-only navigation is essential for people who cannot use a mouse, including screen reader users and people with motor disabilities.\n\nTo test this yourself:\n1. Put your mouse aside\n2. Use Tab to move between fields and buttons\n3. Use Enter or Space to select options\n4. Try to complete the entire booking\n\nPay particular attention to date pickers, dropdown menus, and payment forms - these often fail keyboard testing.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
-        partialPlaceholder: "E.g., 'There is a general notes field but nothing specifically for accessibility' or 'We can receive requests but no dedicated prompt'",
+        partialPlaceholder: "E.g., 'Most fields work but the date picker requires a mouse' or 'Haven\'t tested this yet'",
+        helpContent: {
+          summary: 'Keyboard testing is the single most effective quick test for booking accessibility. If it fails keyboard testing, it will fail for many assistive technology users.',
+          tips: [
+            'Test now: Open your booking page in a new tab and try completing it without touching your mouse',
+            'Tab key: Should move you through every field, button, and link in a logical order',
+            'Focus visibility: You should always see which element is currently selected (usually a blue outline)',
+            'Date pickers: Click into the date field, then try using arrow keys to change the date',
+            'Dropdowns: Press Enter to open, arrow keys to navigate, Enter to select',
+            'If you get stuck anywhere, that\'s a barrier for keyboard users',
+          ],
+        },
       },
+
+      // Pulse Check Q2: Sharing accessibility requirements
       {
-        id: 'B4.2-1-2',
-        text: 'Are error messages on forms clear and helpful?',
-        helpText: 'Good error messages explain what went wrong and how to fix it.',
+        id: 'B4.2-PC-2',
+        text: 'Are customers invited to share their accessibility requirements during the booking or enquiry process?',
+        helpText: 'Proactively asking about accessibility requirements shows customers you\'re prepared to welcome them and allows you to prepare.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'There is a general notes field but nothing specifically for accessibility' or 'Only available when booking certain ticket types'",
+        helpContent: {
+          summary: 'Look for a clear, visible way for customers to tell you about their accessibility needs. The field should be optional to complete but easy to find for those who need it.',
+          tips: [
+            'A dedicated field, checkbox, or prompt for accessibility requirements',
+            'Not hidden behind conditional logic or buried at the end',
+            'Not requiring a phone call by default to share needs',
+            'Available on all booking paths (not just some)',
+            'Good example: "Do you have any accessibility requirements we can support you with?" with a text field',
+            'Better example: Checkboxes for common needs (wheelchair access, hearing loop, etc.) PLUS a free text field',
+            'Avoid: Hiding accessibility questions behind "special requests" or "dietary requirements"',
+            'Placement matters: Show the field early in the booking, not after payment details',
+          ],
+        },
+      },
+
+      // Pulse Check Q3: Follow-up process
+      {
+        id: 'B4.2-PC-3',
+        text: 'If a customer shares accessibility requirements, is there a process to follow up before their visit?',
+        helpText: 'When someone shares accessibility needs through your booking system, what happens next matters as much as the form itself.\n\nConsider whether:\n• The customer receives acknowledgement that their request was received\n• Someone reviews and responds to accessibility requests before the visit\n• There is a confirmation that their needs can (or cannot) be met\n\nThis is about process and communication, not just technology. "Not sure" is a valid answer if the follow-up process is unclear or inconsistent.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Requests are stored but we don\'t always follow up' or 'Depends on who is rostered that day'",
+        helpContent: {
+          summary: 'Following up on accessibility requests before the visit builds confidence and allows both parties to prepare.',
+          tips: [
+            'Good: Automated email acknowledging the request + personal follow-up within 48 hours',
+            'Good: Phone call to discuss specific requirements and confirm arrangements',
+            'Good: Booking confirmation that restates the accessibility requirements noted',
+            'Poor: Requests collected but no one reviews them until day of visit',
+            'Poor: "We\'ll do our best" without confirming what can actually be provided',
+            'Tip: Even if you can\'t meet all requests, honest communication builds trust',
+          ],
+        },
+      },
+
+      // Pulse Check Q4: Responsibility and ownership
+      {
+        id: 'B4.2-PC-4',
+        text: 'Is it clear who is responsible for reviewing and responding to accessibility requests from bookings?',
+        helpText: 'Accessibility requests need a clear owner to ensure they are acted upon, not just collected.\n\nLook for:\n• A named role, team, or person responsible for reviewing requests\n• Clear accountability (not "someone will see it")\n• A defined process for handling requests\n\nWithout clear ownership, accessibility requests often fall through the cracks, leading to poor customer experiences and missed opportunities to prepare.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
-        partialPlaceholder: "E.g., 'Some errors are explained but others just say \"invalid\"' or 'Messages appear but position is not always clear'",
+        partialPlaceholder: "E.g., 'Front desk checks bookings but no specific process for accessibility' or 'Different people handle it depending on the day'",
+        helpContent: {
+          summary: 'Clear ownership ensures accessibility requests are acted upon, not just collected.',
+          tips: [
+            'Assign a specific role: "Duty Manager reviews accessibility requests each morning"',
+            'Create a simple checklist: What to check, who to notify, when to respond',
+            'Set up notifications: Automatic alerts when accessibility fields are completed',
+            'Document the process: So it works even when key staff are away',
+            'Example roles: Front of house supervisor, reservations coordinator, customer experience lead',
+          ],
+        },
+      },
+
+      // Pulse Check Q5: Error messages and form feedback
+      {
+        id: 'B4.2-PC-5',
+        text: 'Are error messages in your booking forms clear and helpful?',
+        helpText: 'When something goes wrong during booking, customers need to understand what happened and how to fix it.\n\nGood error messages:\n• Explain what went wrong in plain language\n• Provide guidance on how to fix the problem\n• Appear near the field with the error\n• Don\'t rely on colour alone to indicate errors\n\nPoor error handling (like generic "error" messages or red text with no explanation) creates significant barriers, especially for screen reader users and people with cognitive disabilities.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some errors are explained but others just show red highlighting' or 'Messages appear but are not read by screen readers'",
+        helpContent: {
+          summary: 'Clear error messages help everyone complete bookings successfully, especially people with cognitive disabilities.',
+          tips: [
+            'Good: "Please enter a valid email address (e.g., name@example.com)"',
+            'Poor: "Error" or "Invalid input" with no explanation',
+            'Good: Error message appears next to the field with the problem',
+            'Poor: Single error message at top of page listing all problems',
+            'Test tip: Deliberately submit an incomplete form and check how errors are communicated',
+            'Colour tip: Use icons (⚠️) or text in addition to red highlighting',
+          ],
+        },
+      },
+
+      // Pulse Check Q6: Alternative booking methods
+      {
+        id: 'B4.2-PC-6',
+        text: 'Are alternative ways to book available if someone cannot use the online booking system?',
+        helpText: 'Not everyone can use online booking systems, regardless of how accessible they are. Alternative options ensure no one is excluded.\n\nLook for:\n• Phone booking option\n• Email booking available\n• In-person booking possible\n• Alternatives clearly communicated on your website\n• Alternatives not hidden or discouraged\n\nAlternative methods should offer equivalent service, not a reduced experience.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Phone is available but not promoted online' or 'Email works but takes longer to confirm'",
+        helpContent: {
+          summary: 'Alternative booking methods are essential fallbacks for customers who cannot use online systems.',
+          tips: [
+            'Display alternatives prominently: "Prefer to book by phone? Call us on..."',
+            'Offer email booking: Essential for deaf customers who cannot use phone',
+            'Ensure equivalent service: Same prices, same availability, same confirmation',
+            'Avoid discouraging language: Don\'t say "Online is faster" - for some customers, it\'s impossible',
+            'Consider: National Relay Service for deaf customers calling by phone',
+            'In-person option: Valuable for customers who need visual confirmation or have complex needs',
+          ],
+        },
+      },
+
+      // Pulse Check Q7: Third-party booking systems
+      {
+        id: 'B4.2-PC-7',
+        text: 'Is your booking process managed through a third-party platform?',
+        helpText: 'Many organisations use external booking platforms (like Eventbrite, Rezdy, FareHarbor, Checkfront, or custom solutions).\n\nKnowing whether you control the booking system directly or rely on a third party is important because:\n• Third-party platforms may have accessibility features you can enable\n• Some platforms have known accessibility limitations\n• You may have limited ability to customise certain features\n\nThis is diagnostic, not judgemental. Third-party platforms can be highly accessible or create barriers depending on the provider and configuration.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        options: [
+          { id: 'own-system', label: 'We use our own booking system' },
+          { id: 'third-party', label: 'Yes, we use a third-party platform' },
+          { id: 'hybrid', label: 'Mix of our own and third-party' },
+          { id: 'no-online', label: 'We don\'t have online booking' },
+          { id: 'not-sure', label: 'Not sure' },
+        ],
+        partialPlaceholder: "E.g., 'We use Rezdy for tours but direct booking for accommodation'",
+        helpContent: {
+          summary: 'Understanding your booking platform helps identify what you can control and where to focus improvement efforts.',
+          tips: [
+            'Common platforms: Eventbrite, Humanitix (events); Rezdy, FareHarbor (tours); Little Hotelier (accommodation)',
+            'Humanitix: Generally good accessibility and offers accessible ticket types',
+            'Eventbrite: Has accessibility features but some require manual setup',
+            'Check your platform\'s settings: Many have accessibility options that aren\'t enabled by default',
+            'Ask your provider: Request their VPAT or accessibility statement',
+            'For councils: Include accessibility requirements in procurement and contracts',
+          ],
+        },
+      },
+
+      // Pulse Check Q8: Accessible tickets and options
+      {
+        id: 'B4.2-PC-8',
+        text: 'Can customers select accessible options or tickets through the same booking process as other customers?',
+        helpText: 'Customers with disability should be able to book accessible options (such as wheelchair spaces, companion tickets, accessible seating, or support services) through the same booking pathway as everyone else.\n\nLook for:\n• Accessible options available in the standard booking flow\n• Companion or carer tickets bookable online\n• No separate or more difficult pathway for accessible bookings\n• Pricing transparency for accessible options\n\nParity in the booking experience demonstrates genuine inclusion, not just compliance.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Wheelchair spaces can be booked online but companion tickets require calling' or 'Accessible options only available for some events'",
+        helpContent: {
+          summary: 'Booking parity means customers with disability can access the same products, prices, and booking experience as everyone else.',
+          tips: [
+            'Companion tickets: Should be bookable online alongside the main ticket, not require a phone call',
+            'Wheelchair spaces: Should appear in the same seat selection interface as other seats',
+            'Accessible rooms: Should be filterable/selectable in the standard booking flow',
+            'Pricing: Accessible options should not cost more; companion tickets are often free or discounted',
+            'Availability: Accessible options should have fair allocation, not be "sold out" by default',
+            'Avoid: "Call us to book accessible tickets" when others can book online instantly',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE QUESTIONS
+      // Detailed, evidence-based, implementation-focused
+      // Answers: "How well does our booking process actually work for real customers with disability?"
+      // ============================================
+
+      // ============================================
+      // DEEP DIVE: BOOKING JOURNEY ACCESSIBILITY
+      // Expands on PC-1 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.2-DD-1a',
+        text: 'At which specific step(s) does keyboard navigation fail or become difficult?',
+        helpText: 'Document exactly where keyboard users encounter problems. This helps prioritise fixes.\n\nCommon problem areas:\n• Date pickers that only respond to mouse clicks\n• Dropdown menus that require hover\n• Custom calendar widgets\n• Payment form iframes\n• CAPTCHA challenges\n• Modal dialogs that trap focus\n• "Continue" buttons that cannot be reached by Tab',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-1', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'date-picker', label: 'Date/time selection' },
+          { id: 'dropdown', label: 'Dropdown menus' },
+          { id: 'payment', label: 'Payment form' },
+          { id: 'captcha', label: 'CAPTCHA or verification' },
+          { id: 'modals', label: 'Pop-ups or modals' },
+          { id: 'navigation', label: 'Moving between steps' },
+          { id: 'no-issues', label: 'No keyboard issues found' },
+          { id: 'not-tested', label: 'Haven\'t tested yet' },
+        ],
+        helpContent: {
+          summary: 'Identifying specific failure points helps developers fix the most critical barriers first.',
+          tips: [
+            'Date pickers: The most common accessibility barrier - note if it\'s a custom widget or browser default',
+            'Payment forms: Often embedded from third parties (Stripe, PayPal) - check if their accessible version is enabled',
+            'CAPTCHAs: Image CAPTCHAs are impossible for blind users - look for audio alternatives or reCAPTCHA v3',
+            'Modals: When a popup appears, Tab should stay inside it until closed',
+            'Document the step: "Step 3: Select date" rather than just "date picker"',
+            'Take screenshots: Visual evidence helps developers understand and fix the issue',
+          ],
+        },
+      },
+      {
+        id: 'B4.2-DD-1b',
+        text: 'Does the booking process work with screen readers or voice control tools?',
+        helpText: 'Screen readers and voice control tools are used by people who are blind, have low vision, or have motor disabilities.\n\nAn accessible booking process should:\n• Have properly labelled form fields\n• Announce errors and confirmations\n• Provide clear navigation structure\n• Not rely on visual-only cues\n\nIf you haven\'t tested with assistive technology, "Not sure" is an honest answer.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-1', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Tested with VoiceOver, mostly works but calendar is problematic' or 'Not tested with assistive technology'",
+      },
+      {
+        id: 'B4.2-DD-1c',
+        text: 'Are time limits in the booking process generous or adjustable?',
+        helpText: 'Time limits on booking sessions can create significant barriers for people who need more time to read, understand, or complete forms.\n\nConsider:\n• How long do customers have to complete a booking?\n• Is there a warning before timeout?\n• Can customers extend the time if needed?\n• Are customers informed of time limits before starting?\n\nGenerous time limits (20+ minutes) or the ability to extend time helps ensure everyone can complete the process without pressure.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-1', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Session times out after 15 minutes with no warning' or 'Generous time but no option to extend'",
+      },
+      {
+        id: 'B4.2-DD-1d',
+        text: 'Are booking instructions clear before customers begin the process?',
+        helpText: 'Clear instructions at the start help customers understand what to expect and prepare what they need.\n\nGood upfront information includes:\n• What information will be required (payment details, dates, guest numbers)\n• How long the process typically takes\n• What accessibility options are available\n• How to get help if needed\n\nThis reduces anxiety and helps people with cognitive disabilities or those using assistive technology prepare for the task.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-1', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Basic info provided but doesn\'t mention accessibility options' or 'Instructions only appear after starting'",
+      },
+
+      // ============================================
+      // DEEP DIVE: ACCESSIBILITY REQUIREMENTS CAPTURE
+      // Expands on PC-2 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.2-DD-2a',
+        text: 'Is the accessibility requirements field clearly labelled and easy to find?',
+        helpText: 'The accessibility field should be:\n• Clearly labelled (e.g., "Accessibility requirements" or "Access needs")\n• Visible without scrolling or expanding sections\n• Positioned logically in the booking flow\n• Not hidden behind conditional questions\n\nIf customers have to search for a way to share their needs, many will give up or arrive unprepared.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-2', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Labelled as \"special requests\" which is less clear' or 'Only appears after clicking \"additional options\"'",
+      },
+      {
+        id: 'B4.2-DD-2b',
+        text: 'Can customers explain their accessibility needs in their own words?',
+        helpText: 'A free-text field allows customers to describe their specific requirements, which may not fit neatly into checkboxes or predefined options.\n\nThis is important because:\n• Accessibility needs are highly individual\n• Predefined options may miss important requirements\n• Customers know their needs best\n\nA combination of checkboxes (for common needs) and free text (for details) often works best.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-2', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Only checkboxes, no free text option' or 'Free text available but character limit is very short'",
+      },
+      {
+        id: 'B4.2-DD-2c',
+        text: 'Is the accessibility field available on all booking paths?',
+        helpText: 'Customers may book through different channels (website, app, third-party platforms) or for different products (tickets, accommodation, experiences).\n\nThe ability to share accessibility requirements should be consistent across:\n• All booking channels you offer\n• All product types\n• Both desktop and mobile experiences\n\nInconsistency creates confusion and may exclude customers who book through certain pathways.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-2', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Available on website but not in the app' or 'Only on certain ticket types'",
+      },
+
+      // Deep Dive Area 3: Follow-up and confirmation process (expands PC-3)
+      {
+        id: 'B4.2-DD-3a',
+        text: 'What happens after accessibility requirements are submitted?',
+        helpText: 'Understanding your current process helps identify improvements. Select the option that best describes what typically happens when a customer submits accessibility requirements.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-3', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'acknowledged-confirmed', label: 'Acknowledged and confirmed before visit' },
+          { id: 'acknowledged-only', label: 'Acknowledged but not always confirmed' },
+          { id: 'stored-only', label: 'Stored but no acknowledgement sent' },
+          { id: 'inconsistent', label: 'Process is inconsistent' },
+          { id: 'unknown', label: 'Not sure what happens' },
+        ],
+      },
+      {
+        id: 'B4.2-DD-3b',
+        text: 'Does the customer receive confirmation that their accessibility requirements have been received and noted?',
+        helpText: 'Confirmation gives customers confidence that their needs will be considered. This might be:\n• An automated email acknowledging the request\n• A personal response confirming arrangements\n• Details included in booking confirmation\n• A phone call to discuss requirements\n\nWithout confirmation, customers may arrive anxious about whether their needs were received or actioned.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-3', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Booking confirmation mentions it but no specific acknowledgement' or 'Only for complex requests'",
+      },
+      {
+        id: 'B4.2-DD-3c',
+        text: 'Is the follow-up process automated, manual, or inconsistent?',
+        helpText: 'Understanding whether follow-up is systematised helps identify reliability and improvement opportunities.\n\n• Automated: System sends acknowledgements and routes requests without manual intervention\n• Manual: Staff review and respond to each request individually\n• Inconsistent: Depends on who is working or how busy the team is\n\nBoth automated and manual processes can work well if they are reliable and timely.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-3', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'automated', label: 'Automated process' },
+          { id: 'manual-reliable', label: 'Manual but reliable process' },
+          { id: 'manual-inconsistent', label: 'Manual and inconsistent' },
+          { id: 'no-process', label: 'No defined process' },
+          { id: 'not-sure', label: 'Not sure' },
+        ],
+      },
+
+      // Deep Dive Area 4: Roles and responsibility (expands PC-4)
+      {
+        id: 'B4.2-DD-4a',
+        text: 'Which role or team reviews accessibility requests from bookings?',
+        helpText: 'Identifying who currently handles these requests helps ensure accountability and appropriate training.\n\nThis might be:\n• Front desk or reception team\n• Reservations or bookings team\n• Customer service team\n• Operations manager\n• A dedicated accessibility coordinator\n\nThe specific role matters less than having clear, consistent ownership.',
+        type: 'text',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-4', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Front desk team checks each morning' or 'Reservations manager reviews weekly'",
+      },
+      {
+        id: 'B4.2-DD-4b',
+        text: 'Are staff trained to interpret and respond to accessibility requests?',
+        helpText: 'Staff reviewing accessibility requests should understand:\n• Common types of accessibility requirements\n• What your venue can and cannot accommodate\n• How to respond helpfully and respectfully\n• When to escalate or seek advice\n\nTraining helps staff respond confidently and appropriately, rather than ignoring requests they don\'t understand.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-4', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'General customer service training but nothing specific to accessibility' or 'Training provided at induction only'",
+      },
+      {
+        id: 'B4.2-DD-4c',
+        text: 'Is there an escalation process when accessibility requests cannot be met?',
+        helpText: 'Sometimes requests cannot be fully accommodated. A clear escalation process ensures:\n• Customers receive a timely, honest response\n• Alternative solutions are explored\n• Decisions are made by appropriate people\n• Learnings are captured for future improvement\n\nWithout escalation, difficult requests may be ignored or handled inconsistently.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-4', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Staff can escalate to manager but no formal process' or 'Complex requests go to operations team'",
+      },
+
+      // Deep Dive Area 5: Error handling and feedback (expands PC-5)
+      {
+        id: 'B4.2-DD-5a',
+        text: 'Do error messages explain what went wrong and how to fix it?',
+        helpText: 'Helpful error messages include:\n• What the problem is (e.g., "Email address is missing")\n• How to fix it (e.g., "Please enter your email address")\n• Where the error is (message appears near the relevant field)\n\nUnhelpful messages like "Error" or "Invalid input" leave customers guessing and create barriers for everyone, especially people with cognitive disabilities.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-5', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Explains what\'s wrong but not always how to fix it' or 'Some errors are clear, others are vague'",
+      },
+      {
+        id: 'B4.2-DD-5b',
+        text: 'Are errors announced to screen reader users?',
+        helpText: 'When an error occurs, screen reader users need to be informed through their assistive technology, not just visually.\n\nAccessible error handling:\n• Announces errors when they occur\n• Identifies which field has the error\n• Allows users to navigate directly to the problem\n\nIf you haven\'t tested with a screen reader, "Not sure" is an appropriate answer.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-5', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Not tested with screen readers' or 'Errors appear visually but may not be announced'",
+      },
+      {
+        id: 'B4.2-DD-5c',
+        text: 'Are errors indicated by more than colour alone?',
+        helpText: 'Colour should never be the only way to indicate an error because:\n• Some people are colour blind and cannot distinguish red from other colours\n• Screen readers don\'t convey colour information\n• Low contrast settings may reduce colour visibility\n\nErrors should also use:\n• Text explanation\n• Icons or symbols\n• Position (near the problem field)\n• Focus management (moving cursor to the error)',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-5', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Red highlighting plus text message' or 'Only colour change on the field border'",
+      },
+
+      // Deep Dive Area 6: Alternative booking pathways (expands PC-6)
+      {
+        id: 'B4.2-DD-6a',
+        text: 'Are alternative booking methods clearly signposted on your website?',
+        helpText: 'Customers who cannot use online booking need to easily find other options. Alternative contact methods should be:\n• Visible on the booking page itself\n• Listed on your contact page\n• Not hidden in footer links or FAQs\n• Presented as valid options, not last resorts\n\nClear signposting shows customers that alternatives are genuinely available and welcomed.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-6', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Phone number is on contact page but not on booking page' or 'Email option mentioned but easy to miss'",
+      },
+      {
+        id: 'B4.2-DD-6b',
+        text: 'Do alternative booking methods offer equivalent service?',
+        helpText: 'Alternative booking methods should provide the same service quality as online booking:\n• Same pricing (no phone booking fees)\n• Same availability and options\n• Same confirmation and follow-up\n• Reasonable response times\n\nIf alternatives offer reduced service or longer wait times, they may not be genuine alternatives for people who need them.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-6', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Phone bookings incur a small fee' or 'Same service but email responses can take 48 hours'",
+      },
+      {
+        id: 'B4.2-DD-6c',
+        text: 'Are customers discouraged from using alternative booking methods?',
+        helpText: 'Sometimes alternative options exist but are subtly discouraged through:\n• Messaging that promotes online booking as "faster" or "easier"\n• Making customers justify why they\'re not booking online\n• Longer hold times or delayed responses for non-online bookings\n• Staff attitudes that treat phone/email bookings as inconvenient\n\nAlternatives should be presented neutrally, without making customers feel like a burden.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'low',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-6', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Website strongly encourages online booking' or 'Phone option available but messaging implies it\'s for problems only'",
+      },
+
+      // Deep Dive Area 7: Third-party booking platforms (expands PC-7)
+      {
+        id: 'B4.2-DD-7a',
+        text: 'What booking platform do you use?',
+        helpText: 'Knowing your platform helps identify available accessibility features and known limitations.\n\nCommon platforms include:\n• Eventbrite, Humanitix (events)\n• Rezdy, FareHarbor, Checkfront (tours/activities)\n• Little Hotelier, Cloudbeds (accommodation)\n• Square, Fresha (appointments)\n• Custom or in-house systems\n\nDifferent platforms have different accessibility capabilities.',
+        type: 'text',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-7', answers: ['third-party', 'hybrid', 'own-system'] },
+        partialPlaceholder: "E.g., 'Rezdy for tours, direct booking for accommodation' or 'Custom WordPress plugin'",
+      },
+      {
+        id: 'B4.2-DD-7b',
+        text: 'Can accessibility features be configured in your booking platform?',
+        helpText: 'Many booking platforms offer accessibility options that can be enabled or configured:\n• Custom form fields for accessibility requirements\n• Accessible ticket types\n• Companion ticket options\n• Accessibility information in confirmations\n\nCheck your platform\'s settings or documentation to identify available features you may not be using.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-7', answers: ['third-party', 'hybrid', 'own-system'] },
+        partialPlaceholder: "E.g., 'Custom fields available but not set up for accessibility' or 'Limited configuration options'",
+      },
+      {
+        id: 'B4.2-DD-7c',
+        text: 'Have you identified accessibility limitations in your booking platform?',
+        helpText: 'Understanding your platform\'s limitations helps you:\n• Plan workarounds or alternatives\n• Make informed decisions about platform changes\n• Set realistic expectations\n• Communicate honestly with customers\n\nCommon limitations include inaccessible date pickers, CAPTCHA requirements, or lack of keyboard navigation.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-7', answers: ['third-party', 'hybrid', 'own-system'] },
+        partialPlaceholder: "E.g., 'Date picker is known to be problematic' or 'Haven\'t investigated platform accessibility'",
+      },
+      {
+        id: 'B4.2-DD-7d',
+        text: 'Is accessibility included in procurement decisions for booking systems?',
+        helpText: 'When selecting or renewing booking platforms, accessibility should be a consideration alongside features, price, and usability.\n\nThis might include:\n• Asking vendors about accessibility compliance\n• Testing platforms with assistive technology before committing\n• Including accessibility requirements in RFPs or contracts\n• Reviewing accessibility documentation or VPAT statements\n\nThis is especially important for councils, government bodies, and large organisations with procurement obligations.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-7', answers: ['third-party', 'hybrid', 'own-system'] },
+        partialPlaceholder: "E.g., 'Considered but not a deciding factor' or 'Will include in next platform review'",
+      },
+
+      // Deep Dive Area 8: Accessible tickets, pricing, and parity (expands PC-8)
+      {
+        id: 'B4.2-DD-8a',
+        text: 'Can accessible tickets or options (such as wheelchair spaces) be booked online?',
+        helpText: 'Customers with disability should be able to book accessible options through the same online process as other customers, without needing to call or email.\n\nThis includes:\n• Wheelchair-accessible seating\n• Accessible rooms or facilities\n• Audio description or captioning services\n• Quiet session bookings\n• Other accessibility-specific options',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-8', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Wheelchair spaces shown but must call to book' or 'Available for some events but not all'",
+      },
+      {
+        id: 'B4.2-DD-8b',
+        text: 'Are companion or support worker tickets available through the booking process?',
+        helpText: 'Many people with disability attend with a companion, carer, or support worker who assists them. These companions often receive free or discounted entry.\n\nCompanion ticket booking should:\n• Be available online (not just by phone)\n• Be clearly explained (eligibility, pricing)\n• Be bookable at the same time as the main ticket\n• Not require proof of disability at booking stage',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-8', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Free companion tickets available but must call to arrange' or 'Companion option in system but not well promoted'",
+      },
+      {
+        id: 'B4.2-DD-8c',
+        text: 'Is pricing for accessible options transparent and fair?',
+        helpText: 'Pricing transparency means customers can see and understand costs before booking:\n• Accessible options are not more expensive than equivalent standard options\n• Companion ticket pricing (free, discounted) is clearly stated\n• No hidden fees for accessibility requests\n• Clear information about what\'s included\n\nHidden or unclear pricing creates anxiety and can deter bookings.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-8', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Pricing shown but companion ticket info is hard to find' or 'Must call to confirm accessible option pricing'",
+      },
+      {
+        id: 'B4.2-DD-8d',
+        text: 'Is the booking process for accessible options equivalent to standard bookings?',
+        helpText: 'Parity means customers with disability have the same booking experience as others:\n• Same number of steps to complete\n• Same confirmation timeframe\n• Same access to early bird or promotional pricing\n• Same ability to modify or cancel\n\nSeparate or more difficult processes for accessible bookings undermine inclusion, even if the end result is the same.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.2-PC-8', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Same process but accessible options have fewer available slots' or 'Must call for accessible bookings while others book online'",
+      },
+
+      // Deep Dive Area 9: Testing and audit history (key differentiator)
+      {
+        id: 'B4.2-DD-9a',
+        text: 'Have your booking or enquiry forms been tested for accessibility?',
+        helpText: 'Accessibility testing helps identify barriers that may not be obvious. Testing can include:\n\n• Internal testing: Staff testing with keyboard navigation, screen readers, or mobile devices\n• External audit: Professional accessibility assessment against WCAG standards\n• User testing: Real customers with disability testing the booking process\n• Automated testing: Tools that scan for common accessibility issues\n\nEach type of testing provides different insights. User testing is particularly valuable for understanding real-world barriers.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'user-tested', label: 'Tested with users with disability' },
+          { id: 'external-audit', label: 'External accessibility audit completed' },
+          { id: 'internal-testing', label: 'Internal testing only' },
+          { id: 'automated-only', label: 'Automated testing tools only' },
+          { id: 'not-tested', label: 'Not tested' },
+          { id: 'not-sure', label: 'Not sure' },
+        ],
+        helpContent: {
+          summary: 'Testing reveals barriers you might not notice. Different testing methods find different issues.',
+          tips: [
+            'User testing: Most valuable - real people with disability identify barriers automated tools miss',
+            'External audit: Professional WCAG assessment provides detailed, prioritised recommendations',
+            'Internal testing: Keyboard navigation test, screen reader check (NVDA is free), mobile testing',
+            'Automated tools: WAVE, axe, Lighthouse catch common issues but miss many barriers',
+            'If not tested: Consider our indicative accessibility review service for a starting point',
+            'After any changes: Re-test to ensure fixes worked and new issues weren\'t introduced',
+          ],
+        },
+      },
+      {
+        id: 'B4.2-DD-9b',
+        text: 'When was your booking system last reviewed for accessibility?',
+        helpText: 'Accessibility should be reviewed periodically, especially after:\n• Platform updates or changes\n• Redesigns or new features\n• Customer complaints or feedback\n• Regulatory changes\n\nRegular review helps catch issues before they affect customers and demonstrates ongoing commitment to accessibility.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        options: [
+          { id: 'within-6-months', label: 'Within the last 6 months' },
+          { id: 'within-12-months', label: 'Within the last 12 months' },
+          { id: 'over-12-months', label: 'More than 12 months ago' },
+          { id: 'never', label: 'Never formally reviewed' },
+          { id: 'not-sure', label: 'Not sure' },
+        ],
       },
     ],
   },
 
   // B4.3: Video and Social Media
+  // Comprehensive accessibility assessment of video content and social media presence
+  // This module helps assess whether customers with disability can access, understand, and engage
+  // with your video content and social media communications on an equal basis.
   {
     id: 'B4.3',
     code: 'B4.3',
-    name: 'Video and social media',
-    description: 'Accessibility of your video content and social media presence',
+    name: 'Social media, video & audio',
+    description: 'Accessibility of your social media presence, video content, and audio materials',
     group: 'before-arrival',
-    estimatedTime: 10,
-    estimatedTimeDeepDive: 15,
+    estimatedTime: 12,
+    estimatedTimeDeepDive: 30,
     icon: '🎬',
     questions: [
+      // ============================================
+      // PULSE CHECK QUESTIONS (8 questions)
+      // High-level, fast, confidence-building
+      // Answers: "Is accessibility meaningfully considered in our video and social media content?"
+      // ============================================
+
+      // Pulse Check Q1: Video captions and subtitles
       {
-        id: 'B4.3-1-1',
+        id: 'B4.3-PC-1',
         text: 'Do your videos have captions or subtitles?',
-        helpText: 'Captions or subtitles display spoken words and important sounds from a video as text on the screen. Captions are especially important for videos that share information, instructions, or stories.\n\nCaptions should be accurate, easy to read, and available for all spoken content, not just key moments.',
+        helpText: 'Captions display spoken words, speaker identification, and important sounds as text on screen. They are essential for deaf and hard of hearing viewers, but also benefit people in noisy environments, non-native speakers, and those who prefer reading.\n\nCaptions should be:\n• Accurate and synchronised with speech\n• Include speaker identification when multiple people speak\n• Describe important non-speech sounds (music, sound effects)\n• Easy to read with good contrast\n\nAuto-generated captions are a starting point but often contain errors that should be corrected.',
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Main promotional videos have captions but social media clips do not' or 'Auto-captions only, not reviewed for accuracy'",
+        helpContent: {
+          summary: 'Captions are the single most important accessibility feature for video content. Without them, deaf and hard of hearing viewers cannot access your message.',
+          tips: [
+            'Quick check: Watch your videos with sound off - can you understand the message from captions alone?',
+            'Auto-captions: YouTube, Facebook, and Instagram generate auto-captions but they need human review for accuracy',
+            'Speaker ID: When multiple people speak, captions should identify who is talking',
+            'Sound descriptions: Include [music playing], [applause], [door slams] for important audio cues',
+            'Caption files: .srt or .vtt files can be uploaded to most platforms and edited easily',
+            'Tip: Captions also improve SEO as search engines can index the text content',
+          ],
+        },
       },
+
+      // Pulse Check Q2: Audio descriptions
       {
-        id: 'B4.3-1-2',
-        text: 'Do you include alt text and image descriptions when posting on social media?',
-        helpText: 'Alt text and image descriptions both help people understand images, but they are used in slightly different ways.\n\nAlt text is a short description added directly to an image. It is read automatically by screen readers and should briefly explain the purpose of the image in context.\n\nImage descriptions are longer explanations provided in nearby text or linked content. They are useful for complex images such as charts, diagrams, maps, or detailed visuals that need more explanation than a short alt text can provide.\n\nBoth alt text and image descriptions should focus on what the image is communicating, not just what it looks like. Decorative images that do not add information do not need alt text or image descriptions.',
+        id: 'B4.3-PC-2',
+        text: 'Do your videos include audio descriptions for important visual content?',
+        helpText: 'Audio descriptions provide spoken narration of key visual elements that are not conveyed through dialogue or existing audio. They help blind and low vision viewers understand what is happening on screen.\n\nAudio descriptions are most important when:\n• Visual actions are central to understanding (demonstrations, tours)\n• Text appears on screen without being read aloud\n• Facial expressions or body language convey meaning\n• Scene changes or locations are not verbally explained\n\nNot all videos need audio descriptions - talking head videos where everything is spoken may not require them.',
         type: 'yes-no-unsure',
         category: 'information',
-        impactLevel: 'medium',
+        impactLevel: 'high',
         reviewMode: 'pulse-check',
-        partialPlaceholder: "E.g., 'We add alt text on Instagram but not on Facebook' or 'Important posts have descriptions but not all'",
+        partialPlaceholder: "E.g., 'Never considered audio descriptions' or 'Only for formal videos, not social content'",
+        helpContent: {
+          summary: 'Audio descriptions make visual content accessible to blind and low vision viewers by describing what they cannot see.',
+          tips: [
+            'Priority videos: Virtual tours, demonstrations, promotional videos showing your venue/products',
+            'Built-in narration: The simplest approach is to describe visuals as part of the main narration',
+            'Example: Instead of "As you can see here..." say "The accessible entrance is on the left side of the building..."',
+            'Extended descriptions: For complex visuals, consider a separate described version',
+            'Not always needed: If a video is purely talking head with no significant visual content, audio description adds nothing',
+            'Test: Listen to your video without watching - can you understand what is being shown?',
+          ],
+        },
       },
+
+      // Pulse Check Q3: Alt text on social media
       {
-        id: 'B4.3-1-3',
-        text: 'Are video controls accessible (play, pause, volume)?',
-        helpText: 'Accessible video controls allow users to easily play, pause, stop, and adjust the volume of a video.\n\nIf a video plays automatically, users should be able to quickly pause or stop it. Controls should be easy to find, clearly labelled, and usable with a keyboard, mouse, or touch.',
+        id: 'B4.3-PC-3',
+        text: 'Do you include alt text when posting images on social media?',
+        helpText: 'Alt text (alternative text) is a description added to images that screen readers announce to blind and low vision users. Most social media platforms now support alt text.\n\nGood alt text:\n• Describes the purpose and content of the image\n• Is concise (typically 1-2 sentences)\n• Conveys the same information a sighted user would get\n• Does not start with "Image of" or "Picture of" (screen readers already announce it as an image)\n\nDecorative images that add no information do not need detailed alt text.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Sometimes but not consistently' or 'Only on Instagram, not on LinkedIn'",
+        helpContent: {
+          summary: 'Alt text makes your social media images accessible to screen reader users and improves content discoverability.',
+          tips: [
+            'Instagram: Edit image > Advanced settings > Write alt text',
+            'Facebook: Edit photo > Alt text > Override generated alt text',
+            'Twitter/X: Add description when uploading image',
+            'LinkedIn: Click on image > Add alt text',
+            'Good example: "Customer using wheelchair accessing our step-free entrance, greeted by staff member"',
+            'Poor example: "Photo" or "Image123.jpg" or overly long descriptions',
+            'Tip: Focus on what the image communicates, not every visual detail',
+          ],
+        },
+      },
+
+      // Pulse Check Q4: Video player accessibility
+      {
+        id: 'B4.3-PC-4',
+        text: 'Can users control video playback using keyboard, screen readers, or other assistive technology?',
+        helpText: 'Accessible video players allow users to play, pause, adjust volume, turn on captions, and navigate using keyboard or assistive technology.\n\nKey features to check:\n• All controls work with Tab and Enter keys\n• Current focus is visible\n• Volume and progress can be adjusted without a mouse\n• Caption toggle is accessible\n• Autoplay can be stopped quickly\n\nYouTube and Vimeo embedded players are generally accessible. Custom video players often have issues.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'YouTube embeds are accessible but our custom player has issues' or 'Controls work with mouse but not keyboard'",
+        helpContent: {
+          summary: 'Accessible video controls ensure everyone can play, pause, and adjust videos regardless of how they interact with technology.',
+          tips: [
+            'Test: Try controlling your embedded videos using only keyboard (Tab, Enter, Space, arrow keys)',
+            'Autoplay: If videos autoplay, users must be able to pause them immediately',
+            'Focus indicator: Can you see which control is currently selected when tabbing?',
+            'YouTube: Generally accessible, but ensure controls are not hidden by custom styling',
+            'Custom players: Often problematic - consider replacing with accessible alternatives',
+            'Vimeo: Good accessibility, ensure caption button is visible',
+          ],
+        },
       },
-      // Media Analysis Questions
+
+      // Pulse Check Q5: Content warnings and trigger warnings
+      {
+        id: 'B4.3-PC-5',
+        text: 'Do you provide content warnings for videos or posts that may affect some viewers?',
+        helpText: 'Content warnings alert viewers to potentially distressing content before they encounter it. This supports people with anxiety, PTSD, sensory sensitivities, or those who may be negatively affected by certain content.\n\nContent warnings may be appropriate for:\n• Flashing lights or strobing effects (seizure risk)\n• Sudden loud sounds\n• Distressing imagery\n• Discussion of trauma, violence, or sensitive topics\n• Graphic medical content\n\nWarnings should be visible before the content plays and provide enough information for informed choice.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'We warn about flashing lights but not other content' or 'Never considered content warnings'",
+        helpContent: {
+          summary: 'Content warnings give viewers informed choice about whether to engage with potentially affecting content.',
+          tips: [
+            'Flashing/strobing: Critical for photosensitive epilepsy - always warn if present',
+            'Placement: Warnings should appear before content, not just in video description',
+            'Be specific: "Content warning: discussion of anxiety" is more helpful than just "content warning"',
+            'Audio warnings: Also include spoken warning for video content',
+            'Social posts: Use "CW:" at the start of posts with sensitive content',
+            'Instagram: Use content warning screens or put warning text at start of captions',
+          ],
+        },
+      },
+
+      // Pulse Check Q6: Inclusive representation
+      {
+        id: 'B4.3-PC-6',
+        text: 'Does your video and social media content include diverse representation, including people with disability?',
+        helpText: 'Inclusive representation means showing diverse people in your content, including people with visible and non-visible disabilities, different ages, ethnicities, body types, and backgrounds.\n\nAuthentic representation:\n• Shows people with disability as customers, not just in accessibility-specific content\n• Avoids stereotypes or inspiration narratives\n• Features real customers or community members where possible\n• Includes diverse people across all content, not just special campaigns\n\nRepresentation signals that your organisation welcomes and values diverse customers.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some diversity but rarely include people with visible disabilities' or 'Working on improving this'",
+        helpContent: {
+          summary: 'Representation matters. When people with disability see themselves in your content, they know they are welcome.',
+          tips: [
+            'Audit your content: Review your last 20 posts - how diverse are the people shown?',
+            'Avoid tokenism: Include diverse people naturally across content, not just for awareness days',
+            'Real customers: Feature actual customers with their permission rather than stock photos',
+            'Avoid inspiration porn: Don\'t frame disability as inherently inspiring or overcoming',
+            'Stock images: Sites like Disability:IN and Getty\'s disability collection offer authentic imagery',
+            'Behind the scenes: Diverse representation in your team also matters to customers',
+          ],
+        },
+      },
+
+      // Pulse Check Q7: Live content accessibility
+      {
+        id: 'B4.3-PC-7',
+        text: 'If you create live video content (streams, webinars, live social posts), do you consider accessibility?',
+        helpText: 'Live content presents unique accessibility challenges because captions and descriptions must happen in real-time.\n\nAccessible live content may include:\n• Live captions (auto-generated with correction, or professional CART)\n• Auslan (Australian Sign Language) interpretation\n• Described video for visual elements\n• Clear audio quality\n• Accessible chat or Q&A features\n\nIf you don\'t create live content, this question may not apply to you.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        options: [
+          { id: 'yes-accessible', label: 'Yes, with accessibility features' },
+          { id: 'yes-limited', label: 'Yes, but limited accessibility' },
+          { id: 'yes-none', label: 'Yes, but no accessibility features' },
+          { id: 'no-live', label: 'We don\'t create live content' },
+          { id: 'not-sure', label: 'Not sure' },
+        ],
+        partialPlaceholder: "E.g., 'Use auto-captions on Instagram Live but nothing more'",
+        helpContent: {
+          summary: 'Live content accessibility requires planning ahead since you cannot add captions or descriptions after the fact.',
+          tips: [
+            'Auto-captions: YouTube Live, Zoom, Teams, and Facebook Live offer auto-generated live captions',
+            'Quality matters: Auto-captions are imperfect - speak clearly and consider professional CART for important events',
+            'Auslan interpreters: For significant events, consider booking an Auslan interpreter',
+            'Describe visuals: Verbally describe what viewers are seeing, especially if showing something important',
+            'Test audio: Poor audio quality affects everyone but especially hearing aid users',
+            'Post-event: Add corrected captions to recorded versions after the live event',
+          ],
+        },
+      },
+
+      // Pulse Check Q8: Platform accessibility features
+      {
+        id: 'B4.3-PC-8',
+        text: 'Do you use the built-in accessibility features of the social media platforms you post on?',
+        helpText: 'Most social media platforms have built-in accessibility features that content creators can enable or use:\n\n• Alt text for images (Instagram, Facebook, Twitter, LinkedIn)\n• Captions for videos (all major platforms)\n• Caption styling options (some platforms)\n• Content warnings or sensitive content labels\n• Audio descriptions (limited platform support)\n\nUsing these features is often as simple as enabling an option when posting.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Use captions but never added alt text' or 'Not aware of what features are available'",
+        helpContent: {
+          summary: 'Platform accessibility features are already available - you just need to use them consistently.',
+          tips: [
+            'Instagram: Alt text (Advanced settings), auto-captions for Reels, closed captions for Stories',
+            'Facebook: Alt text, auto-captions, caption uploads for videos',
+            'YouTube: Auto-captions (editable), manual captions, audio description tracks',
+            'LinkedIn: Alt text for images, captions for video',
+            'TikTok: Auto-captions (editable), text-to-speech',
+            'Tip: Create a checklist for each platform\'s accessibility features to use consistently',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE QUESTIONS
+      // Detailed, evidence-based, implementation-focused
+      // Answers: "How well does our video and social content actually work for people with disability?"
+      // ============================================
+
+      // ============================================
+      // DEEP DIVE: CAPTIONS AND SUBTITLES
+      // Expands on PC-1 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.3-DD-1a',
+        text: 'What type of captions do you use for your videos?',
+        helpText: 'Understanding your current captioning approach helps identify improvement opportunities.\n\n• Auto-generated: Platform creates captions automatically (often contain errors)\n• Auto-generated and edited: Auto-captions reviewed and corrected by a person\n• Professional: Created by captioning service or professional transcriptionist\n• Burned in: Captions permanently embedded in video (cannot be turned off)\n• Separate file: .srt or .vtt caption file uploaded with video',
+        type: 'single-select',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-1', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'professional', label: 'Professional captions (external service)' },
+          { id: 'auto-edited', label: 'Auto-generated and manually edited' },
+          { id: 'auto-only', label: 'Auto-generated only, not edited' },
+          { id: 'burned-in', label: 'Burned-in/hardcoded captions' },
+          { id: 'mixed', label: 'Mix of approaches' },
+          { id: 'none', label: 'No captions' },
+        ],
+        helpContent: {
+          summary: 'Caption quality significantly impacts comprehension. Edited or professional captions are much more reliable than raw auto-generated text.',
+          tips: [
+            'Auto-caption accuracy: Typically 80-90% accurate, meaning 1-2 errors per sentence',
+            'Editing time: Allow 2-3x video length to review and correct auto-captions',
+            'Professional services: Cost varies ($1-3/minute) but saves time and ensures quality',
+            'Burned-in pros: Always visible, work on any platform, cannot be broken by player',
+            'Burned-in cons: Cannot be turned off, cannot be resized or repositioned by user',
+            'Best practice: Use closed captions (.srt files) for flexibility, review for accuracy',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-1b',
+        text: 'Do your captions include speaker identification and sound descriptions?',
+        helpText: 'Complete captions include more than just spoken words:\n\n• Speaker identification: [Sarah] or SARAH: when multiple speakers are present\n• Sound descriptions: [music playing], [applause], [phone ringing]\n• Tone indicators: [sarcastically], [whispering] when tone affects meaning\n• Music lyrics: When lyrics are relevant to content\n\nThese elements help deaf and hard of hearing viewers understand the full context of the audio.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-1', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Speaker IDs sometimes but no sound descriptions' or 'Only for formal videos'",
+        helpContent: {
+          summary: 'Speaker identification and sound descriptions provide context that spoken words alone cannot convey.',
+          tips: [
+            'Speaker ID format: Use consistent format like [Name] or NAME: throughout',
+            'Sound descriptions: Place in square brackets [like this] and in lowercase',
+            'Music: Describe genre/mood if lyrics are not present: [upbeat music] or [tense music]',
+            'Background sounds: Include if relevant: [crowd chatter], [traffic noise]',
+            'Tone: Only include when it significantly changes meaning: [sarcastically] "Great idea"',
+            'Auto-captions: Never include these elements - always add manually',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-1c',
+        text: 'Are your captions accurately synchronised with the audio?',
+        helpText: 'Caption timing is crucial for comprehension. Captions should appear when words are spoken and remain on screen long enough to be read.\n\nGood synchronisation:\n• Captions appear within 0.5 seconds of speech\n• Each caption stays on screen long enough to read (minimum 1 second)\n• Captions change at natural speech breaks\n• No significant delay between speech and text\n\nPoor sync is disorienting and makes content harder to follow.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-1', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Mostly synced but sometimes delayed' or 'Auto-captions are slightly behind'",
+        helpContent: {
+          summary: 'Well-synchronised captions feel natural. Poorly timed captions are confusing and tiring to follow.',
+          tips: [
+            'Test: Watch your videos with sound and captions - do they match?',
+            'Auto-caption timing: Usually reasonable but can drift in longer videos',
+            'Manual adjustment: Most video editors allow caption timing adjustments',
+            'Reading speed: Average reader needs 150-180 words per minute - don\'t flash captions too fast',
+            'Line breaks: Aim for 2 lines maximum per caption, break at natural pauses',
+            'Platform variations: Test captions on different platforms as timing can vary',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-1d',
+        text: 'Are captions easy to read (good contrast, appropriate size, clear font)?',
+        helpText: 'Caption readability depends on visual presentation:\n\n• Contrast: White text on black background or white text with black outline works best\n• Size: Large enough to read on small screens\n• Font: Sans-serif fonts are typically easiest to read\n• Position: Usually bottom of screen, not covering important visuals\n• Background: Semi-transparent background helps with varying video backgrounds\n\nPoor caption styling makes even accurate captions hard to use.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-1', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Standard YouTube styling, not customised' or 'Sometimes hard to read against bright backgrounds'",
+        helpContent: {
+          summary: 'Caption styling affects readability. High contrast and appropriate sizing ensure captions work for everyone.',
+          tips: [
+            'Contrast: White text with black outline or black background is most readable',
+            'Avoid: Thin fonts, fancy scripts, or coloured text without outline',
+            'Size: Test on mobile - captions should be readable on small screens',
+            'Background: Semi-transparent black background (70-80% opacity) improves readability',
+            'Position: Bottom centre is standard, but avoid covering important visual information',
+            'Platform defaults: YouTube, Facebook defaults are generally acceptable',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE: AUDIO DESCRIPTIONS
+      // Expands on PC-2 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.3-DD-2a',
+        text: 'Which types of videos do you provide audio descriptions for?',
+        helpText: 'Audio descriptions are most valuable for videos with significant visual content that is not explained in the narration.\n\nHigh priority for audio description:\n• Virtual tours and property/venue walkthroughs\n• Product demonstrations\n• How-to and instructional videos\n• Promotional videos showing locations or experiences\n• Content with on-screen text not read aloud\n\nLower priority:\n• Talking head interviews (if everything is spoken)\n• Podcast-style content\n• Audio-focused content',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-2', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'tours', label: 'Virtual tours and walkthroughs' },
+          { id: 'demos', label: 'Product demonstrations' },
+          { id: 'promotional', label: 'Promotional videos' },
+          { id: 'instructional', label: 'How-to and instructional content' },
+          { id: 'events', label: 'Event recordings' },
+          { id: 'none', label: 'No audio descriptions currently' },
+        ],
+        helpContent: {
+          summary: 'Prioritise audio descriptions for videos where visual content carries essential information.',
+          tips: [
+            'Virtual tours: High priority - describe layout, features, accessibility elements',
+            'Demonstrations: Describe what hands are doing, what is being shown',
+            'Promotional: Describe scenes, locations, activities shown',
+            'On-screen text: Always read out text that appears on screen',
+            'Charts/graphs: Describe the data being presented, not just "a chart"',
+            'Starting point: Begin with your most viewed or most important videos',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-2b',
+        text: 'How do you create audio descriptions for your videos?',
+        helpText: 'Audio descriptions can be created in several ways:\n\n• Integrated narration: Describing visuals as part of the main script (most efficient)\n• Extended descriptions: Separate audio track with descriptions (most comprehensive)\n• Text descriptions: Written description provided alongside video\n• Live description: Narrator describes during recording\n\nIntegrated narration is often the most practical approach for most organisations.',
+        type: 'single-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-2', answers: ['yes', 'partially'] },
+        options: [
+          { id: 'integrated', label: 'Built into main narration/script' },
+          { id: 'separate-track', label: 'Separate audio description track' },
+          { id: 'text-description', label: 'Text description alongside video' },
+          { id: 'professional', label: 'Professional description service' },
+          { id: 'mixed', label: 'Mix of approaches' },
+        ],
+        helpContent: {
+          summary: 'Different approaches suit different resources and video types.',
+          tips: [
+            'Integrated (easiest): Write scripts that describe visuals naturally - "As you enter through the blue accessible door on your left..."',
+            'Separate track: Provides fuller descriptions but requires additional production',
+            'Professional services: Available for important content but can be expensive',
+            'Text descriptions: Acceptable alternative when audio description is not feasible',
+            'Script review: Before filming, review scripts to ensure visuals are described',
+            'Retakes: After filming, identify visual gaps and record additional narration',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-2c',
+        text: 'Do you review scripts or storyboards to ensure important visuals will be described?',
+        helpText: 'The most efficient way to include audio description is to plan for it during production rather than adding it afterwards.\n\nPre-production considerations:\n• Does the script describe what viewers will see?\n• Are on-screen text and graphics read aloud?\n• Is there space in the audio for descriptions?\n• Will the narrator mention visual elements naturally?\n\nPlanning ahead is much easier than retrofitting audio descriptions.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-2', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'For major productions but not social content' or 'Not a current practice'",
+        helpContent: {
+          summary: 'Planning for audio description during production is far easier than retrofitting it afterwards.',
+          tips: [
+            'Script review: Before filming, highlight any visual-only information',
+            'Narrator briefing: Ask presenters to describe what they are showing',
+            'On-screen text: Write scripts that read out any text that appears',
+            'Demonstration videos: Narrate each step as it is performed',
+            'Location shoots: Describe the setting at the start of the video',
+            'Checklist: Create a "description check" step in your video production process',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE: SOCIAL MEDIA ALT TEXT
+      // Expands on PC-3 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.3-DD-3a',
+        text: 'On which social media platforms do you consistently add alt text to images?',
+        helpText: 'Alt text availability varies by platform, but most major platforms now support it:\n\n• Instagram: Settings > Accessibility or individual image settings\n• Facebook: Automatic or manual alt text when uploading\n• Twitter/X: Image description option when uploading\n• LinkedIn: Alt text field when uploading images\n\nConsistency across platforms ensures your content is accessible wherever people follow you.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-3', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'instagram', label: 'Instagram' },
+          { id: 'facebook', label: 'Facebook' },
+          { id: 'twitter', label: 'Twitter/X' },
+          { id: 'linkedin', label: 'LinkedIn' },
+          { id: 'tiktok', label: 'TikTok' },
+          { id: 'other', label: 'Other platforms' },
+          { id: 'none', label: 'None consistently' },
+        ],
+        helpContent: {
+          summary: 'Consistency across platforms ensures your content is accessible to all your followers.',
+          tips: [
+            'Instagram: Alt text is hidden in Advanced Settings - easy to miss but worth the effort',
+            'Facebook: Override the auto-generated alt text which is often inaccurate',
+            'Twitter/X: Add description checkbox appears when you add an image',
+            'LinkedIn: Click on image and select "Add alt text"',
+            'Scheduling tools: Check if your scheduling tool (Hootsuite, Buffer, etc.) supports alt text',
+            'Templates: Create alt text templates for recurring content types',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-3b',
+        text: 'Do you have guidelines or training for staff on writing effective alt text?',
+        helpText: 'Good alt text requires understanding of both the image and the context. Guidelines help ensure consistency and quality across your team.\n\nEffective guidelines cover:\n• When alt text is needed (informative images) vs not needed (decorative images)\n• How to describe the purpose and content concisely\n• What to include (key visual information) and exclude (obvious context)\n• Appropriate length (typically 1-2 sentences)\n• Examples of good and poor alt text',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-3', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Informal guidance but no formal training' or 'One person knows how but others don\'t'",
+        helpContent: {
+          summary: 'Guidelines ensure consistent, quality alt text regardless of who creates the content.',
+          tips: [
+            'Good alt text: Describes purpose and content concisely',
+            'Example: "Customer in wheelchair at accessible check-in counter, staff member smiling"',
+            'Not: "Photo" or "IMG_1234.jpg" or auto-generated "may contain: person, table"',
+            'Not: "Image of a beautiful sunny day at our amazing venue with happy customers"',
+            'Length: Usually 1-2 sentences, rarely more than 125 characters',
+            'Context matters: The same image might need different alt text in different contexts',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-3c',
+        text: 'Do you use image descriptions in addition to alt text for complex images?',
+        helpText: 'Image descriptions are longer explanations provided in the post text or as a linked document. They are useful when an image is too complex for a brief alt text.\n\nComplex images that benefit from extended descriptions:\n• Charts, graphs, and data visualisations\n• Maps and floor plans\n• Infographics with multiple elements\n• Detailed photographs with many relevant elements\n• Art or creative work requiring interpretation',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-3', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'For infographics but not other images' or 'Not aware of the difference'",
+        helpContent: {
+          summary: 'Extended image descriptions provide full access to complex visual content that cannot be adequately described in brief alt text.',
+          tips: [
+            'Charts/graphs: Describe the data trend and key points, not just "a bar chart"',
+            'Maps: Describe the layout and key landmarks or routes shown',
+            'Infographics: Provide the full text content and describe visual relationships',
+            'Placement: Include in post text, as a reply, or link to a text version',
+            'Format: Start with "Image description:" to signal what follows',
+            'Alt text still needed: Use brief alt text + extended description for complex images',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-3d',
+        text: 'Do you verify that alt text is preserved when reposting or sharing content?',
+        helpText: 'Alt text can be lost when content is shared, reposted, or moved between platforms. This means carefully crafted descriptions may disappear.\n\nCommon issues:\n• Screenshots of other posts lose alt text\n• Some reposting tools strip alt text\n• Downloading and re-uploading images loses alt text\n• Platform-specific alt text does not transfer\n\nAwareness of these issues helps you maintain accessibility when sharing content.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'low',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-3', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Not something we\'ve considered' or 'Check for original posts but not reposts'",
+        helpContent: {
+          summary: 'Alt text can be lost when content is shared or reposted - awareness helps maintain accessibility.',
+          tips: [
+            'Screenshots: Always add alt text when posting screenshots of other content',
+            'Cross-posting: Check each platform\'s alt text after posting',
+            'Scheduling tools: Verify alt text transfers to all platforms',
+            'Re-uploads: Save original alt text and add it again when re-uploading',
+            'User-generated content: Add alt text when sharing customer photos',
+            'Tip: Keep a document of alt text for frequently shared images',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE: VIDEO PLAYER ACCESSIBILITY
+      // Expands on PC-4 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.3-DD-4a',
+        text: 'Have you tested video playback using keyboard-only navigation?',
+        helpText: 'Keyboard testing reveals whether people who cannot use a mouse can control your videos.\n\nTest these functions with keyboard only (Tab, Enter, Space, arrow keys):\n• Play and pause\n• Volume control\n• Seeking/progress bar\n• Fullscreen toggle\n• Caption toggle\n• Exit/close video\n\nIf any function requires a mouse click, keyboard users are excluded.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-4', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Basic controls work but caption toggle requires mouse' or 'Never tested with keyboard'",
+        helpContent: {
+          summary: 'Keyboard testing is one of the easiest ways to identify video player accessibility issues.',
+          tips: [
+            'Test method: Put your mouse aside and try to control the video',
+            'Tab: Should move between controls',
+            'Enter/Space: Should activate the focused control',
+            'Arrow keys: Should adjust volume, seek, or navigate options',
+            'Escape: Should close fullscreen or modal',
+            'Focus visibility: Can you always see which control is selected?',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-4b',
+        text: 'Do videos autoplay on your website or social media?',
+        helpText: 'Autoplay can create significant barriers:\n\n• Screen reader users may have their software interrupted\n• People with attention difficulties may be distracted\n• People with PTSD or anxiety may be startled by sudden sound\n• Users on limited data may have bandwidth consumed\n\nIf videos do autoplay, users must be able to pause them immediately. Autoplaying without sound is less problematic but still requires easy pause controls.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-4', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'no-autoplay', label: 'No autoplay - videos require user action' },
+          { id: 'autoplay-muted', label: 'Autoplay muted with easy pause' },
+          { id: 'autoplay-sound', label: 'Autoplay with sound' },
+          { id: 'mixed', label: 'Varies by platform or video' },
+          { id: 'not-sure', label: 'Not sure' },
+        ],
+        helpContent: {
+          summary: 'Autoplay can disrupt assistive technology and startle some users. If used, ensure immediate pause is possible.',
+          tips: [
+            'Best: No autoplay - let users choose when to start videos',
+            'Acceptable: Autoplay muted with visible, easy-to-reach pause button',
+            'Poor: Autoplay with sound, especially without immediate pause option',
+            'Social media: Most platforms autoplay muted by default',
+            'Website: Check your video embed settings and website settings',
+            'Background videos: Purely decorative videos should always be muted and pausable',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-4c',
+        text: 'Can users easily find and activate caption controls on your videos?',
+        helpText: 'Even when captions are available, users need to be able to find and turn them on.\n\nAccessible caption controls:\n• Clearly labelled (CC icon or "Captions" text)\n• Visible without hovering\n• Easy to reach by keyboard\n• Toggle state is clear (on vs off)\n• Works on mobile and desktop\n\nIf captions are available but the toggle is hidden or difficult to use, the accessibility benefit is reduced.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-4', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Standard YouTube controls' or 'Caption button is small and hard to find'",
+        helpContent: {
+          summary: 'Caption controls should be easy to find, use, and understand.',
+          tips: [
+            'YouTube: CC button is visible in player controls (keyboard: C key)',
+            'Vimeo: CC button in player controls',
+            'Facebook: CC button appears when hovering',
+            'Custom players: Ensure CC toggle is visible without hover and works with keyboard',
+            'Mobile: Test that caption controls are large enough to tap easily',
+            'Burned-in captions: No toggle needed as they are always visible',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE: CONTENT WARNINGS
+      // Expands on PC-5 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.3-DD-5a',
+        text: 'What types of content do you provide warnings for?',
+        helpText: 'Content warnings help viewers make informed choices about what to watch or read. Consider warnings for:\n\n• Flashing or strobing lights (seizure risk - critical)\n• Sudden loud sounds\n• Graphic or medical imagery\n• Discussion of trauma, abuse, or violence\n• Food, eating, or body image content\n• Mental health topics (suicide, self-harm)\n• Potentially distressing news or events\n\nThe goal is informed consent, not avoiding difficult topics entirely.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-5', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'flashing', label: 'Flashing/strobing lights' },
+          { id: 'loud-sounds', label: 'Sudden loud sounds' },
+          { id: 'graphic', label: 'Graphic imagery' },
+          { id: 'trauma', label: 'Trauma or violence discussions' },
+          { id: 'mental-health', label: 'Mental health topics' },
+          { id: 'other', label: 'Other content types' },
+          { id: 'none', label: 'No content warnings currently' },
+        ],
+        helpContent: {
+          summary: 'Content warnings give viewers agency to decide what they are ready to engage with.',
+          tips: [
+            'Flashing lights: CRITICAL - photosensitive epilepsy is a serious medical risk',
+            'Seizure guidelines: More than 3 flashes per second can trigger seizures',
+            'Audio warnings: Include spoken warning at start of video, not just text',
+            'Social posts: Use "CW:" or "Content warning:" at the start of the post',
+            'Be specific: "CW: discussion of anxiety" is more helpful than just "CW"',
+            'Stories/Reels: Add warning text screen before sensitive content',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-5b',
+        text: 'How do you communicate content warnings to viewers?',
+        helpText: 'Content warnings should reach viewers before they encounter the content:\n\n• Video title or thumbnail\n• Text card at the beginning of video\n• Spoken warning at the start\n• Caption/description before content\n• Social media post text before image/video\n\nWarnings that only appear in video descriptions may be missed by viewers who jump straight into content.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-5', answers: ['yes', 'partially'] },
+        options: [
+          { id: 'title', label: 'In title or thumbnail' },
+          { id: 'text-card', label: 'Text card at video start' },
+          { id: 'spoken', label: 'Spoken warning' },
+          { id: 'description', label: 'In video description' },
+          { id: 'post-text', label: 'In social post text' },
+          { id: 'platform-tools', label: 'Platform sensitive content tools' },
+        ],
+        helpContent: {
+          summary: 'Warnings must reach viewers before they encounter the content, not after.',
+          tips: [
+            'Best practice: Combine written (text card) and spoken warning',
+            'Timing: Warning should appear before content, with time to click away',
+            'Social media: Put warning in first line of caption so it shows in preview',
+            'Instagram Stories: Use text warning screen before sensitive content',
+            'YouTube: Consider using chapter markers with warning in chapter title',
+            'Thumbnail: Can indicate content type without requiring click',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-5c',
+        text: 'Do you test videos for flashing or strobing that could trigger seizures?',
+        helpText: 'Photosensitive epilepsy affects approximately 1 in 4,000 people. Flashing lights can trigger seizures, which is a serious medical emergency.\n\nRisky content:\n• More than 3 flashes per second\n• Large areas of the screen flashing\n• High contrast (white/black) flashing\n• Patterns of contrasting stripes\n\nTesting tools can analyse videos for seizure-inducing patterns.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-5', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Only for videos we produce, not user-generated content' or 'Not aware of testing tools'",
+        helpContent: {
+          summary: 'Flashing content can cause seizures. Testing and warnings are critical safety measures.',
+          tips: [
+            'PEAT tool: Free Photosensitive Epilepsy Analysis Tool from Trace Center',
+            'General rule: Avoid more than 3 flashes per second',
+            'High risk: Large areas of screen, high contrast (white/black), saturated red',
+            'Common culprits: Strobe effects, rapid scene transitions, certain video effects',
+            'If unsure: Add warning and let viewers decide',
+            'Social platforms: Cannot always control what users post, but can add warnings when sharing',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE: INCLUSIVE REPRESENTATION
+      // Expands on PC-6 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.3-DD-6a',
+        text: 'How do you approach representation of people with disability in your content?',
+        helpText: 'Representation of people with disability in media has historically been problematic. Consider whether your content:\n\n• Includes people with disability as regular customers, not just "accessibility stories"\n• Shows diverse disabilities (not just wheelchair users)\n• Avoids "inspiration porn" (framing disability as inherently inspiring)\n• Features people with disability in their own words\n• Represents non-visible disabilities when relevant\n• Consults with people with disability on representation',
+        type: 'single-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-6', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'integrated', label: 'Included naturally across all content' },
+          { id: 'specific', label: 'Mainly in accessibility-specific content' },
+          { id: 'occasional', label: 'Occasionally or in campaigns' },
+          { id: 'rare', label: 'Rarely or never' },
+          { id: 'actively-working', label: 'Actively working to improve' },
+        ],
+        helpContent: {
+          summary: 'Authentic, integrated representation signals to customers with disability that they are welcome.',
+          tips: [
+            'Integrated: People with disability appear in regular content, not just "accessibility features"',
+            'Diversity of disability: Include mobility, vision, hearing, cognitive, and non-visible disabilities',
+            'Avoid: "Despite their disability" or "overcoming" narratives',
+            'Avoid: Using disability as metaphor ("falling on deaf ears", "blind to the facts")',
+            'Real voices: Feature customers with disability telling their own stories',
+            'Consultation: Involve people with disability in planning content about them',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-6b',
+        text: 'Do you use inclusive language in your video scripts and social media copy?',
+        helpText: 'Inclusive language respects and includes people with disability:\n\n• Person-first or identity-first based on community preference (varies)\n• Avoids outdated or offensive terms\n• Does not use disability as metaphor or insult\n• Describes accessibility positively, not as "special" or "accommodation"\n• Uses plain language accessible to people with cognitive disabilities\n\nLanguage preferences vary - some communities prefer person-first ("person with disability") while others prefer identity-first ("disabled person"). When unsure, ask.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-6', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'We try but not formally checked' or 'Have guidelines but not consistently applied'",
+        helpContent: {
+          summary: 'Language shapes perception. Inclusive language makes all customers feel respected and welcome.',
+          tips: [
+            'Avoid: "Wheelchair-bound", "suffers from", "handicapped", "special needs"',
+            'Use: "Wheelchair user", "has [condition]", "disabled" or "person with disability"',
+            'Avoid: "Normal" vs "disabled" - use "non-disabled" or "people without disability"',
+            'Plain language: Use simple, clear sentences that work for everyone',
+            'Metaphors: Avoid "blind to", "deaf to", "lame", "crazy" as casual terms',
+            'Ask: When featuring someone, ask how they describe themselves',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-6c',
+        text: 'Do you source imagery from disability-inclusive stock libraries or feature real customers?',
+        helpText: 'Stock photography often lacks authentic disability representation. Consider:\n\n• Disability-specific stock libraries (Disability:IN, Getty Disability Collection)\n• Featuring real customers with their permission\n• Working with disability community photographers\n• Commissioning inclusive photo/video shoots\n\nAuthentic imagery resonates more than staged stock photos and shows genuine commitment to inclusion.',
+        type: 'single-select',
+        category: 'information',
+        impactLevel: 'low',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-6', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'real-customers', label: 'Real customers with permission' },
+          { id: 'inclusive-stock', label: 'Disability-inclusive stock libraries' },
+          { id: 'commissioned', label: 'Commissioned inclusive shoots' },
+          { id: 'general-stock', label: 'General stock photos' },
+          { id: 'mixed', label: 'Mix of approaches' },
+        ],
+        helpContent: {
+          summary: 'Authentic imagery from real customers or inclusive sources is more impactful than generic stock photos.',
+          tips: [
+            'Real customers: Ask satisfied customers if they would be willing to be featured',
+            'Disability:IN stock: Free inclusive stock photography',
+            'Getty Disability Collection: Authentic representation in stock imagery',
+            'Nappy.co: Diverse and inclusive stock photos',
+            'Commission: Budget for inclusive photo shoots',
+            'User-generated: Encourage customers to share their experiences (with permission to repost)',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE: LIVE CONTENT ACCESSIBILITY
+      // Expands on PC-7 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.3-DD-7a',
+        text: 'What accessibility features do you include in live video content?',
+        helpText: 'Live content can include several accessibility features:\n\n• Auto-generated live captions (most platforms support this)\n• Professional CART (Communication Access Realtime Translation)\n• Auslan interpretation (in-frame or picture-in-picture)\n• Audio description by presenter\n• Accessible chat/Q&A\n• Post-event captions for recording\n\nNot all features are needed for every live event - prioritise based on audience and content type.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-7', answers: ['yes-accessible', 'yes-limited', 'yes-none'] },
+        options: [
+          { id: 'auto-captions', label: 'Auto-generated live captions' },
+          { id: 'cart', label: 'Professional CART captions' },
+          { id: 'auslan', label: 'Auslan interpretation' },
+          { id: 'audio-desc', label: 'Audio description during stream' },
+          { id: 'accessible-chat', label: 'Accessible chat/Q&A' },
+          { id: 'post-captions', label: 'Captions added to recording' },
+          { id: 'none', label: 'No features currently' },
+        ],
+        helpContent: {
+          summary: 'Live accessibility requires planning but provides real-time access for viewers.',
+          tips: [
+            'Auto-captions: Enable in platform settings (Zoom, Teams, YouTube Live, Facebook Live)',
+            'CART: Book professional captioner for important events - costs vary',
+            'Auslan: Book interpreter for significant public events',
+            'Presenter tips: Speak clearly, describe what you\'re showing, read chat questions aloud',
+            'Post-event: Even if live captions are imperfect, add corrected captions to the recording',
+            'Test: Run a tech check before going live to ensure features work',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-7b',
+        text: 'Do you test live streaming accessibility features before going live?',
+        helpText: 'Technical testing before live events helps ensure accessibility features work:\n\n• Test auto-caption accuracy and display\n• Verify interpreter/CART feed is visible\n• Check audio quality for hearing aid compatibility\n• Test keyboard navigation of chat/Q&A\n• Confirm recording settings capture accessibility features\n\nA tech rehearsal prevents embarrassing or exclusionary problems during the actual event.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-7', answers: ['yes-accessible', 'yes-limited', 'yes-none'] },
+        partialPlaceholder: "E.g., 'For major events but not casual streams' or 'Basic audio check only'",
+        helpContent: {
+          summary: 'Testing accessibility features before going live prevents exclusion and technical failures.',
+          tips: [
+            'Caption test: Check auto-captions are appearing and reasonably accurate',
+            'Audio test: Clear audio is essential for captions and hearing aid users',
+            'Interpreter test: Verify Auslan interpreter is visible and well-lit',
+            'Chat test: Confirm Q&A features work with keyboard navigation',
+            'Recording test: Ensure recording captures captions and interpreter',
+            'Backup plan: Know what to do if accessibility features fail during stream',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-7c',
+        text: 'Do you add corrected captions to recordings of live content?',
+        helpText: 'Live auto-captions often contain errors. Adding corrected captions to recorded versions improves accessibility for future viewers.\n\nThis is especially important because:\n• Recordings often get more views than live streams\n• Viewers can\'t ask for clarification as they might live\n• Accurate captions improve SEO and searchability\n• Shows commitment to accessibility beyond minimum effort',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-7', answers: ['yes-accessible', 'yes-limited', 'yes-none'] },
+        partialPlaceholder: "E.g., 'For webinars but not social live streams' or 'Leave auto-captions as-is'",
+        helpContent: {
+          summary: 'Correcting captions on recorded live content extends accessibility beyond the live event.',
+          tips: [
+            'Post-event editing: Download auto-generated captions and correct errors',
+            'Priority: Focus on proper nouns, technical terms, and unclear sections',
+            'Timing: Aim to add corrected captions within 48 hours of the event',
+            'YouTube: Use YouTube\'s caption editor to correct auto-generated text',
+            'Transcript: Also consider providing a downloadable transcript',
+            'Efficiency: Correcting auto-captions is faster than creating from scratch',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE: PLATFORM FEATURES
+      // Expands on PC-8 for detailed assessment
+      // ============================================
+      {
+        id: 'B4.3-DD-8a',
+        text: 'Do you have a checklist or process for using platform accessibility features consistently?',
+        helpText: 'Consistency requires systems, not just good intentions. A checklist helps ensure accessibility features are used every time.\n\nA simple checklist might include:\n• Add alt text to all informative images\n• Add or review captions for all videos\n• Include content warnings where appropriate\n• Use clear, plain language\n• Check hashtag accessibility (#CamelCaseHashtags)\n\nChecklists can be platform-specific or general.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-8', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Informal reminders but no formal process' or 'One team member checks but not documented'",
+        helpContent: {
+          summary: 'Checklists turn good intentions into consistent action.',
+          tips: [
+            'Keep it simple: 5-10 items maximum that can be checked quickly',
+            'Platform-specific: Create separate checklists for each platform you use',
+            'Integrate: Build accessibility checks into your existing posting workflow',
+            'Assign responsibility: Make clear who checks accessibility before posting',
+            'Review: Periodically review published posts to catch missed items',
+            'Template: Create post templates that include alt text prompts',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-8b',
+        text: 'Are hashtags written in CamelCase for screen reader accessibility?',
+        helpText: 'Screen readers struggle with hashtags written in lowercase because they cannot identify word boundaries.\n\n• #accessibletravel reads as one long word\n• #AccessibleTravel is read as "Accessible Travel"\n\nCamelCase (capitalising each word) helps screen readers pronounce hashtags correctly and makes them easier for everyone to read.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'low',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-8', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Sometimes but not consistently' or 'Wasn\'t aware this was important'",
+        helpContent: {
+          summary: 'CamelCase hashtags are easier to read for everyone and work properly with screen readers.',
+          tips: [
+            'Example: #VisitMelbourne not #visitmelbourne',
+            'Example: #AccessibleTourism not #accessibletourism',
+            'Acronyms: Can remain uppercase: #NDIS or #WCAG',
+            'Short hashtags: Single words don\'t need CamelCase: #Melbourne',
+            'Consistency: Use the same casing each time you use a hashtag',
+            'Check: Review your commonly used hashtags and update casing',
+          ],
+        },
+      },
+      {
+        id: 'B4.3-DD-8c',
+        text: 'Do you limit or format emoji use for screen reader accessibility?',
+        helpText: 'Screen readers announce each emoji by its description, which can create a poor experience:\n\n• Three heart emojis ❤️❤️❤️ is announced as "red heart red heart red heart"\n• Emoji between words breaks sentence flow\n• Long strings of emoji are tedious to listen to\n\nBest practices:\n• Use emoji sparingly\n• Place emoji at the end of text, not within sentences\n• Avoid using emoji as bullet points\n• Don\'t use emoji to replace words',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'low',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B4.3-PC-8', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'We use lots of emoji, not considered accessibility impact' or 'Try to limit but not consistently'",
+        helpContent: {
+          summary: 'Thoughtful emoji use ensures they enhance rather than hinder the reading experience.',
+          tips: [
+            'Placement: Put emoji at end of post, not scattered throughout',
+            'Quantity: 1-3 emoji is fine, 10+ becomes tedious for screen reader users',
+            'Avoid: 🏃‍♂️ Running to 📍 the store to get 🍕 pizza (each emoji interrupts the sentence)',
+            'Better: Running to the store to get pizza 🍕',
+            'Not as bullets: Avoid using emoji as list markers',
+            'Meaningful use: Emoji should add meaning, not just decoration',
+          ],
+        },
+      },
+
+      // ============================================
+      // MEDIA ANALYSIS QUESTIONS
+      // Evidence collection and AI-assisted review
+      // ============================================
       {
         id: 'B4.3-MA-1',
         text: 'Upload a screenshot of a social media post for accessibility analysis',
-        helpText: 'Our AI will analyze your social media posts for accessibility features like alt text presence, caption readability, contrast, and inclusive language.',
+        helpText: 'Upload a recent social media post to check for accessibility best practices. The analysis will review:\n\n• Whether alt text is present\n• Caption readability and contrast\n• Inclusive language usage\n• Content warning presence if applicable\n• Hashtag formatting',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'medium',
@@ -1275,14 +2727,447 @@ export const accessModules: AccessModule[] = [
       },
       {
         id: 'B4.3-MA-2',
-        text: 'Enter a social media profile URL for accessibility review',
-        helpText: 'We can review your social media presence for accessibility practices including alt text usage, caption quality, and content accessibility.',
+        text: 'Upload a screenshot or link to a video showing your caption quality',
+        helpText: 'Upload a screenshot or link showing captions on one of your videos. We can assess:\n\n• Caption accuracy and completeness\n• Synchronisation quality\n• Readability (contrast, size, font)\n• Speaker identification\n• Sound descriptions',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        mediaAnalysisType: 'social-media-url',
-        mediaAnalysisHint: 'Enter your Instagram, Facebook, or LinkedIn profile URL to review your accessibility practices.',
+        mediaAnalysisType: 'video-captions',
+        mediaAnalysisHint: 'Provide a screenshot showing captions on one of your videos, or a link to a captioned video.',
+      },
+    ],
+  },
+
+  // B5: Communication and Language
+  // How you communicate about accessibility and use inclusive language
+  {
+    id: 'B5',
+    code: 'B5',
+    name: 'Communication and language',
+    description: 'How you communicate about accessibility and use inclusive, welcoming language',
+    group: 'before-arrival',
+    estimatedTime: 10,
+    estimatedTimeDeepDive: 20,
+    icon: '💬',
+    questions: [
+      // ============================================
+      // PULSE CHECK QUESTIONS
+      // ============================================
+      {
+        id: 'B5-PC-1',
+        text: 'Does your website and communications use clear, plain language that is easy to understand?',
+        helpText: 'Plain language helps everyone, including people with cognitive disabilities, learning differences, non-native English speakers, and people who are stressed or distracted.\n\nPlain language means:\n• Short sentences and paragraphs\n• Common, everyday words\n• Active voice ("We will contact you" not "You will be contacted")\n• Clear headings and structure\n• Avoiding jargon and acronyms',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Main pages are clear but legal/policy pages are complex' or 'Some staff write clearly, others use jargon'",
+        helpContent: {
+          summary: 'Plain language makes your content accessible to more people and improves understanding for everyone.',
+          tips: [
+            'Aim for reading level of Year 8-9 (age 13-14) for general audiences',
+            'Use free tools like Hemingway Editor to check readability',
+            'Replace jargon: "utilise" → "use", "facilitate" → "help", "commence" → "start"',
+            'Break long sentences into shorter ones',
+            'Use bullet points for lists',
+            'Define acronyms on first use',
+          ],
+        },
+      },
+      {
+        id: 'B5-PC-2',
+        text: 'Do you use respectful, person-centred language when referring to people with disability?',
+        helpText: 'Language shapes perception. Respectful language acknowledges people as individuals first, not defined by their disability.\n\nIn Australia, both "person with disability" and "disabled person" are acceptable - different communities have different preferences. The key is avoiding outdated or offensive terms.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Staff are generally respectful but website has some outdated terms' or 'No formal guidelines'",
+        helpContent: {
+          summary: 'Respectful language shows you value and welcome customers with disability.',
+          tips: [
+            'Use: "person with disability" or "disabled person" (both acceptable in Australia)',
+            'Use: "wheelchair user" not "wheelchair-bound" or "confined to a wheelchair"',
+            'Use: "has [condition]" not "suffers from" or "afflicted by"',
+            'Avoid: "special needs", "differently abled", "handicapped"',
+            'Avoid: Using disability as metaphor ("blind to the facts", "falling on deaf ears")',
+            'When unsure, ask the person how they prefer to be described',
+          ],
+        },
+      },
+      {
+        id: 'B5-PC-3',
+        text: 'Do you describe your accessibility features positively, focusing on what IS available?',
+        helpText: 'Positive framing emphasises what customers can do and what you offer, rather than limitations or what\'s missing.\n\nPositive: "Step-free access available via the side entrance"\nNegative: "Wheelchair users cannot use the main entrance"\n\nPositive framing is welcoming and solution-focused.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Accessibility page is positive but some staff communications are negative' or 'Haven\'t reviewed this'",
+        helpContent: {
+          summary: 'Positive framing makes customers feel welcome rather than like an afterthought or problem to solve.',
+          tips: [
+            'Lead with what you offer: "Accessible parking available" not "Limited parking"',
+            'Focus on solutions: "Assistance available on request" not "Staff may not always be available"',
+            'Avoid apologetic tone: Don\'t say "Unfortunately, we only have..." - say "We have..."',
+            'Be specific: "Accessible toilet on ground floor" not "Some accessible facilities"',
+            'Celebrate inclusion: "We welcome all customers" not "We try to accommodate..."',
+          ],
+        },
+      },
+      {
+        id: 'B5-PC-4',
+        text: 'Is accessibility information easy to find on your website (not buried or hidden)?',
+        helpText: 'Customers should not have to search extensively to find accessibility information. Consider:\n\n• Is there a dedicated accessibility page linked from main navigation or footer?\n• Is accessibility info included on relevant pages (not just a separate page)?\n• Can customers find information within 2-3 clicks from the homepage?',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'We have an accessibility page but it\'s hard to find' or 'Info is scattered across different pages'",
+        helpContent: {
+          summary: 'Easy-to-find accessibility information helps customers plan confidently and shows you prioritise inclusion.',
+          tips: [
+            'Add "Accessibility" link in footer navigation (common, expected location)',
+            'Include accessibility info on relevant pages (venue page, booking page, contact page)',
+            'Use clear labelling: "Accessibility" not "Special Assistance" or "Additional Needs"',
+            'Make it prominent: Consider a dedicated section on your homepage',
+            'Test: Ask someone unfamiliar with your site to find accessibility information',
+          ],
+        },
+      },
+      {
+        id: 'B5-PC-5',
+        text: 'Do you provide information in multiple formats for people who need alternatives?',
+        helpText: 'Different people need information in different formats:\n\n• Large print versions\n• Easy Read versions (simplified language with images)\n• Audio versions\n• Braille (for some contexts)\n• Auslan (Australian Sign Language) videos\n\nNot every format is needed for everything, but having alternatives for key information improves access.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'PDF documents available but no other formats' or 'Can provide on request but not proactively offered'",
+        helpContent: {
+          summary: 'Alternative formats ensure people with different access needs can receive the same information.',
+          tips: [
+            'Start with key documents: Menus, brochures, policies, terms and conditions',
+            'Easy Read: Simplified language with supporting images - good for cognitive access',
+            'Large print: Minimum 18pt font, can often be provided on request',
+            'Audio: Record key information or offer phone-based alternatives',
+            'Mention availability: "Available in other formats on request"',
+            'Consider Auslan videos for important announcements or key information',
+          ],
+        },
+      },
+      {
+        id: 'B5-PC-6',
+        text: 'Do you actively communicate your commitment to accessibility (not just compliance)?',
+        helpText: 'Communicating commitment goes beyond listing features - it conveys that accessibility is valued and prioritised.\n\nThis might include:\n• A welcoming statement on your accessibility page\n• Including accessibility in your values or mission\n• Sharing your accessibility journey or improvements\n• Responding positively to accessibility feedback\n• Staff who confidently discuss accessibility',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'We list features but don\'t express commitment' or 'Varies by staff member'",
+        helpContent: {
+          summary: 'Communicating commitment builds trust and signals that customers with disability are genuinely welcome.',
+          tips: [
+            'Opening statement: "We are committed to ensuring all visitors can enjoy our venue"',
+            'Share progress: "We recently installed a new hearing loop in our main hall"',
+            'Invite feedback: "We welcome suggestions on how we can improve accessibility"',
+            'Be authentic: Don\'t overclaim - honest communication builds trust',
+            'Staff confidence: Train staff to speak positively about your accessibility efforts',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE QUESTIONS
+      // ============================================
+      {
+        id: 'B5-DD-1a',
+        text: 'Have you reviewed your website content for readability level?',
+        helpText: 'Readability tools can measure the reading level of your content and identify complex sentences or difficult words.\n\nTools like Hemingway Editor, readable.com, or Microsoft Word\'s readability statistics can help.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-1', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Checked some pages but not all' or 'Used tools but haven\'t made changes'",
+        helpContent: {
+          summary: 'Readability testing gives objective data to guide content improvements.',
+          tips: [
+            'Free tool: Hemingway Editor (hemingwayapp.com) highlights complex sentences',
+            'Target: Grade 8-9 reading level for general content',
+            'Check key pages first: Homepage, booking, contact, accessibility',
+            'Legal content: Consider a plain language summary alongside formal terms',
+            'Regular review: Check new content before publishing',
+          ],
+        },
+      },
+      {
+        id: 'B5-DD-1b',
+        text: 'Do you have content guidelines or style guide that includes accessibility and plain language?',
+        helpText: 'A style guide helps ensure consistency across all communications and provides guidance for staff creating content.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-1', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'General style guide but no accessibility section' or 'Informal guidelines only'",
+      },
+      {
+        id: 'B5-DD-2a',
+        text: 'Have you trained staff on respectful disability language and communication?',
+        helpText: 'Training helps staff communicate confidently and respectfully with customers with disability.',
+        type: 'yes-no-unsure',
+        category: 'training',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-2', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Included in onboarding but no refresher training' or 'Customer-facing staff only'",
+      },
+      {
+        id: 'B5-DD-3a',
+        text: 'Have you reviewed your accessibility page for positive, welcoming tone?',
+        helpText: 'Your accessibility page sets the tone for how customers with disability perceive your welcome.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-3', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Recently updated' or 'Haven\'t reviewed recently'",
+      },
+      {
+        id: 'B5-DD-4a',
+        text: 'Where is your accessibility information located on your website?',
+        helpText: 'Documenting current location helps identify improvements.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-4', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'footer', label: 'Footer navigation' },
+          { id: 'main-nav', label: 'Main navigation menu' },
+          { id: 'homepage', label: 'Homepage section' },
+          { id: 'contact-page', label: 'Contact page' },
+          { id: 'venue-page', label: 'Venue/location page' },
+          { id: 'booking-page', label: 'Booking page' },
+          { id: 'faq', label: 'FAQ section' },
+          { id: 'not-present', label: 'No dedicated accessibility information' },
+        ],
+      },
+      {
+        id: 'B5-DD-5a',
+        text: 'Which alternative formats do you currently offer?',
+        helpText: 'Document what you currently provide to identify gaps.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-5', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        options: [
+          { id: 'large-print', label: 'Large print' },
+          { id: 'easy-read', label: 'Easy Read' },
+          { id: 'audio', label: 'Audio versions' },
+          { id: 'braille', label: 'Braille' },
+          { id: 'auslan', label: 'Auslan videos' },
+          { id: 'screen-reader', label: 'Screen reader compatible documents' },
+          { id: 'on-request', label: 'Available on request' },
+          { id: 'none', label: 'None currently' },
+        ],
+      },
+    ],
+  },
+
+  // B6: Marketing and Representation
+  // How your marketing and promotional materials include people with disability
+  {
+    id: 'B6',
+    code: 'B6',
+    name: 'Marketing and representation',
+    description: 'How your marketing, imagery, and promotional materials include and represent people with disability',
+    group: 'before-arrival',
+    estimatedTime: 10,
+    estimatedTimeDeepDive: 18,
+    icon: '📣',
+    // Universal module - applies to all businesses
+    isUniversal: true,
+    universalReason: 'All businesses communicate through marketing - inclusive representation matters regardless of industry',
+    questions: [
+      // ============================================
+      // PULSE CHECK QUESTIONS
+      // ============================================
+      {
+        id: 'B6-PC-1',
+        text: 'Does your marketing imagery include people with disability?',
+        helpText: 'Representation matters. When people with disability see themselves in your marketing, they know they are welcome as customers.\n\nThis means including people with visible disabilities (wheelchair users, people with mobility aids, guide dogs) and representing diversity authentically - not just in "accessibility" content.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Occasionally but not consistently' or 'Only in accessibility-specific content'",
+        helpContent: {
+          summary: 'Inclusive imagery signals that your business welcomes customers with disability - not as an afterthought, but as valued customers.',
+          tips: [
+            'Audit your imagery: Review your website, brochures, social media - how many images include people with disability?',
+            'Natural inclusion: Show people with disability as regular customers, not just in "accessibility" sections',
+            'Diverse disabilities: Include mobility, vision, hearing, and cognitive disabilities - not just wheelchair users',
+            'Authentic representation: Use real customers or authentic stock photography',
+            'Avoid inspiration narratives: Don\'t frame disability as something to "overcome"',
+            'Stock resources: Disability:IN, Getty Disability Collection offer authentic imagery',
+          ],
+        },
+      },
+      {
+        id: 'B6-PC-2',
+        text: 'Do your promotional materials avoid stereotypes or "inspiration porn" when depicting disability?',
+        helpText: '"Inspiration porn" is content that frames people with disability as inspirational simply for living their lives, often making non-disabled viewers feel good rather than respecting disabled people\'s agency.\n\nAuthentic representation shows people with disability as customers, employees, or community members - not as objects of pity or inspiration.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Generally respectful but haven\'t formally reviewed' or 'Some older materials may have issues'",
+        helpContent: {
+          summary: 'Authentic representation respects people with disability as individuals, not inspiration for others.',
+          tips: [
+            'Avoid: "Despite their disability...", "Brave", "Inspiring" narratives about everyday activities',
+            'Avoid: Images that position non-disabled people as "helpers" with disabled people as recipients',
+            'Include: People with disability shown doing ordinary things - shopping, dining, working',
+            'Include: People with disability in positions of authority, expertise, or leadership',
+            'Test: Would this depiction be acceptable if the person didn\'t have a disability?',
+            'Consult: Get feedback from people with disability on your marketing',
+          ],
+        },
+      },
+      {
+        id: 'B6-PC-3',
+        text: 'Are your marketing materials (brochures, flyers, advertisements) accessible?',
+        helpText: 'Marketing materials should be accessible to people with different access needs:\n\n• Good colour contrast\n• Readable font sizes\n• Alt text for digital images\n• Available in alternative formats on request\n• Clear, simple language',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Digital materials are accessible but print may not be' or 'Haven\'t checked contrast/fonts'",
+        helpContent: {
+          summary: 'Accessible marketing ensures everyone can receive your promotional messages.',
+          tips: [
+            'Contrast: Text should have 4.5:1 contrast ratio with background',
+            'Font size: Minimum 12pt for body text, preferably 14pt+',
+            'Font choice: Sans-serif fonts (Arial, Helvetica) are generally easier to read',
+            'Alt text: Add descriptions to images in digital marketing',
+            'PDF accessibility: Use tagged PDFs with proper reading order',
+            'Test: Use accessibility checkers for digital materials',
+          ],
+        },
+      },
+      {
+        id: 'B6-PC-4',
+        text: 'Do you feature accessibility as a positive attribute in your marketing (not just compliance)?',
+        helpText: 'Marketing your accessibility can attract customers and demonstrate your values:\n\n• Highlighting accessible features as benefits\n• Promoting inclusive events or experiences\n• Sharing your accessibility commitment\n• Featuring testimonials from customers with disability',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'We mention accessibility but don\'t actively promote it' or 'Only on our accessibility page'",
+        helpContent: {
+          summary: 'Proactively marketing accessibility attracts customers and shows genuine commitment.',
+          tips: [
+            'Feature benefits: "Easy access for everyone" or "Welcoming venue for all"',
+            'Promote events: Market accessible events and inclusive experiences',
+            'Testimonials: Share positive experiences from customers with disability',
+            'Awards/recognition: Mention accessibility accreditations or achievements',
+            'Behind the scenes: Share your accessibility improvements and journey',
+            'Be genuine: Only promote what you can deliver - authenticity builds trust',
+          ],
+        },
+      },
+      {
+        id: 'B6-PC-5',
+        text: 'Do you use imagery sourced from disability-inclusive stock libraries or feature real customers?',
+        helpText: 'Generic stock photography often lacks authentic disability representation. Better options include:\n\n• Real customers with their permission\n• Disability-specific stock libraries\n• Commissioned inclusive photo shoots\n• User-generated content from diverse customers',
+        type: 'single-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        options: [
+          { id: 'real-customers', label: 'Real customers with permission' },
+          { id: 'inclusive-stock', label: 'Disability-inclusive stock libraries' },
+          { id: 'commissioned', label: 'Commissioned inclusive shoots' },
+          { id: 'general-stock', label: 'General stock photos' },
+          { id: 'mixed', label: 'Mix of approaches' },
+          { id: 'none-disability', label: 'No disability representation currently' },
+        ],
+        helpContent: {
+          summary: 'Authentic imagery from real customers or inclusive sources is more impactful than generic stock photos.',
+          tips: [
+            'Real customers: Ask satisfied customers if they would be willing to be featured',
+            'Disability:IN stock: Free inclusive stock photography',
+            'Getty Disability Collection: Authentic representation in stock imagery',
+            'The Disability Collection: Australian disability-led imagery',
+            'Commission: Budget for inclusive photo shoots',
+            'User-generated: Encourage customers to share their experiences (with permission to repost)',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE QUESTIONS
+      // ============================================
+      {
+        id: 'B6-DD-1a',
+        text: 'Have you conducted an audit of your marketing imagery for disability representation?',
+        helpText: 'An audit involves systematically reviewing your marketing materials to assess representation.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B6-PC-1', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Informal review but not documented' or 'Reviewed website but not all materials'",
+      },
+      {
+        id: 'B6-DD-1b',
+        text: 'Do you have guidelines for inclusive imagery in marketing?',
+        helpText: 'Guidelines help ensure consistent, authentic representation across all marketing materials.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B6-PC-1', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'General diversity guidelines but not disability-specific' or 'Informal practice'",
+      },
+      {
+        id: 'B6-DD-2a',
+        text: 'Have people with disability reviewed your marketing materials for authentic representation?',
+        helpText: 'Consultation with people with disability helps identify stereotypes or issues that may not be apparent to others.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B6-PC-2', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Informally but not as standard practice' or 'Staff member with disability provides input'",
+      },
+      {
+        id: 'B6-DD-3a',
+        text: 'Have you tested your marketing materials for accessibility (contrast, readability)?',
+        helpText: 'Testing ensures marketing materials meet accessibility standards.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B6-PC-3', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'Digital materials tested but not print' or 'Used automated tools only'",
+      },
+      {
+        id: 'B6-DD-4a',
+        text: 'Have you featured accessibility in any marketing campaigns or promotions?',
+        helpText: 'Documenting past efforts helps identify opportunities for future marketing.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'low',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B6-PC-4', answers: ['yes', 'partially', 'no', 'not-sure'] },
+        partialPlaceholder: "E.g., 'International Day of People with Disability content' or 'Featured in accessibility guide'",
       },
     ],
   },
@@ -1682,7 +3567,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'A2-MA-1',
         text: 'Upload a photo of your entrance for accessibility analysis',
-        helpText: 'Our AI will analyze your entrance against AS 1428.1 and Access to Premises Standards for door width, threshold, visibility, and step-free access.',
+        helpText: 'Our AI will analyse your entrance against AS 1428.1 and Access to Premises Standards for door width, threshold, visibility, and step-free access.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'high',
@@ -1693,7 +3578,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'A2-MA-2',
         text: 'Upload a photo of your entrance door for analysis',
-        helpText: 'We can analyze door width, handle type, threshold height, and visual contrast against accessibility standards.',
+        helpText: 'We can analyse door width, handle type, threshold height, and visual contrast against accessibility standards.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'medium',
@@ -1704,7 +3589,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'A2-MA-3',
         text: 'Upload a photo of any ramp at your entrance',
-        helpText: 'We can analyze ramp gradient, width, handrails, and landing areas against AS 1428.1 requirements.',
+        helpText: 'We can analyse ramp gradient, width, handrails, and landing areas against AS 1428.1 requirements.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'high',
@@ -1772,7 +3657,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'A3a-MA-1',
         text: 'Upload a photo of your pathways for accessibility analysis',
-        helpText: 'Our AI will analyze your pathways for width, surface condition, obstacles, and trip hazards based on AS 1428.1 standards.',
+        helpText: 'Our AI will analyse your pathways for width, surface condition, obstacles, and trip hazards based on AS 1428.1 standards.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'medium',
@@ -1783,7 +3668,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'A3a-MA-2',
         text: 'Upload a photo of your ground surfaces for analysis',
-        helpText: 'We can analyze floor surfaces for slip resistance, level changes, and accessibility compliance.',
+        helpText: 'We can analyse floor surfaces for slip resistance, level changes, and accessibility compliance.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'medium',
@@ -2085,7 +3970,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'A6-MA-1',
         text: 'Upload a photo of your venue lighting for analysis',
-        helpText: 'Our AI will analyze your venue lighting for adequacy, contrast, glare, and even distribution based on accessibility standards.',
+        helpText: 'Our AI will analyse your venue lighting for adequacy, contrast, glare, and even distribution based on accessibility standards.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'medium',
@@ -2363,7 +4248,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B2-MA-1',
         text: 'Upload a photo of your signage for accessibility analysis',
-        helpText: 'Our AI will analyze your signage against AS 1428.1 and AS 1428.2 standards for contrast, text size, font style, placement, and readability.',
+        helpText: 'Our AI will analyse your signage against AS 1428.1 and AS 1428.2 standards for contrast, text size, font style, placement, and readability.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'medium',
@@ -2440,7 +4325,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B3-MA-1',
         text: 'Upload a menu or printed material for accessibility analysis',
-        helpText: 'Our AI will analyze your menu, brochure, or printed material against accessibility standards including font size, contrast, layout clarity, and readability.',
+        helpText: 'Our AI will analyse your menu, brochure, or printed material against accessibility standards including font size, contrast, layout clarity, and readability.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'medium',
@@ -2451,7 +4336,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B3-MA-2',
         text: 'Upload a brochure or flyer for accessibility analysis',
-        helpText: 'We can analyze your promotional materials for accessibility features like contrast, text size, and clear layout.',
+        helpText: 'We can analyse your promotional materials for accessibility features like contrast, text size, and clear layout.',
         type: 'media-analysis',
         category: 'evidence',
         impactLevel: 'low',
@@ -2732,7 +4617,7 @@ export const accessModules: AccessModule[] = [
   {
     id: 'C2',
     code: 'C2',
-    name: 'Bookings, payments and flexibility',
+    name: 'Bookings and ticketing',
     description: 'Flexibility in your booking and payment processes',
     group: 'service-support',
     estimatedTime: 10,
@@ -3060,16 +4945,16 @@ export const accessModules: AccessModule[] = [
   },
 
   // ============================================
-  // POLICY AND OPERATIONS
+  // ORGANISATIONAL COMMITMENT
   // ============================================
 
-  // P1: Policy, Procurement and Inclusion
+  // P1: Policy and Inclusion
   {
     id: 'P1',
     code: 'P1',
-    name: 'Policy, procurement and inclusion',
-    description: 'Organisational policies and practices that embed accessibility',
-    group: 'service-support',
+    name: 'Policy and inclusion',
+    description: 'Organisational policies and commitment to disability inclusion',
+    group: 'organisational-commitment',
     estimatedTime: 12,
     estimatedTimeDeepDive: 20,
     icon: '📋',
@@ -3092,22 +4977,6 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload your accessibility policy or provide a link',
-      },
-      {
-        id: 'P1-F-2',
-        text: 'Do you provide information about accessibility practices to procurement partners to support inclusive service delivery?',
-        helpText: 'Inclusive procurement means considering accessibility when selecting suppliers, contractors, and partners. This ensures that products, services, and experiences delivered by third parties also meet accessibility standards.\n\nThis might include:\n• Including accessibility requirements in contracts and tenders\n• Asking suppliers about their accessibility practices\n• Sharing your accessibility expectations with partners\n• Choosing accessible products and services where possible\n• Working with suppliers who share your inclusion values',
-        type: 'single-select',
-        category: 'policy',
-        impactLevel: 'medium',
-        reviewMode: 'pulse-check',
-        options: [
-          { id: 'yes-formal', label: 'Yes, formal requirements in contracts' },
-          { id: 'yes-informal', label: 'Yes, we communicate expectations informally' },
-          { id: 'sometimes', label: 'Sometimes, for relevant contracts' },
-          { id: 'planning', label: 'Planning to introduce' },
-          { id: 'no', label: 'No' },
-        ],
       },
       {
         id: 'P1-F-3',
@@ -3219,7 +5088,7 @@ export const accessModules: AccessModule[] = [
     code: 'P2',
     name: 'Employing people with disability',
     description: 'Creating an inclusive workplace through accessible recruitment, hiring, and employee support',
-    group: 'service-support',
+    group: 'organisational-commitment',
     estimatedTime: 15,
     estimatedTimeDeepDive: 25,
     icon: '👥',
@@ -3311,10 +5180,13 @@ export const accessModules: AccessModule[] = [
     code: 'P3',
     name: 'Staff training and awareness',
     description: 'Building disability confidence across your team through training and awareness programs',
-    group: 'service-support',
+    group: 'organisational-commitment',
     estimatedTime: 12,
     estimatedTimeDeepDive: 20,
     icon: '🎓',
+    // Universal module - applies to all businesses that employ staff
+    isUniversal: true,
+    universalReason: 'All businesses with customer-facing staff benefit from disability awareness training',
     questions: [
       {
         id: 'P3-F-1',
@@ -3398,7 +5270,7 @@ export const accessModules: AccessModule[] = [
     code: 'P4',
     name: 'Accessible procurement',
     description: 'Ensuring suppliers and partners meet accessibility standards',
-    group: 'service-support',
+    group: 'organisational-commitment',
     estimatedTime: 10,
     estimatedTimeDeepDive: 18,
     icon: '📦',
@@ -3474,7 +5346,7 @@ export const accessModules: AccessModule[] = [
     code: 'P5',
     name: 'Continuous improvement and reporting',
     description: 'Tracking progress and driving ongoing accessibility improvement',
-    group: 'service-support',
+    group: 'organisational-commitment',
     estimatedTime: 10,
     estimatedTimeDeepDive: 18,
     icon: '📊',

@@ -53,11 +53,10 @@ interface ModuleGroupWithProgress {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { accessState } = useAuth();
+  const { accessState, user } = useAuth();
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<TabType>('modules');
-  const [inviteCodeCopied, setInviteCodeCopied] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [showReportProblem, setShowReportProblem] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
@@ -85,12 +84,12 @@ export default function Dashboard() {
 
   // Get recommended modules from discovery, falling back to selected modules
   const recommendedModuleIds: string[] = useMemo(() => {
-    // Backward compatibility: map old codes to new codes
+    // Backward compatibility: map very old codes to current codes
+    // Note: Only map codes that no longer exist in the current system
     const normalizeCode = (code: string): string => {
       const codeMap: Record<string, string> = {
         'A3': 'A3a',   // Old internal movement -> Paths and aisles
-        'A7': 'A6',    // Old sensory environment code (if used)
-        'A6': 'A5',    // Map old A6 toilets to new A5
+        // A6 and A7 are valid current codes - don't remap them
       };
       return codeMap[code] || code;
     };
@@ -157,28 +156,50 @@ export default function Dashboard() {
 
   // Load session and discovery data
   useEffect(() => {
-    const currentSession = getSession();
+    let currentSession = getSession();
     const currentDiscovery = getDiscoveryData();
 
-    // Only redirect unauthenticated users to home
-    // Authenticated users with an org should see the "no session" state, not be redirected
-    if (!currentSession || !currentSession.session_id) {
-      // If user is authenticated with an org, don't redirect - let them see the empty state
-      // which has a helpful link to /start
-      if (accessState.isAuthenticated && accessState.organisation) {
-        console.log('[Dashboard] Authenticated user with org but no session - showing empty state');
-        // Don't redirect - the component will show the "No active session" state
-        return;
-      }
-      // Unauthenticated users or users without an org should go to home
-      console.log('[Dashboard] No session and not authenticated with org, redirecting to /');
-      navigate('/');
-      return;
+    // DEV MODE: Create a mock session ONLY if no session exists at all
+    // Don't overwrite existing sessions that have user data
+    if (!currentSession) {
+      console.log('[Dashboard] No local session found - creating dev session');
+      const devSession = {
+        session_id: 'dev-session',
+        created_at: new Date().toISOString(),
+        last_updated: new Date().toISOString(),
+        business_snapshot: {
+          organisation_name: 'Test Organisation',
+          organisation_size: 'small' as const,
+          business_types: ['hospitality' as const],
+          user_role: 'owner' as const,
+          has_physical_venue: true,
+          has_online_presence: true,
+          serves_public_customers: true,
+          has_online_services: false,
+        },
+        selected_modules: [],
+        discovery_responses: {},
+        constraints: {
+          budget_range: 'not_sure' as const,
+          capacity: 'not_sure' as const,
+          timeframe: 'exploring' as const,
+        },
+        ai_response: null,
+      };
+      localStorage.setItem('access_compass_session', JSON.stringify(devSession));
+      currentSession = devSession;
+    } else if (!currentSession.session_id) {
+      // Session exists but missing session_id - add it without overwriting data
+      currentSession.session_id = currentSession.session_id || 'session-' + Date.now();
+      localStorage.setItem('access_compass_session', JSON.stringify(currentSession));
     }
 
     setSession(currentSession);
     setDiscoveryData(currentDiscovery);
-  }, [navigate, accessState.isAuthenticated, accessState.organisation]);
+  }, [navigate, accessState.isAuthenticated, user]);
+
+  // Get current review mode from discovery data
+  const currentReviewMode = discoveryData?.review_mode || 'deep-dive';
 
   // Organize modules by group with progress
   const groupedModules = useMemo((): ModuleGroupWithProgress[] => {
@@ -201,11 +222,26 @@ export default function Dashboard() {
             activeRunContext = runs[runs.length - 1]?.context;
           }
 
+          // Filter questions based on review mode
+          // In pulse-check mode: only count pulse-check questions
+          // In deep-dive mode: count all questions
+          const relevantQuestions = currentReviewMode === 'pulse-check'
+            ? module.questions.filter(q => q.reviewMode === 'pulse-check')
+            : module.questions;
+
+          // Get IDs of relevant questions to filter answered count
+          const relevantQuestionIds = new Set(relevantQuestions.map(q => q.id));
+
+          // Count only responses for questions in the current review mode
+          const relevantAnsweredCount = moduleProgress?.responses?.filter(
+            (r: { questionId: string }) => relevantQuestionIds.has(r.questionId)
+          ).length || 0;
+
           return {
             module,
             status: moduleProgress?.status || 'not-started',
-            answeredCount: moduleProgress?.responses?.length || 0,
-            totalQuestions: module.questions.length,
+            answeredCount: relevantAnsweredCount,
+            totalQuestions: relevantQuestions.length,
             doingWellCount: moduleProgress?.summary?.doingWell?.length || 0,
             actionCount: moduleProgress?.summary?.priorityActions?.length || 0,
             ownership: moduleProgress?.ownership,
@@ -227,7 +263,7 @@ export default function Dashboard() {
         totalCount: groupModules.length,
       };
     }).filter(g => g.modules.length > 0);
-  }, [recommendedModuleIds, progress]);
+  }, [recommendedModuleIds, progress, currentReviewMode]);
 
   // Calculate overall stats
   const overallStats = useMemo(() => {
@@ -340,19 +376,6 @@ Thanks!`;
     }
   }, [generateEmailTemplate]);
 
-  // Copy invite code to clipboard
-  const handleCopyInviteCode = useCallback(async () => {
-    const inviteCode = accessState.organisation?.invite_code;
-    if (!inviteCode) return;
-
-    try {
-      await navigator.clipboard.writeText(inviteCode);
-      setInviteCodeCopied(true);
-      setTimeout(() => setInviteCodeCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy invite code:', err);
-    }
-  }, [accessState.organisation?.invite_code]);
 
   // Format date for display
   const formatDate = (dateString?: string) => {
@@ -401,38 +424,21 @@ Thanks!`;
       <div className="dashboard-layout">
         {/* Left Sidebar */}
         <aside className="dashboard-sidebar">
-          {/* Organisation Identity */}
-          {accessState.organisation && (
-            <div className="sidebar-org-identity">
-              <span className="sidebar-org-icon">🏢</span>
-              <div className="sidebar-org-info">
-                <h2 className="sidebar-org-name">{accessState.organisation.name}</h2>
+          {/* Organisation Identity - Always show */}
+          <div className="sidebar-org-identity">
+            <div className="sidebar-org-info">
+              <h2 className="sidebar-org-name">
+                {accessState.organisation?.name || session?.business_snapshot?.organisation_name || user?.email || 'Your Organisation'}
+              </h2>
+              {accessState.membership?.role && (
                 <span className="sidebar-user-role">
-                  {accessState.membership?.role === 'owner' ? 'Owner' :
-                   accessState.membership?.role === 'admin' ? 'Admin' : 'Member'}
+                  {accessState.membership?.role === 'owner' ? 'Lead' :
+                   accessState.membership?.role === 'admin' ? 'Admin' : 'Contributor'}
                 </span>
-              </div>
+              )}
             </div>
-          )}
+          </div>
 
-          {/* Invite Code Section */}
-          {accessState.organisation?.invite_code && (
-            <div className="sidebar-section">
-              <h3 className="sidebar-section-title">Invite Team</h3>
-              <div className="sidebar-invite-code">
-                <span className="sidebar-code-value">{accessState.organisation.invite_code}</span>
-                <button
-                  type="button"
-                  className={`sidebar-copy-btn ${inviteCodeCopied ? 'copied' : ''}`}
-                  onClick={handleCopyInviteCode}
-                  title="Copy invite code"
-                >
-                  {inviteCodeCopied ? '✓' : 'Copy'}
-                </button>
-              </div>
-              <p className="sidebar-hint">Share this code with team members</p>
-            </div>
-          )}
 
           {/* Discovery Section */}
           <div className="sidebar-section">
@@ -494,6 +500,20 @@ Thanks!`;
                   <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
                 </svg>
                 DIAP Workspace
+              </Link>
+            </nav>
+          </div>
+
+          {/* Resources Section */}
+          <div className="sidebar-section">
+            <h3 className="sidebar-section-title">Resources</h3>
+            <nav className="sidebar-nav">
+              <Link to="/resources" className="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+                Resource Centre
               </Link>
             </nav>
           </div>
@@ -892,7 +912,7 @@ Thanks!`;
 
               {/* Subtle Guidance Footer */}
               <footer className="guidance-footer">
-                <p>You don't need to complete every module to get value. Focus on what matters most to your customers.</p>
+                <p>Start with the areas most relevant to your visitors. You can always revisit other modules later.</p>
               </footer>
             </div>
           )}

@@ -1,14 +1,11 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { getSession } from '../utils/session';
 import { useAuth } from '../contexts/AuthContext';
 import './NavBar.css';
 
 export default function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const session = getSession();
   const { isAuthenticated, signOut, user } = useAuth();
-  const orgName = session?.business_snapshot?.organisation_name;
 
   // Check if user is logged in via Supabase localStorage (fallback for timeout scenarios)
   const hasSupabaseSession = typeof window !== 'undefined' &&
@@ -57,14 +54,10 @@ export default function NavBar() {
             </Link>
           </div>
 
-          {orgName && (
-            <span className="nav-divider"></span>
-          )}
-
           <div className="nav-auth">
             {effectivelyAuthenticated ? (
               <>
-                <span className="user-greeting">{orgName || user?.email || 'Account'}</span>
+                {user?.email && <span className="user-greeting">{user.email}</span>}
                 <button
                   onClick={() => {
                     // Clear localStorage auth data directly to handle timeout scenarios

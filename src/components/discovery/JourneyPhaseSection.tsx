@@ -98,10 +98,12 @@ export function JourneyPhaseSection({
         >
           <input
             type="checkbox"
+            id={`touchpoint-${touchpoint.id}`}
             checked={isSelected}
             onChange={() => handleTouchpointToggle(touchpoint)}
             onClick={(e) => e.stopPropagation()}
             className="touchpoint-checkbox"
+            aria-label={`Select ${touchpointLabel}`}
           />
           <div className="touchpoint-content">
             <div className="touchpoint-label">{touchpointLabel}</div>
@@ -138,10 +140,12 @@ export function JourneyPhaseSection({
               >
                 <input
                   type="checkbox"
+                  id={`subtouchpoint-${sub.id}`}
                   checked={selectedSubTouchpoints.includes(sub.id)}
                   onChange={() => onToggleSubTouchpoint(sub.id)}
                   onClick={(e) => e.stopPropagation()}
                   className="touchpoint-checkbox"
+                  aria-label={`Select ${sub.label}`}
                 />
                 <span className="sub-touchpoint-label">{sub.label}</span>
               </div>

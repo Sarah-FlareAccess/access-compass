@@ -266,7 +266,7 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-muted);
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.5px;
   margin: 0 0 12px;
 }
@@ -1196,7 +1196,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   color: #92400e;
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.05em;
   display: block;
   margin-bottom: 4px;
@@ -1419,7 +1419,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-muted);
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.03em;
 }
 

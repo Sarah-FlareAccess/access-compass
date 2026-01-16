@@ -228,6 +228,7 @@ export function ResourceCentre() {
               value={localSearchQuery}
               onChange={(e) => setLocalSearchQuery(e.target.value)}
               className="search-input"
+              aria-label="Search resources"
             />
             {localSearchQuery && (
               <button

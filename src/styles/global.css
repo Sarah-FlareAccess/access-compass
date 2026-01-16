@@ -199,7 +199,7 @@ h4 {
   line-height: 1.4;
   color: var(--text-secondary);
   margin-bottom: var(--spacing-xs);
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.03em;
 }
 
@@ -233,7 +233,7 @@ p {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.05em;
   margin-bottom: var(--spacing-sm);
 }
@@ -639,7 +639,7 @@ label {
   font-size: 0.75rem;
   font-weight: 700;
   border-radius: 6px;
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.5px;
 }
 

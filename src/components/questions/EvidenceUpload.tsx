@@ -397,6 +397,7 @@ export function EvidenceUpload({
                 value={linkInput}
                 onChange={(e) => setLinkInput(e.target.value)}
                 className="evidence-link-input"
+                aria-label="Evidence URL"
               />
               <input
                 type="text"
@@ -404,6 +405,7 @@ export function EvidenceUpload({
                 value={linkDescription}
                 onChange={(e) => setLinkDescription(e.target.value)}
                 className="evidence-link-description"
+                aria-label="Evidence link description"
               />
             </div>
             <button

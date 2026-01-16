@@ -183,7 +183,7 @@ export function useUrlAnalysis(): UseUrlAnalysisReturn {
       setResult(analysisResult);
       return analysisResult;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to analyze URL';
+      const errorMessage = err instanceof Error ? err.message : 'Failed to analyse URL';
       setError(errorMessage);
       return null;
     } finally {

@@ -323,7 +323,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
 
               {resource.standardsReference.related && resource.standardsReference.related.length > 0 && (
                 <div className="standards-related">
-                  <h4>Related Standards</h4>
+                  <h3>Related Standards</h3>
                   <ul>
                     {resource.standardsReference.related.map((rel, index) => (
                       <li key={index}>
@@ -335,7 +335,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
               )}
 
               <div className="standards-plain-english">
-                <h4>In Plain English</h4>
+                <h3>In Plain English</h3>
                 <p>{resource.standardsReference.plainEnglish}</p>
               </div>
 
@@ -650,7 +650,7 @@ function SolutionCard({ solution }: { solution: GradedSolution }) {
             {getImpactLabel(solution.impact)}
           </span>
         </div>
-        <h4 className="solution-title">{solution.title}</h4>
+        <h3 className="solution-title">{solution.title}</h3>
       </div>
 
       <div className="solution-body">

@@ -621,7 +621,7 @@ export function DiscoveryModule({
                   icon: '🔍',
                   description: 'Help customers find you and plan their visit with confidence',
                   outcome: 'Customers arrive prepared and feeling welcome',
-                  codes: ['B1', 'B2', 'B3', 'B4.1', 'B4.2', 'B4.3'],
+                  codes: ['B1', 'B2', 'B3', 'B4.1', 'B4.2', 'B4.3', 'B5', 'B6'],
                 },
                 {
                   id: 'during-visit',
@@ -629,7 +629,7 @@ export function DiscoveryModule({
                   icon: '🏪',
                   description: 'Create a physical space where everyone can participate fully',
                   outcome: 'Customers navigate and engage independently',
-                  codes: ['A1', 'A2', 'A3a', 'A3b', 'A4', 'A5', 'A6', 'A7'],
+                  codes: ['A1', 'A2', 'A3a', 'A3b', 'A4', 'A5', 'A6', 'A6a', 'A7'],
                 },
                 {
                   id: 'service',
@@ -707,20 +707,20 @@ export function DiscoveryModule({
                             <div className="tile-checkbox">
                               <input
                                 type="checkbox"
+                                id={`module-${module.id}`}
                                 checked={isSelected}
                                 onChange={() => toggleModuleSelection(module.id)}
                                 onClick={(e) => e.stopPropagation()}
+                                aria-label={`Select ${module.name}`}
                               />
                             </div>
                             <div className="tile-content">
                               <div className="tile-header">
                                 <span className="tile-name">{module.name}</span>
-                                <span className="tile-code">{module.id}</span>
                               </div>
                               <p className="tile-description">{module.description}</p>
                               <div className="tile-meta">
                                 <span className="tile-time">{module.estimatedTime} min</span>
-                                <span className="tile-cost">${module.cost}</span>
                                 {isRecommended && (
                                   <span className="tile-badge">Recommended</span>
                                 )}

@@ -38,7 +38,7 @@ export default function DiscoveryQuestions() {
   const [directModuleAccess] = useState(!!requestedModuleId);
 
   // Get the review mode from discovery data
-  const reviewMode: ReviewMode = discoveryData?.review_mode || 'pulse-check';
+  const reviewMode: ReviewMode = discoveryData?.review_mode || 'deep-dive';
 
   // Get selected modules from session
   const selectedModuleIds: string[] = useMemo(() => {
@@ -290,7 +290,6 @@ export default function DiscoveryQuestions() {
                 </div>
                 <div className="module-info">
                   <h3>{module.moduleName}</h3>
-                  <p className="module-code">{module.moduleCode}</p>
                 </div>
                 <div className="module-action">
                   {module.status === 'completed' && (

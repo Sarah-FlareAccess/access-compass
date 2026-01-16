@@ -123,7 +123,7 @@
 .diap-stats-grid .stat-label {
   font-size: 0.75rem;
   color: var(--text-muted);
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.04em;
   font-weight: 500;
 }
@@ -974,7 +974,7 @@
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 10px;
-  text-transform: uppercase;
+  /* text-transform removed for accessibility */
   letter-spacing: 0.5px;
 }
 

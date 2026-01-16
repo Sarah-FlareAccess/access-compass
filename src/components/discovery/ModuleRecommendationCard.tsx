@@ -35,7 +35,6 @@ export function ModuleRecommendationCard({
           <h4 className="module-card-title">{module.moduleName}</h4>
           <p className="module-card-time">{module.estimatedTime} min</p>
         </div>
-        <span className="module-code-badge">{module.moduleCode}</span>
       </div>
 
       {showWhySuggested && (

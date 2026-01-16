@@ -76,23 +76,26 @@
   border: none;
   padding: 1rem 1.25rem;
   font-size: 0.9rem;
-  color: #64748b;
+  font-weight: 500;
+  color: var(--text-secondary, #64748b);
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .run-selector-tabs .tab:hover {
-  color: #1e293b;
+  color: var(--amethyst-diamond, #490E67);
+  background: rgba(73, 14, 103, 0.08);
+  border-bottom-color: rgba(73, 14, 103, 0.3);
 }
 
 .run-selector-tabs .tab.active {
   color: white;
-  background: #7c3aed;
-  border-bottom-color: #7c3aed;
+  background: var(--amethyst-diamond, #490E67);
+  border-bottom-color: var(--amethyst-diamond, #490E67);
   border-radius: 6px 6px 0 0;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Content */
@@ -142,8 +145,8 @@
 }
 
 .run-card.active {
-  border-color: #7c3aed;
-  background: #faf5ff;
+  border-color: var(--amethyst-diamond, #490E67);
+  background: rgba(73, 14, 103, 0.04);
 }
 
 .run-card-header {
@@ -267,7 +270,7 @@
 
 .current-label {
   font-size: 0.85rem;
-  color: #7c3aed;
+  color: var(--amethyst-diamond, #490E67);
   font-weight: 500;
 }
 
@@ -358,8 +361,8 @@
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #7c3aed;
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+  border-color: var(--amethyst-diamond, #490E67);
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
 .form-group textarea {
@@ -400,19 +403,21 @@
 
 /* Buttons */
 .btn-primary {
-  background: #2563eb;
+  background: var(--amethyst-diamond, #490E67);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-primary:disabled {
@@ -422,14 +427,14 @@
 
 .btn-secondary {
   background: white;
-  color: #374151;
-  border: 1px solid #d1d5db;
+  color: var(--amethyst-diamond, #490E67);
+  border: 2px solid var(--amethyst-diamond, #490E67);
   padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
@@ -535,17 +540,19 @@
 .btn-export {
   padding: 0.6rem 1.25rem;
   font-size: 0.9rem;
-  font-weight: 500;
-  background: #2563eb;
+  font-weight: 600;
+  background: var(--amethyst-diamond, #490E67);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btn-export:hover {
-  background: #1d4ed8;
+  background: #723d8d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(114, 61, 141, 0.3);
 }
 
 .btn-export.exported {
@@ -574,17 +581,17 @@
 .btn-export-option {
   padding: 0.5rem 1rem;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   background: white;
-  color: #2563eb;
-  border: 1px solid #2563eb;
-  border-radius: 6px;
+  color: var(--amethyst-diamond, #490E67);
+  border: 2px solid var(--amethyst-diamond, #490E67);
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btn-export-option:hover {
-  background: #2563eb;
+  background: var(--amethyst-diamond, #490E67);
   color: white;
 }
 
@@ -600,8 +607,8 @@
 
 /* Recovery info in delete modal */
 .delete-recovery-info {
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
+  background: rgba(73, 14, 103, 0.04);
+  border: 1px solid rgba(73, 14, 103, 0.15);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   margin: 1rem 0;
@@ -610,7 +617,7 @@
 .delete-recovery-info p {
   margin: 0;
   font-size: 0.85rem;
-  color: #0369a1;
+  color: var(--amethyst-diamond, #490E67);
   line-height: 1.5;
 }
 

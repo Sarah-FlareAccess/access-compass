@@ -2,6 +2,46 @@
 
 All notable changes to Access Compass will be documented in this file.
 
+## [0.3.0] - January 2026
+
+### Added
+
+#### Global Navigation Sidebar
+- **New Sidebar Component**: Created `src/components/Sidebar.tsx` for consistent navigation across all authenticated pages
+- **Unified Navigation**: All pages now share the same sidebar design as Dashboard
+- **Resource Centre Link**: Added to sidebar navigation for easy access to help resources
+
+#### Organisation Identity Redesign
+- **Visual Enhancement**: Organisation identity section now features a purple-to-orange gradient background
+- **Role Labels**: Renamed display labels - "Owner" shows as "Lead", "Admin" remains "Admin", "Member" shows as "Contributor"
+- **Conditional Display**: Role badge only appears when user has an actual organisation membership (hidden for single-user scenarios)
+
+### Fixed
+
+#### Build & Type Errors
+- Removed unused `UserEntitlementResult` import from `AuthContext.tsx`
+- Fixed type mismatch for constraints in `Dashboard.tsx` - added `as const` assertions for `budget_range`, `capacity`, and `timeframe`
+
+#### UI/UX Bugs
+- **Button Alignment**: Fixed Discovery Summary page button sizing issues caused by CSS conflicts between `discovery.css` and `DiscoverySummary.css`
+- **Organisation Name**: Fixed bug where user's organisation (e.g., "Hotel Bird") showed as "Test Organisation" - Dashboard was incorrectly overwriting session data
+- **Double Sidebar**: Fixed Dashboard page showing duplicate sidebars - excluded `/dashboard` from `PAGES_WITH_SIDEBAR` array in AppLayout
+- **Module Count Mismatch**: Fixed 26 vs 25 module count discrepancy - removed incorrect mappings in `normalizeCode` function that was remapping A6→A5 and A7→A6
+
+### Changed
+- **Button Styling**: Discovery Summary buttons now use new `.summary-btn` classes with `all: unset` reset to prevent style inheritance conflicts
+- **Dashboard Session Logic**: Dev session only created when no session exists at all, preventing overwrite of real user data
+- **AppLayout**: Updated to conditionally render sidebar for authenticated pages while excluding Dashboard (which has its own built-in sidebar)
+
+### Technical
+- New file: `src/components/Sidebar.tsx` - Global navigation sidebar component
+- Updated `src/components/AppLayout.tsx` - Sidebar integration with route-based conditional rendering
+- Updated `src/styles/dashboard.css` - Organisation identity gradient styling
+- Updated `src/pages/DiscoverySummary.css` - New button classes with style reset
+- Updated `src/lib/recommendationEngine.ts` - Fixed normalizeCode mappings
+
+---
+
 ## [Unreleased] - December 2024
 
 ### Added

@@ -379,7 +379,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
 
                   {analysis.thumbnailDataUrl && (
                     <div className="media-analysis-thumbnail">
-                      <img src={analysis.thumbnailDataUrl} alt="Analyzed media thumbnail" />
+                      <img src={analysis.thumbnailDataUrl} alt="Analysed media thumbnail" />
                     </div>
                   )}
 

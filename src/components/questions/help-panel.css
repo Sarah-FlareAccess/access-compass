@@ -91,11 +91,11 @@
 }
 
 .help-section h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+  /* text-transform removed for accessibility */
+  letter-spacing: 0.02em;
   margin: 0 0 12px 0;
 }
 

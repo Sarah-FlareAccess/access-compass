@@ -105,9 +105,11 @@ export function ReviewModeSelection({
             <div className="pathway-header">
               <input
                 type="radio"
+                name="review-mode"
                 className="pathway-radio"
                 checked={selectedMode === 'pulse-check'}
                 onChange={() => setSelectedMode('pulse-check')}
+                aria-label="Select Pulse Check mode"
               />
               <div>
                 <h3 className="pathway-name">Pulse Check</h3>
@@ -149,9 +151,11 @@ export function ReviewModeSelection({
             <div className="pathway-header">
               <input
                 type="radio"
+                name="review-mode"
                 className="pathway-radio"
                 checked={selectedMode === 'deep-dive'}
                 onChange={() => setSelectedMode('deep-dive')}
+                aria-label="Select Deep Dive mode"
               />
               <div>
                 <h3 className="pathway-name">Deep Dive</h3>

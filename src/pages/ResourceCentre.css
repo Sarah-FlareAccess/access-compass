@@ -203,12 +203,12 @@
 }
 
 .filter-section h3 {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
   margin: 0 0 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  /* text-transform removed for accessibility */
+  letter-spacing: 0.02em;
 }
 
 .filter-chips {

@@ -92,51 +92,59 @@ export default function ActionDetail() {
             <h2>Track this action in your DIAP</h2>
             <div className="diap-form">
               <div className="form-group">
-                <label>Who's responsible?</label>
-                <input
-                  type="text"
-                  placeholder="e.g., Sarah (Manager)"
-                  value={diapFields.owner}
-                  onChange={(e) => setDiapFields({ ...diapFields, owner: e.target.value })}
-                />
+                <label>
+                  Who's responsible?
+                  <input
+                    type="text"
+                    placeholder="e.g., Sarah (Manager)"
+                    value={diapFields.owner}
+                    onChange={(e) => setDiapFields({ ...diapFields, owner: e.target.value })}
+                  />
+                </label>
               </div>
 
               <div className="form-group">
-                <label>Timeframe</label>
-                <select
-                  value={diapFields.timeframe}
-                  onChange={(e) => setDiapFields({ ...diapFields, timeframe: e.target.value })}
-                >
-                  <option value="">Select timeframe</option>
-                  <option value="this-month">This month</option>
-                  <option value="next-3-months">Next 3 months</option>
-                  <option value="this-year">This year</option>
-                  <option value="custom">Custom date</option>
-                </select>
+                <label>
+                  Timeframe
+                  <select
+                    value={diapFields.timeframe}
+                    onChange={(e) => setDiapFields({ ...diapFields, timeframe: e.target.value })}
+                  >
+                    <option value="">Select timeframe</option>
+                    <option value="this-month">This month</option>
+                    <option value="next-3-months">Next 3 months</option>
+                    <option value="this-year">This year</option>
+                    <option value="custom">Custom date</option>
+                  </select>
+                </label>
               </div>
 
               <div className="form-group">
-                <label>Status</label>
-                <select
-                  value={diapFields.status}
-                  onChange={(e) => setDiapFields({ ...diapFields, status: e.target.value })}
-                >
-                  <option value="not_started">Not started</option>
-                  <option value="in_progress">In progress</option>
-                  <option value="complete">Complete</option>
-                  <option value="on_hold">On hold</option>
-                </select>
+                <label>
+                  Status
+                  <select
+                    value={diapFields.status}
+                    onChange={(e) => setDiapFields({ ...diapFields, status: e.target.value })}
+                  >
+                    <option value="not_started">Not started</option>
+                    <option value="in_progress">In progress</option>
+                    <option value="complete">Complete</option>
+                    <option value="on_hold">On hold</option>
+                  </select>
+                </label>
               </div>
 
               <div className="form-group">
-                <label>Notes</label>
-                <textarea
-                  placeholder="Add any notes, progress updates, or blockers..."
-                  value={diapFields.notes}
-                  onChange={(e) => setDiapFields({ ...diapFields, notes: e.target.value })}
-                  rows={4}
-                  maxLength={1000}
-                />
+                <label>
+                  Notes
+                  <textarea
+                    placeholder="Add any notes, progress updates, or blockers..."
+                    value={diapFields.notes}
+                    onChange={(e) => setDiapFields({ ...diapFields, notes: e.target.value })}
+                    rows={4}
+                    maxLength={1000}
+                  />
+                </label>
               </div>
 
               <button className="btn btn-primary" onClick={handleSave}>

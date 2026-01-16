@@ -179,6 +179,7 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
                       accept="image/*"
                       onChange={handleScreenshotChange}
                       className="hidden-input"
+                      aria-label="Upload screenshot"
                     />
                   </div>
                 )}

@@ -308,7 +308,7 @@ const styles = `
     color: var(--text-muted, #6b6360);
     font-size: 0.9rem;
     font-weight: 600;
-    text-transform: uppercase;
+    /* text-transform removed for accessibility */
     letter-spacing: 0.5px;
     margin: 0 0 12px;
   }

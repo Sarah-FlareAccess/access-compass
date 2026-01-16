@@ -54,10 +54,9 @@ export function OptionalQuestions({ onComplete, onSkip, onBack }: OptionalQuesti
           </h2>
           <div className="optional-options">
             {budgetOptions.map((option) => (
-              <div
+              <label
                 key={option.value}
                 className={`optional-option ${budget === option.value ? 'selected' : ''}`}
-                onClick={() => setBudget(option.value)}
               >
                 <input
                   type="radio"
@@ -72,7 +71,7 @@ export function OptionalQuestions({ onComplete, onSkip, onBack }: OptionalQuesti
                     <span className="optional-option-desc">{option.description}</span>
                   )}
                 </div>
-              </div>
+              </label>
             ))}
           </div>
         </div>
@@ -84,10 +83,9 @@ export function OptionalQuestions({ onComplete, onSkip, onBack }: OptionalQuesti
           </h2>
           <div className="optional-options">
             {priorityOptions.map((option) => (
-              <div
+              <label
                 key={option.value}
                 className={`optional-option ${priority === option.value ? 'selected' : ''}`}
-                onClick={() => setPriority(option.value)}
               >
                 <input
                   type="radio"
@@ -102,7 +100,7 @@ export function OptionalQuestions({ onComplete, onSkip, onBack }: OptionalQuesti
                     <span className="optional-option-desc">{option.description}</span>
                   )}
                 </div>
-              </div>
+              </label>
             ))}
           </div>
           <p className="optional-note">

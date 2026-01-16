@@ -4,14 +4,23 @@
 // For returning users to review and modify their discovery selections
 // ============================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { getSession, updateSession, getDiscoveryData, updateDiscoveryData, clearDiscoveryData } from '../utils/session';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { MODULES } from '../lib/recommendationEngine';
+import type { JourneyPhase } from '../types';
 import { PageFooter } from '../components/PageFooter';
 import '../components/discovery/discovery.css';
 import './DiscoverySummary.css';
+
+// Journey phase labels for grouping modules
+const JOURNEY_PHASE_LABELS: Record<JourneyPhase, string> = {
+  'before-arrival': 'Before They Arrive',
+  'during-visit': 'During Their Visit',
+  'after-visit': 'After Their Visit',
+  'policy-operations': 'Policy & Operations',
+};
 
 interface BusinessContext {
   hasPhysicalVenue: boolean | null;
@@ -82,6 +91,18 @@ export default function DiscoverySummary() {
       phase.touchpoints.some(t => t.id === tpId)
     ),
   })).filter(group => group.selected.length > 0);
+
+  // Group selected modules by journey phase
+  const modulesByPhase = useMemo(() => {
+    const phases: JourneyPhase[] = ['before-arrival', 'during-visit', 'after-visit', 'policy-operations'];
+    return phases.map(phase => ({
+      phase,
+      label: JOURNEY_PHASE_LABELS[phase],
+      modules: selectedModules
+        .map(id => getModule(id))
+        .filter(m => m && m.journeyTheme === phase) as typeof MODULES,
+    })).filter(group => group.modules.length > 0);
+  }, [selectedModules]);
 
   // Toggle touchpoint
   const toggleTouchpoint = (id: string) => {
@@ -310,17 +331,20 @@ export default function DiscoverySummary() {
 
           {!isEditingModules ? (
             <div className="modules-display">
-              {selectedModules.length > 0 ? (
-                <div className="module-tags">
-                  {selectedModules.map(moduleId => {
-                    const module = getModule(moduleId);
-                    return module ? (
-                      <span key={moduleId} className="module-tag">
-                        <span className="module-code">{module.id}</span>
-                        {module.name}
-                      </span>
-                    ) : null;
-                  })}
+              {modulesByPhase.length > 0 ? (
+                <div className="modules-by-phase">
+                  {modulesByPhase.map(({ phase, label, modules }) => (
+                    <div key={phase} className="module-phase-group">
+                      <h4 className="group-label">{label}</h4>
+                      <div className="module-tags">
+                        {modules.map(module => (
+                          <span key={module.id} className="module-tag">
+                            {module.name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <p className="empty-message">No modules selected</p>
@@ -336,7 +360,6 @@ export default function DiscoverySummary() {
                       checked={selectedModules.includes(module.id)}
                       onChange={() => toggleModule(module.id)}
                     />
-                    <span className="module-code">{module.id}</span>
                     <span className="module-name">{module.name}</span>
                     <span className="module-time">{module.estimatedTime} min</span>
                   </label>
@@ -348,17 +371,19 @@ export default function DiscoverySummary() {
 
         {/* Actions */}
         <div className="summary-actions">
-          <button className="btn-primary" onClick={handleContinue}>
-            Continue to Dashboard →
-          </button>
-          <button className="btn-secondary" onClick={handleStartFresh}>
-            Start Fresh
+          <Link to="/dashboard" className="summary-btn summary-btn-secondary">
+            ← Back to Dashboard
+          </Link>
+          <button className="summary-btn summary-btn-primary" onClick={handleContinue}>
+            Save Changes
           </button>
         </div>
 
-        {/* Back Link */}
-        <div className="back-link-wrapper">
-          <Link to="/dashboard" className="back-link">← Back to Dashboard</Link>
+        {/* Start Fresh Option */}
+        <div className="start-fresh-wrapper">
+          <button className="btn-text-link" onClick={handleStartFresh}>
+            Start a new discovery from scratch
+          </button>
         </div>
 
         <PageFooter />

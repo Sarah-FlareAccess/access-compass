@@ -131,7 +131,13 @@ export function useBranchingLogic({
       return false;
     }
 
-    // Check showWhen condition
+    // In deep-dive mode, show ALL questions regardless of showWhen conditions
+    // This gives users the full picture upfront rather than revealing questions progressively
+    if (reviewMode === 'deep-dive') {
+      return true;
+    }
+
+    // In pulse-check mode, check showWhen condition for branching
     if (question.showWhen) {
       return isConditionMet(question.showWhen);
     }
