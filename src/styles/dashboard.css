@@ -48,11 +48,11 @@
 /* Organisation Identity */
 .sidebar-org-identity {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) var(--spacing-md);
   margin: calc(var(--spacing-md) * -1);
-  margin-bottom: 0;
+  margin-bottom: var(--spacing-sm);
   background: linear-gradient(135deg, #490e67 0%, #723d8d 50%, #E8792F 100%);
   border-radius: 12px;
   position: relative;
@@ -70,51 +70,34 @@
   border-radius: 50%;
 }
 
-.sidebar-org-avatar {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #E8792F 0%, #f59e4a 100%);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: white;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  position: relative;
-  z-index: 1;
-}
-
 .sidebar-org-info {
-  flex: 1;
-  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
   position: relative;
   z-index: 1;
 }
 
 .sidebar-org-name {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: white;
-  margin: 0 0 4px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0;
+  line-height: 1.3;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-user-role {
   display: inline-block;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: white;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 3px 10px;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 12px;
+  border-radius: 12px;
   letter-spacing: 0.3px;
   backdrop-filter: blur(4px);
+  align-self: flex-start;
 }
 
 /* Sidebar Sections */

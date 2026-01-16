@@ -5,7 +5,7 @@ import './NavBar.css';
 export default function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isAuthenticated, signOut, user } = useAuth();
+  const { isAuthenticated, signOut } = useAuth();
 
   // Check if user is logged in via Supabase localStorage (fallback for timeout scenarios)
   const hasSupabaseSession = typeof window !== 'undefined' &&
@@ -57,7 +57,6 @@ export default function NavBar() {
           <div className="nav-auth">
             {effectivelyAuthenticated ? (
               <>
-                {user?.email && <span className="user-greeting">{user.email}</span>}
                 <button
                   onClick={() => {
                     // Clear localStorage auth data directly to handle timeout scenarios
