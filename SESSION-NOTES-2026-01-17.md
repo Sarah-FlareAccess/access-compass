@@ -76,6 +76,35 @@ UI improvements session focusing on sidebar navigation consistency, button styli
 - Verified button alignment on Discovery Summary
 - Verified module count matches between Discovery Summary and Dashboard
 
+## Module Changes (from previous sessions, now documented)
+
+### New Journey Phase: Organisational Commitment
+Added 5 new modules (P1-P5) covering:
+- **P1: Policy and inclusion** - Accessibility policies and commitments
+- **P2: Employing people with disability** - Employment practices
+- **P3: Staff training and awareness** - Disability training programs
+- **P4: Accessible procurement** - Purchasing accessible products/services
+- **P5: Continuous improvement and reporting** - Measuring progress
+
+### Module System Enhancements
+- Added `isUniversal` and `universalReason` properties for universal module recommendations
+- Updated group descriptions for better clarity
+- Added comprehensive help content (tips, examples) to all questions
+- Added media analysis questions for automated accessibility checking
+- Expanded question branching logic
+
+### Total Module Count: 26 modules across 5 journey phases
+- Before They Arrive: 6 modules (B1, B4.1, B4.2, B4.3, B5, B6)
+- Getting In and Moving Around: 4 modules (A1, A2, A3a, A3b)
+- During the Visit: 6 modules (A4, A5, A6, A6a, B2, B3)
+- Service and Support: 5 modules (C1, C2, A7, C3, C4)
+- Organisational Commitment: 5 modules (P1, P2, P3, P4, P5)
+
+## Documentation Created
+- **MODULES.md** - Complete module inventory with descriptions
+- **CHANGELOG.md** - Updated with v0.3.0 changes
+- **SESSION-NOTES-2026-01-17.md** - This file
+
 ## Next Steps
 - Consider adding mobile responsive styles for sidebar
 - May want to add sidebar collapse/expand functionality for smaller screens
