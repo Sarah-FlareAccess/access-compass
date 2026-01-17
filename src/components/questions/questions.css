@@ -100,6 +100,22 @@
   border-radius: 0 0 2px 2px;
 }
 
+/* Module banner - prominent heading */
+.module-banner {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  margin: -32px -32px 24px -32px;
+  padding: 16px 32px;
+  border-radius: 16px 16px 0 0;
+}
+
+.module-banner-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
 .question-header {
   display: flex;
   align-items: flex-start;
@@ -111,14 +127,6 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.module-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: #7c3aed;
-  /* text-transform removed for accessibility */
-  letter-spacing: 0.5px;
 }
 
 .question-progress {
@@ -192,6 +200,7 @@
   border-radius: 14px;
   font-size: 16px;
   font-weight: 500;
+  color: #1a1a2e;
   cursor: pointer;
   transition: all 0.25s ease;
   background: linear-gradient(135deg, #ffffff 0%, rgba(250, 248, 245, 0.5) 100%);
@@ -254,6 +263,29 @@
   background: rgba(107, 114, 128, 0.05);
   border-radius: 8px;
   line-height: 1.5;
+}
+
+/* Secondary answer options - Not applicable */
+.answer-options-secondary {
+  margin-top: -10px;
+  margin-bottom: 24px;
+}
+
+.answer-btn-secondary {
+  width: 100%;
+  padding: 12px 18px;
+  font-size: 14px;
+}
+
+/* Not applicable - neutral styling */
+.answer-na {
+  color: #9ca3af;
+}
+
+.answer-na:hover,
+.answer-na.selected {
+  background: rgba(156, 163, 175, 0.1);
+  border-color: #9ca3af;
 }
 
 /* Partially answer button */
@@ -488,8 +520,12 @@
   background: #f3f4f6;
   padding: 3px 8px;
   border-radius: 4px;
-  /* text-transform removed for accessibility */
-  letter-spacing: 0.3px;
+}
+
+.evidence-section-hint {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0 0 12px 0;
 }
 
 /* ============================================
@@ -626,17 +662,25 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 16px;
-  background: white;
-  border: 2px solid #eee;
-  border-radius: 8px;
-  margin-bottom: 8px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(250, 248, 245, 0.5) 100%);
+  border: 2px solid rgba(62, 43, 47, 0.08);
+  border-radius: 14px;
+  margin-bottom: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(62, 43, 47, 0.04);
 }
 
 .multi-select-option:hover {
+  transform: translateY(-2px);
   border-color: rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 12px rgba(62, 43, 47, 0.08);
+}
+
+.multi-select-option:has(input:checked) {
+  border-color: #7c3aed;
+  background: rgba(124, 58, 237, 0.08);
 }
 
 .multi-select-option input[type="checkbox"] {
@@ -646,7 +690,8 @@
 }
 
 .option-label {
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 500;
   color: #1a1a2e;
 }
 
@@ -658,29 +703,34 @@
 .single-select-options {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 16px;
 }
 
 .single-select-option {
-  padding: 16px 20px;
-  background: white;
-  border: 2px solid #eee;
-  border-radius: 8px;
-  font-size: 15px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(250, 248, 245, 0.5) 100%);
+  border: 2px solid rgba(62, 43, 47, 0.08);
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a2e;
   text-align: left;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(62, 43, 47, 0.04);
 }
 
 .single-select-option:hover {
-  border-color: #7c3aed;
-  background: rgba(124, 58, 237, 0.05);
+  transform: translateY(-2px);
+  border-color: rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 12px rgba(62, 43, 47, 0.08);
 }
 
 .single-select-option.selected {
   border-color: #7c3aed;
-  background: rgba(124, 58, 237, 0.1);
+  background: rgba(124, 58, 237, 0.08);
+  box-shadow: 0 4px 16px rgba(62, 43, 47, 0.12);
 }
 
 /* Other Description Input */
@@ -1079,6 +1129,29 @@
   font-size: 13px;
   color: #7c3aed;
   font-weight: 500;
+}
+
+.expand-toggle {
+  background: none;
+  border: none;
+  color: #7c3aed;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.expand-toggle:hover {
+  background: rgba(124, 58, 237, 0.1);
+  color: #6d28d9;
+}
+
+.expand-toggle:focus {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
 }
 
 /* Action Items */

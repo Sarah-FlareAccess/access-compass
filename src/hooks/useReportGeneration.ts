@@ -984,6 +984,38 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Flashing content can trigger seizures in people with photosensitive epilepsy. This is a serious safety issue, not just an inconvenience.',
     resources: ['[WCAG 2.3.1 Seizure Prevention]'],
   },
+  // Pulse Check questions for B4.3
+  'B4.3-PC-1': {
+    actions: [
+      'Add captions to all video content - this is the single most important accessibility feature for video',
+      'Start with auto-generated captions from YouTube/Facebook, then review and correct errors',
+      'Ensure captions include speaker identification when multiple people speak',
+      'Add sound descriptions for important non-speech audio [music playing], [applause]',
+      'Upload caption files (SRT/VTT) for better accuracy and control',
+    ],
+    reasoning: 'Captions are essential for deaf and hard of hearing viewers. They also benefit people in noisy environments, non-native speakers, and those who prefer to read. If you create video content, captions should be a priority.',
+    resources: ['[Video Captioning Guide]', '[Caption File Formats]'],
+  },
+  'B4.3-PC-2': {
+    actions: [
+      'Review videos to identify where visual content is not described in the audio',
+      'Add audio descriptions or integrate descriptions into the main narration',
+      'Prioritise videos showing your venue, products, or demonstrations',
+      'Consider creating separate audio-described versions for complex visual content',
+    ],
+    reasoning: 'Audio descriptions help blind and low vision viewers understand what is happening on screen. They are most important when visual content carries meaning not conveyed in speech.',
+    resources: ['[Audio Description Basics]'],
+  },
+  'B4.3-PC-3': {
+    actions: [
+      'Add alt text or image descriptions to all social media images',
+      'Use platform-specific alt text features (Instagram, Facebook, Twitter/X, LinkedIn)',
+      'Or write image descriptions in captions starting with [ID:]',
+      'Focus on what the image communicates, not every visual detail',
+    ],
+    reasoning: 'Alt text and image descriptions make your social media images accessible to screen reader users. Either method works - choose the one that fits your content.',
+    resources: ['[Accessible Social Media Guide]'],
+  },
 
   // ============================================
   // A1: ARRIVAL, PARKING AND DROP-OFF

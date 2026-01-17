@@ -60,16 +60,18 @@ export function QuestionFlow({
     return responses.find((r) => r.questionId === currentQuestion.id);
   }, [currentQuestion, responses]);
 
-  // Progress calculation
+  // Progress calculation - only count responses for questions that still exist
   const progress = useMemo(() => {
-    const answered = responses.length;
+    const validQuestionIds = new Set(visibleQuestions.map(q => q.id));
+    const validResponses = responses.filter(r => validQuestionIds.has(r.questionId));
+    const answered = validResponses.length;
     const total = visibleQuestions.length;
     return {
       answered,
       total,
       percentage: total > 0 ? Math.round((answered / total) * 100) : 0,
     };
-  }, [responses.length, visibleQuestions.length]);
+  }, [responses, visibleQuestions]);
 
   // Handle answer submission
   const handleAnswer = useCallback(
@@ -168,8 +170,8 @@ export function QuestionFlow({
             : 'Partial measures are in place. Complete implementation for full accessibility.',
         });
       } else if (response.answer === 'unable-to-check' || response.answer === 'not-sure') {
-        // Unable to check / not sure - needs follow-up
-        areasToExplore.push(convertQuestionToStatement(question.text));
+        // Unable to check / not sure - needs follow-up (use exploratory phrasing)
+        areasToExplore.push(convertQuestionToExploreStatement(question.text));
       } else if (response.mediaAnalysis) {
         // Media analysis response - acknowledge evidence provided
         const analysisType = response.mediaAnalysis.analysisType || 'item';
@@ -218,7 +220,7 @@ export function QuestionFlow({
             impactStatement: generateImpactStatement(question),
           });
         } else if (sentiment === 'neutral') {
-          areasToExplore.push(convertQuestionToStatement(question.text));
+          areasToExplore.push(convertQuestionToExploreStatement(question.text));
         }
       }
 
@@ -289,7 +291,7 @@ export function QuestionFlow({
         moduleName={moduleName}
         moduleCode={moduleCode}
         summary={summary}
-        totalQuestionsAnswered={responses.length}
+        totalQuestionsAnswered={progress.answered}
         onComplete={handleComplete}
         onReviewAnswers={() => {
           setShowSummary(false);
@@ -463,6 +465,84 @@ function getResponseDetails(
 }
 
 // Helper functions for generating action items and converting questions to statements
+
+/**
+ * Convert a question to an exploratory statement for "areas to explore" (unsure responses)
+ * E.g., "Do you have accessible parking?" → "Check if you have accessible parking"
+ * E.g., "Are emojis placed at the end?" → "Check if emojis are placed at the end"
+ */
+function convertQuestionToExploreStatement(questionText: string): string {
+  let statement = questionText;
+
+  // Remove question mark
+  statement = statement.replace(/\?$/, '');
+
+  // Convert various question formats to exploratory statements
+  const conversions: Array<[RegExp, string]> = [
+    // Do questions
+    [/^Do you have /i, 'Check if you have '],
+    [/^Do you /i, 'Check if you '],
+    [/^Do staff /i, 'Check if staff '],
+    [/^Do customers /i, 'Check if customers '],
+    [/^Do visitors /i, 'Check if visitors '],
+    [/^Do people /i, 'Check if people '],
+    [/^Do your /i, 'Check if your '],
+    [/^Does your /i, 'Check if your '],
+    [/^Does /i, 'Check if your business '],
+
+    // Are questions
+    [/^Are you /i, 'Check if you are '],
+    [/^Are your /i, 'Check if your '],
+    [/^Are staff /i, 'Check if staff are '],
+    [/^Are customers /i, 'Check if customers are '],
+    [/^Are visitors /i, 'Check if visitors are '],
+    [/^Are there /i, 'Check if there are '],
+    [/^Are /i, 'Check if there are '],
+
+    // Is questions
+    [/^Is your /i, 'Check if your '],
+    [/^Is there /i, 'Check if there is '],
+    [/^Is /i, 'Check if '],
+
+    // Can questions
+    [/^Can you /i, 'Check if you can '],
+    [/^Can your /i, 'Check if your '],
+    [/^Can customers /i, 'Check if customers can '],
+    [/^Can visitors /i, 'Check if visitors can '],
+    [/^Can people /i, 'Check if people can '],
+    [/^Can staff /i, 'Check if staff can '],
+    [/^Can all /i, 'Check if all '],
+    [/^Can /i, 'Check if customers can '],
+
+    // Have/Has questions
+    [/^Have you /i, 'Check if you have '],
+    [/^Have your /i, 'Check if your '],
+    [/^Has your /i, 'Check if your '],
+
+    // What/How questions - use "Review" instead of "Check if"
+    [/^What /i, 'Review what '],
+    [/^How /i, 'Review how '],
+    [/^When /i, 'Check when '],
+    [/^Where /i, 'Check where '],
+  ];
+
+  for (const [pattern, replacement] of conversions) {
+    if (pattern.test(statement)) {
+      statement = statement.replace(pattern, replacement);
+      break;
+    }
+  }
+
+  // If no pattern matched, prefix with "Check if"
+  if (!statement.startsWith('Check') && !statement.startsWith('Review')) {
+    statement = 'Check if ' + statement.charAt(0).toLowerCase() + statement.slice(1);
+  }
+
+  // Ensure first letter is capitalized
+  statement = statement.charAt(0).toUpperCase() + statement.slice(1);
+
+  return statement;
+}
 
 /**
  * Convert a question to a statement format for better readability

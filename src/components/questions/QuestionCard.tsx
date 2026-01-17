@@ -363,9 +363,13 @@ export function QuestionCard({
 
   return (
     <div className="question-card">
+      {/* Module banner - prominent header */}
+      <div className="module-banner">
+        <h1 className="module-banner-title">{moduleName}</h1>
+      </div>
+
       <div className="question-header">
         <div className="question-meta">
-          <span className="module-name">{moduleName}</span>
           <span className="question-progress">
             Question {questionNumber} of {totalQuestions}
           </span>
@@ -400,9 +404,10 @@ export function QuestionCard({
         </button>
       )}
 
-      {/* Yes/No Question Type - 4 standardized response options */}
+      {/* Yes/No Question Type - 4 main options + Not applicable */}
       {question.type === 'yes-no-unsure' && (
         <>
+          {/* Main 2x2 grid */}
           <div className="answer-options">
             <button
               className={`answer-btn ${RESPONSE_CSS_CLASSES['yes']} ${
@@ -435,6 +440,18 @@ export function QuestionCard({
               onClick={() => handleYesNoSelect('unable-to-check')}
             >
               {RESPONSE_LABELS['unable-to-check']}
+            </button>
+          </div>
+
+          {/* Not applicable option - smaller, below the grid */}
+          <div className="answer-options-secondary">
+            <button
+              className={`answer-btn answer-btn-secondary ${RESPONSE_CSS_CLASSES['not-applicable']} ${
+                selectedAnswer === 'not-applicable' ? 'selected' : ''
+              }`}
+              onClick={() => handleYesNoSelect('not-applicable')}
+            >
+              {RESPONSE_LABELS['not-applicable']}
             </button>
           </div>
 
@@ -498,6 +515,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
+            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -632,6 +650,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
+            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -722,6 +741,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
+            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -816,6 +836,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
+            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -895,6 +916,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
+            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -957,6 +979,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
+            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}

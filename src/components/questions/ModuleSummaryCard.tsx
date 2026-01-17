@@ -45,6 +45,13 @@ export function ModuleSummaryCard({
   const [completedBy, setCompletedBy] = useState(assignedTo || '');
   const [completedByRole, setCompletedByRole] = useState('');
 
+  // Expansion state for "show more" sections
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
   // Confetti celebration
   const { showConfetti, triggerConfetti, handleConfettiComplete } = useConfetti();
 
@@ -123,14 +130,22 @@ export function ModuleSummaryCard({
             <span className="section-count">{doingWell.length}</span>
           </div>
           <ul className="summary-list">
-            {doingWell.slice(0, 5).map((item, index) => (
+            {(expandedSections['doingWell'] ? doingWell : doingWell.slice(0, 5)).map((item, index) => (
               <li key={index} className="summary-item doing-well-item">
                 {item}
               </li>
             ))}
             {doingWell.length > 5 && (
               <li className="summary-more">
-                +{doingWell.length - 5} more items
+                <button
+                  className="expand-toggle"
+                  onClick={() => toggleSection('doingWell')}
+                  aria-expanded={expandedSections['doingWell']}
+                >
+                  {expandedSections['doingWell']
+                    ? 'Show less'
+                    : `+${doingWell.length - 5} more items`}
+                </button>
               </li>
             )}
           </ul>
@@ -156,7 +171,7 @@ export function ModuleSummaryCard({
             </div>
           </div>
           <ul className="summary-list action-list">
-            {priorityActions.slice(0, 5).map((action, index) => (
+            {(expandedSections['actions'] ? priorityActions : priorityActions.slice(0, 5)).map((action, index) => (
               <li key={index} className={`action-item priority-${action.priority}`}>
                 <div className="action-content">
                   <span className="action-text">{action.action}</span>
@@ -169,7 +184,15 @@ export function ModuleSummaryCard({
             ))}
             {priorityActions.length > 5 && (
               <li className="summary-more">
-                +{priorityActions.length - 5} more actions
+                <button
+                  className="expand-toggle"
+                  onClick={() => toggleSection('actions')}
+                  aria-expanded={expandedSections['actions']}
+                >
+                  {expandedSections['actions']
+                    ? 'Show less'
+                    : `+${priorityActions.length - 5} more actions`}
+                </button>
               </li>
             )}
           </ul>
@@ -188,14 +211,22 @@ export function ModuleSummaryCard({
             You weren't sure about these areas. Consider investigating further or consulting with accessibility experts.
           </p>
           <ul className="summary-list">
-            {areasToExplore.slice(0, 3).map((item, index) => (
+            {(expandedSections['explore'] ? areasToExplore : areasToExplore.slice(0, 3)).map((item, index) => (
               <li key={index} className="summary-item explore-item">
                 {item}
               </li>
             ))}
             {areasToExplore.length > 3 && (
               <li className="summary-more">
-                +{areasToExplore.length - 3} more areas
+                <button
+                  className="expand-toggle"
+                  onClick={() => toggleSection('explore')}
+                  aria-expanded={expandedSections['explore']}
+                >
+                  {expandedSections['explore']
+                    ? 'Show less'
+                    : `+${areasToExplore.length - 3} more areas`}
+                </button>
               </li>
             )}
           </ul>
@@ -214,14 +245,22 @@ export function ModuleSummaryCard({
             These items may benefit from review by an accessibility consultant or expert.
           </p>
           <ul className="summary-list">
-            {professionalReview.slice(0, 3).map((item, index) => (
+            {(expandedSections['professional'] ? professionalReview : professionalReview.slice(0, 3)).map((item, index) => (
               <li key={index} className="summary-item professional-item">
                 {item}
               </li>
             ))}
             {professionalReview.length > 3 && (
               <li className="summary-more">
-                +{professionalReview.length - 3} more items
+                <button
+                  className="expand-toggle"
+                  onClick={() => toggleSection('professional')}
+                  aria-expanded={expandedSections['professional']}
+                >
+                  {expandedSections['professional']
+                    ? 'Show less'
+                    : `+${professionalReview.length - 3} more items`}
+                </button>
               </li>
             )}
           </ul>

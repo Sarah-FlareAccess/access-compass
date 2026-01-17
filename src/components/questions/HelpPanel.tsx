@@ -134,6 +134,18 @@ export function HelpPanel({ isOpen, onClose, content, questionText: _questionTex
             </div>
           )}
 
+          {/* Tips list */}
+          {content.tips && content.tips.length > 0 && (
+            <div className="help-section help-tips">
+              <h4>Quick tips</h4>
+              <ul>
+                {content.tips.map((tip, index) => (
+                  <li key={index}>{tip}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* Examples grid */}
           {content.examples && content.examples.length > 0 && (
             <div className="help-section help-examples">
@@ -164,18 +176,6 @@ export function HelpPanel({ isOpen, onClose, content, questionText: _questionTex
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-
-          {/* Tips list */}
-          {content.tips && content.tips.length > 0 && (
-            <div className="help-section help-tips">
-              <h4>Quick tips</h4>
-              <ul>
-                {content.tips.map((tip, index) => (
-                  <li key={index}>{tip}</li>
-                ))}
-              </ul>
             </div>
           )}
 

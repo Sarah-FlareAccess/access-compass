@@ -4,14 +4,16 @@
  * Standardized response options for all yes-no questions.
  * These are non-negotiable and must be used consistently across the product.
  *
- * Rules:
- * - Exactly 4 options in this exact order
- * - Do not add additional options
- * - Do not use synonyms or variations
+ * Layout:
+ * - 4 main options in a 2x2 grid: Yes, Partially, No, Unable to check
+ * - 1 secondary option below: Not applicable
  */
 
-// The 4 standardized response options
-export const RESPONSE_OPTIONS = ['yes', 'partially', 'no', 'unable-to-check'] as const;
+// The 5 standardized response options
+export const RESPONSE_OPTIONS = ['yes', 'partially', 'no', 'unable-to-check', 'not-applicable'] as const;
+
+// The 4 main options (displayed in 2x2 grid)
+export const MAIN_RESPONSE_OPTIONS = ['yes', 'partially', 'no', 'unable-to-check'] as const;
 
 // TypeScript type derived from the constant
 export type ResponseOption = typeof RESPONSE_OPTIONS[number];
@@ -22,6 +24,7 @@ export const RESPONSE_LABELS: Record<ResponseOption, string> = {
   'partially': 'Partially',
   'no': 'No',
   'unable-to-check': 'Unable to check',
+  'not-applicable': 'Not applicable',
 };
 
 // Response option descriptions (for internal logic and reporting)
@@ -30,6 +33,7 @@ export const RESPONSE_MEANINGS: Record<ResponseOption, string> = {
   'partially': 'Some elements are in place, but coverage is incomplete or inconsistent.',
   'no': 'The requirement is not currently met.',
   'unable-to-check': 'The user cannot confidently confirm the answer at this time.',
+  'not-applicable': 'This question does not apply to the organisation\'s situation.',
 };
 
 // Helper text for "Unable to check" (subtle, supportive)
@@ -42,6 +46,7 @@ export const RESPONSE_CSS_CLASSES: Record<ResponseOption, string> = {
   'partially': 'answer-partial',
   'no': 'answer-no',
   'unable-to-check': 'answer-unable',
+  'not-applicable': 'answer-na',
 };
 
 // Validation helper
@@ -67,4 +72,9 @@ export function isPositiveResponse(response: ResponseOption | null): boolean {
 // Check if response is partial
 export function isPartialResponse(response: ResponseOption | null): boolean {
   return response === 'partially';
+}
+
+// Check if response is not applicable
+export function isNotApplicableResponse(response: ResponseOption | null): boolean {
+  return response === 'not-applicable';
 }
