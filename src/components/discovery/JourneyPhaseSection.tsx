@@ -28,6 +28,8 @@ interface JourneyPhaseSectionProps {
   isLast?: boolean;
   bgColorClass: string;
   useOnlineLabels?: boolean; // Whether to use online-specific labels
+  isNotApplicable?: boolean; // Whether this phase is marked as N/A
+  onToggleNotApplicable?: () => void; // Callback to toggle N/A status
 }
 
 const ICON_MAP: Record<string, string> = {
@@ -55,6 +57,8 @@ export function JourneyPhaseSection({
   onOpenChange,
   bgColorClass,
   useOnlineLabels = false,
+  isNotApplicable = false,
+  onToggleNotApplicable,
 }: JourneyPhaseSectionProps) {
   const [expandedTouchpoints, setExpandedTouchpoints] = useState<string[]>([]);
 
@@ -92,18 +96,16 @@ export function JourneyPhaseSection({
 
     return (
       <div key={touchpoint.id} className="touchpoint-wrapper">
-        <div
+        <label
           className={`touchpoint-item ${isSelected ? 'selected' : ''}`}
-          onClick={() => handleTouchpointToggle(touchpoint)}
+          htmlFor={`touchpoint-${touchpoint.id}`}
         >
           <input
             type="checkbox"
             id={`touchpoint-${touchpoint.id}`}
             checked={isSelected}
             onChange={() => handleTouchpointToggle(touchpoint)}
-            onClick={(e) => e.stopPropagation()}
             className="touchpoint-checkbox"
-            aria-label={`Select ${touchpointLabel}`}
           />
           <div className="touchpoint-content">
             <div className="touchpoint-label">{touchpointLabel}</div>
@@ -116,15 +118,18 @@ export function JourneyPhaseSection({
             <button
               onClick={(e) => {
                 e.stopPropagation();
+                e.preventDefault();
                 toggleExpanded(touchpoint.id);
               }}
               className="expand-button"
-              aria-label={isExpanded ? 'Collapse' : 'Expand'}
+              aria-expanded={isExpanded}
+              aria-label={isExpanded ? `Collapse ${touchpointLabel} options` : `Expand ${touchpointLabel} options`}
+              type="button"
             >
-              <span className={`chevron ${isExpanded ? 'rotated' : ''}`}>▼</span>
+              <span className={`chevron ${isExpanded ? 'rotated' : ''}`} aria-hidden="true">▼</span>
             </button>
           )}
-        </div>
+        </label>
 
         {/* Sub-touchpoints */}
         {hasSubTouchpoints && isSelected && isExpanded && (
@@ -133,22 +138,20 @@ export function JourneyPhaseSection({
               Optional: Select specific areas to refine recommendations
             </p>
             {touchpoint.subTouchpoints!.map((sub) => (
-              <div
+              <label
                 key={sub.id}
                 className={`sub-touchpoint-item ${selectedSubTouchpoints.includes(sub.id) ? 'selected' : ''}`}
-                onClick={() => onToggleSubTouchpoint(sub.id)}
+                htmlFor={`subtouchpoint-${sub.id}`}
               >
                 <input
                   type="checkbox"
                   id={`subtouchpoint-${sub.id}`}
                   checked={selectedSubTouchpoints.includes(sub.id)}
                   onChange={() => onToggleSubTouchpoint(sub.id)}
-                  onClick={(e) => e.stopPropagation()}
                   className="touchpoint-checkbox"
-                  aria-label={`Select ${sub.label}`}
                 />
                 <span className="sub-touchpoint-label">{sub.label}</span>
-              </div>
+              </label>
             ))}
           </div>
         )}
@@ -156,8 +159,17 @@ export function JourneyPhaseSection({
     );
   };
 
+  // Determine review status for the header badge
+  const getReviewStatus = () => {
+    if (isNotApplicable) return { text: 'N/A', className: 'status-na' };
+    if (hasSelections) return { text: `${selectedCount} selected`, className: 'status-selected' };
+    return null;
+  };
+
+  const reviewStatus = getReviewStatus();
+
   return (
-    <div className={`journey-phase-section ${bgColorClass}`}>
+    <div className={`journey-phase-section ${bgColorClass} ${isNotApplicable ? 'phase-not-applicable' : ''}`}>
       {/* Header - Collapsible trigger */}
       <div
         className="phase-header"
@@ -180,9 +192,9 @@ export function JourneyPhaseSection({
           <p className="phase-sublabel">{subLabel}</p>
         </div>
         <div className="phase-actions">
-          {hasSelections && (
-            <span className="selection-count">
-              {selectedCount} selected
+          {reviewStatus && (
+            <span className={`selection-count ${reviewStatus.className}`}>
+              {reviewStatus.text}
             </span>
           )}
           <span className={`phase-chevron ${isOpen ? 'rotated' : ''}`}>▼</span>
@@ -201,23 +213,52 @@ export function JourneyPhaseSection({
           )}
 
           {/* Render by blocks if provided, otherwise flat list */}
-          {touchpointBlocks && touchpointBlocks.length > 0 ? (
-            <div className="touchpoint-blocks">
-              {touchpointBlocks.map((block) => {
-                const blockLabel = useOnlineLabels && block.labelOnline ? block.labelOnline : block.label;
-                return (
-                  <div key={block.id} className="touchpoint-block">
-                    <h4 className="block-label">{blockLabel}</h4>
-                    <div className="touchpoint-list">
-                      {block.touchpoints.map(renderTouchpoint)}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="touchpoint-list">
-              {touchpoints.map(renderTouchpoint)}
+          {!isNotApplicable && (
+            <>
+              {touchpointBlocks && touchpointBlocks.length > 0 ? (
+                <div className="touchpoint-blocks">
+                  {touchpointBlocks.map((block) => {
+                    const blockLabel = useOnlineLabels && block.labelOnline ? block.labelOnline : block.label;
+                    return (
+                      <div key={block.id} className="touchpoint-block">
+                        <h4 className="block-label">{blockLabel}</h4>
+                        <div className="touchpoint-list">
+                          {block.touchpoints.map(renderTouchpoint)}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="touchpoint-list">
+                  {touchpoints.map(renderTouchpoint)}
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Not Applicable Option */}
+          {onToggleNotApplicable && (
+            <div className="phase-na-option">
+              <label
+                className={`na-checkbox-label ${isNotApplicable ? 'checked' : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleNotApplicable();
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={isNotApplicable}
+                  onChange={onToggleNotApplicable}
+                  onClick={(e) => e.stopPropagation()}
+                  className="na-checkbox"
+                />
+                <span className="na-label-text">None of these apply to my business</span>
+              </label>
+              {isNotApplicable && (
+                <p className="na-hint">This section has been marked as not applicable. No modules will be recommended for this area.</p>
+              )}
             </div>
           )}
         </div>

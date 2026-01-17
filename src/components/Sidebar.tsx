@@ -37,7 +37,7 @@ export function Sidebar() {
     accessState.membership?.role === 'admin' ? 'Admin' : 'Contributor';
 
   return (
-    <aside className="dashboard-sidebar">
+    <aside className="dashboard-sidebar" role="complementary" aria-label="Sidebar navigation">
       {/* Organisation Identity */}
       <div className="sidebar-org-identity">
         <div className="sidebar-org-info">
@@ -51,7 +51,7 @@ export function Sidebar() {
         <h3 className="sidebar-section-title">Navigation</h3>
         <nav className="sidebar-nav">
           <Link to="/dashboard" className="sidebar-nav-item sidebar-nav-featured">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="3" y="3" width="7" height="7"/>
               <rect x="14" y="3" width="7" height="7"/>
               <rect x="14" y="14" width="7" height="7"/>
@@ -65,21 +65,13 @@ export function Sidebar() {
       {/* Discovery Section */}
       <div className="sidebar-section">
         <h3 className="sidebar-section-title">Discovery</h3>
-        <p className="sidebar-hint">Your business context and module selection</p>
         <nav className="sidebar-nav">
-          <Link to="/discovery/summary" className="sidebar-nav-item sidebar-nav-featured">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <Link to="/discovery/summary" className="sidebar-nav-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="8"/>
               <path d="m21 21-4.35-4.35"/>
             </svg>
             View Discovery Summary
-          </Link>
-          <Link to="/discovery" className="sidebar-nav-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-            </svg>
-            Edit Discovery
           </Link>
         </nav>
       </div>
@@ -89,7 +81,7 @@ export function Sidebar() {
         <h3 className="sidebar-section-title">Your Outputs</h3>
         <nav className="sidebar-nav">
           <Link to="/export" className="sidebar-nav-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
               <polyline points="14 2 14 8 20 8"/>
               <line x1="16" y1="13" x2="8" y2="13"/>
@@ -98,7 +90,7 @@ export function Sidebar() {
             Accessibility Report
           </Link>
           <Link to="/diap" className="sidebar-nav-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M12 20h9"/>
               <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
             </svg>
@@ -112,7 +104,7 @@ export function Sidebar() {
         <h3 className="sidebar-section-title">Resources</h3>
         <nav className="sidebar-nav">
           <Link to="/resources" className="sidebar-nav-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
               <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
             </svg>

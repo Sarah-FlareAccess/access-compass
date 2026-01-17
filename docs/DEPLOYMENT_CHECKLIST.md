@@ -89,6 +89,7 @@
 |------|--------|-------|
 | Email verification | DISABLED (testing) | **Re-enable before launch!** |
 | Route protection (paywall) | BYPASSED (testing) | **Re-enable before launch!** |
+| Payment integration | DEFERRED | **Implement before launch!** See `Decision.tsx` TODOs |
 | Auth timeout | 30 seconds (Tokyo latency) | Reduce to 10s after switching to Sydney |
 | Supabase region | Tokyo (high latency) | **Change to Sydney before launch!** |
 | Warm-up query | ENABLED (dev) | Can remove after switching to Sydney |
@@ -106,16 +107,30 @@
 - File: `src/components/guards/RouteGuard.tsx`
 - Line ~109: Change `const bypassPaywall = true;` to `const bypassPaywall = false;`
 
-### 3. Auth Timeout
+### 3. Payment Integration (Decision Page)
+- File: `src/pages/Decision.tsx`
+- Currently bypasses payment and goes directly to dashboard
+- **Access redirect is DISABLED** (~line 140) - users always see pathway choice
+- See TODO comments at top of file for full implementation details
+- Required changes:
+  - Re-enable the "REDIRECT IF ALREADY HAS ACCESS" useEffect
+  - Integrate payment processing (Stripe) for pay-as-you-go users
+  - Add entitlement checking based on user type
+  - Show "included" vs "additional cost" modules
+  - Handle government users (full access bypass)
+  - Handle enterprise subscriptions
+  - Implement module bundle upgrade flow
+
+### 4. Auth Timeout
 - File: `src/contexts/AuthContext.tsx`
 - Lines ~180, ~260, ~393: Currently set to 30 seconds for Tokyo latency
 - After switching to Sydney, reduce to 10 seconds
 
-### 4. Remove Debug Logging
+### 5. Remove Debug Logging
 - File: `src/contexts/AuthContext.tsx`
 - Remove or comment out all `console.log('[AuthContext]...)` statements
 
-### 5. Remove Warm-up Query (Optional after Sydney switch)
+### 6. Remove Warm-up Query (Optional after Sydney switch)
 - File: `src/utils/supabase.ts`
 - Remove or comment out the `warmUpConnection()` function and auto-call
 - This is only needed for high-latency connections
@@ -127,6 +142,7 @@
 | File | Change | Action Before Launch |
 |------|--------|---------------------|
 | `src/components/guards/RouteGuard.tsx` | `bypassPaywall = true` | Set to `false` |
+| `src/pages/Decision.tsx` | Payment bypassed, access redirect disabled | Re-enable redirect + implement payment |
 | `src/contexts/AuthContext.tsx` | Debug console.logs added | Remove logs |
 | `src/contexts/AuthContext.tsx` | 30s auth timeouts | Reduce after Sydney switch |
 | `src/utils/supabase.ts` | Warm-up query added | Can remove after Sydney |

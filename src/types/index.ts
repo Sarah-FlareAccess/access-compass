@@ -221,6 +221,8 @@ export interface DiscoveryData {
   selectedTouchpoints: string[];
   selectedSubTouchpoints: string[];
   responses?: Record<string, DiscoveryResponse>;
+  notApplicablePhases?: string[]; // Phases explicitly marked as "not applicable"
+  explicitlyCompleted?: boolean; // True if user went through discovery (vs skipped)
 }
 
 export interface ModuleScore {
@@ -248,12 +250,12 @@ export interface RecommendedModule {
 }
 
 export interface RecommendationWarning {
-  type: 'many-not-sure' | 'all-no' | 'too-many-modules' | 'discovery-incomplete';
+  type: 'many-not-sure' | 'all-no' | 'too-many-modules' | 'discovery-incomplete' | 'nothing-applicable';
   message: string;
 }
 
 export interface RecommendationResult {
-  mode: 'discovery-driven' | 'default-starter-set';
+  mode: 'discovery-driven' | 'default-starter-set' | 'no-modules-applicable';
   recommendedModules: RecommendedModule[];
   alsoRelevant: RecommendedModule[];
   warnings: RecommendationWarning[];

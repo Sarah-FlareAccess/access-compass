@@ -34,14 +34,18 @@ export default function DiscoverySummary() {
   const session = getSession();
   const storedDiscovery = getDiscoveryData();
 
-  // Check if user has completed discovery
+  // Check if user has completed discovery or has modules
   const discoveryData = storedDiscovery?.discovery_data;
   const hasCompletedDiscovery = (discoveryData?.selectedTouchpoints?.length ?? 0) > 0;
+  const hasModules = (storedDiscovery?.recommended_modules?.length ?? 0) > 0;
+  const hasAnyData = hasCompletedDiscovery || hasModules || session?.business_snapshot;
 
   // Local state for editing
   const [isEditingContext, setIsEditingContext] = useState(false);
-  const [isEditingTouchpoints, setIsEditingTouchpoints] = useState(false);
   const [isEditingModules, setIsEditingModules] = useState(false);
+
+  // Modal state for touchpoint edit confirmation
+  const [showTouchpointEditWarning, setShowTouchpointEditWarning] = useState(false);
 
   // Editable values
   const [businessContext, setBusinessContext] = useState<BusinessContext>({
@@ -51,7 +55,7 @@ export default function DiscoverySummary() {
     hasOnlineServices: session?.business_snapshot?.has_online_services ?? null,
   });
 
-  const [selectedTouchpoints, setSelectedTouchpoints] = useState<string[]>(
+  const [selectedTouchpoints] = useState<string[]>(
     discoveryData?.selectedTouchpoints || []
   );
 
@@ -59,14 +63,14 @@ export default function DiscoverySummary() {
     storedDiscovery?.recommended_modules || []
   );
 
-  // Redirect if no discovery data
+  // Redirect only if no data at all (no session, no discovery, no modules)
   useEffect(() => {
-    if (!hasCompletedDiscovery) {
+    if (!hasAnyData) {
       navigate('/discovery');
     }
-  }, [hasCompletedDiscovery, navigate]);
+  }, [hasAnyData, navigate]);
 
-  if (!hasCompletedDiscovery) {
+  if (!hasAnyData) {
     return null;
   }
 
@@ -104,13 +108,6 @@ export default function DiscoverySummary() {
     })).filter(group => group.modules.length > 0);
   }, [selectedModules]);
 
-  // Toggle touchpoint
-  const toggleTouchpoint = (id: string) => {
-    setSelectedTouchpoints(prev =>
-      prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
-    );
-  };
-
   // Toggle module
   const toggleModule = (id: string) => {
     setSelectedModules(prev =>
@@ -135,15 +132,11 @@ export default function DiscoverySummary() {
     setIsEditingContext(false);
   };
 
-  const handleSaveTouchpoints = () => {
-    updateDiscoveryData({
-      discovery_data: {
-        ...discoveryData,
-        selectedTouchpoints,
-        selectedSubTouchpoints: discoveryData?.selectedSubTouchpoints || [],
-      },
-    });
-    setIsEditingTouchpoints(false);
+  // Handle touchpoint edit - redirect to full discovery flow
+  const handleTouchpointEditConfirm = () => {
+    setShowTouchpointEditWarning(false);
+    // Navigate to discovery page with edit flag to pre-populate existing data
+    navigate('/discovery?edit=true');
   };
 
   const handleSaveModules = () => {
@@ -174,6 +167,18 @@ export default function DiscoverySummary() {
           <h1>Your Discovery Summary</h1>
           <p>Review and update your accessibility focus areas</p>
         </div>
+
+        {/* Warning for incomplete discovery */}
+        {!hasCompletedDiscovery && hasModules && (
+          <div className="discovery-incomplete-banner">
+            <span className="banner-icon">⚠️</span>
+            <div className="banner-content">
+              <strong>Discovery not completed</strong>
+              <p>Your modules were selected without completing the discovery process. Complete discovery to get personalised recommendations based on your customer touchpoints.</p>
+              <Link to="/discovery" className="banner-link">Complete Discovery →</Link>
+            </div>
+          </div>
+        )}
 
         {/* Business Context Section */}
         <div className="summary-section">
@@ -258,59 +263,60 @@ export default function DiscoverySummary() {
         <div className="summary-section">
           <div className="section-header">
             <h2>Selected Touchpoints</h2>
-            {!isEditingTouchpoints ? (
-              <button className="btn-edit" onClick={() => setIsEditingTouchpoints(true)}>
-                Edit
-              </button>
-            ) : (
-              <div className="edit-actions">
-                <button className="btn-save" onClick={handleSaveTouchpoints}>Save</button>
-                <button className="btn-cancel" onClick={() => setIsEditingTouchpoints(false)}>Cancel</button>
-              </div>
-            )}
+            <button className="btn-edit" onClick={() => setShowTouchpointEditWarning(true)}>
+              Edit
+            </button>
           </div>
 
-          {!isEditingTouchpoints ? (
-            <div className="touchpoints-display">
-              {touchpointsByPhase.length > 0 ? (
-                touchpointsByPhase.map(({ phase, selected }) => (
-                  <div key={phase.id} className="touchpoint-group">
-                    <h4 className="group-label">{phase.label}</h4>
-                    <div className="touchpoint-tags">
-                      {selected.map(tpId => (
-                        <span key={tpId} className="touchpoint-tag">
-                          {getTouchpointLabel(tpId)}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="empty-message">No touchpoints selected</p>
-              )}
-            </div>
-          ) : (
-            <div className="touchpoints-edit">
-              {JOURNEY_PHASES.map(phase => (
-                <div key={phase.id} className="touchpoint-edit-group">
-                  <h4 className="group-label">{phase.label}</h4>
-                  <div className="touchpoint-checkboxes">
-                    {phase.touchpoints.map(tp => (
-                      <label key={tp.id} className="checkbox-label">
-                        <input
-                          type="checkbox"
-                          checked={selectedTouchpoints.includes(tp.id)}
-                          onChange={() => toggleTouchpoint(tp.id)}
-                        />
-                        <span>{tp.label}</span>
-                      </label>
+          <div className="touchpoints-display">
+            {touchpointsByPhase.length > 0 ? (
+              touchpointsByPhase.map(({ phase, selected }) => (
+                <div key={phase.id} className="touchpoint-group">
+                  <h3 className="group-label">{phase.label}</h3>
+                  <div className="touchpoint-tags">
+                    {selected.map(tpId => (
+                      <span key={tpId} className="touchpoint-tag">
+                        {getTouchpointLabel(tpId)}
+                      </span>
                     ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+              ))
+            ) : (
+              <p className="empty-message">No touchpoints selected</p>
+            )}
+          </div>
         </div>
+
+        {/* Touchpoint Edit Warning Modal */}
+        {showTouchpointEditWarning && (
+          <div className="warning-modal-overlay" onClick={() => setShowTouchpointEditWarning(false)}>
+            <div className="warning-modal" onClick={(e) => e.stopPropagation()}>
+              <div className="warning-modal-icon">⚠️</div>
+              <h3>Update Your Visitor Journey?</h3>
+              <p>
+                Editing your visitor journey will recalculate your recommended modules, which may affect your plan.
+              </p>
+              <p className="warning-modal-detail">
+                You'll go through the full discovery process with your current selections pre-filled. Your existing module progress will be preserved.
+              </p>
+              <div className="warning-modal-actions">
+                <button
+                  className="btn-cancel"
+                  onClick={() => setShowTouchpointEditWarning(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="btn-confirm"
+                  onClick={handleTouchpointEditConfirm}
+                >
+                  Continue to Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Modules Section */}
         <div className="summary-section">
@@ -335,7 +341,7 @@ export default function DiscoverySummary() {
                 <div className="modules-by-phase">
                   {modulesByPhase.map(({ phase, label, modules }) => (
                     <div key={phase} className="module-phase-group">
-                      <h4 className="group-label">{label}</h4>
+                      <h3 className="group-label">{label}</h3>
                       <div className="module-tags">
                         {modules.map(module => (
                           <span key={module.id} className="module-tag">

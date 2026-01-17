@@ -170,8 +170,17 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
                   <div
                     className="screenshot-upload"
                     onClick={() => fileInputRef.current?.click()}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        fileInputRef.current?.click();
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Click to add a screenshot"
                   >
-                    <span className="upload-icon">📷</span>
+                    <span className="upload-icon" aria-hidden="true">📷</span>
                     <span>Click to add a screenshot</span>
                     <input
                       ref={fileInputRef}
@@ -180,6 +189,7 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
                       onChange={handleScreenshotChange}
                       className="hidden-input"
                       aria-label="Upload screenshot"
+                      tabIndex={-1}
                     />
                   </div>
                 )}

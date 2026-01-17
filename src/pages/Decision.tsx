@@ -5,6 +5,38 @@
 // State 1: Pathway choice (Pulse vs Deep Dive) - no pricing
 // State 2: Commitment (org size, pricing, auth) - revealed on same page
 // ============================================
+//
+// TODO: PRE-LAUNCH PAYMENT INTEGRATION
+// ============================================
+// The following payment logic needs to be implemented before launch:
+//
+// 1. ENTITLEMENT CHECKING
+//    - Check user's current subscription tier (gov, enterprise, pay-as-you-go)
+//    - Government users: Full access to all modules
+//    - Enterprise users: Full access based on subscription
+//    - Pay-as-you-go users: Need to pay for additional modules
+//
+// 2. MODULE ACCESS LOGIC
+//    - Show which modules are "included" in current package
+//    - Show which modules require "additional cost" for upgrades
+//    - Calculate upgrade cost based on module bundle differences
+//
+// 3. UPGRADE FLOW FOR PAY-AS-YOU-GO USERS
+//    - Display clear pricing for module additions
+//    - Handle payment processing (Stripe integration)
+//    - Update user entitlements after successful payment
+//
+// 4. SUBSCRIPTION MANAGEMENT
+//    - Handle subscription changes (upgrades/downgrades)
+//    - Prorate charges for mid-cycle changes
+//    - Display subscription status and renewal info
+//
+// 5. DIFFERENT USER TYPE HANDLING
+//    - Government: hasGovernmentAccess flag → bypass payment
+//    - Enterprise: Check organisation subscription level
+//    - Individual: Pay-as-you-go with module-based pricing
+//
+// ============================================
 
 import { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
@@ -101,12 +133,15 @@ export default function Decision() {
   // ============================================
   // REDIRECT IF ALREADY HAS ACCESS
   // ============================================
+  // TODO: PRE-LAUNCH - Re-enable this redirect once payment is integrated
+  // Currently disabled so users can always select their pathway (Pulse/Deep Dive)
+  // After payment integration, this should redirect users who already have access
 
-  useEffect(() => {
-    if (!authLoading && isAuthenticated && accessState.hasAccess) {
-      navigate(returnTo, { replace: true });
-    }
-  }, [authLoading, isAuthenticated, accessState, navigate, returnTo]);
+  // useEffect(() => {
+  //   if (!authLoading && isAuthenticated && accessState.hasAccess) {
+  //     navigate(returnTo, { replace: true });
+  //   }
+  // }, [authLoading, isAuthenticated, accessState, navigate, returnTo]);
 
   // ============================================
   // PRICING CALCULATIONS
@@ -465,7 +500,7 @@ export default function Decision() {
               </div>
 
               <div className="commitment-inclusions">
-                <h4>What's included:</h4>
+                <h3>What's included:</h3>
                 <ul>
                   {pricing?.inclusions.map((item, i) => (
                     <li key={i}>
@@ -480,6 +515,14 @@ export default function Decision() {
         )}
 
         {/* Proceed Button - Auth bypassed for development */}
+        {/*
+          TODO: PRE-LAUNCH - Replace this with proper payment/entitlement flow:
+          1. Check if user has entitlement for selected pathway
+          2. If gov/enterprise user → proceed directly
+          3. If pay-as-you-go → show payment modal/checkout
+          4. After payment success → update entitlements, then proceed
+          5. Handle upgrade scenarios (Pulse → Deep Dive)
+        */}
         <div className="commitment-actions">
           <button
             className="btn-primary-large"

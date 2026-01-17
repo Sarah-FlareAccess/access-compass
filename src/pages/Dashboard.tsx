@@ -416,51 +416,38 @@ Thanks!`;
     );
   }
 
-  const orgName = session?.business_snapshot?.organisation_name || 'there';
   const hasCompletedModules = overallStats.modulesCompleted > 0;
 
   return (
     <div className="dashboard-page">
       <div className="dashboard-layout">
         {/* Left Sidebar */}
-        <aside className="dashboard-sidebar">
+        <aside className="dashboard-sidebar" role="complementary" aria-label="Dashboard sidebar">
           {/* Organisation Identity - Always show */}
-          <div className="sidebar-org-identity">
+          <button
+            type="button"
+            className="sidebar-org-identity"
+            onClick={() => setShowAdminPanel(true)}
+            aria-label="Open organisation settings"
+          >
             <div className="sidebar-org-info">
               <h2 className="sidebar-org-name">
                 {accessState.organisation?.name || session?.business_snapshot?.organisation_name || user?.email || 'Your Organisation'}
               </h2>
-              {accessState.membership?.role && (
-                <span className="sidebar-user-role">
-                  {accessState.membership?.role === 'owner' ? 'Lead' :
-                   accessState.membership?.role === 'admin' ? 'Admin' : 'Contributor'}
-                </span>
-              )}
+              <div className="sidebar-org-meta">
+                {accessState.membership?.role && (
+                  <span className="sidebar-user-role">
+                    {accessState.membership?.role === 'owner' ? 'Lead' :
+                     accessState.membership?.role === 'admin' ? 'Admin' : 'Contributor'}
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+            <svg className="sidebar-org-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
 
-
-          {/* Discovery Section */}
-          <div className="sidebar-section">
-            <h3 className="sidebar-section-title">Discovery</h3>
-            <p className="sidebar-hint">Your business context and module selection</p>
-            <nav className="sidebar-nav">
-              <Link to="/discovery/summary" className="sidebar-nav-item sidebar-nav-featured">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8"/>
-                  <path d="m21 21-4.35-4.35"/>
-                </svg>
-                View Discovery Summary
-              </Link>
-              <Link to="/discovery" className="sidebar-nav-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>
-                Edit Discovery
-              </Link>
-            </nav>
-          </div>
 
           {/* Quick Actions */}
           <div className="sidebar-section">
@@ -471,7 +458,7 @@ Thanks!`;
                 className="sidebar-nav-item"
                 onClick={() => setShowAdminPanel(true)}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="12" r="3"/>
                   <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
                 </svg>
@@ -480,12 +467,26 @@ Thanks!`;
             </nav>
           </div>
 
+          {/* Discovery Section */}
+          <div className="sidebar-section">
+            <h3 className="sidebar-section-title">Discovery</h3>
+            <nav className="sidebar-nav">
+              <Link to="/discovery/summary" className="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+                View Discovery Summary
+              </Link>
+            </nav>
+          </div>
+
           {/* Outputs Section */}
           <div className="sidebar-section">
             <h3 className="sidebar-section-title">Your Outputs</h3>
             <nav className="sidebar-nav">
               <Link to="/export" className="sidebar-nav-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                   <polyline points="14 2 14 8 20 8"/>
                   <line x1="16" y1="13" x2="8" y2="13"/>
@@ -495,7 +496,7 @@ Thanks!`;
                 Accessibility Report
               </Link>
               <Link to="/diap" className="sidebar-nav-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M12 20h9"/>
                   <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
                 </svg>
@@ -509,7 +510,7 @@ Thanks!`;
             <h3 className="sidebar-section-title">Resources</h3>
             <nav className="sidebar-nav">
               <Link to="/resources" className="sidebar-nav-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
                   <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                 </svg>
@@ -550,24 +551,8 @@ Thanks!`;
         </aside>
 
         {/* Main Content */}
-        <main className="dashboard-main">
+        <main id="main-content" className="dashboard-main" role="main" aria-label="Main content">
           <div className="dashboard-container">
-            {/* Orientation Bar */}
-            <section className="orientation-bar">
-              <h1 className="orientation-title">Welcome back, {orgName}</h1>
-              <div className="orientation-progress">
-                <span className="orientation-progress-text">
-                  {overallStats.modulesCompleted} of {overallStats.modulesTotal} modules complete
-                </span>
-                <div className="orientation-progress-bar">
-                  <div
-                    className="orientation-progress-fill"
-                    style={{ width: `${overallStats.progressPercentage}%` }}
-                  />
-                </div>
-              </div>
-            </section>
-
             {/* Primary Action Hero - Clickable */}
             {overallStats.modulesInProgress > 0 ? (
               <button
@@ -726,7 +711,7 @@ Thanks!`;
                           <span className="progress-ring-text">{groupProgress}%</span>
                         </div>
                         <span className="topic-expand-icon">
-                          {isExpanded ? '−' : '+'}
+                          {isExpanded ? '▾' : '▸'}
                         </span>
                       </div>
                     </button>

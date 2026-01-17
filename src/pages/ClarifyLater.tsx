@@ -42,17 +42,17 @@ export default function ClarifyLater() {
                 </span>
               </div>
 
-              <h3 style={{ marginBottom: '15px', fontSize: '1.2rem' }}>
+              <h2 style={{ marginBottom: '15px', fontSize: '1.2rem' }}>
                 {clarification.question}
-              </h3>
+              </h2>
 
               <div style={{ marginBottom: '20px' }}>
-                <h4 style={{ fontSize: '1rem', marginBottom: '8px' }}>Why it matters</h4>
+                <h3 style={{ fontSize: '1rem', marginBottom: '8px' }}>Why it matters</h3>
                 <p style={{ color: 'var(--text-muted)' }}>{clarification.why_matters}</p>
               </div>
 
               <div style={{ marginBottom: '20px', background: 'var(--ivory)', padding: '20px', borderRadius: 'var(--radius-md)' }}>
-                <h4 style={{ fontSize: '1rem', marginBottom: '8px' }}>🔍 How to check</h4>
+                <h3 style={{ fontSize: '1rem', marginBottom: '8px' }}>🔍 How to check</h3>
                 <p>{clarification.how_to_check}</p>
               </div>
 
@@ -70,7 +70,7 @@ export default function ClarifyLater() {
           {unresolvedItems.length === 0 && (
             <div className="card" style={{ textAlign: 'center', padding: '60px 20px' }}>
               <div style={{ fontSize: '3rem', marginBottom: '20px' }}>✅</div>
-              <h3>All items resolved!</h3>
+              <h2>All items resolved!</h2>
               <p style={{ color: 'var(--text-muted)', marginTop: '10px' }}>
                 Great work clarifying your accessibility features
               </p>

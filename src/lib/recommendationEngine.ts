@@ -340,9 +340,35 @@ export function generateRecommendations(
 ): RecommendationResult {
   const warnings: RecommendationWarning[] = [];
 
-  // MODE B: No discovery data - use defaults
+  // MODE C: Discovery explicitly completed but nothing applies
+  // User went through discovery and marked everything as N/A - respect their choice
+  if (discoveryData?.explicitlyCompleted && discoveryData.selectedTouchpoints.length === 0) {
+    return {
+      mode: 'no-modules-applicable',
+      recommendedModules: [],
+      alsoRelevant: [],
+      warnings: [{
+        type: 'nothing-applicable',
+        message: "Based on your responses, none of our current modules apply to your business. This is unusual - please review your discovery answers or contact support if you need assistance.",
+      }],
+      reasoning: "You've indicated that none of the customer touchpoints apply to your business. No modules have been recommended.",
+      confidenceLevel: 'high',
+    };
+  }
+
+  // MODE B: No discovery data - require discovery to be completed
   if (!discoveryData || discoveryData.selectedTouchpoints.length === 0) {
-    return generateDefaultStarterSet(industryId, serviceType, 'skipped');
+    return {
+      mode: 'no-modules-applicable',
+      recommendedModules: [],
+      alsoRelevant: [],
+      warnings: [{
+        type: 'discovery-incomplete',
+        message: "Complete the discovery process to receive personalised module recommendations based on your customer touchpoints.",
+      }],
+      reasoning: "No touchpoints have been selected. Complete discovery to get recommendations.",
+      confidenceLevel: 'low',
+    };
   }
 
   // MODE A: Discovery-driven
@@ -366,13 +392,19 @@ export function generateRecommendations(
     .filter(s => s.score >= threshold)
     .sort((a, b) => b.score - a.score);
 
-  // EDGE CASE: All "No" or insufficient signal
+  // EDGE CASE: No modules meet threshold based on selections
   if (meetingThreshold.length === 0) {
-    warnings.push({
-      type: 'all-no',
-      message: "We noticed you indicated most touchpoints don't apply to your business. We've suggested common starting points.",
-    });
-    return generateDefaultStarterSet(industryId, serviceType, 'insufficient-signal', warnings);
+    return {
+      mode: 'no-modules-applicable',
+      recommendedModules: [],
+      alsoRelevant: [],
+      warnings: [{
+        type: 'all-no',
+        message: "Based on your touchpoint selections, no modules strongly match your business. Consider reviewing your discovery answers or selecting additional touchpoints.",
+      }],
+      reasoning: "Your selected touchpoints didn't trigger any module recommendations. This may indicate the touchpoints you selected don't have associated modules yet.",
+      confidenceLevel: 'low',
+    };
   }
 
   // Apply minimum of 3 modules rule with padding
@@ -474,47 +506,6 @@ export function generateRecommendations(
     warnings,
     reasoning,
     confidenceLevel,
-  };
-}
-
-function generateDefaultStarterSet(
-  industryId: string,
-  _serviceType: string,
-  reason: 'skipped' | 'insufficient-signal',
-  existingWarnings: RecommendationWarning[] = []
-): RecommendationResult {
-  const defaults = INDUSTRY_DEFAULT_MODULES[industryId] || INDUSTRY_DEFAULT_MODULES['other'];
-  const industryName = industryId !== 'other' ? industryId.replace(/-/g, ' ') : undefined;
-
-  const recommendedModules: RecommendedModule[] = defaults.map(moduleId => {
-    const module = MODULES.find(m => m.id === moduleId)!;
-    return {
-      moduleId,
-      moduleName: module.name,
-      moduleCode: MODULE_ID_TO_CODE[moduleId] || moduleId,
-      journeyTheme: module.journeyTheme,
-      estimatedTime: module.estimatedTime,
-      score: 0,
-      whySuggested: {
-        type: 'default-starter' as const,
-        triggeringTouchpoints: [],
-        triggeringQuestionTexts: [],
-        industryName,
-      },
-    };
-  });
-
-  const reasoning = reason === 'skipped'
-    ? `Since you skipped Discovery, we've suggested common starting points${industryName ? ` for ${industryName}` : ''}. You can adjust these based on what's most relevant to you.`
-    : `We noticed you indicated most touchpoints don't apply to your business. We've suggested common starting points${industryName ? ` for ${industryName}` : ''}, but feel free to choose what's most relevant.`;
-
-  return {
-    mode: 'default-starter-set',
-    recommendedModules,
-    alsoRelevant: [],
-    warnings: existingWarnings,
-    reasoning,
-    confidenceLevel: 'low',
   };
 }
 

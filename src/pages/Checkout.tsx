@@ -117,7 +117,7 @@ export default function Checkout() {
 
         {/* Order Summary */}
         <div className="order-summary">
-          <h3>Order summary</h3>
+          <h2>Order summary</h2>
 
           <div className="order-item">
             <div className="item-details">
@@ -149,7 +149,7 @@ export default function Checkout() {
 
         {/* Inclusions */}
         <div className="inclusions-summary">
-          <h4>What's included:</h4>
+          <h3>What's included:</h3>
           <ul>
             {pricing.inclusions.map((item, i) => (
               <li key={i}>

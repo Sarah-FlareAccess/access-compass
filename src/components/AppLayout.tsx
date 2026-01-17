@@ -3,6 +3,10 @@
  *
  * Provides consistent navigation across all pages with the NavBar and Sidebar.
  * Used to wrap pages that should have the global navigation.
+ *
+ * Accessibility features:
+ * - Skip link for keyboard users to bypass navigation
+ * - Proper ARIA landmarks for screen reader navigation
  */
 
 import { Outlet, useLocation } from 'react-router-dom';
@@ -39,16 +43,23 @@ export default function AppLayout() {
 
   return (
     <>
+      {/* Skip link for keyboard navigation - allows users to bypass navigation */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       {showNav && <NavBar />}
       {showSidebar ? (
         <div className="dashboard-layout">
           <Sidebar />
-          <main className="dashboard-main">
+          <main id="main-content" className="dashboard-main" role="main" aria-label="Main content">
             <Outlet />
           </main>
         </div>
       ) : (
-        <Outlet />
+        <main id="main-content" role="main" aria-label="Main content">
+          <Outlet />
+        </main>
       )}
     </>
   );

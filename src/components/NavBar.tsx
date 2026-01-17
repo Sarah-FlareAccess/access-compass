@@ -17,7 +17,7 @@ export default function NavBar() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="main-nav">
+    <nav className="main-nav" aria-label="Main navigation">
       <div className="nav-container">
         <div className="nav-brand">
           <Link to="/dashboard" className="brand-link">
@@ -35,22 +35,16 @@ export default function NavBar() {
               Dashboard
             </Link>
             <Link
-              to="/export"
-              className={`nav-link ${isActive('/export') ? 'active' : ''}`}
+              to="/discovery/summary"
+              className={`nav-link ${location.pathname.startsWith('/discovery') ? 'active' : ''}`}
             >
-              Report
+              Discovery
             </Link>
             <Link
               to="/resources"
               className={`nav-link ${isActive('/resources') ? 'active' : ''}`}
             >
               Resources
-            </Link>
-            <Link
-              to="/diap"
-              className={`nav-link ${isActive('/diap') ? 'active' : ''}`}
-            >
-              DIAP
             </Link>
           </div>
 

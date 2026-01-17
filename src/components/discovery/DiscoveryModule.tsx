@@ -8,12 +8,14 @@ import {
   MODULES,
 } from '../../lib/recommendationEngine';
 import { JourneyPhaseSection } from './JourneyPhaseSection';
+import { ModuleDetailModal } from './ModuleDetailModal';
 import './discovery.css';
 
 interface DiscoveryModuleProps {
   onComplete: (data: {
     selectedTouchpoints: string[];
     selectedSubTouchpoints: string[];
+    notApplicablePhases: string[];
     recommendedModules: string[];
     recommendedDepth: ReviewMode;
     recommendationResult: RecommendationResult;
@@ -60,6 +62,9 @@ export function DiscoveryModule({
   const [openPhases, setOpenPhases] = useState<string[]>(['before-arrival']);
   const [currentStep, setCurrentStep] = useState<'touchpoints' | 'recommendation'>(initialStep);
 
+  // Track phases marked as "not applicable"
+  const [notApplicablePhases, setNotApplicablePhases] = useState<string[]>([]);
+
   // Business context questions
   const [hasPhysicalVenue, setHasPhysicalVenue] = useState<boolean | null>(
     existingData?.businessContext?.hasPhysicalVenue ?? null
@@ -79,6 +84,9 @@ export function DiscoveryModule({
     existingData?.recommendedModules || []
   );
   const [showAllModules, setShowAllModules] = useState(false);
+
+  // Module detail modal state
+  const [moduleDetailId, setModuleDetailId] = useState<string | null>(null);
 
   // Track whether we've initialized modules for fresh discovery
   // Only true if explicitly returning to adjust modules (initialStep='recommendation' with existing data)
@@ -124,28 +132,36 @@ export function DiscoveryModule({
     );
   };
 
-  // Calculate recommendations using the recommendation engine
-  const recommendationResult = useMemo(() => {
-    const discoveryData: DiscoveryData = {
-      selectedTouchpoints,
-      selectedSubTouchpoints,
-      responses: {},
-    };
-
-    // Treat all selected touchpoints as "yes" responses
-    selectedTouchpoints.forEach(tp => {
-      discoveryData.responses![tp] = 'yes';
+  // Toggle phase as "not applicable"
+  const togglePhaseNotApplicable = (phaseId: string) => {
+    setNotApplicablePhases(prev => {
+      const isCurrentlyNA = prev.includes(phaseId);
+      if (isCurrentlyNA) {
+        // Un-marking as N/A
+        return prev.filter(p => p !== phaseId);
+      } else {
+        // Marking as N/A - also clear any selected touchpoints for this phase
+        const phase = JOURNEY_PHASES.find(p => p.id === phaseId);
+        if (phase) {
+          const phaseTouchpointIds = phase.touchpoints.map(t => t.id);
+          setSelectedTouchpoints(current =>
+            current.filter(tp => !phaseTouchpointIds.includes(tp))
+          );
+          // Also clear sub-touchpoints
+          const phaseSubTouchpointIds = phase.touchpoints
+            .flatMap(t => t.subTouchpoints || [])
+            .map(st => st.id);
+          setSelectedSubTouchpoints(current =>
+            current.filter(st => !phaseSubTouchpointIds.includes(st))
+          );
+        }
+        return [...prev, phaseId];
+      }
     });
-
-    return generateRecommendations(discoveryData, industryId, serviceType);
-  }, [selectedTouchpoints, industryId, serviceType]);
-
-  // Calculate depth recommendation
-  const depthRecommendation = useMemo(() => {
-    return calculateDepthRecommendation(selectedTouchpoints);
-  }, [selectedTouchpoints]);
+  };
 
   // Filter journey phases based on business context answers
+  // NOTE: This must be defined BEFORE isPhaseReviewed and recommendationResult which depend on it
   const filteredJourneyPhases = useMemo(() => {
     // Only filter once all context questions are answered
     const allAnswered = hasPhysicalVenue !== null && hasOnlinePresence !== null;
@@ -201,6 +217,42 @@ export function DiscoveryModule({
     });
   }, [hasPhysicalVenue, hasOnlinePresence]);
 
+  // Check if a phase has been reviewed (has selections OR marked as N/A)
+  const isPhaseReviewed = (phaseId: string): boolean => {
+    if (notApplicablePhases.includes(phaseId)) return true;
+    const phase = filteredJourneyPhases.find(p => p.id === phaseId);
+    if (!phase) return true; // Phase not shown, considered reviewed
+    return phase.touchpoints.some(t => selectedTouchpoints.includes(t.id));
+  };
+
+  // Calculate recommendations using the recommendation engine
+  const recommendationResult = useMemo(() => {
+    // Check if all phases are marked as N/A (user explicitly said nothing applies)
+    const allPhasesNA = filteredJourneyPhases.length > 0 &&
+      filteredJourneyPhases.every(phase => notApplicablePhases.includes(phase.id));
+
+    const discoveryData: DiscoveryData = {
+      selectedTouchpoints,
+      selectedSubTouchpoints,
+      responses: {},
+      notApplicablePhases,
+      // Mark as explicitly completed if all phases are N/A (user went through flow)
+      explicitlyCompleted: allPhasesNA,
+    };
+
+    // Treat all selected touchpoints as "yes" responses
+    selectedTouchpoints.forEach(tp => {
+      discoveryData.responses![tp] = 'yes';
+    });
+
+    return generateRecommendations(discoveryData, industryId, serviceType);
+  }, [selectedTouchpoints, selectedSubTouchpoints, notApplicablePhases, filteredJourneyPhases, industryId, serviceType]);
+
+  // Calculate depth recommendation
+  const depthRecommendation = useMemo(() => {
+    return calculateDepthRecommendation(selectedTouchpoints);
+  }, [selectedTouchpoints]);
+
   // Initialize custom module selection when entering recommendation step
   useEffect(() => {
     // Only initialize once when transitioning to recommendation step for fresh discovery
@@ -236,6 +288,7 @@ export function DiscoveryModule({
       onComplete({
         selectedTouchpoints,
         selectedSubTouchpoints,
+        notApplicablePhases,
         recommendedModules: moduleCodes,
         recommendedDepth: depthRecommendation.recommendedDepth,
         recommendationResult,
@@ -515,6 +568,8 @@ export function DiscoveryModule({
                     isLast={index === filteredJourneyPhases.length - 1}
                     bgColorClass={phase.bgColorClass}
                     useOnlineLabels={useOnlineLabels}
+                    isNotApplicable={notApplicablePhases.includes(phase.id)}
+                    onToggleNotApplicable={() => togglePhaseNotApplicable(phase.id)}
                   />
                 );
               })}
@@ -530,11 +585,13 @@ export function DiscoveryModule({
                   className="btn-continue"
                   onClick={handleContinue}
                   disabled={
-                    selectedTouchpoints.length === 0 ||
+                    // All business context questions must be answered
                     hasPhysicalVenue === null ||
                     hasOnlinePresence === null ||
                     servesPublicCustomers === null ||
-                    hasOnlineServices === null
+                    hasOnlineServices === null ||
+                    // All journey phases must be reviewed (selected OR marked N/A)
+                    !filteredJourneyPhases.every(phase => isPhaseReviewed(phase.id))
                   }
                 >
                   Continue →
@@ -725,6 +782,25 @@ export function DiscoveryModule({
                                   <span className="tile-badge">Recommended</span>
                                 )}
                               </div>
+                              <button
+                                className="tile-learn-more"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setModuleDetailId(module.id);
+                                }}
+                                type="button"
+                              >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                                  <circle cx="12" cy="12" r="10" />
+                                  <path d="M12 16v-4M12 8h.01" />
+                                </svg>
+                                <span className="learn-more-text">
+                                  Learn more about <strong>{module.name}</strong>
+                                </span>
+                                <svg className="learn-more-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                                  <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                              </button>
                             </div>
                           </div>
                         );
@@ -741,7 +817,7 @@ export function DiscoveryModule({
                 className="btn-toggle-modules"
                 onClick={() => setShowAllModules(!showAllModules)}
               >
-                {showAllModules ? '− Show fewer modules' : '+ Show all available modules'}
+                {showAllModules ? '− Show recommended modules' : '+ Show all available modules'}
               </button>
               <p className="toggle-hint">
                 {showAllModules
@@ -778,6 +854,16 @@ export function DiscoveryModule({
               </p>
             </div>
           </div>
+        )}
+
+        {/* Module Detail Modal */}
+        {moduleDetailId && (
+          <ModuleDetailModal
+            moduleId={moduleDetailId}
+            isSelected={customSelectedModules.includes(moduleDetailId)}
+            onClose={() => setModuleDetailId(null)}
+            onToggleSelect={toggleModuleSelection}
+          />
         )}
       </div>
     </div>

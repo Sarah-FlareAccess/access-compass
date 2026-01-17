@@ -464,7 +464,7 @@ export function MediaAnalysisInput({
                     <div key={uploadedFile.id} className="uploaded-file-card">
                       {uploadedFile.preview ? (
                         <div className="file-preview">
-                          <img src={uploadedFile.preview} alt="Preview" />
+                          <img src={uploadedFile.preview} alt={`Preview of ${uploadedFile.file.name}`} />
                         </div>
                       ) : (
                         <div className="file-preview file-preview-doc">

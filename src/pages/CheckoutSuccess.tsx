@@ -91,7 +91,7 @@ export default function CheckoutSuccess() {
 
         {/* What's included */}
         <div className="whats-next">
-          <h3>What's next?</h3>
+          <h2>What's next?</h2>
           <ul>
             <li>
               <span className="check">✓</span>
