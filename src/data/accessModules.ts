@@ -76,7 +76,7 @@ export const accessModules: AccessModule[] = [
     description: 'How you share accessibility information before customers visit',
     group: 'before-arrival',
     estimatedTime: 12,
-    estimatedTimeDeepDive: 18,
+    estimatedTimeDeepDive: 25,
     icon: 'ℹ️',
     questions: [
       // ============================================
@@ -92,6 +92,18 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Some info on our website but not comprehensive' or 'We mention parking but not entrances or toilets'",
+        helpContent: {
+          summary: 'Pre-visit accessibility information helps customers with disability decide if your venue will work for them and plan their visit with confidence.',
+          tips: [
+            'Include practical details: parking, entrance access, toilets, seating options, and any steps or barriers',
+            'Describe the sensory environment: typical noise levels, lighting, crowds at different times',
+            'Be specific rather than vague - "step-free entrance via side door" is more useful than "accessible"',
+            'Mention what you CAN offer, not just what you cannot - focus on solutions',
+            'Include photos of entrances, accessible toilets, and paths where possible',
+            'State any limitations honestly - customers prefer to know in advance rather than discover barriers on arrival',
+            'Consider creating a dedicated accessibility page that is easy to find from your homepage or footer navigation',
+          ],
+        },
       },
       {
         id: 'B1-F-2A',
@@ -102,14 +114,27 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         options: [
-          { id: 'not-sure-content', label: "We're not sure what information to include" },
-          { id: 'worried-wrong', label: "We're worried about getting it wrong" },
-          { id: 'inconsistent', label: "Our access features aren't consistent" },
-          { id: 'hard-to-update', label: 'Our website or platforms are hard to update' },
-          { id: 'never-asked', label: "We've never been asked before" },
-          { id: 'other', label: 'Other / Not sure' },
+          { id: 'not-sure-content', label: "We're not sure what information to include", sentiment: 'neutral' },
+          { id: 'worried-wrong', label: "We're worried about getting it wrong", sentiment: 'neutral' },
+          { id: 'inconsistent', label: "Our access features aren't consistent", sentiment: 'neutral' },
+          { id: 'hard-to-update', label: 'Our website or platforms are hard to update', sentiment: 'neutral' },
+          { id: 'never-asked', label: "We've never been asked before", sentiment: 'neutral' },
+          { id: 'other', label: 'Other / Not sure', sentiment: 'neutral' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['no', 'unable-to-check'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['no', 'partially', 'unable-to-check'] },
+        // This question identifies barriers, not strengths
+        summaryBehavior: 'action-planning',
+        helpContent: {
+          summary: 'These barriers are common and can be addressed. Understanding what is stopping you helps identify practical next steps.',
+          tips: [
+            'Not sure what to include? Start with the basics: parking, entrance access, toilets, and how to contact you with questions',
+            'Worried about getting it wrong? Honest, evolving information is better than none - you can update as you learn more',
+            'Inconsistent access features? Describe what IS available and note any limitations - customers appreciate honesty',
+            'Hard to update your website? Consider adding key accessibility info to your booking confirmation emails or printed materials while you work on website updates',
+            'Never been asked before? Most customers with disability research venues online rather than calling - without this information, they may simply move on to the next business rather than contact you',
+            'Start small: even a few sentences about your entrance and toilets is more helpful than nothing',
+          ],
+        },
       },
       {
         id: 'B1-F-3A',
@@ -120,14 +145,26 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         options: [
-          { id: 'website', label: 'Website' },
-          { id: 'booking-platform', label: 'Booking platform' },
-          { id: 'social-media', label: 'Social media' },
-          { id: 'email-responses', label: 'Email responses' },
-          { id: 'on-request', label: 'On request only' },
-          { id: 'not-sure', label: 'Not sure yet' },
+          { id: 'website', label: 'Website', sentiment: 'positive' },
+          { id: 'booking-platform', label: 'Booking platform', sentiment: 'positive' },
+          { id: 'social-media', label: 'Social media', sentiment: 'positive' },
+          { id: 'email-responses', label: 'Email responses', sentiment: 'neutral' },
+          { id: 'on-request', label: 'On request only', sentiment: 'neutral' },
+          { id: 'not-sure', label: 'Not sure yet', sentiment: 'neutral' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['no', 'unable-to-check'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['no', 'partially', 'unable-to-check'] },
+        // This question is for planning next steps, not acknowledging strengths
+        summaryBehavior: 'action-planning',
+        helpContent: {
+          summary: 'Choose the platform that is easiest to update and most likely to reach your customers. You can expand to other channels later.',
+          tips: [
+            'Website: Best for detailed information - consider a dedicated accessibility page or section on your About/Visit Us page',
+            'Booking platform: Reaches customers at the decision point - add an accessibility notes field within the booking flow',
+            'Social media: Good for quick updates - use pinned posts or story highlights to keep info visible',
+            'Email responses: Create a standard paragraph about accessibility to include when customers enquire',
+            'Start with ONE channel and do it well, rather than trying to update everywhere at once',
+          ],
+        },
       },
       // ============================================
       // CONTENT & DEPTH
@@ -141,17 +178,29 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         options: [
-          { id: 'physical-access', label: 'Physical access (parking, entrances, toilets, seating)' },
-          { id: 'what-to-expect', label: 'What to expect during a visit (layout, queues, timing)' },
-          { id: 'sensory', label: 'Sensory considerations (noise, lighting, temperature, busy vs quieter times)' },
-          { id: 'communication', label: 'Communication support (hearing loops, visual info, QR code)' },
-          { id: 'equipment-resources', label: 'Equipment and resources available (sensory kits, sensory maps, wheelchair hire, quiet spaces)' },
-          { id: 'companion', label: 'Companion or support information' },
-          { id: 'peak-times', label: 'Peak periods or quieter times' },
-          { id: 'social-story', label: 'Social story / visual narrative' },
-          { id: 'other', label: 'Other / Not sure' },
+          { id: 'physical-access', label: 'Physical access (parking, entrances, toilets, seating)', sentiment: 'positive' },
+          { id: 'what-to-expect', label: 'What to expect during a visit (layout, queues, timing)', sentiment: 'positive' },
+          { id: 'sensory', label: 'Sensory considerations (noise, lighting, temperature, busy vs quieter times)', sentiment: 'positive' },
+          { id: 'communication', label: 'Communication support (hearing loops, visual info, QR code)', sentiment: 'positive' },
+          { id: 'equipment-resources', label: 'Equipment and resources available (sensory kits, sensory maps, wheelchair hire, quiet spaces)', sentiment: 'positive' },
+          { id: 'companion', label: 'Companion or support information', sentiment: 'positive' },
+          { id: 'peak-times', label: 'Peak periods or quieter times', sentiment: 'positive' },
+          { id: 'social-story', label: 'Social story / visual narrative', sentiment: 'positive' },
+          { id: 'other', label: 'Other / Not sure', sentiment: 'neutral' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
+        helpContent: {
+          summary: 'Different customers need different types of information. This helps identify what you already cover and where gaps might exist.',
+          tips: [
+            'Physical access: The most commonly sought information - parking, entrance steps/ramps, toilet location and features, seating options',
+            'What to expect: Helps reduce anxiety - typical visit flow, queue lengths, busy periods, how long things take',
+            'Sensory info: Valuable for autistic visitors and those with sensory sensitivities - noise levels, lighting, temperature, crowds',
+            'Communication support: Hearing loops, visual displays, QR codes for digital menus, staff who know Auslan',
+            'Equipment available: Wheelchairs for loan, sensory kits, large print materials, magnifying glasses',
+            'Social stories: Visual guides showing what a visit looks like step-by-step - particularly valued by autistic visitors and families',
+            'You do not need to cover everything - focus on what is most relevant to your venue and customer base',
+          ],
+        },
       },
       {
         id: 'B1-D-2a',
@@ -162,11 +211,11 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         options: [
-          { id: 'measurements', label: 'Measurements (door widths, gradients)' },
-          { id: 'photos', label: 'Photos of entrances and toilets' },
-          { id: 'step-free-routes', label: 'Step-free route descriptions' },
-          { id: 'limitations', label: 'Notes about limitations or constraints' },
-          { id: 'none', label: 'None of these' },
+          { id: 'measurements', label: 'Measurements (door widths, gradients)', sentiment: 'positive' },
+          { id: 'photos', label: 'Photos of entrances and toilets', sentiment: 'positive' },
+          { id: 'step-free-routes', label: 'Step-free route descriptions', sentiment: 'positive' },
+          { id: 'limitations', label: 'Notes about limitations or constraints', sentiment: 'positive' },
+          { id: 'none', label: 'None of these', sentiment: 'negative' },
         ],
         showWhen: { questionId: 'B1-F-2B', answers: ['physical-access'] },
       },
@@ -179,12 +228,12 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         options: [
-          { id: 'queuing', label: 'Queuing and waiting expectations' },
-          { id: 'noise', label: 'Noise levels at different times' },
-          { id: 'lighting', label: 'Lighting conditions and changes' },
-          { id: 'crowds', label: 'Crowd density at peak and quiet times' },
-          { id: 'staff-interactions', label: 'Staff interactions and what to expect' },
-          { id: 'none', label: 'None of these' },
+          { id: 'queuing', label: 'Queuing and waiting expectations', sentiment: 'positive' },
+          { id: 'noise', label: 'Noise levels at different times', sentiment: 'positive' },
+          { id: 'lighting', label: 'Lighting conditions and changes', sentiment: 'positive' },
+          { id: 'crowds', label: 'Crowd density at peak and quiet times', sentiment: 'positive' },
+          { id: 'staff-interactions', label: 'Staff interactions and what to expect', sentiment: 'positive' },
+          { id: 'none', label: 'None of these', sentiment: 'negative' },
         ],
         showWhen: { questionId: 'B1-F-2B', answers: ['what-to-expect'] },
       },
@@ -194,53 +243,115 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B1-D-1a',
         text: 'Where is your accessibility information published?',
-        helpText: 'Select all that apply. Understanding where your information lives helps identify whether customers can find it easily, and whether it\'s consistent across platforms.\n\nNote: Accessibility information buried in FAQs or general information pages can be difficult for customers to find. A dedicated, clearly labelled accessibility page is easier to locate and signals that accessibility matters to your organisation.',
+        helpText: 'Select all that apply. A dedicated accessibility page is easiest for customers to find.',
         type: 'multi-select',
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Where customers can find your accessibility information affects whether they find it at all.',
+          tips: [
+            'Dedicated page: Easiest to find, shows accessibility is a priority',
+            'Footer link: Common location customers look for accessibility info',
+            'Booking platforms: Reaches customers at decision point, but you don\'t control updates',
+            'PDFs: Can be inaccessible to screen readers - web content is preferred',
+            'Social media only: Posts get buried - not a reliable long-term solution',
+          ],
+        },
         options: [
-          { id: 'dedicated-page', label: 'Dedicated accessibility page' },
-          { id: 'scattered', label: 'Scattered across multiple pages' },
-          { id: 'faqs', label: 'Within FAQs or general information' },
-          { id: 'pdfs', label: 'PDFs or downloadable documents' },
-          { id: 'third-party', label: 'Third-party platforms (Google, booking sites)' },
-          { id: 'social-only', label: 'Social media only' },
-          { id: 'other', label: 'Other' },
+          {
+            id: 'dedicated-page',
+            label: 'Dedicated accessibility page',
+            sentiment: 'positive',
+          },
+          {
+            id: 'scattered',
+            label: 'Scattered across multiple pages',
+            sentiment: 'neutral',
+            recommendation: 'Consider consolidating your accessibility information into a single, dedicated page. Scattered information is harder for customers to find and more difficult to keep consistent and up to date.',
+          },
+          {
+            id: 'faqs',
+            label: 'Within FAQs or general information',
+            sentiment: 'neutral',
+            recommendation: 'Accessibility information buried in FAQs can be difficult for customers to find. Consider creating a dedicated accessibility page that is clearly labelled and easy to locate from your main navigation or footer.',
+          },
+          {
+            id: 'pdfs',
+            label: 'PDFs or downloadable documents',
+            sentiment: 'neutral',
+            recommendation: 'PDFs can be inaccessible to screen reader users and are harder to keep updated. Consider publishing key accessibility information as web content, with PDFs available as a supplementary download.',
+          },
+          {
+            id: 'third-party',
+            label: 'Third-party platforms (Google, booking sites)',
+            sentiment: 'positive',
+            recommendation: 'Third-party platforms help customers find you where they search. Ensure this information is also on your own website so you control the details and can keep it current.',
+          },
+          {
+            id: 'social-only',
+            label: 'Social media only',
+            sentiment: 'neutral',
+            recommendation: 'Social media posts can be hard to find and get buried over time. Consider adding a permanent accessibility page to your website where customers can always find current information.',
+          },
+          {
+            id: 'other',
+            label: 'Other',
+            sentiment: 'neutral',
+          },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
       },
       {
         id: 'B1-D-1b',
         text: 'How easy is it to find your accessibility information from your homepage?',
-        helpText: 'This measures findability, which is one of the most common real-world failures in accessibility information. Even well-written content has limited value if customers cannot locate it.',
+        helpText: 'Try it yourself: starting from your homepage, how many clicks does it take to reach your accessibility information?',
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Findability is one of the most common accessibility failures. You might have excellent information, but it has no value if customers can\'t locate it when they need it. Many people give up if they can\'t find answers quickly.',
+          tips: [
+            'One click from homepage is ideal: A clear link in your main navigation, footer, or prominently on your homepage means customers find it immediately. Labels like "Accessibility", "Access Info", or "Accessible Visit" work well.',
+            'Two to three clicks is acceptable: Information placed within logical sections like "Visit Us", "Plan Your Trip", "About Us", or "Customer Support" can still be found, but make sure the path is intuitive.',
+            'Hard to locate is a problem: If your info is buried in FAQs, hidden in PDFs, requires using site search, or uses unclear labels like "Additional Information", many customers will never find it.',
+            'Test on mobile devices: Navigation often collapses into hamburger menus on phones. What\'s one click on desktop might be three clicks on mobile. Check that your accessibility info is still easy to reach.',
+            'Ask someone unfamiliar with your site to find your accessibility info - time how long it takes and note where they get stuck.',
+          ],
+        },
         options: [
           { id: 'one-click', label: 'One click' },
           { id: 'two-three-clicks', label: 'Two to three clicks' },
           { id: 'hard-to-locate', label: 'Hard to locate or requires searching' },
           { id: 'not-sure', label: 'Not sure' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
       },
       {
         id: 'B1-D-1c',
         text: 'Is this information written primarily for customers or for compliance?',
-        helpText: 'Customer-focused information helps people make decisions and plan visits. Compliance-focused information often uses technical language and may not answer the questions customers actually have.\n\nThe most useful accessibility information does both: it meets obligations while genuinely helping people understand what to expect.',
+        helpText: 'Customer-focused: Answers practical questions like "Can I get in?", "What should I expect?". Compliance-focused: Uses technical or legal language, may not address what customers actually need to know.',
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'The best accessibility information helps customers decide if your experience works for them - whether that\'s a physical venue, online service, or event.',
+          tips: [
+            'Customer-focused: "Our entrance has 2 steps. A portable ramp is available on request."',
+            'Compliance-focused: "This venue complies with AS1428.1 requirements."',
+            'Customers want to know: Can I participate in this experience? For physical venues: Can I get in? Where do I park? Are there toilets I can use? For online services: Will this work with my screen reader? Are videos captioned? Can I get help if I get stuck? For events: Will there be Auslan interpreters? Is there accessible seating? Are there quiet spaces?',
+            'Both can work together - meet your obligations while being genuinely helpful to customers',
+          ],
+        },
         options: [
           { id: 'customers', label: 'Primarily for customers' },
           { id: 'compliance', label: 'Primarily for compliance' },
           { id: 'mix', label: 'A mix of both' },
           { id: 'not-sure', label: 'Not sure' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
       },
       // ============================================
       // ACCURACY & MAINTENANCE
@@ -258,16 +369,35 @@ export const accessModules: AccessModule[] = [
           { id: 'not-very-confident', label: 'Not very confident' },
           { id: 'not-sure', label: 'Not sure' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
+        helpContent: {
+          summary: 'Accurate information builds trust. Outdated information can lead to poor experiences when customers arrive expecting features that have changed.',
+          tips: [
+            'Information should be reviewed whenever something changes - renovations, new equipment, changed procedures',
+            'Set a reminder to review accessibility information at least every 6 months',
+            'Ask front-line staff if they have received questions that suggest information is unclear or outdated',
+            'If you are not confident, schedule a walkthrough to verify what you have published',
+            'It is better to remove outdated information than leave it online - customers may plan based on old details',
+          ],
+        },
       },
       {
         id: 'B1-D-3a',
         text: 'When was your accessibility information last reviewed or updated?',
-        helpText: 'Regular review helps ensure information stays accurate as your venue, services, or staff change. Outdated information can lead to poor experiences and erode trust.',
+        helpText: 'Regular review helps ensure information stays accurate as your venue, services, or staff change.',
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Outdated information leads to poor experiences when customers arrive expecting something different.',
+          tips: [
+            'Review after any renovations, new equipment, or changed procedures',
+            'Set a calendar reminder to check every 6 months',
+            'Ask front-line staff what questions customers are asking - this reveals gaps',
+            'Better to remove outdated info than leave it up',
+          ],
+        },
         options: [
           { id: 'within-6-months', label: 'Within the last 6 months' },
           { id: '6-12-months', label: '6 to 12 months ago' },
@@ -285,11 +415,11 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         options: [
-          { id: 'site-inspection', label: 'A site inspection or walkthrough' },
-          { id: 'staff-review', label: 'Staff knowledge review' },
-          { id: 'customer-feedback', label: 'Customer feedback' },
-          { id: 'consultant', label: 'An access consultant audit' },
-          { id: 'not-checked', label: 'Not checked' },
+          { id: 'site-inspection', label: 'A site inspection or walkthrough', sentiment: 'positive' },
+          { id: 'staff-review', label: 'Staff knowledge review', sentiment: 'positive' },
+          { id: 'customer-feedback', label: 'Customer feedback', sentiment: 'positive' },
+          { id: 'consultant', label: 'An access consultant audit', sentiment: 'positive' },
+          { id: 'not-checked', label: 'Not checked', sentiment: 'negative' },
         ],
         showWhen: { questionId: 'B1-F-3B', answers: ['somewhat-confident', 'not-very-confident', 'not-sure'] },
       },
@@ -299,23 +429,32 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B1-D-9',
         text: 'Is your accessibility information consistent across all platforms?',
-        helpText: 'Inconsistent information creates confusion and erodes trust.\n\nCheck whether information matches across:\n• Your website\n• Booking platforms\n• Google Business Profile and third-party listings\n• Printed materials and signage\n\nDiscrepancies often occur when information is updated in one place but not others.',
+        helpText: 'Compare your website, booking platforms, Google Business Profile, and printed materials. Do they all say the same thing?',
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Inconsistent information confuses customers and erodes trust.',
+          tips: [
+            'Check: website, booking platforms, Google Business Profile, printed brochures',
+            'Common problem: updating one place but forgetting others',
+            'Tip: Keep a master document and update all platforms from it',
+            'Consider who can update each platform - do they all have access?',
+          ],
+        },
         options: [
           { id: 'consistent', label: 'Yes - consistent everywhere' },
           { id: 'mostly', label: 'Mostly consistent' },
           { id: 'inconsistent', label: 'No - known inconsistencies' },
           { id: 'not-checked', label: 'Not sure - haven\'t checked' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
       },
       {
         id: 'B1-D-10',
         text: 'Do you clearly state limitations or barriers that still exist?',
-        helpText: 'Negative disclosure builds trust and helps customers make informed decisions.\n\nHonest statements like \'Our upper floor is not accessible by lift\' or \'Background noise can be high during peak times\' are more useful than silence.\n\nCustomers would rather know about limitations in advance than discover them on arrival.',
+        helpText: 'Customers prefer knowing limitations upfront rather than discovering them on arrival.',
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
@@ -326,12 +465,23 @@ export const accessModules: AccessModule[] = [
           { id: 'positives-only', label: 'No - we only highlight positives' },
           { id: 'not-sure', label: 'Not sure' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
+        helpContent: {
+          summary: 'Honest communication about limitations builds trust and prevents frustrating surprises. Customers plan better when they know what to expect.',
+          tips: [
+            'Physical barriers: "Our upper floor has no lift access", "Entrance has 2 steps"',
+            'Sensory environment: "Background noise can be high at peak times", "Lighting is dim in restaurant area"',
+            'Service limitations: "Auslan interpreter available by appointment only"',
+            'Temporary issues: "Accessible toilet currently out of order - nearest alternative is..."',
+            'Frame positively but honestly: "Step-free access via side entrance" not just hiding there are steps at front',
+            'Update promptly when things change or issues are fixed',
+          ],
+        },
       },
       {
         id: 'B1-D-11',
         text: 'Do you invite feedback about the accuracy of your accessibility information?',
-        helpText: 'Customers often notice things that internal reviews miss.\n\nThis creates a feedback loop that keeps information accurate over time.',
+        helpText: 'Customers often spot things internal reviews miss.',
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
@@ -342,12 +492,23 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No' },
           { id: 'not-sure', label: 'Not sure' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
+        helpContent: {
+          summary: 'People with disability are experts in their own needs. Inviting feedback shows you value their input and helps keep information accurate.',
+          tips: [
+            'Add a simple prompt: "Notice something that needs updating? Let us know"',
+            'Include on your accessibility page and in contact options',
+            'Respond to feedback promptly - even if you can\'t fix it immediately',
+            'Thank people who report issues - they\'re helping you improve',
+            'Track feedback to identify patterns and priorities',
+            'Close the loop: let people know when their feedback has led to changes',
+          ],
+        },
       },
       {
         id: 'B1-D-12',
         text: 'Who is responsible for maintaining your accessibility information?',
-        helpText: 'Clear ownership helps ensure information stays current.\n\nWhen no one is responsible, information often becomes outdated without anyone noticing.',
+        helpText: 'Without a clear owner, information often becomes outdated without anyone noticing.',
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
@@ -358,7 +519,18 @@ export const accessModules: AccessModule[] = [
           { id: 'no-owner', label: 'No clear owner' },
           { id: 'not-sure', label: 'Not sure' },
         ],
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
+        helpContent: {
+          summary: 'Clear ownership ensures information stays accurate. Without someone responsible, updates get missed and information becomes unreliable.',
+          tips: [
+            'Named owner: One person accountable means nothing falls through the cracks',
+            'Include in role description or KPIs so it\'s recognised as real work',
+            'If shared: document who handles what to avoid gaps and duplication',
+            'Set regular review reminders - quarterly is a good starting point',
+            'Create a checklist of what to review: website, booking platforms, printed materials',
+            'Assign a backup person for when the primary owner is unavailable',
+          ],
+        },
       },
       // ============================================
       // LINK REVIEW
@@ -366,23 +538,50 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B1-F-4',
         text: 'Would you like us to review a link to your accessibility information to help identify gaps and opportunities?',
-        helpText: 'This review is indicative only and based on publicly available information. It does not verify accuracy or confirm compliance.',
-        type: 'yes-no-unsure',
+        helpText: 'We can provide an indicative review based on publicly available information. This does not verify accuracy or confirm compliance.',
+        type: 'single-select',
         category: 'information',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
-        showWhen: { questionId: 'B1-F-1', answers: ['yes'] },
-        partialPlaceholder: "E.g., 'Happy for some pages to be reviewed but not all' or 'Only want main accessibility page checked'",
+        options: [
+          { id: 'yes', label: 'Yes please' },
+          { id: 'no', label: 'No thanks' },
+          { id: 'later', label: 'Maybe later' },
+        ],
+        showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
+        helpContent: {
+          summary: 'Our AI-assisted review can quickly identify common gaps in accessibility information and suggest improvements.',
+          tips: [
+            'We\'ll check for: completeness, clarity, and findability',
+            'Common gaps we identify: missing transport info, vague descriptions, hard-to-find pages',
+            'Review is indicative only - we can\'t verify on-the-ground accuracy',
+            'Results appear in your report with specific suggestions',
+            'You can also upload a screenshot if your info isn\'t publicly available',
+          ],
+        },
       },
       {
         id: 'B1-F-4-link',
-        text: 'Paste the link where your accessibility information is shared',
-        helpText: 'This review is indicative only and based on publicly available information. It does not verify accuracy or confirm compliance.',
+        text: 'Share a link to your accessibility information, or upload a screenshot or document',
+        helpText: 'Paste a URL, or upload a screenshot/PDF if your info isn\'t publicly available online.',
         type: 'url-analysis',
         category: 'evidence',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B1-F-4', answers: ['yes'] },
+        supportsEvidence: true,
+        evidenceTypes: ['photo', 'document'],
+        evidenceHint: 'Upload a screenshot or document if you prefer',
+        helpContent: {
+          summary: 'Share where customers currently find your accessibility information so we can review it.',
+          tips: [
+            'Best option: Direct link to your dedicated accessibility page',
+            'If info is spread across pages, share the main one - we\'ll note if consolidation would help',
+            'Booking platform info: share a link to your listing if that\'s where info lives',
+            'PDF or screenshot: useful if your info isn\'t publicly accessible online',
+            'Internal documents: upload if you want feedback on draft content before publishing',
+          ],
+        },
       },
       // ============================================
       // CONTACT CHANNELS
@@ -401,6 +600,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
           { id: 'no', label: 'No' },
         ],
+        helpContent: {
+          summary: 'Multiple contact options ensure customers with different needs and preferences can reach you. Phone-only contact excludes Deaf customers and those who prefer written communication.',
+          tips: [
+            'Phone: Good for complex questions, but not accessible to everyone - should not be the only option',
+            'Email: Allows detailed responses and gives customers a record to refer back to',
+            'Contact form: Works well if monitored regularly - include an accessibility-specific field or checkbox',
+            'Social media messaging: Many customers check social media first - ensure DMs are monitored',
+            'Live chat: Good for quick questions if you have the capacity to staff it',
+            'Ensure all contact methods are clearly displayed and actually monitored - a listed email that takes a week to respond is not helpful',
+          ],
+        },
       },
       {
         id: 'B1-D-5a',
@@ -465,6 +675,17 @@ export const accessModules: AccessModule[] = [
           { id: 'never-checked', label: 'Not sure - we\'ve never checked this' },
           { id: 'not-tested', label: 'No - we haven\'t tested this yet' },
         ],
+        helpContent: {
+          summary: 'Testing reveals barriers that may be invisible to you but block customers from reaching you.',
+          tips: [
+            'Email: Can customers easily find your address? Do you reply in accessible formats (plain text option, no image-only content)?',
+            'Phone: Is there a text-based alternative (SMS, email, relay service info) for people who are Deaf or hard of hearing?',
+            'Contact forms: Test with keyboard only (no mouse) and check all fields have visible labels',
+            'Live chat/chatbots: Do they work with screen readers? Is there enough time before timeout? Can users pause?',
+            'Ask customers: People with disability who\'ve contacted you can tell you what worked and what didn\'t',
+            'No issues raised ≠ no issues: Many people simply give up rather than report barriers',
+          ],
+        },
       },
       {
         id: 'B1-D-5e',
@@ -475,12 +696,12 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         options: [
-          { id: 'contact-forms', label: 'Website contact forms' },
-          { id: 'booking-forms', label: 'Booking or enquiry forms' },
-          { id: 'email', label: 'Email responses and attachments' },
-          { id: 'mobile', label: 'Mobile experience' },
-          { id: 'confirmations', label: 'Confirmation emails or follow-up communications' },
-          { id: 'none', label: 'None / not sure' },
+          { id: 'contact-forms', label: 'Website contact forms', sentiment: 'positive' },
+          { id: 'booking-forms', label: 'Booking or enquiry forms', sentiment: 'positive' },
+          { id: 'email', label: 'Email responses and attachments', sentiment: 'positive' },
+          { id: 'mobile', label: 'Mobile experience', sentiment: 'positive' },
+          { id: 'confirmations', label: 'Confirmation emails or follow-up communications', sentiment: 'positive' },
+          { id: 'none', label: 'None / not sure', sentiment: 'negative' },
         ],
         showWhen: { questionId: 'B1-D-5d', answers: ['tested-confident', 'tested-some', 'not-tested-no-issues'] },
       },
@@ -514,6 +735,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
           { id: 'no', label: 'No' },
         ],
+        helpContent: {
+          summary: 'Staff confidence in responding to accessibility questions directly affects customer experience. Uncertainty or awkwardness can make customers feel unwelcome.',
+          tips: [
+            'Common questions to prepare for: parking, entrance access, toilets, seating options, noise levels, companion policies',
+            'Staff should know where to find accessibility information quickly if they do not know the answer',
+            'It is okay to say "I\'m not sure, let me find out" - customers appreciate honesty over guessing',
+            'Brief all staff, not just front-line - anyone might receive an enquiry',
+            'Consider creating a simple one-page reference sheet with key accessibility info and common questions',
+            'Role-play accessibility enquiries in team meetings to build confidence',
+          ],
+        },
       },
       {
         id: 'B1-D-6a',
@@ -575,6 +807,18 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        helpContent: {
+          summary: 'Familiarisation visits help people become comfortable with your venue before their main visit. This is especially valuable for autistic visitors, people with anxiety, or those with cognitive disabilities.',
+          tips: [
+            'Offer visits at quieter times when staff can provide one-on-one attention',
+            'Allow visitors to explore at their own pace without pressure to book or commit',
+            'Introduce key staff members they might interact with during their actual visit',
+            'Point out important features: toilets, quiet spaces, exits, seating areas',
+            'Virtual options work well too: video walkthroughs, photo galleries, virtual tours',
+            'Social stories (step-by-step visual guides) can be created at low cost and shared online',
+            'Even a 15-minute informal visit can significantly reduce anxiety for some customers',
+          ],
+        },
         options: [
           { id: 'yes-offered', label: 'Yes, we offer this' },
           { id: 'on-request', label: 'Available on request' },
@@ -593,14 +837,16 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         options: [
-          { id: 'time', label: 'Time or scheduling constraints' },
-          { id: 'staffing', label: 'Staffing availability' },
-          { id: 'awareness', label: 'Lack of awareness or established process' },
-          { id: 'demand', label: 'Unclear demand or customer interest' },
-          { id: 'liability', label: 'Liability or safety concerns' },
-          { id: 'other', label: 'Other' },
+          { id: 'time', label: 'Time or scheduling constraints', sentiment: 'neutral' },
+          { id: 'staffing', label: 'Staffing availability', sentiment: 'neutral' },
+          { id: 'awareness', label: 'Lack of awareness or established process', sentiment: 'neutral' },
+          { id: 'demand', label: 'Unclear demand or customer interest', sentiment: 'neutral' },
+          { id: 'liability', label: 'Liability or safety concerns', sentiment: 'neutral' },
+          { id: 'other', label: 'Other', sentiment: 'neutral' },
         ],
         showWhen: { questionId: 'B1-F-7', answers: ['considering', 'no'] },
+        // This question identifies barriers, not strengths
+        summaryBehavior: 'action-planning',
       },
       {
         id: 'B1-D-7b',
@@ -611,12 +857,12 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         options: [
-          { id: 'website', label: 'Mentioned on website' },
-          { id: 'booking', label: 'Included in booking communications' },
-          { id: 'enquiry', label: 'Offered when customers enquire' },
-          { id: 'staff-offer', label: 'Staff know to offer when relevant' },
-          { id: 'not-communicated', label: 'Not actively communicated' },
-          { id: 'other', label: 'Other' },
+          { id: 'website', label: 'Mentioned on website', sentiment: 'positive' },
+          { id: 'booking', label: 'Included in booking communications', sentiment: 'positive' },
+          { id: 'enquiry', label: 'Offered when customers enquire', sentiment: 'positive' },
+          { id: 'staff-offer', label: 'Staff know to offer when relevant', sentiment: 'positive' },
+          { id: 'not-communicated', label: 'Not actively communicated', sentiment: 'negative' },
+          { id: 'other', label: 'Other', sentiment: 'neutral' },
         ],
         showWhen: { questionId: 'B1-F-7', answers: ['yes-offered', 'on-request', 'virtual-only'] },
       },
@@ -632,11 +878,21 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Parking info available but not public transport options' or 'Directions provided but not accessibility-specific details'",
+        helpContent: {
+          summary: 'Getting to your venue is the first step of the visit. Without transport info, some customers can\'t plan their journey at all.',
+          tips: [
+            'Include accessible parking: Location, dimensions, surface type, distance to entrance',
+            'Public transport: Nearest accessible stop, which services have low-floor access, distance and terrain to your door',
+            'Drop-off zones: Is there a safe place for taxis or carers to drop passengers close to the entrance?',
+            'Walking route: Note slopes, steps, uneven surfaces, or obstacles between transport and your entrance',
+            'Link to external resources: Councils and transport authorities often have accessibility maps you can reference',
+          ],
+        },
       },
       {
         id: 'B1-D-8a',
         text: 'Is your transport information specific to accessibility needs?',
-        helpText: 'Generic directions are less useful than accessibility-specific guidance.\n\nTransport information that stops at \'nearest bus stop\' may not address real planning needs.',
+        helpText: '"Nearest bus stop" is generic. "Bus stop 50m away, level footpath, no kerb cuts" is accessibility-specific.',
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
@@ -648,11 +904,22 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: 'B1-F-8', answers: ['yes'] },
+        helpContent: {
+          summary: 'Generic transport info doesn\'t help people with mobility needs plan their journey. They need specifics.',
+          tips: [
+            'Generic: "Nearest bus stop is 200m away"',
+            'Accessibility-specific: "Bus stop 200m away on Smith St. Level footpath, no kerb cuts needed, shelter with seating available"',
+            'Parking: Include bay dimensions, surface type, clearance space, proximity to entrance',
+            'Public transport: Note which stops are wheelchair accessible, if vehicles have low-floor entry',
+            'Walking route: Mention gradients, steps, surfaces, rest spots, lighting',
+            'Real-world check: Walk the route yourself noting what would matter to someone with mobility or vision needs',
+          ],
+        },
       },
       {
         id: 'B1-D-8b',
         text: 'Does your transport information describe the \'last 50 metres\' of the journey?',
-        helpText: 'The final approach to your venue is often where visits fail. This might include:\n\n• Distance from drop-off or parking to entrance\n• Surface conditions (gravel, slopes, uneven ground)\n• Whether the path is under cover\n• Any level changes or obstacles\n• Where to go if the main entrance isn\'t accessible\n\nThis detail helps customers complete their journey confidently.',
+        helpText: 'The final stretch from parking/transport to your door is often the hardest part to navigate.',
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
@@ -664,6 +931,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: 'B1-F-8', answers: ['yes'] },
+        helpContent: {
+          summary: 'The "last 50 metres" from transport to your entrance is often where accessibility breaks down. Describing this helps people know what to expect.',
+          tips: [
+            'From car park: "30m on flat concrete to main entrance. Small lip at door - use side entrance for step-free."',
+            'From bus stop: "Cross at traffic lights (audible signals), then 50m on paved footpath. Look for blue accessible entry sign."',
+            'Note hazards: uneven surfaces, steep gradients, narrow paths, overhead obstacles',
+            'Mention helpful features: handrails, rest spots, clear sightlines, tactile indicators',
+            'Include alternatives: "If the ramp is too steep, ring the bell for assistance or enter via loading dock"',
+            'Photos or maps can help - a picture of the accessible entrance is worth many words',
+          ],
+        },
       },
     ],
   },
@@ -676,7 +954,7 @@ export const accessModules: AccessModule[] = [
     description: 'Basic accessibility of your website for all visitors',
     group: 'before-arrival',
     estimatedTime: 15,
-    estimatedTimeDeepDive: 25,
+    estimatedTimeDeepDive: 40,
     icon: '🌐',
     questions: [
       // ============================================
@@ -748,6 +1026,7 @@ export const accessModules: AccessModule[] = [
             'Good focus indicators use a clear outline, background change, or border',
             'The focus should be visible on ALL interactive elements, not just some',
             'Some sites accidentally hide focus with CSS like "outline: none"',
+            'Focus indicators must meet accessibility requirements too: at least 3:1 contrast ratio against adjacent colours, and clearly visible against the background',
             'This is often a quick win - a small CSS change can fix it site-wide',
           ],
         },
@@ -779,7 +1058,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B4.1-1-2a',
         text: 'How consistently is alt text added to images?',
-        helpText: 'This helps us understand whether alt text is part of your regular content process or happens inconsistently.',
+        helpText: 'Alt text needs to be added to each image individually - it\'s not a one-time setup. Consistency matters because screen reader users encounter every image, and missing alt text leaves gaps in their experience.',
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
@@ -791,11 +1070,21 @@ export const accessModules: AccessModule[] = [
           { id: 'rarely', label: 'Rarely added or not sure' },
         ],
         showWhen: { questionId: 'B4.1-1-2', answers: ['yes', 'partially'] },
+        helpContent: {
+          summary: 'Alt text should be part of your regular content workflow, not an afterthought. Inconsistent alt text means some images are invisible to screen reader users.',
+          tips: [
+            'Build it into your process: Add alt text at the same time as uploading images, not later',
+            'Auto-generated alt text (AI-based) is improving but still needs human review - it often misses context or describes irrelevant details',
+            'If your CMS has a mandatory alt text field, use it - don\'t just type a space or "image" to bypass it',
+            'Decorative images (purely visual with no information) should have empty alt text (alt="") so screen readers skip them',
+            'Check historical content: Old pages may have missing alt text that was never added',
+          ],
+        },
       },
       {
         id: 'B4.1-1-2b',
         text: 'Who typically adds alt text to images?',
-        helpText: 'Knowing who handles alt text helps identify where training or process improvements might help.',
+        helpText: 'The person uploading images is usually best placed to add alt text - they know the context and purpose of the image.',
         type: 'single-select',
         category: 'operational',
         impactLevel: 'low',
@@ -807,6 +1096,16 @@ export const accessModules: AccessModule[] = [
           { id: 'no-one', label: 'No one specifically / not sure' },
         ],
         showWhen: { questionId: 'B4.1-1-2', answers: ['yes', 'partially'] },
+        helpContent: {
+          summary: 'Knowing who handles alt text helps identify where training or process improvements are needed.',
+          tips: [
+            'Content editors are often best placed - they understand the context and purpose of each image',
+            'Marketing teams may focus on brand messaging but miss accessibility context - ensure they understand alt text isn\'t just keywords for SEO',
+            'External agencies need clear briefs: include alt text requirements in your content specifications',
+            'If no one owns it, it won\'t get done consistently - assign responsibility to whoever uploads images',
+            'Consider brief training: 15 minutes on writing good alt text can make a significant difference',
+          ],
+        },
       },
       // ============================================
       // CONTRAST AND READABILITY
@@ -839,7 +1138,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B4.1-1-3a',
         text: 'Has your website contrast been formally measured or audited?',
-        helpText: 'While the contrast checker linked above helps test individual colours, a full contrast audit checks your entire website systematically. This is typically done during website development, as part of an accessibility audit, or when updating your site design.\n\nThis helps us understand if contrast has been verified objectively or is based on visual impression only.',
+        helpText: 'A formal audit systematically checks all colour combinations across your site, not just the ones that look obviously problematic.',
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
@@ -851,11 +1150,21 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No, never formally measured' },
         ],
         showWhen: { questionId: 'B4.1-1-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        helpContent: {
+          summary: 'Formal testing uses tools to objectively measure contrast ratios, rather than relying on visual judgement which can miss issues.',
+          tips: [
+            'Automated tools (WAVE, axe, Lighthouse) can scan entire pages and flag contrast issues - useful for quick audits',
+            'Manual checking with a contrast checker (WebAIM, Colour Contrast Analyser) is needed for images and complex backgrounds',
+            'Re-check after design updates: new colours, fonts, or layouts can introduce contrast problems',
+            'If your site was built more than 2-3 years ago, contrast standards may have changed - worth re-checking',
+            'Designer\'s eye isn\'t enough: something can look fine to someone with normal vision but be unreadable for people with low vision',
+          ],
+        },
       },
       {
         id: 'B4.1-1-3b',
         text: 'Are there areas where text sits on images or coloured backgrounds?',
-        helpText: 'Text over images or gradient backgrounds often has contrast problems because the background varies. These areas are common sources of readability issues.',
+        helpText: 'Text over images is one of the most common contrast failures - backgrounds vary across an image, making consistent readability difficult.',
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
@@ -867,6 +1176,16 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: 'B4.1-1-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        helpContent: {
+          summary: 'Text over photos, gradients, or coloured backgrounds is a common accessibility problem. The varying background makes consistent contrast difficult to achieve.',
+          tips: [
+            'Hero banners with text over photos: Add a semi-transparent overlay behind the text to ensure consistent contrast',
+            'Gradient backgrounds: Check contrast at both ends of the gradient, not just the middle',
+            'User-uploaded images (like blog featured images): Use a solid colour text box rather than text directly on the image',
+            'Consider: Would this text be readable if the image failed to load? If not, the contrast may be too dependent on specific image areas',
+            'Alternative approach: Place text beside images rather than over them',
+          ],
+        },
       },
       // ============================================
       // TEXT RESIZING
@@ -950,7 +1269,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B4.1-1-5a',
         text: 'What have you tested on mobile devices?',
-        helpText: 'Different tasks may work differently on mobile. Knowing what has been tested helps identify potential gaps.',
+        helpText: 'Select all tasks you\'ve actually tried on a real phone or tablet. Desktop testing doesn\'t catch mobile-specific issues.',
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'medium',
@@ -963,11 +1282,21 @@ export const accessModules: AccessModule[] = [
           { id: 'not-tested', label: 'Have not specifically tested on mobile' },
         ],
         showWhen: { questionId: 'B4.1-1-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        helpContent: {
+          summary: 'Over half of web traffic is mobile. Testing on actual devices reveals issues that desktop browser resizing misses.',
+          tips: [
+            'Reading content: Check text size is readable without zooming, line lengths aren\'t too wide, and scrolling is smooth',
+            'Navigation menus: Hamburger menus should be easy to open, items easy to tap, and submenus workable',
+            'Forms and bookings: Date pickers, dropdowns, and input fields often behave differently on mobile - test the full flow',
+            'Accessibility info: This is often hidden on mobile - check your accessibility page is findable and readable',
+            'Don\'t just resize your browser: Actual phones have touch interactions, different font rendering, and real-world conditions',
+          ],
+        },
       },
       {
         id: 'B4.1-1-5b',
         text: 'Which device types have been used to test your website?',
-        helpText: 'Different devices can behave differently. Testing on both major platforms helps ensure broad compatibility.',
+        helpText: 'Select all device types anyone on your team has tested on. iPhone and Android can behave quite differently.',
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'low',
@@ -979,6 +1308,16 @@ export const accessModules: AccessModule[] = [
           { id: 'not-tested', label: 'Not specifically tested' },
         ],
         showWhen: { questionId: 'B4.1-1-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        helpContent: {
+          summary: 'iPhone and Android have different browsers, screen sizes, and accessibility features. Testing on both catches platform-specific issues.',
+          tips: [
+            'iPhone: Safari renders differently to Chrome. VoiceOver (screen reader) is built in - try it on your site',
+            'Android: Huge variety of screen sizes and browsers. Chrome is most common but Samsung Browser is widely used',
+            'Tablets: Layout often sits between mobile and desktop - check navigation and forms work at this size',
+            'Test on mid-range devices if possible: Not everyone has the latest flagship phone with a fast processor',
+            'Borrow devices if needed: Ask colleagues or use a device testing service to cover platforms you don\'t own',
+          ],
+        },
       },
       {
         id: 'B4.1-1-5c',
@@ -1006,7 +1345,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B4.1-1-6',
         text: 'Does your website include video or audio content?',
-        helpText: 'This includes promotional videos, virtual tours, instructional content, podcasts, or any embedded media with sound or moving images.\n\nSelect "Yes" if you have any video or audio content on your website, even if it is just one video.',
+        helpText: 'This includes any video or audio: promotional videos, virtual tours, how-to guides, podcasts, or embedded social media content with sound.',
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
@@ -1016,6 +1355,16 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No video or audio content' },
           { id: 'not-sure', label: 'Not sure' },
         ],
+        helpContent: {
+          summary: 'Video and audio content needs captions and transcripts to be accessible to people who are deaf, hard of hearing, or prefer to read.',
+          tips: [
+            'Count embedded content: YouTube videos, Instagram reels, podcast players, and background videos all count',
+            'Virtual tours: 360° tours and walkthrough videos need audio descriptions of what\'s being shown',
+            'Auto-playing video: If it plays automatically, ensure there\'s an obvious way to pause it and that it doesn\'t have sound by default',
+            'Even one video matters: A single inaccessible promo video can exclude people from key information about your business',
+            'Social media embeds: Content from Instagram, TikTok, or YouTube still needs to meet accessibility standards on your site',
+          ],
+        },
       },
       {
         id: 'B4.1-1-6a',
@@ -1203,7 +1552,7 @@ export const accessModules: AccessModule[] = [
     description: 'End-to-end accessibility of your booking and ticketing process, including payments and flexibility',
     group: 'before-arrival',
     estimatedTime: 12,
-    estimatedTimeDeepDive: 25,
+    estimatedTimeDeepDive: 35,
     icon: '📝',
     questions: [
       // ============================================
@@ -1821,7 +2170,7 @@ export const accessModules: AccessModule[] = [
     description: 'Accessibility of your social media presence, video content, and audio materials',
     group: 'before-arrival',
     estimatedTime: 12,
-    estimatedTimeDeepDive: 30,
+    estimatedTimeDeepDive: 40,
     icon: '🎬',
     questions: [
       // ============================================
@@ -2641,7 +2990,7 @@ export const accessModules: AccessModule[] = [
             'Diverse disabilities: Include mobility, vision, hearing, and cognitive disabilities - not just wheelchair users',
             'Authentic representation: Use real customers or authentic stock photography',
             'Avoid inspiration narratives: Don\'t frame disability as something to "overcome"',
-            'Stock resources: Disability:IN, Getty Disability Collection offer authentic imagery',
+            'Stock resources: Getty Disability Collection and The Disability Collection (Australian) offer authentic imagery',
           ],
         },
       },
@@ -2669,7 +3018,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B6-PC-3',
         text: 'Are your marketing materials (brochures, flyers, advertisements) accessible?',
-        helpText: 'Marketing materials should be accessible to people with different access needs:\n\n• Good colour contrast\n• Readable font sizes\n• Alt text for digital images\n• Available in alternative formats on request\n• Clear, simple language',
+        helpText: 'Consider contrast, font sizes, alt text for digital images, and whether alternative formats are available.',
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
@@ -2683,6 +3032,7 @@ export const accessModules: AccessModule[] = [
             'Font choice: Sans-serif fonts (Arial, Helvetica) are generally easier to read',
             'Alt text: Add descriptions to images in digital marketing',
             'PDF accessibility: Use tagged PDFs with proper reading order',
+            'Alternative formats: Offer large print, Easy Read, or digital versions alongside standard materials',
             'Test: Use accessibility checkers for digital materials',
           ],
         },
@@ -2727,12 +3077,12 @@ export const accessModules: AccessModule[] = [
         helpContent: {
           summary: 'Authentic imagery from real customers or inclusive sources is more impactful than generic stock photos.',
           tips: [
-            'Real customers: Ask satisfied customers if they would be willing to be featured',
-            'Disability:IN stock: Free inclusive stock photography',
+            'Real customers: Ask satisfied customers if they would be willing to be featured (always get written permission)',
             'Getty Disability Collection: Authentic representation in stock imagery',
             'The Disability Collection: Australian disability-led imagery',
-            'Commission: Budget for inclusive photo shoots',
+            'Commission: Budget for inclusive photo shoots featuring real people in natural situations',
             'User-generated: Encourage customers to share their experiences (with permission to repost)',
+            'Avoid: Inspiration porn, people "overcoming" disability, or images that feel staged or pitying',
           ],
         },
       },
@@ -2741,59 +3091,69 @@ export const accessModules: AccessModule[] = [
       // DEEP DIVE QUESTIONS
       // ============================================
       {
-        id: 'B6-DD-1a',
-        text: 'Have you conducted an audit of your marketing imagery for disability representation?',
-        helpText: 'An audit involves systematically reviewing your marketing materials to assess representation.',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'medium',
-        reviewMode: 'deep-dive',
-        showWhen: { questionId: 'B6-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
-        partialPlaceholder: "E.g., 'Informal review but not documented' or 'Reviewed website but not all materials'",
-      },
-      {
-        id: 'B6-DD-1b',
-        text: 'Do you have guidelines for inclusive imagery in marketing?',
-        helpText: 'Guidelines help ensure consistent, authentic representation across all marketing materials.',
-        type: 'yes-no-unsure',
-        category: 'operational',
-        impactLevel: 'medium',
-        reviewMode: 'deep-dive',
-        showWhen: { questionId: 'B6-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
-        partialPlaceholder: "E.g., 'General diversity guidelines but not disability-specific' or 'Informal practice'",
-      },
-      {
         id: 'B6-DD-2a',
         text: 'Have people with disability reviewed your marketing materials for authentic representation?',
-        helpText: 'Consultation with people with disability helps identify stereotypes or issues that may not be apparent to others.',
+        helpText: 'Getting feedback from people with lived experience helps catch issues that others might miss - like unintentional stereotypes, tokenistic imagery, or language that feels patronising.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B6-PC-2', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Informally but not as standard practice' or 'Staff member with disability provides input'",
+        helpContent: {
+          summary: 'People with disability are best placed to identify whether representation feels authentic or tokenistic.',
+          tips: [
+            'Staff with disability: If you have team members with disability, ask if they would be willing to provide input (don\'t assume or pressure)',
+            'Customer advisory: Invite regular customers with disability to review materials before publication',
+            'Paid consultation: Engage disability consultants or advocates for professional review',
+            'Focus groups: Include people with different types of disability for broader perspectives',
+            'Key questions to ask: Does this feel authentic? Would you feel welcomed? Is anything cringeworthy?',
+          ],
+        },
       },
       {
         id: 'B6-DD-3a',
         text: 'Have you tested your marketing materials for accessibility (contrast, readability)?',
-        helpText: 'Testing ensures marketing materials meet accessibility standards.',
+        helpText: 'Beyond representation, the materials themselves need to be accessible - readable text, sufficient contrast, and usable formats.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B6-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Digital materials tested but not print' or 'Used automated tools only'",
+        helpContent: {
+          summary: 'Testing catches technical accessibility issues that visual review alone misses.',
+          tips: [
+            'Contrast checkers: Use WebAIM or similar tools to verify text meets 4.5:1 ratio',
+            'PDF checkers: Adobe Acrobat\'s accessibility checker or PAC 3 for PDF documents',
+            'Digital ads: Check alt text is included on social media and web ads',
+            'Print materials: Test with people who use magnification or have low vision',
+            'Email campaigns: Send test emails to check how they render with images off',
+            'Video content: Verify captions are accurate and audio descriptions are included where needed',
+          ],
+        },
       },
       {
         id: 'B6-DD-4a',
         text: 'Have you featured accessibility in any marketing campaigns or promotions?',
-        helpText: 'Documenting past efforts helps identify opportunities for future marketing.',
+        helpText: 'Proactively marketing your accessibility shows customers you value inclusion and helps them find you.',
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B6-PC-4', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'International Day of People with Disability content' or 'Featured in accessibility guide'",
+        helpContent: {
+          summary: 'Featuring accessibility in marketing signals to customers that they are welcome and that you have thought about their needs.',
+          tips: [
+            'Awareness days: International Day of People with Disability (3 Dec), Disability Pride Month, Deaf Awareness Week',
+            'Accessibility guides: Get listed in local or industry accessibility directories',
+            'Social media: Share your accessibility features, not just on awareness days',
+            'Website: Feature accessibility prominently, not buried in footers',
+            'Testimonials: Share positive feedback from customers with disability (with permission)',
+            'Staff stories: Highlight team members with disability if they are comfortable being featured',
+          ],
+        },
       },
     ],
   },
@@ -2810,7 +3170,7 @@ export const accessModules: AccessModule[] = [
     description: 'How customers arrive at and enter your premises',
     group: 'getting-in',
     estimatedTime: 15,
-    estimatedTimeDeepDive: 25,
+    estimatedTimeDeepDive: 30,
     icon: '🅿️',
     questions: [
       // Pulse Check Questions
@@ -2824,6 +3184,16 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'We have one but it may not meet current width standards' or 'Spaces exist nearby in a shared car park'",
+        helpContent: {
+          summary: 'Accessible parking spaces are wider to allow wheelchair transfers and should be clearly marked with the International Symbol of Access.',
+          tips: [
+            'Minimum width: 2.4m bay plus 2.4m shared space (or 3.2m bay with 2.4m shared space for vans)',
+            'Must have vertical signage visible from vehicles, not just ground markings',
+            'Ground markings should include the International Symbol of Access',
+            'If you lease premises, check if building management provides accessible parking',
+            'Street parking nearby may have accessible bays - note these on your website',
+          ],
+        },
       },
       {
         id: 'A1-F-2',
@@ -2834,6 +3204,15 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Close to an entrance but not the main one' or 'Closer spaces exist but are not designated accessible'",
+        helpContent: {
+          summary: 'The closer to the entrance, the better. Distance matters for people with limited mobility or fatigue conditions.',
+          tips: [
+            'Ideally within 30 metres of the accessible entrance',
+            'Path from parking to entrance should be step-free and undercover if possible',
+            'If accessible parking is not closest, consider relocating or adding a closer space',
+            'Ensure the route from parking to entrance is clearly marked',
+          ],
+        },
       },
       {
         id: 'A1-F-3',
@@ -2844,6 +3223,15 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Drop-off possible but not clearly marked or designated' or 'Kerbside drop-off but path to entrance is not ideal'",
+        helpContent: {
+          summary: 'Drop-off zones allow companions or taxis to set people down close to the entrance, which is essential for some customers.',
+          tips: [
+            'Should be level with the footpath or have a kerb ramp nearby',
+            'Allow enough time for passengers to alight safely (no-parking enforcement)',
+            'Clearly mark drop-off areas so drivers know they can stop',
+            'Communicate drop-off options on your website for customers using taxis or ride-share',
+          ],
+        },
       },
       {
         id: 'A1-F-4',
@@ -2854,6 +3242,16 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Mostly smooth but one section has uneven pavers' or 'Level but surface is gravel rather than concrete'",
+        helpContent: {
+          summary: 'The journey from car to door matters. Rough surfaces, steps, or obstacles can make accessible parking unusable.',
+          tips: [
+            'Smooth, firm surfaces: concrete, asphalt, or pavers without lips or gaps',
+            'Avoid loose gravel, sand, or bark - these are difficult for wheels and walking aids',
+            'Check for uneven pavers, tree root damage, or potholes',
+            'Kerb ramps should align with pedestrian paths, not vehicle lanes',
+            'Clear overhanging branches that may obstruct vision or path',
+          ],
+        },
       },
       {
         id: 'A1-F-5',
@@ -2864,6 +3262,15 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Wide enough in most areas but narrower near bins or signage' or 'Wide but sometimes blocked by outdoor furniture'",
+        helpContent: {
+          summary: '1 metre clear width is the minimum. Check the actual clear space, not just the paved width.',
+          tips: [
+            'Measure between obstacles: bins, bollards, planters, A-frames, outdoor furniture',
+            'Check for temporary obstructions: delivery vehicles, rubbish bins on collection day',
+            'Wheelchairs need about 1.5m to turn, so consider wider areas at direction changes',
+            'Service animals walk alongside their handler - allow extra width',
+          ],
+        },
       },
       {
         id: 'A1-F-6',
@@ -2874,6 +3281,15 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Signage exists but is small or hard to see from the road' or 'Clearly marked in car park but not on approach'",
+        helpContent: {
+          summary: 'Good wayfinding reduces anxiety. If customers cannot find accessible parking easily, they may assume none exists.',
+          tips: [
+            'Signage should be visible from the road and car park entrance',
+            'Include accessible parking details on your website with a map or photo',
+            'Use the International Symbol of Access on all signage',
+            'Consider adding directions in booking confirmations or Google Maps listing',
+          ],
+        },
       },
       {
         id: 'A1-F-7',
@@ -2884,6 +3300,15 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some staff know but not all, especially casual staff' or 'Front desk staff know but phone staff may not'",
+        helpContent: {
+          summary: 'Customers often call ahead to ask about parking. Staff should be able to answer confidently without needing to check.',
+          tips: [
+            'Brief all staff on accessible parking location and accessible entrance',
+            'Include in induction training for new staff',
+            'Create a simple reference sheet with key accessibility info',
+            'Phone and online booking staff need this information too, not just front-of-house',
+          ],
+        },
       },
       {
         id: 'A1-F-8',
@@ -2894,6 +3319,15 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Main areas lit but path to entrance has dark spots' or 'Street lighting only, no dedicated car park lights'",
+        helpContent: {
+          summary: 'Good lighting supports safety, wayfinding, and confidence - especially important for people with low vision.',
+          tips: [
+            'Check lighting at the accessible parking bay, the path to the entrance, and the entrance itself',
+            'Walk the route at dusk or evening to identify dark spots',
+            'Motion-sensor lighting can help if 24/7 lighting is not practical',
+            'Ensure signage is also lit or reflective for visibility at night',
+          ],
+        },
       },
       // Deep Dive Questions
       {
@@ -2993,7 +3427,7 @@ export const accessModules: AccessModule[] = [
     description: 'How customers enter your building',
     group: 'getting-in',
     estimatedTime: 12,
-    estimatedTimeDeepDive: 22,
+    estimatedTimeDeepDive: 28,
     icon: '🚪',
     questions: [
       // Pulse Check Questions
@@ -3010,6 +3444,16 @@ export const accessModules: AccessModule[] = [
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo of your main entrance showing step-free access',
         partialPlaceholder: "E.g., 'Flat entrance but has a raised threshold' or 'Ramp available but not at the main entrance'",
+        helpContent: {
+          summary: 'Step-free means no steps, no raised thresholds, no level changes. Even a single step excludes many customers.',
+          tips: [
+            'Check for raised door thresholds - these are often overlooked but can block wheelchairs',
+            'Thresholds should be no more than 10mm high, with a bevelled edge',
+            'If there are steps, is there a ramp? The ramp should be at the same entrance, not around the back',
+            'Portable ramps can help temporarily but are not a permanent solution',
+            'A step-free entrance is the most important physical access feature',
+          ],
+        },
       },
       {
         id: 'A2-F-2',
@@ -3020,6 +3464,15 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Main door is wide but inner vestibule door is narrower' or 'One leaf is 850mm but both don't open easily'",
+        helpContent: {
+          summary: '850mm clear opening allows most wheelchairs to pass. Measure the actual clear opening, not the door leaf width.',
+          tips: [
+            'Measure with door fully open - check for door stops that reduce clearance',
+            'For double doors, check if both leaves open easily or if only one is typically used',
+            'Check vestibule or airlock doors too - the narrowest door in the sequence is the barrier',
+            'Standard wheelchair width is about 65-70cm, but larger powered chairs need more clearance',
+          ],
+        },
       },
       {
         id: 'A2-F-3',
@@ -3030,6 +3483,16 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Lever handles but door is heavy to push' or 'Automatic but button is hard to reach'",
+        helpContent: {
+          summary: 'Door operation is a common barrier. Heavy doors, round knobs, or complex mechanisms exclude many people.',
+          tips: [
+            'Automatic doors are best - hands-free entry for everyone',
+            'Push-button automatic doors: ensure button is at wheelchair height (900-1100mm)',
+            'Lever handles: easier than round knobs for people with limited grip strength',
+            'Door weight: should open with light pressure (about 20N or less)',
+            'Door closers: if too strong, they can push back against wheelchair users',
+          ],
+        },
       },
       {
         id: 'A2-F-4',
@@ -3040,6 +3503,15 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Visible from street but not from car park' or 'Signage exists but is small or unclear'",
+        helpContent: {
+          summary: 'First-time visitors should be able to identify the entrance without searching or asking. This reduces anxiety and confusion.',
+          tips: [
+            'Stand where visitors would arrive and check - can you clearly see where to enter?',
+            'Use signage, colour contrast, canopy, or lighting to highlight the entrance',
+            'Ensure entrance is visible from accessible parking and drop-off areas',
+            'Glass doors should have contrast markings so they are visible to people with low vision',
+          ],
+        },
       },
       {
         id: 'A2-F-5',
@@ -3050,6 +3522,16 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Sign exists but is easy to miss' or 'Directions given if asked but no permanent signage'",
+        helpContent: {
+          summary: 'If the main entrance is not accessible, alternative entrances must be clearly signposted so customers do not have to search or ask.',
+          tips: [
+            'Signage should be visible from the main entrance approach',
+            'Use the International Symbol of Access with directional arrows',
+            'Include distance or directions: "Accessible entrance 20m to left"',
+            'Alternative entrances should offer equivalent experience - not a back door or service entrance',
+            'Note: Ideally, the main entrance should be accessible so everyone uses the same entrance',
+          ],
+        },
       },
       {
         id: 'A2-F-6',
@@ -3060,6 +3542,16 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Reception staff trained but not all team members' or 'Staff willing to help but unsure of best approach'",
+        helpContent: {
+          summary: 'Staff should offer assistance respectfully and only when needed. Many people prefer to navigate independently.',
+          tips: [
+            'Ask before helping: "Would you like me to hold the door?" rather than assuming',
+            'Never touch someone\'s wheelchair or mobility aid without permission',
+            'Know where the accessible entrance is so you can give clear directions',
+            'If using an intercom or buzzer for entry, ensure staff respond promptly',
+            'Brief all staff, not just reception - anyone might be first to see a customer at the entrance',
+          ],
+        },
       },
       {
         id: 'A2-F-7',
@@ -3248,6 +3740,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Main aisles are wide but some areas narrow near displays' or 'Most paths OK but one bottleneck exists'",
+        helpContent: {
+          summary: '1 metre minimum allows most wheelchairs and mobility aids to pass. 1.2 metres is better, and 1.5 metres allows two wheelchairs to pass each other.',
+          tips: [
+            'Measure the clear width between obstacles, not wall-to-wall',
+            'Check for bottlenecks: doorways, between furniture, near displays',
+            'Standard wheelchair width is about 65-70cm, but powered chairs can be wider',
+            'Consider mobility scooters which need more turning space',
+            'Temporary items like A-frames, stock pallets, or bins can reduce effective width',
+            'Walk the main routes and note any pinch points where two people could not pass comfortably',
+          ],
+        },
       },
       {
         id: 'A3a-1-2',
@@ -3258,6 +3761,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Usually clear but displays sometimes encroach' or 'Paths clear but cables across floor in some areas'",
+        helpContent: {
+          summary: 'Obstacles and trip hazards affect everyone but pose particular risks for people with vision impairments, mobility aids, or balance difficulties.',
+          tips: [
+            'Common hazards: loose cables, floor mats with curled edges, wet floor signs left out, stock boxes, A-frames',
+            'Check regularly: paths that are clear in the morning may become cluttered during busy periods',
+            'Secure cables: use cable covers or route cables along walls, not across walkways',
+            'Mat edges: ensure mats lie flat and have bevelled edges or are recessed into the floor',
+            'Temporary displays: position away from main circulation routes',
+            'Staff awareness: include path checks in opening/closing routines',
+          ],
+        },
       },
       {
         id: 'A3a-1-3',
@@ -3268,6 +3782,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Lift available but doesn't reach all floors' or 'Ramp exists but is steep or around the back'",
+        helpContent: {
+          summary: 'Steps exclude wheelchair users and create barriers for many others. Accessible alternatives ensure everyone can reach all areas.',
+          tips: [
+            'Ramps: should have a gentle gradient (1:14 or less), handrails on both sides, and non-slip surface',
+            'Lifts: check they are large enough for wheelchairs (1.4m x 1.1m minimum) and have accessible controls',
+            'Platform lifts: useful for small level changes but should be independently operable',
+            'Signage: clearly direct people to accessible routes - do not make them search',
+            'Equivalent experience: accessible routes should reach the same destinations, not just "some" areas',
+            'If no alternative exists, note this as a priority for future planning',
+          ],
+        },
       },
       {
         id: 'A3a-1-4',
@@ -3278,6 +3803,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Main areas accessible but would need help in some sections' or 'Mostly independent but staff assistance needed for one area'",
+        helpContent: {
+          summary: 'Independence matters. Customers with disability generally prefer to navigate independently rather than rely on staff assistance.',
+          tips: [
+            'Walk through your space imagining you are using a wheelchair or walker',
+            'Can you reach everything you need: counters, products, toilets, exits?',
+            'Are doors easy to open or do they require two hands or significant force?',
+            'Is signage at eye level for someone seated in a wheelchair?',
+            'Would you need to ask for help at any point?',
+            'If staff assistance is sometimes needed, ensure staff are trained to offer help respectfully',
+          ],
+        },
       },
       // Media Analysis Questions
       {
@@ -3326,6 +3862,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Some seating nearby but not directly in queue area' or 'Seats available but limited number'",
+        helpContent: {
+          summary: 'Many conditions cause difficulty standing for extended periods, including chronic pain, fatigue conditions, heart conditions, and pregnancy. Seating removes a barrier to participation.',
+          tips: [
+            'Even 2-3 seats in a queue area makes a significant difference',
+            'Ensure seats have armrests to help people lower and rise',
+            'Position seats so people do not lose their place in the queue',
+            'Consider fold-down seats if permanent seating is not possible',
+            'Train staff to offer seats proactively to anyone who appears to need one',
+            'Hidden disabilities: do not assume only visible disabilities need seating',
+          ],
+        },
       },
       {
         id: 'A3b-1-2',
@@ -3375,6 +3922,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Variety in main area but not in waiting zone' or 'Some chairs have arms but heights are all standard'",
+        helpContent: {
+          summary: 'Seating variety accommodates different body sizes, mobility needs, and physical conditions.',
+          tips: [
+            'Chairs with arms: Help people with balance issues or limited strength stand up and sit down safely',
+            'Armless chairs: Easier for some larger people or those who need to transfer from a wheelchair',
+            'Higher seats: Easier for people with hip or knee conditions to stand from',
+            'Lower seats: Preferred by some shorter people or those using crutches',
+            'Firm seating: Easier to get up from than soft, sinking cushions',
+            'Consider adding 2-3 different seat types in waiting areas and dining spaces',
+          ],
+        },
       },
       {
         id: 'A4-1-2',
@@ -3385,6 +3943,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Space available in some areas but not all' or 'Furniture can be moved but space is tight'",
+        helpContent: {
+          summary: 'Integrated seating allows wheelchair users to socialise alongside companions rather than being separated.',
+          tips: [
+            'Create spaces at tables where a chair can be removed to make room for a wheelchair',
+            'Aim for at least 900mm clear space beside seating for wheelchair positioning',
+            'Avoid "wheelchair only" zones that separate people from their companions',
+            'Removable chairs are ideal - can quickly create wheelchair space when needed',
+            'Consider multiple locations so wheelchair users have choice of where to sit',
+            'At events, offer companion seating next to wheelchair spaces, not behind or in front',
+          ],
+        },
       },
       {
         id: 'A4-1-3',
@@ -3395,6 +3964,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some tables are accessible but main counter is high' or 'Staff can serve at table but no low counter section'",
+        helpContent: {
+          summary: 'Accessible height tables and counters enable wheelchair users to dine, transact, and participate independently.',
+          tips: [
+            'Accessible table height: 750-850mm high with at least 700mm knee clearance underneath',
+            'Knee space: Minimum 800mm wide, 480mm deep under the surface',
+            'Counter with lowered section: Not all counters need to be low, but at least one transaction point should be accessible',
+            'Pedestal tables: Often work better than 4-legged tables as they provide more knee clearance',
+            'If tables cannot be modified, train staff to offer tableside service as an alternative',
+            'High cocktail tables: Ensure some standard height options are also available',
+          ],
+        },
       },
       {
         id: 'A4-1-4',
@@ -3405,6 +3985,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some furniture is fixed but chairs can move' or 'Staff can rearrange but requires effort'",
+        helpContent: {
+          summary: 'Flexible furniture arrangements allow your space to adapt to different access needs as they arise.',
+          tips: [
+            'Lightweight movable chairs are easier to rearrange quickly',
+            'Reserve a few extra chairs that can be removed to make wheelchair space',
+            'Train staff to proactively offer to rearrange furniture for customers',
+            'Clear pathways: Even if furniture is fixed, keep paths between tables at least 900mm wide',
+            'Service animals: Need floor space beside their handler - usually under tables works well',
+            'Large groups: Ability to push tables together helps include wheelchair users in group dining',
+          ],
+        },
       },
     ],
   },
@@ -3417,7 +4008,7 @@ export const accessModules: AccessModule[] = [
     description: 'Accessible toilet and amenity facilities',
     group: 'during-visit',
     estimatedTime: 15,
-    estimatedTimeDeepDive: 22,
+    estimatedTimeDeepDive: 30,
     icon: '🚻',
     questions: [
       {
@@ -3435,6 +4026,17 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No' },
           { id: 'not-sure', label: 'Not sure' },
         ],
+        helpContent: {
+          summary: 'Accessible toilets are often the deciding factor in whether someone can visit your venue at all.',
+          tips: [
+            'An accessible toilet is larger than standard, with grab rails, space for wheelchair turning, and appropriate fittings',
+            'Key features: Wide door (min 850mm), clear floor space (min 2000mm x 1600mm), grab rails, accessible height pan',
+            'If you don\'t have one on-site, know the nearest location and be ready to share this with customers',
+            'Check the National Public Toilet Map (toiletmap.gov.au) to find nearby accessible facilities',
+            'Even if your toilet meets minimum standards, consider whether it\'s truly usable or just technically compliant',
+            'Many people need accessible toilets beyond wheelchair users - parents with prams, older people, those with hidden disabilities',
+          ],
+        },
       },
       {
         id: 'A5-1-2',
@@ -3446,6 +4048,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-1-1', answers: ['no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Some staff know but not all' or 'Know the general location but not sure of access features'",
+        helpContent: {
+          summary: 'Even if you don\'t have an accessible toilet on-site, knowing and sharing the nearest location is valuable customer service.',
+          tips: [
+            'Check the National Public Toilet Map (toiletmap.gov.au) for your area',
+            'Visit the nearest location yourself to confirm it\'s suitable and note access features',
+            'Create simple directions staff can share: "Turn left out of our door, 50 metres to the shopping centre"',
+            'Add this information to your website accessibility section',
+            'Include walking distance/time and any barriers on the route',
+            'Consider offering to hold bags or shopping while customers visit nearby facilities',
+          ],
+        },
       },
       {
         id: 'A5-1-3',
@@ -3460,6 +4073,17 @@ export const accessModules: AccessModule[] = [
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo of your accessible toilet signage',
         partialPlaceholder: "E.g., 'Sign on door but not visible from main area' or 'Small sign that can be missed'",
+        helpContent: {
+          summary: 'Good signage allows customers to find the accessible toilet independently without needing to ask.',
+          tips: [
+            'Use the International Symbol of Access (ISA) - the wheelchair symbol - for clear recognition',
+            'Place directional signs at key decision points, not just on the door',
+            'Signs should be visible at standing AND seated eye height',
+            'Consider tactile signage and Braille for people with vision impairment',
+            'Contrasting colours help signs stand out from the wall',
+            'Include accessible toilet on any wayfinding maps or directories in your venue',
+          ],
+        },
       },
       {
         id: 'A5-1-4',
@@ -3471,6 +4095,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-1-1', answers: ['yes', 'yes-offsite'] },
         partialPlaceholder: "E.g., 'Usually clear but sometimes has cleaning supplies stored' or 'Clear but bin takes up floor space'",
+        helpContent: {
+          summary: 'Storage and clutter in accessible toilets can make them unusable for the people who need them.',
+          tips: [
+            'Common issues: mops, buckets, cleaning supplies, spare chairs, event equipment',
+            'Clear floor space is essential for wheelchair users to manoeuvre and transfer',
+            'Bins should be positioned to not block grab rails or movement space',
+            'Make regular checks part of staff routines - especially before opening and after events',
+            'Find alternative storage for items that tend to accumulate in the accessible toilet',
+            'Remember: if someone cannot use the accessible toilet due to clutter, they may have to leave',
+          ],
+        },
       },
       {
         id: 'A5-1-5',
@@ -3483,6 +4118,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         showWhen: { questionId: 'A5-1-1', answers: ['yes', 'yes-offsite'] },
         partialPlaceholder: "E.g., 'Alarm exists but not sure if it's connected or monitored' or 'Cord present but may not reach floor level'",
+        helpContent: {
+          summary: 'Emergency alarms are a safety essential - someone may fall or have a medical episode and need to call for help.',
+          tips: [
+            'Alarm cord should reach to floor level so someone who has fallen can reach it',
+            'Test the alarm regularly - ensure staff know where the alert sounds and how to respond',
+            'Keep cord untied and hanging freely - never coil or tie it up high',
+            'Staff should know to knock and call out before entering when alarm sounds',
+            'Consider adding "pull for help" signage near the alarm',
+            'If alarm is not working, treat as high priority to repair',
+          ],
+        },
       },
     ],
   },
@@ -3495,7 +4141,7 @@ export const accessModules: AccessModule[] = [
     description: 'Sensory aspects of your environment',
     group: 'during-visit',
     estimatedTime: 12,
-    estimatedTimeDeepDive: 18,
+    estimatedTimeDeepDive: 25,
     icon: '💡',
     questions: [
       {
@@ -3508,6 +4154,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Good in main areas but darker corners exist' or 'Varies throughout the day with natural light'",
+        helpContent: {
+          summary: 'Good lighting helps everyone see clearly, navigate safely, and reduces fatigue - especially important for people with low vision.',
+          tips: [
+            'Even lighting is better than high contrast between bright spots and dark shadows',
+            'Avoid glare from unshaded windows or reflective surfaces',
+            'Check lighting at different times of day - natural light changes significantly',
+            'Entry and transition areas often need more light as eyes adjust',
+            'Counter and transaction areas need good lighting for reading and signing documents',
+            'Free lux meter apps can give a rough indication of lighting levels',
+          ],
+        },
       },
       {
         id: 'A6-1-2',
@@ -3518,6 +4175,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Quieter areas exist but not designated' or 'Staff can offer a space on request but not always available'",
+        helpContent: {
+          summary: 'Quiet spaces allow people to regulate and recover from sensory overload - essential for many neurodivergent visitors.',
+          tips: [
+            'A quiet space can be simple: a corner with seating away from main activity, a meeting room that can be used on request',
+            'Ideally: low lighting, minimal decoration, comfortable seating, away from loudspeakers or crowds',
+            'Make the location known: mention on your accessibility page, include in staff training',
+            'Train staff to offer the space proactively if someone seems overwhelmed',
+            'A "reset space" doesn\'t need to be dedicated - even temporarily offering a back office or storage room can help',
+            'Consider having a sign or indicator when the space is in use to protect privacy',
+          ],
+        },
       },
       {
         id: 'A6-1-3',
@@ -3528,6 +4196,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Usually fine but noisy at peak times' or 'OK in main area but acoustics echo in some spaces'",
+        helpContent: {
+          summary: 'Manageable background noise helps everyone communicate, but is essential for people with hearing loss or auditory processing differences.',
+          tips: [
+            'Music volume: Can two people have a normal conversation? If they need to shout, it\'s too loud',
+            'Hard surfaces (tiles, concrete, glass) create echoes - soft furnishings, carpet, acoustic panels help',
+            'Check noise levels at different times - peak periods are often much louder',
+            'Service counters should be in quieter areas or have acoustic screening',
+            'Staff should be trained to move to quieter spots for detailed conversations',
+            'Consider having a quieter area for customers who need it',
+          ],
+        },
       },
       {
         id: 'A6-1-4',
@@ -3539,6 +4218,17 @@ export const accessModules: AccessModule[] = [
         safetyRelated: true,
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Occasional alarms but warnings given' or 'Some flashing elements during events only'",
+        helpContent: {
+          summary: 'Flashing lights can trigger seizures in people with photosensitive epilepsy. Sudden noises can cause distress for many people with sensory sensitivities.',
+          tips: [
+            'Strobe lights: Should flash no faster than 3 times per second to reduce seizure risk',
+            'Provide warnings: Signage at entry if flashing lights or loud effects are used',
+            'Fire alarms: Consider adding visual alerts for deaf visitors, but warn about loud noise for others',
+            'Sudden announcements: Give a gentle chime or visual cue before loud PA announcements',
+            'Events with effects: Publish content warnings and offer "relaxed" performances where possible',
+            'Train staff: Know how to respond if someone has a seizure or sensory overload',
+          ],
+        },
       },
       {
         id: 'A6-1-5',
@@ -3549,6 +4239,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Air con available but can be uneven' or 'Comfortable most times but affected by weather extremes'",
+        helpContent: {
+          summary: 'Temperature regulation can be difficult for people with certain conditions - having options helps everyone stay comfortable.',
+          tips: [
+            'Some people have conditions affecting temperature regulation: MS, spinal injuries, diabetes, and more',
+            'Offer seating options: near windows for warmth, away from air conditioning vents for those who feel cold',
+            'Have blankets available if your space runs cold',
+            'Outdoor areas: Ensure shade and water are available in hot weather',
+            'Staff should respond to temperature concerns without judgment',
+            'If temperature cannot be controlled, let customers know in advance so they can dress appropriately',
+          ],
+        },
       },
       {
         id: 'A6-1-6',
@@ -3559,6 +4260,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Have some items but not a formal kit' or 'Available on request but not advertised'",
+        helpContent: {
+          summary: 'Sensory kits are low-cost supports that can make the difference between a successful visit and an overwhelming one.',
+          tips: [
+            'Start simple: Ear plugs, noise-reducing headphones, and fidget toys cover many needs',
+            'Sunglasses: Helpful for light sensitivity and can reduce visual overload',
+            'Communication cards: Picture symbols or key phrases help non-verbal visitors',
+            'Weighted lap pad: Provides calming sensory input for anxiety',
+            'Keep kits clean and sanitised between uses',
+            'Advertise availability on your website and train staff to offer them proactively',
+          ],
+        },
       },
       {
         id: 'A6-1-7',
@@ -3575,6 +4287,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-applicable', label: 'Not applicable to our service' },
           { id: 'no', label: 'No' },
         ],
+        helpContent: {
+          summary: 'Relaxed sessions open your venue to people who cannot visit during regular operating conditions.',
+          tips: [
+            'Relaxed session adjustments: Lower music/no music, dimmed or natural lighting, reduced crowds, no sudden announcements',
+            'Typically offered early morning or during quiet periods when adjustments are easier',
+            'Promote tolerance: Other visitors understand the session is for people who need a calmer environment',
+            'Train staff to be patient with different behaviours - stimming, verbal expressions, movement',
+            'Create a social story or visual guide so visitors know what to expect',
+            'Start with one session per month to test demand before expanding',
+          ],
+        },
       },
       {
         id: 'A6-1-8',
@@ -3591,6 +4314,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
           { id: 'no', label: 'No' },
         ],
+        helpContent: {
+          summary: 'Hearing loops and assisted listening devices help people with hearing aids participate fully in your venue.',
+          tips: [
+            'Hearing loops are the most common solution in Australia - they work with T-coil enabled hearing aids',
+            'Look for the hearing loop symbol (an ear with a T) - this should be displayed where loops are installed',
+            'Test your loop regularly - they can stop working without anyone noticing',
+            'Train staff to know where loops are installed and how to direct customers',
+            'Counter loops: Portable options for reception desks are relatively affordable',
+            'If you have a PA system, you may be legally required to have hearing augmentation under the Access to Premises Standard',
+          ],
+        },
       },
       // Media Analysis Questions
       {
@@ -3635,6 +4369,17 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No' },
           { id: 'not-sure', label: 'Not sure' },
         ],
+        helpContent: {
+          summary: 'Equipment and resources can extend your accessibility beyond your built environment and make visits possible for more people.',
+          tips: [
+            'Start with high-impact, low-cost items: sensory kits, portable seating, magnifying glasses',
+            'Wheelchairs for loan: Even one wheelchair helps people who can walk short distances but not your whole venue',
+            'Portable stools: Helpful for people who tire quickly or need to rest during queues',
+            'Large print materials: Menus, brochures, price lists in 18pt+ font',
+            'Consider what customers most commonly ask for - that\'s where to start',
+            'Equipment doesn\'t need to be expensive - basic items can make a big difference',
+          ],
+        },
       },
       {
         id: 'A6a-F-2',
@@ -3651,6 +4396,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: 'A6a-F-1', answers: ['yes-multiple', 'yes-limited'] },
+        helpContent: {
+          summary: 'Equipment you don\'t tell people about is equipment they can\'t plan to use.',
+          tips: [
+            'Add equipment list to your accessibility page',
+            'Include in booking confirmation emails: "We have wheelchairs available - let us know if you\'d like to reserve one"',
+            'Phone staff should know what\'s available and offer proactively',
+            'Photos help: Customers can see what type of wheelchair or equipment you have',
+            'Mention if items can be booked in advance vs first-come-first-served',
+            'Include any conditions: deposit required, time limits, signing-out process',
+          ],
+        },
       },
       {
         id: 'A6a-F-3',
@@ -3668,6 +4424,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: 'A6a-F-1', answers: ['yes-multiple', 'yes-limited'] },
+        helpContent: {
+          summary: 'Easy access to equipment reduces barriers and awkward moments for customers.',
+          tips: [
+            'Reception/entry is the best location for equipment - customers get it before they need it',
+            'Train all staff to know where equipment is stored and how to access it quickly',
+            'Signage: "Wheelchairs available - please ask" at entry point',
+            'Consider a simple sign-out process but don\'t make it bureaucratic',
+            'For sensory kits: Keep at a visible counter with a "Help yourself" sign',
+            'Staff should offer equipment without customers needing to ask - "Would a wheelchair be helpful for your visit today?"',
+          ],
+        },
       },
       // Deep Dive Questions
       {
@@ -3839,6 +4606,17 @@ export const accessModules: AccessModule[] = [
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload photos of your wayfinding signage',
         partialPlaceholder: "E.g., 'Main signs are clear but some older signs have poor contrast' or 'Good font sizes but decorative styling on some'",
+        helpContent: {
+          summary: 'Clear signage benefits everyone but is essential for people with low vision or cognitive differences.',
+          tips: [
+            'Contrast: Dark text on light background (or vice versa) - avoid grey on grey or similar tones',
+            'Font: Sans-serif fonts (Arial, Helvetica) are easier to read than decorative or script fonts',
+            'Size: Text should be readable from the distance people need to make decisions',
+            'Title case: "Exit This Way" is easier to read than "EXIT THIS WAY"',
+            'Keep it simple: Avoid cluttering signs with too much information',
+            'Test: Can someone with average vision read the sign from 3-4 metres away?',
+          ],
+        },
       },
       {
         id: 'B2-1-2',
@@ -3849,6 +4627,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Consistent in main building but varied in annex' or 'Heights OK but locations not always at decision points'",
+        helpContent: {
+          summary: 'Consistent sign placement means visitors know where to look - this reduces cognitive load and helps everyone.',
+          tips: [
+            'Height: Position main content between 1200-1600mm so both standing and seated people can read',
+            'Decision points: Place signs where people naturally pause - entrances, corners, lift lobbies',
+            'Same location: If room signs are always beside doors, keep it consistent throughout',
+            'Avoid obstructions: Ensure signs are not blocked by furniture, plants, or open doors',
+            'Both sides: Approach from different directions may need signs on both sides of corridors',
+            'Eye-level for wheelchair users is about 1100-1200mm - important for key navigation signs',
+          ],
+        },
       },
       {
         id: 'B2-1-3',
@@ -3859,6 +4648,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Toilets signed but lift signage is unclear' or 'Signed on the facility but not from main areas'",
+        helpContent: {
+          summary: 'Finding essential facilities independently preserves dignity - people shouldn\'t have to ask where the accessible toilet is.',
+          tips: [
+            'Use the International Symbol of Access (wheelchair symbol) - universally recognised',
+            'Directional signs: Not just on the facility, but leading TO it from main areas',
+            'Lifts: Sign from both lift lobby AND from stairs (so people know alternative exists)',
+            'Accessible toilet: Sign from reception area, not just outside the door',
+            'Include distance or direction: "Accessible toilet 20m →" is more helpful than just a symbol',
+            'Consider floor plans or maps at entry showing accessible facility locations',
+          ],
+        },
       },
       {
         id: 'B2-1-4',
@@ -3869,6 +4669,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Main areas fine but back sections confusing' or 'Navigation OK for ground floor but upper levels less clear'",
+        helpContent: {
+          summary: 'Independent navigation is the goal - if someone can find their way without asking, your wayfinding is working.',
+          tips: [
+            'Test it: Ask a friend who has never visited to find specific locations while you observe',
+            'Landmarks: Distinctive features (sculpture, coloured walls, unique furniture) help orientation',
+            'Logical layout: Reception visible from entrance, toilets near waiting areas, lifts near stairs',
+            'Sightlines: Can people see where they need to go, or are destinations hidden around corners?',
+            'Maps: A simple "you are here" map at entry can help complex spaces',
+            'Staff positioning: Having someone visible near entry helps those who do need to ask',
+          ],
+        },
       },
       // Media Analysis Questions
       {
@@ -3909,6 +4720,17 @@ export const accessModules: AccessModule[] = [
         evidenceTypes: ['photo', 'document'],
         evidenceHint: 'Upload examples of your large print materials (menus, brochures, guides)',
         partialPlaceholder: "E.g., 'Large print menu available but not brochures' or 'Can enlarge on request but no pre-made versions'",
+        helpContent: {
+          summary: 'Large print enables people with low vision to read independently - a simple change with significant impact.',
+          tips: [
+            'Minimum 18pt font (some standards say 16pt, but 18pt is more usable)',
+            'Sans-serif fonts: Arial, Verdana, or similar - avoid decorative or script fonts',
+            'High contrast: Black text on white/cream background (or vice versa)',
+            'Avoid printing on textured or patterned backgrounds',
+            'Key materials first: Menus, price lists, safety info, forms customers need to complete',
+            'Keep a few large print copies ready rather than making customers wait while you print',
+          ],
+        },
       },
       {
         id: 'B3-1-2',
@@ -3919,6 +4741,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Staff willing but not all have been briefed on this' or 'Can do when asked but don't proactively offer'",
+        helpContent: {
+          summary: 'Reading aloud is a simple accommodation that helps people with vision impairment or reading difficulties.',
+          tips: [
+            'Offer naturally: "Would you like me to read through the menu?" - don\'t wait to be asked',
+            'Read clearly and at moderate pace, pausing for questions',
+            'Describe items briefly: "The fish is grilled salmon with vegetables and mashed potato"',
+            'Offer to read prices as you go or summarise at the end',
+            'Find a quieter spot if the environment is noisy',
+            'Train all customer-facing staff to be comfortable doing this',
+          ],
+        },
       },
       {
         id: 'B3-1-3',
@@ -3929,6 +4762,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'QR code available but links to PDF that's hard to read on mobile' or 'Online menu exists but not accessible'",
+        helpContent: {
+          summary: 'Digital versions let customers use their own accessibility settings - zoom, screen readers, high contrast modes.',
+          tips: [
+            'QR codes should be large enough to scan easily (minimum 2cm x 2cm)',
+            'Link to HTML pages rather than PDFs when possible - they\'re more accessible on mobile',
+            'If using PDF, ensure it\'s properly tagged and readable by screen readers',
+            'Test with a screen reader: Does the content make sense when read aloud?',
+            'Keep print copies available too - not everyone has a smartphone or wants to use one',
+            'Update digital versions whenever menus or materials change - outdated info is frustrating',
+          ],
+        },
       },
       {
         id: 'B3-1-4',
@@ -3946,6 +4790,17 @@ export const accessModules: AccessModule[] = [
           { id: 'planning', label: 'Planning to develop' },
           { id: 'no', label: 'No' },
         ],
+        helpContent: {
+          summary: 'Easy Read and Plain English help people with cognitive disabilities and non-native English speakers access your information.',
+          tips: [
+            'Easy Read: Simple words, short sentences (5-10 words), one idea per sentence, with pictures',
+            'Plain English: Avoid jargon, use everyday words, write in active voice',
+            'Start with your most important documents: visitor guides, safety info, what to expect',
+            'Easy Read resources: Scope Australia and PWDA have guidelines',
+            'Consider hiring an Easy Read consultant for key documents',
+            'Test with actual users: Ask someone from the target audience to review drafts',
+          ],
+        },
       },
       // Media Analysis Questions
       {
@@ -3997,7 +4852,7 @@ export const accessModules: AccessModule[] = [
     description: 'How your team supports customers with different needs',
     group: 'service-support',
     estimatedTime: 15,
-    estimatedTimeDeepDive: 28,
+    estimatedTimeDeepDive: 35,
     icon: '👥',
     questions: [
       // Pulse Check Questions
@@ -4014,6 +4869,17 @@ export const accessModules: AccessModule[] = [
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload training materials or certificates, or link to your training program',
         partialPlaceholder: "E.g., 'Some staff trained but not all' or 'Covered in onboarding but no ongoing refreshers'",
+        helpContent: {
+          summary: 'Training helps staff feel confident and respond appropriately. Even basic awareness training makes a significant difference.',
+          tips: [
+            'Training does not need to be expensive - many free online resources exist',
+            'Key topics: respectful language, offering assistance, common access needs, hidden disabilities',
+            'Include training for all staff, not just customer-facing roles',
+            'Refresh regularly - one-off training is quickly forgotten',
+            'Consider inviting people with lived experience to share their perspective',
+            'Australian resources: Australian Network on Disability, Vision Australia, Deaf Australia',
+          ],
+        },
       },
       {
         id: 'C1-F-1b',
@@ -4040,6 +4906,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Know to allow entry but unsure of best practices' or 'Some staff trained but not consistent across team'",
+        helpContent: {
+          summary: 'Assistance animals are legally allowed in all public places. Staff should welcome both the customer and their animal without fuss.',
+          tips: [
+            'Do not ask to see certification - assistance animals do not require ID in Australia',
+            'Do not pat, feed, or distract the animal - it is working',
+            'Speak to the customer, not the animal',
+            'Offer a water bowl for the animal if appropriate',
+            'Assistance animals include guide dogs, hearing dogs, and other trained animals',
+            'Allow the animal to remain with the customer at all times, including dining areas',
+          ],
+        },
       },
       {
         id: 'C1-F-3',
@@ -4050,6 +4927,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Confident with some situations but unsure in others' or 'Willing but express uncertainty about best approach'",
+        helpContent: {
+          summary: 'Confidence comes from understanding and practice. Staff who feel prepared are more welcoming and less awkward.',
+          tips: [
+            'Speak directly to the customer, not their companion or support person',
+            'Be patient and allow extra time if needed',
+            'Ask the customer how they would like to communicate or be assisted',
+            'Use plain language and offer to write things down if helpful',
+            'Do not assume what someone can or cannot do based on appearance',
+            'It is okay to ask: "Is there anything I can do to make your visit easier?"',
+          ],
+        },
       },
       {
         id: 'C1-F-4',
@@ -4060,6 +4948,16 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Can contact us but no dedicated process' or 'Booking form allows notes but not accessibility-specific'",
+        helpContent: {
+          summary: 'Pre-arrival contact allows you to prepare and ensures customers feel expected and welcomed.',
+          tips: [
+            'Add an accessibility field to booking forms: "Do you have any access requirements we can support?"',
+            'Include contact details on your website for accessibility enquiries',
+            'Respond to pre-arrival requests promptly and confirm what you can provide',
+            'Brief relevant staff before the customer arrives',
+            'Even if you cannot meet all requests, honest communication builds trust',
+          ],
+        },
       },
       {
         id: 'C1-F-5',
@@ -4070,6 +4968,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Basic awareness but no formal training' or 'Some strategies known but not practiced'",
+        helpContent: {
+          summary: 'Not everyone communicates verbally. Basic awareness of different communication methods helps staff respond appropriately.',
+          tips: [
+            'Some people use communication boards, apps, or devices - allow time for these',
+            'Offer pen and paper if helpful for written communication',
+            'Face the person when speaking for lip-reading',
+            'Reduce background noise if possible for clearer conversation',
+            'Learn a few basic Auslan signs: hello, thank you, help',
+            'Do not pretend to understand - ask for clarification politely',
+          ],
+        },
       },
       {
         id: 'C1-F-6',
@@ -4080,6 +4989,16 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Know main facilities but not all' or 'Front-of-house staff know but not all team members'",
+        helpContent: {
+          summary: 'Staff should be able to confidently and accurately direct customers to accessible facilities without hesitation.',
+          tips: [
+            'All staff should know: accessible toilets, lifts, step-free entrances, seating areas',
+            'Include in induction: walk new staff through accessible routes and facilities',
+            'Create a simple reference sheet or map for staff to consult',
+            'Be specific: "The accessible toilet is through the cafe, on your left" rather than "somewhere over there"',
+            'If unsure, offer to take the customer there rather than giving vague directions',
+          ],
+        },
       },
       {
         id: 'C1-F-7',
@@ -4091,6 +5010,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
+        helpContent: {
+          summary: 'Accessibility feedback is valuable for improvement. Customers should know how to share concerns and trust they will be heard.',
+          tips: [
+            'Make feedback channels accessible: online forms, email, phone, in-person',
+            'Train staff to receive feedback without being defensive',
+            'Acknowledge complaints promptly and explain what action will be taken',
+            'Use feedback to identify patterns and prioritise improvements',
+            'Thank customers for taking the time to share their experience',
+            'Close the loop: let customers know what changed as a result of their feedback',
+          ],
+        },
         evidenceHint: 'Upload your feedback or complaints process document',
         partialPlaceholder: "E.g., 'General complaints process but not accessibility-specific' or 'Handled ad-hoc rather than formal process'",
       },
@@ -4260,6 +5190,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Can modify with some restrictions or fees' or 'Depends on booking type or timing'",
+        helpContent: {
+          summary: 'Flexible booking modification is essential - disability and health conditions can change unexpectedly.',
+          tips: [
+            'Allow changes to access requirements without rebooking from scratch',
+            'Create a process for adding support needs after initial booking',
+            'Consider waiving change fees for disability-related modifications',
+            'Keep customer notes so staff can see access requirements when changes are made',
+            'Train staff to handle modifications confidently without excessive verification',
+            'Offer phone or email modification for customers who struggle with online systems',
+          ],
+        },
       },
       {
         id: 'C2-1-2',
@@ -4270,6 +5211,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Main terminal is but not all locations' or 'Counter height may be borderline'",
+        helpContent: {
+          summary: 'Accessible payment terminals allow customers to complete transactions independently and with dignity.',
+          tips: [
+            'Height: Keypad should be reachable from wheelchair height (around 800-1000mm from floor)',
+            'Angle: Terminal should be tilted or flexible so screen and keypad are visible from different heights',
+            'Reach: Avoid terminals that require reaching across a wide counter',
+            'Privacy: PIN entry should be private regardless of where customer is positioned',
+            'Have a portable terminal as backup for difficult counter locations',
+            'Test: Sit in a chair and try to use your terminal - can you see the screen and reach the keypad?',
+          ],
+        },
       },
       {
         id: 'C2-1-3',
@@ -4280,6 +5232,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'We have portable terminals but not always available' or 'Can sometimes but depends on staffing'",
+        helpContent: {
+          summary: 'Portable terminals remove the barrier of inaccessible counter positions.',
+          tips: [
+            'Keep at least one portable terminal charged and available',
+            'Train all staff to use the portable option confidently',
+            'Offer proactively: "Would you like me to bring the terminal to you?"',
+            'Tableside payment: Great for hospitality settings - eliminates queue at counter',
+            'If your terminal can\'t be made portable, check with your provider about options',
+            'Consider contactless/tap as an easier option for some customers with dexterity issues',
+          ],
+        },
       },
       {
         id: 'C2-1-4',
@@ -4290,6 +5253,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Considered case by case but no formal policy' or 'Flexibility for some services but not all'",
+        helpContent: {
+          summary: 'Flexible cancellation policies recognise that health and disability can be unpredictable.',
+          tips: [
+            'Many conditions fluctuate day-to-day - a customer may be unable to attend on the day despite planning ahead',
+            'Consider waiving fees for disability-related cancellations',
+            'Offer credit for future visits instead of outright cancellation',
+            'Make the flexibility known: Customers are more likely to book if they know they won\'t be penalised',
+            'Train staff to handle requests with empathy rather than requiring proof',
+            'This is not just kind - it may be a reasonable adjustment under the Disability Discrimination Act',
+          ],
+        },
       },
     ],
   },
@@ -4319,6 +5293,17 @@ export const accessModules: AccessModule[] = [
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload your emergency evacuation procedures document',
         partialPlaceholder: "E.g., 'General awareness but not documented' or 'Plans exist but not recently reviewed'",
+        helpContent: {
+          summary: 'Emergency plans must include everyone - people with disability are disproportionately affected in emergencies when not planned for.',
+          tips: [
+            'Personal Emergency Evacuation Plans (PEEPs): Create individual plans for regular visitors or staff with disability',
+            'Refuge areas: Identify safe waiting areas for people who cannot use stairs',
+            'Equipment: Evacuation chairs, fire-resistant blankets, communication devices',
+            'Communication: How will you alert someone who is deaf or in an isolated area?',
+            'Regular review: Plans should be tested and updated at least annually',
+            'Consult: Ask people with disability to review your plans and identify gaps',
+          ],
+        },
       },
       {
         id: 'A7-1-2',
@@ -4330,6 +5315,17 @@ export const accessModules: AccessModule[] = [
         safetyRelated: true,
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Main exit is accessible but secondary exits have steps' or 'Requires staff assistance'",
+        helpContent: {
+          summary: 'Accessible emergency exits are essential - in an emergency, there is no time to improvise.',
+          tips: [
+            'At least one exit route should be fully accessible (no steps, adequate width)',
+            'Clear path: Ensure routes are kept clear of obstacles at all times',
+            'Door hardware: Fire doors should be openable with minimal force',
+            'Signage: Accessible exit routes should be clearly marked',
+            'Alternative routes: If main accessible route is blocked, what is the backup?',
+            'Evacuation chairs: For multi-storey buildings, have trained staff and equipment to assist',
+          ],
+        },
       },
       {
         id: 'A7-1-3',
@@ -4341,6 +5337,17 @@ export const accessModules: AccessModule[] = [
         safetyRelated: true,
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Audible alarm only, no visual alerts' or 'Visual in some areas but not all'",
+        helpContent: {
+          summary: 'Dual alarms (visual and audible) ensure everyone is alerted - someone who is deaf won\'t hear a siren.',
+          tips: [
+            'Visual alarms: Flashing lights or strobes in key areas including toilets',
+            'Audible alarms: Should be distinct from background noise and cover all areas',
+            'Toilets: Critical location - people may be alone with door closed',
+            'Personal alerting: Consider vibrating pagers for staff or regular visitors who are deaf',
+            'PA systems: Clear verbal instructions help everyone understand what to do',
+            'Test: Regular drills should include checking that alarms are audible and visible throughout',
+          ],
+        },
       },
       {
         id: 'A7-1-4',
@@ -4352,6 +5359,18 @@ export const accessModules: AccessModule[] = [
         safetyRelated: true,
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some staff trained but not all' or 'General awareness but no formal training'",
+        helpContent: {
+          summary: 'In an emergency, staff need to know how to help everyone evacuate - confusion costs precious time.',
+          tips: [
+            'Training: Include disability awareness in regular emergency drills',
+            'Ask first: "How can I help you evacuate?" rather than assuming',
+            'Wheelchair users: May not want to leave their chair - discuss options',
+            'Blind or low vision: Offer an elbow and describe the route as you go',
+            'Deaf or hard of hearing: Use visual cues, gestures, or written notes',
+            'Cognitive or anxiety: Speak calmly, give simple instructions, stay with them',
+            'Evacuation chairs: Designate trained staff members for each shift',
+          ],
+        },
       },
     ],
   },
@@ -4377,6 +5396,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'General contact form but not specific to accessibility' or 'Can provide feedback in person but no formal process'",
+        helpContent: {
+          summary: 'Feedback from people with disability is invaluable - they will tell you about barriers you may not have noticed.',
+          tips: [
+            'Make it easy: A simple email address or form works - don\'t make people search for how to contact you',
+            'Be specific: "Tell us about your accessibility experience" invites more relevant feedback than a general form',
+            'Multiple channels: Offer email, phone, and in-person options - not everyone can use online forms',
+            'Follow up: Thank people for feedback and tell them what you\'re doing about it',
+            'Anonymous option: Some people prefer to share feedback without identifying themselves',
+            'Staff should know: Train staff to accept and record accessibility feedback received in person',
+          ],
+        },
       },
       {
         id: 'C3-F-2',
@@ -4393,6 +5423,17 @@ export const accessModules: AccessModule[] = [
           { id: 'no-surveys', label: 'We don\'t use surveys' },
           { id: 'no', label: 'Not accessible' },
         ],
+        helpContent: {
+          summary: 'If your feedback form isn\'t accessible, you won\'t hear from the people whose feedback matters most.',
+          tips: [
+            'Use accessible platforms: Google Forms, Typeform, and SurveyMonkey have varying accessibility - test before using',
+            'Label all fields: Every form field should have a clear visible label',
+            'Error messages: Clear, specific feedback when something is wrong',
+            'Keyboard navigation: Test that you can complete the form without a mouse',
+            'Alternative: Always offer a phone or email option for those who can\'t use online forms',
+            'Test with a screen reader: Try completing your form using VoiceOver or NVDA',
+          ],
+        },
       },
       {
         id: 'C3-F-3',
@@ -4408,6 +5449,17 @@ export const accessModules: AccessModule[] = [
           { id: 'monitor-only', label: 'Monitor but rarely respond' },
           { id: 'no', label: 'Don\'t monitor reviews' },
         ],
+        helpContent: {
+          summary: 'Online reviews mentioning accessibility are read by other potential customers - your response matters.',
+          tips: [
+            'Positive accessibility reviews: Thank the reviewer and reinforce your commitment',
+            'Negative accessibility reviews: Apologise, offer to discuss further, explain any improvements made',
+            'Be specific in responses: "We\'ve since added a portable ramp" is better than "We\'re working on it"',
+            'Never be defensive: Even if you disagree, acknowledge their experience was not what you wanted',
+            'Reviews provide free market research: What barriers are people experiencing?',
+            'Encourage reviews: Happy customers often need prompting to share their experience',
+          ],
+        },
       },
       {
         id: 'C3-F-4',
@@ -4418,6 +5470,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Review when received but no regular schedule' or 'Act on major issues but not systematically'",
+        helpContent: {
+          summary: 'Collecting feedback is pointless if you don\'t act on it - regular review drives real improvement.',
+          tips: [
+            'Schedule regular reviews: Monthly or quarterly review of all accessibility feedback',
+            'Track themes: What barriers come up repeatedly? These are your priorities',
+            'Quick wins: Some feedback is easy to act on immediately - do it',
+            'Close the loop: Tell customers when you\'ve made changes based on their feedback',
+            'Share with staff: Team meetings should include accessibility feedback discussion',
+            'Document actions: Keep a record of changes made in response to feedback',
+          ],
+        },
       },
       {
         id: 'C3-D-1',
@@ -4489,6 +5552,17 @@ export const accessModules: AccessModule[] = [
           { id: 'no-emails', label: 'We don\'t send emails' },
           { id: 'no', label: 'Not accessible' },
         ],
+        helpContent: {
+          summary: 'Accessible emails ensure all your customers can receive and read your marketing messages.',
+          tips: [
+            'Alt text: Every image should have descriptive alt text',
+            'Link text: "Read more about our summer sale" not "Click here"',
+            'Font size: Minimum 14px for body text, larger for headings',
+            'Contrast: Dark text on light background (or vice versa)',
+            'Plain text version: Always include - some email clients/users prefer it',
+            'Test: Most email platforms have preview tools for accessibility',
+          ],
+        },
       },
       {
         id: 'C4-F-2',
@@ -4499,6 +5573,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Can unsubscribe but limited format options' or 'Need to contact us to change preferences'",
+        helpContent: {
+          summary: 'Easy preference management respects customer choice and ensures communications work for them.',
+          tips: [
+            'Preference centre: Link in every email to manage settings',
+            'Format options: Offer HTML and plain text preferences',
+            'Frequency: Let customers choose how often they hear from you',
+            'Unsubscribe: Make it one click, no login required',
+            'Alternative formats: Offer to send key information in accessible formats on request',
+            'Accessible preference page: Your settings page should be accessible too',
+          ],
+        },
       },
       {
         id: 'C4-F-3',
@@ -4511,10 +5596,21 @@ export const accessModules: AccessModule[] = [
         options: [
           { id: 'yes', label: 'Yes, fully accessible' },
           { id: 'mostly', label: 'Mostly accessible' },
-          { id: 'not-sure', label: 'Not sure' },
           { id: 'no-promos', label: 'We don\'t run promotions' },
+          { id: 'not-sure', label: 'Not sure' },
           { id: 'no', label: 'Not accessible' },
         ],
+        helpContent: {
+          summary: 'If promotions aren\'t accessible, some customers miss out on discounts everyone else gets.',
+          tips: [
+            'Image-based offers: Always include the offer details in text, not just an image',
+            'Promo codes: Simple codes work better with screen readers and are easier to type',
+            'CAPTCHA: Avoid if possible, or offer audio/accessible alternative',
+            'Limited time offers: Ensure enough time for everyone to participate',
+            'Terms and conditions: Write in plain language, make available in accessible format',
+            'Redemption: Can someone using assistive technology complete the checkout?',
+          ],
+        },
       },
       {
         id: 'C4-F-4',
@@ -4531,6 +5627,17 @@ export const accessModules: AccessModule[] = [
           { id: 'no-program', label: 'No loyalty program' },
           { id: 'no', label: 'Not accessible' },
         ],
+        helpContent: {
+          summary: 'Loyalty programs should be accessible from signup through redemption.',
+          tips: [
+            'Signup: Accessible forms, multiple ways to join (not app-only)',
+            'Check balance: Staff should be able to look up balance if customer can\'t use app',
+            'Physical cards: Still offer these as alternative to app-only programs',
+            'App accessibility: Test with VoiceOver/TalkBack if you have a loyalty app',
+            'Redemption: Staff can process rewards redemption manually if needed',
+            'Communication: Loyalty updates should follow same accessibility standards as other emails',
+          ],
+        },
       },
       {
         id: 'C4-D-1',
@@ -4603,6 +5710,17 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload your accessibility policy or provide a link',
+        helpContent: {
+          summary: 'A documented policy provides the foundation for consistent accessibility across your organisation.',
+          tips: [
+            'Start simple: Even a 1-page statement of commitment is better than nothing',
+            'Cover key areas: Customer service, employment, communications, physical access, procurement',
+            'Make it public: Publish on your website so customers know your commitment',
+            'Review regularly: Policies should be updated as your accessibility matures',
+            'Get input: Consult with disability organisations or employees with disability',
+            'Templates available: Australian Human Rights Commission has free templates',
+          ],
+        },
       },
       {
         id: 'P1-F-3',
@@ -4622,6 +5740,17 @@ export const accessModules: AccessModule[] = [
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload your DIAP or provide a link',
+        helpContent: {
+          summary: 'A DIAP turns good intentions into concrete actions with accountability and timelines.',
+          tips: [
+            'This assessment can form the basis of your DIAP - you\'re already identifying actions',
+            'Prioritise: You can\'t do everything at once - focus on high-impact, achievable actions first',
+            'Assign responsibility: Each action needs an owner',
+            'Set timeframes: Short-term (3-6 months), medium-term (1-2 years), long-term',
+            'Review annually: Track progress and update priorities',
+            'Access Compass can help you generate your DIAP from assessment responses',
+          ],
+        },
       },
       {
         id: 'P1-F-4',
@@ -4638,6 +5767,17 @@ export const accessModules: AccessModule[] = [
           { id: 'considering', label: 'Considering joining the program' },
           { id: 'no', label: 'No' },
         ],
+        helpContent: {
+          summary: 'The Companion Card removes the double cost barrier that prevents many people with disability from attending events.',
+          tips: [
+            'Free to join: Becoming an affiliate business is free and simple',
+            'How it works: Companion gets free entry when accompanying cardholder',
+            'Register: Visit companioncard.org.au to become an affiliate',
+            'Display the logo: Helps cardholders know you accept the card',
+            'Train staff: Know how to recognise and accept the card',
+            'Online bookings: Add an option to indicate Companion Card when booking',
+          ],
+        },
       },
       {
         id: 'P1-F-5',
@@ -4734,6 +5874,17 @@ export const accessModules: AccessModule[] = [
           { id: 'planning', label: 'Planning to improve recruitment' },
           { id: 'no', label: 'Not currently' },
         ],
+        helpContent: {
+          summary: 'Active recruitment of people with disability brings diverse perspectives and can improve your accessibility.',
+          tips: [
+            'Disability Employment Services (DES): Free government-funded services connect employers with job seekers',
+            'Job ads: Add "We welcome applications from people with disability" and mention accessibility',
+            'Alternative formats: Offer to accept applications by phone, video, or accessible document',
+            'Partners: JobAccess, APM, Workability, WISE Employment can help',
+            'Wage subsidies: Employment Assistance Fund provides financial support for adjustments',
+            'Benefits: Employees with disability often bring unique problem-solving skills and perspectives',
+          ],
+        },
       },
       {
         id: 'P2-F-2',
@@ -4750,6 +5901,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
           { id: 'no', label: 'Not accessible' },
         ],
+        helpContent: {
+          summary: 'An inaccessible recruitment process excludes talented candidates before they can even apply.',
+          tips: [
+            'Job ads: Use plain language, avoid jargon, include accessibility statement',
+            'Application forms: Test with screen readers, offer alternative submission methods',
+            'Ask about adjustments: Include "Do you require any adjustments for the interview?" on all invitations',
+            'Interview location: Confirm accessibility before scheduling',
+            'Interview format: Offer video interviews as an alternative if mobility is a barrier',
+            'Assessment tasks: Consider whether tests/tasks might disadvantage candidates with disability',
+          ],
+        },
       },
       {
         id: 'P2-F-3',
@@ -4766,6 +5928,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure what we offer' },
           { id: 'no', label: 'No adjustments provided' },
         ],
+        helpContent: {
+          summary: 'Workplace adjustments enable employees with disability to perform their role effectively - most are low cost.',
+          tips: [
+            'Employment Assistance Fund: Government funding for workplace adjustments up to $30,000+',
+            'Common low-cost adjustments: Flexible hours, modified duties, ergonomic equipment, quiet workspace',
+            'Technology: Screen readers, voice recognition, and assistive software are often free or subsidised',
+            'Process: Make it easy to request - employees shouldn\'t fear stigma',
+            'Review regularly: Needs may change over time',
+            'Most adjustments cost under $500 - and many cost nothing',
+          ],
+        },
       },
       {
         id: 'P2-D-1',
@@ -4830,6 +6003,17 @@ export const accessModules: AccessModule[] = [
           { id: 'planning', label: 'Planning to introduce' },
           { id: 'no', label: 'No training provided' },
         ],
+        helpContent: {
+          summary: 'Trained staff are confident staff - they create better experiences for customers with disability.',
+          tips: [
+            'Start with basics: Respectful language, asking before helping, not making assumptions',
+            'Hidden disabilities: Most disabilities are not visible - don\'t assume someone doesn\'t have one',
+            'Practice scenarios: Role-play common situations so staff feel prepared',
+            'Provider options: Australian Network on Disability, PWDA, local disability organisations',
+            'Free resources: JobAccess has free online training modules',
+            'Regular refreshers: Annual training keeps skills current',
+          ],
+        },
       },
       {
         id: 'P3-F-2',
@@ -4840,6 +6024,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Brief mention but not comprehensive' or 'Covered verbally but not in formal onboarding'",
+        helpContent: {
+          summary: 'Onboarding sets expectations from day one - new staff learn that accessibility is a priority.',
+          tips: [
+            'Tour: Walk new staff through accessible facilities and features during orientation',
+            'Documents: Include accessibility in your onboarding pack or handbook',
+            'Equipment: Show where accessibility equipment is stored and how to use it',
+            'Scenarios: Brief overview of common situations and how to respond',
+            'Point of contact: Who to ask if they\'re unsure about something',
+            'Keep it proportionate: Doesn\'t need to be lengthy, but should be consistent',
+          ],
+        },
       },
       {
         id: 'P3-F-3',
@@ -4856,6 +6051,17 @@ export const accessModules: AccessModule[] = [
           { id: 'not-applicable', label: 'No special equipment' },
           { id: 'no', label: 'Staff not trained' },
         ],
+        helpContent: {
+          summary: 'Equipment that staff can\'t use is equipment customers can\'t benefit from.',
+          tips: [
+            'Hearing loops: Test regularly and ensure staff know how to activate and troubleshoot',
+            'Portable ramps: All staff should know where they\'re stored and how to deploy safely',
+            'Wheelchairs for loan: Sign-out process, how to adjust, safety checks',
+            'Accessible toilets: Staff should know how to respond to emergency alarms',
+            'Practice: Hands-on training is more effective than reading a manual',
+            'Quick reference: Create a simple guide staff can check when needed',
+          ],
+        },
       },
       {
         id: 'P3-D-1',
@@ -4917,6 +6123,17 @@ export const accessModules: AccessModule[] = [
           { id: 'planning', label: 'Planning to introduce' },
           { id: 'no', label: 'Not currently considered' },
         ],
+        helpContent: {
+          summary: 'Inaccessible products from suppliers undermine your accessibility efforts.',
+          tips: [
+            'Software: Ask about WCAG compliance before purchasing any digital tools',
+            'Events: Require accessibility in venue and catering contracts',
+            'Furniture: Specify height requirements, manoeuvrability space',
+            'Marketing: Require accessible document formats from designers',
+            'Simple question: "What is your accessibility policy?" reveals a lot',
+            'Make it standard: Add accessibility to your procurement checklist',
+          ],
+        },
       },
       {
         id: 'P4-F-2',
@@ -4932,6 +6149,17 @@ export const accessModules: AccessModule[] = [
           { id: 'rarely', label: 'Rarely included' },
           { id: 'no', label: 'Not included' },
         ],
+        helpContent: {
+          summary: 'Contracts create accountability - requirements in writing are more likely to be met.',
+          tips: [
+            'Digital: "Website must conform to WCAG 2.1 Level AA"',
+            'Events: "Venue must have accessible entry, toilets, and seating options"',
+            'Documents: "All deliverables must be provided in accessible PDF format"',
+            'Videos: "All video content must include captions"',
+            'Standard clause: Create a boilerplate accessibility clause for all contracts',
+            'Verification: Include right to test/audit accessibility before acceptance',
+          ],
+        },
       },
       {
         id: 'P4-D-1',
@@ -4992,6 +6220,17 @@ export const accessModules: AccessModule[] = [
           { id: 'planning', label: 'Planning to start' },
           { id: 'no', label: 'No regular reviews' },
         ],
+        helpContent: {
+          summary: 'Regular reviews create momentum - what gets measured gets improved.',
+          tips: [
+            'Schedule it: Quarterly or annual reviews ensure accessibility stays on the agenda',
+            'Check your DIAP: Are actions on track? What\'s blocked?',
+            'Customer feedback: What themes are emerging from accessibility feedback?',
+            'Training: How many staff have completed disability awareness training?',
+            'Physical: Walk through your space with accessibility in mind',
+            'Use this assessment: Re-running Access Compass annually tracks progress',
+          ],
+        },
       },
       {
         id: 'P5-F-2',
@@ -5002,6 +6241,17 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Informal goals but not documented' or 'Goals for some areas but not comprehensive'",
+        helpContent: {
+          summary: 'Goals transform aspiration into action - vague intentions rarely lead to improvement.',
+          tips: [
+            'SMART goals: Specific, Measurable, Achievable, Relevant, Time-bound',
+            'Example: "Complete WCAG 2.1 AA compliance for website by December 2026"',
+            'Example: "Train 100% of customer-facing staff in disability awareness by Q2"',
+            'Example: "Add accessible toilet on ground floor within 18 months"',
+            'Start with your DIAP actions and turn them into measurable goals',
+            'Review goals regularly - celebrate progress and adjust if needed',
+          ],
+        },
       },
       {
         id: 'P5-F-3',
@@ -5017,6 +6267,17 @@ export const accessModules: AccessModule[] = [
           { id: 'internal-only', label: 'Internal tracking only' },
           { id: 'no', label: 'No reporting' },
         ],
+        helpContent: {
+          summary: 'Reporting to leadership creates accountability and keeps accessibility visible at decision-making level.',
+          tips: [
+            'Board reporting: Include accessibility in regular board updates, not just as a compliance item',
+            'Annual report: Consider public accessibility statements showing progress and plans',
+            'Team updates: Share wins and challenges with all staff - builds culture',
+            'Stakeholders: Disability advisory groups provide valuable external perspective',
+            'Keep it simple: A one-page quarterly update can be enough to maintain visibility',
+            'Celebrate progress: Reporting isn\'t just about gaps - share achievements too',
+          ],
+        },
       },
       {
         id: 'P5-D-1',

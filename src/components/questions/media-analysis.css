@@ -521,6 +521,11 @@
   transform: translateY(-1px);
 }
 
+.btn-analyze:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
 .btn-analyze:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -543,19 +548,24 @@
 
 .btn-skip {
   padding: 14px 24px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(90, 60, 130, 0.4);
+  background: #ffffff;
+  border: 2px solid #5a3c82;
   border-radius: 10px;
   color: #1a1a2e;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-skip:hover {
-  background: rgba(124, 58, 237, 0.1);
-  border-color: rgba(124, 58, 237, 0.5);
+  background: #f3e8ff;
+  border-color: #7c3aed;
+}
+
+.btn-skip:focus {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
 }
 
 .standards-info {

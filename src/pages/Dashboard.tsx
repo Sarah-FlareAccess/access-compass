@@ -729,11 +729,22 @@ Thanks!`;
                           <div className="tile-content">
                             <div className="tile-header">
                               <span className="module-icon">{module.icon}</span>
-                              <span className={`status-badge status-${status}`}>
-                                {status === 'not-started' && 'Not started'}
-                                {status === 'in-progress' && 'In progress'}
-                                {status === 'completed' && 'Completed'}
-                              </span>
+                              <div className="tile-badges">
+                                <span className={`status-badge status-${status}`}>
+                                  {status === 'not-started' && 'Not started'}
+                                  {status === 'in-progress' && 'In progress'}
+                                  {status === 'completed' && 'Completed'}
+                                </span>
+                                {ownership?.assignedTo && status !== 'completed' && (
+                                  <span className="allocated-badge" title={`Assigned to ${ownership.assignedTo}`}>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                      <circle cx="9" cy="7" r="4"/>
+                                    </svg>
+                                    Assigned
+                                  </span>
+                                )}
+                              </div>
                             </div>
 
                             <h4 className="module-title">{module.name}</h4>
@@ -762,7 +773,9 @@ Thanks!`;
                             <div className="module-meta">
                               <span className="module-time">
                                 <span className="time-icon">⏱</span>
-                                {module.estimatedTime}–{module.estimatedTime + 5} min
+                                {currentReviewMode === 'pulse-check'
+                                  ? `${module.estimatedTime}–${module.estimatedTime + 5} min`
+                                  : `${module.estimatedTimeDeepDive}–${module.estimatedTimeDeepDive + 10} min`}
                               </span>
                             </div>
 
@@ -835,7 +848,7 @@ Thanks!`;
                               </Link>
                               <button
                                 type="button"
-                                className={`btn-assign-module ${status === 'completed' ? 'btn-assign-disabled' : ''}`}
+                                className={`btn-assign-module ${status === 'completed' ? 'btn-assign-disabled' : ''} ${ownership?.assignedTo ? 'is-assigned' : ''}`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   if (status !== 'completed') {
@@ -847,22 +860,21 @@ Thanks!`;
                                   status === 'completed'
                                     ? 'Module already completed'
                                     : ownership?.assignedTo
-                                    ? 'Edit assignment'
+                                    ? `Assigned to ${ownership.assignedTo} - click to edit`
                                     : 'Assign module (optional)'
                                 }
                               >
-                                {ownership?.assignedTo ? (
-                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
-                                  </svg>
-                                ) : (
-                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="9" cy="7" r="4"/>
-                                    <line x1="19" y1="8" x2="19" y2="14"/>
-                                    <line x1="22" y1="11" x2="16" y2="11"/>
-                                  </svg>
-                                )}
+                                {/* Person icon - color changes based on assignment state */}
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                  <circle cx="9" cy="7" r="4"/>
+                                  {!ownership?.assignedTo && (
+                                    <>
+                                      <line x1="19" y1="8" x2="19" y2="14"/>
+                                      <line x1="22" y1="11" x2="16" y2="11"/>
+                                    </>
+                                  )}
+                                </svg>
                               </button>
                               <button
                                 type="button"

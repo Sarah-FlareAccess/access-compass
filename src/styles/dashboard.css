@@ -1489,6 +1489,33 @@
   font-weight: 700;
 }
 
+/* Container for multiple badges */
+.tile-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Allocated badge - shows when module is assigned to someone */
+.allocated-badge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(234, 88, 12, 0.1);
+  color: #c2410c;
+  border: 1px solid rgba(234, 88, 12, 0.2);
+}
+
+.allocated-badge svg {
+  flex-shrink: 0;
+}
+
 .module-title {
   font-size: 1.0625rem;
   font-weight: 700;
@@ -1817,6 +1844,18 @@
   opacity: 0.4;
   cursor: not-allowed;
   background: #f9fafb;
+}
+
+/* Assigned state - orange to match the Assigned badge */
+.btn-assign-module.is-assigned {
+  background: rgba(234, 88, 12, 0.1);
+  color: #c2410c;
+  border-color: rgba(234, 88, 12, 0.2);
+}
+
+.btn-assign-module.is-assigned:hover:not(:disabled) {
+  background: rgba(234, 88, 12, 0.15);
+  color: #9a3412;
 }
 
 /* Run History Button */

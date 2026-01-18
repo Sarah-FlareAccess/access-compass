@@ -1515,10 +1515,6 @@
   border-top: 1px solid #eee;
 }
 
-.btn-skip {
-  background: #6b7280 !important;
-}
-
 /* Calibration Questions (Pre-pathway) */
 .calibration-container {
   max-width: 640px;

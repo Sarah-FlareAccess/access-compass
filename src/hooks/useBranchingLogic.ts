@@ -47,7 +47,16 @@ export interface BranchingQuestion {
   showWhen?: BranchCondition;
   hideWhen?: BranchCondition;
   isEntryPoint?: boolean;
-  options?: { id: string; label: string }[];
+  options?: {
+    id: string;
+    label: string;
+    sentiment?: 'positive' | 'negative' | 'neutral';
+    // Specific recommendation text to include in report when this option is selected
+    recommendation?: string;
+  }[];
+  // Controls how this question appears in summaries
+  // 'action-planning' = responses go to areasToExplore (for follow-up questions about improvements)
+  summaryBehavior?: 'action-planning';
   measurementUnit?: string;
   measurementGuidance?: {
     min?: number;
@@ -131,13 +140,9 @@ export function useBranchingLogic({
       return false;
     }
 
-    // In deep-dive mode, show ALL questions regardless of showWhen conditions
-    // This gives users the full picture upfront rather than revealing questions progressively
-    if (reviewMode === 'deep-dive') {
-      return true;
-    }
-
-    // In pulse-check mode, check showWhen condition for branching
+    // Check showWhen condition - applies in both pulse-check and deep-dive modes
+    // If a question has a showWhen condition, it should only appear when that condition is met
+    // (e.g., follow-up questions for "no" answers shouldn't show when user answered "yes")
     if (question.showWhen) {
       return isConditionMet(question.showWhen);
     }

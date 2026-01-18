@@ -766,18 +766,24 @@
 
 .btn-cancel {
   padding: 12px 24px;
-  background: #f3f4f6;
-  border: none;
+  background: #ffffff;
+  border: 2px solid #5a3c82;
   border-radius: 8px;
   font-size: 14px;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-weight: 600;
+  color: #1a1a2e;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .btn-cancel:hover {
-  background: #e5e7eb;
+  background: #f3e8ff;
+  border-color: #7c3aed;
+}
+
+.btn-cancel:focus {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
 }
 
 .btn-save {
@@ -1071,9 +1077,20 @@
 }
 
 .diap-actions .btn-secondary {
-  background: white;
-  color: var(--text-primary);
-  border: 1px solid #ddd;
+  background: #ffffff;
+  color: #1a1a2e;
+  border: 2px solid #5a3c82;
+  font-weight: 600;
+}
+
+.diap-actions .btn-secondary:hover {
+  background: #f3e8ff;
+  border-color: #7c3aed;
+}
+
+.diap-actions .btn-secondary:focus {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
 }
 
 .diap-actions .btn:hover {

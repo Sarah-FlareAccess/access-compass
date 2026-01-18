@@ -169,8 +169,8 @@ export function QuestionFlow({
             ? `Current status: ${partialDescription}`
             : 'Partial measures are in place. Complete implementation for full accessibility.',
         });
-      } else if (response.answer === 'unable-to-check' || response.answer === 'not-sure') {
-        // Unable to check / not sure - needs follow-up (use exploratory phrasing)
+      } else if (response.answer === 'unable-to-check') {
+        // Unable to check - needs follow-up (use exploratory phrasing)
         areasToExplore.push(convertQuestionToExploreStatement(question.text));
       } else if (response.mediaAnalysis) {
         // Media analysis response - acknowledge evidence provided
@@ -221,6 +221,23 @@ export function QuestionFlow({
           });
         } else if (sentiment === 'neutral') {
           areasToExplore.push(convertQuestionToExploreStatement(question.text));
+        }
+
+        // Check for option-level recommendations (specific actions based on selected options)
+        if (response.multiSelectValues && question.options) {
+          response.multiSelectValues.forEach((optionId) => {
+            const option = question.options?.find((opt) => opt.id === optionId);
+            if (option?.recommendation) {
+              priorityActions.push({
+                questionId: question.id,
+                questionText: question.text,
+                action: option.recommendation,
+                priority: 'medium',
+                timeframe: 'Within 3 months',
+                impactStatement: `Based on selecting: ${option.label}`,
+              });
+            }
+          });
         }
       }
 
@@ -372,9 +389,45 @@ function categorizeResponseSentiment(
     return null; // Handled separately in generateSummary
   }
 
+  // Questions with summaryBehavior='action-planning' are about planning improvements,
+  // not acknowledging strengths - they should go to areasToExplore
+  if (question.summaryBehavior === 'action-planning') {
+    return 'neutral';
+  }
+
   // Handle multi-select and single-select
   if (response.multiSelectValues && response.multiSelectValues.length > 0) {
     const selectedOptionIds = response.multiSelectValues;
+
+    // First, check for option-level sentiment metadata
+    // If options have explicit sentiment, use that instead of keyword matching
+    const selectedOptions = selectedOptionIds
+      .map(id => question.options?.find(opt => opt.id === id))
+      .filter((opt): opt is NonNullable<typeof opt> => Boolean(opt));
+
+    if (selectedOptions.some(opt => opt.sentiment)) {
+      // Use explicit sentiment from options
+      const hasPositive = selectedOptions.some(opt => opt.sentiment === 'positive');
+      const hasNegative = selectedOptions.some(opt => opt.sentiment === 'negative');
+      const hasNeutral = selectedOptions.some(opt => opt.sentiment === 'neutral');
+
+      // If any neutral options selected, treat as neutral (planning/exploration needed)
+      if (hasNeutral && !hasPositive) {
+        return 'neutral';
+      }
+      // If mix of positive and neutral, still needs work
+      if (hasNeutral && hasPositive) {
+        return 'neutral';
+      }
+      if (hasNegative) {
+        return 'negative';
+      }
+      if (hasPositive) {
+        return 'positive';
+      }
+    }
+
+    // Fall back to keyword matching if no sentiment metadata
     const selectedLabels = selectedOptionIds
       .map(id => question.options?.find(opt => opt.id === id)?.label || id)
       .join(' ');
@@ -394,7 +447,7 @@ function categorizeResponseSentiment(
     // Neutral/uncertain indicators
     const neutralKeywords = [
       'sometimes', 'somewhat', 'not sure', 'unsure', 'maybe', 'partially',
-      'moderate', 'fair', 'average'
+      'moderate', 'fair', 'average', 'on request', 'only'
     ];
 
     const lowerLabels = selectedLabels.toLowerCase();
