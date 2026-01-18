@@ -1189,14 +1189,10 @@
 
 .progress-ring-fill {
   fill: none;
-  stroke: var(--amethyst-diamond);
   stroke-width: 3;
   stroke-linecap: round;
   transition: stroke-dasharray 0.5s ease;
-}
-
-.topic-tile.completed .progress-ring-fill {
-  stroke: #16a34a;
+  /* Stroke color set inline via SVG gradient or solid color for completed state */
 }
 
 .progress-ring-text {

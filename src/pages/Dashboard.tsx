@@ -698,6 +698,12 @@ Thanks!`;
                       <div className="topic-progress-section">
                         <div className="topic-progress-ring">
                           <svg viewBox="0 0 36 36" className="progress-ring-svg">
+                            <defs>
+                              <linearGradient id={`progress-gradient-${group.id}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#CC7700" />
+                                <stop offset="100%" stopColor="#490E67" />
+                              </linearGradient>
+                            </defs>
                             <path
                               className="progress-ring-bg"
                               d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -706,6 +712,7 @@ Thanks!`;
                               className="progress-ring-fill"
                               strokeDasharray={`${groupProgress}, 100`}
                               d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                              stroke={group.completedCount === group.totalCount && group.totalCount > 0 ? '#16a34a' : `url(#progress-gradient-${group.id})`}
                             />
                           </svg>
                           <span className="progress-ring-text">{groupProgress}%</span>
