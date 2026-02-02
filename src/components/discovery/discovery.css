@@ -1752,7 +1752,7 @@
   }
 
   .discovery-buttons {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
   .btn-back,
