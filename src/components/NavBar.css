@@ -243,12 +243,13 @@
   }
 
   .nav-brand {
-    flex: 1;
-    min-width: 0;
+    flex: 0 0 auto;
+    min-width: auto;
   }
 
   .brand-name {
     white-space: nowrap;
+    font-size: 1rem;
   }
 
   .mobile-menu-btn {
@@ -330,6 +331,26 @@
   }
 
   .brand-name {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .brand-name {
+    font-size: 0.85rem;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .hamburger span,
+  .nav-right {
+    transition: none;
+  }
+
+  .nav-right {
+    /* Use opacity only, no transform animation */
+    transform: translateY(0);
   }
 }

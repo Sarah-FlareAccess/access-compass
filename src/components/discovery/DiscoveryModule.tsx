@@ -598,7 +598,7 @@ export function DiscoveryModule({
                 </button>
               </div>
 
-              <div className="skip-link">
+              <div className="discovery-skip-link">
                 <button onClick={onSkip}>
                   Skip discovery and choose modules manually
                 </button>

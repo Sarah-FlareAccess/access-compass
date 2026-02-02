@@ -24,6 +24,7 @@ import { ModuleRunSelector } from '../components/ModuleRunSelector';
 import { RunComparisonView } from '../components/RunComparisonView';
 import { OrgAdminPanel } from '../components/OrgAdminPanel';
 import { ReportProblem, ReportProblemTrigger } from '../components/ReportProblem';
+import { BottomTabBar } from '../components/BottomTabBar';
 import '../styles/dashboard.css';
 
 type TabType = 'modules' | 'evidence';
@@ -652,6 +653,31 @@ Thanks!`;
             </div>
           </section>
 
+          {/* Mobile Quick Links - visible only on mobile where sidebar is hidden */}
+          <div className="mobile-quick-links">
+            <Link to="/discovery/summary" className="mobile-quick-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              <span>Review Discovery</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="chevron">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </Link>
+            <a href="mailto:support@accesscompass.com.au" className="mobile-quick-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <span>Need Help?</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="chevron">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </a>
+          </div>
+
           {/* Navigation Tabs */}
           <nav className="dashboard-tabs">
             <button
@@ -1130,6 +1156,9 @@ Thanks!`;
         isOpen={showReportProblem}
         onClose={() => setShowReportProblem(false)}
       />
+
+      {/* Mobile bottom tab bar */}
+      <BottomTabBar />
     </div>
   );
 }

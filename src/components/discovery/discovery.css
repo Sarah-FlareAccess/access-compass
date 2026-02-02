@@ -826,25 +826,33 @@
   cursor: not-allowed;
 }
 
-.skip-link {
+.discovery-skip-link {
   text-align: center;
   margin-top: 16px;
 }
 
-.skip-link button {
+.discovery-skip-link button {
   background: none;
   border: none;
   font-size: 14px;
   color: #757575;
   cursor: pointer;
   transition: color 0.2s ease;
+  padding: 8px 16px;
+  min-height: 44px;
 }
 
-.skip-link button:hover {
+.discovery-skip-link button:hover {
   color: var(--text-muted);
 }
 
-.skip-link p {
+.discovery-skip-link button:focus {
+  outline: 2px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.discovery-skip-link p {
   font-size: 12px;
   color: #aaa;
   margin: 4px 0 0 0;

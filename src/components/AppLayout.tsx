@@ -12,6 +12,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 import { Sidebar } from './Sidebar';
+import { BottomTabBar } from './BottomTabBar';
 import '../styles/dashboard.css';
 
 // Pages that should NOT have the global nav bar (entry/onboarding pages)
@@ -61,6 +62,9 @@ export default function AppLayout() {
           <Outlet />
         </main>
       )}
+
+      {/* Mobile bottom tab bar - replaces sidebar on small screens */}
+      {showNav && <BottomTabBar />}
     </>
   );
 }

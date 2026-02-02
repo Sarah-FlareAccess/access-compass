@@ -2209,45 +2209,20 @@
   }
 }
 
-/* Mobile - Stack layout */
+/* Mobile - Hide sidebar, use bottom tab bar instead */
 @media (max-width: 768px) {
   .dashboard-layout {
     flex-direction: column;
   }
 
   .dashboard-sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    top: 0;
-    border-right: none;
-    border-bottom: 1px solid rgba(73, 14, 103, 0.1);
-    padding: var(--spacing-md);
-    gap: var(--spacing-md);
-  }
-
-  .sidebar-org-identity {
-    padding-bottom: var(--spacing-sm);
-  }
-
-  .sidebar-help {
-    margin-top: 0;
-    padding-top: var(--spacing-sm);
-  }
-
-  .sidebar-nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .sidebar-nav-item {
-    flex: 1;
-    min-width: fit-content;
-    justify-content: center;
+    display: none;
   }
 
   .dashboard-main {
-    padding: var(--spacing-md) var(--spacing-sm) var(--spacing-xl);
+    padding: var(--spacing-md) var(--spacing-sm);
+    /* Extra padding at bottom for tab bar */
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 16px));
   }
 
   .primary-action-hero {
@@ -2351,5 +2326,65 @@
   .btn-save-assignment,
   .btn-copy-email {
     width: 100%;
+  }
+}
+
+/* ============================================
+   MOBILE QUICK LINKS
+   Shows on mobile where sidebar is hidden
+   ============================================ */
+.mobile-quick-links {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-sm);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(73, 14, 103, 0.08);
+  }
+
+  .mobile-quick-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 12px 14px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    min-height: 48px;
+  }
+
+  .mobile-quick-link:hover {
+    background: rgba(73, 14, 103, 0.06);
+  }
+
+  .mobile-quick-link:focus {
+    outline: 2px solid var(--amethyst-diamond);
+    outline-offset: 2px;
+  }
+
+  .mobile-quick-link svg {
+    color: var(--amethyst-diamond);
+    flex-shrink: 0;
+  }
+
+  .mobile-quick-link span {
+    flex: 1;
+  }
+
+  .mobile-quick-link .chevron {
+    color: var(--text-muted);
   }
 }

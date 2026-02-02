@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './NavBar.css';
@@ -8,6 +8,8 @@ export default function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, signOut } = useAuth();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   // Check if user is logged in via Supabase localStorage (fallback for timeout scenarios)
   const hasSupabaseSession = typeof window !== 'undefined' &&
@@ -18,7 +20,58 @@ export default function NavBar() {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const closeMobileMenu = () => setMobileMenuOpen(false);
+  const closeMobileMenu = useCallback(() => {
+    setMobileMenuOpen(false);
+    // Return focus to the menu button when closing
+    menuButtonRef.current?.focus();
+  }, []);
+
+  // Handle Escape key to close menu
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && mobileMenuOpen) {
+        closeMobileMenu();
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      // Focus first menu item when opening
+      const firstLink = menuRef.current?.querySelector('a, button') as HTMLElement;
+      firstLink?.focus();
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileMenuOpen, closeMobileMenu]);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mobileMenuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        !menuButtonRef.current?.contains(event.target as Node)
+      ) {
+        closeMobileMenu();
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [mobileMenuOpen, closeMobileMenu]);
+
+  // Close menu on route change
+  useEffect(() => {
+    closeMobileMenu();
+  }, [location.pathname, closeMobileMenu]);
 
   return (
     <nav className="main-nav" aria-label="Main navigation">
@@ -32,6 +85,7 @@ export default function NavBar() {
 
         {/* Mobile hamburger button */}
         <button
+          ref={menuButtonRef}
           className="mobile-menu-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-expanded={mobileMenuOpen}
@@ -45,7 +99,11 @@ export default function NavBar() {
           </span>
         </button>
 
-        <div className={`nav-right ${mobileMenuOpen ? 'mobile-open' : ''}`} id="nav-menu">
+        <div
+          ref={menuRef}
+          className={`nav-right ${mobileMenuOpen ? 'mobile-open' : ''}`}
+          id="nav-menu"
+        >
           <div className="nav-links">
             {isActive('/dashboard') ? (
               <span className="nav-link active" aria-current="page">
