@@ -5,6 +5,8 @@
   position: sticky;
   top: 0;
   z-index: 1001;
+  /* Ensure nothing appears above the nav */
+  isolation: isolate;
 }
 
 .nav-container {
@@ -236,6 +238,19 @@
 
 /* Mobile menu breakpoint */
 @media (max-width: 600px) {
+  .nav-container {
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .brand-name {
+    white-space: nowrap;
+  }
+
   .mobile-menu-btn {
     display: block;
     min-width: 44px;
@@ -243,6 +258,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
 
   .nav-right {
