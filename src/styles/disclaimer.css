@@ -911,6 +911,24 @@
     font-size: 1.25rem;
   }
 
+  /* Password field - prevent placeholder overlap with toggle */
+  .password-input-wrapper input {
+    padding-right: 65px;
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+
+  .password-input-wrapper input::placeholder {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .password-toggle {
+    font-size: 0.8rem;
+    padding: 4px 6px;
+    right: 8px;
+  }
+
   /* Organisation section responsive */
   .org-section {
     padding: var(--spacing-md);

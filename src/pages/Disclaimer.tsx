@@ -341,7 +341,7 @@ export default function Disclaimer() {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       autoComplete={isSignUp ? 'new-password' : 'current-password'}
-                      placeholder={isSignUp ? 'Create a password (min 8 characters)' : 'Enter your password'}
+                      placeholder={isSignUp ? 'Min 8 characters' : 'Enter your password'}
                       minLength={8}
                     />
                     <button
