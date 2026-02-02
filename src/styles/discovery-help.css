@@ -1,0 +1,336 @@
+/**
+ * Discovery Help Page Styles
+ *
+ * Full help/FAQ page for the discovery process.
+ * Mobile-first, accessible, encouraging design.
+ */
+
+.discovery-help-page {
+  min-height: 100vh;
+  background: var(--ivory-pure, #faf9f7);
+  padding-bottom: 80px; /* Account for bottom tab bar */
+}
+
+/* Header */
+.discovery-help-header {
+  background: linear-gradient(135deg, var(--amethyst-diamond, #490e67) 0%, #5a1a7a 100%);
+  color: white;
+  padding: 20px 20px 32px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  padding: 8px 0;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: white;
+}
+
+.back-link:focus {
+  outline: 2px solid white;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.discovery-help-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.discovery-help-subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Main Content */
+.discovery-help-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Encouragement Banner */
+.encouragement-banner {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.06) 0%, rgba(73, 14, 103, 0.1) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(73, 14, 103, 0.12);
+}
+
+.encouragement-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.encouragement-text {
+  flex: 1;
+}
+
+.encouragement-text strong {
+  display: block;
+  font-size: 1.05rem;
+  color: var(--amethyst-diamond, #490e67);
+  margin-bottom: 4px;
+}
+
+.encouragement-text p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+/* FAQ Sections */
+.faq-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.faq-section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(73, 14, 103, 0.06);
+}
+
+.faq-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond, #490e67);
+  margin: 0 0 16px 0;
+}
+
+.faq-section-icon {
+  font-size: 1.4rem;
+}
+
+/* FAQ Items */
+.faq-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.faq-item:has(.faq-question.expanded) {
+  border-color: var(--amethyst-diamond, #490e67);
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.08);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1f2937;
+  transition: background-color 0.2s ease;
+  min-height: 52px;
+}
+
+.faq-question:hover {
+  background: #f9fafb;
+}
+
+.faq-question:focus {
+  outline: 2px solid var(--amethyst-diamond, #490e67);
+  outline-offset: -2px;
+  border-radius: 10px;
+}
+
+.faq-question.expanded {
+  background: rgba(73, 14, 103, 0.04);
+}
+
+.faq-chevron {
+  flex-shrink: 0;
+  color: #9ca3af;
+  transition: transform 0.2s ease;
+}
+
+.faq-question.expanded .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--amethyst-diamond, #490e67);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer.expanded {
+  max-height: 500px;
+}
+
+.faq-answer p {
+  margin: 0;
+  padding: 0 16px 16px;
+  font-size: 0.9rem;
+  color: #4b5563;
+  line-height: 1.65;
+}
+
+/* Contact Section */
+.contact-section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(73, 14, 103, 0.06);
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond, #490e67);
+  margin: 0 0 8px 0;
+}
+
+.contact-text {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  min-height: 52px;
+}
+
+.contact-btn.primary {
+  background: var(--amethyst-diamond, #490e67);
+  color: white;
+}
+
+.contact-btn.primary:hover {
+  background: #5a1a7a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.25);
+}
+
+.contact-btn.primary:focus {
+  outline: 2px solid var(--amethyst-diamond, #490e67);
+  outline-offset: 2px;
+}
+
+.contact-info {
+  text-align: center;
+}
+
+.contact-info p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.contact-info strong {
+  color: #374151;
+}
+
+/* Desktop Adjustments */
+@media (min-width: 768px) {
+  .discovery-help-header {
+    padding: 28px 32px 40px;
+    text-align: center;
+  }
+
+  .back-link {
+    position: absolute;
+    left: 32px;
+  }
+
+  .discovery-help-header {
+    position: relative;
+  }
+
+  .discovery-help-title {
+    font-size: 2rem;
+  }
+
+  .discovery-help-content {
+    padding: 32px 24px;
+    gap: 40px;
+  }
+
+  .encouragement-banner {
+    padding: 24px 28px;
+  }
+
+  .faq-section {
+    padding: 28px;
+  }
+
+  .contact-section {
+    padding: 32px;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .faq-chevron,
+  .faq-answer,
+  .faq-item,
+  .contact-btn {
+    transition: none;
+  }
+}

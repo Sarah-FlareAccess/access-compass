@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import BusinessSnapshot from './pages/BusinessSnapshot';
 import Discovery from './pages/Discovery';
 import DiscoverySummary from './pages/DiscoverySummary';
+import DiscoveryHelp from './pages/DiscoveryHelp';
 
 // Paywall / Auth pages
 import Decision from './pages/Decision';
@@ -65,6 +66,9 @@ function App() {
 
             {/* Discovery Summary - for returning users to review/modify */}
             <Route path="/discovery/summary" element={<DiscoverySummary />} />
+
+            {/* Discovery Help - FAQs and guidance for onboarding */}
+            <Route path="/discovery/help" element={<DiscoveryHelp />} />
 
             {/* Decision/paywall page - handles auth internally */}
             <Route path="/decision" element={<Decision />} />

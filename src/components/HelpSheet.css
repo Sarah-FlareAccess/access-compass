@@ -1,0 +1,320 @@
+/**
+ * HelpSheet Styles
+ *
+ * Bottom sheet for quick help during onboarding.
+ * Mobile-first design with smooth animations.
+ */
+
+/* Backdrop */
+.help-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1100;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Sheet Container */
+.help-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 85vh;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1101;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+  /* Safe area for devices with home indicators */
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Drag Handle */
+.help-sheet-handle {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 8px;
+  cursor: grab;
+}
+
+.help-sheet-handle-bar {
+  width: 40px;
+  height: 4px;
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+/* Header */
+.help-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.help-sheet-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond, #490e67);
+  margin: 0;
+}
+
+.help-sheet-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #f3f4f6;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.help-sheet-close:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.help-sheet-close:focus {
+  outline: 2px solid var(--amethyst-diamond, #490e67);
+  outline-offset: 2px;
+}
+
+/* Content */
+.help-sheet-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Intro message */
+.help-sheet-intro {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
+  margin: 0;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.04) 0%, rgba(73, 14, 103, 0.08) 100%);
+  border-radius: 12px;
+  border-left: 3px solid var(--amethyst-diamond, #490e67);
+}
+
+/* Section titles */
+.help-sheet-section-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 12px 0;
+}
+
+/* FAQ List */
+.help-sheet-faqs {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.faq-item:has(.faq-question.expanded) {
+  border-color: var(--amethyst-diamond, #490e67);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1f2937;
+  transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+  background: #f9fafb;
+}
+
+.faq-question:focus {
+  outline: none;
+  background: rgba(73, 14, 103, 0.04);
+}
+
+.faq-question.expanded {
+  background: rgba(73, 14, 103, 0.04);
+}
+
+.faq-chevron {
+  flex-shrink: 0;
+  color: #9ca3af;
+  transition: transform 0.2s ease;
+}
+
+.faq-question.expanded .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--amethyst-diamond, #490e67);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-answer.expanded {
+  max-height: 300px;
+}
+
+.faq-answer p {
+  margin: 0;
+  padding: 0 16px 16px;
+  font-size: 0.9rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* View all link */
+.help-sheet-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: transparent;
+  border: 1px solid var(--amethyst-diamond, #490e67);
+  border-radius: 10px;
+  color: var(--amethyst-diamond, #490e67);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.help-sheet-link:hover {
+  background: rgba(73, 14, 103, 0.06);
+}
+
+.help-sheet-link:focus {
+  outline: 2px solid var(--amethyst-diamond, #490e67);
+  outline-offset: 2px;
+}
+
+/* Contact Section */
+.help-sheet-contact {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: auto;
+}
+
+.help-sheet-contact-text {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.help-sheet-contact-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--amethyst-diamond, #490e67);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.help-sheet-contact-btn:hover {
+  background: #5a1a7a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.25);
+}
+
+.help-sheet-contact-btn:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .help-sheet,
+  .help-sheet-backdrop,
+  .faq-chevron,
+  .faq-answer {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Desktop adjustments */
+@media (min-width: 768px) {
+  .help-sheet {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    max-width: 480px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateX(-50%) translateY(100%);
+    }
+    to {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+}

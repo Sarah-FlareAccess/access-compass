@@ -22,6 +22,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { useAuth } from '../contexts/AuthContext';
+import { HelpSheet } from './HelpSheet';
 import './BottomTabBar.css';
 
 // Icons as inline SVGs for consistency
@@ -70,12 +71,14 @@ interface TabItem {
   label: string;
   icon: React.ReactNode;
   matchPaths?: string[]; // Additional paths that should highlight this tab
+  action?: 'help'; // Special action instead of navigation
 }
 
 export function BottomTabBar() {
   const location = useLocation();
   const { accessState } = useAuth();
   const [hasModules, setHasModules] = useState<boolean | null>(null);
+  const [helpSheetOpen, setHelpSheetOpen] = useState(false);
 
   // Check if user has deep_dive access (required for DIAP)
   const hasDeepDiveAccess = accessState.accessLevel === 'deep_dive';
@@ -123,9 +126,10 @@ export function BottomTabBar() {
 
   const tabsWithoutModules: TabItem[] = [
     {
-      path: 'mailto:support@accesscompass.com.au',
+      path: '#help',
       label: 'Help',
-      icon: <HelpIcon />
+      icon: <HelpIcon />,
+      action: 'help'
     },
   ];
 
@@ -154,38 +158,61 @@ export function BottomTabBar() {
   }
 
   return (
-    <nav className="bottom-tab-bar" aria-label="Main navigation">
-      <ul className="tab-bar-list" role="menubar">
-        {tabs.map((tab) => {
-          const active = isActive(tab);
-          const isExternal = tab.path.startsWith('mailto:') || tab.path.startsWith('http');
+    <>
+      <nav className="bottom-tab-bar" aria-label="Main navigation">
+        <ul className="tab-bar-list" role="menubar">
+          {tabs.map((tab) => {
+            const active = isActive(tab);
+            const isExternal = tab.path.startsWith('mailto:') || tab.path.startsWith('http');
+            const isAction = !!tab.action;
 
-          return (
-            <li key={tab.path} role="none">
-              {isExternal ? (
-                <a
-                  href={tab.path}
-                  className={`tab-bar-item ${active ? 'active' : ''}`}
-                  role="menuitem"
-                >
-                  <span className="tab-icon">{tab.icon}</span>
-                  <span className="tab-label">{tab.label}</span>
-                </a>
-              ) : (
-                <Link
-                  to={tab.path}
-                  className={`tab-bar-item ${active ? 'active' : ''}`}
-                  aria-current={active ? 'page' : undefined}
-                  role="menuitem"
-                >
-                  <span className="tab-icon">{tab.icon}</span>
-                  <span className="tab-label">{tab.label}</span>
-                </Link>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+            return (
+              <li key={tab.path} role="none">
+                {isAction ? (
+                  <button
+                    className={`tab-bar-item ${active ? 'active' : ''}`}
+                    onClick={() => {
+                      if (tab.action === 'help') {
+                        setHelpSheetOpen(true);
+                      }
+                    }}
+                    role="menuitem"
+                    aria-haspopup="dialog"
+                  >
+                    <span className="tab-icon">{tab.icon}</span>
+                    <span className="tab-label">{tab.label}</span>
+                  </button>
+                ) : isExternal ? (
+                  <a
+                    href={tab.path}
+                    className={`tab-bar-item ${active ? 'active' : ''}`}
+                    role="menuitem"
+                  >
+                    <span className="tab-icon">{tab.icon}</span>
+                    <span className="tab-label">{tab.label}</span>
+                  </a>
+                ) : (
+                  <Link
+                    to={tab.path}
+                    className={`tab-bar-item ${active ? 'active' : ''}`}
+                    aria-current={active ? 'page' : undefined}
+                    role="menuitem"
+                  >
+                    <span className="tab-icon">{tab.icon}</span>
+                    <span className="tab-label">{tab.label}</span>
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      {/* Help Sheet for onboarding users */}
+      <HelpSheet
+        isOpen={helpSheetOpen}
+        onClose={() => setHelpSheetOpen(false)}
+      />
+    </>
   );
 }
