@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/landing.css';
 
 export default function Landing() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
   return (
     <div className="landing-page">
       {/* Header Navigation */}
@@ -11,10 +16,26 @@ export default function Landing() {
             <span className="logo-icon">🧭</span>
             <span className="logo-text">Access Compass</span>
           </div>
-          <nav className="header-nav">
-            <a href="mailto:hello@accesscompass.com.au" className="nav-link">Contact</a>
-            <Link to="/login" className="nav-link">Login</Link>
-            <Link to="/disclaimer" className="btn btn-nav">Get started</Link>
+
+          {/* Mobile hamburger button */}
+          <button
+            className="landing-mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="landing-nav-menu"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            <span className={`landing-hamburger ${mobileMenuOpen ? 'open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+
+          <nav className={`header-nav ${mobileMenuOpen ? 'mobile-open' : ''}`} id="landing-nav-menu">
+            <a href="mailto:hello@accesscompass.com.au" className="nav-link" onClick={closeMobileMenu}>Contact</a>
+            <Link to="/login" className="nav-link" onClick={closeMobileMenu}>Login</Link>
+            <Link to="/disclaimer" className="btn btn-nav" onClick={closeMobileMenu}>Get started</Link>
           </nav>
         </div>
       </header>

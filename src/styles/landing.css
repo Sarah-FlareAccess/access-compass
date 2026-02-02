@@ -96,6 +96,45 @@
   box-shadow: 0 4px 16px rgba(217, 119, 6, 0.4);
 }
 
+/* Landing Mobile Hamburger Button */
+.landing-mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 102;
+}
+
+.landing-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+}
+
+.landing-hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.landing-hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.landing-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.landing-hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
 /* ============================================
    HERO SECTION
    Rich purple with compass visual element
@@ -1064,7 +1103,77 @@
   .logo-text {
     font-size: 1.1rem;
   }
+}
 
+/* Mobile menu breakpoint for landing header */
+@media (max-width: 540px) {
+  .landing-mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .header-nav {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+      165deg,
+      #3a0a55 0%,
+      #490E67 50%,
+      #521475 100%
+    );
+    flex-direction: column;
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 101;
+  }
+
+  .header-nav.mobile-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .header-nav .nav-link,
+  .header-nav .nav-link:link,
+  .header-nav .nav-link:visited {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    border-bottom: none;
+  }
+
+  .header-nav .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .header-nav .btn-nav {
+    width: 100%;
+    padding: 14px 16px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 768px) {
   .landing-page .hero {
     padding: calc(var(--spacing-xxl) + 30px) var(--spacing-md) var(--spacing-xl);
     min-height: auto;
