@@ -3,9 +3,15 @@
  *
  * Displays detailed information about a module to help users understand
  * what's covered, why it matters, and who benefits.
+ *
+ * Accessibility features:
+ * - Escape key to close
+ * - Focus trap within modal
+ * - Proper ARIA attributes
+ * - Browser back button closes modal (instead of navigating away)
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { getModuleDetail } from '../../data/moduleDetails';
 import { MODULES } from '../../lib/recommendationEngine';
 import './ModuleDetailModal.css';
@@ -24,16 +30,53 @@ export function ModuleDetailModal({
   onToggleSelect,
 }: ModuleDetailModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
+  // Track if we're closing due to popstate (back button) to avoid double history.back()
+  const closingFromPopstate = useRef(false);
 
   // Get module basic info and detail
   const moduleInfo = MODULES.find(m => m.id === moduleId);
   const moduleDetail = getModuleDetail(moduleId);
 
+  // Handle close - manages history state
+  const handleClose = useCallback(() => {
+    if (!closingFromPopstate.current) {
+      // User closed via X button, Escape, or overlay click - go back in history
+      window.history.back();
+    }
+    onClose();
+  }, [onClose]);
+
+  // Handle browser back button (popstate event)
+  useEffect(() => {
+    const handlePopstate = () => {
+      // User pressed back button - close modal without calling history.back()
+      closingFromPopstate.current = true;
+      onClose();
+    };
+
+    // Push a history state when modal opens so back button closes it
+    window.history.pushState({ modal: 'module-detail', moduleId }, '');
+
+    window.addEventListener('popstate', handlePopstate);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopstate);
+      // If modal is unmounting but not due to popstate, clean up history state
+      if (!closingFromPopstate.current) {
+        // Check if current state is our modal state before going back
+        const state = window.history.state;
+        if (state?.modal === 'module-detail') {
+          window.history.back();
+        }
+      }
+    };
+  }, [moduleId, onClose]);
+
   // Handle escape key and focus trap
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     };
 
@@ -47,7 +90,7 @@ export function ModuleDetailModal({
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  }, [onClose]);
+  }, [handleClose]);
 
   if (!moduleInfo) {
     return null;
@@ -58,7 +101,7 @@ export function ModuleDetailModal({
   };
 
   return (
-    <div className="module-detail-overlay" onClick={onClose}>
+    <div className="module-detail-overlay" onClick={handleClose}>
       <div
         className="module-detail-modal"
         onClick={(e) => e.stopPropagation()}
@@ -74,7 +117,7 @@ export function ModuleDetailModal({
             <h2 id="module-detail-title">{moduleInfo.name}</h2>
             <button
               className="module-detail-close"
-              onClick={onClose}
+              onClick={handleClose}
               aria-label="Close modal"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -173,7 +216,7 @@ export function ModuleDetailModal({
               </>
             )}
           </button>
-          <button className="module-detail-done" onClick={onClose}>
+          <button className="module-detail-done" onClick={handleClose}>
             Done
           </button>
         </div>

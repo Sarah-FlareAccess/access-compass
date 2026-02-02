@@ -2722,3 +2722,260 @@
     font-size: 0.9rem;
   }
 }
+
+/* ============================================
+   COMPACT MOBILE MODE FOR RECOMMENDATION VIEW
+   ============================================ */
+
+/* Mobile compact mode for module categories and tiles */
+@media (max-width: 640px) {
+  /* Compact recommendation header */
+  .recommendation-header {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .recommendation-header .discovery-title {
+    font-size: 1.25rem;
+    margin-bottom: 6px;
+  }
+
+  .recommendation-header .discovery-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+
+  .header-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  .header-icon {
+    font-size: 18px;
+  }
+
+  /* Compact selection summary */
+  .module-selection-summary {
+    padding: 12px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .selection-count {
+    font-size: 1.25rem;
+  }
+
+  .selection-label {
+    font-size: 0.85rem;
+  }
+
+  .selection-time-wrapper,
+  .selection-cost-wrapper {
+    padding: 6px 10px;
+  }
+
+  .selection-time,
+  .selection-cost-total {
+    font-size: 0.85rem;
+  }
+
+  /* Compact instruction */
+  .selection-instruction {
+    padding: 10px 12px;
+    margin-bottom: 16px;
+  }
+
+  .selection-instruction p {
+    font-size: 0.8rem;
+  }
+
+  /* Compact module categories */
+  .module-category {
+    margin-bottom: 16px;
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .category-header {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    gap: 10px;
+  }
+
+  .category-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .category-label {
+    font-size: 1rem;
+  }
+
+  .category-description {
+    font-size: 0.75rem;
+    margin-top: 2px;
+  }
+
+  .category-outcome {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Compact module tiles - 2 column grid */
+  .module-tiles.selectable {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .module-tile.selectable {
+    padding: 10px;
+    gap: 8px;
+    border-radius: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Checkbox inline with title */
+  .module-tile.selectable .tile-checkbox {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+
+  .module-tile.selectable .tile-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+  }
+
+  .module-tile.selectable .tile-content {
+    padding-right: 24px;
+  }
+
+  .module-tile.selectable .tile-header {
+    margin-bottom: 2px;
+  }
+
+  .module-tile.selectable .tile-name {
+    font-size: 0.8rem;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  /* Hide description on mobile compact - use Learn More for details */
+  .module-tile.selectable .tile-description {
+    display: none;
+  }
+
+  /* Compact meta row */
+  .module-tile.selectable .tile-meta {
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .module-tile.selectable .tile-time {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .tile-badge {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    border-radius: 8px;
+  }
+
+  .tile-badge::before {
+    font-size: 0.55rem;
+  }
+
+  /* Compact Learn More button - show as info icon */
+  .module-tile.selectable .tile-learn-more {
+    padding: 8px 10px;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    gap: 6px;
+    border-radius: 6px;
+  }
+
+  .module-tile.selectable .tile-learn-more .learn-more-text {
+    display: none;
+  }
+
+  .module-tile.selectable .tile-learn-more::after {
+    content: 'Details';
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  .module-tile.selectable .tile-learn-more > svg:first-child {
+    width: 14px;
+    height: 14px;
+  }
+
+  .module-tile.selectable .tile-learn-more .learn-more-arrow {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Recommended badge position adjustment */
+  .module-tile.selectable.recommended::after {
+    right: 8px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #22c55e;
+  }
+
+  /* Compact toggle */
+  .show-all-toggle {
+    margin: 12px 0;
+    padding: 10px;
+  }
+
+  .btn-toggle-modules {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
+  .toggle-hint {
+    font-size: 0.7rem;
+    margin-top: 6px;
+  }
+
+  /* Compact reassurance */
+  .reassurance-section {
+    margin: 16px 0;
+    padding: 12px;
+  }
+
+  .reassurance-text {
+    font-size: 0.8rem;
+  }
+
+  .reassurance-subtext {
+    font-size: 0.7rem;
+  }
+
+  /* Compact action context */
+  .action-context {
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+  }
+
+  .action-reassurance {
+    font-size: 0.7rem;
+    margin-top: 10px;
+  }
+}
+
+/* Extra small screens - single column tiles */
+@media (max-width: 380px) {
+  .module-tiles.selectable {
+    grid-template-columns: 1fr;
+  }
+
+  .module-tile.selectable .tile-name {
+    font-size: 0.85rem;
+  }
+}

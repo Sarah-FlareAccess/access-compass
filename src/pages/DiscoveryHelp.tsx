@@ -8,7 +8,7 @@
  */
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/discovery-help.css';
 
 interface FAQItem {
@@ -114,6 +114,7 @@ const faqSections: FAQSection[] = [
 ];
 
 export default function DiscoveryHelp() {
+  const navigate = useNavigate();
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
 
   const toggleFAQ = (sectionIndex: number, faqIndex: number) => {
@@ -137,12 +138,16 @@ export default function DiscoveryHelp() {
     <div className="discovery-help-page">
       {/* Header */}
       <header className="discovery-help-header">
-        <Link to="/discovery" className="back-link">
+        <button
+          onClick={() => navigate(-1)}
+          className="back-link"
+          type="button"
+        >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
-          <span>Back to Discovery</span>
-        </Link>
+          <span>Back</span>
+        </button>
         <h1 className="discovery-help-title">Help & FAQs</h1>
         <p className="discovery-help-subtitle">
           Everything you need to know about completing your accessibility discovery

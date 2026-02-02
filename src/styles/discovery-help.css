@@ -29,6 +29,11 @@
   margin-bottom: 16px;
   padding: 8px 0;
   transition: color 0.2s ease;
+  /* Reset button styles */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .back-link:hover {

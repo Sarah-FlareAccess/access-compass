@@ -4,10 +4,15 @@
  * A bottom sheet that provides quick help during the discovery/onboarding process.
  * Shows top FAQs, contact support option, and link to full help page.
  *
+ * Accessibility features:
+ * - Escape key to close
+ * - Focus management
+ * - Browser back button closes sheet (instead of navigating away)
+ *
  * Tone: Encouraging, supportive, professional
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import './HelpSheet.css';
 
@@ -44,12 +49,56 @@ export function HelpSheet({ isOpen, onClose }: HelpSheetProps) {
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const firstFocusableRef = useRef<HTMLButtonElement>(null);
+  // Track if we're closing due to popstate (back button) to avoid double history.back()
+  const closingFromPopstate = useRef(false);
+  // Track if we've pushed history state
+  const historyPushed = useRef(false);
+
+  // Handle close - manages history state
+  const handleClose = useCallback(() => {
+    if (!closingFromPopstate.current && historyPushed.current) {
+      // User closed via X button, Escape, or overlay click - go back in history
+      window.history.back();
+    }
+    historyPushed.current = false;
+    closingFromPopstate.current = false;
+    onClose();
+  }, [onClose]);
+
+  // Handle browser back button (popstate event)
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handlePopstate = () => {
+      // User pressed back button - close sheet without calling history.back()
+      closingFromPopstate.current = true;
+      historyPushed.current = false;
+      onClose();
+    };
+
+    // Push a history state when sheet opens so back button closes it
+    window.history.pushState({ modal: 'help-sheet' }, '');
+    historyPushed.current = true;
+
+    window.addEventListener('popstate', handlePopstate);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopstate);
+      // If sheet is closing but not due to popstate, clean up history state
+      if (!closingFromPopstate.current && historyPushed.current) {
+        const state = window.history.state;
+        if (state?.modal === 'help-sheet') {
+          window.history.back();
+        }
+      }
+    };
+  }, [isOpen, onClose]);
 
   // Handle escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        onClose();
+        handleClose();
       }
     };
 
@@ -65,7 +114,7 @@ export function HelpSheet({ isOpen, onClose }: HelpSheetProps) {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
   const toggleFAQ = (index: number) => {
     setExpandedFAQ(expandedFAQ === index ? null : index);
@@ -78,7 +127,7 @@ export function HelpSheet({ isOpen, onClose }: HelpSheetProps) {
       {/* Backdrop */}
       <div
         className="help-sheet-backdrop"
-        onClick={onClose}
+        onClick={handleClose}
         aria-hidden="true"
       />
 
@@ -103,7 +152,7 @@ export function HelpSheet({ isOpen, onClose }: HelpSheetProps) {
           <button
             ref={firstFocusableRef}
             className="help-sheet-close"
-            onClick={onClose}
+            onClick={handleClose}
             aria-label="Close help"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -164,7 +213,7 @@ export function HelpSheet({ isOpen, onClose }: HelpSheetProps) {
           <Link
             to="/discovery/help"
             className="help-sheet-link"
-            onClick={onClose}
+            onClick={handleClose}
           >
             <span>View all FAQs & guides</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
