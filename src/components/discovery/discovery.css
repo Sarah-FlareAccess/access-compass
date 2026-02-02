@@ -1649,18 +1649,74 @@
 /* Responsive */
 @media (max-width: 640px) {
   .discovery-page {
-    padding: 20px 16px;
+    padding: 16px 12px;
   }
 
-  .discovery-header-card,
+  .discovery-container {
+    padding: 0;
+  }
+
+  .discovery-header-card {
+    padding: 20px 16px;
+    margin-bottom: 16px;
+    border-radius: 16px;
+  }
+
   .discovery-actions-card,
   .recommendation-header,
   .review-mode-section {
-    padding: 24px 20px;
+    padding: 20px 16px;
   }
 
   .discovery-title {
-    font-size: 24px;
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+  }
+
+  .discovery-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .discovery-note {
+    font-size: 0.8rem;
+  }
+
+  /* Journey orientation tabs - horizontal scroll on mobile */
+  .journey-orientation {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 8px 4px;
+    font-size: 0.75rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .journey-orientation::-webkit-scrollbar {
+    display: none;
+  }
+
+  .journey-orientation span {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .journey-orientation .arrow {
+    flex-shrink: 0;
+  }
+
+  /* Progress indicator */
+  .progress-indicator {
+    margin-bottom: 16px;
+    padding: 0 4px;
+  }
+
+  .time-estimate {
+    font-size: 0.8rem;
   }
 
   .phase-header {
@@ -1675,7 +1731,11 @@
   }
 
   .phase-label {
-    font-size: 1.125rem;
+    font-size: 1rem;
+  }
+
+  .phase-sublabel {
+    font-size: 0.85rem;
   }
 
   .touchpoint-item {
@@ -1742,6 +1802,109 @@
 
   .recommendation-header .discovery-title {
     font-size: 1.5rem;
+  }
+
+  /* Business context questions (Step 1) - mobile */
+  .business-context-questions {
+    padding: 20px 16px;
+    margin: 16px 0;
+    border-radius: 16px;
+  }
+
+  .context-step-header {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    gap: 12px;
+  }
+
+  .context-step-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .context-question {
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+  }
+
+  .context-question label {
+    font-size: 0.95rem;
+  }
+
+  .context-question .field-helper {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+
+  .context-question .radio-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .context-question .radio-label {
+    padding: 12px 16px;
+    min-width: unset;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  /* Journey instruction (Step 2 header) - mobile */
+  .journey-instruction {
+    padding: 20px 16px;
+    margin: 20px 0 16px;
+    border-radius: 14px;
+  }
+
+  .journey-instruction .instruction-header {
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .journey-instruction .instruction-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .journey-instruction .instruction-detail {
+    padding-left: 44px;
+    font-size: 0.9rem;
+  }
+
+  .instruction-number {
+    min-width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  /* Journey phase sections - mobile */
+  .journey-phase-section {
+    margin-bottom: 12px;
+    border-radius: 12px;
+  }
+
+  .phase-content {
+    padding: 0 16px 16px;
+  }
+
+  .phase-tip {
+    padding: 10px 12px;
+    margin-bottom: 16px;
+  }
+
+  .phase-tip .tip-text {
+    font-size: 0.8rem;
+  }
+
+  /* Touchpoint blocks - mobile */
+  .touchpoint-blocks {
+    gap: 20px;
+  }
+
+  .touchpoint-block {
+    padding: 12px;
+  }
+
+  .block-label {
+    font-size: 0.8rem;
   }
 }
 
@@ -2443,4 +2606,111 @@
 
 .module-tile.selectable:not(.selected):hover {
   opacity: 1;
+}
+
+/* Extra small screens (480px and below) */
+@media (max-width: 480px) {
+  .discovery-page {
+    padding: 12px 8px;
+  }
+
+  .discovery-header-card {
+    padding: 16px 12px;
+    border-radius: 12px;
+  }
+
+  .discovery-title {
+    font-size: 1.2rem;
+  }
+
+  .discovery-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .journey-orientation {
+    font-size: 0.7rem;
+    gap: 4px;
+    padding: 6px 2px;
+  }
+
+  .business-context-questions {
+    padding: 16px 12px;
+    border-radius: 12px;
+  }
+
+  .context-step-header h2 {
+    font-size: 1rem;
+  }
+
+  .context-question {
+    padding: 14px 12px;
+  }
+
+  .context-question label {
+    font-size: 0.9rem;
+  }
+
+  .journey-instruction {
+    padding: 16px 12px;
+    border-radius: 12px;
+  }
+
+  .journey-instruction .instruction-header h2 {
+    font-size: 1rem;
+  }
+
+  .journey-instruction .instruction-detail {
+    padding-left: 40px;
+    font-size: 0.85rem;
+  }
+
+  .phase-header {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .phase-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    border-radius: 10px;
+  }
+
+  .phase-label {
+    font-size: 0.95rem;
+  }
+
+  .phase-sublabel {
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  .phase-content {
+    padding: 0 12px 12px;
+  }
+
+  .touchpoint-item {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .touchpoint-label {
+    font-size: 0.9rem;
+  }
+
+  .touchpoint-description {
+    font-size: 0.8rem;
+  }
+
+  .discovery-actions-card {
+    padding: 16px 12px;
+    margin-top: 16px;
+    border-radius: 12px;
+  }
+
+  .btn-back,
+  .btn-continue {
+    padding: 14px 20px;
+    font-size: 0.9rem;
+  }
 }
