@@ -781,9 +781,12 @@ Thanks!`;
                             <div className="module-meta">
                               <span className="module-time">
                                 <span className="time-icon">⏱</span>
-                                {currentReviewMode === 'pulse-check'
-                                  ? `${module.estimatedTime}–${module.estimatedTime + 5} min`
-                                  : `${module.estimatedTimeDeepDive ?? module.estimatedTime * 3}–${(module.estimatedTimeDeepDive ?? module.estimatedTime * 3) + 10} min`}
+                                {(() => {
+                                  const deepDiveTime = module.estimatedTimeDeepDive ?? module.estimatedTime * 3;
+                                  return currentReviewMode === 'pulse-check'
+                                    ? `${module.estimatedTime}–${module.estimatedTime + 5} min`
+                                    : `${deepDiveTime}–${deepDiveTime + 10} min`;
+                                })()}
                               </span>
                             </div>
 
