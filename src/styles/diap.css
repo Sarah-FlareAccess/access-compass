@@ -1271,8 +1271,8 @@
 }
 
 .evidence-confidence.confidence-strong {
-  background: rgba(34, 197, 94, 0.1);
-  color: #16a34a;
+  background: rgba(34, 197, 94, 0.15);
+  color: #166534;
 }
 
 .evidence-confidence.confidence-mixed {
@@ -1312,8 +1312,8 @@
 }
 
 .evidence-stat.positive {
-  background: rgba(34, 197, 94, 0.1);
-  color: #16a34a;
+  background: rgba(34, 197, 94, 0.15);
+  color: #166534;
 }
 
 .evidence-stat.action {

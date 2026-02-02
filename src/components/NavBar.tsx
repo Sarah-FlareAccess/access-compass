@@ -28,24 +28,33 @@ export default function NavBar() {
 
         <div className="nav-right">
           <div className="nav-links">
-            <Link
-              to="/dashboard"
-              className={`nav-link ${isActive('/dashboard') ? 'active' : ''}`}
-            >
-              Dashboard
-            </Link>
-            <Link
-              to="/discovery/summary"
-              className={`nav-link ${location.pathname.startsWith('/discovery') ? 'active' : ''}`}
-            >
-              Discovery
-            </Link>
-            <Link
-              to="/resources"
-              className={`nav-link ${isActive('/resources') ? 'active' : ''}`}
-            >
-              Resources
-            </Link>
+            {isActive('/dashboard') ? (
+              <span className="nav-link active" aria-current="page">
+                Dashboard
+              </span>
+            ) : (
+              <Link to="/dashboard" className="nav-link">
+                Dashboard
+              </Link>
+            )}
+            {location.pathname.startsWith('/discovery') ? (
+              <span className="nav-link active" aria-current="page">
+                Discovery
+              </span>
+            ) : (
+              <Link to="/discovery/summary" className="nav-link">
+                Discovery
+              </Link>
+            )}
+            {isActive('/resources') ? (
+              <span className="nav-link active" aria-current="page">
+                Resources
+              </span>
+            ) : (
+              <Link to="/resources" className="nav-link">
+                Resources
+              </Link>
+            )}
           </div>
 
           <div className="nav-auth">

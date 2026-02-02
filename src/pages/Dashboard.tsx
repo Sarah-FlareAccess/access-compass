@@ -552,6 +552,7 @@ Thanks!`;
 
         {/* Main Content */}
         <main id="main-content" className="dashboard-main" role="main" aria-label="Main content">
+          <h1 className="sr-only">Accessibility Dashboard</h1>
           <div className="dashboard-container">
             {/* Primary Action Hero - Clickable */}
             {overallStats.modulesInProgress > 0 ? (
@@ -895,11 +896,11 @@ Thanks!`;
                                     moduleCode: module.code,
                                   });
                                 }}
-                                title={runsCount > 0 ? `${runsCount} assessment${runsCount !== 1 ? 's' : ''} - View history or start new` : 'Start new assessment or repeat checklist'}
+                                title={runsCount > 0 ? `${runsCount} assessment${runsCount !== 1 ? 's' : ''} - View history or start new` : 'New assessment'}
                               >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <polyline points="1 4 1 10 7 10"/>
-                                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                  <line x1="12" y1="5" x2="12" y2="19"/>
+                                  <line x1="5" y1="12" x2="19" y2="12"/>
                                 </svg>
                                 {runsCount > 1 && <span className="runs-badge">{runsCount}</span>}
                               </button>

@@ -32,9 +32,9 @@ export default function Landing() {
 
         <div className="container hero-layout">
           <div className="hero-content">
-            <h1>Make your business more accessible — step by step</h1>
+            <h1>Make your business more accessible, step by step</h1>
             <p className="hero-subheading">
-              Access Compass cuts through the complexity — giving you a clear, prioritised action plan tailored to your business, your budget, and your capacity. No expertise required. Just practical next steps you can actually take.
+              Access Compass cuts through the complexity, giving you a clear, prioritised action plan tailored to your business, your budget, and your capacity. No expertise required. Just practical next steps you can actually take.
             </p>
 
             {/* CTA Button */}
@@ -58,7 +58,7 @@ export default function Landing() {
             <div className="benefit-card">
               <span className="benefit-icon">🧭</span>
               <h3>Clarity on where to start</h3>
-              <p>No more guessing or getting overwhelmed by compliance documents. We guide you through your customer journey, so you understand what matters at each touchpoint. No more uncertainty — just clear priorities for your situation.</p>
+              <p>No more guessing or getting overwhelmed by compliance documents. We guide you through your customer journey, so you understand what matters at each touchpoint. No more uncertainty, just clear priorities for your situation.</p>
             </div>
             <div className="benefit-card">
               <span className="benefit-icon">💪</span>

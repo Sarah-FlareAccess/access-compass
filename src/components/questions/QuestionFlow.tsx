@@ -5,7 +5,7 @@
  * Handles navigation, progress tracking, and summary generation.
  */
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { QuestionCard } from './QuestionCard';
 import { ModuleSummaryCard } from './ModuleSummaryCard';
 import { ReviewSummary } from './ReviewSummary';
@@ -43,6 +43,11 @@ export function QuestionFlow({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
   const [showReviewSummary, setShowReviewSummary] = useState(false);
+
+  // Scroll to top when question changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentIndex]);
 
   // Use branching logic to determine visible questions
   const { visibleQuestions } = useBranchingLogic({
