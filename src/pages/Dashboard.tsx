@@ -783,7 +783,7 @@ Thanks!`;
                                 <span className="time-icon">⏱</span>
                                 {currentReviewMode === 'pulse-check'
                                   ? `${module.estimatedTime}–${module.estimatedTime + 5} min`
-                                  : `${module.estimatedTimeDeepDive}–${module.estimatedTimeDeepDive + 10} min`}
+                                  : `${module.estimatedTimeDeepDive ?? module.estimatedTime * 3}–${(module.estimatedTimeDeepDive ?? module.estimatedTime * 3) + 10} min`}
                               </span>
                             </div>
 
