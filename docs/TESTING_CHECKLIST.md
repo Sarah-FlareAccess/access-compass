@@ -488,6 +488,64 @@ WHERE id = 'YOUR_ORG_ID';
 
 ---
 
+## Test 17: Mobile 200% Zoom Accessibility (WCAG 1.4.10 Reflow)
+
+### Overview
+Test the full mobile UX at 200% browser zoom to ensure content reflows properly without horizontal scrolling and all interactive elements remain accessible.
+
+### Setup
+- [ ] Open the app on a mobile device (or use browser dev tools mobile emulation)
+- [ ] Set browser zoom to 200%
+
+### Test Areas
+
+#### Navigation
+- [ ] Navbar: Logo and hamburger menu visible and not overlapping
+- [ ] Bottom tab bar: All 4 tabs visible (Dashboard, DIAP, Report, Resources)
+- [ ] Hamburger menu opens and closes correctly
+- [ ] All menu items accessible
+
+#### Dashboard
+- [ ] Category tiles display correctly without overflow
+- [ ] Progress rings and arrows visible
+- [ ] Module tiles readable and tappable
+- [ ] Assignment modal fully visible and functional
+
+#### Module Questions Flow
+- [ ] Question text readable without horizontal scroll
+- [ ] Answer buttons fully visible and tappable
+- [ ] "Not applicable", "Unable to check" buttons don't break mid-word
+- [ ] Continue button visible and clickable
+- [ ] Notes section labels readable (not too small/light)
+- [ ] Evidence upload area accessible
+
+#### Help Panel ("Understanding this question")
+- [ ] Panel opens correctly
+- [ ] Content scrollable
+- [ ] "Got it" / Continue button visible above bottom tab bar
+- [ ] Close (X) button accessible
+
+#### Discovery Summary
+- [ ] Module tags don't overflow container
+- [ ] Yes/No radio buttons both visible side-by-side
+- [ ] Save/Cancel buttons properly ordered and accessible
+- [ ] All text readable
+
+### Expected Results
+- [ ] No horizontal scrolling required
+- [ ] All buttons/links have minimum 44x44px touch targets
+- [ ] Text remains readable (minimum effective size ~12px)
+- [ ] No content clipped or hidden behind other elements
+- [ ] All interactive elements remain functional
+
+### Known Fixed Areas (Feb 2026)
+- Bottom tab bar sizing at 320px viewport
+- Help panel footer padding for tab bar clearance
+- Answer button word-breaking
+- Navbar spacing at high zoom
+
+---
+
 ## Test Complete Checklist
 
 - [ ] Test 1: Organisation Creation
@@ -506,6 +564,7 @@ WHERE id = 'YOUR_ORG_ID';
 - [ ] Test 14: Data Export
 - [ ] Test 15: Pre-registered Email Invites
 - [ ] Test 16: Forms & Contact Links Audit
+- [ ] Test 17: Mobile 200% Zoom Accessibility
 
 **All tests passed?** Your security implementation is working correctly!
 
