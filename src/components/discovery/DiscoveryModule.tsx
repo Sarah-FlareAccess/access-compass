@@ -7,6 +7,7 @@ import {
   calculateDepthRecommendation,
   MODULES,
 } from '../../lib/recommendationEngine';
+import { getDiscoveryProgress, saveDiscoveryProgress, clearDiscoveryProgress } from '../../utils/session';
 import { JourneyPhaseSection } from './JourneyPhaseSection';
 import { ModuleDetailModal } from './ModuleDetailModal';
 import './discovery.css';
@@ -53,35 +54,42 @@ export function DiscoveryModule({
   initialStep = 'touchpoints',
   existingData,
 }: DiscoveryModuleProps) {
+  // Load saved progress if no existingData provided
+  const savedProgress = !existingData ? getDiscoveryProgress() : null;
+
   const [selectedTouchpoints, setSelectedTouchpoints] = useState<string[]>(
-    existingData?.selectedTouchpoints || []
+    existingData?.selectedTouchpoints || savedProgress?.selectedTouchpoints || []
   );
   const [selectedSubTouchpoints, setSelectedSubTouchpoints] = useState<string[]>(
-    existingData?.selectedSubTouchpoints || []
+    existingData?.selectedSubTouchpoints || savedProgress?.selectedSubTouchpoints || []
   );
   const [openPhases, setOpenPhases] = useState<string[]>(['before-arrival']);
-  const [currentStep, setCurrentStep] = useState<'touchpoints' | 'recommendation'>(initialStep);
+  const [currentStep, setCurrentStep] = useState<'touchpoints' | 'recommendation'>(
+    savedProgress?.currentStep || initialStep
+  );
 
   // Track phases marked as "not applicable"
-  const [notApplicablePhases, setNotApplicablePhases] = useState<string[]>([]);
+  const [notApplicablePhases, setNotApplicablePhases] = useState<string[]>(
+    savedProgress?.notApplicablePhases || []
+  );
 
   // Business context questions
   const [hasPhysicalVenue, setHasPhysicalVenue] = useState<boolean | null>(
-    existingData?.businessContext?.hasPhysicalVenue ?? null
+    existingData?.businessContext?.hasPhysicalVenue ?? savedProgress?.businessContext?.hasPhysicalVenue ?? null
   );
   const [hasOnlinePresence, setHasOnlinePresence] = useState<boolean | null>(
-    existingData?.businessContext?.hasOnlinePresence ?? null
+    existingData?.businessContext?.hasOnlinePresence ?? savedProgress?.businessContext?.hasOnlinePresence ?? null
   );
   const [servesPublicCustomers, setServesPublicCustomers] = useState<boolean | null>(
-    existingData?.businessContext?.servesPublicCustomers ?? null
+    existingData?.businessContext?.servesPublicCustomers ?? savedProgress?.businessContext?.servesPublicCustomers ?? null
   );
   const [hasOnlineServices, setHasOnlineServices] = useState<boolean | null>(
-    existingData?.businessContext?.hasOnlineServices ?? null
+    existingData?.businessContext?.hasOnlineServices ?? savedProgress?.businessContext?.hasOnlineServices ?? null
   );
 
   // Customized module selection (user can modify recommendations)
   const [customSelectedModules, setCustomSelectedModules] = useState<string[]>(
-    existingData?.recommendedModules || []
+    existingData?.recommendedModules || savedProgress?.customSelectedModules || []
   );
   const [showAllModules, setShowAllModules] = useState(false);
 
@@ -93,6 +101,38 @@ export function DiscoveryModule({
   const hasInitializedModules = useRef(
     initialStep === 'recommendation' && !!existingData?.recommendedModules?.length
   );
+
+  // Auto-save progress whenever state changes
+  useEffect(() => {
+    // Don't save if we have existingData (editing mode)
+    if (existingData) return;
+
+    saveDiscoveryProgress({
+      selectedTouchpoints,
+      selectedSubTouchpoints,
+      notApplicablePhases,
+      customSelectedModules,
+      currentStep,
+      businessContext: {
+        hasPhysicalVenue,
+        hasOnlinePresence,
+        servesPublicCustomers,
+        hasOnlineServices,
+      },
+      lastUpdated: new Date().toISOString(),
+    });
+  }, [
+    selectedTouchpoints,
+    selectedSubTouchpoints,
+    notApplicablePhases,
+    customSelectedModules,
+    currentStep,
+    hasPhysicalVenue,
+    hasOnlinePresence,
+    servesPublicCustomers,
+    hasOnlineServices,
+    existingData,
+  ]);
 
   const toggleModuleSelection = (moduleId: string) => {
     setCustomSelectedModules(prev =>
@@ -284,6 +324,9 @@ export function DiscoveryModule({
     } else {
       // Use custom selected modules (user may have modified)
       const moduleCodes = moduleIdsToCodes(customSelectedModules);
+
+      // Clear saved progress since discovery is complete
+      clearDiscoveryProgress();
 
       onComplete({
         selectedTouchpoints,

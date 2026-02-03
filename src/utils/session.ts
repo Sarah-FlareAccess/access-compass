@@ -83,6 +83,7 @@ export const updateConstraints = (constraints: Constraints): Session => {
 // ===== DISCOVERY DATA =====
 
 const DISCOVERY_KEY = 'access_compass_discovery';
+const DISCOVERY_PROGRESS_KEY = 'access_compass_discovery_progress';
 
 export interface StoredDiscoveryData {
   discovery_data: DiscoveryData;
@@ -124,6 +125,43 @@ export const updateDiscoveryData = (updates: Partial<StoredDiscoveryData>): Stor
 // Clear discovery data
 export const clearDiscoveryData = (): void => {
   localStorage.removeItem(DISCOVERY_KEY);
+};
+
+// ===== IN-PROGRESS DISCOVERY (auto-save) =====
+
+export interface DiscoveryProgress {
+  selectedTouchpoints: string[];
+  selectedSubTouchpoints: string[];
+  notApplicablePhases: string[];
+  customSelectedModules: string[];
+  currentStep: 'touchpoints' | 'recommendation';
+  businessContext: {
+    hasPhysicalVenue: boolean | null;
+    hasOnlinePresence: boolean | null;
+    servesPublicCustomers: boolean | null;
+    hasOnlineServices: boolean | null;
+  };
+  lastUpdated: string;
+}
+
+// Get in-progress discovery data
+export const getDiscoveryProgress = (): DiscoveryProgress | null => {
+  const data = localStorage.getItem(DISCOVERY_PROGRESS_KEY);
+  if (!data) return null;
+  return JSON.parse(data);
+};
+
+// Save in-progress discovery data
+export const saveDiscoveryProgress = (progress: DiscoveryProgress): void => {
+  localStorage.setItem(DISCOVERY_PROGRESS_KEY, JSON.stringify({
+    ...progress,
+    lastUpdated: new Date().toISOString(),
+  }));
+};
+
+// Clear in-progress discovery data (called when discovery is completed)
+export const clearDiscoveryProgress = (): void => {
+  localStorage.removeItem(DISCOVERY_PROGRESS_KEY);
 };
 
 // Clear session (start again)
