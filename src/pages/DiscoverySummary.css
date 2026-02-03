@@ -533,7 +533,8 @@
   transition: all var(--transition-fast);
   text-align: left;
   flex-grow: 0;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  max-width: 100%;
 }
 
 .module-tag.clickable {
