@@ -817,6 +817,20 @@ export function DiscoveryModule({
                             <div className="tile-content">
                               <div className="tile-header">
                                 <span className="tile-name">{module.name}</span>
+                                <button
+                                  className="tile-info-btn"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setModuleDetailId(module.id);
+                                  }}
+                                  type="button"
+                                  aria-label={`Info about ${module.name}`}
+                                >
+                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16v-4M12 8h.01" />
+                                  </svg>
+                                </button>
                               </div>
                               <p className="tile-description">{module.description}</p>
                               <div className="tile-meta">
@@ -826,26 +840,6 @@ export function DiscoveryModule({
                                   <span className="tile-badge">Recommended</span>
                                 )}
                               </div>
-                              <button
-                                className="tile-learn-more"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setModuleDetailId(module.id);
-                                }}
-                                type="button"
-                                aria-label={`Info about ${module.name}`}
-                              >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                                  <circle cx="12" cy="12" r="10" />
-                                  <path d="M12 16v-4M12 8h.01" />
-                                </svg>
-                                <span className="learn-more-text">
-                                  Learn more about <strong>{module.name}</strong>
-                                </span>
-                                <svg className="learn-more-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                                  <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                              </button>
                             </div>
                           </div>
                         );
