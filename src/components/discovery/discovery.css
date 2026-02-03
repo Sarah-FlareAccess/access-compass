@@ -2576,11 +2576,6 @@
   outline-offset: 2px;
 }
 
-/* Hide mobile text on desktop */
-.module-tile.selectable .tile-learn-more .learn-more-text-mobile {
-  display: none;
-}
-
 .show-all-toggle {
   text-align: center;
   margin: 16px 0;
@@ -2919,14 +2914,6 @@
     display: none;
   }
 
-  /* Show mobile text with module name */
-  .module-tile.selectable .tile-learn-more .learn-more-text-mobile {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--amethyst-diamond);
-  }
-
   /* Hide the original SVG icon and arrow on mobile */
   .module-tile.selectable .tile-learn-more > svg:first-child {
     display: none;
@@ -2936,7 +2923,7 @@
     display: none;
   }
 
-  /* Show info icon via pseudo-element */
+  /* Show info icon and text via pseudo-elements */
   .module-tile.selectable .tile-learn-more::before {
     content: 'i';
     display: inline-flex;
@@ -2952,6 +2939,13 @@
     font-style: italic;
     font-family: Georgia, serif;
     flex-shrink: 0;
+  }
+
+  .module-tile.selectable .tile-learn-more::after {
+    content: 'Info';
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--amethyst-diamond);
   }
 
   /* Recommended badge position adjustment */

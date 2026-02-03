@@ -833,6 +833,7 @@ export function DiscoveryModule({
                                   setModuleDetailId(module.id);
                                 }}
                                 type="button"
+                                aria-label={`Info about ${module.name}`}
                               >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                                   <circle cx="12" cy="12" r="10" />
@@ -840,9 +841,6 @@ export function DiscoveryModule({
                                 </svg>
                                 <span className="learn-more-text">
                                   Learn more about <strong>{module.name}</strong>
-                                </span>
-                                <span className="learn-more-text-mobile">
-                                  {module.name} info
                                 </span>
                                 <svg className="learn-more-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                                   <path d="M5 12h14M12 5l7 7-7 7" />
