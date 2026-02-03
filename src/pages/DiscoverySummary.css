@@ -429,13 +429,7 @@
   font-weight: 500;
   border: 1px solid rgba(73, 14, 103, 0.1);
   box-shadow: 0 1px 3px rgba(73, 14, 103, 0.08);
-  transition: all var(--transition-fast);
-}
-
-.touchpoint-tag:hover {
-  background: linear-gradient(135deg, rgba(73, 14, 103, 0.12) 0%, rgba(73, 14, 103, 0.16) 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(73, 14, 103, 0.12);
+  /* No hover effects - these are display-only labels */
 }
 
 /* Touchpoints Edit */
