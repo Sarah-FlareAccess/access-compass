@@ -1213,12 +1213,12 @@
 }
 
 .topic-expand-icon {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 300;
   color: var(--text-muted);
   background: rgba(73, 14, 103, 0.06);
