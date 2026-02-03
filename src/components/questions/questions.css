@@ -1508,6 +1508,48 @@
   .flow-progress-text {
     font-size: 13px;
   }
+
+  /* Notes section accessibility improvements */
+  .notes-header label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary, #1a1a2e);
+  }
+
+  .notes-info-tooltip p {
+    font-size: 15px;
+    color: #0a58ca;
+  }
+
+  .notes-section-enhanced textarea {
+    font-size: 16px; /* Prevents iOS zoom */
+    color: var(--text-primary, #1a1a2e);
+  }
+
+  .notes-section-enhanced textarea::placeholder {
+    color: #6b7280;
+  }
+
+  .notes-section label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary, #1a1a2e);
+  }
+
+  .notes-section input {
+    font-size: 16px;
+  }
+
+  .evidence-section-label {
+    font-size: 15px;
+    color: var(--text-secondary, #4b5563);
+  }
+
+  .partial-description-section label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary, #1a1a2e);
+  }
 }
 
 /* Responsive - Small Mobile */
