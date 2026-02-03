@@ -16,10 +16,15 @@
   background: linear-gradient(135deg, var(--amethyst-diamond, #490e67) 0%, #5a1a7a 100%);
   color: white;
   padding: 20px 20px 32px;
-  /* Add subtle top border to visually separate from navbar */
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
   /* Ensure header scrolls naturally and doesn't stick */
   position: relative;
+}
+
+/* On mobile, add extra top padding to account for sticky navbar height (64px) */
+@media (max-width: 768px) {
+  .discovery-help-header {
+    padding-top: 76px; /* 64px navbar + 12px spacing */
+  }
 }
 
 .back-link {
