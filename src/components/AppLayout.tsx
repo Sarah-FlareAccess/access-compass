@@ -33,6 +33,9 @@ const PAGES_WITH_SIDEBAR = [
   '/action/',
 ];
 
+// Pages that should NOT have the sidebar even if they match above patterns
+const PAGES_WITHOUT_SIDEBAR = ['/discovery/help'];
+
 export default function AppLayout() {
   const location = useLocation();
   const showNav = !PAGES_WITHOUT_NAV.includes(location.pathname);
@@ -40,7 +43,7 @@ export default function AppLayout() {
   // Check if current path should show sidebar
   const showSidebar = PAGES_WITH_SIDEBAR.some(path =>
     location.pathname === path || location.pathname.startsWith(path)
-  );
+  ) && !PAGES_WITHOUT_SIDEBAR.includes(location.pathname);
 
   return (
     <>

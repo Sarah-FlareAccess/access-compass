@@ -20,13 +20,6 @@
   position: relative;
 }
 
-/* On mobile, add extra top padding to account for sticky navbar height (64px) */
-@media (max-width: 768px) {
-  .discovery-help-header {
-    padding-top: 76px; /* 64px navbar + 12px spacing */
-  }
-}
-
 .back-link {
   display: inline-flex;
   align-items: center;
