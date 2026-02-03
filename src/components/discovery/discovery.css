@@ -2451,39 +2451,6 @@
   flex: 1;
 }
 
-/* Info button in header */
-.module-tile.selectable .tile-info-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  min-width: 44px; /* Accessible tap target */
-  min-height: 44px;
-  margin: -8px -8px -8px 0; /* Expand tap area without affecting layout */
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--amethyst-diamond);
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.module-tile.selectable .tile-info-btn:hover {
-  background: rgba(73, 14, 103, 0.1);
-}
-
-.module-tile.selectable .tile-info-btn:focus-visible {
-  outline: 2px solid var(--amethyst-diamond);
-  outline-offset: 2px;
-}
-
-.module-tile.selectable .tile-info-btn svg {
-  flex-shrink: 0;
-}
-
 .module-tile.selectable .tile-code {
   flex-shrink: 0;
   font-size: 12px;
@@ -2491,6 +2458,21 @@
   background: #f0f0f0;
   padding: 2px 8px;
   border-radius: 4px;
+}
+
+/* Tap for details hint */
+.module-tile.selectable .tile-tap-hint {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--amethyst-diamond);
+  opacity: 0.7;
+  font-weight: 500;
+  margin-top: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.module-tile.selectable:hover .tile-tap-hint {
+  opacity: 1;
 }
 
 .module-tile.selectable .tile-description {
@@ -2877,18 +2859,10 @@
     font-size: 0.55rem;
   }
 
-  /* Compact info button in header on mobile */
-  .module-tile.selectable .tile-info-btn {
-    width: 28px;
-    height: 28px;
-    min-width: 44px;
-    min-height: 44px;
-    margin: -10px -10px -10px 0;
-  }
-
-  .module-tile.selectable .tile-info-btn svg {
-    width: 16px;
-    height: 16px;
+  /* Compact tap hint on mobile */
+  .module-tile.selectable .tile-tap-hint {
+    font-size: 0.6rem;
+    margin-top: 6px;
   }
 
   /* Recommended badge position adjustment */

@@ -793,14 +793,14 @@ export function DiscoveryModule({
                           <div
                             key={module.id}
                             className={`module-tile selectable ${isSelected ? 'selected' : ''} ${isRecommended ? 'recommended' : ''}`}
-                            onClick={() => toggleModuleSelection(module.id)}
-                            role="checkbox"
-                            aria-checked={isSelected}
+                            onClick={() => setModuleDetailId(module.id)}
+                            role="button"
+                            aria-label={`View details for ${module.name}${isSelected ? ' (selected)' : ''}`}
                             tabIndex={0}
                             onKeyDown={(e) => {
                               if (e.key === 'Enter' || e.key === ' ') {
                                 e.preventDefault();
-                                toggleModuleSelection(module.id);
+                                setModuleDetailId(module.id);
                               }
                             }}
                           >
@@ -817,20 +817,6 @@ export function DiscoveryModule({
                             <div className="tile-content">
                               <div className="tile-header">
                                 <span className="tile-name">{module.name}</span>
-                                <button
-                                  className="tile-info-btn"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setModuleDetailId(module.id);
-                                  }}
-                                  type="button"
-                                  aria-label={`Info about ${module.name}`}
-                                >
-                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <path d="M12 16v-4M12 8h.01" />
-                                  </svg>
-                                </button>
                               </div>
                               <p className="tile-description">{module.description}</p>
                               <div className="tile-meta">
@@ -840,6 +826,7 @@ export function DiscoveryModule({
                                   <span className="tile-badge">Recommended</span>
                                 )}
                               </div>
+                              <span className="tile-tap-hint">Tap for details</span>
                             </div>
                           </div>
                         );
