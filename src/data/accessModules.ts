@@ -94,6 +94,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Some info on our website but not comprehensive' or 'We mention parking but not entrances or toilets'",
         helpContent: {
           summary: 'Pre-visit accessibility information helps customers with disability decide if your venue will work for them and plan their visit with confidence.',
+          understanding: [
+            'Accessibility information includes: physical access details (parking, entrances, toilets), sensory environment (noise, lighting), what to expect during a visit, and equipment/resources available',
+            'Answer "Yes" if you have accessibility information covering multiple aspects (e.g., entrances AND toilets AND sensory environment) in a place customers can easily find',
+            'Answer "Partially" if you have some accessibility information but it\'s incomplete (e.g., only mentions parking), hard to find, or scattered across different pages without a clear structure',
+          ],
           tips: [
             'Include practical details: parking, entrance access, toilets, seating options, and any steps or barriers',
             'Describe the sensory environment: typical noise levels, lighting, crowds at different times',
@@ -126,6 +131,11 @@ export const accessModules: AccessModule[] = [
         summaryBehavior: 'action-planning',
         helpContent: {
           summary: 'These barriers are common and can be addressed. Understanding what is stopping you helps identify practical next steps.',
+          understanding: [
+            'This question helps identify what\'s preventing you from sharing accessibility information so you can address specific barriers',
+            'Select ALL options that apply to your situation - most organisations face multiple barriers',
+            'Be honest - identifying the real barriers helps create a realistic action plan rather than setting unachievable goals',
+          ],
           tips: [
             'Not sure what to include? Start with the basics: parking, entrance access, toilets, and how to contact you with questions',
             'Worried about getting it wrong? Honest, evolving information is better than none - you can update as you learn more',
@@ -157,6 +167,11 @@ export const accessModules: AccessModule[] = [
         summaryBehavior: 'action-planning',
         helpContent: {
           summary: 'Choose the platform that is easiest to update and most likely to reach your customers. You can expand to other channels later.',
+          understanding: [
+            'This question helps identify the best starting point for sharing accessibility information based on what\'s realistic for your organisation',
+            'Select the option(s) where you could most easily add or update accessibility information within the next few weeks',
+            'Consider both ease of updating AND where your customers are most likely to look for information',
+          ],
           tips: [
             'Website: Best for detailed information - consider a dedicated accessibility page or section on your About/Visit Us page',
             'Booking platform: Reaches customers at the decision point - add an accessibility notes field within the booking flow',
@@ -191,6 +206,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
         helpContent: {
           summary: 'Different customers need different types of information. This helps identify what you already cover and where gaps might exist.',
+          understanding: [
+            'This question maps what accessibility information you currently share to identify strengths and gaps',
+            'Select ALL types of information you currently provide, even if the coverage is basic or incomplete',
+            'Don\'t select an option if you only mention it in passing - select it if customers can actually find useful details on that topic',
+          ],
           tips: [
             'Physical access: The most commonly sought information - parking, entrance steps/ramps, toilet location and features, seating options',
             'What to expect: Helps reduce anxiety - typical visit flow, queue lengths, busy periods, how long things take',
@@ -210,6 +230,20 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Specific details help customers make informed decisions about whether your venue will work for them.',
+          understanding: [
+            'This question assesses the depth and usefulness of your physical access information, not just whether it exists',
+            'Select ALL types of specific details you currently provide - even if you only have one type, select it',
+            'Select "None of these" only if your physical access information is limited to general statements like "we are accessible" without specifics',
+          ],
+          tips: [
+            'Measurements: Door widths (especially for powered wheelchairs), ramp gradients, toilet dimensions, counter heights',
+            'Photos: Clear images showing entrances, accessible routes, toilet layouts, parking areas - worth a thousand words',
+            'Step-free routes: Describe the path from arrival to key areas - "Enter via side door, turn left, accessible toilet 20m on right"',
+            'Limitations: Honest notes about constraints - "Historic building with some narrow doorways" helps customers plan',
+          ],
+        },
         options: [
           { id: 'measurements', label: 'Measurements (door widths, gradients)', sentiment: 'positive' },
           { id: 'photos', label: 'Photos of entrances and toilets', sentiment: 'positive' },
@@ -227,6 +261,21 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Sensory and social environment information helps visitors prepare mentally and reduces anxiety about the unknown.',
+          understanding: [
+            'This question assesses whether your "what to expect" information covers the sensory and social aspects of visiting, not just physical logistics',
+            'Select ALL topics you currently describe, even if briefly - partial coverage is still valuable',
+            'Select "None of these" only if your information focuses purely on physical access without mentioning the experience of being there',
+          ],
+          tips: [
+            'Queuing: "Expect 10-15 minute wait at peak times" or "No queuing - walk straight in" helps visitors plan their energy and time',
+            'Noise: "Our café can be loud during lunch" or "Library-quiet environment" sets expectations for sensory-sensitive visitors',
+            'Lighting: "Bright fluorescent lighting throughout" or "Natural lighting with dimmer evening ambiance" helps those with light sensitivity',
+            'Crowds: "Busiest 11am-2pm weekends" or "Quieter Tuesday mornings" allows visitors to choose their preferred timing',
+            'Staff interactions: "Staff will approach to offer assistance" or "Self-service - staff available if needed" prepares visitors for social contact',
+          ],
+        },
         options: [
           { id: 'queuing', label: 'Queuing and waiting expectations', sentiment: 'positive' },
           { id: 'noise', label: 'Noise levels at different times', sentiment: 'positive' },
@@ -250,6 +299,11 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Where customers can find your accessibility information affects whether they find it at all.',
+          understanding: [
+            'This question maps where your accessibility information currently lives to assess findability and coverage',
+            'Select ALL locations where you publish accessibility information, even if the content differs between locations',
+            'Multiple locations can be good (reaching customers where they search) but ensure consistency across platforms',
+          ],
           tips: [
             'Dedicated page: Easiest to find, shows accessibility is a priority',
             'Footer link: Common location customers look for accessibility info',
@@ -312,6 +366,11 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Findability is one of the most common accessibility failures. You might have excellent information, but it has no value if customers can\'t locate it when they need it. Many people give up if they can\'t find answers quickly.',
+          understanding: [
+            'This question measures how easily customers can navigate to your accessibility information from your homepage',
+            'Test this yourself: Open your website homepage and count the clicks needed to reach your accessibility information',
+            'Select "Hard to locate" if customers need to use site search, scroll through FAQs, or might not find it without guidance',
+          ],
           tips: [
             'One click from homepage is ideal: A clear link in your main navigation, footer, or prominently on your homepage means customers find it immediately. Labels like "Accessibility", "Access Info", or "Accessible Visit" work well.',
             'Two to three clicks is acceptable: Information placed within logical sections like "Visit Us", "Plan Your Trip", "About Us", or "Customer Support" can still be found, but make sure the path is intuitive.',
@@ -338,6 +397,12 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'The best accessibility information helps customers decide if your experience works for them - whether that\'s a physical venue, online service, or event.',
+          understanding: [
+            'This question assesses whether your accessibility information is written to genuinely help customers or primarily to demonstrate compliance',
+            'Select "Primarily for customers" if your information answers practical questions (Can I get in? What should I expect?) in plain language',
+            'Select "Primarily for compliance" if your information uses technical standards, legal language, or statements like "We comply with AS1428.1" without practical details',
+            'Select "A mix of both" if you have some customer-friendly content alongside compliance language',
+          ],
           tips: [
             'Customer-focused: "Our entrance has 2 steps. A portable ramp is available on request."',
             'Compliance-focused: "This venue complies with AS1428.1 requirements."',
@@ -372,6 +437,12 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
         helpContent: {
           summary: 'Accurate information builds trust. Outdated information can lead to poor experiences when customers arrive expecting features that have changed.',
+          understanding: [
+            'This question assesses how confident you are that what you\'ve published matches reality',
+            'Select "Very confident" if you\'ve recently verified the information through site inspection or know it\'s current',
+            'Select "Somewhat confident" if you think it\'s mostly correct but haven\'t verified recently',
+            'Select "Not very confident" if you know there have been changes, or it\'s been a long time since review',
+          ],
           tips: [
             'Information should be reviewed whenever something changes - renovations, new equipment, changed procedures',
             'Set a reminder to review accessibility information at least every 6 months',
@@ -391,6 +462,11 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Outdated information leads to poor experiences when customers arrive expecting something different.',
+          understanding: [
+            'This question identifies how recently your accessibility information was deliberately reviewed for accuracy',
+            'Select the time period when someone last intentionally checked that the information is still correct',
+            'A "review" means someone checked the information against current reality - not just updated the website for other reasons',
+          ],
           tips: [
             'Review after any renovations, new equipment, or changed procedures',
             'Set a calendar reminder to check every 6 months',
@@ -414,6 +490,20 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Different verification methods catch different issues. Using multiple approaches gives the most complete picture.',
+          understanding: [
+            'This question identifies what methods you\'ve used to verify your accessibility information is accurate',
+            'Select ALL methods you\'ve used, even if the verification wasn\'t recent',
+            'Select "Not checked" only if you\'ve never deliberately verified the information against reality',
+          ],
+          tips: [
+            'Site inspection: Walk through as if you were a customer - physically check what\'s described matches reality',
+            'Staff review: Front-line staff often know about issues before management - ask what questions customers raise',
+            'Customer feedback: People with disability may spot things others miss - actively invite their input',
+            'Access consultant: Professional audit provides expert perspective and identifies less obvious issues',
+          ],
+        },
         options: [
           { id: 'site-inspection', label: 'A site inspection or walkthrough', sentiment: 'positive' },
           { id: 'staff-review', label: 'Staff knowledge review', sentiment: 'positive' },
@@ -436,6 +526,11 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Inconsistent information confuses customers and erodes trust.',
+          understanding: [
+            'This question checks whether your accessibility information matches across all the places you publish it',
+            'Select "Yes - consistent everywhere" only if you\'ve actually compared your platforms and confirmed they match',
+            'Select "Not sure - haven\'t checked" if you publish in multiple places but haven\'t recently compared them',
+          ],
           tips: [
             'Check: website, booking platforms, Google Business Profile, printed brochures',
             'Common problem: updating one place but forgetting others',
@@ -468,6 +563,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
         helpContent: {
           summary: 'Honest communication about limitations builds trust and prevents frustrating surprises. Customers plan better when they know what to expect.',
+          understanding: [
+            'This question assesses whether you\'re upfront about barriers and limitations, not just highlighting the positives',
+            'Select "Yes - we clearly state known limitations" if you explicitly mention things like steps, narrow doorways, noise levels, or areas without access',
+            'Select "No - we only highlight positives" if your information focuses on what IS accessible without mentioning what isn\'t',
+          ],
           tips: [
             'Physical barriers: "Our upper floor has no lift access", "Entrance has 2 steps"',
             'Sensory environment: "Background noise can be high at peak times", "Lighting is dim in restaurant area"',
@@ -495,6 +595,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
         helpContent: {
           summary: 'People with disability are experts in their own needs. Inviting feedback shows you value their input and helps keep information accurate.',
+          understanding: [
+            'This question assesses whether you encourage customers to tell you if your accessibility information needs updating',
+            'Select "Yes - we actively invite feedback" if you have visible prompts asking customers to report issues or suggest improvements',
+            'Select "We accept feedback but don\'t actively invite it" if you respond to feedback when received but don\'t have visible invitations to provide it',
+          ],
           tips: [
             'Add a simple prompt: "Notice something that needs updating? Let us know"',
             'Include on your accessibility page and in contact options',
@@ -522,6 +627,12 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
         helpContent: {
           summary: 'Clear ownership ensures information stays accurate. Without someone responsible, updates get missed and information becomes unreliable.',
+          understanding: [
+            'This question identifies whether there\'s clear accountability for keeping accessibility information current',
+            'Select "A named role or individual" if a specific person or role is responsible for accessibility information updates',
+            'Select "Shared across multiple people" if responsibility is distributed but people know what they\'re each responsible for',
+            'Select "No clear owner" if no one is specifically accountable, even if people occasionally update information',
+          ],
           tips: [
             'Named owner: One person accountable means nothing falls through the cracks',
             'Include in role description or KPIs so it\'s recognised as real work',
@@ -551,6 +662,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B1-F-1', answers: ['yes', 'partially'] },
         helpContent: {
           summary: 'Our AI-assisted review can quickly identify common gaps in accessibility information and suggest improvements.',
+          understanding: [
+            'This optional feature offers an AI-assisted review of your publicly available accessibility information',
+            'Select "Yes please" if you want us to analyse your accessibility page and provide specific feedback',
+            'Select "No thanks" or "Maybe later" if you prefer to skip this - you can always come back to it',
+          ],
           tips: [
             'We\'ll check for: completeness, clarity, and findability',
             'Common gaps we identify: missing transport info, vague descriptions, hard-to-find pages',
@@ -574,6 +690,11 @@ export const accessModules: AccessModule[] = [
         evidenceHint: 'Upload a screenshot or document if you prefer',
         helpContent: {
           summary: 'Share where customers currently find your accessibility information so we can review it.',
+          understanding: [
+            'Paste the URL of your accessibility information page, OR upload a screenshot/document if your information isn\'t publicly available online',
+            'If your accessibility information is spread across multiple pages, share the link to the main/most comprehensive page',
+            'Our review will analyse the content for completeness, clarity, and common gaps',
+          ],
           tips: [
             'Best option: Direct link to your dedicated accessibility page',
             'If info is spread across pages, share the main one - we\'ll note if consolidation would help',
@@ -602,6 +723,11 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Multiple contact options ensure customers with different needs and preferences can reach you. Phone-only contact excludes Deaf customers and those who prefer written communication.',
+          understanding: [
+            'This question assesses whether customers have multiple ways to contact you with accessibility questions before visiting',
+            'Select "Yes (multiple options available)" if you offer phone AND at least one other channel (email, contact form, social media, etc.)',
+            'Select "Limited options" if you only offer one or two ways to get in touch, or if alternatives to phone are hard to find',
+          ],
           tips: [
             'Phone: Good for complex questions, but not accessible to everyone - should not be the only option',
             'Email: Allows detailed responses and gives customers a record to refer back to',
@@ -620,6 +746,20 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Consistent handling of accessibility enquiries ensures customers receive confident, accurate responses.',
+          understanding: [
+            'This question assesses who handles accessibility questions and how consistently they\'re addressed',
+            'Select "Routed to trained staff" if enquiries are directed to specific people who have been prepared to answer accessibility questions',
+            'Select "Handled by whoever is available" if any staff member responds based on their own knowledge without specific routing',
+            'Select "Sometimes missed, delayed, or answered inconsistently" if you\'re aware of gaps in how enquiries are handled',
+          ],
+          tips: [
+            'Trained staff: Doesn\'t require extensive training - even a briefing on where to find information helps',
+            'Whoever available: Can work if all staff have access to accurate accessibility information',
+            'Inconsistent handling: Common issue - identifying it is the first step to improving',
+          ],
+        },
         options: [
           { id: 'trained-staff', label: 'Routed to trained staff who can answer confidently' },
           { id: 'whoever-available', label: 'Handled by whoever is available at the time' },
@@ -636,6 +776,21 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Phone-only contact excludes Deaf customers and creates barriers for those who prefer or need written communication.',
+          understanding: [
+            'This question specifically checks whether you offer alternatives to phone calls for accessibility enquiries',
+            'Select "Yes - multiple options" if customers can reach you via email AND contact form AND/OR social media/chat',
+            'Select "Yes - one alternative" if there\'s only one way to contact you besides phone (e.g., email only)',
+            'Select "No - phone only" if voice phone is the only way customers can ask accessibility questions',
+          ],
+          tips: [
+            'Email is the most common alternative - ensure it\'s prominently displayed, not hidden',
+            'Contact forms work well if monitored daily',
+            'Social media messaging reaches customers where they already are',
+            'Text/SMS is excellent for Deaf customers - consider adding this if you don\'t have it',
+          ],
+        },
         options: [
           { id: 'multiple-options', label: 'Yes - multiple options' },
           { id: 'one-alternative', label: 'Yes - one alternative' },
@@ -652,6 +807,21 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Proactive invitations signal that accessibility matters and remove the burden from customers to initiate the conversation.',
+          understanding: [
+            'This question assesses whether you actively encourage customers to ask accessibility questions, rather than waiting for them to ask',
+            'Select "Yes" if you have visible prompts (on website, in booking confirmations, or via staff) inviting accessibility questions',
+            'Select "Sometimes" if this happens inconsistently - perhaps some staff do it, or it\'s only in some communications',
+            'Select "No" if you rely entirely on customers to initiate accessibility conversations',
+          ],
+          tips: [
+            'Website prompt: "Have accessibility questions? We\'re happy to help - contact us"',
+            'Booking confirmation: "Please let us know if you have any accessibility requirements"',
+            'Staff script: "Is there anything we can do to make your visit more comfortable?"',
+            'These small prompts make a big difference in signalling that customers are welcome',
+          ],
+        },
         options: [
           { id: 'yes', label: 'Yes' },
           { id: 'sometimes', label: 'Sometimes' },
@@ -677,6 +847,12 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Testing reveals barriers that may be invisible to you but block customers from reaching you.',
+          understanding: [
+            'This question assesses whether you\'ve actively tested your contact channels for accessibility barriers',
+            'Select "Yes - we\'ve tested them and are confident they work well" if you\'ve deliberately checked channels using accessibility testing methods',
+            'Select "We haven\'t formally tested them, but we haven\'t had issues raised" if you\'ve not tested but assume they work because you haven\'t received complaints',
+            'Note: No complaints doesn\'t mean no barriers - people often give up silently rather than report issues',
+          ],
           tips: [
             'Email: Can customers easily find your address? Do you reply in accessible formats (plain text option, no image-only content)?',
             'Phone: Is there a text-based alternative (SMS, email, relay service info) for people who are Deaf or hard of hearing?',
@@ -695,6 +871,20 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'This identifies which specific contact channels have been tested, helping you see gaps in your testing coverage.',
+          understanding: [
+            'Select ALL channels that have been deliberately tested for accessibility, even if testing was informal',
+            'Testing means someone has checked whether the channel works for people using assistive technology or who have specific access needs',
+            'Select "None / not sure" only if no testing has been done on any channel',
+          ],
+          tips: [
+            'Contact forms: Check keyboard navigation, visible labels, clear error messages',
+            'Email responses: Check that responses don\'t rely on images only, and are readable in plain text',
+            'Mobile experience: Forms and contact info should work on small screens',
+            'Confirmation emails: These are easy to overlook but often contain inaccessible formatting',
+          ],
+        },
         options: [
           { id: 'contact-forms', label: 'Website contact forms', sentiment: 'positive' },
           { id: 'booking-forms', label: 'Booking or enquiry forms', sentiment: 'positive' },
@@ -713,6 +903,19 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'We can provide an indicative accessibility review of your publicly available contact channels.',
+          understanding: [
+            'This optional feature offers an automated review of your contact forms and channels for common accessibility issues',
+            'Select "Yes - please review this for me" if you want us to check your contact channels and include findings in your report',
+            'Select "No - note this as an area to review later" if you prefer to skip this and have it flagged as a future action item',
+          ],
+          tips: [
+            'Our review checks: form labels, required fields, contrast, keyboard navigation basics',
+            'This is indicative only - it doesn\'t replace a full technical accessibility audit',
+            'Results will appear in your report with specific suggestions for improvement',
+          ],
+        },
         options: [
           { id: 'yes-review', label: 'Yes - please review this for me' },
           { id: 'no-note', label: 'No - note this as an area to review later' },
@@ -737,6 +940,12 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Staff confidence in responding to accessibility questions directly affects customer experience. Uncertainty or awkwardness can make customers feel unwelcome.',
+          understanding: [
+            'This question assesses whether staff feel prepared and confident to answer accessibility questions from customers',
+            'Select "Yes, consistently" if most staff can confidently answer common accessibility questions or know where to find answers',
+            'Select "Sometimes" if response quality varies depending on who answers',
+            'Select "Not sure" or "No" if you haven\'t observed how staff handle these enquiries or know there\'s a gap',
+          ],
           tips: [
             'Common questions to prepare for: parking, entrance access, toilets, seating options, noise levels, companion policies',
             'Staff should know where to find accessibility information quickly if they do not know the answer',
@@ -755,6 +964,21 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Documented guidance helps ensure consistent, confident responses regardless of which staff member answers.',
+          understanding: [
+            'This question explores how staff access information needed to respond to accessibility questions',
+            'Select "Written down and accessible to staff" if there\'s a document, FAQ sheet, or reference guide staff can consult',
+            'Select "Shared informally between team members" if knowledge passes verbally but isn\'t documented',
+            'Select "Based on individual knowledge and experience" if each person draws on what they personally know',
+          ],
+          tips: [
+            'Written guidance: A simple one-page reference sheet is better than nothing',
+            'Informal sharing: Works in small teams but breaks down with staff turnover',
+            'Individual knowledge: Leads to inconsistent customer experiences',
+            'Best practice: Written guidance that\'s easy to find and regularly updated',
+          ],
+        },
         options: [
           { id: 'written', label: 'Written down and accessible to staff' },
           { id: 'informal', label: 'Shared informally between team members' },
@@ -772,6 +996,21 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'What happens when staff don\'t know the answer matters as much as whether they know in the first place.',
+          understanding: [
+            'This question assesses your escalation process when front-line staff can\'t answer an accessibility question',
+            'Select "Clear escalation path and follow-up process" if there\'s a defined process for finding answers and getting back to customers',
+            'Select "Staff usually find someone who knows" if it works informally but there\'s no formal process',
+            'Select "Often left unresolved" if questions sometimes go unanswered when the first person doesn\'t know',
+          ],
+          tips: [
+            'Clear escalation: Name who to ask, set expectations for response time, follow up with customers',
+            'Find someone: Works but depends on the right person being available',
+            'Unresolved: Creates poor customer experiences and damages trust',
+            'Customers understand "I\'ll find out" - what frustrates them is never hearing back',
+          ],
+        },
         options: [
           { id: 'clear-escalation', label: 'Clear escalation path and follow-up process' },
           { id: 'find-someone', label: 'Staff usually find someone who knows' },
@@ -788,6 +1027,20 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Staff who feel safe acknowledging uncertainty provide more accurate information than those who feel pressured to guess.',
+          understanding: [
+            'This question reflects your service culture around honesty and uncertainty',
+            'Select "Yes - this is encouraged" if staff are explicitly told it\'s okay to say they don\'t know and will find out',
+            'Select "No - staff feel they should always have an answer" if your culture expects staff to provide immediate answers',
+          ],
+          tips: [
+            'Customers prefer "I\'ll find out" to wrong information or vague guesses',
+            'Build this into training: "It\'s okay to say you don\'t know - just follow up"',
+            'Create easy ways for staff to find answers quickly so they can follow up',
+            'Celebrate when staff correctly identify gaps rather than making things up',
+          ],
+        },
         options: [
           { id: 'encouraged', label: 'Yes - this is encouraged' },
           { id: 'sometimes', label: 'Sometimes' },
@@ -809,6 +1062,13 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         helpContent: {
           summary: 'Familiarisation visits help people become comfortable with your venue before their main visit. This is especially valuable for autistic visitors, people with anxiety, or those with cognitive disabilities.',
+          understanding: [
+            'Familiarisation visits are pre-visit opportunities for customers to see your venue and meet staff before their main visit',
+            'Select "Yes, we offer this" if you actively promote and regularly provide familiarisation visits',
+            'Select "Available on request" if you would accommodate familiarisation visits but don\'t actively promote them',
+            'Select "Virtual/online options only" if you provide video tours, photo galleries, or social stories but not in-person pre-visits',
+            'Select "Not applicable to our service" if your business model doesn\'t suit pre-visits (e.g., online-only services)',
+          ],
           tips: [
             'Offer visits at quieter times when staff can provide one-on-one attention',
             'Allow visitors to explore at their own pace without pressure to book or commit',
@@ -836,6 +1096,21 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Understanding what\'s stopping you helps identify practical solutions that work for your situation.',
+          understanding: [
+            'This question identifies barriers to offering familiarisation visits so we can suggest realistic solutions',
+            'Select ALL barriers that apply to your situation - most organisations face multiple challenges',
+            'Be honest about constraints - this helps create a practical improvement plan',
+          ],
+          tips: [
+            'Time constraints: Consider virtual tours or social stories as alternatives',
+            'Staffing: Brief visits during quiet periods may need minimal additional staff',
+            'Awareness: Start with one staff member championing the idea',
+            'Demand: Promote availability and track requests to gauge interest',
+            'Liability: Check your existing insurance - pre-visits are often covered under general public liability',
+          ],
+        },
         options: [
           { id: 'time', label: 'Time or scheduling constraints', sentiment: 'neutral' },
           { id: 'staffing', label: 'Staffing availability', sentiment: 'neutral' },
@@ -856,6 +1131,20 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'An excellent service has limited value if customers don\'t know it exists. Visibility matters.',
+          understanding: [
+            'This question assesses how customers learn that familiarisation visits are available',
+            'Select ALL ways you currently communicate this option to customers',
+            'Select "Not actively communicated" if you would accommodate requests but don\'t proactively mention availability',
+          ],
+          tips: [
+            'Website: Add to your accessibility page - "Pre-visit tours available on request"',
+            'Booking communications: Include in confirmation emails for relevant bookings',
+            'Staff training: Ensure all staff know to offer when accessibility questions arise',
+            'The more visible, the more people will benefit from this service',
+          ],
+        },
         options: [
           { id: 'website', label: 'Mentioned on website', sentiment: 'positive' },
           { id: 'booking', label: 'Included in booking communications', sentiment: 'positive' },
@@ -880,6 +1169,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Parking info available but not public transport options' or 'Directions provided but not accessibility-specific details'",
         helpContent: {
           summary: 'Getting to your venue is the first step of the visit. Without transport info, some customers can\'t plan their journey at all.',
+          understanding: [
+            'Transport information includes: accessible parking, public transport options, drop-off zones, and walking routes from transport stops',
+            'Answer "Yes" if you provide transport information that specifically addresses accessibility needs (not just generic directions)',
+            'Answer "Partially" if you have some transport information but it\'s incomplete or doesn\'t specifically address accessibility (e.g., mentions parking but not accessible parking)',
+          ],
           tips: [
             'Include accessible parking: Location, dimensions, surface type, distance to entrance',
             'Public transport: Nearest accessible stop, which services have low-floor access, distance and terrain to your door',
@@ -906,6 +1200,12 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B1-F-8', answers: ['yes'] },
         helpContent: {
           summary: 'Generic transport info doesn\'t help people with mobility needs plan their journey. They need specifics.',
+          understanding: [
+            'This question assesses whether your transport information goes beyond generic directions to include accessibility-specific details',
+            'Select "Yes - specifically addresses accessibility" if your transport info includes details like surface types, gradients, kerb cuts, accessible stops',
+            'Select "Partially" if you have some accessibility detail but not comprehensive coverage',
+            'Select "No - generic directions only" if your transport info is like "nearest bus stop 200m away" without accessibility details',
+          ],
           tips: [
             'Generic: "Nearest bus stop is 200m away"',
             'Accessibility-specific: "Bus stop 200m away on Smith St. Level footpath, no kerb cuts needed, shelter with seating available"',
@@ -933,6 +1233,12 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B1-F-8', answers: ['yes'] },
         helpContent: {
           summary: 'The "last 50 metres" from transport to your entrance is often where accessibility breaks down. Describing this helps people know what to expect.',
+          understanding: [
+            'The "last 50 metres" refers to the final approach from parking or transport to your entrance - often the most challenging part',
+            'Select "Yes - includes detailed approach information" if you describe the route from car park/bus stop to door including surface, obstacles, and alternatives',
+            'Select "Partially" if you mention some approach details but not comprehensively',
+            'Select "No - not covered" if your transport info ends at "accessible parking available" without describing the route to your entrance',
+          ],
           tips: [
             'From car park: "30m on flat concrete to main entrance. Small lip at door - use side entrance for step-free."',
             'From bus stop: "Cross at traffic lights (audible signals), then 50m on paved footpath. Look for blue accessible entry sign."',
@@ -972,6 +1278,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Main navigation works but dropdown menus are not accessible' or 'Most pages work but booking forms require a mouse'",
         helpContent: {
           summary: 'Keyboard access allows people to navigate and use your website without a mouse.',
+          understanding: [
+            'Keyboard access means being able to navigate and use all website features using only Tab, Enter, arrow keys, and Escape - no mouse required',
+            'Answer "Yes" if you can tab through all navigation, forms, buttons, and interactive elements, AND complete key tasks like booking or enquiries using keyboard only',
+            'Answer "Partially" if some areas work but others trap the keyboard or are unreachable (e.g., main nav works but dropdown menus don\'t)',
+          ],
           tips: [
             'Press Tab to move through interactive elements - you should see a visible outline showing where you are',
             'Try to complete a booking or enquiry using only the keyboard',
@@ -1001,6 +1312,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B4.1-1-1', answers: ['no', 'partially', 'unable-to-check'] },
         helpContent: {
           summary: 'Each option refers to a common area where keyboard navigation often fails. Understanding these helps you communicate issues to a developer.',
+          understanding: [
+            'This question helps pinpoint exactly where keyboard navigation fails on your site',
+            'Select ALL areas where keyboard access breaks down, even if you\'re not 100% certain',
+            'This information helps prioritise fixes - issues in booking or navigation have higher customer impact',
+          ],
           tips: [
             'Focus indicator: The outline or highlight that shows which element is currently selected when using Tab',
             'Main navigation: The primary menu at the top of your website with links to main sections',
@@ -1022,6 +1338,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Focus visible on buttons but not on links' or 'Header menu shows focus but footer doesn't'",
         helpContent: {
           summary: 'Focus visibility is one of the most common accessibility issues and often one of the easiest to fix.',
+          understanding: [
+            'The focus indicator is the outline or highlight that shows which element is selected when using Tab - like a cursor for keyboard users',
+            'Answer "Yes" if you can always see a clear outline, border change, or colour shift on every interactive element as you tab through',
+            'Answer "Partially" if focus is visible on some elements (e.g., buttons) but not others (e.g., links)',
+          ],
           tips: [
             'Good focus indicators use a clear outline, background change, or border',
             'The focus should be visible on ALL interactive elements, not just some',
@@ -1046,6 +1367,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Key venue photos have alt text but decorative images don't' or 'Blog posts have alt text but older pages don't'",
         helpContent: {
           summary: 'Alt text helps screen reader users understand images they cannot see.',
+          understanding: [
+            'Alt text is a short description added to images so screen reader users understand what the image shows and why it matters in context',
+            'Answer "Yes" if important images (photos of venue, products, people, infographics) have descriptive alt text that explains their purpose',
+            'Answer "Partially" if some images have alt text but others are missing it, or if alt text exists but is poor quality (e.g., "image1.jpg")',
+          ],
           tips: [
             'Good: "Customer using wheelchair accessing main entrance via ramp" - describes what matters',
             'Poor: "IMG_2847.jpg" or "image" - provides no useful information',
@@ -1072,6 +1398,12 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B4.1-1-2', answers: ['yes', 'partially'] },
         helpContent: {
           summary: 'Alt text should be part of your regular content workflow, not an afterthought. Inconsistent alt text means some images are invisible to screen reader users.',
+          understanding: [
+            'This question assesses how reliably alt text is added when images are uploaded to your website',
+            'Select "Always added as part of our process" if adding alt text is a standard step that happens consistently',
+            'Select "Added sometimes, but not consistently" if it depends on who uploads or whether they remember',
+            'Select "Added automatically by our website system" if your CMS or AI generates alt text (note: auto-generated alt often needs review)',
+          ],
           tips: [
             'Build it into your process: Add alt text at the same time as uploading images, not later',
             'Auto-generated alt text (AI-based) is improving but still needs human review - it often misses context or describes irrelevant details',
@@ -1098,6 +1430,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B4.1-1-2', answers: ['yes', 'partially'] },
         helpContent: {
           summary: 'Knowing who handles alt text helps identify where training or process improvements are needed.',
+          understanding: [
+            'This question identifies who is responsible for adding alt text so we can recommend appropriate training or process improvements',
+            'Select the option that best describes who typically uploads and adds alt text to images on your website',
+            'If responsibility varies or is unclear, select "No one specifically / not sure"',
+          ],
           tips: [
             'Content editors are often best placed - they understand the context and purpose of each image',
             'Marketing teams may focus on brand messaging but miss accessibility context - ensure they understand alt text isn\'t just keywords for SEO',
@@ -1122,6 +1459,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Main text is fine but footer links are hard to read' or 'Text on hero images lacks contrast'",
         helpContent: {
           summary: 'Good contrast helps everyone read your content, especially people with low vision or in bright environments.',
+          understanding: [
+            'Contrast refers to how clearly text stands out from its background - dark text on light backgrounds (or vice versa) is easier to read than low-contrast combinations',
+            'Answer "Yes" if all text on your site is clearly readable without straining, including footer text, form placeholders, and text on images',
+            'Answer "Partially" if main content is readable but some areas have issues (common problem areas: light grey text, text over images, footer and form elements)',
+          ],
           tips: [
             'Body text should have a contrast ratio of at least 4.5:1',
             'Large headings can have slightly lower contrast (3:1 minimum)',
@@ -1152,6 +1494,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B4.1-1-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         helpContent: {
           summary: 'Formal testing uses tools to objectively measure contrast ratios, rather than relying on visual judgement which can miss issues.',
+          understanding: [
+            'This question asks whether contrast has been measured using tools rather than just visual judgement',
+            'Select "Yes, formally checked within the last year" if you\'ve used contrast checking tools like WAVE, axe, or WebAIM\'s contrast checker',
+            'Select "Only informal spot checks" if you\'ve looked at the site and thought "that looks readable" without measuring',
+          ],
           tips: [
             'Automated tools (WAVE, axe, Lighthouse) can scan entire pages and flag contrast issues - useful for quick audits',
             'Manual checking with a contrast checker (WebAIM, Colour Contrast Analyser) is needed for images and complex backgrounds',
@@ -1178,6 +1525,12 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B4.1-1-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         helpContent: {
           summary: 'Text over photos, gradients, or coloured backgrounds is a common accessibility problem. The varying background makes consistent contrast difficult to achieve.',
+          understanding: [
+            'This question identifies where text-over-image issues might exist on your site',
+            'Select "Yes, in hero banners or headers" if text appears over images mainly at the top of pages',
+            'Select "Yes, throughout the site" if text-over-image is a common design pattern used in multiple areas',
+            'Select "Minimal or none" if text generally appears on solid backgrounds',
+          ],
           tips: [
             'Hero banners with text over photos: Add a semi-transparent overlay behind the text to ensure consistent contrast',
             'Gradient backgrounds: Check contrast at both ends of the gradient, not just the middle',
@@ -1201,6 +1554,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Works at 200% but breaks at higher zoom' or 'Content readable but navigation menu gets cut off'",
         helpContent: {
           summary: 'Text resizing and zoom allows people with low vision to read your content comfortably. About 1 in 6 Australians have some form of vision impairment.',
+          understanding: [
+            'Zoom and text resizing means using browser controls (Ctrl/Cmd +) to make content larger, which many people with low vision need',
+            'Answer "Yes" if content remains usable at 200% zoom - text doesn\'t overlap, navigation still works, no horizontal scrolling needed',
+            'Answer "Partially" if some issues appear at higher zoom levels - e.g., menus become hard to use or some text gets cut off',
+          ],
           tips: [
             'How to test: Press Ctrl and + (Windows) or Cmd and + (Mac) to zoom in. Press Ctrl/Cmd and 0 to reset.',
             'Test at 200% zoom as a minimum - this level is required by accessibility standards (WCAG)',
@@ -1231,6 +1589,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B4.1-1-4', answers: ['no', 'partially'] },
         helpContent: {
           summary: 'Understanding specific zoom issues helps identify the right fixes.',
+          understanding: [
+            'This question identifies the specific problems that occur when zooming, which helps developers know what to fix',
+            'Select ALL issues you\'ve observed when zooming to 200% or higher',
+            'If you haven\'t tested zooming, select "Issues exist but not sure of specifics"',
+          ],
           tips: [
             'Text overlap: Usually a CSS issue where text containers have fixed widths',
             'Content cut off: Often caused by overflow:hidden or fixed-height containers',
@@ -1254,6 +1617,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Content reads well but menus are hard to use' or 'Works on iPhone but issues on Android'",
         helpContent: {
           summary: 'Mobile access is often the primary way customers find and interact with your business. Over 60% of website visits in tourism and hospitality come from mobile devices.',
+          understanding: [
+            'Mobile usability means your website works well on phones and tablets - readable text, easy-to-tap buttons, content that fits the screen',
+            'Answer "Yes" if text is readable without zooming, buttons are easy to tap, menus work smoothly, and forms are completable on mobile',
+            'Answer "Partially" if most things work but some areas have issues (e.g., menus are fiddly or some text is too small)',
+          ],
           tips: [
             'Text should be readable without pinching to zoom - if visitors need to zoom, text is too small',
             'Buttons and links should be large enough to tap easily (at least 44x44 pixels)',
@@ -1284,6 +1652,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B4.1-1-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         helpContent: {
           summary: 'Over half of web traffic is mobile. Testing on actual devices reveals issues that desktop browser resizing misses.',
+          understanding: [
+            'This question identifies which tasks you\'ve actually tested on a real mobile device (not desktop browser resize)',
+            'Select ALL tasks you\'ve tried on an actual phone or tablet',
+            'Testing on a real device catches issues that desktop testing misses - touch interactions, real screen size, actual performance',
+          ],
           tips: [
             'Reading content: Check text size is readable without zooming, line lengths aren\'t too wide, and scrolling is smooth',
             'Navigation menus: Hamburger menus should be easy to open, items easy to tap, and submenus workable',
@@ -1310,6 +1683,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B4.1-1-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         helpContent: {
           summary: 'iPhone and Android have different browsers, screen sizes, and accessibility features. Testing on both catches platform-specific issues.',
+          understanding: [
+            'This question identifies which device platforms you\'ve tested on to assess coverage',
+            'Select ALL device types that anyone on your team has used to test the website',
+            'Testing on just one platform may miss issues that affect the other - iPhone and Android behave differently',
+          ],
           tips: [
             'iPhone: Safari renders differently to Chrome. VoiceOver (screen reader) is built in - try it on your site',
             'Android: Huge variety of screen sizes and browsers. Chrome is most common but Samsung Browser is widely used',
@@ -1330,6 +1708,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Main buttons fine but footer links too small' or 'Easy on most pages but filter buttons are cramped'",
         helpContent: {
           summary: 'Adequate touch target size prevents frustration and errors for all mobile users.',
+          understanding: [
+            'Touch targets are buttons, links, and other tappable elements - they need to be large enough to tap accurately',
+            'Answer "Yes" if buttons and links are easy to tap without accidentally hitting the wrong thing',
+            'Answer "Partially" if main buttons are fine but some areas (e.g., footer links, filter buttons) are small or cramped',
+          ],
           tips: [
             'Touch targets should be at least 44x44 pixels (about 9mm)',
             'Leave enough space between targets to prevent accidental taps',
@@ -1357,6 +1740,11 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Video and audio content needs captions and transcripts to be accessible to people who are deaf, hard of hearing, or prefer to read.',
+          understanding: [
+            'This question determines whether your website has any video or audio content that would need captions or transcripts',
+            'Select "Yes" if you have any videos (promotional, tours, how-to), audio (podcasts, audio guides), or embedded social media with sound',
+            'Select "No" if your website is purely text and images with no video or audio content',
+          ],
           tips: [
             'Count embedded content: YouTube videos, Instagram reels, podcast players, and background videos all count',
             'Virtual tours: 360° tours and walkthrough videos need audio descriptions of what\'s being shown',
@@ -1374,6 +1762,20 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Captions are text versions of spoken content that appear on screen, making video content accessible to people who are deaf or hard of hearing.',
+          understanding: [
+            'This question assesses whether your videos have captions and how accurate they are',
+            'Select "Yes, accurate captions" if captions were created or reviewed by humans and correctly represent what\'s said',
+            'Select "Yes, but auto-generated only" if you rely on YouTube/platform auto-captions without human correction',
+            'Select "Some videos have captions, others do not" if captioning is inconsistent across your video content',
+          ],
+          tips: [
+            'Auto-generated captions often make errors with names, technical terms, accents, and background noise',
+            'Correcting auto-captions is faster than creating from scratch',
+            'Captions also help people in noisy environments and those who prefer to read',
+          ],
+        },
         options: [
           { id: 'yes-accurate', label: 'Yes, accurate captions (human-created or corrected)' },
           { id: 'yes-auto', label: 'Yes, but auto-generated only' },
@@ -1392,6 +1794,19 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Main promotional video has transcript but tour videos don't' or 'Written summaries but not full transcripts'",
+        helpContent: {
+          summary: 'Transcripts provide a complete text version of video content for people who cannot or prefer not to watch videos.',
+          understanding: [
+            'A transcript is a full text version of video content including speech and important visual information - different from captions which appear on screen',
+            'Answer "Yes" if you provide written transcripts or detailed summaries alongside your videos',
+            'Answer "Partially" if some videos have transcripts but others don\'t, or if you provide brief summaries rather than full transcripts',
+          ],
+          tips: [
+            'Transcripts benefit people who are deafblind, prefer reading, have slow connections, or want to search content',
+            'Include descriptions of important visual elements, not just spoken words',
+            'Place transcripts near the video - an expandable section or link works well',
+          ],
+        },
         showWhen: { questionId: 'B4.1-1-6', answers: ['yes'] },
       },
       // ============================================
@@ -1408,6 +1823,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Main navigation is clear but blog posts use generic Read more links' or 'Most links good but some Click here remain'",
         helpContent: {
           summary: 'Clear link text helps everyone understand navigation, especially screen reader users who often navigate by tabbing through links.',
+          understanding: [
+            'Clear link text means each link describes where it goes, without needing to read surrounding text',
+            'Answer "Yes" if links say things like "View our accessibility guide" or "Book a table" rather than "Click here" or "Read more"',
+            'Answer "Partially" if main navigation is clear but blog posts or other areas use generic "Read more" or "Click here" links',
+          ],
           tips: [
             'Good examples: "View our accessibility guide", "Book a table", "Download menu (PDF)", "Contact our team"',
             'Poor examples: "Click here", "Read more", "Learn more", "Here", "This page"',
@@ -1443,6 +1863,12 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Screen reader testing reveals how your site works for people who cannot see the screen. This is one of the most valuable accessibility tests because it catches issues that visual checks miss.',
+          understanding: [
+            'Screen reader testing means using software that reads your website aloud - this is how people who are blind or have low vision experience your site',
+            'Select "Yes, we test regularly" if screen reader testing is part of your regular quality process',
+            'Select "Yes, we have tested at least once" if someone has done screen reader testing before, even just once',
+            'Select "No, but we would like to try" if you haven\'t tested but are interested in learning how',
+          ],
           tips: [
             'What is a screen reader? Software that reads website content aloud. It announces text, describes images (using alt text), and reads out form labels and buttons.',
             'Free screen readers: NVDA (free download for Windows), VoiceOver (built into Mac, iPhone, iPad), TalkBack (built into Android phones)',
@@ -1466,6 +1892,14 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'We can provide step-by-step instructions to help you conduct your first screen reader test.',
+          understanding: [
+            'This is an optional resource offer - select based on whether you\'d like guidance on doing screen reader testing yourself',
+            'Select "Yes, send me a guide" if you want step-by-step instructions included in your report',
+            'Select "Maybe later" or "No thanks" if you prefer to skip this for now',
+          ],
+        },
         options: [
           { id: 'yes-guide', label: 'Yes, send me a guide' },
           { id: 'yes-later', label: 'Maybe later' },
@@ -1481,6 +1915,14 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        helpContent: {
+          summary: 'Professional screen reader testing provides expert evaluation without requiring you to develop internal capability.',
+          understanding: [
+            'This is an optional service offer - select based on your interest in professional screen reader testing',
+            'Select "Yes, I would like to know more" if you\'re interested and want more information',
+            'Select "Not right now" or "No thanks" if you prefer to skip this for now',
+          ],
+        },
         options: [
           { id: 'yes-interested', label: 'Yes, I would like to know more' },
           { id: 'maybe-later', label: 'Not right now, but maybe in the future' },
@@ -1502,6 +1944,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Labels are visible but required fields aren't clearly marked' or 'Contact form is good but newsletter signup just has placeholder text'",
         helpContent: {
           summary: 'Well-labelled forms help everyone complete them successfully, especially people using screen readers or those who find forms confusing.',
+          understanding: [
+            'Clear form labels means each field has visible text explaining what to enter, plus clear instructions for format and required fields',
+            'Answer "Yes" if forms have visible labels (not just placeholders), clearly marked required fields, and helpful error messages',
+            'Answer "Partially" if some forms are well-labelled but others rely on placeholder text only, or if required fields aren\'t clearly marked',
+          ],
           tips: [
             'Visible labels: Every field should have a label that stays visible (not just placeholder text that disappears when you start typing)',
             'Required fields: Mark required fields clearly with text like "required" or an asterisk with explanation',
@@ -1527,6 +1974,11 @@ export const accessModules: AccessModule[] = [
         mediaAnalysisHint: 'Enter your website homepage URL (e.g., https://yourbusiness.com.au). We will check up to 3 key pages.',
         helpContent: {
           summary: 'Automated accessibility checking provides a quick snapshot of technical accessibility issues on your website.',
+          understanding: [
+            'This optional feature runs an automated accessibility scan of your website to identify common issues',
+            'Enter your website URL to receive an automated analysis of accessibility issues in your report',
+            'Automated tools catch about 30-40% of issues - they\'re a good starting point but don\'t replace human testing',
+          ],
           tips: [
             'What gets checked: This scan analyses up to 3 pages - typically your homepage, a key content page, and a booking or contact page',
             'What it finds: Missing alt text, colour contrast issues, heading structure problems, missing form labels, empty links, and other code-level issues',
@@ -1553,6 +2005,11 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'A professional audit goes beyond automated checking to test how real users with disabilities experience your website.',
+          understanding: [
+            'This is an optional service offer for comprehensive professional accessibility testing',
+            'Select based on your interest in having experts conduct thorough accessibility testing of your website',
+            'A professional audit tests with real assistive technology and evaluates the actual user experience',
+          ],
           tips: [
             'What is included: Screen reader testing, keyboard navigation testing, review of key user journeys (e.g., finding information, making a booking), colour and contrast verification, form usability testing',
             'What you receive: A detailed report of issues found, prioritised by impact and effort to fix, with clear explanations and recommendations',
@@ -1598,6 +2055,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'There is a general notes field but nothing specifically for accessibility' or 'Only available when booking certain ticket types'",
         helpContent: {
           summary: 'Look for a clear, visible way for customers to tell you about their accessibility needs. The field should be optional to complete but easy to find for those who need it.',
+          understanding: [
+            'This question asks whether your booking process includes a clear way for customers to share accessibility needs',
+            'Answer "Yes" if there\'s a dedicated, visible accessibility field or prompt in your booking flow',
+            'Answer "Partially" if accessibility can only be mentioned in a general notes field, or the field is hidden or hard to find',
+          ],
           tips: [
             'A dedicated field, checkbox, or prompt for accessibility requirements',
             'Not hidden behind conditional logic or buried at the end',
@@ -1622,6 +2084,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Only checkboxes, no free text option' or 'Free text available but character limit is very short'",
         helpContent: {
           summary: 'Free text lets customers describe needs that don\'t fit predefined options.',
+          understanding: [
+            'This question checks whether customers can describe their needs in their own words, not just select from predefined options',
+            'Answer "Yes" if there\'s a free-text field where customers can write their specific requirements',
+            'Answer "Partially" if text is allowed but limited (e.g., very short character limit) or only checkboxes are available',
+          ],
           tips: [
             'Best practice: Offer both checkboxes (for common needs) and a free-text field (for details)',
             'Generous character limit: Allow at least 500 characters for detailed explanations',
@@ -1642,6 +2109,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Labelled as \"special requests\" which is less clear' or 'Only appears after clicking \"additional options\"'",
         helpContent: {
           summary: 'Clear labelling and prominent placement make it easy for customers to share their needs.',
+          understanding: [
+            'This question assesses whether the accessibility field is easy to find and clearly labelled',
+            'Answer "Yes" if the field is visibly labelled as "Accessibility" or "Access needs" and doesn\'t require expanding hidden sections',
+            'Answer "Partially" if the field exists but is labelled vaguely ("Special requests") or requires clicking "Additional options" to find',
+          ],
           tips: [
             'Clear label: "Accessibility requirements" or "Access needs" is clearer than "Special requests"',
             'Visible without expanding: Don\'t hide behind "Additional options" or "Show more"',
@@ -1663,6 +2135,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Front desk checks bookings but no specific process for accessibility' or 'Different people handle it depending on the day'",
         helpContent: {
           summary: 'Clear ownership ensures accessibility requests are acted upon, not just collected.',
+          understanding: [
+            'This question asks whether there\'s clear accountability for reviewing and acting on accessibility requests',
+            'Answer "Yes" if a specific role or person is responsible for reviewing accessibility requests from bookings',
+            'Answer "Partially" if people sometimes check but there\'s no defined responsibility or process',
+          ],
           tips: [
             'Assign a specific role: "Duty Manager reviews accessibility requests each morning"',
             'Create a simple checklist: What to check, who to notify, when to respond',
@@ -1685,6 +2162,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Requests are stored but we don\'t always follow up' or 'Depends on who is rostered that day'",
         helpContent: {
           summary: 'Following up on accessibility requests before the visit builds confidence and allows both parties to prepare.',
+          understanding: [
+            'This question asks whether you have a process to contact customers about their accessibility requirements before they visit',
+            'Answer "Yes" if customers receive confirmation their request was received AND someone follows up to discuss/confirm arrangements',
+            'Answer "Partially" if requests are sometimes followed up but not consistently, or if there\'s no confirmation sent',
+          ],
           tips: [
             'Acknowledge the request: An automated email confirming the request was received reassures customers',
             'Follow up personally: A phone call or email within 48 hours to discuss specific requirements and confirm arrangements',
@@ -1705,6 +2187,14 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B4.2-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Booking confirmation mentions it but no specific acknowledgement' or 'Only for complex requests'",
+        helpContent: {
+          summary: 'Confirmation reassures customers that their accessibility requirements were received and will be actioned.',
+          understanding: [
+            'This question checks whether customers know their accessibility request was received',
+            'Answer "Yes" if customers receive specific acknowledgement of their accessibility requirements (automated email, personal response, or included in confirmation)',
+            'Answer "Partially" if the booking confirmation mentions their request but there\'s no specific acknowledgement',
+          ],
+        },
       },
       {
         id: 'B4.2-DD-1d',
@@ -1718,6 +2208,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Basic info provided but doesn\'t mention accessibility options' or 'Instructions only appear after starting'",
         helpContent: {
           summary: 'Upfront information helps customers prepare and reduces anxiety about the unknown.',
+          understanding: [
+            'This question checks whether customers know what to expect before starting the booking process',
+            'Answer "Yes" if instructions are shown before the booking begins, explaining what\'s needed and mentioning accessibility options',
+            'Answer "Partially" if some information is provided but it doesn\'t mention accessibility or only appears after starting',
+          ],
           tips: [
             'What to have ready: Tell customers what information they\'ll need (payment details, dates, guest numbers)',
             'Time expectation: Let people know roughly how long the process takes',
@@ -1740,6 +2235,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Phone is available but not promoted online' or 'Email works but takes longer to confirm'",
         helpContent: {
           summary: 'Alternative booking methods are essential fallbacks for customers who cannot use online systems.',
+          understanding: [
+            'This question checks whether customers who cannot use online booking have other options',
+            'Answer "Yes" if phone, email, or in-person booking is available AND clearly communicated on your website',
+            'Answer "Partially" if alternatives exist but aren\'t prominently displayed or are discouraged',
+          ],
           tips: [
             'Display alternatives prominently: "Prefer to book by phone? Call us on..." or "Email us at..."',
             'Offer email booking: Useful for customers who prefer written communication or need a record of the conversation',
@@ -1762,6 +2262,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Phone bookings incur a small fee' or 'Website strongly promotes online as easier'",
         helpContent: {
           summary: 'Alternative booking methods should offer the same service quality and be presented neutrally.',
+          understanding: [
+            'This question checks whether alternative booking methods provide equivalent service without being discouraged',
+            'Answer "Yes" if phone/email bookings get the same prices, options, and response times as online, and aren\'t framed as inferior',
+            'Answer "Partially" if alternatives are available but with limitations (e.g., fees, longer response times, fewer options)',
+          ],
           tips: [
             'Same pricing: No extra fees for phone or email bookings',
             'Same options: All tickets, dates, and accessible options available',
@@ -1783,6 +2288,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Phone available but not live chat' or 'Chat available during business hours only'",
         helpContent: {
           summary: 'Real-time support helps customers complete bookings when they encounter difficulties or have questions.',
+          understanding: [
+            'This question checks whether customers can get help in real-time if they get stuck during booking',
+            'Answer "Yes" if live chat, phone support, or another real-time help option is available during booking hours',
+            'Answer "Partially" if help is available but limited (e.g., phone only, or only during certain hours)',
+          ],
           tips: [
             'Live chat: Accessible chat widget that works with screen readers',
             'Phone support: Clearly displayed number for booking assistance',
@@ -1813,6 +2323,12 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'We use Humanitix for events' or 'Rezdy for tours but direct booking for accommodation'",
         helpContent: {
           summary: 'Understanding your booking platform helps identify what you can control and where to focus improvement efforts.',
+          understanding: [
+            'This question identifies whether your booking system is built in-house, provided by a third party, or a combination',
+            'Select "We use our own booking system" if you control the booking interface directly',
+            'Select "Yes, we use a third-party platform" if you use services like Eventbrite, Humanitix, Rezdy, or similar',
+            'This is diagnostic - third-party platforms can be accessible or create barriers depending on the provider',
+          ],
           tips: [
             'How to tell: If you log into a separate website to manage bookings (like Eventbrite, Humanitix, Rezdy), that\'s a third-party platform',
             'Third-party platforms: You may have limited control over the booking interface, but many have accessibility settings you can enable',
@@ -1835,6 +2351,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Wheelchair spaces can be booked online but companion tickets require calling' or 'Accessible options only available for some events'",
         helpContent: {
           summary: 'Booking parity means customers with disability can access the same products, prices, and booking experience as everyone else.',
+          understanding: [
+            'This question checks whether accessible options (seating, tickets, rooms) can be booked through the same process as standard options',
+            'Answer "Yes" if accessible seating, companion tickets, and accessible rooms can all be booked in the standard online flow',
+            'Answer "Partially" if some accessible options are available online but others require calling or a separate process',
+          ],
           tips: [
             'Companion tickets: Should be bookable online alongside the main ticket, not require a phone call',
             'Wheelchair spaces: Should appear in the same seat selection interface as other seats',
@@ -1864,6 +2385,12 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Most fields work but the date picker requires a mouse' or 'Haven\'t tested this yet'",
         helpContent: {
           summary: 'Keyboard testing is the single most effective quick test for booking accessibility. If it fails keyboard testing, it will fail for many assistive technology users.',
+          understanding: [
+            'This question asks whether you\'ve tested if someone can complete your entire booking using only keyboard (Tab, Enter, arrow keys - no mouse)',
+            'Answer "Yes" if you\'ve tested and the entire booking process works with keyboard only',
+            'Answer "Partially" if keyboard works for most steps but fails somewhere (e.g., date picker, payment form)',
+            'Answer "Not sure" if you haven\'t specifically tested keyboard navigation',
+          ],
           tips: [
             'Test now: Open your booking page in a new tab and try completing it without touching your mouse',
             'Tab key: Should move you through every field, button, and link in a logical order',
@@ -1889,11 +2416,16 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Some errors are explained but others just show red highlighting' or 'Messages appear but are not read by screen readers'",
         helpContent: {
           summary: 'Clear error messages help everyone complete bookings successfully, especially people with cognitive disabilities.',
+          understanding: [
+            'This question checks whether error messages in your booking forms explain what went wrong and how to fix it',
+            'Answer "Yes" if errors explain the problem clearly, appear near the relevant field, and use more than just colour to indicate issues',
+            'Answer "Partially" if some errors are helpful but others are vague, or errors only appear at the top of the page',
+          ],
           tips: [
             'Explain the problem: "Please enter a valid email address" is clearer than "Invalid input"',
             'Show how to fix it: Include an example format like "(e.g., name@example.com)"',
             'Position near the field: Error messages should appear next to the field with the problem, not just at the top of the page',
-            'Don\'t rely on colour alone: Use icons (⚠️) or text labels in addition to red highlighting',
+            'Don\'t rely on colour alone: Use icons or text labels in addition to red highlighting',
             'Test it yourself: Deliberately submit an incomplete form and check how errors are communicated',
             'Screen reader consideration: Errors should be announced to screen readers, not just displayed visually',
           ],
@@ -1925,12 +2457,17 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Not tested with screen readers' or 'Errors appear visually but may not be announced'",
         helpContent: {
           summary: 'Screen reader users need to be informed of errors through their assistive technology, not just visually.',
+          understanding: [
+            'This asks whether errors are communicated through assistive technology, not just visually on screen',
+            'Answer "Yes" if errors are announced to screen readers when they occur and identify which field has the problem',
+            'Answer "Partially" if some errors are announced but not all, or if you haven\'t tested comprehensively with screen readers',
+          ],
           tips: [
-            'Announce errors: Use ARIA live regions to announce errors when they occur',
-            'Identify the field: Screen readers should say which field has the problem',
-            'Navigate to error: Allow users to jump directly to the problem field',
-            'Test with NVDA: Free screen reader for Windows - try submitting an incomplete form',
-            'If unsure: "Not sure" is valid - consider requesting a professional accessibility review',
+            'What "announced" means: When a screen reader user submits a form with errors, the software should automatically speak something like "Error: Email address is required" without the user having to search for it',
+            'How this works technically: Developers use special code called "ARIA live regions" that tells screen readers to automatically announce new content - but you don\'t need to understand the code, just test whether it works',
+            'How to test: Download NVDA (free screen reader for Windows from nvaccess.org), turn it on, try submitting an incomplete booking form, and listen - does it tell you what went wrong?',
+            'What good looks like: The screen reader announces the error message AND tells you which field has the problem, then lets you jump directly to fix it',
+            'If unsure: "Not sure" is a valid answer - this is specialist testing that many organisations haven\'t done. Consider requesting a professional accessibility audit.',
           ],
         },
       },
@@ -1946,6 +2483,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Instructions are short but no Easy Read version' or 'Some pages simplified but not booking forms'",
         helpContent: {
           summary: 'Plain language makes booking accessible to more people, including those with cognitive disabilities and non-native English speakers.',
+          understanding: [
+            'This asks whether booking information uses simple, clear language that everyone can understand',
+            'Answer "Yes" if booking instructions use short sentences, common words, and are available in Easy Read format',
+            'Answer "Partially" if some content is simplified but not consistently, or if Easy Read is not yet available',
+          ],
           tips: [
             'Short sentences: Break complex information into simple, short sentences',
             'Common words: Avoid jargon and technical terms; explain anything unfamiliar',
@@ -1982,6 +2524,11 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Identifying specific failure points helps developers fix the most critical barriers first.',
+          understanding: [
+            'This asks you to identify exactly which steps in the booking process fail for keyboard-only users',
+            'Select all options where you\'ve encountered or observed keyboard navigation problems',
+            'If you haven\'t systematically tested, selecting "Haven\'t tested yet" helps prioritise future accessibility work',
+          ],
           tips: [
             'Date pickers: The most common accessibility barrier - note if it\'s a custom widget or browser default',
             'Payment forms: Often embedded from third parties (Stripe, PayPal) - check if their accessible version is enabled',
@@ -2004,6 +2551,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Tested with VoiceOver, mostly works but calendar is problematic' or 'Not tested with assistive technology'",
         helpContent: {
           summary: 'Screen reader and voice control testing reveals barriers that visual testing and keyboard testing cannot catch.',
+          understanding: [
+            'This asks whether the booking process has been tested with assistive technologies like screen readers (NVDA, VoiceOver) and voice control tools (Dragon, Voice Control)',
+            'Answer "Yes" if you\'ve successfully tested the complete booking process with screen readers and/or voice control',
+            'Answer "Partially" if testing was limited (e.g., only certain pages) or if issues were found but not resolved',
+          ],
           tips: [
             'Free tools to try: VoiceOver (built into Mac/iPhone), NVDA (free for Windows), TalkBack (built into Android)',
             'What to listen for: Are form fields announced with their labels? Are errors read aloud? Can you tell what each button does?',
@@ -2025,6 +2577,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Session times out after 15 minutes with no warning' or 'Generous time but no option to extend'",
         helpContent: {
           summary: 'Time pressure creates barriers for people who need longer to read, understand, or physically complete forms.',
+          understanding: [
+            'This asks whether customers have enough time to complete bookings, and whether they can extend time if needed',
+            'Answer "Yes" if time limits are generous (20+ minutes), warnings are given before timeout, and customers can extend time',
+            'Answer "Partially" if there is reasonable time but no extension option, or if some parts time out too quickly',
+          ],
           tips: [
             'Test it: Start a booking and leave it idle - does it time out? How long? Is there a warning?',
             'Generous time: 20+ minutes is generally considered reasonable for complex bookings',
@@ -2045,6 +2602,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Works but buttons are small' or 'Date picker difficult on mobile'",
         helpContent: {
           summary: 'Mobile booking should be fully functional and accessible, not just a smaller version of the desktop experience.',
+          understanding: [
+            'This asks whether your booking process works well on mobile devices including phones and tablets',
+            'Answer "Yes" if touch targets are large enough, zoom works, and the booking can be completed fully on mobile',
+            'Answer "Partially" if the process works but has issues like small buttons, difficult date pickers, or missing features on mobile',
+          ],
           tips: [
             'Touch targets: Buttons and form fields should be large enough to tap accurately (at least 44x44 pixels)',
             'Zoom support: Users should be able to zoom in without breaking the layout',
@@ -2067,6 +2629,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Creates account but doesn't save cart' or 'Can save but link expires quickly'",
         helpContent: {
           summary: 'Allowing customers to save and return reduces pressure and accommodates those who need breaks or more time.',
+          understanding: [
+            'This asks whether customers can pause their booking and return later without losing their progress',
+            'Answer "Yes" if customers can save progress, receive a link to resume, and all information is preserved when they return',
+            'Answer "Partially" if some progress is saved but not all, or if the saved booking expires too quickly (less than 24 hours)',
+          ],
           tips: [
             'Save without account: Allow saving progress without requiring account creation',
             'Email link: Send a link customers can use to resume the booking later',
@@ -2089,6 +2656,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Main form works but card entry is problematic' or 'Haven't specifically tested payment step'",
         helpContent: {
           summary: 'Payment forms are a common accessibility failure point, often because they use third-party embeds with their own limitations.',
+          understanding: [
+            'This asks whether the payment step specifically is accessible, including keyboard navigation, screen reader labelling, and clear error messages',
+            'Answer "Yes" if payment can be completed by keyboard, fields are properly labelled for screen readers, and errors are clear',
+            'Answer "Partially" if payment generally works but has some accessibility issues, or if alternative payment options are available',
+          ],
           tips: [
             'Keyboard navigation: Can users tab through all payment fields and complete payment without a mouse?',
             'Screen reader labels: Are card number, expiry, and CVV fields properly labelled for screen readers?',
@@ -2116,6 +2688,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Available on website but not in the app' or 'Only on certain ticket types'",
         helpContent: {
           summary: 'The ability to share accessibility requirements should be consistent across all booking channels.',
+          understanding: [
+            'This asks whether the accessibility requirements field appears on all booking paths, not just some',
+            'Answer "Yes" if the field is available on website, mobile app, and any third-party booking platforms you use',
+            'Answer "Partially" if the field is available on some channels but missing on others (e.g., website but not app)',
+          ],
           tips: [
             'Check all channels: Website, mobile app, third-party platforms (Eventbrite, Humanitix, etc.)',
             'All product types: Events, tours, accommodation, experiences - all should have the field',
@@ -2144,6 +2721,11 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Both automated and manual processes can work well if they are reliable and timely.',
+          understanding: [
+            'This asks you to describe how your organisation handles follow-up on accessibility requests',
+            'Select the option that best describes your current process: automated, reliable manual, inconsistent, or no defined process',
+            'Being honest about inconsistency helps identify where to focus improvement efforts',
+          ],
           tips: [
             'Automated systems: Set up email triggers when accessibility fields are completed in your booking system',
             'Manual processes: Create a daily checklist to review new bookings for accessibility requests',
@@ -2165,6 +2747,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Confirmation page works but email is image-based' or 'PDF attachment not screen reader friendly'",
         helpContent: {
           summary: 'Booking confirmations should be accessible so all customers can review and reference their booking details.',
+          understanding: [
+            'This asks whether the confirmation page and email are accessible, including structure, format options, and screen reader compatibility',
+            'Answer "Yes" if confirmations use clear structure, offer plain text options, and any PDFs are tagged for screen readers',
+            'Answer "Partially" if the confirmation page is accessible but email is image-based, or if PDF attachments aren\'t screen reader friendly',
+          ],
           tips: [
             'Plain text option: Offer text-based emails, not just image-heavy HTML',
             'Clear structure: Use headings and lists to organise booking details',
@@ -2187,6 +2774,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'We send general confirmation but no specific accessibility info' or 'Only for certain types of requests'",
         helpContent: {
           summary: 'Automatically sharing accessibility information when customers indicate their needs shows preparedness and helps them plan their visit.',
+          understanding: [
+            'This asks whether relevant accessibility information is automatically sent when customers indicate they have accessibility requirements',
+            'Answer "Yes" if confirmation emails automatically include relevant accessibility guides, maps, or tailored information based on indicated needs',
+            'Answer "Partially" if some information is sent but not tailored to the specific requirements indicated, or only for certain types of bookings',
+          ],
           tips: [
             'Access guide: Send your venue accessibility guide with booking confirmation',
             'Social story: For customers who indicate autism or sensory needs, send a visual guide of what to expect',
@@ -2211,6 +2803,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'General customer service training but nothing specific to accessibility' or 'Training provided at induction only'",
         helpContent: {
           summary: 'Staff reviewing accessibility requests should understand common requirements and how to respond helpfully.',
+          understanding: [
+            'This asks whether staff who review bookings have been trained to understand and appropriately respond to accessibility requests',
+            'Answer "Yes" if staff receive specific training on common accessibility requirements, your venue\'s capabilities, and how to respond respectfully',
+            'Answer "Partially" if there is general customer service training but nothing specific to accessibility, or if training is only at induction',
+          ],
           tips: [
             'Common requirements: Wheelchair access, hearing loops, quiet spaces, assistance animals, dietary needs',
             'Know your venue: Staff should understand what you can and cannot accommodate',
@@ -2232,6 +2829,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Staff can escalate to manager but no formal process' or 'Complex requests go to operations team'",
         helpContent: {
           summary: 'A clear escalation process ensures customers receive timely, honest responses when requests cannot be fully met.',
+          understanding: [
+            'This asks whether there is a defined process for handling accessibility requests that cannot be immediately fulfilled',
+            'Answer "Yes" if there is a clear process with defined timeframes, decision-makers, and a focus on finding alternatives',
+            'Answer "Partially" if staff can escalate to a manager but there is no formal process or consistent approach',
+          ],
           tips: [
             'Timely response: Customers should hear back quickly, even if the answer is "we\'re looking into it"',
             'Explore alternatives: Before saying no, consider what you CAN offer instead',
@@ -2253,6 +2855,21 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B4.2-PC-7', answers: ['third-party', 'hybrid', 'own-system'] },
         partialPlaceholder: "E.g., 'Humanitix for events' or 'Rezdy for tours, direct booking for accommodation'",
+        helpContent: {
+          summary: 'Identifying your booking platform helps understand available accessibility features and any known limitations.',
+          understanding: [
+            'This asks you to name the booking platform(s) you use so we can provide relevant guidance',
+            'Enter the name of your platform(s) - for example, Humanitix, Eventbrite, Rezdy, or your custom system',
+            'If you use different platforms for different purposes (e.g., events vs accommodation), list them all',
+          ],
+          tips: [
+            'Popular event platforms: Humanitix, Eventbrite, Ticketmaster, Ticketek',
+            'Tour/activity platforms: Rezdy, FareHarbor, Bokun, Checkfront',
+            'Accommodation platforms: Little Hotelier, Cloudbeds, SiteMinder, direct booking engines',
+            'Appointment platforms: Square, Fresha, Timely, Acuity',
+            'Multiple platforms: Many organisations use different platforms for different booking types',
+          ],
+        },
       },
       {
         id: 'B4.2-DD-7b',
@@ -2264,6 +2881,21 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B4.2-PC-7', answers: ['third-party', 'hybrid', 'own-system'] },
         partialPlaceholder: "E.g., 'Custom fields available but not set up for accessibility' or 'Limited configuration options'",
+        helpContent: {
+          summary: 'Many booking platforms have accessibility features that can be enabled or configured, but they may not be turned on by default.',
+          understanding: [
+            'This asks whether your booking platform has accessibility configuration options and whether you\'ve explored them',
+            'Answer "Yes" if you\'ve reviewed your platform\'s accessibility settings and configured custom fields, ticket types, or confirmation details',
+            'Answer "Partially" if features are available but you haven\'t fully configured them, or if configuration options are limited',
+          ],
+          tips: [
+            'Check settings: Look in your platform\'s admin settings for accessibility or custom field options',
+            'Review documentation: Most platforms have help articles about accessibility features',
+            'Contact support: Platform support teams can advise on accessibility capabilities',
+            'Custom fields: Most platforms allow you to add custom questions during booking',
+            'Companion tickets: Check if your platform supports companion card or carer ticket types',
+          ],
+        },
       },
       {
         id: 'B4.2-DD-7c',
@@ -2275,6 +2907,21 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B4.2-PC-7', answers: ['third-party', 'hybrid', 'own-system'] },
         partialPlaceholder: "E.g., 'Date picker is known to be problematic' or 'Haven\'t investigated platform accessibility'",
+        helpContent: {
+          summary: 'Understanding your platform\'s accessibility limitations helps you plan workarounds and communicate honestly with customers.',
+          understanding: [
+            'This asks whether you\'ve investigated and documented the accessibility barriers in your booking platform',
+            'Answer "Yes" if you\'ve tested the platform with keyboard and screen reader, and documented known issues',
+            'Answer "Partially" if you\'re aware of some issues but haven\'t conducted a comprehensive accessibility review',
+          ],
+          tips: [
+            'Common issues: Date pickers, CAPTCHA, payment forms, and custom widgets often have accessibility problems',
+            'Test yourself: Try booking using only keyboard - note where you get stuck',
+            'Ask the vendor: Request accessibility documentation or VPAT from your platform provider',
+            'Document findings: Keep a list of known issues to inform workarounds and future decisions',
+            'Workarounds: Offer phone booking or email as alternatives where online barriers exist',
+          ],
+        },
       },
       {
         id: 'B4.2-DD-7d',
@@ -2286,6 +2933,21 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B4.2-PC-7', answers: ['third-party', 'hybrid', 'own-system'] },
         partialPlaceholder: "E.g., 'Considered but not a deciding factor' or 'Will include in next platform review'",
+        helpContent: {
+          summary: 'When selecting or renewing booking platforms, accessibility should be a key consideration alongside features and price.',
+          understanding: [
+            'This asks whether accessibility is formally considered when choosing or renewing booking platform contracts',
+            'Answer "Yes" if accessibility requirements are included in RFPs, vendor assessments include accessibility testing, and contracts include accessibility clauses',
+            'Answer "Partially" if accessibility is considered informally but not systematically included in procurement processes',
+          ],
+          tips: [
+            'Ask vendors: Include accessibility questions in your vendor evaluation process',
+            'Request VPATs: Voluntary Product Accessibility Templates document a product\'s accessibility compliance',
+            'Test before committing: Trial platforms with keyboard and screen reader testing',
+            'Contract clauses: Include accessibility requirements and remediation timelines in contracts',
+            'Government bodies: Public sector organisations often have specific procurement accessibility obligations',
+          ],
+        },
       },
 
       // Deep Dive Area 8: Accessible tickets, pricing, and parity (expands PC-8)
@@ -2301,6 +2963,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Free companion tickets available but must call to arrange' or 'Companion option in system but not well promoted'",
         helpContent: {
           summary: 'Companion and support worker tickets should be bookable through the same online process, with clear information about eligibility and pricing.',
+          understanding: [
+            'This asks whether companion/carer tickets can be booked online alongside the main ticket, not requiring a separate phone call or process',
+            'Answer "Yes" if companion tickets are visible in the booking system, can be selected with the main ticket, and eligibility is clearly explained',
+            'Answer "Partially" if companion tickets exist but require a phone call, are hard to find, or the process is unclear',
+          ],
           tips: [
             'Companion Card: Accept the Australian Companion Card for free or discounted companion entry',
             'Book together: Allow companion tickets to be selected alongside the main ticket, not as a separate transaction',
@@ -2323,6 +2990,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Pricing shown but companion ticket info is hard to find' or 'Must call to confirm accessible option pricing'",
         helpContent: {
           summary: 'Customers should be able to see and understand costs for accessible options before booking.',
+          understanding: [
+            'This asks whether pricing for accessible options is clearly displayed, fair, and doesn\'t penalise customers with disability',
+            'Answer "Yes" if accessible option pricing is visible online, matches standard option pricing, and companion ticket costs are clearly stated',
+            'Answer "Partially" if pricing is shown but companion ticket information is unclear, or if customers must call to confirm pricing',
+          ],
           tips: [
             'Same pricing: Accessible options should not cost more than equivalent standard options',
             'Companion tickets: Clearly state if free or discounted under the Companion Card scheme',
@@ -2344,6 +3016,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Same process but accessible options have fewer available slots' or 'Must call for accessible bookings while others book online'",
         helpContent: {
           summary: 'Customers with disability should have the same booking experience as others, not a separate or more difficult process.',
+          understanding: [
+            'This asks whether booking accessible options is as easy and instant as booking standard options',
+            'Answer "Yes" if accessible bookings take the same steps, get instant confirmation, and don\'t require phone calls or extra approval',
+            'Answer "Partially" if the process works but has extra steps, delayed confirmation, or fewer available time slots for accessible options',
+          ],
           tips: [
             'Same steps: Booking accessible options should take the same number of clicks as standard bookings',
             'Same timeframe: Confirmation should be instant, not "we\'ll get back to you"',
@@ -2365,6 +3042,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Early bird available but packages don't include accessible options' or 'Discounts apply but not to companion tickets'",
         helpContent: {
           summary: 'Promotional offers and packages should be equally available to customers booking accessible options.',
+          understanding: [
+            'This asks whether customers booking accessible options can access the same deals, packages, and promotions as other customers',
+            'Answer "Yes" if early bird, packages, seasonal offers, and discounts all work with accessible bookings and companion tickets',
+            'Answer "Partially" if some promotions work but others exclude accessible options, or if packages don\'t include accessible alternatives',
+          ],
           tips: [
             'Package deals: Ensure packages can be booked with accessible options (e.g., dinner + show with wheelchair seating)',
             'Early bird offers: Accessible tickets should be included in early release sales',
@@ -2387,6 +3069,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Can cancel online but must call to modify accessible seating' or 'Same process as standard bookings'",
         helpContent: {
           summary: 'Customers with accessible bookings should have the same self-service options for changes and cancellations.',
+          understanding: [
+            'This asks whether customers with accessible bookings can modify or cancel online just like other customers',
+            'Answer "Yes" if accessible bookings can be changed online with the same process, and customers can update their accessibility requirements',
+            'Answer "Partially" if standard modifications work online but accessible seating or companion changes require a phone call',
+          ],
           tips: [
             'Same process: Don\'t require phone calls for accessible booking changes when others can do it online',
             'Modify access needs: Allow customers to update their accessibility requirements without rebooking entirely',
@@ -2408,6 +3095,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Standard policy applies to all' or 'We consider requests case by case but no formal policy'",
         helpContent: {
           summary: 'Flexible cancellation policies acknowledge that some disabilities involve unpredictable symptoms or episodes that can prevent participation at short notice.',
+          understanding: [
+            'This asks whether cancellation policies accommodate customers whose disability may prevent participation at short notice',
+            'Answer "Yes" if you have formal policies for extended cancellation windows, fee waivers, or credit options for disability-related circumstances',
+            'Answer "Partially" if you consider requests case-by-case but don\'t have a formal flexible policy, or if flexibility isn\'t communicated at booking time',
+          ],
           tips: [
             'Extended windows: Consider longer cancellation periods for accessible bookings',
             'Medical certificates: Accept medical documentation for late cancellations due to disability-related circumstances',
@@ -2455,6 +3147,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Main promotional videos have captions but social media clips do not' or 'We don't create video content'",
         helpContent: {
           summary: 'Captions are the single most important accessibility feature for video content. Without them, deaf and hard of hearing viewers cannot access your message.',
+          understanding: [
+            'This asks whether your video content includes captions or subtitles that display spoken content as text on screen',
+            'Answer "Yes" if all or most videos have accurate captions, including speaker identification and relevant sound descriptions',
+            'Answer "Partially" if only some videos are captioned (e.g., main promotional videos but not social media clips)',
+          ],
           tips: [
             'Useful for everyone: Captions help all users in situations where sound cannot be used - in quiet spaces, noisy environments, or when background noise is too loud',
             'Quick check: Watch your videos with sound off - can you understand the message from captions alone?',
@@ -2479,6 +3176,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Only for formal videos, not social content' or 'Not needed - talking head only'",
         helpContent: {
           summary: 'Audio descriptions make visual content accessible to blind and low vision viewers by describing what they cannot see.',
+          understanding: [
+            'This asks whether important visual content in videos is described verbally for people who cannot see it',
+            'Answer "Yes" if videos with significant visual content include audio descriptions (either built into narration or as a separate track)',
+            'Answer "Partially" if only some videos have audio descriptions, or if the narration describes some but not all visual elements',
+          ],
           tips: [
             'Priority videos: Virtual tours, demonstrations, promotional videos showing your venue/products',
             'Built-in narration: The simplest approach is to describe visuals as part of the main narration',
@@ -2502,6 +3204,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Sometimes but not consistently' or 'We don't post images on social media'",
         helpContent: {
           summary: 'You can make images accessible using either alt text or image descriptions - you don\'t need both.',
+          understanding: [
+            'This asks whether images posted on social media include text descriptions so screen reader users understand the visual content',
+            'Answer "Yes" if you consistently add alt text (in platform settings) or image descriptions (in captions) to your social media images',
+            'Answer "Partially" if you sometimes add descriptions but not consistently, or if you cover some platforms but not others',
+          ],
           tips: [
             'Alt text: A short description added via platform settings. Screen readers announce it automatically. Best for most straightforward images.',
             'Image descriptions (ID): A detailed description written in your caption, starting with [ID:]. Visible to everyone. Use when you need to convey emotion, context, or visual details that alt text cannot capture.',
@@ -2514,7 +3221,7 @@ export const accessModules: AccessModule[] = [
             'Caption ID format: Start with [Image description:] or [ID:] so people know what it is',
           ],
           examples: [
-            { type: 'info', caption: '📷 Example image: A photo of a customer in a wheelchair being welcomed at a café entrance by a smiling staff member' },
+            { type: 'info', caption: 'Example image: A photo of a customer in a wheelchair being welcomed at a café entrance by a smiling staff member' },
             { type: 'good', caption: 'Alt text example: "Customer using wheelchair greeted by staff at step-free café entrance"' },
             { type: 'good', caption: 'Image description example: "[ID: A woman in a powered wheelchair smiles as she enters a sunlit café. A staff member holds the door open, greeting her warmly. The entrance is level with the footpath, with no steps.]"' },
           ],
@@ -2533,6 +3240,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'YouTube embeds work but custom player doesn't' or 'No videos on our website'",
         helpContent: {
           summary: 'Accessible video controls ensure everyone can play, pause, and adjust videos regardless of how they interact with technology.',
+          understanding: [
+            'This asks whether video players on your website can be controlled using keyboard, screen readers, or other assistive technology',
+            'Answer "Yes" if users can Tab to video controls, play/pause with keyboard, and access caption controls without a mouse',
+            'Answer "Partially" if YouTube/Vimeo embeds work but custom video players have accessibility issues',
+          ],
           tips: [
             'Test: Try controlling your embedded videos using only keyboard (Tab, Enter, Space, arrow keys)',
             'Autoplay: If videos autoplay, users must be able to pause them immediately',
@@ -2557,6 +3269,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'We warn about flashing lights but not other content' or 'Our content has no sensitive material'",
         helpContent: {
           summary: 'Content warnings give viewers informed choice about whether to engage with potentially affecting content.',
+          understanding: [
+            'This asks whether you warn viewers about potentially distressing content before they encounter it',
+            'Answer "Yes" if you consistently provide specific warnings for flashing lights, loud sounds, sensitive topics, and other potentially affecting content',
+            'Answer "Partially" if you warn about some content (e.g., flashing lights) but not others, or if warnings aren\'t consistently provided',
+          ],
           tips: [
             'Flashing/strobing: Critical for photosensitive epilepsy - always warn if present',
             'Placement: Warnings should appear before content, not just in video description',
@@ -2580,6 +3297,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Some diversity but rarely include people with visible disabilities' or 'Our content doesn't feature people'",
         helpContent: {
           summary: 'Representation matters. When people with disability see themselves in your content, they know they are welcome.',
+          understanding: [
+            'This asks whether your visual content includes diverse people, including people with visible and invisible disabilities',
+            'Answer "Yes" if people with disability appear naturally across your content (not just for awareness campaigns) and representation feels authentic',
+            'Answer "Partially" if you have some diversity but rarely include people with visible disabilities, or only feature them on awareness days',
+          ],
           tips: [
             'Audit your content: Review your last 20 posts - how diverse are the people shown?',
             'Avoid tokenism: Include diverse people naturally across content, not just for awareness days',
@@ -2602,6 +3324,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Use auto-captions on Instagram Live but nothing more' or 'We don't create live content'",
         helpContent: {
           summary: 'Live content accessibility requires planning ahead since you cannot add captions or descriptions after the fact.',
+          understanding: [
+            'This asks whether you plan for accessibility when creating live video content like streams, webinars, or live social posts',
+            'Answer "Yes" if you consistently enable auto-captions, describe visual content verbally, and ensure clear audio for live content',
+            'Answer "Partially" if you use auto-captions but don\'t consistently describe visuals or plan for other accessibility features',
+          ],
           tips: [
             'Auto-captions: YouTube Live, Zoom, Teams, and Facebook Live offer auto-generated live captions',
             'Quality matters: Auto-captions are imperfect - speak clearly and consider professional CART for important events',
@@ -2643,6 +3370,11 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Caption quality significantly impacts comprehension. Edited or professional captions are much more reliable than raw auto-generated text.',
+          understanding: [
+            'This asks what method you use to create captions for your videos - from professional services to auto-generated',
+            'Select the option that best describes your current approach - if you use different methods for different content, select "Mix of approaches"',
+            'The quality hierarchy is: professional > auto-edited > burned-in > auto-only > none',
+          ],
           tips: [
             'Auto-caption accuracy: Typically 80-90% accurate, meaning 1-2 errors per sentence',
             'Editing time: Allow 2-3x video length to review and correct auto-captions',
@@ -2672,6 +3404,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Speaker IDs sometimes but no sound descriptions' or 'Only for formal videos'",
         helpContent: {
           summary: 'Speaker identification and sound descriptions provide context that spoken words alone cannot convey.',
+          understanding: [
+            'This asks whether your captions go beyond transcribing speech to include context like who is speaking and important sounds',
+            'Answer "Yes" if captions consistently include speaker names and relevant sound descriptions like [applause] or [music playing]',
+            'Answer "Sometimes, not consistently" if you add these elements to some videos but not all, or only include one type',
+          ],
           tips: [
             'Speaker identification: [Alex] or ALEX: when multiple speakers are present',
             'Sound descriptions: [music playing], [applause], [phone ringing]',
@@ -2701,6 +3438,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Mostly synced but sometimes delayed' or 'Auto-captions are slightly behind'",
         helpContent: {
           summary: 'Well-synchronised captions feel natural. Poorly timed captions are confusing and tiring to follow.',
+          understanding: [
+            'This asks whether captions appear on screen at the same time as the spoken words they represent',
+            'Answer "Yes, well synchronised" if captions appear within half a second of speech and stay visible long enough to read',
+            'Answer "Mostly, with occasional delays" if timing is generally good but occasionally drifts or becomes misaligned',
+          ],
           tips: [
             'Good sync: Captions appear within 0.5 seconds of speech',
             'Reading time: Each caption stays on screen long enough to read (minimum 1 second)',
@@ -2724,6 +3466,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Standard YouTube styling, not customised' or 'Sometimes hard to read against bright backgrounds'",
         helpContent: {
           summary: 'Caption styling affects readability. High contrast and appropriate sizing ensure captions work for everyone.',
+          understanding: [
+            'This asks whether the visual appearance of captions makes them easy to read',
+            'Answer "Yes" if captions have high contrast (white on black or with outline), appropriate size, and clear fonts',
+            'Answer "Partially" if using platform defaults that are generally acceptable but haven\'t been customised for optimal readability',
+          ],
           tips: [
             'Contrast: White text with black outline or black background is most readable',
             'Avoid: Thin fonts, fancy scripts, or coloured text without outline',
@@ -2751,6 +3498,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Not something we\'ve considered' or 'Check for original posts but not reposts'",
         helpContent: {
           summary: 'Alt text can be lost when content is shared or reposted - awareness helps maintain accessibility.',
+          understanding: [
+            'This asks whether you check that alt text is preserved when you share, repost, or cross-post content',
+            'Answer "Yes" if you routinely verify alt text remains after sharing and re-add it when necessary',
+            'Answer "Partially" if you\'re aware of the issue but don\'t consistently check, or only check for some platforms',
+          ],
           tips: [
             'Screenshots: Always add alt text when posting screenshots of other content',
             'Cross-posting: Check each platform\'s alt text after posting',
@@ -2773,6 +3525,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Sometimes use dark overlays but not consistently' or 'We don't add text to images'",
         helpContent: {
           summary: 'Text on images must be readable - use contrast techniques to ensure visibility.',
+          understanding: [
+            'This asks whether text overlaid on images has enough contrast against the background to be readable',
+            'Answer "Yes" if you consistently use techniques like dark overlays, text shadows, or solid backgrounds to ensure readability',
+            'Answer "Partially" if you sometimes use contrast techniques but not consistently, or if some posts have hard-to-read text',
+          ],
           tips: [
             'Dark overlay: Add a semi-transparent dark layer behind light text',
             'Light overlay: Add a semi-transparent light layer behind dark text',
@@ -2809,6 +3566,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Only describe the first image' or 'We don't post carousels'",
         helpContent: {
           summary: 'Carousels need descriptions for every image - users navigate them one at a time.',
+          understanding: [
+            'This asks whether each image in carousel or multi-image posts has its own description',
+            'Answer "Yes" if every image in carousels has alt text or is described in the caption',
+            'Answer "Partially" if you describe some images but not all, or only describe the first/main image',
+          ],
           tips: [
             'Alt text: Add separate alt text to each image via platform settings',
             'Image descriptions: Describe each image in your caption (e.g., "[Image 1: ...] [Image 2: ...]")',
@@ -2842,6 +3604,11 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Autoplay can disrupt assistive technology and startle some users. If used, ensure immediate pause is possible.',
+          understanding: [
+            'This asks whether videos start playing automatically without user action',
+            'Select the option that best describes your current approach to video autoplay',
+            'No autoplay is best practice; if autoplay is used, it should be muted with an easy-to-find pause button',
+          ],
           tips: [
             'Screen reader users: Autoplay can interrupt their software',
             'Attention difficulties: Unexpected video can be distracting',
@@ -2870,6 +3637,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Some videos have text cards, others only have description warnings'",
         helpContent: {
           summary: 'Warnings must reach viewers before they encounter the content, not after.',
+          understanding: [
+            'This asks whether content warnings appear early enough for viewers to see them before the sensitive content',
+            'Answer "Yes" if warnings appear as text cards or spoken words at the start of videos, or in the first line of social media captions',
+            'Answer "Partially" if some videos have effective warnings but others only have warnings buried in descriptions',
+          ],
           tips: [
             'Best practice: Combine written (text card) and spoken warning at video start',
             'Social media: Put warning in first line of caption so it shows in preview',
@@ -2891,13 +3663,18 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Only for videos we produce, not user-generated content' or 'Not aware of testing tools'",
         helpContent: {
           summary: 'Flashing content can cause seizures. Testing and warnings are critical safety measures.',
+          understanding: [
+            'This asks whether you actively test videos for flashing or strobing content that could trigger seizures in people with photosensitive epilepsy',
+            'Answer "Yes" if you use testing tools or have a consistent review process to identify and flag flashing content before publishing',
+            'Answer "Partially" if you review videos you produce but not user-generated content, or if you rely on visual review without specialised tools',
+          ],
           tips: [
-            'PEAT tool: Free Photosensitive Epilepsy Analysis Tool from Trace Center',
-            'General rule: Avoid more than 3 flashes per second',
-            'High risk: Large areas of screen, high contrast (white/black), saturated red',
-            'Common culprits: Strobe effects, rapid scene transitions, certain video effects',
-            'If unsure: Add warning and let viewers decide',
-            'Social platforms: Cannot always control what users post, but can add warnings when sharing',
+            'Free testing tool: PEAT (Photosensitive Epilepsy Analysis Tool) is a free program you can download from trace.umd.edu/peat - you upload your video and it automatically detects potentially dangerous flashing sequences',
+            'How PEAT works: The tool analyses your video frame by frame and flags any sequences that exceed safe flash rates, giving you a report showing exactly where problems occur',
+            'Manual check: Watch for any content with more than 3 flashes per second, especially white/black flashing or bright saturated red',
+            'High risk content: Strobe effects, rapid scene transitions, flickering lights, lightning, camera flashes, certain video effects and transitions',
+            'When in doubt, warn: If you cannot test or are unsure, add a content warning at the start of the video: "This video contains flashing images"',
+            'Why it matters: Flashing content can trigger seizures in people with photosensitive epilepsy - this is a serious medical emergency, not just discomfort',
           ],
         },
       },
@@ -2918,6 +3695,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'We try but not formally checked' or 'Have guidelines but not consistently applied'",
         helpContent: {
           summary: 'Language shapes perception. Inclusive language makes all customers feel respected and welcome.',
+          understanding: [
+            'This asks whether the language in your video scripts and social posts uses respectful, current terminology',
+            'Answer "Yes" if you consistently use appropriate language and avoid outdated or offensive terms',
+            'Answer "Partially" if you try to use inclusive language but haven\'t formally reviewed content or don\'t have guidelines',
+          ],
           tips: [
             'Person-first vs identity-first: Some prefer "person with disability", others prefer "disabled person" - when unsure, ask',
             'Avoid: "Wheelchair-bound", "suffers from", "handicapped", "special needs"',
@@ -2945,6 +3727,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Sometimes but not consistently' or 'Wasn\'t aware this was important'",
         helpContent: {
           summary: 'CamelCase hashtags are easier to read for everyone and work properly with screen readers.',
+          understanding: [
+            'This asks whether you capitalise the first letter of each word in hashtags (e.g., #AccessibleTravel not #accessibletravel)',
+            'Answer "Yes" if you consistently use CamelCase for multi-word hashtags across your social media posts',
+            'Answer "Partially" if you sometimes use CamelCase but not consistently, or weren\'t aware of this practice',
+          ],
           tips: [
             'Example: #VisitMelbourne not #visitmelbourne',
             'Example: #AccessibleTourism not #accessibletourism',
@@ -2965,9 +3752,14 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'We use lots of emoji throughout posts' or 'Try to limit but not consistently'",
         helpContent: {
           summary: 'Thoughtful emoji placement ensures they enhance rather than hinder the reading experience.',
+          understanding: [
+            'This asks whether emojis are placed at the end of sentences/posts rather than scattered throughout the text',
+            'Answer "Yes" if you place emojis at the end of sentences and limit the total number used',
+            'Answer "Partially" if you use many emojis throughout posts or use them as bullet point replacements',
+          ],
           tips: [
-            'Avoid: 🏃‍♂️ Running to 📍 the store to get 🍕 pizza (each emoji interrupts the sentence)',
-            'Better: Running to the store to get pizza 🍕',
+            'Avoid: Running to the store to get pizza (each emoji interrupts the sentence)',
+            'Better: Running to the store to get pizza',
             'Quantity: 1-3 emoji is fine, 10+ becomes tedious for screen reader users',
             'Not as bullets: Avoid using emoji as list markers',
           ],
@@ -2977,24 +3769,24 @@ export const accessModules: AccessModule[] = [
     ],
   },
 
-  // B5: Communication and Language
-  // How you communicate about accessibility and use inclusive language
+  // B5: Clear & Welcoming Information (Before They Arrive)
+  // How you communicate about accessibility before people visit
   {
     id: 'B5',
     code: 'B5',
-    name: 'Communication and language',
-    description: 'How you communicate about accessibility and use inclusive, welcoming language',
+    name: 'Clear and welcoming information',
+    description: 'How you communicate about accessibility and welcome customers through your language, tone, and information availability',
     group: 'before-arrival',
-    estimatedTime: 10,
-    estimatedTimeDeepDive: 20,
+    estimatedTime: 12,
+    estimatedTimeDeepDive: 28,
     icon: '💬',
     questions: [
       // ============================================
-      // PULSE CHECK QUESTIONS
+      // PULSE CHECK QUESTIONS (8)
       // ============================================
       {
         id: 'B5-PC-1',
-        text: 'Does your website and communications use clear, plain language that is easy to understand?',
+        text: 'Do your website and communications use clear, plain language that is easy to understand?',
         helpText: 'Plain language helps everyone, including people with cognitive disabilities, learning differences, non-native English speakers, and people who are stressed or distracted.\n\nPlain language means:\n• Short sentences and paragraphs\n• Common, everyday words\n• Active voice ("We will contact you" not "You will be contacted")\n• Clear headings and structure\n• Avoiding jargon and acronyms',
         type: 'yes-no-unsure',
         category: 'information',
@@ -3003,7 +3795,12 @@ export const accessModules: AccessModule[] = [
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Main pages are clear but legal/policy pages are complex' or 'Some staff write clearly, others use jargon'",
         helpContent: {
-          summary: 'Plain language makes your content accessible to more people and improves understanding for everyone.',
+          summary: 'Does your website and communications use simple, clear language that most people can easily understand?',
+          understanding: [
+            'Plain language means: short sentences, common everyday words, active voice, clear headings, no unexplained jargon or acronyms',
+            'Answer "Yes" if most of your content is written at a Year 8-9 reading level with simple words and short sentences',
+            'Answer "Partially" if some pages are clear but others (e.g., legal terms, policies, technical info) use complex language',
+          ],
           tips: [
             'Aim for reading level of Year 8-9 (age 13-14) for general audiences',
             'Use free tools like Hemingway Editor to check readability',
@@ -3024,7 +3821,13 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Staff are generally respectful but website has some outdated terms' or 'No formal guidelines'",
         helpContent: {
-          summary: 'Respectful language shows you value and welcome customers with disability.',
+          summary: 'Do you use appropriate, respectful terminology when referring to people with disability in your communications?',
+          understanding: [
+            'Respectful language: "person with disability", "disabled person", "wheelchair user", "has [condition]"',
+            'Outdated/offensive terms to avoid: "wheelchair-bound", "suffers from", "special needs", "handicapped", "differently abled"',
+            'Answer "Yes" if you consistently use respectful terminology across website, marketing, and staff communications',
+            'Answer "Partially" if language is generally respectful but some outdated terms may appear, or you haven\'t formally reviewed all content',
+          ],
           tips: [
             'Use: "person with disability" or "disabled person" (both acceptable in Australia)',
             'Use: "wheelchair user" not "wheelchair-bound" or "confined to a wheelchair"',
@@ -3045,7 +3848,12 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Accessibility page is positive but some staff communications are negative' or 'Haven\'t reviewed this'",
         helpContent: {
-          summary: 'Positive framing makes customers feel welcome rather than like an afterthought or problem to solve.',
+          summary: 'Do you describe your accessibility features in a positive, solution-focused way rather than focusing on limitations?',
+          understanding: [
+            'Positive framing: "Step-free access via side entrance" vs Negative: "Wheelchair users cannot use main entrance"',
+            'Answer "Yes" if you consistently describe what IS available and lead with solutions across your communications',
+            'Answer "Partially" if some content is positive but other areas (e.g., signage, certain pages) focus on limitations or use apologetic language',
+          ],
           tips: [
             'Lead with what you offer: "Accessible parking available" not "Limited parking"',
             'Focus on solutions: "Assistance available on request" not "Staff may not always be available"',
@@ -3065,9 +3873,14 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'We have an accessibility page but it\'s hard to find' or 'Info is scattered across different pages'",
         helpContent: {
-          summary: 'Easy-to-find accessibility information helps customers plan confidently and shows you prioritise inclusion.',
+          summary: 'Can customers quickly and easily locate your accessibility information on your website?',
+          understanding: [
+            'Easy to find means: linked in main navigation or footer, reachable within 1-3 clicks, clearly labelled as "Accessibility"',
+            'Answer "Yes" if there\'s a clear accessibility link in navigation or footer that customers can find within 1-2 clicks',
+            'Answer "Partially" if accessibility info exists but is buried (e.g., hidden in FAQs, requires 4+ clicks, labelled unclearly as "Special Assistance")',
+          ],
           tips: [
-            'Add "Accessibility" link in footer navigation (common, expected location)',
+            'Add "Accessibility" link in primary navigation or footer (both are common, expected locations)',
             'Include accessibility info on relevant pages (venue page, booking page, contact page)',
             'Use clear labelling: "Accessibility" not "Special Assistance" or "Additional Needs"',
             'Make it prominent: Consider a dedicated section on your homepage',
@@ -3077,28 +3890,33 @@ export const accessModules: AccessModule[] = [
       },
       {
         id: 'B5-PC-5',
-        text: 'Do you provide information in multiple formats for people who need alternatives?',
-        helpText: 'Different people need information in different formats:\n\n• Large print versions\n• Easy Read versions (simplified language with images)\n• Audio versions\n• Braille (for some contexts)\n• Auslan (Australian Sign Language) videos\n\nNot every format is needed for everything, but having alternatives for key information improves access.',
+        text: 'Does your accessibility information cover practical details customers need to plan their visit?',
+        helpText: 'Customers need practical details to plan their visit with confidence. Comprehensive information includes physical access (parking, entrances, toilets), sensory environment (noise, lighting, crowds), equipment available, what to expect, and how to get help.',
         type: 'yes-no-unsure',
         category: 'information',
-        impactLevel: 'medium',
+        impactLevel: 'high',
         reviewMode: 'pulse-check',
-        partialPlaceholder: "E.g., 'PDF documents available but no other formats' or 'Can provide on request but not proactively offered'",
+        partialPlaceholder: "E.g., 'We cover parking and entrances but not sensory environment' or 'Basic info only'",
         helpContent: {
-          summary: 'Alternative formats ensure people with different access needs can receive the same information.',
+          summary: 'Does your accessibility information include the practical details customers need to plan their visit?',
+          understanding: [
+            'Practical details include: physical access (parking, entrances, toilets), sensory environment (noise, lighting, crowds), equipment available, what to expect, and how to get help',
+            'Answer "Yes" if your information covers most of these areas with specific, useful details',
+            'Answer "Partially" if you cover some areas (e.g., parking and entrances) but have gaps in others (e.g., no sensory info, no equipment list)',
+          ],
           tips: [
-            'Start with key documents: Menus, brochures, policies, terms and conditions',
-            'Easy Read: Simplified language with supporting images - good for cognitive access',
-            'Large print: Minimum 18pt font, can often be provided on request',
-            'Audio: Record key information or offer phone-based alternatives',
-            'Mention availability: "Available in other formats on request"',
-            'Consider Auslan videos for important announcements or key information',
+            'Physical access: parking locations, entrance types (steps, ramps, automatic doors), accessible toilet locations, seating options, step-free routes',
+            'Sensory environment: typical noise levels, lighting (bright, dim, flickering), crowd density at different times, temperature, background music',
+            'Equipment available: wheelchairs for loan, hearing loops, magnifiers, sensory kits, portable ramps',
+            'What to expect: typical visit flow, how long things take, queuing, busy vs quiet times, staff interactions',
+            'How to get help: contact details for accessibility questions, who to ask on arrival, how to request assistance',
+            'Be specific and honest: "Step-free entrance via side door" is more useful than just "accessible" - customers prefer knowing limitations in advance',
           ],
         },
       },
       {
         id: 'B5-PC-6',
-        text: 'Do you actively communicate your commitment to accessibility (not just compliance)?',
+        text: 'Do you actively communicate your commitment to accessibility (not just list features)?',
         helpText: 'Communicating commitment goes beyond listing features - it conveys that accessibility is valued and prioritised.\n\nThis might include:\n• A welcoming statement on your accessibility page\n• Including accessibility in your values or mission\n• Sharing your accessibility journey or improvements\n• Responding positively to accessibility feedback\n• Staff who confidently discuss accessibility',
         type: 'yes-no-unsure',
         category: 'information',
@@ -3106,7 +3924,12 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'We list features but don\'t express commitment' or 'Varies by staff member'",
         helpContent: {
-          summary: 'Communicating commitment builds trust and signals that customers with disability are genuinely welcome.',
+          summary: 'Do you actively express that accessibility matters to your organisation, beyond just listing features?',
+          understanding: [
+            'Communicating commitment includes: welcoming statements, sharing your accessibility journey, inviting feedback, including accessibility in your values',
+            'Answer "Yes" if you have clear statements expressing commitment (e.g., "We are committed to accessibility") AND actively invite/respond to feedback',
+            'Answer "Partially" if you list accessibility features but don\'t express commitment, or commitment varies (e.g., website says it but staff don\'t convey it)',
+          ],
           tips: [
             'Opening statement: "We are committed to ensuring all visitors can enjoy our venue"',
             'Share progress: "We recently installed a new hearing loop in our main hall"',
@@ -3116,13 +3939,63 @@ export const accessModules: AccessModule[] = [
           ],
         },
       },
+      {
+        id: 'B5-PC-7',
+        text: 'Do you let customers know that information is available in alternative formats?',
+        helpText: 'Even if you can provide large print, Easy Read, or audio versions on request, customers won\'t know unless you tell them.\n\nMentioning availability might include:\n• "Available in other formats on request" on key documents\n• Listing available formats on your accessibility page\n• Staff trained to offer alternatives when appropriate',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Can provide on request but don\'t proactively mention it' or 'Listed on accessibility page only'",
+        helpContent: {
+          summary: 'Do you tell customers that information can be provided in different formats if needed?',
+          understanding: [
+            'Alternative formats include: large print, Easy Read (simplified with images), audio, Braille, digital/screen-reader compatible',
+            'Answer "Yes" if you clearly advertise format availability (e.g., "Available in large print on request" on documents, formats listed on accessibility page)',
+            'Answer "Partially" if you can provide alternatives when asked but don\'t proactively mention availability',
+          ],
+          tips: [
+            'Add "Available in large print, Easy Read, or audio on request" to documents',
+            'Include format options on accessibility page',
+            'Train staff to offer: "Would you like this in an alternative format?"',
+            'Consider common requests: large print and Easy Read are most frequently needed',
+            'Response time: be realistic about how quickly you can provide alternatives',
+          ],
+        },
+      },
+      {
+        id: 'B5-PC-8',
+        text: 'Do you include visual content (photos, videos, virtual tours) to help customers understand your venue?',
+        helpText: 'Visual information helps many customers preview your venue before visiting. This includes people who process visual information better than text, autistic visitors wanting to see what to expect, and those planning for mobility or sensory needs.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some photos but not comprehensive' or 'Photos of venue but not accessibility features'",
+        helpContent: {
+          summary: 'Do you provide photos, videos, or virtual tours that help customers understand your venue before visiting?',
+          understanding: [
+            'Visual content includes: photos of entrances and accessible routes, interior/layout photos, accessible toilet photos, video tours, 360° virtual tours, and social stories (photo sequences of a typical visit)',
+            'Answer "Yes" if you have visual content covering multiple accessibility aspects (e.g., entrances AND routes AND toilets)',
+            'Answer "Partially" if you have some accessibility visuals but gaps remain (e.g., only entrance photos, nothing showing toilets or routes), OR you have general venue photos but nothing accessibility-specific',
+          ],
+          tips: [
+            'Prioritise showing: entrances, step-free routes, accessible toilets, seating, service counters',
+            'Include busy vs quiet time photos to help customers plan when to visit',
+            'Video/virtual tours let customers "preview" and reduce anxiety about the unknown',
+            'Social stories are particularly valuable for autistic visitors preparing for their visit',
+            'Make visual content itself accessible: alt text on photos, captions on videos',
+          ],
+        },
+      },
 
       // ============================================
-      // DEEP DIVE QUESTIONS
+      // DEEP DIVE QUESTIONS (12)
       // ============================================
       {
         id: 'B5-DD-1a',
-        text: 'Have you reviewed your website content for readability level?',
+        text: 'Have you tested your website content for readability level?',
         helpText: 'Readability tools can measure the reading level of your content and identify complex sentences or difficult words.\n\nTools like Hemingway Editor, readable.com, or Microsoft Word\'s readability statistics can help.',
         type: 'yes-no-unsure',
         category: 'information',
@@ -3131,7 +4004,12 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'B5-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Checked some pages but not all' or 'Used tools but haven\'t made changes'",
         helpContent: {
-          summary: 'Readability testing gives objective data to guide content improvements.',
+          summary: 'Have you used tools or methods to measure how readable your website content is?',
+          understanding: [
+            'Readability testing means using tools (Hemingway Editor, readable.com, MS Word) to check reading level and identify complex language',
+            'Answer "Yes" if you\'ve tested key pages and know your content\'s reading level',
+            'Answer "Partially" if you\'ve checked some pages but not systematically, or tested but haven\'t acted on results',
+          ],
           tips: [
             'Free tool: Hemingway Editor (hemingwayapp.com) highlights complex sentences',
             'Target: Grade 8-9 reading level for general content',
@@ -3151,10 +4029,50 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B5-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'General style guide but no accessibility section' or 'Informal guidelines only'",
+        helpContent: {
+          summary: 'Do you have documented guidelines that help staff write accessible, plain language content?',
+          understanding: [
+            'A style guide with accessibility includes: plain language standards, reading level targets, disability terminology guidance, examples of good/bad writing',
+            'Answer "Yes" if you have a documented guide that specifically covers accessibility and plain language',
+            'Answer "Partially" if you have a general style guide but no accessibility section, or only informal verbal guidelines',
+          ],
+          tips: [
+            'Include plain language principles: word choice, sentence length, structure',
+            'Add disability terminology guidance: preferred terms, words to avoid',
+            'Provide before/after examples of content improvements',
+            'Make the guide easily accessible to all content creators',
+            'Review and update annually as language evolves',
+          ],
+        },
+      },
+      {
+        id: 'B5-DD-1c',
+        text: 'Have content creators received training on plain language and accessible writing?',
+        helpText: 'Training builds organisation-wide capability in accessible communication.',
+        type: 'yes-no-unsure',
+        category: 'training',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'Marketing team trained but not all staff' or 'Informal guidance only'",
+        helpContent: {
+          summary: 'Have staff who create content been trained on writing in plain, accessible language?',
+          understanding: [
+            'Content creators include: marketing team, website editors, social media managers, customer service (email/letters), anyone writing public-facing content',
+            'Answer "Yes" if content creators have received specific training on plain language and accessibility in writing',
+            'Answer "Partially" if only some staff are trained (e.g., marketing but not customer service), or training was informal/ad-hoc',
+          ],
+          tips: [
+            'Include all content creators: Marketing, customer service, operations, HR',
+            'Practical exercises: Training should include rewriting real content samples',
+            'Provide reference materials: Style guide, word lists, readability tool recommendations',
+            'Regular refreshers: Annual updates keep skills current',
+          ],
+        },
       },
       {
         id: 'B5-DD-2a',
-        text: 'Have you trained staff on respectful disability language and communication?',
+        text: 'Have staff been trained on respectful disability language and terminology?',
         helpText: 'Training helps staff communicate confidently and respectfully with customers with disability.',
         type: 'yes-no-unsure',
         category: 'training',
@@ -3162,57 +4080,245 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B5-PC-2', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Included in onboarding but no refresher training' or 'Customer-facing staff only'",
+        helpContent: {
+          summary: 'Have staff received training on appropriate terminology and respectful communication with people with disability?',
+          understanding: [
+            'Language training covers: preferred terminology, words/phrases to avoid, person-first vs identity-first language, asking about preferences',
+            'Answer "Yes" if staff have received specific training on disability language (in onboarding AND ongoing)',
+            'Answer "Partially" if training was one-off (e.g., onboarding only), covers only some staff, or was informal guidance rather than structured training',
+          ],
+          tips: [
+            'Include in onboarding for all new staff',
+            'Provide regular refreshers as language evolves',
+            'Cover both written and verbal communication',
+            'Include practical scenarios and role-play',
+            'Provide quick-reference guides staff can access easily',
+          ],
+        },
       },
       {
-        id: 'B5-DD-3a',
-        text: 'Have you reviewed your accessibility page for positive, welcoming tone?',
-        helpText: 'Your accessibility page sets the tone for how customers with disability perceive your welcome.',
+        id: 'B5-DD-2b',
+        text: 'Have you audited your website and marketing materials for outdated or problematic language?',
+        helpText: 'Older content may contain language that was once acceptable but is now considered inappropriate.',
         type: 'yes-no-unsure',
-        category: 'information',
+        category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        showWhen: { questionId: 'B5-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
-        partialPlaceholder: "E.g., 'Recently updated' or 'Haven\'t reviewed recently'",
-      },
-      {
-        id: 'B5-DD-4a',
-        text: 'Where is your accessibility information located on your website?',
-        helpText: 'Documenting current location helps identify improvements.',
-        type: 'multi-select',
-        category: 'information',
-        impactLevel: 'medium',
-        reviewMode: 'deep-dive',
-        showWhen: { questionId: 'B5-PC-4', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
-        options: [
-          { id: 'footer', label: 'Footer navigation' },
-          { id: 'main-nav', label: 'Main navigation menu' },
-          { id: 'homepage', label: 'Homepage section' },
-          { id: 'contact-page', label: 'Contact page' },
-          { id: 'venue-page', label: 'Venue/location page' },
-          { id: 'booking-page', label: 'Booking page' },
-          { id: 'faq', label: 'FAQ section' },
-          { id: 'not-present', label: 'No dedicated accessibility information' },
-        ],
+        showWhen: { questionId: 'B5-PC-2', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'Reviewed main pages but not older content' or 'Haven\'t done a formal audit'",
+        helpContent: {
+          summary: 'Have you systematically reviewed your website and marketing materials to find and fix outdated disability language?',
+          understanding: [
+            'A language audit involves searching content for problematic terms and updating them (e.g., "wheelchair-bound" → "wheelchair user")',
+            'Answer "Yes" if you\'ve conducted a systematic review of website, marketing materials, PDFs, and templates',
+            'Answer "Partially" if you\'ve reviewed some content (e.g., main pages) but not comprehensively, or found issues but haven\'t fixed them all',
+          ],
+          tips: [
+            'Search for common problematic terms: "wheelchair-bound", "suffers from", "special needs"',
+            'Check image alt text and captions',
+            'Review PDF documents and downloadable content',
+            'Include social media history in your audit',
+            'Update templates and boilerplate text',
+          ],
+        },
       },
       {
         id: 'B5-DD-5a',
-        text: 'Which alternative formats do you currently offer?',
-        helpText: 'Document what you currently provide to identify gaps.',
+        text: 'Which accessibility topics does your current information cover?',
+        helpText: 'Review what you currently include to identify gaps.',
         type: 'multi-select',
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'B5-PC-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         options: [
-          { id: 'large-print', label: 'Large print' },
-          { id: 'easy-read', label: 'Easy Read' },
+          { id: 'parking-transport', label: 'Parking and transport' },
+          { id: 'entrances', label: 'Entrance accessibility' },
+          { id: 'toilets', label: 'Accessible toilets' },
+          { id: 'mobility-routes', label: 'Step-free routes and lifts' },
+          { id: 'seating', label: 'Seating options' },
+          { id: 'sensory', label: 'Sensory environment' },
+          { id: 'hearing-support', label: 'Hearing support (loops, captions)' },
+          { id: 'vision-support', label: 'Vision support (large print, audio)' },
+          { id: 'companion-carer', label: 'Companion/carer information' },
+          { id: 'equipment-loan', label: 'Equipment for loan' },
+          { id: 'service-animals', label: 'Service animal policy' },
+          { id: 'quiet-times', label: 'Quiet times or sensory-friendly sessions' },
+          { id: 'contact-access', label: 'How to contact with accessibility questions' },
+        ],
+        helpContent: {
+          summary: 'Select all the accessibility topics that your published information currently covers.',
+          understanding: [
+            'This helps identify gaps in your information - topics you haven\'t covered yet',
+            'Only select topics where you provide specific, useful information (not just a passing mention)',
+            'Comprehensive coverage typically includes at least: parking/transport, entrances, toilets, and contact information',
+          ],
+          tips: [
+            'Review your accessibility page, venue page, and FAQs to check what\'s covered',
+            'Physical access basics (parking, entrances, toilets) are essential starting points',
+            'Sensory information is often overlooked but highly valued by autistic visitors',
+            'Contact information for accessibility questions should always be included',
+          ],
+        },
+      },
+      {
+        id: 'B5-DD-6a',
+        text: 'How do you communicate your accessibility commitment to customers?',
+        helpText: 'Different methods reach different audiences.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-6', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'accessibility-page', label: 'Statement on accessibility page' },
+          { id: 'about-page', label: 'Mentioned in About Us/Values' },
+          { id: 'staff-verbal', label: 'Staff communicate verbally' },
+          { id: 'social-media', label: 'Shared on social media' },
+          { id: 'annual-report', label: 'Annual report or public documents' },
+          { id: 'booking-confirmation', label: 'Booking confirmations' },
+          { id: 'diap-published', label: 'Published DIAP' },
+          { id: 'signage', label: 'On-site signage' },
+          { id: 'not-communicated', label: 'Not actively communicated' },
+        ],
+        helpContent: {
+          summary: 'Select all the ways you currently communicate your commitment to accessibility.',
+          understanding: [
+            'This goes beyond listing features - it\'s about expressing that accessibility matters to your organisation',
+            'Examples: "We are committed to accessibility" statements, accessibility in your values, sharing your improvement journey',
+            'Select "Not actively communicated" only if none of the other options apply',
+          ],
+          tips: [
+            'Website is the most common channel - accessibility page and About Us are key locations',
+            'Booking confirmations reach customers at a key decision point',
+            'Social media can reach new audiences and show ongoing commitment',
+            'Staff verbal communication reinforces written messages',
+          ],
+        },
+      },
+      {
+        id: 'B5-DD-7a',
+        text: 'Which alternative formats can you currently provide for key documents?',
+        helpText: 'Document what you currently offer to identify gaps.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-7', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'large-print', label: 'Large print (18pt+)' },
+          { id: 'easy-read', label: 'Easy Read (simplified with images)' },
           { id: 'audio', label: 'Audio versions' },
           { id: 'braille', label: 'Braille' },
-          { id: 'auslan', label: 'Auslan videos' },
-          { id: 'screen-reader', label: 'Screen reader compatible documents' },
-          { id: 'on-request', label: 'Available on request' },
+          { id: 'auslan', label: 'Auslan video' },
+          { id: 'screen-reader-pdf', label: 'Screen reader compatible PDF' },
+          { id: 'html', label: 'HTML/webpage version' },
+          { id: 'plain-text', label: 'Plain text email' },
+          { id: 'on-request', label: 'Other formats on request' },
           { id: 'none', label: 'None currently' },
         ],
+        helpContent: {
+          summary: 'Select all the alternative formats you can currently provide for important documents.',
+          understanding: [
+            'Alternative formats help people who cannot access standard printed documents (e.g., due to vision impairment, cognitive disability, or reading difficulties)',
+            'Only select formats you can actually provide - either pre-prepared or within a reasonable timeframe on request',
+            'Large print and Easy Read are the most commonly requested formats',
+          ],
+          tips: [
+            'Large print (18pt+) is easy to provide - just reformat existing documents',
+            'Easy Read uses simple words, short sentences, and images - requires more effort but highly valued',
+            'Screen reader compatible PDFs need proper tagging - check with Adobe Acrobat\'s accessibility checker',
+            'Braille typically requires external providers - establish relationships in advance',
+          ],
+        },
+      },
+      {
+        id: 'B5-DD-7b',
+        text: 'Do you have a clear process for customers to request alternative formats?',
+        helpText: 'A clear process ensures consistent, timely responses to format requests.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-7', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Staff know what to do but no documented process' or 'Process exists but not widely known'",
+        helpContent: {
+          summary: 'Do you have a defined process for customers to request and receive documents in alternative formats?',
+          understanding: [
+            'A clear process includes: how to request (contact method), what to expect (timeframe), and who handles it (staff responsibility)',
+            'Answer "Yes" if there\'s a documented process that staff know and follow',
+            'Answer "Partially" if staff generally know what to do but there\'s no formal process, or the process isn\'t consistently followed',
+          ],
+          tips: [
+            'Include contact details specifically for format requests',
+            'Set expectations: "We can provide large print within 24 hours"',
+            'Train staff on how to handle requests',
+            'Keep commonly requested documents pre-prepared in alternative formats',
+            'Track requests to identify patterns and prepare proactively',
+          ],
+        },
+      },
+      {
+        id: 'B5-DD-8a',
+        text: 'What types of visual accessibility content do you provide?',
+        helpText: 'Different visual content serves different purposes.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-8', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'entrance-photos', label: 'Photos of entrances' },
+          { id: 'interior-photos', label: 'Interior/layout photos' },
+          { id: 'toilet-photos', label: 'Accessible toilet photos' },
+          { id: 'route-photos', label: 'Accessible route photos' },
+          { id: 'video-tour', label: 'Video tour' },
+          { id: 'virtual-tour', label: '360° virtual tour' },
+          { id: 'social-story', label: 'Social story / visual guide' },
+          { id: 'floor-plan', label: 'Accessible floor plan' },
+          { id: 'none', label: 'None currently' },
+        ],
+        helpContent: {
+          summary: 'Select all the types of visual content you currently provide to help customers understand your venue.',
+          understanding: [
+            'This helps identify what visual content you have and what gaps exist',
+            'Photos of entrances, toilets, and routes are the most commonly needed accessibility visuals',
+            'Social stories (step-by-step photo guides of a typical visit) are particularly valuable for autistic visitors',
+          ],
+          tips: [
+            'Entrance and toilet photos are essential starting points',
+            'Route photos help mobility aid users plan their path',
+            'Video tours provide a comprehensive preview experience',
+            'Social stories reduce anxiety by showing exactly what to expect',
+            'Floor plans help customers understand the layout before arriving',
+          ],
+        },
+      },
+      {
+        id: 'B5-DD-8b',
+        text: 'Is your visual content itself accessible (alt text on photos, captions on videos)?',
+        helpText: 'Visual content must be accessible to benefit everyone, including those using screen readers.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'B5-PC-8', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Some images have alt text but not all' or 'Videos have auto-captions only'",
+        helpContent: {
+          summary: 'Is the visual content you provide accessible to people who use screen readers or need captions?',
+          understanding: [
+            'Accessible visual content includes: alt text on images (describing what\'s shown), captions on videos, audio descriptions for video tours',
+            'Answer "Yes" if all or most of your visual content has appropriate alt text, captions, and descriptions',
+            'Answer "Partially" if some content is accessible but not all (e.g., some images have alt text, videos have auto-captions only)',
+          ],
+          tips: [
+            'Add descriptive alt text to all photos - describe what\'s shown, not just "entrance photo"',
+            'Include captions on videos - auto-captions are a start but may have errors',
+            'Provide audio descriptions for video tours (describe what\'s being shown)',
+            'Ensure virtual tours have text alternatives',
+            'Test with screen reader to verify accessibility',
+          ],
+        },
       },
     ],
   },
@@ -3238,7 +4344,7 @@ export const accessModules: AccessModule[] = [
       {
         id: 'B6-PC-1',
         text: 'Does your marketing imagery include people with disability?',
-        helpText: 'Representation matters. When people with disability see themselves in your marketing, they know they are welcome as customers.\n\nThis means including people with visible disabilities (wheelchair users, people with mobility aids, guide dogs) and representing diversity authentically - not just in "accessibility" content.',
+        helpText: 'Representation matters. When people with disability see themselves in your marketing, they know they are welcome as customers.\n\nThis means including people with visible disabilities (wheelchair users, people with mobility aids, guide dogs) and non-visible disabilities (chronic illness, mental health conditions, neurodivergence, hearing loss) - and representing diversity authentically throughout your marketing, not just in "accessibility" content.',
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
@@ -3247,13 +4353,19 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Occasionally but not consistently' or 'Only in accessibility-specific content'",
         helpContent: {
           summary: 'Inclusive imagery signals that your business welcomes customers with disability - not as an afterthought, but as valued customers.',
+          understanding: [
+            'This asks whether your marketing imagery includes people with both visible and non-visible disabilities across your general marketing, not just accessibility-specific content',
+            'Answer "Yes" if people with disability appear naturally throughout your website, brochures, and social media as regular customers',
+            'Answer "Partially" if you occasionally include disability representation, or only in accessibility-specific sections',
+          ],
           tips: [
             'Audit your imagery: Review your website, brochures, social media - how many images include people with disability?',
             'Natural inclusion: Show people with disability as regular customers, not just in "accessibility" sections',
-            'Diverse disabilities: Include mobility, vision, hearing, and cognitive disabilities - not just wheelchair users',
+            'Diverse disabilities: Include mobility, vision, hearing, cognitive, and non-visible disabilities (chronic illness, mental health, neurodivergence) - not just wheelchair users',
+            'Non-visible disabilities: Consider including imagery that represents hidden disabilities through context (e.g., someone using a hearing aid, wearing sunflower lanyard, using fidget tools)',
             'Authentic representation: Use real customers or authentic stock photography',
             'Avoid inspiration narratives: Don\'t frame disability as something to "overcome"',
-            'Stock resources: Getty Disability Collection and The Disability Collection (Australian) offer authentic imagery',
+            'Stock resources: Getty Disability Collection and The Disability Collection (Australian) offer authentic imagery including non-visible disabilities',
           ],
         },
       },
@@ -3268,6 +4380,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Generally respectful but haven\'t formally reviewed' or 'Some older materials may have issues'",
         helpContent: {
           summary: 'Authentic representation respects people with disability as individuals, not inspiration for others.',
+          understanding: [
+            'This asks whether your marketing avoids "inspiration porn" - content that frames people with disability as inspiring simply for living their lives',
+            'Answer "Yes" if people with disability are shown as ordinary customers/employees doing everyday activities, not as objects of pity or inspiration',
+            'Answer "Partially" if representation is generally respectful but you haven\'t formally reviewed materials, or some older content may have issues',
+          ],
           tips: [
             'Avoid: "Despite their disability...", "Brave", "Inspiring" narratives about everyday activities',
             'Avoid: Images that position non-disabled people as "helpers" with disabled people as recipients',
@@ -3289,6 +4406,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Digital materials are accessible but print may not be' or 'Haven\'t checked contrast/fonts'",
         helpContent: {
           summary: 'Accessible marketing ensures everyone can receive your promotional messages.',
+          understanding: [
+            'This asks whether your brochures, flyers, and advertisements are designed accessibly with good contrast, readable fonts, alt text, and available in alternative formats',
+            'Answer "Yes" if materials use high contrast, readable fonts (14pt+), include alt text for digital images, and alternative formats are available',
+            'Answer "Partially" if digital materials are accessible but print may not be, or if you haven\'t checked contrast and fonts systematically',
+          ],
           tips: [
             'Contrast: Text should have 4.5:1 contrast ratio with background',
             'Font size: Minimum 12pt for body text, preferably 14pt+',
@@ -3311,6 +4433,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'We mention accessibility but don\'t actively promote it' or 'Only on our accessibility page'",
         helpContent: {
           summary: 'Proactively marketing accessibility attracts customers and shows genuine commitment.',
+          understanding: [
+            'This asks whether you actively promote accessibility as a positive feature of your business, not just something mentioned for compliance',
+            'Answer "Yes" if you highlight accessible features as benefits, promote inclusive events, share testimonials, and feature accessibility prominently',
+            'Answer "Partially" if you mention accessibility but don\'t actively promote it, or only mention it on your accessibility page',
+          ],
           tips: [
             'Feature benefits: "Easy access for everyone" or "Welcoming venue for all"',
             'Promote events: Market accessible events and inclusive experiences',
@@ -3339,12 +4466,18 @@ export const accessModules: AccessModule[] = [
         ],
         helpContent: {
           summary: 'Authentic imagery from real customers or inclusive sources is more impactful than generic stock photos.',
+          understanding: [
+            'This asks what source you use for imagery that includes people with disability in your marketing',
+            'Select the option that best describes your current approach - real customers and inclusive stock libraries produce more authentic representation',
+            'If you currently have no disability representation, selecting that option helps identify this as an improvement area',
+          ],
           tips: [
-            'Real customers: Ask satisfied customers if they would be willing to be featured (always get written permission)',
-            'Getty Disability Collection: Authentic representation in stock imagery',
-            'The Disability Collection: Australian disability-led imagery',
-            'Commission: Budget for inclusive photo shoots featuring real people in natural situations',
+            'Real customers: Ask satisfied customers if they would be willing to be featured (always get written permission) - include those with non-visible disabilities',
+            'Getty Disability Collection: Authentic representation in stock imagery including non-visible disabilities',
+            'The Disability Collection: Australian disability-led imagery representing diverse disability experiences',
+            'Commission: Budget for inclusive photo shoots featuring real people with both visible and non-visible disabilities',
             'User-generated: Encourage customers to share their experiences (with permission to repost)',
+            'Non-visible representation: Include imagery showing hearing aids, insulin pumps, sunflower lanyards, sensory aids, or simply diverse people without assumptions about who has a disability',
             'Avoid: Inspiration porn, people "overcoming" disability, or images that feel staged or pitying',
           ],
         },
@@ -3365,12 +4498,17 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Informally but not as standard practice' or 'Staff member with disability provides input'",
         helpContent: {
           summary: 'People with disability are best placed to identify whether representation feels authentic or tokenistic.',
+          understanding: [
+            'This asks whether people with lived experience of disability have reviewed your marketing for authentic representation',
+            'Answer "Yes" if you have a systematic process involving people with disability reviewing materials before publication',
+            'Answer "Partially" if you get informal feedback or a staff member with disability provides input, but it\'s not standard practice',
+          ],
           tips: [
-            'Staff with disability: If you have team members with disability, ask if they would be willing to provide input (don\'t assume or pressure)',
+            'Staff with disability: If you have team members with disability (visible or non-visible), ask if they would be willing to provide input (don\'t assume or pressure)',
             'Customer advisory: Invite regular customers with disability to review materials before publication',
             'Paid consultation: Engage disability consultants or advocates for professional review',
-            'Focus groups: Include people with different types of disability for broader perspectives',
-            'Key questions to ask: Does this feel authentic? Would you feel welcomed? Is anything cringeworthy?',
+            'Focus groups: Include people with different types of disability for broader perspectives - both visible and non-visible disabilities',
+            'Key questions to ask: Does this feel authentic? Would you feel welcomed? Is anything cringeworthy? Does it represent diverse disability experiences?',
           ],
         },
       },
@@ -3386,6 +4524,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'Digital materials tested but not print' or 'Used automated tools only'",
         helpContent: {
           summary: 'Testing catches technical accessibility issues that visual review alone misses.',
+          understanding: [
+            'This asks whether you have actively tested your marketing materials for accessibility issues like contrast, readability, and screen reader compatibility',
+            'Answer "Yes" if you use accessibility checking tools and/or have people test materials with assistive technology',
+            'Answer "Partially" if you\'ve tested digital materials but not print, or only used automated tools without human testing',
+          ],
           tips: [
             'Contrast checkers: Use WebAIM or similar tools to verify text meets 4.5:1 ratio',
             'PDF checkers: Adobe Acrobat\'s accessibility checker or PAC 3 for PDF documents',
@@ -3408,6 +4551,11 @@ export const accessModules: AccessModule[] = [
         partialPlaceholder: "E.g., 'International Day of People with Disability content' or 'Featured in accessibility guide'",
         helpContent: {
           summary: 'Featuring accessibility in marketing signals to customers that they are welcome and that you have thought about their needs.',
+          understanding: [
+            'This asks whether you have actively featured accessibility in marketing campaigns or promotions, beyond just having an accessibility page',
+            'Answer "Yes" if you have run campaigns highlighting accessibility, featured it in social media, or promoted inclusive events',
+            'Answer "Partially" if you\'ve mentioned accessibility on awareness days but don\'t regularly feature it in marketing',
+          ],
           tips: [
             'Awareness days: International Day of People with Disability (3 Dec), Disability Pride Month, Deaf Awareness Week',
             'Accessibility guides: Get listed in local or industry accessibility directories',
@@ -5103,9 +6251,845 @@ export const accessModules: AccessModule[] = [
     ],
   },
 
+  // D1: Information When You're Here (During the Visit)
+  // On-site information formats and real-time communication
+  {
+    id: 'D1',
+    code: 'D1',
+    name: 'Information when you\'re here',
+    description: 'How customers access information during their visit through signage, printed materials, real-time communication, and on-site support',
+    group: 'during-visit',
+    estimatedTime: 12,
+    estimatedTimeDeepDive: 30,
+    icon: '📍',
+    questions: [
+      // ============================================
+      // PULSE CHECK QUESTIONS (10)
+      // ============================================
+      {
+        id: 'D1-PC-1',
+        text: 'Do you have key information available in alternative formats on-site (large print, Easy Read, audio)?',
+        helpText: 'Customers may need information in different formats while they\'re with you:\n\n• Large print menus, programmes, or guides\n• Easy Read versions of key information\n• Audio guides or descriptions\n• Tactile maps or models\n• Digital versions accessible on their own devices',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Large print menus available but no Easy Read' or 'Can provide on request but not readily available'",
+        helpContent: {
+          summary: 'On-site alternative formats ensure customers can access information independently during their visit.',
+          tips: [
+            'Have large print versions of menus ready (don\'t make customers wait)',
+            'Consider laminated large print that can be reused',
+            'QR codes can link to accessible digital versions',
+            'Audio guides benefit both vision-impaired visitors and those who prefer listening',
+            'Ask customers: "Would you like a large print menu?" rather than waiting for them to ask',
+          ],
+        },
+      },
+      {
+        id: 'D1-PC-2',
+        text: 'Can customers access information digitally during their visit (QR codes, app, website)?',
+        helpText: 'Digital access allows customers to use their own devices with their preferred settings (text size, screen reader, contrast). This might include:\n\n• QR codes linking to menus or information\n• Mobile-friendly website with venue information\n• Dedicated app\n• Digital displays with accessible content',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'QR codes for menus but website not mobile-friendly' or 'Some digital options but not comprehensive'",
+        helpContent: {
+          summary: 'Digital access lets customers use their own accessibility settings and assistive technology.',
+          tips: [
+            'QR codes are low-cost and easy to implement',
+            'Ensure linked content is mobile-friendly and accessible',
+            'Test with screen readers',
+            'Consider customers without smartphones - always have physical alternatives',
+            'Keep digital content updated when physical materials change',
+          ],
+        },
+      },
+      {
+        id: 'D1-PC-3',
+        text: 'Is your signage designed to be easy to read (clear fonts, good contrast, appropriate size)?',
+        helpText: 'Readable signage includes:\n\n• Sans-serif fonts (like Arial, Helvetica)\n• High contrast (dark text on light background or vice versa)\n• Large enough to read from appropriate distance\n• Consistent placement and style\n• Not obscured by glare or poor lighting',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Main signs are good but some directional signs are small' or 'Varies across the venue'",
+        helpContent: {
+          summary: 'Readable signage helps everyone navigate your space, especially those with vision impairments or cognitive disabilities.',
+          tips: [
+            'Use sans-serif fonts - they\'re easier to read',
+            'Minimum 70% contrast ratio between text and background',
+            'Rule of thumb: 1 inch of letter height per 25 feet of viewing distance',
+            'Avoid ALL CAPS for body text (harder to read)',
+            'Mount signs at consistent heights',
+            'Consider lighting - signs should be well-lit without glare',
+          ],
+        },
+      },
+      {
+        id: 'D1-PC-4',
+        text: 'Can customers easily find their way around using your signage and wayfinding?',
+        helpText: 'Effective wayfinding includes:\n\n• Clear directional signs at decision points\n• Consistent use of symbols and icons\n• Accessible routes clearly marked\n• "You are here" maps\n• Floor or path markings where appropriate\n• Logical, intuitive layout',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Signage exists but customers often ask for directions' or 'Good in main areas but confusing in back'",
+        helpContent: {
+          summary: 'Good wayfinding reduces anxiety and helps customers navigate independently.',
+          tips: [
+            'Place directional signs at every decision point (corridors, lifts, stairs)',
+            'Use universal symbols alongside text',
+            'Mark accessible routes clearly - don\'t make people guess',
+            'Consider colour coding for different zones',
+            'Test by asking someone unfamiliar to find key locations',
+            'Include landmarks in directions: "Turn left at the café"',
+          ],
+        },
+      },
+      {
+        id: 'D1-PC-5',
+        text: 'Do you provide tactile information for people who are blind or have low vision (tactile signs, Braille, tactile maps)?',
+        helpText: 'Tactile information includes:\n\n• Braille on key signs (toilets, lifts, room numbers)\n• Tactile signs with raised letters\n• Tactile floor indicators (TGSIs - tactile ground surface indicators)\n• Tactile maps or models of your space\n• Braille or large print handouts',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Braille on lift buttons but not on room signs' or 'TGSIs at stairs only'",
+        helpContent: {
+          summary: 'Tactile information enables independent navigation for people who are blind or have low vision.',
+          tips: [
+            'Australian Standard AS 1428.1 specifies Braille and tactile requirements',
+            'Prioritise: toilet signs, lift buttons, room numbers, exit signs',
+            'TGSIs (those bumpy floor surfaces) warn of hazards and guide routes',
+            'Tactile maps should be available at entrance/reception',
+            'Position Braille signs consistently (beside door handle, not on door)',
+          ],
+        },
+      },
+      {
+        id: 'D1-PC-6',
+        text: 'Do you have signage indicating where hearing support is available (hearing loops, captioning)?',
+        helpText: 'People need to know where hearing support is available:\n\n• International hearing loop symbol (ear with T) where loops are installed\n• Signs at counters with portable loops\n• Information about captioning availability\n• Instructions for how to use hearing loops',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Loop symbol at main counter but not other locations' or 'Have loops but no signage'",
+        helpContent: {
+          summary: 'Hearing support signage tells customers where they can access loops and other assistance.',
+          tips: [
+            'Display the hearing loop symbol wherever loops are installed',
+            'Include "Hearing loop available" and "Switch hearing aid to T"',
+            'Signs should be visible before customers reach the counter',
+            'Train staff to point out loop availability',
+            'Check loops are working - a sign for a broken loop is frustrating',
+          ],
+        },
+      },
+      {
+        id: 'D1-PC-7',
+        text: 'Do you provide real-time captioning for live presentations, tours, or events?',
+        helpText: 'Real-time captioning (CART - Communication Access Realtime Translation) displays spoken content as text in real time. This benefits:\n\n• Deaf and hard of hearing attendees\n• People who process written information better than spoken\n• Non-native English speakers\n• Anyone in a noisy environment',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Available for some events on request' or 'Use auto-captions for virtual events only'",
+        helpContent: {
+          summary: 'Real-time captioning makes live content accessible to deaf and hard of hearing participants.',
+          tips: [
+            'CART provides human-accurate captions in real time',
+            'Auto-captions (Zoom, Teams) are a backup but less accurate',
+            'Budget approximately $150-300/hour for CART services',
+            'Display captions where all attendees can see them',
+            'Ask about captioning needs at registration/booking',
+            'Provide transcripts after events',
+          ],
+        },
+      },
+      {
+        id: 'D1-PC-8',
+        text: 'Do you provide audio information for customers who cannot read printed materials (audio guides, verbal descriptions, announcements)?',
+        helpText: 'Audio information helps people who are blind, have low vision, or have difficulty reading:\n\n• Audio guides for exhibitions or tours\n• Verbal descriptions of visual content\n• Audio announcements\n• Staff available to read information aloud\n• Audio versions of key documents',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Staff will read menus aloud but no audio guides' or 'Audio announcements for some things'",
+        helpContent: {
+          summary: 'Audio information provides an alternative for customers who cannot access printed materials.',
+          tips: [
+            'Audio guides don\'t need to be expensive - a smartphone app can work',
+            'Train staff to offer to read information: "Would you like me to read the menu to you?"',
+            'Audio descriptions should describe visual elements meaningfully',
+            'Consider podcast-style content for self-guided experiences',
+            'Ensure audio is clear and at appropriate volume',
+          ],
+        },
+      },
+      {
+        id: 'D1-PC-9',
+        text: 'Do you have communication supports available for customers who need them (communication boards, pen and paper, tablets)?',
+        helpText: 'Some customers communicate differently and may benefit from:\n\n• Picture communication boards with common symbols\n• Pen and paper for written communication\n• Tablet or phone for typing messages\n• Basic Auslan signs known by staff\n• Patience and time for alternative communication',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Pen and paper always available but no communication board' or 'On request but not visible'",
+        helpContent: {
+          summary: 'Communication supports ensure customers who communicate differently can interact with you effectively.',
+          tips: [
+            'Keep a simple communication board at reception or service points',
+            'Pen and paper should always be available',
+            'Train staff to offer communication support proactively',
+            'Allow extra time - don\'t rush customers who need it',
+            'Consider a tablet with communication apps available',
+            'Learn a few basic Auslan signs: hello, thank you, help',
+          ],
+        },
+      },
+      {
+        id: 'D1-PC-10',
+        text: 'Do you communicate changes or disruptions (closures, maintenance, event changes) in accessible ways?',
+        helpText: 'When things change, customers need accessible notice:\n\n• Multiple channels: website, email, social media, on-site signs\n• Clear, plain language explanations\n• Alternative arrangements explained\n• Advance notice where possible\n• Staff prepared to explain changes',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Update website but signage is small' or 'Staff know but customers sometimes miss information'",
+        helpContent: {
+          summary: 'Accessible communication of changes helps all customers, especially those who need to plan carefully.',
+          tips: [
+            'Update website immediately when changes occur',
+            'Email customers with bookings affected by changes',
+            'On-site signage should be large, clear, and well-positioned',
+            'Include what alternatives are available',
+            'Train staff to proactively inform customers of disruptions',
+            'Consider the impact on accessibility: "Lift out of service - step-free access via rear entrance"',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE QUESTIONS (12)
+      // ============================================
+      {
+        id: 'D1-DD-1a',
+        text: 'Which alternative formats do you currently have available on-site?',
+        helpText: 'Document what you currently provide to identify gaps.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'large-print-menu', label: 'Large print menus' },
+          { id: 'large-print-info', label: 'Large print information/brochures' },
+          { id: 'easy-read', label: 'Easy Read versions' },
+          { id: 'audio-guide', label: 'Audio guides' },
+          { id: 'tactile-materials', label: 'Tactile maps or materials' },
+          { id: 'braille', label: 'Braille documents' },
+          { id: 'digital-qr', label: 'QR codes to digital versions' },
+          { id: 'magnifier', label: 'Magnifying glasses available' },
+          { id: 'none', label: 'None currently' },
+        ],
+      },
+      {
+        id: 'D1-DD-1b',
+        text: 'Do staff proactively offer alternative formats rather than waiting for customers to ask?',
+        helpText: 'Proactive offers show customers you\'ve thought about their needs.',
+        type: 'yes-no-unsure',
+        category: 'training',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-1', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Some staff do but not consistently' or 'Only when customer appears to need it'",
+      },
+      {
+        id: 'D1-DD-3a',
+        text: 'Have you had your signage assessed for accessibility compliance?',
+        helpText: 'An accessibility audit can identify signage issues you may not have noticed.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'Informal review only' or 'Assessed years ago but not recently'",
+      },
+      {
+        id: 'D1-DD-3b',
+        text: 'Do your signs meet Australian Standards for contrast and sizing (AS 1428.1)?',
+        helpText: 'Australian Standards provide specific guidance on accessible signage.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'Main signs comply but not all' or 'Not sure of standards'",
+        helpContent: {
+          summary: 'Australian Standards provide specific guidance on accessible signage.',
+          tips: [
+            'AS 1428.1 specifies sign requirements for public buildings',
+            'Character height minimum depends on viewing distance',
+            '70% luminance contrast required between text and background',
+            'Consider engaging an access consultant to audit signage',
+          ],
+        },
+      },
+      {
+        id: 'D1-DD-5a',
+        text: 'Which tactile elements are currently installed in your venue?',
+        helpText: 'Document what tactile information you provide.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'braille-toilets', label: 'Braille on toilet signs' },
+          { id: 'braille-lifts', label: 'Braille on lift buttons' },
+          { id: 'braille-rooms', label: 'Braille on room numbers' },
+          { id: 'tactile-signs', label: 'Tactile (raised letter) signs' },
+          { id: 'tgsi-warning', label: 'TGSIs warning of hazards (stairs, platforms)' },
+          { id: 'tgsi-directional', label: 'TGSIs directional guidance' },
+          { id: 'tactile-map', label: 'Tactile map' },
+          { id: 'handrail-braille', label: 'Braille on handrails' },
+          { id: 'none', label: 'None currently' },
+        ],
+      },
+      {
+        id: 'D1-DD-6a',
+        text: 'Where are hearing loops or assistive listening devices installed?',
+        helpText: 'Document your hearing loop coverage.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-6', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'reception', label: 'Reception/front desk' },
+          { id: 'service-counters', label: 'Service counters' },
+          { id: 'meeting-rooms', label: 'Meeting rooms' },
+          { id: 'performance-space', label: 'Performance/presentation space' },
+          { id: 'cinema-theatre', label: 'Cinema or theatre' },
+          { id: 'throughout', label: 'Throughout venue' },
+          { id: 'portable', label: 'Portable loop available' },
+          { id: 'none', label: 'No hearing loops installed' },
+        ],
+      },
+      {
+        id: 'D1-DD-6b',
+        text: 'Are hearing loops regularly tested and maintained?',
+        helpText: 'Hearing loops that don\'t work are worse than no loops - they create false expectations.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-6', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Tested occasionally' or 'Not sure of maintenance schedule'",
+        helpContent: {
+          summary: 'Hearing loops that don\'t work are worse than no loops - they create false expectations.',
+          tips: [
+            'Test loops at least monthly',
+            'Include loop testing in opening procedures',
+            'Have a process for reporting and fixing faults',
+            'Consider a hearing loop testing kit',
+            'Train staff to test loops if customers report issues',
+          ],
+        },
+      },
+      {
+        id: 'D1-DD-7a',
+        text: 'Do you have a relationship with a CART or captioning provider?',
+        helpText: 'An established provider relationship enables faster booking and better service.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-7', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'Used once but no ongoing relationship' or 'Researching providers'",
+        helpContent: {
+          summary: 'An established provider relationship enables faster booking and better service.',
+          tips: [
+            'Research providers before you need them: Ai-Media, The Captioning Studio, Access Innovation Media',
+            'Understand costs and lead times',
+            'Build a relationship for consistent quality',
+            'Know the difference between CART (human) and auto-captions (AI)',
+          ],
+        },
+      },
+      {
+        id: 'D1-DD-7b',
+        text: 'Do you ask about captioning needs when people register for events or book tours?',
+        helpText: 'Asking proactively allows you to arrange captioning in advance.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-7', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'On some booking forms but not all' or 'Only for specific event types'",
+      },
+      {
+        id: 'D1-DD-8a',
+        text: 'What content is covered by your audio guides or descriptions?',
+        helpText: 'Document the scope of your audio information.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-8', answers: ['yes', 'partially'] },
+        options: [
+          { id: 'exhibitions', label: 'Exhibition content' },
+          { id: 'tours', label: 'Tour commentary' },
+          { id: 'venue-orientation', label: 'Venue orientation' },
+          { id: 'safety-information', label: 'Safety information' },
+          { id: 'menus-pricing', label: 'Menus and pricing' },
+          { id: 'events-programmes', label: 'Event programmes' },
+          { id: 'wayfinding', label: 'Wayfinding directions' },
+        ],
+      },
+      {
+        id: 'D1-DD-9a',
+        text: 'What symbols or options are included on your communication supports?',
+        helpText: 'Document the content of your communication boards or tools.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-9', answers: ['yes', 'partially'] },
+        options: [
+          { id: 'common-requests', label: 'Common requests (toilet, help, water)' },
+          { id: 'yes-no', label: 'Yes/No options' },
+          { id: 'emotions', label: 'Emotions/feelings' },
+          { id: 'numbers', label: 'Numbers/quantities' },
+          { id: 'payment', label: 'Payment options' },
+          { id: 'custom', label: 'Customised to your services' },
+          { id: 'digital-app', label: 'Communication app on tablet' },
+        ],
+      },
+      {
+        id: 'D1-DD-9b',
+        text: 'Have staff been trained on using communication boards and supporting customers who communicate differently?',
+        helpText: 'Training builds staff confidence in using communication supports.',
+        type: 'yes-no-unsure',
+        category: 'training',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'D1-PC-9', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'Some staff trained informally' or 'Included in general disability awareness'",
+      },
+    ],
+  },
+
   // ============================================
-  // SERVICE AND SUPPORT (4 modules)
+  // SERVICE AND SUPPORT (6 modules)
   // ============================================
+
+  // S1: Ways to Reach Us (Service & Support)
+  // Communication channels, preferences, and staff skills
+  {
+    id: 'S1',
+    code: 'S1',
+    name: 'Ways to reach us',
+    description: 'How customers can contact you, communication channel options, and how you accommodate different communication needs and preferences',
+    group: 'service-support',
+    estimatedTime: 12,
+    estimatedTimeDeepDive: 28,
+    icon: '📞',
+    questions: [
+      // ============================================
+      // PULSE CHECK QUESTIONS (10)
+      // ============================================
+      {
+        id: 'S1-PC-1',
+        text: 'Do you offer alternatives to phone calls for customers who cannot or prefer not to use voice telephone?',
+        helpText: 'Phone calls can be inaccessible for many people:\n\n• Deaf and hard of hearing people\n• People with speech disabilities\n• Autistic people who find phone calls stressful\n• People with anxiety\n• Non-native English speakers\n\nAlternatives include email, text/SMS, online chat, contact forms, and the National Relay Service.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Email available but phone is promoted as primary contact' or 'Live chat during limited hours'",
+        helpContent: {
+          summary: 'Offering alternatives to phone ensures everyone can contact you regardless of hearing, speech, or anxiety-related barriers.',
+          tips: [
+            'Promote alternatives visibly: Don\'t just have email buried in a footer - make it as prominent as your phone number',
+            'Equal service: Text/email enquiries should get the same quality response as phone calls',
+            'National Relay Service: Register and train staff on receiving NRS calls',
+            'Response times: Commit to reasonable response times for non-phone enquiries (e.g., within 24 hours)',
+            'SMS option: Text messaging is accessible and preferred by many Deaf customers',
+            'Online chat: Can be excellent for quick queries if staffed appropriately',
+          ],
+        },
+      },
+      {
+        id: 'S1-PC-2',
+        text: 'Are your staff trained to receive calls via the National Relay Service (NRS)?',
+        helpText: 'The NRS enables Deaf and hard of hearing people to make phone calls. NRS calls may seem unusual at first - the call starts with an operator introducing the service.\n\nUntrained staff sometimes hang up thinking it\'s a scam call.',
+        type: 'yes-no-unsure',
+        category: 'training',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some staff trained but not all' or 'Mentioned in training but not practiced'",
+        helpContent: {
+          summary: 'NRS training prevents accidental hang-ups and ensures Deaf customers can complete phone transactions.',
+          tips: [
+            'Explain the format: NRS operator says "This is a National Relay Service call from [customer name]"',
+            'Speak normally: Talk to the customer, not the relay operator',
+            'Allow extra time: Relay calls take longer than direct calls',
+            'Register at accesshub.gov.au to receive relay calls more smoothly',
+            'Include NRS awareness in staff onboarding',
+          ],
+          learnMoreUrl: 'https://www.communications.gov.au/what-we-do/phone/services-people-disability/accesshub/national-relay-service',
+          learnMoreText: 'About the National Relay Service',
+        },
+      },
+      {
+        id: 'S1-PC-3',
+        text: 'Do you capture and use customer communication preferences (preferred contact method, format needs)?',
+        helpText: 'Some customers need information in specific formats or via particular channels. Capturing preferences allows you to communicate effectively with each customer.\n\nThis might include:\n• Preferred contact method (email, phone, text, post)\n• Document format needs (large print, Easy Read, audio)\n• Language preferences\n• Communication support needs (e.g., extra time, written follow-up after phone calls)',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Record informally in notes but no formal system' or 'Capture for some customers'",
+        helpContent: {
+          summary: 'Capturing communication preferences ensures customers receive information in ways they can access and understand.',
+          tips: [
+            'Ask early: Include preference questions in booking forms and account setup',
+            'Record systematically: Use your CRM or booking system to store preferences',
+            'Act on preferences: Ensure staff can easily see and use stored preferences',
+            'Offer common options: Email, phone, text/SMS, post, large print, Easy Read',
+            'Review periodically: Preferences may change - check annually or on request',
+            'Train staff: Ensure everyone knows how to record and retrieve preferences',
+          ],
+        },
+      },
+      {
+        id: 'S1-PC-4',
+        text: 'Do non-phone enquiries (email, text, chat) receive responses within the same timeframe as phone calls?',
+        helpText: 'If email takes 3 days but phone gets immediate response, you\'re disadvantaging customers who can\'t use the phone.\n\nEqual service means equal response times across all channels.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Try to respond same day but phone takes priority' or 'Email may take longer during busy periods'",
+        helpContent: {
+          summary: 'Equal response times ensure customers aren\'t disadvantaged by their communication method.',
+          tips: [
+            'Set and publish response time commitments for each channel',
+            'Email: Aim for same business day or within 24 hours',
+            'Text/SMS: Consider real-time or near-real-time for simple queries',
+            'Live chat: Should be genuinely "live" during advertised hours',
+            'Monitor and measure response times across channels',
+            'If you can\'t respond quickly, acknowledge receipt with expected timeline',
+          ],
+        },
+      },
+      {
+        id: 'S1-PC-5',
+        text: 'Are staff trained to communicate patiently with people who have speech disabilities, strong accents, or use AAC devices?',
+        helpText: 'Some customers communicate differently:\n\n• Speech disabilities (stuttering, unclear speech, quiet voice)\n• Strong accents or English as a second language\n• AAC (Augmentative and Alternative Communication) devices\n• Voice output devices\n• Communication boards\n\nPatience and appropriate communication techniques ensure these customers receive equal service.',
+        type: 'yes-no-unsure',
+        category: 'training',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'General guidance but no specific training' or 'Staff are patient but techniques vary'",
+        helpContent: {
+          summary: 'Patient, skilled communication ensures customers with speech differences receive the same quality service as everyone else.',
+          tips: [
+            'Don\'t pretend to understand: It\'s okay to ask someone to repeat or rephrase',
+            'Face the person: Eye contact and facing them helps with lip-reading and understanding',
+            'Allow time: Don\'t rush or finish sentences - wait for the person to complete their communication',
+            'Write if needed: Offer pen and paper or use a phone/tablet to type messages',
+            'AAC awareness: Learn what AAC devices look like and allow time for device users to compose messages',
+            'Quiet environment: Move to a quieter space if background noise makes communication difficult',
+          ],
+          learnMoreUrl: 'https://www.scopeaust.org.au/about-us/communication-access/',
+          learnMoreText: 'Communication Access resources',
+        },
+      },
+      {
+        id: 'S1-PC-6',
+        text: 'Do staff know what AAC (Augmentative and Alternative Communication) devices are and how to interact with users?',
+        helpText: 'AAC includes:\n\n• Communication boards with pictures/symbols\n• Speech-generating devices (tablets or dedicated devices that speak)\n• Communication apps on phones/tablets\n• Eye-gaze technology\n• Simple letter boards\n\nStaff should recognise these and allow time for users to compose messages.',
+        type: 'yes-no-unsure',
+        category: 'training',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Would recognise but haven\'t had specific training' or 'Some staff would know, others wouldn\'t'",
+        helpContent: {
+          summary: 'AAC awareness ensures customers using communication devices receive patient, respectful service.',
+          tips: [
+            'Allow time: AAC users may take longer to compose responses - don\'t rush or assume they\'re finished',
+            'Face the person: Speak to the person, not their companion or support worker',
+            'Don\'t touch the device: The AAC device is personal - don\'t touch it without permission',
+            'Ask for clarification: It\'s okay to ask them to repeat or try a different way',
+            'Written backup: Offer pen and paper or your phone for typing as an alternative',
+          ],
+        },
+      },
+      {
+        id: 'S1-PC-7',
+        text: 'Is there a quiet space available for communication with customers who need a calmer environment?',
+        helpText: 'Noisy environments make communication harder for:\n\n• People with hearing impairments\n• People with speech differences\n• Autistic people\n• People with anxiety\n• Anyone having a detailed or sensitive conversation\n\nA quiet space can facilitate better understanding and more comfortable communication.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Office available but not routinely offered' or 'Can find somewhere if asked'",
+        helpContent: {
+          summary: 'A quiet space enables effective communication when the main environment is too noisy or overwhelming.',
+          tips: [
+            'Doesn\'t need to be a dedicated room - could be a quieter corner or office',
+            'Train staff to offer: "Would you like to move somewhere quieter to chat?"',
+            'Ensure the space is accessible (step-free, wide enough)',
+            'Consider privacy needs for sensitive conversations',
+            'Have pen, paper, and any communication aids available there too',
+          ],
+        },
+      },
+      {
+        id: 'S1-PC-8',
+        text: 'Do you offer written confirmation or follow-up after important phone or in-person conversations?',
+        helpText: 'Some customers benefit from having conversations confirmed in writing:\n\n• Deaf and hard of hearing customers who may have missed details\n• People with cognitive disabilities who benefit from written reference\n• Anyone who wants a record of what was discussed/agreed\n• Customers whose first language isn\'t English',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'For bookings but not general enquiries' or 'On request but not routinely offered'",
+        helpContent: {
+          summary: 'Written follow-up ensures customers have a record they can refer to and haven\'t missed important details.',
+          tips: [
+            'Offer proactively: "Would you like me to email you a summary of what we discussed?"',
+            'Include key points: Dates, actions, commitments, next steps',
+            'Use plain language in written follow-ups',
+            'Send promptly while the conversation is fresh',
+            'Make it standard practice for bookings and appointments',
+          ],
+        },
+      },
+      {
+        id: 'S1-PC-9',
+        text: 'Can customers provide feedback or complaints through multiple accessible channels (not just an online form)?',
+        helpText: 'Feedback mechanisms should be as accessible as your other communications:\n\n• Online form (accessible)\n• Email\n• Phone\n• In-person\n• Post\n• SMS\n\nRestricting feedback to one channel may exclude some customers.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Multiple channels but online form is primary' or 'Accept feedback any way but don\'t advertise all options'",
+        helpContent: {
+          summary: 'Multiple feedback channels ensure all customers can share their experiences and concerns.',
+          tips: [
+            'List all feedback options clearly on your website',
+            'Ensure online forms are accessible (labels, error messages, keyboard navigation)',
+            'Accept feedback in whatever format the customer can provide',
+            'Respond in the customer\'s preferred format',
+            'Train staff to take verbal feedback seriously and record it properly',
+          ],
+        },
+      },
+      {
+        id: 'S1-PC-10',
+        text: 'Do you respond to customers in their preferred format, even when it requires extra effort?',
+        helpText: 'If a customer contacts you via email and requests a response by post in large print, can you do that?\n\nFormat flexibility might include:\n• Large print letters\n• Plain text emails (no complex formatting)\n• Phone call instead of email\n• Post instead of email\n• Easy Read response for complex information',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Would try but no formal process' or 'For some formats but not all'",
+        helpContent: {
+          summary: 'Responding in preferred formats shows genuine commitment to accessible communication.',
+          tips: [
+            'Ask: "How would you like us to respond?"',
+            'Record format preferences for ongoing communication',
+            'Be realistic about what you can provide and by when',
+            'If you can\'t meet a request, explain why and offer alternatives',
+            'Common requests: large print, plain text, phone call back',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE QUESTIONS (10)
+      // ============================================
+      {
+        id: 'S1-DD-1a',
+        text: 'Which alternatives to phone calls do you actively promote to customers?',
+        helpText: 'Document which channels you make visible to customers.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'email', label: 'Email' },
+          { id: 'sms', label: 'SMS/text messaging' },
+          { id: 'contact-form', label: 'Website contact form' },
+          { id: 'live-chat', label: 'Live chat' },
+          { id: 'social-media', label: 'Social media messaging' },
+          { id: 'video-call', label: 'Video call option' },
+          { id: 'in-person', label: 'In-person enquiries' },
+          { id: 'nrs-registered', label: 'National Relay Service (registered)' },
+          { id: 'none-promoted', label: 'None actively promoted' },
+        ],
+      },
+      {
+        id: 'S1-DD-1b',
+        text: 'Are phone alternatives as prominently displayed as your phone number on your website and materials?',
+        helpText: 'Equal visibility signals that these channels are equally valid.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-1', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Listed but phone is larger/first' or 'Email prominent but not SMS'",
+      },
+      {
+        id: 'S1-DD-2a',
+        text: 'Which staff have received National Relay Service training?',
+        helpText: 'Document NRS training coverage.',
+        type: 'multi-select',
+        category: 'training',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-2', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'all-phone-staff', label: 'All staff who answer phones' },
+          { id: 'reception', label: 'Reception/front desk' },
+          { id: 'customer-service', label: 'Customer service team' },
+          { id: 'management', label: 'Management only' },
+          { id: 'some-staff', label: 'Some staff (ad hoc)' },
+          { id: 'no-training', label: 'No specific training' },
+        ],
+      },
+      {
+        id: 'S1-DD-3a',
+        text: 'Where are customer communication preferences captured in your systems?',
+        helpText: 'Document how you record and store preferences.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'booking-system', label: 'Booking/reservation system' },
+          { id: 'crm', label: 'CRM or customer database' },
+          { id: 'account-profile', label: 'Customer account/profile' },
+          { id: 'booking-form', label: 'Booking form (but not stored)' },
+          { id: 'manual-notes', label: 'Manual notes/spreadsheet' },
+          { id: 'not-captured', label: 'Not systematically captured' },
+        ],
+      },
+      {
+        id: 'S1-DD-3b',
+        text: 'Can staff easily access customer communication preferences when they need to contact the customer?',
+        helpText: 'Recorded preferences are only useful if staff can find and use them.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-3', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'In system but not always checked' or 'Some staff know where to look'",
+      },
+      {
+        id: 'S1-DD-5a',
+        text: 'What training have staff received on communicating with people who have speech differences?',
+        helpText: 'Document training coverage for speech communication.',
+        type: 'multi-select',
+        category: 'training',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'disability-awareness', label: 'General disability awareness training' },
+          { id: 'communication-specific', label: 'Specific communication training' },
+          { id: 'aac-training', label: 'AAC-specific training' },
+          { id: 'deaf-awareness', label: 'Deaf awareness training' },
+          { id: 'auslan-basics', label: 'Basic Auslan signs' },
+          { id: 'informal', label: 'Informal guidance only' },
+          { id: 'no-training', label: 'No specific training' },
+        ],
+      },
+      {
+        id: 'S1-DD-6a',
+        text: 'Do you have any AAC resources available for staff to use with customers?',
+        helpText: 'Document available communication tools.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-6', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'communication-board', label: 'Communication board' },
+          { id: 'picture-cards', label: 'Picture/symbol cards' },
+          { id: 'pen-paper', label: 'Pen and paper readily available' },
+          { id: 'tablet-app', label: 'Tablet with communication app' },
+          { id: 'staff-guide', label: 'Staff guide on AAC interaction' },
+          { id: 'none', label: 'No specific resources' },
+        ],
+      },
+      {
+        id: 'S1-DD-8a',
+        text: 'Is written confirmation offered as standard practice or only on request?',
+        helpText: 'Standard practice is more inclusive than on-request only.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-8', answers: ['yes', 'partially'] },
+        options: [
+          { id: 'standard-all', label: 'Standard practice for all significant conversations' },
+          { id: 'standard-bookings', label: 'Standard for bookings/appointments' },
+          { id: 'on-request', label: 'Only when customer requests' },
+          { id: 'staff-discretion', label: 'At staff discretion' },
+        ],
+      },
+      {
+        id: 'S1-DD-9a',
+        text: 'Which channels can customers use to provide feedback or complaints?',
+        helpText: 'Document all available feedback channels.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-9', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'online-form', label: 'Online form' },
+          { id: 'email', label: 'Email' },
+          { id: 'phone', label: 'Phone' },
+          { id: 'in-person', label: 'In-person' },
+          { id: 'post', label: 'Post/mail' },
+          { id: 'sms', label: 'SMS' },
+          { id: 'social-media', label: 'Social media' },
+          { id: 'feedback-card', label: 'Paper feedback card' },
+          { id: 'qr-code', label: 'QR code link' },
+        ],
+      },
+      {
+        id: 'S1-DD-10a',
+        text: 'Which alternative response formats have you provided to customers?',
+        helpText: 'Document formats you have experience providing.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S1-PC-10', answers: ['yes', 'partially'] },
+        options: [
+          { id: 'large-print-letter', label: 'Large print letters' },
+          { id: 'plain-text-email', label: 'Plain text emails' },
+          { id: 'phone-callback', label: 'Phone call instead of email' },
+          { id: 'posted-instead-email', label: 'Posted letter instead of email' },
+          { id: 'easy-read', label: 'Easy Read response' },
+          { id: 'audio-message', label: 'Audio message' },
+          { id: 'none-yet', label: 'Haven\'t had requests yet' },
+        ],
+      },
+    ],
+  },
 
   // C1: Customer Service and Staff Confidence
   {
@@ -5936,6 +7920,325 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Sometimes when relevant but not regularly' or 'Include in some communications but not all'",
+      },
+    ],
+  },
+
+  // S5: Keeping in Touch (Staying Connected)
+  // Ongoing correspondence and document accessibility
+  {
+    id: 'S5',
+    code: 'S5',
+    name: 'Keeping in touch',
+    description: 'How you maintain accessible communication with customers over time through correspondence, documents, and ongoing engagement',
+    group: 'service-support',
+    estimatedTime: 10,
+    estimatedTimeDeepDive: 22,
+    icon: '✉️',
+    questions: [
+      // ============================================
+      // PULSE CHECK QUESTIONS (8)
+      // ============================================
+      {
+        id: 'S5-PC-1',
+        text: 'Are your written communications (letters, emails, invoices) designed to be clear and accessible?',
+        helpText: 'Beyond your website, consider the accessibility of:\n\n• Transactional emails (confirmations, receipts, updates)\n• Formal letters\n• Invoices and statements\n• Terms and conditions\n• Marketing emails and newsletters\n\nThese often use complex language, small fonts, or poor formatting that creates barriers.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        isEntryPoint: true,
+        partialPlaceholder: "E.g., 'Marketing emails are good but invoices are complex' or 'Haven\'t reviewed correspondence for accessibility'",
+        helpContent: {
+          summary: 'Accessible correspondence ensures customers understand important information about their bookings, purchases, and accounts.',
+          tips: [
+            'Use plain language: Apply the same standards as your website',
+            'Clear structure: Use headings, bullet points, short paragraphs',
+            'Readable fonts: Sans-serif, minimum 11pt for print',
+            'Key point first: Put the main message in the first paragraph',
+            'Contact options: Include how to get help if unclear',
+            'Test: Ask someone unfamiliar to review important documents',
+          ],
+        },
+      },
+      {
+        id: 'S5-PC-2',
+        text: 'Are your emails designed for accessibility (readable without images, proper headings, plain text option)?',
+        helpText: 'Accessible emails:\n\n• Make sense with images turned off (many people block images)\n• Use proper headings and structure\n• Have sufficient colour contrast\n• Include alt text on images\n• Offer plain text version for those who prefer it\n• Work with screen readers',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Good contrast and fonts but no plain text option' or 'Marketing emails accessible but not transactional'",
+        helpContent: {
+          summary: 'Accessible email design ensures your messages reach and are readable by all customers.',
+          tips: [
+            'Don\'t rely on images to convey important information',
+            'Use a clear, readable font (minimum 14px)',
+            'Include alt text on all images',
+            'Ensure links are descriptive ("View your booking" not "Click here")',
+            'Test with images disabled - does the email still make sense?',
+            'Many email platforms have accessibility checkers - use them',
+          ],
+        },
+      },
+      {
+        id: 'S5-PC-3',
+        text: 'Are your PDF documents and attachments created accessibly (tagged, proper headings, alt text)?',
+        helpText: 'Many PDFs are inaccessible to screen reader users. Accessible documents include:\n\n• Proper heading structure\n• Alternative text for images\n• Reading order defined\n• Tagged for screen readers\n• Not just scanned images of text\n\nThis applies to invoices, terms and conditions, policies, brochures, and any attachments.',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Some documents are tagged but not all' or 'Not sure how to create accessible PDFs'",
+        helpContent: {
+          summary: 'Accessible documents ensure everyone can read your attachments and downloadable content.',
+          tips: [
+            'Create documents accessibly from the start',
+            'Use heading styles in Word/InDesign, then export as tagged PDF',
+            'Add alt text to images before exporting',
+            'Test with a screen reader (NVDA is free)',
+            'Avoid scanned PDFs - OCR alone doesn\'t create accessibility',
+            'Offer HTML or plain text alternatives where possible',
+          ],
+          learnMoreUrl: 'https://www.visionaustralia.org/services/digital-access/creating-accessible-documents',
+          learnMoreText: 'Creating accessible documents guide',
+        },
+      },
+      {
+        id: 'S5-PC-4',
+        text: 'Do you have accessible email templates that staff use for customer communications?',
+        helpText: 'Templates ensure consistent accessibility without requiring each staff member to understand all requirements.\n\nTemplates might cover:\n• Booking confirmations\n• Customer service responses\n• Marketing newsletters\n• Invoices and statements\n• Welcome emails',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Marketing templates are accessible but not customer service' or 'Templates exist but haven\'t been checked'",
+        helpContent: {
+          summary: 'Accessible templates make it easy for all staff to send accessible communications.',
+          tips: [
+            'Create templates for common communications',
+            'Include accessibility features: headings, alt text placeholders, readable fonts',
+            'Provide plain text versions alongside HTML',
+            'Train staff on how to use templates correctly',
+            'Review and update templates regularly',
+          ],
+        },
+      },
+      {
+        id: 'S5-PC-5',
+        text: 'Do you have accessible document templates (Word, InDesign) for staff to use?',
+        helpText: 'Pre-built accessible templates make it easier for everyone to create accessible content.\n\nThis includes:\n• Letter templates with proper styles\n• Report templates with heading structure\n• Brochure templates with alt text placeholders\n• Invoice templates with clear layout',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Letter templates are accessible but not others' or 'Have templates but accessibility not considered'",
+        helpContent: {
+          summary: 'Accessible document templates ensure consistent, accessible output across the organisation.',
+          tips: [
+            'Set up heading styles correctly in templates',
+            'Include placeholder reminders for alt text',
+            'Use accessible fonts and contrast',
+            'Create templates for each document type you commonly produce',
+            'Store templates where all staff can access them',
+            'Include brief instructions on how to maintain accessibility',
+          ],
+        },
+      },
+      {
+        id: 'S5-PC-6',
+        text: 'Can customers request important documents in alternative formats (large print, audio, Easy Read)?',
+        helpText: 'Even with accessible digital documents, some customers need physical alternatives:\n\n• Large print letters posted to them\n• Audio versions of key documents\n• Easy Read summaries of complex information\n• Plain text instead of formatted documents',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Large print available but not audio or Easy Read' or 'Would provide if asked but don\'t mention it'",
+        helpContent: {
+          summary: 'Providing alternative formats on request meets individual customer needs.',
+          tips: [
+            'Mention availability: "Available in large print on request"',
+            'Have a process for handling format requests',
+            'Set realistic timeframes and communicate them',
+            'Keep commonly requested documents pre-prepared',
+            'Train staff on how to handle format requests',
+          ],
+        },
+      },
+      {
+        id: 'S5-PC-7',
+        text: 'Do you remember and apply customer communication preferences for ongoing correspondence?',
+        helpText: 'If a customer has told you they need large print or prefer email to phone, this should apply to all future communications, not just one-off requests.\n\nThis requires:\n• Recording preferences in your system\n• Staff checking preferences before contacting customers\n• Systems that can apply preferences automatically',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'high',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Recorded but not always applied' or 'Manual process, depends on staff checking'",
+        helpContent: {
+          summary: 'Retaining and applying preferences shows you value the customer and prevents them having to repeat themselves.',
+          tips: [
+            'Record preferences in CRM or customer database',
+            'Make preferences visible to all staff who communicate with customers',
+            'Set up automated systems where possible (e.g., large print invoice template)',
+            'Review preferences periodically - needs may change',
+            'Include preference in account management for customers',
+          ],
+        },
+      },
+      {
+        id: 'S5-PC-8',
+        text: 'Are your mailing lists and subscription options accessible (email preferences, unsubscribe options)?',
+        helpText: 'Accessible subscription management includes:\n\n• Easy-to-find unsubscribe link\n• Preference centre where customers can choose what they receive\n• Accessible preference/unsubscribe pages\n• Format options (HTML vs plain text)\n• Frequency options',
+        type: 'yes-no-unsure',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'pulse-check',
+        partialPlaceholder: "E.g., 'Unsubscribe is easy but preference centre not accessible' or 'Haven\'t tested with screen reader'",
+        helpContent: {
+          summary: 'Accessible subscription management respects customer autonomy and legal requirements.',
+          tips: [
+            'Unsubscribe link must be easy to find (not tiny text)',
+            'Preference centre should be accessible (forms, labels, etc.)',
+            'Offer format options: some prefer plain text',
+            'Let customers choose frequency',
+            'Honour preferences immediately',
+            'Test the unsubscribe process with a screen reader',
+          ],
+        },
+      },
+
+      // ============================================
+      // DEEP DIVE QUESTIONS (8)
+      // ============================================
+      {
+        id: 'S5-DD-1a',
+        text: 'Which types of written communications have you reviewed for accessibility?',
+        helpText: 'Document which communications have been assessed.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S5-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'booking-confirmations', label: 'Booking/order confirmations' },
+          { id: 'transactional-emails', label: 'Transactional emails' },
+          { id: 'marketing-emails', label: 'Marketing emails/newsletters' },
+          { id: 'formal-letters', label: 'Formal letters' },
+          { id: 'invoices', label: 'Invoices and statements' },
+          { id: 'terms-conditions', label: 'Terms and conditions' },
+          { id: 'policies', label: 'Policies and procedures' },
+          { id: 'welcome-emails', label: 'Welcome/onboarding emails' },
+          { id: 'none-reviewed', label: 'None specifically reviewed' },
+        ],
+      },
+      {
+        id: 'S5-DD-2a',
+        text: 'Have you tested your emails for accessibility (screen reader, images disabled)?',
+        helpText: 'Testing catches issues that visual review misses.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S5-PC-2', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'Tested with images off but not screen reader' or 'Marketing emails tested but not transactional'",
+      },
+      {
+        id: 'S5-DD-3a',
+        text: 'Which document types do you currently create accessibly?',
+        helpText: 'Document which documents follow accessibility best practices.',
+        type: 'multi-select',
+        category: 'information',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S5-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'invoices', label: 'Invoices and statements' },
+          { id: 'letters', label: 'Letters and correspondence' },
+          { id: 'policies', label: 'Policies and terms' },
+          { id: 'reports', label: 'Reports and publications' },
+          { id: 'brochures', label: 'Brochures and promotional' },
+          { id: 'newsletters', label: 'Newsletters' },
+          { id: 'forms', label: 'Forms' },
+          { id: 'none', label: 'None created accessibly' },
+        ],
+      },
+      {
+        id: 'S5-DD-3b',
+        text: 'Do staff who create documents know how to use heading styles, alt text, and proper structure?',
+        helpText: 'Technical skills are needed to create accessible documents.',
+        type: 'yes-no-unsure',
+        category: 'training',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S5-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        partialPlaceholder: "E.g., 'Some staff trained but not all' or 'Know about headings but not alt text'",
+      },
+      {
+        id: 'S5-DD-4a',
+        text: 'Which email communications have accessible templates?',
+        helpText: 'Document template coverage.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S5-PC-4', answers: ['yes', 'partially'] },
+        options: [
+          { id: 'booking-confirmation', label: 'Booking confirmations' },
+          { id: 'customer-service', label: 'Customer service responses' },
+          { id: 'marketing', label: 'Marketing newsletters' },
+          { id: 'invoices', label: 'Invoice emails' },
+          { id: 'welcome', label: 'Welcome emails' },
+          { id: 'reminders', label: 'Reminders and notifications' },
+          { id: 'feedback-request', label: 'Feedback requests' },
+          { id: 'all-custom', label: 'All emails use templates' },
+        ],
+      },
+      {
+        id: 'S5-DD-6a',
+        text: 'What is your process for handling alternative format requests?',
+        helpText: 'Document how format requests are managed.',
+        type: 'single-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S5-PC-6', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'formal-process', label: 'Formal documented process' },
+          { id: 'informal-process', label: 'Informal process (staff know what to do)' },
+          { id: 'ad-hoc', label: 'Handled ad hoc as requests come in' },
+          { id: 'no-process', label: 'No specific process' },
+          { id: 'dont-receive', label: 'Haven\'t received format requests' },
+        ],
+      },
+      {
+        id: 'S5-DD-7a',
+        text: 'Where are customer communication preferences stored?',
+        helpText: 'Document how preferences are recorded and accessed.',
+        type: 'multi-select',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S5-PC-7', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        options: [
+          { id: 'crm', label: 'CRM system' },
+          { id: 'customer-account', label: 'Customer account/profile' },
+          { id: 'email-platform', label: 'Email marketing platform' },
+          { id: 'booking-system', label: 'Booking system' },
+          { id: 'manual-notes', label: 'Manual notes' },
+          { id: 'not-stored', label: 'Not systematically stored' },
+        ],
+      },
+      {
+        id: 'S5-DD-7b',
+        text: 'Can your systems automatically apply customer preferences (e.g., send large print version to customers who need it)?',
+        helpText: 'Automation reduces reliance on staff remembering.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        showWhen: { questionId: 'S5-PC-7', answers: ['yes', 'partially'] },
+        partialPlaceholder: "E.g., 'Can flag but manual action needed' or 'For some communications but not all'",
       },
     ],
   },
