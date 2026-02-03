@@ -2869,13 +2869,21 @@
     display: none;
   }
 
-  /* Compact meta row */
+  /* Compact meta row - show time and cost */
   .module-tile.selectable .tile-meta {
     gap: 4px;
     margin-top: 4px;
+    flex-wrap: wrap;
   }
 
   .module-tile.selectable .tile-time {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  /* Show cost badge on mobile */
+  .module-tile.selectable .tile-cost {
+    display: inline-flex !important;
     font-size: 0.65rem;
     padding: 2px 6px;
   }
@@ -2890,33 +2898,54 @@
     font-size: 0.55rem;
   }
 
-  /* Compact Learn More button - show as info icon */
+  /* Compact Learn More button - cleaner info button */
   .module-tile.selectable .tile-learn-more {
-    padding: 8px 10px;
+    padding: 6px 12px;
     margin-top: 8px;
-    font-size: 0.75rem;
-    gap: 6px;
+    font-size: 0.7rem;
+    gap: 5px;
     border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    min-height: 32px;
   }
 
   .module-tile.selectable .tile-learn-more .learn-more-text {
     display: none;
   }
 
-  .module-tile.selectable .tile-learn-more::after {
-    content: 'Details';
-    font-size: 0.7rem;
-    font-weight: 600;
-  }
-
+  /* Hide the original SVG icon and arrow on mobile */
   .module-tile.selectable .tile-learn-more > svg:first-child {
-    width: 14px;
-    height: 14px;
+    display: none;
   }
 
   .module-tile.selectable .tile-learn-more .learn-more-arrow {
-    width: 12px;
-    height: 12px;
+    display: none;
+  }
+
+  /* Show info icon and text via pseudo-elements */
+  .module-tile.selectable .tile-learn-more::before {
+    content: 'i';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: var(--amethyst-diamond);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: 700;
+    font-style: italic;
+    font-family: Georgia, serif;
+    flex-shrink: 0;
+  }
+
+  .module-tile.selectable .tile-learn-more::after {
+    content: 'Info';
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--amethyst-diamond);
   }
 
   /* Recommended badge position adjustment */

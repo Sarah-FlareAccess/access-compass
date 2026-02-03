@@ -821,6 +821,7 @@ export function DiscoveryModule({
                               <p className="tile-description">{module.description}</p>
                               <div className="tile-meta">
                                 <span className="tile-time">{module.estimatedTime} min</span>
+                                <span className="tile-cost">${module.cost}</span>
                                 {isRecommended && (
                                   <span className="tile-badge">Recommended</span>
                                 )}

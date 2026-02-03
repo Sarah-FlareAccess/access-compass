@@ -280,7 +280,7 @@
   }
 
   .form-actions {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
   .form-actions .btn {
