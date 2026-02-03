@@ -2751,126 +2751,146 @@
     font-size: 0.8rem;
   }
 
-  /* Compact module categories */
+  /* Compact module categories - cleaner mobile layout */
   .module-category {
-    margin-bottom: 16px;
-    padding: 14px;
-    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 12px;
   }
 
   .category-header {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   .category-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .category-info {
+    flex: 1;
+    min-width: 0;
   }
 
   .category-label {
-    font-size: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.3;
   }
 
   .category-description {
-    font-size: 0.75rem;
-    margin-top: 2px;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    line-height: 1.4;
   }
 
   .category-outcome {
-    font-size: 0.7rem;
-    padding: 6px 10px;
-    margin-bottom: 10px;
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    line-height: 1.4;
   }
 
-  /* Compact module tiles - 2 column grid */
+  /* Module tiles - single column for clarity on mobile */
   .module-tiles.selectable {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .module-tile.selectable {
-    padding: 10px;
-    gap: 8px;
-    border-radius: 8px;
-    flex-direction: column;
-    align-items: stretch;
+    padding: 14px;
+    gap: 10px;
+    border-radius: 10px;
+    flex-direction: row;
+    align-items: flex-start;
   }
 
-  /* Checkbox inline with title */
+  /* Checkbox on left side */
   .module-tile.selectable .tile-checkbox {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+    position: static;
+    flex-shrink: 0;
   }
 
   .module-tile.selectable .tile-checkbox input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
   }
 
   .module-tile.selectable .tile-content {
-    padding-right: 24px;
+    flex: 1;
+    padding-right: 0;
+    min-width: 0;
   }
 
   .module-tile.selectable .tile-header {
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
 
   .module-tile.selectable .tile-name {
-    font-size: 0.8rem;
-    line-height: 1.25;
+    font-size: 0.95rem;
+    line-height: 1.3;
     font-weight: 600;
   }
 
-  /* Hide description on mobile compact - use Learn More for details */
+  /* Show brief description on mobile */
   .module-tile.selectable .tile-description {
-    display: none;
+    display: block;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    /* Limit to 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   /* Compact meta row - show time and cost */
   .module-tile.selectable .tile-meta {
-    gap: 4px;
-    margin-top: 4px;
+    gap: 8px;
+    margin-top: 6px;
     flex-wrap: wrap;
   }
 
   .module-tile.selectable .tile-time {
-    font-size: 0.65rem;
-    padding: 2px 6px;
+    font-size: 0.75rem;
+    padding: 4px 8px;
   }
 
   /* Show cost badge on mobile */
   .module-tile.selectable .tile-cost {
     display: inline-flex !important;
-    font-size: 0.65rem;
-    padding: 2px 6px;
+    font-size: 0.75rem;
+    padding: 4px 8px;
   }
 
   .tile-badge {
-    font-size: 0.6rem;
-    padding: 2px 6px;
+    font-size: 0.7rem;
+    padding: 3px 8px;
     border-radius: 8px;
   }
 
   .tile-badge::before {
-    font-size: 0.55rem;
+    font-size: 0.6rem;
   }
 
-  /* Compact tap hint on mobile */
+  /* Tap hint on mobile */
   .module-tile.selectable .tile-tap-hint {
-    font-size: 0.6rem;
-    margin-top: 6px;
+    font-size: 0.7rem;
+    margin-top: 8px;
   }
 
   /* Recommended badge position adjustment */
   .module-tile.selectable.recommended::after {
-    right: 8px;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid #22c55e;
+    right: 12px;
+    top: 12px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #22c55e;
   }
 
   /* Compact toggle */

@@ -323,6 +323,29 @@
     width: 100%;
     justify-content: center;
   }
+
+  /* Mobile help link */
+  .nav-help-mobile {
+    width: 100%;
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-help-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .nav-help-link svg {
+    flex-shrink: 0;
+  }
+}
+
+/* Hide mobile help on desktop */
+.nav-help-mobile {
+  display: none;
 }
 
 @media (max-width: 480px) {
