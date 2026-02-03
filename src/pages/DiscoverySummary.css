@@ -834,14 +834,104 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .discovery-summary-page {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .summary-header {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .summary-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .summary-header p {
+    font-size: 0.9rem;
+  }
+
+  .summary-section {
+    padding: var(--spacing-md);
+  }
+
+  .section-header {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  .section-header h2 {
+    font-size: 1rem;
+    flex: 1 1 100%;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .edit-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .btn-edit,
+  .btn-save,
+  .btn-cancel {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
   .context-display {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .context-item {
+    padding: 12px 14px;
+  }
+
+  .context-label {
+    font-size: 0.85rem;
+  }
+
+  .context-value {
+    font-size: 0.85rem;
+    padding: 4px 12px;
   }
 
   .context-edit-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    padding: 14px;
+  }
+
+  .context-edit-item .context-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .radio-group-inline {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .radio-group-inline .radio-label {
+    flex: 1;
+    justify-content: center;
+    padding: 12px 16px;
+    min-height: 44px;
+    font-size: 0.95rem;
+    background: rgba(73, 14, 103, 0.04);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(73, 14, 103, 0.1);
+  }
+
+  .radio-group-inline .radio-label:hover {
+    background: rgba(73, 14, 103, 0.08);
+  }
+
+  .radio-group-inline input[type="radio"] {
+    width: 20px;
+    height: 20px;
   }
 
   .touchpoint-checkboxes {
@@ -874,5 +964,26 @@
 
   .summary-btn {
     width: 100%;
+  }
+
+  /* Warning modal mobile */
+  .warning-modal {
+    padding: var(--spacing-lg);
+    margin: var(--spacing-sm);
+  }
+
+  .warning-modal h3 {
+    font-size: 1.1rem;
+  }
+
+  .warning-modal-actions {
+    flex-direction: column;
+  }
+
+  .warning-modal-actions .btn-cancel,
+  .warning-modal-actions .btn-confirm {
+    max-width: none;
+    width: 100%;
+    min-height: 48px;
   }
 }
