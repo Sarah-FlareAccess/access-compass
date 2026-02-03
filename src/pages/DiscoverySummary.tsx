@@ -11,6 +11,7 @@ import { JOURNEY_PHASES } from '../data/touchpoints';
 import { MODULES } from '../lib/recommendationEngine';
 import type { JourneyPhase } from '../types';
 import { PageFooter } from '../components/PageFooter';
+import { ModuleDetailModal } from '../components/discovery/ModuleDetailModal';
 import '../components/discovery/discovery.css';
 import './DiscoverySummary.css';
 
@@ -46,6 +47,9 @@ export default function DiscoverySummary() {
 
   // Modal state for touchpoint edit confirmation
   const [showTouchpointEditWarning, setShowTouchpointEditWarning] = useState(false);
+
+  // Module detail modal state
+  const [moduleDetailId, setModuleDetailId] = useState<string | null>(null);
 
   // Editable values
   const [businessContext, setBusinessContext] = useState<BusinessContext>({
@@ -358,18 +362,36 @@ export default function DiscoverySummary() {
             </div>
           ) : (
             <div className="modules-edit">
-              <div className="module-checkboxes">
-                {MODULES.map(module => (
-                  <label key={module.id} className="checkbox-label module-checkbox">
-                    <input
-                      type="checkbox"
-                      checked={selectedModules.includes(module.id)}
-                      onChange={() => toggleModule(module.id)}
-                    />
-                    <span className="module-name">{module.name}</span>
-                    <span className="module-time">{module.estimatedTime} min</span>
-                  </label>
-                ))}
+              <p className="modules-edit-hint">Tap a module to learn more. Use the checkbox to select or deselect.</p>
+              <div className="module-edit-cards">
+                {MODULES.map(module => {
+                  const isSelected = selectedModules.includes(module.id);
+                  return (
+                    <div
+                      key={module.id}
+                      className={`module-edit-card ${isSelected ? 'selected' : ''}`}
+                    >
+                      <div className="module-edit-checkbox">
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleModule(module.id)}
+                          aria-label={`Select ${module.name}`}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        className="module-edit-info"
+                        onClick={() => setModuleDetailId(module.id)}
+                        aria-label={`View details for ${module.name}`}
+                      >
+                        <span className="module-edit-name">{module.name}</span>
+                        <span className="module-edit-time">{module.estimatedTime} min</span>
+                        <span className="module-edit-arrow">→</span>
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -394,6 +416,16 @@ export default function DiscoverySummary() {
 
         <PageFooter />
       </div>
+
+      {/* Module Detail Modal */}
+      {moduleDetailId && (
+        <ModuleDetailModal
+          moduleId={moduleDetailId}
+          isSelected={selectedModules.includes(moduleDetailId)}
+          onClose={() => setModuleDetailId(null)}
+          onToggleSelect={toggleModule}
+        />
+      )}
     </div>
   );
 }
