@@ -2,6 +2,67 @@
 
 All notable changes to Access Compass will be documented in this file.
 
+## [0.4.0] - February 2026
+
+### Mobile Experience Improvements
+
+#### Dashboard (Mobile)
+- **Category Tiles**: Cleaned up cramped layout with better spacing
+- **Progress Ring & Arrow**: Increased size for visibility (48px ring, 44px arrow, 2.5rem arrow icon)
+- **Typography Hierarchy**: Category headings now larger than module text (1.15rem vs 1.0625rem)
+- **Topic Description**: Increased to 0.9rem for proper hierarchy over module descriptions
+
+#### Discovery Summary Page (Mobile)
+- **Business Context Edit**: Full-width Yes/No radio buttons with 44px touch targets
+- **Button Order**: Save Changes now appears above Back to Dashboard
+- **Module Tags**: Made clickable to open detail modal, with arrow indicators
+- **Module Edit Cards**: New design with checkbox for selection, tap card for details
+- **Touchpoint Tags**: Removed hover effects (display-only, not interactive)
+- **Tag Alignment**: Fixed overflow issues for long module names
+
+#### Navigation (Mobile)
+- **Hamburger Menu**: Added "Need Help?" link
+- **Module Detail Modal**: Fixed z-index (1100) to appear above navbar (1001)
+- **Assignment Modal**: Fixed z-index and button order
+
+#### Questions Flow (Mobile)
+- **Notes Section**: Increased label font sizes (16px) and improved contrast
+- **Help Panel**: Added bottom padding to account for tab bar (button now visible)
+
+### 200% Zoom Accessibility (WCAG 1.4.10 Reflow)
+
+#### Bottom Tab Bar
+- Reduced min-width to 48px at 320px viewport
+- Smaller icons (18px) and labels (0.6rem) to fit all 4 tabs
+
+#### Navbar
+- Reduced padding and sizes at 320px viewport
+- Smaller brand name (0.75rem) and hamburger button
+
+#### Question Cards
+- Changed `overflow: hidden` to `overflow: visible`
+- Added 320px media query with reduced padding
+- Answer buttons: Added `hyphens: auto` and `word-break: keep-all`
+
+#### Help Panel ("Understanding this question")
+- Increased max-height to 95vh at zoom
+- Added 56px bottom padding for tab bar clearance
+- Reduced padding and font sizes for content fit
+
+### Files Modified
+- `src/styles/dashboard.css` - Topic tile mobile styles, progress ring sizing
+- `src/pages/DiscoverySummary.css` - Radio buttons, module tags, button order
+- `src/pages/DiscoverySummary.tsx` - Module detail modal integration
+- `src/components/NavBar.css` - 320px zoom support
+- `src/components/NavBar.tsx` - Mobile help link
+- `src/components/BottomTabBar.css` - 320px zoom support
+- `src/components/discovery/ModuleDetailModal.css` - z-index fix
+- `src/components/questions/questions.css` - Zoom support, notes accessibility
+- `src/components/questions/help-panel.css` - Tab bar clearance, zoom support
+- `docs/TESTING_CHECKLIST.md` - Added Test 17 for 200% zoom
+
+---
+
 ## [0.3.0] - January 2026
 
 ### Added
