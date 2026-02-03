@@ -508,6 +508,7 @@
 .module-phase-group {
   padding-bottom: 20px;
   border-bottom: 1px solid rgba(62, 43, 47, 0.08);
+  text-align: left;
 }
 
 .module-phase-group:last-child {
@@ -520,6 +521,7 @@
   flex-wrap: wrap;
   gap: 12px;
   justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .module-tag {
