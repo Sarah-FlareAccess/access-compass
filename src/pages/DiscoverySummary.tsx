@@ -348,9 +348,16 @@ export default function DiscoverySummary() {
                       <h3 className="group-label">{label}</h3>
                       <div className="module-tags">
                         {modules.map(module => (
-                          <span key={module.id} className="module-tag">
+                          <button
+                            key={module.id}
+                            type="button"
+                            className="module-tag clickable"
+                            onClick={() => setModuleDetailId(module.id)}
+                            aria-label={`View details for ${module.name}`}
+                          >
                             {module.name}
-                          </span>
+                            <span className="module-tag-arrow">→</span>
+                          </button>
                         ))}
                       </div>
                     </div>

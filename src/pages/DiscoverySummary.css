@@ -534,10 +534,32 @@
   transition: all var(--transition-fast);
 }
 
+.module-tag.clickable {
+  cursor: pointer;
+  font-family: inherit;
+}
+
 .module-tag:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(62, 43, 47, 0.1);
   border-color: rgba(73, 14, 103, 0.15);
+}
+
+.module-tag.clickable:focus-visible {
+  outline: 2px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
+.module-tag-arrow {
+  color: var(--amethyst-diamond);
+  opacity: 0.5;
+  font-size: 1rem;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.module-tag:hover .module-tag-arrow {
+  opacity: 1;
+  transform: translateX(2px);
 }
 
 .module-tag .module-code {
