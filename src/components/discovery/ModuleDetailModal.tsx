@@ -32,6 +32,8 @@ export function ModuleDetailModal({
   const modalRef = useRef<HTMLDivElement>(null);
   // Track if we're closing due to popstate (back button) to avoid double history.back()
   const closingFromPopstate = useRef(false);
+  // Track if we've already handled history cleanup
+  const historyHandled = useRef(false);
 
   // Get module basic info and detail
   const moduleInfo = MODULES.find(m => m.id === moduleId);
@@ -39,8 +41,9 @@ export function ModuleDetailModal({
 
   // Handle close - manages history state
   const handleClose = useCallback(() => {
-    if (!closingFromPopstate.current) {
+    if (!closingFromPopstate.current && !historyHandled.current) {
       // User closed via X button, Escape, or overlay click - go back in history
+      historyHandled.current = true;
       window.history.back();
     }
     onClose();
@@ -51,6 +54,7 @@ export function ModuleDetailModal({
     const handlePopstate = () => {
       // User pressed back button - close modal without calling history.back()
       closingFromPopstate.current = true;
+      historyHandled.current = true;
       onClose();
     };
 
@@ -61,14 +65,7 @@ export function ModuleDetailModal({
 
     return () => {
       window.removeEventListener('popstate', handlePopstate);
-      // If modal is unmounting but not due to popstate, clean up history state
-      if (!closingFromPopstate.current) {
-        // Check if current state is our modal state before going back
-        const state = window.history.state;
-        if (state?.modal === 'module-detail') {
-          window.history.back();
-        }
-      }
+      // History is already handled by handleClose or popstate, no need to do anything here
     };
   }, [moduleId, onClose]);
 
