@@ -364,6 +364,29 @@
   }
 }
 
+/* Support for 200% zoom */
+@media (max-width: 320px) {
+  .nav-container {
+    padding: 0 8px;
+    height: 56px;
+  }
+
+  .brand-name {
+    font-size: 0.75rem;
+  }
+
+  .mobile-menu-btn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 6px;
+  }
+
+  .hamburger {
+    width: 20px;
+    height: 14px;
+  }
+}
+
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .nav-link,

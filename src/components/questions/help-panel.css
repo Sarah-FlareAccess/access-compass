@@ -389,6 +389,43 @@
   }
 }
 
+/* Support for 200% zoom */
+@media (max-width: 320px) {
+  .help-panel {
+    max-height: 90vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .help-panel-header {
+    padding: 10px 16px 12px;
+  }
+
+  .help-panel-header h3 {
+    font-size: 14px;
+  }
+
+  .help-panel-content {
+    padding: 12px 16px;
+  }
+
+  .help-section h4 {
+    font-size: 13px;
+  }
+
+  .help-summary p {
+    font-size: 14px;
+  }
+
+  .help-panel-footer {
+    padding: 10px 16px 20px;
+  }
+
+  .btn-got-it {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+
 /* ============================================
    HELP TRIGGER BUTTON (in QuestionCard)
    ============================================ */

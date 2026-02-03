@@ -157,6 +157,34 @@
   }
 }
 
+/* Support for 200% zoom */
+@media (max-width: 320px) {
+  .tab-bar-item {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 6px 2px 8px;
+    gap: 2px;
+  }
+
+  .tab-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tab-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .tab-label {
+    font-size: 0.6rem;
+  }
+
+  .tab-bar-item.active::before {
+    width: 32px;
+  }
+}
+
 /* Add padding to main content to account for tab bar */
 @media (max-width: 768px) {
   .dashboard-page,
