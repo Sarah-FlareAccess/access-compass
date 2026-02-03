@@ -383,46 +383,70 @@
     grid-template-columns: 1fr;
   }
 
-  /* Adjust footer */
+  /* Adjust footer - account for bottom tab bar */
   .help-panel-footer {
-    padding: 12px 20px 24px;
+    padding: 12px 20px calc(24px + 60px);
   }
 }
 
 /* Support for 200% zoom */
 @media (max-width: 320px) {
   .help-panel {
-    max-height: 90vh;
-    border-radius: 16px 16px 0 0;
+    max-height: 95vh;
+    border-radius: 12px 12px 0 0;
   }
 
   .help-panel-header {
-    padding: 10px 16px 12px;
+    padding: 8px 12px;
   }
 
   .help-panel-header h3 {
     font-size: 14px;
   }
 
+  .help-panel-close {
+    padding: 6px;
+  }
+
   .help-panel-content {
-    padding: 12px 16px;
+    padding: 10px 12px;
+    max-height: calc(95vh - 140px);
+    overflow-y: auto;
+  }
+
+  .help-section {
+    margin-bottom: 16px;
   }
 
   .help-section h4 {
     font-size: 13px;
+    margin-bottom: 8px;
   }
 
   .help-summary p {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.4;
   }
 
   .help-panel-footer {
-    padding: 10px 16px 20px;
+    padding: 10px 12px calc(16px + 56px);
+    background: white;
+    border-top: 1px solid #e5e5e5;
   }
 
   .btn-got-it {
     padding: 12px 16px;
     font-size: 14px;
+    min-height: 44px;
+  }
+
+  .drag-indicator {
+    width: 32px;
+    height: 3px;
+  }
+
+  .help-panel-drag-handle {
+    padding: 8px 0 4px;
   }
 }
 
