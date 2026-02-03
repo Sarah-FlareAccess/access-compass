@@ -1563,3 +1563,18 @@
     gap: 8px;
   }
 }
+
+@media (max-width: 768px) {
+  /* Move "Most Comprehensive" badge below header on mobile */
+  .pathway-choice-badge {
+    position: static;
+    display: inline-block;
+    margin-top: 12px;
+    margin-bottom: 8px;
+  }
+
+  /* Give header room when badge is static */
+  .pathway-choice-header {
+    flex-wrap: wrap;
+  }
+}
