@@ -7444,9 +7444,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        conditions: [
-          { moduleCode: 'B1', questionId: 'B1-2', answerValue: ['yes', 'yes-some'] },
-        ],
         options: [
           { id: 'yes-flexible', label: 'Yes - flexible policies allow breaks and re-joining' },
           { id: 'yes-some', label: 'Yes - for some experiences' },
@@ -7480,7 +7477,7 @@ export const accessModules: AccessModule[] = [
         text: 'Do you communicate walking distances and physical demands of experiences in advance?',
         helpText: 'People managing pain or fatigue need to know what to expect so they can plan appropriately. Clear information about distances, standing time, and terrain helps with decision-making.',
         type: 'single-select',
-        category: 'communication',
+        category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         options: [
@@ -7518,9 +7515,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['theatre', 'cinema', 'stadium', 'arena', 'concert-venue', 'event-venue', 'conference-centre', 'sports-venue', 'racecourse', 'attraction'] },
-        ],
         options: [
           { id: 'yes-multiple-locations', label: 'Yes - wheelchair spaces in multiple locations/price points' },
           { id: 'yes-single-area', label: 'Yes - wheelchair spaces in one designated area only' },
@@ -7557,9 +7551,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['theatre', 'cinema', 'stadium', 'arena', 'concert-venue', 'event-venue', 'conference-centre', 'sports-venue', 'racecourse'] },
-        ],
         options: [
           { id: 'yes-designated', label: 'Yes - designated Easy Access/ambulant seating areas' },
           { id: 'yes-aisle', label: 'Yes - aisle seats available with extra legroom' },
@@ -7598,9 +7589,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['theatre', 'cinema', 'stadium', 'arena', 'concert-venue', 'event-venue', 'conference-centre', 'sports-venue'] },
-        ],
         showWhen: { questionId: 'A4-D-11', answers: ['yes-multiple-locations', 'yes-single-area', 'yes-limited'] },
         options: [
           { id: 'yes-multiple', label: 'Yes - at least 2 companion seats per wheelchair space' },
@@ -7637,9 +7625,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['stadium', 'arena', 'concert-venue', 'sports-venue', 'racecourse'] },
-        ],
         showWhen: { questionId: 'A4-D-11', answers: ['yes-multiple-locations', 'yes-single-area', 'yes-limited'] },
         options: [
           { id: 'yes-elevated', label: 'Yes - wheelchair spaces are elevated or positioned for clear sightlines' },
@@ -7676,9 +7661,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['theatre', 'cinema', 'stadium', 'arena', 'concert-venue', 'event-venue', 'sports-venue'] },
-        ],
         options: [
           { id: 'yes-online', label: 'Yes - accessible seats bookable online alongside standard seats' },
           { id: 'yes-phone-fast', label: 'Yes - phone booking but available at same time as general sale' },
@@ -7714,9 +7696,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['theatre', 'cinema', 'stadium', 'arena', 'concert-venue', 'event-venue', 'sports-venue', 'racecourse'] },
-        ],
         options: [
           { id: 'yes-all', label: 'Yes - step-free access to all seating areas including premium' },
           { id: 'yes-most', label: 'Yes - step-free to most areas, some limitations' },
@@ -7752,9 +7731,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['hotel', 'conference-centre', 'venue', 'business-centre', 'coworking', 'training-facility', 'university', 'corporate'] },
-        ],
         options: [
           { id: 'yes-fully', label: 'Yes - fully accessible including podium/stage area' },
           { id: 'yes-seating', label: 'Yes - accessible seating but podium/stage has steps' },
@@ -7790,9 +7766,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['hotel', 'conference-centre', 'venue', 'business-centre', 'coworking', 'training-facility', 'university', 'corporate'] },
-        ],
         options: [
           { id: 'yes-fixed', label: 'Yes - fixed hearing loop systems in meeting rooms' },
           { id: 'yes-portable', label: 'Yes - portable loop available on request' },
@@ -7828,9 +7801,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['hotel', 'conference-centre', 'venue', 'business-centre', 'training-facility', 'university', 'corporate', 'theatre', 'event-venue'] },
-        ],
         options: [
           { id: 'yes-full', label: 'Yes - interpreter positioning, lighting, and captioning screen options available' },
           { id: 'yes-interpreter', label: 'Yes - can accommodate interpreter positioning and lighting' },
@@ -7865,9 +7835,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['hotel', 'conference-centre', 'venue', 'business-centre', 'coworking', 'training-facility', 'restaurant', 'cafe', 'function-venue'] },
-        ],
         options: [
           { id: 'yes-all', label: 'Yes - all tables have adequate knee clearance' },
           { id: 'yes-most', label: 'Yes - most tables accessible, some fixed booths/banquettes' },
@@ -8249,9 +8216,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['attraction', 'shopping-centre', 'airport', 'stadium', 'theatre', 'museum', 'gallery', 'aquatic-centre', 'hotel', 'conference-centre', 'hospital'] },
-        ],
         options: [
           { id: 'yes-onsite', label: 'Yes - Changing Places facility on site' },
           { id: 'yes-nearby', label: 'No - but we know the nearest Changing Places location' },
@@ -9375,9 +9339,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['hotel', 'resort', 'aquatic-centre', 'recreation', 'caravan-park', 'accommodation'] },
-        ],
         options: [
           { id: 'beach-entry', label: 'Beach/zero-depth entry (gradual slope into water)' },
           { id: 'pool-hoist', label: 'Pool hoist or sling lift' },
@@ -9416,9 +9377,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['hotel', 'resort', 'aquatic-centre', 'recreation', 'caravan-park', 'accommodation'] },
-        ],
         showWhen: { questionId: 'A6a-D-9', answers: ['beach-entry', 'ramp', 'platform-lift'] },
         options: [
           { id: 'yes-multiple', label: 'Yes - multiple aquatic wheelchairs available' },
@@ -9454,9 +9412,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['hotel', 'resort', 'aquatic-centre', 'recreation', 'caravan-park'] },
-        ],
         options: [
           { id: 'yes-full', label: 'Yes - fully accessible change room with roll-in shower' },
           { id: 'yes-basic', label: 'Yes - accessible toilet/shower but limited space' },
@@ -9490,9 +9445,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['aquatic-centre', 'theme-park', 'attraction', 'resort'] },
-        ],
         options: [
           { id: 'yes-both', label: 'Yes - both visual and audible warnings' },
           { id: 'audible-only', label: 'Audible warning only (bell, horn, announcement)' },
@@ -9801,9 +9753,6 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
-        conditions: [
-          { businessType: ['restaurant', 'cafe', 'hotel', 'accommodation', 'food-service', 'hospitality', 'event-venue', 'attraction'] },
-        ],
         options: [
           { id: 'yes-comprehensive', label: 'Yes - allergens and dietary options clearly marked' },
           { id: 'yes-allergens', label: 'Yes - allergens marked but not all dietary options' },
@@ -12249,9 +12198,6 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['restaurant', 'cafe', 'hotel', 'accommodation', 'food-service', 'hospitality', 'event-venue', 'attraction', 'tour'] },
-        ],
         options: [
           { id: 'yes-policy', label: 'Yes - clear policy allowing this' },
           { id: 'yes-discretion', label: 'Yes - at staff discretion' },
@@ -12287,9 +12233,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['restaurant', 'cafe', 'hotel', 'accommodation', 'food-service', 'hospitality', 'event-venue'] },
-        ],
         options: [
           { id: 'yes-trained', label: 'Yes - staff trained to accommodate sensory needs' },
           { id: 'yes-willing', label: 'Yes - willing to accommodate on request' },
@@ -12324,9 +12267,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
-        conditions: [
-          { businessType: ['restaurant', 'cafe', 'hotel', 'accommodation', 'food-service', 'hospitality', 'event-venue'] },
-        ],
         options: [
           { id: 'yes-available', label: 'Yes - segmented plates available' },
           { id: 'separate-dishes', label: 'No - but can serve in separate dishes' },
@@ -14255,9 +14195,6 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        conditions: [
-          { questionId: 'P1-F-3', operator: 'in', value: ['yes-current', 'yes-developing', 'yes-outdated'] },
-        ],
         options: [
           { id: 'yes-comprehensive', label: 'Yes, covers all areas' },
           { id: 'mostly', label: 'Most areas covered' },

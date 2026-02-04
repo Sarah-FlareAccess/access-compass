@@ -25,7 +25,7 @@ interface DiscoveryModuleProps {
       hasOnlinePresence: boolean;
       servesPublicCustomers: boolean;
       hasOnlineServices: boolean;
-      isEventAssessment?: boolean;
+      assessmentType?: 'business' | 'event' | 'both';
     };
   }) => void;
   onBack: () => void;
@@ -42,7 +42,7 @@ interface DiscoveryModuleProps {
       hasOnlinePresence?: boolean;
       servesPublicCustomers?: boolean;
       hasOnlineServices?: boolean;
-      isEventAssessment?: boolean;
+      assessmentType?: 'business' | 'event' | 'both';
     };
   };
 }
@@ -91,10 +91,12 @@ export function DiscoveryModule({
   // Assessment type - 'business' for ongoing operations, 'event' for standalone events, 'both' for both
   type AssessmentType = 'business' | 'event' | 'both';
   const [assessmentType, setAssessmentType] = useState<AssessmentType>(() => {
-    // Convert legacy boolean to new type
-    const existingValue = existingData?.businessContext?.isEventAssessment ?? savedProgress?.businessContext?.isEventAssessment;
-    if (typeof existingValue === 'string') return existingValue as AssessmentType;
-    if (existingValue === true) return 'event';
+    // Check for new assessmentType field first, then fall back to legacy isEventAssessment
+    const existingValue = existingData?.businessContext?.assessmentType ?? savedProgress?.businessContext?.assessmentType;
+    if (existingValue) return existingValue;
+    // Legacy support for old boolean field
+    const legacyValue = (savedProgress?.businessContext as Record<string, unknown>)?.isEventAssessment;
+    if (legacyValue === true) return 'event';
     return 'business';
   });
 
@@ -129,7 +131,7 @@ export function DiscoveryModule({
         hasOnlinePresence,
         servesPublicCustomers,
         hasOnlineServices,
-        isEventAssessment: assessmentType,
+        assessmentType,
       },
       lastUpdated: new Date().toISOString(),
     });
@@ -373,7 +375,7 @@ export function DiscoveryModule({
           hasOnlinePresence: hasOnlinePresence ?? false,
           servesPublicCustomers: servesPublicCustomers ?? false,
           hasOnlineServices: hasOnlineServices ?? false,
-          isEventAssessment: assessmentType,
+          assessmentType,
         },
       });
     }
