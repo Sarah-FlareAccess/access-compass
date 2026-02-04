@@ -2925,3 +2925,148 @@
     font-size: 0.85rem;
   }
 }
+
+/* ============================================
+   EVENT ASSESSMENT TOGGLE - Card Style Radio
+   ============================================ */
+
+.event-assessment-question {
+  margin-bottom: 0;
+}
+
+.event-assessment-question > label {
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+}
+
+/* Vertical radio group for card layout */
+.radio-group-vertical {
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Card-style radio labels */
+.radio-label-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px;
+  background: linear-gradient(135deg, white 0%, rgba(250, 248, 245, 0.8) 100%);
+  border: 2px solid rgba(62, 43, 47, 0.1);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-width: unset;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.radio-label-card:hover {
+  border-color: rgba(73, 14, 103, 0.3);
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(73, 14, 103, 0.1);
+}
+
+.radio-label-card:has(input:checked) {
+  border-color: var(--amethyst-diamond);
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.04) 0%, rgba(73, 14, 103, 0.08) 100%);
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.12);
+}
+
+.radio-label-card input[type="radio"] {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--amethyst-diamond);
+}
+
+/* Card content layout */
+.radio-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.radio-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.radio-card-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Event mode context message */
+.event-mode-message {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 1px solid #f59e0b;
+  border-left: 4px solid #f59e0b;
+}
+
+.event-mode-message .context-icon {
+  font-size: 24px;
+}
+
+.event-mode-message p {
+  color: #92400e;
+}
+
+.event-mode-message p strong {
+  color: #78350f;
+}
+
+/* Both mode context message */
+.both-mode-message {
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  border: 1px solid #8b5cf6;
+  border-left: 4px solid #8b5cf6;
+}
+
+.both-mode-message .context-icon {
+  font-size: 24px;
+}
+
+.both-mode-message p {
+  color: #5b21b6;
+}
+
+.both-mode-message p strong {
+  color: #4c1d95;
+}
+
+/* Mobile adjustments for card radio */
+@media (max-width: 640px) {
+  .radio-label-card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .radio-label-card input[type="radio"] {
+    width: 20px;
+    height: 20px;
+  }
+
+  .radio-card-title {
+    font-size: 1rem;
+  }
+
+  .radio-card-description {
+    font-size: 0.85rem;
+  }
+
+  .event-mode-message {
+    padding: 14px 16px;
+  }
+
+  .event-mode-message .context-icon {
+    font-size: 20px;
+  }
+}

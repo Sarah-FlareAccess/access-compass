@@ -23,11 +23,14 @@ const JOURNEY_PHASE_LABELS: Record<JourneyPhase, string> = {
   'policy-operations': 'Policy & Operations',
 };
 
+type AssessmentType = 'business' | 'event' | 'both';
+
 interface BusinessContext {
   hasPhysicalVenue: boolean | null;
   hasOnlinePresence: boolean | null;
   servesPublicCustomers: boolean | null;
   hasOnlineServices: boolean | null;
+  assessmentType: AssessmentType;
 }
 
 export default function DiscoverySummary() {
@@ -52,11 +55,23 @@ export default function DiscoverySummary() {
   const [moduleDetailId, setModuleDetailId] = useState<string | null>(null);
 
   // Editable values
-  const [businessContext, setBusinessContext] = useState<BusinessContext>({
-    hasPhysicalVenue: session?.business_snapshot?.has_physical_venue ?? null,
-    hasOnlinePresence: session?.business_snapshot?.has_online_presence ?? null,
-    servesPublicCustomers: session?.business_snapshot?.serves_public_customers ?? null,
-    hasOnlineServices: session?.business_snapshot?.has_online_services ?? null,
+  const [businessContext, setBusinessContext] = useState<BusinessContext>(() => {
+    // Convert legacy boolean isEventAssessment to new assessmentType
+    const legacyValue = discoveryData?.businessContext?.isEventAssessment;
+    let assessmentType: AssessmentType = 'business';
+    if (typeof legacyValue === 'string') {
+      assessmentType = legacyValue as AssessmentType;
+    } else if (legacyValue === true) {
+      assessmentType = 'event';
+    }
+
+    return {
+      hasPhysicalVenue: session?.business_snapshot?.has_physical_venue ?? null,
+      hasOnlinePresence: session?.business_snapshot?.has_online_presence ?? null,
+      servesPublicCustomers: session?.business_snapshot?.serves_public_customers ?? null,
+      hasOnlineServices: session?.business_snapshot?.has_online_services ?? null,
+      assessmentType,
+    };
   });
 
   const [selectedTouchpoints] = useState<string[]>(
@@ -119,6 +134,9 @@ export default function DiscoverySummary() {
     );
   };
 
+  // Event module IDs
+  const eventModuleIds = ['E1', 'E2', 'E3', 'E4', 'E5'];
+
   // Save changes
   const handleSaveContext = () => {
     updateSession({
@@ -131,6 +149,40 @@ export default function DiscoverySummary() {
         has_online_presence: businessContext.hasOnlinePresence ?? false,
         serves_public_customers: businessContext.servesPublicCustomers ?? false,
         has_online_services: businessContext.hasOnlineServices ?? false,
+      },
+    });
+
+    // Update modules based on assessment type
+    let updatedModules = [...selectedModules];
+
+    if (businessContext.assessmentType === 'event' || businessContext.assessmentType === 'both') {
+      // Add event modules if not already present
+      eventModuleIds.forEach(id => {
+        if (!updatedModules.includes(id)) {
+          updatedModules.push(id);
+        }
+      });
+    } else {
+      // Remove event modules for business-only assessment
+      updatedModules = updatedModules.filter(id => !eventModuleIds.includes(id));
+    }
+
+    // Update local state
+    setSelectedModules(updatedModules);
+
+    // Also update the discovery data with assessmentType and modules
+    updateDiscoveryData({
+      recommended_modules: updatedModules,
+      discovery_data: {
+        ...discoveryData,
+        businessContext: {
+          ...discoveryData?.businessContext,
+          hasPhysicalVenue: businessContext.hasPhysicalVenue ?? false,
+          hasOnlinePresence: businessContext.hasOnlinePresence ?? false,
+          servesPublicCustomers: businessContext.servesPublicCustomers ?? false,
+          hasOnlineServices: businessContext.hasOnlineServices ?? false,
+          isEventAssessment: businessContext.assessmentType,
+        },
       },
     });
     setIsEditingContext(false);
@@ -202,6 +254,14 @@ export default function DiscoverySummary() {
 
           {!isEditingContext ? (
             <div className="context-display">
+              <div className="context-item context-item-highlight">
+                <span className="context-label">Assessment type:</span>
+                <span className={`context-value ${businessContext.assessmentType}`}>
+                  {businessContext.assessmentType === 'event' && '🎪 Standalone Event'}
+                  {businessContext.assessmentType === 'business' && 'Ongoing Business Operations'}
+                  {businessContext.assessmentType === 'both' && '🏢 + 🎪 Both'}
+                </span>
+              </div>
               <div className="context-item">
                 <span className="context-label">Physical venue:</span>
                 <span className={`context-value ${businessContext.hasPhysicalVenue ? 'yes' : 'no'}`}>
@@ -229,6 +289,60 @@ export default function DiscoverySummary() {
             </div>
           ) : (
             <div className="context-edit">
+              {/* Assessment Type Toggle - Card Style */}
+              <div className="context-edit-item context-edit-item-assessment">
+                <span className="context-label">What are you assessing?</span>
+                <div className="assessment-type-cards">
+                  <label className={`assessment-card ${businessContext.assessmentType === 'business' ? 'selected' : ''}`}>
+                    <input
+                      type="radio"
+                      name="assessmentType"
+                      checked={businessContext.assessmentType === 'business'}
+                      onChange={() => setBusinessContext(prev => ({ ...prev, assessmentType: 'business' }))}
+                    />
+                    <div className="assessment-card-content">
+                      <span className="assessment-card-title">Ongoing business operations</span>
+                      <span className="assessment-card-desc">Your venue, services, website, and day-to-day customer experience</span>
+                    </div>
+                  </label>
+                  <label className={`assessment-card ${businessContext.assessmentType === 'event' ? 'selected' : ''}`}>
+                    <input
+                      type="radio"
+                      name="assessmentType"
+                      checked={businessContext.assessmentType === 'event'}
+                      onChange={() => setBusinessContext(prev => ({ ...prev, assessmentType: 'event' }))}
+                    />
+                    <div className="assessment-card-content">
+                      <span className="assessment-card-title">🎪 Standalone event assessment</span>
+                      <span className="assessment-card-desc">A specific event like a festival, conference, concert, market, or function</span>
+                    </div>
+                  </label>
+                  <label className={`assessment-card ${businessContext.assessmentType === 'both' ? 'selected' : ''}`}>
+                    <input
+                      type="radio"
+                      name="assessmentType"
+                      checked={businessContext.assessmentType === 'both'}
+                      onChange={() => setBusinessContext(prev => ({ ...prev, assessmentType: 'both' }))}
+                    />
+                    <div className="assessment-card-content">
+                      <span className="assessment-card-title">🏢 + 🎪 Both</span>
+                      <span className="assessment-card-desc">Assess both your ongoing operations AND a specific event</span>
+                    </div>
+                  </label>
+                </div>
+                {(businessContext.assessmentType === 'event' || businessContext.assessmentType === 'both') && (
+                  <p className="assessment-note">
+                    {businessContext.assessmentType === 'event'
+                      ? 'Event assessments use the 5 standalone Event modules. You\'ll need to re-run discovery to update your module recommendations.'
+                      : 'Combined assessments include both organisational modules AND the 5 Event modules. Re-run discovery to update recommendations.'}
+                  </p>
+                )}
+              </div>
+
+              {/* Separator */}
+              <div className="context-edit-separator" />
+
+              {/* Business Context Questions */}
               {[
                 { key: 'hasPhysicalVenue', label: 'Do you have a physical venue?' },
                 { key: 'hasOnlinePresence', label: 'Do you have an online presence?' },

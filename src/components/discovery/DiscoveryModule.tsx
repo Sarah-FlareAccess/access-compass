@@ -25,6 +25,7 @@ interface DiscoveryModuleProps {
       hasOnlinePresence: boolean;
       servesPublicCustomers: boolean;
       hasOnlineServices: boolean;
+      isEventAssessment?: boolean;
     };
   }) => void;
   onBack: () => void;
@@ -41,6 +42,7 @@ interface DiscoveryModuleProps {
       hasOnlinePresence?: boolean;
       servesPublicCustomers?: boolean;
       hasOnlineServices?: boolean;
+      isEventAssessment?: boolean;
     };
   };
 }
@@ -86,6 +88,15 @@ export function DiscoveryModule({
   const [hasOnlineServices, setHasOnlineServices] = useState<boolean | null>(
     existingData?.businessContext?.hasOnlineServices ?? savedProgress?.businessContext?.hasOnlineServices ?? null
   );
+  // Assessment type - 'business' for ongoing operations, 'event' for standalone events, 'both' for both
+  type AssessmentType = 'business' | 'event' | 'both';
+  const [assessmentType, setAssessmentType] = useState<AssessmentType>(() => {
+    // Convert legacy boolean to new type
+    const existingValue = existingData?.businessContext?.isEventAssessment ?? savedProgress?.businessContext?.isEventAssessment;
+    if (typeof existingValue === 'string') return existingValue as AssessmentType;
+    if (existingValue === true) return 'event';
+    return 'business';
+  });
 
   // Customized module selection (user can modify recommendations)
   const [customSelectedModules, setCustomSelectedModules] = useState<string[]>(
@@ -118,6 +129,7 @@ export function DiscoveryModule({
         hasOnlinePresence,
         servesPublicCustomers,
         hasOnlineServices,
+        isEventAssessment: assessmentType,
       },
       lastUpdated: new Date().toISOString(),
     });
@@ -131,6 +143,7 @@ export function DiscoveryModule({
     hasOnlinePresence,
     servesPublicCustomers,
     hasOnlineServices,
+    assessmentType,
     existingData,
   ]);
 
@@ -293,29 +306,49 @@ export function DiscoveryModule({
     return calculateDepthRecommendation(selectedTouchpoints);
   }, [selectedTouchpoints]);
 
+  // Event modules to add when event assessment is selected
+  const eventModuleIds = ['E1', 'E2', 'E3', 'E4', 'E5'];
+
   // Initialize custom module selection when entering recommendation step
   useEffect(() => {
     // Only initialize once when transitioning to recommendation step for fresh discovery
     if (currentStep === 'recommendation' && !hasInitializedModules.current) {
-      // Initialize with all recommended modules
-      const allRecommended = [
+      // Initialize with all recommended modules (for 'business' or 'both' mode)
+      const allRecommended = assessmentType === 'event' ? [] : [
         ...recommendationResult.recommendedModules.map(m => m.moduleId),
         ...recommendationResult.alsoRelevant.map(m => m.moduleId),
       ];
+      // Add event modules if event or both assessment is selected
+      if (assessmentType === 'event' || assessmentType === 'both') {
+        eventModuleIds.forEach(id => {
+          if (!allRecommended.includes(id)) {
+            allRecommended.push(id);
+          }
+        });
+      }
       setCustomSelectedModules(allRecommended);
       hasInitializedModules.current = true;
     }
-  }, [currentStep, recommendationResult]);
+  }, [currentStep, recommendationResult, assessmentType]);
 
   const handleContinue = () => {
     if (currentStep === 'touchpoints') {
       // Initialize all recommended modules when transitioning to recommendation step
       // (only if not already initialized from existingData)
       if (!hasInitializedModules.current) {
-        const allRecommended = [
+        // For 'event' only mode, start with empty list; for 'business' or 'both', use recommendations
+        const allRecommended = assessmentType === 'event' ? [] : [
           ...recommendationResult.recommendedModules.map(m => m.moduleId),
           ...recommendationResult.alsoRelevant.map(m => m.moduleId),
         ];
+        // Add event modules if event or both assessment is selected
+        if (assessmentType === 'event' || assessmentType === 'both') {
+          eventModuleIds.forEach(id => {
+            if (!allRecommended.includes(id)) {
+              allRecommended.push(id);
+            }
+          });
+        }
         setCustomSelectedModules(allRecommended);
         hasInitializedModules.current = true;
       }
@@ -340,6 +373,7 @@ export function DiscoveryModule({
           hasOnlinePresence: hasOnlinePresence ?? false,
           servesPublicCustomers: servesPublicCustomers ?? false,
           hasOnlineServices: hasOnlineServices ?? false,
+          isEventAssessment: assessmentType,
         },
       });
     }
@@ -546,7 +580,83 @@ export function DiscoveryModule({
                   This means customers can complete a transaction or receive a service entirely online — not just find information.
                 </p>
               </div>
+
+              {/* Assessment Type Toggle */}
+              <div className="context-question event-assessment-question">
+                <label>
+                  What would you like to assess?
+                </label>
+                <p className="field-helper">Choose based on what you're reviewing for accessibility</p>
+                <div className="radio-group radio-group-vertical">
+                  <label className="radio-label radio-label-card">
+                    <input
+                      type="radio"
+                      name="assessment_type"
+                      checked={assessmentType === 'business'}
+                      onChange={() => setAssessmentType('business')}
+                    />
+                    <div className="radio-card-content">
+                      <span className="radio-card-title">Ongoing business operations</span>
+                      <span className="radio-card-description">Your venue, services, website, and day-to-day customer experience. Best for permanent locations, ongoing services, or general accessibility improvement.</span>
+                    </div>
+                  </label>
+                  <label className="radio-label radio-label-card">
+                    <input
+                      type="radio"
+                      name="assessment_type"
+                      checked={assessmentType === 'event'}
+                      onChange={() => setAssessmentType('event')}
+                    />
+                    <div className="radio-card-content">
+                      <span className="radio-card-title">🎪 Standalone event assessment</span>
+                      <span className="radio-card-description">A specific event like a festival, conference, concert, market, or function. Covers event planning, promotion, venue setup, sensory access, and on-the-day operations.</span>
+                    </div>
+                  </label>
+                  <label className="radio-label radio-label-card">
+                    <input
+                      type="radio"
+                      name="assessment_type"
+                      checked={assessmentType === 'both'}
+                      onChange={() => setAssessmentType('both')}
+                    />
+                    <div className="radio-card-content">
+                      <span className="radio-card-title">🏢 + 🎪 Both</span>
+                      <span className="radio-card-description">Assess both your ongoing business operations AND a specific event. Get the full organisational modules plus the 5 standalone event modules.</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
             </div>
+
+            {/* Event or Both mode message */}
+            {assessmentType === 'event' && (
+              <div className="context-message event-mode-message">
+                <span className="context-icon">🎪</span>
+                <div>
+                  <p><strong>Event assessment mode</strong></p>
+                  <p>
+                    You'll receive the 5 standalone Event modules covering the full event journey from planning to pack-down.
+                    These are designed for one-off events and don't require you to complete the organisational modules.
+                  </p>
+                  <p style={{ marginTop: '0.5rem', fontSize: '0.9em', opacity: 0.85 }}>
+                    The touchpoint selection below is optional for event-only assessments — you can skip it if you're only reviewing an event.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {assessmentType === 'both' && (
+              <div className="context-message both-mode-message">
+                <span className="context-icon">🏢🎪</span>
+                <div>
+                  <p><strong>Combined assessment mode</strong></p>
+                  <p>
+                    You'll receive both the organisational modules (based on touchpoints you select below) AND the 5 standalone Event modules.
+                    This is ideal if you want to improve your overall accessibility while also preparing for a specific event.
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Context-aware message */}
             {hasPhysicalVenue === false && hasOnlinePresence !== null && (

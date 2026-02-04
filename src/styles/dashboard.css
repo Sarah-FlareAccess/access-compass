@@ -43,6 +43,8 @@
 .dashboard-page {
   min-height: 100vh;
   background: var(--ivory-pure);
+  /* Move overflow handling here so it doesn't break sticky sidebar */
+  overflow-x: clip;
 }
 
 /* ============================================
@@ -51,8 +53,7 @@
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
-  /* Prevent content from escaping on mobile */
-  overflow-x: hidden;
+  /* Note: overflow-x moved to .dashboard-page to preserve sticky positioning */
 }
 
 /* ============================================
@@ -71,6 +72,7 @@
   top: 80px; /* Below navbar */
   height: calc(100vh - 80px);
   overflow-y: auto;
+  align-self: flex-start; /* Required for sticky to work in flex container */
 }
 
 /* Organisation Identity */

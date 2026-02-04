@@ -154,7 +154,7 @@
 }
 
 /* Question Text */
-.question-text {
+.question-card .question-text {
   font-size: 22px;
   font-weight: 600;
   color: #1a1a2e;
@@ -162,7 +162,7 @@
   line-height: 1.4;
 }
 
-.question-help-text {
+.question-card .question-help-text {
   font-size: 15px;
   color: var(--text-muted);
   margin: 0 0 16px 0;
@@ -1408,7 +1408,7 @@
     padding: 14px 24px;
   }
 
-  .question-text {
+  .question-card .question-text {
     font-size: 22px;
   }
 
@@ -1451,7 +1451,7 @@
     font-size: 16px;
   }
 
-  .question-text {
+  .question-card .question-text {
     font-size: 20px;
     line-height: 1.4;
   }
@@ -1568,7 +1568,7 @@
     padding: 10px 16px;
   }
 
-  .question-text {
+  .question-card .question-text {
     font-size: 18px;
   }
 
@@ -1597,7 +1597,7 @@
     overflow-wrap: break-word;
   }
 
-  .question-text {
+  .question-card .question-text {
     font-size: 16px;
     word-wrap: break-word;
   }

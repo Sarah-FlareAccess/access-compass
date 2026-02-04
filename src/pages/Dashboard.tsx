@@ -68,6 +68,8 @@ export default function Dashboard() {
     'getting-in': '🚪',
     'during-visit': '🏛️',
     'service-support': '🤝',
+    'organisational-commitment': '📋',
+    'events': '🎪',
   };
 
   // Toggle group expansion

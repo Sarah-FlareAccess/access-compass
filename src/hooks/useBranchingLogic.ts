@@ -25,6 +25,7 @@ export interface HelpExample {
 export interface HelpContent {
   title?: string; // Override default "Understanding [question topic]"
   summary?: string; // Brief explanation
+  understanding?: string[]; // Bullet points explaining what we're asking and how to answer
   examples?: HelpExample[];
   videoUrl?: string; // Vimeo URL
   videoCaption?: string;

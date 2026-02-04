@@ -117,6 +117,17 @@ export function HelpPanel({ isOpen, onClose, content, questionText: _questionTex
             </div>
           )}
 
+          {/* Understanding section - explains what we're asking */}
+          {content.understanding && content.understanding.length > 0 && (
+            <div className="help-section help-understanding">
+              <ul>
+                {content.understanding.map((point, index) => (
+                  <li key={index}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* Video embed */}
           {content.videoUrl && (
             <div className="help-section help-video">
