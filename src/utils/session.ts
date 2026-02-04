@@ -140,6 +140,7 @@ export interface DiscoveryProgress {
     hasOnlinePresence: boolean | null;
     servesPublicCustomers: boolean | null;
     hasOnlineServices: boolean | null;
+    assessmentType?: 'business' | 'event' | 'both';
   };
   lastUpdated: string;
 }

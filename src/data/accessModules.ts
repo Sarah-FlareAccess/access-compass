@@ -25,7 +25,7 @@ export interface AccessModule {
   code: string;
   name: string;
   description: string;
-  group: 'before-arrival' | 'getting-in' | 'during-visit' | 'service-support' | 'organisational-commitment';
+  group: 'before-arrival' | 'getting-in' | 'during-visit' | 'service-support' | 'organisational-commitment' | 'events';
   estimatedTime: number;
   estimatedTimeDeepDive?: number;
   icon: string;

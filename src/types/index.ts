@@ -223,6 +223,13 @@ export interface DiscoveryData {
   responses?: Record<string, DiscoveryResponse>;
   notApplicablePhases?: string[]; // Phases explicitly marked as "not applicable"
   explicitlyCompleted?: boolean; // True if user went through discovery (vs skipped)
+  businessContext?: {
+    hasPhysicalVenue?: boolean;
+    hasOnlinePresence?: boolean;
+    servesPublicCustomers?: boolean;
+    hasOnlineServices?: boolean;
+    assessmentType?: 'business' | 'event' | 'both';
+  };
 }
 
 export interface ModuleScore {
