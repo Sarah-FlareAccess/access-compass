@@ -56,14 +56,8 @@ export default function DiscoverySummary() {
 
   // Editable values
   const [businessContext, setBusinessContext] = useState<BusinessContext>(() => {
-    // Convert legacy boolean isEventAssessment to new assessmentType
-    const legacyValue = discoveryData?.businessContext?.isEventAssessment;
-    let assessmentType: AssessmentType = 'business';
-    if (typeof legacyValue === 'string') {
-      assessmentType = legacyValue as AssessmentType;
-    } else if (legacyValue === true) {
-      assessmentType = 'event';
-    }
+    // Get assessmentType from discoveryData or default to 'business'
+    const assessmentType: AssessmentType = discoveryData?.businessContext?.assessmentType || 'business';
 
     return {
       hasPhysicalVenue: session?.business_snapshot?.has_physical_venue ?? null,
@@ -181,7 +175,7 @@ export default function DiscoverySummary() {
           hasOnlinePresence: businessContext.hasOnlinePresence ?? false,
           servesPublicCustomers: businessContext.servesPublicCustomers ?? false,
           hasOnlineServices: businessContext.hasOnlineServices ?? false,
-          isEventAssessment: businessContext.assessmentType,
+          assessmentType: businessContext.assessmentType,
         },
       },
     });
