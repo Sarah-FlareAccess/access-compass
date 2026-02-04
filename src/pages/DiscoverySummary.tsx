@@ -168,7 +168,10 @@ export default function DiscoverySummary() {
     updateDiscoveryData({
       recommended_modules: updatedModules,
       discovery_data: {
-        ...discoveryData,
+        selectedTouchpoints: discoveryData?.selectedTouchpoints || [],
+        selectedSubTouchpoints: discoveryData?.selectedSubTouchpoints || [],
+        notApplicablePhases: discoveryData?.notApplicablePhases,
+        explicitlyCompleted: discoveryData?.explicitlyCompleted,
         businessContext: {
           ...discoveryData?.businessContext,
           hasPhysicalVenue: businessContext.hasPhysicalVenue ?? false,
