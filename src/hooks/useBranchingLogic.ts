@@ -78,6 +78,10 @@ export interface BranchingQuestion {
   allowPartial?: boolean;
   // Custom placeholder text for the "partially" description field
   partialPlaceholder?: string;
+  // Compliance level: mandatory (required by law/standards) or best-practice (recommended)
+  complianceLevel?: 'mandatory' | 'best-practice';
+  // Reference to specific standard clause (e.g., "AS 1428.1 Cl. 4.1" or "APS D3.5")
+  complianceRef?: string;
 }
 
 interface UseBranchingLogicProps {

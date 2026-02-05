@@ -4774,6 +4774,8 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.5, DP8',
         partialPlaceholder: "E.g., 'We have one but it may not meet current width standards' or 'Spaces exist nearby in a shared car park'",
         helpContent: {
           summary: 'Accessible parking spaces are wider to allow wheelchair transfers and should be clearly marked with the International Symbol of Access.',
@@ -4801,13 +4803,14 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Close to an entrance but not the main one' or 'Closer spaces exist but are not designated accessible'",
         helpContent: {
           summary: 'The closer to the entrance, the better. Distance matters for people with limited mobility or fatigue conditions.',
           understanding: [
             'This question asks whether your accessible parking is positioned to minimise the distance and effort required to reach your entrance - ideally within 30 metres',
             'Answer "Yes" if accessible parking spaces are the closest available spaces to the accessible entrance (or main entrance if it is accessible), with a clear path between them',
-            'Answer "Partially" if accessible spaces exist but are not the closest to the entrance, or if they are close to an entrance but not the main/accessible one',
+            'Answer "Partially" if accessible parking is reasonably close (e.g., within 50m) but not the closest available spaces to the entrance, or if it is close to a secondary entrance rather than the main/accessible entrance',
             'Answer "No" if accessible parking is located far from all entrances or requires a significantly longer walk than standard parking',
           ],
           tips: [
@@ -4826,6 +4829,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Drop-off possible but not clearly marked or designated' or 'Kerbside drop-off but path to entrance is not ideal'",
         helpContent: {
           summary: 'Drop-off zones allow companions or taxis to set people down close to the entrance, which is essential for some customers.',
@@ -4851,14 +4855,16 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.1',
         partialPlaceholder: "E.g., 'Mostly smooth but one section has uneven pavers' or 'Level but surface is gravel rather than concrete'",
         helpContent: {
           summary: 'The journey from car to door matters. Rough surfaces, steps, or obstacles can make accessible parking unusable.',
           understanding: [
             'This question assesses the path surface between accessible parking and your entrance - it should be smooth (no bumps, cracks, or uneven joints), level (no steps or sudden changes in height), and firm (not loose gravel, sand, or grass)',
             'Answer "Yes" if the entire path from accessible parking to the entrance is paved with a smooth, firm surface (concrete, asphalt, or flat pavers), with no steps and no significant level changes',
-            'Answer "Partially" if most of the path is smooth and level but there are problem areas such as a section of uneven pavers, one small step, tree root damage, or a short stretch of gravel',
-            'Answer "No" if the path has significant barriers such as multiple steps, long stretches of loose surface, or major uneven sections that would make it difficult for wheelchair users or people with walking aids',
+            'Answer "Partially" if most of the path is smooth and level but there are problem areas such as a section of uneven pavers, tree root damage, a short stretch of gravel, or a section of grass',
+            'Answer "No" if the path has any steps (even one small step makes it not step-free), long stretches of loose surface, or major uneven sections that would make it difficult for wheelchair users or people with walking aids',
           ],
           // IMAGE: Good vs Bad - Smooth concrete path vs cracked/uneven pavers or gravel surface
           tips: [
@@ -4872,20 +4878,22 @@ export const accessModules: AccessModule[] = [
       },
       {
         id: 'A1-F-5',
-        text: 'Is the path wide enough for people using mobility aids, walking with companions or using service animals (at least 1 metre)?',
+        text: 'Is the path wide enough for people using mobility aids, walking with companions or using service animals (at least 1 metre wide)?',
         helpText: 'Paths should be wide enough for wheelchair users, people with walking aids, service animals, or those walking side by side. A minimum clear width of around 1 metre helps people move comfortably without needing to step aside or navigate obstacles.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.3',
         partialPlaceholder: "E.g., 'Wide enough in most areas but narrower near bins or signage' or 'Wide but sometimes blocked by outdoor furniture'",
         helpContent: {
           summary: '1 metre clear width is the minimum. Check the actual clear space, not just the paved width.',
           understanding: [
             'This question asks about the clear usable width of the path - not just how wide the pavement is, but how much space remains after accounting for obstacles like bins, bollards, planters, signage, or outdoor furniture',
             'Answer "Yes" if the path maintains at least 1 metre of clear, unobstructed width for its entire length, allowing a wheelchair user, someone with a walking frame, or a person with a guide dog to pass comfortably',
-            'Answer "Partially" if most of the path is wide enough but there are pinch points where obstacles narrow the path below 1 metre, or if temporary obstructions sometimes block the path',
-            'Answer "No" if the path is consistently too narrow (less than 1 metre clear width) or is frequently blocked by obstacles',
+            'Answer "Partially" if the path is wide enough but temporary obstructions sometimes block or narrow it',
+            'Answer "No" if the path is consistently too narrow (less than 1 metre clear width), has fixed obstacles that narrow the width such as trees, bollards or lights, or is frequently blocked by obstacles',
           ],
           tips: [
             'Measure between obstacles: bins, bollards, planters, A-frames, outdoor furniture',
@@ -4903,6 +4911,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Sign at car park entrance but not on road approach' or 'General parking sign but no accessibility direction'",
         helpContent: {
           summary: 'Wayfinding starts on the road. Visitors deciding where to turn or which entrance to use need advance notice of where accessible parking is located.',
@@ -4930,6 +4939,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'best-practice',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Entrance is visible but no directional signage' or 'Some signage but not at all decision points'",
         helpContent: {
@@ -4945,7 +4955,7 @@ export const accessModules: AccessModule[] = [
             'Signage at every decision point: anywhere a person might wonder "do I go left or right?"',
             'Ground markings: painted arrows, coloured paths, or tactile ground surface indicators (TGSIs)',
             'Consistent branding: use the same colours and symbols throughout so visitors know they are on the right path',
-            'Height matters: pedestrian wayfinding should be at standing AND seated eye height (1000-1400mm and 1400-1700mm)',
+            'Height matters: pedestrian wayfinding should be readable from both standing and seated positions (1200-1600mm is the optimal zone)',
             'Large car parks: Consider numbered sections with matching signage to help people remember where they parked',
             'Night visibility: Ensure wayfinding is visible in low light - reflective materials, illumination, or contrast',
           ],
@@ -4958,6 +4968,8 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.6(e)',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Accessible route exists but signage is only at the steps' or 'Staff direct people but no permanent signage'",
         helpContent: {
@@ -4987,6 +4999,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'best-practice',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some staff know but not all, especially casual staff' or 'Front desk staff know but phone staff may not'",
         helpContent: {
@@ -5012,6 +5025,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'best-practice',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Main areas lit but path to entrance has dark spots' or 'Street lighting only, no dedicated car park lights'",
         helpContent: {
@@ -5033,23 +5047,57 @@ export const accessModules: AccessModule[] = [
       // Deep Dive Questions
       {
         id: 'A1-D-9',
-        text: 'During busy periods, are accessible parking spaces still available and not blocked?',
-        helpText: 'This looks at what happens when your site is at its busiest. Accessible parking spaces should remain usable and not be blocked by other vehicles, deliveries, temporary signage, or bins, even during peak periods or events.',
+        text: 'During busy periods, special events or temporary setups, are accessible parking spaces still available and not blocked?',
+        helpText: 'This looks at what happens when your site is at its busiest or during special circumstances. Accessible parking spaces should remain usable and not be blocked by other vehicles, deliveries, temporary signage, bins, or event infrastructure.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Usually available but blocked during deliveries' or 'Available most times but full during major events'",
+        helpContent: {
+          summary: 'Accessible parking must remain accessible at all times - including your busiest periods, during events, and when temporary structures or equipment are set up.',
+          understanding: [
+            'This question asks whether accessible parking bays remain genuinely usable during peak times, special events, markets, festivals, deliveries, construction, or when temporary structures (marquees, stages, food trucks, signage) are installed',
+            'Answer "Yes" if accessible parking spaces are protected and remain clear and usable even during your busiest periods, special events, and temporary setups - with active management to prevent blocking',
+            'Answer "Partially" if spaces are usually available but occasionally blocked during deliveries, events, or temporary setups, or if you have processes but they are not consistently followed',
+            'Answer "No" if accessible spaces are regularly blocked during busy periods, used for event infrastructure, or if there is no process to protect them during special circumstances',
+          ],
+          tips: [
+            'Include accessible parking in event planning checklists - never use these bays for equipment, bins, or temporary structures',
+            'Brief delivery drivers and contractors about keeping accessible bays clear',
+            'Consider temporary signage or cones to protect bays during events',
+            'If bays must be temporarily unavailable, provide equivalent alternative accessible parking nearby and communicate this clearly',
+            'Assign someone to monitor accessible parking during major events',
+          ],
+        },
       },
       {
         id: 'A1-D-10',
         text: 'Is the path from parking protected from weather (covered or sheltered)?',
-        helpText: 'A protected or sheltered path helps people move from parking to the entrance more comfortably in rain, heat, or strong sun.',
+        helpText: 'A protected or sheltered path helps people move from parking to the entrance more comfortably and safely in rain, extreme heat, or strong sun.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Covered near the entrance but not the whole path' or 'Some shade from trees but no awning'",
+        helpContent: {
+          summary: 'Weather protection along the path from parking reduces barriers for people who may take longer to travel the distance, have temperature sensitivity, or use mobility equipment that is affected by wet conditions.',
+          understanding: [
+            'This question asks whether there is overhead cover (awnings, canopies, covered walkways) or natural shelter (mature trees, building overhangs) along the route from accessible parking to your entrance',
+            'Answer "Yes" if the path from accessible parking to the entrance is covered or sheltered for most or all of its length, protecting people from rain and providing shade from sun',
+            'Answer "Partially" if some sections are covered (e.g., near the entrance) but other sections are exposed, or if there is natural shade but no rain protection',
+            'Answer "No" if the path is fully exposed to weather with no cover, awnings, or significant shade along the route',
+          ],
+          tips: [
+            'Weather protection is especially important for people who move slowly, use powered wheelchairs (affected by rain), or have conditions affected by heat or cold',
+            'If full coverage is not possible, prioritise shelter near the parking bay (where people transfer) and near the entrance',
+            'Shade structures, pergolas with vines, or mature trees can provide relief from sun and heat',
+            'Consider providing umbrellas for customer use during wet weather',
+            'Ensure covered areas maintain adequate lighting and do not create trip hazards',
+          ],
+        },
       },
       {
         id: 'A1-D-11',
@@ -5059,7 +5107,25 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Bench near the entrance but not along the path' or 'Seating available but not at regular intervals'",
+        helpContent: {
+          summary: 'Rest seating along longer paths allows people with fatigue conditions, limited stamina, or mobility difficulties to pause and recover during their journey from car to entrance.',
+          understanding: [
+            'This question applies if the path from accessible parking to your entrance is longer than about 30 metres - rest seating allows people to break the journey into manageable sections',
+            'Answer "Yes" if there are seats or rest points along the path at reasonable intervals (approximately every 30-50 metres), positioned off the main path so people can rest without blocking others',
+            'Answer "Partially" if there is seating near the entrance or at one point along the path, but not at regular intervals, or if seating exists but is not positioned conveniently for the accessible route',
+            'Answer "No" if there is no seating between accessible parking and the entrance, or if the only seating is inside the building',
+          ],
+          tips: [
+            'Seats should have backs and armrests to help people sit down and stand up',
+            'Position seating in shade where possible, or under shelter',
+            'Ensure seating does not obstruct the clear path width (place to the side)',
+            'Seat height of 450-520mm suits most people; consider a mix of heights if space allows',
+            'Contrast seat colour with surroundings so they are easy to spot',
+            'For very long paths (100m+), consider multiple rest points',
+          ],
+        },
       },
       {
         id: 'A1-D-12',
@@ -5069,6 +5135,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.1, AS/NZS 2890.6 Cl. 2.3',
         partialPlaceholder: "E.g., 'Firm surface but can be slippery when wet' or 'Mostly sealed but some gravel patches'",
         helpContent: {
           summary: 'The parking surface needs to support safe wheelchair transfers and walking aid use. Firm, stable, slip-resistant surfaces prevent accidents during the most vulnerable moment - getting in and out of vehicles.',
@@ -5096,6 +5164,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 7',
         partialPlaceholder: "E.g., 'Mostly level but one steeper section near building' or 'Gentle slope but no handrail'",
         helpContent: {
           summary: 'Gradient matters as much as surface. A path that is too steep can be impassable regardless of other qualities.',
@@ -5124,6 +5194,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 7.7',
         partialPlaceholder: "E.g., 'Kerb ramps at main crossing but not at secondary path' or 'Dropped kerb exists but quite steep'",
         helpContent: {
           summary: 'A kerb without a ramp is a barrier. Every transition between path and road level needs a kerb ramp or flush surface for wheeled mobility.',
@@ -5151,6 +5223,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Contrasting edge near parking but fades along path' or 'Physical edge but no colour contrast'",
         helpContent: {
           summary: 'Defined edges help people stay on the path - especially important for people with vision impairment or when navigating in low light.',
@@ -5178,6 +5251,8 @@ export const accessModules: AccessModule[] = [
         category: 'evidence',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS/NZS 2890.6 Cl. 3.1, 3.2',
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo of your accessible parking signage and ground markings',
@@ -5191,6 +5266,7 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         supportsEvidence: true,
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload or link to your parking policy document',
@@ -5204,6 +5280,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Mentioned in FAQs but not on main contact page' or 'States parking available but no accessibility details'",
       },
       {
@@ -5214,6 +5291,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Lit near entrance but middle section is darker' or 'Path edges not always visible at night'",
       },
       // Deep Dive Wayfinding Questions
@@ -5225,6 +5303,8 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 5',
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload photos of your wayfinding signage showing the International Symbol of Access',
@@ -5255,6 +5335,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Signage at main junction but not at all corners' or 'Signs at entrance but not in car park'",
         helpContent: {
           summary: 'People get lost at decision points - junctions, corners, and path splits. Strategic signage placement ensures continuous wayfinding without gaps.',
@@ -5282,6 +5363,8 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 5.4',
         partialPlaceholder: "E.g., 'Adequate contrast but text too small from distance' or 'Large signs but low contrast colours'",
         helpContent: {
           summary: 'Signage is only useful if people can read it. Size, contrast, and font choice directly impact how many people can use your wayfinding system.',
@@ -5310,6 +5393,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo showing tactile ground surface indicators on the path from parking',
@@ -5340,6 +5424,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Main signs illuminated but smaller signs hard to see' or 'Reflective but not all areas well-lit'",
         helpContent: {
           summary: 'Wayfinding that works in daylight but fails at night excludes evening visitors and anyone arriving in poor weather or during winter months.',
@@ -5367,6 +5452,7 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Checked when issues reported but no regular schedule' or 'Main signs maintained but smaller ones overlooked'",
         helpContent: {
           summary: 'Well-designed wayfinding becomes useless if signs fade, get damaged, or become obscured. Regular maintenance is essential for ongoing effectiveness.',
@@ -5394,6 +5480,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         supportsEvidence: true,
         evidenceTypes: ['link'],
         evidenceHint: 'Provide a link to your website\'s accessibility or directions page',
@@ -5440,6 +5527,8 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.2',
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo of your main entrance showing step-free access',
@@ -5470,6 +5559,8 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.2(5), AS 1428.1 Cl. 10.2',
         partialPlaceholder: "E.g., 'Main door is wide but inner vestibule door is narrower' or 'One leaf is 850mm but both don't open easily'",
         helpContent: {
           summary: '850mm clear opening allows most wheelchairs to pass. Measure the actual clear opening, not the door leaf width.',
@@ -5496,6 +5587,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.4.2',
         partialPlaceholder: "E.g., 'Lever handles but door is heavy to push' or 'Automatic but button is hard to reach'",
         helpContent: {
           summary: 'Door operation is a common barrier. Heavy doors, round knobs, or complex mechanisms exclude many people.',
@@ -5523,6 +5616,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Visible from street but not from car park' or 'Signage exists but is small or unclear'",
         helpContent: {
           summary: 'First-time visitors should be able to identify the entrance without searching or asking. This reduces anxiety and confusion.',
@@ -5548,6 +5642,8 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.6(e)',
         partialPlaceholder: "E.g., 'Sign exists but is easy to miss' or 'Directions given if asked but no permanent signage'",
         helpContent: {
           summary: 'If the main entrance is not accessible, alternative entrances must be clearly signposted so customers do not have to search or ask.',
@@ -5576,6 +5672,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Reception staff trained but not all team members' or 'Staff willing to help but unsure of best approach'",
         helpContent: {
           summary: 'Staff should offer assistance respectfully and only when needed. Many people prefer to navigate independently.',
@@ -5602,6 +5699,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Well-lit during business hours but dim at night' or 'Main door lit but approach path is darker'",
         helpContent: {
           summary: 'Good lighting helps people identify doors, handles, signage, and any level changes or hazards at the entrance.',
@@ -5627,6 +5725,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.8, AS 1428.4.1',
         partialPlaceholder: "E.g., 'TGSIs at main entrance but not alternative entrance' or 'Warning indicators at steps but no directional guidance'",
         helpContent: {
           summary: 'Tactile ground surface indicators (TGSIs) are textured surfaces that help people who are blind or have low vision navigate and identify hazards by feel.',
@@ -5655,6 +5755,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 7',
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo of your entrance ramp showing handrails',
@@ -5668,6 +5770,8 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.2',
         measurementUnit: 'mm',
         partialPlaceholder: "E.g., 'Approximately 800mm - close but may not meet minimum' or 'Haven't measured precisely'",
       },
@@ -5679,6 +5783,8 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.4.3(a)',
         partialPlaceholder: "E.g., 'Main door handle OK but automatic button is too high' or 'Haven't measured precisely'",
       },
       {
@@ -5689,6 +5795,8 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.3',
         partialPlaceholder: "E.g., 'Level space exists but may be smaller than 1500mm' or 'Landing present but has a slight slope'",
       },
       {
@@ -5699,6 +5807,8 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 7.5',
         partialPlaceholder: "E.g., 'Small lip present, unsure if under 13mm' or 'Level but mat creates a bump'",
       },
       {
@@ -5709,6 +5819,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.6',
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo showing contrast markings on your glass doors',
@@ -5722,6 +5834,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Clear most times but congested at opening or events' or 'Queue occasionally blocks the path'",
       },
       {
@@ -5732,6 +5845,8 @@ export const accessModules: AccessModule[] = [
         category: 'measurement',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.4.3',
         partialPlaceholder: "E.g., 'Intercom present but height not measured' or 'Slightly higher than ideal but reachable'",
       },
       {
@@ -5742,6 +5857,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Adequate timing but can be rushed during peak times' or 'Sensors sometimes miss slower walkers'",
       },
       {
@@ -5752,6 +5868,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.2, 4.3',
         partialPlaceholder: "E.g., 'Mat is mostly flat but edges sometimes curl' or 'Recessed mat well but grate has wide gaps'",
         helpContent: {
           summary: 'Entrance mats and surface transitions are common trip hazards. Secure installation and appropriate design prevent falls.',
@@ -5780,6 +5898,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.4.2(e)',
         partialPlaceholder: "E.g., 'Opens easily but closer pushes back hard' or 'Light when unlocked but heavy with security latch'",
         helpContent: {
           summary: 'Door opening force is a critical accessibility factor. A door that requires significant strength to open excludes many people regardless of other accessible features.',
@@ -5808,6 +5928,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'low',
         reviewMode: 'deep-dive',
+        complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Kick plate on main door but not on internal doors' or 'Door shows wear from wheelchairs but no plate installed'",
         helpContent: {
           summary: 'Kick plates protect doors and make them more wheelchair-friendly. They allow wheelchair users to push doors open using footrests without causing damage.',
@@ -5835,6 +5956,8 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.7',
         partialPlaceholder: "E.g., 'Full glass door so visibility is good' or 'Small window but quite high'",
         helpContent: {
           summary: 'Being able to see through doors prevents collisions and reduces anxiety. Vision panels are especially important for people with mobility aids who cannot quickly step aside.',
@@ -5881,6 +6004,8 @@ export const accessModules: AccessModule[] = [
             'Lighting: Ensure the entrance is well-lit so contrast remains visible in all conditions',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.1',
       },
       // Deep Dive Entrance Wayfinding Questions
       {
@@ -5909,6 +6034,7 @@ export const accessModules: AccessModule[] = [
             'Temporary barriers: Ensure events, construction, or seasonal features do not block entrance visibility',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A2-D-20',
@@ -5940,6 +6066,7 @@ export const accessModules: AccessModule[] = [
             'Height: Position signs at both standing (1400-1700mm) and seated (900-1200mm) eye levels, or at a universal height (around 1200-1400mm)',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A2-D-21',
@@ -5967,6 +6094,7 @@ export const accessModules: AccessModule[] = [
             'Consistency: Match internal wayfinding design to external signage for visual continuity',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A2-D-22',
@@ -5994,6 +6122,7 @@ export const accessModules: AccessModule[] = [
             'Landmarks: If helpful, reference landmarks in directions ("next to the newsagent")',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Media Analysis Questions
       {
@@ -6071,6 +6200,8 @@ export const accessModules: AccessModule[] = [
             'Walk the main routes and note any pinch points where two people could not pass comfortably',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.3',
       },
       {
         id: 'A3a-1-2',
@@ -6099,6 +6230,8 @@ export const accessModules: AccessModule[] = [
             'Staff awareness: include path checks in opening/closing routines',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.1',
       },
       {
         id: 'A3a-1-3',
@@ -6126,6 +6259,8 @@ export const accessModules: AccessModule[] = [
             'If no alternative exists, note this as a priority for future planning',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.4, AS 1428.1 Cl. 5',
       },
       {
         id: 'A3a-1-4',
@@ -6153,6 +6288,7 @@ export const accessModules: AccessModule[] = [
             'If staff assistance is sometimes needed, ensure staff are trained to offer help respectfully',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Internal Wayfinding Questions
       {
@@ -6181,6 +6317,7 @@ export const accessModules: AccessModule[] = [
             'Consistency: Use the same design style and colours for all wayfinding signs',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3a-D-6',
@@ -6209,6 +6346,8 @@ export const accessModules: AccessModule[] = [
             'Test with a seated person: Have someone in a wheelchair review your signage visibility',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5',
       },
       {
         id: 'A3a-D-7',
@@ -6237,6 +6376,7 @@ export const accessModules: AccessModule[] = [
             'Multiple locations: In large venues, place maps at key decision points, not just the entrance',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3a-D-8',
@@ -6265,6 +6405,8 @@ export const accessModules: AccessModule[] = [
             'Testing: Have someone with low vision review your signage for readability',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5',
       },
       {
         id: 'A3a-D-9',
@@ -6292,6 +6434,8 @@ export const accessModules: AccessModule[] = [
             'Staff awareness: If tactile wayfinding is limited, ensure staff are trained to guide visitors respectfully',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.4, AS 1428.4.1',
       },
       {
         id: 'A3a-D-10',
@@ -6320,6 +6464,7 @@ export const accessModules: AccessModule[] = [
             'Return route: Ensure accessible routes are also clearly signed for the return journey',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Floor Surface and Environment Questions
       {
@@ -6349,6 +6494,8 @@ export const accessModules: AccessModule[] = [
             'Wet floor procedures: Signage, prompt cleaning, and temporary barriers for spills',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.3',
       },
       {
         id: 'A3a-D-12',
@@ -6376,6 +6523,8 @@ export const accessModules: AccessModule[] = [
             'Emergency: Ensure emergency exit routes remain adequately lit including during power outages',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.2',
       },
       {
         id: 'A3a-D-13',
@@ -6404,6 +6553,7 @@ export const accessModules: AccessModule[] = [
             'Alternative: Wheelchairs available for loan can help where permanent seating is not practical',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3a-D-14',
@@ -6433,6 +6583,8 @@ export const accessModules: AccessModule[] = [
             'Both sides: Essential for people who have strength on only one side, or who need both hands',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 5.3',
       },
       {
         id: 'A3a-D-15',
@@ -6460,6 +6612,8 @@ export const accessModules: AccessModule[] = [
             'Consistency: Use the same contrast treatment throughout the venue for recognition',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.5, Cl. 6.5',
       },
       // Deep Dive Lift Accessibility Questions
       {
@@ -6498,6 +6652,8 @@ export const accessModules: AccessModule[] = [
             'Contrast: Buttons should contrast with their panel for visibility',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1735.12',
       },
       {
         id: 'A3a-D-17',
@@ -6532,6 +6688,7 @@ export const accessModules: AccessModule[] = [
             'Emergency: Ensure emergency communication works (intercom, phone) in all lifts',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Internal Door Questions
       {
@@ -6569,6 +6726,8 @@ export const accessModules: AccessModule[] = [
             'Vision panels: Glass panels in doors help people see who is approaching from the other side',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.4',
       },
       {
         id: 'A3a-D-19',
@@ -6596,6 +6755,8 @@ export const accessModules: AccessModule[] = [
             'Swing direction: Doors should not swing into circulation paths where they could hit people',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.2',
       },
       // Media Analysis Questions
       {
@@ -6661,6 +6822,7 @@ export const accessModules: AccessModule[] = [
             'Hidden disabilities: do not assume only visible disabilities need seating',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-1-2',
@@ -6687,6 +6849,7 @@ export const accessModules: AccessModule[] = [
             'Do not require people to disclose their condition to access priority service',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-1-2a',
@@ -6716,6 +6879,7 @@ export const accessModules: AccessModule[] = [
             'Consistency: Accessible entry must work every time, not depend on which staff member is on duty',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-1-3',
@@ -6742,6 +6906,7 @@ export const accessModules: AccessModule[] = [
             'Ensure all staff, including casual and new staff, know the process',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Queue Management Questions
       {
@@ -6770,6 +6935,8 @@ export const accessModules: AccessModule[] = [
             'Test: Navigate the queue in a wheelchair to identify problem areas',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.3',
       },
       {
         id: 'A3b-D-5',
@@ -6797,6 +6964,7 @@ export const accessModules: AccessModule[] = [
             'Symbols: Consider using the sunflower lanyard or other hidden disability symbols if you recognise them',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-D-6',
@@ -6824,6 +6992,7 @@ export const accessModules: AccessModule[] = [
             'Communicate options: Ensure customers know these alternatives exist',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-D-7',
@@ -6851,6 +7020,7 @@ export const accessModules: AccessModule[] = [
             'Accuracy: Better to overestimate slightly than underestimate - managing expectations matters',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-D-8',
@@ -6878,6 +7048,8 @@ export const accessModules: AccessModule[] = [
             'Peak planning: If certain events or times are especially busy, plan ahead for queue and crowd management',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.3, APS D3.3',
       },
       {
         id: 'A3b-D-9',
@@ -6905,6 +7077,7 @@ export const accessModules: AccessModule[] = [
             'Quiet hours: If you offer quiet or low-sensory periods, promote these clearly',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-D-10',
@@ -6932,6 +7105,7 @@ export const accessModules: AccessModule[] = [
             'Stability: Seats should not tip when weight is applied to armrests during standing',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-D-11',
@@ -6959,6 +7133,8 @@ export const accessModules: AccessModule[] = [
             'Lighting: Ensure barriers remain visible in all lighting conditions your venue uses',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.6',
       },
       {
         id: 'A3b-D-12',
@@ -6986,6 +7162,8 @@ export const accessModules: AccessModule[] = [
             'Fatigue mats: If staff stand in queue areas for long periods, anti-fatigue mats can help them',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.3',
       },
       {
         id: 'A3b-D-13',
@@ -7013,6 +7191,7 @@ export const accessModules: AccessModule[] = [
             'Acoustics: Reduce background noise to improve speech clarity for everyone',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-D-14',
@@ -7040,6 +7219,7 @@ export const accessModules: AccessModule[] = [
             'Staff training: Ensure all staff can explain accessible entry options consistently and confidently',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A3b-D-15',
@@ -7067,6 +7247,7 @@ export const accessModules: AccessModule[] = [
             'Signage: Display the Companion Card logo at entry points to show you are an affiliate',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -7114,6 +7295,7 @@ export const accessModules: AccessModule[] = [
             'Consider adding 2-3 different seat types in waiting areas and dining spaces',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A4-1-2',
@@ -7141,6 +7323,8 @@ export const accessModules: AccessModule[] = [
             'At events, offer companion seating next to wheelchair spaces, not behind or in front',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.8',
       },
       {
         id: 'A4-1-3',
@@ -7169,6 +7353,8 @@ export const accessModules: AccessModule[] = [
             'High cocktail tables: Ensure some standard height options are also available',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 8.1',
       },
       {
         id: 'A4-1-4',
@@ -7196,6 +7382,7 @@ export const accessModules: AccessModule[] = [
             'Large groups: Ability to push tables together helps include wheelchair users in group dining',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Questions - Seating and Layout
       {
@@ -7227,6 +7414,7 @@ export const accessModules: AccessModule[] = [
             'Mix: Offer variety so people can choose what works for them',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A4-D-2',
@@ -7254,6 +7442,8 @@ export const accessModules: AccessModule[] = [
             'Mark the floor: Use tape or markers to maintain minimum aisle widths when setting up',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.3',
       },
       {
         id: 'A4-D-3',
@@ -7287,6 +7477,8 @@ export const accessModules: AccessModule[] = [
             'Staff should proactively offer alternatives, not wait to be asked',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 8.1',
       },
       {
         id: 'A4-D-4',
@@ -7314,6 +7506,8 @@ export const accessModules: AccessModule[] = [
             'Booking: Allow wheelchair spaces to be reserved online, same as other seats',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.8',
       },
       {
         id: 'A4-D-5',
@@ -7341,6 +7535,7 @@ export const accessModules: AccessModule[] = [
             'Portable: Folding seats can be deployed for special events with longer queues',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A4-D-6',
@@ -7362,6 +7557,8 @@ export const accessModules: AccessModule[] = [
             'Staff awareness: Train staff to offer suitable seating proactively',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992',
       },
       {
         id: 'A4-D-7',
@@ -7398,6 +7595,7 @@ export const accessModules: AccessModule[] = [
             'Mention on accessibility page: Handlers appreciate knowing in advance',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Pain and fatigue management
       {
@@ -7435,6 +7633,7 @@ export const accessModules: AccessModule[] = [
             'Seating near toilets is especially valuable for those managing fatigue',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A4-D-9',
@@ -7471,6 +7670,7 @@ export const accessModules: AccessModule[] = [
             'Communicate flexibility in advance so people know they can ask',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A4-D-10',
@@ -7505,6 +7705,7 @@ export const accessModules: AccessModule[] = [
             'Train staff to proactively mention physical demands when taking bookings',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Spectator and event venue seating
       {
@@ -7542,6 +7743,8 @@ export const accessModules: AccessModule[] = [
             'Don\'t cluster: Avoid putting all wheelchair spaces together - people come with different groups',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.8',
       },
       {
         id: 'A4-D-12',
@@ -7580,6 +7783,8 @@ export const accessModules: AccessModule[] = [
             'Armrests: Fixed armrests help with sitting and standing; flip-up armrests allow lateral transfer',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.8',
       },
       {
         id: 'A4-D-13',
@@ -7616,6 +7821,8 @@ export const accessModules: AccessModule[] = [
             'Don\'t require: Don\'t force wheelchair users to buy companion seats if attending alone',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.8',
       },
       {
         id: 'A4-D-14',
@@ -7652,6 +7859,8 @@ export const accessModules: AccessModule[] = [
             'Signage: Inform patrons near wheelchair spaces about sightline considerations',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.8',
       },
       {
         id: 'A4-D-15',
@@ -7687,6 +7896,7 @@ export const accessModules: AccessModule[] = [
             'Waitlist: If accessible seats sell out, offer a waitlist system',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A4-D-16',
@@ -7721,6 +7931,8 @@ export const accessModules: AccessModule[] = [
             'Clear information: Publish accessibility information for each seating tier/area',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.4',
       },
       // Conference and Meeting Room Accessibility
       {
@@ -7757,6 +7969,8 @@ export const accessModules: AccessModule[] = [
             'Multiple wheelchair spaces: Not all wheelchair users need to sit together - offer options throughout the room',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.3, Cl. 8',
       },
       {
         id: 'A4-D-18',
@@ -7792,6 +8006,8 @@ export const accessModules: AccessModule[] = [
             'Include in booking: Allow clients to request hearing augmentation when booking the room',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.5',
       },
       {
         id: 'A4-D-19',
@@ -7826,6 +8042,7 @@ export const accessModules: AccessModule[] = [
             'Interpreter platform: A small raised platform helps interpreters be seen by all attendees',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A4-D-20',
@@ -7860,6 +8077,8 @@ export const accessModules: AccessModule[] = [
             'Pre-event communication: Ask organisers if anyone needs accessible seating and prepare positions throughout the room',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 8.1',
       },
     ],
   },
@@ -7907,6 +8126,8 @@ export const accessModules: AccessModule[] = [
             'Many people need accessible toilets beyond wheelchair users - parents with prams, older people, those with hidden disabilities',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'APS D3.6, AS 1428.1 Cl. 15',
       },
       {
         id: 'A5-1-2',
@@ -7935,6 +8156,7 @@ export const accessModules: AccessModule[] = [
             'Consider offering to hold bags or shopping while customers visit nearby facilities',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A5-1-3',
@@ -7967,6 +8189,8 @@ export const accessModules: AccessModule[] = [
             'Include accessible toilet on any wayfinding maps or directories in your venue',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5',
       },
       {
         id: 'A5-1-4',
@@ -7996,6 +8220,8 @@ export const accessModules: AccessModule[] = [
             'Remember: if someone cannot use the accessible toilet due to clutter, they may have to leave',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 15',
       },
       {
         id: 'A5-1-5',
@@ -8025,6 +8251,8 @@ export const accessModules: AccessModule[] = [
             'If alarm is not working, treat as high priority to repair',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 15.7',
       },
       // Deep Dive Questions - Toilets
       {
@@ -8056,6 +8284,7 @@ export const accessModules: AccessModule[] = [
             'Without these facilities, some people simply cannot go out - it\'s not about convenience, it\'s about possibility',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A5-D-2',
@@ -8090,6 +8319,8 @@ export const accessModules: AccessModule[] = [
             'Consider: Have a professional accessibility auditor check positioning',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 15.3',
       },
       {
         id: 'A5-D-3',
@@ -8118,6 +8349,8 @@ export const accessModules: AccessModule[] = [
             'Remove unnecessary items: Even small obstructions reduce usable space',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 15.2',
       },
       {
         id: 'A5-D-4',
@@ -8146,6 +8379,8 @@ export const accessModules: AccessModule[] = [
             'Maintain: Locks and closers need regular maintenance to stay easy to use',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 15.5',
       },
       {
         id: 'A5-D-5',
@@ -8173,6 +8408,7 @@ export const accessModules: AccessModule[] = [
             'Note: Baby change "in accessible toilet" is different from "in any toilet"',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A5-D-6',
@@ -8206,6 +8442,7 @@ export const accessModules: AccessModule[] = [
             'Consider: People may be reluctant to use the accessible toilet if they can use a standard one with support',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Changing Places / Accessible Adult Change Facilities
       {
@@ -8244,6 +8481,7 @@ export const accessModules: AccessModule[] = [
             'Promotion: List your facility on the Changing Places website once installed',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -8286,6 +8524,8 @@ export const accessModules: AccessModule[] = [
             'Free lux meter apps can give a rough indication of lighting levels',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.2',
       },
       {
         id: 'A6-1-2',
@@ -8313,6 +8553,7 @@ export const accessModules: AccessModule[] = [
             'Consider having a sign or indicator when the space is in use to protect privacy',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-1-3',
@@ -8340,6 +8581,7 @@ export const accessModules: AccessModule[] = [
             'Consider having a quieter area for customers who need it',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-1-4',
@@ -8368,6 +8610,8 @@ export const accessModules: AccessModule[] = [
             'Train staff: Know how to respond if someone has a seizure or sensory overload',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992',
       },
       {
         id: 'A6-1-5',
@@ -8395,6 +8639,7 @@ export const accessModules: AccessModule[] = [
             'If temperature cannot be controlled, let customers know in advance so they can dress appropriately',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-1-6',
@@ -8422,6 +8667,7 @@ export const accessModules: AccessModule[] = [
             'Advertise availability on your website and train staff to offer them proactively',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-1-7',
@@ -8456,6 +8702,7 @@ export const accessModules: AccessModule[] = [
             'Start with one session per month to test demand before expanding',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-1-8',
@@ -8491,6 +8738,8 @@ export const accessModules: AccessModule[] = [
             'If you have a PA system, you may be legally required to have hearing augmentation under the Access to Premises Standard',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.5, APS D3.7',
       },
       // Deep Dive Questions - Lighting
       {
@@ -8525,6 +8774,7 @@ export const accessModules: AccessModule[] = [
             'Outdoor areas can be an option for those who find indoor lighting difficult',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-D-2',
@@ -8553,6 +8803,8 @@ export const accessModules: AccessModule[] = [
             'Furniture should contrast with the floor so people can see obstacles',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.6',
       },
       {
         id: 'A6-D-3',
@@ -8580,6 +8832,8 @@ export const accessModules: AccessModule[] = [
             'Regular inspection: Check for wear, damage, or new hazards',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 4.3',
       },
       {
         id: 'A6-D-4',
@@ -8608,6 +8862,8 @@ export const accessModules: AccessModule[] = [
             'TGSIs: Tactile ground surface indicators warn of hazards (required at stairs in public buildings)',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 6.5',
       },
       {
         id: 'A6-D-5',
@@ -8640,6 +8896,8 @@ export const accessModules: AccessModule[] = [
             'Contrasting: Handrails should be visible against walls/balusters',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 6.3',
       },
       {
         id: 'A6-D-6',
@@ -8668,6 +8926,8 @@ export const accessModules: AccessModule[] = [
             'Maintenance: Check regularly and replace if worn or peeling',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 6.5',
       },
       {
         id: 'A6-D-7',
@@ -8702,6 +8962,8 @@ export const accessModules: AccessModule[] = [
             'Required: Under the Access to Premises Standard for most new/upgraded public buildings',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.4.1, APS D3.4',
       },
       {
         id: 'A6-D-8',
@@ -8729,6 +8991,8 @@ export const accessModules: AccessModule[] = [
             'Temporary items: Displays, sale racks, and A-frames can create bottlenecks',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.3',
       },
       {
         id: 'A6-D-9',
@@ -8762,6 +9026,7 @@ export const accessModules: AccessModule[] = [
             'Material: Smooth but grippy - avoid cold metal in unheated areas',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-D-10',
@@ -8794,6 +9059,7 @@ export const accessModules: AccessModule[] = [
             'Privacy: Curtain or screen for those who need to be alone',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-D-11',
@@ -8827,6 +9093,7 @@ export const accessModules: AccessModule[] = [
             'Available online before visit AND on-site',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-D-12',
@@ -8853,6 +9120,7 @@ export const accessModules: AccessModule[] = [
             'Examples: "The café is in the orange zone" or "Turn left at the sculpture"',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-D-13',
@@ -8886,6 +9154,7 @@ export const accessModules: AccessModule[] = [
             'Communicate: Note on your website if you maintain a scent-free or scent-aware environment',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-D-14',
@@ -8919,6 +9188,7 @@ export const accessModules: AccessModule[] = [
             'More info: hiddendisabilitiesstore.com has training resources and information',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6-D-15',
@@ -8954,6 +9224,8 @@ export const accessModules: AccessModule[] = [
             'Building requirements: Check if your building is required to have visual alerts under the Access to Premises Standard',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1670.4, APS D3.9',
       },
       // Hearing Augmentation (Audio Induction Loops)
       {
@@ -8988,6 +9260,8 @@ export const accessModules: AccessModule[] = [
             'Portable loops: A counter loop costs around $300-500 and can be moved between service points',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.5, APS D3.7',
       },
       {
         id: 'A6-D-17',
@@ -9025,6 +9299,8 @@ export const accessModules: AccessModule[] = [
             'Individual receivers: For areas without fixed loops, consider FM or infrared systems with receivers for loan',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.5',
       },
       {
         id: 'A6-D-18',
@@ -9057,6 +9333,8 @@ export const accessModules: AccessModule[] = [
             'Staff prompts: Train staff to mention the hearing loop when they notice hearing aids',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5',
       },
       // Media Analysis Questions
       {
@@ -9069,6 +9347,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         mediaAnalysisType: 'lighting',
         mediaAnalysisHint: 'Take photos of key areas showing the lighting conditions - reception, pathways, reading areas, and service counters work best.',
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -9119,6 +9398,7 @@ export const accessModules: AccessModule[] = [
             'Equipment doesn\'t need to be expensive - basic items can make a big difference',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-F-2',
@@ -9152,6 +9432,7 @@ export const accessModules: AccessModule[] = [
             'Include any conditions: deposit required, time limits, signing-out process',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-F-3',
@@ -9187,6 +9468,7 @@ export const accessModules: AccessModule[] = [
             'Staff should offer equipment without customers needing to ask - "Would a wheelchair be helpful for your visit today?"',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Questions
       {
@@ -9213,6 +9495,7 @@ export const accessModules: AccessModule[] = [
           { id: 'other', label: 'Other' },
         ],
         showWhen: { questionId: 'A6a-F-1', answers: ['yes-multiple', 'yes-limited'] },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-D-2',
@@ -9229,6 +9512,7 @@ export const accessModules: AccessModule[] = [
           { id: 'considering', label: 'Considering offering this' },
           { id: 'no', label: 'No' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-D-3',
@@ -9246,6 +9530,7 @@ export const accessModules: AccessModule[] = [
           { id: 'not-applicable', label: 'Not applicable to our venue' },
           { id: 'no', label: 'No' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-D-4',
@@ -9262,6 +9547,7 @@ export const accessModules: AccessModule[] = [
           { id: 'considering', label: 'Considering offering this' },
           { id: 'no', label: 'No' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-D-5',
@@ -9277,6 +9563,7 @@ export const accessModules: AccessModule[] = [
           { id: 'considering', label: 'Considering offering this' },
           { id: 'no', label: 'No' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-D-6',
@@ -9293,6 +9580,7 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No formal maintenance process' },
         ],
         showWhen: { questionId: 'A6a-F-1', answers: ['yes-multiple', 'yes-limited'] },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-D-7',
@@ -9309,6 +9597,7 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No - staff awareness is limited' },
         ],
         showWhen: { questionId: 'A6a-F-1', answers: ['yes-multiple', 'yes-limited'] },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-D-8',
@@ -9329,6 +9618,7 @@ export const accessModules: AccessModule[] = [
           { id: 'other', label: 'Other' },
         ],
         showWhen: { questionId: 'A6a-F-1', answers: ['considering', 'no', 'yes-limited'] },
+        complianceLevel: 'best-practice',
       },
       // Pool and aquatic facility accessibility
       {
@@ -9368,6 +9658,8 @@ export const accessModules: AccessModule[] = [
             'Maintenance: Ensure hoists and lifts are regularly serviced and tested',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 16',
       },
       {
         id: 'A6a-D-10',
@@ -9403,6 +9695,7 @@ export const accessModules: AccessModule[] = [
             'Booking system: Allow people to reserve the aquatic chair in advance',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A6a-D-11',
@@ -9436,6 +9729,8 @@ export const accessModules: AccessModule[] = [
             'Locate near pool: Minimise distance people need to travel while wet',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 15',
       },
       {
         id: 'A6a-D-12',
@@ -9469,6 +9764,7 @@ export const accessModules: AccessModule[] = [
             'Staff awareness: Lifeguards should be aware of visitors who may need extra support',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -9516,6 +9812,8 @@ export const accessModules: AccessModule[] = [
             'Test: Can someone with average vision read the sign from 3-4 metres away?',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5',
       },
       {
         id: 'B2-1-2',
@@ -9543,6 +9841,8 @@ export const accessModules: AccessModule[] = [
             'Eye-level for wheelchair users is about 1100-1200mm - important for key navigation signs',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.2',
       },
       {
         id: 'B2-1-3',
@@ -9570,6 +9870,8 @@ export const accessModules: AccessModule[] = [
             'Consider floor plans or maps at entry showing accessible facility locations',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5',
       },
       {
         id: 'B2-1-4',
@@ -9597,6 +9899,7 @@ export const accessModules: AccessModule[] = [
             'Staff positioning: Having someone visible near entry helps those who do need to ask',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Media Analysis Questions
       {
@@ -9609,6 +9912,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         mediaAnalysisType: 'signage',
         mediaAnalysisHint: 'Take a clear photo of your wayfinding signs, directional signs, or facility signs to check accessibility features.',
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -9654,6 +9958,7 @@ export const accessModules: AccessModule[] = [
             'Keep a few large print copies ready rather than making customers wait while you print',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-1-2',
@@ -9681,6 +9986,7 @@ export const accessModules: AccessModule[] = [
             'Train all customer-facing staff to be comfortable doing this',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-1-3',
@@ -9708,6 +10014,7 @@ export const accessModules: AccessModule[] = [
             'Update digital versions whenever menus or materials change - outdated info is frustrating',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-1-4',
@@ -9743,6 +10050,7 @@ export const accessModules: AccessModule[] = [
             'Test with actual users: Ask someone from the target audience to review drafts',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Dietary and allergen information
       {
@@ -9779,6 +10087,7 @@ export const accessModules: AccessModule[] = [
             'Update when recipes change - out-of-date allergen info is dangerous',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Questions
       {
@@ -9813,6 +10122,7 @@ export const accessModules: AccessModule[] = [
             'Include QR code instructions for those unfamiliar with using them',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-D-2',
@@ -9835,6 +10145,7 @@ export const accessModules: AccessModule[] = [
             'Test: Can someone in a wheelchair scan it from their seated position?',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-D-3',
@@ -9867,6 +10178,7 @@ export const accessModules: AccessModule[] = [
             'Consider Braille alongside other formats - it\'s not either/or',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-D-4',
@@ -9894,6 +10206,7 @@ export const accessModules: AccessModule[] = [
             'Consider: Audio guides also help people with reading difficulties, not just vision impairment',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-D-5',
@@ -9921,6 +10234,7 @@ export const accessModules: AccessModule[] = [
             'Use professional translation - machine translation can miss nuances',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-D-6',
@@ -9948,6 +10262,7 @@ export const accessModules: AccessModule[] = [
             'Cost: Can be expensive - consider for larger venues or complex layouts',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-D-7',
@@ -9983,6 +10298,7 @@ export const accessModules: AccessModule[] = [
             'Live events: Consider live captioning (CART) for presentations or performances',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-D-8',
@@ -10017,6 +10333,7 @@ export const accessModules: AccessModule[] = [
             'Extended AD: For content-heavy visuals, extended audio description pauses the video to allow fuller description',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Media Analysis Questions
       {
@@ -10029,6 +10346,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         mediaAnalysisType: 'menu',
         mediaAnalysisHint: 'Upload a photo or scan of your menu to check font size, contrast, and readability against AS 1428.1 and best practice guidelines.',
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-MA-2',
@@ -10040,6 +10358,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         mediaAnalysisType: 'brochure',
         mediaAnalysisHint: 'Upload a photo or PDF of your brochure or flyer to check accessibility features.',
+        complianceLevel: 'best-practice',
       },
       {
         id: 'B3-MA-3',
@@ -10052,6 +10371,7 @@ export const accessModules: AccessModule[] = [
         mediaAnalysisType: 'large-print',
         mediaAnalysisHint: 'Upload a sample of your large print materials to verify they meet accessibility standards.',
         showWhen: { questionId: 'B3-1-1', answers: ['yes'] },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -10091,6 +10411,7 @@ export const accessModules: AccessModule[] = [
             'Ask customers: "Would you like a large print menu?" rather than waiting for them to ask',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-PC-2',
@@ -10111,6 +10432,7 @@ export const accessModules: AccessModule[] = [
             'Keep digital content updated when physical materials change',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-PC-3',
@@ -10132,6 +10454,8 @@ export const accessModules: AccessModule[] = [
             'Consider lighting - signs should be well-lit without glare',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5',
       },
       {
         id: 'D1-PC-4',
@@ -10153,6 +10477,8 @@ export const accessModules: AccessModule[] = [
             'Include landmarks in directions: "Turn left at the café"',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5',
       },
       {
         id: 'D1-PC-5',
@@ -10173,6 +10499,8 @@ export const accessModules: AccessModule[] = [
             'Position Braille signs consistently (beside door handle, not on door)',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5, AS 1428.4.1',
       },
       {
         id: 'D1-PC-6',
@@ -10193,6 +10521,8 @@ export const accessModules: AccessModule[] = [
             'Check loops are working - a sign for a broken loop is frustrating',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.5',
       },
       {
         id: 'D1-PC-7',
@@ -10214,6 +10544,7 @@ export const accessModules: AccessModule[] = [
             'Provide transcripts after events',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-PC-8',
@@ -10234,6 +10565,7 @@ export const accessModules: AccessModule[] = [
             'Ensure audio is clear and at appropriate volume',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-PC-9',
@@ -10255,6 +10587,7 @@ export const accessModules: AccessModule[] = [
             'Learn a few basic Auslan signs: hello, thank you, help',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-PC-10',
@@ -10276,6 +10609,7 @@ export const accessModules: AccessModule[] = [
             'Consider the impact on accessibility: "Lift out of service - step-free access via rear entrance"',
           ],
         },
+        complianceLevel: 'best-practice',
       },
 
       // ============================================
@@ -10301,6 +10635,7 @@ export const accessModules: AccessModule[] = [
           { id: 'magnifier', label: 'Magnifying glasses available' },
           { id: 'none', label: 'None currently' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-DD-1b',
@@ -10312,6 +10647,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'D1-PC-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Some staff do but not consistently' or 'Only when customer appears to need it'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-DD-3a',
@@ -10323,6 +10659,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'D1-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Informal review only' or 'Assessed years ago but not recently'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-DD-3b',
@@ -10343,6 +10680,8 @@ export const accessModules: AccessModule[] = [
             'Consider engaging an access consultant to audit signage',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5',
       },
       {
         id: 'D1-DD-5a',
@@ -10364,6 +10703,8 @@ export const accessModules: AccessModule[] = [
           { id: 'handrail-braille', label: 'Braille on handrails' },
           { id: 'none', label: 'None currently' },
         ],
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.5, AS 1428.4.1',
       },
       {
         id: 'D1-DD-6a',
@@ -10384,6 +10725,8 @@ export const accessModules: AccessModule[] = [
           { id: 'portable', label: 'Portable loop available' },
           { id: 'none', label: 'No hearing loops installed' },
         ],
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.5, APS D3.7',
       },
       {
         id: 'D1-DD-6b',
@@ -10405,6 +10748,8 @@ export const accessModules: AccessModule[] = [
             'Train staff to test loops if customers report issues',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.5',
       },
       {
         id: 'D1-DD-7a',
@@ -10425,6 +10770,7 @@ export const accessModules: AccessModule[] = [
             'Know the difference between CART (human) and auto-captions (AI)',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-DD-7b',
@@ -10436,6 +10782,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'D1-PC-7', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'On some booking forms but not all' or 'Only for specific event types'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-DD-8a',
@@ -10455,6 +10802,7 @@ export const accessModules: AccessModule[] = [
           { id: 'events-programmes', label: 'Event programmes' },
           { id: 'wayfinding', label: 'Wayfinding directions' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-DD-9a',
@@ -10474,6 +10822,7 @@ export const accessModules: AccessModule[] = [
           { id: 'custom', label: 'Customised to your services' },
           { id: 'digital-app', label: 'Communication app on tablet' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'D1-DD-9b',
@@ -10485,6 +10834,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'D1-PC-9', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Some staff trained informally' or 'Included in general disability awareness'",
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -10529,6 +10879,7 @@ export const accessModules: AccessModule[] = [
             'Online chat: Can be excellent for quick queries if staffed appropriately',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-PC-2',
@@ -10551,6 +10902,7 @@ export const accessModules: AccessModule[] = [
           learnMoreUrl: 'https://www.communications.gov.au/what-we-do/phone/services-people-disability/accesshub/national-relay-service',
           learnMoreText: 'About the National Relay Service',
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-PC-3',
@@ -10572,6 +10924,7 @@ export const accessModules: AccessModule[] = [
             'Train staff: Ensure everyone knows how to record and retrieve preferences',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-PC-4',
@@ -10593,6 +10946,7 @@ export const accessModules: AccessModule[] = [
             'If you can\'t respond quickly, acknowledge receipt with expected timeline',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-PC-5',
@@ -10616,6 +10970,7 @@ export const accessModules: AccessModule[] = [
           learnMoreUrl: 'https://www.scopeaust.org.au/about-us/communication-access/',
           learnMoreText: 'Communication Access resources',
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-PC-6',
@@ -10636,6 +10991,7 @@ export const accessModules: AccessModule[] = [
             'Written backup: Offer pen and paper or your phone for typing as an alternative',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-PC-7',
@@ -10656,6 +11012,7 @@ export const accessModules: AccessModule[] = [
             'Have pen, paper, and any communication aids available there too',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-PC-8',
@@ -10676,6 +11033,7 @@ export const accessModules: AccessModule[] = [
             'Make it standard practice for bookings and appointments',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-PC-9',
@@ -10696,6 +11054,7 @@ export const accessModules: AccessModule[] = [
             'Train staff to take verbal feedback seriously and record it properly',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-PC-10',
@@ -10716,6 +11075,7 @@ export const accessModules: AccessModule[] = [
             'Common requests: large print, plain text, phone call back',
           ],
         },
+        complianceLevel: 'best-practice',
       },
 
       // ============================================
@@ -10741,6 +11101,7 @@ export const accessModules: AccessModule[] = [
           { id: 'nrs-registered', label: 'National Relay Service (registered)' },
           { id: 'none-promoted', label: 'None actively promoted' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-DD-1b',
@@ -10752,6 +11113,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'S1-PC-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Listed but phone is larger/first' or 'Email prominent but not SMS'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-DD-2a',
@@ -10770,6 +11132,7 @@ export const accessModules: AccessModule[] = [
           { id: 'some-staff', label: 'Some staff (ad hoc)' },
           { id: 'no-training', label: 'No specific training' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-DD-3a',
@@ -10788,6 +11151,7 @@ export const accessModules: AccessModule[] = [
           { id: 'manual-notes', label: 'Manual notes/spreadsheet' },
           { id: 'not-captured', label: 'Not systematically captured' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-DD-3b',
@@ -10799,6 +11163,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'S1-PC-3', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'In system but not always checked' or 'Some staff know where to look'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-DD-5a',
@@ -10818,6 +11183,7 @@ export const accessModules: AccessModule[] = [
           { id: 'informal', label: 'Informal guidance only' },
           { id: 'no-training', label: 'No specific training' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-DD-6a',
@@ -10836,6 +11202,7 @@ export const accessModules: AccessModule[] = [
           { id: 'staff-guide', label: 'Staff guide on AAC interaction' },
           { id: 'none', label: 'No specific resources' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-DD-8a',
@@ -10852,6 +11219,7 @@ export const accessModules: AccessModule[] = [
           { id: 'on-request', label: 'Only when customer requests' },
           { id: 'staff-discretion', label: 'At staff discretion' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-DD-9a',
@@ -10873,6 +11241,7 @@ export const accessModules: AccessModule[] = [
           { id: 'feedback-card', label: 'Paper feedback card' },
           { id: 'qr-code', label: 'QR code link' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S1-DD-10a',
@@ -10892,6 +11261,7 @@ export const accessModules: AccessModule[] = [
           { id: 'audio-message', label: 'Audio message' },
           { id: 'none-yet', label: 'Haven\'t had requests yet' },
         ],
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -10938,6 +11308,7 @@ export const accessModules: AccessModule[] = [
             'Australian resources: Australian Network on Disability, Vision Australia, Deaf Australia',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-F-1b',
@@ -10954,6 +11325,7 @@ export const accessModules: AccessModule[] = [
           { id: 'planning', label: 'Planning to introduce' },
           { id: 'no', label: 'No' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-F-2',
@@ -10981,6 +11353,8 @@ export const accessModules: AccessModule[] = [
             'Allow the animal to remain with the customer at all times, including dining areas',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992',
       },
       {
         id: 'C1-F-3',
@@ -11008,6 +11382,7 @@ export const accessModules: AccessModule[] = [
             'It is okay to ask: "Is there anything I can do to make your visit easier?"',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-F-4',
@@ -11034,6 +11409,7 @@ export const accessModules: AccessModule[] = [
             'Even if you cannot meet all requests, honest communication builds trust',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-F-5',
@@ -11061,6 +11437,7 @@ export const accessModules: AccessModule[] = [
             'Do not pretend to understand - ask for clarification politely',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-F-6',
@@ -11087,6 +11464,7 @@ export const accessModules: AccessModule[] = [
             'If unsure, offer to take the customer there rather than giving vague directions',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-F-7',
@@ -11117,6 +11495,7 @@ export const accessModules: AccessModule[] = [
         },
         evidenceHint: 'Upload your feedback or complaints process document',
         partialPlaceholder: "E.g., 'General complaints process but not accessibility-specific' or 'Handled ad-hoc rather than formal process'",
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Questions
       {
@@ -11128,6 +11507,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Discussed informally but not formally trained' or 'Good intentions but approach varies'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-10',
@@ -11138,6 +11518,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Some awareness but not all staff confident' or 'Know basics but not all strategies'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-11',
@@ -11148,6 +11529,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Available if staff think to offer it' or 'Somewhere on site but not immediately accessible'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-12',
@@ -11158,6 +11540,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Patient and willing but not specifically trained' or 'Some staff more confident than others'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-13',
@@ -11168,6 +11551,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Could use an office or back area if needed' or 'Quieter spot available but not designated'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-14',
@@ -11181,6 +11565,7 @@ export const accessModules: AccessModule[] = [
         evidenceTypes: ['document', 'link'],
         evidenceHint: 'Upload your customer accessibility policy or provide a link',
         partialPlaceholder: "E.g., 'Part of general customer service policy but not dedicated document' or 'Informal expectations but not documented'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-15',
@@ -11191,6 +11576,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Briefly mentioned but not comprehensive' or 'Included for some roles but not all'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-16',
@@ -11202,6 +11588,8 @@ export const accessModules: AccessModule[] = [
         safetyRelated: true,
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'General evacuation training but not disability-specific' or 'Some staff trained but not consistent'",
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
       {
         id: 'C1-D-17',
@@ -11212,6 +11600,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Know what's available but not always how to use it' or 'Front desk staff aware but not all team'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-18',
@@ -11222,6 +11611,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Some items available but limited selection' or 'Available on request but not advertised'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-18b',
@@ -11239,6 +11629,7 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure how to arrange' },
           { id: 'no', label: 'No' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-19',
@@ -11249,6 +11640,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Welcome but no specific provisions or discounts' or 'Allowed but seating together can be limited'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-20',
@@ -11259,6 +11651,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Staff can help but no formal process' or 'Can provide on request but may take time'",
+        complianceLevel: 'best-practice',
       },
       // Additional Deep Dive - Service Animals
       {
@@ -11292,6 +11685,8 @@ export const accessModules: AccessModule[] = [
             'Complaints: Have a process if staff receive complaints about service animals being present',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992',
       },
       {
         id: 'C1-D-22',
@@ -11319,6 +11714,8 @@ export const accessModules: AccessModule[] = [
             'Document: If complaints are common, consider adding information to booking confirmations',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992',
       },
       // Queue Management and Wait Times
       {
@@ -11354,6 +11751,7 @@ export const accessModules: AccessModule[] = [
             'Hidden disabilities: Many people who cannot queue look "fine" - train staff accordingly',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-24',
@@ -11387,6 +11785,7 @@ export const accessModules: AccessModule[] = [
             'Be accurate: Overestimate slightly rather than disappointing customers with delays',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Alternative Service Delivery
       {
@@ -11422,6 +11821,7 @@ export const accessModules: AccessModule[] = [
             'Document options: Make sure staff know what alternatives are available to offer',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-26',
@@ -11449,6 +11849,7 @@ export const accessModules: AccessModule[] = [
             'Train consistency: All staff should feel confident offering assistance',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-27',
@@ -11482,6 +11883,7 @@ export const accessModules: AccessModule[] = [
             'Close the loop: Let customers know their feedback was heard and acted upon',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Intersectionality in customer service
       {
@@ -11517,6 +11919,7 @@ export const accessModules: AccessModule[] = [
             'Ask open questions: "How can I best support you today?" rather than assuming based on visible characteristics',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-29',
@@ -11551,6 +11954,7 @@ export const accessModules: AccessModule[] = [
             'Religious considerations: Some customers may have religious or cultural requirements alongside disability needs',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C1-D-30',
@@ -11585,6 +11989,7 @@ export const accessModules: AccessModule[] = [
             'Create safety: A calm, respectful interaction can help rebuild trust in services',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Customer service level flexibility
       {
@@ -11623,6 +12028,7 @@ export const accessModules: AccessModule[] = [
             'Promote the option: Display signage explaining the system so customers know they can choose their service level',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -11665,6 +12071,7 @@ export const accessModules: AccessModule[] = [
             'Offer phone or email modification for customers who struggle with online systems',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-1-2',
@@ -11693,6 +12100,7 @@ export const accessModules: AccessModule[] = [
             'Test: Sit in a chair and try to use your terminal - can you see the screen and reach the keypad?',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-1-3',
@@ -11720,6 +12128,7 @@ export const accessModules: AccessModule[] = [
             'Consider contactless/tap as an easier option for some customers with dexterity issues',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-1-4',
@@ -11747,6 +12156,7 @@ export const accessModules: AccessModule[] = [
             'This is not just kind - it may be a reasonable adjustment under the Disability Discrimination Act',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive - Online Booking Accessibility
       {
@@ -11784,6 +12194,7 @@ export const accessModules: AccessModule[] = [
             'Third-party systems: Ask your provider about accessibility or test yourself',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-2',
@@ -11818,6 +12229,7 @@ export const accessModules: AccessModule[] = [
             'Privacy: Be clear about how accessibility information will be used and protected',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-3',
@@ -11853,6 +12265,7 @@ export const accessModules: AccessModule[] = [
             'Promotion: Mention on your accessibility page and in booking information',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-4',
@@ -11888,6 +12301,7 @@ export const accessModules: AccessModule[] = [
             'NDIS: Be aware some customers may use NDIS funding - consider how this interacts with your pricing',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-5',
@@ -11922,6 +12336,7 @@ export const accessModules: AccessModule[] = [
             'Offer choice: Having multiple options ensures everyone can pay in a way that works for them',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-6',
@@ -11956,6 +12371,7 @@ export const accessModules: AccessModule[] = [
             'Include accessibility details: Confirm any accessibility requirements noted during booking',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-7',
@@ -11990,6 +12406,7 @@ export const accessModules: AccessModule[] = [
             'Contact: Provide a way to discuss specific needs if the standard options do not cover them',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-8',
@@ -12022,6 +12439,7 @@ export const accessModules: AccessModule[] = [
             'Staff training: Ensure whoever receives requests knows how to respond and action them',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // ============================================
       // FINANCIAL ACCESSIBILITY
@@ -12058,6 +12476,7 @@ export const accessModules: AccessModule[] = [
             'Updates: Ensure accessible versions are updated when pricing changes',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-10',
@@ -12090,6 +12509,7 @@ export const accessModules: AccessModule[] = [
             'Carer entry: Clearly state if carers/companions receive free or discounted entry',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-11',
@@ -12122,6 +12542,7 @@ export const accessModules: AccessModule[] = [
             'Staff assistance: Train staff to help with payment without taking over or being patronising',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-12',
@@ -12155,6 +12576,7 @@ export const accessModules: AccessModule[] = [
             'Staff training: Staff should offer to hold terminal at accessible angle without being asked',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-13',
@@ -12188,6 +12610,7 @@ export const accessModules: AccessModule[] = [
             'Ask preference: Record customer format preference for future transactions',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Food service flexibility
       {
@@ -12224,6 +12647,7 @@ export const accessModules: AccessModule[] = [
             'This is particularly important for: severe allergies, feeding tubes, ARFID, and some autism-related food restrictions',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-15',
@@ -12258,6 +12682,7 @@ export const accessModules: AccessModule[] = [
             'Children\'s menus: Often have simpler, separated options that may suit adults with sensory needs too',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C2-D-16',
@@ -12292,6 +12717,7 @@ export const accessModules: AccessModule[] = [
             'Works for: ARFID, autism, some anxiety disorders, and personal preferences',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -12339,6 +12765,8 @@ export const accessModules: AccessModule[] = [
             'Consult: Ask people with disability to review your plans and identify gaps',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
       {
         id: 'A7-1-2',
@@ -12368,6 +12796,8 @@ export const accessModules: AccessModule[] = [
             'Evacuation chairs: For multi-storey buildings, have trained staff and equipment to assist',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745, APS D3.9',
       },
       {
         id: 'A7-1-3',
@@ -12397,6 +12827,8 @@ export const accessModules: AccessModule[] = [
             'Test: Regular drills should include checking that alarms are audible and visible throughout',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1670.4, APS D3.9',
       },
       {
         id: 'A7-1-4',
@@ -12426,6 +12858,8 @@ export const accessModules: AccessModule[] = [
             'Evacuation chairs: Designate trained staff members for each shift',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
       // Deep Dive - Emergency Planning
       {
@@ -12462,6 +12896,8 @@ export const accessModules: AccessModule[] = [
             'Drills: Include PEEP holders in evacuation drills to test plans work',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
       {
         id: 'A7-D-2',
@@ -12497,6 +12933,8 @@ export const accessModules: AccessModule[] = [
             'Building requirements: Required in many buildings under fire safety regulations',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
       {
         id: 'A7-D-3',
@@ -12533,6 +12971,8 @@ export const accessModules: AccessModule[] = [
             'Practice: Include equipment use in evacuation drills',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
       {
         id: 'A7-D-4',
@@ -12568,6 +13008,8 @@ export const accessModules: AccessModule[] = [
             'Check in: If you know someone is Deaf, ensure they are included in evacuation checks',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1670.4, APS D3.9',
       },
       {
         id: 'A7-D-5',
@@ -12605,6 +13047,8 @@ export const accessModules: AccessModule[] = [
             'Digital: Consider accessible digital versions for people using screen readers',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
       {
         id: 'A7-D-6',
@@ -12640,6 +13084,7 @@ export const accessModules: AccessModule[] = [
             'Regular visitors: If you know someone has anxiety or cognitive differences, include in PEEP planning',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'A7-D-7',
@@ -12673,6 +13118,8 @@ export const accessModules: AccessModule[] = [
             'Relief needs: After evacuation, handler may need access to a relief area for the animal',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992',
       },
       {
         id: 'A7-D-8',
@@ -12707,6 +13154,8 @@ export const accessModules: AccessModule[] = [
             'Document: Keep records of drills and any changes made as a result',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
     ],
   },
@@ -12749,6 +13198,7 @@ export const accessModules: AccessModule[] = [
             'Staff should know: Train staff to accept and record accessibility feedback received in person',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-F-2',
@@ -12783,6 +13233,7 @@ export const accessModules: AccessModule[] = [
             'Test with a screen reader: Try completing your form using VoiceOver or NVDA',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-F-3',
@@ -12816,6 +13267,7 @@ export const accessModules: AccessModule[] = [
             'Encourage reviews: Happy customers often need prompting to share their experience',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-F-4',
@@ -12843,6 +13295,7 @@ export const accessModules: AccessModule[] = [
             'Document actions: Keep a record of changes made in response to feedback',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-D-1',
@@ -12858,6 +13311,7 @@ export const accessModules: AccessModule[] = [
           { id: 'one-only', label: 'Only one channel' },
           { id: 'no', label: 'No formal feedback process' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-D-2',
@@ -12873,6 +13327,7 @@ export const accessModules: AccessModule[] = [
           { id: 'yes-addressed', label: 'Had issues but addressed them' },
           { id: 'none-yet', label: 'Haven\'t received any' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-D-3',
@@ -12883,6 +13338,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Keep notes but no formal tracking system' or 'Track major issues only'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-D-4',
@@ -12916,6 +13372,7 @@ export const accessModules: AccessModule[] = [
             'Document: Keep records of response times to identify if you are meeting targets',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-D-5',
@@ -12951,6 +13408,7 @@ export const accessModules: AccessModule[] = [
             'Privacy: Get permission before using specific customer stories in public communications',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-D-6',
@@ -12984,6 +13442,7 @@ export const accessModules: AccessModule[] = [
             'Learning: Use serious complaints to identify systemic issues needing attention',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C3-D-7',
@@ -13011,6 +13470,7 @@ export const accessModules: AccessModule[] = [
             'Balance: Offer both identified and anonymous options for different situations',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -13060,6 +13520,7 @@ export const accessModules: AccessModule[] = [
             'Test: Most email platforms have preview tools for accessibility',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-F-2',
@@ -13087,6 +13548,7 @@ export const accessModules: AccessModule[] = [
             'Accessible preference page: Your settings page should be accessible too',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-F-3',
@@ -13121,6 +13583,7 @@ export const accessModules: AccessModule[] = [
             'Redemption: Can someone using assistive technology complete the checkout?',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-F-4',
@@ -13155,6 +13618,7 @@ export const accessModules: AccessModule[] = [
             'Communication: Loyalty updates should follow same accessibility standards as other emails',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-D-1',
@@ -13165,6 +13629,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'SMS for some things like reminders' or 'Can request but not standard option'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-D-2',
@@ -13180,6 +13645,7 @@ export const accessModules: AccessModule[] = [
           { id: 'no-referral', label: 'No referral program' },
           { id: 'no', label: 'Not accessible' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-D-3',
@@ -13190,6 +13656,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Sometimes when relevant but not regularly' or 'Include in some communications but not all'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-D-4',
@@ -13224,6 +13691,7 @@ export const accessModules: AccessModule[] = [
             'Audio descriptions: Describe what is happening visually for video content',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-D-5',
@@ -13258,6 +13726,7 @@ export const accessModules: AccessModule[] = [
             'Consider your chat provider: Some are more accessible than others',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-D-6',
@@ -13291,6 +13760,7 @@ export const accessModules: AccessModule[] = [
             'Proactive use: Use stored info to prepare appropriate support before arrival',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-D-7',
@@ -13324,6 +13794,7 @@ export const accessModules: AccessModule[] = [
             'Build trust: Showing ongoing commitment encourages customer loyalty',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-D-8',
@@ -13357,6 +13828,7 @@ export const accessModules: AccessModule[] = [
             'Alternative channels: Important information should also be available via email',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'C4-D-9',
@@ -13390,6 +13862,7 @@ export const accessModules: AccessModule[] = [
             'Key information: Safety and emergency information are priorities for Auslan translation',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -13436,6 +13909,7 @@ export const accessModules: AccessModule[] = [
             'Test: Ask someone unfamiliar to review important documents',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-PC-2',
@@ -13463,6 +13937,7 @@ export const accessModules: AccessModule[] = [
             'Many email platforms have accessibility checkers - use them',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-PC-3',
@@ -13492,6 +13967,7 @@ export const accessModules: AccessModule[] = [
           learnMoreUrl: 'https://www.visionaustralia.org/services/digital-access/creating-accessible-documents',
           learnMoreText: 'Creating accessible documents guide',
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-PC-4',
@@ -13518,6 +13994,7 @@ export const accessModules: AccessModule[] = [
             'Review and update templates regularly',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-PC-5',
@@ -13545,6 +14022,7 @@ export const accessModules: AccessModule[] = [
             'Include brief instructions on how to maintain accessibility',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-PC-6',
@@ -13571,6 +14049,7 @@ export const accessModules: AccessModule[] = [
             'Train staff on how to handle format requests',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-PC-7',
@@ -13597,6 +14076,7 @@ export const accessModules: AccessModule[] = [
             'Include preference in account management for customers',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-PC-8',
@@ -13624,6 +14104,7 @@ export const accessModules: AccessModule[] = [
             'Test the unsubscribe process with a screen reader',
           ],
         },
+        complianceLevel: 'best-practice',
       },
 
       // ============================================
@@ -13649,6 +14130,7 @@ export const accessModules: AccessModule[] = [
           { id: 'welcome-emails', label: 'Welcome/onboarding emails' },
           { id: 'none-reviewed', label: 'None specifically reviewed' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-DD-2a',
@@ -13660,6 +14142,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'S5-PC-2', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Tested with images off but not screen reader' or 'Marketing emails tested but not transactional'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-DD-3a',
@@ -13680,6 +14163,7 @@ export const accessModules: AccessModule[] = [
           { id: 'forms', label: 'Forms' },
           { id: 'none', label: 'None created accessibly' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-DD-3b',
@@ -13691,6 +14175,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'S5-PC-3', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Some staff trained but not all' or 'Know about headings but not alt text'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-DD-4a',
@@ -13711,6 +14196,7 @@ export const accessModules: AccessModule[] = [
           { id: 'feedback-request', label: 'Feedback requests' },
           { id: 'all-custom', label: 'All emails use templates' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-DD-6a',
@@ -13728,6 +14214,7 @@ export const accessModules: AccessModule[] = [
           { id: 'no-process', label: 'No specific process' },
           { id: 'dont-receive', label: 'Haven\'t received format requests' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-DD-7a',
@@ -13746,6 +14233,7 @@ export const accessModules: AccessModule[] = [
           { id: 'manual-notes', label: 'Manual notes' },
           { id: 'not-stored', label: 'Not systematically stored' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'S5-DD-7b',
@@ -13757,6 +14245,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         showWhen: { questionId: 'S5-PC-7', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Can flag but manual action needed' or 'For some communications but not all'",
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -13812,6 +14301,7 @@ export const accessModules: AccessModule[] = [
             'Templates available: Australian Human Rights Commission has free templates',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-F-3',
@@ -13849,6 +14339,7 @@ export const accessModules: AccessModule[] = [
             'Access Compass can help you generate your DIAP from assessment responses',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-F-4',
@@ -13883,6 +14374,7 @@ export const accessModules: AccessModule[] = [
             'Online bookings: Add an option to indicate Companion Card when booking',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-F-5',
@@ -13918,6 +14410,7 @@ export const accessModules: AccessModule[] = [
             'Staff training: Ensure staff know about all pricing options and can offer them proactively',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-F-6',
@@ -13952,6 +14445,8 @@ export const accessModules: AccessModule[] = [
             'If concerned: You may ask "Is this an assistance animal?" but not for proof',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992',
       },
       {
         id: 'P1-D-6',
@@ -13962,6 +14457,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Some materials are accessible but not all' or 'Considered informally but not documented in strategy'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-7',
@@ -13977,6 +14473,7 @@ export const accessModules: AccessModule[] = [
           { id: 'planning', label: 'Planning to start' },
           { id: 'no', label: 'No' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-8',
@@ -13987,6 +14484,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Track informally but no formal reporting' or 'Report on some areas but not comprehensive'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-9',
@@ -14020,6 +14518,7 @@ export const accessModules: AccessModule[] = [
             'Reporting: Accessibility progress should report to this person',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-10',
@@ -14053,6 +14552,7 @@ export const accessModules: AccessModule[] = [
             'Prioritise: Use your DIAP to identify highest-impact investments',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-11',
@@ -14086,6 +14586,7 @@ export const accessModules: AccessModule[] = [
             'Resources: Australian Human Rights Commission has free materials',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-12',
@@ -14119,6 +14620,7 @@ export const accessModules: AccessModule[] = [
             'Close the loop: Tell complainants what action you\'ve taken',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-13',
@@ -14152,6 +14654,7 @@ export const accessModules: AccessModule[] = [
             'Start with basics: Get your fundamentals right before pursuing certification',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-14',
@@ -14186,6 +14689,7 @@ export const accessModules: AccessModule[] = [
             'Strategy link: Connect accessibility reporting to strategic objectives',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-15',
@@ -14219,6 +14723,7 @@ export const accessModules: AccessModule[] = [
             'Governance: Leadership accountability, reporting, continuous improvement',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-16',
@@ -14254,6 +14759,7 @@ export const accessModules: AccessModule[] = [
             'Role models: Visible leaders with disability inspire others',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-17',
@@ -14290,6 +14796,7 @@ export const accessModules: AccessModule[] = [
             'Promote availability: Let customers know alternative formats are available',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P1-D-18',
@@ -14324,6 +14831,7 @@ export const accessModules: AccessModule[] = [
             'Templates: W3C and AHRC have accessibility statement templates',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -14372,6 +14880,7 @@ export const accessModules: AccessModule[] = [
             'Benefits: Employees with disability often bring unique problem-solving skills and perspectives',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-F-2',
@@ -14407,6 +14916,7 @@ export const accessModules: AccessModule[] = [
             'Assessment tasks: Consider whether tests/tasks might disadvantage candidates with disability',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-F-3',
@@ -14442,6 +14952,8 @@ export const accessModules: AccessModule[] = [
             'Most adjustments cost under $500 - and many cost nothing',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992',
       },
       {
         id: 'P2-D-1',
@@ -14452,6 +14964,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Handled case by case but no formal process' or 'Managers handle informally'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-2',
@@ -14462,6 +14975,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Know informally but no formal data collection' or 'Track adjustment requests only'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-3',
@@ -14472,6 +14986,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Some managers but not all' or 'Basic awareness but no specific manager training'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-4',
@@ -14505,6 +15020,7 @@ export const accessModules: AccessModule[] = [
             'Flexibility statement: "We are open to discussing how this role could work for you"',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-5',
@@ -14538,6 +15054,7 @@ export const accessModules: AccessModule[] = [
             'Manager training: Managers should know how to support returning employees',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-6',
@@ -14571,6 +15088,7 @@ export const accessModules: AccessModule[] = [
             'Ask: Employees with disability can tell you what barriers they face',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-7',
@@ -14604,6 +15122,7 @@ export const accessModules: AccessModule[] = [
             'Support: Ensure supervisors know how to support interns with disability',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-8',
@@ -14637,6 +15156,7 @@ export const accessModules: AccessModule[] = [
             'Small organisations: Connect employees with external disability networks',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-9',
@@ -14670,6 +15190,7 @@ export const accessModules: AccessModule[] = [
             'No stigma: Create a culture where people feel safe to disclose and seek support',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-10',
@@ -14701,6 +15222,7 @@ export const accessModules: AccessModule[] = [
             'Data: Track employment outcomes across intersecting characteristics where possible',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P2-D-11',
@@ -14732,6 +15254,7 @@ export const accessModules: AccessModule[] = [
             'Disclosure: Note that data depends on employees choosing to disclose - create safe environment',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -14785,6 +15308,7 @@ export const accessModules: AccessModule[] = [
             'Regular refreshers: Annual training keeps skills current',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-F-2',
@@ -14812,6 +15336,7 @@ export const accessModules: AccessModule[] = [
             'Keep it proportionate: Doesn\'t need to be lengthy, but should be consistent',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-F-3',
@@ -14848,6 +15373,7 @@ export const accessModules: AccessModule[] = [
             'Quick reference: Create a simple guide staff can check when needed',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-1',
@@ -14858,6 +15384,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Occasional reminders but no regular schedule' or 'Only when issues arise'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-2',
@@ -14868,6 +15395,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Once but not ongoing' or 'Some staff but not all'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-3',
@@ -14878,6 +15406,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'low',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Some resources but not comprehensive' or 'Available but not well promoted'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-4',
@@ -14909,6 +15438,7 @@ export const accessModules: AccessModule[] = [
             'Respect disclosure: People may or may not choose to explain their disability',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-5',
@@ -14940,6 +15470,7 @@ export const accessModules: AccessModule[] = [
             'Practice: Role-play scenarios help staff feel prepared',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-6',
@@ -14973,6 +15504,8 @@ export const accessModules: AccessModule[] = [
             'Drills: Include disability scenarios in evacuation drills',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
       {
         id: 'P3-D-7',
@@ -15004,6 +15537,7 @@ export const accessModules: AccessModule[] = [
             'Use results: Evaluation should feed back into improving future training',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-8',
@@ -15031,6 +15565,7 @@ export const accessModules: AccessModule[] = [
             'Document common questions: Build internal FAQ from questions that come up',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-9',
@@ -15062,6 +15597,7 @@ export const accessModules: AccessModule[] = [
             'Interpreters: Know how to book Auslan interpreters for appointments',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-10',
@@ -15093,6 +15629,7 @@ export const accessModules: AccessModule[] = [
             'No judgement: Stimming (self-regulatory behaviours) is normal and should not be discouraged',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P3-D-11',
@@ -15126,6 +15663,7 @@ export const accessModules: AccessModule[] = [
             'Volunteers: Apply the same standards as paid staff',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -15175,6 +15713,7 @@ export const accessModules: AccessModule[] = [
             'Make it standard: Add accessibility to your procurement checklist',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-F-2',
@@ -15208,6 +15747,7 @@ export const accessModules: AccessModule[] = [
             'Verification: Include right to test/audit accessibility before acceptance',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-1',
@@ -15218,6 +15758,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'For some purchases but not all' or 'Ask informally but not part of selection process'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-2',
@@ -15228,6 +15769,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Consider when relevant but not a standard factor' or 'Would prioritise but don't actively seek'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-3',
@@ -15238,6 +15780,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Basic review but no formal testing' or 'Verify major purchases only'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-4',
@@ -15271,6 +15814,7 @@ export const accessModules: AccessModule[] = [
             'Start somewhere: Even one purchase relationship is a start',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-5',
@@ -15306,6 +15850,7 @@ export const accessModules: AccessModule[] = [
             'Testing: Consider testing with assistive technology before finalising purchase',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-6',
@@ -15339,6 +15884,7 @@ export const accessModules: AccessModule[] = [
             'Virtual option: Consider hybrid events so those who cannot attend in person can still participate',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-7',
@@ -15372,6 +15918,7 @@ export const accessModules: AccessModule[] = [
             'Ongoing relationship: Develop ongoing relationships with accessibility consultants',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-8',
@@ -15405,6 +15952,7 @@ export const accessModules: AccessModule[] = [
             'Escalation: Have clear process for addressing accessibility failures',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-9',
@@ -15438,6 +15986,7 @@ export const accessModules: AccessModule[] = [
             'Support improvement: Help smaller partners develop their accessibility practices',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P4-D-10',
@@ -15471,6 +16020,7 @@ export const accessModules: AccessModule[] = [
             'Combine efforts: Some Indigenous businesses are also disability enterprises',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -15519,6 +16069,7 @@ export const accessModules: AccessModule[] = [
             'Use this assessment: Re-running Access Compass annually tracks progress',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-F-2',
@@ -15546,6 +16097,7 @@ export const accessModules: AccessModule[] = [
             'Review goals regularly - celebrate progress and adjust if needed',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-F-3',
@@ -15579,6 +16131,7 @@ export const accessModules: AccessModule[] = [
             'Celebrate progress: Reporting isn\'t just about gaps - share achievements too',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-1',
@@ -15595,6 +16148,7 @@ export const accessModules: AccessModule[] = [
           { id: 'planning', label: 'Planning an audit' },
           { id: 'no', label: 'Never audited' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-2',
@@ -15605,6 +16159,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Track some metrics informally' or 'Have data but not organized as KPIs'",
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-3',
@@ -15620,6 +16175,7 @@ export const accessModules: AccessModule[] = [
           { id: 'planning', label: 'Planning to publish' },
           { id: 'no', label: 'Not published' },
         ],
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-4',
@@ -15653,6 +16209,7 @@ export const accessModules: AccessModule[] = [
             'Learn from leaders: Identify accessibility leaders in your industry and learn from their practices',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-5',
@@ -15686,6 +16243,7 @@ export const accessModules: AccessModule[] = [
             'Thank complainants: People who complain help you improve - acknowledge this',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-6',
@@ -15719,6 +16277,7 @@ export const accessModules: AccessModule[] = [
             'Action plan: Audits should result in prioritised recommendations for improvement',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-7',
@@ -15752,6 +16311,7 @@ export const accessModules: AccessModule[] = [
             'Long-term relationships: Build ongoing relationships rather than one-off consultations',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-8',
@@ -15785,6 +16345,7 @@ export const accessModules: AccessModule[] = [
             'Networks: Industry networks share learnings and best practice',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-9',
@@ -15812,6 +16373,7 @@ export const accessModules: AccessModule[] = [
             'Customer stories: Share (with permission) stories of positive customer experiences',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-10',
@@ -15845,6 +16407,7 @@ export const accessModules: AccessModule[] = [
             'Privacy: Ensure any disability data is collected with consent and stored appropriately',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'P5-D-11',
@@ -15878,6 +16441,7 @@ export const accessModules: AccessModule[] = [
             'Close the loop: Tell complainants what action you have taken',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -15931,6 +16495,7 @@ export const accessModules: AccessModule[] = [
             'Checklist: Use an accessibility checklist from the start of planning',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-PC-2',
@@ -15963,6 +16528,7 @@ export const accessModules: AccessModule[] = [
             'Language: Use welcoming, inclusive language - not just compliance statements',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-PC-3',
@@ -15995,6 +16561,7 @@ export const accessModules: AccessModule[] = [
             'Privacy: Note that information will only be used for event accessibility planning',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-PC-4',
@@ -16028,6 +16595,7 @@ export const accessModules: AccessModule[] = [
             'More info: companioncard.gov.au explains the national scheme',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-PC-5',
@@ -16060,6 +16628,7 @@ export const accessModules: AccessModule[] = [
             'Payment: Ensure payment gateway is accessible (many are not)',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Questions
       {
@@ -16092,6 +16661,7 @@ export const accessModules: AccessModule[] = [
             'Contingency: Include contingency for unexpected requests',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-D-2',
@@ -16125,6 +16695,7 @@ export const accessModules: AccessModule[] = [
             'Accessibility advisory: Consider establishing an accessibility advisory group for ongoing events',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-D-3',
@@ -16159,6 +16730,7 @@ export const accessModules: AccessModule[] = [
             'Prominent: Make accessibility info easy to find, not buried in FAQs',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-D-4',
@@ -16190,6 +16762,7 @@ export const accessModules: AccessModule[] = [
             'Print: Offer large print on request, use readable fonts (minimum 12pt)',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-D-5',
@@ -16224,6 +16797,7 @@ export const accessModules: AccessModule[] = [
             'Late requests: Have a process for late requests - try to accommodate but cannot guarantee',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-D-6',
@@ -16250,6 +16824,7 @@ export const accessModules: AccessModule[] = [
             'Dignity: Do not require excessive proof or documentation',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-D-7',
@@ -16283,6 +16858,7 @@ export const accessModules: AccessModule[] = [
             'Technical support: Have support available for people struggling to connect',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-D-8',
@@ -16309,6 +16885,7 @@ export const accessModules: AccessModule[] = [
             'Back of house: Check that staff areas, green rooms, and work spaces are accessible',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E1-D-9',
@@ -16338,6 +16915,7 @@ export const accessModules: AccessModule[] = [
             'Monitoring: Include accessibility compliance in contract performance reviews',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -16388,6 +16966,7 @@ export const accessModules: AccessModule[] = [
             'Stage/platform: If using a stage, how do wheelchair users access it?',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-PC-2',
@@ -16422,6 +17001,7 @@ export const accessModules: AccessModule[] = [
             'Signage: Clearly sign accessible parking and routes to entrance',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-PC-3',
@@ -16456,6 +17036,7 @@ export const accessModules: AccessModule[] = [
             'Changing Places: For larger events, consider Changing Places provision',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-PC-4',
@@ -16493,6 +17074,7 @@ export const accessModules: AccessModule[] = [
             'Booking: Make accessible seating bookable online, not just by phone',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-PC-5',
@@ -16527,6 +17109,7 @@ export const accessModules: AccessModule[] = [
             'Time limit: Consider whether to limit use to ensure availability for all who need it',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Questions
       {
@@ -16555,6 +17138,7 @@ export const accessModules: AccessModule[] = [
             'Photos: Document accessible features and barriers',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-2',
@@ -16590,6 +17174,7 @@ export const accessModules: AccessModule[] = [
             'Awards: How will a wheelchair user collect an award?',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-3',
@@ -16616,6 +17201,7 @@ export const accessModules: AccessModule[] = [
             'Large events: Consider portable Changing Places for major events (available for hire)',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-4',
@@ -16645,6 +17231,7 @@ export const accessModules: AccessModule[] = [
             'Maps: Provide map from transport stops to venue entrance',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-5',
@@ -16672,6 +17259,7 @@ export const accessModules: AccessModule[] = [
             'Key routes: At minimum, provide accessible path to main stage, toilets, food/drink',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-6',
@@ -16699,6 +17287,7 @@ export const accessModules: AccessModule[] = [
             'Communication: Confirm accessible arrangements before the event',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-7',
@@ -16727,6 +17316,7 @@ export const accessModules: AccessModule[] = [
             'Barrier area: Front of stage barrier areas work but expose users to crowd pressure',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-8',
@@ -16754,6 +17344,7 @@ export const accessModules: AccessModule[] = [
             'Tactile warning: Consider tactile indicators before cable crossing points',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-9',
@@ -16779,6 +17370,7 @@ export const accessModules: AccessModule[] = [
             'Signage: Sign location clearly in event information',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-10',
@@ -16806,6 +17398,7 @@ export const accessModules: AccessModule[] = [
             'Briefing: Brief all performers and presenters on stage layout and edges',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-11',
@@ -16831,6 +17424,7 @@ export const accessModules: AccessModule[] = [
             'Communication: Tell attendees in advance where they can store equipment',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-12',
@@ -16860,6 +17454,7 @@ export const accessModules: AccessModule[] = [
             'Footwear: Warn attendees about conditions so they can prepare',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-13',
@@ -16888,6 +17483,7 @@ export const accessModules: AccessModule[] = [
             'Roving service: Consider staff who can bring items to accessible seating areas',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-14',
@@ -16917,6 +17513,7 @@ export const accessModules: AccessModule[] = [
             'Staff: Have staff available to manage platform access',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-15',
@@ -16947,6 +17544,7 @@ export const accessModules: AccessModule[] = [
             'Maps: Show accessible pathways on event maps',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E2-D-16',
@@ -16977,6 +17575,7 @@ export const accessModules: AccessModule[] = [
             'Companions: Space for companion to travel with person',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -17026,6 +17625,7 @@ export const accessModules: AccessModule[] = [
             'Accessible routes: Clearly mark accessible paths if different from main routes',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-PC-2',
@@ -17056,6 +17656,7 @@ export const accessModules: AccessModule[] = [
             'Braille: Offer on request - lead time needed for production',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-PC-3',
@@ -17085,6 +17686,7 @@ export const accessModules: AccessModule[] = [
             'Repeat: Repeat important announcements and keep them on screens',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-PC-4',
@@ -17111,6 +17713,7 @@ export const accessModules: AccessModule[] = [
             'Equipment: Store assistive equipment (wheelchairs, sensory kits) here for loan',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Questions
       {
@@ -17138,6 +17741,7 @@ export const accessModules: AccessModule[] = [
             'Testing: Test codes work before the event',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-D-2',
@@ -17167,6 +17771,7 @@ export const accessModules: AccessModule[] = [
             'Braille: On room signs, toilet signs, key information points',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-D-3',
@@ -17193,6 +17798,7 @@ export const accessModules: AccessModule[] = [
             'Update: Update if conditions change during event',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-D-4',
@@ -17219,6 +17825,7 @@ export const accessModules: AccessModule[] = [
             'Pre-visit option: Mention if people can visit beforehand',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-D-5',
@@ -17249,6 +17856,7 @@ export const accessModules: AccessModule[] = [
             'Written record: Keep written record at info desk for people to check',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-D-6',
@@ -17278,6 +17886,7 @@ export const accessModules: AccessModule[] = [
             'Multiple modes: Accept communication however it comes - spoken, written, pointed, typed',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-D-7',
@@ -17308,6 +17917,7 @@ export const accessModules: AccessModule[] = [
             'Briefing: Brief all presenters on AV setup before their session',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E3-D-8',
@@ -17337,6 +17947,7 @@ export const accessModules: AccessModule[] = [
             'Support: Have staff who can help people download and use the app',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -17389,6 +18000,7 @@ export const accessModules: AccessModule[] = [
             'Positioning: Consider where interpreters/caption screens are visible from accessible seating',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-PC-2',
@@ -17420,6 +18032,7 @@ export const accessModules: AccessModule[] = [
             'Seating: Front rows useful for people with low vision',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-PC-3',
@@ -17449,6 +18062,7 @@ export const accessModules: AccessModule[] = [
             'Communication: Include sensory information in pre-event communications',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       // Deep Dive Questions
       {
@@ -17478,6 +18092,7 @@ export const accessModules: AccessModule[] = [
             'Screens: If using screens, dedicated interpreter feed works better than wide shot',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-D-2',
@@ -17506,6 +18121,7 @@ export const accessModules: AccessModule[] = [
             'Testing: Test caption visibility from accessible seating before event',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-D-3',
@@ -17534,6 +18150,7 @@ export const accessModules: AccessModule[] = [
             'Backup: Have a backup plan (assistive listening devices) if loop fails',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-D-4',
@@ -17563,6 +18180,7 @@ export const accessModules: AccessModule[] = [
             'Visual elements: Describe costumes, sets, visual gags, action, on-screen text',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-D-5',
@@ -17590,6 +18208,7 @@ export const accessModules: AccessModule[] = [
             'Lost/damaged: Have process for lost or damaged equipment',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-D-6',
@@ -17624,6 +18243,7 @@ export const accessModules: AccessModule[] = [
             'Cost: Can be hired for events rather than purchased',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-D-7',
@@ -17651,6 +18271,7 @@ export const accessModules: AccessModule[] = [
             'Exit option: Ensure people can step out and re-enter easily during effects',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-D-8',
@@ -17678,6 +18299,7 @@ export const accessModules: AccessModule[] = [
             'Social story: Provide social story/visual guide before relaxed session',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E4-D-9',
@@ -17711,6 +18333,7 @@ export const accessModules: AccessModule[] = [
             'Feedback: Gather feedback from deaf attendees to improve provision',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
@@ -17759,6 +18382,7 @@ export const accessModules: AccessModule[] = [
             'Lived experience: Include people with disability in training delivery where possible',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-PC-2',
@@ -17793,6 +18417,7 @@ export const accessModules: AccessModule[] = [
             'Queue time info: Communicate expected wait times so people can make informed decisions',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-PC-3',
@@ -17823,6 +18448,7 @@ export const accessModules: AccessModule[] = [
             'Delivery option: Offer to bring food to accessible seating if queues are inaccessible',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-PC-4',
@@ -17851,6 +18477,8 @@ export const accessModules: AccessModule[] = [
             'No proof required: Cannot demand proof of service animal status (only ask what task the animal performs)',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992',
       },
       {
         id: 'E5-PC-5',
@@ -17884,6 +18512,8 @@ export const accessModules: AccessModule[] = [
             'Drill: If possible, include accessibility scenarios in any pre-event drill',
           ],
         },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 3745',
       },
       // Deep Dive Questions
       {
@@ -17912,6 +18542,7 @@ export const accessModules: AccessModule[] = [
             'Communication: Keep in contact with access services (interpreters, captioners) throughout',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-2',
@@ -17941,6 +18572,7 @@ export const accessModules: AccessModule[] = [
             'Continuous improvement: Build feedback into event evaluation process',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-3',
@@ -17972,6 +18604,7 @@ export const accessModules: AccessModule[] = [
             'Quantity: Estimate based on event size and type',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-4',
@@ -17998,6 +18631,7 @@ export const accessModules: AccessModule[] = [
             'Apologise gaps: If you cannot meet a need, apologise and note for next time',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-5',
@@ -18023,6 +18657,7 @@ export const accessModules: AccessModule[] = [
             'Respite: Consider if volunteer "respite relief" could give carers a longer break',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-6',
@@ -18049,6 +18684,7 @@ export const accessModules: AccessModule[] = [
             'Actions: Create action list for next event planning',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-7',
@@ -18075,6 +18711,7 @@ export const accessModules: AccessModule[] = [
             'Lighting: Ensure speaker/interpreter is well-lit from the front seats',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-8',
@@ -18101,6 +18738,7 @@ export const accessModules: AccessModule[] = [
             'Dietary labels: Clearly label all dietary information (gluten-free, vegetarian, allergens)',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-9',
@@ -18127,6 +18765,7 @@ export const accessModules: AccessModule[] = [
             'Adjustable: Have ability to adjust lighting if needed',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-10',
@@ -18154,6 +18793,7 @@ export const accessModules: AccessModule[] = [
             'Contact point: Should have radio/phone contact with event management',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-11',
@@ -18188,6 +18828,7 @@ export const accessModules: AccessModule[] = [
             'Gate staff: Brief gate staff on re-entry policy and how to assist',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-12',
@@ -18220,6 +18861,7 @@ export const accessModules: AccessModule[] = [
             'Website: hiddendisabilitiesstore.com has resources and training materials',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-13',
@@ -18253,6 +18895,7 @@ export const accessModules: AccessModule[] = [
             'Equipment: Wheelchair, stretcher accessible to all areas including accessible seating',
           ],
         },
+        complianceLevel: 'best-practice',
       },
       {
         id: 'E5-D-14',
@@ -18285,6 +18928,7 @@ export const accessModules: AccessModule[] = [
             'Escalation: Train on when and how to escalate accessibility issues',
           ],
         },
+        complianceLevel: 'best-practice',
       },
     ],
   },
