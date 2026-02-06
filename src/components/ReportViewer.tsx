@@ -585,9 +585,17 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                     <div key={issueIndex} className="finding-issue">
                       <div className="issue-header">
                         <h4>{issue.questionText}</h4>
-                        <span className={`priority-badge priority-${issue.priority}`}>
-                          {issue.priority} priority
-                        </span>
+                        <div className="issue-badges">
+                          <span className={`priority-badge priority-${issue.priority}`}>
+                            {issue.priority} priority
+                          </span>
+                          {issue.complianceLevel && (
+                            <span className={`compliance-badge compliance-${issue.complianceLevel}`}>
+                              {issue.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best Practice'}
+                              {issue.complianceRef && ` (${issue.complianceRef})`}
+                            </span>
+                          )}
+                        </div>
                       </div>
                       <div className="issue-reasoning">
                         <strong>Reasoning:</strong> {issue.reasoning}

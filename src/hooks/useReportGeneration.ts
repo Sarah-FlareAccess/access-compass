@@ -155,6 +155,9 @@ export interface Report {
       priority: 'high' | 'medium' | 'low';
       recommendedActions: string[];
       resourceLinks: string[];
+      // Compliance information
+      complianceLevel?: 'mandatory' | 'best-practice';
+      complianceRef?: string;
     }>;
   }[];
 
@@ -2130,6 +2133,9 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
           priority,
           recommendedActions,
           resourceLinks,
+          // Include compliance information from question metadata
+          complianceLevel: question.complianceLevel,
+          complianceRef: question.complianceRef,
         };
       })
       .filter((issue): issue is NonNullable<typeof issue> => issue !== null);

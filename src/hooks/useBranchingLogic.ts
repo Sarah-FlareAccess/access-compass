@@ -12,6 +12,9 @@ export interface BranchCondition {
   questionId: string;
   // Can be standard ResponseOption values OR custom option IDs from single-select/multi-select questions
   answers: string[];
+  // Optional OR conditions - if ANY of these conditions are met, the question shows
+  // Use this when a question should appear based on multiple different questions (e.g., show if parking OR drop-off)
+  orConditions?: { questionId: string; answers: string[] }[];
 }
 
 // Help content for visual examples, videos, and educational materials
@@ -41,7 +44,7 @@ export interface BranchingQuestion {
   helpText?: string;
   example?: string;
   type: 'yes-no-unsure' | 'measurement' | 'text' | 'multi-select' | 'single-select' | 'link-input' | 'evidence' | 'url-analysis' | 'media-analysis';
-  category?: 'lived-experience' | 'operational' | 'information' | 'measurement' | 'policy' | 'evidence' | 'employment' | 'training' | 'procurement' | 'improvement';
+  category?: 'lived-experience' | 'operational' | 'information' | 'measurement' | 'policy' | 'evidence' | 'employment' | 'training' | 'procurement' | 'improvement' | 'feedback';
   reviewMode?: 'pulse-check' | 'deep-dive' | 'both';
   impactLevel?: 'high' | 'medium' | 'low';
   safetyRelated?: boolean;
@@ -82,6 +85,8 @@ export interface BranchingQuestion {
   complianceLevel?: 'mandatory' | 'best-practice';
   // Reference to specific standard clause (e.g., "AS 1428.1 Cl. 4.1" or "APS D3.5")
   complianceRef?: string;
+  // Whether this question is optional (can be skipped)
+  optional?: boolean;
 }
 
 interface UseBranchingLogicProps {
@@ -119,9 +124,22 @@ export function useBranchingLogic({
 
   // Check if a condition is met
   const isConditionMet = useCallback((condition: BranchCondition): boolean => {
+    // Check primary condition
     const response = responseMap[condition.questionId];
-    if (!response || !response.answer) return false;
-    return condition.answers.includes(response.answer as any);
+    const primaryMet = response && response.answer && condition.answers.includes(response.answer as string);
+
+    // If primary condition is met, return true
+    if (primaryMet) return true;
+
+    // Check OR conditions - if ANY are met, return true
+    if (condition.orConditions && condition.orConditions.length > 0) {
+      return condition.orConditions.some(orCond => {
+        const orResponse = responseMap[orCond.questionId];
+        return orResponse && orResponse.answer && orCond.answers.includes(orResponse.answer as string);
+      });
+    }
+
+    return false;
   }, [responseMap]);
 
   // Check if a question should be visible

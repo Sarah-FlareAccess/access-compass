@@ -1175,6 +1175,12 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, showEditHint }: 
             {item.priority} priority
           </span>
           <span className="category-badge">{item.category.replace(/-/g, ' ')}</span>
+          {item.complianceLevel && (
+            <span className={`compliance-badge compliance-${item.complianceLevel}`}>
+              {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best Practice'}
+              {item.complianceRef && ` (${item.complianceRef})`}
+            </span>
+          )}
         </div>
         <div className="item-actions">
           <button

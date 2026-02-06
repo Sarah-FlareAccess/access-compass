@@ -52,6 +52,10 @@ export interface DIAPItem {
   questionSource?: string;
   importSource?: 'audit' | 'manual' | 'csv' | 'pdf'; // Track where item came from
 
+  // Compliance information
+  complianceLevel?: 'mandatory' | 'best-practice';
+  complianceRef?: string;
+
   // Details
   impactStatement?: string;
   dependencies?: string[];
@@ -1087,6 +1091,9 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           questionSource: response.questionId,
           importSource: 'audit',
           impactStatement,
+          // Include compliance information from question metadata
+          complianceLevel: question.complianceLevel,
+          complianceRef: question.complianceRef,
           createdAt: now,
           updatedAt: now,
         };

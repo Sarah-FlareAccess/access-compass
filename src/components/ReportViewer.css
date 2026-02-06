@@ -523,6 +523,36 @@
   color: #1e3a8a;
 }
 
+/* Issue badges container */
+.issue-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Compliance badges */
+.compliance-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.compliance-badge.compliance-mandatory {
+  background: rgba(220, 38, 38, 0.12);
+  color: #991b1b;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.compliance-badge.compliance-best-practice {
+  background: rgba(34, 197, 94, 0.12);
+  color: #166534;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
 .issue-reasoning,
 .issue-actions,
 .issue-resources {
