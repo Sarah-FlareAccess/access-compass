@@ -163,13 +163,27 @@ export function QuestionFlow({
           doingWell.push(`${statement} (partially in place)`);
         }
 
-        // Also add a lower-priority action to complete implementation
+        // Priority based on question properties, stepped down one level from "no"; safety stays high
+        const partialPriority: 'high' | 'medium' | 'low' = question.safetyRelated
+          ? 'high'
+          : question.impactLevel === 'high'
+            ? 'medium'
+            : question.impactLevel === 'medium'
+              ? 'medium'
+              : 'low';
+
+        const partialTimeframe = partialPriority === 'high'
+          ? 'Within 1 month'
+          : partialPriority === 'medium'
+            ? 'Within 3 months'
+            : 'Within 6 months';
+
         priorityActions.push({
           questionId: question.id,
           questionText: question.text,
           action: `Complete improvements to: ${statement.toLowerCase()}`,
-          priority: 'low',
-          timeframe: 'Within 6 months',
+          priority: partialPriority,
+          timeframe: partialTimeframe,
           impactStatement: partialDescription
             ? `Current status: ${partialDescription}`
             : 'Partial measures are in place. Complete implementation for full accessibility.',

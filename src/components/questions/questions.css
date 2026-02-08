@@ -345,6 +345,13 @@
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
 }
 
+.partial-report-hint {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 6px 0 0 0;
+  font-style: italic;
+}
+
 .partial-actions {
   display: flex;
   gap: 12px;

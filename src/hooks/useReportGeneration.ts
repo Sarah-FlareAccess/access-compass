@@ -13,7 +13,7 @@ import { useDIAPManagement } from './useDIAPManagement';
 import type { DIAPItem } from './useDIAPManagement';
 import { getModuleById } from '../data/accessModules';
 import type { ReviewMode } from '../types/index';
-import { needsFollowUp, isNegativeResponse } from '../constants/responseOptions';
+import { needsFollowUp, isNegativeResponse, isPartialResponse } from '../constants/responseOptions';
 import { getReportResourceLinks } from '../utils/resourceLinks';
 import type { ReportConfig } from '../components/ReportConfigSelector';
 
@@ -2084,16 +2084,27 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
     if (!module) return null;
 
     const issues = moduleProgress.responses
-      .filter(response => isNegativeResponse(response.answer) || needsFollowUp(response.answer))
+      .filter(response => isNegativeResponse(response.answer) || needsFollowUp(response.answer) || isPartialResponse(response.answer))
       .map(response => {
         // Find the question
         const question = module.questions.find(q => q.id === response.questionId);
         if (!question) return null;
 
-        // Determine priority based on answer and question metadata
-        const priority: 'high' | 'medium' | 'low' =
-          isNegativeResponse(response.answer) ? 'high' :
-          needsFollowUp(response.answer) ? 'medium' : 'low';
+        // Determine priority based on answer type and question metadata
+        let priority: 'high' | 'medium' | 'low';
+        if (isNegativeResponse(response.answer)) {
+          priority = question.safetyRelated ? 'high' :
+            question.impactLevel === 'high' ? 'high' :
+            question.impactLevel === 'medium' ? 'medium' : 'low';
+        } else if (isPartialResponse(response.answer)) {
+          // Stepped down one level from "no"; safety stays high
+          priority = question.safetyRelated ? 'high' :
+            question.impactLevel === 'high' ? 'medium' :
+            question.impactLevel === 'medium' ? 'medium' : 'low';
+        } else {
+          // Unable to check
+          priority = 'medium';
+        }
 
         // Get specific recommendations based on question context
         const recommendations = getSpecificRecommendations(
@@ -2105,14 +2116,32 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
         );
 
         // Generate contextual reasoning
-        const reasoning = isNegativeResponse(response.answer)
-          ? recommendations.reasoning
-          : 'This item needs follow-up to confirm. Conduct an internal audit to clarify current status and document findings for your team.';
+        let reasoning: string;
+        if (isNegativeResponse(response.answer)) {
+          reasoning = recommendations.reasoning;
+        } else if (isPartialResponse(response.answer)) {
+          reasoning = response.notes?.trim()
+            ? `Partial measures are in place: ${response.notes.trim()}. Complete implementation is needed for full accessibility compliance.`
+            : 'Some measures are in place but implementation is incomplete. Review current provisions and complete the remaining requirements.';
+        } else {
+          reasoning = 'This item needs follow-up to confirm. Conduct an internal audit to clarify current status and document findings for your team.';
+        }
 
         // Build recommended actions
         const recommendedActions: string[] = [];
         if (isNegativeResponse(response.answer)) {
           recommendedActions.push(...recommendations.actions);
+        } else if (isPartialResponse(response.answer)) {
+          // Reuse question-specific recommendations, reframed as completion tasks
+          recommendedActions.push(
+            'Review current partial implementation and identify gaps',
+            ...recommendations.actions.slice(0, 4).map(action =>
+              action.startsWith('Implement') || action.startsWith('Provide') || action.startsWith('Install') || action.startsWith('Add')
+                ? `Complete: ${action.charAt(0).toLowerCase() + action.slice(1)}`
+                : action
+            ),
+            'Document what is currently in place and create a plan to address remaining gaps',
+          );
         } else {
           // For "unable to check" responses
           recommendedActions.push(

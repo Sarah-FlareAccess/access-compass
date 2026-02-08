@@ -54,7 +54,8 @@ interface ModuleGroupWithProgress {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { accessState, user } = useAuth();
+  const { accessState, user, hasAccessLevel } = useAuth();
+  const isDeepDive = hasAccessLevel('deep_dive');
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<TabType>('modules');
@@ -771,7 +772,7 @@ Thanks!`;
                                   {status === 'in-progress' && 'In progress'}
                                   {status === 'completed' && 'Completed'}
                                 </span>
-                                {ownership?.assignedTo && status !== 'completed' && (
+                                {isDeepDive && ownership?.assignedTo && status !== 'completed' && (
                                   <span className="allocated-badge" title={`Assigned to ${ownership.assignedTo}`}>
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
@@ -786,7 +787,7 @@ Thanks!`;
                             <h4 className="module-title">{module.name}</h4>
 
                             {/* Active run context indicator - show when there are multiple runs or a non-general context */}
-                            {activeRunContext && (runsCount > 1 || activeRunContext.type !== 'general') && (
+                            {isDeepDive && activeRunContext && (runsCount > 1 || activeRunContext.type !== 'general') && (
                               <div className="active-run-indicator">
                                 <span className="run-context-icon">
                                   {activeRunContext.type === 'team' && '👥'}
@@ -819,7 +820,7 @@ Thanks!`;
                             </div>
 
                             {/* Ownership info - only show if filled */}
-                            {(ownership?.assignedTo || ownership?.targetCompletionDate) && (
+                            {isDeepDive && (ownership?.assignedTo || ownership?.targetCompletionDate) && (
                               <div className="module-ownership">
                                 {ownership.assignedTo && (
                                   <span className="ownership-assigned">
@@ -885,56 +886,60 @@ Thanks!`;
                               >
                                 {action.text}
                               </Link>
-                              <button
-                                type="button"
-                                className={`btn-assign-module ${status === 'completed' ? 'btn-assign-disabled' : ''} ${ownership?.assignedTo ? 'is-assigned' : ''}`}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  if (status !== 'completed') {
-                                    handleOpenAssignment(module.id, module.name, ownership);
+                              {isDeepDive && (
+                                <button
+                                  type="button"
+                                  className={`btn-assign-module ${status === 'completed' ? 'btn-assign-disabled' : ''} ${ownership?.assignedTo ? 'is-assigned' : ''}`}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    if (status !== 'completed') {
+                                      handleOpenAssignment(module.id, module.name, ownership);
+                                    }
+                                  }}
+                                  disabled={status === 'completed'}
+                                  title={
+                                    status === 'completed'
+                                      ? 'Module already completed'
+                                      : ownership?.assignedTo
+                                      ? `Assigned to ${ownership.assignedTo} - click to edit`
+                                      : 'Assign module (optional)'
                                   }
-                                }}
-                                disabled={status === 'completed'}
-                                title={
-                                  status === 'completed'
-                                    ? 'Module already completed'
-                                    : ownership?.assignedTo
-                                    ? `Assigned to ${ownership.assignedTo} - click to edit`
-                                    : 'Assign module (optional)'
-                                }
-                              >
-                                {/* Person icon - color changes based on assignment state */}
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                                  <circle cx="9" cy="7" r="4"/>
-                                  {!ownership?.assignedTo && (
-                                    <>
-                                      <line x1="19" y1="8" x2="19" y2="14"/>
-                                      <line x1="22" y1="11" x2="16" y2="11"/>
-                                    </>
-                                  )}
-                                </svg>
-                              </button>
-                              <button
-                                type="button"
-                                className="btn-run-history"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setRunSelectorModal({
-                                    isOpen: true,
-                                    moduleId: module.id,
-                                    moduleName: module.name,
-                                    moduleCode: module.code,
-                                  });
-                                }}
-                                title={runsCount > 0 ? `${runsCount} assessment${runsCount !== 1 ? 's' : ''} - View history or start new` : 'New assessment'}
-                              >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <line x1="12" y1="5" x2="12" y2="19"/>
-                                  <line x1="5" y1="12" x2="19" y2="12"/>
-                                </svg>
-                                {runsCount > 1 && <span className="runs-badge">{runsCount}</span>}
-                              </button>
+                                >
+                                  {/* Person icon - color changes based on assignment state */}
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    {!ownership?.assignedTo && (
+                                      <>
+                                        <line x1="19" y1="8" x2="19" y2="14"/>
+                                        <line x1="22" y1="11" x2="16" y2="11"/>
+                                      </>
+                                    )}
+                                  </svg>
+                                </button>
+                              )}
+                              {isDeepDive && (
+                                <button
+                                  type="button"
+                                  className="btn-run-history"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    setRunSelectorModal({
+                                      isOpen: true,
+                                      moduleId: module.id,
+                                      moduleName: module.name,
+                                      moduleCode: module.code,
+                                    });
+                                  }}
+                                  title={runsCount > 0 ? `${runsCount} assessment${runsCount !== 1 ? 's' : ''} - View history or start new` : 'New assessment'}
+                                >
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                  </svg>
+                                  {runsCount > 1 && <span className="runs-badge">{runsCount}</span>}
+                                </button>
+                              )}
                             </div>
                           </div>
                         </div>

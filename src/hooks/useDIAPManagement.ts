@@ -171,12 +171,13 @@ interface UseDIAPManagementReturn {
 export interface ResponseForDIAP {
   questionId: string;
   questionText: string;
-  answer: 'no' | 'not-sure';
+  answer: 'no' | 'not-sure' | 'partially';
   moduleCode: string;
   moduleName: string;
   impactLevel?: 'high' | 'medium' | 'low';
   safetyRelated?: boolean;
   category?: DIAPCategory;
+  notes?: string;
 }
 
 export interface DIAPStats {
@@ -189,6 +190,13 @@ export interface DIAPStats {
 
 // Priority calculation based on response metadata
 function calculatePriority(response: ResponseForDIAP): DIAPPriority {
+  if (response.answer === 'partially') {
+    // Partial: use question priority stepped down one level; safety stays high
+    if (response.safetyRelated) return 'high';
+    if (response.impactLevel === 'high') return 'medium';
+    if (response.impactLevel === 'medium') return 'medium';
+    return 'low';
+  }
   if (response.safetyRelated) return 'high';
   if (response.impactLevel === 'high') return 'high';
   if (response.impactLevel === 'medium') return 'medium';
@@ -1054,8 +1062,16 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         let impactStatement: string | undefined;
 
         if (response.answer === 'partially') {
-          // Partial implementation - lower priority to complete
-          priority = 'low';
+          // Partial implementation - use question priority, stepped down one level; safety stays high
+          if (question.safetyRelated) {
+            priority = 'high';
+          } else if (question.impactLevel === 'high') {
+            priority = 'medium';
+          } else if (question.impactLevel === 'medium') {
+            priority = 'medium';
+          } else {
+            priority = 'low';
+          }
           impactStatement = response.notes?.trim()
             ? `Partial measures in place: ${response.notes.trim()}. Complete implementation for full accessibility.`
             : 'Partial measures are in place. Complete implementation for full accessibility.';

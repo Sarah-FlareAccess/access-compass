@@ -473,6 +473,7 @@ export function QuestionCard({
                 placeholder={question.partialPlaceholder || "Describe what's working and what still needs attention..."}
                 rows={3}
               />
+              <p className="partial-report-hint">Your description will be included in your report and action plan — the more specific you are, the more tailored your recommendations will be.</p>
             </div>
           )}
 
