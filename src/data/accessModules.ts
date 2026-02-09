@@ -162,7 +162,7 @@ export const accessModules: AccessModule[] = [
           { id: 'booking-platform', label: 'Booking platform', sentiment: 'positive' },
           { id: 'social-media', label: 'Social media', sentiment: 'positive' },
           { id: 'email-responses', label: 'Email responses', sentiment: 'neutral' },
-          { id: 'on-request', label: 'On request only', sentiment: 'neutral' },
+          { id: 'on-request', label: 'On request', sentiment: 'neutral' },
           { id: 'not-sure', label: 'Not sure yet', sentiment: 'neutral' },
         ],
         showWhen: { questionId: '1.1-F-1', answers: ['no', 'partially', 'unable-to-check'] },
@@ -992,7 +992,7 @@ export const accessModules: AccessModule[] = [
           understanding: [
             'Select "Yes, we offer this" if you actively promote and regularly provide familiarisation visits',
             'Select "Available on request" if you would accommodate familiarisation visits but don\'t actively promote them',
-            'Select "Virtual/online options only" if you provide video tours, photo galleries, or social stories but not in-person pre-visits',
+            'Select "Virtual/online options" if you provide video tours, photo galleries, or social stories but not in-person pre-visits',
             'Select "Not applicable to our service" if your business model doesn\'t suit pre-visits (e.g., online-only services)',
           ],
           tips: [
@@ -1008,7 +1008,7 @@ export const accessModules: AccessModule[] = [
         options: [
           { id: 'yes-offered', label: 'Yes, we offer this' },
           { id: 'on-request', label: 'Available on request' },
-          { id: 'virtual-only', label: 'Virtual/online options only' },
+          { id: 'virtual-only', label: 'Virtual/online options' },
           { id: 'considering', label: 'Considering offering this' },
           { id: 'not-applicable', label: 'Not applicable to our service' },
           { id: 'no', label: 'No' },

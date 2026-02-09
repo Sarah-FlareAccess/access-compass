@@ -7,6 +7,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { getSession, updateSession, getDiscoveryData, updateDiscoveryData, clearDiscoveryData } from '../utils/session';
+import { normalizeModuleCode } from '../utils/moduleCompat';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { MODULES } from '../lib/recommendationEngine';
 import type { JourneyPhase } from '../types';
@@ -73,7 +74,7 @@ export default function DiscoverySummary() {
   );
 
   const [selectedModules, setSelectedModules] = useState<string[]>(
-    storedDiscovery?.recommended_modules || []
+    (storedDiscovery?.recommended_modules || []).map(normalizeModuleCode)
   );
 
   // Redirect only if no data at all (no session, no discovery, no modules)

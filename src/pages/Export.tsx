@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { getSession, clearSession, getDiscoveryData } from '../utils/session';
+import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useReportGeneration } from '../hooks/useReportGeneration';
 import { useModuleProgress } from '../hooks/useModuleProgress';
@@ -47,10 +48,10 @@ export default function Export() {
   // Get selected modules
   const selectedModuleIds: string[] = useMemo(() => {
     if (discoveryData?.recommended_modules?.length > 0) {
-      return discoveryData.recommended_modules;
+      return discoveryData.recommended_modules.map(normalizeModuleCode);
     }
     if (session?.selected_modules?.length > 0) {
-      return session.selected_modules;
+      return session.selected_modules.map(normalizeModuleCode);
     }
     return [];
   }, [discoveryData, session]);

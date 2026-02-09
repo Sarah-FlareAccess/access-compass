@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { DiscoveryModule } from '../components/discovery';
 import { getSession, getDiscoveryData, updateDiscoveryData, updateSelectedModules, updateSession } from '../utils/session';
+import { normalizeModuleCode } from '../utils/moduleCompat';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { accessModules } from '../data/accessModules';
 import type { ReviewMode, RecommendationResult, ModuleType } from '../types';
@@ -56,7 +57,7 @@ function Discovery() {
 
   // Get module names for display
   const getRecommendedModuleNames = () => {
-    const moduleIds = existingDiscovery?.recommended_modules || [];
+    const moduleIds = (existingDiscovery?.recommended_modules || []).map(normalizeModuleCode);
     return moduleIds.map(id => {
       const module = accessModules.find(m => m.id === id);
       return module?.name || id;
@@ -295,7 +296,7 @@ function Discovery() {
   const existingDataForModule = shouldPrePopulate ? {
     selectedTouchpoints: existingDiscovery?.discovery_data?.selectedTouchpoints || [],
     selectedSubTouchpoints: existingDiscovery?.discovery_data?.selectedSubTouchpoints || [],
-    recommendedModules: existingDiscovery?.recommended_modules || [],
+    recommendedModules: (existingDiscovery?.recommended_modules || []).map(normalizeModuleCode),
     businessContext: {
       hasPhysicalVenue: session?.business_snapshot?.has_physical_venue,
       hasOnlinePresence: session?.business_snapshot?.has_online_presence,

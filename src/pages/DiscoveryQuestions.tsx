@@ -8,6 +8,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
+import { normalizeModuleCode } from '../utils/moduleCompat';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { QuestionFlow } from '../components/questions';
 import ReminderBanner from '../components/ReminderBanner';
@@ -43,7 +44,7 @@ export default function DiscoveryQuestions() {
   // Get selected modules from session
   const selectedModuleIds: string[] = useMemo(() => {
     if (!session?.selected_modules) return [];
-    return session.selected_modules;
+    return session.selected_modules.map(normalizeModuleCode);
   }, [session]);
 
   // Initialize module progress hook
@@ -98,7 +99,8 @@ export default function DiscoveryQuestions() {
     setDiscoveryData(currentDiscovery);
 
     // Initialize module states
-    const states: ModuleState[] = currentSession.selected_modules.map((moduleId: string) => {
+    const states: ModuleState[] = currentSession.selected_modules.map((rawId: string) => {
+      const moduleId = normalizeModuleCode(rawId);
       const module = getModuleById(moduleId);
       return {
         moduleId,

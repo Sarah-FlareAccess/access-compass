@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSession, updateSelectedModules } from '../utils/session';
+import { normalizeModuleCode } from '../utils/moduleCompat';
 import { accessModules, moduleGroups } from '../data/accessModules';
 import type { ModuleType } from '../types';
 import '../styles/module-selection.css';
@@ -22,7 +23,7 @@ export default function ModuleSelection() {
 
     // Pre-select modules if already saved
     if (session.selected_modules && session.selected_modules.length > 0) {
-      setSelectedModules(session.selected_modules);
+      setSelectedModules(session.selected_modules.map(normalizeModuleCode));
     }
   }, [navigate]);
 

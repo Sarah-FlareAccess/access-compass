@@ -14,6 +14,7 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
+import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { useAuth } from '../contexts/AuthContext';
@@ -88,26 +89,13 @@ export default function Dashboard() {
 
   // Get recommended modules from discovery, falling back to selected modules
   const recommendedModuleIds: string[] = useMemo(() => {
-    // Backward compatibility: map old letter-based codes to new numbered codes
-    const normalizeCode = (code: string): string => {
-      const codeMap: Record<string, string> = {
-        'B1': '1.1', 'B4.1': '1.2', 'B4.2': '1.3', 'B4.3': '1.4', 'B5': '1.5', 'B6': '1.6',
-        'A1': '2.1', 'A2': '2.2', 'A3': '2.3', 'A3a': '2.3', 'A3b': '2.4',
-        'A4': '3.1', 'A5': '3.2', 'A6': '3.3', 'A6a': '3.4', 'B2': '3.5', 'B3': '3.6', 'D1': '3.7',
-        'S1': '4.1', 'C1': '4.2', 'C2': '4.3', 'A7': '4.4', 'C3': '4.5', 'C4': '4.6', 'S5': '4.7',
-        'P1': '5.1', 'P2': '5.2', 'P3': '5.3', 'P4': '5.4', 'P5': '5.5',
-        'E1': '6.1', 'E2': '6.2', 'E3': '6.3', 'E4': '6.4', 'E5': '6.5',
-      };
-      return codeMap[code] || code;
-    };
-
     // First try recommended modules from discovery
     if (discoveryData?.recommended_modules?.length > 0) {
-      return discoveryData.recommended_modules.map(normalizeCode);
+      return discoveryData.recommended_modules.map(normalizeModuleCode);
     }
     // Fall back to selected modules from session
     if (session?.selected_modules?.length > 0) {
-      return session.selected_modules.map(normalizeCode);
+      return session.selected_modules.map(normalizeModuleCode);
     }
     // If nothing selected, show all modules
     return accessModules.map(m => m.id);
