@@ -17,8 +17,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   // ============================================
   // BEFORE THEY ARRIVE
   // ============================================
-  'B1': {
-    id: 'B1',
+  '1.1': {
+    id: '1.1',
     overview: 'This module helps you communicate accessibility information before customers visit. When people can find out what to expect, they can plan with confidence and feel welcome before they even arrive.',
     topics: [
       'Creating an accessibility page or guide',
@@ -36,8 +36,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Parents with prams and elderly visitors',
     ],
   },
-  'B4.1': {
-    id: 'B4.1',
+  '1.2': {
+    id: '1.2',
     overview: 'This module covers the fundamentals of making your website accessible to everyone, including people who use screen readers, keyboard navigation, or have visual impairments.',
     topics: [
       'Text alternatives for images (alt text)',
@@ -56,8 +56,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Older adults experiencing age-related vision or dexterity changes',
     ],
   },
-  'B4.2': {
-    id: 'B4.2',
+  '1.3': {
+    id: '1.3',
     overview: 'This module helps you make online booking, ticketing, and forms accessible so everyone can complete transactions independently.',
     topics: [
       'Accessible form design',
@@ -76,8 +76,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Anyone requesting accessibility accommodations',
     ],
   },
-  'B4.3': {
-    id: 'B4.3',
+  '1.4': {
+    id: '1.4',
     overview: 'This module covers making your video content, social media, and audio materials accessible to everyone.',
     topics: [
       'Adding captions to videos',
@@ -96,8 +96,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'People with cognitive disabilities who benefit from multiple formats',
     ],
   },
-  'B5': {
-    id: 'B5',
+  '1.5': {
+    id: '1.5',
     overview: 'This module helps you communicate about accessibility before people visit—ensuring your language is clear, welcoming, and helps customers plan with confidence.',
     topics: [
       'Plain language principles and readability',
@@ -119,8 +119,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Older adults who prefer straightforward information',
     ],
   },
-  'B6': {
-    id: 'B6',
+  '1.6': {
+    id: '1.6',
     overview: 'This module helps you create inclusive marketing that represents and speaks to the full diversity of your potential customers.',
     topics: [
       'Inclusive imagery and representation',
@@ -142,8 +142,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   // ============================================
   // GETTING IN AND MOVING AROUND
   // ============================================
-  'A1': {
-    id: 'A1',
+  '2.1': {
+    id: '2.1',
     overview: 'This module covers how customers arrive at your premises, including parking, drop-off zones, and the path from transport to your entrance.',
     topics: [
       'Accessible parking spaces and signage',
@@ -162,8 +162,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Delivery drivers and service providers',
     ],
   },
-  'A2': {
-    id: 'A2',
+  '2.2': {
+    id: '2.2',
     overview: 'This module covers your entrance, including doors, steps, ramps, and how people know where to come in.',
     topics: [
       'Step-free access and ramps',
@@ -182,8 +182,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Anyone with temporary mobility restrictions',
     ],
   },
-  'A3a': {
-    id: 'A3a',
+  '2.3': {
+    id: '2.3',
     overview: 'This module covers internal navigation, including aisle widths, floor surfaces, obstacles, and how people move through your space.',
     topics: [
       'Clear path widths and turning spaces',
@@ -202,8 +202,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Anyone carrying luggage or equipment',
     ],
   },
-  'A3b': {
-    id: 'A3b',
+  '2.4': {
+    id: '2.4',
     overview: 'This module covers managing queues, waiting areas, and busy periods to ensure everyone can wait comfortably and fairly.',
     topics: [
       'Queue management systems',
@@ -222,8 +222,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Parents managing children',
     ],
   },
-  'A4': {
-    id: 'A4',
+  '3.1': {
+    id: '3.1',
     overview: 'This module covers seating arrangements, table heights, and furniture that works for customers with different needs.',
     topics: [
       'Variety of seating options',
@@ -242,8 +242,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Anyone needing space for mobility aids or equipment',
     ],
   },
-  'A5': {
-    id: 'A5',
+  '3.2': {
+    id: '3.2',
     overview: 'This module covers accessible toilets, baby change facilities, and amenities that meet diverse customer needs.',
     topics: [
       'Accessible toilet facilities',
@@ -262,8 +262,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Older adults needing grab rails',
     ],
   },
-  'A6': {
-    id: 'A6',
+  '3.3': {
+    id: '3.3',
     overview: 'This module covers the sensory environment of your space, including lighting, sound levels, and creating comfortable conditions for everyone.',
     topics: [
       'Lighting levels and control',
@@ -282,8 +282,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Older adults with sensory changes',
     ],
   },
-  'A6a': {
-    id: 'A6a',
+  '3.4': {
+    id: '3.4',
     overview: 'This module covers equipment and resources you provide for customers, ensuring they are accessible to people with different abilities.',
     topics: [
       'Accessible self-service equipment',
@@ -302,8 +302,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Anyone unfamiliar with technology',
     ],
   },
-  'A7': {
-    id: 'A7',
+  '4.4': {
+    id: '4.4',
     overview: 'This module covers emergency procedures and safety planning for customers with disability.',
     topics: [
       'Accessible emergency alarms (visual and audio)',
@@ -322,8 +322,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Anyone who may need assistance to evacuate',
     ],
   },
-  'B2': {
-    id: 'B2',
+  '3.5': {
+    id: '3.5',
     overview: 'This module covers signage and wayfinding systems that help everyone navigate your space independently.',
     topics: [
       'Clear and readable signage',
@@ -342,8 +342,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'People in a hurry or under stress',
     ],
   },
-  'B3': {
-    id: 'B3',
+  '3.6': {
+    id: '3.6',
     overview: 'This module covers printed materials like menus, brochures, and price lists, ensuring they are readable and available in accessible formats.',
     topics: [
       'Font size and readability',
@@ -362,8 +362,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'People who prefer digital access',
     ],
   },
-  'D1': {
-    id: 'D1',
+  '3.7': {
+    id: '3.7',
     overview: 'This module covers how customers access information during their visit through signage, printed materials, real-time communication, and on-site support.',
     topics: [
       'On-site alternative formats (large print, Easy Read, audio)',
@@ -390,8 +390,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   // ============================================
   // SERVICE AND SUPPORT
   // ============================================
-  'S1': {
-    id: 'S1',
+  '4.1': {
+    id: '4.1',
     overview: 'This module covers how customers can contact you, the communication channels you offer, and how you accommodate different communication needs and preferences.',
     topics: [
       'Phone call alternatives (email, SMS, chat)',
@@ -415,8 +415,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Non-native English speakers who prefer written English',
     ],
   },
-  'C1': {
-    id: 'C1',
+  '4.2': {
+    id: '4.2',
     overview: 'This module builds staff confidence in serving customers with disability, covering communication, assistance, and creating welcoming interactions.',
     topics: [
       'Disability awareness fundamentals',
@@ -434,8 +434,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'People who have had negative experiences elsewhere',
     ],
   },
-  'C2': {
-    id: 'C2',
+  '4.3': {
+    id: '4.3',
     overview: 'This module covers accessible booking, payment, and service delivery options that give customers flexibility and independence.',
     topics: [
       'Flexible booking and cancellation policies',
@@ -453,8 +453,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Anyone with specific accessibility requirements',
     ],
   },
-  'C3': {
-    id: 'C3',
+  '4.5': {
+    id: '4.5',
     overview: 'This module covers gathering feedback accessibly and responding to reviews and complaints in ways that demonstrate your commitment to improvement.',
     topics: [
       'Accessible feedback forms and surveys',
@@ -472,8 +472,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Your business learning what to improve',
     ],
   },
-  'C4': {
-    id: 'C4',
+  '4.6': {
+    id: '4.6',
     overview: 'This module covers ongoing customer engagement, including newsletters, loyalty programs, and marketing communications that remain accessible.',
     topics: [
       'Accessible email newsletters',
@@ -491,8 +491,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Anyone managing communication overload',
     ],
   },
-  'S5': {
-    id: 'S5',
+  '4.7': {
+    id: '4.7',
     overview: 'This module covers how you maintain accessible communication with customers over time through correspondence, documents, and ongoing engagement.',
     topics: [
       'Accessible written correspondence (letters, emails, invoices)',
@@ -517,8 +517,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   // ============================================
   // POLICY AND OPERATIONS
   // ============================================
-  'P1': {
-    id: 'P1',
+  '5.1': {
+    id: '5.1',
     overview: 'This module helps you create formal accessibility policies, commitments, and inclusion statements that guide your organisation.',
     topics: [
       'Writing an accessibility statement',
@@ -536,8 +536,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'The organisation building consistent practice',
     ],
   },
-  'P2': {
-    id: 'P2',
+  '5.2': {
+    id: '5.2',
     overview: 'This module covers inclusive employment practices, from recruitment to retention, for people with disability.',
     topics: [
       'Accessible recruitment processes',
@@ -555,8 +555,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'The organisation meeting diversity goals',
     ],
   },
-  'P3': {
-    id: 'P3',
+  '5.3': {
+    id: '5.3',
     overview: 'This module covers staff training and building disability confidence across your organisation.',
     topics: [
       'Disability awareness training options',
@@ -574,8 +574,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'The organisation developing expertise',
     ],
   },
-  'P4': {
-    id: 'P4',
+  '5.4': {
+    id: '5.4',
     overview: 'This module covers embedding accessibility requirements into procurement, supplier relationships, and partnerships.',
     topics: [
       'Accessibility requirements in tenders',
@@ -593,8 +593,8 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Disability enterprises gaining business opportunities',
     ],
   },
-  'P5': {
-    id: 'P5',
+  '5.5': {
+    id: '5.5',
     overview: 'This module covers measuring, tracking, and reporting on accessibility progress over time.',
     topics: [
       'Setting accessibility goals and targets',

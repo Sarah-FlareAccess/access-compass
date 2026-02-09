@@ -79,93 +79,93 @@ export interface ModuleDefinition {
 
 export const MODULES: ModuleDefinition[] = [
   // Before they arrive (6 modules)
-  { id: 'B1', name: 'Pre-visit information', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 85,
+  { id: '1.1', name: 'Pre-visit information', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 85,
     description: 'Helps customers plan their visit with confidence. Relevant if people research you online before arriving.' },
-  { id: 'B4.1', name: 'Website basics', journeyTheme: 'before-arrival', estimatedTime: 15, cost: 120,
+  { id: '1.2', name: 'Website basics', journeyTheme: 'before-arrival', estimatedTime: 15, cost: 120,
     description: 'Ensures your website works for everyone. Relevant if customers find you through your website.' },
-  { id: 'B4.2', name: 'Booking & ticketing systems', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 75,
+  { id: '1.3', name: 'Booking & ticketing systems', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 75,
     description: 'Makes online booking accessible. Relevant if you take bookings or have online forms.' },
-  { id: 'B4.3', name: 'Social media, video & audio', journeyTheme: 'before-arrival', estimatedTime: 10, cost: 65,
+  { id: '1.4', name: 'Social media, video & audio', journeyTheme: 'before-arrival', estimatedTime: 10, cost: 65,
     description: 'Ensures your content reaches everyone. Relevant if you use video or social media marketing.' },
-  { id: 'B5', name: 'Communication and language', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 80,
+  { id: '1.5', name: 'Communication and language', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 80,
     description: 'Ensures clear, accessible communication. Relevant if you communicate with customers in writing or speech.' },
-  { id: 'B6', name: 'Marketing and representation', journeyTheme: 'before-arrival', estimatedTime: 10, cost: 70,
+  { id: '1.6', name: 'Marketing and representation', journeyTheme: 'before-arrival', estimatedTime: 10, cost: 70,
     description: 'Ensures inclusive marketing and representation. Relevant if you create marketing materials or campaigns.' },
   // Getting in and moving around (4 modules)
-  { id: 'A1', name: 'Arrival, parking and drop-off', journeyTheme: 'during-visit', estimatedTime: 15, cost: 110,
+  { id: '2.1', name: 'Arrival, parking and drop-off', journeyTheme: 'during-visit', estimatedTime: 15, cost: 110,
     description: 'Helps customers get to your door. Relevant if you have a physical location customers visit.' },
-  { id: 'A2', name: 'Entry and doors', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
+  { id: '2.2', name: 'Entry and doors', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Ensures everyone can get inside. Relevant if your entrance has steps, heavy doors, or narrow access.' },
-  { id: 'A3a', name: 'Paths and aisles', journeyTheme: 'during-visit', estimatedTime: 12, cost: 85,
+  { id: '2.3', name: 'Paths and aisles', journeyTheme: 'during-visit', estimatedTime: 12, cost: 85,
     description: 'Makes moving around easy. Relevant if customers navigate through your space.' },
-  { id: 'A3b', name: 'Queues and busy times', journeyTheme: 'during-visit', estimatedTime: 10, cost: 65,
+  { id: '2.4', name: 'Queues and busy times', journeyTheme: 'during-visit', estimatedTime: 10, cost: 65,
     description: 'Manages crowds comfortably. Relevant if customers wait in line or you have peak periods.' },
   // During the visit (5 modules)
-  { id: 'A4', name: 'Seating, furniture and layout', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
+  { id: '3.1', name: 'Seating, furniture and layout', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Provides comfortable options for all. Relevant if customers sit, dine, or spend time in your space.' },
-  { id: 'A5', name: 'Toilets and amenities', journeyTheme: 'during-visit', estimatedTime: 15, cost: 120,
+  { id: '3.2', name: 'Toilets and amenities', journeyTheme: 'during-visit', estimatedTime: 15, cost: 120,
     description: 'Ensures facilities work for everyone. Relevant if you have customer toilets or changing facilities.' },
-  { id: 'A6', name: 'Lighting, sound and sensory environment', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
+  { id: '3.3', name: 'Lighting, sound and sensory environment', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Creates a comfortable atmosphere. Relevant if your space has music, lighting, or could be overwhelming.' },
-  { id: 'A6a', name: 'Equipment and resources', journeyTheme: 'during-visit', estimatedTime: 12, cost: 90,
+  { id: '3.4', name: 'Equipment and resources', journeyTheme: 'during-visit', estimatedTime: 12, cost: 90,
     description: 'Ensures equipment and resources are accessible. Relevant if customers use equipment, technology, or resources at your venue.' },
-  { id: 'B2', name: 'Signage and wayfinding', journeyTheme: 'during-visit', estimatedTime: 12, cost: 85,
+  { id: '3.5', name: 'Signage and wayfinding', journeyTheme: 'during-visit', estimatedTime: 12, cost: 85,
     description: 'Helps people find their way. Relevant if customers need to navigate or find specific areas.' },
-  { id: 'B3', name: 'Menus and printed materials', journeyTheme: 'during-visit', estimatedTime: 10, cost: 65,
+  { id: '3.6', name: 'Menus and printed materials', journeyTheme: 'during-visit', estimatedTime: 10, cost: 65,
     description: 'Makes information readable for all. Relevant if you have menus, brochures, or price lists.' },
   // Service and support (4 modules)
-  { id: 'C1', name: 'Customer service and staff confidence', journeyTheme: 'during-visit', estimatedTime: 15, cost: 130,
+  { id: '4.2', name: 'Customer service and staff confidence', journeyTheme: 'during-visit', estimatedTime: 15, cost: 130,
     description: 'Prepares your team to help everyone. Relevant for any business with customer-facing staff.' },
-  { id: 'C2', name: 'Bookings and ticketing', journeyTheme: 'during-visit', estimatedTime: 10, cost: 75,
+  { id: '4.3', name: 'Bookings and ticketing', journeyTheme: 'during-visit', estimatedTime: 10, cost: 75,
     description: 'Makes transactions smooth for all. Relevant if customers book, pay, or need flexible options.' },
-  { id: 'A7', name: 'Safety and emergencies', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
+  { id: '4.4', name: 'Safety and emergencies', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Keeps everyone safe. Relevant if you need evacuation plans or safety procedures.' },
-  { id: 'C3', name: 'Feedback and reviews', journeyTheme: 'after-visit', estimatedTime: 10, cost: 65,
+  { id: '4.5', name: 'Feedback and reviews', journeyTheme: 'after-visit', estimatedTime: 10, cost: 65,
     description: 'Gathering accessible feedback and managing reviews. Relevant if you collect surveys, ratings, or online reviews.' },
-  { id: 'C4', name: 'Staying connected', journeyTheme: 'after-visit', estimatedTime: 10, cost: 70,
+  { id: '4.6', name: 'Staying connected', journeyTheme: 'after-visit', estimatedTime: 10, cost: 70,
     description: 'Accessible ongoing engagement with customers. Relevant if you send newsletters, promotions, or have loyalty programs.' },
   // Policy and operations (5 modules)
-  { id: 'P1', name: 'Policy and inclusion', journeyTheme: 'policy-operations', estimatedTime: 15, cost: 140,
+  { id: '5.1', name: 'Policy and inclusion', journeyTheme: 'policy-operations', estimatedTime: 15, cost: 140,
     description: 'Formalises your accessibility commitment. Relevant if you want documented policies and inclusion statements.' },
-  { id: 'P2', name: 'Employing people with disability', journeyTheme: 'policy-operations', estimatedTime: 20, cost: 160,
+  { id: '5.2', name: 'Employing people with disability', journeyTheme: 'policy-operations', estimatedTime: 20, cost: 160,
     description: 'Creates an inclusive workplace. Relevant if you want to attract, hire, and support employees with disability.' },
-  { id: 'P3', name: 'Staff training and awareness', journeyTheme: 'policy-operations', estimatedTime: 15, cost: 130,
+  { id: '5.3', name: 'Staff training and awareness', journeyTheme: 'policy-operations', estimatedTime: 15, cost: 130,
     description: 'Builds disability confidence across your team. Relevant if you want consistent, respectful service from all staff.' },
-  { id: 'P4', name: 'Accessible procurement', journeyTheme: 'policy-operations', estimatedTime: 12, cost: 110,
+  { id: '5.4', name: 'Accessible procurement', journeyTheme: 'policy-operations', estimatedTime: 12, cost: 110,
     description: 'Ensures suppliers and partners meet accessibility standards. Relevant if you purchase products, services, or work with contractors.' },
-  { id: 'P5', name: 'Continuous improvement and reporting', journeyTheme: 'policy-operations', estimatedTime: 12, cost: 100,
+  { id: '5.5', name: 'Continuous improvement and reporting', journeyTheme: 'policy-operations', estimatedTime: 12, cost: 100,
     description: 'Tracks progress and drives ongoing improvement. Relevant if you want to measure, report, and improve accessibility over time.' },
 ];
 
 // Module IDs now match codes directly (no mapping needed)
 // This is kept for backward compatibility
 export const MODULE_ID_TO_CODE: Record<string, string> = {
-  'B1': 'B1',
-  'B4.1': 'B4.1',
-  'B4.2': 'B4.2',
-  'B4.3': 'B4.3',
-  'B5': 'B5',
-  'B6': 'B6',
-  'A1': 'A1',
-  'A2': 'A2',
-  'A3a': 'A3a',
-  'A3b': 'A3b',
-  'A4': 'A4',
-  'A5': 'A5',
-  'A6': 'A6',
-  'A6a': 'A6a',
-  'B2': 'B2',
-  'B3': 'B3',
-  'C1': 'C1',
-  'C2': 'C2',
-  'A7': 'A7',
-  'C3': 'C3',
-  'C4': 'C4',
-  'P1': 'P1',
-  'P2': 'P2',
-  'P3': 'P3',
-  'P4': 'P4',
-  'P5': 'P5',
+  '1.1': '1.1',
+  '1.2': '1.2',
+  '1.3': '1.3',
+  '1.4': '1.4',
+  '1.5': '1.5',
+  '1.6': '1.6',
+  '2.1': '2.1',
+  '2.2': '2.2',
+  '2.3': '2.3',
+  '2.4': '2.4',
+  '3.1': '3.1',
+  '3.2': '3.2',
+  '3.3': '3.3',
+  '3.4': '3.4',
+  '3.5': '3.5',
+  '3.6': '3.6',
+  '4.2': '4.2',
+  '4.3': '4.3',
+  '4.4': '4.4',
+  '4.5': '4.5',
+  '4.6': '4.6',
+  '5.1': '5.1',
+  '5.2': '5.2',
+  '5.3': '5.3',
+  '5.4': '5.4',
+  '5.5': '5.5',
 };
 
 export const CODE_TO_MODULE_ID: Record<string, string> = { ...MODULE_ID_TO_CODE };
@@ -178,40 +178,40 @@ export const CODE_TO_MODULE_ID: Record<string, string> = { ...MODULE_ID_TO_CODE 
 // Each touchpoint can trigger multiple relevant modules
 export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   // Before arrival touchpoints
-  'finding-online': ['B4.1', 'B1', 'B4.3', 'B6'],     // Website, pre-visit info, video/social, marketing
-  'booking': ['B4.2', 'B4.1', 'C2'],                  // Booking systems, website, payments
-  'planning-visit': ['B1', 'B4.1'],                   // Pre-visit info, website
-  'costs-policies': ['C2', 'B1'],                     // Payments/flexibility, pre-visit info
-  'enquiries': ['C1', 'B1', 'B5'],                    // Customer service, pre-visit info, communication
+  'finding-online': ['1.2', '1.1', '1.4', '1.6'],     // Website, pre-visit info, video/social, marketing
+  'booking': ['1.3', '1.2', '4.3'],                  // Booking systems, website, payments
+  'planning-visit': ['1.1', '1.2'],                   // Pre-visit info, website
+  'costs-policies': ['4.3', '1.1'],                     // Payments/flexibility, pre-visit info
+  'enquiries': ['4.2', '1.1', '1.5'],                    // Customer service, pre-visit info, communication
 
   // During visit touchpoints
-  'getting-in': ['A1', 'A2', 'A3a', 'A3b'],           // Arrival, entry, paths, queues
-  'using-space': ['A4', 'A5', 'A3b', 'A6a'],          // Seating, toilets, queues, equipment
-  'wayfinding': ['B2', 'A3a', 'B3'],                  // Signage, paths, printed materials
-  'sensory': ['A6', 'A4', 'A6a'],                     // Sensory environment, seating, equipment
-  'staff-interaction': ['C1', 'C2', 'A7', 'B5'],      // Customer service, payments, safety, communication
-  'service-flexibility': ['C1', 'C2'],                // Customer service, payments/flexibility
+  'getting-in': ['2.1', '2.2', '2.3', '2.4'],           // Arrival, entry, paths, queues
+  'using-space': ['3.1', '3.2', '2.4', '3.4'],          // Seating, toilets, queues, equipment
+  'wayfinding': ['3.5', '2.3', '3.6'],                  // Signage, paths, printed materials
+  'sensory': ['3.3', '3.1', '3.4'],                     // Sensory environment, seating, equipment
+  'staff-interaction': ['4.2', '4.3', '4.4', '1.5'],      // Customer service, payments, safety, communication
+  'service-flexibility': ['4.2', '4.3'],                // Customer service, payments/flexibility
 
   // After visit touchpoints
-  'feedback': ['C3'],                                 // Feedback and reviews
-  'surveys-forms': ['C3'],                            // Feedback and reviews
-  'online-reviews': ['C3'],                           // Feedback and reviews
-  'staying-connected-touchpoint': ['C4', 'B4.3'],     // Staying connected, video/social
-  'newsletters-email': ['C4', 'B4.3'],                // Staying connected
-  'offers-promotions': ['C4', 'C2'],                  // Staying connected, payments
-  'loyalty-programs': ['C4', 'C2'],                   // Staying connected, payments
-  'referrals': ['C4'],                                // Staying connected
-  'return-visits': ['C4', 'C3'],                      // Staying connected, feedback
+  'feedback': ['4.5'],                                 // Feedback and reviews
+  'surveys-forms': ['4.5'],                            // Feedback and reviews
+  'online-reviews': ['4.5'],                           // Feedback and reviews
+  'staying-connected-touchpoint': ['4.6', '1.4'],     // Staying connected, video/social
+  'newsletters-email': ['4.6', '1.4'],                // Staying connected
+  'offers-promotions': ['4.6', '4.3'],                  // Staying connected, payments
+  'loyalty-programs': ['4.6', '4.3'],                   // Staying connected, payments
+  'referrals': ['4.6'],                                // Staying connected
+  'return-visits': ['4.6', '4.5'],                      // Staying connected, feedback
 
   // Policy and operations touchpoints
-  'accessibility-policy': ['P1'],                     // Accessibility policy and commitment
-  'staff-training': ['P3', 'C1'],                     // Staff training + customer service
-  'procurement-partnerships': ['P4'],                 // Accessible procurement
-  'continuous-improvement': ['P5', 'C3'],             // Continuous improvement + learning
-  'inclusive-employment': ['P2'],                     // Employing people with disability
-  'workplace-adjustments': ['P2', 'P1'],              // Employment + policy
-  'supplier-accessibility': ['P4'],                   // Accessible procurement
-  'accessibility-reporting': ['P5', 'P1'],            // Reporting + policy
+  'accessibility-policy': ['5.1'],                     // Accessibility policy and commitment
+  'staff-training': ['5.3', '4.2'],                     // Staff training + customer service
+  'procurement-partnerships': ['5.4'],                 // Accessible procurement
+  'continuous-improvement': ['5.5', '4.5'],             // Continuous improvement + learning
+  'inclusive-employment': ['5.2'],                     // Employing people with disability
+  'workplace-adjustments': ['5.2', '5.1'],              // Employment + policy
+  'supplier-accessibility': ['5.4'],                   // Accessible procurement
+  'accessibility-reporting': ['5.5', '5.1'],            // Reporting + policy
 };
 
 // ============================================================================
@@ -264,32 +264,32 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
 // ============================================================================
 
 export const INDUSTRY_DEFAULT_MODULES: Record<string, string[]> = {
-  'tourism': ['A1', 'C1', 'B1', 'A3a'],
-  'hospitality': ['C1', 'A4', 'A6', 'A1'],
-  'accommodation': ['B4.2', 'A5', 'A1', 'C1'],
-  'events': ['A1', 'A3a', 'C1', 'A6'],
-  'retail': ['A1', 'A3a', 'C1', 'B4.2'],
-  'corporate': ['B4.1', 'B1', 'C1', 'A3a'],
-  'local-government': ['B4.1', 'B1', 'C2', 'C1'],
-  'health': ['C1', 'A1', 'A5', 'C2'],
-  'education': ['B1', 'C1', 'A3a', 'B4.1'],
-  'cafe-restaurant': ['C1', 'A4', 'A6', 'A1', 'B3'],
-  'tour-operator': ['C1', 'A1', 'A3a', 'B1'],
-  'attraction-museum-gallery': ['A1', 'A3a', 'C1', 'A6', 'B2'],
-  'visitor-centre': ['B1', 'C1', 'A1', 'A3a'],
-  'other': ['C1', 'B1', 'A1'],
+  'tourism': ['2.1', '4.2', '1.1', '2.3'],
+  'hospitality': ['4.2', '3.1', '3.3', '2.1'],
+  'accommodation': ['1.3', '3.2', '2.1', '4.2'],
+  'events': ['2.1', '2.3', '4.2', '3.3'],
+  'retail': ['2.1', '2.3', '4.2', '1.3'],
+  'corporate': ['1.2', '1.1', '4.2', '2.3'],
+  'local-government': ['1.2', '1.1', '4.3', '4.2'],
+  'health': ['4.2', '2.1', '3.2', '4.3'],
+  'education': ['1.1', '4.2', '2.3', '1.2'],
+  'cafe-restaurant': ['4.2', '3.1', '3.3', '2.1', '3.6'],
+  'tour-operator': ['4.2', '2.1', '2.3', '1.1'],
+  'attraction-museum-gallery': ['2.1', '2.3', '4.2', '3.3', '3.5'],
+  'visitor-centre': ['1.1', '4.2', '2.1', '2.3'],
+  'other': ['4.2', '1.1', '2.1'],
 };
 
 // Service type priority for tie-breaking
 export const SERVICE_TYPE_PRIORITY: Record<string, string[]> = {
-  'restaurant': ['A6', 'A4', 'C1', 'A1', 'B3'],
-  'cafe': ['A6', 'A4', 'C1', 'A1', 'B3'],
-  'bar': ['A6', 'A4', 'C1', 'A1'],
-  'hotel': ['A5', 'A1', 'C1', 'B4.2'],
-  'tour': ['C1', 'A1', 'A3a', 'B1'],
-  'corporate': ['B4.1', 'B1', 'C1', 'A3a'],
-  'retail': ['A1', 'A3a', 'C1', 'B4.2'],
-  'event': ['A1', 'A6', 'A3a', 'C1'],
+  'restaurant': ['3.3', '3.1', '4.2', '2.1', '3.6'],
+  'cafe': ['3.3', '3.1', '4.2', '2.1', '3.6'],
+  'bar': ['3.3', '3.1', '4.2', '2.1'],
+  'hotel': ['3.2', '2.1', '4.2', '1.3'],
+  'tour': ['4.2', '2.1', '2.3', '1.1'],
+  'corporate': ['1.2', '1.1', '4.2', '2.3'],
+  'retail': ['2.1', '2.3', '4.2', '1.3'],
+  'event': ['2.1', '3.3', '2.3', '4.2'],
   'other': [],
 };
 

@@ -1,16 +1,16 @@
 /**
  * Help Content: Service & Support
- * Modules: C1, C2, A7, C3, P1
+ * Modules: 4.2, 4.3, 4.4, 4.5, 5.1
  */
 
 import type { HelpContent } from './types';
 
 export const serviceSupportHelp: HelpContent[] = [
-  // C1: Staff and Customer Service
+  // 4.2: Staff and Customer Service
   {
-    questionId: 'C1-F-1b',
+    questionId: '4.2-F-1b',
     questionText: 'Do you provide disability inclusion training to staff for an inclusive culture?',
-    moduleCode: 'C1',
+    moduleCode: '4.2',
     moduleGroup: 'service-support',
     diapCategory: 'people-culture',
     title: 'Disability Inclusion Training',
@@ -125,16 +125,16 @@ export const serviceSupportHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'C1-D-10',
+        questionId: '4.2-D-10',
         questionText: 'Do staff know how to communicate with customers who are Deaf or hard of hearing?',
         relationship: 'Part of broader disability awareness training',
-        moduleCode: 'C1'
+        moduleCode: '4.2'
       },
       {
-        questionId: 'C1-D-18b',
+        questionId: '4.2-D-18b',
         questionText: 'Can staff access Auslan interpretation services when needed?',
         relationship: 'Training should cover when and how to access interpreters',
-        moduleCode: 'C1'
+        moduleCode: '4.2'
       }
     ],
 
@@ -142,11 +142,11 @@ export const serviceSupportHelp: HelpContent[] = [
     lastUpdated: '2024-12-18'
   },
 
-  // P1: Policy & Procurement
+  // 5.1: Policy & Procurement
   {
-    questionId: 'P1-F-2',
+    questionId: '5.1-F-2',
     questionText: 'Do you provide information about accessibility practices to procurement partners to support inclusive service delivery?',
-    moduleCode: 'P1',
+    moduleCode: '5.1',
     moduleGroup: 'service-support',
     diapCategory: 'operations-policy-procedure',
     title: 'Accessible Procurement',
@@ -240,16 +240,16 @@ export const serviceSupportHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'P1-F-1',
+        questionId: '5.1-F-1',
         questionText: 'Do you have a formal accessibility policy?',
         relationship: 'Procurement is often part of accessibility policy',
-        moduleCode: 'P1'
+        moduleCode: '5.1'
       },
       {
-        questionId: 'P1-F-3',
+        questionId: '5.1-F-3',
         questionText: 'Do you have a Disability Inclusion Action Plan?',
         relationship: 'DIAP often includes procurement commitments',
-        moduleCode: 'P1'
+        moduleCode: '5.1'
       }
     ],
 
@@ -257,11 +257,11 @@ export const serviceSupportHelp: HelpContent[] = [
     lastUpdated: '2024-12-18'
   },
 
-  // P1: Companion Card
+  // 5.1: Companion Card
   {
-    questionId: 'P1-F-4',
+    questionId: '5.1-F-4',
     questionText: 'Are you registered as a Companion Card affiliate?',
-    moduleCode: 'P1',
+    moduleCode: '5.1',
     moduleGroup: 'service-support',
     diapCategory: 'operations-policy-procedure',
     title: 'Companion Card Program',
@@ -364,10 +364,10 @@ export const serviceSupportHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'P1-F-5',
+        questionId: '5.1-F-5',
         questionText: 'Do you have accessible pricing options?',
         relationship: 'Companion Card is part of accessible pricing strategy',
-        moduleCode: 'P1'
+        moduleCode: '5.1'
       }
     ],
 
@@ -375,11 +375,11 @@ export const serviceSupportHelp: HelpContent[] = [
     lastUpdated: '2024-12-18'
   },
 
-  // C1: Auslan interpretation
+  // 4.2: Auslan interpretation
   {
-    questionId: 'C1-D-18b',
+    questionId: '4.2-D-18b',
     questionText: 'Can staff access Auslan interpretation services when needed?',
-    moduleCode: 'C1',
+    moduleCode: '4.2',
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Auslan Interpretation Services',
@@ -482,16 +482,16 @@ export const serviceSupportHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'A6-1-8',
+        questionId: '3.3-1-8',
         questionText: 'Do you offer assisted listening devices or hearing augmentation?',
         relationship: 'Both support people who are Deaf or hard of hearing',
-        moduleCode: 'A6'
+        moduleCode: '3.3'
       },
       {
-        questionId: 'C1-D-10',
+        questionId: '4.2-D-10',
         questionText: 'Do staff know how to communicate with customers who are Deaf or hard of hearing?',
         relationship: 'Staff awareness complements interpreter services',
-        moduleCode: 'C1'
+        moduleCode: '4.2'
       }
     ],
 

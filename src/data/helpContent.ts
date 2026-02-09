@@ -13,10 +13,10 @@ import type { HelpContent } from '../hooks/useBranchingLogic';
 // Map question IDs to their help content
 export const HELP_CONTENT: Record<string, HelpContent> = {
   // ============================================
-  // WAYFINDING & SIGNAGE (B2 module)
+  // WAYFINDING & SIGNAGE (3.5 module)
   // ============================================
 
-  'B2-1-1': {
+  '3.5-1-1': {
     title: 'Understanding accessible signage',
     summary:
       'Good signage uses high contrast colours, clear fonts, and appropriate sizing to ensure everyone can read important information easily.',
@@ -59,10 +59,10 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   },
 
   // ============================================
-  // PHYSICAL ACCESS (A2 module - Entrances)
+  // PHYSICAL ACCESS (2.2 module - Entrances)
   // ============================================
 
-  'A2-F-1': {
+  '2.2-F-1': {
     title: 'Understanding this question',
     summary:
       'Step-free access is essential for people with mobility aids, prams, trolleys, and anyone who finds steps difficult. Tell us what your main entrance has so we can ask the right follow-up questions about stairs, ramps, and other features.',
@@ -82,7 +82,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
     ],
   },
 
-  'A3a-1-1': {
+  '2.3-1-1': {
     title: 'Wheelchair circulation space',
     summary:
       'For someone using a wheelchair to move comfortably through your space, pathways need adequate width and turning room. This also benefits people with prams, trolleys, or walking frames.',
@@ -121,7 +121,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
     ],
   },
 
-  'A2-D-10': {
+  '2.2-D-10': {
     title: 'Doorway widths',
     summary:
       'Standard wheelchairs need at least 850mm clear opening width to pass through comfortably. Measure the narrowest point when the door is fully open.',
@@ -154,7 +154,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
     ],
   },
 
-  'A4-1-3': {
+  '3.1-1-3': {
     title: 'Accessible counter heights',
     summary:
       'A section of counter at a lower height allows wheelchair users and people of short stature to interact comfortably. The ideal height is 750-850mm with knee clearance underneath.',
@@ -191,7 +191,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   // WAYFINDING
   // ============================================
 
-  'B2-1-2': {
+  '3.5-1-2': {
     title: 'Consistent sign placement',
     summary:
       'Placing signs at consistent heights and locations helps people navigate independently. Signs should be at eye level (1200-1600mm from floor) and at decision points.',
@@ -224,7 +224,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
     ],
   },
 
-  'A2-F-8': {
+  '2.2-F-8': {
     title: 'Understanding this question',
     summary:
       'Tactile Ground Surface Indicators (TGSIs) are standardised textured surfaces that help people who are blind or have low vision navigate and identify hazards by feel. Warning indicators (raised dots) alert to hazards like steps, ramps, or road crossings, while directional indicators (raised bars) guide people along a path.',
@@ -246,7 +246,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   // SENSORY
   // ============================================
 
-  'A6-1-1': {
+  '3.3-1-1': {
     title: 'Lighting levels',
     summary:
       'Adequate lighting helps everyone read, navigate, and feel safe. Different areas need different light levels, but consistency and avoiding glare are key.',
@@ -279,7 +279,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
     ],
   },
 
-  'A6-1-2': {
+  '3.3-1-2': {
     title: 'Quiet spaces',
     summary:
       'A quiet space provides a retreat for people who experience sensory overload, anxiety, or need a break from noise and crowds. It does not need to be large or fancy.',
@@ -316,7 +316,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   // COMMUNICATION & INFORMATION
   // ============================================
 
-  'B3-1-1': {
+  '3.6-1-1': {
     title: 'Large print materials',
     summary:
       'Large print materials help people with low vision access your information. This includes menus, brochures, and any customer-facing documents.',
@@ -353,7 +353,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   // CUSTOMER SERVICE
   // ============================================
 
-  'C1-F-1': {
+  '4.2-F-1': {
     title: 'Disability awareness training',
     summary:
       'Training helps staff feel confident supporting customers with different access needs. It covers practical tips, communication, and building an inclusive attitude.',

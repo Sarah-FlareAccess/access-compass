@@ -33,7 +33,7 @@ const COLORS = {
   textSecondary: '#4a4a4a',
 };
 
-// Page dimensions (A4)
+// Page dimensions (3.1)
 const PAGE = {
   width: 210,
   height: 297,

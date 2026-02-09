@@ -733,9 +733,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   resources: string[];
 }> = {
   // ============================================
-  // B1: PRE-VISIT INFORMATION
+  // 1.1: PRE-VISIT INFORMATION
   // ============================================
-  'B1-F-1': {
+  '1.1-F-1': {
     actions: [
       'Create a dedicated accessibility page on your website',
       'Include specific details: entrance type, parking, toilets, assistance available',
@@ -747,7 +747,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Pre-visit accessibility information allows customers with disabilities to plan their visit with confidence. Without this information, they may not know if they can access your venue.',
     resources: ['[Creating an Accessibility Page Guide]', '[Pre-visit Information Checklist]'],
   },
-  'B1-F-2A': {
+  '1.1-F-2A': {
     actions: [
       'Check if your accessibility page is linked from the main navigation or footer',
       'Ensure accessibility info is findable within 2 clicks from the homepage',
@@ -757,7 +757,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Even great accessibility information is useless if customers cannot find it. Most people will not dig through multiple pages to find what they need.',
     resources: ['[Website Navigation Best Practices]'],
   },
-  'B1-F-4': {
+  '1.1-F-4': {
     actions: [
       'Add a dedicated phone number or email for accessibility enquiries',
       'Offer multiple contact options: phone, email, online form, live chat',
@@ -768,7 +768,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Customers often have specific questions about their needs that may not be covered on your website. Easy contact channels build confidence and show you welcome enquiries.',
     resources: ['[Accessible Customer Contact Guide]'],
   },
-  'B1-F-5': {
+  '1.1-F-5': {
     actions: [
       'Document accurate measurements: doorway widths, corridor widths, counter heights',
       'Include photos of entrances, pathways, accessible toilets, and parking',
@@ -779,7 +779,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Vague statements like "wheelchair accessible" are not helpful. Customers need specific details to assess whether your venue meets their particular needs.',
     resources: ['[Physical Access Documentation Checklist]'],
   },
-  'B1-F-6': {
+  '1.1-F-6': {
     actions: [
       'Describe typical noise levels and sources (music, crowds, machinery)',
       'Note lighting conditions: natural light, fluorescent, dimmable options',
@@ -790,7 +790,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Sensory information helps people with autism, sensory processing differences, migraines, and anxiety plan their visit and decide on the best time to come.',
     resources: ['[Sensory Environment Guide Template]'],
   },
-  'B1-F-7': {
+  '1.1-F-7': {
     actions: [
       'Offer a familiarisation visit before the main visit or event',
       'Provide a virtual tour video showing key areas and routes',
@@ -801,7 +801,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Familiarisation visits reduce anxiety and help customers prepare for what to expect. They are particularly valuable for autistic visitors and those with anxiety.',
     resources: ['[Familiarisation Visit Guide]', '[Social Story Template]'],
   },
-  'B1-F-8': {
+  '1.1-F-8': {
     actions: [
       'List accessible transport options: accessible parking, drop-off zones, public transport',
       'Describe the approach from parking/drop-off to the entrance (distance, surface, gradient)',
@@ -814,9 +814,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // B4.1: WEBSITE BASICS
+  // 1.2: WEBSITE BASICS
   // ============================================
-  'B4.1-1-1': {
+  '1.2-1-1': {
     actions: [
       'Test all interactive elements (links, buttons, forms, menus) using only Tab, Shift+Tab, Enter, and arrow keys',
       'Ensure a visible focus indicator appears on every interactive element when tabbing',
@@ -828,7 +828,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Keyboard access is fundamental for people who cannot use a mouse, including screen reader users, people with motor impairments, and power users. Without keyboard access, these visitors cannot navigate or use your website at all.',
     resources: ['[WebAIM Keyboard Accessibility Guide]', '[WCAG 2.1.1 Keyboard Accessible]'],
   },
-  'B4.1-1-1a': {
+  '1.2-1-1a': {
     actions: [
       'Document which specific areas fail keyboard testing (navigation, forms, booking, etc.)',
       'Prioritise fixing keyboard issues in the booking/checkout process first',
@@ -838,7 +838,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Understanding exactly where keyboard access breaks down helps prioritise fixes. Issues in critical user journeys like booking have the highest business impact.',
     resources: ['[Keyboard Testing Checklist]'],
   },
-  'B4.1-1-1b': {
+  '1.2-1-1b': {
     actions: [
       'Add CSS focus styles to make the focus indicator highly visible (e.g., 2px solid outline in a contrasting colour)',
       'Never use "outline: none" without providing an alternative focus style',
@@ -848,7 +848,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Without a visible focus indicator, keyboard users cannot see where they are on the page. This makes navigation nearly impossible and is one of the most common accessibility failures.',
     resources: ['[WCAG 2.4.7 Focus Visible]', '[CSS Focus Styles Examples]'],
   },
-  'B4.1-1-2': {
+  '1.2-1-2': {
     actions: [
       'Audit all images on key pages and add meaningful alt text that describes the image purpose',
       'For venue photos: describe what the photo shows that helps visitors plan (e.g., "Wide entrance with automatic doors and level access")',
@@ -859,7 +859,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Alt text allows screen reader users to understand images they cannot see. Good alt text describes what matters about the image in context, helping visitors understand your venue and services.',
     resources: ['[WebAIM Alt Text Guide]', '[WCAG 1.1.1 Non-text Content]'],
   },
-  'B4.1-1-3': {
+  '1.2-1-3': {
     actions: [
       'Test text contrast using a free tool like WebAIM Contrast Checker',
       'Ensure body text has at least 4.5:1 contrast ratio against its background',
@@ -870,7 +870,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Good contrast is essential for people with low vision, colour blindness, or anyone viewing in bright light. Poor contrast affects up to 8% of men and makes content hard to read for everyone.',
     resources: ['[WebAIM Contrast Checker]', '[WCAG 1.4.3 Contrast Minimum]'],
   },
-  'B4.1-1-4': {
+  '1.2-1-4': {
     actions: [
       'Test your website at 200% and 400% zoom using browser zoom (Ctrl/Cmd + Plus)',
       'Fix any text that overlaps, gets cut off, or requires horizontal scrolling',
@@ -881,7 +881,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Many people with low vision rely on zooming to read content. If your website breaks when zoomed, these users cannot access your information.',
     resources: ['[WCAG 1.4.4 Resize Text]', '[Responsive Design for Accessibility]'],
   },
-  'B4.1-1-5': {
+  '1.2-1-5': {
     actions: [
       'Test your website on actual mobile devices, not just browser resizing',
       'Ensure touch targets (buttons, links) are at least 44x44 pixels',
@@ -892,7 +892,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Many people with disabilities rely on mobile devices as their primary way to access the internet. Mobile accessibility is increasingly critical for all users.',
     resources: ['[Mobile Accessibility Guidelines]', '[WCAG 2.5.5 Target Size]'],
   },
-  'B4.1-1-6': {
+  '1.2-1-6': {
     actions: [
       'Ensure all auto-playing content can be paused, stopped, or hidden',
       'Provide visible controls for carousels, sliders, and video players',
@@ -903,7 +903,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Automatic content can be disorienting for screen reader users and distracting for people with attention difficulties. Flashing content can trigger seizures in people with photosensitive epilepsy.',
     resources: ['[WCAG 2.2.2 Pause, Stop, Hide]', '[WCAG 2.3.1 Three Flashes]'],
   },
-  'B4.1-1-7': {
+  '1.2-1-7': {
     actions: [
       'Audit all PDFs on your website for accessibility',
       'Ensure PDFs have proper heading structure, alt text, and reading order',
@@ -914,7 +914,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'PDFs are often inaccessible barriers. Many screen readers struggle with poorly structured PDFs, locking out blind and low vision users from important information.',
     resources: ['[PDF Accessibility Guide]', '[Creating Accessible PDFs]'],
   },
-  'B4.1-1-8': {
+  '1.2-1-8': {
     actions: [
       'Run automated accessibility tests using free tools (WAVE, axe, Lighthouse)',
       'Fix all critical and serious issues identified by automated tools',
@@ -927,9 +927,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // B4.2: BOOKING SYSTEMS AND FORMS
+  // 1.3: BOOKING SYSTEMS AND FORMS
   // ============================================
-  'B4.2-1-1': {
+  '1.3-1-1': {
     actions: [
       'Test your booking form using only a keyboard (Tab, Enter, arrow keys)',
       'Ensure all form fields have visible labels (not just placeholders)',
@@ -940,7 +940,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'If customers cannot complete a booking independently, they cannot access your services. Inaccessible booking forms are a significant business barrier.',
     resources: ['[Accessible Forms Guide]', '[WCAG 3.3 Input Assistance]'],
   },
-  'B4.2-1-2': {
+  '1.3-1-2': {
     actions: [
       'Add a field for customers to note accessibility requirements during booking',
       'Make the accessibility field visible and easy to find (not hidden in "notes")',
@@ -953,9 +953,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // B4.3: VIDEO AND SOCIAL MEDIA
+  // 1.4: VIDEO AND SOCIAL MEDIA
   // ============================================
-  'B4.3-1-1': {
+  '1.4-1-1': {
     actions: [
       'Add captions to all video content (auto-captions are a start but should be edited)',
       'Provide audio descriptions for videos where visual content is not described in the main audio',
@@ -966,7 +966,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Captions are essential for deaf and hard of hearing viewers, and also help people watching in noisy environments or without sound. Audio descriptions make visual content accessible to blind viewers.',
     resources: ['[Video Captioning Guide]', '[Audio Description Basics]'],
   },
-  'B4.3-1-2': {
+  '1.4-1-2': {
     actions: [
       'Add alt text to images on social media posts',
       'Use camelCase or underscores in hashtags (#AccessibleTourism not #accessibletourism)',
@@ -977,7 +977,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Social media is increasingly important for customer engagement. Accessible social media reaches more customers and demonstrates your commitment to inclusion.',
     resources: ['[Accessible Social Media Guide]'],
   },
-  'B4.3-1-3': {
+  '1.4-1-3': {
     actions: [
       'Review video content for flashing or strobing effects',
       'Add seizure warnings to content that contains necessary flashing',
@@ -987,8 +987,8 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Flashing content can trigger seizures in people with photosensitive epilepsy. This is a serious safety issue, not just an inconvenience.',
     resources: ['[WCAG 2.3.1 Seizure Prevention]'],
   },
-  // Pulse Check questions for B4.3
-  'B4.3-PC-1': {
+  // Pulse Check questions for 1.4
+  '1.4-PC-1': {
     actions: [
       'Add captions to all video content - this is the single most important accessibility feature for video',
       'Start with auto-generated captions from YouTube/Facebook, then review and correct errors',
@@ -999,7 +999,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Captions are essential for deaf and hard of hearing viewers. They also benefit people in noisy environments, non-native speakers, and those who prefer to read. If you create video content, captions should be a priority.',
     resources: ['[Video Captioning Guide]', '[Caption File Formats]'],
   },
-  'B4.3-PC-2': {
+  '1.4-PC-2': {
     actions: [
       'Review videos to identify where visual content is not described in the audio',
       'Add audio descriptions or integrate descriptions into the main narration',
@@ -1009,7 +1009,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Audio descriptions help blind and low vision viewers understand what is happening on screen. They are most important when visual content carries meaning not conveyed in speech.',
     resources: ['[Audio Description Basics]'],
   },
-  'B4.3-PC-3': {
+  '1.4-PC-3': {
     actions: [
       'Add alt text or image descriptions to all social media images',
       'Use platform-specific alt text features (Instagram, Facebook, Twitter/X, LinkedIn)',
@@ -1021,9 +1021,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // A1: ARRIVAL, PARKING AND DROP-OFF
+  // 2.1: ARRIVAL, PARKING AND DROP-OFF
   // ============================================
-  'A1-F-1': {
+  '2.1-F-1': {
     actions: [
       'Provide designated accessible parking spaces meeting Australian Standards',
       'Locate accessible parking closest to the accessible entrance (within 30m)',
@@ -1034,7 +1034,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Accessible parking is often the starting point for a visit. Spaces that are too far, too narrow, or poorly marked create immediate barriers.',
     resources: ['[AS2890.6 Accessible Parking]', '[Parking Space Requirements]'],
   },
-  'A1-F-2': {
+  '2.1-F-2': {
     actions: [
       'Create a designated drop-off zone close to the accessible entrance',
       'Ensure the drop-off area has level access to the footpath',
@@ -1045,7 +1045,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Many customers with disabilities use taxis, rideshare, or are dropped off by others. A safe drop-off zone close to the entrance is essential.',
     resources: ['[Drop-off Zone Design Guide]'],
   },
-  'A1-F-3': {
+  '2.1-F-3': {
     actions: [
       'Ensure the path from parking to entrance is step-free',
       'Check path surface is firm, level, and non-slip',
@@ -1056,7 +1056,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'The path from parking to entrance is part of the customer journey. Uneven surfaces, obstacles, or poor lighting create safety risks.',
     resources: ['[Accessible Path Design]', '[AS1428.1 Path Requirements]'],
   },
-  'A1-F-4': {
+  '2.1-F-4': {
     actions: [
       'Measure and document path gradient (maximum 1:20 for paths, 1:14 for ramps)',
       'Install handrails on ramps with gradient steeper than 1:20',
@@ -1068,9 +1068,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // A2: ENTRY AND DOORS
+  // 2.2: ENTRY AND DOORS
   // ============================================
-  'A2-F-1': {
+  '2.2-F-1': {
     actions: [
       'Provide step-free access to the main entrance',
       'If main entrance has steps, provide a clearly signed accessible alternative',
@@ -1080,7 +1080,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Step-free access is fundamental. Without it, wheelchair users, people with prams, and many others cannot enter your venue.',
     resources: ['[Accessible Entrance Design]'],
   },
-  'A2-F-2': {
+  '2.2-F-2': {
     actions: [
       'Measure doorway clear opening width (minimum 850mm required)',
       'Check for obstructions that reduce effective doorway width',
@@ -1090,7 +1090,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Standard wheelchair width is about 700mm, but users need clearance for hands and to navigate. Doorways under 850mm create barriers.',
     resources: ['[AS1428.1 Door Requirements]'],
   },
-  'A2-F-3': {
+  '2.2-F-3': {
     actions: [
       'Measure door opening force (maximum 20 Newtons for hinged doors)',
       'Install automatic doors if force cannot be reduced',
@@ -1100,7 +1100,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Heavy doors are barriers for people with reduced strength, including many elderly people, people with arthritis, and wheelchair users.',
     resources: ['[Door Force Requirements]', '[Automatic Door Guide]'],
   },
-  'A2-F-4': {
+  '2.2-F-4': {
     actions: [
       'Install lever-style door handles (not knobs)',
       'Position handles at 900-1100mm height',
@@ -1110,7 +1110,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Round door knobs require grip strength and wrist rotation that many people cannot achieve. Lever handles are universally easier to use.',
     resources: ['[Accessible Door Hardware]'],
   },
-  'A2-F-5': {
+  '2.2-F-5': {
     actions: [
       'Install clear signage at the accessible entrance',
       'Use the international accessibility symbol',
@@ -1122,9 +1122,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // A3a: PATHS AND AISLES
+  // 2.3: PATHS AND AISLES
   // ============================================
-  'A3a-1-1': {
+  '2.3-1-1': {
     actions: [
       'Measure aisle widths throughout your venue (minimum 1000mm, ideally 1200mm)',
       'Ensure clear turning space at key points (1500mm x 1500mm minimum)',
@@ -1134,7 +1134,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Narrow aisles prevent wheelchair users from navigating independently and make the venue difficult for many others including parents with prams.',
     resources: ['[Aisle Width Requirements]', '[AS1428.1 Circulation Spaces]'],
   },
-  'A3a-1-2': {
+  '2.3-1-2': {
     actions: [
       'Check floor surfaces are firm, level, and slip-resistant',
       'Fix any uneven surfaces, loose carpets, or damaged flooring',
@@ -1144,7 +1144,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Uneven or slippery floors are trip hazards for everyone and particularly difficult for wheelchair users and people with mobility aids.',
     resources: ['[Floor Surface Requirements]'],
   },
-  'A3a-1-3': {
+  '2.3-1-3': {
     actions: [
       'Identify and remove unnecessary obstacles from pathways',
       'Relocate any displays, furniture, or equipment blocking paths',
@@ -1156,9 +1156,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // A3b: QUEUES AND BUSY TIMES
+  // 2.4: QUEUES AND BUSY TIMES
   // ============================================
-  'A3b-1-1': {
+  '2.4-1-1': {
     actions: [
       'Offer priority queuing for people with disabilities',
       'Provide seating in or near queue areas for people who cannot stand',
@@ -1168,7 +1168,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Long periods of standing are impossible for many people with disabilities. Priority queuing is a reasonable adjustment that costs nothing to implement.',
     resources: ['[Queue Management for Accessibility]'],
   },
-  'A3b-1-2': {
+  '2.4-1-2': {
     actions: [
       'Publish expected busy times on your website',
       'Offer quieter times for customers who need them',
@@ -1180,9 +1180,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // A4: SEATING, FURNITURE AND LAYOUT
+  // 3.1: SEATING, FURNITURE AND LAYOUT
   // ============================================
-  'A4-1-1': {
+  '3.1-1-1': {
     actions: [
       'Provide a range of seating options: with and without arms, different heights',
       'Ensure some seating has firm seats and backs (not low sofas)',
@@ -1192,7 +1192,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Seating needs vary widely. People with mobility impairments often need firm, higher seats with arms to stand up independently.',
     resources: ['[Accessible Seating Options Guide]'],
   },
-  'A4-1-2': {
+  '3.1-1-2': {
     actions: [
       'Check counter and table heights (750-850mm for wheelchair access)',
       'Ensure knee clearance under counters (minimum 700mm high, 500mm deep)',
@@ -1202,7 +1202,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'High counters make transactions difficult or impossible for wheelchair users and people of short stature. A lowered section costs little but makes a big difference.',
     resources: ['[Counter Height Requirements]'],
   },
-  'A4-1-3': {
+  '3.1-1-3': {
     actions: [
       'Designate wheelchair spaces in key areas (dining, events, waiting areas)',
       'Ensure wheelchair spaces have clear floor space (minimum 900mm x 1400mm)',
@@ -1214,9 +1214,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // A5: TOILETS AND AMENITIES
+  // 3.2: TOILETS AND AMENITIES
   // ============================================
-  'A5-1-1': {
+  '3.2-1-1': {
     actions: [
       'Ensure accessible toilet meets Australian Standards dimensions',
       'Minimum dimensions: 1900mm x 2300mm (or 1600mm x 2300mm with specific layout)',
@@ -1226,7 +1226,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Accessible toilets are essential. A toilet that does not meet standards may be unusable for many wheelchair users.',
     resources: ['[AS1428.1 Accessible Toilet Requirements]', '[Toilet Layout Diagrams]'],
   },
-  'A5-1-2': {
+  '3.2-1-2': {
     actions: [
       'Keep accessible toilet clear of storage, bins, and cleaning equipment',
       'Check daily that toilet is clean, stocked, and unobstructed',
@@ -1236,7 +1236,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'An accessible toilet full of mops and boxes is not accessible. Regular checks ensure the facility remains usable.',
     resources: ['[Accessible Toilet Maintenance Checklist]'],
   },
-  'A5-1-3': {
+  '3.2-1-3': {
     actions: [
       'Install an emergency pull cord reaching to floor level',
       'Ensure alarm is connected and monitored',
@@ -1246,7 +1246,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Emergency cords save lives. Someone who falls in an accessible toilet may not be able to reach a cord mounted at wall height.',
     resources: ['[Emergency Alarm Requirements]'],
   },
-  'A5-1-4': {
+  '3.2-1-4': {
     actions: [
       'Provide a Changing Places facility if your venue is large or destination',
       'At minimum, provide adult change table in accessible toilet',
@@ -1258,9 +1258,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // A6: LIGHTING, SOUND AND SENSORY ENVIRONMENT
+  // 3.3: LIGHTING, SOUND AND SENSORY ENVIRONMENT
   // ============================================
-  'A6-1-1': {
+  '3.3-1-1': {
     actions: [
       'Ensure adequate lighting levels throughout (minimum 150 lux in circulation, 300 lux in task areas)',
       'Avoid dark areas that create contrast problems',
@@ -1270,7 +1270,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Adequate lighting helps people with low vision navigate safely and read signs and menus. It also improves safety for everyone.',
     resources: ['[Lighting Level Requirements]', '[AS1680 Interior Lighting]'],
   },
-  'A6-1-2': {
+  '3.3-1-2': {
     actions: [
       'Reduce glare from windows, reflective surfaces, and direct lighting',
       'Position lighting to avoid shining directly into eyes',
@@ -1280,7 +1280,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Glare is particularly problematic for people with certain eye conditions, migraines, and autism. It can make spaces uncomfortable or unusable.',
     resources: ['[Glare Reduction Strategies]'],
   },
-  'A6-1-3': {
+  '3.3-1-3': {
     actions: [
       'Measure and manage background noise levels',
       'Add acoustic treatment to reduce echo and reverberation',
@@ -1290,7 +1290,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'High noise levels make communication difficult for everyone and particularly for hearing aid users and people with auditory processing difficulties.',
     resources: ['[Acoustic Accessibility Guide]'],
   },
-  'A6-1-4': {
+  '3.3-1-4': {
     actions: [
       'Install a hearing loop system at service counters and key areas',
       'Display the hearing loop symbol where systems are installed',
@@ -1300,7 +1300,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Hearing loops connect directly to hearing aids, providing clear audio without background noise. They are essential for many hearing aid users.',
     resources: ['[Hearing Loop Installation Guide]', '[Loop System Testing]'],
   },
-  'A6-1-5': {
+  '3.3-1-5': {
     actions: [
       'Create a designated quiet space or room',
       'Reduce sensory input in the quiet space: dim lighting, minimal decoration',
@@ -1312,9 +1312,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // A6a: EQUIPMENT AND RESOURCES
+  // 3.4: EQUIPMENT AND RESOURCES
   // ============================================
-  'A6a-F-1': {
+  '3.4-F-1': {
     actions: [
       'Provide wheelchairs for customer use if appropriate for your venue',
       'Offer mobility aids such as walking frames or walking sticks',
@@ -1324,7 +1324,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Equipment loans enable customers who might otherwise struggle to access your venue independently. They show you have considered customer needs.',
     resources: ['[Equipment Loan Program Guide]'],
   },
-  'A6a-F-2': {
+  '3.4-F-2': {
     actions: [
       'Advertise available equipment on your website and at reception',
       'Train staff to offer equipment proactively',
@@ -1336,9 +1336,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // B2: SIGNAGE AND WAYFINDING
+  // 3.5: SIGNAGE AND WAYFINDING
   // ============================================
-  'B2-1-1': {
+  '3.5-1-1': {
     actions: [
       'Audit all signage for readability: font size, contrast, positioning',
       'Use clear sans-serif fonts (Arial, Helvetica) at appropriate sizes',
@@ -1348,7 +1348,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Clear signage helps everyone navigate independently. Poor signage creates confusion and can make customers dependent on staff assistance.',
     resources: ['[Signage Design Guidelines]', '[AS1428.1 Signage Requirements]'],
   },
-  'B2-1-2': {
+  '3.5-1-2': {
     actions: [
       'Add Braille to permanent room identification signs',
       'Install tactile signs at key decision points',
@@ -1358,7 +1358,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Braille and tactile signage enables independent navigation for blind and low vision customers. It is required on permanent room signs.',
     resources: ['[Tactile Signage Requirements]', '[Braille Signage Guide]'],
   },
-  'B2-1-3': {
+  '3.5-1-3': {
     actions: [
       'Create a clear wayfinding strategy with consistent signage throughout',
       'Position directional signs at key decision points',
@@ -1370,9 +1370,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // B3: MENUS AND PRINTED MATERIALS
+  // 3.6: MENUS AND PRINTED MATERIALS
   // ============================================
-  'B3-1-1': {
+  '3.6-1-1': {
     actions: [
       'Provide large print menus (minimum 18pt, ideally 24pt)',
       'Use high contrast colours (dark text on light background)',
@@ -1382,7 +1382,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Standard menus with small decorative fonts are difficult or impossible to read for many customers with low vision.',
     resources: ['[Large Print Guidelines]', '[Accessible Menu Design]'],
   },
-  'B3-1-2': {
+  '3.6-1-2': {
     actions: [
       'Offer Braille menus on request or have them readily available',
       'Keep Braille menus up to date with current offerings',
@@ -1392,7 +1392,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Braille menus enable independent ordering for blind customers without requiring staff to read options aloud.',
     resources: ['[Braille Menu Services]'],
   },
-  'B3-1-3': {
+  '3.6-1-3': {
     actions: [
       'Create Easy Read versions of key information',
       'Use simple words, short sentences, and supporting images',
@@ -1404,9 +1404,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // C1: CUSTOMER SERVICE AND STAFF CONFIDENCE
+  // 4.2: CUSTOMER SERVICE AND STAFF CONFIDENCE
   // ============================================
-  'C1-F-1': {
+  '4.2-F-1': {
     actions: [
       'Provide disability awareness training for all customer-facing staff',
       'Include practical scenarios and role-play in training',
@@ -1417,7 +1417,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Staff attitudes can make or break the customer experience. Well-trained staff create welcoming environments; poorly trained staff create barriers.',
     resources: ['[Disability Awareness Training Resources]', '[Training Provider Directory]'],
   },
-  'C1-F-2': {
+  '4.2-F-2': {
     actions: [
       'Train staff to offer assistance without making assumptions',
       'Use "How can I help?" rather than assuming what is needed',
@@ -1427,7 +1427,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Well-meaning but inappropriate assistance can be unhelpful or offensive. The key principle is to ask, not assume.',
     resources: ['[Offering Assistance Guidelines]'],
   },
-  'C1-F-3': {
+  '4.2-F-3': {
     actions: [
       'Ensure all staff know the accessibility features of your venue',
       'Create a quick reference guide to accessibility features',
@@ -1437,7 +1437,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Staff who do not know where the accessible toilet is or how to activate the hearing loop cannot help customers who need these features.',
     resources: ['[Staff Accessibility Knowledge Checklist]'],
   },
-  'C1-F-4': {
+  '4.2-F-4': {
     actions: [
       'Train staff on assistance animal rights and responsibilities',
       'Develop a clear policy welcoming assistance animals',
@@ -1447,7 +1447,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Assistance animals have legal rights of access. Staff who question or refuse assistance animals create discrimination issues.',
     resources: ['[Assistance Animal Guidelines]', '[Disability Discrimination Act]'],
   },
-  'C1-F-5': {
+  '4.2-F-5': {
     actions: [
       'Establish clear procedures for handling accessibility complaints',
       'Train staff on complaint handling and escalation',
@@ -1459,9 +1459,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // C2: BOOKINGS, PAYMENTS AND FLEXIBILITY
+  // 4.3: BOOKINGS, PAYMENTS AND FLEXIBILITY
   // ============================================
-  'C2-1-1': {
+  '4.3-1-1': {
     actions: [
       'Offer multiple booking methods: online, phone, email, in-person',
       'Ensure at least one booking method is fully accessible',
@@ -1471,7 +1471,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Different customers have different access needs for booking. Offering only one method may exclude some customers.',
     resources: ['[Multi-channel Booking Guide]'],
   },
-  'C2-1-2': {
+  '4.3-1-2': {
     actions: [
       'Offer multiple payment methods including contactless',
       'Ensure payment terminals are at accessible heights',
@@ -1481,7 +1481,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Payment should not be a barrier. Terminals positioned out of reach or complex payment processes exclude some customers.',
     resources: ['[Accessible Payment Guide]'],
   },
-  'C2-1-3': {
+  '4.3-1-3': {
     actions: [
       'Register as a Companion Card affiliate',
       'Display Companion Card acceptance on your website and at entrance',
@@ -1493,9 +1493,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // A7: SAFETY AND EMERGENCIES
+  // 4.4: SAFETY AND EMERGENCIES
   // ============================================
-  'A7-1-1': {
+  '4.4-1-1': {
     actions: [
       'Develop emergency procedures that include people with disabilities',
       'Identify evacuation routes accessible to wheelchair users',
@@ -1505,7 +1505,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Standard emergency procedures may not work for people with disabilities. Without planning, these customers may be at greater risk.',
     resources: ['[Emergency Evacuation Planning Guide]', '[AS3745 Emergency Planning]'],
   },
-  'A7-1-2': {
+  '4.4-1-2': {
     actions: [
       'Install visual fire alarms (flashing beacons) in all public areas',
       'Include visual alarms in accessible toilets and private spaces',
@@ -1515,7 +1515,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Audible-only alarms do not alert deaf and hard of hearing people to emergencies. Visual alarms are essential for safety.',
     resources: ['[Visual Alarm Requirements]', '[AS1670.4 Fire Detection]'],
   },
-  'A7-1-3': {
+  '4.4-1-3': {
     actions: [
       'Create Personal Emergency Evacuation Plans (PEEPs) for staff with disabilities',
       'Offer PEEPs to regular visitors or members with disabilities',
@@ -1525,7 +1525,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Personal emergency plans ensure individuals get appropriate assistance during evacuation rather than being left behind or assisted incorrectly.',
     resources: ['[PEEP Template and Guide]'],
   },
-  'A7-1-4': {
+  '4.4-1-4': {
     actions: [
       'Provide evacuation chairs at stair locations in multi-storey buildings',
       'Train staff on evacuation chair operation',
@@ -1537,9 +1537,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // C3: FEEDBACK AND REVIEWS
+  // 4.5: FEEDBACK AND REVIEWS
   // ============================================
-  'C3-F-1': {
+  '4.5-F-1': {
     actions: [
       'Create accessible channels for feedback (online, email, phone)',
       'Ensure feedback forms are accessible to screen readers',
@@ -1549,7 +1549,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Feedback helps you improve. If feedback channels are inaccessible, you will not hear from the customers who have the most relevant insights.',
     resources: ['[Accessible Feedback Systems Guide]'],
   },
-  'C3-F-2': {
+  '4.5-F-2': {
     actions: [
       'Monitor reviews on Google, TripAdvisor, and social media',
       'Respond to accessibility-related reviews professionally',
@@ -1561,9 +1561,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // C4: STAYING CONNECTED
+  // 4.6: STAYING CONNECTED
   // ============================================
-  'C4-F-1': {
+  '4.6-F-1': {
     actions: [
       'Offer email newsletters in accessible HTML format',
       'Provide text alternatives to any image-based content',
@@ -1573,7 +1573,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Inaccessible email marketing excludes customers and can violate accessibility requirements for digital communications.',
     resources: ['[Accessible Email Design Guide]'],
   },
-  'C4-F-2': {
+  '4.6-F-2': {
     actions: [
       'Capture communication preferences including accessibility needs',
       'Offer large print or Braille correspondence where requested',
@@ -1585,9 +1585,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // P1: POLICY, PROCUREMENT AND INCLUSION
+  // 5.1: POLICY, PROCUREMENT AND INCLUSION
   // ============================================
-  'P1-F-1': {
+  '5.1-F-1': {
     actions: [
       'Develop a formal accessibility policy',
       'Publish the policy on your website',
@@ -1597,7 +1597,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'A formal policy demonstrates commitment and creates accountability. It guides staff behaviour and decision-making.',
     resources: ['[Accessibility Policy Template]'],
   },
-  'P1-F-2': {
+  '5.1-F-2': {
     actions: [
       'Create a Disability Inclusion Action Plan (DIAP)',
       'Include measurable goals and timeframes',
@@ -1607,7 +1607,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'A DIAP turns good intentions into action. It provides a roadmap for improvement and creates accountability.',
     resources: ['[DIAP Development Guide]', '[DIAP Examples]'],
   },
-  'P1-F-3': {
+  '5.1-F-3': {
     actions: [
       'Include accessibility requirements in procurement decisions',
       'Require suppliers to demonstrate accessibility compliance',
@@ -1617,7 +1617,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Procurement decisions affect accessibility. Buying inaccessible products or services creates barriers that are costly to fix later.',
     resources: ['[Accessible Procurement Guide]'],
   },
-  'P1-F-4': {
+  '5.1-F-4': {
     actions: [
       'Engage people with disabilities in planning and decision-making',
       'Create a disability advisory group or consult regularly',
@@ -1629,9 +1629,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // P2: EMPLOYING PEOPLE WITH DISABILITY
+  // 5.2: EMPLOYING PEOPLE WITH DISABILITY
   // ============================================
-  'P2-F-1': {
+  '5.2-F-1': {
     actions: [
       'Audit your recruitment process for accessibility barriers',
       'Ensure job ads are accessible and highlight your commitment to inclusion',
@@ -1641,7 +1641,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Inaccessible recruitment excludes talented candidates with disabilities. Accessible hiring expands your talent pool.',
     resources: ['[Inclusive Recruitment Guide]', '[JobAccess Employer Toolkit]'],
   },
-  'P2-F-2': {
+  '5.2-F-2': {
     actions: [
       'Provide reasonable workplace adjustments for employees with disabilities',
       'Create a process for requesting and implementing adjustments',
@@ -1651,7 +1651,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Workplace adjustments enable people with disabilities to work effectively. Many adjustments are free or low-cost.',
     resources: ['[JobAccess Employment Assistance Fund]', '[Workplace Adjustment Guide]'],
   },
-  'P2-F-3': {
+  '5.2-F-3': {
     actions: [
       'Set targets for employing people with disabilities',
       'Partner with disability employment services',
@@ -1663,9 +1663,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // P3: STAFF TRAINING AND AWARENESS
+  // 5.3: STAFF TRAINING AND AWARENESS
   // ============================================
-  'P3-F-1': {
+  '5.3-F-1': {
     actions: [
       'Include disability awareness in staff induction programs',
       'Make disability awareness training mandatory for customer-facing roles',
@@ -1675,7 +1675,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Induction is the best time to establish expectations. Making training mandatory ensures consistent service quality.',
     resources: ['[Training Program Development]'],
   },
-  'P3-F-2': {
+  '5.3-F-2': {
     actions: [
       'Use trainers with lived experience of disability',
       'Include practical exercises and scenarios',
@@ -1685,7 +1685,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Effective training changes behaviour. Lived experience trainers bring authenticity and real-world insights.',
     resources: ['[Disability Awareness Training Providers]'],
   },
-  'P3-F-3': {
+  '5.3-F-3': {
     actions: [
       'Develop accessibility champions in each team or location',
       'Provide additional training for champions',
@@ -1697,9 +1697,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // P4: ACCESSIBLE PROCUREMENT
+  // 5.4: ACCESSIBLE PROCUREMENT
   // ============================================
-  'P4-F-1': {
+  '5.4-F-1': {
     actions: [
       'Include accessibility in procurement policies and procedures',
       'Develop accessibility requirements for common purchase categories',
@@ -1709,7 +1709,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Procurement decisions have long-term accessibility impacts. It is much cheaper to buy accessible products than to retrofit later.',
     resources: ['[Accessible Procurement Policy Template]'],
   },
-  'P4-F-2': {
+  '5.4-F-2': {
     actions: [
       'Test products for accessibility before purchase',
       'Require accessibility documentation from vendors',
@@ -1721,9 +1721,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
 
   // ============================================
-  // P5: CONTINUOUS IMPROVEMENT AND REPORTING
+  // 5.5: CONTINUOUS IMPROVEMENT AND REPORTING
   // ============================================
-  'P5-F-1': {
+  '5.5-F-1': {
     actions: [
       'Set accessibility improvement targets',
       'Measure progress against targets regularly',
@@ -1733,7 +1733,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'What gets measured gets managed. Reporting creates accountability and demonstrates commitment to stakeholders.',
     resources: ['[Accessibility Reporting Guide]'],
   },
-  'P5-F-2': {
+  '5.5-F-2': {
     actions: [
       'Conduct regular accessibility audits (annually or more frequently)',
       'Include both physical and digital accessibility',
@@ -1743,7 +1743,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Regular audits identify issues before customers do. They also ensure improvements are maintained over time.',
     resources: ['[Accessibility Audit Framework]'],
   },
-  'P5-F-3': {
+  '5.5-F-3': {
     actions: [
       'Establish accessibility governance at senior level',
       'Include accessibility in business planning and budgeting',

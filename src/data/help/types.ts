@@ -14,10 +14,10 @@ export type ModuleGroup =
 
 // Module codes matching accessModules.ts
 export type ModuleCode =
-  | 'B1' | 'B4.1' | 'B4.2' | 'B4.3'           // Before arrival
-  | 'A1' | 'A2' | 'A3a' | 'A3b'               // Getting in
-  | 'A4' | 'A5' | 'A6' | 'B2' | 'B3'          // During visit
-  | 'C1' | 'C2' | 'A7' | 'C3' | 'P1';         // Service & support
+  | '1.1' | '1.2' | '1.3' | '1.4'           // Before arrival
+  | '2.1' | '2.2' | '2.3' | '2.4'               // Getting in
+  | '3.1' | '3.2' | '3.3' | '3.5' | '3.6'          // During visit
+  | '4.2' | '4.3' | '4.4' | '4.5' | '5.1';         // Service & support
 
 // DIAP categories for cross-referencing
 export type DIAPCategory =
@@ -52,13 +52,13 @@ export type StandardReference =
   | 'NCC';               // National Construction Code
 
 export interface HelpContent {
-  /** Must match question ID from accessModules.ts (e.g., 'B1-F-1', 'A2-F-3') */
+  /** Must match question ID from accessModules.ts (e.g., '1.1-F-1', '2.2-F-3') */
   questionId: string;
 
   /** The question text this help relates to (for verification) */
   questionText: string;
 
-  /** Module code (e.g., 'B1', 'A2') */
+  /** Module code (e.g., '1.1', '2.2') */
   moduleCode: ModuleCode;
 
   /** Module group for categorisation */

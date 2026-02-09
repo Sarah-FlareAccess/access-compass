@@ -1,16 +1,16 @@
 /**
  * Help Content: Before Arrival
- * Modules: B1, B4.1, B4.2, B4.3
+ * Modules: 1.1, 1.2, 1.3, 1.4
  */
 
 import type { HelpContent } from './types';
 
 export const beforeArrivalHelp: HelpContent[] = [
-  // B1: Pre-visit Information
+  // 1.1: Pre-visit Information
   {
-    questionId: 'B1-F-1',
+    questionId: '1.1-F-1',
     questionText: 'Do you have accessibility information available for customers before they visit?',
-    moduleCode: 'B1',
+    moduleCode: '1.1',
     moduleGroup: 'before-arrival',
     diapCategory: 'information-communication-marketing',
     title: 'Pre-visit Accessibility Information',
@@ -148,10 +148,10 @@ export const beforeArrivalHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'B1-F-5',
+        questionId: '1.1-F-5',
         questionText: 'Can customers contact you in a variety of ways to ask accessibility questions?',
         relationship: 'Complements online information with personal contact options',
-        moduleCode: 'B1'
+        moduleCode: '1.1'
       }
     ],
 
@@ -160,9 +160,9 @@ export const beforeArrivalHelp: HelpContent[] = [
   },
 
   {
-    questionId: 'B1-F-7',
+    questionId: '1.1-F-7',
     questionText: 'Do you offer familiarisation visits or orientation sessions?',
-    moduleCode: 'B1',
+    moduleCode: '1.1',
     moduleGroup: 'before-arrival',
     diapCategory: 'customer-service',
     title: 'Familiarisation Visits',
@@ -268,16 +268,16 @@ export const beforeArrivalHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'A6-1-7',
+        questionId: '3.3-1-7',
         questionText: 'Do you offer relaxed or sensory-friendly sessions?',
         relationship: 'Both support neurodiverse visitors',
-        moduleCode: 'A6'
+        moduleCode: '3.3'
       },
       {
-        questionId: 'B1-F-1',
+        questionId: '1.1-F-1',
         questionText: 'Do you have accessibility information available for customers before they visit?',
         relationship: 'Familiarisation info should be on your accessibility page',
-        moduleCode: 'B1'
+        moduleCode: '1.1'
       }
     ],
 
@@ -286,9 +286,9 @@ export const beforeArrivalHelp: HelpContent[] = [
   },
 
   {
-    questionId: 'B1-F-8',
+    questionId: '1.1-F-8',
     questionText: 'Do you provide information about accessible transport options to your venue?',
-    moduleCode: 'B1',
+    moduleCode: '1.1',
     moduleGroup: 'before-arrival',
     diapCategory: 'information-communication-marketing',
     title: 'Accessible Transport Information',
@@ -370,16 +370,16 @@ export const beforeArrivalHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'A1-F-1',
+        questionId: '2.1-F-1',
         questionText: 'Is there accessible parking close to the entrance?',
         relationship: 'Parking is part of the transport journey',
-        moduleCode: 'A1'
+        moduleCode: '2.1'
       },
       {
-        questionId: 'B1-F-1',
+        questionId: '1.1-F-1',
         questionText: 'Do you have accessibility information available for customers before they visit?',
         relationship: 'Transport info is part of pre-visit information',
-        moduleCode: 'B1'
+        moduleCode: '1.1'
       }
     ],
 

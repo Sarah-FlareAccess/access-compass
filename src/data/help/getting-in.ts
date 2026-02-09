@@ -1,16 +1,16 @@
 /**
  * Help Content: Getting In
- * Modules: A1, A2, A3a, A3b
+ * Modules: 2.1, 2.2, 2.3, 2.4
  */
 
 import type { HelpContent } from './types';
 
 export const gettingInHelp: HelpContent[] = [
-  // A1: Parking
+  // 2.1: Parking
   {
-    questionId: 'A1-F-1',
+    questionId: '2.1-F-1',
     questionText: 'Is there accessible parking available for customers?',
-    moduleCode: 'A1',
+    moduleCode: '2.1',
     moduleGroup: 'getting-in',
     diapCategory: 'physical-access',
     title: 'Accessible Parking',
@@ -131,16 +131,16 @@ export const gettingInHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'A2-F-1',
+        questionId: '2.2-F-1',
         questionText: 'Is there an accessible entrance?',
         relationship: 'Accessible parking must connect to accessible entrance',
-        moduleCode: 'A2'
+        moduleCode: '2.2'
       },
       {
-        questionId: 'B1-F-8',
+        questionId: '1.1-F-8',
         questionText: 'Do you provide information about accessible transport options?',
         relationship: 'Parking info is part of transport guidance',
-        moduleCode: 'B1'
+        moduleCode: '1.1'
       }
     ],
 
@@ -148,11 +148,11 @@ export const gettingInHelp: HelpContent[] = [
     lastUpdated: '2024-12-18'
   },
 
-  // A2: Entrance
+  // 2.2: Entrance
   {
-    questionId: 'A2-F-1',
+    questionId: '2.2-F-1',
     questionText: 'Is there an accessible entrance to your venue?',
-    moduleCode: 'A2',
+    moduleCode: '2.2',
     moduleGroup: 'getting-in',
     diapCategory: 'physical-access',
     title: 'Accessible Entrance',
@@ -425,16 +425,16 @@ export const gettingInHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'A2-F-3',
+        questionId: '2.2-F-3',
         questionText: 'Do you have a ramp at the entrance?',
         relationship: 'Ramps overcome steps at entrances',
-        moduleCode: 'A2'
+        moduleCode: '2.2'
       },
       {
-        questionId: 'A1-F-1',
+        questionId: '2.1-F-1',
         questionText: 'Is there accessible parking?',
         relationship: 'Parking should connect to accessible entrance',
-        moduleCode: 'A1'
+        moduleCode: '2.1'
       }
     ],
 
@@ -442,11 +442,11 @@ export const gettingInHelp: HelpContent[] = [
     lastUpdated: '2024-12-18'
   },
 
-  // A2: Ramps
+  // 2.2: Ramps
   {
-    questionId: 'A2-F-3',
+    questionId: '2.2-F-3',
     questionText: 'If there are steps, is there a ramp or alternative accessible entrance?',
-    moduleCode: 'A2',
+    moduleCode: '2.2',
     moduleGroup: 'getting-in',
     diapCategory: 'physical-access',
     title: 'Ramps and Step-Free Access',
@@ -570,10 +570,10 @@ export const gettingInHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'A2-F-1',
+        questionId: '2.2-F-1',
         questionText: 'Is there an accessible entrance?',
         relationship: 'Ramps are part of creating accessible entrances',
-        moduleCode: 'A2'
+        moduleCode: '2.2'
       }
     ],
 

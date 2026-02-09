@@ -1,16 +1,16 @@
 /**
  * Help Content: During Visit
- * Modules: A4, A5, A6, B2, B3
+ * Modules: 3.1, 3.2, 3.3, 3.5, 3.6
  */
 
 import type { HelpContent } from './types';
 
 export const duringVisitHelp: HelpContent[] = [
-  // A6: Lighting, Sound and Sensory Environment
+  // 3.3: Lighting, Sound and Sensory Environment
   {
-    questionId: 'A6-1-6',
+    questionId: '3.3-1-6',
     questionText: 'Are sensory kits or supports available for customers and visitors?',
-    moduleCode: 'A6',
+    moduleCode: '3.3',
     moduleGroup: 'during-visit',
     diapCategory: 'customer-service',
     title: 'Sensory Kits and Supports',
@@ -118,16 +118,16 @@ export const duringVisitHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'A6-1-7',
+        questionId: '3.3-1-7',
         questionText: 'Do you offer relaxed or sensory-friendly sessions?',
         relationship: 'Both support sensory-sensitive visitors',
-        moduleCode: 'A6'
+        moduleCode: '3.3'
       },
       {
-        questionId: 'A6-1-2',
+        questionId: '3.3-1-2',
         questionText: 'Are there quiet or reset spaces available?',
         relationship: 'Quiet spaces complement sensory kits',
-        moduleCode: 'A6'
+        moduleCode: '3.3'
       }
     ],
 
@@ -136,9 +136,9 @@ export const duringVisitHelp: HelpContent[] = [
   },
 
   {
-    questionId: 'A6-1-7',
+    questionId: '3.3-1-7',
     questionText: 'Do you offer relaxed or sensory-friendly sessions?',
-    moduleCode: 'A6',
+    moduleCode: '3.3',
     moduleGroup: 'during-visit',
     diapCategory: 'customer-service',
     title: 'Relaxed and Sensory-Friendly Sessions',
@@ -248,16 +248,16 @@ export const duringVisitHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'A6-1-6',
+        questionId: '3.3-1-6',
         questionText: 'Are sensory kits or supports available?',
         relationship: 'Sensory kits complement relaxed sessions',
-        moduleCode: 'A6'
+        moduleCode: '3.3'
       },
       {
-        questionId: 'B1-F-7',
+        questionId: '1.1-F-7',
         questionText: 'Do you offer familiarisation visits?',
         relationship: 'Familiarisation visits help people prepare for relaxed sessions',
-        moduleCode: 'B1'
+        moduleCode: '1.1'
       }
     ],
 
@@ -266,9 +266,9 @@ export const duringVisitHelp: HelpContent[] = [
   },
 
   {
-    questionId: 'A6-1-8',
+    questionId: '3.3-1-8',
     questionText: 'Do you offer assisted listening devices or hearing augmentation?',
-    moduleCode: 'A6',
+    moduleCode: '3.3',
     moduleGroup: 'during-visit',
     diapCategory: 'information-communication-marketing',
     title: 'Assisted Listening Devices & Hearing Loops',
@@ -391,10 +391,10 @@ export const duringVisitHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'C1-D-10',
+        questionId: '4.2-D-10',
         questionText: 'Do staff know how to communicate with customers who are Deaf or hard of hearing?',
         relationship: 'Staff awareness complements technical solutions',
-        moduleCode: 'C1'
+        moduleCode: '4.2'
       }
     ],
 
@@ -402,11 +402,11 @@ export const duringVisitHelp: HelpContent[] = [
     lastUpdated: '2024-12-18'
   },
 
-  // B3: Printed Materials
+  // 3.6: Printed Materials
   {
-    questionId: 'B3-1-4',
+    questionId: '3.6-1-4',
     questionText: 'Do you provide key information in alternative formats such as Easy Read and plain English?',
-    moduleCode: 'B3',
+    moduleCode: '3.6',
     moduleGroup: 'during-visit',
     diapCategory: 'information-communication-marketing',
     title: 'Alternative Formats: Easy Read & Plain English',
@@ -504,10 +504,10 @@ export const duringVisitHelp: HelpContent[] = [
 
     relatedQuestions: [
       {
-        questionId: 'B3-1-1',
+        questionId: '3.6-1-1',
         questionText: 'Are your printed materials available in large print?',
         relationship: 'Both are alternative formats for accessibility',
-        moduleCode: 'B3'
+        moduleCode: '3.6'
       }
     ],
 

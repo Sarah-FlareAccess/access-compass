@@ -309,7 +309,7 @@ export function DiscoveryModule({
   }, [selectedTouchpoints]);
 
   // Event modules to add when event assessment is selected
-  const eventModuleIds = ['E1', 'E2', 'E3', 'E4', 'E5'];
+  const eventModuleIds = ['6.1', '6.2', '6.3', '6.4', '6.5'];
 
   // Initialize custom module selection when entering recommendation step
   useEffect(() => {
@@ -833,7 +833,7 @@ export function DiscoveryModule({
                   icon: '🔍',
                   description: 'Help customers find you and plan their visit with confidence',
                   outcome: 'Customers arrive prepared and feeling welcome',
-                  codes: ['B1', 'B2', 'B3', 'B4.1', 'B4.2', 'B4.3', 'B5', 'B6'],
+                  codes: ['1.1', '3.5', '3.6', '1.2', '1.3', '1.4', '1.5', '1.6'],
                 },
                 {
                   id: 'during-visit',
@@ -841,7 +841,7 @@ export function DiscoveryModule({
                   icon: '🏪',
                   description: 'Create a physical space where everyone can participate fully',
                   outcome: 'Customers navigate and engage independently',
-                  codes: ['A1', 'A2', 'A3a', 'A3b', 'A4', 'A5', 'A6', 'A6a', 'A7'],
+                  codes: ['2.1', '2.2', '2.3', '2.4', '3.1', '3.2', '3.3', '3.4', '4.4'],
                 },
                 {
                   id: 'service',
@@ -849,7 +849,7 @@ export function DiscoveryModule({
                   icon: '🤝',
                   description: 'Communicate and serve customers with diverse needs',
                   outcome: 'Every customer interaction is inclusive',
-                  codes: ['C1', 'C2'],
+                  codes: ['4.2', '4.3'],
                 },
                 {
                   id: 'after-visit',
@@ -857,7 +857,7 @@ export function DiscoveryModule({
                   icon: '📈',
                   description: 'Gather feedback and stay connected with customers',
                   outcome: 'Learn and build lasting relationships',
-                  codes: ['C3', 'C4'],
+                  codes: ['4.5', '4.6'],
                 },
                 {
                   id: 'policy-operations',
@@ -865,7 +865,7 @@ export function DiscoveryModule({
                   icon: '📋',
                   description: 'Embed accessibility into your organisational practices',
                   outcome: 'Accessibility becomes part of how you operate',
-                  codes: ['P1', 'P2', 'P3', 'P4', 'P5'],
+                  codes: ['5.1', '5.2', '5.3', '5.4', '5.5'],
                 },
               ];
 
