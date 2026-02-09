@@ -63,44 +63,23 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   // ============================================
 
   'A2-F-1': {
-    title: 'Level access entrances',
+    title: 'Understanding this question',
     summary:
-      'Level access means being able to enter without navigating steps or significant changes in floor height. This is essential for wheelchair users, people with mobility aids, and anyone who finds steps difficult.',
-    examples: [
-      {
-        type: 'good',
-        imageUrl: '/help/entrance-level.jpg',
-        caption: 'Level threshold entrance',
-        details: 'Flush entry with no step, door wide enough for wheelchairs.',
-      },
-      {
-        type: 'good',
-        imageUrl: '/help/entrance-ramp.jpg',
-        caption: 'Ramped entrance',
-        details: 'Gentle gradient ramp (1:14 or less) with handrails both sides.',
-      },
-      {
-        type: 'poor',
-        imageUrl: '/help/entrance-steps.jpg',
-        caption: 'Steps without alternative',
-        details: 'No ramp or lift available - excludes wheelchair users.',
-      },
-      {
-        type: 'info',
-        imageUrl: '/help/entrance-threshold.jpg',
-        caption: 'Small threshold',
-        details: 'Thresholds up to 13mm are generally manageable. Higher needs a ramp.',
-      },
+      'Step-free access is essential for people with mobility aids, prams, trolleys, and anyone who finds steps difficult. Tell us what your main entrance has so we can ask the right follow-up questions about stairs, ramps, and other features.',
+    understanding: [
+      'Select "Level access" if the entrance is completely step-free with no threshold, step, or level change',
+      'Select "Permanent ramp" if a fixed ramp provides step-free access to the entrance',
+      'Select "Stairs or steps" if there are one or more steps at the entrance',
+      'Select "Portable ramp" if a ramp is available but needs staff to set it up when needed',
+      'Select "Step-free access at a secondary entrance" if your main entrance has steps but another entrance provides step-free access',
+      'You can select more than one. For example, many entrances have both stairs and a permanent ramp alongside',
     ],
     tips: [
-      'If you have steps, consider a portable ramp for occasional use',
-      'Automatic doors or doors that stay open make entry easier',
-      'Keep the path to the entrance clear of obstacles',
-      'Good lighting at the entrance helps everyone navigate safely',
-      'Signage showing the accessible entrance helps visitors find it',
+      'Level access at the main entrance is the gold standard because everyone uses the same door',
+      'If you have stairs, a permanent ramp alongside is much better than a portable one',
+      'Even a small lip or weather strip at the door can be a barrier, so select "Stairs or steps" if in doubt',
+      'If your only step-free access is at a secondary entrance, clear signage from the main entrance is essential',
     ],
-    videoUrl: 'https://vimeo.com/example-entrance',
-    videoCaption: 'What makes an entrance accessible',
   },
 
   'A3a-1-1': {
@@ -246,35 +225,20 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   },
 
   'A2-F-8': {
-    title: 'Tactile ground indicators',
+    title: 'Understanding this question',
     summary:
-      'Tactile ground surface indicators (TGSIs) are textured surfaces that help people with vision impairment navigate. They indicate hazards, direction changes, and key locations.',
-    examples: [
-      {
-        type: 'good',
-        imageUrl: '/help/tactile-warning.jpg',
-        caption: 'Warning indicators',
-        details: 'Dome pattern before steps, platform edges, or hazards.',
-      },
-      {
-        type: 'good',
-        imageUrl: '/help/tactile-directional.jpg',
-        caption: 'Directional indicators',
-        details: 'Line pattern showing path of travel through open spaces.',
-      },
-      {
-        type: 'info',
-        imageUrl: '/help/tactile-placement.jpg',
-        caption: 'Placement example',
-        details: 'Warning TGSIs 300mm before top of stairs, across full width.',
-      },
+      'Tactile Ground Surface Indicators (TGSIs) are standardised textured surfaces that help people who are blind or have low vision navigate and identify hazards by feel. Warning indicators (raised dots) alert to hazards like steps, ramps, or road crossings, while directional indicators (raised bars) guide people along a path.',
+    understanding: [
+      'Answer "Yes" if TGSIs are installed at key entry points including the top and bottom of steps/ramps, at doorways, and to guide people from parking or drop-off areas to the entrance',
+      'Answer "Partially" if TGSIs exist in some locations but not consistently (e.g., at steps but not at the entrance door), or if older TGSIs are present but may not meet current standards',
+      'Answer "No" if there are no TGSIs at the entrance area, or if they have been removed, worn away, or are so faded they cannot be felt',
     ],
     tips: [
-      'Warning (dots/bumps): Used before hazards like steps, escalators, platform edges',
-      'Directional (lines): Guide travel through large open spaces',
-      'Colour contrast with surrounding floor helps people with low vision',
-      'Most relevant for venues with steps, level changes, or large open spaces',
-      'Consult accessibility guidelines for specific placement requirements',
+      'Consider installing warning TGSIs, which have raised dots, at the top and bottom of ramps, stairs, and escalators',
+      'Directional TGSIs with raised bars can guide people from key points like accessible parking to the entrance',
+      'TGSIs work best when they contrast visually with the surrounding surface, such as yellow on light surfaces or light colours on dark surfaces',
+      'It helps to check TGSIs regularly, as worn or damaged indicators lose their effectiveness over time',
+      'Not all premises require TGSIs, but they significantly improve navigation for people with vision impairment',
     ],
   },
 

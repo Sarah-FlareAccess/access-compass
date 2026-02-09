@@ -122,25 +122,32 @@ export function useBranchingLogic({
     return map;
   }, [responses]);
 
+  // Check if a single response matches a condition (supports both answer and multiSelectValues)
+  const responseMatchesCondition = useCallback((response: QuestionResponse | undefined, answers: string[]): boolean => {
+    if (!response) return false;
+    // Check standard answer field
+    if (response.answer && answers.includes(response.answer as string)) return true;
+    // Check multiSelectValues (for multi-select and single-select questions)
+    if (response.multiSelectValues && response.multiSelectValues.some(val => answers.includes(val))) return true;
+    return false;
+  }, []);
+
   // Check if a condition is met
   const isConditionMet = useCallback((condition: BranchCondition): boolean => {
     // Check primary condition
     const response = responseMap[condition.questionId];
-    const primaryMet = response && response.answer && condition.answers.includes(response.answer as string);
-
-    // If primary condition is met, return true
-    if (primaryMet) return true;
+    if (responseMatchesCondition(response, condition.answers)) return true;
 
     // Check OR conditions - if ANY are met, return true
     if (condition.orConditions && condition.orConditions.length > 0) {
       return condition.orConditions.some(orCond => {
         const orResponse = responseMap[orCond.questionId];
-        return orResponse && orResponse.answer && orCond.answers.includes(orResponse.answer as string);
+        return responseMatchesCondition(orResponse, orCond.answers);
       });
     }
 
     return false;
-  }, [responseMap]);
+  }, [responseMap, responseMatchesCondition]);
 
   // Check if a question should be visible
   const isQuestionVisible = useCallback((questionId: string): boolean => {

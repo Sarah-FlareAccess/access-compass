@@ -400,7 +400,7 @@ export function QuestionCard({
           type="button"
         >
           <span className="help-trigger-icon">?</span>
-          See examples &amp; tips
+          How to answer + quick tips
         </button>
       )}
 
