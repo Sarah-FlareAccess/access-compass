@@ -4943,9 +4943,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'APS D3.5, DP8',
         partialPlaceholder: "E.g., 'We have one but it may not meet current width standards' or 'Spaces exist nearby in a shared car park'",
         helpContent: {
-          summary: 'Accessible parking spaces are wider to allow wheelchair transfers and should be clearly marked with the International Symbol of Access.',
+          summary: 'Accessible parking spaces are specifically designed bays that are wider than standard spaces, allowing wheelchair ramps to deploy or people to transfer between car and wheelchair. They should be clearly marked with the International Symbol of Access and identified with both ground markings and vertical signage.',
           understanding: [
-            'Designated accessible parking spaces are specifically designed bays that are wider than standard spaces (to allow wheelchair ramps to deploy or for people to transfer from car to wheelchair), clearly marked with the International Symbol of Access, and identified with both ground markings and vertical signage',
             'Answer "Yes" if you have at least one parking space that is wider than standard, has visible signage (both ground and vertical), and is designated for people with disability permits',
             'Answer "Partially" if you have wider spaces but they lack proper markings, shared zone, signage, or bollards - or if accessible bays exist nearby (e.g., in a shared car park or on the street) but not on your own premises',
             'Answer "No" if there are no designated accessible spaces available to your customers, either on-site or nearby',
@@ -4980,9 +4979,8 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'A1-F-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Close to an entrance but not the main one' or 'Closer spaces exist but are not designated accessible'",
         helpContent: {
-          summary: 'The closer to the entrance, the better. Distance matters for people with limited mobility or fatigue conditions.',
+          summary: 'The closer accessible parking is to the entrance, the better. Distance matters significantly for people with limited mobility or fatigue conditions, so accessible bays should be positioned to minimise the distance and effort required to reach your entrance.',
           understanding: [
-            'This question asks whether your accessible parking is positioned to minimise the distance and effort required to reach your entrance',
             'Answer "Yes" if accessible parking spaces are the closest available spaces to the accessible entrance (or main entrance if it is accessible), with a clear path between them',
             'Answer "Partially" if accessible parking is reasonably close but not the closest available spaces to the entrance, or if it is close to a secondary entrance rather than the main/accessible entrance',
             'Answer "No" if accessible parking is located far from all entrances or requires a significantly longer walk than standard parking',
@@ -5006,9 +5004,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Drop-off possible but not clearly marked or designated' or 'Kerbside drop-off but path to entrance is not ideal'",
         helpContent: {
-          summary: 'Drop-off zones allow companions or taxis to set people down close to the entrance, which is essential for some customers.',
+          summary: 'A drop-off zone is an area where vehicles can briefly stop to let passengers out safely near the entrance without needing to park. This is essential for people who use taxis, ride-share services, or are dropped off by family or carers.',
           understanding: [
-            'A drop-off zone is an area where vehicles can briefly stop to let passengers out safely, close to the entrance, without needing to park - this is essential for people who use taxis, ride-share services, or are dropped off by family/carers',
             'Answer "Yes" if there is a clearly identified area near your entrance where vehicles can safely stop for passenger drop-off, with a step-free connection to the entrance',
             'Answer "Partially" if drop-off is possible (e.g., kerbside) but it is not clearly marked, or the path from drop-off to entrance has barriers like steps or uneven surfaces',
             'Answer "No" if there is nowhere safe for vehicles to stop near the entrance, or if stopping would block traffic or be unsafe',
@@ -5033,9 +5030,8 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'A1-F-3', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Level but needs a kerb ramp to footpath' or 'Mostly accessible but uneven in places'",
         helpContent: {
-          summary: 'A drop-off zone only works if passengers can safely get from the vehicle to the footpath. Level access and a clear path to the entrance are essential.',
+          summary: 'A drop-off zone only works if passengers can safely get from the vehicle to the footpath. The surface should be level, with a kerb ramp or flush transition to the footpath and a clear path to the entrance.',
           understanding: [
-            'This question assesses whether the drop-off zone itself is accessible - is the surface level, is there a kerb ramp or flush transition to the footpath, and is the path to the entrance clear?',
             'Answer "Yes" if the drop-off area is level with the footpath (or has a kerb ramp right beside it), has a firm non-slip surface, and connects directly to an accessible path to the entrance',
             'Answer "Partially" if passengers can be dropped off but there are minor issues - slightly uneven surface, kerb ramp nearby but not immediately adjacent, or the path to the entrance could be improved',
             'Answer "No" if the drop-off zone has steps, a kerb with no nearby ramp, or passengers would need to navigate through vehicle lanes to reach the footpath',
@@ -5062,9 +5058,8 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'A1-F-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Mostly smooth but one section has uneven pavers' or 'Level but surface is gravel rather than concrete'",
         helpContent: {
-          summary: 'The journey from car to door matters. Rough surfaces, steps, or obstacles can make accessible parking unusable.',
+          summary: 'The journey from car to door matters. The path between accessible parking and your entrance should be smooth (no bumps, cracks, or uneven joints), level (no steps or sudden changes in height), and firm (not loose gravel, sand, or grass). Rough surfaces, steps, or obstacles can make even well-designed accessible parking unusable.',
           understanding: [
-            'This question assesses the path surface between accessible parking and your entrance - it should be smooth (no bumps, cracks, or uneven joints), level (no steps or sudden changes in height), and firm (not loose gravel, sand, or grass)',
             'Answer "Yes" if the entire path from accessible parking to the entrance is paved with a smooth, firm surface (concrete, asphalt, or flat pavers), with no steps and no significant level changes',
             'Answer "Partially" if most of the path is smooth and level but there are problem areas such as a section of uneven pavers, tree root damage, a short stretch of gravel, or a section of grass',
             'Answer "No" if the path has any steps (even one small step makes it not step-free), long stretches of loose surface, or major uneven sections that would make it difficult for wheelchair users or people with walking aids',
@@ -5091,9 +5086,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 1428.1 Cl. 3.3',
         partialPlaceholder: "E.g., 'Wide enough in most areas but narrower near bins or signage' or 'Wide but sometimes blocked by outdoor furniture'",
         helpContent: {
-          summary: '1 metre clear width is the minimum. Check the actual clear space, not just the paved width.',
+          summary: 'One metre clear width is the minimum for accessible paths. Check the actual clear usable width, not just the paved width - account for obstacles like bins, bollards, planters, signage, or outdoor furniture that reduce the space people can actually use.',
           understanding: [
-            'This question asks about the clear usable width of the path - not just how wide the pavement is, but how much space remains after accounting for obstacles like bins, bollards, planters, signage, or outdoor furniture',
             'Answer "Yes" if the path maintains at least 1 metre of clear, unobstructed width for its entire length, allowing a wheelchair user, someone with a walking frame, or a person with a guide dog to pass comfortably',
             'Answer "Partially" if the path is wide enough but temporary obstructions sometimes block or narrow it',
             'Answer "No" if the path is consistently too narrow (less than 1 metre clear width), has fixed obstacles that narrow the width such as trees, bollards or lights, or is frequently blocked by obstacles',
@@ -5117,9 +5111,8 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'A1-F-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Sign at car park entrance but not on road approach' or 'General parking sign but no accessibility direction'",
         helpContent: {
-          summary: 'Wayfinding starts on the road. Visitors deciding where to turn or which entrance to use need advance notice of where accessible parking is located.',
+          summary: 'Wayfinding starts on the road. Visitors deciding where to turn or which entrance to use need advance notice of where accessible parking is located, with signage visible to drivers before they enter the car park - at the road approach, car park entrance, or junction where they choose which way to go.',
           understanding: [
-            'This question asks specifically about signage visible to drivers BEFORE they enter your car park - at the road approach, car park entrance, or junction where they choose which way to go',
             'Answer "Yes" if there is clear signage with the International Symbol of Access (ISA) visible from the road or car park entrance, with directional arrows or text indicating where accessible parking is located (e.g., "Accessible parking - turn left" or "Accessible bays - Level 1")',
             'Answer "Partially" if there is a general car park sign but no specific accessibility direction, or if signage exists but is small, faded, positioned poorly (too low, blocked by foliage), or only visible once already inside the car park',
             'Answer "No" if there is no signage mentioning accessible parking until you are already driving through the car park, or if visitors would need to guess or search',
@@ -5146,9 +5139,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Entrance is visible but no directional signage' or 'Some signage but not at all decision points'",
         helpContent: {
-          summary: 'The journey does not end at parking. Clear wayfinding from the accessible bay to the entrance ensures visitors can navigate confidently and independently.',
+          summary: 'The journey does not end at parking. Once visitors have parked, they need clear pedestrian wayfinding to the entrance - can someone see exactly which direction to walk, and is the route clearly marked at each decision point including corners, intersections, and where multiple paths split?',
           understanding: [
-            'This question focuses on pedestrian wayfinding AFTER parking - can someone see exactly which direction to walk, and is the route clearly marked at each decision point (corners, intersections, multiple paths)?',
             'Answer "Yes" if there are clear directional signs, ground markings (painted arrows or tactile guidance), or strong visual cues from the accessible parking to the entrance, including signage at any points where visitors might be uncertain which way to go',
             'Answer "Partially" if the entrance is visible from parking (so signage seems unnecessary) but could be confusing in low light or for someone unfamiliar with the site, or if there is some signage but gaps at key decision points',
             'Answer "No" if there is no wayfinding between parking and entrance, if the route involves turns without directional guidance, or if visitors would need to ask for directions or explore to find the entrance',
@@ -5176,9 +5168,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Accessible route exists but signage is only at the steps' or 'Staff direct people but no permanent signage'",
         helpContent: {
-          summary: 'When the accessible route is different from the obvious path, clear proactive signage prevents people from encountering barriers and having to backtrack.',
+          summary: 'When steps or obstacles on the most direct route from parking require wheelchair users and others to take a different path, clear proactive signage should direct people to the accessible route before they reach the barrier, not after. This prevents people from encountering barriers and having to backtrack.',
           understanding: [
-            'This question applies when there are steps or obstacles on the most direct route from parking, requiring wheelchair users and others to take a different path - signage should direct people to the accessible route BEFORE they reach the barrier, not after',
             'Answer "Yes" if the accessible route is clearly signed from accessible parking, with signage appearing BEFORE any barriers (e.g., at the start of the path, not just at the steps), using the International Symbol of Access and directional arrows',
             'Answer "Partially" if signage exists but only appears once someone has already reached the steps or barrier, or if the accessible route is signed but the signage is small, faded, or easy to miss',
             'Answer "No" if there is no signage for the accessible route, if people would discover they need an alternative route only upon encountering steps, or if the only way to find the accessible route is to ask staff',
@@ -5206,9 +5197,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some staff know but not all, especially casual staff' or 'Front desk staff know but phone staff may not'",
         helpContent: {
-          summary: 'Customers often call ahead to ask about parking. Staff should be able to answer confidently without needing to check.',
+          summary: 'Customers often call ahead to ask about parking. All customer-facing staff (not just reception) should be able to confidently explain where accessible parking is located and how to reach the entrance from there, without needing to check.',
           understanding: [
-            'This question asks whether your staff (all customer-facing roles, not just reception) can confidently explain where accessible parking is located and how to reach the entrance from there',
             'Answer "Yes" if all staff who interact with customers (phone, in-person, email) can accurately describe accessible parking location and the route to the accessible entrance without hesitation',
             'Answer "Partially" if some staff know this information (e.g., reception) but others do not (e.g., casual staff, phone operators), or if staff need to check before answering',
             'Answer "No" if staff are generally unaware of accessible parking arrangements or would struggle to provide accurate directions',
@@ -5223,8 +5213,8 @@ export const accessModules: AccessModule[] = [
       },
       {
         id: 'A1-F-8',
-        text: 'Is the parking area well-lit for customers arriving in low light?',
-        helpText: 'Good lighting helps customers feel safe and confident when arriving early in the morning, evening, or at night. Well-lit parking areas help everyone navigate paths, signage, and entrances more easily.',
+        text: 'Is the parking area itself well-lit?',
+        helpText: 'The parking area needs adequate lighting so customers can safely get in and out of their vehicles, identify accessible spaces, and feel secure. This covers the car park itself, not the route to the entrance.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
@@ -5232,18 +5222,17 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Main areas lit but path to entrance has dark spots' or 'Street lighting only, no dedicated car park lights'",
         helpContent: {
-          summary: 'Good lighting supports safety, wayfinding, and confidence - especially important for people with low vision.',
+          summary: 'Good lighting in the car park helps customers safely identify accessible spaces, get in and out of their vehicles, and feel secure — especially important for people with low vision. This question is about the parking area itself, not the walking route to the entrance.',
           understanding: [
-            'This question assesses whether your parking area and path to the entrance have adequate lighting for customers arriving in low light conditions (early morning, evening, night, or overcast days)',
-            'Answer "Yes" if the parking area, path to the entrance, and the entrance itself are all well-lit, allowing customers to see signage, path edges, and any obstacles clearly',
-            'Answer "Partially" if some areas are well-lit but there are dark spots along the route, or if lighting is adequate in daylight but insufficient at night',
-            'Answer "No" if the parking area relies only on distant street lighting, or if there are significant dark areas that would make navigation difficult or feel unsafe',
+            'Answer "Yes" if the parking area is well-lit, including around accessible spaces, so customers can see ground markings, signage, and their surroundings clearly',
+            'Answer "Partially" if some parts of the car park are lit but accessible spaces are in darker areas, or lighting is adequate in daylight but poor at night',
+            'Answer "No" if the parking area relies only on distant street lighting or has significant dark areas around accessible spaces',
           ],
           tips: [
-            'Check lighting in the parking area, along the path to the entrance, and at the entrance itself',
-            'Walk the route at dusk or evening to identify dark spots',
+            'Accessible spaces specifically should be well-lit — they\'re often at the edges of car parks where lighting can be weaker',
+            'Visit your car park at dusk or evening to check for dark spots',
             'Motion-sensor lighting can help if 24/7 lighting is not practical',
-            'Signage should also be lit so it\'s readable at night',
+            'Good lighting also deters misuse of accessible spaces',
           ],
         },
       },
@@ -5260,9 +5249,8 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'A1-F-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Usually available but blocked during deliveries' or 'Available most times but full during major events'",
         helpContent: {
-          summary: 'Accessible parking must remain accessible at all times - including your busiest periods, during events, and when temporary structures or equipment are set up.',
+          summary: 'Accessible parking must remain genuinely usable at all times - including during peak times, special events, markets, festivals, deliveries, construction, or when temporary structures like marquees, stages, food trucks, or signage are installed.',
           understanding: [
-            'This question asks whether accessible parking bays remain genuinely usable during peak times, special events, markets, festivals, deliveries, construction, or when temporary structures (marquees, stages, food trucks, signage) are installed',
             'Answer "Yes" if accessible parking spaces are protected and remain clear and usable even during your busiest periods, special events, and temporary setups - with active management to prevent blocking',
             'Answer "Partially" if spaces are usually available but occasionally blocked during deliveries, events, or temporary setups, or if you have processes but they are not consistently followed',
             'Answer "No" if accessible spaces are regularly blocked during busy periods, used for event infrastructure, or if there is no process to protect them during special circumstances',
@@ -5289,9 +5277,8 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: 'A1-F-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Firm surface but can be slippery when wet' or 'Mostly sealed but some gravel patches'",
         helpContent: {
-          summary: 'The parking surface needs to support safe wheelchair transfers and walking aid use. Firm, stable, slip-resistant surfaces prevent accidents during the most vulnerable moment - getting in and out of vehicles.',
+          summary: 'The parking bay surface itself - not just the path - needs to support safe wheelchair transfers and walking aid use where people exit vehicles, deploy ramps, and transfer to wheelchairs. Firm, stable, slip-resistant surfaces prevent accidents during this vulnerable moment.',
           understanding: [
-            'This question assesses the actual surface quality of accessible parking bays - not just the path, but the bay itself where people exit vehicles, deploy ramps, and transfer to wheelchairs or walking aids',
             'Answer "Yes" if the parking surface is sealed (concrete, asphalt, or sealed pavers), level within the bay, free of potholes or significant cracks, and maintains grip when wet',
             'Answer "Partially" if the surface is generally firm but has issues in some areas (e.g., patches of loose material, some cracking, or becomes slippery when wet), or if the bay is sealed but the shared space beside it is not',
             'Answer "No" if the parking surface is loose gravel, grass, unsealed, significantly uneven, or becomes hazardously slippery when wet',
@@ -5317,9 +5304,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Machine height is fine but touchscreen only with no tactile buttons' or 'Accessible but no audio option for vision impaired users'",
         helpContent: {
-          summary: 'If customers need to pay for parking, can everyone use the payment system? This includes wheelchair users, people with vision impairment, and those with reduced hand function.',
+          summary: 'If your parking requires payment via machine, ticket dispenser, boom gate, or other method, can all customers use the payment system independently? This includes wheelchair users, people with vision impairment, and those with reduced hand function.',
           understanding: [
-            'This question applies if your parking requires payment via machine, ticket dispenser, boom gate, or other method - can customers with different disabilities use it independently?',
             'Answer "Yes" if machines have accessible height (900-1200mm), tactile buttons or keypad, readable high-contrast screens, clear space for wheelchair approach, and alternative payment options (app, pay at reception)',
             'Answer "Partially" if machines are usable for some but not all - e.g., good height but touchscreen-only with no tactile option, or no audio feedback for people with vision impairment',
             'Answer "No" if machines are inaccessible - too high, touchscreen-only with small targets, no tactile buttons, no alternative payment options, or boom gate buttons unreachable from a vehicle',
@@ -5338,6 +5324,36 @@ export const accessModules: AccessModule[] = [
         },
       },
       {
+        id: 'A1-D-13',
+        text: 'Are accessible parking spaces clearly marked with both ground markings and vertical signage?',
+        helpText: 'Accessible parking spaces need both a vertical sign (on a pole or wall) and ground markings (the International Symbol of Access painted on the surface) so drivers can identify the space before pulling in.',
+        type: 'yes-no-unsure',
+        category: 'evidence',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS/NZS 2890.6 Cl. 3.1, 3.2',
+        showWhen: { questionId: 'A1-F-1', answers: ['yes', 'partially'] },
+        supportsEvidence: true,
+        evidenceTypes: ['photo'],
+        evidenceHint: 'Upload a photo of your accessible parking signage and ground markings',
+        partialPlaceholder: "E.g., 'Ground markings present but sign is faded' or 'Vertical sign but no ground markings'",
+        helpContent: {
+          summary: 'Drivers need to see the space before they pull in — that means both vertical signage (a sign on a pole or wall) visible from the car and ground markings (the International Symbol of Access painted on the surface). Both types are required under AS/NZS 2890.6 for clear identification and to deter misuse.',
+          understanding: [
+            'Answer "Yes" if both are present, clearly visible, and in good condition',
+            'Answer "Partially" if one is present but not the other, or if signage exists but is faded or hard to see',
+            'Answer "No" if there are no markings or signage identifying the space as accessible',
+          ],
+          tips: [
+            'Vertical signs are essential — ground markings alone can be hidden by a parked car',
+            'Signs should be visible as you approach, not just when you\'re right next to the space',
+            'Check that signs and markings aren\'t faded, covered by vegetation, or blocked',
+            'Include the shared area in your ground markings so people know it\'s not a second parking space',
+          ],
+        },
+      },
+      {
         id: 'A1-D-10',
         text: 'Is the path to the entrance protected from weather (covered or sheltered)?',
         helpText: 'A protected or sheltered path helps people move to the entrance more comfortably and safely in rain, extreme heat, or strong sun.',
@@ -5348,9 +5364,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Covered near the entrance but not the whole path' or 'Some shade from trees but no awning'",
         helpContent: {
-          summary: 'Weather protection along the path to the entrance helps people who may take longer to travel the distance, have temperature sensitivity, or use mobility equipment affected by wet conditions.',
+          summary: 'Weather protection along the path to the entrance - such as overhead cover from awnings, canopies, or covered walkways, or natural shelter from mature trees and building overhangs - helps people who take longer to travel the distance, have temperature sensitivity, or use mobility equipment affected by wet conditions.',
           understanding: [
-            'This question asks whether there is overhead cover (awnings, canopies, covered walkways) or natural shelter (mature trees, building overhangs) along the route to your entrance',
             'Answer "Yes" if the path to the entrance is covered or sheltered for most or all of its length, protecting people from rain and providing shade from sun',
             'Answer "Partially" if some sections are covered (e.g., near the entrance) but other sections are exposed, or if there is natural shade but no rain protection',
             'Answer "No" if the path is fully exposed to weather with no cover, awnings, or significant shade along the route',
@@ -5375,9 +5390,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Bench near the entrance but not along the path' or 'Seating available but not at regular intervals'",
         helpContent: {
-          summary: 'Rest seating along longer paths allows people with fatigue conditions, limited stamina, or mobility difficulties to pause and recover on their way to the entrance.',
+          summary: 'For paths longer than about 30 metres to the entrance, rest seating allows people with fatigue conditions, limited stamina, or mobility difficulties to pause and recover, breaking the journey into manageable sections.',
           understanding: [
-            'This question applies if the path to your entrance is longer than about 30 metres - rest seating allows people to break the journey into manageable sections',
             'Answer "Yes" if there are seats or rest points along the path at reasonable intervals, positioned off the main path so people can rest without blocking others',
             'Answer "Partially" if there is seating near the entrance or at one point along the path, but not at regular intervals',
             'Answer "No" if there is no seating along the path to the entrance, or if the only seating is inside the building',
@@ -5404,9 +5418,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 1428.1 Cl. 7.7',
         partialPlaceholder: "E.g., 'Kerb ramps at main crossing but not at secondary path' or 'Dropped kerb exists but quite steep'",
         helpContent: {
-          summary: 'A kerb without a ramp is a barrier. Every transition between path and road level needs a kerb ramp or flush surface for wheeled mobility.',
+          summary: 'A kerb without a ramp is a barrier. Kerb ramps (dropped kerbs, pram ramps) should exist wherever the pedestrian path meets a different level - road crossings, driveway crossings, or kerb transitions - to provide flush surface access for wheeled mobility.',
           understanding: [
-            'This question identifies whether kerb ramps (dropped kerbs, pram ramps) exist wherever the pedestrian path meets a different level - road crossings, driveway crossings, or kerb transitions',
             'Answer "Yes" if all kerb transitions on the route to your entrance have kerb ramps or are flush/level, with ramps aligned to the direction of travel',
             'Answer "Partially" if kerb ramps exist at main crossings but are missing at some transitions, or if ramps exist but are steep, narrow, or poorly aligned',
             'Answer "No" if there are kerbs without ramps on the route that would force a wheelchair user to travel in vehicle lanes or prevent independent passage',
@@ -5415,7 +5428,7 @@ export const accessModules: AccessModule[] = [
             'Ramps should point in the direction people are walking, not towards traffic',
             'Gentler is better - steep ramps are hard to push up and risky going down',
             'Wide enough for a wheelchair (at least 1m)',
-            'Tactile dots at the bottom help people with vision impairment know they\'re approaching the road',
+            'Tactile Ground Surface Indicators (TGSIs) at the top of the kerb ramp help people with vision impairment detect the transition to the road',
             'The bottom should be flush with the road - even a small lip catches wheels',
             'Check for puddles after rain - water pooling at the base is a slip hazard',
           ],
@@ -5432,50 +5445,18 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Contrasting edge near parking but fades along path' or 'Physical edge but no colour contrast'",
         helpContent: {
-          summary: 'Defined edges help people stay on the path - especially important for people with vision impairment or when navigating in low light.',
+          summary: 'Defined path edges help people stay on the path, especially those with vision impairment or when navigating in low light. Edges should be clearly detectable through visual contrast (different colour or material), tactile difference (textured edge strip), or physical definition (raised edge, kerb, or barrier).',
           understanding: [
-            'This question assesses whether the edges of the path are clearly defined and detectable - through visual contrast (different colour/material), tactile difference (textured edge strip), or physical definition (raised edge, kerb, or barrier)',
-            'Answer "Yes" if the path edges are clearly visible through colour contrast with surrounding surfaces AND detectable through texture or physical edge for people using a cane',
+            'Answer "Yes" if the path edges are clearly visible through colour contrast with surrounding surfaces AND detectable through texture or physical edge',
             'Answer "Partially" if edges are visible but not tactilely detectable, or if edges are defined in some sections but fade or disappear in others',
             'Answer "No" if the path blends into surrounding surfaces with no clear visual or tactile definition, making it difficult to distinguish where the safe path ends',
           ],
           tips: [
             'Look for contrast between the path and the grass, garden, or road beside it',
-            'Different textures or a raised edge help people using a cane feel where the path ends',
+            'Different textures or a raised edge help people using a white cane (a mobility aid used by people with vision impairment) feel where the path ends',
             'Kerbs, garden edging, or bollards can all help define the path',
             'In shared areas with vehicles, clear path edges are especially important',
             'Keep edges clear of overgrown plants or debris',
-          ],
-        },
-      },
-      {
-        id: 'A1-D-13',
-        text: 'Are accessible parking spaces clearly marked with both ground markings and vertical signage?',
-        helpText: 'Take a photo of the accessible parking signage.',
-        type: 'yes-no-unsure',
-        category: 'evidence',
-        impactLevel: 'medium',
-        reviewMode: 'deep-dive',
-        complianceLevel: 'mandatory',
-        complianceRef: 'AS/NZS 2890.6 Cl. 3.1, 3.2',
-        showWhen: { questionId: 'A1-F-1', answers: ['yes', 'partially'] },
-        supportsEvidence: true,
-        evidenceTypes: ['photo'],
-        evidenceHint: 'Upload a photo of your accessible parking signage and ground markings',
-        partialPlaceholder: "E.g., 'Ground markings present but sign is faded' or 'Vertical sign but no ground markings'",
-        helpContent: {
-          summary: 'Drivers need to see the space before they pull in - that means both a sign they can see from the car AND markings on the ground.',
-          understanding: [
-            'This question checks that your accessible parking has both vertical signage (a sign on a pole or wall) AND ground markings (painted on the surface)',
-            'Answer "Yes" if both are present, clearly visible, and in good condition',
-            'Answer "Partially" if one is present but not the other, or if signage exists but is faded or hard to see',
-            'Answer "No" if there are no markings or signage identifying the space as accessible',
-          ],
-          tips: [
-            'Vertical signs are essential - ground markings alone can be hidden by a parked car',
-            'Signs should be visible as you approach, not just when you\'re right next to the space',
-            'Check that signs and markings aren\'t faded, covered by vegetation, or blocked',
-            'Include the shared area in your ground markings so people know it\'s not a second parking space',
           ],
         },
       },
@@ -5493,9 +5474,8 @@ export const accessModules: AccessModule[] = [
         evidenceHint: 'Provide a link to your website\'s accessibility or directions page',
         partialPlaceholder: "E.g., 'Mentions parking but no directions to entrance' or 'Text description but no photos or map'",
         helpContent: {
-          summary: 'People want to know before they arrive - where can I park or be dropped off, and how do I get to the entrance?',
+          summary: 'People want to know before they arrive - where can I park or be dropped off, and how do I get to the entrance? Your website should help visitors plan their arrival and route before visiting.',
           understanding: [
-            'This question asks whether your website helps visitors plan their arrival and route before visiting',
             'Answer "Yes" if your website describes parking options (or nearest alternatives), drop-off zones, and the route to the entrance - ideally with photos or a map',
             'Answer "Partially" if arrival info is mentioned but lacks detail, or directions to the entrance are missing or unclear',
             'Answer "No" if there\'s no information about arrival options or wayfinding on your website',
@@ -5512,8 +5492,8 @@ export const accessModules: AccessModule[] = [
       },
       {
         id: 'A1-D-16',
-        text: 'In low light or at night, can visitors safely navigate from parking to the entrance?',
-        helpText: 'Visitors arrive at all hours. Both the path and wayfinding signage should remain visible and usable in early mornings, evenings, or poor weather conditions.',
+        text: 'Is the walking route from parking to the entrance safely lit, with readable signage after dark?',
+        helpText: 'This goes beyond the car park itself — it covers the walking route. Can people see path edges, detect level changes, and read wayfinding signs when natural light is low? People with low vision rely on these visual cues to navigate safely.',
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
@@ -5521,9 +5501,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Path is lit but signs are hard to read at night' or 'Well-lit near entrance but darker in the car park'",
         helpContent: {
-          summary: 'Can people safely find their way when it\'s getting dark? Both the path and signage need to work in low light.',
+          summary: 'Can people safely find their way when it\'s getting dark? Both path visibility (can you see where to walk safely?) and signage visibility (can you read the wayfinding signs?) need to work in low light conditions.',
           understanding: [
-            'This question covers both path visibility (can you see where to walk safely?) and signage visibility (can you read the wayfinding signs?) in low light conditions',
             'Answer "Yes" if the path, its edges, and all wayfinding signage are clearly visible after dark - through good lighting, illuminated/reflective signs, or high contrast materials',
             'Answer "Partially" if some areas work well but others have issues - dark spots on the path, signs that are hard to read, or inconsistent lighting',
             'Answer "No" if navigating from parking to entrance would be difficult or unsafe after dark',
@@ -5555,11 +5534,10 @@ export const accessModules: AccessModule[] = [
         evidenceHint: 'Upload photos of your wayfinding signage showing the International Symbol of Access',
         partialPlaceholder: "E.g., 'ISA on parking signs but not on pathway signage' or 'Symbol present but inconsistent sizing or colours'",
         helpContent: {
-          summary: 'The International Symbol of Access provides instant visual recognition - its consistent use across all wayfinding creates a clear, trustworthy navigation system.',
+          summary: 'The International Symbol of Access (ISA) - the universally recognised wheelchair symbol - provides instant visual recognition and should appear consistently on all accessibility-related signage including parking bays, directional signs, route markers, and entrance signs to create a clear, trustworthy navigation system.',
           understanding: [
-            'The International Symbol of Access (ISA) is the universally recognised wheelchair symbol (ISO 7001) that should appear on all accessibility-related signage including parking bays, directional signs, route markers, and entrance signs',
             'Answer "Yes" if the ISA appears consistently on all accessibility wayfinding signage - from road approach signs, parking bay markers, pathway directions, and entrance signage - in standard colours (white on blue, or with appropriate contrast)',
-            'Answer "Partially" if the ISA is used on some signage but not others (e.g., on the parking bay but not on directional signs), or if the symbol varies in style, size, or colour making it less recognisable',
+            'Answer "Partially" if the ISA is used on some signage but not others (e.g., on the parking bay but not on directional signs), if the symbol varies in style, size, or colour making it less recognisable, or if signage is faded or peeling',
             'Answer "No" if the ISA is missing from most wayfinding signage, if non-standard symbols are used instead, or if the only ISA is painted on the parking bay itself with no signs',
           ],
           // IMAGE: Good example - Consistent ISA symbols on wayfinding signs from parking to entrance, with directional arrows
@@ -5582,9 +5560,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Signage at main junction but not at all corners' or 'Signs at entrance but not in car park'",
         helpContent: {
-          summary: 'People get lost at decision points - junctions, corners, and path splits. Strategic signage placement ensures continuous wayfinding without gaps.',
+          summary: 'People get lost at decision points - any location where the route is not immediately obvious, such as car park entrances, level changes, path junctions, corners where the destination is not visible, areas with multiple paths, and transitions between indoor and outdoor areas. Strategic signage placement at each of these points ensures continuous wayfinding without gaps.',
           understanding: [
-            'Decision points are any locations where the route is not immediately obvious: car park entrances, level changes, path junctions, corners where you cannot see the destination, areas with multiple paths, and transitions between indoor/outdoor areas',
             'Answer "Yes" if there is clear wayfinding signage at every decision point along the route from approach road to entrance - including car park entry, any turns, level changes, and the final approach to the entrance',
             'Answer "Partially" if signage exists at major decision points but there are gaps (e.g., signage at the car park entry but not at the corner where you turn toward the entrance), or if some decision points are obvious enough to navigate without signs but others are not',
             'Answer "No" if signage is only at the start and end (approach and entrance) with no guidance in between, or if visitors would need to guess at multiple points along the route',
@@ -5611,9 +5588,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 1428.1 Cl. 5.4',
         partialPlaceholder: "E.g., 'Adequate contrast but text too small from distance' or 'Large signs but low contrast colours'",
         helpContent: {
-          summary: 'Signage is only useful if people can read it. Size, contrast, and font choice directly impact how many people can use your wayfinding system.',
+          summary: 'Signage is only useful if people can read it. Effective wayfinding must be readable by people with varying vision abilities, at the distance and speed they encounter it - this requires appropriate text size that scales with viewing distance, high colour contrast, clear sans-serif fonts, and non-glare surfaces.',
           understanding: [
-            'Effective signage must be readable by people with varying vision abilities, at the distance and speed they encounter it - this requires appropriate text size (scales with viewing distance), high colour contrast, clear sans-serif fonts, and non-glare surfaces',
             'Answer "Yes" if all wayfinding signage uses high-contrast colours (light on dark or dark on light), text large enough to read at the intended viewing distance, clear sans-serif fonts, and is positioned to avoid glare or shadows',
             'Answer "Partially" if some signs are well-designed but others fall short (too small, low contrast, fancy fonts), or if signs are generally adequate but could be improved for people with vision impairments',
             'Answer "No" if signage is generally too small, uses low-contrast colours (e.g., pale grey on white), decorative fonts that are hard to read, or is positioned where glare makes it difficult to see',
@@ -5644,9 +5620,8 @@ export const accessModules: AccessModule[] = [
         evidenceHint: 'Upload a photo showing tactile ground surface indicators on the path to the entrance',
         partialPlaceholder: "E.g., 'TGSIs at entrance but not along the path' or 'Some sections have TGSIs but not continuous'",
         helpContent: {
-          summary: 'TGSIs provide non-visual wayfinding for people who are blind or have low vision, creating a tactile path they can follow to the entrance.',
+          summary: 'Tactile Ground Surface Indicators (TGSIs) are standardised textured surfaces that provide non-visual wayfinding for people who are blind or have low vision. Directional indicators (raised bars) guide people along a path, while warning indicators (raised dots) alert to hazards, level changes, or decision points.',
           understanding: [
-            'Tactile Ground Surface Indicators (TGSIs) are standardised textured surfaces: directional indicators (raised bars) guide people along a path, while warning indicators (raised dots) alert to hazards, level changes, or decision points',
             'Answer "Yes" if there are continuous directional TGSIs guiding visitors to the entrance, with warning TGSIs at any hazards (ramps, steps, road crossings)',
             'Answer "Partially" if TGSIs exist in some sections but the path is not continuous (e.g., TGSIs near the entrance but not from the footpath or car park), or if TGSIs are present but worn, damaged, or non-compliant',
             'Answer "No" if there are no TGSIs leading to the entrance, or if TGSIs are only at hazard points with no directional guidance',
@@ -5672,9 +5647,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Most signs fine but a few are faded' or 'Some signs are partially hidden by plants'",
         helpContent: {
-          summary: 'Even well-designed signs become useless if they fade, get damaged, or become hidden behind plants. A quick visual check can identify issues.',
+          summary: 'Even well-designed signs become useless if they fade, get damaged, or become hidden behind plants. A quick visual check of your wayfinding signage - looking for fading, damage, dirt, or vegetation blocking the view - can identify issues that need attention.',
           understanding: [
-            'This question asks you to check the physical condition of your wayfinding signage - looking for fading, damage, dirt, or vegetation blocking the view',
             'Answer "Yes" (good condition) if all signage is clearly visible, colours are still vibrant, text is easy to read, and nothing is blocking the signs',
             'Answer "Partially" if most signs are fine but some have faded colours, minor damage, or are partially obscured by plants or other objects',
             'Answer "No" if significant signage is faded, damaged, dirty, or hidden - enough that visitors might struggle to read or follow it',
@@ -5737,9 +5711,8 @@ export const accessModules: AccessModule[] = [
         evidenceHint: 'Upload a photo of your main entrance showing step-free access',
         partialPlaceholder: "E.g., 'Flat entrance but has a raised threshold' or 'Ramp available but not at the main entrance'",
         helpContent: {
-          summary: 'Step-free means no steps, no raised thresholds, no level changes. Even a single step excludes many customers.',
+          summary: 'Step-free means the entire journey through the entrance has no steps, no raised thresholds (or thresholds no higher than 10mm with bevelled edges), and no sudden changes in floor level. Even a single step excludes many customers.',
           understanding: [
-            'Step-free means the entire journey through the entrance has no steps, no raised thresholds (or thresholds no higher than 10mm with bevelled edges), and no sudden changes in floor level',
             'Answer "Yes" if a customer using a wheelchair could enter through the main entrance independently, without encountering any steps or level changes, including door thresholds',
             'Answer "Partially" if the entrance is mostly step-free but has a small threshold (over 10mm), or if a ramp is available but it is not at the main entrance (e.g., side or rear entrance)',
             'Answer "No" if there are steps at the main entrance with no ramp, or if the only step-free entry requires going around to a back or service entrance',
@@ -5766,9 +5739,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'APS D3.2(5), AS 1428.1 Cl. 10.2',
         partialPlaceholder: "E.g., 'Main door is wide but inner vestibule door is narrower' or 'One leaf is 850mm but both don't open easily'",
         helpContent: {
-          summary: '850mm clear opening allows most wheelchairs to pass. Measure the actual clear opening, not the door leaf width.',
+          summary: 'The 850mm measurement refers to the clear opening width when the door is fully open - the actual space someone can pass through, not the width of the door leaf itself. Measure the clear opening at the narrowest point, as this determines whether most wheelchairs can pass.',
           understanding: [
-            'The 850mm measurement refers to the clear opening width when the door is fully open - this is the actual space someone can pass through, not the width of the door leaf itself',
             'Answer "Yes" if the main entrance door provides at least 850mm clear opening when fully open, and this applies to all doors in the entry sequence (including vestibule doors)',
             'Answer "Partially" if the main door is wide enough but an inner vestibule or airlock door is narrower, or if only one leaf of a double door opens easily and it provides less than 850mm',
             'Answer "No" if the clear opening is less than 850mm, or if door hardware, stops, or furnishings reduce the usable width below this',
@@ -5793,9 +5765,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 1428.1 Cl. 10.4.2',
         partialPlaceholder: "E.g., 'Lever handles but door is heavy to push' or 'Automatic but button is hard to reach'",
         helpContent: {
-          summary: 'Door operation is a common barrier. Heavy doors, round knobs, or complex mechanisms exclude many people.',
+          summary: 'Door operation is a common barrier. People should be able to open the door independently without significant strength, dexterity, or complex hand movements. Automatic doors, light-push doors, and lever handles all support independent entry, while heavy doors, round knobs, or complex mechanisms exclude many people.',
           understanding: [
-            'This question assesses whether people can open the door independently without significant strength, dexterity, or complex hand movements - automatic doors, light-push doors, and lever handles all support independent entry',
             'Answer "Yes" if doors are automatic (motion sensor or push-button at accessible height), or if manual doors are light to push/pull (can be opened with one hand without significant force) with lever or D-shaped handles',
             'Answer "Partially" if doors have lever handles but are heavy to push, or if automatic doors have a push-button that is hard to reach or requires precise targeting',
             'Answer "No" if doors are heavy, have round knobs that require grip and twist, or require complex manoeuvres to open (e.g., push while turning a handle)',
@@ -5834,9 +5805,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Visible from street but not from car park' or 'Signage exists but is small or unclear'",
         helpContent: {
-          summary: 'First-time visitors should be able to identify the entrance without searching or asking. This reduces anxiety and confusion.',
+          summary: 'First-time visitors should be able to easily spot and recognise the main entrance as they approach - through clear sightlines, visual cues like signage or a canopy, contrasting colours, or good lighting. Not needing to search or ask reduces anxiety and confusion.',
           understanding: [
-            'This question asks whether visitors can easily spot and recognise the main entrance as they approach - through clear sightlines, visual cues like signage or canopy, contrasting colours, or good lighting',
             'Answer "Yes" if a first-time visitor approaching from the street, car park, or drop-off area would immediately be able to identify where to enter without searching or asking for help',
             'Answer "Partially" if the entrance is visible from some approaches but not others (e.g., visible from street but not from car park), or if signage exists but is small or unclear',
             'Answer "No" if the entrance is hidden, recessed, or difficult to distinguish from the surrounding building, or if visitors frequently arrive at the wrong door',
@@ -5861,9 +5831,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'APS D3.6(e)',
         partialPlaceholder: "E.g., 'Sign exists but is easy to miss' or 'Directions given if asked but no permanent signage'",
         helpContent: {
-          summary: 'If the main entrance is not accessible, alternative entrances must be clearly signposted so customers do not have to search or ask.',
+          summary: 'If the main entrance is not accessible, any alternative accessible entrance must be clearly signposted so customers can easily find and use it without having to search or ask.',
           understanding: [
-            'This question only applies if your main entrance is NOT accessible - it asks whether customers can easily find and use an alternative accessible entrance',
             'Answer "Yes" if the alternative accessible entrance is clearly signposted from the main entrance approach, with the International Symbol of Access and directional information, and provides an equivalent dignified experience',
             'Answer "Partially" if signage exists but is easy to miss, or if staff direct people to the accessible entrance when asked but there is no permanent signage',
             'Answer "No" if there is no signage, or if the alternative entrance is a back door, service entrance, or otherwise provides a lesser experience',
@@ -5890,9 +5859,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Reception staff trained but not all team members' or 'Staff willing to help but unsure of best approach'",
         helpContent: {
-          summary: 'Staff should offer assistance respectfully and only when needed. Many people prefer to navigate independently.',
+          summary: 'Staff should be trained and confident in offering appropriate entry assistance - knowing when and how to help, without making assumptions or being intrusive. Many people prefer to navigate independently, so assistance should be offered respectfully and only when needed.',
           understanding: [
-            'This question asks whether staff are trained and confident in offering appropriate entry assistance - knowing when and how to help, without making assumptions or being intrusive',
             'Answer "Yes" if staff know how to offer assistance respectfully (asking first), can direct people to accessible entrances, know how to operate any entry systems (buzzers, automatic doors), and respond promptly when assistance is requested',
             'Answer "Partially" if some staff are confident in this area (e.g., reception) but others are not, or if staff are willing to help but unsure of the best approach',
             'Answer "No" if staff have not been briefed on entry assistance, or if customers with disability have reported being ignored, receiving unhelpful assistance, or feeling unwelcome',
@@ -5917,9 +5885,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Well-lit during business hours but dim at night' or 'Main door lit but approach path is darker'",
         helpContent: {
-          summary: 'Good lighting helps people identify doors, handles, signage, and any level changes or hazards at the entrance.',
+          summary: 'Lighting at and around the entrance should be sufficient for people with low vision or those arriving in low-light conditions to safely identify the entrance, see door handles, read signage, and notice any steps or level changes.',
           understanding: [
-            'This question assesses whether lighting at and around the entrance is sufficient for people with low vision or those arriving in low-light conditions to safely identify the entrance, see door handles, read signage, and notice any steps or level changes',
             'Answer "Yes" if the entrance area is well-lit at all times the venue is open, including early morning, evening, and overcast days, with lighting that illuminates the door, handles, signage, and any steps or hazards',
             'Answer "Partially" if lighting is adequate during peak daylight but insufficient at other times, or if the door is lit but the approach path has dark areas',
             'Answer "No" if the entrance relies only on ambient daylight or distant lighting, making it difficult to see door features and hazards in low-light conditions',
@@ -5945,9 +5912,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'APS D3.8, AS 1428.4.1',
         partialPlaceholder: "E.g., 'TGSIs at main entrance but not alternative entrance' or 'Warning indicators at steps but no directional guidance'",
         helpContent: {
-          summary: 'Tactile ground surface indicators (TGSIs) are textured surfaces that help people who are blind or have low vision navigate and identify hazards by feel.',
+          summary: 'Tactile Ground Surface Indicators (TGSIs) are standardised textured surfaces that help people who are blind or have low vision navigate and identify hazards by feel. Warning indicators (raised dots) alert to hazards like steps, ramps, or road crossings, while directional indicators (raised bars) guide people along a path.',
           understanding: [
-            'Tactile Ground Surface Indicators (TGSIs) are standardised textured surfaces: warning indicators (raised dots) alert to hazards like steps, ramps, or road crossings, while directional indicators (raised bars) guide people along a path',
             'Answer "Yes" if TGSIs are installed at key entry points including the top and bottom of steps/ramps, at doorways, and to guide people from parking or drop-off areas to the entrance',
             'Answer "Partially" if TGSIs exist in some locations but not consistently (e.g., at steps but not at the entrance door), or if older TGSIs are present but may not meet current standards',
             'Answer "No" if there are no TGSIs at the entrance area, or if they have been removed, worn away, or are so faded they cannot be felt',
@@ -6141,7 +6107,7 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Clear most times but congested at opening or events' or 'Queue occasionally blocks the path'",
         helpContent: {
-          summary: 'This question assesses how well your entrance functions during peak times. Congestion from queues, furniture, displays, or security checks can make it difficult for people with mobility aids, vision impairments, or anxiety to enter safely and comfortably. An accessible entrance needs to work well not just when it is quiet, but also when it is busy.',
+          summary: 'An accessible entrance needs to work well not just when it is quiet, but also when it is busy. Congestion from queues, furniture, displays, or security checks during peak times can make it difficult for people with mobility aids, vision impairments, or anxiety to enter safely and comfortably.',
           understanding: [
             'Answer "Yes" if the entrance regularly becomes congested or blocked during busy periods, making it difficult for people with disability to enter (note: for this question, "Yes" indicates a problem)',
             'Answer "Partially" if congestion occurs occasionally (e.g., only at opening time or during special events) but is generally manageable',
@@ -6221,9 +6187,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 1428.1 Cl. 4.2, 4.3',
         partialPlaceholder: "E.g., 'Mat is mostly flat but edges sometimes curl' or 'Recessed mat well but grate has wide gaps'",
         helpContent: {
-          summary: 'Entrance mats and surface transitions are common trip hazards. Secure installation and appropriate design prevent falls.',
+          summary: 'Entrance mats, floor transitions, and surface changes at the entrance are common trip hazards that could catch wheels, trip walking aids, or cause falls. Secure installation and appropriate design prevent these issues.',
           understanding: [
-            'This question identifies potential trip hazards created by entrance mats, floor transitions, or surface changes at the entrance that could catch wheels, trip walking aids, or cause falls',
             'Answer "Yes" if mats are recessed into the floor (flush with surrounding surface), are securely fixed with no curling edges, or if there is no mat and the floor surface is consistent through the entrance',
             'Answer "Partially" if mats are present but occasionally curl at edges, if there is a small lip between surfaces that could catch a wheel, or if drainage grates have gaps that could trap wheels or cane tips',
             'Answer "No" if mats are loose or have raised edges, if there is a significant step-up onto a mat, or if surface changes create clear trip hazards',
@@ -6251,9 +6216,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 1428.1 Cl. 10.4.2(e)',
         partialPlaceholder: "E.g., 'Opens easily but closer pushes back hard' or 'Light when unlocked but heavy with security latch'",
         helpContent: {
-          summary: 'Door opening force is a critical accessibility factor. A door that requires significant strength to open excludes many people regardless of other accessible features.',
+          summary: 'Door opening force is a critical accessibility factor - both the initial force to unlatch and the sustained force needed against door closers. The standard maximum is 20 Newtons (about 2kg push force). A door that requires significant strength to open excludes many people regardless of other accessible features.',
           understanding: [
-            'This question assesses the force required to open manual entrance doors - both the initial force to unlatch and the sustained force needed against door closers. Standard maximum is 20 Newtons (about 2kg push force)',
             'Answer "Yes" if the door can be opened easily with one hand using minimal force, the door closer does not push back aggressively, and someone with limited strength could open it independently',
             'Answer "Partially" if the door opens reasonably easily but the closer pushes back making it difficult to hold open while passing through, or if force required is borderline manageable',
             'Answer "No" if the door is heavy, has a strong closer that fights against opening, or requires significant strength or two hands to open',
@@ -6280,9 +6244,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         partialPlaceholder: "E.g., 'Kick plate on main door but not on internal doors' or 'Door shows wear from wheelchairs but no plate installed'",
         helpContent: {
-          summary: 'Kick plates protect doors and make them more wheelchair-friendly. They allow wheelchair users to push doors open using footrests without causing damage.',
+          summary: 'Kick plates (also called push plates or protection plates) are metal or plastic panels on the lower portion of doors that protect the door surface and provide a robust area for wheelchair footrests to contact, allowing wheelchair users to push doors open without causing damage.',
           understanding: [
-            'This question asks about kick plates (also called push plates or protection plates) - typically metal or plastic panels on the lower portion of doors that protect the door surface and provide a robust area for wheelchair footrests to contact',
             'Answer "Yes" if doors have kick plates installed on the push side, extending from the bottom of the door to at least 400mm high, in durable material that can withstand regular contact',
             'Answer "Partially" if kick plates are present but do not extend high enough, are only on some doors, or show significant wear indicating they need replacement',
             'Answer "No" if there are no kick plates and the door shows scuff marks or damage from wheelchair contact, or if the door surface would be easily damaged by footrest contact',
@@ -6309,9 +6272,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 1428.1 Cl. 3.7',
         partialPlaceholder: "E.g., 'Full glass door so visibility is good' or 'Small window but quite high'",
         helpContent: {
-          summary: 'Being able to see through doors prevents collisions and reduces anxiety. Vision panels are especially important for people with mobility aids who cannot quickly step aside.',
+          summary: 'Vision panels - glazed panels or windows in doors - allow people to see if someone is approaching from the other side, preventing collisions and reducing anxiety. They are especially important for people with mobility aids who cannot quickly step aside and need advance warning of an approaching door.',
           understanding: [
-            'This question assesses whether doors have glazed panels or windows that allow people to see if someone is approaching from the other side - important for preventing collisions and for people who need advance warning of an approaching door',
             'Answer "Yes" if doors have vision panels at heights that work for both standing and seated users (typically starting no higher than 900mm and extending to at least 1500mm), or if doors are fully glazed with appropriate contrast markings',
             'Answer "Partially" if vision panels exist but are positioned only at standing height (not visible to wheelchair users), are too small to be useful, or are obscured (frosted, covered, dirty)',
             'Answer "No" if doors are solid with no vision panels, preventing people from seeing approaching traffic from the other side',
@@ -6336,9 +6298,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Door frame contrasts but door itself is similar to wall' or 'Good contrast in daylight but harder to see in dim light'",
         helpContent: {
-          summary: 'Visual contrast helps everyone find the door, but is essential for people with low vision. Doors should be clearly distinguishable from surrounding walls.',
+          summary: 'Visual contrast helps everyone find the door, but is essential for people with low vision. The door, door frame, and door handle should all provide sufficient visual contrast against the surrounding wall, enabling people to easily locate and identify the entrance.',
           understanding: [
-            'This question assesses whether the door, door frame, and door handle provide sufficient visual contrast against the surrounding wall - enabling people with low vision to easily locate and identify the entrance',
             'Answer "Yes" if the door, frame, and handle clearly contrast with the surrounding wall (e.g., dark door on light wall, or vice versa), making the door immediately visible from a distance',
             'Answer "Partially" if some elements contrast but not others (e.g., contrasting frame but door matches wall), or if contrast is adequate in good lighting but reduces in dim conditions',
             'Answer "No" if the door blends into the surrounding wall with minimal contrast, making it difficult to identify the door location, especially for people with low vision',
@@ -6367,9 +6328,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Clear from street but harder to see from car park' or 'Signage visible from parking but not from bus stop'",
         helpContent: {
-          summary: 'Different visitors arrive from different directions. Your entrance should be visible and recognisable regardless of approach - not just from the "main" approach.',
+          summary: 'Your entrance should be visible and recognisable from all directions visitors commonly approach - including pedestrians from the street, visitors from parking areas, those from drop-off zones, and people arriving via public transport - not just from the main approach.',
           understanding: [
-            'This question assesses whether the entrance can be identified from all the directions visitors commonly approach - including pedestrians from the street, visitors from parking areas, those from drop-off zones, and people arriving via public transport',
             'Answer "Yes" if the entrance is clearly identifiable from all common approach directions, with sightlines, signage, or visual cues (canopy, lighting, colour) that guide people regardless of which direction they arrive from',
             'Answer "Partially" if the entrance is clear from some approaches but not others (e.g., highly visible from the street but hard to identify from the car park), or if some approaches require additional signage that is not currently provided',
             'Answer "No" if the entrance is only clearly visible from one direction and visitors approaching from other directions would have difficulty locating it or might arrive at a wrong door',
@@ -6400,7 +6360,6 @@ export const accessModules: AccessModule[] = [
         helpContent: {
           summary: 'Visitors cannot always assess accessibility from a distance. Signage with the International Symbol of Access confirms that the entrance is accessible before people commit to approaching it.',
           understanding: [
-            'This question asks whether there is clear accessibility signage at or near the entrance itself - indicating to visitors that this entrance is accessible before they have to physically test it by approaching',
             'Answer "Yes" if the entrance has visible signage featuring the International Symbol of Access (ISA), clearly indicating that this is an accessible entrance, positioned so visitors can see it as they approach',
             'Answer "Partially" if there is some indication of accessibility (e.g., automatic door sign, wheelchair symbol on the intercom) but no clear "this entrance is accessible" signage, or if the ISA is present but small or poorly positioned',
             'Answer "No" if there is no accessibility signage at the entrance, leaving visitors to assess accessibility on their own upon arrival',
@@ -6427,9 +6386,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Reception is visible so signage seems unnecessary' or 'Directory board but no directional arrows'",
         helpContent: {
-          summary: 'The wayfinding journey does not end at the entrance. Immediate directional information inside the door sets visitors up for confident navigation throughout your space.',
+          summary: 'The wayfinding journey does not end at the entrance. Signage at or immediately inside the door should tell people where to find key destinations like reception, lifts, accessible toilets, or the main customer area, setting visitors up for confident navigation throughout your space.',
           understanding: [
-            'This question focuses on wayfinding at the transition from outside to inside - is there signage at or immediately inside the entrance that tells people where to find key destinations like reception, lifts, accessible toilets, or the main customer area?',
             'Answer "Yes" if there is clear directional signage visible as people enter (or just inside the door) indicating where to find key destinations, with directions or arrows showing which way to go',
             'Answer "Partially" if key destinations are visible from the entrance so signage seems unnecessary, but would be helpful for people with vision impairments or those unfamiliar with the layout, or if a directory exists but lacks directional information',
             'Answer "No" if there is no directional signage at the entrance and visitors must explore or ask to find where they need to go',
@@ -6455,9 +6413,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Name visible but entrance similar to neighbours' or 'Clear signage but at night harder to distinguish'",
         helpContent: {
-          summary: 'In shared buildings or busy streetscapes, visitors need to identify which entrance is yours - not just find "an entrance" but the right one.',
+          summary: 'In shopping strips, shared buildings, or centres where multiple entrances are close together, visitors need to clearly identify which entrance is yours - not just find an entrance, but the right one.',
           understanding: [
-            'This question is particularly relevant for businesses in shopping strips, shared buildings, or centres where multiple entrances are close together - can visitors clearly identify which entrance is yours?',
             'Answer "Yes" if your business name and entrance are clearly identifiable and distinguishable from neighbouring businesses, with prominent signage, distinctive visual elements, or clear numbering that prevents confusion',
             'Answer "Partially" if your signage is visible but the entrance looks similar to neighbours (e.g., identical doors in a row), or if it is clear in daylight but harder to distinguish at night',
             'Answer "No" if visitors frequently struggle to identify your entrance, if signage is minimal or similar to neighbours, or if you regularly need to give directions like "the third door past the chemist"',
@@ -6485,12 +6442,8 @@ export const accessModules: AccessModule[] = [
         mediaAnalysisType: 'entrance',
         mediaAnalysisHint: 'Take a photo from outside showing your main entrance, door, any steps or ramps, and immediate surroundings.',
         helpContent: {
-          summary: 'Uploading a photo of your entrance allows our AI to assess key accessibility features against AS 1428.1 and the Access to Premises Standards. The analysis checks for door width, threshold condition, step-free access, visibility, and the overall approach to your entrance, helping identify potential barriers that might not be obvious without a trained eye.',
-          understanding: [
-            'Upload a clear photo taken from outside your venue, showing the full entrance area including the door, any steps or ramps, the approach path, and immediate surroundings',
-            'The AI will assess visible features such as door width, threshold height, step-free access, contrast markings, handrails, and landing areas',
-            'For best results, take the photo during daylight hours and ensure the entrance is not obscured by people, vehicles, or open doors',
-          ],
+          summary: 'Upload a clear photo of your entrance taken from outside during daylight, showing the full entrance area including the door, any steps or ramps, the approach path, and immediate surroundings. Our AI will assess key accessibility features against AS 1428.1 and the Access to Premises Standards, checking for door width, threshold condition, step-free access, contrast markings, handrails, and landing areas to help identify potential barriers.',
+          understanding: [],
           tips: [
             'Stand far enough back to capture the full entrance, including any steps, ramps, or signage',
             'If your entrance has multiple features (e.g., a ramp to one side), try to include them all in the frame',
@@ -6510,12 +6463,8 @@ export const accessModules: AccessModule[] = [
         mediaAnalysisType: 'door',
         mediaAnalysisHint: 'Take a close-up photo of your entrance door showing the handle, threshold, and any contrast strips.',
         helpContent: {
-          summary: 'A close-up photo of your entrance door allows our AI to analyse specific door features including the handle type and height, threshold condition, clear opening width estimation, and any visual contrast markings on glass. These details are critical for determining whether the door itself is independently usable by people with disability.',
-          understanding: [
-            'Upload a close-up photo focusing on the door itself, showing the handle, the threshold at floor level, and any contrast strips or markings on glass',
-            'The AI will assess handle type (lever vs knob), approximate handle height, threshold height and condition, and the presence of contrast markings',
-            'Include both the top handle area and the bottom threshold in the same photo if possible, or upload separate photos for each',
-          ],
+          summary: 'Upload a close-up photo focusing on the door itself, showing the handle, the threshold at floor level, and any contrast strips or markings on glass. Our AI will analyse handle type and height, threshold condition, clear opening width estimation, and visual contrast markings to determine whether the door is independently usable by people with disability. Include both the top handle area and the bottom threshold if possible.',
+          understanding: [],
           tips: [
             'Get close enough that the handle type and threshold detail are clearly visible',
             'If the door is glass, include a shot that shows any contrast strips or markings',
@@ -6536,12 +6485,8 @@ export const accessModules: AccessModule[] = [
         mediaAnalysisHint: 'Take a photo showing the full ramp from top or side, including handrails and landing areas.',
         showWhen: { questionId: 'A2-D-9', answers: ['yes', 'unable-to-check'] },
         helpContent: {
-          summary: 'A photo of your entrance ramp allows our AI to assess the gradient, width, handrail compliance, landing areas, and surface condition against AS 1428.1 requirements. Ramps are a critical accessibility feature, and even small issues with gradient or handrail design can make them difficult or unsafe to use.',
-          understanding: [
-            'Upload a photo showing the full ramp from the top, bottom, or side, including any handrails and the landing areas at each end',
-            'The AI will assess visible features including the apparent gradient, width, handrail presence and design, landing areas, and surface condition',
-            'If the ramp is long or has turns, consider uploading multiple photos to capture the full length',
-          ],
+          summary: 'Upload a photo showing the full ramp from the top, bottom, or side, including any handrails and the landing areas at each end. Our AI will assess gradient, width, handrail compliance, landing areas, and surface condition against AS 1428.1 requirements. Even small issues with gradient or handrail design can make ramps difficult or unsafe to use. For long ramps with turns, consider uploading multiple photos.',
+          understanding: [],
           tips: [
             'A side-on photo gives the best sense of the ramp gradient',
             'Include the landing areas at the top and bottom of the ramp in your photo',
@@ -6593,9 +6538,8 @@ export const accessModules: AccessModule[] = [
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Main aisles are wide but some areas narrow near displays' or 'Most paths OK but one bottleneck exists'",
         helpContent: {
-          summary: '1 metre minimum allows most wheelchairs and mobility aids to pass. 1.2 metres is better, and 1.5 metres allows two wheelchairs to pass each other.',
+          summary: '1 metre minimum allows most wheelchairs and mobility aids to pass. 1.2 metres is better, and 1.5 metres allows two wheelchairs to pass each other. Main circulation paths include aisles between shelving or displays, corridors between rooms, and routes from the entrance to key destinations like the counter or seating area.',
           understanding: [
-            'Main circulation paths are the primary routes customers use to move through your space - this includes aisles between shelving/displays, corridors between rooms, and routes from entrance to key destinations like the counter or seating area',
             'Answer "Yes" if all main paths maintain at least 1 metre clear width throughout, with no bottlenecks that would force a wheelchair user to turn back or ask for help',
             'Answer "Partially" if most paths are wide enough but there are occasional pinch points (e.g., one section narrows near a display), or if paths are theoretically wide enough but furniture/stock sometimes encroaches',
             'Answer "No" if main paths are consistently narrower than 1 metre, or if the layout requires significant manoeuvring or assistance to navigate',
@@ -6621,9 +6565,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Usually clear but displays sometimes encroach' or 'Paths clear but cables across floor in some areas'",
         helpContent: {
-          summary: 'Obstacles and trip hazards affect everyone but pose particular risks for people with vision impairments, mobility aids, or balance difficulties.',
+          summary: 'Obstacles and trip hazards affect everyone but pose particular risks for people with vision impairments, mobility aids, or balance difficulties. Circulation paths need to remain consistently clear of obstacles such as furniture, displays, stock, and equipment, as well as trip hazards like cables, mats, wet areas, and uneven surfaces throughout your operating hours.',
           understanding: [
-            'This question assesses whether circulation paths remain consistently clear of obstacles (furniture, displays, stock, equipment) and trip hazards (cables, mats, wet areas, uneven surfaces) throughout your operating hours',
             'Answer "Yes" if paths are consistently clear of obstacles and trip hazards, with regular checks throughout the day and clear procedures for keeping paths unobstructed',
             'Answer "Partially" if paths are generally clear but obstacles sometimes appear (e.g., during restocking, deliveries, or busy periods) or if there are some persistent hazards like cables or mat edges that have not been addressed',
             'Answer "No" if paths frequently have obstacles, if cables cross walkways without covers, if mats create trip hazards, or if the layout inherently places obstacles in circulation paths',
@@ -6651,9 +6594,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Lift available but doesn't reach all floors' or 'Ramp exists but is steep or around the back'",
         helpContent: {
-          summary: 'Steps exclude wheelchair users and create barriers for many others. Accessible alternatives ensure everyone can reach all areas.',
+          summary: 'Steps exclude wheelchair users and create barriers for many others. Accessible alternatives ensure everyone can reach all areas. This covers level changes within your premises such as steps between areas, split levels, and mezzanines, where wheelchair users and others who cannot use stairs need accessible routes to reach all customer-accessible areas.',
           understanding: [
-            'This question asks whether level changes within your premises (steps between areas, split levels, mezzanines) have accessible alternatives so that wheelchair users and others who cannot use stairs can reach all customer-accessible areas',
             'Answer "Yes" if all areas accessible to customers can be reached by at least one accessible route (lift, ramp, or level access), and these routes provide equivalent access to the same spaces',
             'Answer "Partially" if accessible alternatives exist but do not cover all areas (e.g., lift reaches most floors but not the mezzanine), or if alternatives exist but are inconvenient (e.g., ramp is located at the back of the building)',
             'Answer "No" if some customer areas can only be reached by stairs with no accessible alternative, or if no level changes exist (in which case this question may not apply)',
@@ -6680,9 +6622,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Main areas accessible but would need help in some sections' or 'Mostly independent but staff assistance needed for one area'",
         helpContent: {
-          summary: 'Independence matters. Customers with disability generally prefer to navigate independently rather than rely on staff assistance.',
+          summary: 'Independence matters. Customers with disability generally prefer to navigate independently rather than rely on staff assistance. Consider the overall navigation experience: whether someone using a wheelchair, walker, mobility scooter, or cane can move through your entire customer-accessible space without needing to ask for staff help to move obstacles, open doors, or find their way.',
           understanding: [
-            'This is a holistic question that considers the overall navigation experience: Can someone using a wheelchair, walker, mobility scooter, or cane move through your entire customer-accessible space without needing to ask for staff help to move obstacles, open doors, or find their way?',
             'Answer "Yes" if a person using a mobility aid could independently navigate from entrance to all key areas (main service area, counter, toilets, exits) without encountering barriers that would require staff assistance',
             'Answer "Partially" if most of the space is independently navigable but certain areas require assistance (e.g., one heavy door, one narrow section), or if staff frequently need to rearrange furniture or guide people',
             'Answer "No" if multiple barriers exist that would require staff assistance at various points, making independent navigation impractical',
@@ -6709,9 +6650,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Toilets signed but lift location not obvious' or 'Main areas visible but harder to find from some spots'",
         helpContent: {
-          summary: 'Customers should be able to find essential facilities without asking. Clear internal wayfinding creates independence and reduces anxiety.',
+          summary: 'Customers should be able to find essential facilities without asking. Clear internal wayfinding creates independence and reduces anxiety. Visitors should be able to navigate to key destinations such as toilets, lifts, service points, and exits using signage alone, without needing to ask staff or explore.',
           understanding: [
-            'This question assesses whether visitors can navigate to key destinations within your venue using signage alone - without needing to ask staff or explore to find things like toilets, lifts, service points, or exits',
             'Answer "Yes" if there is clear directional signage to key internal destinations including accessible toilets, lifts (if present), service counters, and emergency exits, visible from main circulation paths',
             'Answer "Partially" if some destinations are well-signed but others are not (e.g., toilets are signed but the lift is hard to find), or if signage exists but is inconsistent or easy to miss',
             'Answer "No" if there is minimal internal wayfinding, requiring visitors to ask staff or explore to find key destinations',
@@ -6737,9 +6677,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Eye-level for standing but high for wheelchair users' or 'Floor-level directories but overhead signs too high'",
         helpContent: {
-          summary: 'Signage at standing height may be invisible to wheelchair users or children. Consider multiple heights or universal positioning.',
+          summary: 'Signage at standing height may be invisible to wheelchair users or children. Consider multiple heights or universal positioning. Wayfinding signage needs to work for wheelchair users at a typical seated eye level of 1000-1200mm, people of short stature, and standing adults at a typical eye level of 1400-1700mm.',
           understanding: [
-            'This question asks whether wayfinding signage is positioned at heights that work for wheelchair users (typical seated eye level 1000-1200mm), people of short stature, and standing adults (typical eye level 1400-1700mm)',
             'Answer "Yes" if signage is either positioned at a universal height (around 1200-1400mm) that works reasonably for both standing and seated users, or if there are multiple signs at different heights covering both seated and standing eye levels',
             'Answer "Partially" if most signage is positioned well but some key signs are too high for seated users, or if ceiling-hung signs work for standing users but no lower-level alternatives exist',
             'Answer "No" if signage is predominantly at standing height only (1600mm+) with no consideration for seated users, or if key directional signs are consistently out of sightline for wheelchair users',
@@ -6767,9 +6706,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Map available at reception if requested but not displayed' or 'Digital map on website but not on-site'",
         helpContent: {
-          summary: 'Floor plans help visitors understand complex layouts at a glance. The ability to see the whole venue helps people plan accessible routes and locate key facilities.',
+          summary: 'Floor plans help visitors understand complex layouts at a glance. The ability to see the whole venue helps people plan accessible routes and locate key facilities. This is particularly relevant for larger venues, multi-storey buildings, or spaces with complex layouts where visitors need a floor plan or site map to understand the layout and find their way.',
           understanding: [
-            'This question is particularly relevant for larger venues, multi-storey buildings, or spaces with complex layouts - is there a floor plan or site map that visitors can reference to understand the layout and find their way?',
             'Answer "Yes" if a clear floor plan or site map is visibly displayed at the entrance or key decision points, showing layout, key destinations, accessible routes, and "You are here" indicators',
             'Answer "Partially" if a floor plan exists but is not prominently displayed (e.g., available on request, only on website, or only in certain locations), or if the plan exists but does not indicate accessible features',
             'Answer "No" if there is no floor plan available for visitors, or if the only wayfinding assistance is verbal directions from staff',
@@ -6796,9 +6734,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Most signs are clear but some use low-contrast colours' or 'Good contrast but text could be larger'",
         helpContent: {
-          summary: 'Wayfinding signage only works if people can read it. High contrast, appropriate sizing, and clear fonts make signage accessible to more people.',
+          summary: 'Wayfinding signage only works if people can read it. High contrast, appropriate sizing, and clear fonts make signage accessible to more people. Consider whether text is large enough to read from the intended distance, whether there is sufficient contrast between text and background, and whether fonts are clear and simple.',
           understanding: [
-            'This question assesses the visual accessibility of internal wayfinding signage - is the text large enough to read from an appropriate distance, is there sufficient contrast between text and background, and are fonts clear and simple?',
             'Answer "Yes" if internal signage uses high-contrast colour combinations (light on dark or dark on light), text is large enough to read at the intended viewing distance, and fonts are clear sans-serif styles without decorative elements',
             'Answer "Partially" if most signage is well-designed but some signs have issues (low contrast, small text, decorative fonts), or if signage is adequate but could be improved for people with vision impairments',
             'Answer "No" if signage commonly uses low-contrast colours, small text, or decorative fonts that reduce readability',
@@ -6826,9 +6763,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Braille on toilet signs but no directional TGSIs' or 'Some tactile signage but not comprehensive'",
         helpContent: {
-          summary: 'Visual wayfinding excludes people who cannot see it. Tactile and auditory wayfinding enables independence for people with vision impairment.',
+          summary: 'Visual wayfinding excludes people who cannot see it. Tactile and auditory wayfinding enables independence for people with vision impairment. Non-visual wayfinding features include tactile ground surface indicators (TGSIs), Braille or tactile signage, and auditory wayfinding like talking signs.',
           understanding: [
-            'This question asks whether your venue has non-visual wayfinding features for people who are blind or have low vision - such as tactile ground surface indicators (TGSIs), Braille or tactile signage, or auditory wayfinding like talking signs',
             'Answer "Yes" if there are comprehensive tactile wayfinding features including directional TGSIs along main routes, Braille or tactile signage on key facilities (lifts, toilets, room signs), and warning TGSIs at hazards',
             'Answer "Partially" if some tactile features exist but coverage is incomplete (e.g., Braille on toilet signs but no TGSIs, or TGSIs at the entrance but not internally)',
             'Answer "No" if there are no tactile or auditory wayfinding features, meaning people with vision impairment must rely on staff assistance or a companion to navigate',
@@ -6855,9 +6791,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Lift signed at stairs but not from entrance' or 'Accessible route exists but could be signed more clearly'",
         helpContent: {
-          summary: 'When the obvious path has barriers, accessible alternatives must be clearly signed BEFORE people encounter the barrier - not after.',
+          summary: 'When the obvious path has barriers, accessible alternatives must be clearly signed BEFORE people encounter the barrier - not after. Where the most obvious route includes barriers like stairs, steps, or narrow passages, accessible alternatives should be clearly signed so people can take the right route from the start.',
           understanding: [
-            'This question focuses on internal situations where the most obvious route includes barriers (stairs, steps, narrow passages) - are accessible alternatives clearly signed so people can take the right route from the start?',
             'Answer "Yes" if accessible routes are clearly distinguished from routes with barriers, with proactive signage that directs people to the accessible option BEFORE they encounter stairs or other obstacles',
             'Answer "Partially" if accessible alternatives are signed but only at the point of the barrier (e.g., "lift" sign appears only when you reach the stairs), or if signage exists but is easy to miss',
             'Answer "No" if accessible alternatives exist but are not signed, requiring people to encounter the barrier first and then search for an alternative',
@@ -6885,9 +6820,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Most areas fine but entrance gets slippery when wet' or 'Slip-resistant but some polished sections'",
         helpContent: {
-          summary: 'Slip-resistant flooring prevents falls. This is critical in wet areas and for anyone with mobility or balance challenges.',
+          summary: 'Slip-resistant flooring prevents falls. This is critical in wet areas and for anyone with mobility or balance challenges. Floor surfaces throughout your venue need to provide adequate slip resistance, particularly in areas that may become wet from rain tracking, spills, or cleaning.',
           understanding: [
-            'This question assesses whether floor surfaces throughout your venue provide adequate slip resistance - particularly in areas that may become wet from rain tracking, spills, or cleaning',
             'Answer "Yes" if floor surfaces throughout the venue have slip-resistant properties (textured finishes, anti-slip treatments), wet areas have higher slip-resistance ratings, and there are procedures for promptly addressing spills and wet floors',
             'Answer "Partially" if most areas have adequate slip resistance but some sections are polished or become slippery when wet, or if slip-resistant flooring exists but is inconsistent across the venue',
             'Answer "No" if floor surfaces are predominantly polished, smooth, or become hazardously slippery when wet, particularly in high-traffic areas or near entrances',
@@ -6915,9 +6849,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Main areas well-lit but corridors dimmer' or 'Good general lighting but some shadowed corners'",
         helpContent: {
-          summary: 'Consistent, adequate lighting supports safe navigation and wayfinding. Both too little light and high contrast light/dark transitions can create barriers.',
+          summary: 'Consistent, adequate lighting supports safe navigation and wayfinding. Both too little light and high contrast light/dark transitions can create barriers. Lighting throughout circulation paths should be bright enough to see obstacles and signage, without harsh contrasts between bright and dark areas that can temporarily blind people as they move through.',
           understanding: [
-            'This question assesses whether lighting throughout circulation paths is adequate for safe navigation - bright enough to see obstacles and signage, without harsh contrasts between bright and dark areas that can temporarily blind people as they move through',
             'Answer "Yes" if all circulation paths have adequate lighting for safe navigation, signage and obstacles are clearly visible, and transitions between areas have gradual lighting changes rather than harsh contrasts',
             'Answer "Partially" if main areas are well-lit but secondary paths (corridors, storage areas customers access) are dimmer, or if there are some dark spots or harsh light/dark transitions',
             'Answer "No" if lighting is generally inadequate, if there are significant dark areas that make navigation difficult, or if harsh contrasts create disorienting transitions',
@@ -6944,9 +6877,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Seating in main areas but not along corridors' or 'Benches at regular intervals but could be more frequent'",
         helpContent: {
-          summary: 'Rest points allow people to pace their energy during longer journeys through a venue. This enables visits that would otherwise be impossible for people with fatigue or mobility limitations.',
+          summary: 'Rest points allow people to pace their energy during longer journeys through a venue. This enables visits that would otherwise be impossible for people with fatigue or mobility limitations. This is most relevant for larger venues where customers walk significant distances, such as retail stores, museums, galleries, hospitals, and large offices.',
           understanding: [
-            'This question is most relevant for larger venues where customers walk significant distances - retail stores, museums, galleries, hospitals, large offices, or any venue where the walk from entrance to destination is substantial',
             'Answer "Yes" if seating or rest points are available at regular intervals along main circulation routes (ideally every 30-50 metres in larger venues), positioned so people can rest without blocking traffic',
             'Answer "Partially" if seating exists in destination areas (waiting rooms, galleries) but not along the routes between them, or if rest points exist but are too infrequent for people with limited stamina',
             'Answer "No" if there is no seating along circulation routes, requiring people to complete the entire journey without opportunity to rest',
@@ -6973,9 +6905,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Handrail on one side only' or 'Handrails exist but not continuous'",
         helpContent: {
-          summary: 'Ramps without handrails are barriers for many people. Continuous handrails on both sides provide essential support for safe passage.',
+          summary: 'Ramps without handrails are barriers for many people. Continuous handrails on both sides provide essential support for safe passage. Internal ramps are any slope steeper than 1:20 (5%) used to navigate between levels, and handrails on both sides provide support for people walking up, down, or using mobility aids.',
           understanding: [
-            'This question asks about internal ramps - any slope steeper than 1:20 (5%) used to navigate between levels. Handrails on both sides provide support for people walking up, down, or using mobility aids',
             'Answer "Yes" if all internal ramps have continuous handrails on both sides, at the correct height (865-1000mm), extending beyond the ramp at top and bottom, and with graspable profiles',
             'Answer "Partially" if handrails exist on one side only, if handrails are not continuous (gaps at landings), or if handrails exist but do not meet standards (wrong height, not graspable)',
             'Answer "No" if internal ramps have no handrails, or if handrails are purely decorative and not functional for support',
@@ -7004,9 +6935,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Step edges marked but ramp edges blend in' or 'Contrast nosings on stairs but faded'",
         helpContent: {
-          summary: 'Visual contrast at level changes alerts people to hazards. This is essential for people with low vision but helps everyone navigate safely.',
+          summary: 'Visual contrast at level changes alerts people to hazards. This is essential for people with low vision but helps everyone navigate safely. Level changes such as steps, ramp edges, platform edges, and floor level changes should be highlighted through visual contrast using different colours, materials, or markings that make them obvious.',
           understanding: [
-            'This question assesses whether level changes (steps, ramp edges, platform edges, floor level changes) are highlighted through visual contrast - different colours, materials, or markings that make them obvious',
             'Answer "Yes" if all level changes have clear visual contrast - step nosings in contrasting colour, ramp edges marked, floor level changes highlighted - making hazards immediately obvious to people with varying vision abilities',
             'Answer "Partially" if some level changes are marked but not all, if contrast markings exist but have faded, or if contrast is adequate in good light but insufficient in dim conditions',
             'Answer "No" if level changes are not highlighted and blend into surrounding surfaces, creating hidden trip hazards',
@@ -7044,9 +6974,8 @@ export const accessModules: AccessModule[] = [
           { id: 'no-lift', label: 'No lift in our venue' },
         ],
         helpContent: {
-          summary: 'Lift accessibility features ensure people with various disabilities can use lifts independently and safely.',
+          summary: 'Lift accessibility features ensure people with various disabilities can use lifts independently and safely. This covers which accessible features your lift has, which is important for wheelchair users, people with vision impairment, those with hearing loss, and anyone who needs support while using lifts.',
           understanding: [
-            'This question identifies which accessible features your lift has - important for wheelchair users, people with vision impairment, those with hearing loss, and anyone who needs support while using lifts',
             'Select ALL features that your lift has - even partial compliance is valuable information',
             'Select "No lift in our venue" if you do not have a lift, or if level changes are handled by ramps only',
           ],
@@ -7079,9 +7008,8 @@ export const accessModules: AccessModule[] = [
           { id: 'no-lift', label: 'No lift in our venue' },
         ],
         helpContent: {
-          summary: 'Independent lift operation respects dignity and autonomy. Having to ask for help each time creates barriers and delays.',
+          summary: 'Independent lift operation respects dignity and autonomy. Having to ask for help each time creates barriers and delays. A person with disability should be able to use the lift without needing to find and ask a staff member, as independent operation is the ideal.',
           understanding: [
-            'This question assesses whether a person with disability can use the lift without needing to find and ask a staff member - independent operation is the ideal',
             'Answer "Yes - fully independent" if anyone can call the lift, enter, select their floor, and exit without any staff involvement',
             'Answer "Mostly independent" if the main lift operation is independent but certain features require assistance (e.g., calling during certain hours)',
             'Answer "Staff assistance required" if using the lift always requires staff to operate it or accompany the user',
@@ -7116,9 +7044,8 @@ export const accessModules: AccessModule[] = [
           { id: 'no-internal-doors', label: 'No internal doors (open plan)' },
         ],
         helpContent: {
-          summary: 'Door handles and weight significantly affect independence. Lever handles and light opening force remove barriers.',
+          summary: 'Door handles and weight significantly affect independence. Lever handles and light opening force remove barriers. Consider whether internal doors can be opened by people with limited hand strength, dexterity, or grip, and whether door weight or resistance creates barriers.',
           understanding: [
-            'This question assesses whether internal doors can be opened by people with limited hand strength, dexterity, or grip - and whether door weight/resistance creates barriers',
             'Answer "Automatic doors" if internal doors open automatically via sensors or push-button',
             'Answer "Lever handles with light force" if doors have lever-style handles (not round knobs) and open easily with minimal force',
             'Answer "Lever handles but heavy" if handles are accessible but doors are heavy or have strong closers requiring significant force',
@@ -7147,9 +7074,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Most doors are wide enough but a few are narrower' or 'Main areas OK but back-of-house doors are narrow'",
         helpContent: {
-          summary: 'Door width determines whether wheelchair users can access an area. Narrow doors create complete barriers.',
+          summary: 'Door width determines whether wheelchair users can access an area. Narrow doors create complete barriers. Internal doors need to provide adequate clear width of at least 850mm, and ideally 900mm or more, for wheelchair users to pass through comfortably.',
           understanding: [
-            'This question asks whether internal doors provide adequate clear width (minimum 850mm, ideally 900mm+) for wheelchair users to pass through comfortably',
             'Answer "Yes" if all internal doors in customer-accessible areas provide at least 850mm clear opening width',
             'Answer "Partially" if most doors are adequate but some are narrower, or if main areas are accessible but secondary areas have narrow doors',
             'Answer "No" if internal doors are commonly less than 850mm wide, preventing wheelchair access to significant areas',
@@ -7178,13 +7104,11 @@ export const accessModules: AccessModule[] = [
         mediaAnalysisType: 'pathway',
         mediaAnalysisHint: 'Take photos of your main circulation paths, aisles, and corridors showing the width and surface condition.',
         helpContent: {
-          summary: 'A photo of your pathways allows our AI to analyse key accessibility features including path width, surface condition, obstacles, and potential trip hazards based on AS 1428.1 standards. Pathways are the arteries of your venue, and even small obstructions or surface issues can create significant barriers for people using wheelchairs, walkers, or canes.',
-          understanding: [
-            'Upload photos of your main circulation paths, aisles, and corridors, showing the width, surface condition, and any obstacles or furniture along the route',
-            'The AI will assess visible features including path width, surface evenness, the presence of obstacles, trip hazards, and whether the path appears navigable for someone in a wheelchair',
-            'Multiple photos of different pathways give a more complete picture - consider photographing your main aisle, narrowest point, and any problem areas',
-          ],
+          summary: 'A photo of your pathways allows our AI to analyse key accessibility features including path width, surface condition, obstacles, and potential trip hazards based on AS 1428.1 standards. Pathways are the arteries of your venue, and even small obstructions or surface issues can create significant barriers for people using wheelchairs, walkers, or canes. The AI will assess visible features including path width, surface evenness, the presence of obstacles, trip hazards, and whether the path appears navigable for someone in a wheelchair.',
+          understanding: [],
           tips: [
+            'Upload photos of your main circulation paths, aisles, and corridors, showing the width, surface condition, and any obstacles or furniture along the route',
+            'Multiple photos of different pathways give a more complete picture - consider photographing your main aisle, narrowest point, and any problem areas',
             'Photograph pathways as customers would experience them, with displays, furniture, and stock in their normal positions',
             'Include any pinch points where the path narrows, such as between shelving units or past display stands',
             'Show transitions between different floor surfaces, as these can reveal level changes or trip hazards',
@@ -7203,13 +7127,11 @@ export const accessModules: AccessModule[] = [
         mediaAnalysisType: 'ground-surface',
         mediaAnalysisHint: 'Take photos of different floor surfaces in your venue, including any transitions between materials.',
         helpContent: {
-          summary: 'A photo of your ground surfaces allows our AI to analyse floor materials for slip resistance, level changes, and overall accessibility compliance. The floor surface is one of the most fundamental accessibility features - uneven, slippery, or poorly transitioned surfaces create barriers and safety risks for everyone, especially people with mobility or vision impairments.',
-          understanding: [
-            'Upload photos showing different floor surfaces in your venue, focusing on transitions between materials (e.g., carpet to tile, indoor to outdoor), any level changes, and areas that may be slippery when wet',
-            'The AI will assess surface condition, apparent slip resistance, level changes at transitions, and any visible trip hazards',
-            'Include areas where you have concerns, such as worn surfaces, loose tiles, or transitions that seem abrupt',
-          ],
+          summary: 'A photo of your ground surfaces allows our AI to analyse floor materials for slip resistance, level changes, and overall accessibility compliance. The floor surface is one of the most fundamental accessibility features - uneven, slippery, or poorly transitioned surfaces create barriers and safety risks for everyone, especially people with mobility or vision impairments. The AI will assess surface condition, apparent slip resistance, level changes at transitions, and any visible trip hazards.',
+          understanding: [],
           tips: [
+            'Upload photos showing different floor surfaces in your venue, focusing on transitions between materials (e.g., carpet to tile, indoor to outdoor), any level changes, and areas that may be slippery when wet',
+            'Include areas where you have concerns, such as worn surfaces, loose tiles, or transitions that seem abrupt',
             'Photograph transitions between different floor materials, as these are common problem areas for trip hazards',
             'Include any areas where water, grease, or other liquids might make the surface slippery',
             'Show close-ups of any cracks, lifted edges, or uneven surfaces you have noticed',
@@ -7260,9 +7182,8 @@ export const accessModules: AccessModule[] = [
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Some seating nearby but not directly in queue area' or 'Seats available but limited number'",
         helpContent: {
-          summary: 'Many conditions cause difficulty standing for extended periods, including chronic pain, fatigue conditions, heart conditions, and pregnancy. Seating removes a barrier to participation.',
+          summary: 'Many conditions cause difficulty standing for extended periods, including chronic pain, fatigue conditions, heart conditions, and pregnancy. Seating in or near queue areas removes a barrier to participation by allowing people who cannot stand for extended periods to rest while waiting.',
           understanding: [
-            'This question asks whether seating is available in or near queue areas, so people who cannot stand for extended periods (due to chronic pain, fatigue, heart conditions, mobility difficulties, pregnancy, or other reasons) can rest while waiting',
             'Answer "Yes" if there is seating within or immediately adjacent to queue areas, positioned so people can rest without losing their place or being separated from companions',
             'Answer "Partially" if seating exists nearby but not directly in the queue area (requiring people to leave the queue to sit), or if very limited seating is available',
             'Answer "No" if there is no seating in or near queue areas, or if the only seating requires leaving the queue entirely',
@@ -7288,9 +7209,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Staff accommodate when asked but no formal process' or 'Available for some services but not all'",
         helpContent: {
-          summary: 'Priority access allows customers who cannot queue (due to disability, health conditions, or other needs) to be served without extended waiting.',
+          summary: 'Priority access allows customers who cannot queue (due to disability, health conditions, or other needs) to be served without extended waiting. This could include queue-skipping, alternative waiting arrangements such as text-when-ready, or being served at a seat.',
           understanding: [
-            'Priority access means customers have a way to request faster service when they cannot manage standard queue arrangements - this could include queue-skipping, alternative waiting arrangements (text when ready), or being served at a seat',
             'Answer "Yes" if there is a clear process for customers to request priority access, staff are trained to accommodate these requests without requiring justification, and this applies to all services',
             'Answer "Partially" if staff will accommodate requests when asked but there is no formal process, if it depends on which staff member is on duty, or if priority access is available for some services but not others',
             'Answer "No" if there is no provision for priority access, or if requests are typically refused or met with resistance',
@@ -7315,9 +7235,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Can arrange in advance but no dedicated lane' or 'Separate entry exists but not well promoted'",
         helpContent: {
-          summary: 'A dedicated accessible entry option provides certainty and dignity. Rather than requesting queue assistance each time, customers know they have guaranteed streamlined access.',
+          summary: 'A dedicated accessible entry option provides certainty and dignity. Rather than requesting queue assistance each time, customers know they have guaranteed streamlined access. This goes beyond the ability to request help, covering formal, reliable alternatives to the main queue such as a separate accessible entrance, priority lane, pre-booking option, or recognised access pass system.',
           understanding: [
-            'This question asks whether there is a formal, reliable alternative to the main queue for people with disability - not just the ability to request help, but a dedicated system such as a separate accessible entrance, priority lane, pre-booking option, or recognised access pass system',
             'Answer "Yes" if you have a formal streamlined entry option such as: a dedicated accessible entrance or lane that bypasses queues, a pre-booking system that guarantees queue-free entry, recognition of Companion Card or similar access passes, or a documented accessible entry procedure that staff consistently follow',
             'Answer "Partially" if streamlined entry can be arranged (e.g., by calling ahead) but there is no dedicated lane or formal system, if staff can accommodate but it depends on who is working, or if an accessible entry exists but is not well promoted or consistently available',
             'Answer "No" if the only option is to join the main queue and request assistance, with no dedicated accessible entry alternative',
@@ -7345,9 +7264,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some staff trained but approach varies' or 'Willing to help but unsure of best approach'",
         helpContent: {
-          summary: 'Staff should be confident in offering queue assistance respectfully, without requiring customers to justify or prove their need.',
+          summary: 'Staff should be confident in offering queue assistance respectfully, without requiring customers to justify or prove their need. This includes knowing what options to offer, how to respond respectfully, and how to implement alternatives without making customers feel awkward or singled out.',
           understanding: [
-            'This question asks whether staff are trained and confident in accommodating queue assistance requests - knowing what options to offer, how to respond respectfully, and how to implement alternatives without making customers feel awkward or singled out',
             'Answer "Yes" if all staff are trained in queue accommodation procedures, can confidently offer alternatives, and respond to requests without hesitation or requiring justification',
             'Answer "Partially" if some staff are trained but others are not, if the approach varies depending on who is working, or if staff are willing to help but unsure what to offer',
             'Answer "No" if staff have not been trained on queue assistance, if requests are handled inconsistently or awkwardly, or if customers have reported negative experiences',
@@ -7373,9 +7291,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Barrier tape queue but narrow in places' or 'Wide enough but tight turns at corners'",
         helpContent: {
-          summary: 'Queue layouts designed for standing pedestrians often create barriers for wheelchair users. Width, turning space, and avoidance of tight corners all matter.',
+          summary: 'Queue layouts designed for standing pedestrians often create barriers for wheelchair users. Width, turning space, and avoidance of tight corners all matter. Consider whether your queue layout can be physically navigated by people using wheelchairs, mobility scooters, walking frames, or other mobility aids, taking into account width, turning space, and the complexity of any zigzag arrangements.',
           understanding: [
-            'This question assesses whether your queue layout can be physically navigated by people using wheelchairs, mobility scooters, walking frames, or other mobility aids - considering width, turning space, and the complexity of any zigzag arrangements',
             'Answer "Yes" if queue areas maintain at least 900mm width throughout, have adequate turning space at any corners or direction changes (1500mm minimum), and can be navigated without complex manoeuvring',
             'Answer "Partially" if the queue is generally accessible but has pinch points, tight corners, or sections where mobility aid users would struggle, or if queue barriers sometimes need to be moved to accommodate wheelchair users',
             'Answer "No" if the queue layout is consistently too narrow for wheelchairs, has tight zigzag turns that cannot be navigated by mobility aids, or if wheelchair users must bypass the queue entirely',
@@ -7402,9 +7319,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Staff verbally offer but no signage' or 'Sign at service desk but not at queue entrance'",
         helpContent: {
-          summary: 'Signage proactively inviting assistance requests removes the burden from customers and signals that your venue considers accessibility.',
+          summary: 'Signage proactively inviting assistance requests removes the burden from customers and signals that your venue considers accessibility. Visible signage in or near queue areas that invites customers to request assistance removes the awkwardness of having to initiate the conversation.',
           understanding: [
-            'This question asks whether there is visible signage in or near queue areas that proactively invites customers to request assistance if they need it - removing the awkwardness of having to initiate the conversation',
             'Answer "Yes" if there is clear signage visible from the queue area indicating that customers can request queue assistance, such as "Please ask staff if you need assistance with queuing" or "Priority access available on request"',
             'Answer "Partially" if staff verbally offer assistance but there is no signage, if signage exists but is not visible from the queue, or if signage is present but unclear or easily missed',
             'Answer "No" if there is no signage about queue assistance, leaving customers to discover options only by asking or by staff intervention',
@@ -7430,9 +7346,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Staff will call people seated nearby but no formal system' or 'Ticket system for some services but not all'",
         helpContent: {
-          summary: 'Alternative queue systems allow people to sit comfortably, move freely, or wait elsewhere while maintaining their place - essential for people who cannot stand in line.',
+          summary: 'Alternative queue systems allow people to sit comfortably, move freely, or wait elsewhere while maintaining their place - essential for people who cannot stand in line. Options include numbered tickets, pager or buzzer systems, SMS notifications, and staff call-forward arrangements.',
           understanding: [
-            'This question asks whether you have systems that allow customers to wait without physically standing in line - such as numbered tickets, pager/buzzer systems, SMS notifications, or staff call-forward arrangements',
             'Answer "Yes" if you have one or more formal alternative queue systems in place (ticket numbers, SMS notification, pager/buzzer, or documented call-forward procedure) that customers can request or automatically use',
             'Answer "Partially" if informal alternatives exist (staff will call customers who are seated nearby) but there is no formal system, or if systems exist for some services but not others',
             'Answer "No" if the only option is to stand in the physical queue, with no alternative arrangements available',
@@ -7458,9 +7373,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Staff will estimate if asked but no displayed information' or 'Digital display in some areas but not all'",
         helpContent: {
-          summary: 'Wait time information helps everyone plan, but is especially valuable for people who need to pace their energy or manage anxiety around unpredictable waits.',
+          summary: 'Wait time information helps everyone plan, but is especially valuable for people who need to pace their energy or manage anxiety around unpredictable waits. Customers should be able to find out expected wait times before or during their wait through displayed information, staff communication, or digital systems.',
           understanding: [
-            'This question asks whether customers can find out expected wait times before or during their wait - through displayed information, staff communication, or digital systems',
             'Answer "Yes" if wait times are actively communicated to customers through displayed signs, digital boards, verbal updates from staff, or app/system notifications',
             'Answer "Partially" if staff provide estimates when asked but wait times are not proactively communicated, or if information is available in some contexts but not others',
             'Answer "No" if customers have no way to find out wait times other than guessing based on queue length',
@@ -7486,9 +7400,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Usually manageable but major events cause congestion' or 'Main paths stay clear but secondary routes get blocked'",
         helpContent: {
-          summary: 'Busy periods test accessibility. The pathways and space that work when quiet may become impassable when crowded if not actively managed.',
+          summary: 'Busy periods test accessibility. The pathways and space that work when quiet may become impassable when crowded if not actively managed. Consider whether accessible pathways are maintained during your busiest periods, including whether queues stay within designated areas, furniture stays in place, and staff actively manage circulation to prevent congestion blocking accessible routes.',
           understanding: [
-            'This question assesses whether accessible pathways are maintained during your busiest periods - whether queues stay within designated areas, whether furniture stays in place, and whether staff actively manage circulation to prevent congestion blocking accessible routes',
             'Answer "Yes" if staff actively manage crowding to maintain clear pathways during busy periods, queues are contained to designated areas, and accessible routes remain usable even at peak times',
             'Answer "Partially" if pathways are usually maintained but occasional problems occur during very busy periods or special events, or if main routes stay clear but secondary paths become blocked',
             'Answer "No" if busy periods regularly result in blocked pathways, queues spilling into circulation areas, or general congestion that makes navigation difficult for people with mobility aids',
@@ -7515,9 +7428,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Google shows busy times but we don\'t provide our own info' or 'Some info on website but not specific queue details'",
         helpContent: {
-          summary: 'Pre-visit information allows people to plan around crowds and queues, choosing times when their visit will be more comfortable and accessible.',
+          summary: 'Pre-visit information allows people to plan around crowds and queues, choosing times when their visit will be more comfortable and accessible. Visitors should be able to find out about typical queue situations and busy periods before they arrive, through your website, social media, booking systems, or other communication channels.',
           understanding: [
-            'This question asks whether visitors can find out about typical queue situations and busy periods before they arrive - through your website, social media, booking systems, or other communication channels',
             'Answer "Yes" if your website or pre-visit communication includes information about when you are typically busiest, what to expect with queuing, and what assistance is available for those who need it',
             'Answer "Partially" if some information exists (e.g., Google shows busy times) but you do not proactively share queue or crowd information, or if information is available but incomplete or hard to find',
             'Answer "No" if visitors have no way to find out about typical queue situations or busy periods before arriving',
@@ -7543,9 +7455,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Bench seating without armrests' or 'Some seats have arms but limited number'",
         helpContent: {
-          summary: 'Armrests are not optional for many people - they are essential for safe sitting and standing. Queue seating without armrests excludes people who need that support.',
+          summary: 'Armrests are not optional for many people - they are essential for safe sitting and standing. Queue seating without armrests excludes people who need that support. Armrests provide leverage for people with limited leg strength, balance issues, or joint conditions to safely lower themselves and rise from a seat.',
           understanding: [
-            'This question specifically asks about armrests on queue area seating - armrests provide leverage for people with limited leg strength, balance issues, or joint conditions to safely lower themselves and rise from a seat',
             'Answer "Yes" if queue area seating includes chairs or seats with sturdy armrests on both sides, positioned at a height that allows pushing up (approximately 200mm above seat surface)',
             'Answer "Partially" if some seating has armrests but not all, if armrests exist but are too low/high to be useful, or if bench seating has armrests only at the ends (not helpful for someone in the middle)',
             'Answer "No" if queue seating is armless benches, stools, or chairs without armrests, providing no support for sitting down or standing up',
@@ -7571,9 +7482,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Tape is black but against dark carpet' or 'Ropes visible but posts blend into background'",
         helpContent: {
-          summary: 'Queue barriers that cannot be seen are collision hazards. Contrast and height matter for safety.',
+          summary: 'Queue barriers that cannot be seen are collision hazards. Contrast and height matter for safety. Queue barriers such as retractable tape, ropes, stanchions, and posts need to be visible to people with varying vision abilities, including people with low vision who may not see thin barriers at unusual heights.',
           understanding: [
-            'This question assesses whether queue barriers (retractable tape, ropes, stanchions, posts) are visible to people with varying vision abilities - including people with low vision who may not see thin barriers at unusual heights',
             'Answer "Yes" if queue barriers contrast strongly with their background (e.g., bright tape against neutral floor/walls), posts/stanchions are clearly visible, and barrier height is at a detectable level (not too low to see, not at face height)',
             'Answer "Partially" if barriers have some visibility features but could be improved (e.g., visible tape but posts blend into background), or if barriers are visible in good lighting but harder to see in dim conditions',
             'Answer "No" if barriers are thin and do not contrast with surroundings (e.g., black tape in dim area), if posts are camouflaged against walls, or if people frequently walk into barriers',
@@ -7600,9 +7510,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Level and firm but can be slippery when wet' or 'Good surface but one section has uneven pavers'",
         helpContent: {
-          summary: 'Queue floor surfaces need to support extended standing, walking aids, and movement in crowded conditions. Stability and slip resistance are essential.',
+          summary: 'Queue floor surfaces need to support extended standing, walking aids, and movement in crowded conditions. Stability and slip resistance are essential. In queue areas, people may stand for extended periods, move slowly while holding items, or navigate with mobility aids in close proximity to others, making the floor surface particularly important.',
           understanding: [
-            'This question assesses the floor surface specifically in queue areas - where people may stand for extended periods, move slowly while holding items, or navigate with mobility aids in close proximity to others',
             'Answer "Yes" if queue area flooring is firm (not soft carpet or spongy mats), level (no slopes or uneven surfaces), and slip-resistant (textured surface that maintains grip when wet)',
             'Answer "Partially" if the surface is generally good but has issues in some conditions (slippery when wet, one uneven section, soft in places)',
             'Answer "No" if queue floor is unstable (soft or uneven), slippery, or has significant level changes that create hazards',
@@ -7629,9 +7538,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Staff call names but no visual display' or 'Number display works but announcements are hard to hear'",
         helpContent: {
-          summary: 'Queue announcements exclude people who cannot hear them. Visual alternatives (displays, ticket numbers) ensure everyone knows when their turn arrives.',
+          summary: 'Queue announcements exclude people who cannot hear them. Visual alternatives (displays, ticket numbers) ensure everyone knows when their turn arrives. Queue communication such as calling customers forward, announcing numbers, and providing updates needs to be accessible to people who are Deaf, hard of hearing, or who have difficulty hearing in noisy environments.',
           understanding: [
-            'This question asks whether queue communication (calling customers forward, announcing numbers, providing updates) is accessible to people who are Deaf, hard of hearing, or who have difficulty hearing in noisy environments',
             'Answer "Yes" if queue communications include visual elements (number displays, digital boards, visual alerts) alongside any verbal announcements, ensuring people who cannot hear spoken calls can still know when it is their turn',
             'Answer "Partially" if verbal announcements are supplemented by some visual cues (pointing, gestures) but there is no formal visual notification system, or if displays exist but are hard to see from all positions in the queue',
             'Answer "No" if queue notification relies entirely on verbal calls or announcements with no visual alternative, excluding people who cannot hear',
@@ -7657,9 +7565,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Staff know but not documented online' or 'On website but hard to find'",
         helpContent: {
-          summary: 'Pre-visit knowledge of accessible entry options reduces anxiety and allows customers to plan with confidence.',
+          summary: 'Pre-visit knowledge of accessible entry options reduces anxiety and allows customers to plan with confidence. Your accessible entry or priority access systems should be documented and communicated so customers know what to expect before arriving, reducing uncertainty and helping them plan their visit.',
           understanding: [
-            'This question asks whether your accessible entry or priority access systems are documented and communicated so customers know what to expect before arriving - reducing uncertainty and allowing them to plan their visit',
             'Answer "Yes" if accessible entry options are clearly documented on your website (accessibility page, visit planning page), mentioned in booking confirmations, and staff can explain them consistently when asked',
             'Answer "Partially" if staff know about accessible entry options but this information is not published online, if it is on the website but difficult to find, or if information is inconsistent between channels',
             'Answer "No" if accessible entry options are not documented anywhere, if customers can only discover them by asking on arrival, or if there is no consistent information available',
@@ -7685,9 +7592,8 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Accept Companion Card but not formally registered' or 'Recognise some passes but not consistently'",
         helpContent: {
-          summary: 'Companion Card recognition provides practical support for customers who need a carer. It signals that your venue welcomes and is prepared for customers with disability.',
+          summary: 'Companion Card recognition provides practical support for customers who need a carer. It signals that your venue welcomes and is prepared for customers with disability. The Companion Card provides free or discounted entry for carers accompanying people with disability, and recognising it or similar access pass schemes serves both as practical support and as a signal of your accessibility commitment.',
           understanding: [
-            'This question asks whether you recognise Companion Card (free/discounted entry for carers accompanying people with disability) or similar access pass schemes - both as a practical support and as a signal of accessibility commitment',
             'Answer "Yes" if you are a registered Companion Card affiliate (listed on their website), accept Companion Cards for free carer entry, and/or recognise other access passes (such as venue-specific accessibility passes)',
             'Answer "Partially" if you accept Companion Cards informally but are not a registered affiliate, if staff sometimes recognise them but policy is inconsistent, or if you recognise some passes but not others',
             'Answer "No" if you do not recognise Companion Card or any access pass schemes, or if this concept is unfamiliar to your organisation',
