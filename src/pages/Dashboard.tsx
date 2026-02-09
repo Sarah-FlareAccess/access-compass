@@ -88,12 +88,15 @@ export default function Dashboard() {
 
   // Get recommended modules from discovery, falling back to selected modules
   const recommendedModuleIds: string[] = useMemo(() => {
-    // Backward compatibility: map very old codes to current codes
-    // Note: Only map codes that no longer exist in the current system
+    // Backward compatibility: map old letter-based codes to new numbered codes
     const normalizeCode = (code: string): string => {
       const codeMap: Record<string, string> = {
-        'A3': '2.3',   // Old internal movement -> Paths and aisles
-        // 3.3 and 4.4 are valid current codes - don't remap them
+        'B1': '1.1', 'B4.1': '1.2', 'B4.2': '1.3', 'B4.3': '1.4', 'B5': '1.5', 'B6': '1.6',
+        'A1': '2.1', 'A2': '2.2', 'A3': '2.3', 'A3a': '2.3', 'A3b': '2.4',
+        'A4': '3.1', 'A5': '3.2', 'A6': '3.3', 'A6a': '3.4', 'B2': '3.5', 'B3': '3.6', 'D1': '3.7',
+        'S1': '4.1', 'C1': '4.2', 'C2': '4.3', 'A7': '4.4', 'C3': '4.5', 'C4': '4.6', 'S5': '4.7',
+        'P1': '5.1', 'P2': '5.2', 'P3': '5.3', 'P4': '5.4', 'P5': '5.5',
+        'E1': '6.1', 'E2': '6.2', 'E3': '6.3', 'E4': '6.4', 'E5': '6.5',
       };
       return codeMap[code] || code;
     };
