@@ -80,8 +80,19 @@ export function QuestionCard({
 
   // Help panel state
   const [isHelpOpen, setIsHelpOpen] = useState(false);
-  const helpContent = getHelpContent(question.id)
-    || question.helpContent
+  // Inline helpContent (accessModules.ts) takes priority for text fields.
+  // helpContent.ts supplements with rich media (images, video) when inline doesn't have them.
+  const richHelp = getHelpContent(question.id);
+  const inlineHelp = question.helpContent;
+  const helpContent = inlineHelp
+    ? {
+        ...inlineHelp,
+        examples: inlineHelp.examples || richHelp?.examples,
+        videoUrl: inlineHelp.videoUrl || richHelp?.videoUrl,
+        videoCaption: inlineHelp.videoCaption || richHelp?.videoCaption,
+        learnMoreUrl: inlineHelp.learnMoreUrl || richHelp?.learnMoreUrl,
+      }
+    : richHelp
     || generateDefaultHelpContent(question.helpText)
     || {
       title: 'About this question',

@@ -992,7 +992,7 @@ export const accessModules: AccessModule[] = [
           understanding: [
             'Select "Yes, we offer this" if you actively promote and regularly provide familiarisation visits',
             'Select "Available on request" if you would accommodate familiarisation visits but don\'t actively promote them',
-            'Select "Virtual/online options" if you provide video tours, photo galleries, or social stories but not in-person pre-visits',
+            'Select "Virtual/online options" if you provide video tours, photo galleries, or social stories',
             'Select "Not applicable to our service" if your business model doesn\'t suit pre-visits (e.g., online-only services)',
           ],
           tips: [
@@ -1058,7 +1058,12 @@ export const accessModules: AccessModule[] = [
         helpContent: {
           summary: 'An excellent service has limited value if customers don\'t know it exists. Visibility matters. This assesses how customers learn that familiarisation visits are available.',
           understanding: [
-            'Select "Not actively communicated" if you would accommodate requests but don\'t proactively mention availability',
+            'Select all the channels where familiarisation visits are currently mentioned or promoted',
+            'Select "Mentioned on website" if your website references pre-visit tours, familiarisation visits, or orientation sessions',
+            'Select "Included in booking communications" if booking confirmations, pre-visit emails, or booking platform listings mention the option',
+            'Select "Offered when customers enquire" if staff mention it when people ask about accessibility or express concerns about visiting',
+            'Select "Staff know to offer when relevant" if team members proactively suggest visits during accessibility conversations, even when not directly asked',
+            'Select "Not actively communicated" if you would accommodate requests but don\'t proactively mention availability anywhere',
           ],
           tips: [
             'Add it to your accessibility page on your website - something like "Pre-visit tours available on request"',
@@ -6480,6 +6485,116 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
       },
+      // Deep Dive Circulation Space Questions
+      {
+        id: '2.3-D-20',
+        text: 'Is there at least 2 metres of overhead clearance along all paths?',
+        helpText: 'Overhead clearance of at least 2000mm is required along all accessible paths. Low-hanging signs, tree branches, awnings, light fittings, or protruding objects below this height can be hazardous, especially for people with vision impairment who may not detect them.',
+        type: 'yes-no-unsure',
+        category: 'measurement',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Most areas fine but one low doorway' or 'Some hanging signs lower than 2m'",
+        helpContent: {
+          summary: 'Overhead hazards are particularly dangerous for people with vision impairment who may not detect them. A minimum 2 metre clearance is required along all accessible paths, including below signs, light fittings, stairs, awnings, and any protruding objects.',
+          understanding: [
+            'Answer "Yes" if all circulation paths maintain at least 2000mm (2 metres) of overhead clearance throughout, with no low-hanging objects, signs, or fittings intruding into the path',
+            'Answer "Partially" if most areas are clear but there are occasional low points such as hanging signs, pendant lights, or low doorway headers that drop below 2 metres',
+            'Answer "No" if overhead clearance is frequently less than 2 metres, or if protruding objects like shelving, signage, or tree branches hang into the path below this height',
+          ],
+          tips: [
+            'Walk through your venue and check for anything hanging below 2 metres, including signs, light fittings, plants, and decorations',
+            'Staircase undersides are a common hazard where someone walking underneath may not have adequate clearance',
+            'Where an overhead obstruction cannot be removed, place a detectable barrier at ground level (e.g., a planter or railing) so people with canes detect it before walking into the hazard',
+            'Protruding wall-mounted objects (fire extinguishers, shelves) that stick out more than 100mm below 2 metres should be relocated or have a detectable barrier below them',
+            'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
+          ],
+        },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.2',
+      },
+      {
+        id: '2.3-D-21',
+        text: 'Is there adequate passing and turning space along circulation paths?',
+        helpText: 'Where paths are longer than 20 metres without a clear view to the end, wider passing spaces (at least 1800mm wide by 2000mm long) should be provided so two wheelchair users or a wheelchair and a pram can pass each other. Turning spaces are needed at dead ends.',
+        type: 'yes-no-unsure',
+        category: 'measurement',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Some wider sections but not at regular intervals' or 'Turning space at most dead ends but not all'",
+        helpContent: {
+          summary: 'Passing spaces allow two people using mobility aids to pass each other. Turning spaces at dead ends allow wheelchair users to change direction. Without these, people may need to reverse long distances. Passing spaces of at least 1800mm wide by 2000mm long should be provided at maximum 20 metre intervals where a direct line of sight to the end of the path is not available.',
+          understanding: [
+            'Answer "Yes" if paths provide passing spaces at least every 20 metres where the end is not visible, and turning spaces are available within 2 metres of any dead end or path termination',
+            'Answer "Partially" if some wider sections exist but they are not at regular intervals, or if turning space exists at some dead ends but not all',
+            'Answer "No" if paths are consistently narrow with no passing spaces, or if dead-end paths have no room to turn around',
+          ],
+          tips: [
+            'Passing spaces should be at least 1800mm wide by 2000mm long so two wheelchair users can comfortably pass',
+            'If you can see from one end of the path to the other, passing spaces are less critical because people can coordinate',
+            'At dead ends, a 1540mm by 2070mm clear space allows a wheelchair to perform a 180-degree turn',
+            'Changes of direction also need adequate space: a 90-degree turn requires different dimensions depending on the path widths',
+            'Where permanent widening is not possible, consider whether furniture or displays can be rearranged to create passing areas',
+            'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
+          ],
+        },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 3.4, Cl. 3.5, APS D3.3',
+      },
+      {
+        id: '2.3-D-22',
+        text: 'Is there adequate wheelchair manoeuvring space on both sides of internal doors?',
+        helpText: 'Wheelchair users need clear space on both sides of a door to approach, open, pass through, and close it. The required space depends on the door type (hinged, sliding), direction of approach (front-on, side), and whether the door opens toward or away from the user.',
+        type: 'yes-no-unsure',
+        category: 'measurement',
+        impactLevel: 'high',
+        reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Good space on one side but tight on the other' or 'Most doors OK but one has furniture blocking the approach'",
+        helpContent: {
+          summary: 'Opening a door from a wheelchair requires manoeuvring space to position, reach the handle, pull or push, and pass through. Without adequate space on both sides, wheelchair users cannot independently use the door. The required dimensions depend on approach angle and door operation.',
+          understanding: [
+            'Answer "Yes" if there is adequate clear floor space on both sides of all internal doors for wheelchair approach and operation, with no furniture, displays, or walls restricting the manoeuvring area',
+            'Answer "Partially" if most doors have adequate space but some are restricted (e.g., furniture near the door, narrow corridor on one side), or if space is adequate for some approach angles but not others',
+            'Answer "No" if doorways commonly have insufficient space for a wheelchair user to approach and operate the door independently',
+          ],
+          tips: [
+            'For a hinged door opening away from you, a clear space of at least 1540mm deep by the door width plus 500mm is typically needed',
+            'Sliding doors generally need less manoeuvring space than hinged doors',
+            'Check that furniture, display stands, or bins have not been placed in the doorway circulation space',
+            'Doorway circulation spaces can overlap with other circulation spaces such as corridors',
+            'Automatic or push-button doors significantly reduce the manoeuvring space needed',
+            'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
+          ],
+        },
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.3',
+      },
+      {
+        id: '2.3-D-23',
+        text: 'Do floor surfaces contrast with walls to help people with low vision orient themselves?',
+        helpText: 'An effective contrast between floor surfaces and walls helps people with low vision distinguish where the floor ends and walls begin, supporting orientation and safe navigation. This is particularly important in corridors and along circulation routes.',
+        type: 'yes-no-unsure',
+        category: 'operational',
+        impactLevel: 'medium',
+        reviewMode: 'deep-dive',
+        partialPlaceholder: "E.g., 'Some areas have good contrast but others are all-white' or 'Main areas OK but corridors lack contrast'",
+        helpContent: {
+          summary: 'Visual contrast between floors and walls helps people with low vision understand the shape and boundaries of a space. Without it, floors and walls can appear to merge, making navigation difficult and disorienting.',
+          understanding: [
+            'Answer "Yes" if there is a clear visual contrast between floor and wall surfaces throughout the venue, making it easy to distinguish boundaries',
+            'Answer "Partially" if some areas have good contrast but others (e.g., white floors meeting white walls) lack distinction',
+            'Answer "No" if floor and wall surfaces are predominantly similar in colour and tone, making it difficult to distinguish boundaries',
+          ],
+          tips: [
+            'A contrast of at least 30% in Light Reflectance Value (LRV) between floor and wall is recommended',
+            'Skirting boards in a contrasting colour can help define the floor-wall boundary even when the main surfaces are similar',
+            'Common problem areas include all-white or all-grey fit-outs where everything blends together',
+            'Door frames that contrast with both the wall and door help people identify openings',
+            'Consider both natural and artificial lighting conditions, as contrast can change throughout the day',
+          ],
+        },
+        complianceLevel: 'best-practice',
+      },
       // Deep Dive Internal Wayfinding Questions
       {
         id: '2.3-D-5',
@@ -6536,7 +6651,7 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
-        complianceRef: 'AS 1428.1 Cl. 3.5',
+        complianceRef: 'AS 1428.1 Cl. 8',
       },
       {
         id: '2.3-D-7',
@@ -6594,7 +6709,7 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
-        complianceRef: 'AS 1428.1 Cl. 3.5',
+        complianceRef: 'AS 1428.1 Cl. 8, APS D3.6(e)',
       },
       {
         id: '2.3-D-9',
@@ -6682,7 +6797,7 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
-        complianceRef: 'AS 1428.1 Cl. 4.3',
+        complianceRef: 'AS 1428.1 Cl. 4.1, AS/NZS 4586',
       },
       {
         id: '2.3-D-12',
