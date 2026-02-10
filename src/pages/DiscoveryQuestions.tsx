@@ -334,6 +334,7 @@ export default function DiscoveryQuestions() {
   return (
     <div className="questions-page">
       <QuestionFlow
+        key={currentModule.moduleId}
         moduleId={currentModule.moduleId}
         moduleName={currentModule.moduleName}
         moduleCode={currentModule.moduleCode}
@@ -344,6 +345,7 @@ export default function DiscoveryQuestions() {
         onComplete={handleCompleteModule}
         onBack={handleBackToList}
         assignedTo={currentModuleAssignedTo}
+        complianceNote={getModuleById(currentModule.moduleId)?.complianceNote}
       />
     </div>
   );

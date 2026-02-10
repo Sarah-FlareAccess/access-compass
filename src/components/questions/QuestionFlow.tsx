@@ -12,6 +12,7 @@ import { ReviewSummary } from './ReviewSummary';
 import { useBranchingLogic, needsProfessionalReview } from '../../hooks/useBranchingLogic';
 import type { QuestionResponse, ModuleSummary, ActionItem, CompletionMetadata } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
+import ReminderBanner from '../ReminderBanner';
 import './questions.css';
 
 interface QuestionFlowProps {
@@ -25,6 +26,7 @@ interface QuestionFlowProps {
   onComplete: (summary: ModuleSummary, metadata: CompletionMetadata) => void;
   onBack: () => void;
   assignedTo?: string; // Pre-fill "completed by" with assigned person
+  complianceNote?: string;
 }
 
 export function QuestionFlow({
@@ -38,6 +40,7 @@ export function QuestionFlow({
   onComplete,
   onBack,
   assignedTo,
+  complianceNote,
 }: QuestionFlowProps) {
   const [responses, setResponses] = useState<QuestionResponse[]>(initialResponses);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,6 +58,18 @@ export function QuestionFlow({
     responses,
     reviewMode,
   });
+
+  // Resume from first unanswered question when returning to a module
+  const [hasResumed, setHasResumed] = useState(false);
+  useEffect(() => {
+    if (hasResumed || initialResponses.length === 0) return;
+    const responseIds = new Set(initialResponses.map(r => r.questionId));
+    const firstUnanswered = visibleQuestions.findIndex(q => !responseIds.has(q.id));
+    if (firstUnanswered > 0) {
+      setCurrentIndex(firstUnanswered);
+    }
+    setHasResumed(true);
+  }, [visibleQuestions, initialResponses, hasResumed]);
 
   // Get current question
   const currentQuestion = visibleQuestions[currentIndex];
@@ -360,6 +375,10 @@ export function QuestionFlow({
           style={{ width: `${progress.percentage}%` }}
         />
       </div>
+
+      {complianceNote && currentIndex === 0 && (
+        <ReminderBanner type="professional" message={complianceNote} />
+      )}
 
       {/* Navigation header */}
       <div className="flow-navigation-header">

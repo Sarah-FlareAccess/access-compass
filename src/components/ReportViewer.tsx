@@ -695,6 +695,17 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
             </div>
           </section>
 
+          {/* Compliance Note */}
+          <section className="report-section report-compliance-note">
+            <h2>A Note on Compliance</h2>
+            <p>
+              This report covers key compliance considerations, though not every element will apply
+              to your venue. Even a "Yes" response may still have opportunities for improvement
+              towards full compliance or best practice. For detailed auditing specific to your venue,
+              contact Flare Access to engage an access consultant.
+            </p>
+          </section>
+
           {/* Disclaimer */}
           <section className="report-section report-disclaimer">
             <h2>Important Disclaimer</h2>

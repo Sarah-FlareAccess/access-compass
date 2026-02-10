@@ -488,9 +488,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #7c3aed;
+  background: var(--aussie-sunrise, #FF9015);
   border: none;
-  color: white;
+  color: #1a1a1a;
   padding: 10px 18px;
   border-radius: 24px;
   font-size: 14px;
@@ -499,13 +499,13 @@
   transition: all 0.2s ease;
   margin-top: 12px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
+  box-shadow: 0 2px 8px rgba(255, 144, 21, 0.25);
 }
 
 .help-trigger:hover {
-  background: #6d28d9;
-  color: white;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+  background: #e68a00;
+  color: #1a1a1a;
+  box-shadow: 0 4px 12px rgba(255, 144, 21, 0.35);
   transform: translateY(-1px);
 }
 
@@ -519,7 +519,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.25);
+  background: #7c3aed;
   color: white;
   border-radius: 50%;
   font-size: 13px;
