@@ -749,6 +749,52 @@
   border: 1px solid #eee;
 }
 
+/* Highlighted describe input for explain-your-answer prompts */
+.describe-input-highlight {
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #fef3c7;
+  border-radius: 8px;
+  border: 2px solid #f59e0b;
+  animation: describeSlideIn 0.3s ease-out;
+}
+
+.describe-input-highlight label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #92400e;
+  margin-bottom: 8px;
+}
+
+.describe-input-highlight .other-text-input {
+  border: 2px solid #f59e0b;
+  background: #fff;
+}
+
+.describe-input-highlight .other-text-input:focus {
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+
+.describe-hint {
+  font-size: 12px;
+  color: #92400e;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+@keyframes describeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .other-description-input label {
   display: block;
   font-size: 14px;

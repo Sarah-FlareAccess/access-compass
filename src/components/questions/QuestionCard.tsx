@@ -30,8 +30,8 @@ import './help-panel.css';
 function getShortHelpText(helpText: string | undefined): string | undefined {
   if (!helpText) return undefined;
 
-  // Find first sentence ending with . or ! or ?
-  const match = helpText.match(/^[^.!?]+[.!?]/);
+  // Find first sentence ending with . or ! or ? followed by space+capital or end of string
+  const match = helpText.match(/^.+?[.!?](?=\s+[A-Z]|\s*$)/);
   if (match) {
     return match[0].trim();
   }
@@ -162,6 +162,13 @@ export function QuestionCard({
     ? selectedSingleOption === 'other' || selectedSingleOption.toLowerCase().includes('other')
     : false;
 
+  // Check if selected single-select option needs a description
+  const hasSingleDescribeSelected = selectedSingleOption
+    ? question.describeOptionIds?.includes(selectedSingleOption) ?? false
+    : false;
+
+  const showSingleDescribeInput = hasSingleOtherSelected || hasSingleDescribeSelected;
+
   // Handle selecting an answer (just sets state, doesn't submit)
   const handleYesNoSelect = useCallback(
     (answer: ResponseOption) => {
@@ -226,15 +233,14 @@ export function QuestionCard({
 
   const handleSingleSelectClick = useCallback(
     (optionId: string) => {
-      // Just select the option, don't submit yet
       setSelectedSingleOption(optionId);
-      // Clear other description if switching away from "other"
       const isOther = optionId === 'other' || optionId.toLowerCase().includes('other');
-      if (!isOther) {
+      const isDescribe = question.describeOptionIds?.includes(optionId) ?? false;
+      if (!isOther && !isDescribe) {
         setOtherDescription('');
       }
     },
-    []
+    [question.describeOptionIds]
   );
 
   const handleSingleSelectSubmit = useCallback(() => {
@@ -243,13 +249,13 @@ export function QuestionCard({
       questionId: question.id,
       answer: null,
       multiSelectValues: [selectedSingleOption],
-      otherDescription: hasSingleOtherSelected && otherDescription.trim() ? otherDescription.trim() : undefined,
+      otherDescription: showSingleDescribeInput && otherDescription.trim() ? otherDescription.trim() : undefined,
       notes: notes.trim() || undefined,
       evidence: evidence.length > 0 ? evidence : undefined,
       timestamp: new Date().toISOString(),
     };
     onAnswer(response);
-  }, [question.id, selectedSingleOption, hasSingleOtherSelected, otherDescription, notes, evidence, onAnswer]);
+  }, [question.id, selectedSingleOption, showSingleDescribeInput, otherDescription, notes, evidence, onAnswer]);
 
   const handleLinkSubmit = useCallback(() => {
     const response: QuestionResponse = {
@@ -794,17 +800,20 @@ export function QuestionCard({
               ))}
             </div>
 
-            {hasSingleOtherSelected && (
-              <div className="other-description-input">
-                <label htmlFor="single-other-description">Please describe:</label>
+            {showSingleDescribeInput && (
+              <div className={hasSingleDescribeSelected && !hasSingleOtherSelected ? "describe-input-highlight" : "other-description-input"}>
+                <label htmlFor="single-other-description">{hasSingleDescribeSelected && !hasSingleOtherSelected ? 'Please explain your answer:' : 'Please describe:'}</label>
                 <input
                   type="text"
                   id="single-other-description"
                   value={otherDescription}
                   onChange={(e) => setOtherDescription(e.target.value)}
-                  placeholder="Enter details..."
+                  placeholder={hasSingleDescribeSelected && !hasSingleOtherSelected ? (question.describePlaceholder || "Tell us more about your situation...") : "Enter details..."}
                   className="other-text-input"
                 />
+                {hasSingleDescribeSelected && !hasSingleOtherSelected && !otherDescription.trim() && (
+                  <p className="describe-hint">A response is needed before you can continue.</p>
+                )}
               </div>
             )}
           </div>
@@ -863,7 +872,7 @@ export function QuestionCard({
               <button
                 className="btn-continue"
                 onClick={handleSingleSelectSubmit}
-                disabled={hasSingleOtherSelected && !otherDescription.trim()}
+                disabled={showSingleDescribeInput && !otherDescription.trim()}
               >
                 Continue
               </button>

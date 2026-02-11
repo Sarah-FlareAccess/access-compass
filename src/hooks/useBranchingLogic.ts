@@ -85,6 +85,10 @@ export interface BranchingQuestion {
   complianceLevel?: 'mandatory' | 'best-practice';
   // Reference to specific standard clause (e.g., "AS 1428.1 Cl. 4.1" or "APS D3.5")
   complianceRef?: string;
+  // Single-select option IDs that should prompt the user to describe their answer
+  describeOptionIds?: string[];
+  // Custom placeholder text for the describe input on single-select options
+  describePlaceholder?: string;
   // Whether this question is optional (can be skipped)
   optional?: boolean;
 }
