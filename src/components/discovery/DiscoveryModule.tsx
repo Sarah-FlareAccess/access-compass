@@ -427,7 +427,7 @@ export function DiscoveryModule({
                 <span className="arrow">→</span>
                 {(hasPhysicalVenue === null || hasPhysicalVenue === true) && (
                   <>
-                    <span>Physical space</span>
+                    <span>Space & experiences</span>
                     <span className="arrow">→</span>
                   </>
                 )}

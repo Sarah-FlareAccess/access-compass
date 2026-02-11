@@ -92,9 +92,9 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
   {
     id: 'when-here',
     label: "When they're here",
-    subLabel: 'Physical space',
+    subLabel: 'Space, environment and experiences',
     description: 'What the experience involves once someone is onsite.',
-    tip: 'Consider the physical journey from arrival to departure — every step, door, and space a customer might use.',
+    tip: 'Consider the physical journey, the environment, and the activities or experiences a customer might take part in.',
     icon: 'map-pin',
     bgColorClass: 'journey-during',
     blocks: [
@@ -104,9 +104,9 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         touchpointIds: ['getting-in', 'using-space', 'wayfinding'],
       },
       {
-        id: 'sensory-experience',
-        label: 'Sensory experience',
-        touchpointIds: ['sensory'],
+        id: 'experiences-activities',
+        label: 'Experiences and activities',
+        touchpointIds: ['experiences-activities', 'sensory'],
       },
     ],
     touchpoints: [
@@ -150,6 +150,20 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         example: 'e.g. Adjustable lighting, quiet hours, scent-free areas, visual alerts alongside audio',
         moduleMapping: ['3.1', '4.4'],
       },
+      {
+        id: 'experiences-activities',
+        label: 'Experiences and activities',
+        description: 'Events, performances, tours, recreation, meetings, health services',
+        example: 'e.g. Spectator events, guided tours, gym or pool, conference rooms, therapy or wellness services',
+        subTouchpoints: [
+          { id: 'events-performances', label: 'Events or performances' },
+          { id: 'tours-experiences', label: 'Tours or guided experiences' },
+          { id: 'recreation-sports', label: 'Recreation or sports' },
+          { id: 'meetings-conferences', label: 'Meetings or conferences' },
+          { id: 'health-wellbeing', label: 'Health or wellbeing services' },
+        ],
+        moduleMapping: ['3.8'],
+      },
     ],
   },
   {
@@ -178,7 +192,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         label: 'Service flexibility',
         description: 'Adjustments, accommodations, and alternative options',
         example: 'e.g. Modified service delivery, extra time, alternative formats, dietary accommodations',
-        moduleMapping: ['4.2', '4.3'],
+        moduleMapping: ['4.2', '4.3', '3.8'],
       },
     ],
   },

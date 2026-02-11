@@ -113,26 +113,50 @@ export const DIAP_SECTIONS: DIAPSection[] = [
 
 // Mapping from Access Compass modules to DIAP sections
 export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
-  // Before the visit
-  'M01': 'information-communication',  // 1.1 - Accessibility Information
+  // Before arrival
+  '1.1': 'information-communication',  // Pre-visit information
+  '1.2': 'information-communication',  // Website basics
+  '1.3': 'information-communication',  // Booking & ticketing systems
+  '1.4': 'information-communication',  // Social media, video & audio
+  '1.5': 'information-communication',  // Communication and language
+  '1.6': 'information-communication',  // Marketing and representation
 
-  // Getting in and around
-  'M02': 'built-environment',          // 2.1 - Getting in / Entrance
-  'M03': 'built-environment',          // 2.2 - Parking
-  'M04': 'built-environment',          // 2.3 - Paths and aisles
-  'M05': 'built-environment',          // 2.4 - Vertical movement
-  'M06': 'built-environment',          // 3.1 - Wayfinding
-  'M07': 'built-environment',          // 3.2 - Accessible toilets
-  'M08': 'built-environment',          // 3.3 - Sensory environment
+  // Getting in and moving around
+  '2.1': 'built-environment',          // Arrival, parking and drop-off
+  '2.2': 'built-environment',          // Entry and doors
+  '2.3': 'built-environment',          // Paths and aisles
+  '2.4': 'built-environment',          // Queues and busy times
 
   // During the visit
-  'M09': 'service-delivery',           // 3.7 - Experience
-  'M10': 'service-delivery',           // D2 - Service points
-  'M11': 'service-delivery',           // D3 - Seating
+  '3.1': 'built-environment',          // Seating, furniture and layout
+  '3.2': 'built-environment',          // Toilets and amenities
+  '3.3': 'built-environment',          // Lighting, sound and sensory environment
+  '3.4': 'service-delivery',           // Equipment and resources
+  '3.5': 'built-environment',          // Signage and wayfinding
+  '3.6': 'information-communication',  // Menus and printed materials
+  '3.7': 'service-delivery',           // Audio, digital and interactive content
+  '3.8': 'service-delivery',           // Participating in experiences and activities
 
   // Service and support
-  'M12': 'customer-service-training',  // 4.1 - Staff awareness
-  'M13': 'customer-service-training',  // S2 - Communication support
+  '4.2': 'customer-service-training',  // Customer service and staff confidence
+  '4.3': 'service-delivery',           // Bookings and ticketing
+  '4.4': 'service-delivery',           // Safety and emergencies
+  '4.5': 'service-delivery',           // Feedback and reviews
+  '4.6': 'information-communication',  // Staying connected
+
+  // Policy and operations
+  '5.1': 'policy-procedure',           // Policy and inclusion
+  '5.2': 'policy-procedure',           // Employing people with disability
+  '5.3': 'customer-service-training',  // Staff training and awareness
+  '5.4': 'policy-procedure',           // Accessible procurement
+  '5.5': 'policy-procedure',           // Continuous improvement and reporting
+
+  // Event modules
+  '6.1': 'service-delivery',           // Event planning
+  '6.2': 'service-delivery',           // Event delivery
+  '6.3': 'information-communication',  // Event communications
+  '6.4': 'service-delivery',           // Event venue and logistics
+  '6.5': 'service-delivery',           // Post-event
 
   // Fallback for any unmapped modules
   'default': 'policy-procedure',

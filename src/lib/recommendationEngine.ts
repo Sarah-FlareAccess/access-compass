@@ -41,6 +41,7 @@ export const DISCOVERY_QUESTIONS: DiscoveryQuestion[] = [
   { id: 'DQ07', text: 'Do customers move through multiple areas or spaces during their visit?', journeyPhase: 'during-visit', touchpointId: 'getting-in' },
   { id: 'DQ08', text: 'Do customers typically sit down during their visit?', journeyPhase: 'during-visit', touchpointId: 'using-space' },
   { id: 'DQ09', text: 'Do customers use toilet facilities during their visit?', journeyPhase: 'during-visit', touchpointId: 'using-space' },
+  { id: 'DQ09a', text: 'Do customers participate in activities, events, tours, or experiences at your venue?', journeyPhase: 'during-visit', touchpointId: 'experiences-activities' },
   { id: 'DQ10', text: 'Is lighting, noise, or sensory environment relevant to your space?', journeyPhase: 'during-visit', touchpointId: 'sensory' },
   { id: 'DQ11', text: 'Do staff regularly interact directly with customers?', journeyPhase: 'during-visit', touchpointId: 'staff-interaction' },
   { id: 'DQ11a', text: 'Do you offer service adjustments or flexible options for customers?', journeyPhase: 'during-visit', touchpointId: 'service-flexibility' },
@@ -113,6 +114,8 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Helps people find their way. Relevant if customers need to navigate or find specific areas.' },
   { id: '3.6', name: 'Menus and printed materials', journeyTheme: 'during-visit', estimatedTime: 10, cost: 65,
     description: 'Makes information readable for all. Relevant if you have menus, brochures, or price lists.' },
+  { id: '3.8', name: 'Participating in experiences and activities', journeyTheme: 'during-visit', estimatedTime: 8, cost: 85,
+    description: 'Ensures activities, events, tours, and services are accessible. Relevant if you offer experiences, spectator events, tours, recreation, or health services.' },
   // Service and support (4 modules)
   { id: '4.2', name: 'Customer service and staff confidence', journeyTheme: 'during-visit', estimatedTime: 15, cost: 130,
     description: 'Prepares your team to help everyone. Relevant for any business with customer-facing staff.' },
@@ -156,6 +159,7 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '3.4': '3.4',
   '3.5': '3.5',
   '3.6': '3.6',
+  '3.8': '3.8',
   '4.2': '4.2',
   '4.3': '4.3',
   '4.4': '4.4',
@@ -187,10 +191,11 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   // During visit touchpoints
   'getting-in': ['2.1', '2.2', '2.3', '2.4'],           // Arrival, entry, paths, queues
   'using-space': ['3.1', '3.2', '2.4', '3.4'],          // Seating, toilets, queues, equipment
+  'experiences-activities': ['3.8'],                     // Experiences, events, tours, recreation
   'wayfinding': ['3.5', '2.3', '3.6'],                  // Signage, paths, printed materials
   'sensory': ['3.3', '3.1', '3.4'],                     // Sensory environment, seating, equipment
   'staff-interaction': ['4.2', '4.3', '4.4', '1.5'],      // Customer service, payments, safety, communication
-  'service-flexibility': ['4.2', '4.3'],                // Customer service, payments/flexibility
+  'service-flexibility': ['4.2', '4.3', '3.8'],         // Customer service, payments/flexibility, experiences
 
   // After visit touchpoints
   'feedback': ['4.5'],                                 // Feedback and reviews
@@ -264,18 +269,18 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
 // ============================================================================
 
 export const INDUSTRY_DEFAULT_MODULES: Record<string, string[]> = {
-  'tourism': ['2.1', '4.2', '1.1', '2.3'],
+  'tourism': ['2.1', '4.2', '1.1', '2.3', '3.8'],
   'hospitality': ['4.2', '3.1', '3.3', '2.1'],
   'accommodation': ['1.3', '3.2', '2.1', '4.2'],
-  'events': ['2.1', '2.3', '4.2', '3.3'],
+  'events': ['2.1', '2.3', '4.2', '3.3', '3.8'],
   'retail': ['2.1', '2.3', '4.2', '1.3'],
   'corporate': ['1.2', '1.1', '4.2', '2.3'],
   'local-government': ['1.2', '1.1', '4.3', '4.2'],
-  'health': ['4.2', '2.1', '3.2', '4.3'],
+  'health': ['4.2', '2.1', '3.2', '4.3', '3.8'],
   'education': ['1.1', '4.2', '2.3', '1.2'],
   'cafe-restaurant': ['4.2', '3.1', '3.3', '2.1', '3.6'],
-  'tour-operator': ['4.2', '2.1', '2.3', '1.1'],
-  'attraction-museum-gallery': ['2.1', '2.3', '4.2', '3.3', '3.5'],
+  'tour-operator': ['4.2', '2.1', '2.3', '1.1', '3.8'],
+  'attraction-museum-gallery': ['2.1', '2.3', '4.2', '3.3', '3.5', '3.8'],
   'visitor-centre': ['1.1', '4.2', '2.1', '2.3'],
   'other': ['4.2', '1.1', '2.1'],
 };
@@ -289,7 +294,7 @@ export const SERVICE_TYPE_PRIORITY: Record<string, string[]> = {
   'tour': ['4.2', '2.1', '2.3', '1.1'],
   'corporate': ['1.2', '1.1', '4.2', '2.3'],
   'retail': ['2.1', '2.3', '4.2', '1.3'],
-  'event': ['2.1', '3.3', '2.3', '4.2'],
+  'event': ['2.1', '3.3', '2.3', '4.2', '3.8'],
   'other': [],
 };
 
@@ -306,6 +311,7 @@ const TOUCHPOINT_LABELS: Record<string, string> = {
   'getting-in': 'Customers drive and park, or move through spaces',
   'using-space': 'Customers sit down or use facilities',
   'wayfinding': 'Customers find their way around',
+  'experiences-activities': 'Customers participate in activities, events, tours, or experiences',
   'sensory': 'Lighting, noise, or sensory environment is relevant',
   'staff-interaction': 'Staff regularly interact with customers',
   'service-flexibility': 'You offer adjustments or flexible service options',
