@@ -11,7 +11,7 @@
  * This is NOT a summary screen - it's the central navigation point.
  */
 
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
@@ -145,6 +145,67 @@ export default function Dashboard() {
 
   // Copy to clipboard state
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
+
+  // Assignment modal focus management
+  const assignmentModalRef = useRef<HTMLDivElement>(null);
+  const assignmentTriggerRef = useRef<Element | null>(null);
+
+  // Run selector modal focus management
+  const runSelectorTriggerRef = useRef<Element | null>(null);
+  const runSelectorOpen = !!runSelectorModal;
+  useEffect(() => {
+    if (runSelectorOpen) {
+      runSelectorTriggerRef.current = document.activeElement;
+    } else if (runSelectorTriggerRef.current instanceof HTMLElement) {
+      runSelectorTriggerRef.current.focus();
+      runSelectorTriggerRef.current = null;
+    }
+  }, [runSelectorOpen]);
+
+  const assignmentModalOpen = !!assignmentModal;
+  useEffect(() => {
+    if (!assignmentModalOpen) {
+      if (assignmentTriggerRef.current instanceof HTMLElement) {
+        assignmentTriggerRef.current.focus();
+        assignmentTriggerRef.current = null;
+      }
+      return;
+    }
+    assignmentTriggerRef.current = document.activeElement;
+    const timer = setTimeout(() => {
+      const firstInput = assignmentModalRef.current?.querySelector<HTMLElement>('input, button');
+      firstInput?.focus();
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [assignmentModalOpen]);
+
+  useEffect(() => {
+    if (!assignmentModal) return;
+    const selector = 'a[href], button:not(:disabled), input:not(:disabled), textarea:not(:disabled), select:not(:disabled), [tabindex]:not([tabindex="-1"])';
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setAssignmentModal(null);
+        if (assignmentTriggerRef.current instanceof HTMLElement) {
+          assignmentTriggerRef.current.focus();
+        }
+        return;
+      }
+      if (e.key !== 'Tab' || !assignmentModalRef.current) return;
+      const focusable = Array.from(assignmentModalRef.current.querySelectorAll<HTMLElement>(selector));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [assignmentModal]);
 
   // DIAP management hook
   const { getStats: getDIAPStats } = useDIAPManagement();
@@ -874,6 +935,7 @@ Thanks!`;
                               <Link
                                 to={`/questions?module=${module.id}`}
                                 className={`module-action-btn ${action.className}`}
+                                aria-label={`${action.text} ${module.name}`}
                               >
                                 {action.text}
                               </Link>
@@ -923,6 +985,7 @@ Thanks!`;
                                     });
                                   }}
                                   title={runsCount > 0 ? `${runsCount} assessment${runsCount !== 1 ? 's' : ''} - View history or start new` : 'New assessment'}
+                                  aria-label={`Assessment history for ${module.name}`}
                                 >
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="12" y1="5" x2="12" y2="19"/>
@@ -981,7 +1044,7 @@ Thanks!`;
       {/* Assignment Modal */}
       {assignmentModal && (
         <div className="assignment-modal-overlay" onClick={() => setAssignmentModal(null)}>
-          <div className="assignment-modal" onClick={(e) => e.stopPropagation()}>
+          <div ref={assignmentModalRef} className="assignment-modal" role="dialog" aria-modal="true" aria-label="Assign Module" onClick={(e) => e.stopPropagation()}>
             {!assignmentModal.showEmailTemplate ? (
               <>
                 <div className="assignment-modal-header">
@@ -998,24 +1061,22 @@ Thanks!`;
 
                   <div className="assignment-field">
                     <label htmlFor="assignedTo">Assigned to</label>
+                    <span className="field-hint">Name or role (e.g., Jane Smith, Visitor Experience Manager)</span>
                     <input
                       type="text"
                       id="assignedTo"
-                      placeholder="e.g., Jane Smith, Visitor Experience Manager"
                       defaultValue={assignmentModal.currentOwnership?.assignedTo || ''}
                     />
-                    <span className="field-hint">Name or role responsible for this module</span>
                   </div>
 
                   <div className="assignment-field">
                     <label htmlFor="assignedToEmail">Email</label>
+                    <span className="field-hint">Add email to generate a notification (e.g., jane.smith@example.com)</span>
                     <input
                       type="email"
                       id="assignedToEmail"
-                      placeholder="e.g., jane.smith@example.com"
                       defaultValue={assignmentModal.currentOwnership?.assignedToEmail || ''}
                     />
-                    <span className="field-hint">Add email to generate a notification message</span>
                   </div>
 
                   <div className="assignment-field">

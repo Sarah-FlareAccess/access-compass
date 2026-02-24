@@ -21,6 +21,7 @@ import Decision from './pages/Decision';
 import Checkout from './pages/Checkout';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import AuthCallback from './pages/AuthCallback';
+import ResetPassword from './pages/ResetPassword';
 
 // Protected pages (require auth + access)
 import ModuleSelection from './pages/ModuleSelection';
@@ -49,6 +50,7 @@ function App() {
           <Routes>
           {/* Auth callback (handles OAuth redirects - no nav needed) */}
           <Route path="/auth/callback" element={<AuthCallback />} />
+          <Route path="/auth/reset-password" element={<ResetPassword />} />
 
           {/* ============================================
               ALL PAGES WITH NAVBAR

@@ -41,6 +41,7 @@ interface AuthContextValue {
   signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ error: AuthError | null }>;
+  updatePassword: (newPassword: string) => Promise<{ error: AuthError | null }>;
 
   // Organisation actions
   createOrganisation: (data: {
@@ -330,6 +331,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       redirectTo: `${window.location.origin}/auth/reset-password`,
     });
 
+    return { error };
+  }, []);
+
+  const updatePassword = useCallback(async (newPassword: string) => {
+    if (!supabase) {
+      return { error: { message: 'Supabase not configured' } as AuthError };
+    }
+
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
     return { error };
   }, []);
 
@@ -700,6 +710,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signIn,
       signOut,
       resetPassword,
+      updatePassword,
       createOrganisation,
       joinOrganisation,
       checkDomainAutoJoin,
@@ -717,6 +728,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signIn,
       signOut,
       resetPassword,
+      updatePassword,
       createOrganisation,
       joinOrganisation,
       checkDomainAutoJoin,

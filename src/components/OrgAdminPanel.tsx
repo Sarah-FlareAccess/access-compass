@@ -656,9 +656,9 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
                   <div className="form-row">
                     <label>
                       Label (optional)
+                      <span className="field-hint">e.g., IT Department</span>
                       <input
                         type="text"
-                        placeholder="e.g., IT Department"
                         value={inviteForm.label}
                         onChange={(e) =>
                           setInviteForm({ ...inviteForm, label: e.target.value })
@@ -806,9 +806,11 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
                       Enter email addresses separated by commas, semicolons, or new lines.
                     </p>
                     <div className="form-row">
+                      <label htmlFor="bulk-emails">Email addresses</label>
+                      <span className="field-hint">john@company.com, jane@company.com...</span>
                       <textarea
+                        id="bulk-emails"
                         className="emails-textarea"
-                        placeholder="john@company.com, jane@company.com..."
                         value={newEmailsText}
                         onChange={(e) => setNewEmailsText(e.target.value)}
                         rows={4}

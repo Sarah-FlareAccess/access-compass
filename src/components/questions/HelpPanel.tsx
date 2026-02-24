@@ -6,9 +6,11 @@
  * - Mobile: Bottom sheet that slides up
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import type { HelpContent } from '../../hooks/useBranchingLogic';
 import './help-panel.css';
+
+const FOCUSABLE_SELECTOR = 'a[href], button:not(:disabled), input:not(:disabled), textarea:not(:disabled), select:not(:disabled), iframe, [tabindex]:not([tabindex="-1"])';
 
 interface HelpPanelProps {
   isOpen: boolean;
@@ -19,27 +21,56 @@ interface HelpPanelProps {
 
 export function HelpPanel({ isOpen, onClose, content, questionText: _questionText }: HelpPanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<Element | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
-  // Handle close with animation
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsClosing(true);
     setTimeout(() => {
       setIsClosing(false);
       onClose();
-    }, 300); // Match animation duration
-  };
+      if (triggerRef.current instanceof HTMLElement) {
+        triggerRef.current.focus();
+      }
+    }, 300);
+  }, [onClose]);
 
-  // Close on escape key
+  // Save trigger element and focus the close button on open
   useEffect(() => {
+    if (isOpen && !isClosing) {
+      triggerRef.current = document.activeElement;
+      const timer = setTimeout(() => {
+        const closeBtn = panelRef.current?.querySelector<HTMLElement>('.help-panel-close');
+        closeBtn?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, isClosing]);
+
+  // Focus trap: keep Tab/Shift+Tab inside the panel
+  useEffect(() => {
+    if (!isOpen || isClosing) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape') {
         handleClose();
+        return;
+      }
+      if (e.key !== 'Tab' || !panelRef.current) return;
+      const focusable = Array.from(panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, isClosing, handleClose]);
 
   // Close on click outside
   useEffect(() => {
@@ -49,7 +80,6 @@ export function HelpPanel({ isOpen, onClose, content, questionText: _questionTex
       }
     };
     if (isOpen) {
-      // Delay adding listener to prevent immediate close
       const timer = setTimeout(() => {
         document.addEventListener('mousedown', handleClickOutside);
       }, 100);
@@ -58,7 +88,7 @@ export function HelpPanel({ isOpen, onClose, content, questionText: _questionTex
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }
-  }, [isOpen]);
+  }, [isOpen, handleClose]);
 
   // Prevent body scroll when open on mobile
   useEffect(() => {

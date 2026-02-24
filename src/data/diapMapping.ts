@@ -136,6 +136,7 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
   '3.6': 'information-communication',  // Menus and printed materials
   '3.7': 'service-delivery',           // Audio, digital and interactive content
   '3.8': 'service-delivery',           // Participating in experiences and activities
+  '3.9': 'built-environment',          // Accessible accommodation
 
   // Service and support
   '4.2': 'customer-service-training',  // Customer service and staff confidence

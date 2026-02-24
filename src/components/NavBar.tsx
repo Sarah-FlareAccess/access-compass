@@ -26,24 +26,39 @@ export default function NavBar() {
     menuButtonRef.current?.focus();
   }, []);
 
-  // Handle Escape key to close menu
+  // Handle Escape key and focus trap for mobile menu
   useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    // Focus first menu item when opening
+    const firstLink = menuRef.current?.querySelector('a, button') as HTMLElement;
+    firstLink?.focus();
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && mobileMenuOpen) {
+      if (event.key === 'Escape') {
         closeMobileMenu();
+        return;
+      }
+      if (event.key === 'Tab' && menuRef.current && menuButtonRef.current) {
+        const menuItems = Array.from(
+          menuRef.current.querySelectorAll<HTMLElement>('a[href], button:not(:disabled)')
+        );
+        const allFocusable = [menuButtonRef.current as HTMLElement, ...menuItems];
+        if (allFocusable.length === 0) return;
+        const first = allFocusable[0];
+        const last = allFocusable[allFocusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
 
-    if (mobileMenuOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      // Focus first menu item when opening
-      const firstLink = menuRef.current?.querySelector('a, button') as HTMLElement;
-      firstLink?.focus();
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [mobileMenuOpen, closeMobileMenu]);
 
   // Close menu when clicking outside

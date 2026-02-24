@@ -209,8 +209,9 @@
 }
 
 .summary-actions .btn-primary:focus {
-  outline: 3px solid white;
-  outline-offset: 2px;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
 }
 
 @media (max-width: 640px) {

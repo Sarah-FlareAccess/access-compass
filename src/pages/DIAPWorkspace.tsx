@@ -1337,11 +1337,11 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
       <div className="form-row">
         <label>
           Objective *
+          <span className="field-hint">What do you want to achieve?</span>
           <input
             type="text"
             value={formData.objective}
             onChange={(e) => setFormData({ ...formData, objective: e.target.value })}
-            placeholder="What do you want to achieve?"
             required
           />
         </label>
@@ -1350,10 +1350,10 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
       <div className="form-row">
         <label>
           Action *
+          <span className="field-hint">What specific steps will you take?</span>
           <textarea
             value={formData.action}
             onChange={(e) => setFormData({ ...formData, action: e.target.value })}
-            placeholder="What specific steps will you take?"
             rows={3}
             required
           />
@@ -1406,11 +1406,11 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
       <div className="form-row double">
         <label>
           Responsible Person/Role
+          <span className="field-hint">e.g., Facilities Manager, HR Team</span>
           <input
             type="text"
             value={formData.responsibleRole}
             onChange={(e) => setFormData({ ...formData, responsibleRole: e.target.value })}
-            placeholder="e.g., Facilities Manager, HR Team"
             list="responsible-people-list"
             autoComplete="off"
           />
@@ -1465,11 +1465,11 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
       <div className="form-row">
         <label>
           Success Indicators
+          <span className="field-hint">How will you measure success?</span>
           <input
             type="text"
             value={formData.successIndicators}
             onChange={(e) => setFormData({ ...formData, successIndicators: e.target.value })}
-            placeholder="How will you measure success?"
           />
         </label>
       </div>
@@ -1477,21 +1477,21 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
       <div className="form-row double">
         <label>
           Budget Estimate
+          <span className="field-hint">e.g., &lt;$500, $1,000-$5,000</span>
           <input
             type="text"
             value={formData.budgetEstimate}
             onChange={(e) => setFormData({ ...formData, budgetEstimate: e.target.value })}
-            placeholder="e.g., <$500, $1,000-$5,000"
           />
         </label>
 
         <label>
           Notes
+          <span className="field-hint">Additional notes</span>
           <input
             type="text"
             value={formData.notes}
             onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-            placeholder="Additional notes"
           />
         </label>
       </div>

@@ -391,22 +391,27 @@ export function EvidenceUpload({
         {allowedTypes.includes('link') && (
           <div className="evidence-link-section">
             <div className="evidence-link-inputs">
-              <input
-                type="text"
-                placeholder="Paste URL..."
-                value={linkInput}
-                onChange={(e) => setLinkInput(e.target.value)}
-                className="evidence-link-input"
-                aria-label="Evidence URL"
-              />
-              <input
-                type="text"
-                placeholder="Description (optional)"
-                value={linkDescription}
-                onChange={(e) => setLinkDescription(e.target.value)}
-                className="evidence-link-description"
-                aria-label="Evidence link description"
-              />
+              <div>
+                <label htmlFor="evidence-url">Evidence URL</label>
+                <span className="field-hint">Paste URL...</span>
+                <input
+                  type="text"
+                  id="evidence-url"
+                  value={linkInput}
+                  onChange={(e) => setLinkInput(e.target.value)}
+                  className="evidence-link-input"
+                />
+              </div>
+              <div>
+                <label htmlFor="evidence-description">Description (optional)</label>
+                <input
+                  type="text"
+                  id="evidence-description"
+                  value={linkDescription}
+                  onChange={(e) => setLinkDescription(e.target.value)}
+                  className="evidence-link-description"
+                />
+              </div>
             </div>
             <button
               type="button"

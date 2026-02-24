@@ -186,8 +186,8 @@
 }
 
 .module-list-item:focus {
-  outline: 3px solid white;
-  outline-offset: 2px;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
 }
 
 .module-list-item.completed {
@@ -299,8 +299,9 @@
 }
 
 .btn-continue-module:focus {
-  outline: 3px solid white;
-  outline-offset: 2px;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
 }
 
 /* Module List Actions */
@@ -361,8 +362,9 @@
 }
 
 .btn-view-results:focus {
-  outline: 3px solid white;
-  outline-offset: 2px;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
 }
 
 /* Loading State */

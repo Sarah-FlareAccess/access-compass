@@ -94,9 +94,9 @@ export default function ActionDetail() {
               <div className="form-group">
                 <label>
                   Who's responsible?
+                  <span className="field-hint">e.g., Sarah (Manager)</span>
                   <input
                     type="text"
-                    placeholder="e.g., Sarah (Manager)"
                     value={diapFields.owner}
                     onChange={(e) => setDiapFields({ ...diapFields, owner: e.target.value })}
                   />
@@ -137,8 +137,8 @@ export default function ActionDetail() {
               <div className="form-group">
                 <label>
                   Notes
+                  <span className="field-hint">Add any notes, progress updates, or blockers...</span>
                   <textarea
-                    placeholder="Add any notes, progress updates, or blockers..."
                     value={diapFields.notes}
                     onChange={(e) => setDiapFields({ ...diapFields, notes: e.target.value })}
                     rows={4}

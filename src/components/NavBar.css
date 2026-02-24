@@ -173,6 +173,12 @@
   z-index: 1002;
 }
 
+.mobile-menu-btn:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 .hamburger {
   display: flex;
   flex-direction: column;

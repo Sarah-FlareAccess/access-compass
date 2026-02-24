@@ -1350,6 +1350,7 @@
   outline: 3px solid var(--amethyst-diamond);
   outline-offset: 2px;
   box-shadow: var(--surface-2-hover-shadow), var(--glow-brand);
+  scroll-margin-top: 16px;
 }
 
 /* Enhanced action button visibility on hover */
@@ -1656,6 +1657,13 @@
 .module-action-btn:focus {
   outline: 3px solid var(--amethyst-diamond);
   outline-offset: 2px;
+}
+
+.module-action-btn.btn-start:focus,
+.module-action-btn.btn-continue:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
 }
 
 .module-action-btn.btn-start {
@@ -2038,13 +2046,6 @@
   color: #757575;
 }
 
-.field-hint {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  margin-top: var(--spacing-xs);
-}
-
 .assignment-modal-actions {
   display: flex;
   gap: var(--spacing-sm);
@@ -2092,8 +2093,9 @@
 }
 
 .btn-save-assignment:focus {
-  outline: 3px solid white;
-  outline-offset: 2px;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
 }
 
 /* Optional badge in modal header */
@@ -2177,8 +2179,9 @@
 }
 
 .btn-copy-email:focus {
-  outline: 3px solid white;
-  outline-offset: 2px;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
 }
 
 /* ============================================

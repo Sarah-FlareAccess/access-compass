@@ -162,6 +162,10 @@
   line-height: 1.4;
 }
 
+.question-card .question-text:focus {
+  outline: none;
+}
+
 .question-card .question-help-text {
   font-size: 15px;
   color: var(--text-muted);
@@ -566,6 +570,12 @@
 .btn-continue:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.btn-continue:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
 }
 
 /* Measurement Input */

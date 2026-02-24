@@ -101,7 +101,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'physical-access',
         label: 'Physical access',
-        touchpointIds: ['getting-in', 'using-space', 'wayfinding'],
+        touchpointIds: ['getting-in', 'using-space', 'accommodation-rooms', 'wayfinding'],
       },
       {
         id: 'experiences-activities',
@@ -135,6 +135,18 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
           { id: 'toilets', label: 'Accessible toilets' },
         ],
         moduleMapping: ['3.1', '3.2', '3.3'],
+      },
+      {
+        id: 'accommodation-rooms',
+        label: 'Accommodation and guest rooms',
+        description: 'Accessible rooms, in-room facilities, guest amenities',
+        example: 'e.g. Bed height, roll-in showers, visual alarms, kitchenette access, room entry',
+        subTouchpoints: [
+          { id: 'guest-rooms', label: 'Guest room accessibility' },
+          { id: 'in-room-bathroom', label: 'In-room bathroom' },
+          { id: 'in-room-amenities', label: 'In-room amenities and features' },
+        ],
+        moduleMapping: ['3.9'],
       },
       {
         id: 'wayfinding',

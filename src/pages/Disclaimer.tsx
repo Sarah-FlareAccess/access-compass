@@ -320,6 +320,7 @@ export default function Disclaimer() {
               <form onSubmit={handleAuthSubmit} className="auth-form">
                 <div className="form-group">
                   <label htmlFor="email">Email address</label>
+                  <span className="field-hint">you@example.com</span>
                   <input
                     type="email"
                     id="email"
@@ -327,12 +328,12 @@ export default function Disclaimer() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     autoComplete="email"
-                    placeholder="you@example.com"
                   />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
+                  <span className="field-hint">{isSignUp ? 'Min 8 characters' : 'Enter your password'}</span>
                   <div className="password-input-wrapper">
                     <input
                       type={showPassword ? 'text' : 'password'}
@@ -341,7 +342,6 @@ export default function Disclaimer() {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       autoComplete={isSignUp ? 'new-password' : 'current-password'}
-                      placeholder={isSignUp ? 'Min 8 characters' : 'Enter your password'}
                       minLength={8}
                     />
                     <button
@@ -358,6 +358,7 @@ export default function Disclaimer() {
                 {isSignUp && (
                   <div className="form-group">
                     <label htmlFor="confirmPassword">Confirm password</label>
+                    <span className="field-hint">Confirm your password</span>
                     <div className="password-input-wrapper">
                       <input
                         type={showConfirmPassword ? 'text' : 'password'}
@@ -366,7 +367,6 @@ export default function Disclaimer() {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                         autoComplete="new-password"
-                        placeholder="Confirm your password"
                         minLength={8}
                       />
                       <button
@@ -500,13 +500,13 @@ export default function Disclaimer() {
                 <form onSubmit={handleJoinWithCode} className="auth-form">
                   <div className="form-group">
                     <label htmlFor="inviteCode">Invite code</label>
+                    <span className="field-hint">Enter your invite code</span>
                     <input
                       type="text"
                       id="inviteCode"
                       value={inviteCode}
                       onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
                       required
-                      placeholder="Enter your invite code"
                       style={{ textTransform: 'uppercase' }}
                     />
                   </div>
@@ -534,13 +534,13 @@ export default function Disclaimer() {
                 <form onSubmit={handleCreateOrg} className="auth-form">
                   <div className="form-group">
                     <label htmlFor="orgName">Organisation name</label>
+                    <span className="field-hint">Your organisation name</span>
                     <input
                       type="text"
                       id="orgName"
                       value={orgName}
                       onChange={(e) => setOrgName(e.target.value)}
                       required
-                      placeholder="Your organisation name"
                     />
                   </div>
 
@@ -562,25 +562,25 @@ export default function Disclaimer() {
 
                   <div className="form-group">
                     <label htmlFor="contactName">Your name</label>
+                    <span className="field-hint">Your full name</span>
                     <input
                       type="text"
                       id="contactName"
                       value={contactName}
                       onChange={(e) => setContactName(e.target.value)}
                       required
-                      placeholder="Your full name"
                     />
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="contactEmail">Contact email</label>
+                    <span className="field-hint">contact@example.com</span>
                     <input
                       type="email"
                       id="contactEmail"
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
                       required
-                      placeholder="contact@example.com"
                     />
                   </div>
 

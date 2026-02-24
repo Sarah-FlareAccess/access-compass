@@ -115,6 +115,7 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
               <label htmlFor="email">Email address</label>
+              <span className="field-hint">you@example.com</span>
               <input
                 type="email"
                 id="email"
@@ -122,13 +123,13 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
-                placeholder="you@example.com"
               />
             </div>
 
             {mode === 'signin' && (
               <div className="form-group">
                 <label htmlFor="password">Password</label>
+                <span className="field-hint">Enter your password</span>
                 <div className="password-input-wrapper">
                   <input
                     type={showPassword ? 'text' : 'password'}
@@ -137,7 +138,6 @@ export default function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     autoComplete="current-password"
-                    placeholder="Enter your password"
                     minLength={8}
                   />
                   <button

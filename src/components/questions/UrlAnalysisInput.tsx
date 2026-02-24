@@ -88,16 +88,18 @@ export function UrlAnalysisInput({ currentValue, onSubmit, onSkip }: UrlAnalysis
     return (
       <div className="url-analysis-input">
         <div className="url-input-container">
+          <label htmlFor="url-analysis-field">Website URL to analyse</label>
+          <span className="field-hint">e.g., https://yourwebsite.com/accessibility</span>
           <div className="url-input-wrapper">
             <span className="url-input-icon">🔗</span>
             <input
               type="url"
+              id="url-analysis-field"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="https://yourwebsite.com/accessibility"
+              placeholder="https://"
               className="url-input-field"
               disabled={isAnalyzing}
-              aria-label="Website URL to analyse"
             />
           </div>
           {error && <p className="url-error">{error}</p>}

@@ -198,9 +198,9 @@ export default function Constraints() {
 
                 <div className="form-group">
                   <label htmlFor="additional_notes">Anything else we should know?</label>
+                  <span className="field-hint">e.g., upcoming renovations, specific customer feedback, tight deadlines...</span>
                   <textarea
                     id="additional_notes"
-                    placeholder="e.g., upcoming renovations, specific customer feedback, tight deadlines..."
                     maxLength={500}
                     value={formData.additional_notes}
                     onChange={(e) =>

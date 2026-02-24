@@ -14,10 +14,12 @@ export type ModuleGroup =
 
 // Module codes matching accessModules.ts
 export type ModuleCode =
-  | '1.1' | '1.2' | '1.3' | '1.4'           // Before arrival
-  | '2.1' | '2.2' | '2.3' | '2.4'               // Getting in
-  | '3.1' | '3.2' | '3.3' | '3.5' | '3.6'          // During visit
-  | '4.2' | '4.3' | '4.4' | '4.5' | '5.1';         // Service & support
+  | '1.1' | '1.2' | '1.3' | '1.4' | '1.5' | '1.6'  // Before arrival
+  | '2.1' | '2.2' | '2.3' | '2.4'                    // Getting in
+  | '3.1' | '3.2' | '3.3' | '3.4' | '3.5' | '3.6' | '3.7' | '3.8' | '3.9'  // During visit
+  | '4.1' | '4.2' | '4.3' | '4.4' | '4.5' | '4.6' | '4.7'  // Service & support
+  | '5.1' | '5.2' | '5.3' | '5.4' | '5.5'            // Organisation
+  | '6.1' | '6.2' | '6.3' | '6.4' | '6.5';           // Events
 
 // DIAP categories for cross-referencing
 export type DIAPCategory =

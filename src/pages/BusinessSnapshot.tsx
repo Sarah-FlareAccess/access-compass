@@ -151,6 +151,7 @@ export default function BusinessSnapshotPage() {
               <label htmlFor="organisation_name">
                 Organisation name <span className="required">*</span>
               </label>
+              <span className="field-hint">Enter your organisation name</span>
               <input
                 type="text"
                 id="organisation_name"
@@ -158,7 +159,6 @@ export default function BusinessSnapshotPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, organisation_name: e.target.value })
                 }
-                placeholder="Enter your organisation name"
                 required
               />
             </div>

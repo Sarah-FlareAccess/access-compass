@@ -522,19 +522,21 @@ export function MediaAnalysisInput({
           {/* URL input */}
           {inputType === 'url' && (
             <div className="url-input-section">
+              <label htmlFor="media-url-input">URL to analyse</label>
+              <span className="field-hint">
+                {selectedType === 'social-media-url'
+                  ? 'e.g., https://instagram.com/p/...'
+                  : selectedType === 'website-wave'
+                  ? 'e.g., https://www.example.com'
+                  : 'Enter the URL to analyse'}
+              </span>
               <input
                 type="url"
+                id="media-url-input"
                 value={urlInput}
                 onChange={handleUrlChange}
-                placeholder={
-                  selectedType === 'social-media-url'
-                    ? 'https://instagram.com/p/...'
-                    : selectedType === 'website-wave'
-                    ? 'https://www.example.com'
-                    : 'https://...'
-                }
+                placeholder="https://"
                 className="url-input"
-                aria-label="URL to analyse"
               />
               {selectedType === 'website-wave' && (
                 <p className="wave-notice">

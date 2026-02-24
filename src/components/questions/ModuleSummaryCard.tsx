@@ -295,24 +295,24 @@ export function ModuleSummaryCard({
 
           <div className="completion-field">
             <label htmlFor="completedBy">Completed by</label>
+            <span className="field-hint">e.g., Jane Smith</span>
             <input
               type="text"
               id="completedBy"
               value={completedBy}
               onChange={(e) => setCompletedBy(e.target.value)}
-              placeholder="e.g., Jane Smith"
               autoFocus
             />
           </div>
 
           <div className="completion-field">
             <label htmlFor="completedByRole">Role (optional)</label>
+            <span className="field-hint">e.g., Visitor Experience Manager</span>
             <input
               type="text"
               id="completedByRole"
               value={completedByRole}
               onChange={(e) => setCompletedByRole(e.target.value)}
-              placeholder="e.g., Visitor Experience Manager"
             />
           </div>
 

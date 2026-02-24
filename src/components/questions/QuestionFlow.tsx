@@ -5,7 +5,7 @@
  * Handles navigation, progress tracking, and summary generation.
  */
 
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { QuestionCard } from './QuestionCard';
 import { ModuleSummaryCard } from './ModuleSummaryCard';
 import { ReviewSummary } from './ReviewSummary';
@@ -46,10 +46,16 @@ export function QuestionFlow({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
   const [showReviewSummary, setShowReviewSummary] = useState(false);
+  const questionContainerRef = useRef<HTMLDivElement>(null);
 
-  // Scroll to top when question changes
+  // Scroll to top and move focus to question when it changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    const timer = setTimeout(() => {
+      const heading = questionContainerRef.current?.querySelector<HTMLElement>('[data-question-heading]');
+      if (heading) heading.focus();
+    }, 100);
+    return () => clearTimeout(timer);
   }, [currentIndex]);
 
   // Use branching logic to determine visible questions
@@ -391,14 +397,16 @@ export function QuestionFlow({
       </div>
 
       {/* Question card */}
-      <QuestionCard
-        question={currentQuestion}
-        currentResponse={currentResponse}
-        onAnswer={handleAnswer}
-        questionNumber={currentIndex + 1}
-        totalQuestions={visibleQuestions.length}
-        moduleName={moduleName}
-      />
+      <div ref={questionContainerRef}>
+        <QuestionCard
+          question={currentQuestion}
+          currentResponse={currentResponse}
+          onAnswer={handleAnswer}
+          questionNumber={currentIndex + 1}
+          totalQuestions={visibleQuestions.length}
+          moduleName={moduleName}
+        />
+      </div>
 
       {/* Skip to summary link */}
       {progress.answered >= Math.floor(visibleQuestions.length * 0.5) && (

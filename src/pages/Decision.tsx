@@ -556,12 +556,12 @@ export default function Decision() {
         <form onSubmit={handleSignIn} className="auth-form">
           <div className="form-group">
             <label htmlFor="email">Email</label>
+            <span className="field-hint">you@example.com</span>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
               required
               autoComplete="email"
             />
@@ -569,13 +569,13 @@ export default function Decision() {
 
           <div className="form-group">
             <label htmlFor="password">Password</label>
+            <span className="field-hint">Your password</span>
             <div className="password-input-wrapper">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Your password"
                 required
                 autoComplete="current-password"
               />
@@ -632,12 +632,12 @@ export default function Decision() {
         <form onSubmit={handleSignUp} className="auth-form">
           <div className="form-group">
             <label htmlFor="signup-email">Email</label>
+            <span className="field-hint">you@example.com</span>
             <input
               type="email"
               id="signup-email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
               required
               autoComplete="email"
             />
@@ -645,13 +645,13 @@ export default function Decision() {
 
           <div className="form-group">
             <label htmlFor="signup-password">Password</label>
+            <span className="field-hint">Create a password (minimum 8 characters)</span>
             <div className="password-input-wrapper">
               <input
                 type={showPassword ? "text" : "password"}
                 id="signup-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Create a password"
                 minLength={8}
                 required
                 autoComplete="new-password"
@@ -665,7 +665,6 @@ export default function Decision() {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-            <span className="field-hint">Minimum 8 characters</span>
           </div>
 
           <button type="submit" className="btn-primary" disabled={isProcessing}>
@@ -701,12 +700,12 @@ export default function Decision() {
         <form onSubmit={handleResetPassword} className="auth-form">
           <div className="form-group">
             <label htmlFor="reset-email">Email</label>
+            <span className="field-hint">you@example.com</span>
             <input
               type="email"
               id="reset-email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
               required
               autoComplete="email"
             />
@@ -742,12 +741,12 @@ export default function Decision() {
         <form onSubmit={handleJoinOrg} className="auth-form">
           <div className="form-group">
             <label htmlFor="inviteCode">Invite code</label>
+            <span className="field-hint">e.g., COMPANY2024</span>
             <input
               type="text"
               id="inviteCode"
               value={inviteCode}
               onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
-              placeholder="e.g., COMPANY2024"
               required
               autoComplete="off"
             />

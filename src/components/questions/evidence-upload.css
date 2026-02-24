@@ -348,7 +348,21 @@ a.evidence-item-name:hover {
 }
 
 .evidence-file-input {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.evidence-file-input:focus-visible + .evidence-upload-btn {
+  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.2);
 }
 
 .evidence-upload-btn {

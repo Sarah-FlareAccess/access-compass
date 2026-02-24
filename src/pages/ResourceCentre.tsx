@@ -17,12 +17,15 @@ import {
   ArrowLeft,
   Filter,
   X,
+  Lock,
 } from 'lucide-react';
 import { allHelpContent, searchHelp } from '../data/help';
 import type { HelpContent, ModuleGroup, DIAPCategory } from '../data/help/types';
 import { ResourceCard } from '../components/help/ResourceCard';
 import { ResourceDetail } from '../components/help/ResourceDetail';
 import { PageFooter } from '../components/PageFooter';
+import { useModuleProgress } from '../hooks/useModuleProgress';
+import { MODULES } from '../lib/recommendationEngine';
 import './ResourceCentre.css';
 
 // Category configuration
@@ -72,8 +75,13 @@ const DIAP_LABELS: Record<DIAPCategory, string> = {
   'people-culture': 'People & Culture',
 };
 
+// Module name lookup for lock overlay
+const MODULE_NAMES: Record<string, string> = {};
+MODULES.forEach(m => { MODULE_NAMES[m.id] = m.name; });
+
 export function ResourceCentre() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { progress } = useModuleProgress();
 
   // Get state from URL params
   const selectedResourceId = searchParams.get('resource');
@@ -83,6 +91,11 @@ export function ResourceCentre() {
 
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
   const [showFilters, setShowFilters] = useState(false);
+
+  // Check if a resource's module is completed
+  const isModuleCompleted = (moduleCode: string): boolean => {
+    return progress[moduleCode]?.status === 'completed';
+  };
 
   // Get the selected resource for detail view
   const selectedResource = useMemo(() => {
@@ -188,6 +201,32 @@ export function ResourceCentre() {
 
   // If showing resource detail
   if (selectedResource) {
+    const resourceUnlocked = isModuleCompleted(selectedResource.moduleCode);
+
+    if (!resourceUnlocked) {
+      const moduleName = MODULE_NAMES[selectedResource.moduleCode] || selectedResource.moduleCode;
+      return (
+        <div className="resource-centre">
+          <div className="resource-centre-header">
+            <button className="btn-back" onClick={handleBackFromDetail}>
+              <ArrowLeft size={20} />
+              <span>Back to Resources</span>
+            </button>
+          </div>
+          <div className="resource-locked-detail">
+            <Lock size={48} />
+            <h2>Resource Locked</h2>
+            <p>
+              Complete the <strong>{moduleName}</strong> module ({selectedResource.moduleCode}) to unlock this resource guide.
+            </p>
+            <p className="resource-locked-hint">
+              Resource guides become available once you have completed the related module checklist.
+            </p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="resource-centre">
         <div className="resource-centre-header">
@@ -326,7 +365,12 @@ export function ResourceCentre() {
                 <h3>{cat.label}</h3>
                 <p>{cat.description}</p>
                 <span className="category-count">
-                  {resourcesByCategory[cat.id].length} resources
+                  {resourcesByCategory[cat.id].length} resource{resourcesByCategory[cat.id].length !== 1 ? 's' : ''}
+                  {(() => {
+                    const unlocked = resourcesByCategory[cat.id].filter(r => isModuleCompleted(r.moduleCode)).length;
+                    const total = resourcesByCategory[cat.id].length;
+                    return total > 0 && unlocked < total ? ` (${unlocked} unlocked)` : '';
+                  })()}
                 </span>
               </div>
             </button>
@@ -346,13 +390,23 @@ export function ResourceCentre() {
             </div>
           ) : (
             <div className="resource-grid">
-              {filteredResources.map(resource => (
-                <ResourceCard
-                  key={resource.questionId}
-                  resource={resource}
-                  onClick={() => handleResourceSelect(resource.questionId)}
-                />
-              ))}
+              {filteredResources.map(resource => {
+                const unlocked = isModuleCompleted(resource.moduleCode);
+                return (
+                  <div key={resource.questionId} className={`resource-card-wrapper ${!unlocked ? 'locked' : ''}`}>
+                    <ResourceCard
+                      resource={resource}
+                      onClick={() => handleResourceSelect(resource.questionId)}
+                    />
+                    {!unlocked && (
+                      <div className="resource-lock-overlay">
+                        <Lock size={20} />
+                        <span>Complete {MODULE_NAMES[resource.moduleCode] || resource.moduleCode} to unlock</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
@@ -363,13 +417,23 @@ export function ResourceCentre() {
         <div className="featured-resources">
           <h2>Popular Resources</h2>
           <div className="resource-grid">
-            {allHelpContent.slice(0, 6).map(resource => (
-              <ResourceCard
-                key={resource.questionId}
-                resource={resource}
-                onClick={() => handleResourceSelect(resource.questionId)}
-              />
-            ))}
+            {allHelpContent.slice(0, 6).map(resource => {
+              const unlocked = isModuleCompleted(resource.moduleCode);
+              return (
+                <div key={resource.questionId} className={`resource-card-wrapper ${!unlocked ? 'locked' : ''}`}>
+                  <ResourceCard
+                    resource={resource}
+                    onClick={() => handleResourceSelect(resource.questionId)}
+                  />
+                  {!unlocked && (
+                    <div className="resource-lock-overlay">
+                      <Lock size={20} />
+                      <span>Complete {MODULE_NAMES[resource.moduleCode] || resource.moduleCode} to unlock</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

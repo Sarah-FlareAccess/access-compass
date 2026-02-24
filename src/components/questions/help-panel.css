@@ -328,6 +328,12 @@
   box-shadow: 0 4px 12px rgba(58, 11, 82, 0.3);
 }
 
+.btn-got-it:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
+}
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }

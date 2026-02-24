@@ -397,7 +397,7 @@ export function QuestionCard({
         </div>
       </div>
 
-      <h2 className="question-text">{question.text}</h2>
+      <h2 className="question-text" data-question-heading tabIndex={-1}>{question.text}</h2>
 
       {question.helpText && (
         <p className="question-help-text">{getShortHelpText(question.helpText)}</p>
@@ -483,11 +483,11 @@ export function QuestionCard({
               <label htmlFor="partial-description">
                 Please describe what's in place and what's missing:
               </label>
+              <span className="field-hint">{question.partialPlaceholder || "Describe what's working and what still needs attention..."}</span>
               <textarea
                 id="partial-description"
                 value={partialDescription}
                 onChange={(e) => setPartialDescription(e.target.value)}
-                placeholder={question.partialPlaceholder || "Describe what's working and what still needs attention..."}
                 rows={3}
               />
               <p className="partial-report-hint">Your description will be included in your report and action plan — the more specific you are, the more tailored your recommendations will be.</p>
@@ -513,11 +513,11 @@ export function QuestionCard({
                 <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
               </div>
             )}
+            <span className="field-hint">Observations, questions, or notes for later...</span>
             <textarea
               id="question-notes-yesno"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Observations, questions, or notes for later..."
               rows={2}
             />
           </div>
@@ -565,12 +565,12 @@ export function QuestionCard({
               <label htmlFor="measurement-value" className="visually-hidden">
                 Enter measurement in {question.measurementUnit || 'mm'}
               </label>
+              <span className="field-hint">Enter measurement</span>
               <input
                 type="number"
                 id="measurement-value"
                 value={measurementValue}
                 onChange={(e) => setMeasurementValue(e.target.value)}
-                placeholder="Enter measurement"
                 className="measurement-value-input"
                 aria-describedby="measurement-unit"
               />
@@ -648,11 +648,11 @@ export function QuestionCard({
                 <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
               </div>
             )}
+            <span className="field-hint">Observations, questions, or notes for later...</span>
             <textarea
               id="question-notes-measurement"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Observations, questions, or notes for later..."
               rows={2}
             />
           </div>
@@ -708,12 +708,12 @@ export function QuestionCard({
             {hasOtherSelected && (
               <div className="other-description-input">
                 <label htmlFor="other-description">Please describe:</label>
+                <span className="field-hint">Enter details...</span>
                 <input
                   type="text"
                   id="other-description"
                   value={otherDescription}
                   onChange={(e) => setOtherDescription(e.target.value)}
-                  placeholder="Enter details..."
                   className="other-text-input"
                 />
               </div>
@@ -739,11 +739,11 @@ export function QuestionCard({
                 <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
               </div>
             )}
+            <span className="field-hint">Observations, questions, or notes for later...</span>
             <textarea
               id="question-notes-multiselect"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Observations, questions, or notes for later..."
               rows={2}
             />
           </div>
@@ -803,12 +803,12 @@ export function QuestionCard({
             {showSingleDescribeInput && (
               <div className={hasSingleDescribeSelected && !hasSingleOtherSelected ? "describe-input-highlight" : "other-description-input"}>
                 <label htmlFor="single-other-description">{hasSingleDescribeSelected && !hasSingleOtherSelected ? 'Please explain your answer:' : 'Please describe:'}</label>
+                <span className="field-hint">{hasSingleDescribeSelected && !hasSingleOtherSelected ? (question.describePlaceholder || "Tell us more about your situation...") : "Enter details..."}</span>
                 <input
                   type="text"
                   id="single-other-description"
                   value={otherDescription}
                   onChange={(e) => setOtherDescription(e.target.value)}
-                  placeholder={hasSingleDescribeSelected && !hasSingleOtherSelected ? (question.describePlaceholder || "Tell us more about your situation...") : "Enter details..."}
                   className="other-text-input"
                 />
                 {hasSingleDescribeSelected && !hasSingleOtherSelected && !otherDescription.trim() && (
@@ -837,11 +837,11 @@ export function QuestionCard({
                 <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
               </div>
             )}
+            <span className="field-hint">Observations, questions, or notes for later...</span>
             <textarea
               id="question-notes-singleselect"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Observations, questions, or notes for later..."
               rows={2}
             />
           </div>
@@ -885,15 +885,13 @@ export function QuestionCard({
       {question.type === 'link-input' && (
         <>
           <div className="link-input-section">
-            <label htmlFor="link-input" className="visually-hidden">
-              Enter URL
-            </label>
+            <label htmlFor="link-input">Enter URL</label>
             <input
               type="url"
               id="link-input"
               value={linkValue}
               onChange={(e) => setLinkValue(e.target.value)}
-              placeholder="https://..."
+              placeholder="https://"
               className="link-input"
             />
           </div>
@@ -917,11 +915,11 @@ export function QuestionCard({
                 <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
               </div>
             )}
+            <span className="field-hint">Observations, questions, or notes for later...</span>
             <textarea
               id="question-notes-link"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Observations, questions, or notes for later..."
               rows={2}
             />
           </div>
@@ -979,11 +977,11 @@ export function QuestionCard({
                 <p>This response can be included in your DIAP and report if you choose.</p>
               </div>
             )}
+            <span className="field-hint">Enter your response...</span>
             <textarea
               id="question-text-input"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Enter your response..."
               className="text-input"
               rows={4}
             />

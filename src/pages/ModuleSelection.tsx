@@ -144,6 +144,7 @@ export default function ModuleSelection() {
                             checked={isSelected}
                             onChange={() => toggleModule(module.id)}
                             onClick={(e) => e.stopPropagation()}
+                            aria-label={`Select ${module.name}`}
                           />
                         </div>
                       </div>

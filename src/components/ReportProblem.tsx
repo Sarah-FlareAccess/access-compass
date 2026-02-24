@@ -132,19 +132,19 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
 
               <div className="form-group">
                 <label htmlFor="report-description">Describe the issue *</label>
+                <span className="field-hint">
+                  {issueType === 'bug'
+                    ? 'What happened? What did you expect to happen?'
+                    : issueType === 'suggestion'
+                    ? 'What would you like to see improved or added?'
+                    : issueType === 'question'
+                    ? 'What would you like help with?'
+                    : 'Share your feedback...'}
+                </span>
                 <textarea
                   id="report-description"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
-                  placeholder={
-                    issueType === 'bug'
-                      ? 'What happened? What did you expect to happen?'
-                      : issueType === 'suggestion'
-                      ? 'What would you like to see improved or added?'
-                      : issueType === 'question'
-                      ? 'What would you like help with?'
-                      : 'Share your feedback...'
-                  }
                   rows={4}
                   required
                 />

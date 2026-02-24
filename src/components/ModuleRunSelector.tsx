@@ -8,10 +8,12 @@
  * - Compare results between runs
  */
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { ModuleRun, ModuleRunContext } from '../hooks/useModuleProgress';
 import { backupDeletedAssessment } from '../utils/assessmentBackup';
 import './ModuleRunSelector.css';
+
+const FOCUSABLE_SELECTOR = 'a[href], button:not(:disabled), input:not(:disabled), textarea:not(:disabled), select:not(:disabled), [tabindex]:not([tabindex="-1"])';
 
 interface ModuleRunSelectorProps {
   moduleId: string;
@@ -57,6 +59,41 @@ export function ModuleRunSelector({
   const [exportedBeforeDelete, setExportedBeforeDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deletionSuccess, setDeletionSuccess] = useState<{ recoveryCode?: string; assessmentName: string } | null>(null);
+
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Auto-focus close button on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const firstFocusable = modalRef.current?.querySelector<HTMLElement>('.close-btn');
+      firstFocusable?.focus();
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Focus trap and Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (e.key !== 'Tab' || !modalRef.current) return;
+      const focusable = Array.from(modalRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   const handleStartNewRun = () => {
     if (!newRunContext.name.trim()) {
@@ -298,8 +335,8 @@ export function ModuleRunSelector({
   };
 
   return (
-    <div className="run-selector-overlay">
-      <div className="run-selector-modal">
+    <div className="run-selector-overlay" onClick={onClose}>
+      <div ref={modalRef} className="run-selector-modal" role="dialog" aria-modal="true" aria-label="Assessment History" onClick={(e) => e.stopPropagation()}>
         <div className="run-selector-header">
           <h2>Assessment History</h2>
           <p className="module-name">{moduleName}</p>
@@ -453,29 +490,29 @@ export function ModuleRunSelector({
                   {newRunContext.type === 'general' && 'Assessment name'}
                   {newRunContext.type === 'other' && 'Name'}
                 </label>
+                <span className="field-hint">
+                  {newRunContext.type === 'team' ? 'e.g., Front of house team' :
+                    newRunContext.type === 'department' ? 'e.g., Customer service' :
+                    newRunContext.type === 'event' ? 'e.g., Summer Festival 2024' :
+                    newRunContext.type === 'location' ? 'e.g., Main entrance' :
+                    newRunContext.type === 'experience' ? 'e.g., Booking process' :
+                    'e.g., Q1 2024 Review'}
+                </span>
                 <input
                   id="context-name"
                   type="text"
                   value={newRunContext.name}
                   onChange={(e) => setNewRunContext({ ...newRunContext, name: e.target.value })}
-                  placeholder={
-                    newRunContext.type === 'team' ? 'e.g., Front of house team' :
-                    newRunContext.type === 'department' ? 'e.g., Customer service' :
-                    newRunContext.type === 'event' ? 'e.g., Summer Festival 2024' :
-                    newRunContext.type === 'location' ? 'e.g., Main entrance' :
-                    newRunContext.type === 'experience' ? 'e.g., Booking process' :
-                    'e.g., Q1 2024 Review'
-                  }
                 />
               </div>
 
               <div className="form-group">
                 <label htmlFor="context-description">Description (optional)</label>
+                <span className="field-hint">Add any notes about this assessment...</span>
                 <textarea
                   id="context-description"
                   value={newRunContext.description || ''}
                   onChange={(e) => setNewRunContext({ ...newRunContext, description: e.target.value })}
-                  placeholder="Add any notes about this assessment..."
                   rows={3}
                 />
               </div>

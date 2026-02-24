@@ -308,8 +308,9 @@ p {
 }
 
 .btn-primary:focus-visible {
-  outline-color: #490e67;
-  box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.2);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
 }
 
 /* ----------------------------------------
@@ -341,7 +342,9 @@ p {
 }
 
 .btn-secondary:focus-visible {
-  outline-color: #490e67;
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.2);
 }
 
 /* ----------------------------------------
@@ -365,7 +368,9 @@ p {
 }
 
 .btn-outline:focus-visible {
-  outline-color: #490e67;
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.2);
 }
 
 /* ----------------------------------------
@@ -595,6 +600,15 @@ label {
   font-weight: 500;
   font-size: 0.9rem;
   color: var(--text-primary);
+}
+
+/* Field Hints - persistent label descriptions (replaces placeholder text) */
+.field-hint {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  margin-bottom: 4px;
 }
 
 /* Form Groups */
