@@ -62,3 +62,23 @@ Thumbs.db
 # Temp files
 tmpclaude-*
 nul
+
+# One-time utility scripts
+*.cjs
+add_understanding.js
+add_understanding.ps1
+fix-all-tips.js
+fix-batch.cjs
+fix-encoding.ps1
+fix-tips-a6-onwards.js
+fix-tips-remaining.js
+fix-understanding.js
+
+# Backup files
+*.bak
+
+# Copyrighted standards PDFs (keep local only)
+docs/*.pdf
+
+# Windows desktop.ini
+desktop.ini

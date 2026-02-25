@@ -1,0 +1,1703 @@
+LICENCE
+for AS 1428Set : 2010 : EN : COMBINED PDF
+
+Licensee: Flare Access
+
+Date:
+
+12-Jul-2019
+
+Licence Agreement
+
+This is an agreement between the end user of the Product ("Licensee") and SAI Global Limited, Level 37, 680 George Street, Sydney NSW 2000 AUSTRALIA, ABN 67 050 611 642.
+
+1. Definitions and Interpretations
+
+Australian Standards means Australian Standards and includes Joint ISO/Australian Standards, Joint NZ/Australian Standards, current Draft Australian Standards, and amendments to Australian Standards.
+
+Concurrent Users means the maximum number of people able to access the Product at any one time, and is limited to the number of Licences purchased.
+
+ISO Standards means Standards published by the International Organization for Standardization (ISO), for which SAI Global is an authorised distributor.
+
+IEC Standards means Standards published by the International Electrotechnical Commission (IEC), for which SAI Global is an authorised distributor.
+
+Internal use means use of the Product within the Licensee's organization.
+
+Licence means the right to access and use the Product.
+
+Licensee means the purchaser and user of the Product.
+
+Product means Australian Standards, ISO Standards and IEC Standards ordered and purchased through the infostore, and downloaded as electronic PDF files.
+
+2. Product Availability
+To read the full licence agreement, simply click within the red box above and scroll through with your cursor
+2.1. The Product is available via the World Wide Web through the use of a web browser. Documents are provided as PDF files, viewable through the use of the latest version of Adobe Reader®.
+3. Licence AgreeLmeeanrtn about LexConnect, All Jurisdictions, Standards referenced in Australian legislation
+Know when a Standard has changed
+3.1. By using the Product the Licensee agrees to be bound by the Licence Agreement for the Product.
+Visit our store to find more Publications
+3.2. The Licensee is granted a non-exclusive and non-assignable Licence to use the Product.
+
+3.3. Licensees are permitted to use the Product the following extent:
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+Reconfirmed 2015
+Australian Standard®
+Design for access and mobility Part 2: Enhanced and additional requirements--Buildings and facilities
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+This Australian Standard was prepared by Committee ME/64, Access For People With disabilities. It was approved on behalf of the Council of Standards Australia on 26 November 1991 and published 10 February 1992.
+The following interests are represented on Committee ME/64:
+Access Australia ACROD Australian Chamber of Manufactures Australian Council on the Ageing Australian National Council of and for the Blind Australian Uniform Building Regulations Coordinating Council Building Owners and managers Association of Australia Department of Administrative Services--Australian Construction Services Department of Housing, New South Wales Department of Housing and Local Government, Queensland Department of the Premier and Cabinet, South Australia Master Builders Construction and Housing Association, Australia National Committee of Independent Living Centres Royal Australian Institute of Architects Royal Melbourne Institute of Technology South Australian Department of Housing and Construction Telecom Australia
+Additional interest participating in preparation of Standard: Paraplegic and Quadriplegic Association of Victoria
+Review of Australian Standards. To keep abreast of progress in industry, Australi an Standards are subject to periodic review and are kept up to date by the issue of amendments or new editi ons as necessary. It is important therefore that Standards users ensure that they are in possession of the latest editi on, and any amendments thereto. Full detail s of all Australi an Standards and related publications wil l be found in the Standards Australia Catalogue of Publications; this information is supplemented each month by the magazine `The Australian Standard', which subscribing members receive, and which gives details of new publi cati ons, new editi ons and amendments, and of withdrawn Standards. Suggesti ons for improvements to Australi an Standards, addressed to the head offi ce of Standards Australi a, are welcomed. Noti fi cati on of any inaccuracy or ambiguity found in an Australi an Standard should be made without delay in order that the matter may be investigated and appropriate action taken.
+This Standard was issued in draft form for comment as DR 90069.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992 (Reconfirmed) 2015-04-23
+STANDARDS AUSTRALIA
+RECONFIRMATION OF
+AS 1428.2--1992 Design for access and mobility Part 2: Enhanced and additional requirements--Buildings and facilities
+RECONFIRMATION NOTICE
+Technical Committee ME-064 has reviewed the content of this publication and in accordance with Standards Australia procedures for reconfirmation, it has been determined that the publication is still valid and does not require change.
+Reconfirmed documents cannot be amended, but may be formally revised and a new edition published.
+Certain documents referenced in the publication may have been amended since the original date of publication. Users are advised to ensure that they are using the latest versions of such documents as appropriate, unless advised otherwise in this Reconfirmation Notice.
+Approved for reconfirmation in accordance with Standards Australia procedures for reconfirmation on 13 January 2015.
+Reconfirmed documents cannot be amended, but may be formally revised and a new edition published.
+The following are represented on Technical Committee ME-064. Association of Consultants in Access Australia Australian Association of Occupational Therapists Australian Blindness Forum Australian Building Codes Board Australian Industry Group Australian Institute of Architects Australian Institute of Building Surveyors AUSTROADS Blind Citizens Australia Consumers Federation of Australia Deafness Forum of Australia Disabled Persons Assembly New Zealand Housing Industry Association Master Builders Australia Physical Disability Australia Property Council of Australia Royal New Zealand Foundation for the Blind
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTES
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+Australian Standard®
+Design for access and mobility Part 2: Enhanced and additional requirements--Buildings and facilities
+First publi shed as part of AS CA52.1--1968. Revised and redesignated AS 1428--1977. Revised and redesignated in part as AS 1428
+Supplement 1--1988. Revised and redesignated AS 1428.2--1992.
+PUBLISHED BY STANDARDS AUSTRALIA (STANDARDS ASSOCIATION OF AUSTRALIA) 1 THE CRESCENT, HOMEBUSH, NSW 2140
+ISBN 0 7262 7234 5
+
+AS 1428.2--1992
+
+2
+
+PR E FA CE
+
+This Standard was prepared by the Standards Australia Committee on Access for People with Disabilities to supersede AS 1428, Supplement 1--1988 Extracts--Design rules for access by the disabled (Supplement to AS 1428--1977).
+
+The purpose of this Standard is twofold. First, it covers items which are not covered in AS 1428.1, Design for access and mobility, Part 1: General requirements for access--Buildings , and second it gives enhanced requirements for access, for reference by authorities and other users who wish to provide a greater level of accessibility than the minimum requirements of Part 1.
+
+Whereas the requirements in Part 1 are based on research on the capabilities of 80 percent of people with disabilities in Australia who use wheelchairs, together with some recognized needs of other disability groups, the enhanced requirements in this Standard have been determined, where possible, from the researched capabilities of at least 90 percent of test subjects comprising both people who use wheelchairs and ambulant people. Where the minimum space, dimensions and gradients of Part 1 have been shown to be suitable for 90 percent of users, the requirements of AS 1428.1 have been called up in this Standard.
+
+The major sources for determining the requirements in this Standard are studies by J. Bails, Public Buildings Department of South Australia, 1983, and E. Steinfeld, Syracuse University, Syracuse, NY, USA, 1979. For reach limits, reference was also made to A study of the space requirements of wheelchair users from the official journal of the International Society of Paraplegia: Paraplegia, volume 4, Number 1, May 1966. In recommending spaces between rest areas and time allowance at traffic lights, reference was made to the ability of people to move stated distances and the movement time of people in the 1990 research report An ergonomic study of pedestrian areas for disabled people, Institute of Transport Studies, University of Leeds, UK.
+
+The series, when complete, will comprise the following:
+
+AS 1428 1428.1 1428.2 1428.3 1428.4
+
+Design for access and mobility General requirements for access--Buildings Enhanced and additional requirements--Buildings and facilities (this Standard) Requirements for children and adolescents with physical disabilities Tactile ground surface indicators for the orientation of people with vision impairment
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+© Copyri ght STANDARDS AUSTRALIA
+Users of Standards are reminded that copyri ght subsists in all Standards Australi a publications and soft ware. Except where the Copyri ght Act all ows and except where provided for below no publications or software produced by Standards Austr alia may be reproduced, stored in a retri eval system in any form or transmitt ed by any means without pri or permission in wri ti ng fr om Standards Australi a. Permission may be conditi onal on an appropriate royalt y payment. Requests for permission and information on commercial soft ware royalti es should be dir ected to the head off ice of Standards Australi a.
+Standards Australi a wil l permit up to 10 percent of the technical content pages of a Standard to be copied for use exclusively in-house by purchasers of the Standard without payment of a royalty or advice to Standards Austr alia.
+Standards Australi a wil l also permit the inclusion of its copyri ght material in computer soft ware programs for no royalt y payment provided such programs are used exclusively in-house by the creators of the programs.
+Care should be taken to ensure that material used is fr om the current editi on of the Standard and that it is updated whenever the Standard is amended or revised. The number and date of the Standard should therefore be clearly identif ied.
+The use of material in pri nt form or in computer soft ware programs to be used commercially, with or without payment, or in commercial contracts is subject to the payment of a royalty. This policy may be vari ed by Standards Austr alia at any ti me.
+
+3
+CONTENTS
+
+AS 1428.2--1992
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+Page 1 SCOPE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4 2 APPLICATION . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4 3 REFERENCED DOCUMENTS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4 4 DEFINITIONS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5 5 DIMENSIONS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5 6 CIRCULATION SPACES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5 7 CONTINUOUS ACCESSIBLE PATH OF TRAVEL . . . . . . . . . . . . . . . . . . . . . . . . 7 8 WALKWAYS, RAMPS AND LANDINGS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8 9 GROUND AND FLOOR SURFACES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8 10 HANDRAILS AND GRABRAILS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9 11 DOORWAYS AND DOORS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10 12 LIFTS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10 13 STAIRWAYS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10 14 CAR PARKING FACILITIES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14 15 SANITARY FACILITIES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14 16 SYMBOLS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26 17 SIGNS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26 18 WARNINGS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27 19 LIGHTING . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28 20 SOUND LEVELS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29 21 HEARING AUGMENTATION--LISTENING SYSTEMS . . . . . . . . . . . . . . . . . . . . 29 22 REACH RANGES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30 23 CONTROLS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32 24 FURNITURE AND FITMENTS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33 25 VIEWING RANGES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36 26 AUDITORIUMS AND ASSEMBLY AREAS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36 27 STREET FURNITURE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36 28 GATEWAYS AND CHECKOUTS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38 29 VENDING MACHINES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38 30 TELEPHONES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41 31 POST BOXES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42 32 TIME DELAY FOR LIGHTS AT PEDESTRIAN CROSSING . . . . . . . . . . . . . . . . . . 42
+APPENDICES A KITCHENS AND LAUNDRIES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43 B ADDITIONAL INFORMATION ON ACCESS REQUIREMENTS IN SPECIFIC TYPES OF BUILDINGS AND FACILITIES . . . . . . . . . . . . . . . . . . . . . . . . . 48 C RAMP LENGTH RECKONER . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+4
+
+STANDARDS AUSTRALIA
+
+Australian Standard Design for access and mobility
+
+Part 2: Enhanced and additional requirements -- Buildings and facilities
+
+1 SCOPE This Standard sets out requirements for the design of buildings and facilities for access for people with disabilities. Where appropriate, these requirements are enhanced from the minimum requirements of Part 1. This Standard also includes requirements for items which are not covered in Part 1, and is intended to be used in conjunction with Part 1.
+This Standard does not include requirements for the following:
+(a) Buildings and facilities which are purpose-built for children with disabilities or the provision of tactile ground surface indicators (see Preface).
+(b) Service areas such as plant rooms, commercial kitchens, maintenance storerooms, maintenance access ways, rigging lifts and delivery docks.
+2 APPLICATION This Standard is written in a form which is suitable for use by the regulatory authorities or as a part of contract documentation. Compliance with this Standard will ensure compliance with the minimum requirements set out in AS 1428.1.
+NOTES: 1 Additi onal informati on relati ng to access in kitchens and laundri es is provided in Appendix A. 2 A summary of the access requir ements for specif ic types of buil dings and facili ti es is provided in Appendix B.
+3 REFERENCED DOCUMENTS The following documents are referred to in this Standard:
+AS 1088 Hearing aids 1088.4 Part 4: Magnetic field strength in audio-frequency induction loops for hearing aid purposes
+1371 Toilet seats of moulded plastics
+1428 Design for access and mobility 1428.1 Part 1: General requirements for access ­ Buildings 1428.1 Supplement 1:General requirements for access ­ Buildings ­ Commentary
+1680 Interior lighting 1680.1 Part 1: General principles and recommendations 1680.2 Part 2: Recommendations for specific tasks and interiors
+1735 SAA Lift Code 1735.7 Part 7: Stairway lifts 1735.8 Part 8: Inclined lifts 1735.12 Part 12: Facilities for persons with disabilities 1735.13 Part 13: Lifts for persons with limited mobility ­ Manually powered 1735.14 Part 14: Lifts for people with limited mobility ­ Restricted use ­ Low-rise platforms 1735.15 Part 15: Lifts for people with limited mobility ­ Restricted use ­ Non-automatically controlled
+1744 Forms of letters and numerals for road signs
+1924 Playground equipment for parks, schools and domestic use 1924.2 Part 2: Design and construction ­ Safety aspects
+2107 Acoustics ­ Recommended design sound levels and reverberation times for building interiors
+2220 Emergency warning and inter-communication systems in buildings 2220.1 Part 1: Equipment design and manufacture 2220.2 Part 2: System design, installation and commissioning
+2700 Colour standards for general purposes
+2890 Off-street parking 2890.1 Part 1: Car parking facilities
+2999 Alarm systems for the elderly and other persons at risk
+3979 Hydrotherapy pools
+
+CO PY RI GH T
+
+5
+
+AS 1428.2--1992
+
+4 DEFINITIONS For the purpose of this Standard, the definitions given in AS 1428.1 and those below apply. 4.1 Accessible ­ describes all or part of a site, building or facility that complies with this Standard, and that can be approached, entered and used by people with disabilities. 4.2 Ambulant people with disabilities ­ people who are able to walk but have mobility or manipulative impairments.
+4.3 Hazard ­ any area or object within the environment that may place people at risk. 4.4 Luminance factor ­ the ratio of luminance of a surface to that of a perfect reflector, identically illuminated.
+4.5 Path of travel ­ a passageway, walkway, ramp, landing or other space used for circulation. 4.6 Sensory impairment ­ any significant loss of hearing or sight.
+5 DIMENSIONS The dimensions given throughout this Standard shall not be reduced by projecting skirtings, kerbs, handrails or other fixtures. Dimensions that are not qualified by a range or as being either minimum or maximum shall have normal building tolerances applied.
+6 CIRCULATION SPACES
+6.1 Clear floor or ground space for a stationary wheelchair The minimum clear floor or ground space required to accommodate a single stationary wheelchair and occupant shall be 800 mm by 1300 mm (see Figure 1). The minimum clear floor or ground space for wheelchair may be positioned for forward or parallel approach to an object (see Figure 1). Clear floor or ground space for wheelchairs may be part of the knee space required under objects.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+DIMENSIONS IN MILLIMETRES FIGU RE 1 MINIMUM CLEAR FLOOR SPA CE FOR WHE ELCH AIRS
+CO PY RI GH T
+
+AS 1428.2--1992
+
+6
+
+6.2 Circulation space for 180° wheelchair turn The space required for a wheelchair to make a 180° turn shall be not less than 2070 mm in the direction of travel and not less than 1540 mm wide.
+NOTE: A space of 2270 mm in the direction of travel and 1740 mm wide is preferred.
+6.3 Circulation space for 360° wheelchair turn The space required for a wheelchair to make a 360° turn shall be not less than 2250 mm by 2250 mm.
+NOTE: A space of 2450 mm by 2450 mm is preferr ed.
+6.4 Width of path of travel The minimum clear width of a path of travel shall be 1200 mm except at doors (see Clause 11.6).
+6.5 Passing space for wheelchairs Passing space for wheelchairs shall be as follows:
+(a) The minimum width of space required for two wheelchairs to pass each other shall be 1800 mm.
+(b) Where a path of travel is less than 1800 mm wide, passing spaces at intervals of not more than 6 m shall be provided as follows (see Figure 3):
+(i) On one side of the path of travel--the path of travel shall be not less than 1600 mm long and 1800 mm wide.
+(ii) With the space distributed equally on both sides of the path of travel--the path of travel shall be not less than 2000 mm long and 1800 mm wide.
+NOTE: Path width needs are shown in Figure 2 as a guide for designers.
+
+(a) A clear width of 1000 mm is adequate for people with ambulant disabilities, just allows passage for 80 percent of people who use wheelchairs, and is in accordance
+with AS 1428.1
+
+(b) People who use wheelchairs require a clear width of 1200 mm
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+(c) A clear width of 1500 mm allows a wheelchair and a pram to pass
+(d) To allow two wheelchairs to pass comfortably, a clear width of 1800 mm is required
+DIMENSIONS IN MILLIMETRES FIGU RE 2 PA TH WIDTH NEE DS
+CO PY RI GH T
+
+7
+
+AS 1428.2--1992
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+(a) On one side of path of tr avel
+
+(b) On both sides of path of travel
+
+DIMENSIONS IN MILLIMETRES
+
+FIGU RE 3 PA SS ING SPA CE FOR WHE ELCH AIRS
+
+6.6 Changes in level Changes in level along a path of travel shall comply with the requirements for abutment of surfaces in AS 1428.1. If a path of travel has an abrupt change in level (i.e. ledge or step) greater than 3 mm, then a kerb ramp, a ramp or a lift in accordance with Clause 12 shall be provided.
+The requirements of this Clause do not apply to tactile ground surface indicators which may have a raised profile of 4-5 mm.
+6.7 Vertical clearance The following requirements for vertical clearance apply:
+(a) Fixtures and fittings such as lights, awnings, opening windows and similar objects shall have a minimum clearance of 2000 mm above the trafficable surface.
+(b) Essential fixtures and fittings such as fire hose reels, fire extinguishers and telephones shall not protrude into circulation spaces.
+(c) Street furniture and the like shall not protrude into a path of travel (see Clause 27).
+
+6.8 Floor and ground surfaces The surfaces of a circulation space shall comply with Clause 9.
+
+7 CONTINUOUS ACCESSIBLE PATH OF TRAVEL Continuous accessible paths of travel shall be provided as follows:
+(a) Accessible paths of travel within the boundary of the site shall be provided from transportation stops, accessible parking and accessible passenger loading zones, and public streets or walkways to the accessible building entrance they serve.
+(b) Accessible paths of travel shall connect accessible buildings, facilities, and spaces that are on the same site.
+(c) Accessible paths of travel shall connect accessible building entrances with all accessible spaces and facilities within a building.
+(d) Accessible paths of travel shall connect accessible entrances of each accessible building with those exterior and interior spaces and facilities that serve it.
+(e) The accessible elements of buildings and facilities shall be arranged so as to minimize distances to be travelled between them.
+NOTE: Att enti on to the sit ing of facili ti es and clear informati on signs dir ecti ng people to these facili ti es wil l greatl y reduce the fati gue experi enced by people with disabili ti es. Limitati ons on stamina, which can result in fatigue, short ness of breath and dizziness, are posed by many disabil it ies such as cardio-pulmonary disorders, haemiplegia and amputation. Where there are unavoidable distances between facili ti es, fr equent resti ng points with seats, handrails, and drinking-water fountains or simil ar outlets should be provided.
+In areas of high use by people with ambulatory disabil it ies, such as areas frequented by elderly people, seats should be provided no more than 60 m apart alongside paths of tr avel.
+The foll owing table shows the demonstrated abili ty of people with disabil it ies to move more than a stated distance wit hout a rest.
+
+Type of disabil it y
+People who use wheelchair s People wit h vision impair ment People who use walking aids Ambulatory people
+
+Percentage unable to move more than the stated distance m
+
+18 68 137 180 360
+
+0
+
+5
+
+5
+
+60
+
+85
+
+0
+
+0
+
+5
+
+50
+
+75
+
+10 25 40 80
+
+95
+
+5
+
+15
+
+25
+
+70
+
+80
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+8
+
+8 WALKWAYS, RAMPS AND LANDINGS 8.1 General Walkways, ramps and landings shall comply with AS 1428.1, with the following exceptions and additional requirements: (a) Width Walkways, ramps and landings shall have an unobstructed width of not less than 1200 mm. (b) Provision of landings at ramps Ramps shall be provided with landings at the top and bottom of the ramp and
+at intervals not exceeding -- (i) for ramp gradients of 1 in 14: 6 m; (ii) for ramp gradients of 1 in 19: 14 m; and (iii) for ramp gradients between 1 in 19 and 1 in 14, at intervals which shall be obtained by linear
+interpolation. (c) Doorways at landings The dimensions of the landings shall be in accordance with Clause 11.5.4.
+NOTE: A table for calculati ng the length of a ramp for vari ous ri ses and gradients is provided in Appendix C.
+8.2 Outdoor conditions In outdoor conditions, walkways, ramps and landings shall be designed so that water does not accumulate on surfaces. (For requirements for ground surfaces, see Clause 9.) 8.3 Ramp handrails Ramp handrails shall comply with Clause 10. 8.4 Kerb ramps and step ramps 8.4.1 General The design, construction and location of kerb ramps and step ramps shall comply with AS 1428.1. 8.4.2 Provision of ramps at kerbs Wherever a path of travel crosses a kerb, one of the following shall be provided -- (a) a kerb ramp in accordance with AS 1428.1 (for preferred gradient, see Notes to Figure 8 of AS 1428.1); (b) ramps and landings in accordance with this Clause (8); or (c) the surfaces shall be graded to meet each other, provided that any gradient and abutment of surfaces complies
+with AS 1428.1 and that tactile directional indicators are provided as appropriate (see Preface).
+NOTE: Drainage may be achieved by placing gratings at the base of ramps (see Clause 9(c)).
+8.4.3 Location at marked crossings Kerb ramps (the entry to ramps) at marked crossings shall be wholly contained within the markings, excluding any flared sides (see Figure 4). 8.4.4 Islands Raised islands in crossings shall be cut through level with the street or have kerb ramps at both sides and a level area at least 1220 mm long in the part of the island intersected by the crossings (see Figure 4).
+NOTES:
+1 Traffi c signal control buttons should be posit ioned wit hin the zone of common reach (see Clause 22.4).
+2 Where tr affi c signals are install ed, audit ory signals and tactil e directional indicator buttons should be provided.
+8.4.5 Surface The ramp and sloping sides shall be slip-resistant and of a colour that contrasts with the adjoining surface. 8.4.6 Tactile warnings Warning strips shall be provided at the top of the ramp, in accordance with Clause 18.1. 9 GROUND AND FLOOR SURFACES Ground and floor surfaces shall comply with the requirements for floor surfaces in AS 1428.1, and with the following: (a) Abutment of surfaces Paving bricks with bevelled edges or chamfered arises and heavily textured and figured
+surfaces such as raked joint pavers shall not be used. (b) Carpet Where carpet is used on a ground or floor surface, the following requirements apply:
+(i) The carpet shall be securely attached. (ii) Any pad, backing or cushioning shall provide a firm surface. (iii) The carpet shall have a level loop, a textured loop, a level cut pile or a level cut or uncut pile texture. (iv) The pile height shall be not more than 6 mm. (v) Exposed edges of carpet shall be fastened to the floor surface and shall have a trim along the entire
+length of any exposed edge. (vi) Carpet edge trim shall create no ridge on the floor surface higher than 3 mm. (c) Gratings If gratings are located in a walking surface, they shall have spaces not more than 13 mm wide and not more than 150 mm long. If gratings have elongated openings, they shall be placed so that the long dimension is transverse to the dominant direction of travel.
+
+CO PY RI GH T
+
+9
+
+AS 1428.2--1992
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTES: 1 Opti on (a) is preferred by some people wit h ambulant disabil it ies. 2 All tr affi c signal controls, i.e. both at the kerbside and at the median island, should have the controls wit hin the reach range shown in
+Figure 23.
+FIGU RE 4 KE RB RAMPS AT MAR KE D CR OS SINGS
+10 HANDRAILS AND GRABRAILS 10.1 Handrails 10.1.1 General The following general requirements apply for handrails: (a) The design and construction of handrails shall comply with AS 1428.1. (b) The end of the handrail shall be extended parallel to the surface below for a minimum of 300 mm (450 mm
+is preferred). The end shall be a continuous rail, turned down 100 mm or be returned fully to the end post or wall face. (c) Where a handrail is not continued, a tactile indicator in the form of a domed button shall be provided in accordance with Figure 5. (d) Gripping surfaces of handrails shall be continuous. (e) Handrails shall not rotate within their fittings.
+NOTE: Where a high proporti on of users are short (i .e. not necessaril y children) a second handrail should be provided in accordance with Figure 5. When tested in accordance wit h the test for head and neck entr apment in AS 1924.2, the space between the handrail s should all ow Probe B to be fully insert ed without becoming entr apped in any way.
+10.1.2 Stairway handrails The installation of stairway handrails shall be in accordance with AS 1428.1 and with the following: (a) Wherever practicable the outside handrail shall be continuous throughout the stair flights and around landings
+(see Clause 10.1.1(c)). (b) The inside handrail shall always be continuous, and at landings shall maintain a height which is parallel to
+the finished floor (see Figure 6). (c) Where there is a background wall, handrails shall have a luminance contrast factor with the wall of not less
+than 0.3 (30 percent).
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+10
+
+10.2 Grabrails The design and construction of grabrails shall comply with AS 1428.1, and with the following: (a) The clearance between the grabrail and the adjacent wall surface shall be as specified in the appropriate Clauses
+of this Standard. (b) Grabrails shall not rotate within their fittings.
+NOTE: Grabrails installed in wet areas or outdoors should be slip-resistant when wet.
+11 DOORWAYS AND DOORS 11.1 Provision of entrances The provision of entrances shall comply with AS 1428.1.
+NOTE: If an entrance is located in an external wall, consideration should be given to protecting it from wind forces e.g. by a lobby, screen wall or sliding doors.
+11.2 Thresholds If a threshold is required, it shall be in accordance with AS 1428.1.
+NOTE: It is in the interests of people with disabilities for thresholds at doorways to be eliminated. Proprietary draught and water seals are available for use on the bottom of doors as an alternative to thresholds. Water can be controlled by the use of grates (see Clause 9(c)). Canopies for weather protection at entry doors may also enable thresholds to be eliminated. This is not always possible and, where thresholds do occur, a kerb ramp should be used to overcome the change of level.
+11.3 Lighting Illumination of entrance areas shall comply with Clause 19. 11.4 Call buttons Call buttons at entrances shall be located not less than 900 mm and not more than 1100 mm above the plane of the finished floor and not less than 500 mm from an internal corner.
+NOTE: Call buttons should have an integral, continuously operating light.
+11.5 Doorways
+11.5.1 Clear opening of doorways The minimum clear opening of a doorway shall be 850 mm (see Figure 7).
+NOTE: Doors should be clearly defined by a contrasting frame or trim.
+11.5.2 Circulation spaces at doorways The circulation spaces at doorways shall comply with AS 1428.1 except that 100 mm shall be added to all length (L) values and 50 mm shall be added to all width (W) values.
+11.5.3 Double-leaf doorways If doorways have two independently operated door leaves, then at least one leaf shall meet the requirements of this Standard. That leaf shall be an active leaf. 11.5.4 Landings at doorways The dimensions of a landing at a doorway shall comply with Clause 11.5.2 (see also Note to Clause 11.2). 11.6 Doors
+11.6.1. Door glazing Door glazing shall comply with AS 1428.1. 11.6.2 Glazing in joinery doors or flush doors Glazing in joinery doors or flush doors shall be as follows:
+(a) The lower edge of the glazing shall be not less than 300 mm and not more than 1000 mm above the bottom edge of the door.
+(b) The upper edge of the glazing shall be not less than 1600 mm above the bottom edge of the door.
+(c) In width, the glazing shall extend not more than 200 mm from the latch edge of the door and shall be not less than 150 mm wide.
+NOTE: Glazing in doors is useful to people with disabilities as it provides a view of a user approaching the door from the other side. The lower perimeters of glazing are set to avoid the footrest of a wheelchair contacting the glass.
+11.6.3 Door controls Door controls shall comply with Clause 23.
+12 LIFTS Lifts shall comply with AS 1735.12, except that the floor area in lifts shall be increased 300 mm in each direction, from the minimum size specified in AS 1735.12.
+NOTES: 1 Lifts should be installed in buildings having more than one level, including car parks. 2 Lifts installed for public use should have audio, visual and tactile information. 3 Other Australian Standards for lifts and lifting devices that will assist access and mobility in buildings are AS 1735.7, AS 1735.8, AS 1735.13,
+AS 1735.14 and AS 1735.15.
+13 STAIRWAYS
+13.1 General Stairways shall not be the sole means of access. Ramps which comply with Clause 8, or lifts which comply with Clause 12, or both, shall be provided as an alternative to stairs.
+Spiral stairways and stairways with open risers shall not be provided.
+NOTE: Although stairways are an impediment to people who use wheelchairs and many ambulant people with disabilities, if properly designed they can provide independent access for some people with mobility impairments.
+13.2 Configuration of steps The configuration of steps shall be as shown in Figure 8.
+NOTE: The preferred configuration for users with walking frames and severe ambulant disabilities is shown in Figure 9. However, this configuration may not comply with the normal requirements of the regulatory authorities.
+13.3 Warning strip at nosing of steps Steps shall have a warning strip at the nosing as shown in Figures 8 and 9.
+13.4 Stairway handrails Stairway handrails shall be in accordance with Clause 10.1.
+
+CO PY RI GH T
+
+11
+
+AS 1428.2--1992
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTE: Height of rails measured from nosing of tread to top of rails (a) Stairway handrails
+Height of rails measured from trafficable surface to top of rails. (b) Ramp handrails
+(c) Domed buttons indicating discontinuity of handrail DIMENSIONS IN MILLIMETRES FIGURE 5 HANDRAILS
+CO PY RI GH T
+
+AS 1428.2--1992
+
+12
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTES: 1 Full details and dimensions are shown in Figure 5. 2 Whee space permits, the preferred option is to include the minimum 300 mm extension on the landing.
+DIMENSIONS IN MILLIMETRES FIGURE 6 INSIDE HANDRAIL AT LANDINGS
+CO PY RI GH T
+
+13
+
+AS 1428.2--1992
+
+DIMENSIONS IN MILLIMETRES FIGURE 7 CLEAR OPENING OF DOORWAYS
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+DIMENSIONS IN MILLIMETRES FIGURE 8 CROSS-SECTION OF STAIRS
+DIMENSIONS IN MILLIMETRES FIGURE 9 PREFERRED CONFIGURATION OF STEPS FOR USERS WITH WALKING FRAMES
+CO PY RI GH T
+
+AS 1428.2--1992
+
+14
+
+14 CAR PARKING FACILITIES
+14.1 General Car parking facilities shall comply with the requirements for car parking for people with disabilities in AS 2890.1, and with the requirements of Clause 14.2:
+14.2 Vertical clearance for car parks For each car parking space designated as parking for people with disabilities, a vertical clearance of not less than 2500 mm shall be provided from the entrance of the car parking space to a distance of not less than 2160 mm from the front of the space (see Figure 10).
+NOTE: Where a wheelchair hoist is used, although the wheelchair is stored on the vehicle roof in a flat position, it is raised to full wheelchair height (in addition to the height of the roof rack) during the hoisting process.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+DIMENSIONS IN MILLIMETRES
+FIGURE 10 SIDE VIEW OF VERTICAL CLEARANCE IN CAR PARKS
+15 SANITARY FACILITIES 15.1 General Sanitary facilities shall comply with AS 1428.1 with the following exceptions and additional requirements: (a) The minimum circulation space in water closets shall be increased in length and width and shall be in accordance
+with Figure 11. (b) Door circulation spaces shall be in accordance with Clause 11.5.2. (c) At least one emergency call button which complies with AS 2999 shall be installed in accordance with Clause 23
+in each sanitary facility or combined facility.
+NOTE: Separate call buttons should be placed near the WC pan, shower recess and bath.
+(d) Toilet seats of moulded plastics shall comply with AS 1371. The design of the seat shall provide lateral stability.
+NOTE: It should be recognized that people with disabilities making transfers from wheelchairs to toilet seats will generally place greater than average shear forces on seats and fittings.
+(e) Water closets built especially for the use of ambulant people with disabilities shall be in accordance with Clause 15.3.
+NOTES: 1 The unisex WC is recommended in areas used by the general public e.g. shopping centres, hotels and the like where a person with a
+disability may be accompanied by a member of the opposite sex. Access to the facility should not necessitate traversing an area reserved for one sex only. 2 The luminance factor of horizontal work surfaces in sanitary facilities should be not less than 0.3 (30 percent) different from adjoining vertical surfaces. 3 Sensor-operated air hand dryers should be provided.
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+15
+
+AS 1428.2--1992
+
+15.2 Grabrails Where a concealed or high level cistern is used, a continuous grabrail as specified in Clause 10.2 shall be provided across the rear wall and side wall nearest the WC pan (see Figures 12(d) and (f)). Where a low-level cistern is used the grabrail may be terminated at each side of the cistern as shown in Figure 12(f). The distance from the front of the WC pan to the grabrail on the rear wall shall be not less than 600 mm and not more that 605 mm.
+NOTE: As the grabrail provides both support and assistance, it is recommended that a system be selected whereby a continuous grabrail can be utilized.
+15.3 Water closets built especially for use by ambulant people with disabilities
+15.3.1 General Water closets for use by ambulant people with disabilities shall be as shown in Figure 12.
+15.3.2 Grabrails Grabrails shall be installed in accordance with Clause 10.2 and Figure 12(e).
+15.3.3 Doors Doors to water closets shall comply with the following: (a) Outward-opening doors shall have a hinge mechanism that holds the door in a closed position without the use of
+a latch. (b) Inward-opening doors shall be fitted with a retractable stop or similar device to allow, in an emergency, the latch
+to be released and the door to swing outward, or the door to be removed.
+15.4 Shower recesses Shower recesses shall comply with AS 1428.1, and with the following additional requirements: (a) Folding seat A foldable, self-draining, non-slip seat with rounded edges, complying with the requirements of
+AS 1428.1, and which folds down, shall be provided inside the shower recess (see Figures 13 and 14).
+NOTES: 1 For ease of manufacture, the seat may be fabricated in two parts. 2 It is necessary for the seat to fold down, as a horizontal grabrail is located above the end of it. 3 A mobile shower chair should be provided for use wherever possible, as the majority of users prefer not to transfer to a folding seat.
+(b) Grabrails Grabrails shall be installed in accordance with Clause 10.2 and Figure 13.
+NOTES: 1 Additional grabrails may be provided as shown in Figure 14. 2 Although it can assist many users to transfer to the folding seat, the vertical grabrail can make a transfer onto the end of the seat difficult
+for some users.
+(c) Soapholder The soapholder shall be a protruding type and be able to withstand a force of 1100 N applied at any position and in any direction without showing any signs of loosening or deformation.
+NOTE: Where it is anticipated that showering will be with the assistance of an attendant, the preferred option is a two-walled recess as shown in Figure 13(a).
+(d) Shower recesses built especially for use by ambulant people with disabilities Shower recesses for ambulant people with disabilities may be provided with -- (i) a folding seat, or a freestanding shower chair; and (ii) a floor waste outlet in accordance with Figure 15.
+NOTE: Figure 13(a) is the preferred design option for use by ambulant people.
+15.5 Urinals The stall urinals shown in Figure 16 shall be provided as follows:
+NOTE: Wall hung urinals are not recommended, but where they are used, a grabrail of not less than 350 mm in length should be provided for each urinal (see Figure 16(a)).
+(a) Urinals shall be constructed without a step or hob. (b) A serrated, slip-resistant, hinged grate with apertures not more than 25 mm wide shall be provided, as shown in
+Figure 16. (c) A grabrail in accordance with Clause 10.2 shall be fixed to the urinal enclosure, as shown in Figure 16. (d) A clear circulation space not less than 1540 mm wide shall be provided for the full length of the urinal (see
+Figure 16(b)).
+NOTES: 1 A sensor flushing device is preferable. 2 See Clause 15.2 for requirements in which a urinal is part of a combined sanitary facility.
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+NOTE: Mirror reverse is equally acceptable. DIMENSIONS IN MILLIMETRES
+FIGURE 11 CIRCULATION SPACE IN WATER CLOSETS
+CO PY RI GH T
+
+16
+
+17
+
+AS 1428.2--1992
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+(i) Side view
+
+(ii) Front view
+
+NOTES: 1 For the purpose of dimensioning, the front fo the WC pan has been taken as the datum plane.
+2 The dimension of 800 mm from the front of the WC pan to the wall is a critical dimension.
+
+(a) Pan clearances, seat height and seat width
+
+NOTE: It is equally acceptable to place the dispenser to the right or left of the user.
+
+(b) Zone for position of flushing control
+
+(c) Zone for position of toilet paper dispenser
+
+DIMENSIONS IN MILLIMETRES FIGURE 12 (in part) WATER CLOSETS
+
+CO PY RI GH T
+
+AS 1428.2--1992
+
+18
+
+(i)
+
+(ii)
+
+(d) Side view showing optional systems for grabrail at sides of pan
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+(e) For people with ambulant disabilities -- top view
+
+DIMENSIONS IN MILLIMETRES FIGURE 12 (in part) WATER CLOSETS
+
+(f) Grabrail at back of pan and sectional view of grabrail at side of pan
+
+CO PY RI GH T
+
+19
+
+AS 1428.2--1992
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTES: 1 These circulation spaces can overlap any other circulation spaces in this Standard. 2 The folding seat is not part of the circulation space. 3 Mirror reverse is equally acceptable.
+DIMENSIONS IN MILLIMETRES FIGURE 13 (in part) SHOWER RECESSES AND CIRCULATION
+SPACES FOR SHOWER RECESSES
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+NOTE: Mirror reverse is equally acceptable. DIMENSIONS IN MILLIMETRES
+FIGURE 13 (in part) SHOWER RECESSES AND CIRCULATION SPACES FOR SHOWER RECESSES
+CO PY RI GH T
+
+20
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+21
+
+DIMENSIONS IN MILLIMETRES FIGURE 14 SHOWER RECESS FITTINGS
+FIGURE 15 ALTERNATIVE SHOWER RECESS FLOOR WASTE OUTLET SUITABLE FOR AMBULANT PEOPLE WITH DISABILITIES CO PY RI GH T
+
+AS 1428.2--1992
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+22
+
+(a) Sectional view
+
+(b) General view showing grabrail and circulation space DIMENSIONS IN MILLIMETRES
+FIGURE 16 STALL URINAL WITH GRABRAILS AND HINGED GRATE
+CO PY RI GH T
+
+23
+
+AS 1428.2--1992
+
+15.6 Baths Baths shall comply with the following: (a) Baths and their fittings shall be in accordance with Figure 17. (b) The bottom of the bath shall be slip-resistant.
+NOTE: Where this is not a feature of the bath, satisfactory results can be obtained by the use of stick-on systems or appropriate mats.
+(c) The soap holder shall be a protruding type and shall be able to withstand a force of 1100 N applied at any position and in any direction without showing any signs of loosening or deformation.
+(d) The zone for taps and soapholder shall be as shown in Figure 17. A clearance of not less than 50 mm shall be provided around taps and soapholder.
+(e) Grabrails in accordance with Clause 10.2 shall be provided as shown in Figure 17. (f) A clear circulation space not less than 1540 mm wide shall be provided in the area from A to B shown in Figure 17.
+NOTE: See Clause 15.8 for requirements in which a bath is part of a combined sanitary facility.
+15.7 Washbasins In addition to the requirements of AS 1428.1, provision shall be made for increased circulation space and the single-handed use of the washbasin. Figure 18(a) shows the required circulation space, and the limit of reach for both left and right hands. The approach may be either frontal or angled, as follows: (a) Frontal approach For frontal approach the template needs to be moved to the side to bring water controls and outlet
+within the reach of a single hand (see Figure 18(b)). (b) Angled approach As an alternative to Item (a) the approach may be angled as shown in Figure 18(c). Water controls
+and outlet also need to be within reach of a single hand. In both instances adequate space shall be provided for the use of either left or right hand.
+15.8 Combined sanitary facilities Combined sanitary facilities shall contain circulation spaces in accordance with Figures 11, 13, 16, 17 and 18, and with the relevant requirements of AS 1428.1. Circulation spaces, including door circulation spaces, may be overlapped but fixture spaces shall not encroach into circulation spaces.
+NOTES:
+1 Fixtures include washbasin, WC pan, shower seat, urinal and bathtub.
+2 See notes to combined sanitary facilities in AS 1428.1 for the provision of the appropriate design aid. Overlays for spatial requirements required by this Standard should be drawn up from the figures referred to above.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+CO PY RI GH T
+
+AS 1428.2--1992
+
+24
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTES: 1 The length and width of the bath are not specified. 2 For taps with capstan handles, 50 mm minimum clearance should be maintained between the taps and the grabrail (see AS 1428.2). 3 The area between A and B should be kept clear for transfer. 4 Mirror reverse is equally acceptable.
+DIMENSIONS IN MILLIMETRES FIGURE 17 CONTROL DIMENSIONS AND CLEARANCES FOR A TYPICAL BATH
+CO PY RI GH T
+
+25
+
+AS 1428.2--1992
+
+Note: The reach ranges specified in this Figure differ from those in Figure 26 as these relate to a specific function.
+(a) Required circulation space
+NOTE: Circulation space template superposed over taps and outlets. (b) Frontal approach
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTES: 1 Circulation space template superposed with taps within the limit of left hand reach 2 Mirror reverse is equally acceptable.
+(c) Angled approach NOTE: These circulation spaces can overlap any other circulation spaces in this Standard.
+DIMENSIONS IN MILLIMETRES FIGURE 18 CIRCULATION SPACE FOR WASHBASINS
+CO PY RI GH T
+
+AS 1428.2--1992
+
+26
+
+16 SYMBOLS
+16.1 International symbol for access The form and use of the international symbol for access shall comply with AS 1428.1.
+16.2 International symbol for deafness The form of the international symbol for deafness shall be as follows:
+(a) The symbol for deafness shall consist of two elements, viz. a stylized ear and diagonal slash on a plain square background.
+(b) The proportional layout of the symbol for deafness shall be in accordance with Figure 19.
+(c) The colour of the symbol shall be white on a blue background. The blue shall be B21, UltraMarine of AS 2700 or similar.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+FIGURE 19 PROPORTIONAL LAYOUT FOR INTERNATIONAL SYMBOL FOR DEAFNESS
+16.3 Size of international symbols for access and deafness access The size of the international symbols for access and deafness access shall be not less than that given in Table 1.
+TABLE 1 SIZE OF INTERNATIONAL SYMBOLS FOR ACCESS AND DEAFNESS FOR VARYING
+VIEWING DISTANCES
+
+Required viewing distance m
+7 >7 18
+>18
+
+Minimum size of symbol mm
+ (60 x 60)  (110 x 110)  (200 x 200)  (450 x 450)
+
+17 SIGNS
+17.1 General Signs shall be easily comprehended and shall comply with the requirements in AS 1428.1, and with this Clause (17).
+17.2 Height of letters in signs The height of letters in signs shall be not less than that given in Table 2.
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+27
+
+AS 1428.2--1992
+
+TABLE 2 HEIGHT OF LETTERS FOR VARYING
+VIEWING DISTANCES
+
+Required viewing distance m
+
+Minimum height of letters* mm
+
+2
+
+6
+
+4
+
+12
+
+6
+
+20
+
+8
+
+25
+
+12
+
+40
+
+15
+
+50
+
+25
+
+80
+
+35
+
+100
+
+40
+
+130
+
+50
+
+150
+
+* For further information on the heights of letters for different situations, reference should be made to AS 1744.
+
+NOTE: Helvetica Medium typeface is preferred.
+
+17.3 Illumination of signs Illumination of signs shall be provided in accordance with Clause 19 for general displays. Lighting shall be placed so that unwanted reflections shall not occur on the sign.
+The luminance factor of the surface of numbers, letters or symbols shall be not less than 0.3 (30 percent) different from their background.
+17.4 Location of signs Signs including symbols, numbering and lettering shall be located as follows:
+(a) Where they are clearly visible to people in both a seated and standing position (see Clause 25).
+NOTES: 1 Signs should be placed within a zone at a height not less than 1400 mm and not more than 1600 mm above the plane of the finished floor.
+Where space in this zone is used up, the zone for placement of signs may be extended downward to not less than 1000 mm from the plane of the finished floor. This height assists people to read from either a seated or a standing position, and also assists people with low vision to read the information on the sign. Letters and symbols in relief assist people with severe visual disabilities. 2 Where a sign can be temporarily obscured, e.g. in a crowd, the sign should be placed at a height of not less than 2000 mm above the plane of the finished floor.
+(b) At changes of direction.
+(c) At sites where directional decisions are made, to enable the appropriate decisions to be made before a change of direction occurs.
+(d) Where the surface of the wall surrounding the sign provides sufficient contrast to the sign. If this surface provides insufficient contrast (e.g. patterned wallpapers), the background to the sign shall be increased in size.
+NOTES: 1 The message that the sign carries should be unambiguous. 2 Tactile floor plans or maps and prerecorded auditory instructions at the main entrance and at other useful locations can be of assistance to
+people with visual impairment.
+18 WARNINGS
+NOTE: Colour and textural changes on floor surfaces placed where there is a break in plane, at the junction of a stair tread and riser, or where a ramped surface meets a level surface provide clues to changed conditions for people with vision impairment.
+18.1 Tactile ground surface indicators Tactile ground surface indicators (see Preface) shall be provided at the following locations:
+(a) Stairways, escalators and ramps. (b) Kerb ramps and step ramps. (c) Pedestrian crossings at roadways. (d) Pedestrian crossings in high-use vehicular areas, e.g. car parks. (e) Vehicle pick-up and drop-off areas. (f) Railway platforms. (g) Passenger wharves. (h) Where there is a hazard within a circulation space or adjacent to a path of travel.
+NOTES: 1 As tactile ground surface indicators would normally indicate a hazard at ground level, hazards within circulation spaces should be protected
+by a suitable barrier.
+2 Clause 6.7(a) requires a minimum clearance of 2 m above accessible paths of travel.
+(i) Where indication of a change of direction is required.
+NOTE: For warning strip on nosing of steps, see Clause 13.3.
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+28
+
+18.2 Emergency warning systems
+
+18.2.1 General Emergency warning systems shall include both audible alarms complying with Clause 18.2.2 and visual alarms complying with Clause 18.2.3.
+
+NOTE: This applies to emergency evacuation signals, traffic signals and audible alarms for safety.
+18.2.2 Audible alarms Audible emergency alarms shall produce audible signals in accordance with the requirements for output of loudspeakers in AS 2200.2, except that levels shall exceed by 15 dB(A) the noisiest background sound pressure level averaged over a period of 60 s, and the level shall not be less than 75 dB(A).
+
+NOTE: It is essential that audible emergency signals have an intensity and frequency that can attract the attention of individuals who have partial hearing loss. People over 60 years of age generally have difficulty in perceiving frequencies higher than 6000 Hz.
+
+18.2.3 Visual alarms Visual alarms in accordance with AS 2220.1 shall be arranged to flash in conjunction with the audible emergency alarms. The flashing frequency of visual alarms shall be approximately 1 Hz.
+
+NOTES: 1 Specialized systems using advanced technology may be substituted if equivalent protection is provided. 2 The specifications in this Section do not preclude the use of zoned or coded alarm systems.
+
+18.2.4 Auxiliary alarms Auxiliary alarms provided for people with hearing impairments shall be connected to the building emergency system or there shall be a standard electrical socket into which an alarm unit can be connected to be activated by the building alarm system. Instructions for use of the auxiliary alarm or connections shall be provided.
+
+NOTE: In sleeping accommodation and in all rooms where people with hearing impairment may work or reside, care should be taken to locate the auxiliary emergency alarms to ensure that they will be effective when warning of emergencies. To be effective, visual auxiliary alarms should be located and oriented so that they will spread signals and reflections throughout a space or raise the overall light level sharply. The amount and type of light necessary to wake a deaf person from a sound sleep in a dark room will vary depending on a number of factors, including the size and configuration of the room, the distance between the source and the person, whether the light flashes, and, if so, the cycle of flashing. A 150-watt flashing bulb can be effective under some conditions. Some devices are designed specifically as visual alarms for deaf people.
+Deaf people may not need accessibility features other than the emergency alarm connections and communications devices. Thus, in addition to
+those accessible for wheelchair users, rooms should also be equipped with emergency visual alarms or connections.
+18.2.5 Installed personal alarm systems Alarm systems for personal use shall comply with AS 2999.
+
+18.3 Signs warning of danger Danger and caution signs shall be placed sufficiently ahead of a particular hazard to allow sufficient time to take notice of the warning.
+
+NOTES:
+1 This distance will vary, e.g. signs warning against touching switches and other electrical equipment should be placed close to the equipment, whereas signs used in plant yards or on construction work should be placed a suitable distance from the danger zone.
+2 Where audible signals are not considered necessary, the most satisfactory warning is the provision of changes in both texture and colour to provide a luminance contrast with the background of not less than 0.3 (30 percent).
+
+18.4 Barricades, hoardings and safety rails Barricades, hoardings and safety rails in pedestrian areas shall be rigid, distinctively coloured and, if no toe rail or similarly effective device is provided, they shall be placed to provide not less than 1 m clearance from the obstruction.
+
+18.5 Warnings on doors to hazardous areas Doors that lead to areas that might prove dangerous to a person with a visual impairment (e.g. doors to loading platforms, boiler rooms, stages, and the like) shall be made identifiable to the touch by a textured surface on the door handle, knob, pull, or other door-operating hardware. This textured surface may be made by knurling or roughening, or by a material applied to the contact surface. Such textured surfaces shall not be provided for emergency exit doors or any doors other than those to hazardous areas.
+19 LIGHTING
+
+19.1 Illumination levels Illumination levels shall be uniform and comply with the requirements for maintenance illumination set out in AS 1680.2.
+
+NOTES:
+
+1 The following minimum levels of maintenance illumination are recommended:
+
+Entrances Passageways and walkway Stairs Ramps Lifts Toilet and locker rooms Counter tops General displays Telephones
+
+s150 lx 150 lx 150 lx See AS 1735.12 200 lx 250 lx 200-300 lx 200 lx
+
+2 Many people require better artificial lighting than is normally provided. This applies particularly to older people and to all people with impaired sight.
+
+3 For people with impaired hearing, a level of illumination of not less than 150 lx, without glare, is needed to allow for lip reading.
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+29
+
+AS 1428.2--1992
+
+19.2 Light switches Switches shall be in accordance with Clause 22.4. In bedrooms, at least one room light of not less than 150 lx shall have a bedside switch.
+NOTES: 1 Overhead lighting is preferred. 2 The provision of night lights in circulation areas and bathrooms is beneficial. 3 The provision of two-way switches is desirable.
+
+20 SOUND LEVELS
+NOTE: It is essential to effective hearing that the recommended design sound levels for various functional areas of buildings given in AS 2107 be adhered to. Care should be taken to comply with these recommendations in the installation of air-conditioners, computer machinery and the like.
+21 HEARING AUGMENTATION ­ LISTENING SYSTEMS
+21.1 General Where a sound amplification system is provided, a listening system to aid hearing-impaired people shall be installed or made available and shall cover at least 10 percent of the total area of the enclosed space. A sign indicating that an assistive hearing device is installed or is available shall be provided in accordance with Clauses 16 and 17 at the main door or doors to the enclosed space. Where the listening system does not cover the total area of the enclosed space, the boundaries of the area served shall be designated by such signs.
+NOTE: It is recommended that 10 percent of each classification of seating within an auditorium be provided with a listening system.
+21.2 Acceptable types of listening systems Acceptable types of listening systems are as follows:
+(a) Audio-frequency induction loop system The audio-frequency induction loop system can be directly received by people using hearing aids fitted with a magnetic induction coil, which is a standard hearing aid option. The recommended magnetic field strength, as specified in AS 1088.4, is -20 ±3 dB relative to 1 ampere per metre for an input signal of level equal to the long-time average level of input speech. This field was chosen so that it is high enough to produce an acceptable signal-to-noise ratio over environmental electromagnetic noise for power installation and the like, yet not so high as to cause overloading of hearing aids.
+The audio-frequency induction loop system cannot be used successfully in multiple installations close together, e.g. in adjacent rooms, owing to mutual interference resulting from spillover of the magnetic field outside the looped area, both vertically and horizontally.
+(b) Infrared light transmission system In this system, a modulated light beam is transmitted to special receivers worn by the listeners. The line of sight from transmitter to receivers must be unobstructed. The system may become inoperative when the receivers are exposed to direct sunlight.
+It may be used as an alternative to the audio-frequency induction loop system when multiple room installations are required to operate simultaneously.
+(c) Induction field radio system The induction field radio system is a frequency-modulated system normally operated on a carrier frequency of 3175 kHz allocated by the International Telecommunications Union (ITU). This allocation is shared by other radio services, which may occasionally interfere.
+The basic feature of the induction field radio hearing aid system is its localized wireless transmission in which the induction field is strong near the transmitter but rapidly becomes weaker with increasing distance; a low power battery-operated version is limited to a range of about 12 metres. When several systems are in use in a confined area, the receiver responds only to the strongest signal.
+This system is particularly useful when the speaker, wearing a portable transmitter and associated microphone, must move about in company with the listeners, for example on guided tours in museums and art galleries.
+(d) The VHF frequency-modulated radio system Unlike the induction field radio system this system operates in the very high frequency (VHF) band, where a number of channels for use by hearing impaired people have been allocated by the ITU. It can therefore make use of different channels to avoid mutual interference when a number of transmitters have to be used in one building.
+Because of the short wavelength used, the received field strength reduces slowly as the distance from the transmitter increases. Potentially it has greater range than the induction field radio system. The system needs an external antenna which is short enough to be carried on the person. On the other hand, induction field radio systems use loop antennae mounted internally in the receiver.
+21.3 Considerations when choosing an assistive listening system When choosing a listening system the following considerations apply:
+(a) The system needs to be usable by people who do not have hearing aids and by people who ­
+(i) have hearing aids with a `T' switch; (ii) have hearing aids with audio input; and (iii) have hearing aids without a `T' switch or audio input.
+(b) The frequency response and the adjustable volume gain of the receivers needs to be suitable for people with varying severity of hearing impairment.
+
+CO PY RI GH T
+
+AS 1428.2--1992
+
+30
+
+(c) It is essential that the equipment is safe and easy to manipulate and that the hygiene of reusable earpieces on receivers can be ensured.
+(d) The system chosen needs to be suitable for the intended use and not be subject to interference from, or cause interference to, any other equipment. For example, audio-loops may be subject to interference from nearby electrical installations; radio-frequency transmissions may interfere with other transmissions on similar bands; strong lighting may interfere with infrared transmission.
+(e) It is essential that the system does not interfere with the listening enjoyment of others, e.g. sound leakage from headphones may upset people seated nearby.
+(f) Where privacy is required, as in courtroom proceedings, infrared transmission will not pass through walls.
+22 REACH RANGES
+22.1 Forward reach ­ wheelchair users If the clear floor space allows only forward approach to an object by a person in a wheelchair, objects shall be in the reach range shown in Figure 20(a). If the high forward reach is over an obstruction, objects shall be within the reach range shown in Figure 20(b).
+
+(a) Forward reach limit
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+LEGEND:
+
+(b) Maximum forward reach over an obstruction
+
+X = points reached
+
+DIMENSIONS IN MILLIMETRES
+
+FIGURE 20 FORWARD REACH -- WHEELCHAIR USERS
+
+CO PY RI GH T
+
+31
+
+AS 1428.2--1992
+
+22.2 Side reach -- wheelchair users If the clear floor space allows parallel approach to an object by a person in a wheelchair, objects shall be in the reach range shown in Figure 21(a). If the side reach is over an obstruction, objects shall be within the reach range shown in Figure 21(b).
+
+(a) High and low side reach limits
+
+(b) Maximum side reach over obstruction
+
+LEGEND:
+X = points reached
+
+DIMENSIONS IN MILLIMETRES
+
+FIGURE 21 SIDE REACH ­ WHEELCHAIR USERS
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+LEGEND: X = points reached
+DIMENSIONS IN MILLIMETRES FIGURE 22 REACH OF AMBULANT PEOPLE WITH DISABILITIES
+CO PY RI GH T
+
+AS 1428.2--1992
+
+32
+
+22.3 Reach of ambulant people with disabilities The points at which comfortable reach is achieved by most ambulant people with disabilities are shown in Figure 22.
+22.4 Zone of common reach The zone for reach to objects which will be suitable for both ambulant people with disabilities and wheelchair users is shown in Figure 23.
+NOTE: The zone of common reach includes those dimensions for shelves, fittings, kitchen and laundry equipment, and items such as vending machines and street furniture, that permit ease of reach for both people who are standing and people who are sitting.
+The zone is obtained by using the maximum reach sideways to a shelf for people sitting in a wheelchair and the lowest reach for people who are standing, and may have stiff hips and knees or balance problems.
+The intention is that all critical controls, areas of operation and storage of equipment commonly used by most members of the community and people in a household will be placed within this zone of common reach.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+DIMENSIONS IN MILLIMETRES FIGURE 23 ZONE OF COMMON REACH FOR AMBULANT PEOPLE WITH DISABILITIES
+AND WHEELCHAIR USERS
+23 CONTROLS 23.1 General Controls, including door handles and hardware, switches and general purpose outlets, shall comply with AS 1428.1 and with the additional requirements of this Clause (23). 23.2 Operation Controls and operating mechanisms shall be operable with one hand and shall not require tight grasping, pinching, or twisting of the wrist. 23.3 Door handles and hardware The design and performance of door handles and hardware shall comply with AS 1428.1 and with the following: (a) The shape of the door handle shall be such that the hand of a person who cannot grip will not slip from the handle
+during the operation of the latch. D-shaped handles will meet this requirement. Knobs on bolts and snibs shall be designed so that they provide an easy grip. (b) Handles shall be clearly identified by colour with luminance contrast to their background of not less than 0.3 (30 percent).
+CO PY RI GH T
+
+33
+
+AS 1428.2--1992
+
+(c) Where an outward opening door is not self-closing, a horizontal handrail or pull bar shall be fixed on the closing face of a side-hung door, as shown in Figure 24.
+NOTES:
+1 Unless required by a regulatory authority, door closers should not be provided. The problem for access posed by door closers is the initial resistance at the commencement of the door-opening operation.
+2 Where door closers are required by a regulatory authority, devices such as delayed-action door closers, rising butt hinges and the like are recommended.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+DIMENSIONS IN MILLIMETRES
+FIGURE 24 LOCATIONS FOR DOOR CONTROLS SHOWING CLOSING FACE
+23.4 Window handles Shape and identification of window handles which are intended to be operated by occupants in trafficable areas shall comply with the requirements for door handles in Clause 23.3.
+23.5 Water taps Water taps shall comply with AS 1428.1.
+NOTE: Although sensor taps can cost significantly more than other types of tap, their use is recommended where possible.
+24 FURNITURE AND FITMENTS 24.1 Tables, counters and worktops
+NOTES: 1 No individual table, counter or worktop height and clearance beneath will suit all users with disabilities. A bench with easily adjustable height
+within the range of 700 mm to 850 mm from the finished floor is preferred. 2 Some users will be unable to use a bench unless it is at the correct height.
+24.1.1 Height of unit where a single table, counter or worktop only can be provided Where a single unit only is provided, the height to the top of the unit and the height beneath the unit shall be as follows: (a) Height from the finished floor to the top of the unit: 850 ±20 mm. (b) Height of clearance beneath the unit from the finished floor: 820 ±20 mm.
+24.1.2 Height of unit where two tables, counters or worktops can be provided Where two units are provided, the height to the top of each unit and clearance beneath each unit shall be as follows: (a) Height from the finished floor to the top of the unit:
+(i) 1st unit: 750 ±20 mm. (ii) 2nd unit: 850 ±20 mm. (b) Height of clearance beneath unit, from the finished floor: (i) 1st unit: 730 ±20 mm. (ii) 2nd unit: 820 ±20 mm.
+CO PY RI GH T
+
+AS 1428.2--1992
+
+34
+
+24.1.3 Width of seating spaces In order to provide a wheelchair seating space, the minimum clearance width between the legs or other fixtures beneath a table, counter or worktop on at least one accessible face of the unit shall be 800 mm.
+24.1.4 Knee and foot clearance A minimum clearance beneath the table, counter or worktop at wheelchair seating spaces shall be maintained as shown in Figure 25.
+NOTE: Pedestal tables and tables with splayed legs are not recommended. Tables with corner legs are preferred.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTE: For width of seating spaces see Clause 24.1.3. DIMENSIONS IN MILLIMETRES
+FIGURE 25 KNEE AND FOOT CLEARANCE BENEATH A TABLE, BENCH OR COUNTER 24.1.5 Length of top of counter Where a counter is provided for general use, a length of the counter of not less than 900 mm shall be provided which is in accordance with this Clause (24). A clear floor space in front of this part of the counter shall be provided in accordance with Clause 6.3. 24.1.6 Length and depth requirements for worktops Dimensions for worktops shall be calculated on the maximum horizontal reach shown in Figure 26.
+DIMENSIONS IN MILLIMETRES FIGURE 26 MAXIMUM HORIZONTAL REACH TO OBJECTS ON TABLE OR BENCHTOP
+CO PY RI GH T
+
+35
+24.1.7 Distance between tables The distance between tables shall be as shown in Figure 27.
+
+AS 1428.2--1992
+
+DIMENSIONS IN MILLIMETRES
+FIGURE 27 DISTANCE BETWEEN TABLES AND CHAIRS
+24.2 Storage Accessible storage facilities such as cabinets, shelves, cupboards and drawers shall comply with the following: (a) Clear floor space A clear floor space of not less than 800 mm x 1300 mm that allows either a forward or parallel
+approach by a person using a wheelchair shall be provided at accessible storage facilities. (b) Height Accessible storage spaces shall be within one of the reach ranges specified in Clause 22. Clothes-hanging
+rods or hooks shall be a maximum of 1350 mm from the floor (see Figure 28). (c) Hardware Hardware for accessible storage facilities shall comply with Clause 23. Touch latches and D-shaped pulls
+are acceptable.
+NOTES: 1 Sliding doors on cupboards are preferred. These allow manoeuvring space for wheelchairs and reduce the risk of injury to visually impaired
+people. 2 Lightweight gliders should be installed for drawers.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+DIMENSIONS IN MILLIMETRES FIGURE 28 STORAGE SHELVES AND WARDROBES
+CO PY RI GH T
+
+AS 1428.2--1992
+
+36
+
+24.3 Beds Beds shall comply with the following:
+(a) The height of the space between the base of a bed and the finished floor shall be not less than 150 mm.
+NOTE: This clearance is necessary for the use of a hoisting device.
+(c) The height of the mattress top shall be not less than 480 mm and not more than 500 mm above the finished floor when compressed by a weight of 90 kg.
+(d) Where appropriate, a telephone, and controls for operating radio, TV, air-conditioning, lights and signals shall be accessible from the bed.
+(e) The clear circulation space around beds shall be not less than that shown in Figure 29.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+DIMENSIONS IN MILLIMETRES
+FIGURE 29 CIRCULATION SPACE AROUND BEDS
+25 VIEWING RANGES The ultimate height zone for comfortable common viewing is shown in Figure 30.
+NOTE: This height zone is computed from the averaged eye height of tall males standing and short females standing, and the average height of persons seated in wheelchairs.
+26 AUDITORIUMS AND ASSEMBLY AREAS 26.1 General Seating in auditoriums and assembly areas shall comply with AS 1428.1. Hearing augmentation shall be provided in accordance with Clause 21. 26.2 Podiums and stage areas Podiums and stage areas shall comply with the following: (a) Ramped access in accordance with this Standard shall be provided to form a continuous accessible path of travel
+to the podium or stage. (b) The stage area shall allow space for wheelchair turning in accordance with Clause 6.3. (c) All controls to be operated by a speaker shall be operable by a seated person, in accordance with the reach ranges
+in Clause 22. (d) All facilities on the podium shall be usable by a seated person. (e) Lighting of the podium or stage shall be at least the recommended service illuminance for assembly and concert
+hall platforms in AS 1680.1.
+NOTE: The boundaries of a podium or stage area should be defined by barriers or contrast in floor surface colour and texture.
+27 STREET FURNITURE 27.1 General Street furniture, which includes objects such as seats, tables, drinking fountains, planter boxes, rubbish bins and the like, shall comply with the following: (a) Objects shall not protrude into an accessible path of travel. Seats shall be a minimum of 500 mm away from the
+path of travel.
+CO PY RI GH T
+
+37
+
+AS 1428.2--1992
+
+(b) Objects shall be of a colour which provides a contrast with their background and have a luminance factor of not less than 0.3 (30 percent).
+NOTE: In pedestrian malls and similar places, all street furniture should be positioned on one side only of the accessible path of travel (see Figure 31).
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+DIMENSIONS IN MILLIMETRES FIGURE 30 ZONES FOR VIEWING AND FOR COMMON VIEWING
+NOTE: There should be no projections into the accessible path of travel. DIMENSIONS IN MILLIMETRES
+FIGURE 31 EXAMPLE OF POSITION OF STREET FURNITURE
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+38
+
+27.2 Seating in pedestrian areas The design and installation of seating shall be as follows:
+NOTES: 1 Seats should generally be 450 mm high but where a high proportion of elderly users are anticipated, heights up to 520 mm are preferred.
+Children and small people may prefer seats as low as 350 mm high. Where possible, a range of seat heights should be provided. 2 A typical park bench is shown in Figure 32. 3 For outdoor tables, see Clause 24.
+(a) The front of the seat shall have a clear space between any legs at ground level to within 150 mm of the front edge of the seat, and to within 100 mm of the seat height to allow for rearward adjustment of feet when rising (see Figure 32(b)).
+(b) Where armrests are provided, the top surface of the armrests shall be at a height of 260 ±40 mm above the seat.
+NOTES: 1 Armrests should be provided for all seats. 2 The armrest should be within the centre of gravity of the seat.
+(c) The front edge of the seat shall have a minimum radius of 30 mm. (d) No edge or projection shall have a radius of less than 5 mm unless protected from contact with the user.
+(e) The seat shall drain free of water. 27.3 Drinking fountains and water coolers
+27.3.1 General At each location where drinking fountains or water coolers are provided, at least one of these shall be in accordance with Figure 33.
+27.3.2 Water outlet The water outlet shall be as close as possible to the front of the unit. It shall direct the water flow to a height of 80 mm to 100 mm in a trajectory that is parallel or nearly parallel to the front of the unit (see Figure 33). 27.3.3 Controls Controls shall either be centrally positioned at the front of the unit or if positioned at the side, be on both sides and not more than 180 mm from the front of the unit. Controls operable by one hand shall require an operating force of not more than 19.5 N.
+NOTE: A foot-operated control is acceptable if installed in addition to, but not instead of, hand-operated controls.
+27.3.4 Recessed drinking fountains Where a drinking fountain is recessed, in addition to complying with the clearance requirements in Figure 33, a clear width of space underneath the unit not less than 800 mm shall be provided.
+27.3.5 Cup dispensers The height of the operative components of cup dispensers shall be not more than 1100 mm above the trafficable surface. 28 GATEWAYS AND CHECKOUTS
+28.1 General The international symbol for access (see AS 1428.1) shall be used to designate where access is available. 28.2 Width Where gateways and checkouts are installed, at least one barrier opening shall be not less than 820 mm wide. 28.3 Ticket or coin feed height The ticket or coin feed points shall be at a height of 800 mm to 900 mm from the finished floor. Any controls needed to operate these machines shall have tactile applications for vision-impaired users.
+NOTE: The ticket or coin feed point placed on the top surface of the unit will provide better access for people with disabilities of the hands or upper limbs.
+28.4 Barriers Any barrier shall be not less than 1200 mm past the ticket or coin feed point in the direction of travel (see Figure 34).
+NOTE: Roll bars should not be provided. Flaps are preferred.
+29 VENDING MACHINES 29.1 Height The height of the operative components shall be between 500 mm and 1200 mm above the trafficable surface.
+NOTE: Where practicable, knee and foot clearance should be provided beneath the machine.
+29.2 Controls Controls shall comply with the following: (a) The required operating force for any control shall not exceed 19.5 N.
+NOTE: Where possible, knobs should not be used. Where they are used, they should be of sufficient size and texture to allow grip by fingers or palms.
+(b) Controls shall be clearly identifiable by touch and sight.
+NOTE: Preferred controls include D-handles or pulls, levers and sensors.
+(c) Controls shall have a tactile surface to facilitate use by vision-impaired persons.
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+39
+
+DIMENSIONS IN MILLIMETRES FIGURE 32 TYPICAL PARK BENCH SEATING
+CO PY RI GH T
+
+AS 1428.2--1992
+
+AS 1428.2--1992
+
+40
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+DIMENSIONS IN MILLIMETRES FIGURE 33 DRINKING FOUNTAINS AND WATER COOLERS
+29.3 Illumination Illumination shall be provided in accordance with Clause 19.1. 29.4 Circulation space Sufficient circulation space to allow a 360 degrees wheelchair turn in accordance with Clause 6.3 shall be provided in front of the vending machine, as follows: (a) Any crossfall shall be no greater than 1 in 40. (b) The ground or floor surface of the circulation space shall have a slip-resistant finish.
+NOTE: The circulation space should be under cover.
+DIMENSIONS IN MILLIMETRES FIGURE 34 BARRIERS WITH TICKET OR COIN FEED POINTS
+CO PY RI GH T
+
+41
+
+AS 1428.2--1992
+
+30 TELEPHONES
+30.1 Payphones
+30.1.1 General Where payphones are provided, at least one accessible payphone shall be at an accessible floor level.
+30.1.2 Clear floor space A clear floor space in front of the payphone of not less than 800 mm by 1300 mm that allows a forward approach by a person using a wheelchair shall be provided. The required clear space shall not be restricted by bases, enclosures and fixed seats.
+30.1.3 Height The highest operable parts that are essential to the basic operation of the telephone shall be as shown in Figure 35(a). Controls, handset, touch pads and the like shall be within Zone 1 (see Figure 35(b)), and notices and information within Zone 2.
+30.1.4 Protruding objects Telephones, enclosures and related equipment shall comply with Clause 6.7.
+30.1.5 Equipment for hearing-impaired people Where a suite of payphones is provided, the first shall be equipped with a volume control and a built-in coupler. The location of such payphones shall be indicated by symbols in accordance with Clause 16.
+30.1.6 Dial Accessible payphones shall have push-button controls.
+30.1.7 Telephone directories Telephone directories, if provided, shall be located in accordance with Figure 35.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+(a) Clearances and dimensions
+
+DIMENSIONS IN MILLIMETRES FIGURE 35 PAYPHONES
+
+(b) Locations of controls and notices
+
+CO PY RI GH T
+
+AS 1428.2--1992
+
+42
+
+30.1.8 Cord length Accessible payphones shall be equipped with a minimum handset cord length of 735 mm.
+30.1.9 Lighting Lighting shall be in accordance with Clause 19.1.
+30.1.10 Circulation space outside a payphone booth with door or a doorway If a payphone is situated in a booth with a door, the circulation space at the door outside the payphone booth shall be in accordance with Clause 11.5.2. If the booth has a doorway with no door or with an automatic sliding door, the circulation space at the doorway or door outside the payphone booth shall comply with the requirements for the front approach to sliding doors in Clause 11.5.2.
+NOTE: A seat adjacent to a payphone could be advantageous to ambulant users.
+30.2 Telephones other than payphones Where telephones other than payphones are provided, at least one accessible telephone shall be at an accessible floor level and shall be fitted with an incoming call alarm suitable for hearing-impaired people, e.g. a visual alert signal or a specially designed tone-calling device, as well as a volume control and built-in hearing aid coupler.
+31 POST BOXES
+31.1 Circulation space Sufficient circulation space to allow for a 360° wheelchair turn in accordance with Clause 6.3 shall be provided in front of the post box.
+31.2 Operative components The operative components of post boxes shall be within the reach ranges given in Clause 22.
+32 TIME DELAY FOR LIGHTS AT PEDESTRIAN CROSSINGS The time delay for lights at crossings should allow pedestrian travel time at the rate of not more than 0.4 m/s (400 mm/s).
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+43
+
+AS 1428.2--1992
+
+APPENDIX A
+KITCHENS AND LAUNDRIES
+(Informative)
+A1 SCOPE This Appendix gives recommendations for the dimensioning, layout and arrangement of kitchens and laundries so that they will be usable by people with disabilities.
+A2 GENERAL COMMENTS Kitchens and laundries should be planned economically, without an unnecessarily large circulation area. The design should be one which conserves the user's energy through the interrelationship of facilities.
+There is no typical kitchen or typical laundry for people with disabilities. Each has to be specially designed for the user, and the designer will have to assess the user's particular needs before any suggestions can be made.
+The best person to consult is the consumer with a disability. An occupational therapist who has been to the person's home and is familiar with his or her needs can offer useful advice.
+A3 STORAGE Shelves and cupboards should be installed in accordance with Clause 24.2.
+Drawers or slide-out wire baskets are preferred, rather than large open cupboards.
+Rotating shelves, which have a lip of not less than 50 mm, are preferred for corners.
+Mobile storage units provide an efficient and practical method of storage in the kitchen. Mobile storage units can be kept in knee spaces below the preparation benches. The units can be moved to give more preparation space yet allow positioning close to meal preparation areas where utensils can be accessed easily.
+Corners of benches should be rounded to reduce the risk of injury.
+Toe recesses should be provided along the front of all benches.
+The height and shape of cupboard and drawer handles should comply with Clauses 22 and 23.
+Sliding doors should be fitted with stops so that the door stops a minimum distance of 50 mm from the door handle (see Figure A1(a)).
+A4 WORK LEVELS ­ PREPARATION CENTRE Work surfaces should be at a consistent level and have an uninterrupted flow. The user is then able to slide goods along the surfaces.
+A clear `set-down' space next to oven cooktop, refrigerator and dishwasher should be provided on the bench top.
+Where it is necessary to slide hot utensils along work surfaces, the surface material should be heat-resistant.
+Bench surfaces should be smooth for easy cleaning and of a non-glare finish.
+For vision-impaired users, horizontal surfaces should be a lighter colour than that of the vertical surfaces. The luminance factor of the vertical surface should be not less than 0.3 (30 percent) different from surrounding horizontal surface.
+The height of work surfaces should be in accordance with Clause 24.
+Some ambulant people with disabilities prefer to work while seated on a stool. Consideration should therefore be given to this when determining bench height.
+Where pull-out work surfaces are provided, e.g. as a set-down beside a stove, they should be fitted with handles and heat-resistant surfaces. A stop should be incorporated to ensure that shelves cannot accidentally be pulled right out.
+At least one work surface should provide a clear width opening beneath the surface of not less than 820 mm to allow for a front approach by a wheelchair.
+A5 SINKS For users in wheelchairs a shallow sink is essential, hence the preferred maximum bowl depth is 150 mm. The clearance underneath should comply with the requirements for washbasins in AS 1428.1 (see Figure A2).
+The underside of the sink bowl, exposed pipes, taps and fittings should be insulated to avoid burns.
+A6 WATER TAPS Taps should comply with Clause 23. The following is also recommended:
+(a) For people with vision impairment, the cold water tap should be identified by having a two-pronged handle, with the hot water tap remaining a handle with four prongs (see Figure A3).
+(b) Wherever practicable, tap washers operating on the principle of a ball valve in synthetic rubber washers, or ceramic or hydraseal types should be used because of the ease of turning on and off and their maintenance-free life and ease of replacement.
+(c) For people with limited hand movement, lever action fittings should be used.
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+44
+
+DIMENSIONS IN MILLIMETRES FIGURE A1 CUPBOARD DOORS
+NOTE: Equipment may be located within the broken line. DIMENSIONS IN MILLIMETRES
+FIGURE A2 SINK HEIGHT AND CLEARANCE CO PY RI GH T
+
+45
+
+AS 1428.2--1992
+
+FIGURE A3 TWO-PRONGED HANDLE FOR COLD TAP TO AID PEOPLE WITH VISION IMPAIRMENT
+A7 OVENS Wall ovens should be installed so that the bottom shelf is on approximately the same level as the adjacent work surface. The drop-down type of oven door which does not slide away is not recommended as it limits reach for wheelchair users. Where a pull-out work surface is not provided, there should be a clear worktop at one side of the oven to allow for set down. If a side-hinged oven door is used, the clear worktop should be on the opposite side (see Figure A4).
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+FIGURE A4 OVEN WITH WORKTOP TO ALLOW FOR SET-DOWN CO PY RI GH T
+
+AS 1428.2--1992
+
+46
+
+Controls should be within the zone of common reach shown in Figure 23. They should be easy to operate by the intended user and clearly marked. For people with vision impairment, tactile indicators should be provided on all controls.
+Ovens with a light and a timer are preferred.
+A8 COOKTOPS Cooktops should be flush or as close to flush as possible with the adjacent benchtops and they should have adequate heat-resistant work surfaces.
+Cooktops should have countertop controls. For people with vision impairment, tactile markings should be provided on all controls.
+For people with vision impairment, gas stoves are preferred as they provide an instant heat that gives an immediate indicator that a burner is operational.
+Gas burners should have automatic ignition.
+If an electric hotplate is used, coil elements are preferred as they do not transmit as much heat as solid elements to the surrounding area.
+Hotplates and burners should be positioned away from trafficable areas within the kitchen.
+For general use by people with disabilities and older people, an electric cooking unit is preferred for reasons of safety, especially where there is a loss of sense of smell.
+A9 REFRIGERATOR For small households, a refrigerator installed within the zone of common reach shown in Figure 23 is preferred.
+A clear worktop space alongside a refrigerator is recommended for set-down. This should be on the side opposite to the hinge of the door.
+A10 DISHWASHER The dishwasher will be best located close to the sink, and crockery and cutlery storage areas. Consideration should be given to raising the height of the dishwasher for use by ambulant people with disabilities.
+NOTE: This might not always be possible as most dishwasher doors open down.
+Worktop space should be provided on each side of the unit to allow for ease of loading and unloading.
+A11 VENTILATION ­ RANGE HOOD A range hood with an external exhaust is preferred to a recirculating type which requires regular filter changes.
+A12 WALL AND FLOOR FINISHES Floor surfaces should be easy to maintain and slip-resistant when wet or dry.
+Floor coverings with coved skirtings are preferred (see Figure A5).
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+FIGURE A5 COVED SKIRTING
+A13 LIGHTING AND POWER OUTLETS Switches and general purpose outlets should comply with Clause 23. Lighting should comply with Clause 19. Large rocker-type switches are preferred. If additional over-bench lighting is required, it should be recessed behind a pelmet. All switches should be within the zone of common reach (see Figure 23).
+CO PY RI GH T
+
+47
+
+AS 1428.2--1992
+
+A14 LAUNDRY TUBS For users in wheelchairs, the height above floor level and the clearance underneath should be accordance with the requirements for washbasins in AS 1428.1. Shallow laundry tubs should be provided. Consideration may be given to installing a kitchen sink rather than a deep standard-sized laundry tub. Frontal approach to tubs is preferred. If it is not practical to provide knee access below laundry tubs, planning may allow for a parallel approach rather than a frontal approach. Taps should be in accordance with Paragraph A6.
+A15 WASHING MACHINE AND DRYER Front-loading machines are preferred. It is desirable that fixed plumbing outlets are made for washing machines. Controls should be clearly marked and easy to operate by the intended user. Soft touch controls are preferred. Controls and taps for washers and dryers should be in the zone of common reach shown in Figure 23.
+A16 SHELVES Adjustable shelving is best so that the space can be arranged to suit the individual. If shelving is used it should be within the common zone of reach shown in Figure 23.
+A17 IRONING BOARD Portable boards are often unsteady and difficult to erect. A securely fixed, dropdown or hinged ironing board is recommended.
+A18 CLOTHESLINE Where a clothesline is installed and may be used by people who are either standing or seated, it should be installed so that its operating height at its lowest is 1100 mm, and at its highest is 1600 mm from the ground surface. Access to the clothesline should be provided as part of the accessible path of travel within and to the building.
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+48
+
+APPENDIX B
+
+ADDITIONAL INFORMATION ON ACCESS REQUIREMENTS IN SPECIFIC TYPES OF BUILDINGS AND FACILITIES
+(Informative)
+
+Type of building or facility
+
+Entrance
+
+Corridors and
+
+Doors and doorways
+
+hallways
+
+Sanitary facilities
+
+Furniture including street and garden
+furniture
+
+1 Single dwelling houses, flats (Applies to single, ground level dwellings or multi-unit housing with level, ramped or lift access. Careful design on sloping sites makes ramped access possible
+
+All entrances to each dwelling unit should be part of a continuous accessible path of travel from all entry points to the property. A shelf on the wall adjacent to the latch side of an entrance door will assist users. This shelf will serve for placement of handbags, etc., while unlocking the door.
+
+Attention must be given to circulation space on both sides of a door. A level landing at door thresholds is important. Recessed door handles should be avoided.
+
+Consideration Where there is more should be given than one floor level, to passing and an accessible shower turning spaces and WC facility need for wheelchairs to be provided at the in hallways (see accessible floor level. Clause 6).
+
+Consideration should be given to the provision of raised garden beds.
+
+2 Hotels, motels and guesthouses
+
+A continuous accessible path of As in 1 above. travel should permit access from all entry points to the property, to the lobby, reception and lifts, as well as to accommodation, dining rooms, meeting rooms, laundry and other facilities, including staff facilities.
+
+As in 1 above
+
+This unisex WC is recommended in areas used by the general public where a person may be accompanied by an attendant of the opposite sex. This should be located so that access to it does not necessitate traversing an area reserved for one sex only (see Clause 15). Baby facilities and changing facilities should be provided where appropriate. Appropriate signs and symbols should be provided.
+
+Reception desks should be split-level so that a counter hight complies with Clause 24.1. It is important that beds be movable. TV sets should have a teletext decoder.
+
+3 Office buildings A continuous path of travel
+
+(Buildings for should permit access from all
+
+professional or entry points of the property to
+
+commercial
+
+office and administration areas
+
+purposes and
+
+including toilets, telephones,
+
+public offices
+
+eating areas, meeting rooms,
+
+such as post
+
+libraries and other facilities,
+
+offices, banks and including staff facilities.
+
+police stations.)
+
+As in 1.
+
+AS in 1.
+
+As in 2.
+
+One level of every counter for use by the general public should be at a height which complies with Clause 24.1. (This can be achieved by making a split-level counter.) Where there are writing places provided, at least one place should be in accordance with Clause 24.1.
+
+4 Shops and shopping centres
+
+A continuos path of travel should link all retail facilities (including administration office and staff facilities) with each other, and with a carpark with accessible car parking spaces provided.
+
+AS in 1
+
+Aisles between merchandise displays should provide clear widths and passing spaces as in Clause 6. At least one checkout point in each group should comply with Clause 28.
+
+As in 2
+
+As in 3. Gateways and checkouts (see Clause 28).
+
+5 Restaurants bars and cafeterias
+
+All entrances should be accessible and should form part of an accessible path of travel between essential facilities and services
+
+As in 1.
+
+As in 1.
+
+AS in 2
+
+Height of tables and space at and around tables (see Clause 24.1). Self-service food bars should be within the zone of common reach (see Clause 23).
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+49
+
+AS 1428.2--1992
+
+Room controls, telephones, post
+boxes
+
+Lighting
+
+Signs and signals
+
+Car parking
+
+Floor surfaces
+
+Additional notes
+
+At least one telephone needs to be at the accessible floor level. A post box should be within the reach zones specified in Clause 22, from the accessible path of travel.
+
+Security lighting actuated by movement should be provided
+
+Undercover access Low maintenance floor A controlled temperature
+
+from a car parking surfaces should be
+
+environment is important.
+
+space to the
+
+provided.
+
+The following should be
+
+building entrance
+
+considered:
+
+is desirable.
+
+(a) Energy efficiency.
+
+Garage doors
+
+(b) Insulation.
+
+should have
+
+(c) Good roof ventilation.
+
+automatic door
+
+(d) Reverse cycle air
+
+opening.
+
+conditioning.
+
+Room controls must be accessible and visible from the bed. At least one payphone in a group should be accessible (see Clause 30.1). Where provided, a post box should be accessible (see Clause 31). Some rooms (ideally 5%) should have a telephone with volume control and build-in coupler, and a visual light alert. A TTY teleprinter phone should be available on request.
+
+Controls for at least one room light should be accessible and visible from the bed. All accessways should be adequately lit, in particular, kerb ramps and stairs.
+
+A sign indicating the location of the reception desk should be visible from the entrance. Directions to accessible facilities should be clearly shown by signs. Where hearing augmentation is provided this should also be indicated by signs (see Clause 17). Emergency alarm systems (see Clause 18).
+
+Undercover space to transfer from car to wheelchair close to the lobby and to accommodation should be provided.
+
+Particular care should Where public restaurant
+
+be taken to ensure that and convention facilities
+
+floor surfaces are not are provided, all
+
+slippery when wet. provisions of access
+
+Changes in floor
+
+should be made for non-
+
+surfaces to indicate resident visitors.
+
+different areas are
+
+recommended.
+
+If carpet is provided, it
+
+should be low pile and
+
+anti-static.
+
+Tactile ground surface
+
+indicators should be
+
+provided (see Clause
+
+18.1).
+
+Where provided, at least one post box (see Clause 31) and at least one payphone (see Clause 30.1) should be provided at the accessible floor level.
+
+Appropriate lighting for general access and for task areas is important (see Clause 19 and As 1680).
+
+As in 2. The tenancy directory should comply with Clause 17 and should be within the zone of common viewing (see Figure 30).
+
+As in 1.
+
+As in 2.
+
+As in 3.
+
+As in 3.
+
+As in 3
+
+As in 1.
+
+As in 2
+
+As in 3
+
+A table which can be well lit should be available in restaurants.
+
+As in 1.
+
+As in 2.
+
+All sections of the restaurant should be accessible.
+(continued)
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+50
+
+Type of building or facility
+
+Entrance
+
+Doors and doorways
+
+Corridors and hallways
+
+Sanitary facilities
+
+Furniture including street and garden
+furniture
+
+6 Places of assembly (auditoriums, theatres, cinemas, stadiums, churches, court houses, conference rooms.)
+
+As in 3.
+
+As in 1.
+
+As in 1.
+
+As in 2.
+
+Seating (see Clause 26).
+
+7 Factories, warehouse As in 3. and office workplaces
+
+As in 1.
+
+As in 1.
+
+Where sanitary facilities will be used by people acting independently, a separate WC facility for males and females may be provided.
+
+Adjustable height benches and desks are preferred. Heights of furniture and spaces between tables (see Clause 24).
+
+8 Service stations
+
+A continuous accessible path of travel should be provided to all facilities. There should be no step or ridge greater than 3 mm high.
+
+As in 2.
+
+As in 3.
+
+9 Educational establishments
+
+As in 3.
+
+AS in 1
+
+Included are classrooms and all
+
+facilities.
+
+As in 1.
+
+As in 1 and 2..
+
+As in 5 and 6.
+
+10 Libraries
+
+As in 4
+
+As in 1.
+
+Aisles between shelves should provide clear widths and passing spaces as in Clause 6.
+
+As in 2.
+
+Books and photocopiers should be within zone of common reach (see Figure 23). Height of counter (see Clause 29).
+
+11 Public transport terminals and interchanges
+
+As in 8.
+
+As in 1. Gateways and checkouts should comply with Clause 28.
+
+As in 2.
+
+Ticket office counter height (see Clause 24.1). Vending machines (see Clause 29).
+
+12 Streets (including shopping malls)
+
+As in 2.
+
+AS in 1.
+
+As in 2.
+
+Street furniture (see Clause 27).
+
+13 Recreational facilities (Including leisure centres, gymnasiums, pools)
+
+A continuous accessible path of As in 11. travel should permit access from all entry points to the property to office and administrative areas, lobby, reception, and lifts as well as change rooms, toilets, telephones, gymnasium, pools, first aid station, creche, eating areas and any other facilities including staff facilities.
+
+As in 1.
+
+In addition to the provision of accessible showers and WC facilities in all public change rooms, an accessible unisex shower and WC in a separate public location is recommenced, as in 2.
+
+As in 3, 4, 5.
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+51
+
+AS 1428.2--1992
+
+Room controls, telephones, post
+boxes
+
+Lighting
+
+Controls for speakers and other facilities on stage or podium should be accessible to a seated person (see Clause 26). Hearing augmentation (see Clause 21).
+
+As in 3.
+
+As in 3.
+
+Signs and signals
+
+Car parking
+
+Floor surfaces
+
+Additional notes
+
+As in 3.
+
+As in 2.
+
+As in 1.
+
+As in 2.
+
+As in 1.
+
+As in 1, 3 and 6.
+
+As in 3.
+
+As in 3.
+
+As in 3.
+
+At least one payphone (see Clause 30.1) should be provided at an accessible floor level. Visual display of announcements
+
+Lighting of signs in important (see Clause 19).
+
+As in 3.
+
+As in 3.
+
+Payphones (see Clause 30.1)
+
+As in 3.
+
+As in 2.
+
+Undercover access As in 2. from car parking spaces to the building entrance should be provided.
+
+Signs should be within the common zone of viewing (see Figure 23).
+
+As in 2.
+
+As in 9.
+
+Signed and timetables
+
+(see Clause 17).
+
+As in 2.
+
+As in 2. As in 3.
+
+As in 1.
+
+As in 2.
+
+Undercover access As in 2. from car parking space to the building entrance is desirable. Undercover space to transfer from car to wheelchair close to the main entrance should be provided.
+
+Tactile ground surface indicators should be provided (see Clause 18.1).
+Where a hydrotherapy pool is to be provided, see AS 3979. Provision of a fixed or mobile pool hoist ramp access with grabrails and a mobile shower commode chair to all pools is recommended. In gymnasium sufficient circulation space should be allowed for wheelchair access to equipment.
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+AS 1428.2--1992
+
+52
+
+APPENDIX C RAMP LENGTH RECKONER
+(Informative)
+
+Ramp rise mm
+200 300 400
+500 600 700
+800 900 1 000
+1 100 1 200 1 300
+1 400 1 500 1 600
+1 700 1 800 1 900
+2 000 2 100 2 200
+2 300 2 400 2 500
+2 600 2 700 2 800
+2 900 3 000
+
+1:14
+2 800 4 200 5 600
+
+Horizontal ramp length, mm*
+
+Gradient
+
+1:16
+
+1:20
+
+3 200 4 800 6 400
+
+4 000 6 000 8 000
+
+7 000 8 400 9 800
+
+9 000 9 600 11 200
+
+10 000 12 000 14 000
+
+11 200 12 000 14 000
+
+12 800 14 400 16 000
+
+16 000 18 000 20 000
+
+15 400 16 800 18 200
+
+17 600 19 200 20 800
+
+22 000 24 000 26 000
+
+19 600 21 000 22 400
+
+22 400 24 000 25 600
+
+28 000 30 000 32 000
+
+23 800 25 200 26 600
+
+27 200 28 800 30 400
+
+34 000 36 000 38 000
+
+28 000 29 400 30 800
+
+32 000 33 600 35 200
+
+40 000 42 000 44 000
+
+32 200 33 600 35 000
+
+36 800 38 400 40 000
+
+46 000 48 000 50 000
+
+36 400 37 800 39 200
+
+41 600 43 200 44 800
+
+52 000 54 000 56 000
+
+40 600 42 000
+
+46 400 48 000
+
+58 000 60 000
+
+* Landings required every 6000 mm run.
+
+CO PY RI GH T
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTES
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+NOTES
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+Standards Australia Standards Australia is an independent company, limited by guarantee, which prepares and publishes most of the voluntary technical and commercial standards used in Australia. These standards are developed through an open process of consultation and consensus, in which all interested parties are invited to participate. Through a Memorandum of Understanding with the Commonwealth government, Standards Australia is recognized as Australia's peak national standards body.
+Australian Standards Australian Standards are prepared by committees of experts from industry, governments, consumers and other relevant sectors. The requirements or recommendations contained in published Standards are a consensus of the views of representative interests and also take account of comments received from other sources. They reflect the latest scientific and industry experience. Australian Standards are kept under continuous review after publication and are updated regularly to take account of changing technology.
+International Involvement Standards Australia is responsible for ensuring that the Australian viewpoint is considered in the formulation of international Standards and that the latest international experience is incorporated in national Standards. This role is vital in assisting local industry to compete in international markets. Standards Australia represents Australia at both ISO (The International Organization for Standardization) and the International Electrotechnical Commission (IEC).
+Electronic Standards All Australian Standards are available in electronic editions, either downloaded individually from our Web site, or via on-line and CD ROM subscription services. For more information phone 1300 65 46 46 or visit us at
+www.standards.com.au
+
+Licensed to Flare Access on 12-Jul-2019. 1 user personal license only. Copying, copy/pasting, storage & distribution or use on network prohibited. Get permission to copy from or network this publication www.saiglobal.com/licensing
+
+ISBN 0 7262 7234 5
+
+Printed in Australia
+
+
