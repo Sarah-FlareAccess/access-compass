@@ -20,6 +20,10 @@ export function PageFooter({ showDivider = true }: PageFooterProps) {
           variant="footer"
           onClick={() => setShowReportProblem(true)}
         />
+        <span className="page-footer-divider"></span>
+        <a href="mailto:support@accesscompass.com.au" className="page-footer-help-link">
+          Need help?
+        </a>
       </footer>
 
       <ReportProblem

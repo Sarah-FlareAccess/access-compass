@@ -24,6 +24,17 @@
   border-radius: 50%;
 }
 
+.page-footer-help-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.page-footer-help-link:hover {
+  color: var(--amethyst-diamond, #490E67);
+  text-decoration: underline;
+}
+
 @media (max-width: 640px) {
   .page-footer {
     flex-direction: column;

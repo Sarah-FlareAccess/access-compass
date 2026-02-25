@@ -18,6 +18,7 @@ import { useModuleProgress } from '../hooks/useModuleProgress';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategory } from '../data/diapMapping';
 import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/diap.css';
 
 type TabType = 'all' | 'in-progress' | 'completed';
@@ -25,6 +26,7 @@ type ViewMode = 'list' | 'by-section';
 type ImportResult = CSVImportResult | PDFImportResult | ExcelImportResult;
 
 export default function DIAPWorkspace() {
+  usePageTitle('DIAP Workspace');
   const {
     items,
     documents,
@@ -843,7 +845,7 @@ export default function DIAPWorkspace() {
 
         {/* Items - List View or By Category View */}
         {viewMode === 'list' ? (
-          <div className="diap-items-list">
+          <div className="diap-items-list" aria-live="polite">
             {filteredItems.length === 0 ? (
               <div className="empty-state">
                 <p>No items found.</p>
@@ -885,7 +887,7 @@ export default function DIAPWorkspace() {
           </div>
         ) : (
           /* By Category View - Grouped into 3 main groups */
-          <div className="diap-category-view">
+          <div className="diap-category-view" aria-live="polite">
             {itemsByCategory.map(({ group, subcategories }) => {
               const totalItemsInGroup = subcategories.reduce((sum, s) => sum + s.items.length, 0);
               const isExpanded = expandedCategories[group.id];

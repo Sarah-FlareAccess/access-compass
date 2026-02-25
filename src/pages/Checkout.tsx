@@ -16,14 +16,17 @@ import {
 } from '../lib/pricingEngine';
 import { createCheckoutSession } from '../lib/stripe';
 import type { BusinessSizeTier, AccessLevel, ModuleBundle } from '../types/access';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 export default function Checkout() {
+  usePageTitle('Checkout');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { isAuthenticated, isLoading: authLoading, accessState, user } = useAuth();
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   // Get checkout params from URL
   const tier = (searchParams.get('tier') || 'small') as BusinessSizeTier;
@@ -80,7 +83,7 @@ export default function Checkout() {
       });
 
       if (checkoutError || !checkoutUrl) {
-        setError(checkoutError || 'Failed to create checkout session');
+        setError(checkoutError || 'Unable to start checkout. Please try again, or contact support@accesscompass.com.au for help.');
         setIsProcessing(false);
         return;
       }
@@ -89,7 +92,7 @@ export default function Checkout() {
       window.location.href = checkoutUrl;
     } catch (err) {
       console.error('Checkout error:', err);
-      setError('An unexpected error occurred');
+      setError('An unexpected error occurred. Please try again, or contact support@accesscompass.com.au for help.');
       setIsProcessing(false);
     }
   };
@@ -99,7 +102,7 @@ export default function Checkout() {
       <div className="checkout-page">
         <div className="checkout-container">
           <div className="loading-spinner" />
-          <p>Loading...</p>
+          <p aria-live="polite">Loading...</p>
         </div>
         <style>{styles}</style>
       </div>
@@ -108,7 +111,7 @@ export default function Checkout() {
 
   return (
     <div className="checkout-page">
-      <div className="checkout-container">
+      <div className="checkout-container" aria-busy={isProcessing}>
         <Link to="/decision" className="back-link">
           ← Back to options
         </Link>
@@ -161,16 +164,41 @@ export default function Checkout() {
         </div>
 
         {/* Error Message */}
-        {error && <div className="error-message">{error}</div>}
+        {error && <div id="checkout-error" className="error-message" role="alert">{error}</div>}
 
-        {/* Checkout Button */}
-        <button
-          className="btn-checkout"
-          onClick={handleCheckout}
-          disabled={isProcessing}
-        >
-          {isProcessing ? 'Processing...' : `Pay ${formatPrice(totals.total)} AUD`}
-        </button>
+        {/* Confirmation Step */}
+        {showConfirmation ? (
+          <div className="confirmation-step" role="alert">
+            <p className="confirmation-prompt">
+              You will be redirected to Stripe to complete payment of <strong>{formatPrice(totals.total)} AUD</strong> for{' '}
+              <strong>{level === 'deep_dive' ? 'Deep Dive' : 'Pulse Check'}</strong>.
+            </p>
+            <div className="confirmation-actions">
+              <button
+                className="btn-checkout"
+                onClick={handleCheckout}
+                disabled={isProcessing}
+              >
+                {isProcessing ? 'Processing...' : 'Confirm and Pay'}
+              </button>
+              <button
+                className="btn-cancel-confirm"
+                onClick={() => setShowConfirmation(false)}
+                disabled={isProcessing}
+              >
+                Go back
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            className="btn-checkout"
+            onClick={() => setShowConfirmation(true)}
+            disabled={isProcessing}
+          >
+            {`Pay ${formatPrice(totals.total)} AUD`}
+          </button>
+        )}
 
         {/* Security Note */}
         <p className="security-note">
@@ -380,5 +408,52 @@ const styles = `
 
   .lock-icon {
     font-size: 1rem;
+  }
+
+  .confirmation-step {
+    background: #f0f4ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .confirmation-prompt {
+    margin: 0 0 16px;
+    color: #2d2d2d;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .confirmation-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .confirmation-actions .btn-checkout {
+    margin-bottom: 0;
+  }
+
+  .btn-cancel-confirm {
+    width: 100%;
+    padding: 12px 24px;
+    background: transparent;
+    color: var(--text-muted, #6b6360);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-cancel-confirm:hover:not(:disabled) {
+    background: #f8f7f6;
+    border-color: #ccc;
+  }
+
+  .btn-cancel-confirm:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 `;

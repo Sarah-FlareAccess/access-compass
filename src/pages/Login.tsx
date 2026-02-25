@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/login.css';
 
 type AuthMode = 'signin' | 'forgot';
 
 export default function Login() {
+  usePageTitle('Sign In');
   const navigate = useNavigate();
   const location = useLocation();
   const { signIn, resetPassword, isAuthenticated, isLoading: authLoading } = useAuth();
@@ -33,7 +35,7 @@ export default function Login() {
       <div className="login-page">
         <div className="container">
           <div className="login-card">
-            <p style={{ textAlign: 'center', padding: '2rem' }}>Loading...</p>
+            <p style={{ textAlign: 'center', padding: '2rem' }} aria-live="polite">Loading...</p>
           </div>
         </div>
       </div>
@@ -55,14 +57,23 @@ export default function Login() {
       if (mode === 'signin') {
         const { error } = await signIn(email, password);
         if (error) {
-          setError(error.message || 'Failed to sign in. Please check your credentials.');
+          const msg = error.message?.toLowerCase() || '';
+          if (msg.includes('invalid') || msg.includes('credentials')) {
+            setError('The email or password you entered is incorrect. Please check both fields and try again.');
+          } else if (msg.includes('not found') || msg.includes('no user')) {
+            setError('No account found with that email address. Please check your email or create a new account.');
+          } else if (msg.includes('too many') || msg.includes('rate')) {
+            setError('Too many sign-in attempts. Please wait a few minutes before trying again.');
+          } else {
+            setError(error.message || 'Unable to sign in. Please check your email and password, then try again.');
+          }
         } else {
           navigate(from, { replace: true });
         }
       } else if (mode === 'forgot') {
         const { error } = await resetPassword(email);
         if (error) {
-          setError(error.message || 'Failed to send reset email.');
+          setError(error.message || 'Unable to send reset email. Please check that the email address is correct.');
         } else {
           setSuccessMessage('Check your email for password reset instructions.');
           setMode('signin');
@@ -101,7 +112,7 @@ export default function Login() {
           </div>
 
           {error && (
-            <div className="login-message login-error" role="alert">
+            <div id="login-error" className="login-message login-error" role="alert">
               {error}
             </div>
           )}
@@ -112,7 +123,7 @@ export default function Login() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="login-form">
+          <form onSubmit={handleSubmit} className="login-form" aria-busy={isLoading}>
             <div className="form-group">
               <label htmlFor="email">Email address</label>
               <span className="field-hint">you@example.com</span>
@@ -123,6 +134,8 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
+                aria-invalid={!!error}
+                aria-describedby={error ? 'login-error' : undefined}
               />
             </div>
 
@@ -139,6 +152,8 @@ export default function Login() {
                     required
                     autoComplete="current-password"
                     minLength={8}
+                    aria-invalid={!!error}
+                    aria-describedby={error ? 'login-error' : undefined}
                   />
                   <button
                     type="button"

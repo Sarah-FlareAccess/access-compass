@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { initializeSession, updateBusinessSnapshot, getSession, getDiscoveryData } from '../utils/session';
 import type { BusinessSnapshot, BusinessType, UserRole, OrganisationSize } from '../types';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/form-page.css';
 
 interface BusinessTypeOption {
@@ -70,7 +71,9 @@ const organisationSizeOptions: { value: OrganisationSize; label: string; descrip
 ];
 
 export default function BusinessSnapshotPage() {
+  usePageTitle('Organisation Details');
   const navigate = useNavigate();
+  const [validationError, setValidationError] = useState<string | null>(null);
   const [formData, setFormData] = useState<BusinessSnapshot>({
     organisation_name: '',
     organisation_size: '' as OrganisationSize,
@@ -121,15 +124,18 @@ export default function BusinessSnapshotPage() {
     e.preventDefault();
 
     // Validate all required fields
-    if (
-      !formData.organisation_name ||
-      !formData.organisation_size ||
-      formData.business_types.length === 0 ||
-      !formData.user_role
-    ) {
-      alert('Please complete all required fields');
+    const missing: string[] = [];
+    if (!formData.organisation_name) missing.push('Organisation name');
+    if (!formData.organisation_size) missing.push('Organisation size');
+    if (formData.business_types.length === 0) missing.push('Organisation type');
+    if (!formData.user_role) missing.push('Your role');
+
+    if (missing.length > 0) {
+      setValidationError(`Please complete the following: ${missing.join(', ')}.`);
       return;
     }
+
+    setValidationError(null);
 
     // Save to session
     updateBusinessSnapshot(formData);
@@ -144,6 +150,8 @@ export default function BusinessSnapshotPage() {
         <div className="form-container">
           <h1>Let's get started</h1>
           <p className="helper-text">First, a few details about your organisation</p>
+
+          {validationError && <div id="snapshot-error" className="message error-message" role="alert">{validationError}</div>}
 
           <form onSubmit={handleSubmit}>
             {/* Organisation Name */}
@@ -160,6 +168,8 @@ export default function BusinessSnapshotPage() {
                   setFormData({ ...formData, organisation_name: e.target.value })
                 }
                 required
+                aria-invalid={!!validationError && !formData.organisation_name}
+                aria-describedby={validationError ? 'snapshot-error' : undefined}
               />
             </div>
 
@@ -219,6 +229,8 @@ export default function BusinessSnapshotPage() {
                   setFormData({ ...formData, user_role: e.target.value as UserRole })
                 }
                 required
+                aria-invalid={!!validationError && !formData.user_role}
+                aria-describedby={validationError ? 'snapshot-error' : undefined}
               >
                 <option value="">Select your role</option>
                 <option value="owner">Owner</option>

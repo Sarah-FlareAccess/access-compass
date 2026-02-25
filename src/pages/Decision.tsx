@@ -45,6 +45,7 @@ import { useAuth } from '../hooks/useAuth';
 import { getSession } from '../utils/session';
 import { calculatePrice } from '../lib/pricingEngine';
 import type { BusinessSizeTier, ModuleBundle, AccessLevel } from '../types/access';
+import { usePageTitle } from '../hooks/usePageTitle';
 import './Decision.css';
 
 // ============================================
@@ -67,6 +68,7 @@ type DecisionStep = 'pathway-choice' | 'commitment' | 'login' | 'signup' | 'forg
 // ============================================
 
 export default function Decision() {
+  usePageTitle('Get Started');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const {
@@ -179,7 +181,16 @@ export default function Decision() {
 
       if (signInError) {
         console.error('[handleSignIn] SignIn error:', signInError);
-        setError(signInError.message);
+        const msg = signInError.message?.toLowerCase() || '';
+        if (msg.includes('invalid') || msg.includes('credentials')) {
+          setError('The email or password you entered is incorrect. Please check both fields and try again.');
+        } else if (msg.includes('not found') || msg.includes('no user')) {
+          setError('No account found with that email address. Please check your email or create a new account.');
+        } else if (msg.includes('too many') || msg.includes('rate')) {
+          setError('Too many sign-in attempts. Please wait a few minutes before trying again.');
+        } else {
+          setError(signInError.message || 'Unable to sign in. Please check your email and password, then try again.');
+        }
         setIsProcessing(false);
         return;
       }
@@ -213,7 +224,16 @@ export default function Decision() {
 
       if (signUpError) {
         console.error('[handleSignUp] SignUp error:', signUpError);
-        setError(signUpError.message);
+        const msg = signUpError.message?.toLowerCase() || '';
+        if (msg.includes('already') || msg.includes('exists')) {
+          setError('An account with this email already exists. Please sign in instead, or use a different email.');
+        } else if (msg.includes('password') && (msg.includes('weak') || msg.includes('short') || msg.includes('length'))) {
+          setError('Password must be at least 8 characters. Please choose a stronger password.');
+        } else if (msg.includes('email') && msg.includes('invalid')) {
+          setError('Please enter a valid email address (e.g. you@example.com).');
+        } else {
+          setError(signUpError.message || 'Unable to create account. Please check your details and try again.');
+        }
         setIsProcessing(false);
         return;
       }
@@ -237,7 +257,7 @@ export default function Decision() {
     const { error: resetError } = await resetPassword(email);
 
     if (resetError) {
-      setError(resetError.message);
+      setError(resetError.message || 'Unable to send reset email. Please check that the email address is correct.');
       setIsProcessing(false);
       return;
     }
@@ -550,10 +570,10 @@ export default function Decision() {
         <h2>Sign in</h2>
         <p className="auth-subtitle">Sign in to continue with your purchase</p>
 
-        {error && <div className="message error-message">{error}</div>}
-        {successMessage && <div className="message success-message">{successMessage}</div>}
+        {error && <div id="decision-login-error" className="message error-message" role="alert">{error}</div>}
+        {successMessage && <div className="message success-message" role="status">{successMessage}</div>}
 
-        <form onSubmit={handleSignIn} className="auth-form">
+        <form onSubmit={handleSignIn} className="auth-form" aria-busy={isProcessing}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <span className="field-hint">you@example.com</span>
@@ -564,6 +584,8 @@ export default function Decision() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
+              aria-invalid={!!error}
+              aria-describedby={error ? 'decision-login-error' : undefined}
             />
           </div>
 
@@ -578,6 +600,8 @@ export default function Decision() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
+                aria-invalid={!!error}
+                aria-describedby={error ? 'decision-login-error' : undefined}
               />
               <button
                 type="button"
@@ -626,10 +650,10 @@ export default function Decision() {
         <h2>Create account</h2>
         <p className="auth-subtitle">Create an account to get started</p>
 
-        {error && <div className="message error-message">{error}</div>}
-        {successMessage && <div className="message success-message">{successMessage}</div>}
+        {error && <div id="decision-signup-error" className="message error-message" role="alert">{error}</div>}
+        {successMessage && <div className="message success-message" role="status">{successMessage}</div>}
 
-        <form onSubmit={handleSignUp} className="auth-form">
+        <form onSubmit={handleSignUp} className="auth-form" aria-busy={isProcessing}>
           <div className="form-group">
             <label htmlFor="signup-email">Email</label>
             <span className="field-hint">you@example.com</span>
@@ -640,6 +664,8 @@ export default function Decision() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
+              aria-invalid={!!error}
+              aria-describedby={error ? 'decision-signup-error' : undefined}
             />
           </div>
 
@@ -655,6 +681,8 @@ export default function Decision() {
                 minLength={8}
                 required
                 autoComplete="new-password"
+                aria-invalid={!!error}
+                aria-describedby={error ? 'decision-signup-error' : undefined}
               />
               <button
                 type="button"
@@ -694,10 +722,10 @@ export default function Decision() {
         <h2>Reset password</h2>
         <p className="auth-subtitle">Enter your email to receive reset instructions</p>
 
-        {error && <div className="message error-message">{error}</div>}
-        {successMessage && <div className="message success-message">{successMessage}</div>}
+        {error && <div id="decision-reset-error" className="message error-message" role="alert">{error}</div>}
+        {successMessage && <div className="message success-message" role="status">{successMessage}</div>}
 
-        <form onSubmit={handleResetPassword} className="auth-form">
+        <form onSubmit={handleResetPassword} className="auth-form" aria-busy={isProcessing}>
           <div className="form-group">
             <label htmlFor="reset-email">Email</label>
             <span className="field-hint">you@example.com</span>
@@ -708,6 +736,8 @@ export default function Decision() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
+              aria-invalid={!!error}
+              aria-describedby={error ? 'decision-reset-error' : undefined}
             />
           </div>
 
@@ -729,8 +759,8 @@ export default function Decision() {
         <h2>Organisation access</h2>
         <p className="auth-subtitle">Enter your organisation's invite code</p>
 
-        {error && <div className="message error-message">{error}</div>}
-        {successMessage && <div className="message success-message">{successMessage}</div>}
+        {error && <div id="decision-invite-error" className="message error-message" role="alert">{error}</div>}
+        {successMessage && <div className="message success-message" role="status">{successMessage}</div>}
 
         {!isAuthenticated && (
           <div className="message info-message">
@@ -738,7 +768,7 @@ export default function Decision() {
           </div>
         )}
 
-        <form onSubmit={handleJoinOrg} className="auth-form">
+        <form onSubmit={handleJoinOrg} className="auth-form" aria-busy={isProcessing}>
           <div className="form-group">
             <label htmlFor="inviteCode">Invite code</label>
             <span className="field-hint">e.g., COMPANY2024</span>
@@ -749,6 +779,8 @@ export default function Decision() {
               onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
               required
               autoComplete="off"
+              aria-invalid={!!error}
+              aria-describedby={error ? 'decision-invite-error' : undefined}
             />
           </div>
 
