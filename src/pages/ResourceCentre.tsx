@@ -18,6 +18,7 @@ import {
   Filter,
   X,
   Lock,
+  ChevronDown,
 } from 'lucide-react';
 import { allHelpContent, searchHelp } from '../data/help';
 import type { HelpContent, ModuleGroup, DIAPCategory } from '../data/help/types';
@@ -26,6 +27,7 @@ import { ResourceDetail } from '../components/help/ResourceDetail';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { MODULES } from '../lib/recommendationEngine';
+import { accessModules } from '../data/accessModules';
 import './ResourceCentre.css';
 
 // Category configuration
@@ -79,6 +81,10 @@ const DIAP_LABELS: Record<DIAPCategory, string> = {
 const MODULE_NAMES: Record<string, string> = {};
 MODULES.forEach(m => { MODULE_NAMES[m.id] = m.name; });
 
+// Module icon lookup (emoji from accessModules)
+const MODULE_ICONS: Record<string, string> = {};
+accessModules.forEach(m => { MODULE_ICONS[m.id] = m.icon; });
+
 export function ResourceCentre() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { progress } = useModuleProgress();
@@ -91,6 +97,7 @@ export function ResourceCentre() {
 
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
   const [showFilters, setShowFilters] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
 
   // Check if a resource's module is completed
   const isModuleCompleted = (moduleCode: string): boolean => {
@@ -140,6 +147,30 @@ export function ResourceCentre() {
 
     return grouped;
   }, [filteredResources]);
+
+  // Group resources by module for accordion view (category browsing only)
+  const resourcesByModule = useMemo(() => {
+    if (!selectedCategory || searchQuery) return [];
+    const grouped: Record<string, HelpContent[]> = {};
+    filteredResources.forEach(r => {
+      if (!grouped[r.moduleCode]) grouped[r.moduleCode] = [];
+      grouped[r.moduleCode].push(r);
+    });
+    // Order by MODULES array order
+    const moduleOrder = MODULES.map(m => m.id);
+    return moduleOrder
+      .filter(id => grouped[id] && grouped[id].length > 0)
+      .map(id => ({ moduleCode: id, moduleName: MODULE_NAMES[id] || id, resources: grouped[id] }));
+  }, [filteredResources, selectedCategory, searchQuery]);
+
+  const toggleGroup = (moduleCode: string) => {
+    setExpandedGroups(prev => ({ ...prev, [moduleCode]: !prev[moduleCode] }));
+  };
+
+  const isGroupExpanded = (moduleCode: string, index: number): boolean => {
+    if (expandedGroups[moduleCode] !== undefined) return expandedGroups[moduleCode];
+    return index === 0;
+  };
 
   // Handle search submission
   const handleSearch = (e: React.FormEvent) => {
@@ -378,8 +409,125 @@ export function ResourceCentre() {
         </div>
       )}
 
-      {/* Resource List */}
-      {(hasActiveFilters || selectedCategory) && (
+      {/* Category Heading (when browsing a category, not searching) */}
+      {selectedCategory && !searchQuery && (() => {
+        const cat = CATEGORIES.find(c => c.id === selectedCategory);
+        if (!cat) return null;
+        return (
+          <div className="category-heading" style={{ '--category-color': cat.color } as React.CSSProperties}>
+            <div className="category-heading-icon">{cat.icon}</div>
+            <div>
+              <h2 className="category-heading-title">{cat.label}</h2>
+              <p className="category-heading-desc">{cat.description}</p>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Category browsing (dashboard-style collapsible groups + card grid) */}
+      {selectedCategory && !searchQuery && (
+        <div className="resource-list">
+          {resourcesByModule.length === 0 ? (
+            <div className="no-results">
+              <p>No resources found matching your criteria.</p>
+              <button className="btn-secondary" onClick={clearFilters}>
+                Clear filters
+              </button>
+            </div>
+          ) : (
+            <div className="resource-modules">
+              {resourcesByModule.map((group, groupIndex) => {
+                const expanded = isGroupExpanded(group.moduleCode, groupIndex);
+                const groupUnlocked = isModuleCompleted(group.moduleCode);
+                return (
+                  <section key={group.moduleCode} className={`module-group-card ${groupUnlocked ? 'completed' : ''}`}>
+                    <button
+                      className={`module-group-header ${expanded ? 'expanded' : ''}`}
+                      onClick={() => toggleGroup(group.moduleCode)}
+                      aria-expanded={expanded}
+                    >
+                      <span className="module-group-icon">{MODULE_ICONS[group.moduleCode] || '📄'}</span>
+                      <div className="module-group-info">
+                        <h3 className="module-group-title">{group.moduleName}</h3>
+                        <span className="module-group-meta">
+                          <span className="module-group-code">{group.moduleCode}</span>
+                          <span>{group.resources.length} resource{group.resources.length !== 1 ? 's' : ''}</span>
+                        </span>
+                      </div>
+                      <ChevronDown size={20} className="module-group-chevron" />
+                    </button>
+                    {expanded && (
+                      <div className="resource-tile-grid">
+                        {group.resources.map(resource => {
+                          const unlocked = isModuleCompleted(resource.moduleCode);
+                          return (
+                            <button
+                              key={resource.questionId}
+                              className={`resource-tile ${unlocked ? 'unlocked' : 'locked'}`}
+                              onClick={() => handleResourceSelect(resource.questionId)}
+                            >
+                              <div className={`resource-tile-bar ${unlocked ? 'bar-unlocked' : 'bar-locked'}`} />
+                              <div className="resource-tile-content">
+                                {!unlocked && (
+                                  <div className="resource-tile-header">
+                                    <span className="resource-tile-icon">{MODULE_ICONS[resource.moduleCode] || '📄'}</span>
+                                    <span className="resource-tile-badge badge-locked">
+                                      <Lock size={11} /> Locked
+                                    </span>
+                                  </div>
+                                )}
+                                <h4 className="resource-tile-title">{resource.title}</h4>
+                                <p className="resource-tile-desc">{resource.summary}</p>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </section>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Search results / DIAP-only filter — keep card grid */}
+      {hasActiveFilters && !selectedCategory && (
+        <div className="resource-list">
+          {filteredResources.length === 0 ? (
+            <div className="no-results">
+              <p>No resources found matching your criteria.</p>
+              <button className="btn-secondary" onClick={clearFilters}>
+                Clear filters
+              </button>
+            </div>
+          ) : (
+            <div className="resource-grid">
+              {filteredResources.map(resource => {
+                const unlocked = isModuleCompleted(resource.moduleCode);
+                return (
+                  <div key={resource.questionId} className={`resource-card-wrapper ${!unlocked ? 'locked' : ''}`}>
+                    <ResourceCard
+                      resource={resource}
+                      onClick={() => handleResourceSelect(resource.questionId)}
+                    />
+                    {!unlocked && (
+                      <div className="resource-lock-overlay">
+                        <Lock size={20} />
+                        <span>Complete {MODULE_NAMES[resource.moduleCode] || resource.moduleCode} to unlock</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Search results within a category — card grid */}
+      {selectedCategory && searchQuery && (
         <div className="resource-list">
           {filteredResources.length === 0 ? (
             <div className="no-results">

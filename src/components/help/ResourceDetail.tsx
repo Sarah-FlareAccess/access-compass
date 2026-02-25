@@ -19,26 +19,21 @@ import {
   CheckCircle,
   ChevronDown,
   ChevronUp,
-  ExternalLink,
   Play,
   BookOpen,
   Building2,
   Scale,
-  Link2,
   Clock,
   Wrench,
   ThumbsUp,
   ThumbsDown,
   Quote,
   TrendingUp,
-  DollarSign,
-  Users,
-  Zap,
   Target,
   Hammer,
 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
-import type { HelpContent, HelpTip, HelpExample, GradedSolution, ResourceLevel } from '../../data/help/types';
+import type { HelpContent, HelpTip, HelpExample, GradedSolution } from '../../data/help/types';
 import './ResourceDetail.css';
 
 interface ResourceDetailProps {
@@ -64,10 +59,8 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
     standards: false,
     examples: true,
     video: false,
-    resources: false,
   });
 
-  const [selectedResourceLevel, setSelectedResourceLevel] = useState<ResourceLevel | 'all'>('all');
 
   const [feedbackGiven, setFeedbackGiven] = useState<'positive' | 'negative' | null>(null);
   const [selectedBusinessType, setSelectedBusinessType] = useState<string | null>(null);
@@ -170,53 +163,15 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
           >
             <div className="section-header">
               <Target size={22} className="section-icon" />
-              <h2>Solutions by Budget</h2>
+              <h2>Solutions</h2>
             </div>
             {expandedSections.solutions ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </button>
 
           {expandedSections.solutions && (
             <div className="section-content solutions-content">
-              {/* Resource level filter */}
-              <div className="solutions-filter">
-                <span>Filter by resources:</span>
-                <div className="solutions-filter-chips">
-                  <button
-                    className={`filter-chip ${selectedResourceLevel === 'all' ? 'active' : ''}`}
-                    onClick={() => setSelectedResourceLevel('all')}
-                  >
-                    All options
-                  </button>
-                  <button
-                    className={`filter-chip filter-low ${selectedResourceLevel === 'low' ? 'active' : ''}`}
-                    onClick={() => setSelectedResourceLevel('low')}
-                  >
-                    <Zap size={14} />
-                    Low budget
-                  </button>
-                  <button
-                    className={`filter-chip filter-medium ${selectedResourceLevel === 'medium' ? 'active' : ''}`}
-                    onClick={() => setSelectedResourceLevel('medium')}
-                  >
-                    <DollarSign size={14} />
-                    Medium
-                  </button>
-                  <button
-                    className={`filter-chip filter-high ${selectedResourceLevel === 'high' ? 'active' : ''}`}
-                    onClick={() => setSelectedResourceLevel('high')}
-                  >
-                    <Users size={14} />
-                    Higher investment
-                  </button>
-                </div>
-              </div>
-
-              {/* Solution cards */}
               <div className="solutions-list">
-                {(selectedResourceLevel === 'all'
-                  ? resource.solutions
-                  : resource.solutions.filter(s => s.resourceLevel === selectedResourceLevel)
-                ).map((solution, index) => (
+                {resource.solutions.map((solution, index) => (
                   <SolutionCard key={index} solution={solution} />
                 ))}
               </div>
@@ -444,53 +399,6 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
         </section>
       )}
 
-      {/* External Resources */}
-      {resource.resources && resource.resources.length > 0 && (
-        <section className="resource-section collapsible-section">
-          <button
-            className="section-toggle"
-            onClick={() => toggleSection('resources')}
-            aria-expanded={expandedSections.resources}
-          >
-            <div className="section-header">
-              <Link2 size={22} className="section-icon" />
-              <h2>Helpful Resources</h2>
-            </div>
-            {expandedSections.resources ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-          </button>
-
-          {expandedSections.resources && (
-            <div className="section-content resources-content">
-              <ul className="external-resources-list">
-                {resource.resources.map((res, index) => (
-                  <li key={index} className="external-resource-item">
-                    <a
-                      href={res.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="external-resource-link"
-                    >
-                      <div className="external-resource-info">
-                        <span className="external-resource-title">{res.title}</span>
-                        <span className="external-resource-source">{res.source}</span>
-                        {res.description && (
-                          <span className="external-resource-desc">{res.description}</span>
-                        )}
-                      </div>
-                      <div className="external-resource-meta">
-                        {res.isAustralian && <span className="badge-au">AU</span>}
-                        {res.isFree && <span className="badge-free">Free</span>}
-                        <ExternalLink size={16} />
-                      </div>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </section>
-      )}
-
       {/* Related Resources */}
       {resource.relatedQuestions && resource.relatedQuestions.length > 0 && (
         <section className="resource-section related-section">
@@ -605,22 +513,6 @@ function ExampleCard({ example }: { example: HelpExample }) {
 function SolutionCard({ solution }: { solution: GradedSolution }) {
   const [expanded, setExpanded] = useState(false);
 
-  const getResourceLevelLabel = (level: ResourceLevel) => {
-    switch (level) {
-      case 'low': return 'Low budget';
-      case 'medium': return 'Medium investment';
-      case 'high': return 'Higher investment';
-    }
-  };
-
-  const getResourceLevelIcon = (level: ResourceLevel) => {
-    switch (level) {
-      case 'low': return <Zap size={16} />;
-      case 'medium': return <DollarSign size={16} />;
-      case 'high': return <Users size={16} />;
-    }
-  };
-
   const getImplementerLabel = (implementer: GradedSolution['implementedBy']) => {
     switch (implementer) {
       case 'diy': return 'Do it yourself';
@@ -639,13 +531,9 @@ function SolutionCard({ solution }: { solution: GradedSolution }) {
   };
 
   return (
-    <div className={`solution-card solution-${solution.resourceLevel}`}>
+    <div className="solution-card">
       <div className="solution-header">
         <div className="solution-title-row">
-          <span className={`solution-level-badge level-${solution.resourceLevel}`}>
-            {getResourceLevelIcon(solution.resourceLevel)}
-            {getResourceLevelLabel(solution.resourceLevel)}
-          </span>
           <span className={`solution-impact impact-${solution.impact}`}>
             {getImpactLabel(solution.impact)}
           </span>
@@ -657,10 +545,6 @@ function SolutionCard({ solution }: { solution: GradedSolution }) {
         <p className="solution-description">{solution.description}</p>
 
         <div className="solution-meta">
-          <div className="solution-meta-item">
-            <DollarSign size={14} />
-            <span>{solution.costRange}</span>
-          </div>
           <div className="solution-meta-item">
             <Clock size={14} />
             <span>{solution.timeRequired}</span>
