@@ -19,6 +19,10 @@ import {
   X,
   Lock,
   ChevronDown,
+  Scale,
+  ExternalLink,
+  Briefcase,
+  Calendar,
 } from 'lucide-react';
 import { allHelpContent, searchHelp } from '../data/help';
 import type { HelpContent, ModuleGroup, DIAPCategory } from '../data/help/types';
@@ -32,7 +36,7 @@ import './ResourceCentre.css';
 
 // Category configuration
 const CATEGORIES: {
-  id: ModuleGroup;
+  id: ModuleGroup | 'standards';
   label: string;
   description: string;
   icon: React.ReactNode;
@@ -66,6 +70,27 @@ const CATEGORIES: {
     icon: <Settings size={24} />,
     color: '#f59e0b',
   },
+  {
+    id: 'organisational-commitment',
+    label: 'Organisation',
+    description: 'Policies, employment, training, and inclusive culture',
+    icon: <Briefcase size={24} />,
+    color: '#e11d48',
+  },
+  {
+    id: 'events',
+    label: 'Events',
+    description: 'Accessible events, conferences, and community activities',
+    icon: <Calendar size={24} />,
+    color: '#0ea5e9',
+  },
+  {
+    id: 'standards',
+    label: 'Key Standards & Legislation',
+    description: 'Australian laws, building codes, and international guidelines',
+    icon: <Scale size={24} />,
+    color: '#0d9488',
+  },
 ];
 
 // DIAP category labels
@@ -76,6 +101,39 @@ const DIAP_LABELS: Record<DIAPCategory, string> = {
   'operations-policy-procedure': 'Operations & Policy',
   'people-culture': 'People & Culture',
 };
+
+const KEY_STANDARDS: { label: string; description: string; url: string }[] = [
+  {
+    label: 'Disability Discrimination Act 1992',
+    description: 'Core federal law prohibiting discrimination on the basis of disability in goods, services, and facilities.',
+    url: 'https://www.legislation.gov.au/C2004A04426/latest/text',
+  },
+  {
+    label: 'Premises Standards 2010',
+    description: 'Disability standards for access to buildings and facilities, amended 2024 to reference AS 1428.1:2021.',
+    url: 'https://www.legislation.gov.au/F2010L00668/latest/text',
+  },
+  {
+    label: 'National Construction Code (NCC)',
+    description: 'Australia\'s building code incorporating the Premises Standards for new buildings and renovations.',
+    url: 'https://ncc.abcb.gov.au/',
+  },
+  {
+    label: 'WCAG 2.1 AA',
+    description: 'Web Content Accessibility Guidelines from W3C, the international standard for website and digital accessibility.',
+    url: 'https://www.w3.org/TR/WCAG21/',
+  },
+  {
+    label: 'AHRC Guidelines on Digital Access',
+    description: 'Advisory guidelines from the Australian Human Rights Commission on equal access to digital goods and services.',
+    url: 'https://humanrights.gov.au/our-work/disability-rights/world-wide-web-access-disability-discrimination-act-advisory-notes',
+  },
+  {
+    label: 'UN Convention on the Rights of Persons with Disabilities',
+    description: 'International treaty Australia ratified, establishing the rights framework underpinning domestic disability law.',
+    url: 'https://www.un.org/development/desa/disabilities/convention-on-the-rights-of-persons-with-disabilities.html',
+  },
+];
 
 // Module name lookup for lock overlay
 const MODULE_NAMES: Record<string, string> = {};
@@ -91,7 +149,7 @@ export function ResourceCentre() {
 
   // Get state from URL params
   const selectedResourceId = searchParams.get('resource');
-  const selectedCategory = searchParams.get('category') as ModuleGroup | null;
+  const selectedCategory = searchParams.get('category') as ModuleGroup | 'standards' | null;
   const selectedDIAP = searchParams.get('diap') as DIAPCategory | null;
   const searchQuery = searchParams.get('q') || '';
 
@@ -119,8 +177,8 @@ export function ResourceCentre() {
       results = searchHelp(searchQuery);
     }
 
-    // Apply category filter
-    if (selectedCategory) {
+    // Apply category filter (skip for 'standards' pseudo-category)
+    if (selectedCategory && selectedCategory !== 'standards') {
       results = results.filter(r => r.moduleGroup === selectedCategory);
     }
 
@@ -139,6 +197,8 @@ export function ResourceCentre() {
       'getting-in': [],
       'during-visit': [],
       'service-support': [],
+      'organisational-commitment': [],
+      'events': [],
     };
 
     filteredResources.forEach(resource => {
@@ -150,7 +210,7 @@ export function ResourceCentre() {
 
   // Group resources by module for accordion view (category browsing only)
   const resourcesByModule = useMemo(() => {
-    if (!selectedCategory || searchQuery) return [];
+    if (!selectedCategory || selectedCategory === 'standards' || searchQuery) return [];
     const grouped: Record<string, HelpContent[]> = {};
     filteredResources.forEach(r => {
       if (!grouped[r.moduleCode]) grouped[r.moduleCode] = [];
@@ -185,7 +245,7 @@ export function ResourceCentre() {
   };
 
   // Handle category selection
-  const handleCategorySelect = (categoryId: ModuleGroup | null) => {
+  const handleCategorySelect = (categoryId: ModuleGroup | 'standards' | null) => {
     const params = new URLSearchParams(searchParams);
     if (categoryId) {
       params.set('category', categoryId);
@@ -280,7 +340,7 @@ export function ResourceCentre() {
       {/* Header */}
       <div className="resource-centre-header">
         <div className="resource-centre-title-section">
-          <h1>Resource Centre</h1>
+          <h1>Resource Hub</h1>
           <p className="resource-centre-subtitle">
             Guides, tips, and best practices for improving accessibility at your venue
           </p>
@@ -396,17 +456,28 @@ export function ResourceCentre() {
                 <h3>{cat.label}</h3>
                 <p>{cat.description}</p>
                 <span className="category-count">
-                  {resourcesByCategory[cat.id].length} resource{resourcesByCategory[cat.id].length !== 1 ? 's' : ''}
-                  {(() => {
-                    const unlocked = resourcesByCategory[cat.id].filter(r => isModuleCompleted(r.moduleCode)).length;
-                    const total = resourcesByCategory[cat.id].length;
-                    return total > 0 && unlocked < total ? ` (${unlocked} unlocked)` : '';
-                  })()}
+                  {cat.id === 'standards'
+                    ? `${KEY_STANDARDS.length} references`
+                    : (() => {
+                        const items = resourcesByCategory[cat.id as ModuleGroup];
+                        const count = items.length;
+                        const unlocked = items.filter(r => isModuleCompleted(r.moduleCode)).length;
+                        return `${count} resource${count !== 1 ? 's' : ''}${count > 0 && unlocked < count ? ` (${unlocked} unlocked)` : ''}`;
+                      })()
+                  }
                 </span>
               </div>
             </button>
           ))}
         </div>
+      )}
+
+      {/* Back button (when browsing a category) */}
+      {selectedCategory && !searchQuery && (
+        <button className="btn-back" onClick={() => handleCategorySelect(null)}>
+          <ArrowLeft size={20} />
+          <span>Back to Resource Hub</span>
+        </button>
       )}
 
       {/* Category Heading (when browsing a category, not searching) */}
@@ -424,8 +495,23 @@ export function ResourceCentre() {
         );
       })()}
 
+      {/* Standards click-through view */}
+      {selectedCategory === 'standards' && !searchQuery && (
+        <div className="resource-list">
+          <div className="key-standards-grid">
+            {KEY_STANDARDS.map(standard => (
+              <a key={standard.label} href={standard.url} target="_blank" rel="noopener noreferrer" className="key-standard-card">
+                <h3>{standard.label}</h3>
+                <p>{standard.description}</p>
+                <span className="key-standard-link">View document <ExternalLink size={14} /></span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Category browsing (dashboard-style collapsible groups + card grid) */}
-      {selectedCategory && !searchQuery && (
+      {selectedCategory && selectedCategory !== 'standards' && !searchQuery && (
         <div className="resource-list">
           {resourcesByModule.length === 0 ? (
             <div className="no-results">
@@ -466,7 +552,6 @@ export function ResourceCentre() {
                               className={`resource-tile ${unlocked ? 'unlocked' : 'locked'}`}
                               onClick={() => handleResourceSelect(resource.questionId)}
                             >
-                              <div className={`resource-tile-bar ${unlocked ? 'bar-unlocked' : 'bar-locked'}`} />
                               <div className="resource-tile-content">
                                 {!unlocked && (
                                   <div className="resource-tile-header">

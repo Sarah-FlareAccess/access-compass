@@ -108,7 +108,7 @@ export function getReportResourceLinks(questionId: string, moduleCode: string): 
 
   // Always add link to full resource centre if no specific resource
   if (links.length === 0) {
-    links.push('Browse Resource Centre → /resources');
+    links.push('Browse Resource Hub → /resources');
   }
 
   return links;

@@ -101,7 +101,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       }
     ],
     plainEnglish: 'While there\'s no specific legal requirement to have an accessibility page, providing clear information demonstrates compliance with DDA obligations to make services accessible.',
-    complianceNote: 'This is about going beyond minimum compliance to genuinely welcome customers with disabilities.'
+    complianceNote: 'This is about going beyond minimum compliance to genuinely welcome customers with disabilities. The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   solutions: [
@@ -1497,7 +1497,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       }
     ],
     plainEnglish: 'Every link, button, form field, and interactive element on your website must work with just a keyboard. Users must never get stuck.',
-    complianceNote: 'WCAG 2.1 AA is referenced in Australian Government accessibility policy and is increasingly expected of commercial websites under the DDA.'
+    complianceNote: 'WCAG 2.1 AA is referenced in Australian Government accessibility policy and is increasingly expected of commercial websites under the DDA. The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   examples: [
@@ -1746,7 +1746,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       requirement: 'All non-text content (images, icons, charts) must have a text alternative that serves the equivalent purpose.'
     },
     plainEnglish: 'Every meaningful image needs a text description. Decorative images should be marked so screen readers skip them.',
-    complianceNote: 'This is one of the most commonly failed WCAG criteria and one of the easiest to fix.'
+    complianceNote: 'This is one of the most commonly failed WCAG criteria and one of the easiest to fix. The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   examples: [
@@ -1993,7 +1993,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       requirement: 'Text must have a contrast ratio of at least 4.5:1 against its background. Large text (18pt or 14pt bold) requires at least 3:1.'
     },
     plainEnglish: 'All text on your website must be clearly readable. Dark text on light backgrounds (or the reverse) with enough difference between the two colours.',
-    complianceNote: 'Contrast failures are easily fixable once identified and often improve the design for all users.'
+    complianceNote: 'Contrast failures are easily fixable once identified and often improve the design for all users. The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   examples: [
@@ -2234,6 +2234,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       requirement: 'Text must be resizable up to 200% without loss of content or functionality. At 400% zoom (1280px viewport), content must reflow without horizontal scrolling.'
     },
     plainEnglish: 'Your website must remain usable when people zoom in. Text should not overlap, menus should still work, and content should not be hidden.',
+    complianceNote: 'The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   examples: [
@@ -2461,6 +2462,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       requirement: 'Interactive targets should be at least 44x44 CSS pixels. Content must reflow without loss of information at mobile viewport widths.'
     },
     plainEnglish: 'Your website must work well on phones and tablets, with easy-to-tap buttons, readable text, and no need for horizontal scrolling.',
+    complianceNote: 'The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   examples: [
@@ -2921,6 +2923,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       }
     ],
     plainEnglish: 'Your entire booking process must work with a keyboard. If someone cannot book independently because of keyboard barriers, that is a potential legal issue as well as a lost customer.',
+    complianceNote: 'The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   examples: [
@@ -3583,6 +3586,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       }
     ],
     plainEnglish: 'Every video with speech must have accurate captions. This includes promotional videos, tutorials, testimonials, and social media content.',
+    complianceNote: 'The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   examples: [
@@ -4063,7 +4067,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       }
     ],
     plainEnglish: 'Every video control (play, pause, volume, captions, seek, fullscreen) must work with a keyboard and be announced correctly by screen readers. Videos must never autoplay with sound.',
-    complianceNote: 'YouTube and Vimeo embeds generally meet these requirements out of the box. Custom players require specific development effort to achieve compliance.'
+    complianceNote: 'YouTube and Vimeo embeds generally meet these requirements out of the box. Custom players require specific development effort to achieve compliance. The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   examples: [
@@ -5874,6 +5878,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       }
     ],
     plainEnglish: 'Printed materials should be readable (good fonts, contrast, and size). Digital materials should also work with screen readers and allow text resizing.',
+    complianceNote: 'The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
   },
 
   examples: [

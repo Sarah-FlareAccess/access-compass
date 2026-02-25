@@ -164,7 +164,7 @@ export default function Landing() {
             <div className="step">
               <div className="step-number">5</div>
               <div className="step-content">
-                <h3>Access the Resource Centre</h3>
+                <h3>Access the Resource Hub</h3>
                 <p>Every recommendation links to practical support — how-to guides, checklists, real examples, and Australian standards references. Everything you need to move from plan to action.</p>
               </div>
             </div>
