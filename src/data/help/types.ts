@@ -10,7 +10,9 @@ export type ModuleGroup =
   | 'before-arrival'
   | 'getting-in'
   | 'during-visit'
-  | 'service-support';
+  | 'service-support'
+  | 'organisational-commitment'
+  | 'events';
 
 // Module codes matching accessModules.ts
 export type ModuleCode =
@@ -107,6 +109,9 @@ export interface HelpContent {
 
   /** Related question IDs for navigation */
   relatedQuestions?: RelatedQuestion[];
+
+  /** All question IDs this entry provides help for (including the primary questionId) */
+  coveredQuestionIds?: string[];
 
   /** Keywords for search functionality */
   keywords?: string[];

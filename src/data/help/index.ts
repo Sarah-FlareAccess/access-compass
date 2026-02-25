@@ -28,6 +28,11 @@ export const allHelpContent: HelpContent[] = [
 const helpByQuestionId = new Map<string, HelpContent>();
 allHelpContent.forEach((content) => {
   helpByQuestionId.set(content.questionId, content);
+  content.coveredQuestionIds?.forEach((qId) => {
+    if (!helpByQuestionId.has(qId)) {
+      helpByQuestionId.set(qId, content);
+    }
+  });
 });
 
 /**
