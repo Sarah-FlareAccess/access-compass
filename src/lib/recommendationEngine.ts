@@ -115,6 +115,8 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Helps people find their way. Relevant if customers need to navigate or find specific areas.' },
   { id: '3.6', name: 'Menus and printed materials', journeyTheme: 'during-visit', estimatedTime: 10, cost: 65,
     description: 'Makes information readable for all. Relevant if you have menus, brochures, or price lists.' },
+  { id: '3.7', name: 'Information when you\'re here', journeyTheme: 'during-visit', estimatedTime: 10, cost: 85,
+    description: 'How customers access information during their visit through signage, printed materials, real-time communication, and on-site support.' },
   { id: '3.8', name: 'Participating in experiences and activities', journeyTheme: 'during-visit', estimatedTime: 8, cost: 85,
     description: 'Ensures activities, events, tours, and services are accessible. Relevant if you offer experiences, spectator events, tours, recreation, or health services.' },
   { id: '3.9', name: 'Accessible accommodation', journeyTheme: 'during-visit', estimatedTime: 10, cost: 110,
@@ -162,6 +164,7 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '3.4': '3.4',
   '3.5': '3.5',
   '3.6': '3.6',
+  '3.7': '3.7',
   '3.8': '3.8',
   '3.9': '3.9',
   '4.2': '4.2',
@@ -194,10 +197,10 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
 
   // During visit touchpoints
   'getting-in': ['2.1', '2.2', '2.3', '2.4'],           // Arrival, entry, paths, queues
-  'using-space': ['3.1', '3.2', '2.4', '3.4'],          // Seating, toilets, queues, equipment
+  'using-space': ['3.1', '3.2', '2.4', '3.4', '3.7'],   // Seating, toilets, queues, equipment, on-site info
   'experiences-activities': ['3.8'],                     // Experiences, events, tours, recreation
   'accommodation-rooms': ['3.9'],                        // Accommodation and guest rooms
-  'wayfinding': ['3.5', '2.3', '3.6'],                  // Signage, paths, printed materials
+  'wayfinding': ['3.5', '2.3', '3.6', '3.7'],            // Signage, paths, printed materials, on-site info
   'sensory': ['3.3', '3.1', '3.4'],                     // Sensory environment, seating, equipment
   'staff-interaction': ['4.2', '4.3', '4.4', '1.5'],      // Customer service, payments, safety, communication
   'service-flexibility': ['4.2', '4.3', '3.8'],         // Customer service, payments/flexibility, experiences
@@ -265,6 +268,21 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
       });
     }
   });
+
+  // Business context boosts
+  const ctx = discoveryData.businessContext;
+  if (ctx?.offersExperiences) {
+    if (scores['3.8']) {
+      scores['3.8'].score += 2;
+      scores['3.8'].triggeringTouchpoints.push('_context_offers_experiences');
+    }
+  }
+  if (ctx?.offersAccommodation) {
+    if (scores['3.9']) {
+      scores['3.9'].score += 2;
+      scores['3.9'].triggeringTouchpoints.push('_context_offers_accommodation');
+    }
+  }
 
   return Object.values(scores);
 }
@@ -579,6 +597,7 @@ function toRecommendedModule(score: ModuleScore, _discoveryData: DiscoveryData |
 
   // Determine "why suggested" type
   const isPadding = score.triggeringTouchpoints.some(t => t.startsWith('_padding'));
+  const isContext = score.triggeringTouchpoints.some(t => t.startsWith('_context_'));
   const isIndustryDefault = score.triggeringTouchpoints.includes('_padding_industry_default');
 
   let whySuggestedType: 'discovery' | 'default-starter' | 'padding' = 'discovery';
@@ -590,7 +609,7 @@ function toRecommendedModule(score: ModuleScore, _discoveryData: DiscoveryData |
 
   // Build human-readable question texts
   const triggeringQuestionTexts = score.triggeringTouchpoints
-    .filter(t => !t.startsWith('_padding'))
+    .filter(t => !t.startsWith('_padding') && !t.startsWith('_context_'))
     .map(t => TOUCHPOINT_LABELS[t] || t);
 
   return {
@@ -602,7 +621,7 @@ function toRecommendedModule(score: ModuleScore, _discoveryData: DiscoveryData |
     score: score.score,
     whySuggested: {
       type: whySuggestedType,
-      triggeringTouchpoints: score.triggeringTouchpoints.filter(t => !t.startsWith('_padding')),
+      triggeringTouchpoints: score.triggeringTouchpoints.filter(t => !t.startsWith('_padding') && !t.startsWith('_context_')),
       triggeringQuestionTexts,
     },
   };

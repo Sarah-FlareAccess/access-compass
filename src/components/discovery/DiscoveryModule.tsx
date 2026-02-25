@@ -25,6 +25,8 @@ interface DiscoveryModuleProps {
       hasOnlinePresence: boolean;
       servesPublicCustomers: boolean;
       hasOnlineServices: boolean;
+      offersExperiences: boolean;
+      offersAccommodation: boolean;
       assessmentType?: 'business' | 'event' | 'both';
     };
   }) => void;
@@ -42,6 +44,8 @@ interface DiscoveryModuleProps {
       hasOnlinePresence?: boolean;
       servesPublicCustomers?: boolean;
       hasOnlineServices?: boolean;
+      offersExperiences?: boolean;
+      offersAccommodation?: boolean;
       assessmentType?: 'business' | 'event' | 'both';
     };
   };
@@ -88,6 +92,12 @@ export function DiscoveryModule({
   const [hasOnlineServices, setHasOnlineServices] = useState<boolean | null>(
     existingData?.businessContext?.hasOnlineServices ?? savedProgress?.businessContext?.hasOnlineServices ?? null
   );
+  const [offersExperiences, setOffersExperiences] = useState<boolean | null>(
+    existingData?.businessContext?.offersExperiences ?? savedProgress?.businessContext?.offersExperiences ?? null
+  );
+  const [offersAccommodation, setOffersAccommodation] = useState<boolean | null>(
+    existingData?.businessContext?.offersAccommodation ?? savedProgress?.businessContext?.offersAccommodation ?? null
+  );
   // Assessment type - 'business' for ongoing operations, 'event' for standalone events, 'both' for both
   type AssessmentType = 'business' | 'event' | 'both';
   const [assessmentType, setAssessmentType] = useState<AssessmentType>(() => {
@@ -131,6 +141,8 @@ export function DiscoveryModule({
         hasOnlinePresence,
         servesPublicCustomers,
         hasOnlineServices,
+        offersExperiences,
+        offersAccommodation,
         assessmentType,
       },
       lastUpdated: new Date().toISOString(),
@@ -145,9 +157,32 @@ export function DiscoveryModule({
     hasOnlinePresence,
     servesPublicCustomers,
     hasOnlineServices,
+    offersExperiences,
+    offersAccommodation,
     assessmentType,
     existingData,
   ]);
+
+  // Auto-select/deselect touchpoints based on business context answers
+  useEffect(() => {
+    if (offersExperiences === true) {
+      setSelectedTouchpoints(prev =>
+        prev.includes('experiences-activities') ? prev : [...prev, 'experiences-activities']
+      );
+    } else if (offersExperiences === false) {
+      setSelectedTouchpoints(prev => prev.filter(t => t !== 'experiences-activities'));
+    }
+  }, [offersExperiences]);
+
+  useEffect(() => {
+    if (offersAccommodation === true) {
+      setSelectedTouchpoints(prev =>
+        prev.includes('accommodation-rooms') ? prev : [...prev, 'accommodation-rooms']
+      );
+    } else if (offersAccommodation === false) {
+      setSelectedTouchpoints(prev => prev.filter(t => t !== 'accommodation-rooms'));
+    }
+  }, [offersAccommodation]);
 
   const toggleModuleSelection = (moduleId: string) => {
     setCustomSelectedModules(prev =>
@@ -291,8 +326,16 @@ export function DiscoveryModule({
       selectedSubTouchpoints,
       responses: {},
       notApplicablePhases,
-      // Mark as explicitly completed if all phases are N/A (user went through flow)
       explicitlyCompleted: allPhasesNA,
+      businessContext: {
+        hasPhysicalVenue: hasPhysicalVenue ?? undefined,
+        hasOnlinePresence: hasOnlinePresence ?? undefined,
+        servesPublicCustomers: servesPublicCustomers ?? undefined,
+        hasOnlineServices: hasOnlineServices ?? undefined,
+        offersExperiences: offersExperiences ?? undefined,
+        offersAccommodation: offersAccommodation ?? undefined,
+        assessmentType,
+      },
     };
 
     // Treat all selected touchpoints as "yes" responses
@@ -301,7 +344,7 @@ export function DiscoveryModule({
     });
 
     return generateRecommendations(discoveryData, industryId, serviceType);
-  }, [selectedTouchpoints, selectedSubTouchpoints, notApplicablePhases, filteredJourneyPhases, industryId, serviceType]);
+  }, [selectedTouchpoints, selectedSubTouchpoints, notApplicablePhases, filteredJourneyPhases, industryId, serviceType, hasPhysicalVenue, hasOnlinePresence, servesPublicCustomers, hasOnlineServices, offersExperiences, offersAccommodation, assessmentType]);
 
   // Calculate depth recommendation
   const depthRecommendation = useMemo(() => {
@@ -375,6 +418,8 @@ export function DiscoveryModule({
           hasOnlinePresence: hasOnlinePresence ?? false,
           servesPublicCustomers: servesPublicCustomers ?? false,
           hasOnlineServices: hasOnlineServices ?? false,
+          offersExperiences: offersExperiences ?? false,
+          offersAccommodation: offersAccommodation ?? false,
           assessmentType,
         },
       });
@@ -583,6 +628,78 @@ export function DiscoveryModule({
                 </p>
               </div>
 
+              {/* Experiences and Activities - only for physical venues */}
+              {hasPhysicalVenue === true && (
+                <div className="context-question">
+                  <label>
+                    Do you offer experiences, activities, tours, or events? <span className="required">*</span>
+                  </label>
+                  <p className="field-helper">e.g. spectator events, guided tours, recreation, gym, pool, conferences, therapy services</p>
+                  <div className="radio-group">
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="offers_experiences"
+                        checked={offersExperiences === true}
+                        onChange={() => setOffersExperiences(true)}
+                        required
+                      />
+                      <span>Yes</span>
+                    </label>
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="offers_experiences"
+                        checked={offersExperiences === false}
+                        onChange={() => setOffersExperiences(false)}
+                        required
+                      />
+                      <span>No</span>
+                    </label>
+                  </div>
+                  <p className="field-tip">
+                    <span className="tip-icon">💡</span>
+                    Select "Yes" if customers participate in any activity, performance, tour, class, or experience at your venue.
+                  </p>
+                </div>
+              )}
+
+              {/* Accommodation - only for physical venues */}
+              {hasPhysicalVenue === true && (
+                <div className="context-question">
+                  <label>
+                    Do you offer overnight accommodation? <span className="required">*</span>
+                  </label>
+                  <p className="field-helper">e.g. hotel rooms, apartments, cabins, hostels, retreat rooms</p>
+                  <div className="radio-group">
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="offers_accommodation"
+                        checked={offersAccommodation === true}
+                        onChange={() => setOffersAccommodation(true)}
+                        required
+                      />
+                      <span>Yes</span>
+                    </label>
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="offers_accommodation"
+                        checked={offersAccommodation === false}
+                        onChange={() => setOffersAccommodation(false)}
+                        required
+                      />
+                      <span>No</span>
+                    </label>
+                  </div>
+                  <p className="field-tip">
+                    <span className="tip-icon">💡</span>
+                    Select "Yes" if guests stay overnight in any type of accommodation you manage.
+                  </p>
+                </div>
+              )}
+
               {/* Assessment Type Toggle */}
               <div className="context-question event-assessment-question">
                 <label>
@@ -745,6 +862,8 @@ export function DiscoveryModule({
                     hasOnlinePresence === null ||
                     servesPublicCustomers === null ||
                     hasOnlineServices === null ||
+                    (hasPhysicalVenue === true && offersExperiences === null) ||
+                    (hasPhysicalVenue === true && offersAccommodation === null) ||
                     // All journey phases must be reviewed (selected OR marked N/A)
                     !filteredJourneyPhases.every(phase => isPhaseReviewed(phase.id))
                   }
@@ -841,7 +960,7 @@ export function DiscoveryModule({
                   icon: '🏪',
                   description: 'Create a physical space where everyone can participate fully',
                   outcome: 'Customers navigate and engage independently',
-                  codes: ['2.1', '2.2', '2.3', '2.4', '3.1', '3.2', '3.3', '3.4', '4.4'],
+                  codes: ['2.1', '2.2', '2.3', '2.4', '3.1', '3.2', '3.3', '3.4', '3.7', '3.8', '3.9', '4.4'],
                 },
                 {
                   id: 'service',

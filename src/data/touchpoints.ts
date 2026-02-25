@@ -134,7 +134,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
           { id: 'counters', label: 'Service counters' },
           { id: 'toilets', label: 'Accessible toilets' },
         ],
-        moduleMapping: ['3.1', '3.2', '3.3'],
+        moduleMapping: ['3.1', '3.2', '3.3', '3.7'],
       },
       {
         id: 'accommodation-rooms',
@@ -153,7 +153,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         label: 'Finding their way',
         description: 'Signage, wayfinding, clarity of layout',
         example: 'e.g. Clear directional signs, maps, colour-coded zones, staff available to assist',
-        moduleMapping: ['2.3', '3.5'],
+        moduleMapping: ['2.3', '3.5', '3.7'],
       },
       {
         id: 'sensory',

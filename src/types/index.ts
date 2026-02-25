@@ -228,6 +228,8 @@ export interface DiscoveryData {
     hasOnlinePresence?: boolean;
     servesPublicCustomers?: boolean;
     hasOnlineServices?: boolean;
+    offersExperiences?: boolean;
+    offersAccommodation?: boolean;
     assessmentType?: 'business' | 'event' | 'both';
   };
 }
