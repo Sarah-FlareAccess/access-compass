@@ -8,8 +8,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { ConsultationCTA } from '../components/ConsultationCTA';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 export default function CheckoutSuccess() {
+  usePageTitle('Payment Successful');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { refreshAccessState, accessState, isAuthenticated } = useAuth();

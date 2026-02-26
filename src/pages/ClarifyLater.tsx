@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getClarifications, updateClarification } from '../utils/session';
 import type { Clarification } from '../types';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 export default function ClarifyLater() {
+  usePageTitle('Clarify Later');
   const [clarifications, setClarifications] = useState<Clarification[]>([]);
 
   useEffect(() => {

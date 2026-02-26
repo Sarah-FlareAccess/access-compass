@@ -16,6 +16,8 @@ import { duringVisitHelp } from './during-visit';
 import { gettingInHelp } from './getting-in';
 import { serviceSupportHelp } from './service-support';
 import { toiletsAmenitiesHelp } from './toilets-amenities';
+import { organisationHelp } from './organisation';
+import { eventsHelp } from './events';
 
 // Combine all help content into a single array
 export const allHelpContent: HelpContent[] = [
@@ -24,6 +26,8 @@ export const allHelpContent: HelpContent[] = [
   ...gettingInHelp,
   ...serviceSupportHelp,
   ...toiletsAmenitiesHelp,
+  ...organisationHelp,
+  ...eventsHelp,
 ];
 
 // Create lookup map for fast access by question ID
@@ -126,3 +130,5 @@ export { duringVisitHelp } from './during-visit';
 export { gettingInHelp } from './getting-in';
 export { serviceSupportHelp } from './service-support';
 export { toiletsAmenitiesHelp } from './toilets-amenities';
+export { organisationHelp } from './organisation';
+export { eventsHelp } from './events';

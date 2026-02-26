@@ -30,6 +30,7 @@ import { ResourceCard } from '../components/help/ResourceCard';
 import { ResourceDetail } from '../components/help/ResourceDetail';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
+import { usePageTitle } from '../hooks/usePageTitle';
 import { MODULES } from '../lib/recommendationEngine';
 import { accessModules } from '../data/accessModules';
 import './ResourceCentre.css';
@@ -144,6 +145,7 @@ const MODULE_ICONS: Record<string, string> = {};
 accessModules.forEach(m => { MODULE_ICONS[m.id] = m.icon; });
 
 export function ResourceCentre() {
+  usePageTitle('Resource Hub');
   const [searchParams, setSearchParams] = useSearchParams();
   const { progress } = useModuleProgress();
 

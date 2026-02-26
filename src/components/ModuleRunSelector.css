@@ -365,6 +365,13 @@
   box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .form-group textarea {
   resize: vertical;
 }

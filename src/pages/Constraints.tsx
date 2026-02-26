@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSession, updateConstraints, saveActions, saveClarifications } from '../utils/session';
 import type { BudgetRange, Capacity, Timeframe, Constraints as ConstraintsType } from '../types';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/form-page.css';
 
 export default function Constraints() {
+  usePageTitle('Constraints');
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<ConstraintsType>({

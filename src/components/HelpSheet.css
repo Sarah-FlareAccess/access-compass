@@ -185,6 +185,11 @@
   background: rgba(73, 14, 103, 0.04);
 }
 
+.faq-question:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .faq-question.expanded {
   background: rgba(73, 14, 103, 0.04);
 }

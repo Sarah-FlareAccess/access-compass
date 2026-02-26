@@ -6,12 +6,14 @@ import { normalizeModuleCode } from '../utils/moduleCompat';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { accessModules } from '../data/accessModules';
 import type { ReviewMode, RecommendationResult, ModuleType } from '../types';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../components/discovery/discovery.css';
 import './DiscoverySummary.css';
 
 type DiscoveryStep = 'summary' | 'discovery';
 
 function Discovery() {
+  usePageTitle('Discovery');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const session = getSession();

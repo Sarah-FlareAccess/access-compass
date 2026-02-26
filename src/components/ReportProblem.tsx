@@ -91,7 +91,7 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
         </button>
 
         {isSubmitted ? (
-          <div className="report-success">
+          <div className="report-success" role="status">
             <div className="success-icon">✓</div>
             <h2>Thank you for your feedback!</h2>
             <p>We've received your report and will look into it.</p>
@@ -147,6 +147,7 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
                   onChange={e => setDescription(e.target.value)}
                   rows={4}
                   required
+                  aria-required="true"
                 />
               </div>
 

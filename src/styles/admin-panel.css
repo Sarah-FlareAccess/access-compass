@@ -236,6 +236,11 @@
   border-color: var(--amethyst-diamond);
 }
 
+.role-select:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .btn-approve,
 .btn-reject,
 .btn-suspend,
@@ -375,6 +380,11 @@
 .form-row input:focus {
   outline: none;
   border-color: var(--amethyst-diamond);
+}
+
+.form-row input:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
 }
 
 .form-row input[type="checkbox"] {
@@ -571,6 +581,11 @@
 .emails-textarea:focus {
   outline: none;
   border-color: var(--amethyst-diamond);
+}
+
+.emails-textarea:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
 }
 
 .emails-textarea::placeholder {
@@ -770,6 +785,11 @@
 .timeout-select:focus {
   outline: none;
   border-color: var(--amethyst-diamond);
+}
+
+.timeout-select:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
 }
 
 .security-divider {

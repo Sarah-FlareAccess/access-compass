@@ -16,6 +16,7 @@ import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import type { ReviewMode } from '../types';
 import type { QuestionResponse, ModuleSummary, CompletionMetadata } from '../hooks/useModuleProgress';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/questions.css';
 
 interface ModuleState {
@@ -26,6 +27,7 @@ interface ModuleState {
 }
 
 export default function DiscoveryQuestions() {
+  usePageTitle('Discovery Questions');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [session, setSession] = useState<any>(null);

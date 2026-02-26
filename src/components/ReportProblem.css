@@ -170,6 +170,11 @@
   box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
+.report-form textarea:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .report-form textarea::placeholder {
   color: #9ca3af;
 }

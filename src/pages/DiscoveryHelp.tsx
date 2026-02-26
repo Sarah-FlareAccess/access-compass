@@ -9,6 +9,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/discovery-help.css';
 
 interface FAQItem {
@@ -114,6 +115,7 @@ const faqSections: FAQSection[] = [
 ];
 
 export default function DiscoveryHelp() {
+  usePageTitle('Help and FAQs');
   const navigate = useNavigate();
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
 

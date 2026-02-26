@@ -367,6 +367,7 @@ export function EvidenceUpload({
               ref={fileInputRef}
               type="file"
               accept={getAcceptedTypes()}
+              capture="environment"
               onChange={handleFileSelect}
               multiple
               className="evidence-file-input"

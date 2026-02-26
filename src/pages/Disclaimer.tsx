@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/disclaimer.css';
 
 type Step = 'disclaimer' | 'auth' | 'organisation' | 'complete';
 type OrgOption = 'none' | 'invite' | 'create';
 
 export default function Disclaimer() {
+  usePageTitle('Terms and Conditions');
   const navigate = useNavigate();
   const {
     signIn,

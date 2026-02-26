@@ -507,6 +507,11 @@
   box-shadow: 0 0 0 3px rgba(58, 11, 82, 0.1);
 }
 
+.form-group input:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .password-input-wrapper {
   position: relative;
   width: 100%;

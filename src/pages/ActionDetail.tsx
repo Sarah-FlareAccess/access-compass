@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getActionById, updateAction } from '../utils/session';
 import type { Action } from '../types';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/action-detail.css';
 
 export default function ActionDetail() {
+  usePageTitle('Action Detail');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [action, setAction] = useState<Action | null>(null);

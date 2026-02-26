@@ -10,9 +10,15 @@ import { PageFooter } from '../components/PageFooter';
 import { downloadPDFReport } from '../utils/pdfGenerator';
 import type { ReviewMode } from '../types/index';
 import type { Report } from '../hooks';
+import { usePageTitle } from '../hooks/usePageTitle';
+import { useBadgeProgress } from '../hooks/useBadgeProgress';
+import { AccessBadge } from '../components/AccessBadge';
+import { downloadCertificate } from '../utils/certificateGenerator';
+import { accessModules } from '../data/accessModules';
 import './Export.css';
 
 export default function Export() {
+  usePageTitle('Export');
   const navigate = useNavigate();
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
@@ -75,6 +81,25 @@ export default function Export() {
   }, [progress]);
 
   const organisationName = session?.business_snapshot?.organisation_name || 'Your Organisation';
+
+  // Badge progress
+  const badgeProgress = useBadgeProgress(progress);
+
+  const handleDownloadCertificate = useCallback(() => {
+    const completedModuleNames = Object.entries(progress)
+      .filter(([, p]) => p.status === 'completed')
+      .map(([id]) => {
+        const mod = accessModules.find(m => m.id === id);
+        return mod ? `${mod.code} ${mod.name}` : id;
+      });
+    downloadCertificate({
+      organisationName,
+      level: badgeProgress.level,
+      completedModules: completedModuleNames,
+      totalModules: badgeProgress.totalModules,
+      completionDate: new Date().toISOString(),
+    });
+  }, [progress, organisationName, badgeProgress.level, badgeProgress.totalModules]);
 
   const handleViewReport = () => {
     if (!isReady) return;
@@ -255,6 +280,32 @@ export default function Export() {
                   Download PDF
                 </button>
               </div>
+
+              {/* Certificate Download */}
+              {badgeProgress.level !== 'none' && (
+                <div className="card">
+                  <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+                    <AccessBadge level={badgeProgress.level} organisationName={organisationName} size="md" />
+                  </div>
+                  <h2>Download Certificate</h2>
+                  <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
+                    Download your {badgeProgress.level.charAt(0).toUpperCase() + badgeProgress.level.slice(1)} level
+                    self-assessment certificate to share with stakeholders
+                  </p>
+                  <div style={{ marginBottom: '15px' }}>
+                    <strong>Level:</strong> {badgeProgress.level.charAt(0).toUpperCase() + badgeProgress.level.slice(1)} ({badgeProgress.percentage}% complete)
+                  </div>
+                  <div style={{ marginBottom: '20px' }}>
+                    <strong>Format:</strong> A4 landscape PDF
+                  </div>
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleDownloadCertificate}
+                  >
+                    Download Certificate
+                  </button>
+                </div>
+              )}
             </div>
           )}
 

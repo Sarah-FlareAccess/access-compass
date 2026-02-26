@@ -8,6 +8,8 @@ export type { BranchCondition, BranchingQuestion } from './useBranchingLogic';
 export { useReportGeneration } from './useReportGeneration';
 export type { Report, ReportSection, QuickWin, ProfessionalSupportIndicator, ModuleCompletionEvidence, UrlAnalysisResult, MediaAnalysisReportResult } from './useReportGeneration';
 
+export { usePageTitle } from './usePageTitle';
+
 // Access system hooks
 export { useAuth } from './useAuth';
 export { useAccessCheck, useDIAPAccess, usePulseAccess } from './useAccessCheck';

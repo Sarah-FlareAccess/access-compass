@@ -4,9 +4,11 @@ import { getSession, updateSelectedModules } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { accessModules, moduleGroups } from '../data/accessModules';
 import type { ModuleType } from '../types';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/module-selection.css';
 
 export default function ModuleSelection() {
+  usePageTitle('Select Modules');
   const navigate = useNavigate();
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
 

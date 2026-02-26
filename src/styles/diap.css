@@ -226,6 +226,11 @@
   box-shadow: 0 0 0 2px rgba(73, 14, 103, 0.1);
 }
 
+.filter-select:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .btn-add-item {
   padding: 10px 18px;
   background: var(--amethyst-diamond);
@@ -771,6 +776,13 @@
 .form-row select:focus {
   outline: none;
   border-color: var(--amethyst-diamond);
+}
+
+.form-row input:focus-visible,
+.form-row textarea:focus-visible,
+.form-row select:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
 }
 
 .form-row textarea {

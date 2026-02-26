@@ -48,6 +48,11 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
+.context-select:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .context-select optgroup {
   font-weight: 600;
   color: #374151;
@@ -249,6 +254,11 @@
 .run-select:focus {
   outline: none;
   border-color: #2563eb;
+}
+
+.run-select:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
 }
 
 .custom-modal-footer {

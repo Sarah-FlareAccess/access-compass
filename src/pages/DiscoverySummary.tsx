@@ -13,6 +13,7 @@ import { MODULES } from '../lib/recommendationEngine';
 import type { JourneyPhase } from '../types';
 import { PageFooter } from '../components/PageFooter';
 import { ModuleDetailModal } from '../components/discovery/ModuleDetailModal';
+import { usePageTitle } from '../hooks/usePageTitle';
 import '../components/discovery/discovery.css';
 import './DiscoverySummary.css';
 
@@ -35,6 +36,7 @@ interface BusinessContext {
 }
 
 export default function DiscoverySummary() {
+  usePageTitle('Discovery Summary');
   const navigate = useNavigate();
   const session = getSession();
   const storedDiscovery = getDiscoveryData();

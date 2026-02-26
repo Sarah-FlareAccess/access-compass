@@ -451,6 +451,7 @@ export function MediaAnalysisInput({
                 ref={fileInputRef}
                 type="file"
                 accept={config.acceptedFileTypes?.join(',') || 'image/*,application/pdf'}
+                capture="environment"
                 onChange={handleFileSelect}
                 className="file-input-hidden"
                 id="media-file-input"

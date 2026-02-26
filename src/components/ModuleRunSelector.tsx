@@ -717,7 +717,7 @@ export function ModuleRunSelector({
         {/* Deletion Success Modal with Recovery Code */}
         {deletionSuccess && (
           <div className="delete-modal-overlay">
-            <div className="delete-modal success-modal">
+            <div className="delete-modal success-modal" role="status">
               <div className="delete-modal-icon">✓</div>
               <h3>Assessment Deleted</h3>
               <p className="success-message">

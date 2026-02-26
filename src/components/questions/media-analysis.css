@@ -468,6 +468,11 @@
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
 }
 
+.url-input:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .wave-notice {
   margin: 12px 0 0 0;
   padding: 12px;

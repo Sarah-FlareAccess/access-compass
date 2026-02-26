@@ -299,6 +299,11 @@
   box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
+.auth-form input:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .auth-form input::placeholder {
   color: #9ca3af;
 }
@@ -615,6 +620,11 @@
   outline: none;
   border-color: var(--amethyst-diamond);
   box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
+}
+
+.org-form input:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
 }
 
 .org-form input::placeholder {

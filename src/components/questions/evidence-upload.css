@@ -424,6 +424,12 @@ a.evidence-item-name:hover {
   border-color: rgba(255, 255, 255, 0.4);
 }
 
+.evidence-link-input:focus-visible,
+.evidence-link-description:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .evidence-link-description {
   font-size: 13px;
 }

@@ -2160,6 +2160,11 @@
   outline: none;
 }
 
+.email-template-text:focus-visible {
+  outline: 3px solid var(--amethyst-diamond);
+  outline-offset: 2px;
+}
+
 .btn-copy-email {
   padding: 10px 24px;
   background: var(--amethyst-diamond);
