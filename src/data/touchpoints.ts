@@ -106,7 +106,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'experiences-activities',
         label: 'Experiences and activities',
-        touchpointIds: ['experiences-activities', 'sensory'],
+        touchpointIds: ['experiences-activities', 'sensory', 'retail-shopping', 'events-management'],
       },
     ],
     touchpoints: [
@@ -175,6 +175,27 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
           { id: 'health-wellbeing', label: 'Health or wellbeing services' },
         ],
         moduleMapping: ['3.8'],
+      },
+      {
+        id: 'retail-shopping',
+        label: 'Browsing and purchasing products',
+        description: 'How customers browse, try on, and purchase products',
+        example: 'e.g. Aisle widths, fitting rooms, checkout accessibility, product labelling, shopping aids',
+        moduleMapping: ['3.10', '4.3'],
+      },
+      {
+        id: 'events-management',
+        label: 'Events and event management',
+        description: 'Planning, running, and managing accessible events',
+        example: 'e.g. Event promotion, venue setup, accessible communications, sensory considerations, on-the-day operations',
+        subTouchpoints: [
+          { id: 'event-planning', label: 'Event planning and promotion' },
+          { id: 'event-venue', label: 'Event venue and access' },
+          { id: 'event-comms', label: 'Event communications' },
+          { id: 'event-sensory', label: 'Sensory and technology' },
+          { id: 'event-operations', label: 'On-the-day operations' },
+        ],
+        moduleMapping: ['6.1', '6.2', '6.3', '6.4', '6.5'],
       },
     ],
   },

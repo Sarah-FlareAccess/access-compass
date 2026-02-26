@@ -43,6 +43,7 @@ export const DISCOVERY_QUESTIONS: DiscoveryQuestion[] = [
   { id: 'DQ09', text: 'Do customers use toilet facilities during their visit?', journeyPhase: 'during-visit', touchpointId: 'using-space' },
   { id: 'DQ09a', text: 'Do customers participate in activities, events, tours, or experiences at your venue?', journeyPhase: 'during-visit', touchpointId: 'experiences-activities' },
   { id: 'DQ09b', text: 'Does your venue offer overnight accommodation (hotel rooms, apartments, cabins, etc.)?', journeyPhase: 'during-visit', touchpointId: 'accommodation-rooms' },
+  { id: 'DQ09c', text: 'Do customers browse, try on, or purchase products at your venue?', journeyPhase: 'during-visit', touchpointId: 'retail-shopping' },
   { id: 'DQ10', text: 'Is lighting, noise, or sensory environment relevant to your space?', journeyPhase: 'during-visit', touchpointId: 'sensory' },
   { id: 'DQ11', text: 'Do staff regularly interact directly with customers?', journeyPhase: 'during-visit', touchpointId: 'staff-interaction' },
   { id: 'DQ11a', text: 'Do you offer service adjustments or flexible options for customers?', journeyPhase: 'during-visit', touchpointId: 'service-flexibility' },
@@ -64,6 +65,7 @@ export const DISCOVERY_QUESTIONS: DiscoveryQuestion[] = [
   { id: 'DQ20', text: 'Do you provide workplace adjustments for employees?', journeyPhase: 'policy-operations', touchpointId: 'workplace-adjustments' },
   { id: 'DQ21', text: 'Do you require accessibility standards from suppliers?', journeyPhase: 'policy-operations', touchpointId: 'supplier-accessibility' },
   { id: 'DQ22', text: 'Do you report on accessibility progress?', journeyPhase: 'policy-operations', touchpointId: 'accessibility-reporting' },
+  { id: 'DQ23', text: 'Do you host, organise, or manage events?', journeyPhase: 'during-visit', touchpointId: 'events-management' },
 ];
 
 // ============================================================================
@@ -121,7 +123,11 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Ensures activities, events, tours, and services are accessible. Relevant if you offer experiences, spectator events, tours, recreation, or health services.' },
   { id: '3.9', name: 'Accessible accommodation', journeyTheme: 'during-visit', estimatedTime: 10, cost: 110,
     description: 'Ensures guest rooms and in-room facilities are accessible. Relevant if you offer overnight accommodation (hotels, apartments, cabins, hostels, retreats).' },
-  // Service and support (4 modules)
+  { id: '3.10', name: 'Retail and shopping accessibility', journeyTheme: 'during-visit', estimatedTime: 10, cost: 85,
+    description: 'Ensures your retail environment is accessible. Relevant if customers browse, try on, or purchase products at your venue.' },
+  // Service and support (5 modules)
+  { id: '4.1', name: 'Ways to reach you', journeyTheme: 'during-visit', estimatedTime: 10, cost: 75,
+    description: 'Ensures customers can contact you through accessible channels. Relevant if customers phone, email, or message you.' },
   { id: '4.2', name: 'Customer service and staff confidence', journeyTheme: 'during-visit', estimatedTime: 15, cost: 130,
     description: 'Prepares your team to help everyone. Relevant for any business with customer-facing staff.' },
   { id: '4.3', name: 'Bookings and ticketing', journeyTheme: 'during-visit', estimatedTime: 10, cost: 75,
@@ -132,6 +138,8 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Gathering accessible feedback and managing reviews. Relevant if you collect surveys, ratings, or online reviews.' },
   { id: '4.6', name: 'Staying connected', journeyTheme: 'after-visit', estimatedTime: 10, cost: 70,
     description: 'Accessible ongoing engagement with customers. Relevant if you send newsletters, promotions, or have loyalty programs.' },
+  { id: '4.7', name: 'Keeping in touch', journeyTheme: 'after-visit', estimatedTime: 10, cost: 70,
+    description: 'Ensures ongoing communications are accessible. Relevant if you send updates, bulletins, or maintain mailing lists.' },
   // Policy and operations (5 modules)
   { id: '5.1', name: 'Policy and inclusion', journeyTheme: 'policy-operations', estimatedTime: 15, cost: 140,
     description: 'Formalises your accessibility commitment. Relevant if you want documented policies and inclusion statements.' },
@@ -143,6 +151,17 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Ensures suppliers and partners meet accessibility standards. Relevant if you purchase products, services, or work with contractors.' },
   { id: '5.5', name: 'Continuous improvement and reporting', journeyTheme: 'policy-operations', estimatedTime: 12, cost: 100,
     description: 'Tracks progress and drives ongoing improvement. Relevant if you want to measure, report, and improve accessibility over time.' },
+  // Events (5 modules)
+  { id: '6.1', name: 'Event planning and promotion', journeyTheme: 'during-visit', estimatedTime: 10, cost: 85,
+    description: 'Ensures events are planned and promoted accessibly. Relevant if you host, organise, or manage events.' },
+  { id: '6.2', name: 'Venue and physical access (events)', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
+    description: 'Ensures event venues are physically accessible. Relevant if you run events with seating, staging, or crowd management.' },
+  { id: '6.3', name: 'Communication and information (events)', journeyTheme: 'during-visit', estimatedTime: 10, cost: 80,
+    description: 'Ensures event communications are accessible. Relevant if events include presentations, signage, or printed materials.' },
+  { id: '6.4', name: 'Sensory access and technology (events)', journeyTheme: 'during-visit', estimatedTime: 10, cost: 85,
+    description: 'Ensures sensory and technological aspects of events are accessible. Relevant if events use AV, lighting, or amplification.' },
+  { id: '6.5', name: 'On-the-day operations', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
+    description: 'Ensures event-day operations support accessibility. Relevant if you manage staff, volunteers, or logistics on event days.' },
 ];
 
 // Module IDs now match codes directly (no mapping needed)
@@ -167,16 +186,24 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '3.7': '3.7',
   '3.8': '3.8',
   '3.9': '3.9',
+  '3.10': '3.10',
+  '4.1': '4.1',
   '4.2': '4.2',
   '4.3': '4.3',
   '4.4': '4.4',
   '4.5': '4.5',
   '4.6': '4.6',
+  '4.7': '4.7',
   '5.1': '5.1',
   '5.2': '5.2',
   '5.3': '5.3',
   '5.4': '5.4',
   '5.5': '5.5',
+  '6.1': '6.1',
+  '6.2': '6.2',
+  '6.3': '6.3',
+  '6.4': '6.4',
+  '6.5': '6.5',
 };
 
 export const CODE_TO_MODULE_ID: Record<string, string> = { ...MODULE_ID_TO_CODE };
@@ -193,24 +220,26 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   'booking': ['1.3', '1.2', '4.3'],                  // Booking systems, website, payments
   'planning-visit': ['1.1', '1.2'],                   // Pre-visit info, website
   'costs-policies': ['4.3', '1.1'],                     // Payments/flexibility, pre-visit info
-  'enquiries': ['4.2', '1.1', '1.5'],                    // Customer service, pre-visit info, communication
+  'enquiries': ['4.2', '1.1', '1.5', '4.1'],               // Customer service, pre-visit info, communication, ways to reach you
 
   // During visit touchpoints
   'getting-in': ['2.1', '2.2', '2.3', '2.4'],           // Arrival, entry, paths, queues
   'using-space': ['3.1', '3.2', '2.4', '3.4', '3.7'],   // Seating, toilets, queues, equipment, on-site info
   'experiences-activities': ['3.8'],                     // Experiences, events, tours, recreation
   'accommodation-rooms': ['3.9'],                        // Accommodation and guest rooms
+  'retail-shopping': ['3.10', '4.3'],                    // Retail shopping, bookings/ticketing
+  'events-management': ['6.1', '6.2', '6.3', '6.4', '6.5'], // All event modules
   'wayfinding': ['3.5', '2.3', '3.6', '3.7'],            // Signage, paths, printed materials, on-site info
   'sensory': ['3.3', '3.1', '3.4'],                     // Sensory environment, seating, equipment
-  'staff-interaction': ['4.2', '4.3', '4.4', '1.5'],      // Customer service, payments, safety, communication
+  'staff-interaction': ['4.2', '4.3', '4.4', '1.5', '4.1'], // Customer service, payments, safety, communication, ways to reach you
   'service-flexibility': ['4.2', '4.3', '3.8'],         // Customer service, payments/flexibility, experiences
 
   // After visit touchpoints
   'feedback': ['4.5'],                                 // Feedback and reviews
   'surveys-forms': ['4.5'],                            // Feedback and reviews
   'online-reviews': ['4.5'],                           // Feedback and reviews
-  'staying-connected-touchpoint': ['4.6', '1.4'],     // Staying connected, video/social
-  'newsletters-email': ['4.6', '1.4'],                // Staying connected
+  'staying-connected-touchpoint': ['4.6', '1.4', '4.7'], // Staying connected, video/social, keeping in touch
+  'newsletters-email': ['4.6', '1.4', '4.7'],           // Staying connected, keeping in touch
   'offers-promotions': ['4.6', '4.3'],                  // Staying connected, payments
   'loyalty-programs': ['4.6', '4.3'],                   // Staying connected, payments
   'referrals': ['4.6'],                                // Staying connected
@@ -295,15 +324,15 @@ export const INDUSTRY_DEFAULT_MODULES: Record<string, string[]> = {
   'tourism': ['2.1', '4.2', '1.1', '2.3', '3.8'],
   'hospitality': ['4.2', '3.1', '3.3', '2.1'],
   'accommodation': ['3.9', '1.3', '3.2', '2.1', '4.2'],
-  'events': ['2.1', '2.3', '4.2', '3.3', '3.8'],
-  'retail': ['2.1', '2.3', '4.2', '1.3'],
+  'events': ['2.1', '2.3', '4.2', '3.3', '3.8', '6.1', '6.2', '6.5'],
+  'retail': ['2.1', '2.3', '4.2', '1.3', '3.10'],
   'corporate': ['1.2', '1.1', '4.2', '2.3'],
   'local-government': ['1.2', '1.1', '4.3', '4.2'],
   'health': ['4.2', '2.1', '3.2', '4.3', '3.8'],
   'education': ['1.1', '4.2', '2.3', '1.2'],
-  'cafe-restaurant': ['4.2', '3.1', '3.3', '2.1', '3.6'],
+  'cafe-restaurant': ['4.2', '3.1', '3.3', '2.1', '3.6', '3.10'],
   'tour-operator': ['4.2', '2.1', '2.3', '1.1', '3.8'],
-  'attraction-museum-gallery': ['2.1', '2.3', '4.2', '3.3', '3.5', '3.8'],
+  'attraction-museum-gallery': ['2.1', '2.3', '4.2', '3.3', '3.5', '3.8', '3.10'],
   'visitor-centre': ['1.1', '4.2', '2.1', '2.3'],
   'other': ['4.2', '1.1', '2.1'],
 };
@@ -336,6 +365,8 @@ const TOUCHPOINT_LABELS: Record<string, string> = {
   'wayfinding': 'Customers find their way around',
   'experiences-activities': 'Customers participate in activities, events, tours, or experiences',
   'accommodation-rooms': 'Your venue offers overnight accommodation',
+  'retail-shopping': 'Customers browse, try on, or purchase products',
+  'events-management': 'You host, organise, or manage events',
   'sensory': 'Lighting, noise, or sensory environment is relevant',
   'staff-interaction': 'Staff regularly interact with customers',
   'service-flexibility': 'You offer adjustments or flexible service options',
