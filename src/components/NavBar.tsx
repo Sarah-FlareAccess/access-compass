@@ -147,6 +147,15 @@ export default function NavBar() {
                 Resources
               </Link>
             )}
+            {location.pathname.startsWith('/training') ? (
+              <span className="nav-link active" aria-current="page">
+                Training
+              </span>
+            ) : (
+              <Link to="/training" className="nav-link" onClick={closeMobileMenu}>
+                Training
+              </Link>
+            )}
           </div>
 
           {/* Mobile-only help link */}

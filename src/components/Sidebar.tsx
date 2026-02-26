@@ -113,6 +113,20 @@ export function Sidebar() {
         </nav>
       </div>
 
+      {/* Training Section */}
+      <div className="sidebar-section">
+        <h3 className="sidebar-section-title">Training</h3>
+        <nav className="sidebar-nav">
+          <Link to="/training" className="sidebar-nav-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 12 3 12 0v-5"/>
+            </svg>
+            Training Hub
+          </Link>
+        </nav>
+      </div>
+
       {/* Help Section */}
       <div className="sidebar-section sidebar-help">
         <h3 className="sidebar-section-title">Need Help?</h3>

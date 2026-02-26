@@ -30,6 +30,7 @@ const PAGES_WITH_SIDEBAR = [
   '/diap',
   '/clarify',
   '/resources',
+  '/training',
   '/action/',
 ];
 

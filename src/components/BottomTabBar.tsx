@@ -58,6 +58,13 @@ const ResourcesIcon = () => (
   </svg>
 );
 
+const TrainingIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+    <path d="M6 12v5c3 3 12 3 12 0v-5"/>
+  </svg>
+);
+
 const HelpIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <circle cx="12" cy="12" r="10"/>
@@ -121,6 +128,12 @@ export function BottomTabBar() {
       path: '/resources',
       label: 'Resources',
       icon: <ResourcesIcon />
+    },
+    {
+      path: '/training',
+      label: 'Training',
+      icon: <TrainingIcon />,
+      matchPaths: ['/training'],
     },
   ];
 

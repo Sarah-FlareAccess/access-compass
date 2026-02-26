@@ -1,0 +1,426 @@
+.lesson-content-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Text blocks */
+.lesson-text-block {
+  line-height: 1.7;
+}
+
+.lesson-block-heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.lesson-block-body {
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.lesson-block-body p {
+  margin: 0 0 12px 0;
+}
+
+.lesson-block-body p:last-child {
+  margin-bottom: 0;
+}
+
+.lesson-block-body ul,
+.lesson-block-body ol {
+  padding-left: 24px;
+  margin: 8px 0;
+}
+
+.lesson-block-body li {
+  margin-bottom: 4px;
+}
+
+.lesson-block-body strong {
+  color: #1f2937;
+}
+
+/* Video blocks */
+.lesson-video-block {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.lesson-video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.lesson-video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.lesson-video-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #f9fafb;
+  font-size: 0.85rem;
+}
+
+.lesson-video-title {
+  font-weight: 600;
+  color: #374151;
+}
+
+.lesson-video-duration {
+  color: #6b7280;
+}
+
+.lesson-video-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+/* Exercise blocks */
+.exercise-block {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.exercise-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #0369a1;
+}
+
+.exercise-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0c4a6e;
+  margin: 0;
+}
+
+.exercise-instructions {
+  color: #1e3a5f;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.exercise-prompt-section {
+  background: #fff;
+  border: 1px solid #e0f2fe;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.exercise-prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f0f9ff;
+  border-bottom: 1px solid #e0f2fe;
+}
+
+.exercise-prompt-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #0369a1;
+}
+
+.exercise-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid #bae6fd;
+  border-radius: 6px;
+  background: #fff;
+  color: #0369a1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.exercise-copy-btn:hover {
+  background: #e0f2fe;
+}
+
+.exercise-copy-btn:focus-visible {
+  outline: 3px solid #0369a1;
+  outline-offset: 2px;
+}
+
+.exercise-prompt-template {
+  padding: 12px;
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #1e3a5f;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace;
+}
+
+.exercise-expected {
+  font-size: 0.9rem;
+  color: #1e3a5f;
+  margin-bottom: 8px;
+}
+
+.exercise-tips {
+  font-size: 0.9rem;
+  color: #1e3a5f;
+}
+
+.exercise-tips ul {
+  padding-left: 20px;
+  margin: 4px 0 0 0;
+}
+
+.exercise-tips li {
+  margin-bottom: 4px;
+}
+
+.exercise-example {
+  margin-top: 12px;
+  border: 1px solid #e0f2fe;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.exercise-example summary {
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0369a1;
+  cursor: pointer;
+  background: #f0f9ff;
+}
+
+.exercise-example summary:hover {
+  background: #e0f2fe;
+}
+
+.exercise-example-content {
+  padding: 12px;
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* Download blocks */
+.download-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.download-block:hover {
+  border-color: #a5b4fc;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
+}
+
+.download-block:focus-visible {
+  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline-offset: 2px;
+}
+
+.download-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #eef2ff;
+  border-radius: 8px;
+  color: #6366f1;
+}
+
+.download-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.download-title {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+.download-description {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.download-meta {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.download-action {
+  flex-shrink: 0;
+  color: #9ca3af;
+}
+
+.download-block:hover .download-action {
+  color: #6366f1;
+}
+
+/* Checklist blocks */
+.lesson-checklist-block {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.lesson-checklist-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #166534;
+  margin: 0 0 12px 0;
+}
+
+.lesson-checklist-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lesson-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+.lesson-checklist-item svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Callout blocks */
+.lesson-callout {
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.callout-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.callout-text {
+  flex: 1;
+}
+
+.callout-tip {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+}
+
+.callout-tip .callout-icon { color: #3b82f6; }
+
+.callout-warning {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+.callout-warning .callout-icon { color: #f59e0b; }
+
+.callout-info {
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
+  color: #5b21b6;
+}
+
+.callout-info .callout-icon { color: #8b5cf6; }
+
+.callout-example {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.callout-example .callout-icon { color: #22c55e; }
+
+/* Image blocks */
+.lesson-image-block {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.lesson-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.lesson-image-caption {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: #6b7280;
+  background: #f9fafb;
+  text-align: center;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

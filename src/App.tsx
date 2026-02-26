@@ -39,6 +39,12 @@ import SupabaseTest from './pages/SupabaseTest';
 // Resource Centre (publicly accessible)
 import ResourceCentre from './pages/ResourceCentre';
 
+// Training Hub (publicly browsable, content access gated per-item)
+import TrainingHub from './pages/TrainingHub';
+import CourseDetail from './pages/CourseDetail';
+import LessonView from './pages/LessonView';
+import TrainingResourceDetail from './pages/TrainingResourceDetail';
+
 import './styles/global.css';
 
 function App() {
@@ -81,6 +87,12 @@ function App() {
 
             {/* Resource Centre - publicly accessible */}
             <Route path="/resources" element={<ResourceCentre />} />
+
+            {/* Training Hub - publicly browsable, content gated per-item */}
+            <Route path="/training" element={<TrainingHub />} />
+            <Route path="/training/course/:slug" element={<CourseDetail />} />
+            <Route path="/training/course/:slug/lesson/:lessonId" element={<LessonView />} />
+            <Route path="/training/resource/:slug" element={<TrainingResourceDetail />} />
 
             {/* ============================================
                 PROTECTED ROUTES (require auth + pulse access)

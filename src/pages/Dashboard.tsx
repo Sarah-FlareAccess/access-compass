@@ -27,9 +27,6 @@ import { OrgAdminPanel } from '../components/OrgAdminPanel';
 import { ReportProblem, ReportProblemTrigger } from '../components/ReportProblem';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { usePageTitle } from '../hooks/usePageTitle';
-import { useBadgeProgress, markMilestoneSeen } from '../hooks/useBadgeProgress';
-import { AccessBadge } from '../components/AccessBadge';
-import { Confetti, useConfetti } from '../components/Confetti';
 import { InstallPrompt } from '../components/InstallPrompt';
 import '../styles/dashboard.css';
 
@@ -348,18 +345,6 @@ export default function Dashboard() {
     };
   }, [groupedModules, getDIAPStats]);
 
-  // Badge progress
-  const badgeProgress = useBadgeProgress(progress);
-  const { showConfetti, triggerConfetti, handleConfettiComplete } = useConfetti();
-  const organisationName = session?.business_snapshot?.organisation_name || 'Your Organisation';
-
-  useEffect(() => {
-    if (badgeProgress.isNewMilestone) {
-      triggerConfetti();
-      markMilestoneSeen(badgeProgress.level);
-    }
-  }, [badgeProgress.isNewMilestone, badgeProgress.level, triggerConfetti]);
-
   // Get action button text and style based on status
   const getActionButton = (status: 'not-started' | 'in-progress' | 'completed') => {
     switch (status) {
@@ -593,6 +578,20 @@ Thanks!`;
             </nav>
           </div>
 
+          {/* Training Section */}
+          <div className="sidebar-section">
+            <h3 className="sidebar-section-title">Training</h3>
+            <nav className="sidebar-nav">
+              <Link to="/training" className="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                  <path d="M6 12v5c3 3 12 3 12 0v-5"/>
+                </svg>
+                Training Hub
+              </Link>
+            </nav>
+          </div>
+
           {/* Quick Stats */}
           {hasCompletedModules && (
             <div className="sidebar-section sidebar-stats">
@@ -627,7 +626,6 @@ Thanks!`;
         {/* Main Content */}
         <main id="main-content" className="dashboard-main" role="main" aria-label="Main content">
           <h1 className="sr-only">Accessibility Dashboard</h1>
-          <Confetti isActive={showConfetti} onComplete={handleConfettiComplete} />
           <div className="dashboard-container">
             <InstallPrompt />
             {/* Primary Action Hero - Clickable */}
@@ -727,41 +725,6 @@ Thanks!`;
               </div>
             </div>
 
-            {/* Badge Milestone */}
-            {badgeProgress.level !== 'none' && (
-              <div
-                className="badge-milestone-card"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '20px',
-                  padding: '16px 20px',
-                  marginTop: '16px',
-                  background: 'rgba(73, 14, 103, 0.04)',
-                  border: '1px solid rgba(73, 14, 103, 0.15)',
-                  borderRadius: '8px',
-                }}
-                aria-live="polite"
-              >
-                <AccessBadge level={badgeProgress.level} organisationName={organisationName} size="sm" />
-                <div style={{ flex: 1 }}>
-                  <strong style={{ display: 'block', fontSize: '14px', color: '#490E67' }}>
-                    {badgeProgress.level.charAt(0).toUpperCase() + badgeProgress.level.slice(1)} Level Achieved
-                  </strong>
-                  <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
-                    {badgeProgress.completedModules} of {badgeProgress.totalModules} modules completed
-                    {badgeProgress.nextLevelAt && ` (${badgeProgress.nextLevelAt}% for next level)`}
-                  </span>
-                </div>
-                <Link
-                  to="/export"
-                  className="btn btn-primary"
-                  style={{ fontSize: '13px', padding: '6px 14px', whiteSpace: 'nowrap' }}
-                >
-                  Download Certificate
-                </Link>
-              </div>
-            )}
           </section>
 
           {/* Mobile Quick Links - visible only on mobile where sidebar is hidden */}
