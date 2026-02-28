@@ -1,60 +1,36 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt(): Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-}
+import { useInstallPrompt } from '../hooks/useInstallPrompt';
 
 const DISMISS_KEY = 'access_compass_install_dismissed';
-const VISIT_KEY = 'access_compass_visit_count';
 const COOLDOWN_DAYS = 7;
 
 export function InstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [showBanner, setShowBanner] = useState(false);
+  const { canInstall, triggerInstall } = useInstallPrompt();
+  const [dismissed, setDismissed] = useState(false);
+  const [inCooldown, setInCooldown] = useState(false);
   const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Track visits
     try {
-      const count = parseInt(localStorage.getItem(VISIT_KEY) || '0', 10);
-      localStorage.setItem(VISIT_KEY, String(count + 1));
-
-      // Check cooldown
       const dismissedAt = localStorage.getItem(DISMISS_KEY);
       if (dismissedAt) {
         const elapsed = Date.now() - parseInt(dismissedAt, 10);
-        if (elapsed < COOLDOWN_DAYS * 24 * 60 * 60 * 1000) return;
+        if (elapsed < COOLDOWN_DAYS * 24 * 60 * 60 * 1000) {
+          setInCooldown(true);
+        }
       }
-
-      // Only show after second visit
-      if (count < 1) return;
     } catch {
-      return;
+      // localStorage unavailable
     }
-
-    const handler = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setShowBanner(true);
-    };
-
-    window.addEventListener('beforeinstallprompt', handler);
-    return () => window.removeEventListener('beforeinstallprompt', handler);
   }, []);
 
   const handleInstall = useCallback(async () => {
-    if (!deferredPrompt) return;
-    await deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      setShowBanner(false);
-    }
-    setDeferredPrompt(null);
-  }, [deferredPrompt]);
+    const accepted = await triggerInstall();
+    if (accepted) setDismissed(true);
+  }, [triggerInstall]);
 
   const handleDismiss = useCallback(() => {
-    setShowBanner(false);
+    setDismissed(true);
     try {
       localStorage.setItem(DISMISS_KEY, String(Date.now()));
     } catch {
@@ -62,7 +38,7 @@ export function InstallPrompt() {
     }
   }, []);
 
-  if (!showBanner) return null;
+  if (!canInstall || dismissed || inCooldown) return null;
 
   return (
     <div

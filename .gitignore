@@ -77,6 +77,9 @@ fix-understanding.js
 # Backup files
 *.bak
 
+# Generated spreadsheet exports
+*.xlsx
+
 # Copyrighted standards PDFs (keep local only)
 docs/*.pdf
 

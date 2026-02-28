@@ -9,11 +9,13 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { getSession } from '../utils/session';
+import { useInstallPrompt } from '../hooks/useInstallPrompt';
 import '../styles/dashboard.css';
 
 export function Sidebar() {
   const location = useLocation();
   const { accessState, user } = useAuth();
+  const { canInstall, triggerInstall } = useInstallPrompt();
   const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
@@ -134,6 +136,19 @@ export function Sidebar() {
         <a href="mailto:support@accesscompass.com.au" className="sidebar-help-link">
           Contact Support
         </a>
+        {canInstall && (
+          <button
+            onClick={triggerInstall}
+            className="sidebar-help-link"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, font: 'inherit', textAlign: 'left' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ marginRight: '6px', verticalAlign: '-2px' }}>
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+              <line x1="12" y1="18" x2="12.01" y2="18" />
+            </svg>
+            Install app
+          </button>
+        )}
       </div>
     </aside>
   );
