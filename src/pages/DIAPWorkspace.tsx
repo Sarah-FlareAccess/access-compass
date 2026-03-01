@@ -19,6 +19,8 @@ import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategory } from '../data/diapMapping';
 import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { hasHelpContent, getHelpByQuestionId } from '../data/help';
+import { getResourceLink } from '../utils/resourceLinks';
 import '../styles/diap.css';
 
 type TabType = 'all' | 'in-progress' | 'completed';
@@ -515,10 +517,10 @@ export default function DIAPWorkspace() {
 
         {/* Import Modal */}
         {showImportModal && (
-          <div className="modal-overlay" onClick={() => { setShowImportModal(false); setImportResult(null); }}>
-            <div className="modal-content import-modal" onClick={e => e.stopPropagation()}>
+          <div className="modal-overlay" onClick={() => { setShowImportModal(false); setImportResult(null); }} onKeyDown={(e) => { if (e.key === 'Escape') { setShowImportModal(false); setImportResult(null); } }}>
+            <div className="modal-content import-modal" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="diap-import-title">
               <div className="modal-header">
-                <h2>Import Existing DIAP</h2>
+                <h2 id="diap-import-title">Import Existing DIAP</h2>
                 <button className="modal-close" onClick={() => { setShowImportModal(false); setImportResult(null); }}>
                   &times;
                 </button>
@@ -686,13 +688,15 @@ export default function DIAPWorkspace() {
         {/* Evidence Layer - Module Completion Metadata */}
         {completedModulesEvidence.length > 0 && (
           <div className="evidence-layer">
-            <div
+            <button
+              type="button"
               className="evidence-layer-header"
               onClick={() => setShowEvidence(!showEvidence)}
+              aria-expanded={showEvidence}
             >
               <h2>Assessment Evidence ({completedModulesEvidence.length} modules completed)</h2>
-              <span className={`chevron ${showEvidence ? 'open' : ''}`}>&#9660;</span>
-            </div>
+              <span className={`chevron ${showEvidence ? 'open' : ''}`} aria-hidden="true">&#9660;</span>
+            </button>
 
             {showEvidence && (
               <div className="evidence-layer-content">
@@ -762,62 +766,80 @@ export default function DIAPWorkspace() {
 
         {/* Tabs and Filters */}
         <div className="diap-controls">
-          <div className="tabs">
+          <div className="tabs" role="tablist" aria-label="DIAP item status">
             <button
               className={`tab ${activeTab === 'all' ? 'active' : ''}`}
               onClick={() => setActiveTab('all')}
+              role="tab"
+              aria-selected={activeTab === 'all'}
             >
               All ({items.length})
             </button>
             <button
               className={`tab ${activeTab === 'in-progress' ? 'active' : ''}`}
               onClick={() => setActiveTab('in-progress')}
+              role="tab"
+              aria-selected={activeTab === 'in-progress'}
             >
               In Progress ({stats.byStatus['in-progress']})
             </button>
             <button
               className={`tab ${activeTab === 'completed' ? 'active' : ''}`}
               onClick={() => setActiveTab('completed')}
+              role="tab"
+              aria-selected={activeTab === 'completed'}
             >
               Completed ({stats.byStatus['completed']})
             </button>
           </div>
 
           <div className="filters">
-            <select
-              value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value as DIAPCategory | 'all')}
-              className="filter-select"
-            >
-              <option value="all">All Categories</option>
-              <option value="physical-access">Physical Access</option>
-              <option value="information-communication-marketing">Information, Communication & Marketing</option>
-              <option value="customer-service">Customer Service</option>
-              <option value="operations-policy-procedure">Operations, Policy & Procedure</option>
-              <option value="people-culture">People & Culture</option>
-            </select>
+            <div className="filter-field">
+              <label htmlFor="diap-filter-category" className="sr-only">Filter by category</label>
+              <select
+                id="diap-filter-category"
+                value={filterCategory}
+                onChange={(e) => setFilterCategory(e.target.value as DIAPCategory | 'all')}
+                className="filter-select"
+              >
+                <option value="all">All Categories</option>
+                <option value="physical-access">Physical Access</option>
+                <option value="information-communication-marketing">Information, Communication & Marketing</option>
+                <option value="customer-service">Customer Service</option>
+                <option value="operations-policy-procedure">Operations, Policy & Procedure</option>
+                <option value="people-culture">People & Culture</option>
+              </select>
+            </div>
 
-            <select
-              value={filterPriority}
-              onChange={(e) => setFilterPriority(e.target.value as DIAPPriority | 'all')}
-              className="filter-select"
-            >
-              <option value="all">All Priorities</option>
-              <option value="high">High Priority</option>
-              <option value="medium">Medium Priority</option>
-              <option value="low">Low Priority</option>
-            </select>
+            <div className="filter-field">
+              <label htmlFor="diap-filter-priority" className="sr-only">Filter by priority</label>
+              <select
+                id="diap-filter-priority"
+                value={filterPriority}
+                onChange={(e) => setFilterPriority(e.target.value as DIAPPriority | 'all')}
+                className="filter-select"
+              >
+                <option value="all">All Priorities</option>
+                <option value="high">High Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="low">Low Priority</option>
+              </select>
+            </div>
 
-            <select
-              value={filterResponsible}
-              onChange={(e) => setFilterResponsible(e.target.value)}
-              className="filter-select"
-            >
-              <option value="all">All Assigned</option>
-              {responsiblePeople.map(person => (
-                <option key={person} value={person}>{person}</option>
-              ))}
-            </select>
+            <div className="filter-field">
+              <label htmlFor="diap-filter-assigned" className="sr-only">Filter by assigned person</label>
+              <select
+                id="diap-filter-assigned"
+                value={filterResponsible}
+                onChange={(e) => setFilterResponsible(e.target.value)}
+                className="filter-select"
+              >
+                <option value="all">All Assigned</option>
+                {responsiblePeople.map(person => (
+                  <option key={person} value={person}>{person}</option>
+                ))}
+              </select>
+            </div>
 
             <button
               className={`btn-add-item ${showAddForm ? 'active' : ''}`}
@@ -963,13 +985,15 @@ export default function DIAPWorkspace() {
 
         {/* Documents Section */}
         <div className="documents-section">
-          <div
+          <button
+            type="button"
             className="section-header"
             onClick={() => setShowDocuments(!showDocuments)}
+            aria-expanded={showDocuments}
           >
             <h2>Supporting Documents ({documents.length + collectedEvidence.length})</h2>
-            <span className={`chevron ${showDocuments ? 'open' : ''}`}>&#9660;</span>
-          </div>
+            <span className={`chevron ${showDocuments ? 'open' : ''}`} aria-hidden="true">&#9660;</span>
+          </button>
 
           {showDocuments && (
             <div className="documents-content">
@@ -1278,6 +1302,20 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, showEditHint }: 
           From module: {item.moduleSource}
         </div>
       )}
+      {item.questionSource && hasHelpContent(item.questionSource) && (() => {
+        const help = getHelpByQuestionId(item.questionSource!);
+        return (
+          <div className="item-resource-link">
+            <Link
+              to={getResourceLink(item.questionSource!)}
+              state={{ from: 'diap' }}
+              className="resource-guide-link"
+            >
+              View guide: {help?.title || 'Resource guide'}
+            </Link>
+          </div>
+        );
+      })()}
     </div>
   );
 }

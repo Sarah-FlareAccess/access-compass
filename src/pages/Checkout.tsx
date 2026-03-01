@@ -4,7 +4,7 @@
 // Handles Stripe checkout session creation
 // ============================================
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { getSession } from '../utils/session';
@@ -27,6 +27,11 @@ export default function Checkout() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
 
   // Get checkout params from URL
   const tier = (searchParams.get('tier') || 'small') as BusinessSizeTier;
@@ -164,7 +169,7 @@ export default function Checkout() {
         </div>
 
         {/* Error Message */}
-        {error && <div id="checkout-error" className="error-message" role="alert">{error}</div>}
+        {error && <div id="checkout-error" className="error-message" role="alert" ref={errorRef} tabIndex={-1}>{error}</div>}
 
         {/* Confirmation Step */}
         {showConfirmation ? (

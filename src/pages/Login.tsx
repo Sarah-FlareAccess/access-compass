@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -19,6 +19,11 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
 
   // Redirect if already authenticated
   const from = (location.state as { from?: string })?.from || '/dashboard';
@@ -112,7 +117,7 @@ export default function Login() {
           </div>
 
           {error && (
-            <div id="login-error" className="login-message login-error" role="alert">
+            <div id="login-error" className="login-message login-error" role="alert" ref={errorRef} tabIndex={-1}>
               {error}
             </div>
           )}

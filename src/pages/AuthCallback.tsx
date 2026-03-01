@@ -9,8 +9,10 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
 import { getSession } from '../utils/session';
 import { useAuth } from '../hooks/useAuth';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 export default function AuthCallback() {
+  usePageTitle('Authenticating');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { mergeAnonymousSession, refreshAccessState } = useAuth();

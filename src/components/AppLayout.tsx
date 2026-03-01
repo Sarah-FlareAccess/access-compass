@@ -9,6 +9,7 @@
  * - Proper ARIA landmarks for screen reader navigation
  */
 
+import { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 import { Sidebar } from './Sidebar';
@@ -36,7 +37,15 @@ const PAGES_WITH_SIDEBAR = [
 
 export default function AppLayout() {
   const location = useLocation();
+  const [routeAnnouncement, setRouteAnnouncement] = useState('');
   const showNav = !PAGES_WITHOUT_NAV.includes(location.pathname);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setRouteAnnouncement(document.title || '');
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
 
   // Check if current path should show sidebar
   const showSidebar = PAGES_WITH_SIDEBAR.some(path =>
@@ -45,6 +54,11 @@ export default function AppLayout() {
 
   return (
     <>
+      {/* Route change announcer for screen readers */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {routeAnnouncement}
+      </div>
+
       {/* Skip link for keyboard navigation - allows users to bypass navigation */}
       <a href="#main-content" className="skip-link">
         Skip to main content

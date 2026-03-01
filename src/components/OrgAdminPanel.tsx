@@ -5,7 +5,7 @@
 // invites, security settings, and audit logs
 // ============================================
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useOrgAdmin } from '../hooks/useOrgAdmin';
 import type {
@@ -73,7 +73,18 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
   const [showAddEmails, setShowAddEmails] = useState(false);
   const [newEmailsText, setNewEmailsText] = useState('');
 
+  const adminPanelRef = useRef<HTMLDivElement>(null);
   const orgId = accessState.organisation?.id;
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleEscape);
+    adminPanelRef.current?.querySelector<HTMLElement>('.btn-close-admin')?.focus();
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
 
   // Load data based on active tab
   const loadData = useCallback(async () => {
@@ -370,19 +381,21 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
 
   return (
     <div className="admin-panel-overlay" onClick={onClose}>
-      <div className="admin-panel" onClick={(e) => e.stopPropagation()}>
+      <div ref={adminPanelRef} className="admin-panel" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="admin-panel-title">
         <div className="admin-panel-header">
-          <h2>Organisation Settings</h2>
+          <h2 id="admin-panel-title">Organisation Settings</h2>
           <p className="admin-org-name">{accessState.organisation?.name}</p>
           <button className="btn-close-admin" onClick={onClose}>
             ✕
           </button>
         </div>
 
-        <nav className="admin-tabs">
+        <div className="admin-tabs" role="tablist" aria-label="Organisation settings">
           <button
             className={`admin-tab ${activeTab === 'members' ? 'active' : ''}`}
             onClick={() => setActiveTab('members')}
+            role="tab"
+            aria-selected={activeTab === 'members'}
           >
             Members
             {pendingMembers.length > 0 && (
@@ -392,22 +405,28 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
           <button
             className={`admin-tab ${activeTab === 'invites' ? 'active' : ''}`}
             onClick={() => setActiveTab('invites')}
+            role="tab"
+            aria-selected={activeTab === 'invites'}
           >
             Invites
           </button>
           <button
             className={`admin-tab ${activeTab === 'security' ? 'active' : ''}`}
             onClick={() => setActiveTab('security')}
+            role="tab"
+            aria-selected={activeTab === 'security'}
           >
             Security
           </button>
           <button
             className={`admin-tab ${activeTab === 'audit' ? 'active' : ''}`}
             onClick={() => setActiveTab('audit')}
+            role="tab"
+            aria-selected={activeTab === 'audit'}
           >
             Activity Log
           </button>
-        </nav>
+        </div>
 
         <div className="admin-content">
           {/* MEMBERS TAB */}

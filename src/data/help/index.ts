@@ -18,6 +18,7 @@ import { serviceSupportHelp } from './service-support';
 import { toiletsAmenitiesHelp } from './toilets-amenities';
 import { organisationHelp } from './organisation';
 import { eventsHelp } from './events';
+import { accessModules } from '../accessModules';
 
 // Combine all help content into a single array
 export const allHelpContent: HelpContent[] = [
@@ -119,6 +120,36 @@ export function getHelpStats(): {
     byModule,
     byCategory,
   };
+}
+
+// Build inline tips lookup from accessModules question data
+const inlineTipsByQuestionId = new Map<string, string[]>();
+for (const mod of accessModules) {
+  for (const q of mod.questions) {
+    if (q.helpContent?.tips && q.helpContent.tips.length > 0) {
+      inlineTipsByQuestionId.set(q.id, q.helpContent.tips);
+    }
+  }
+}
+
+/**
+ * Collect deduplicated inline tips for a list of question IDs
+ */
+export function getInlineTips(questionIds: string[]): string[] {
+  const seen = new Set<string>();
+  const tips: string[] = [];
+  for (const qId of questionIds) {
+    const qTips = inlineTipsByQuestionId.get(qId);
+    if (qTips) {
+      for (const tip of qTips) {
+        if (!seen.has(tip)) {
+          seen.add(tip);
+          tips.push(tip);
+        }
+      }
+    }
+  }
+  return tips;
 }
 
 // Re-export types

@@ -29,6 +29,23 @@
   margin-bottom: var(--spacing-lg);
 }
 
+fieldset.form-group {
+  border: none;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+fieldset.form-group legend {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 0;
+  float: none;
+  width: 100%;
+}
+
 .form-group label {
   display: block;
   margin-bottom: var(--spacing-xs);

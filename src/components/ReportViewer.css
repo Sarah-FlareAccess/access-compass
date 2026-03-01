@@ -604,6 +604,10 @@
   font-size: 12px;
 }
 
+.issue-resource-link {
+  margin-top: 8px;
+}
+
 /* Next Steps */
 .next-steps-container {
   display: grid;

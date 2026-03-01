@@ -1125,6 +1125,29 @@ export const beforeArrivalHelp: HelpContent[] = [
         'Consider pursuing formal accreditation such as AND\'s "Access and Inclusion Index" or your state\'s accessible tourism certification to recognise your investment.'
       ],
       notes: 'Ask the trainer to include at least one person with lived experience of disability in the session. Research consistently shows that hearing directly from people with disability is the most effective way to shift attitudes and build genuine empathy. Budget $500 for a basic half-day session, or up to $2,000 for a full-day session with multiple presenters and follow-up coaching.'
+    },
+    {
+      title: 'Run a staff accessibility confidence survey',
+      description: 'Use a short anonymous survey to measure how confident your staff feel answering accessibility questions. The results tell you exactly where training gaps exist so you can target your efforts. Running the same survey every 6 months tracks whether confidence is improving over time.',
+      resourceLevel: 'low',
+      costRange: 'Free',
+      timeRequired: '30 minutes to set up, 5 minutes per staff member to complete',
+      implementedBy: 'diy',
+      impact: 'quick-win',
+      steps: [
+        'Create a new Google Form (or use SurveyMonkey, Microsoft Forms, or a paper version). Title it "Staff Accessibility Confidence Survey" and enable anonymous responses.',
+        'Add a short intro: "This anonymous survey helps us understand how confident our team feels responding to accessibility questions from customers. Your honest answers will help us identify areas where more support or training would be useful. There are no right or wrong answers."',
+        'Add Question 1 (Linear scale 1-5): "Overall, how confident do you feel answering accessibility questions from customers?" Scale: 1 = Not at all confident, 5 = Very confident.',
+        'Add Question 2 (Multiple choice grid, rows = topics, columns = 1-5 scale): "How confident do you feel answering questions about each of the following?" Rows: Accessible parking and drop-off, Accessible entrances and ramps, Accessible toilets (location and features), Hearing loops or assistive listening, Assistance animals policy, Companion Card acceptance, Wheelchair seating or accessible spaces, Sensory needs (noise, lighting, quiet spaces), Dietary and allergy requirements, Emergency evacuation for people with disability.',
+        'Add Question 3 (Checkboxes): "Which of the following would help you feel more confident? (Select all that apply)" Options: A one-page reference sheet with key access features, A physical walkthrough of accessible features in our venue, Practice role-playing common questions, Hearing from a person with lived experience of disability, A short online training module, Knowing who to escalate complex questions to, Other (short answer).',
+        'Add Question 4 (Short answer, optional): "Is there a specific accessibility question or situation you have found difficult to respond to?"',
+        'Add Question 5 (Short answer, optional): "Any other comments or suggestions for how we can improve?"',
+        'Send the survey link to all customer-facing staff with a completion deadline of one week. Emphasise that responses are anonymous and that low confidence scores are helpful, not something to be embarrassed about.',
+        'Review results and identify the topics with the lowest average confidence scores. These are your priority areas for training or reference materials.',
+        'Share a summary of results with the team (without identifying individuals) and outline what actions you will take in response. This closes the feedback loop and shows staff their input matters.',
+        'Schedule the same survey to run again in 6 months to measure improvement. Compare average scores over time to track progress.'
+      ],
+      notes: 'Aim for at least 70% staff participation to get a reliable picture. If your team is small (under 5 people), consider a brief face-to-face conversation instead, as anonymous surveys lose their anonymity in very small teams. Keep the survey short so completion rates stay high.'
     }
   ],
 
@@ -2605,6 +2628,268 @@ export const beforeArrivalHelp: HelpContent[] = [
 
   keywords: ['mobile', 'responsive', 'phone', 'tablet', 'touch', 'tap target', 'mobile-friendly'],
   lastUpdated: '2026-02-24'
+},
+
+// 1.2-1-8
+{
+  questionId: '1.2-1-8',
+  questionText: 'Has your website been tested with a screen reader?',
+  moduleCode: '1.2',
+  moduleGroup: 'before-arrival',
+  diapCategory: 'information-communication-marketing',
+  title: 'Screen Reader Testing',
+  summary: 'Screen readers convert website content to speech or Braille so people who are blind or have low vision can navigate and interact with your site. Testing with one reveals barriers that visual checks and automated tools miss.',
+  coveredQuestionIds: ['1.2-1-8a', '1.2-1-8b'],
+
+  whyItMatters: {
+    text: 'Automated accessibility checkers can only detect about 30-40% of accessibility issues. A screen reader test exposes real-world problems: images with no descriptions, form fields without labels, headings that jump from level 1 to level 4, and interactive elements that are invisible to keyboard users. These are the issues that actually prevent someone from using your website. Until you hear your site spoken aloud, you do not know what the experience is really like.',
+    statistic: {
+      value: '96.3%',
+      context: 'of the top one million homepages had detectable WCAG failures, and automated tools miss more than half of all barriers.',
+      source: 'WebAIM Million 2025'
+    },
+    quote: {
+      text: 'I tried to book a table online. The screen reader read every image as "image image image." The booking button had no label. I gave up and called, but they did not answer.',
+      attribution: 'Blind screen reader user, accessibility audit participant'
+    }
+  },
+
+  tips: [
+    {
+      icon: 'Monitor',
+      text: 'NVDA is free, open-source, and runs on any Windows PC.',
+      detail: 'Download from nvaccess.org. It works best with Firefox but also supports Chrome. Press Insert+Q to quit at any time. NVDA is the most widely used free screen reader and reflects how a large portion of blind users browse the web.',
+      priority: 1
+    },
+    {
+      icon: 'Laptop',
+      text: 'VoiceOver is built into every Mac, iPhone, and iPad at no cost.',
+      detail: 'On Mac, press Cmd+F5 to toggle VoiceOver on and off. On iPhone or iPad, go to Settings, then Accessibility, then VoiceOver to enable it, or triple-click the side button if you set up the Accessibility Shortcut. VoiceOver works best with Safari.',
+      priority: 2
+    },
+    {
+      icon: 'Smartphone',
+      text: 'TalkBack is built into every Android phone.',
+      detail: 'Go to Settings, then Accessibility, then TalkBack to enable it. Swipe right to move to the next item, double-tap to activate. This is useful for testing how your site works on mobile for screen reader users. TalkBack works best with Chrome on Android.',
+      priority: 3
+    },
+    {
+      icon: 'PlayCircle',
+      text: 'Start with just your homepage. Listen to how the page is announced from top to bottom.',
+      detail: 'Press Tab to jump between interactive elements (links, buttons, forms). Listen for: Are headings announced in a logical order? Do images have meaningful descriptions? Can you tell what each button does? Is the navigation understandable? A homepage test takes about 10 minutes.',
+      priority: 4
+    },
+    {
+      icon: 'AlertTriangle',
+      text: 'Common issues to listen for: "image," "graphic," "unlabelled button," "edit text" with no label.',
+      detail: 'These mean images have no alt text, buttons have no accessible name, or form fields have no label. If the screen reader announces "link, link, link" without descriptive text, your links probably say "click here" or "read more." If headings jump from level 1 to level 4, the page structure is broken.',
+      priority: 5
+    }
+  ],
+
+  howToCheck: {
+    title: 'Run your first screen reader test',
+    steps: [
+      { text: 'Choose a screen reader based on your device. Windows: download NVDA for free from nvaccess.org and install it. Mac: VoiceOver is already installed, press Cmd+F5 to turn it on. iPhone/iPad: go to Settings, Accessibility, VoiceOver. Android: go to Settings, Accessibility, TalkBack.' },
+      { text: 'Open your website in the recommended browser. NVDA works best with Firefox. VoiceOver works best with Safari. TalkBack works best with Chrome on Android.' },
+      { text: 'Turn on the screen reader. Close your eyes or look away from the screen. Listen to how the page is announced from the beginning. Does the page title make sense? Is the first thing announced useful (e.g., your business name and navigation) or is it confusing (e.g., a slider or cookie banner that traps focus)?' },
+      { text: 'Press the Tab key repeatedly to move through all interactive elements (links, buttons, form fields). Listen to how each element is announced. Can you tell what every link goes to? Can you tell what every button does? Are form fields announced with their labels?' },
+      { text: 'Navigate by headings. In NVDA, press H to jump to the next heading. In VoiceOver on Mac, use VO+Cmd+H. Listen for whether headings follow a logical structure (h1, then h2, then h3) and whether they describe the content below them.' },
+      { text: 'Check images. In NVDA, press G to jump to the next graphic. Listen to what is announced. "Image" or "graphic" with no description means alt text is missing. Meaningless text like "IMG_2847" or "banner-final-v2" means alt text needs rewriting.' },
+      { text: 'Test your most important user journey. If you take bookings, try completing a booking using only the screen reader and keyboard. If you have a contact form, try submitting it. If you sell products, try adding one to the cart. Note every point where you get stuck, confused, or cannot proceed.' },
+      { text: 'Write down every issue you find. Group them into: critical (cannot complete a task), major (confusing or difficult but possible to work around), and minor (annoying but does not block access). Prioritise fixing critical issues first.' },
+      { text: 'Turn off the screen reader when finished. NVDA: press Insert+Q. VoiceOver on Mac: press Cmd+F5. VoiceOver on iPhone: triple-click the side button. TalkBack: go to Settings, Accessibility, TalkBack and toggle off.' }
+    ],
+    tools: ['Computer or smartphone', 'NVDA (free download from nvaccess.org, Windows only) or built-in VoiceOver/TalkBack', 'Headphones (optional, helpful for focus)', 'Notepad or document for recording issues'],
+    estimatedTime: '15 minutes for a homepage check, 30-45 minutes to test a key user journey like booking'
+  },
+
+  standardsReference: {
+    primary: {
+      code: 'WCAG2.1-AA',
+      section: 'Multiple criteria',
+      requirement: 'WCAG 2.1 Level AA requires that all content is accessible to assistive technology. Screen reader testing verifies compliance with many criteria simultaneously, including 1.1.1 Non-text Content, 1.3.1 Info and Relationships, 2.4.4 Link Purpose, 2.4.6 Headings and Labels, 3.3.2 Labels or Instructions, and 4.1.2 Name Role Value.'
+    },
+    related: [
+      { code: 'DDA', relevance: 'The Disability Discrimination Act 1992 applies to websites and digital services. An inaccessible website can be the subject of a complaint to the Australian Human Rights Commission.' }
+    ],
+    plainEnglish: 'Australian law requires your website to be accessible. WCAG 2.1 AA is the accepted benchmark. Screen reader testing is the most reliable way to verify whether your site actually works for people who depend on assistive technology, rather than just passing automated checks.',
+    complianceNote: 'Automated tools alone are not sufficient to demonstrate WCAG compliance. Manual testing with assistive technology, including screen readers, is a recognised and recommended part of accessibility conformance testing.'
+  },
+
+  examples: [
+    {
+      businessType: 'restaurant-cafe',
+      businessTypeLabel: 'Restaurant',
+      scenario: 'A restaurant owner assumed their website was accessible because it passed an automated checker with a high score. When a blind customer tried to book online, the screen reader could not read the date picker, the "Book Now" button had no label, and menu item images were announced as "image image image." The customer called to complain and the restaurant had no idea.',
+      solution: 'The owner downloaded NVDA and spent 20 minutes testing the booking page. They found 8 issues in the first test. Their web developer fixed alt text on menu images, added labels to all buttons, and replaced the inaccessible date picker with one that worked with keyboard and screen reader. Total developer time was 3 hours.',
+      outcome: 'The booking page became usable with a screen reader. The restaurant contacted the customer who complained, offered a free meal, and received a positive review mentioning their commitment to fixing the problem.',
+      cost: '$300 (3 hours of web developer time)',
+      timeframe: '20 minutes for testing, 3 hours for fixes'
+    },
+    {
+      businessType: 'accommodation',
+      businessTypeLabel: 'Hotel',
+      scenario: 'A hotel chain ran an annual accessibility audit but had never tested with a real screen reader. Their room booking flow passed automated checks. However, screen reader testing revealed that the room type selector was completely invisible to assistive technology, the accessible room filter did not announce its state, and error messages on the payment form were visual-only with no screen reader announcement.',
+      solution: 'The hotel added quarterly screen reader testing to their QA process. Two staff members completed a 2-hour online NVDA training course. They created a checklist of 15 key interactions to test after each website update: homepage navigation, room search, room filtering, room selection, date picker, guest details form, payment form, confirmation page, contact page, accessibility page, and five common landing pages.',
+      outcome: 'Over 6 months they found and fixed 23 screen reader barriers. Accessible room bookings online increased from near zero to 12 per month. They received commendation from a disability advocacy organisation and featured the work in their annual report.',
+      cost: 'Staff time only (2 hours training, then 1 hour per quarterly test)',
+      timeframe: '2-hour training, then ongoing quarterly testing'
+    },
+    {
+      businessType: 'attraction',
+      businessTypeLabel: 'Museum',
+      scenario: 'A museum redesigned their website with a visually impressive layout featuring parallax scrolling, animated menus, and image-heavy exhibition pages. When a vision-impaired visitor tried to check exhibition details using VoiceOver on their iPhone, the animated menu was impossible to navigate, exhibition descriptions were embedded in images with no alt text, and the "Plan Your Visit" page had no heading structure so VoiceOver could not jump to relevant sections.',
+      solution: 'Museum staff tested the site with VoiceOver on an iPhone (built in, no cost). They documented the issues and briefed their web agency. The agency restructured the navigation to work without animation for assistive technology users, added alt text to all exhibition images, and added proper heading structure to all pages. They also added a skip-to-content link on every page.',
+      outcome: 'The museum now tests with VoiceOver before launching any new exhibition page. A staff volunteer who is a regular VoiceOver user does a 15-minute check of each new page before publication.',
+      cost: '$0 for testing (VoiceOver is free), web agency charged $1,200 for fixes',
+      timeframe: '30 minutes for testing, 2 days for agency fixes'
+    }
+  ],
+
+  solutions: [
+    {
+      title: 'Do a quick homepage screen reader test yourself',
+      description: 'Download NVDA (Windows) or turn on VoiceOver (Mac/iPhone) and spend 15 minutes listening to your homepage. No training required. This single test often reveals the most critical barriers on your site and gives you a concrete understanding of what screen reader users experience.',
+      resourceLevel: 'low',
+      costRange: 'Free',
+      timeRequired: '15-20 minutes',
+      implementedBy: 'diy',
+      impact: 'quick-win',
+      steps: [
+        'Download NVDA from nvaccess.org (Windows) or press Cmd+F5 to turn on VoiceOver (Mac). On iPhone, go to Settings, Accessibility, VoiceOver.',
+        'Open your website homepage in Firefox (NVDA) or Safari (VoiceOver).',
+        'Listen to the page from the beginning without looking at the screen. Note anything confusing.',
+        'Press Tab repeatedly to move through all links and buttons. Can you tell what each one does?',
+        'Press H (NVDA) or VO+Cmd+H (VoiceOver) to jump between headings. Do they make sense in sequence?',
+        'Listen to how images are announced. "Image" with no description means alt text is missing.',
+        'Write down what you found. Even a short list of issues gives your web developer clear actions.',
+        'Turn off the screen reader (NVDA: Insert+Q, VoiceOver: Cmd+F5).'
+      ],
+      notes: 'You do not need to become a screen reader expert. Even a 15-minute first test reveals barriers that automated tools miss. The goal is awareness, not perfection.'
+    },
+    {
+      title: 'Build screen reader testing into your regular workflow',
+      description: 'Train one or two team members to run a basic screen reader check after each website update. Create a simple checklist of key pages and interactions to test. This catches new issues before they reach customers and builds internal accessibility capability over time.',
+      resourceLevel: 'medium',
+      costRange: 'Free',
+      timeRequired: '2 hours initial training, then 30-60 minutes per test cycle',
+      implementedBy: 'staff',
+      impact: 'moderate',
+      steps: [
+        'Identify one or two team members to own screen reader testing. They do not need to be technical, just willing to learn.',
+        'Have them complete a free NVDA tutorial (WebAIM has a comprehensive guide at webaim.org/articles/nvda) or Apple\'s VoiceOver training (built into Mac accessibility preferences).',
+        'Create a testing checklist covering your key pages: homepage, main landing pages, contact page, booking or purchase flow, accessibility information page, and any forms.',
+        'For each page, the checklist should cover: Can the page be navigated by headings? Do all images have meaningful alt text? Are all buttons and links clearly labelled? Can forms be completed? Are error messages announced?',
+        'Schedule testing after each significant website update and at least once per quarter as a routine check.',
+        'Log issues in a shared document with the page URL, the problem description, the severity (critical, major, minor), and whether it has been fixed.',
+        'Review the issue log quarterly to track progress and identify recurring problem patterns.',
+        'Consider pairing testers with your web developer so fixes happen quickly after issues are found.'
+      ],
+      notes: 'Start with NVDA on Windows or VoiceOver on Mac. Testing with one screen reader is far better than testing with none. As your team builds confidence, add mobile testing with VoiceOver on iPhone or TalkBack on Android.'
+    },
+    {
+      title: 'Commission a professional screen reader and assistive technology audit',
+      description: 'Engage an accessibility specialist to conduct thorough testing with multiple screen readers and assistive technologies across your key user journeys. Professional auditors test with real assistive technology, report issues against WCAG criteria, and provide prioritised remediation guidance. This is especially valuable for complex websites with bookings, payments, or interactive features.',
+      resourceLevel: 'high',
+      costRange: '$1,500-5,000',
+      timeRequired: '1-2 weeks for audit and report delivery',
+      implementedBy: 'specialist',
+      impact: 'significant',
+      steps: [
+        'Research accessibility auditing firms with experience in assistive technology testing. In Australia, look for firms accredited by the Australian Human Rights Commission or members of the Australian Web Industry Association (AWIA). Ask whether their testers include people with disability who use assistive technology daily.',
+        'Define the scope: which pages, which user journeys (e.g., homepage to booking confirmation), and which assistive technologies you want tested (NVDA, JAWS, VoiceOver desktop, VoiceOver iOS, TalkBack, Dragon NaturallySpeaking, ZoomText).',
+        'Provide the auditor with test accounts, sample data, and any pages behind login so they can test the full experience.',
+        'Request the report includes: each issue mapped to a specific WCAG criterion, severity rating, a screenshot or recording demonstrating the problem, and a recommended fix.',
+        'Review the report with your web developer or agency. Prioritise critical issues (task blockers) first, then major issues, then minor.',
+        'Fix issues in priority order and have the auditor verify the fixes (most firms offer a retest at reduced cost).',
+        'Schedule follow-up audits annually or after major website redesigns.',
+        'Consider asking the auditor to run a brief training session for your team so you can catch common issues between formal audits.'
+      ],
+      notes: 'The most valuable audits involve testers who use assistive technology as their primary means of accessing the web. Ask your auditor whether their team includes people with lived experience of disability. Budget $1,500 for a focused audit of key pages, or $3,000-5,000 for a comprehensive audit covering all major user journeys.'
+    }
+  ],
+
+  resources: [
+    {
+      title: 'NVDA Screen Reader - Free Download',
+      url: 'https://www.nvaccess.org/download/',
+      type: 'tool',
+      source: 'NV Access',
+      description: 'Free, open-source screen reader for Windows. The most widely used free screen reader worldwide. Works best with Firefox.',
+      isAustralian: false,
+      isFree: true
+    },
+    {
+      title: 'Using NVDA to Evaluate Web Accessibility',
+      url: 'https://webaim.org/articles/nvda/',
+      type: 'guide',
+      source: 'WebAIM',
+      description: 'Step-by-step guide to using NVDA for accessibility testing, covering keyboard commands, navigation techniques, and common issues to look for.',
+      isAustralian: false,
+      isFree: true
+    },
+    {
+      title: 'VoiceOver Getting Started Guide',
+      url: 'https://support.apple.com/en-au/guide/voiceover/welcome/mac',
+      type: 'guide',
+      source: 'Apple',
+      description: 'Official Apple guide to using VoiceOver on Mac. Covers setup, navigation, and keyboard commands for web browsing.',
+      isAustralian: false,
+      isFree: true
+    },
+    {
+      title: 'TalkBack User Guide',
+      url: 'https://support.google.com/accessibility/android/answer/6283677',
+      type: 'guide',
+      source: 'Google',
+      description: 'Official Google guide to TalkBack on Android. Covers gestures, navigation, and how to browse the web with TalkBack enabled.',
+      isAustralian: false,
+      isFree: true
+    },
+    {
+      title: 'Screen Reader User Survey - WebAIM',
+      url: 'https://webaim.org/projects/screenreadersurvey10/',
+      type: 'guide',
+      source: 'WebAIM',
+      description: 'Survey data on which screen readers, browsers, and devices people actually use. Helps you decide which combinations to prioritise when testing.',
+      isAustralian: false,
+      isFree: true
+    },
+    {
+      title: 'Disability Discrimination Act 1992 - Web Accessibility',
+      url: 'https://humanrights.gov.au/our-work/disability-rights/world-wide-web-access-disability-discrimination-act-advisory-notes',
+      type: 'guide',
+      source: 'Australian Human Rights Commission',
+      description: 'Advisory notes on how the DDA applies to website accessibility in Australia, including the expectation that websites meet WCAG 2.1 AA.',
+      isAustralian: true,
+      isFree: true
+    }
+  ],
+
+  relatedQuestions: [
+    {
+      questionId: '1.2-1-1',
+      questionText: 'Can all website content be accessed using only a keyboard?',
+      relationship: 'Screen readers rely on keyboard navigation, so keyboard accessibility is a prerequisite',
+      moduleCode: '1.2'
+    },
+    {
+      questionId: '1.2-1-2',
+      questionText: 'Do images on your website have alt text or image descriptions?',
+      relationship: 'Alt text is one of the first things screen reader testing reveals',
+      moduleCode: '1.2'
+    },
+    {
+      questionId: '1.2-1-7',
+      questionText: 'Do links on your website have clear, descriptive text?',
+      relationship: 'Screen reader users navigate by links and need descriptive link text',
+      moduleCode: '1.2'
+    }
+  ],
+
+  keywords: ['screen reader', 'NVDA', 'VoiceOver', 'TalkBack', 'JAWS', 'assistive technology', 'blind', 'low vision', 'accessibility testing', 'keyboard navigation', 'web accessibility', 'WCAG'],
+  lastUpdated: '2026-03-01'
 },
 
 // Module 1.3: Booking and Ticketing

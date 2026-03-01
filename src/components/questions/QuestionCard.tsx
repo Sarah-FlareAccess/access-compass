@@ -431,6 +431,7 @@ export function QuestionCard({
                 selectedAnswer === 'yes' ? 'selected' : ''
               }`}
               onClick={() => handleYesNoSelect('yes')}
+              aria-pressed={selectedAnswer === 'yes'}
             >
               {RESPONSE_LABELS['yes']}
             </button>
@@ -439,6 +440,7 @@ export function QuestionCard({
                 selectedAnswer === 'partially' ? 'selected' : ''
               }`}
               onClick={() => handleYesNoSelect('partially')}
+              aria-pressed={selectedAnswer === 'partially'}
             >
               {RESPONSE_LABELS['partially']}
             </button>
@@ -447,6 +449,7 @@ export function QuestionCard({
                 selectedAnswer === 'no' ? 'selected' : ''
               }`}
               onClick={() => handleYesNoSelect('no')}
+              aria-pressed={selectedAnswer === 'no'}
             >
               {RESPONSE_LABELS['no']}
             </button>
@@ -455,6 +458,7 @@ export function QuestionCard({
                 selectedAnswer === 'unable-to-check' ? 'selected' : ''
               }`}
               onClick={() => handleYesNoSelect('unable-to-check')}
+              aria-pressed={selectedAnswer === 'unable-to-check'}
             >
               {RESPONSE_LABELS['unable-to-check']}
             </button>
@@ -467,6 +471,7 @@ export function QuestionCard({
                 selectedAnswer === 'not-applicable' ? 'selected' : ''
               }`}
               onClick={() => handleYesNoSelect('not-applicable')}
+              aria-pressed={selectedAnswer === 'not-applicable'}
             >
               {RESPONSE_LABELS['not-applicable']}
             </button>
@@ -604,6 +609,7 @@ export function QuestionCard({
                     measurementConfidence === 'confident' ? 'selected' : ''
                   }`}
                   onClick={() => setMeasurementConfidence('confident')}
+                  aria-pressed={measurementConfidence === 'confident'}
                 >
                   Confident
                 </button>
@@ -613,6 +619,7 @@ export function QuestionCard({
                     measurementConfidence === 'somewhat-confident' ? 'selected' : ''
                   }`}
                   onClick={() => setMeasurementConfidence('somewhat-confident')}
+                  aria-pressed={measurementConfidence === 'somewhat-confident'}
                 >
                   Somewhat confident
                 </button>
@@ -622,6 +629,7 @@ export function QuestionCard({
                     measurementConfidence === 'not-confident' ? 'selected' : ''
                   }`}
                   onClick={() => setMeasurementConfidence('not-confident')}
+                  aria-pressed={measurementConfidence === 'not-confident'}
                 >
                   Not confident
                 </button>
@@ -794,6 +802,7 @@ export function QuestionCard({
                   type="button"
                   className={`single-select-option ${selectedSingleOption === option.id ? 'selected' : ''}`}
                   onClick={() => handleSingleSelectClick(option.id)}
+                  aria-pressed={selectedSingleOption === option.id}
                 >
                   {option.label}
                 </button>

@@ -52,7 +52,7 @@ export default function CheckoutSuccess() {
   if (isVerifying) {
     return (
       <div className="checkout-success-page">
-        <div className="success-container">
+        <div className="success-container" role="status" aria-live="polite">
           <div className="loading-spinner" />
           <h2>Verifying your payment...</h2>
           <p>This will only take a moment.</p>

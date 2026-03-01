@@ -5,9 +5,12 @@
  * for review before completing.
  */
 
+import { Link } from 'react-router-dom';
 import type { QuestionResponse } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
 import { RESPONSE_LABELS, RESPONSE_CSS_CLASSES } from '../../constants/responseOptions';
+import { hasHelpContent, getHelpByQuestionId } from '../../data/help';
+import { getResourceLink } from '../../utils/resourceLinks';
 import './review-summary.css';
 
 interface ReviewSummaryProps {
@@ -247,13 +250,27 @@ export function ReviewSummary({
                 )}
               </div>
 
-              <button
-                className="btn-edit-response"
-                onClick={() => onEditAnswer(response.questionId)}
-                title="Edit this answer"
-              >
-                Edit
-              </button>
+              <div className="response-actions">
+                <button
+                  className="btn-edit-response"
+                  onClick={() => onEditAnswer(response.questionId)}
+                  title="Edit this answer"
+                >
+                  Edit
+                </button>
+                {hasHelpContent(response.questionId) && (() => {
+                  const help = getHelpByQuestionId(response.questionId);
+                  return (
+                    <Link
+                      to={getResourceLink(response.questionId)}
+                      state={{ from: 'review' }}
+                      className="resource-guide-link"
+                    >
+                      View guide: {help?.title || 'Resource guide'}
+                    </Link>
+                  );
+                })()}
+              </div>
             </div>
           );
         })}

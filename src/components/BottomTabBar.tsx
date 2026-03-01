@@ -173,14 +173,14 @@ export function BottomTabBar() {
   return (
     <>
       <nav className="bottom-tab-bar" aria-label="Main navigation">
-        <ul className="tab-bar-list" role="menubar">
+        <ul className="tab-bar-list">
           {tabs.map((tab) => {
             const active = isActive(tab);
             const isExternal = tab.path.startsWith('mailto:') || tab.path.startsWith('http');
             const isAction = !!tab.action;
 
             return (
-              <li key={tab.path} role="none">
+              <li key={tab.path}>
                 {isAction ? (
                   <button
                     className={`tab-bar-item ${active ? 'active' : ''}`}
@@ -189,7 +189,6 @@ export function BottomTabBar() {
                         setHelpSheetOpen(true);
                       }
                     }}
-                    role="menuitem"
                     aria-haspopup="dialog"
                   >
                     <span className="tab-icon">{tab.icon}</span>
@@ -199,7 +198,6 @@ export function BottomTabBar() {
                   <a
                     href={tab.path}
                     className={`tab-bar-item ${active ? 'active' : ''}`}
-                    role="menuitem"
                   >
                     <span className="tab-icon">{tab.icon}</span>
                     <span className="tab-label">{tab.label}</span>
@@ -209,7 +207,6 @@ export function BottomTabBar() {
                     to={tab.path}
                     className={`tab-bar-item ${active ? 'active' : ''}`}
                     aria-current={active ? 'page' : undefined}
-                    role="menuitem"
                   >
                     <span className="tab-icon">{tab.icon}</span>
                     <span className="tab-label">{tab.label}</span>

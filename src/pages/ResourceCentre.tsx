@@ -7,7 +7,7 @@
  */
 
 import { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import {
   Search,
   BookOpen,
@@ -24,7 +24,7 @@ import {
   Briefcase,
   Calendar,
 } from 'lucide-react';
-import { allHelpContent, searchHelp } from '../data/help';
+import { allHelpContent, searchHelp, getHelpByQuestionId } from '../data/help';
 import type { HelpContent, ModuleGroup, DIAPCategory } from '../data/help/types';
 import { ResourceCard } from '../components/help/ResourceCard';
 import { ResourceDetail } from '../components/help/ResourceDetail';
@@ -147,7 +147,11 @@ accessModules.forEach(m => { MODULE_ICONS[m.id] = m.icon; });
 export function ResourceCentre() {
   usePageTitle('Resource Hub');
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { progress } = useModuleProgress();
+
+  const referrer = (location.state as { from?: string })?.from;
 
   // Get state from URL params
   const selectedResourceId = searchParams.get('resource');
@@ -164,10 +168,10 @@ export function ResourceCentre() {
     return progress[moduleCode]?.status === 'completed';
   };
 
-  // Get the selected resource for detail view
+  // Get the selected resource for detail view (uses Map that resolves coveredQuestionIds)
   const selectedResource = useMemo(() => {
     if (!selectedResourceId) return null;
-    return allHelpContent.find(r => r.questionId === selectedResourceId) || null;
+    return getHelpByQuestionId(selectedResourceId) || null;
   }, [selectedResourceId]);
 
   // Filter resources based on search and category
@@ -292,6 +296,17 @@ export function ResourceCentre() {
 
   const hasActiveFilters = searchQuery || selectedCategory || selectedDIAP;
 
+  // Back label and handler depend on where the user navigated from
+  const backLabels: Record<string, string> = {
+    report: 'Back to Report',
+    diap: 'Back to DIAP',
+    review: 'Back to Review',
+    dashboard: 'Back to Dashboard',
+  };
+  const backLabel = (referrer && backLabels[referrer]) || 'Back to Resources';
+
+  const handleBack = referrer ? () => navigate(-1) : handleBackFromDetail;
+
   // If showing resource detail
   if (selectedResource) {
     const resourceUnlocked = isModuleCompleted(selectedResource.moduleCode);
@@ -301,9 +316,9 @@ export function ResourceCentre() {
       return (
         <div className="resource-centre">
           <div className="resource-centre-header">
-            <button className="btn-back" onClick={handleBackFromDetail}>
+            <button className="btn-back" onClick={handleBack}>
               <ArrowLeft size={20} />
-              <span>Back to Resources</span>
+              <span>{backLabel}</span>
             </button>
           </div>
           <div className="resource-locked-detail">
@@ -323,9 +338,9 @@ export function ResourceCentre() {
     return (
       <div className="resource-centre">
         <div className="resource-centre-header">
-          <button className="btn-back" onClick={handleBackFromDetail}>
+          <button className="btn-back" onClick={handleBack}>
             <ArrowLeft size={20} />
-            <span>Back to Resources</span>
+            <span>{backLabel}</span>
           </button>
         </div>
         <ResourceDetail
@@ -353,19 +368,21 @@ export function ResourceCentre() {
       <div className="resource-centre-controls">
         <form className="resource-search-form" onSubmit={handleSearch}>
           <div className="search-input-wrapper">
-            <Search size={20} className="search-icon" />
+            <label htmlFor="resource-search" className="sr-only">Search resources</label>
+            <Search size={20} className="search-icon" aria-hidden="true" />
             <input
               type="text"
+              id="resource-search"
               placeholder="Search resources..."
               value={localSearchQuery}
               onChange={(e) => setLocalSearchQuery(e.target.value)}
               className="search-input"
-              aria-label="Search resources"
             />
             {localSearchQuery && (
               <button
                 type="button"
                 className="search-clear"
+                aria-label="Clear search"
                 onClick={() => {
                   setLocalSearchQuery('');
                   const params = new URLSearchParams(searchParams);
@@ -373,7 +390,7 @@ export function ResourceCentre() {
                   setSearchParams(params);
                 }}
               >
-                <X size={16} />
+                <X size={16} aria-hidden="true" />
               </button>
             )}
           </div>
@@ -437,7 +454,7 @@ export function ResourceCentre() {
 
       {/* Results Summary */}
       {hasActiveFilters && (
-        <div className="resource-results-summary">
+        <div className="resource-results-summary" role="status" aria-live="polite">
           <span>{filteredResources.length} resource{filteredResources.length !== 1 ? 's' : ''} found</span>
           {searchQuery && <span className="search-term">for "{searchQuery}"</span>}
         </div>
@@ -476,9 +493,9 @@ export function ResourceCentre() {
 
       {/* Back button (when browsing a category) */}
       {selectedCategory && !searchQuery && (
-        <button className="btn-back" onClick={() => handleCategorySelect(null)}>
+        <button className="btn-back" onClick={referrer ? handleBack : () => handleCategorySelect(null)}>
           <ArrowLeft size={20} />
-          <span>Back to Resource Hub</span>
+          <span>{referrer ? backLabel : 'Back to Resource Hub'}</span>
         </button>
       )}
 

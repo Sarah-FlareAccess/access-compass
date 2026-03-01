@@ -1696,6 +1696,16 @@
   background: rgba(21, 128, 61, 0.08);
 }
 
+.module-action-btn.btn-resources {
+  background: white;
+  color: var(--amethyst-diamond);
+  border: 2px solid var(--amethyst-diamond);
+}
+
+.module-action-btn.btn-resources:hover {
+  background: rgba(73, 14, 103, 0.08);
+}
+
 /* ============================================
    GUIDANCE FOOTER
    ============================================ */

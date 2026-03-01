@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import './ReportProblem.css';
 
@@ -81,11 +81,36 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
     onClose();
   };
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleEscape = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') handleClose();
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, handleEscape]);
+
+  useEffect(() => {
+    if (isOpen) {
+      modalRef.current?.querySelector<HTMLElement>('.report-close-btn')?.focus();
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
     <div className="report-problem-overlay" onClick={handleClose}>
-      <div className="report-problem-modal" onClick={e => e.stopPropagation()}>
+      <div
+        ref={modalRef}
+        className="report-problem-modal"
+        onClick={e => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="report-problem-title"
+      >
         <button className="report-close-btn" onClick={handleClose} aria-label="Close">
           &times;
         </button>
@@ -102,7 +127,7 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
         ) : (
           <>
             <div className="report-header">
-              <h2>Report a Problem</h2>
+              <h2 id="report-problem-title">Report a Problem</h2>
               <p>Help us improve by reporting bugs, suggesting features, or asking questions.</p>
             </div>
 

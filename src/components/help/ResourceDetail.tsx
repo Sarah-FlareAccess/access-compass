@@ -21,6 +21,7 @@ import {
   ChevronUp,
   Play,
   BookOpen,
+  MessageSquare,
   Building2,
   Scale,
   Clock,
@@ -34,6 +35,7 @@ import {
 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import type { HelpContent, HelpTip, HelpExample, GradedSolution } from '../../data/help/types';
+import { getInlineTips } from '../../data/help';
 import './ResourceDetail.css';
 
 interface ResourceDetailProps {
@@ -76,6 +78,10 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
     setFeedbackGiven(isPositive ? 'positive' : 'negative');
     // Analytics tracking would go here
   };
+
+  // Collect inline tips from covered questions
+  const coveredIds = [resource.questionId, ...(resource.coveredQuestionIds || [])];
+  const inlineTips = getInlineTips(coveredIds);
 
   // Filter examples by business type
   const displayedExamples = selectedBusinessType
@@ -152,6 +158,21 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
             ))}
         </div>
       </section>
+
+      {/* Guidance Notes (inline tips from questions) */}
+      {inlineTips.length > 0 && (
+        <section className="resource-section guidance-notes-section">
+          <div className="section-header">
+            <MessageSquare size={22} className="section-icon" />
+            <h2>Guidance Notes</h2>
+          </div>
+          <ul className="guidance-notes-list" role="list">
+            {inlineTips.map((tip, index) => (
+              <li key={index}>{tip}</li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* Solutions */}
       {resource.solutions && resource.solutions.length > 0 && (

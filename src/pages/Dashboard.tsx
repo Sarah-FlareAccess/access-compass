@@ -28,6 +28,7 @@ import { ReportProblem, ReportProblemTrigger } from '../components/ReportProblem
 import { BottomTabBar } from '../components/BottomTabBar';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { InstallPrompt } from '../components/InstallPrompt';
+import { getCategoryLink } from '../utils/resourceLinks';
 import '../styles/dashboard.css';
 
 type TabType = 'modules' | 'evidence';
@@ -611,7 +612,7 @@ Thanks!`;
 
           {/* Help Section */}
           <div className="sidebar-section sidebar-help">
-            <h3 className="sidebar-section-title">Need Help?</h3>
+            <h3 className="sidebar-section-title">Need help?</h3>
             <p className="sidebar-hint">Questions about accessibility auditing or using Access Compass?</p>
             <a href="mailto:support@accesscompass.com.au" className="sidebar-help-link">
               Contact Support
@@ -745,7 +746,7 @@ Thanks!`;
                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
-              <span>Need Help?</span>
+              <span>Need help?</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="chevron">
                 <polyline points="9 18 15 12 9 6"/>
               </svg>
@@ -753,24 +754,32 @@ Thanks!`;
           </div>
 
           {/* Navigation Tabs */}
-          <nav className="dashboard-tabs">
+          <div className="dashboard-tabs" role="tablist" aria-label="Dashboard sections">
             <button
               className={`tab-btn ${activeTab === 'modules' ? 'active' : ''}`}
               onClick={() => setActiveTab('modules')}
+              role="tab"
+              aria-selected={activeTab === 'modules'}
+              aria-controls="tab-panel-modules"
+              id="tab-modules"
             >
               Modules
             </button>
             <button
               className={`tab-btn ${activeTab === 'evidence' ? 'active' : ''}`}
               onClick={() => setActiveTab('evidence')}
+              role="tab"
+              aria-selected={activeTab === 'evidence'}
+              aria-controls="tab-panel-evidence"
+              id="tab-evidence"
             >
               Evidence Library
             </button>
-          </nav>
+          </div>
 
           {/* Tab Content */}
           {activeTab === 'modules' && (
-            <div className="modules-content">
+            <div className="modules-content" role="tabpanel" id="tab-panel-modules" aria-labelledby="tab-modules">
               {groupedModules.map(group => {
                 const isExpanded = expandedGroups.has(group.id);
                 const groupProgress = group.totalCount > 0 ? Math.round((group.completedCount / group.totalCount) * 100) : 0;
@@ -958,6 +967,16 @@ Thanks!`;
                               >
                                 {action.text}
                               </Link>
+                              {status === 'completed' && (
+                                <Link
+                                  to={getCategoryLink(group.id)}
+                                  state={{ from: 'dashboard' }}
+                                  className="module-action-btn btn-resources"
+                                  aria-label={`Browse resources for ${module.name}`}
+                                >
+                                  Resources
+                                </Link>
+                              )}
                               {isDeepDive && (
                                 <button
                                   type="button"
@@ -1032,7 +1051,7 @@ Thanks!`;
           )}
 
           {activeTab === 'evidence' && (
-            <div className="evidence-content">
+            <div className="evidence-content" role="tabpanel" id="tab-panel-evidence" aria-labelledby="tab-evidence">
               <div className="evidence-empty">
                 <div className="evidence-icon">📁</div>
                 <h3>Evidence Library</h3>

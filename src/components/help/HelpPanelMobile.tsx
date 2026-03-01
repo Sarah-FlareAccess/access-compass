@@ -39,6 +39,16 @@ export function HelpPanelMobile({
     }
   }, [isOpen]);
 
+  // Escape key to close
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
+
   // Prevent body scroll when open
   useEffect(() => {
     if (isOpen) {

@@ -17,6 +17,11 @@ export default function ResetPassword() {
   const [ready, setReady] = useState(false);
   const [checking, setChecking] = useState(true);
   const recoveryDetected = useRef(false);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
 
   useEffect(() => {
     if (!supabase) {
@@ -51,12 +56,7 @@ export default function ResetPassword() {
     };
   }, []);
 
-  useEffect(() => {
-    if (success) {
-      const timer = setTimeout(() => navigate('/login', { replace: true }), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [success, navigate]);
+  // No auto-redirect after success: user navigates manually (WCAG 2.2.1 timing adjustable)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,7 +93,7 @@ export default function ResetPassword() {
       <div className="login-page">
         <div className="container">
           <div className="login-card">
-            <p style={{ textAlign: 'center', padding: '2rem' }}>Verifying reset link...</p>
+            <p style={{ textAlign: 'center', padding: '2rem' }} role="status" aria-live="polite">Verifying reset link...</p>
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@ export default function ResetPassword() {
               <span className="login-icon">🧭</span>
               <h1>Password updated</h1>
               <p className="login-subtitle">
-                Your password has been reset successfully. Redirecting to sign in...
+                Your password has been reset successfully.
               </p>
             </div>
             <div className="login-message login-success" role="status">
@@ -166,7 +166,7 @@ export default function ResetPassword() {
           </div>
 
           {error && (
-            <div className="login-message login-error" role="alert">
+            <div className="login-message login-error" role="alert" ref={errorRef} tabIndex={-1}>
               {error}
             </div>
           )}

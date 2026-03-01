@@ -229,13 +229,26 @@ export function SessionTimeoutWarning({
 }: SessionTimeoutWarningProps) {
   const minutes = Math.floor(remainingSeconds / 60);
   const seconds = remainingSeconds % 60;
+  const extendBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    extendBtnRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onExtend();
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [onExtend]);
 
   return (
     <div className="session-timeout-overlay">
-      <div className="session-timeout-modal">
-        <div className="timeout-icon">&#9200;</div>
-        <h2>Session Expiring Soon</h2>
-        <p>
+      <div className="session-timeout-modal" role="alertdialog" aria-modal="true" aria-labelledby="session-timeout-title" aria-describedby="session-timeout-desc">
+        <div className="timeout-icon" aria-hidden="true">&#9200;</div>
+        <h2 id="session-timeout-title">Session Expiring Soon</h2>
+        <p id="session-timeout-desc">
           Your session will expire in{' '}
           <strong>
             {minutes > 0 ? `${minutes}m ` : ''}
@@ -247,9 +260,9 @@ export function SessionTimeoutWarning({
         </p>
         <div className="timeout-actions">
           <button className="btn-timeout-logout" onClick={onLogout}>
-            Log Out Now
+            Sign out now
           </button>
-          <button className="btn-timeout-extend" onClick={onExtend}>
+          <button ref={extendBtnRef} className="btn-timeout-extend" onClick={onExtend}>
             Stay Logged In
           </button>
         </div>

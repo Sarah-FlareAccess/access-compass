@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { initializeSession, updateBusinessSnapshot, getSession, getDiscoveryData } from '../utils/session';
 import type { BusinessSnapshot, BusinessType, UserRole, OrganisationSize } from '../types';
@@ -74,6 +74,11 @@ export default function BusinessSnapshotPage() {
   usePageTitle('Organisation Details');
   const navigate = useNavigate();
   const [validationError, setValidationError] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (validationError) errorRef.current?.focus();
+  }, [validationError]);
   const [formData, setFormData] = useState<BusinessSnapshot>({
     organisation_name: '',
     organisation_size: '' as OrganisationSize,
@@ -151,7 +156,7 @@ export default function BusinessSnapshotPage() {
           <h1>Let's get started</h1>
           <p className="helper-text">First, a few details about your organisation</p>
 
-          {validationError && <div id="snapshot-error" className="message error-message" role="alert">{validationError}</div>}
+          {validationError && <div id="snapshot-error" className="message error-message" role="alert" ref={errorRef} tabIndex={-1}>{validationError}</div>}
 
           <form onSubmit={handleSubmit}>
             {/* Organisation Name */}
@@ -168,46 +173,50 @@ export default function BusinessSnapshotPage() {
                   setFormData({ ...formData, organisation_name: e.target.value })
                 }
                 required
+                autoComplete="organization"
                 aria-invalid={!!validationError && !formData.organisation_name}
                 aria-describedby={validationError ? 'snapshot-error' : undefined}
               />
             </div>
 
             {/* Organisation Size */}
-            <div className="form-group">
-              <label>
+            <fieldset className="form-group">
+              <legend>
                 Organisation size <span className="required">*</span>
-              </label>
-              <div className="bubble-select size-bubbles">
+              </legend>
+              <div className="bubble-select size-bubbles" role="radiogroup">
                 {organisationSizeOptions.map((option) => (
                   <button
                     key={option.value}
                     type="button"
                     className={`bubble-option ${formData.organisation_size === option.value ? 'selected' : ''}`}
                     onClick={() => setFormData({ ...formData, organisation_size: option.value })}
+                    role="radio"
+                    aria-checked={formData.organisation_size === option.value}
                   >
                     <span className="bubble-label">{option.label}</span>
                     <span className="bubble-description">{option.description}</span>
                   </button>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
             {/* Business Types - Multi-select */}
-            <div className="form-group">
-              <label>
+            <fieldset className="form-group">
+              <legend>
                 What type of organisation are you? <span className="required">*</span>
-              </label>
+              </legend>
               <p className="field-helper">Select all that apply</p>
-              <div className="bubble-select type-bubbles">
+              <div className="bubble-select type-bubbles" role="group">
                 {businessTypeOptions.map((option) => (
                   <button
                     key={option.value}
                     type="button"
                     className={`bubble-option ${formData.business_types.includes(option.value) ? 'selected' : ''}`}
                     onClick={() => toggleBusinessType(option.value)}
+                    aria-pressed={formData.business_types.includes(option.value)}
                   >
-                    <span className="bubble-icon">{option.icon}</span>
+                    <span className="bubble-icon" aria-hidden="true">{option.icon}</span>
                     <div className="bubble-content">
                       <span className="bubble-label">{option.label}</span>
                       <span className="bubble-description">{option.examples}</span>
@@ -215,7 +224,7 @@ export default function BusinessSnapshotPage() {
                   </button>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
             {/* User Role */}
             <div className="form-group">

@@ -5,9 +5,12 @@
  * for pulse-check (1-page summary) vs deep-dive (detailed report).
  */
 
+import { Link } from 'react-router-dom';
 import type { Report } from '../hooks/useReportGeneration';
 import { downloadPDFReport } from '../utils/pdfGenerator';
 import { RESPONSE_LABELS } from '../constants/responseOptions';
+import { hasHelpContent, getHelpByQuestionId } from '../data/help';
+import { getResourceLink } from '../utils/resourceLinks';
 import './ReportViewer.css';
 
 // Helper function to format analysis type for display
@@ -608,25 +611,20 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                           ))}
                         </ul>
                       </div>
-                      <div className="issue-resources">
-                        <strong>Resources:</strong>
-                        <ul>
-                          {issue.resourceLinks.map((link, linkIndex) => {
-                            // Parse resource links in format "Label → /path"
-                            const parts = link.split(' → ');
-                            if (parts.length === 2 && parts[1].startsWith('/')) {
-                              return (
-                                <li key={linkIndex}>
-                                  <a href={parts[1]} className="resource-link">
-                                    {parts[0]}
-                                  </a>
-                                </li>
-                              );
-                            }
-                            return <li key={linkIndex}>{link}</li>;
-                          })}
-                        </ul>
-                      </div>
+                      {hasHelpContent(issue.questionId) && (() => {
+                        const help = getHelpByQuestionId(issue.questionId);
+                        return (
+                          <div className="issue-resource-link">
+                            <Link
+                              to={getResourceLink(issue.questionId)}
+                              state={{ from: 'report' }}
+                              className="resource-guide-link"
+                            >
+                              View guide: {help?.title || 'Resource guide'}
+                            </Link>
+                          </div>
+                        );
+                      })()}
                     </div>
                   ))}
                 </div>

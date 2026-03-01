@@ -408,10 +408,10 @@ export default function DiscoverySummary() {
 
         {/* Touchpoint Edit Warning Modal */}
         {showTouchpointEditWarning && (
-          <div className="warning-modal-overlay" onClick={() => setShowTouchpointEditWarning(false)}>
-            <div className="warning-modal" onClick={(e) => e.stopPropagation()}>
-              <div className="warning-modal-icon">⚠️</div>
-              <h3>Update Your Visitor Journey?</h3>
+          <div className="warning-modal-overlay" onClick={() => setShowTouchpointEditWarning(false)} onKeyDown={(e) => { if (e.key === 'Escape') setShowTouchpointEditWarning(false); }}>
+            <div className="warning-modal" onClick={(e) => e.stopPropagation()} role="alertdialog" aria-modal="true" aria-labelledby="touchpoint-warning-title">
+              <div className="warning-modal-icon" aria-hidden="true">⚠️</div>
+              <h3 id="touchpoint-warning-title">Update Your Visitor Journey?</h3>
               <p>
                 Editing your visitor journey will recalculate your recommended modules, which may affect your plan.
               </p>

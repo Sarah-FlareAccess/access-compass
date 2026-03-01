@@ -150,12 +150,12 @@ export interface Report {
     moduleId: string;
     moduleName: string;
     issues: Array<{
+      questionId: string;
       questionText: string;
       reasoning: string;
       priority: 'high' | 'medium' | 'low';
       recommendedActions: string[];
       resourceLinks: string[];
-      // Compliance information
       complianceLevel?: 'mandatory' | 'best-practice';
       complianceRef?: string;
     }>;
@@ -2157,12 +2157,12 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
         const resourceLinks = getReportResourceLinks(question.id, module.code);
 
         return {
+          questionId: question.id,
           questionText: question.text,
           reasoning,
           priority,
           recommendedActions,
           resourceLinks,
-          // Include compliance information from question metadata
           complianceLevel: question.complianceLevel,
           complianceRef: question.complianceRef,
         };

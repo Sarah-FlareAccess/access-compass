@@ -148,7 +148,7 @@ export function HelpSheet({ isOpen, onClose }: HelpSheetProps) {
         {/* Header */}
         <div className="help-sheet-header">
           <h2 id="help-sheet-title" className="help-sheet-title">
-            Need a hand?
+            Need help?
           </h2>
           <button
             ref={firstFocusableRef}

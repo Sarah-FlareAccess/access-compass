@@ -38,7 +38,7 @@
 //
 // ============================================
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
@@ -93,6 +93,12 @@ export default function Decision() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
 
   // Form state
   const [email, setEmail] = useState('');
@@ -570,7 +576,7 @@ export default function Decision() {
         <h2>Sign in</h2>
         <p className="auth-subtitle">Sign in to continue with your purchase</p>
 
-        {error && <div id="decision-login-error" className="message error-message" role="alert">{error}</div>}
+        {error && <div id="decision-login-error" className="message error-message" role="alert" ref={errorRef} tabIndex={-1}>{error}</div>}
         {successMessage && <div className="message success-message" role="status">{successMessage}</div>}
 
         <form onSubmit={handleSignIn} className="auth-form" aria-busy={isProcessing}>
@@ -650,7 +656,7 @@ export default function Decision() {
         <h2>Create account</h2>
         <p className="auth-subtitle">Create an account to get started</p>
 
-        {error && <div id="decision-signup-error" className="message error-message" role="alert">{error}</div>}
+        {error && <div id="decision-signup-error" className="message error-message" role="alert" ref={errorRef} tabIndex={-1}>{error}</div>}
         {successMessage && <div className="message success-message" role="status">{successMessage}</div>}
 
         <form onSubmit={handleSignUp} className="auth-form" aria-busy={isProcessing}>
@@ -722,7 +728,7 @@ export default function Decision() {
         <h2>Reset password</h2>
         <p className="auth-subtitle">Enter your email to receive reset instructions</p>
 
-        {error && <div id="decision-reset-error" className="message error-message" role="alert">{error}</div>}
+        {error && <div id="decision-reset-error" className="message error-message" role="alert" ref={errorRef} tabIndex={-1}>{error}</div>}
         {successMessage && <div className="message success-message" role="status">{successMessage}</div>}
 
         <form onSubmit={handleResetPassword} className="auth-form" aria-busy={isProcessing}>
@@ -759,7 +765,7 @@ export default function Decision() {
         <h2>Organisation access</h2>
         <p className="auth-subtitle">Enter your organisation's invite code</p>
 
-        {error && <div id="decision-invite-error" className="message error-message" role="alert">{error}</div>}
+        {error && <div id="decision-invite-error" className="message error-message" role="alert" ref={errorRef} tabIndex={-1}>{error}</div>}
         {successMessage && <div className="message success-message" role="status">{successMessage}</div>}
 
         {!isAuthenticated && (

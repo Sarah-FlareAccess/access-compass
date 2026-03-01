@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -47,6 +47,11 @@ export default function Disclaimer() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
 
   // When user becomes authenticated while on disclaimer or auth step, move to organisation step
   useEffect(() => {
@@ -308,7 +313,7 @@ export default function Disclaimer() {
               </p>
 
               {error && (
-                <div className="auth-message auth-error" role="alert">
+                <div className="auth-message auth-error" role="alert" ref={errorRef} tabIndex={-1}>
                   {error}
                 </div>
               )}
@@ -451,7 +456,7 @@ export default function Disclaimer() {
               </p>
 
               {error && (
-                <div className="auth-message auth-error" role="alert">
+                <div className="auth-message auth-error" role="alert" ref={errorRef} tabIndex={-1}>
                   {error}
                 </div>
               )}
