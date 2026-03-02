@@ -51,9 +51,9 @@
   gap: var(--spacing-lg);
 }
 
-.nav-link,
-.nav-link:link,
-.nav-link:visited {
+.header-nav .nav-link,
+.header-nav .nav-link:link,
+.header-nav .nav-link:visited {
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   font-size: 0.95rem;
@@ -63,8 +63,8 @@
   border-bottom: 1px solid transparent;
 }
 
-.nav-link:hover,
-.nav-link:active {
+.header-nav .nav-link:hover,
+.header-nav .nav-link:active {
   color: #fbbf24;
   border-bottom-color: rgba(251, 191, 36, 0.5);
 }
@@ -1084,9 +1084,9 @@
     gap: var(--spacing-md);
   }
 
-  .nav-link,
-  .nav-link:link,
-  .nav-link:visited {
+  .header-nav .nav-link,
+  .header-nav .nav-link:link,
+  .header-nav .nav-link:visited {
     font-size: 0.9rem;
     padding: 6px 0;
   }

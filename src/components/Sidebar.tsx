@@ -43,14 +43,14 @@ export function Sidebar() {
       {/* Organisation Identity */}
       <div className="sidebar-org-identity">
         <div className="sidebar-org-info">
-          <h2 className="sidebar-org-name">{orgName}</h2>
+          <div className="sidebar-org-name">{orgName}</div>
           {hasOrgMembership && <span className="sidebar-user-role">{userRole}</span>}
         </div>
       </div>
 
       {/* Main Navigation */}
       <div className="sidebar-section">
-        <h3 className="sidebar-section-title">Navigation</h3>
+        <div className="sidebar-section-title">Navigation</div>
         <nav className="sidebar-nav" aria-label="Main">
           <Link to="/dashboard" className="sidebar-nav-item sidebar-nav-featured" aria-current={location.pathname === '/dashboard' ? 'page' : undefined}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -66,7 +66,7 @@ export function Sidebar() {
 
       {/* Discovery Section */}
       <div className="sidebar-section">
-        <h3 className="sidebar-section-title">Discovery</h3>
+        <div className="sidebar-section-title">Discovery</div>
         <nav className="sidebar-nav" aria-label="Discovery">
           <Link to="/discovery/summary" className="sidebar-nav-item" aria-current={location.pathname === '/discovery/summary' ? 'page' : undefined}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -80,7 +80,7 @@ export function Sidebar() {
 
       {/* Outputs Section */}
       <div className="sidebar-section">
-        <h3 className="sidebar-section-title">Your Outputs</h3>
+        <div className="sidebar-section-title">Your Outputs</div>
         <nav className="sidebar-nav" aria-label="Outputs">
           <Link to="/export" className="sidebar-nav-item" aria-current={location.pathname === '/export' ? 'page' : undefined}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -103,7 +103,7 @@ export function Sidebar() {
 
       {/* Resources Section */}
       <div className="sidebar-section">
-        <h3 className="sidebar-section-title">Resources</h3>
+        <div className="sidebar-section-title">Resources</div>
         <nav className="sidebar-nav" aria-label="Resources">
           <Link to="/resources" className="sidebar-nav-item" aria-current={location.pathname === '/resources' ? 'page' : undefined}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -117,7 +117,7 @@ export function Sidebar() {
 
       {/* Training Section */}
       <div className="sidebar-section">
-        <h3 className="sidebar-section-title">Training</h3>
+        <div className="sidebar-section-title">Training</div>
         <nav className="sidebar-nav" aria-label="Training">
           <Link to="/training" className="sidebar-nav-item" aria-current={location.pathname.startsWith('/training') ? 'page' : undefined}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -131,7 +131,7 @@ export function Sidebar() {
 
       {/* Help Section */}
       <div className="sidebar-section sidebar-help">
-        <h3 className="sidebar-section-title">Need help?</h3>
+        <div className="sidebar-section-title">Need help?</div>
         <p className="sidebar-hint">Questions about accessibility auditing or using Access Compass?</p>
         <a href="mailto:support@accesscompass.com.au" className="sidebar-help-link">
           Contact Support

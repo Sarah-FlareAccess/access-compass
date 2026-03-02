@@ -98,7 +98,7 @@
   gap: 4px;
   padding: 3px 8px;
   border-radius: 4px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
   /* text-transform removed for accessibility */
   letter-spacing: 0.3px;
@@ -106,12 +106,12 @@
 
 .badge-video {
   background: #fee2e2;
-  color: #dc2626;
+  color: #991b1b;
 }
 
 .badge-checklist {
   background: #dcfce7;
-  color: #16a34a;
+  color: #166534;
 }
 
 .badge-examples {
@@ -121,7 +121,7 @@
 
 .badge-standards {
   background: #fef3c7;
-  color: #d97706;
+  color: #92400e;
 }
 
 .resource-card-arrow {

@@ -27,23 +27,33 @@ interface ResourceCardProps {
 const CATEGORY_CONFIG: Record<ModuleGroup, { icon: React.ReactNode; color: string; label: string }> = {
   'before-arrival': {
     icon: <BookOpen size={16} />,
-    color: '#3b82f6',
+    color: '#1e40af',
     label: 'Before Arrival',
   },
   'getting-in': {
     icon: <MapPin size={16} />,
-    color: '#22c55e',
+    color: '#166534',
     label: 'Getting In',
   },
   'during-visit': {
     icon: <Users size={16} />,
-    color: '#a855f7',
+    color: '#581c87',
     label: 'During Visit',
   },
   'service-support': {
     icon: <Settings size={16} />,
-    color: '#f59e0b',
+    color: '#92400e',
     label: 'Service & Support',
+  },
+  'organisational-commitment': {
+    icon: <Settings size={16} />,
+    color: '#164e63',
+    label: 'Organisation',
+  },
+  'events': {
+    icon: <Settings size={16} />,
+    color: '#4c1d95',
+    label: 'Events',
   },
 };
 

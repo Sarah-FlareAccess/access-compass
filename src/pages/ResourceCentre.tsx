@@ -19,6 +19,7 @@ import {
   X,
   Lock,
   ChevronDown,
+  ChevronRight,
   Scale,
   ExternalLink,
   Briefcase,
@@ -26,7 +27,6 @@ import {
 } from 'lucide-react';
 import { allHelpContent, searchHelp, getHelpByQuestionId } from '../data/help';
 import type { HelpContent, ModuleGroup, DIAPCategory } from '../data/help/types';
-import { ResourceCard } from '../components/help/ResourceCard';
 import { ResourceDetail } from '../components/help/ResourceDetail';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
@@ -42,55 +42,71 @@ const CATEGORIES: {
   description: string;
   icon: React.ReactNode;
   color: string;
+  emoji: string;
+  ccClass: string;
 }[] = [
   {
     id: 'before-arrival',
     label: 'Before Arrival',
     description: 'Pre-visit information, websites, booking, and transport',
-    icon: <BookOpen size={24} />,
-    color: '#3b82f6',
+    icon: <BookOpen size={20} />,
+    color: '#4B2D8F',
+    emoji: '🌐',
+    ccClass: 'cc1',
   },
   {
     id: 'getting-in',
     label: 'Getting In',
     description: 'Parking, entrances, ramps, and pathways',
-    icon: <MapPin size={24} />,
-    color: '#22c55e',
+    icon: <MapPin size={20} />,
+    color: '#2ECC8E',
+    emoji: '🚪',
+    ccClass: 'cc2',
   },
   {
     id: 'during-visit',
     label: 'During Visit',
     description: 'Seating, toilets, sensory environment, and signage',
-    icon: <Users size={24} />,
-    color: '#a855f7',
+    icon: <Users size={20} />,
+    color: '#F59E0B',
+    emoji: '🏛️',
+    ccClass: 'cc3',
   },
   {
     id: 'service-support',
     label: 'Service & Support',
     description: 'Staff training, customer service, policies, and procedures',
-    icon: <Settings size={24} />,
-    color: '#f59e0b',
+    icon: <Settings size={20} />,
+    color: '#EF4444',
+    emoji: '🤝',
+    ccClass: 'cc4',
   },
   {
     id: 'organisational-commitment',
     label: 'Organisation',
     description: 'Policies, employment, training, and inclusive culture',
-    icon: <Briefcase size={24} />,
-    color: '#e11d48',
+    icon: <Briefcase size={20} />,
+    color: '#06B6D4',
+    emoji: '🏢',
+    ccClass: 'cc5',
   },
   {
     id: 'events',
     label: 'Events',
     description: 'Accessible events, conferences, and community activities',
-    icon: <Calendar size={24} />,
-    color: '#0ea5e9',
+    icon: <Calendar size={20} />,
+    color: '#8B5CF6',
+    emoji: '🎪',
+    ccClass: 'cc6',
   },
   {
     id: 'standards',
     label: 'Key Standards & Legislation',
     description: 'Australian laws, building codes, and international guidelines',
-    icon: <Scale size={24} />,
-    color: '#0d9488',
+    icon: <Scale size={20} />,
+    color: '#374151',
+    emoji: '⚖️',
+    ccClass: 'cc7',
   },
 ];
 
@@ -136,13 +152,37 @@ const KEY_STANDARDS: { label: string; description: string; url: string }[] = [
   },
 ];
 
-// Module name lookup for lock overlay
+// Module lookups
 const MODULE_NAMES: Record<string, string> = {};
 MODULES.forEach(m => { MODULE_NAMES[m.id] = m.name; });
 
-// Module icon lookup (emoji from accessModules)
 const MODULE_ICONS: Record<string, string> = {};
 accessModules.forEach(m => { MODULE_ICONS[m.id] = m.icon; });
+
+const MODULE_DESCS: Record<string, string> = {};
+accessModules.forEach(m => { MODULE_DESCS[m.id] = m.description; });
+
+function getResourceTags(resource: HelpContent): { label: string; type: string }[] {
+  const tags: { label: string; type: string }[] = [];
+  if (resource.solutions && resource.solutions.length > 0) tags.push({ label: 'Checklist', type: 'checklist' });
+  if (resource.examples && resource.examples.length > 0) tags.push({ label: 'Examples', type: 'examples' });
+  if (resource.standardsReference) tags.push({ label: 'Standards', type: 'standards' });
+  return tags;
+}
+
+function getMostCommonTagKey(resources: HelpContent[]): string {
+  const counts: Record<string, number> = {};
+  resources.forEach(r => {
+    const key = getResourceTags(r).map(t => t.type).sort().join(',');
+    counts[key] = (counts[key] || 0) + 1;
+  });
+  let maxKey = '';
+  let maxCount = 0;
+  for (const [key, count] of Object.entries(counts)) {
+    if (count > maxCount) { maxCount = count; maxKey = key; }
+  }
+  return maxKey;
+}
 
 export function ResourceCentre() {
   usePageTitle('Resource Hub');
@@ -163,40 +203,29 @@ export function ResourceCentre() {
   const [showFilters, setShowFilters] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
 
-  // Check if a resource's module is completed
   const isModuleCompleted = (moduleCode: string): boolean => {
     return progress[moduleCode]?.status === 'completed';
   };
 
-  // Get the selected resource for detail view (uses Map that resolves coveredQuestionIds)
   const selectedResource = useMemo(() => {
     if (!selectedResourceId) return null;
     return getHelpByQuestionId(selectedResourceId) || null;
   }, [selectedResourceId]);
 
-  // Filter resources based on search and category
   const filteredResources = useMemo(() => {
     let results = allHelpContent;
-
-    // Apply search filter
     if (searchQuery) {
       results = searchHelp(searchQuery);
     }
-
-    // Apply category filter (skip for 'standards' pseudo-category)
     if (selectedCategory && selectedCategory !== 'standards') {
       results = results.filter(r => r.moduleGroup === selectedCategory);
     }
-
-    // Apply DIAP filter
     if (selectedDIAP) {
       results = results.filter(r => r.diapCategory === selectedDIAP);
     }
-
     return results;
   }, [searchQuery, selectedCategory, selectedDIAP]);
 
-  // Group resources by category for display
   const resourcesByCategory = useMemo(() => {
     const grouped: Record<ModuleGroup, HelpContent[]> = {
       'before-arrival': [],
@@ -206,15 +235,12 @@ export function ResourceCentre() {
       'organisational-commitment': [],
       'events': [],
     };
-
     filteredResources.forEach(resource => {
       grouped[resource.moduleGroup].push(resource);
     });
-
     return grouped;
   }, [filteredResources]);
 
-  // Group resources by module for accordion view (category browsing only)
   const resourcesByModule = useMemo(() => {
     if (!selectedCategory || selectedCategory === 'standards' || searchQuery) return [];
     const grouped: Record<string, HelpContent[]> = {};
@@ -222,12 +248,35 @@ export function ResourceCentre() {
       if (!grouped[r.moduleCode]) grouped[r.moduleCode] = [];
       grouped[r.moduleCode].push(r);
     });
-    // Order by MODULES array order
     const moduleOrder = MODULES.map(m => m.id);
     return moduleOrder
       .filter(id => grouped[id] && grouped[id].length > 0)
       .map(id => ({ moduleCode: id, moduleName: MODULE_NAMES[id] || id, resources: grouped[id] }));
   }, [filteredResources, selectedCategory, searchQuery]);
+
+  const searchResultsByModule = useMemo(() => {
+    if (!searchQuery && !selectedDIAP) return [];
+    const grouped: Record<string, HelpContent[]> = {};
+    filteredResources.forEach(r => {
+      if (!grouped[r.moduleCode]) grouped[r.moduleCode] = [];
+      grouped[r.moduleCode].push(r);
+    });
+    const moduleOrder = MODULES.map(m => m.id);
+    return moduleOrder
+      .filter(id => grouped[id] && grouped[id].length > 0)
+      .map(id => ({ moduleCode: id, moduleName: MODULE_NAMES[id] || id, resources: grouped[id] }));
+  }, [filteredResources, searchQuery, selectedDIAP]);
+
+  const totalUnlocked = useMemo(() => {
+    return allHelpContent.filter(r => progress[r.moduleCode]?.status === 'completed').length;
+  }, [progress]);
+
+  const categoryStats = useMemo(() => {
+    if (!selectedCategory || selectedCategory === 'standards') return { resourceCount: 0, moduleCount: 0 };
+    const catResources = allHelpContent.filter(r => r.moduleGroup === selectedCategory);
+    const modules = new Set(catResources.map(r => r.moduleCode));
+    return { resourceCount: catResources.length, moduleCount: modules.size };
+  }, [selectedCategory]);
 
   const toggleGroup = (moduleCode: string) => {
     setExpandedGroups(prev => ({ ...prev, [moduleCode]: !prev[moduleCode] }));
@@ -238,7 +287,6 @@ export function ResourceCentre() {
     return index === 0;
   };
 
-  // Handle search submission
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const params = new URLSearchParams(searchParams);
@@ -250,7 +298,6 @@ export function ResourceCentre() {
     setSearchParams(params);
   };
 
-  // Handle category selection
   const handleCategorySelect = (categoryId: ModuleGroup | 'standards' | null) => {
     const params = new URLSearchParams(searchParams);
     if (categoryId) {
@@ -258,11 +305,10 @@ export function ResourceCentre() {
     } else {
       params.delete('category');
     }
-    params.delete('resource'); // Clear resource selection
+    params.delete('resource');
     setSearchParams(params);
   };
 
-  // Handle DIAP filter
   const handleDIAPSelect = (diapId: DIAPCategory | null) => {
     const params = new URLSearchParams(searchParams);
     if (diapId) {
@@ -274,21 +320,18 @@ export function ResourceCentre() {
     setSearchParams(params);
   };
 
-  // Handle resource selection
   const handleResourceSelect = (resourceId: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('resource', resourceId);
     setSearchParams(params);
   };
 
-  // Handle back from detail view
   const handleBackFromDetail = () => {
     const params = new URLSearchParams(searchParams);
     params.delete('resource');
     setSearchParams(params);
   };
 
-  // Clear all filters
   const clearFilters = () => {
     setLocalSearchQuery('');
     setSearchParams({});
@@ -296,7 +339,6 @@ export function ResourceCentre() {
 
   const hasActiveFilters = searchQuery || selectedCategory || selectedDIAP;
 
-  // Back label and handler depend on where the user navigated from
   const backLabels: Record<string, string> = {
     report: 'Back to Report',
     diap: 'Back to DIAP',
@@ -304,10 +346,9 @@ export function ResourceCentre() {
     dashboard: 'Back to Dashboard',
   };
   const backLabel = (referrer && backLabels[referrer]) || 'Back to Resources';
-
   const handleBack = referrer ? () => navigate(-1) : handleBackFromDetail;
 
-  // If showing resource detail
+  // === DETAIL VIEW ===
   if (selectedResource) {
     const resourceUnlocked = isModuleCompleted(selectedResource.moduleCode);
 
@@ -351,343 +392,420 @@ export function ResourceCentre() {
     );
   }
 
-  // Main browse view
-  return (
-    <div className="resource-centre">
-      {/* Header */}
-      <div className="resource-centre-header">
-        <div className="resource-centre-title-section">
-          <h1>Resource Hub</h1>
-          <p className="resource-centre-subtitle">
-            Guides, tips, and best practices for improving accessibility at your venue
-          </p>
-        </div>
-      </div>
+  // === SHARED JSX PIECES ===
 
-      {/* Search and Filters */}
-      <div className="resource-centre-controls">
-        <form className="resource-search-form" onSubmit={handleSearch}>
-          <div className="search-input-wrapper">
-            <label htmlFor="resource-search" className="sr-only">Search resources</label>
-            <Search size={20} className="search-icon" aria-hidden="true" />
-            <input
-              type="text"
-              id="resource-search"
-              placeholder="Search resources..."
-              value={localSearchQuery}
-              onChange={(e) => setLocalSearchQuery(e.target.value)}
-              className="search-input"
-            />
-            {localSearchQuery && (
-              <button
-                type="button"
-                className="search-clear"
-                aria-label="Clear search"
-                onClick={() => {
-                  setLocalSearchQuery('');
-                  const params = new URLSearchParams(searchParams);
-                  params.delete('q');
-                  setSearchParams(params);
-                }}
-              >
-                <X size={16} aria-hidden="true" />
-              </button>
-            )}
-          </div>
-          <button type="submit" className="btn-search">
-            Search
-          </button>
-        </form>
-
-        <button
-          className={`btn-filter ${showFilters ? 'active' : ''}`}
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          <Filter size={18} />
-          <span>Filters</span>
-          {hasActiveFilters && <span className="filter-badge" />}
-        </button>
-      </div>
-
-      {/* Filter Panel */}
-      {showFilters && (
-        <div className="resource-filters">
-          <div className="filter-section">
-            <h3>Category</h3>
-            <div className="filter-chips">
-              {CATEGORIES.map(cat => (
-                <button
-                  key={cat.id}
-                  className={`filter-chip ${selectedCategory === cat.id ? 'active' : ''}`}
-                  onClick={() => handleCategorySelect(selectedCategory === cat.id ? null : cat.id)}
-                  style={{ '--chip-color': cat.color } as React.CSSProperties}
-                >
-                  {cat.icon}
-                  <span>{cat.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="filter-section">
-            <h3>DIAP Focus Area</h3>
-            <div className="filter-chips">
-              {(Object.keys(DIAP_LABELS) as DIAPCategory[]).map(diap => (
-                <button
-                  key={diap}
-                  className={`filter-chip ${selectedDIAP === diap ? 'active' : ''}`}
-                  onClick={() => handleDIAPSelect(selectedDIAP === diap ? null : diap)}
-                >
-                  <span>{DIAP_LABELS[diap]}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {hasActiveFilters && (
-            <button className="btn-clear-filters" onClick={clearFilters}>
-              Clear all filters
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Results Summary */}
-      {hasActiveFilters && (
-        <div className="resource-results-summary" role="status" aria-live="polite">
-          <span>{filteredResources.length} resource{filteredResources.length !== 1 ? 's' : ''} found</span>
-          {searchQuery && <span className="search-term">for "{searchQuery}"</span>}
-        </div>
-      )}
-
-      {/* Category Cards (when no filters active) */}
-      {!hasActiveFilters && (
-        <div className="resource-categories">
+  const filterPanel = showFilters && (
+    <div className="resource-filters">
+      <div className="filter-section">
+        <h3>Category</h3>
+        <div className="filter-chips">
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
-              className="category-card"
-              onClick={() => handleCategorySelect(cat.id)}
-              style={{ '--category-color': cat.color } as React.CSSProperties}
+              className={`filter-chip ${selectedCategory === cat.id ? 'active' : ''}`}
+              onClick={() => handleCategorySelect(selectedCategory === cat.id ? null : cat.id)}
+              style={{ '--chip-color': cat.color } as React.CSSProperties}
             >
-              <div className="category-icon">{cat.icon}</div>
-              <div className="category-content">
-                <h3>{cat.label}</h3>
-                <p>{cat.description}</p>
-                <span className="category-count">
-                  {cat.id === 'standards'
-                    ? `${KEY_STANDARDS.length} references`
-                    : (() => {
-                        const items = resourcesByCategory[cat.id as ModuleGroup];
-                        const count = items.length;
-                        const unlocked = items.filter(r => isModuleCompleted(r.moduleCode)).length;
-                        return `${count} resource${count !== 1 ? 's' : ''}${count > 0 && unlocked < count ? ` (${unlocked} unlocked)` : ''}`;
-                      })()
-                  }
-                </span>
-              </div>
+              {cat.icon}
+              <span>{cat.label}</span>
             </button>
           ))}
         </div>
-      )}
-
-      {/* Back button (when browsing a category) */}
-      {selectedCategory && !searchQuery && (
-        <button className="btn-back" onClick={referrer ? handleBack : () => handleCategorySelect(null)}>
-          <ArrowLeft size={20} />
-          <span>{referrer ? backLabel : 'Back to Resource Hub'}</span>
+      </div>
+      <div className="filter-section">
+        <h3>DIAP Focus Area</h3>
+        <div className="filter-chips">
+          {(Object.keys(DIAP_LABELS) as DIAPCategory[]).map(diap => (
+            <button
+              key={diap}
+              className={`filter-chip ${selectedDIAP === diap ? 'active' : ''}`}
+              onClick={() => handleDIAPSelect(selectedDIAP === diap ? null : diap)}
+            >
+              <span>{DIAP_LABELS[diap]}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      {hasActiveFilters && (
+        <button className="btn-clear-filters" onClick={clearFilters}>
+          Clear all filters
         </button>
       )}
+    </div>
+  );
 
-      {/* Category Heading (when browsing a category, not searching) */}
-      {selectedCategory && !searchQuery && (() => {
-        const cat = CATEGORIES.find(c => c.id === selectedCategory);
-        if (!cat) return null;
-        return (
-          <div className="category-heading" style={{ '--category-color': cat.color } as React.CSSProperties}>
-            <div className="category-heading-icon">{cat.icon}</div>
-            <div>
-              <h2 className="category-heading-title">{cat.label}</h2>
-              <p className="category-heading-desc">{cat.description}</p>
-            </div>
-          </div>
-        );
-      })()}
+  const resultsSummary = (
+    <div className="resource-results-summary" role="status" aria-live="polite">
+      <span>{filteredResources.length} resource{filteredResources.length !== 1 ? 's' : ''} found</span>
+      {searchQuery && <span className="search-term">for &ldquo;{searchQuery}&rdquo;</span>}
+    </div>
+  );
 
-      {/* Standards click-through view */}
-      {selectedCategory === 'standards' && !searchQuery && (
-        <div className="resource-list">
-          <div className="key-standards-grid">
-            {KEY_STANDARDS.map(standard => (
-              <a key={standard.label} href={standard.url} target="_blank" rel="noopener noreferrer" className="key-standard-card">
-                <h3>{standard.label}</h3>
-                <p>{standard.description}</p>
-                <span className="key-standard-link">View document <ExternalLink size={14} /></span>
-              </a>
-            ))}
-          </div>
+  const searchResultsGrid = (
+    <div className="resource-list">
+      {filteredResources.length === 0 ? (
+        <div className="no-results">
+          <p>No resources found matching your criteria.</p>
+          <button className="btn-secondary" onClick={clearFilters}>
+            Clear filters
+          </button>
         </div>
-      )}
-
-      {/* Category browsing (dashboard-style collapsible groups + card grid) */}
-      {selectedCategory && selectedCategory !== 'standards' && !searchQuery && (
-        <div className="resource-list">
-          {resourcesByModule.length === 0 ? (
-            <div className="no-results">
-              <p>No resources found matching your criteria.</p>
-              <button className="btn-secondary" onClick={clearFilters}>
-                Clear filters
-              </button>
-            </div>
-          ) : (
-            <div className="resource-modules">
-              {resourcesByModule.map((group, groupIndex) => {
-                const expanded = isGroupExpanded(group.moduleCode, groupIndex);
-                const groupUnlocked = isModuleCompleted(group.moduleCode);
-                return (
-                  <section key={group.moduleCode} className={`module-group-card ${groupUnlocked ? 'completed' : ''}`}>
-                    <button
-                      className={`module-group-header ${expanded ? 'expanded' : ''}`}
-                      onClick={() => toggleGroup(group.moduleCode)}
-                      aria-expanded={expanded}
-                    >
-                      <span className="module-group-icon">{MODULE_ICONS[group.moduleCode] || '📄'}</span>
-                      <div className="module-group-info">
-                        <h3 className="module-group-title">{group.moduleName}</h3>
-                        <span className="module-group-meta">
-                          <span className="module-group-code">{group.moduleCode}</span>
-                          <span>{group.resources.length} resource{group.resources.length !== 1 ? 's' : ''}</span>
-                        </span>
-                      </div>
-                      <ChevronDown size={20} className="module-group-chevron" />
-                    </button>
-                    {expanded && (
-                      <div className="resource-tile-grid">
-                        {group.resources.map(resource => {
-                          const unlocked = isModuleCompleted(resource.moduleCode);
-                          return (
-                            <button
-                              key={resource.questionId}
-                              className={`resource-tile ${unlocked ? 'unlocked' : 'locked'}`}
-                              onClick={() => handleResourceSelect(resource.questionId)}
-                            >
-                              <div className="resource-tile-content">
-                                {!unlocked && (
-                                  <div className="resource-tile-header">
-                                    <span className="resource-tile-icon">{MODULE_ICONS[resource.moduleCode] || '📄'}</span>
-                                    <span className="resource-tile-badge badge-locked">
-                                      <Lock size={11} /> Locked
-                                    </span>
-                                  </div>
-                                )}
-                                <h4 className="resource-tile-title">{resource.title}</h4>
-                                <p className="resource-tile-desc">{resource.summary}</p>
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </section>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Search results / DIAP-only filter — keep card grid */}
-      {hasActiveFilters && !selectedCategory && (
-        <div className="resource-list">
-          {filteredResources.length === 0 ? (
-            <div className="no-results">
-              <p>No resources found matching your criteria.</p>
-              <button className="btn-secondary" onClick={clearFilters}>
-                Clear filters
-              </button>
-            </div>
-          ) : (
-            <div className="resource-grid">
-              {filteredResources.map(resource => {
-                const unlocked = isModuleCompleted(resource.moduleCode);
-                return (
-                  <div key={resource.questionId} className={`resource-card-wrapper ${!unlocked ? 'locked' : ''}`}>
-                    <ResourceCard
-                      resource={resource}
-                      onClick={() => handleResourceSelect(resource.questionId)}
-                    />
-                    {!unlocked && (
-                      <div className="resource-lock-overlay">
-                        <Lock size={20} />
-                        <span>Complete {MODULE_NAMES[resource.moduleCode] || resource.moduleCode} to unlock</span>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Search results within a category — card grid */}
-      {selectedCategory && searchQuery && (
-        <div className="resource-list">
-          {filteredResources.length === 0 ? (
-            <div className="no-results">
-              <p>No resources found matching your criteria.</p>
-              <button className="btn-secondary" onClick={clearFilters}>
-                Clear filters
-              </button>
-            </div>
-          ) : (
-            <div className="resource-grid">
-              {filteredResources.map(resource => {
-                const unlocked = isModuleCompleted(resource.moduleCode);
-                return (
-                  <div key={resource.questionId} className={`resource-card-wrapper ${!unlocked ? 'locked' : ''}`}>
-                    <ResourceCard
-                      resource={resource}
-                      onClick={() => handleResourceSelect(resource.questionId)}
-                    />
-                    {!unlocked && (
-                      <div className="resource-lock-overlay">
-                        <Lock size={20} />
-                        <span>Complete {MODULE_NAMES[resource.moduleCode] || resource.moduleCode} to unlock</span>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Featured Resources (when no filters) */}
-      {!hasActiveFilters && (
-        <div className="featured-resources">
-          <h2>Popular Resources</h2>
-          <div className="resource-grid">
-            {allHelpContent.slice(0, 6).map(resource => {
-              const unlocked = isModuleCompleted(resource.moduleCode);
-              return (
-                <div key={resource.questionId} className={`resource-card-wrapper ${!unlocked ? 'locked' : ''}`}>
-                  <ResourceCard
-                    resource={resource}
-                    onClick={() => handleResourceSelect(resource.questionId)}
-                  />
-                  {!unlocked && (
-                    <div className="resource-lock-overlay">
-                      <Lock size={20} />
-                      <span>Complete {MODULE_NAMES[resource.moduleCode] || resource.moduleCode} to unlock</span>
-                    </div>
-                  )}
+      ) : (
+        <div className="search-results-grouped">
+          {searchResultsByModule.map(group => {
+            const commonTagKey = getMostCommonTagKey(group.resources);
+            return (
+              <div key={group.moduleCode} className="search-result-group">
+                <div className="search-result-group-header">
+                  <span className="module-emoji" aria-hidden="true">{MODULE_ICONS[group.moduleCode] || '📄'}</span>
+                  <span className="search-result-group-name">{group.moduleName}</span>
+                  <span className="search-result-group-count">{group.resources.length}</span>
                 </div>
-              );
-            })}
-          </div>
+                <ul className="resource-row-list">
+                  {group.resources.map(resource => {
+                    const unlocked = isModuleCompleted(resource.moduleCode);
+                    const tags = getResourceTags(resource);
+                    const tagKey = tags.map(t => t.type).sort().join(',');
+                    const showTags = tagKey !== commonTagKey;
+                    return (
+                      <li key={resource.questionId}>
+                        <button
+                          className={`resource-row ${!unlocked ? 'locked' : ''}`}
+                          onClick={() => handleResourceSelect(resource.questionId)}
+                        >
+                          <div className="resource-row-info">
+                            <span className="resource-row-title">{resource.title}</span>
+                            <span className="resource-row-summary">{resource.summary}</span>
+                            {showTags && tags.length > 0 && (
+                              <div className="resource-row-tags">
+                                {tags.map(t => (
+                                  <span key={t.type} className={`tag-pill tag-${t.type}`}>{t.label}</span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          {!unlocked && (
+                            <span className="lock-badge">
+                              <Lock size={11} aria-hidden="true" /> Locked
+                            </span>
+                          )}
+                          <ChevronRight size={16} className="resource-row-arrow" aria-hidden="true" />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
+      )}
+    </div>
+  );
+
+  const searchInput = (
+    <div className="search-input-wrapper">
+      <label htmlFor="resource-search" className="sr-only">Search resources</label>
+      <Search size={20} className="search-icon" aria-hidden="true" />
+      <input
+        type="text"
+        id="resource-search"
+        placeholder="Search resources..."
+        value={localSearchQuery}
+        onChange={(e) => setLocalSearchQuery(e.target.value)}
+        className="search-input"
+      />
+      {localSearchQuery && (
+        <button
+          type="button"
+          className="search-clear"
+          aria-label="Clear search"
+          onClick={() => {
+            setLocalSearchQuery('');
+            const params = new URLSearchParams(searchParams);
+            params.delete('q');
+            setSearchParams(params);
+          }}
+        >
+          <X size={16} aria-hidden="true" />
+        </button>
+      )}
+    </div>
+  );
+
+  const currentCategory = CATEGORIES.find(c => c.id === selectedCategory);
+
+  // === MAIN BROWSE VIEW ===
+  return (
+    <div className="resource-centre">
+      {selectedCategory ? (
+        <>
+          {/* === CATEGORY BANNER === */}
+          <section className="cat-banner">
+            {referrer && (
+              <button className="btn-back-banner" onClick={handleBack}>
+                <ArrowLeft size={16} />
+                <span>{backLabel}</span>
+              </button>
+            )}
+            <nav aria-label="Breadcrumb" className="breadcrumb">
+              <ol>
+                <li>
+                  <button className="breadcrumb-link" onClick={() => handleCategorySelect(null)}>
+                    Resource Hub
+                  </button>
+                </li>
+                <li aria-current="page">{currentCategory?.label}</li>
+              </ol>
+            </nav>
+            <span className="cat-emoji" aria-hidden="true">{currentCategory?.emoji}</span>
+            <h1>{currentCategory?.label}</h1>
+            <p className="cat-desc">{currentCategory?.description}</p>
+            {selectedCategory !== 'standards' && (
+              <dl className="cat-stats">
+                <div>
+                  <dt>Resources</dt>
+                  <dd>{categoryStats.resourceCount}</dd>
+                </div>
+                <div>
+                  <dt>Modules</dt>
+                  <dd>{categoryStats.moduleCount}</dd>
+                </div>
+              </dl>
+            )}
+          </section>
+
+          {/* === CATEGORY BODY === */}
+          <div className="cat-body">
+            <div className="cat-search-row">
+              <form className="resource-search-form" role="search" onSubmit={handleSearch}>
+                {searchInput}
+                <button type="submit" className="btn-search">Search</button>
+              </form>
+              <button
+                className={`btn-filter ${showFilters ? 'active' : ''}`}
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <Filter size={18} />
+                <span>Filters</span>
+                {selectedDIAP && <span className="filter-badge" />}
+              </button>
+            </div>
+
+            {filterPanel}
+
+            {searchQuery && resultsSummary}
+            {searchQuery && searchResultsGrid}
+
+            {selectedCategory === 'standards' && !searchQuery && (
+              <div className="resource-list">
+                <div className="key-standards-grid">
+                  {KEY_STANDARDS.map(standard => (
+                    <a key={standard.label} href={standard.url} target="_blank" rel="noopener noreferrer" className="key-standard-card">
+                      <h3>{standard.label}</h3>
+                      <p>{standard.description}</p>
+                      <span className="key-standard-link">View document <ExternalLink size={14} /></span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {selectedCategory !== 'standards' && !searchQuery && (
+              resourcesByModule.length === 0 ? (
+                <div className="no-results">
+                  <p>No resources found for this category.</p>
+                  <button className="btn-secondary" onClick={clearFilters}>
+                    Clear filters
+                  </button>
+                </div>
+              ) : (
+                <div className="module-list">
+                  {resourcesByModule.map((group, groupIndex) => {
+                    const expanded = isGroupExpanded(group.moduleCode, groupIndex);
+                    const headerId = `module-header-${group.moduleCode}`;
+                    const panelId = `module-panel-${group.moduleCode}`;
+                    const commonTagKey = getMostCommonTagKey(group.resources);
+                    return (
+                      <div key={group.moduleCode} className={`module-item ${expanded ? 'open' : ''}`}>
+                        <h2 style={{ margin: 0 }}>
+                          <button
+                            id={headerId}
+                            className="module-item-header"
+                            onClick={() => toggleGroup(group.moduleCode)}
+                            aria-expanded={expanded}
+                            aria-controls={panelId}
+                          >
+                            <span className="module-number">{group.moduleCode}</span>
+                            <span className="module-emoji" aria-hidden="true">{MODULE_ICONS[group.moduleCode] || '📄'}</span>
+                            <div className="module-info">
+                              <span className="module-name">{group.moduleName}</span>
+                              <span className="module-meta-desc">{MODULE_DESCS[group.moduleCode] || ''}</span>
+                            </div>
+                            <span className="module-count-badge">
+                              {group.resources.length}
+                            </span>
+                            <ChevronDown size={18} className="module-chevron" />
+                          </button>
+                        </h2>
+                        {expanded && (
+                          <div id={panelId} role="region" aria-labelledby={headerId} className="module-panel">
+                            <ul className="resource-row-list">
+                              {group.resources.map((resource) => {
+                                const unlocked = isModuleCompleted(resource.moduleCode);
+                                const tags = getResourceTags(resource);
+                                const tagKey = tags.map(t => t.type).sort().join(',');
+                                const showTags = tagKey !== commonTagKey;
+                                return (
+                                  <li key={resource.questionId}>
+                                    <button
+                                      className={`resource-row ${!unlocked ? 'locked' : ''}`}
+                                      onClick={() => handleResourceSelect(resource.questionId)}
+                                    >
+                                      <div className="resource-row-info">
+                                        <span className="resource-row-title">{resource.title}</span>
+                                        <span className="resource-row-summary">{resource.summary}</span>
+                                        {showTags && tags.length > 0 && (
+                                          <div className="resource-row-tags">
+                                            {tags.map(t => (
+                                              <span key={t.type} className={`tag-pill tag-${t.type}`}>{t.label}</span>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
+                                      {!unlocked && (
+                                        <span className="lock-badge">
+                                          <Lock size={11} aria-hidden="true" /> Locked
+                                        </span>
+                                      )}
+                                      <ChevronRight size={16} className="resource-row-arrow" aria-hidden="true" />
+                                    </button>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )
+            )}
+          </div>
+        </>
+      ) : (
+        <>
+          {/* === HUB HERO === */}
+          <section className="hub-hero">
+            <span className="hub-eyebrow">Resource Hub</span>
+            <h1>Everything you need to <em>improve access</em></h1>
+            <p className="hub-subtitle">
+              Guides, tips, and best practices for improving accessibility at your venue
+            </p>
+
+            <div className="hub-search-row">
+              <form className="resource-search-form" role="search" onSubmit={handleSearch}>
+                {searchInput}
+                <button type="submit" className="btn-search">Search</button>
+              </form>
+              <button
+                className={`btn-filter ${showFilters ? 'active' : ''}`}
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <Filter size={18} />
+                <span>Filters</span>
+                {hasActiveFilters && <span className="filter-badge" />}
+              </button>
+            </div>
+
+            <dl className="hub-stats">
+              <div>
+                <dt>Resources</dt>
+                <dd>{allHelpContent.length}</dd>
+              </div>
+              <div>
+                <dt>Unlocked</dt>
+                <dd>{totalUnlocked}</dd>
+              </div>
+              <div>
+                <dt>Categories</dt>
+                <dd>{CATEGORIES.length - 1}</dd>
+              </div>
+            </dl>
+          </section>
+
+          {/* === HUB BODY === */}
+          <div className="hub-body">
+            {filterPanel}
+
+            {(searchQuery || selectedDIAP) && resultsSummary}
+            {(searchQuery || selectedDIAP) && searchResultsGrid}
+
+            {!searchQuery && !selectedDIAP && (
+              <>
+                <h2 className="section-label">Browse by category</h2>
+                <div className="cat-grid">
+                  {CATEGORIES.map(cat => (
+                    <button
+                      key={cat.id}
+                      className={`cat-card ${cat.ccClass}`}
+                      onClick={() => handleCategorySelect(cat.id)}
+                    >
+                      <div className="cat-card-icon-wrap">{cat.icon}</div>
+                      <h3 className="cat-card-name">{cat.label}</h3>
+                      <p className="cat-card-desc">{cat.description}</p>
+                      <div className="cat-card-footer">
+                        <span className="cat-card-count">
+                          {cat.id === 'standards'
+                            ? `${KEY_STANDARDS.length} references`
+                            : `${resourcesByCategory[cat.id as ModuleGroup].length} resources`
+                          }
+                        </span>
+                        <ChevronRight size={16} className="cat-card-arrow" aria-hidden="true" />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                <section className="featured-section">
+                  <h2>Popular Resources</h2>
+                  <div className="featured-grid">
+                    {allHelpContent.slice(0, 3).map((resource, i) => {
+                      const unlocked = isModuleCompleted(resource.moduleCode);
+                      const tags = getResourceTags(resource);
+                      return (
+                        <button
+                          key={resource.questionId}
+                          className={`featured-card ${i === 0 ? 'featured-main' : 'featured-side'} ${!unlocked ? 'locked' : ''}`}
+                          onClick={() => handleResourceSelect(resource.questionId)}
+                        >
+                          {!unlocked && (
+                            <span className="featured-lock-badge">
+                              <Lock size={11} aria-hidden="true" /> Locked
+                            </span>
+                          )}
+                          {tags.length > 0 && (
+                            <div className="featured-card-tags">
+                              {tags.map(t => (
+                                <span key={t.type} className={`tag-pill tag-${t.type}`}>{t.label}</span>
+                              ))}
+                            </div>
+                          )}
+                          <h3 className="featured-card-title">{resource.title}</h3>
+                          <p className="featured-card-summary">{resource.summary}</p>
+                          <span className="featured-card-action">
+                            View resource <ChevronRight size={14} aria-hidden="true" />
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </section>
+              </>
+            )}
+          </div>
+        </>
       )}
 
       <PageFooter />

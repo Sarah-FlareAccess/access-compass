@@ -92,7 +92,7 @@ export default function NavBar() {
     <nav className="main-nav" aria-label="Main navigation">
       <div className="nav-container">
         <div className="nav-brand">
-          <Link to="/dashboard" className="brand-link" onClick={closeMobileMenu}>
+          <Link to="/" className="brand-link" onClick={closeMobileMenu}>
             <span className="brand-name">Access Compass</span>
             <span className="brand-byline">by Flare Access</span>
           </Link>

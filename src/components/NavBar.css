@@ -65,7 +65,7 @@
 }
 
 .nav-link {
-  padding: 12px 28px;
+  padding: 12px 36px;
   font-size: 0.9rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
@@ -228,11 +228,11 @@
   }
 
   .nav-links {
-    gap: 4px;
+    gap: 8px;
   }
 
   .nav-link {
-    padding: 8px 12px;
+    padding: 10px 24px;
     font-size: 0.85rem;
   }
 

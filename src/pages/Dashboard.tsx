@@ -491,9 +491,9 @@ Thanks!`;
             aria-label="Open organisation settings"
           >
             <div className="sidebar-org-info">
-              <h2 className="sidebar-org-name">
+              <div className="sidebar-org-name">
                 {accessState.organisation?.name || session?.business_snapshot?.organisation_name || user?.email || 'Your Organisation'}
-              </h2>
+              </div>
               <div className="sidebar-org-meta">
                 {accessState.membership?.role && (
                   <span className="sidebar-user-role">
@@ -511,7 +511,7 @@ Thanks!`;
 
           {/* Quick Actions */}
           <div className="sidebar-section">
-            <h3 className="sidebar-section-title">Settings</h3>
+            <div className="sidebar-section-title">Settings</div>
             <nav className="sidebar-nav">
               <button
                 type="button"
@@ -529,7 +529,7 @@ Thanks!`;
 
           {/* Discovery Section */}
           <div className="sidebar-section">
-            <h3 className="sidebar-section-title">Discovery</h3>
+            <div className="sidebar-section-title">Discovery</div>
             <nav className="sidebar-nav">
               <Link to="/discovery/summary" className="sidebar-nav-item">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -543,7 +543,7 @@ Thanks!`;
 
           {/* Outputs Section */}
           <div className="sidebar-section">
-            <h3 className="sidebar-section-title">Your Outputs</h3>
+            <div className="sidebar-section-title">Your Outputs</div>
             <nav className="sidebar-nav">
               <Link to="/export" className="sidebar-nav-item">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -567,7 +567,7 @@ Thanks!`;
 
           {/* Resources Section */}
           <div className="sidebar-section">
-            <h3 className="sidebar-section-title">Resources</h3>
+            <div className="sidebar-section-title">Resources</div>
             <nav className="sidebar-nav">
               <Link to="/resources" className="sidebar-nav-item">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -581,7 +581,7 @@ Thanks!`;
 
           {/* Training Section */}
           <div className="sidebar-section">
-            <h3 className="sidebar-section-title">Training</h3>
+            <div className="sidebar-section-title">Training</div>
             <nav className="sidebar-nav">
               <Link to="/training" className="sidebar-nav-item">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -596,7 +596,7 @@ Thanks!`;
           {/* Quick Stats */}
           {hasCompletedModules && (
             <div className="sidebar-section sidebar-stats">
-              <h3 className="sidebar-section-title">Quick Stats</h3>
+              <div className="sidebar-section-title">Quick Stats</div>
               <div className="sidebar-stats-grid">
                 <div className="stat-item">
                   <span className="stat-value">{overallStats.progressPercentage}%</span>
@@ -612,7 +612,7 @@ Thanks!`;
 
           {/* Help Section */}
           <div className="sidebar-section sidebar-help">
-            <h3 className="sidebar-section-title">Need help?</h3>
+            <div className="sidebar-section-title">Need help?</div>
             <p className="sidebar-hint">Questions about accessibility auditing or using Access Compass?</p>
             <a href="mailto:support@accesscompass.com.au" className="sidebar-help-link">
               Contact Support
