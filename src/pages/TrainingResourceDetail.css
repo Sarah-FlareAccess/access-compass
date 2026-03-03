@@ -54,7 +54,7 @@
 }
 
 .training-resource-breadcrumb a:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -238,7 +238,7 @@
 }
 
 .training-resource-back-link:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -285,7 +285,7 @@
 }
 
 .training-resource-locked-cta:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -295,7 +295,7 @@
 }
 
 .training-resource-locked-back:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-radius: 4px;
 }

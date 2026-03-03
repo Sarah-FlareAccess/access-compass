@@ -35,7 +35,7 @@
 
 .skip-link:focus {
   top: 0;
-  outline: 3px solid white;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -105,8 +105,8 @@
   transform: translateX(2px);
 }
 
-.sidebar-org-identity:focus {
-  outline: 2px solid white;
+.sidebar-org-identity:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -255,8 +255,8 @@
   box-shadow: 0 2px 8px rgba(114, 61, 141, 0.1);
 }
 
-.sidebar-nav-item:focus {
-  outline: 2px solid var(--amethyst-diamond);
+.sidebar-nav-item:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1034,7 +1034,7 @@
 }
 
 .tab-btn:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1084,7 +1084,7 @@
 }
 
 .topic-tile:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: -3px;
 }
 
@@ -1347,7 +1347,7 @@
 }
 
 .module-tile:focus-within {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   box-shadow: var(--surface-2-hover-shadow), var(--glow-brand);
   scroll-margin-top: 16px;
@@ -1655,7 +1655,7 @@
 }
 
 .module-action-btn:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1855,7 +1855,7 @@
 }
 
 .btn-assign-module:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1902,7 +1902,7 @@
 }
 
 .btn-run-history:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -2004,7 +2004,7 @@
 }
 
 .btn-close-modal:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -2047,7 +2047,7 @@
 }
 
 .assignment-field input:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-color: var(--amethyst-diamond);
 }
@@ -2081,7 +2081,7 @@
 }
 
 .btn-cancel:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -2171,7 +2171,7 @@
 }
 
 .email-template-text:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

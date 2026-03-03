@@ -278,7 +278,7 @@ p {
 
 /* Focus state - visible ring that doesn't rely on color alone */
 .btn:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
   box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.15);
 }
@@ -342,7 +342,7 @@ p {
 }
 
 .btn-secondary:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
   box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.2);
 }
@@ -368,7 +368,7 @@ p {
 }
 
 .btn-outline:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
   box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.2);
 }
@@ -490,7 +490,7 @@ p {
 }
 
 .card-interactive:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -499,7 +499,7 @@ p {
 }
 
 .card-interactive:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   box-shadow: var(--surface-2-hover-shadow), var(--glow-brand);
 }
@@ -563,7 +563,7 @@ textarea::placeholder {
 input:focus,
 textarea:focus,
 select:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-color: var(--amethyst-diamond);
 }
@@ -1010,6 +1010,10 @@ label {
 
 .skip-link:focus {
   top: 0;
-  outline: 3px solid white;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
+}
+
+#main-content:focus {
+  outline: none;
 }

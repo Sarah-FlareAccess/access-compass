@@ -251,7 +251,7 @@
 }
 
 .download-block:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

@@ -42,7 +42,7 @@
 }
 
 .training-featured-banner:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -131,7 +131,7 @@
 }
 
 .training-search-input:focus {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-color: var(--amethyst-diamond, #490E67);
 }
@@ -156,7 +156,7 @@
 }
 
 .training-search-clear:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -184,7 +184,7 @@
 }
 
 .training-chip:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -213,7 +213,7 @@
 }
 
 .training-clear-filters:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

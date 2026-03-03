@@ -237,7 +237,7 @@
 }
 
 .role-select:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -383,7 +383,7 @@
 }
 
 .form-row input:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -584,7 +584,7 @@
 }
 
 .emails-textarea:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -788,7 +788,7 @@
 }
 
 .timeout-select:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1182,14 +1182,17 @@
   }
 
   .admin-tabs {
-    overflow-x: auto;
+    flex-wrap: wrap;
     padding: 0;
+    gap: 4px;
   }
 
   .admin-tab {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: 0.85rem;
-    white-space: nowrap;
+    flex: 1 1 auto;
+    text-align: center;
+    min-width: 0;
   }
 
   .member-card {

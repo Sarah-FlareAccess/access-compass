@@ -167,7 +167,7 @@
 }
 
 .question-card .question-text:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -223,7 +223,7 @@
 }
 
 .answer-btn:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -355,7 +355,7 @@
 }
 
 .partial-description-section textarea:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -497,7 +497,7 @@
 }
 
 .notes-section-enhanced textarea:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -621,7 +621,7 @@
 }
 
 .measurement-value-input:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -848,7 +848,7 @@
 }
 
 .other-text-input:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -878,7 +878,7 @@
 }
 
 .link-input:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -938,7 +938,7 @@
 }
 
 .text-input:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -996,7 +996,7 @@
 }
 
 .notes-section input:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1435,7 +1435,7 @@
 }
 
 .completion-field input:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

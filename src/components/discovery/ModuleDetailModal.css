@@ -87,7 +87,7 @@
 }
 
 .module-detail-close:focus-visible {
-  outline: 2px solid var(--amethyst-diamond);
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -274,7 +274,7 @@
 }
 
 .module-detail-toggle:focus-visible {
-  outline: 2px solid var(--amethyst-diamond);
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -296,7 +296,7 @@
 }
 
 .module-detail-done:focus-visible {
-  outline: 2px solid var(--amethyst-diamond);
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -326,7 +326,7 @@
 }
 
 .module-tile .tile-learn-more:focus-visible {
-  outline: 2px solid var(--amethyst-diamond);
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

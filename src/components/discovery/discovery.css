@@ -193,7 +193,7 @@
 }
 
 .summary-actions .btn-secondary:focus {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -848,7 +848,7 @@
 }
 
 .discovery-skip-link button:focus {
-  outline: 2px solid var(--amethyst-diamond);
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-radius: 4px;
 }

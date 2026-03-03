@@ -24,6 +24,59 @@ import {
   ExternalLink,
   Briefcase,
   Calendar,
+  Info,
+  Eye,
+  Bus,
+  Phone,
+  FileSearch,
+  Globe,
+  Ticket,
+  Video,
+  MessageCircle,
+  Car,
+  DoorOpen,
+  Signpost,
+  ListOrdered,
+  Armchair,
+  Table2,
+  Sofa,
+  Heart,
+  SlidersHorizontal,
+  Bath,
+  Lightbulb,
+  Wrench,
+  Volume2,
+  ShoppingCart,
+  ClipboardCheck,
+  Headphones,
+  GraduationCap,
+  FileText,
+  HandHelping,
+  Megaphone,
+  Accessibility,
+  BarChart3,
+  Building2,
+  Utensils,
+  Waypoints,
+  AlertTriangle,
+  Smartphone,
+  Image,
+  CreditCard,
+  ArrowUpDown,
+  BedDouble,
+  Mic,
+  ZoomIn,
+  Type,
+  Mail,
+  Bell,
+  Star,
+  HeartPulse,
+  Footprints,
+  Package,
+  Waves,
+  UtensilsCrossed,
+  Presentation,
+  type LucideIcon,
 } from 'lucide-react';
 import { allHelpContent, searchHelp, getHelpByQuestionId } from '../data/help';
 import type { HelpContent, ModuleGroup, DIAPCategory } from '../data/help/types';
@@ -161,6 +214,110 @@ accessModules.forEach(m => { MODULE_ICONS[m.id] = m.icon; });
 
 const MODULE_DESCS: Record<string, string> = {};
 accessModules.forEach(m => { MODULE_DESCS[m.id] = m.description; });
+
+const RESOURCE_ICON_RULES: [RegExp, LucideIcon][] = [
+  // --- Highly specific compound patterns (checked first) ---
+  [/pre.?visit.*info|info.*before.*visit/i, Globe],
+  [/screen reader/i, Accessibility],
+  [/alt text|image desc/i, Image],
+  [/text contrast|readab/i, Type],
+  [/zoom|text resiz|reflow/i, ZoomIn],
+  [/mobile accessib/i, Smartphone],
+  [/online.*book|book.*online/i, Ticket],
+  [/online.*review/i, Star],
+  [/social media.*image/i, Image],
+  [/event.*plan/i, Calendar],
+  [/sensory.*safe|neurodivergent/i, Headphones],
+  [/inclusive.*activity|activity.*design/i, Accessibility],
+  [/guest.*alert|guest.*communicat/i, Bell],
+  [/aquatic|pool|swim/i, Waves],
+  [/floor surface|slip/i, Footprints],
+  [/lift|escalator|elevator/i, ArrowUpDown],
+  [/grab rail|transfer space/i, Bath],
+  [/large print|readable material/i, Type],
+  [/alternative.*format|format.*alternative|on.?site.*format/i, FileText],
+  [/room.*essential|accessible room/i, BedDouble],
+  [/kitchenette|in.?room.*amenit/i, UtensilsCrossed],
+  [/accommodation.*follow|re.?entry/i, ClipboardCheck],
+  [/path from parking/i, Waypoints],
+  [/staff.*parking|parking.*guidance/i, Users],
+  [/entrance.*lift/i, ArrowUpDown],
+  [/accessible.*email|digital.*document/i, Mail],
+  [/navigat.*venue|venue.*independen/i, Waypoints],
+  [/health|wellness|treatment|spa/i, HeartPulse],
+  [/return.*delivery|delivery.*channel/i, Package],
+  [/national relay|NRS/i, Phone],
+  [/speech.*differ|AAC/i, MessageCircle],
+  [/marketing.*imag|representation.*market|disability.*stereotyp|marketing.*material|marketing.*positive|marketing.*social/i, Megaphone],
+  [/accessible.*market/i, Megaphone],
+  [/customer.*program|loyalty/i, Users],
+  [/customer.*prefer|notification/i, Bell],
+  [/complaint|grievance/i, Megaphone],
+  [/pricing|concession|companion card/i, CreditCard],
+  [/payment|pay.*accessib/i, CreditCard],
+  [/priority access/i, Star],
+  [/speaker|presenter/i, Mic],
+  [/vision access|low vision|blind/i, Eye],
+  [/sound.*environ|acoustic/i, Volume2],
+  [/follow.*up.*request|following up/i, ClipboardCheck],
+  [/positive.*framing/i, MessageCircle],
+  [/welcoming.*environ|carer|intersectional/i, Heart],
+  [/leadership|representation/i, Users],
+  [/employment.*track|disability.*employ/i, Briefcase],
+  [/contract/i, Briefcase],
+  [/performance.*review|accessib.*performance/i, BarChart3],
+  [/engagement.*recognition|sharing.*learn/i, Presentation],
+  [/accessible route|active experience/i, Waypoints],
+  [/taps.*fittings|doors.*taps/i, Bath],
+  [/signage.*contrast.*alarm|contrast.*emergency/i, AlertTriangle],
+
+  // --- Standard single-keyword rules ---
+  [/parking/i, Car],
+  [/path|aisle|ramp|stair|route/i, Waypoints],
+  [/entrance|door|entry|getting in/i, DoorOpen],
+  [/wayfinding|signage/i, Signpost],
+  [/queue/i, ListOrdered],
+  [/seating|chair|wheelchair space/i, Armchair],
+  [/table|counter|writing surface/i, Table2],
+  [/furniture|circulation/i, Sofa],
+  [/animal|dog|pet/i, Heart],
+  [/storage|control|locker|switch/i, SlidersHorizontal],
+  [/toilet|bathroom|washroom|change facilit|shower/i, Bath],
+  [/lighting/i, Lightbulb],
+  [/equipment|device|assistive tech/i, Wrench],
+  [/hearing|audio.*descri|loop|caption/i, Volume2],
+  [/retail|shop|checkout/i, ShoppingCart],
+  [/food|drink|menu|dining|cafe|restaurant/i, Utensils],
+  [/booking|ticket|reserv/i, Ticket],
+  [/video|caption.*video/i, Video],
+  [/communication|language|plain language|easy read/i, MessageCircle],
+  [/transport|travel|bus|taxi|train|drop.?off/i, Bus],
+  [/contact|phone|email|chat/i, Phone],
+  [/staff|employee|team|workforce|volunteer/i, Users],
+  [/training|learn|course/i, GraduationCap],
+  [/policy|procedure|governance|DIAP/i, FileText],
+  [/feedback/i, Megaphone],
+  [/emergency|evacuation|fire/i, AlertTriangle],
+  [/access.*page|review.*page/i, FileSearch],
+  [/familiarisati/i, Eye],
+  [/inclusion|diversity|equity/i, Accessibility],
+  [/sensory/i, Headphones],
+  [/support|assist/i, HandHelping],
+  [/report|metric|benchmark/i, BarChart3],
+  [/building|facility|venue|premises/i, Building2],
+  [/event|conference|performance/i, Calendar],
+  [/procure|tender|supplier|vendor/i, Briefcase],
+  [/recruit|hiring|workplace/i, Accessibility],
+  [/website|web|online|digital/i, Globe],
+  [/social media/i, Megaphone],
+];
+
+function getResourceIcon(title: string): LucideIcon {
+  for (const [pattern, icon] of RESOURCE_ICON_RULES) {
+    if (pattern.test(title)) return icon;
+  }
+  return Info;
+}
 
 function getResourceTags(resource: HelpContent): { label: string; type: string }[] {
   const tags: { label: string; type: string }[] = [];
@@ -625,7 +782,6 @@ export function ResourceCentre() {
                     const expanded = isGroupExpanded(group.moduleCode, groupIndex);
                     const headerId = `module-header-${group.moduleCode}`;
                     const panelId = `module-panel-${group.moduleCode}`;
-                    const commonTagKey = getMostCommonTagKey(group.resources);
                     return (
                       <div key={group.moduleCode} className={`module-item ${expanded ? 'open' : ''}`}>
                         <h2 style={{ margin: 0 }}>
@@ -650,40 +806,30 @@ export function ResourceCentre() {
                         </h2>
                         {expanded && (
                           <div id={panelId} role="region" aria-labelledby={headerId} className="module-panel">
-                            <ul className="resource-row-list">
+                            <div className="resource-card-grid">
                               {group.resources.map((resource) => {
                                 const unlocked = isModuleCompleted(resource.moduleCode);
-                                const tags = getResourceTags(resource);
-                                const tagKey = tags.map(t => t.type).sort().join(',');
-                                const showTags = tagKey !== commonTagKey;
+                                const IconComponent = getResourceIcon(resource.title);
                                 return (
-                                  <li key={resource.questionId}>
-                                    <button
-                                      className={`resource-row ${!unlocked ? 'locked' : ''}`}
-                                      onClick={() => handleResourceSelect(resource.questionId)}
-                                    >
-                                      <div className="resource-row-info">
-                                        <span className="resource-row-title">{resource.title}</span>
-                                        <span className="resource-row-summary">{resource.summary}</span>
-                                        {showTags && tags.length > 0 && (
-                                          <div className="resource-row-tags">
-                                            {tags.map(t => (
-                                              <span key={t.type} className={`tag-pill tag-${t.type}`}>{t.label}</span>
-                                            ))}
-                                          </div>
-                                        )}
-                                      </div>
-                                      {!unlocked && (
-                                        <span className="lock-badge">
-                                          <Lock size={11} aria-hidden="true" /> Locked
-                                        </span>
-                                      )}
-                                      <ChevronRight size={16} className="resource-row-arrow" aria-hidden="true" />
-                                    </button>
-                                  </li>
+                                  <button
+                                    key={resource.questionId}
+                                    className={`resource-card-tile ${!unlocked ? 'locked' : ''}`}
+                                    onClick={() => handleResourceSelect(resource.questionId)}
+                                  >
+                                    <div className="resource-card-icon" aria-hidden="true">
+                                      <IconComponent size={22} />
+                                    </div>
+                                    <span className="resource-card-title">{resource.title}</span>
+                                    <span className="resource-card-summary">{resource.summary}</span>
+                                    {!unlocked && (
+                                      <span className="lock-badge">
+                                        <Lock size={11} aria-hidden="true" /> Locked
+                                      </span>
+                                    )}
+                                  </button>
                                 );
                               })}
-                            </ul>
+                            </div>
                           </div>
                         )}
                       </div>

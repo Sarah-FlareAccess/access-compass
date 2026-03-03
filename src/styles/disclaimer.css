@@ -152,7 +152,7 @@
 }
 
 .checkbox-label:focus-within {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 4px;
   border-radius: var(--radius-sm);
 }
@@ -300,7 +300,7 @@
 }
 
 .auth-form input:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -623,7 +623,7 @@
 }
 
 .org-form input:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

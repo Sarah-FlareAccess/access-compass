@@ -19,7 +19,7 @@
 }
 
 .training-card:focus-visible {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -156,4 +156,31 @@
 .training-card:hover .training-card-arrow {
   color: var(--category-color, #8b5cf6);
   transform: translateY(-50%) translateX(2px);
+}
+
+@media (max-width: 640px) {
+  .training-card {
+    padding: 16px;
+  }
+
+  .training-card-title {
+    font-size: 1rem;
+    padding-right: 24px;
+  }
+
+  .training-card-arrow {
+    right: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .training-card,
+  .training-card-arrow,
+  .training-card-progress-fill {
+    transition: none;
+  }
+
+  .training-card:hover {
+    transform: none;
+  }
 }

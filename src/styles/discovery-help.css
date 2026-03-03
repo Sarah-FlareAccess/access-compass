@@ -180,7 +180,7 @@
 }
 
 .faq-question:focus {
-  outline: 2px solid var(--amethyst-diamond, #490e67);
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: -2px;
   border-radius: 10px;
 }
@@ -278,7 +278,7 @@
 }
 
 .contact-btn.primary:focus {
-  outline: 2px solid var(--amethyst-diamond, #490e67);
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

@@ -360,7 +360,7 @@ a.evidence-item-name:hover {
 }
 
 .evidence-file-input:focus-visible + .evidence-upload-btn {
-  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
   box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.2);
 }
@@ -426,7 +426,7 @@ a.evidence-item-name:hover {
 
 .evidence-link-input:focus-visible,
 .evidence-link-description:focus-visible {
-  outline: 3px solid var(--amethyst-diamond);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

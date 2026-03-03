@@ -88,7 +88,7 @@
   }
 
   .tab-bar-item:focus-visible {
-    outline: 2px solid var(--amethyst-diamond, #490e67);
+    outline: 2px solid var(--aussie-sunrise, #FF9015);
     outline-offset: -2px;
     border-radius: 8px;
     background: rgba(73, 14, 103, 0.06);
@@ -190,6 +190,6 @@
   .dashboard-page,
   .dashboard-main,
   main[role="main"] {
-    padding-bottom: calc(56px + env(safe-area-inset-bottom, 16px)) !important;
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 16px));
   }
 }
