@@ -11,6 +11,7 @@
 import { useState } from 'react';
 import type { ModuleSummary, CompletionMetadata } from '../../hooks/useModuleProgress';
 import { Confetti, useConfetti } from '../Confetti';
+import { PRIORITY_LEGEND } from '../../utils/priorityCalculation';
 import './questions.css';
 
 export type { CompletionMetadata };
@@ -170,6 +171,14 @@ export function ModuleSummaryCard({
               )}
             </div>
           </div>
+          <dl className="priority-legend" aria-label="Priority level definitions">
+            {PRIORITY_LEGEND.map(({ level, label, description }) => (
+              <div key={level} className={`priority-legend-item priority-legend-${level}`}>
+                <dt>{label}</dt>
+                <dd>{description}</dd>
+              </div>
+            ))}
+          </dl>
           <ul className="summary-list action-list">
             {(expandedSections['actions'] ? priorityActions : priorityActions.slice(0, 5)).map((action, index) => (
               <li key={index} className={`action-item priority-${action.priority}`}>

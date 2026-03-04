@@ -1243,6 +1243,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Main navigation works but dropdown menus are not accessible' or 'Most pages work but booking forms require a mouse'",
@@ -1302,6 +1303,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Focus visible on buttons but not on links' or 'Header menu shows focus but footer doesn't'",
         helpContent: {
@@ -1331,6 +1333,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Key venue photos have alt text but decorative images don't' or 'Blog posts have alt text but older pages don't'",
         helpContent: {
@@ -1419,6 +1422,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         allowPartial: true,
         partialPlaceholder: "E.g., 'Main text is fine but footer links are hard to read' or 'Text on hero images lacks contrast'",
@@ -1513,6 +1517,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Works at 200% but breaks at higher zoom' or 'Content readable but navigation menu gets cut off'",
         helpContent: {
@@ -1574,6 +1579,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Content reads well but menus are hard to use' or 'Works on iPhone but issues on Android'",
         helpContent: {
@@ -1661,6 +1667,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Main buttons fine but footer links too small' or 'Easy on most pages but filter buttons are cramped'",
         helpContent: {
@@ -1717,6 +1724,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Captions are text versions of spoken content that appear on screen, making video content accessible to people who are deaf or hard of hearing. This assesses whether your videos have captions and how accurate they are.',
@@ -1747,6 +1755,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Main promotional video has transcript but tour videos don't' or 'Written summaries but not full transcripts'",
         helpContent: {
@@ -1774,6 +1783,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Main navigation is clear but blog posts use generic Read more links' or 'Most links good but some Click here remain'",
         helpContent: {
@@ -1902,6 +1912,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Labels are visible but required fields aren't clearly marked' or 'Contact form is good but newsletter signup just has placeholder text'",
         helpContent: {
@@ -1983,6 +1994,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes, clear and helpful error messages' },
@@ -2014,6 +2026,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-extended', label: 'Yes, extended timeouts and/or warnings' },
@@ -2425,6 +2438,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Most fields work but the date picker requires a mouse' or 'Haven\'t tested this yet'",
         helpContent: {
@@ -2456,6 +2470,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some errors are explained but others just show red highlighting' or 'Messages appear but are not read by screen readers'",
         helpContent: {
@@ -2496,6 +2511,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.3-PC-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Not tested with screen readers' or 'Errors appear visually but may not be announced'",
@@ -2588,6 +2604,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.3-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Tested with VoiceOver, mostly works but calendar is problematic' or 'Not tested with assistive technology'",
@@ -2614,6 +2631,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.3-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Session times out after 15 minutes with no warning' or 'Generous time but no option to extend'",
@@ -2693,6 +2711,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.3-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Main form works but card entry is problematic' or 'Haven't specifically tested payment step'",
@@ -3228,6 +3247,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Main promotional videos have captions but social media clips do not' or 'We don't create video content'",
@@ -3258,6 +3278,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Only for formal videos, not social content' or 'Not needed - talking head only'",
         helpContent: {
@@ -3322,6 +3343,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'YouTube embeds work but custom player doesn't' or 'No videos on our website'",
         helpContent: {
@@ -3675,6 +3697,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.4-PC-4', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         options: [
@@ -3738,6 +3761,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.4-PC-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Only for videos we produce, not user-generated content' or 'Not aware of testing tools'",
@@ -3852,6 +3876,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, transcripts for all audio content' },
@@ -4963,7 +4988,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         showWhen: { questionId: '2.1-F-3', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Level but needs a kerb ramp to footpath' or 'Mostly accessible but uneven in places'",
         helpContent: {
@@ -5074,7 +5099,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Entrance is visible but no directional signage' or 'Some signage but not at all decision points'",
         helpContent: {
@@ -5185,7 +5210,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         showWhen: { questionId: '2.1-F-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Usually available but blocked during deliveries' or 'Available most times but full during major events'",
         helpContent: {
@@ -5441,7 +5466,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Path is lit but signs are hard to read at night' or 'Well-lit near entrance but darker in the car park'",
         helpContent: {
           summary: 'Can people safely find their way when it\'s getting dark? Both path visibility (can you see where to walk safely?) and signage visibility (can you read the wayfinding signs?) need to work in low light conditions.',
@@ -5501,7 +5526,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Signage at main junction but not at all corners' or 'Signs at entrance but not in car park'",
         helpContent: {
           summary: 'People get lost at decision points - any location where the route is not immediately obvious, such as car park entrances, level changes, path junctions, corners where the destination is not visible, areas with multiple paths, and transitions between indoor and outdoor areas. Strategic signage placement at each of these points ensures continuous wayfinding without gaps.',
@@ -5559,7 +5584,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo showing tactile ground surface indicators on the path to the entrance',
@@ -5755,6 +5780,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'both',
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8.2',
@@ -5784,6 +5810,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'both',
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8.1',
@@ -6011,7 +6038,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'both',
         showWhen: { questionId: '2.2-F-1', answers: ['lift-at-entrance'] },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         options: [
           { id: 'yes-independent', label: 'Yes - fully independent operation' },
           { id: 'mostly-independent', label: 'Mostly - some limitations' },
@@ -6281,7 +6308,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Visible from the street but not from the bus stop' or 'Signage exists but is small or unclear'",
         helpContent: {
           summary: 'First-time visitors should be able to easily spot and recognise the main entrance as they approach on foot, from public transport, or from a drop-off point. Clear sightlines, signage, canopies, contrasting colours, or good lighting all help — not needing to search or ask reduces anxiety and confusion.',
@@ -6363,7 +6390,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Well-lit during business hours but dim at night' or 'Main door lit but approach path is darker'",
         helpContent: {
           summary: 'Lighting at and around the entrance should be sufficient for people with low vision or those arriving in low-light conditions to safely identify the entrance, see door handles, read signage, and notice any steps or level changes.',
@@ -6502,7 +6529,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Adequate timing but can be rushed during peak times' or 'Sensors sometimes miss slower walkers'",
         helpContent: {
           summary: 'Automatic doors should remain open long enough for people who move slowly - including those using wheelchairs, walkers, canes, or who simply need more time - to pass through safely and without stress. Doors that close too quickly can cause anxiety, physical contact, or injury, and may deter people from visiting.',
@@ -6703,6 +6730,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Usually clear but displays sometimes encroach' or 'Paths clear but cables across floor in some areas'",
         helpContent: {
@@ -7087,6 +7115,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Most floors are fine but some tiles are cracked near the entrance' or 'Carpet edges lifting in a few spots'",
         helpContent: {
@@ -7271,6 +7300,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         showWhen: { questionId: '2.3-1-3', answers: ['internal-stairs'] },
         partialPlaceholder: "E.g., 'Nosings on some steps but worn or faded' or 'Contrast strips on main staircase but not secondary'",
@@ -7492,6 +7522,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '2.3-1-3', answers: ['lift', 'platform-lift'] },
         options: [
@@ -8736,6 +8767,7 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        safetyRelated: true,
       },
       {
         id: '3.1-D-15',
@@ -8945,6 +8977,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         safetyRelated: true,
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         showWhen: { questionId: '3.2-1-1', answers: ['yes', 'yes-offsite'] },
         partialPlaceholder: "E.g., 'Alarm exists but not sure if it's connected or monitored' or 'Cord present but may not reach floor level'",
@@ -9224,6 +9257,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         showWhen: { questionId: '3.2-1-1', answers: ['not-sure'] },
         options: [
@@ -9832,6 +9866,7 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2',
+        safetyRelated: true,
       },
       // Sound & Acoustics
       {
@@ -9934,6 +9969,7 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.7(4)',
+        safetyRelated: true,
       },
       // Hearing Augmentation
       {
@@ -13234,6 +13270,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         showWhen: { questionId: '3.8-1-1', answers: ['guided-tours'] },
         options: [
@@ -13730,6 +13767,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         showWhen: { questionId: '3.8-1-1', answers: ['outdoor-nature'] },
         options: [
@@ -13865,6 +13903,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         showWhen: { questionId: '3.8-1-1', answers: ['outdoor-nature'] },
         options: [
@@ -14017,7 +14056,7 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
-        complianceRef: 'AS 1428.2 Cl. 24.3',
+        complianceRef: 'AS 1428.1 Cl. 7',
       },
       {
         id: '3.9-1-3',
@@ -14026,6 +14065,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'physical',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Grab rails installed but no roll-in shower' or 'Accessible bathroom in some rooms only'",
         helpContent: {
@@ -14172,6 +14212,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'safety',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         options: [
           { id: 'visual-fire-alarm', label: 'Visual fire alarm (strobe or flashing light)' },
@@ -14226,7 +14267,9 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.9',
+        safetyRelated: true,
       },
       {
         id: '3.9-D-5',
@@ -14413,8 +14456,8 @@ export const accessModules: AccessModule[] = [
             'Consider tactile room numbers on all rooms, not just designated accessible rooms',
           ],
         },
-        complianceLevel: 'best-practice',
-        complianceRef: 'AS 1428.2 / AS 1428.4',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 / AS 1428.4.1',
       },
       {
         id: '3.9-D-11',
@@ -14551,7 +14594,8 @@ export const accessModules: AccessModule[] = [
             'Night-lights or motion-activated lighting help guests who need to use the bathroom during the night',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
+        complianceRef: 'BCA D3 / AS 4586',
       },
       {
         id: '3.9-D-16',
@@ -14795,6 +14839,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         showWhen: { questionId: '3.10-1-1', answers: ['clothing-fashion', 'department-store'] },
         options: [
@@ -14847,7 +14892,9 @@ export const accessModules: AccessModule[] = [
             'Staff should be trained on how to respond when the fitting room alarm activates',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 Cl. 10.9',
+        safetyRelated: true,
       },
       {
         id: '3.10-D-3',
@@ -21073,6 +21120,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'training',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, all relevant staff trained' },
@@ -22496,7 +22544,7 @@ export const accessModules: AccessModule[] = [
             'Consider noting that accessibility information will only be used for event planning purposes, to protect privacy',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.1-PC-4',
@@ -22561,7 +22609,7 @@ export const accessModules: AccessModule[] = [
             'It is worth checking that your payment gateway is accessible, since many are not',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       // Deep Dive Questions
       {
@@ -23040,7 +23088,7 @@ export const accessModules: AccessModule[] = [
             'If you are using a stage, consider how wheelchair users will access it',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.2-PC-2',
@@ -23074,7 +23122,7 @@ export const accessModules: AccessModule[] = [
             'Clearly signing accessible parking and routes to the entrance prevents confusion on arrival',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.2-PC-3',
@@ -23108,7 +23156,7 @@ export const accessModules: AccessModule[] = [
             'For larger events, consider providing a Changing Places facility for people with complex needs',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.2-PC-4',
@@ -23146,7 +23194,7 @@ export const accessModules: AccessModule[] = [
             'Making accessible seating bookable online, not just by phone, removes an unnecessary barrier',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.2-PC-5',
@@ -23328,6 +23376,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all-hard', label: 'Yes - all areas on hard, even surfaces' },
@@ -23460,7 +23509,7 @@ export const accessModules: AccessModule[] = [
             'Consider adding tactile indicators before cable crossing points to alert people with vision impairment',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.2-D-9',
@@ -23528,7 +23577,7 @@ export const accessModules: AccessModule[] = [
             'Briefing all performers and presenters on the stage layout and edges helps prevent accidents',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.2-D-11',
@@ -23680,6 +23729,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-comprehensive', label: 'Yes - accessible pathways throughout venue' },
@@ -23791,6 +23841,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-designed', label: 'Barriers designed with wheelchair access points' },
@@ -23960,6 +24011,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'pulse-check',
         options: [
           { id: 'visual-screens', label: 'Visual display screens for announcements' },
@@ -23985,7 +24037,7 @@ export const accessModules: AccessModule[] = [
             'Repeating important announcements and keeping them on screens helps people who missed the first one',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.3-PC-4',
@@ -24647,7 +24699,7 @@ export const accessModules: AccessModule[] = [
             'Having a backup plan such as assistive listening devices gives you a safety net if the loop fails',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.4-D-4',
@@ -24761,6 +24813,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-advance-and-immediate', label: 'Yes - both advance notice and immediate warnings' },
@@ -24786,7 +24839,7 @@ export const accessModules: AccessModule[] = [
             'Make sure people can step out and re-enter easily during effects so they do not feel trapped',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.4-D-8',
@@ -25615,7 +25668,7 @@ export const accessModules: AccessModule[] = [
             'Make sure wheelchairs and stretchers can reach all areas including accessible seating in case of a medical emergency',
           ],
         },
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
       },
       {
         id: '6.5-D-14',

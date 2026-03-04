@@ -9,6 +9,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
+import { calculateQuestionPriority, getDIAPTimeframeForPriority } from '../utils/priorityCalculation';
 
 export type DIAPCategory =
   | 'physical-access'
@@ -176,6 +177,7 @@ export interface ResponseForDIAP {
   moduleName: string;
   impactLevel?: 'high' | 'medium' | 'low';
   safetyRelated?: boolean;
+  complianceLevel?: 'mandatory' | 'best-practice';
   category?: DIAPCategory;
   notes?: string;
 }
@@ -188,33 +190,17 @@ export interface DIAPStats {
   completedPercentage: number;
 }
 
-// Priority calculation based on response metadata
 function calculatePriority(response: ResponseForDIAP): DIAPPriority {
-  if (response.answer === 'partially') {
-    // Partial: use question priority stepped down one level; safety stays high
-    if (response.safetyRelated) return 'high';
-    if (response.impactLevel === 'high') return 'medium';
-    if (response.impactLevel === 'medium') return 'medium';
-    return 'low';
-  }
-  if (response.safetyRelated) return 'high';
-  if (response.impactLevel === 'high') return 'high';
-  if (response.impactLevel === 'medium') return 'medium';
-  return 'low';
+  return calculateQuestionPriority({
+    complianceLevel: response.complianceLevel,
+    safetyRelated: response.safetyRelated,
+    impactLevel: response.impactLevel,
+    answer: response.answer,
+  });
 }
 
-// Timeframe based on priority
 function calculateTimeframe(priority: DIAPPriority): string {
-  switch (priority) {
-    case 'high':
-      return '0-30 days';
-    case 'medium':
-      return '30-90 days';
-    case 'low':
-      return '3-12 months';
-    default:
-      return '3-12 months';
-  }
+  return getDIAPTimeframeForPriority(priority);
 }
 
 // Convert question to action text
@@ -969,7 +955,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             category,
             priority,
             status: 'not-started',
-            timeframe: priority === 'high' ? '0-30 days' : priority === 'medium' ? '30-90 days' : '3-12 months',
+            timeframe: getDIAPTimeframeForPriority(priority),
             dueDate,
             responsibleRole: responsible,
             importSource: 'pdf',
@@ -1057,33 +1043,21 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
 
       // Generate items for "no", "not-sure", or "partially" answers
       if (response.answer === 'no' || response.answer === 'not-sure' || response.answer === 'partially') {
-        // Determine priority based on answer type and question metadata
-        let priority: DIAPPriority;
+        const priority: DIAPPriority = calculateQuestionPriority({
+          complianceLevel: question.complianceLevel,
+          safetyRelated: question.safetyRelated,
+          impactLevel: question.impactLevel,
+          answer: response.answer,
+        });
         let impactStatement: string | undefined;
 
         if (response.answer === 'partially') {
-          // Partial implementation - use question priority, stepped down one level; safety stays high
-          if (question.safetyRelated) {
-            priority = 'high';
-          } else if (question.impactLevel === 'high') {
-            priority = 'medium';
-          } else if (question.impactLevel === 'medium') {
-            priority = 'medium';
-          } else {
-            priority = 'low';
-          }
           impactStatement = response.notes?.trim()
             ? `Partial measures in place: ${response.notes.trim()}. Complete implementation for full accessibility.`
             : 'Partial measures are in place. Complete implementation for full accessibility.';
         } else if (response.answer === 'not-sure') {
-          // Uncertain - needs investigation
-          priority = 'medium';
           impactStatement = 'This area needs further investigation to confirm current status.';
         } else {
-          // No - full implementation needed
-          priority = question.safetyRelated ? 'high' :
-            question.impactLevel === 'high' ? 'high' :
-            question.impactLevel === 'medium' ? 'medium' : 'low';
           impactStatement = question.safetyRelated
             ? 'This is a safety-related item requiring immediate attention.'
             : undefined;
@@ -1102,12 +1076,11 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           category: mapModuleToCategory(moduleName),
           priority,
           status: 'not-started',
-          timeframe: priority === 'high' ? '0-30 days' : priority === 'medium' ? '30-90 days' : '3-12 months',
+          timeframe: getDIAPTimeframeForPriority(priority),
           moduleSource: moduleName,
           questionSource: response.questionId,
           importSource: 'audit',
           impactStatement,
-          // Include compliance information from question metadata
           complianceLevel: question.complianceLevel,
           complianceRef: question.complianceRef,
           createdAt: now,
@@ -1136,7 +1109,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             category: mapAnalysisTypeToCategory(analysisType),
             priority,
             status: 'not-started',
-            timeframe: priority === 'high' ? '0-30 days' : priority === 'medium' ? '30-90 days' : '3-12 months',
+            timeframe: getDIAPTimeframeForPriority(priority),
             moduleSource: moduleName,
             questionSource: itemId,
             importSource: 'audit',
@@ -1166,7 +1139,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             category: 'information-communication-marketing',
             priority,
             status: 'not-started',
-            timeframe: priority === 'high' ? '0-30 days' : priority === 'medium' ? '30-90 days' : '3-12 months',
+            timeframe: getDIAPTimeframeForPriority(priority),
             moduleSource: moduleName,
             questionSource: itemId,
             importSource: 'audit',

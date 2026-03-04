@@ -15,11 +15,21 @@ import { getModuleById } from '../data/accessModules';
 import type { ReviewMode } from '../types/index';
 import { needsFollowUp, isNegativeResponse, isPartialResponse } from '../constants/responseOptions';
 import { getReportResourceLinks } from '../utils/resourceLinks';
+import { getHelpByQuestionId } from '../data/help';
+import { calculateQuestionPriority } from '../utils/priorityCalculation';
 import type { ReportConfig } from '../components/ReportConfigSelector';
+
+export interface CategorisedItem {
+  text: string;
+  moduleCode: string;
+  moduleName: string;
+  questionId?: string;
+}
 
 export interface ReportSection {
   title: string;
   content: string | string[];
+  categorised?: CategorisedItem[];
   type: 'text' | 'list' | 'stats';
 }
 
@@ -148,6 +158,7 @@ export interface Report {
   // Deep dive specific content
   detailedFindings?: {
     moduleId: string;
+    moduleCode: string;
     moduleName: string;
     issues: Array<{
       questionId: string;
@@ -272,6 +283,10 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
       const allPriorityActions: string[] = [];
       const allAreasToExplore: string[] = [];
       const allProfessionalReview: string[] = [];
+      const catStrengths: CategorisedItem[] = [];
+      const catPriorityActions: CategorisedItem[] = [];
+      const catAreasToExplore: CategorisedItem[] = [];
+      const catProfessionalReview: CategorisedItem[] = [];
 
       // Build module evidence (ownership/completion metadata)
       const moduleEvidence: ModuleCompletionEvidence[] = completedModules.map(moduleProgress => {
@@ -305,19 +320,34 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
 
       completedModules.forEach(moduleProgress => {
         if (moduleProgress.summary) {
+          const mod = getModuleById(moduleProgress.moduleId);
+          const mCode = moduleProgress.moduleCode;
+          const mName = mod?.name || mCode;
+
           if (moduleProgress.summary.doingWell) {
             allStrengths.push(...moduleProgress.summary.doingWell);
+            moduleProgress.summary.doingWell.forEach(text =>
+              catStrengths.push({ text, moduleCode: mCode, moduleName: mName })
+            );
           }
           if (moduleProgress.summary.priorityActions) {
-            allPriorityActions.push(...moduleProgress.summary.priorityActions.map(a =>
-              `${a.action} (${a.priority} priority)`
-            ));
+            moduleProgress.summary.priorityActions.forEach(a => {
+              const text = `${a.action} (${a.priority} priority)`;
+              allPriorityActions.push(text);
+              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId });
+            });
           }
           if (moduleProgress.summary.areasToExplore) {
             allAreasToExplore.push(...moduleProgress.summary.areasToExplore);
+            moduleProgress.summary.areasToExplore.forEach(text =>
+              catAreasToExplore.push({ text, moduleCode: mCode, moduleName: mName })
+            );
           }
           if (moduleProgress.summary.professionalReview) {
             allProfessionalReview.push(...moduleProgress.summary.professionalReview);
+            moduleProgress.summary.professionalReview.forEach(text =>
+              catProfessionalReview.push({ text, moduleCode: mCode, moduleName: mName })
+            );
           }
         }
 
@@ -361,9 +391,14 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
 
             // Add media analysis recommendations to professional review if needed
             if (response.mediaAnalysis.needsProfessionalReview && response.mediaAnalysis.professionalReviewReason) {
-              allProfessionalReview.push(
-                `${getAnalysisTypeLabel(response.mediaAnalysis.analysisType)}: ${response.mediaAnalysis.professionalReviewReason}`
-              );
+              const reviewText = `${getAnalysisTypeLabel(response.mediaAnalysis.analysisType)}: ${response.mediaAnalysis.professionalReviewReason}`;
+              allProfessionalReview.push(reviewText);
+              const mod2 = getModuleById(moduleProgress.moduleId);
+              catProfessionalReview.push({
+                text: reviewText,
+                moduleCode: moduleProgress.moduleCode,
+                moduleName: mod2?.name || moduleProgress.moduleCode,
+              });
             }
           }
 
@@ -525,21 +560,25 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
           strengths: {
             title: "What's Going Well",
             content: allStrengths,
+            categorised: catStrengths,
             type: 'list',
           },
           priorityActions: {
             title: 'Priority Actions',
             content: allPriorityActions,
+            categorised: catPriorityActions,
             type: 'list',
           },
           areasToExplore: {
             title: 'Areas to Explore',
             content: allAreasToExplore,
+            categorised: catAreasToExplore,
             type: 'list',
           },
           professionalReview: {
             title: 'Consider Professional Review',
             content: allProfessionalReview,
+            categorised: catProfessionalReview,
             type: 'list',
           },
         },
@@ -550,10 +589,8 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
         reportContext,
       };
 
-      // Add detailed findings for deep-dive mode
-      if (reviewMode === 'deep-dive') {
-        report.detailedFindings = generateDetailedFindings(completedModules);
-      }
+      // Add detailed findings for all report types
+      report.detailedFindings = generateDetailedFindings(completedModules);
 
       return report;
     };
@@ -1967,7 +2004,7 @@ const RECOMMENDATION_CONTEXTS: RecommendationContext[] = [
   },
   // Website and digital
   {
-    keywords: ['website', 'digital', 'online', 'app', 'web', 'wcag'],
+    keywords: ['website', 'digital', 'online', 'app', 'web', 'wcag', 'screen reader', 'keyboard', 'alt text', 'mobile', 'readability', 'font size', 'colour contrast', 'color contrast'],
     specificActions: [
       'Conduct a WCAG 2.1 AA audit of your website and fix critical issues',
       'Ensure all images have meaningful alt text',
@@ -1980,6 +2017,49 @@ const RECOMMENDATION_CONTEXTS: RecommendationContext[] = [
     ],
     reasoning: 'Digital accessibility is essential for people to find information and engage with your services. Inaccessible websites exclude people with vision, motor, and cognitive disabilities.',
     resources: ['[WCAG 2.1 Quick Reference]', '[Website Accessibility Testing Tools]'],
+  },
+  // Social media and content
+  {
+    keywords: ['social media', 'hashtag', 'camelcase', 'repost', 'sharing content', 'instagram', 'facebook', 'post', 'caption', 'emoji', 'image description', 'content warning', 'trigger warning', 'video description', 'transcript'],
+    specificActions: [
+      'Write hashtags in CamelCase so screen readers can distinguish individual words',
+      'Add image descriptions or alt text to all social media posts with images',
+      'Include captions on all video content posted to social media',
+      'Place content warnings before sensitive content, not buried in descriptions',
+      'Verify that alt text is preserved when content is reposted or shared across platforms',
+      'Place emojis at the end of posts rather than inline to avoid screen reader interruptions',
+      'Use plain language and avoid excessive use of special characters or symbols',
+    ],
+    reasoning: 'Social media is often the first point of contact for potential visitors. Inaccessible posts exclude people who use screen readers, have cognitive disabilities, or who need content warnings.',
+    resources: ['[Guide: Accessible Social Media]', '[Social Media Accessibility Checklist]'],
+  },
+  // Communications and content creation
+  {
+    keywords: ['communication', 'newsletter', 'email', 'flyer', 'plain language', 'plain english', 'language', 'readable', 'readability', 'invitation', 'marketing', 'advertising', 'promotion'],
+    specificActions: [
+      'Write all communications in plain language with short sentences and simple words',
+      'Use minimum 12pt font in emails and digital communications',
+      'Ensure email templates are tested with screen readers',
+      'Offer communications in alternative formats on request (large print, Easy Read)',
+      'Include accessibility contact details in all event invitations and promotions',
+      'Test readability level of public-facing content (aim for Grade 8 reading level)',
+    ],
+    reasoning: 'Accessible communications ensure everyone can receive and understand your messages. Complex language and inaccessible formats exclude people with cognitive, vision, and learning disabilities.',
+    resources: ['[Plain Language Writing Guide]', '[Accessible Email Checklist]'],
+  },
+  // Accessibility features and equipment
+  {
+    keywords: ['hearing loop', 'wheelchair', 'mobility aid', 'walking frame', 'scooter', 'assistive', 'equipment', 'device', 'charging', 'wifi', 'induction loop', 'portable'],
+    specificActions: [
+      'Maintain a list of available accessibility equipment and communicate it to visitors',
+      'Regularly test and maintain all accessibility equipment (hearing loops, ramps, etc.)',
+      'Train staff on how to set up, operate, and troubleshoot accessibility equipment',
+      'Provide charging points for powered mobility devices',
+      'Ensure equipment is clean, in working order, and stored in an accessible location',
+      'Display signage indicating where accessibility equipment is available',
+    ],
+    reasoning: 'Accessibility equipment enables participation for people with disabilities. Equipment that is unavailable, broken, or poorly maintained creates barriers.',
+    resources: ['[Accessibility Equipment Maintenance Guide]', '[Hearing Loop Testing Checklist]'],
   },
   // Policy and DIAP
   {
@@ -2003,7 +2083,7 @@ function getSpecificRecommendations(
   questionId: string,
   questionText: string,
   moduleCode: string,
-  _answer: string | null,
+  answer: string | null,
   userNotes?: string
 ): { actions: string[]; reasoning: string; resources: string[]; needsAdminReview?: boolean } {
   // First, check for question-specific recommendations (most precise)
@@ -2049,30 +2129,139 @@ function getSpecificRecommendations(
     }
   }
 
-  // ADMIN FALLBACK: No specific recommendation available
-  // Flag for admin review and provide generic guidance
-  let fallbackActions = [
-    '⚠️ This item requires tailored guidance - contact Access Compass support for specific recommendations',
-    'Document current state with photos and measurements to share with our team',
-    'Note any specific constraints or requirements unique to your venue',
-  ];
+  // Look up the question for Tier 2.5 and Tier 3
+  const module = getModuleById(moduleCode);
+  const question = module?.questions.find(q => q.id === questionId);
 
-  // If user provided notes, include them as context
-  if (userNotes?.trim()) {
-    fallbackActions.splice(1, 0, `Your notes: "${userNotes.trim()}" - our team will consider this context`);
+  // Tier 2.5a: Rich help content (solutions or tips from help system)
+  const richHelp = getHelpByQuestionId(questionId);
+  if (richHelp) {
+    if (richHelp.solutions && richHelp.solutions.length > 0) {
+      const sorted = [...richHelp.solutions].sort((a, b) => {
+        const order = { low: 0, medium: 1, high: 2 };
+        return order[a.resourceLevel] - order[b.resourceLevel];
+      });
+      const actions = sorted.slice(0, 4).map(s => `${s.title}: ${s.description}`);
+      if (userNotes?.trim()) {
+        actions.unshift(`Address noted issue: "${userNotes.trim()}"`);
+      }
+      return {
+        actions: actions.slice(0, 6),
+        reasoning: richHelp.whyItMatters?.text || richHelp.summary,
+        resources: [],
+        needsAdminReview: false,
+      };
+    }
+    if (richHelp.tips && richHelp.tips.length > 0) {
+      const actions = richHelp.tips.slice(0, 4).map(t => t.text);
+      if (userNotes?.trim()) {
+        actions.unshift(`Address noted issue: "${userNotes.trim()}"`);
+      }
+      return {
+        actions: actions.slice(0, 6),
+        reasoning: richHelp.whyItMatters?.text || richHelp.summary,
+        resources: [],
+        needsAdminReview: false,
+      };
+    }
   }
 
-  // Add some general guidance
-  fallbackActions.push(
-    'In the meantime, consult Australian Standards AS1428.1 for general requirements',
-    'Consider engaging a local access consultant for on-site assessment',
-    'Contact support@accesscompass.com.au for personalised recommendations'
-  );
+  // Tier 2.5b: Inline tips from question helpContent (string[])
+  if (question?.helpContent?.tips && question.helpContent.tips.length > 0) {
+    const actions = question.helpContent.tips.slice(0, 4);
+    if (userNotes?.trim()) {
+      actions.unshift(`Address noted issue: "${userNotes.trim()}"`);
+    }
+    return {
+      actions: actions.slice(0, 6),
+      reasoning: question.helpContent.summary || `Review the recommended actions and consider how they apply to your venue.`,
+      resources: [],
+      needsAdminReview: false,
+    };
+  }
+
+  // Tier 3: Enhanced fallback with category-specific guidance
+  const categoryGuidance: Record<string, string> = {
+    measurement: 'Take measurements and compare against Australian Standards minimum requirements',
+    policy: 'Review your policies and update to include this accessibility requirement',
+    training: 'Incorporate this topic into staff accessibility training and awareness programs',
+    physical: 'Assess the physical environment and plan modifications to improve accessibility',
+    information: 'Review how this information is provided and ensure it is available in accessible formats',
+    feedback: 'Establish a process to collect and act on accessibility feedback from customers',
+    employment: 'Review employment practices to ensure inclusive recruitment and workplace adjustments',
+    procurement: 'Include accessibility requirements in procurement criteria and supplier agreements',
+    digital: 'Audit digital content and platforms for accessibility compliance (WCAG 2.2 AA)',
+    safety: 'Review safety procedures to ensure they are inclusive of people with disability',
+    'sensory-environment': 'Assess the sensory environment and plan adjustments for people with sensory sensitivities',
+    communication: 'Ensure communication methods are inclusive and available in multiple formats',
+    evidence: 'Document and gather evidence of current accessibility provisions',
+  };
+
+  const fallbackActions: string[] = [];
+
+  if (userNotes?.trim()) {
+    fallbackActions.push(`Address noted issue: "${userNotes.trim()}"`);
+  }
+
+  const catAction = categoryGuidance[question?.category || ''];
+  if (catAction) {
+    fallbackActions.push(catAction);
+  }
+
+  // Convert question text to an actionable recommendation
+  let fallbackAction = questionText.replace(/\?$/, '').trim();
+  const actionConversions: Array<[RegExp, string]> = [
+    [/^Do you have /i, 'Provide '],
+    [/^Do you /i, 'Ensure you '],
+    [/^Do staff /i, 'Ensure staff '],
+    [/^Does your /i, 'Ensure your '],
+    [/^Does the /i, 'Ensure the '],
+    [/^Do /i, 'Ensure '],
+    [/^Are you /i, 'Ensure you are '],
+    [/^Are your /i, 'Ensure your '],
+    [/^Are there /i, 'Ensure there are '],
+    [/^Are /i, 'Ensure '],
+    [/^Is your /i, 'Ensure your '],
+    [/^Is there /i, 'Ensure there is '],
+    [/^Is /i, 'Ensure '],
+    [/^Can you /i, 'Ensure you can '],
+    [/^Can customers /i, 'Ensure customers can '],
+    [/^Can visitors /i, 'Ensure visitors can '],
+    [/^Can /i, 'Ensure '],
+    [/^Have you /i, 'Ensure you have '],
+    [/^Has your /i, 'Ensure your '],
+    [/^What have you /i, 'Review what you have '],
+    [/^What (.+?) do you /i, 'Review your '],
+    [/^How /i, 'Review how '],
+  ];
+  let matched = false;
+  for (const [pattern, replacement] of actionConversions) {
+    if (pattern.test(fallbackAction)) {
+      fallbackAction = fallbackAction.replace(pattern, replacement);
+      matched = true;
+      break;
+    }
+  }
+  if (!matched && !catAction) {
+    fallbackAction = 'Review: ' + fallbackAction;
+  }
+  fallbackAction = fallbackAction.charAt(0).toUpperCase() + fallbackAction.slice(1);
+  fallbackActions.push(fallbackAction);
+
+  if (question?.complianceLevel === 'mandatory') {
+    fallbackActions.push(`This is a mandatory compliance requirement${question.complianceRef ? ` (${question.complianceRef})` : ''}. Prioritise addressing this item.`);
+  }
+
+  fallbackActions.push('Document current state with photos and measurements where applicable');
+
+  const reasoning = question?.helpText
+    || (question?.helpContent?.summary)
+    || 'Review the recommended actions and consider how they apply to your venue.';
 
   return {
-    actions: fallbackActions.slice(0, 6),
-    reasoning: 'This question requires specific guidance that our automated system cannot provide. Our team will review your response and provide tailored recommendations. In the meantime, the general actions above may help you make progress.',
-    resources: ['[Contact Access Compass Support]', '[Australian Human Rights Commission - Disability Standards]'],
+    actions: fallbackActions.slice(0, 5),
+    reasoning,
+    resources: [],
     needsAdminReview: true,
   };
 }
@@ -2083,30 +2272,28 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
     const module = getModuleById(moduleProgress.moduleId);
     if (!module) return null;
 
-    const issues = moduleProgress.responses
-      .filter(response => isNegativeResponse(response.answer) || needsFollowUp(response.answer) || isPartialResponse(response.answer))
+    // --- Pass 1: build issues from responses (no/partially/unable-to-check) ---
+    const coveredQuestionIds = new Set<string>();
+
+    const issuesFromResponses = moduleProgress.responses
+      .filter(response =>
+        isNegativeResponse(response.answer) ||
+        needsFollowUp(response.answer) ||
+        isPartialResponse(response.answer)
+      )
       .map(response => {
-        // Find the question
         const question = module.questions.find(q => q.id === response.questionId);
         if (!question) return null;
 
-        // Determine priority based on answer type and question metadata
-        let priority: 'high' | 'medium' | 'low';
-        if (isNegativeResponse(response.answer)) {
-          priority = question.safetyRelated ? 'high' :
-            question.impactLevel === 'high' ? 'high' :
-            question.impactLevel === 'medium' ? 'medium' : 'low';
-        } else if (isPartialResponse(response.answer)) {
-          // Stepped down one level from "no"; safety stays high
-          priority = question.safetyRelated ? 'high' :
-            question.impactLevel === 'high' ? 'medium' :
-            question.impactLevel === 'medium' ? 'medium' : 'low';
-        } else {
-          // Unable to check
-          priority = 'medium';
-        }
+        coveredQuestionIds.add(question.id);
 
-        // Get specific recommendations based on question context
+        const priority = calculateQuestionPriority({
+          complianceLevel: question.complianceLevel,
+          safetyRelated: question.safetyRelated,
+          impactLevel: question.impactLevel,
+          answer: response.answer,
+        });
+
         const recommendations = getSpecificRecommendations(
           question.id,
           question.text,
@@ -2115,35 +2302,38 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
           response.notes
         );
 
-        // Generate contextual reasoning
         let reasoning: string;
         if (isNegativeResponse(response.answer)) {
           reasoning = recommendations.reasoning;
         } else if (isPartialResponse(response.answer)) {
           reasoning = response.notes?.trim()
-            ? `Partial measures are in place: ${response.notes.trim()}. Complete implementation is needed for full accessibility compliance.`
-            : 'Some measures are in place but implementation is incomplete. Review current provisions and complete the remaining requirements.';
+            ? `Partial measures are in place: ${response.notes.trim()}. ${recommendations.reasoning}`
+            : `Some measures are in place but implementation is incomplete. ${recommendations.reasoning}`;
         } else {
           reasoning = 'This item needs follow-up to confirm. Conduct an internal audit to clarify current status and document findings for your team.';
         }
 
-        // Build recommended actions
         const recommendedActions: string[] = [];
         if (isNegativeResponse(response.answer)) {
           recommendedActions.push(...recommendations.actions);
         } else if (isPartialResponse(response.answer)) {
-          // Reuse question-specific recommendations, reframed as completion tasks
+          const completionPrefixes = ['Implement', 'Provide', 'Install', 'Add', 'Create', 'Ensure', 'Set up', 'Review', 'Develop'];
+          const reframed = recommendations.actions.slice(0, 4).map(action => {
+            if (completionPrefixes.some(p => action.startsWith(p))) {
+              return `Complete: ${action.charAt(0).toLowerCase() + action.slice(1)}`;
+            }
+            return action;
+          });
+          if (response.notes?.trim()) {
+            recommendedActions.push(...reframed);
+          } else {
+            recommendedActions.push('Review current partial implementation and identify gaps');
+            recommendedActions.push(...reframed);
+          }
           recommendedActions.push(
-            'Review current partial implementation and identify gaps',
-            ...recommendations.actions.slice(0, 4).map(action =>
-              action.startsWith('Implement') || action.startsWith('Provide') || action.startsWith('Install') || action.startsWith('Add')
-                ? `Complete: ${action.charAt(0).toLowerCase() + action.slice(1)}`
-                : action
-            ),
             'Document what is currently in place and create a plan to address remaining gaps',
           );
         } else {
-          // For "unable to check" responses
           recommendedActions.push(
             'Conduct a site walk-through to verify current accessibility features',
             'Take photos or measurements to document current state',
@@ -2153,7 +2343,6 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
           );
         }
 
-        // Build resource links - use real Resource Centre links
         const resourceLinks = getReportResourceLinks(question.id, module.code);
 
         return {
@@ -2169,8 +2358,45 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
       })
       .filter((issue): issue is NonNullable<typeof issue> => issue !== null);
 
+    // --- Pass 2: backfill from priority actions that weren't covered by responses ---
+    const backfilledIssues: typeof issuesFromResponses = [];
+    const priorityActions = moduleProgress.summary?.priorityActions || [];
+
+    for (const actionItem of priorityActions) {
+      if (coveredQuestionIds.has(actionItem.questionId)) continue;
+      coveredQuestionIds.add(actionItem.questionId);
+
+      const question = module.questions.find(q => q.id === actionItem.questionId);
+      const questionText = question?.text || actionItem.questionText;
+
+      const recommendations = getSpecificRecommendations(
+        actionItem.questionId,
+        questionText,
+        module.code,
+        'no',
+        undefined
+      );
+
+      const recommendedActions = [actionItem.action, ...recommendations.actions];
+      const resourceLinks = getReportResourceLinks(actionItem.questionId, module.code);
+
+      backfilledIssues.push({
+        questionId: actionItem.questionId,
+        questionText,
+        reasoning: actionItem.impactStatement || recommendations.reasoning,
+        priority: actionItem.priority,
+        recommendedActions,
+        resourceLinks,
+        complianceLevel: question?.complianceLevel,
+        complianceRef: question?.complianceRef,
+      });
+    }
+
+    const issues = [...issuesFromResponses, ...backfilledIssues];
+
     return {
       moduleId: moduleProgress.moduleId,
+      moduleCode: moduleProgress.moduleCode,
       moduleName: module.name,
       issues,
     };

@@ -6,7 +6,7 @@
  */
 
 import jsPDF from 'jspdf';
-import type { Report } from '../hooks/useReportGeneration';
+import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 
 // Brand Colors - matching Access Compass design system
 const COLORS = {
@@ -133,6 +133,32 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     return false;
   };
 
+  // Helper: Add group header divider (full-width purple band)
+  const addGroupHeader = (title: string) => {
+    // Ensure group header + some content fits (40mm minimum)
+    checkNewPage(40);
+
+    // Add extra spacing before groups (except if at top of page)
+    if (yPosition > PAGE.marginTop + 5) {
+      yPosition += 10;
+      checkNewPage(40);
+    }
+
+    // Purple background band
+    doc.setFillColor(73, 14, 103); // amethystDiamond
+    doc.roundedRect(PAGE.marginLeft - 3, yPosition - 4, PAGE.contentWidth + 6, 12, 2, 2, 'F');
+
+    // White text
+    doc.setFontSize(13);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 255, 255);
+    doc.text(title, PAGE.marginLeft + 4, yPosition + 4);
+
+    yPosition += 16;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont('helvetica', 'normal');
+  };
+
   // Helper: Add section title with visual depth
   const addSectionTitle = (title: string, accentColor: string = COLORS.amethystDiamond) => {
     checkNewPage(20);
@@ -193,6 +219,52 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       yPosition += 1;
     }
     yPosition += 3;
+  };
+
+  // Helper: Add categorised bullet list (grouped by module)
+  const addCategorisedBulletList = (
+    categorised: CategorisedItem[] | undefined,
+    flat: string[],
+    bulletColor: string = COLORS.gray
+  ) => {
+    if (!categorised || categorised.length === 0) {
+      addBulletList(flat, bulletColor);
+      return;
+    }
+
+    // Group by module, preserving order of first appearance
+    const groups = new Map<string, { moduleCode: string; moduleName: string; items: string[] }>();
+    for (const item of categorised) {
+      const existing = groups.get(item.moduleCode);
+      if (existing) {
+        existing.items.push(item.text);
+      } else {
+        groups.set(item.moduleCode, { moduleCode: item.moduleCode, moduleName: item.moduleName, items: [item.text] });
+      }
+    }
+
+    for (const group of groups.values()) {
+      checkNewPage(14);
+
+      // Module code badge
+      doc.setFillColor(COLORS.amethystDiamond);
+      doc.roundedRect(PAGE.marginLeft, yPosition - 3, 14, 6, 2, 2, 'F');
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      doc.text(group.moduleCode, PAGE.marginLeft + 7, yPosition + 1, { align: 'center' });
+
+      // Module name
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(COLORS.text);
+      doc.text(group.moduleName, PAGE.marginLeft + 17, yPosition + 1);
+      yPosition += 7;
+
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0, 0, 0);
+      addBulletList(group.items, bulletColor);
+    }
   };
 
   // Helper: Add stat box with depth
@@ -334,28 +406,77 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text('Table of Contents', PAGE.marginLeft, yPosition);
     yPosition += 15;
 
-    const tocItems = [
-      'Executive Summary',
-      'Modules Reviewed',
-      report.urlAnalysisResults?.length ? 'Website Accessibility Analysis' : null,
-      report.mediaAnalysisResults?.length ? 'Media Analysis Results' : null,
-      "What's Going Well",
-      'Priority Actions',
-      report.quickWins?.length ? 'Quick Wins' : null,
-      'Areas to Explore',
-      'Detailed Findings',
-      'Suggested Next Steps',
-      'Professional Support',
-      'Disclaimer',
-    ].filter(Boolean) as string[];
+    const hasAnalysisData =
+      (report.urlAnalysisResults && report.urlAnalysisResults.length > 0) ||
+      (report.mediaAnalysisResults && report.mediaAnalysisResults.length > 0);
+    const hasDetailedData =
+      report.detailedFindings && report.detailedFindings.length > 0;
 
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(0, 0, 0);
+    const tocGroups: { group: string; items: string[] }[] = [
+      {
+        group: 'Overview',
+        items: [
+          'Executive Summary',
+          ...(report.progressComparison?.enabled ? ['Progress Comparison'] : []),
+        ],
+      },
+      {
+        group: 'Assessment Evidence',
+        items: [
+          ...(report.moduleEvidence?.length ? ['Modules Reviewed'] : []),
+          ...(report.questionNotes?.length ? ['Your Notes & Observations'] : []),
+          ...(report.questionEvidence?.length ? ['Supporting Evidence'] : []),
+        ],
+      },
+      ...(hasAnalysisData
+        ? [{
+            group: 'Analysis Results',
+            items: [
+              ...(report.urlAnalysisResults?.length ? ['Website Accessibility Analysis'] : []),
+              ...(report.mediaAnalysisResults?.length ? ['Media Analysis Results'] : []),
+            ],
+          }]
+        : []),
+      {
+        group: 'Key Findings',
+        items: [
+          ...(report.sections.strengths.content.length ? ["What's Going Well"] : []),
+          ...(report.sections.priorityActions.content.length ? ['Priority Actions'] : []),
+          ...(report.quickWins?.length ? ['Quick Wins'] : []),
+          ...(report.sections.areasToExplore.content.length ? ['Areas to Explore'] : []),
+          ...(report.sections.professionalReview.content.length ? ['Professional Review'] : []),
+        ],
+      },
+      ...(hasDetailedData
+        ? [{ group: 'Detailed Findings', items: ['Per-module Issue Breakdown'] }]
+        : []),
+      {
+        group: 'Next Steps & Guidance',
+        items: [
+          'Suggested Next Steps',
+          'Professional Support',
+          'Compliance Note',
+          'Disclaimer',
+        ],
+      },
+    ];
 
-    tocItems.forEach((item, index) => {
-      doc.text(`${index + 1}. ${item}`, PAGE.marginLeft + 5, yPosition);
-      yPosition += 7;
+    tocGroups.forEach((tocGroup) => {
+      if (tocGroup.items.length === 0) return;
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(COLORS.amethystDiamond);
+      doc.text(tocGroup.group, PAGE.marginLeft + 3, yPosition);
+      yPosition += 6;
+
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0, 0, 0);
+      tocGroup.items.forEach((item) => {
+        doc.text(item, PAGE.marginLeft + 10, yPosition);
+        yPosition += 6;
+      });
+      yPosition += 2;
     });
 
     addFooter();
@@ -363,8 +484,9 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   }
 
   // ============================================
-  // EXECUTIVE SUMMARY
+  // GROUP 1: OVERVIEW
   // ============================================
+  addGroupHeader('Overview');
   addSectionTitle('Executive Summary');
 
   // Stats boxes with brand colors
@@ -442,6 +564,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   yPosition += 25;
 
   // ============================================
+  // GROUP 2: ASSESSMENT EVIDENCE
+  // ============================================
+  addGroupHeader('Assessment Evidence');
+
+  // ============================================
   // MODULES REVIEWED
   // ============================================
   if (report.moduleEvidence && report.moduleEvidence.length > 0) {
@@ -509,6 +636,16 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       yPosition += 28;
     });
     yPosition += 5;
+  }
+
+  // ============================================
+  // GROUP 3: ANALYSIS RESULTS (conditional)
+  // ============================================
+  const hasAnyAnalysis =
+    (report.urlAnalysisResults && report.urlAnalysisResults.length > 0) ||
+    (report.mediaAnalysisResults && report.mediaAnalysisResults.length > 0);
+  if (hasAnyAnalysis) {
+    addGroupHeader('Analysis Results');
   }
 
   // ============================================
@@ -586,11 +723,16 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   }
 
   // ============================================
+  // GROUP 4: KEY FINDINGS
+  // ============================================
+  addGroupHeader('Key Findings');
+
+  // ============================================
   // WHAT'S GOING WELL
   // ============================================
   if (report.sections.strengths.content.length > 0) {
     addSectionTitle("What's Going Well", COLORS.green);
-    addBulletList(report.sections.strengths.content as string[], COLORS.green);
+    addCategorisedBulletList(report.sections.strengths.categorised, report.sections.strengths.content as string[], COLORS.green);
   }
 
   // ============================================
@@ -598,7 +740,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // ============================================
   if (report.sections.priorityActions.content.length > 0) {
     addSectionTitle('Priority Actions', COLORS.red);
-    addBulletList(report.sections.priorityActions.content as string[], COLORS.red);
+    addCategorisedBulletList(report.sections.priorityActions.categorised, report.sections.priorityActions.content as string[], COLORS.red);
   }
 
   // ============================================
@@ -632,13 +774,14 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // ============================================
   if (report.sections.areasToExplore.content.length > 0) {
     addSectionTitle('Areas to Explore', COLORS.amber);
-    addBulletList(report.sections.areasToExplore.content as string[], COLORS.amber);
+    addCategorisedBulletList(report.sections.areasToExplore.categorised, report.sections.areasToExplore.content as string[], COLORS.amber);
   }
 
   // ============================================
-  // DETAILED FINDINGS (Deep Dive only)
+  // GROUP 5: DETAILED FINDINGS (Deep Dive only)
   // ============================================
   if (report.reportType === 'deep-dive' && report.detailedFindings && report.detailedFindings.length > 0) {
+    addGroupHeader('Detailed Findings');
     addSectionTitle('Detailed Findings');
 
     report.detailedFindings.forEach((finding) => {
@@ -696,6 +839,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       });
     });
   }
+
+  // ============================================
+  // GROUP 6: NEXT STEPS & GUIDANCE
+  // ============================================
+  addGroupHeader('Next Steps & Guidance');
 
   // ============================================
   // SUGGESTED NEXT STEPS
