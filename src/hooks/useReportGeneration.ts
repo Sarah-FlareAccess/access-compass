@@ -24,6 +24,7 @@ export interface CategorisedItem {
   moduleCode: string;
   moduleName: string;
   questionId?: string;
+  priority?: 'high' | 'medium' | 'low';
 }
 
 export interface ReportSection {
@@ -332,9 +333,9 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
           }
           if (moduleProgress.summary.priorityActions) {
             moduleProgress.summary.priorityActions.forEach(a => {
-              const text = `${a.action} (${a.priority} priority)`;
-              allPriorityActions.push(text);
-              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId });
+              const text = a.action;
+              allPriorityActions.push(`${a.action} (${a.priority} priority)`);
+              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority });
             });
           }
           if (moduleProgress.summary.areasToExplore) {

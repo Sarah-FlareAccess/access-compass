@@ -378,9 +378,101 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+  font-size: 14px;
   background: rgba(239, 68, 68, 0.08);
   border-left: 4px solid #ef4444;
   color: #991b1b;
+}
+
+/* Per-priority action item styling */
+.report-list-actions li.action-priority-high {
+  background: rgba(239, 68, 68, 0.08);
+  border-left-color: #ef4444;
+  color: #991b1b;
+}
+
+.report-list-actions li.action-priority-medium {
+  background: rgba(251, 191, 36, 0.08);
+  border-left-color: #d97706;
+  color: #78350f;
+}
+
+.report-list-actions li.action-priority-low {
+  background: rgba(59, 130, 246, 0.08);
+  border-left-color: #3b82f6;
+  color: #1e3a8a;
+}
+
+/* Priority badge in action items */
+.action-priority-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 1px;
+}
+
+.action-priority-badge-high {
+  background: rgba(239, 68, 68, 0.18);
+  color: #991b1b;
+}
+
+.action-priority-badge-medium {
+  background: rgba(251, 191, 36, 0.22);
+  color: #78350f;
+}
+
+.action-priority-badge-low {
+  background: rgba(59, 130, 246, 0.18);
+  color: #1e3a8a;
+}
+
+/* Priority tier sub-groups within a module */
+.action-tier {
+  margin-bottom: 8px;
+}
+
+.action-tier:last-child {
+  margin-bottom: 0;
+}
+
+.action-tier-heading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.action-tier-heading-high {
+  color: #991b1b;
+}
+
+.action-tier-heading-medium {
+  color: #78350f;
+}
+
+.action-tier-heading-low {
+  color: #1e3a8a;
+}
+
+.action-tier-count {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.action-tier .report-list {
+  margin-top: 0;
 }
 
 .report-list-actions li > span {
@@ -997,6 +1089,38 @@
   font-size: 15px;
   font-weight: 600;
   color: #374151;
+}
+
+/* Priority summary counts in module heading */
+.priority-summary {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.priority-summary-sep {
+  color: #9ca3af;
+}
+
+.priority-summary-count {
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.priority-summary-high {
+  color: #991b1b;
+}
+
+.priority-summary-medium {
+  color: #78350f;
+}
+
+.priority-summary-low {
+  color: #1e3a8a;
 }
 
 /* ========== COLLAPSIBLE NOTES ========== */

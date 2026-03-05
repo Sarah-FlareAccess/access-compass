@@ -24,6 +24,9 @@ const COLORS = {
   redLight: '#fee2e2',
   amber: '#f59e0b',
   amberLight: '#fef3c7',
+  amberDark: '#d97706',
+  blue: '#3b82f6',
+  blueLight: '#dbeafe',
   // Neutrals
   gray: '#6b7280',
   grayLight: '#9ca3af',
@@ -221,29 +224,56 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     yPosition += 3;
   };
 
+  // Priority sort order and colors for PDF
+  const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 };
+  const priorityBulletColors: Record<string, string> = {
+    high: COLORS.red,
+    medium: COLORS.amberDark,
+    low: COLORS.blue,
+  };
+  const priorityBadgeLabels: Record<string, string> = { high: 'H', medium: 'M', low: 'L' };
+  const priorityBadgeBg: Record<string, string> = {
+    high: COLORS.redLight,
+    medium: COLORS.amberLight,
+    low: COLORS.blueLight,
+  };
+  const priorityBadgeText: Record<string, string> = {
+    high: '#991b1b',
+    medium: '#78350f',
+    low: '#1e3a8a',
+  };
+
   // Helper: Add categorised bullet list (grouped by module)
   const addCategorisedBulletList = (
     categorised: CategorisedItem[] | undefined,
     flat: string[],
-    bulletColor: string = COLORS.gray
+    bulletColor: string = COLORS.gray,
+    showPriority: boolean = false
   ) => {
     if (!categorised || categorised.length === 0) {
       addBulletList(flat, bulletColor);
       return;
     }
 
-    // Group by module, preserving order of first appearance
-    const groups = new Map<string, { moduleCode: string; moduleName: string; items: string[] }>();
+    // Group by module, sorted by module code
+    const groups = new Map<string, { moduleCode: string; moduleName: string; items: CategorisedItem[] }>();
     for (const item of categorised) {
       const existing = groups.get(item.moduleCode);
       if (existing) {
-        existing.items.push(item.text);
+        existing.items.push(item);
       } else {
-        groups.set(item.moduleCode, { moduleCode: item.moduleCode, moduleName: item.moduleName, items: [item.text] });
+        groups.set(item.moduleCode, { moduleCode: item.moduleCode, moduleName: item.moduleName, items: [item] });
       }
     }
+    const sortedGroups = Array.from(groups.values());
+    sortedGroups.sort((a, b) => a.moduleCode.localeCompare(b.moduleCode, undefined, { numeric: true }));
 
-    for (const group of groups.values()) {
+    for (const group of sortedGroups) {
+      // Sort items by priority within group
+      if (showPriority) {
+        group.items.sort((a, b) => (priorityOrder[a.priority || 'low'] ?? 2) - (priorityOrder[b.priority || 'low'] ?? 2));
+      }
+
       checkNewPage(14);
 
       // Module code badge
@@ -259,11 +289,103 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(COLORS.text);
       doc.text(group.moduleName, PAGE.marginLeft + 17, yPosition + 1);
+
+      // Priority summary counts (e.g. "2H · 1M · 3L")
+      if (showPriority) {
+        const counts: Record<string, number> = { high: 0, medium: 0, low: 0 };
+        for (const item of group.items) counts[item.priority || 'low']++;
+        const parts: string[] = [];
+        if (counts.high > 0) parts.push(`${counts.high}H`);
+        if (counts.medium > 0) parts.push(`${counts.medium}M`);
+        if (counts.low > 0) parts.push(`${counts.low}L`);
+        if (parts.length > 0) {
+          const summaryText = parts.join(' \u00B7 ');
+          doc.setFontSize(8);
+          doc.setFont('helvetica', 'normal');
+          doc.setTextColor(COLORS.gray);
+          doc.text(summaryText, PAGE.marginLeft + PAGE.contentWidth, yPosition + 1, { align: 'right' });
+        }
+      }
       yPosition += 7;
 
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(0, 0, 0);
-      addBulletList(group.items, bulletColor);
+      // Strip legacy "(high priority)" suffix
+      const stripSuffix = (t: string) => t.replace(/\s*\((high|medium|low) priority\)\s*$/i, '');
+
+      if (showPriority) {
+        // Group items by priority tier
+        const tierLabels: Record<string, string> = { high: 'High priority', medium: 'Medium priority', low: 'Low priority' };
+        const tiers = (['high', 'medium', 'low'] as const)
+          .map(p => ({ priority: p, items: group.items.filter(i => (i.priority || 'low') === p) }))
+          .filter(t => t.items.length > 0);
+
+        for (const tier of tiers) {
+          checkNewPage(12);
+
+          // Tier heading: badge + label
+          const badgeBg = priorityBadgeBg[tier.priority] || COLORS.grayLight;
+          const badgeTextColor = priorityBadgeText[tier.priority] || COLORS.text;
+          const badgeLabel = priorityBadgeLabels[tier.priority] || '?';
+
+          doc.setFillColor(badgeBg);
+          doc.roundedRect(PAGE.marginLeft + 2, yPosition - 3, 5, 5, 1, 1, 'F');
+          doc.setFontSize(7);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(badgeTextColor);
+          doc.text(badgeLabel, PAGE.marginLeft + 4.5, yPosition, { align: 'center' });
+
+          doc.setFontSize(9);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(badgeTextColor);
+          doc.text(`${tierLabels[tier.priority]} (${tier.items.length})`, PAGE.marginLeft + 10, yPosition);
+          yPosition += 5;
+
+          // Render tier items
+          doc.setFontSize(9);
+          const lineHeight = 4.5;
+
+          for (const item of tier.items) {
+            const cleanText = stripSuffix(item.text);
+            const lines = doc.splitTextToSize(cleanText, PAGE.contentWidth - 14);
+            const totalHeight = lines.length * lineHeight + 2;
+            checkNewPage(totalHeight);
+
+            // Small colored bullet
+            doc.setFillColor(priorityBulletColors[tier.priority] || bulletColor);
+            doc.circle(PAGE.marginLeft + 6, yPosition - 1.2, 0.8, 'F');
+
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(0, 0, 0);
+            for (let i = 0; i < lines.length; i++) {
+              doc.text(lines[i], PAGE.marginLeft + 10, yPosition);
+              yPosition += lineHeight;
+            }
+            yPosition += 0.5;
+          }
+          yPosition += 2;
+        }
+      } else {
+        // Non-priority: simple bullet list
+        doc.setFontSize(10);
+        const lineHeight = 5;
+
+        for (const item of group.items) {
+          const lines = doc.splitTextToSize(item.text, PAGE.contentWidth - 8);
+          const totalHeight = lines.length * lineHeight + 2;
+          checkNewPage(totalHeight);
+
+          doc.setFillColor(bulletColor);
+          doc.circle(PAGE.marginLeft + 2, yPosition - 1.5, 1.2, 'F');
+
+          doc.setFont('helvetica', 'normal');
+          doc.setTextColor(0, 0, 0);
+          for (let i = 0; i < lines.length; i++) {
+            doc.text(lines[i], PAGE.marginLeft + 8, yPosition);
+            yPosition += lineHeight;
+          }
+          yPosition += 1;
+        }
+        yPosition += 3;
+      }
     }
   };
 
@@ -740,7 +862,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // ============================================
   if (report.sections.priorityActions.content.length > 0) {
     addSectionTitle('Priority Actions', COLORS.red);
-    addCategorisedBulletList(report.sections.priorityActions.categorised, report.sections.priorityActions.content as string[], COLORS.red);
+    addCategorisedBulletList(report.sections.priorityActions.categorised, report.sections.priorityActions.content as string[], COLORS.red, true);
   }
 
   // ============================================

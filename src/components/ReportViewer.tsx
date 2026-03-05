@@ -99,7 +99,10 @@ function ReportGroup({
   );
 }
 
-// --- Group CategorisedItems by module ---
+// --- Priority sort order ---
+const PRIORITY_ORDER: Record<string, number> = { high: 0, medium: 1, low: 2 };
+
+// --- Group CategorisedItems by module, sorted by module code ---
 function groupByModule(items: CategorisedItem[]): { moduleCode: string; moduleName: string; items: CategorisedItem[] }[] {
   const map = new Map<string, { moduleCode: string; moduleName: string; items: CategorisedItem[] }>();
   for (const item of items) {
@@ -109,8 +112,52 @@ function groupByModule(items: CategorisedItem[]): { moduleCode: string; moduleNa
     }
     map.get(key)!.items.push(item);
   }
-  return Array.from(map.values());
+  const groups = Array.from(map.values());
+  groups.sort((a, b) => a.moduleCode.localeCompare(b.moduleCode, undefined, { numeric: true }));
+  for (const group of groups) {
+    group.items.sort((a, b) => (PRIORITY_ORDER[a.priority || 'low'] ?? 2) - (PRIORITY_ORDER[b.priority || 'low'] ?? 2));
+  }
+  return groups;
 }
+
+// --- Priority badge labels ---
+const PRIORITY_BADGE_LABEL: Record<string, string> = { high: 'H', medium: 'M', low: 'L' };
+
+// --- Summary counts for a module group ---
+function PrioritySummary({ items }: { items: CategorisedItem[] }) {
+  const counts = { high: 0, medium: 0, low: 0 };
+  for (const item of items) {
+    const p = item.priority || 'low';
+    counts[p]++;
+  }
+  const parts: { key: string; label: string; count: number }[] = [];
+  if (counts.high > 0) parts.push({ key: 'high', label: 'H', count: counts.high });
+  if (counts.medium > 0) parts.push({ key: 'medium', label: 'M', count: counts.medium });
+  if (counts.low > 0) parts.push({ key: 'low', label: 'L', count: counts.low });
+  if (parts.length === 0) return null;
+  return (
+    <span className="priority-summary" aria-label={parts.map(p => `${p.count} ${p.key} priority`).join(', ')}>
+      {parts.map((p, i) => (
+        <span key={p.key}>
+          {i > 0 && <span className="priority-summary-sep" aria-hidden="true"> · </span>}
+          <span className={`priority-summary-count priority-summary-${p.key}`}>{p.count}{p.label}</span>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+// Strip legacy "(high priority)" etc. suffix from action text
+function stripPrioritySuffix(text: string): string {
+  return text.replace(/\s*\((high|medium|low) priority\)\s*$/i, '');
+}
+
+// Priority tier labels for sub-group headings
+const PRIORITY_TIER_LABEL: Record<string, string> = {
+  high: 'High priority',
+  medium: 'Medium priority',
+  low: 'Low priority',
+};
 
 // --- Categorised list grouped by module, with jump-to-details ---
 function CategorisedList({
@@ -126,36 +173,65 @@ function CategorisedList({
 }) {
   const groups = groupByModule(items);
 
+  const showPriority = listClass === 'report-list-actions';
+
   return (
     <div className="categorised-list">
-      {groups.map(group => (
-        <div key={group.moduleCode} className="categorised-module-group">
-          <div className="categorised-module-heading">
-            <span className="categorised-module-code">{group.moduleCode}</span>
-            <span className="categorised-module-name">{group.moduleName}</span>
-          </div>
-          <ul className={`report-list ${listClass}`}>
-            {group.items.map((item, index) => (
-              <li key={index}>
-                <span>{item.text}</span>
-                {item.questionId && detailedIssueIds.has(item.questionId) && (
-                  <a
-                    href={`#issue-${item.questionId}`}
-                    className="jump-to-details-btn"
-                    aria-label={`View detailed finding for: ${item.text}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      onJumpToIssue(item.questionId!);
-                    }}
-                  >
-                    <ExternalLink size={14} aria-hidden="true" />
-                  </a>
+      {groups.map(group => {
+        // Sub-group items by priority tier
+        const tiers = showPriority
+          ? (['high', 'medium', 'low'] as const).map(p => ({
+              priority: p,
+              items: group.items.filter(i => (i.priority || 'low') === p),
+            })).filter(t => t.items.length > 0)
+          : [{ priority: null as string | null, items: group.items }];
+
+        return (
+          <div key={group.moduleCode} className="categorised-module-group">
+            <div className="categorised-module-heading">
+              <span className="categorised-module-code">{group.moduleCode}</span>
+              <span className="categorised-module-name">{group.moduleName}</span>
+              {showPriority && <PrioritySummary items={group.items} />}
+            </div>
+            {tiers.map(tier => (
+              <div key={tier.priority || 'all'} className={tier.priority ? `action-tier action-tier-${tier.priority}` : undefined}>
+                {tier.priority && (
+                  <div className={`action-tier-heading action-tier-heading-${tier.priority}`}>
+                    <span
+                      className={`action-priority-badge action-priority-badge-${tier.priority}`}
+                      aria-hidden="true"
+                    >
+                      {PRIORITY_BADGE_LABEL[tier.priority]}
+                    </span>
+                    <span>{PRIORITY_TIER_LABEL[tier.priority]}</span>
+                    <span className="action-tier-count">({tier.items.length})</span>
+                  </div>
                 )}
-              </li>
+                <ul className={`report-list ${listClass}`}>
+                  {tier.items.map((item, index) => (
+                    <li key={index} className={showPriority && item.priority ? `action-priority-${item.priority}` : undefined}>
+                      <span>{showPriority ? stripPrioritySuffix(item.text) : item.text}</span>
+                      {item.questionId && detailedIssueIds.has(item.questionId) && (
+                        <a
+                          href={`#issue-${item.questionId}`}
+                          className="jump-to-details-btn"
+                          aria-label={`View detailed finding for: ${stripPrioritySuffix(item.text)}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            onJumpToIssue(item.questionId!);
+                          }}
+                        >
+                          <ExternalLink size={14} aria-hidden="true" />
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
-        </div>
-      ))}
+          </div>
+        );
+      })}
     </div>
   );
 }
