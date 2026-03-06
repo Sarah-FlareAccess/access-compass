@@ -509,10 +509,10 @@
   display: inline-flex;
   font-size: 0.6875rem;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 3px 7px;
   background: var(--amethyst-diamond, #6F5FA8);
   color: white;
-  border-radius: 3px;
+  border-radius: 4px;
   margin-right: 8px;
   vertical-align: middle;
 }
@@ -679,7 +679,8 @@
 }
 
 .rp-positive-chip .rp-inline-module {
-  margin-right: 0;
+  margin-right: 2px;
+  padding: 3px 7px;
 }
 
 /* Next steps */
