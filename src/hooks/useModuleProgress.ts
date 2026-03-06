@@ -153,6 +153,7 @@ export interface ActionItem {
   priority: 'high' | 'medium' | 'low';
   timeframe: string;
   impactStatement?: string;
+  complianceLevel?: 'mandatory' | 'best-practice';
 }
 
 const MODULE_PROGRESS_KEY = 'access_compass_module_progress';

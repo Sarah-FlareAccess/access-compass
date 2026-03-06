@@ -120,7 +120,7 @@ export function BottomTabBar() {
       icon: <DIAPIcon />
     }] : []),
     {
-      path: '/export',
+      path: '/report',
       label: 'Report',
       icon: <ReportIcon />
     },

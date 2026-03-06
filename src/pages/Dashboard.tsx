@@ -548,7 +548,7 @@ Thanks!`;
 
             {/* Your Outputs */}
             <div className="sidebar-section-title">Your Outputs</div>
-            <Link to="/export" className="sidebar-nav-item" aria-current={location.pathname === '/export' ? 'page' : undefined}>
+            <Link to="/report" className="sidebar-nav-item" aria-current={location.pathname === '/report' ? 'page' : undefined}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                 <polyline points="14 2 14 8 20 8"/>
@@ -556,7 +556,15 @@ Thanks!`;
                 <line x1="16" y1="17" x2="8" y2="17"/>
                 <polyline points="10 9 9 9 8 9"/>
               </svg>
-              Accessibility Report
+              Report
+            </Link>
+            <Link to="/export" className="sidebar-nav-item" aria-current={location.pathname === '/export' ? 'page' : undefined}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Export / Download
             </Link>
             <Link to="/diap" className="sidebar-nav-item" aria-current={location.pathname === '/diap' ? 'page' : undefined}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

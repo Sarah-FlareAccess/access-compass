@@ -32,6 +32,7 @@ import ActionDetail from './pages/ActionDetail';
 import DIAPWorkspace from './pages/DIAPWorkspace';
 import ClarifyLater from './pages/ClarifyLater';
 import Export from './pages/Export';
+import ReportPage from './pages/ReportPage';
 
 // Dev/test pages
 import SupabaseTest from './pages/SupabaseTest';
@@ -150,6 +151,14 @@ function App() {
               element={
                 <RouteGuard requireAuth requireAccess="pulse">
                   <Export />
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/report"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <ReportPage />
                 </RouteGuard>
               }
             />

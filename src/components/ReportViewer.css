@@ -450,7 +450,8 @@
   align-items: center;
   gap: 6px;
   padding: 4px 0;
-  font-size: 13px;
+  margin-top: 8px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -1069,9 +1070,9 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 8px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e5e7eb;
 }
 
 .categorised-module-code {
@@ -1086,9 +1087,9 @@
 }
 
 .categorised-module-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: #374151;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f2937;
 }
 
 /* Priority summary counts in module heading */

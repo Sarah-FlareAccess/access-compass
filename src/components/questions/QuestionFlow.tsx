@@ -174,6 +174,7 @@ export function QuestionFlow({
           priority,
           timeframe: getTimeframeForPriority(priority),
           impactStatement: generateImpactStatement(question),
+          complianceLevel: question.complianceLevel,
         });
       } else if (response.answer === 'partially') {
         // Partially in place - acknowledge progress but note improvement needed
@@ -203,6 +204,7 @@ export function QuestionFlow({
           impactStatement: partialDescription
             ? `Current status: ${partialDescription}`
             : 'Partial measures are in place. Complete implementation for full accessibility.',
+          complianceLevel: question.complianceLevel,
         });
       } else if (response.answer === 'unable-to-check') {
         // Unable to check - needs follow-up (use exploratory phrasing)
@@ -256,6 +258,7 @@ export function QuestionFlow({
             priority,
             timeframe: getTimeframeForPriority(priority),
             impactStatement: generateImpactStatement(question),
+            complianceLevel: question.complianceLevel,
           });
         } else if (sentiment === 'neutral') {
           areasToExplore.push(convertQuestionToExploreStatement(question.text));

@@ -28,6 +28,7 @@ const PAGES_WITH_SIDEBAR = [
   '/discovery',
   '/discovery/summary',
   '/export',
+  '/report',
   '/diap',
   '/clarify',
   '/resources',

@@ -227,25 +227,21 @@ export default function Export() {
               {/* View in App */}
               <div className="card">
                 <div style={{ fontSize: '3rem', marginBottom: '20px', textAlign: 'center' }}>👀</div>
-                <h2>View Report in App</h2>
+                <h2>View Report</h2>
                 <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
                   {isPulseCheck
-                    ? 'Read your 1-page pulse check summary directly in the app before downloading'
-                    : 'Review your detailed deep-dive report with findings, priorities, and resources'}
+                    ? 'View your pulse check summary with findings grouped by module'
+                    : 'Explore your detailed report with findings, priorities, and resources by module'}
                 </p>
                 <div style={{ marginBottom: '15px' }}>
                   <strong>Report Type:</strong> {isPulseCheck ? 'Pulse Check Summary' : 'Deep Dive Report'}
                 </div>
                 <div style={{ marginBottom: '20px' }}>
-                  <strong>Content:</strong> {isPulseCheck ? '~1 page' : '8-12 pages'}
+                  <strong>View:</strong> Interactive, filterable by module
                 </div>
-                <button
-                  className="btn btn-primary"
-                  onClick={handleViewReport}
-                  disabled={!isReady}
-                >
+                <Link to="/report" className="btn btn-primary" style={{ display: 'inline-block', textAlign: 'center', textDecoration: 'none' }}>
                   View Report
-                </button>
+                </Link>
               </div>
 
               {/* Download PDF */}
