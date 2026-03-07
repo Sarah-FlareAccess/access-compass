@@ -1431,6 +1431,11 @@ export const accessModules: AccessModule[] = [
             'Ensure you can always "escape" from menus and return to the main page',
           ],
         },
+        actionText: {
+          yes: 'Keyboard-only access is working across the website.',
+          no: 'Test all interactive elements (menus, forms, modals, carousels) using only the Tab, Enter, and Arrow keys and fix any that cannot be reached or activated.',
+          partially: 'Some keyboard access is in place. Identify the specific components (dropdowns, date pickers, embedded content) where keyboard navigation fails and prioritise fixes.',
+        },
       },
       {
         id: '1.2-1-1a',
@@ -1465,6 +1470,9 @@ export const accessModules: AccessModule[] = [
             'Modal windows are pop-up boxes that appear over the page, such as "Sign up for our newsletter" or image galleries that open in a lightbox',
           ],
         },
+        actionText: {
+          no: 'Audit each interactive component type (navigation menus, form controls, modal dialogs, video players) for keyboard operability and document where access breaks down.',
+        },
       },
       {
         id: '1.2-1-1b',
@@ -1492,6 +1500,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         showWhen: { questionId: '1.2-1-1', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'A visible focus indicator is present for keyboard users.',
+          no: 'Add a clearly visible focus outline (minimum 2px solid, 3:1 contrast ratio against adjacent colours) to all focusable elements per WCAG 2.2 SC 2.4.7.',
+          partially: 'Focus indicators exist in some areas. Audit all pages for missing or low-contrast focus styles and standardise them across the site.',
+        },
       },
       // ============================================
       // ALT TEXT
@@ -1520,6 +1533,11 @@ export const accessModules: AccessModule[] = [
             'Complex images like maps, charts, or infographics need image descriptions - longer explanations in nearby text that fully describe the visual information',
             'Image descriptions can be placed in a caption, an expandable section, or linked text nearby',
           ],
+        },
+        actionText: {
+          yes: 'Images have alt text or descriptions in place.',
+          no: 'Add meaningful alt text to all informative images and mark decorative images with empty alt attributes (alt="") per WCAG 2.2 SC 1.1.1.',
+          partially: 'Alt text exists on some images. Audit all pages for missing, generic, or inaccurate alt text and update each to describe the image content or function.',
         },
       },
       {
@@ -1552,6 +1570,9 @@ export const accessModules: AccessModule[] = [
             'Check historical content too - old pages may have missing alt text that was never added',
           ],
         },
+        actionText: {
+          no: 'Establish an image audit process and document alt text consistency across all pages, prioritising hero images, product photos, and infographics.',
+        },
       },
       {
         id: '1.2-1-2b',
@@ -1580,6 +1601,9 @@ export const accessModules: AccessModule[] = [
             'If no one owns it, it won\'t get done consistently - assign responsibility to whoever uploads images',
             'Consider brief training: 15 minutes on writing good alt text can make a significant difference',
           ],
+        },
+        actionText: {
+          no: 'Assign clear responsibility for alt text creation to content authors and provide training on writing effective image descriptions.',
         },
       },
       // ============================================
@@ -1615,6 +1639,11 @@ export const accessModules: AccessModule[] = [
           learnMoreText: 'Try a contrast checker tool',
           learnMoreNote: 'This link opens the WebAIM Contrast Checker, a free online tool. To use it: enter the foreground colour (text) and background colour using the colour pickers or by entering hex codes (e.g., #333333). The tool will show if your combination passes accessibility standards. We are not affiliated with WebAIM - this is simply a helpful external resource.',
         },
+        actionText: {
+          yes: 'Text contrast meets readability standards.',
+          no: 'Measure all text-to-background colour combinations using a contrast checker and update any that fall below 4.5:1 for normal text or 3:1 for large text per WCAG 2.2 SC 1.4.3.',
+          partially: 'Most text has adequate contrast. Check text overlaid on images, coloured banners, and footer areas where contrast issues commonly occur.',
+        },
       },
       {
         id: '1.2-1-3a',
@@ -1644,6 +1673,9 @@ export const accessModules: AccessModule[] = [
             'If your site was built more than 2-3 years ago, contrast standards may have changed - worth re-checking',
             'Designer\'s eye isn\'t enough: something can look fine to someone with normal vision but be unreadable for people with low vision',
           ],
+        },
+        actionText: {
+          no: 'Run a full-site contrast audit using an automated tool (e.g., axe, WAVE) and document all failures with their WCAG SC 1.4.3 ratios.',
         },
       },
       {
@@ -1676,6 +1708,9 @@ export const accessModules: AccessModule[] = [
             'An alternative approach is to place text beside images rather than over them',
           ],
         },
+        actionText: {
+          no: 'Review all instances of text on images or coloured backgrounds and add solid background overlays, text shadows, or alternative colour schemes to ensure 4.5:1 contrast.',
+        },
       },
       // ============================================
       // TEXT RESIZING
@@ -1705,6 +1740,11 @@ export const accessModules: AccessModule[] = [
             'Common issues include navigation menus disappearing or overlapping, text running off the screen, buttons becoming unreachable, and fixed headers covering content',
             'Good zoom behaviour means text reflows to fit the screen width, navigation adapts (a hamburger menu is fine), and all interactive elements remain usable',
           ],
+        },
+        actionText: {
+          yes: 'Text resizing and zoom work without breaking layout.',
+          no: 'Test your website at 200% browser zoom and fix any content that overflows, overlaps, becomes hidden, or loses functionality per WCAG 2.2 SC 1.4.4.',
+          partially: 'Zoom works on most pages. Identify specific layouts (tables, navigation, forms) that break at 200% and refactor to use relative units and responsive CSS.',
         },
       },
       {
@@ -1738,6 +1778,9 @@ export const accessModules: AccessModule[] = [
             'Buttons becoming unreachable usually means they are positioned off-screen or covered by other elements',
           ],
         },
+        actionText: {
+          no: 'Document all zoom-related issues (content clipping, horizontal scrolling, overlapping elements) at 200% and 400% zoom levels and prioritise fixes.',
+        },
       },
       // ============================================
       // MOBILE USABILITY
@@ -1770,6 +1813,11 @@ export const accessModules: AccessModule[] = [
             'Test on both portrait and landscape orientations - content should work in both',
           ],
         },
+        actionText: {
+          yes: 'The website performs well on mobile devices.',
+          no: 'Test all key user journeys on iOS and Android devices, fixing layout issues, tap target sizes (minimum 24x24 CSS pixels per WCAG 2.2 SC 2.5.8), and touch interactions.',
+          partially: 'Mobile experience works for basic browsing. Test complex interactions (forms, booking flows, maps) on multiple devices and screen sizes.',
+        },
       },
       {
         id: '1.2-1-5a',
@@ -1800,6 +1848,9 @@ export const accessModules: AccessModule[] = [
             'Don\'t just resize your browser - actual phones have touch interactions, different font rendering, and real-world conditions',
           ],
         },
+        actionText: {
+          no: 'Conduct structured mobile testing covering navigation, forms, media playback, and checkout flows on both iOS and Android devices.',
+        },
       },
       {
         id: '1.2-1-5b',
@@ -1829,6 +1880,9 @@ export const accessModules: AccessModule[] = [
             'Borrow devices if needed - ask colleagues or use a device testing service to cover platforms you don\'t own',
           ],
         },
+        actionText: {
+          no: 'Expand device testing to include at least one iPhone, one Android phone, and one tablet, covering different screen sizes and assistive technology configurations.',
+        },
       },
       {
         id: '1.2-1-5c',
@@ -1855,6 +1909,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         showWhen: { questionId: '1.2-1-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
+        actionText: {
+          yes: 'Touch targets are appropriately sized for mobile use.',
+          no: 'Increase all tap targets (buttons, links, form fields) to at least 24x24 CSS pixels with adequate spacing to prevent accidental activation per WCAG 2.2 SC 2.5.8.',
+          partially: 'Most tap targets are adequate. Review closely spaced links, small icon buttons, and inline text links that may be too small for motor-impaired users.',
+        },
       },
       // ============================================
       // VIDEO AND AUDIO CONTENT
@@ -1885,6 +1944,9 @@ export const accessModules: AccessModule[] = [
             'Even one video matters - a single inaccessible promo video can exclude people from key information about your business',
             'Content from Instagram, TikTok, or YouTube embedded on your site still needs to meet accessibility standards',
           ],
+        },
+        actionText: {
+          no: 'Document all video and audio content on the website and create an accessibility plan for captions, transcripts, and audio descriptions.',
         },
       },
       {
@@ -1917,6 +1979,9 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: '1.2-1-6', answers: ['yes'] },
+        actionText: {
+          no: 'Add synchronised captions to all video content, using accurate, properly timed captions that include speaker identification and relevant sound effects per WCAG 2.2 SC 1.2.2.',
+        },
       },
       {
         id: '1.2-1-6b',
@@ -1942,6 +2007,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         showWhen: { questionId: '1.2-1-6', answers: ['yes'] },
+        actionText: {
+          yes: 'Text alternatives for video content are available.',
+          no: 'Create transcripts or written summaries for all video and audio content, ensuring they capture all spoken content, on-screen text, and meaningful visual information per WCAG 2.2 SC 1.2.1.',
+          partially: 'Some videos have transcripts. Audit all multimedia content and add transcripts to any that are missing, ensuring they include speaker identification and relevant non-speech audio.',
+        },
       },
       // ============================================
       // LINK TEXT QUALITY
@@ -1977,6 +2047,11 @@ export const accessModules: AccessModule[] = [
             { type: 'poor', caption: '"Click here to book" - Generic, "here" has no meaning' },
             { type: 'poor', caption: '"Read more" (repeated 5 times on page) - Ambiguous and repetitive' },
           ],
+        },
+        actionText: {
+          yes: 'Link text clearly communicates each destination.',
+          no: 'Replace vague link text ("click here", "read more", "learn more") with descriptive labels that make sense out of context per WCAG 2.2 SC 2.4.4.',
+          partially: 'Most links are descriptive. Audit repeated generic link text and links within cards or lists that rely on surrounding context to convey meaning.',
         },
       },
       // ============================================
@@ -2017,6 +2092,9 @@ export const accessModules: AccessModule[] = [
             { type: 'info', caption: 'iPhone/iPad: Go to Settings > Accessibility > VoiceOver to enable. Triple-click home/side button to toggle.' },
           ],
         },
+        actionText: {
+          no: 'Conduct a screen reader test of your website using NVDA (Windows) or VoiceOver (Mac/iOS) to identify navigation, labelling, and reading order issues.',
+        },
       },
       {
         id: '1.2-1-8a',
@@ -2044,6 +2122,9 @@ export const accessModules: AccessModule[] = [
           { id: 'no-thanks', label: 'No thanks' },
         ],
         showWhen: { questionId: '1.2-1-8', answers: ['no-will-try'] },
+        actionText: {
+          no: 'Access free screen reader testing guides (e.g., WebAIM, Deque) and schedule a basic test of your homepage, booking flow, and contact page.',
+        },
       },
       {
         id: '1.2-1-8b',
@@ -2071,6 +2152,9 @@ export const accessModules: AccessModule[] = [
           { id: 'no-thanks', label: 'No thanks' },
         ],
         showWhen: { questionId: '1.2-1-8', answers: ['no-too-complex'] },
+        actionText: {
+          no: 'Consider engaging Access Compass or a qualified accessibility consultant for a professional assistive technology review of your website.',
+        },
       },
       // ============================================
       // FORMS ACCESSIBILITY
@@ -2100,6 +2184,11 @@ export const accessModules: AccessModule[] = [
             'Tab through the form to check logical order - does it move in the order you would expect?',
             'After submitting, make sure it is clear the form was sent successfully',
           ],
+        },
+        actionText: {
+          yes: 'Forms have clear labels and instructions.',
+          no: 'Add visible labels to every form field, associate them programmatically using <label> elements, and provide clear error messages and instructions per WCAG 2.2 SC 1.3.1 and SC 3.3.2.',
+          partially: 'Some forms are well-labelled. Audit all forms for missing labels, placeholder-only fields, unclear validation messages, and inaccessible error handling.',
         },
       },
       // ============================================
@@ -7657,6 +7746,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.3',
+        actionText: {
+          yes: 'Main circulation paths meet the minimum 1 metre width.',
+          no: 'Measure all primary circulation paths and widen any below 1000mm clear width to comply with AS 1428.1 Clause 6 and the Premises Standards.',
+          partially: 'Some paths are wide enough. Survey all routes to key facilities and remove or relocate obstructions (displays, furniture, signage) that narrow paths below 1000mm.',
+        },
       },
       {
         id: '2.3-1-2',
@@ -7688,6 +7782,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 4.1',
+        actionText: {
+          yes: 'Paths are kept clear of obstacles and trip hazards.',
+          no: 'Conduct a walk-through audit to identify and remove all obstacles, protruding objects, and trip hazards from circulation paths, including temporary items like bins, signage, and stock.',
+          partially: 'Paths are mostly clear. Establish a daily check routine to ensure temporary items (bins, A-frames, deliveries) do not obstruct accessible routes.',
+        },
       },
       {
         id: '2.3-1-3',
@@ -7726,6 +7825,9 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.4, AS 1428.1 Cl. 5',
+        actionText: {
+          no: 'Document all internal level changes (stairs, ramps, lifts, escalators) and assess each for compliance with AS 1428.1 requirements for handrails, TGSIs, and gradient.',
+        },
       },
       // Deep Dive Circulation Space Questions
       {
@@ -8742,6 +8844,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Independent navigation is possible for people with diverse mobility and vision needs.',
+          no: 'Walk your venue as if using a wheelchair, walking frame, or with eyes closed and identify each point where independent navigation fails, then create an improvement plan.',
+          partially: 'Navigation is possible with some difficulty. Map the specific barriers (narrow sections, heavy doors, missing tactile cues) and prioritise the most impactful fixes.',
+        },
       },
       {
         id: '2.3-OTHER',
@@ -8803,6 +8910,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Seating is available in queue areas.',
+          no: 'Install or provide portable seating in queue areas for people who cannot stand for extended periods, positioned so they can maintain their place in the queue.',
+          partially: 'Some seating is available. Ensure seating is placed at regular intervals throughout queue areas and is clearly visible to customers.',
+        },
       },
       {
         id: '2.4-1-2',
@@ -8829,6 +8941,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Customers can request priority access when needed.',
+          no: 'Establish a clear priority access process, train all customer-facing staff to offer it, and display signage informing customers that priority access is available.',
+          partially: 'Priority access is sometimes offered. Formalise the policy, ensure all staff are trained, and add visible signage so customers know they can request it.',
+        },
       },
       {
         id: '2.4-1-2a',
@@ -8858,6 +8975,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A dedicated accessible entry option is available.',
+          no: 'Create a streamlined accessible entry pathway that bypasses the main queue, with clear signage and staff awareness so customers can use it independently.',
+          partially: 'An alternative entry exists but is not well-known. Improve signage, add the option to pre-visit information, and ensure staff actively offer it.',
+        },
       },
       {
         id: '2.4-1-3',
@@ -8884,6 +9006,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff are trained to accommodate queue assistance needs.',
+          no: 'Train all front-of-house staff on queue accommodation procedures, including when to offer priority access, how to assist people with mobility aids, and how to communicate with Deaf customers.',
+          partially: 'Some staff are aware. Extend training to all customer-facing roles and include scenarios for different disability types in the training materials.',
+        },
       },
       // Deep Dive Queue Management Questions
       {
@@ -9381,6 +9508,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A variety of seating options is available.',
+          no: 'Provide seating with different arm, height, and depth options so people with varying mobility, size, and support needs can find comfortable seating.',
+          partially: 'Some variety exists. Add seats with armrests for people who need support standing up, and ensure at least some seating has firm cushions and higher seat heights.',
+        },
       },
       {
         id: '3.1-D-1',
@@ -9452,6 +9584,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.8',
+        actionText: {
+          yes: 'Wheelchair companion spaces are provided alongside seating.',
+          no: 'Designate clear wheelchair spaces (minimum 800mm x 1300mm per AS 1428.1) adjacent to standard seating so wheelchair users can sit alongside companions.',
+          partially: 'Some wheelchair spaces exist. Verify they are distributed across different areas and price points, not clustered in one location with poor sightlines.',
+        },
       },
       {
         id: '3.1-1-3',
@@ -9483,6 +9620,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8.1',
+        actionText: {
+          yes: 'Tables and counters are at accessible heights for wheelchair users.',
+          no: 'Provide tables and counters with at least 750mm clearance underneath and a surface height no higher than 850mm so wheelchair users can approach and use them comfortably.',
+          partially: 'Some accessible-height surfaces exist. Audit all service counters, dining tables, and workstations and ensure accessible options are available in every area.',
+        },
       },
       {
         id: '3.1-1-4',
@@ -9510,6 +9652,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Furniture can be rearranged to accommodate different needs.',
+          no: 'Replace or supplement fixed furniture with movable options so staff can rearrange layouts for wheelchair users, mobility aid users, or service animals.',
+          partially: 'Some furniture is movable. Ensure staff know they can rearrange furniture on request and that movable items are lightweight enough for staff to adjust easily.',
+        },
       },
       // Deep Dive Questions - Seating and Layout
       {
@@ -10082,6 +10229,9 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.6, AS 1428.1 Cl. 15',
+        actionText: {
+          no: 'Install or identify the nearest accessible toilet that complies with AS 1428.1 Clause 15, including adequate circulation space, grab rails, and accessible fixtures.',
+        },
       },
       {
         id: '3.2-1-2',
@@ -10110,6 +10260,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff know where the nearest accessible toilet is located.',
+          no: 'Identify the nearest accessible toilet (on-site or nearby), confirm its availability and compliance, and ensure all staff can direct customers to it.',
+          partially: 'Some staff are aware. Document the location, add it to staff induction materials, and include it on any venue maps provided to customers.',
+        },
       },
       {
         id: '3.2-1-3',
@@ -10146,6 +10301,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.5',
+        actionText: {
+          yes: 'Toilet signage includes tactile and Braille elements.',
+          no: 'Install signage with tactile lettering, Braille, and the International Symbol of Access at each accessible toilet, positioned at 1200-1600mm height per AS 1428.1.',
+          partially: 'Signage exists but may lack tactile or Braille elements. Upgrade signs to include raised lettering, Grade 1 Braille, and high-contrast colours.',
+        },
       },
       {
         id: '3.2-1-4',
@@ -10178,6 +10338,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15',
+        actionText: {
+          yes: 'The accessible toilet is kept clear of storage and obstacles.',
+          no: 'Remove all stored items (cleaning supplies, spare furniture, stock) from the accessible toilet and implement a policy prohibiting storage in the facility.',
+          partially: 'The toilet is mostly clear. Conduct regular checks and remind all staff that accessible toilets must never be used for storage.',
+        },
       },
       {
         id: '3.2-1-5',
@@ -10209,6 +10374,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'An emergency alarm is installed in the accessible toilet.',
+          no: 'Install an emergency alarm cord or button in the accessible toilet, reachable from floor level (per AS 1428.1 Clause 15), connected to a monitored alarm point, and test it regularly.',
+          partially: 'An alarm exists but may not be fully functional. Verify the cord reaches floor level, the alarm is monitored, and staff know the response procedure.',
+        },
       },
       {
         id: '3.2-1-6',
@@ -10840,6 +11010,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 4.2',
+        actionText: {
+          yes: 'Lighting supports comfortable navigation and sensory needs.',
+          no: 'Assess lighting levels throughout the venue and address flickering, harsh fluorescent lights, and dark spots that affect people with low vision, migraines, or sensory sensitivities.',
+          partially: 'Lighting is adequate in main areas. Check transition zones, service counters, and signage areas where even lighting is critical for lip-reading and wayfinding.',
+        },
       },
       {
         id: '3.3-1-2',
@@ -10867,6 +11042,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Quiet or reset spaces are available for sensory breaks.',
+          no: 'Designate a quiet space with reduced lighting, minimal noise, and comfortable seating where people who are overwhelmed can take a sensory break.',
+          partially: 'A space is sometimes available. Formalise it with signage, include it on venue maps, and ensure it is always accessible during opening hours.',
+        },
       },
       {
         id: '3.3-1-3',
@@ -10894,6 +11074,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Background noise levels allow conversation.',
+          no: 'Measure noise levels in key areas and reduce background noise through acoustic treatment, music volume limits, or designated quieter zones to support hearing aid users and people who lip-read.',
+          partially: 'Noise is manageable in some areas. Identify the loudest zones and add soft furnishings, acoustic panels, or layout changes to reduce reverberation.',
+        },
       },
       {
         id: '3.3-1-4',
@@ -10924,6 +11109,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA 1992',
+        actionText: {
+          yes: 'Flashing lights and sudden loud noises are managed or warned about.',
+          no: 'Audit the venue for any flashing lights (strobe effects, digital signage, emergency beacons) and sudden loud noises, then eliminate them or provide advance warnings per WCAG 2.2 SC 2.3.1 (three flashes threshold).',
+          partially: 'Some hazards are managed. Conduct a comprehensive audit of all lighting effects and auditory alarms, and ensure advance warnings are provided for any that remain.',
+        },
       },
       {
         id: '3.3-1-5',
@@ -10951,6 +11141,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Temperature can be regulated for different needs.',
+          no: 'Ensure temperature controls are available and functioning, and consider designating warmer or cooler zones for people with temperature regulation difficulties.',
+          partially: 'Temperature is manageable in most areas. Review areas near entrances, large windows, or heating/cooling units where extremes may affect customers with chronic pain or autonomic conditions.',
+        },
       },
       {
         id: '3.3-1-6',
@@ -10978,6 +11173,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Sensory kits or supports are available for visitors.',
+          no: 'Create sensory support kits (noise-reducing headphones, fidget tools, sunglasses, communication cards) available for loan at reception or entry points.',
+          partially: 'Some sensory supports exist. Expand the range to cover hearing, vision, and sensory regulation needs, and promote their availability in pre-visit information.',
+        },
       },
       {
         id: '3.3-1-7',
@@ -11014,6 +11214,9 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          no: 'Plan and trial a relaxed or sensory-friendly session with reduced lighting, lower music volume, fewer crowds, and advance social stories or visual guides.',
+        },
       },
       {
         id: '3.3-1-8',
@@ -11055,6 +11258,9 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.5, APS D3.7',
+        actionText: {
+          no: 'Install a hearing loop or portable hearing augmentation system in key service areas (reception, meeting rooms, counters) and display the hearing loop symbol per AS 1428.5.',
+        },
       },
       // Deep Dive Questions - Lighting
       {
@@ -12497,6 +12703,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.5',
+        actionText: {
+          yes: 'Signage is clear with good contrast and readable fonts.',
+          no: 'Audit all signage for contrast (minimum 3:1 for large text per AS 1428.1), font size (minimum 15mm character height at 1m reading distance), and sans-serif typeface legibility.',
+          partially: 'Main signs are clear. Review smaller directional signs, room labels, and temporary signage for consistent contrast, sizing, and readability.',
+        },
       },
       {
         id: '3.5-1-2',
@@ -12526,6 +12737,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.2',
+        actionText: {
+          yes: 'Signs are placed at consistent heights and locations.',
+          no: 'Standardise sign mounting heights between 1200mm and 1600mm (eye level range per AS 1428.1) and place signs consistently on the same side of doorways throughout the venue.',
+          partially: 'Most signs are consistently placed. Audit newer or temporary signage that may have been installed at non-standard heights or inconsistent locations.',
+        },
       },
       {
         id: '3.5-1-3',
@@ -12555,6 +12771,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.5',
+        actionText: {
+          yes: 'Accessible facilities are clearly signed.',
+          no: 'Install clear directional signage to all accessible facilities (toilets, lifts, parking, entrances) using the International Symbol of Access, tactile lettering, and Braille per AS 1428.1.',
+          partially: 'Some facilities are signed. Add signage for any unsigned accessible features and verify that directional signs guide people from the entrance to each facility.',
+        },
       },
       {
         id: '3.5-1-4',
@@ -12582,6 +12803,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A first-time visitor could navigate independently.',
+          no: 'Walk through your venue as a first-time visitor and note every decision point where signage is missing, confusing, or not visible, then add directional signage at each.',
+          partially: 'Navigation is mostly intuitive. Test with someone unfamiliar with the venue and address the specific points where they hesitate or go the wrong way.',
+        },
       },
       // Deep Dive Questions - Signage and Wayfinding
       {
@@ -12904,6 +13130,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Large print versions are available for key materials.',
+          no: 'Produce large print versions (minimum 18pt, sans-serif font) of key customer-facing documents such as menus, brochures, forms, and pricelists.',
+          partially: 'Some materials are in large print. Extend coverage to all customer-facing documents and ensure large print copies are kept stocked and up to date.',
+        },
       },
       {
         id: '3.6-1-2',
@@ -12931,6 +13162,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff can read materials aloud when needed.',
+          no: 'Train staff to offer to read menus, forms, and information aloud to customers, using clear speech, appropriate pace, and privacy awareness.',
+          partially: 'Some staff will read aloud if asked. Ensure all customer-facing staff proactively offer this and are trained in clear reading techniques.',
+        },
       },
       {
         id: '3.6-1-3',
@@ -12958,6 +13194,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Digital alternatives (QR codes, online menus) are available.',
+          no: 'Create digital versions of key materials accessible via QR codes or short URLs, ensuring the digital content meets WCAG 2.2 Level AA.',
+          partially: 'Some digital options exist. Verify QR codes link to accessible content (not just a PDF image) and that digital menus work with screen readers.',
+        },
       },
       {
         id: '3.6-1-4',
@@ -12993,6 +13234,9 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          no: 'Develop Easy Read or Plain English versions of key documents, using simple sentences, common words, and supporting images, following Easy Read guidelines.',
+        },
       },
       // Dietary and allergen information
       {
@@ -13029,6 +13273,9 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          no: 'Ensure dietary information and allergen labelling is clearly visible on all menus and food displays, using consistent symbols, plain language, and accessible formats.',
+        },
       },
       // Deep Dive Questions
       {
@@ -14344,6 +14591,9 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether an activity qualifies, it is better to include it',
           ],
         },
+        actionText: {
+          no: 'Document all experience and activity types offered at your venue to determine which accessibility requirements apply to each.',
+        },
       },
       {
         id: '3.8-1-2',
@@ -14374,6 +14624,9 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          no: 'Review each activity or experience and identify how it can be modified (alternative formats, adjusted pace, adaptive equipment, companion support) for people with different abilities.',
+        },
       },
       {
         id: '3.8-1-3',
@@ -14404,6 +14657,9 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          no: 'Redesign activity scheduling to allow self-paced participation, including options to pause, repeat segments, or take breaks without disadvantage.',
+        },
       },
       // Deep Dive Questions - Experiences and Activities
       {
@@ -15848,6 +16104,9 @@ export const accessModules: AccessModule[] = [
             'If you manage multiple properties with different room types, select all that apply across your portfolio',
           ],
         },
+        actionText: {
+          no: 'Document all accommodation types offered and assess each for accessibility features, gaps, and compliance with AS 1428.1 and the Premises Standards.',
+        },
       },
       // Pulse-check questions
       {
@@ -15877,6 +16136,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 7',
+        actionText: {
+          yes: 'Accessible rooms have adequate wheelchair circulation space.',
+          no: 'Ensure accessible rooms provide minimum 1540mm turning circle (or 1500mm x 2000mm rectangle) clear of furniture per AS 1428.1 Clause 7 for wheelchair circulation.',
+          partially: 'Some circulation space exists. Measure clear floor areas and reposition or remove furniture that reduces wheelchair turning space below AS 1428.1 requirements.',
+        },
       },
       {
         id: '3.9-1-3',
@@ -15906,6 +16170,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 10/11',
+        actionText: {
+          yes: 'In-room bathrooms include accessible shower, grab rails, and shower seat.',
+          no: 'Install a hobless (roll-in) shower, grab rails per AS 1428.1 Clause 15, and a fold-down shower seat in accessible room bathrooms.',
+          partially: 'Some accessible features are present. Audit bathrooms against AS 1428.1 Clause 15 requirements for shower recess size, grab rail placement, and seat specifications.',
+        },
       },
       {
         id: '3.9-1-4',
@@ -15934,6 +16203,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1',
+        actionText: {
+          yes: 'Guests with disabilities can enter and move around their room independently.',
+          no: 'Ensure room doors have accessible handles (lever type), adequate clear width (minimum 850mm per AS 1428.1), and that all in-room paths are free of obstructions.',
+          partially: 'Basic access is possible. Check door hardware, furniture layout, and floor coverings for barriers that prevent fully independent movement throughout the room.',
+        },
       },
       {
         id: '3.9-1-5',
@@ -15960,6 +16234,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'DDA',
+        actionText: {
+          yes: 'Accessible rooms are available across different types and price points.',
+          no: 'Ensure accessible rooms are distributed across room categories (standard, premium, suite) and price points so guests with disabilities have genuine choice.',
+          partially: 'Accessible rooms exist in some categories. Expand accessible room availability so every room type has at least one accessible option.',
+        },
       },
       // Deep-dive questions
       {
@@ -16623,6 +16902,9 @@ export const accessModules: AccessModule[] = [
             'Consider all retail touchpoints in your venue, not just the primary retail area',
             'If you operate seasonal or temporary retail (e.g., holiday pop-ups), include that too',
           ],
+        },
+        actionText: {
+          no: 'Document the types of retail environment you operate to determine which accessibility requirements apply to your specific layout and customer interactions.',
         },
       },
       {
@@ -19021,6 +19303,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Customers can easily modify bookings when needs change.',
+          no: 'Enable flexible booking modifications (date, time, accessibility requirements) through all booking channels and ensure the process is clearly communicated to customers.',
+          partially: 'Modifications are possible but difficult. Simplify the process, make it available online and by phone, and ensure staff are trained to handle access-related changes.',
+        },
       },
       {
         id: '4.3-1-2',
@@ -19049,6 +19336,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Payment terminals are positioned at accessible heights.',
+          no: 'Reposition payment terminals to be usable from a seated position (800-1100mm height per AS 1428.1) with clear approach space for wheelchair users.',
+          partially: 'Some terminals are accessible. Audit all payment points and ensure at least one terminal per service area is at accessible height with clear approach space.',
+        },
       },
       {
         id: '4.3-1-3',
@@ -19076,6 +19368,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff can bring payment terminals to customers.',
+          no: 'Provide portable or wireless payment terminals and train staff to offer table-side or counter-side payment when a customer cannot reach the fixed terminal.',
+          partially: 'Portable terminals exist but are not consistently offered. Train all staff to proactively offer to bring the terminal to the customer.',
+        },
       },
       {
         id: '4.3-1-4',
@@ -19103,6 +19400,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Flexible cancellation policies exist for disability-related changes.',
+          no: 'Introduce flexible cancellation and modification terms for disability-related changes (e.g., health flare-ups, carer unavailability) and communicate this policy clearly during booking.',
+          partially: 'Some flexibility exists on a case-by-case basis. Formalise the policy, document it in booking terms, and ensure all staff apply it consistently.',
+        },
       },
       // Deep Dive - Online Booking Accessibility
       {
@@ -19792,6 +20094,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Emergency procedures include plans for people with disabilities.',
+          no: 'Update your emergency management plan to include specific procedures for evacuating people with mobility, sensory, cognitive, and psychosocial disabilities per DDA 1992 obligations.',
+          partially: 'Some disability provisions exist. Review the plan against all disability types (wheelchair users, blind/low vision, Deaf, cognitive, psychosocial) and add specific procedures for each.',
+        },
       },
       {
         id: '4.4-1-2',
@@ -19823,6 +20130,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745, APS D3.9',
+        actionText: {
+          yes: 'Emergency exits are accessible to people with mobility aids.',
+          no: 'Audit all emergency exits for step-free access, adequate door width (minimum 850mm per AS 1428.1), and clear approach paths for wheelchair and mobility aid users.',
+          partially: 'Some exits are accessible. Ensure at least one emergency exit on each level is fully accessible and clearly signed as the accessible evacuation route.',
+        },
       },
       {
         id: '4.4-1-3',
@@ -19854,6 +20166,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1670.4, APS D3.9',
+        actionText: {
+          yes: 'Both visual and audible emergency alarms are installed.',
+          no: 'Install dual-mode alarm systems with both audible alarms and visual strobes (flashing lights) in all areas, including toilets and quiet spaces, per AS 1670.4 and Premises Standards.',
+          partially: 'Alarms exist but may not cover all modalities. Audit all spaces for visual strobe coverage and ensure alarm volume is sufficient in noisy areas.',
+        },
       },
       {
         id: '4.4-1-4',
@@ -19885,6 +20202,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Staff are trained to assist customers with different needs during evacuation.',
+          no: 'Conduct disability-inclusive evacuation training for all staff, covering wheelchair assistance, guiding a person who is blind, communicating with Deaf people, and supporting people experiencing anxiety or confusion.',
+          partially: 'Some staff have been trained. Extend training to all staff including casuals, run regular drills that include disability scenarios, and keep records of completion.',
+        },
       },
       // Deep Dive - Emergency Planning
       {
