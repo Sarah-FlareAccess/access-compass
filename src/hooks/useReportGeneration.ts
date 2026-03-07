@@ -814,11 +814,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'If accessibility information is hard to find, people with cognitive disabilities, low digital literacy, or those using assistive technology may give up searching. The DDA 1992 principle of equivalent access means information must be as easy to find for a person with disability as general venue information is for anyone else.',
     resources: [],
   },
-  '1.1-D-1c': {
-    actions: ['Rewrite accessibility content from the customer perspective: focus on what they can do, how to get there, and what support is available rather than listing compliance achievements.', 'Use second person ("you") and active voice. For example, "You can enter through the automatic doors on Smith Street" rather than "The premises comply with AS 1428.1."', 'Have at least two people with disability review the content and provide feedback on whether it answers their real questions.', 'Include a FAQ section addressing the most common accessibility questions your staff receive.'],
-    reasoning: 'Compliance-focused language (citing standards and regulations) does not help a person with disability plan their visit. A wheelchair user needs to know "the ramp is on the left side of the building", not "we comply with the Premises Standards." Customer-focused information reduces barriers and demonstrates genuine welcome.',
-    resources: [],
-  },
   '1.1-D-2a': {
     actions: ['Document and publish: entrance type (steps, ramp, level), door width (minimum 850mm clear opening per AS 1428.1), path surface and gradient, lift dimensions, and accessible toilet locations.', 'Include photos or short videos showing the accessible route from parking to entry and through key areas.', 'Add distances in metres between key points (parking to entrance, entrance to lift, lift to toilets) so people with limited stamina or mobility can plan rest stops.', 'Note any temporary barriers or construction that may affect access, with expected resolution dates.', 'Describe the gradient of ramps (maximum 1:14 per AS 1428.1:2021 for new work) and note if handrails are present.'],
     reasoning: 'Physical access details are critical for people using wheelchairs, mobility scooters, walking frames, or crutches, as well as people with heart or respiratory conditions who need to gauge walking distances. Without specific measurements, a person may arrive only to find a doorway too narrow for their chair or a ramp too steep to navigate safely.',
@@ -877,11 +872,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   '1.1-D-6b': {
     actions: ['Establish a clear escalation protocol: first-contact staff should know which person or team to refer accessibility questions to, and that referral should happen in real time (transfer the call or connect via chat) rather than promising a callback.', 'Ensure the escalation contact is available during all operating hours.', 'Set a maximum response time of 2 hours for escalated accessibility enquiries that cannot be resolved immediately.', 'Track escalation frequency to identify training gaps or information that should be added to the frontline guide.'],
     reasoning: 'A customer with disability who is told "someone will call you back" and never hears from the venue has been failed. People with disability often have complex, time-sensitive planning needs (e.g., booking accessible transport, arranging support workers). Prompt escalation and resolution demonstrates respect for their time and autonomy.',
-    resources: [],
-  },
-  '1.1-D-6c': {
-    actions: ['Explicitly include "It is always okay to say I do not know" in staff training and communications.', 'Train staff to follow up promptly: "I do not know the answer to that, but I will find out and get back to you within [timeframe]."', 'Ensure staff understand that guessing or giving incorrect information is far worse than admitting uncertainty.', 'Celebrate staff who follow up effectively rather than only recognising those who have instant answers.'],
-    reasoning: 'Incorrect accessibility information can cause real harm. If a staff member guesses that a doorway is wide enough and it is not, a wheelchair user may travel a long distance only to be unable to enter. Encouraging honesty protects customers with disability from dangerous or distressing situations and builds a culture of accountability.',
     resources: [],
   },
   '1.1-D-7a': {
@@ -980,11 +970,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Inconsistent alt text creates an unpredictable experience for screen reader users, who may get useful descriptions on some pages but meaningless or missing ones on others.',
     resources: [],
   },
-  '1.2-1-2b': {
-    actions: ['Identify who currently uploads images to the website (marketing team, developers, content managers, external agencies).', 'Create a brief alt text guide with examples of good and bad alt text for your specific content types.', 'Add a mandatory alt text field to your CMS image upload workflow.', 'Provide a 30-minute training session for all content contributors.'],
-    reasoning: 'Alt text quality depends on who writes it. Assigning clear responsibility and providing training ensures consistent, meaningful descriptions rather than empty or auto-generated alt attributes.',
-    resources: [],
-  },
   '1.2-1-3': {
     actions: ['Use a contrast checking tool (e.g., WebAIM Contrast Checker, Colour Contrast Analyser) to measure text-to-background ratios on every page template.', 'Fix any normal text below 4.5:1 contrast ratio and any large text (18pt+ or 14pt bold+) below 3:1.', 'Pay special attention to text on images, coloured buttons, placeholder text in form fields, and footer content.', 'Update your brand style guide to only include colour combinations that meet WCAG 2.2 SC 1.4.3.', 'Add contrast checking to your design review process.'],
     reasoning: 'People with low vision, colour blindness, or age-related vision changes rely on adequate contrast to read text. Poor contrast effectively hides content from a large portion of the population.',
@@ -1005,24 +990,9 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Many people with low vision use browser zoom rather than screen magnifiers. If the layout breaks at 200% zoom, these users lose access to content and functionality that sighted users take for granted.',
     resources: [],
   },
-  '1.2-1-4a': {
-    actions: ['Zoom to 200% and 400% and systematically test each page template, recording screenshots of any broken layouts.', 'Categorise issues: content truncation, horizontal scrolling, overlapping elements, disappearing navigation.', 'Prioritise fixes based on severity (functional loss vs. cosmetic) and page importance.', 'Update CSS to use relative units and test responsive breakpoints.'],
-    reasoning: 'Documenting specific zoom issues allows development teams to fix the exact CSS patterns causing failures rather than guessing, resulting in faster and more complete remediation.',
-    resources: [],
-  },
   '1.2-1-5': {
     actions: ['Test all key user journeys (browsing, booking, paying, contacting) on at least one iPhone and one Android device.', 'Verify that all content is readable without horizontal scrolling in portrait orientation.', 'Check that interactive elements (buttons, links, form fields) have minimum 24x24px tap targets with adequate spacing.', 'Test with device accessibility settings enabled (larger text, VoiceOver/TalkBack).', 'Fix any mobile-specific issues found and add mobile testing to your QA process.'],
     reasoning: 'Many people with disabilities rely on mobile devices with built-in assistive technology (VoiceOver, TalkBack, Switch Control). A poor mobile experience disproportionately affects users who depend on these tools.',
-    resources: [],
-  },
-  '1.2-1-5a': {
-    actions: ['Create a mobile testing checklist covering navigation, forms, media, checkout, and content reading.', 'Test each checklist item on both iOS Safari and Android Chrome.', 'Record any failures with screenshots and device/OS version details.', 'Prioritise fixing forms and payment flows, as these are the most critical for task completion.'],
-    reasoning: 'Structured mobile testing ensures no critical user journey is overlooked, as ad-hoc testing typically only catches the most obvious issues and misses interactions that matter most to customers.',
-    resources: [],
-  },
-  '1.2-1-5b': {
-    actions: ['Acquire or borrow at least one iPhone, one Android phone (different manufacturer), and one tablet for testing.', 'Test across different screen sizes: small phone (under 375px), standard phone, and tablet.', 'Enable built-in screen readers (VoiceOver on iOS, TalkBack on Android) and verify core tasks work.', 'Document device-specific issues and browser rendering differences.'],
-    reasoning: 'Different devices render content differently and have different assistive technology implementations. Testing on only one platform misses issues that affect a significant portion of users with disabilities.',
     resources: [],
   },
   '1.2-1-5c': {
@@ -1055,11 +1025,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Screen reader testing reveals issues that automated tools cannot detect, such as reading order problems, unlabelled form fields, and confusing navigation structures that prevent blind users from completing tasks.',
     resources: [],
   },
-  '1.2-1-8a': {
-    actions: ['Access free screen reader testing guides from WebAIM (webaim.org) or Deque University.', 'Start with a simple 15-minute test: navigate your homepage using Tab and arrow keys with a screen reader active.', 'Learn the basic commands: Tab (next interactive element), H (next heading), F (next form field), L (next list).', 'Schedule a regular monthly screen reader check of your most-visited pages.'],
-    reasoning: 'Basic screen reader testing does not require expert knowledge. Even a simple test reveals major barriers that affect the daily experience of blind and low-vision website visitors.',
-    resources: [],
-  },
   '1.2-1-8b': {
     actions: ['Request a quote for a professional assistive technology review covering screen readers, voice control, and switch access.', 'Ensure the review scope covers your most critical user journeys (homepage, booking, payment, contact).', 'Ask for a prioritised remediation report with WCAG success criteria references.'],
     reasoning: 'Professional testing by experienced assistive technology users identifies nuanced issues that automated tools and basic manual testing miss, providing the most accurate picture of real-world barriers.',
@@ -1078,11 +1043,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   '1.2-F-10': {
     actions: ['Ensure every form field has a visible label (not just placeholder text) per WCAG 2.2 SC 3.3.2 Labels or Instructions.', 'When a validation error occurs, display a specific message next to the field explaining what went wrong and how to fix it (e.g., "Phone number must be 10 digits, starting with 0").', 'Use aria-invalid="true" and aria-describedby linking to the error message so screen readers announce the error per WCAG 2.2 SC 3.3.1 Error Identification.', 'Move focus to the first error field or provide an error summary at the top of the form that links to each error per WCAG 2.2 SC 3.3.3 Error Suggestion.', 'Test error handling with NVDA and JAWS screen readers to confirm errors are announced.'],
     reasoning: 'Unclear or invisible error messages prevent people who are blind (screen reader users), people with cognitive disabilities (who may not understand vague error text), and people with low vision (who may not see a small red asterisk) from completing forms. This is a mandatory WCAG 2.2 requirement under SC 3.3.1 and legally enforceable under the DDA 1992.',
-    resources: [],
-  },
-  '1.2-MA-2': {
-    actions: ['Engage a professional digital accessibility auditor who tests against WCAG 2.2 Level AA and uses both automated tools and manual testing with assistive technologies.', 'Request that the audit covers all key user journeys: homepage, accessibility page, booking/ticketing, contact forms, and any customer portal.', 'Ensure the auditor includes testing with screen readers (JAWS, NVDA), voice control (Dragon), switch access, and keyboard-only navigation.', 'Request a prioritised remediation report with estimated effort and impact for each issue.'],
-    reasoning: 'Automated accessibility testing tools catch only about 30-40% of WCAG issues. Professional audits with real assistive technology reveal barriers that affect people who are blind, have motor impairments, or use alternative input devices. Under the DDA 1992, websites are covered as services, and inaccessible digital experiences constitute discrimination.',
     resources: [],
   },
   // Module 1.3
@@ -1141,11 +1101,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Without confirmation, a person with disability has no way of knowing whether their requirements were received, read, or actioned. This uncertainty is especially stressful for people with high support needs (e.g., needing a hoist, interpreter, or specific seating) where failure to prepare means they cannot participate at all.',
     resources: [],
   },
-  '1.3-DD-3c': {
-    actions: ['Implement an automated workflow: when an accessibility requirement is submitted, automatically create a task assigned to the accessibility lead or operations team.', 'Set automated acknowledgment emails that confirm receipt within minutes of booking.', 'For complex requirements, trigger a manual follow-up task with a 24-hour deadline.', 'Monitor the workflow monthly to ensure no requests are falling through gaps.'],
-    reasoning: 'Manual-only follow-up processes are prone to human error, especially during busy periods. A person with disability whose accessibility request is forgotten experiences the worst possible outcome: arriving expecting adjustments that do not exist. Automated systems ensure consistent processing regardless of staff workload or turnover.',
-    resources: [],
-  },
   '1.3-DD-3d': {
     actions: ['Ensure booking confirmation emails use semantic HTML, not image-only content, so screen readers can parse them.', 'Test confirmation emails with NVDA to verify all information (booking reference, date, time, accessibility arrangements) is announced.', 'Use sufficient colour contrast (minimum 4.5:1 for text per WCAG 2.2 SC 1.4.3) in email templates.', 'Provide a plain-text alternative for email clients that do not render HTML.', 'Include the accessibility arrangements explicitly in the confirmation: "Accessible seating Row C, Seat 4. Auslan interpreter confirmed."'],
     reasoning: 'A booking confirmation that a person who is blind cannot read, or that does not mention the accessibility arrangements they requested, fails to provide equivalent service. Accessible confirmations give customers with disability the same confidence as any other customer that their booking is correct and their needs will be met.',
@@ -1176,11 +1131,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Approximately 2.9% of Australians have an intellectual disability, and many more have acquired brain injuries, low literacy, or English as a second language. Complex booking instructions with jargon, long sentences, or assumed knowledge exclude these people from independent participation. Plain language benefits everyone but is essential for people with cognitive disabilities.',
     resources: [],
   },
-  '1.3-DD-6b': {
-    actions: ['Ensure the phone booking option offers the same ticket types, pricing, and seating options as the online system.', 'Do not charge extra for phone bookings or impose longer processing times.', 'Train staff to avoid language that implies the customer "should" use the online system instead.', 'Monitor booking completion rates by channel to identify if alternative methods are underperforming.'],
-    reasoning: 'If the phone booking alternative involves longer waits, fewer options, or surcharges, it is not an equivalent service. Under the DDA 1992, people with disability must be able to access the same services on the same terms. A person who is blind should not pay more or get fewer choices simply because the website is inaccessible.',
-    resources: [],
-  },
   '1.3-DD-6c': {
     actions: ['Offer live chat or callback during all booking hours for customers who need real-time assistance.', 'Ensure the live chat is accessible: keyboard-operable, screen-reader compatible, with sufficient contrast per WCAG 2.2 SC 1.4.3.', 'Train chat/phone staff to walk customers through the booking process step by step without rushing.', 'Consider co-browsing tools that allow staff to assist customers directly within the booking interface.'],
     reasoning: 'Some customers with disability can use an online booking system but need occasional help at specific steps (e.g., selecting accessible seating, applying a companion ticket). Real-time assistance at the point of need prevents abandonment and reduces the burden on customers with cognitive disabilities, low digital literacy, or vision impairments.',
@@ -1189,11 +1139,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   '1.3-DD-7b': {
     actions: ['Review your booking platform documentation and admin settings for accessibility-related configuration options (accessible ticket types, custom fields, companion tickets).', 'If configuration options exist but are not enabled, activate and test them.', 'If configuration is limited, check whether the platform API allows custom accessibility features to be built.', 'Document which accessibility features are configurable and which are not, to inform future procurement decisions.'],
     reasoning: 'Many booking platforms have accessibility features that are disabled by default or buried in settings. A venue may be paying for a platform that supports companion ticketing or accessible seating maps but never activated those features. Reviewing configuration options can unlock significant accessibility improvements without changing platforms.',
-    resources: [],
-  },
-  '1.3-DD-7c': {
-    actions: ['Conduct an accessibility audit of your booking platform (or request the vendor\'s VPAT/accessibility conformance report).', 'Document specific limitations: which steps are not keyboard-accessible, which elements lack screen reader labels, whether the seat map is accessible.', 'Report limitations to the vendor formally in writing and request a remediation timeline.', 'Develop workarounds for each identified limitation (e.g., phone booking option for steps that are not accessible online).'],
-    reasoning: 'Identifying specific platform limitations allows the venue to provide appropriate alternatives and hold vendors accountable. Under the DDA 1992, the venue is responsible for ensuring booking services are accessible, regardless of which vendor provides the technology. Documented limitations also support procurement decisions when contracts are renewed.',
     resources: [],
   },
   '1.3-DD-7d': {
@@ -1320,11 +1265,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   '1.4-DD-4b': {
     actions: ['Disable video autoplay on your website. If autoplay is essential for design, ensure videos start muted per WCAG 2.2 SC 1.4.2 Audio Control.', 'Provide a clearly visible, keyboard-accessible pause button that appears immediately when autoplay begins.', 'If video plays automatically for more than 5 seconds, provide a mechanism to pause, stop, or hide it per WCAG 2.2 SC 2.2.2 Pause, Stop, Hide.', 'On social media, follow platform-specific settings to minimise autoplay impact.'],
     reasoning: 'Autoplaying videos with sound can cause distress for people with anxiety, PTSD, or sensory processing differences. They can interfere with screen readers, drowning out the synthesised speech that a blind person relies on. Moving video can distract people with ADHD or cognitive disabilities. WCAG 2.2 SC 1.4.2 (Level A) requires user control over audio that plays automatically.',
-    resources: [],
-  },
-  '1.4-DD-5b': {
-    actions: ['Display content warnings as the first frame or overlay before the video plays, not buried in the description below.', 'Use clear, specific language: "Content warning: This video contains flashing lights between 1:30 and 2:00."', 'Provide a mechanism to skip the warned content and jump to a safe point in the video.', 'For social media posts, place the content warning in the first line of the caption, before the "see more" fold.'],
-    reasoning: 'A content warning in the video description is useless if the person has already pressed play and been exposed to the triggering content. For someone with photosensitive epilepsy, exposure to flashing lights before seeing a warning could trigger a seizure. Warnings must appear before the content begins to be effective as a protective measure.',
     resources: [],
   },
   '1.4-DD-5c': {
@@ -1492,16 +1432,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   '1.6-DD-3a': {
     actions: ['Test all printed and digital marketing materials for colour contrast using the TPGi Colour Contrast Analyser or WebAIM Contrast Checker, verifying at least 4.5:1 for normal text per WCAG 2.2 SC 1.4.3.', 'Check readability: font size (minimum 12pt print, 16px digital), font type (sans-serif preferred), line spacing (at least 1.5x), and paragraph spacing.', 'Verify that information is not conveyed through colour alone per WCAG 2.2 SC 1.4.1.', 'Test digital materials (PDFs, email campaigns) with NVDA or JAWS screen reader for accessibility.'],
     reasoning: 'Marketing materials that fail contrast or readability standards exclude people with low vision (575,000 Australians), colour blindness (8% of men), dyslexia (10% of the population), and age-related vision decline. Testing ensures materials are accessible to the widest possible audience and demonstrates the organisation practices what it promotes regarding accessibility.',
-    resources: [],
-  },
-  '1.6-DD-4a': {
-    actions: ['Create at least one marketing campaign per year that centres accessibility as a feature (e.g., promoting a new accessible experience, celebrating International Day of People with Disability on 3 December).', 'Feature accessibility improvements in your newsletter, social media, and website news section.', 'Include accessible experiences in your "what is new" or seasonal marketing alongside other venue highlights.', 'Share behind-the-scenes content showing your accessibility improvement journey to build authentic engagement.'],
-    reasoning: 'Actively promoting accessibility helps reach the disability market (4.4 million Australians plus their families and friends). It also builds brand reputation as inclusive and socially responsible. Many people with disability share positive accessibility experiences within their communities, creating valuable word-of-mouth marketing that reaches an audience traditional campaigns miss.',
-    resources: [],
-  },
-  '1.6-DD-4b': {
-    actions: ['Use available platform analytics (social media insights, website analytics, email metrics) to segment and understand engagement from disability community audiences.', 'Monitor engagement on accessibility-related posts compared to general content.', 'Track traffic to your accessibility page and identify referral sources.', 'Consider surveying customers about disability status (optional, anonymous) to understand audience composition.', 'Partner with disability organisations to understand reach within their communities.'],
-    reasoning: 'Without engagement data, organisations cannot tell whether their inclusion efforts are reaching people with disability. Tracking helps identify which channels, messages, and content types resonate with the disability community, allowing more effective targeting. It also provides evidence of impact that supports ongoing investment in accessible marketing.',
     resources: [],
   },
   '1.6-DD-5a': {

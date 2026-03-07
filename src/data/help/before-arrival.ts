@@ -2639,7 +2639,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Screen Reader Testing',
   summary: 'Screen readers convert website content to speech or Braille so people who are blind or have low vision can navigate and interact with your site. Testing with one reveals barriers that visual checks and automated tools miss.',
-  coveredQuestionIds: ['1.2-1-8a', '1.2-1-8b'],
+  coveredQuestionIds: ['1.2-1-8b'],
 
   whyItMatters: {
     text: 'Automated accessibility checkers can only detect about 30-40% of accessibility issues. A screen reader test exposes real-world problems: images with no descriptions, form fields without labels, headings that jump from level 1 to level 4, and interactive elements that are invisible to keyboard users. These are the issues that actually prevent someone from using your website. Until you hear your site spoken aloud, you do not know what the experience is really like.',
