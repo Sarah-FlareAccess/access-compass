@@ -2207,7 +2207,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if the accessibility requirements field is only available on one booking path and is completely absent from other channels',
           ],
           tips: [
-            'It\'s worth checking all your channels — website, mobile app, and third-party platforms like Eventbrite and Humanitix',
+            'It\'s worth checking all your channels, website, mobile app, phone and third-party platforms like Eventbrite and Humanitix',
             'The accessibility field should appear across all product types, whether it\'s events, tours, accommodation, or experiences',
             'Testing the mobile experience separately is important since fields are sometimes hidden on smaller screens',
             'If you use third-party platforms, you may need to configure accessibility fields in your platform settings',
@@ -2583,7 +2583,7 @@ export const accessModules: AccessModule[] = [
             'Select all options where you\'ve encountered or observed keyboard navigation problems',
           ],
           tips: [
-            'Date pickers are the most common accessibility barrier — note whether yours is a custom widget or browser default',
+            'Date pickers are the most common accessibility barrier, note whether yours is a custom widget or browser default',
             'Payment forms are often embedded from third parties like Stripe or PayPal, so check if their accessible version is enabled',
             'Image CAPTCHAs are impossible for blind users, so look for audio alternatives or reCAPTCHA v3',
             'When a popup or modal appears, the Tab key should stay inside it until it\'s closed',
@@ -2765,7 +2765,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if the booking session times out quickly with no warning and no option to extend, causing customers to lose their progress',
           ],
           tips: [
-            'Try starting a booking and leaving it idle to see what happens — does it time out? How long does it take? Is there a warning?',
+            'Try starting a booking and leaving it idle to see what happens, does it time out? How long does it take? Is there a warning?',
             'Around 20 minutes or more is generally considered reasonable for complex bookings',
             'A clear warning before timeout gives people a chance to extend their session, which is really helpful',
             'Allowing customers to request more time without losing their progress can make all the difference',
@@ -2795,7 +2795,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if the booking process cannot be completed on mobile devices or is so difficult on mobile that customers are effectively excluded',
           ],
           tips: [
-            'Buttons and form fields should be large enough to tap accurately — at least 44 by 44 pixels is a good target',
+            'Buttons and form fields should be large enough to tap accurately, at least 44 by 44 pixels is a good target',
             'Users should be able to zoom in without the layout breaking or content being cut off',
             'Testing with VoiceOver on iPhone or TalkBack on Android will show you how the mobile experience works with screen readers',
             'Using appropriate input types like email, telephone and date triggers the right mobile keyboard, which makes form filling much easier',
@@ -2960,7 +2960,7 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: '1.3-PC-4', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'General customer service training but nothing specific to accessibility' or 'Training provided at induction only'",
         helpContent: {
-          summary: 'Staff reviewing accessibility requests should understand common requirements and how to respond helpfully. This covers whether staff who review bookings have been trained to understand and appropriately respond to accessibility requests and the accessibility option available to the customers.',
+          summary: 'Staff reviewing accessibility requests should understand common access requirements and how to respond helpfully. This covers whether staff who review bookings have been trained to understand and appropriately respond to accessibility requests and the accessibility option available to the customers.',
           understanding: [
             'Answer "Yes" if staff receive specific training on common accessibility requirements, your venue\'s capabilities, and how to respond respectfully',
             'Answer "Partially" if there is general customer service training but nothing specific to accessibility, or if training is only at induction',
@@ -3191,7 +3191,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if promotional offers, early bird deals, and packages systematically exclude accessible bookings or companion tickets',
           ],
           tips: [
-            'Packages should be bookable with accessible options — for example, a dinner and show package with wheelchair seating',
+            'Packages should be bookable with accessible options, for example, a dinner and show package with wheelchair seating',
             'Accessible tickets should be included in early release and early bird sales',
             'Holiday and promotional pricing should apply to accessible bookings just like any other',
             'Group and family deals should work with companion card arrangements',
@@ -3449,7 +3449,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if you do not add alt text or image descriptions to any social media images',
           ],
           tips: [
-            'Alt text is a short description added via platform settings — screen readers announce it automatically, and it works well for most straightforward images.',
+            'Alt text is a short description added via platform settings, screen readers announce it automatically, and it works well for most straightforward images.',
             'Image descriptions (ID) are detailed descriptions written in your caption, starting with [ID:] — they are visible to everyone, and work best when you need to convey emotion, context, or visual details that alt text cannot capture.',
             'Charts, graphs, infographics, and maps need longer descriptions — use image descriptions in your caption to fully explain the content, or include the results in your copy.',
             'Quote graphics or text on coloured backgrounds need alt text or an image description that repeats all the text — unless the full text is already in your caption.',
@@ -3604,7 +3604,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if you do not provide any content warnings for potentially distressing material such as flashing lights, loud sounds, or sensitive topics',
           ],
           tips: [
-            'Flashing or strobing content is critical to flag for photosensitive epilepsy — always warn if present',
+            'Flashing or strobing content is critical to flag for photosensitive epilepsy, always warn if present',
             'Warnings should appear before the content itself, not just in the video description',
             'Being specific helps — "Content warning: discussion of anxiety" is more helpful than just "content warning"',
             'Also include a spoken warning for video content so it reaches everyone',
@@ -3638,7 +3638,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if your video and social media content does not include any representation of people with disability',
           ],
           tips: [
-            'Try reviewing your last 20 posts — how diverse are the people shown?',
+            'Try reviewing your last 20 posts, how diverse are the people shown?',
             'Include diverse people naturally across your content, not just for awareness days',
             'Feature actual customers with their permission rather than stock photos where possible',
             'Don\'t frame disability as inherently inspiring or overcoming',
@@ -4032,7 +4032,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if multi-word hashtags are consistently written in all lowercase with no CamelCase formatting',
           ],
           tips: [
-            'For example, use #VisitMelbourne not #visitmelbourne',
+            'For example, use #FineDining not #finedining',
             'Similarly, use #AccessibleTourism not #accessibletourism',
             'Acronyms can stay uppercase, like #NDIS or #WCAG',
             'Single-word hashtags don\'t need CamelCase — #Melbourne is fine as is',
@@ -4062,7 +4062,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if emojis are regularly scattered throughout sentences or used excessively with no consideration for screen reader experience',
           ],
           tips: [
-            'Avoid scattering emojis through sentences — running to the store to get pizza (each emoji interrupts the sentence)',
+            'Avoid scattering emojis through sentences, each emoji interrupts the sentence',
             'It is better to place emojis at the end of your sentence or post to get pizza',
             'One to three emojis is fine, but ten or more becomes tedious for screen reader users',
             'Avoid using emojis as bullet points or list markers',
