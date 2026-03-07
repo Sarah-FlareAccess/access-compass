@@ -1,13 +1,13 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronUp, ExternalLink, Download, BarChart3, Shield, Lightbulb } from 'lucide-react';
+import { ChevronDown, ChevronUp, Download, BarChart3, Shield, ArrowUp } from 'lucide-react';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useReportGeneration } from '../hooks/useReportGeneration';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { ReportConfigSelector, type ReportConfig } from '../components/ReportConfigSelector';
 import { downloadPDFReport } from '../utils/pdfGenerator';
-import { hasHelpContent, getHelpByQuestionId } from '../data/help';
+import { getHelpByQuestionId } from '../data/help';
 import { getResourceLink } from '../utils/resourceLinks';
 import { PRIORITY_LEGEND } from '../utils/priorityCalculation';
 import { accessModules, moduleGroups } from '../data/accessModules';
@@ -17,7 +17,6 @@ import type { ReviewMode } from '../types/index';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 import './ReportPage.css';
 
-const PRIORITY_ORDER: Record<string, number> = { high: 0, medium: 1, low: 2 };
 const PRIORITY_BADGE_LABEL: Record<string, string> = { high: 'H', medium: 'M', low: 'L' };
 
 const GROUP_ORDER = ['before-arrival', 'getting-in', 'during-visit', 'service-support', 'organisational-commitment', 'events'];
@@ -88,11 +87,8 @@ function PriorityCountBadges({ counts }: { counts: { high: number; medium: numbe
   if (parts.length === 0) return <span className="rp-no-actions">No actions needed</span>;
   return (
     <span className="rp-priority-counts" aria-label={parts.map(p => `${p.count} ${p.key} priority`).join(', ')}>
-      {parts.map((p, i) => (
-        <span key={p.key}>
-          {i > 0 && <span aria-hidden="true"> · </span>}
-          <span className={`rp-priority-count rp-priority-${p.key}`}>{p.count}{p.label}</span>
-        </span>
+      {parts.map((p) => (
+        <span key={p.key} className={`rp-priority-count rp-priority-${p.key}`}>{p.count}{p.label}</span>
       ))}
     </span>
   );
@@ -100,6 +96,15 @@ function PriorityCountBadges({ counts }: { counts: { high: number; medium: numbe
 
 function stripPrioritySuffix(text: string): string {
   return text.replace(/\s*\((high|medium|low) priority\)\s*$/i, '');
+}
+
+function getRelevantHelp(questionId: string): ReturnType<typeof getHelpByQuestionId> | undefined {
+  const help = getHelpByQuestionId(questionId);
+  if (!help) return undefined;
+  const qModule = questionId.replace(/-.*$/, '');
+  const helpModule = help.questionId.replace(/-.*$/, '');
+  if (qModule !== helpModule) return undefined;
+  return help;
 }
 
 function cleanStatementText(text: string): string {
@@ -132,21 +137,9 @@ function formatActionText(item: CategorisedItem): React.ReactNode {
 
   if (raw.startsWith('Complete improvements to: ')) {
     const core = raw.replace('Complete improvements to: ', '');
-    const sentence = core.charAt(0).toUpperCase() + core.slice(1);
-    if (item.complianceLevel === 'best-practice') {
-      return <><strong>Consider improving:</strong> {sentence}</>;
-    }
-    return <><strong>Improve:</strong> {sentence}</>;
+    return <>Improve {core.charAt(0).toLowerCase() + core.slice(1)}</>;
   }
 
-  if (item.complianceLevel === 'best-practice') {
-    return <><strong>Consider:</strong> {raw.charAt(0).toLowerCase() + raw.slice(1)}</>;
-  }
-
-  const verbMatch = raw.match(/^(\w+)\s/);
-  if (verbMatch) {
-    return <><strong>{verbMatch[1]}</strong>{raw.slice(verbMatch[1].length)}</>;
-  }
   return raw;
 }
 
@@ -154,14 +147,14 @@ function ModuleTile({
   finding,
   isExpanded,
   onToggle,
-  detailedIssueIds,
   detailedFindings,
+  showStrengths = true,
 }: {
   finding: ModuleFindings;
   isExpanded: boolean;
   onToggle: () => void;
-  detailedIssueIds: Set<string>;
   detailedFindings?: Report['detailedFindings'];
+  showStrengths?: boolean;
 }) {
   const totalActions = finding.actions.length;
   const totalStrengths = finding.strengths.length;
@@ -192,7 +185,7 @@ function ModuleTile({
       {isExpanded && (
         <div className="rp-module-tile-body">
           {/* Strengths */}
-          {totalStrengths > 0 && (
+          {showStrengths && totalStrengths > 0 && (
             <div className="rp-module-section">
               <h4 className="rp-module-section-title rp-section-strengths">What's going well ({totalStrengths})</h4>
               <ul className="rp-item-list rp-list-strengths">
@@ -217,16 +210,61 @@ function ModuleTile({
                     <span className="rp-tier-count">({tier.items.length})</span>
                   </div>
                   <ul className="rp-item-list rp-list-actions">
-                    {tier.items.map((item, i) => (
-                      <li key={i} className={`rp-action-item rp-action-${tier.priority}`}>
-                        <span>{formatActionText(item)}</span>
-                        {item.complianceLevel && (
-                          <span className={`rp-compliance-tag rp-compliance-${item.complianceLevel}`}>
-                            {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best practice'}
-                          </span>
-                        )}
-                      </li>
-                    ))}
+                    {tier.items.map((item, i) => {
+                      const issue = moduleDetailedFindings?.issues.find(
+                        iss => iss.questionId === item.questionId
+                      );
+                      return (
+                        <li key={i} className={`rp-action-item rp-action-${tier.priority}`}>
+                          {issue ? (
+                            <div className="rp-action-row">
+                              <details className="rp-action-details">
+                                <summary className="rp-action-summary">
+                                  <span>{formatActionText(item)}</span>
+                                </summary>
+                                <div className="rp-action-recommendation">
+                                  <p className="rp-issue-reasoning">{issue.reasoning}</p>
+                                  <div className="rp-issue-actions">
+                                    <strong>Recommended actions</strong>
+                                    <ul>
+                                      {issue.recommendedActions.map((action, ai) => (
+                                        <li key={ai}>{action}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                  {issue.complianceRef && (
+                                    <p className="rp-issue-ref">Reference: {issue.complianceRef}</p>
+                                  )}
+                                  {(() => {
+                                    const help = getRelevantHelp(issue.questionId);
+                                    if (!help) return null;
+                                    return (
+                                      <Link
+                                        to={getResourceLink(issue.questionId)}
+                                        state={{ from: 'report' }}
+                                        className="rp-resource-link"
+                                      >
+                                        View guide: {help.title || 'Resource guide'}
+                                      </Link>
+                                    );
+                                  })()}
+                                </div>
+                              </details>
+                              <span className={`rp-compliance-tag rp-compliance-${item.complianceLevel || 'best-practice'}`}>
+                                {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best practice'}
+                              </span>
+                            </div>
+                          ) : (
+                            <>
+                              <span>{formatActionText(item)}</span>
+                              <span className={`rp-compliance-tag rp-compliance-${item.complianceLevel || 'best-practice'}`}>
+                                {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best practice'}
+                              </span>
+                            </>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}
@@ -238,60 +276,77 @@ function ModuleTile({
             <div className="rp-module-section">
               <h4 className="rp-module-section-title rp-section-explore">Areas to explore ({finding.explores.length})</h4>
               <ul className="rp-item-list rp-list-explore">
-                {finding.explores.map((item, i) => (
-                  <li key={i}>{cleanStatementText(item.text)}</li>
-                ))}
+                {finding.explores.map((item, i) => {
+                  const help = item.questionId ? getRelevantHelp(item.questionId) : undefined;
+                  // Only use howToCheck if this is the primary question for the help entry
+                  const isPrimaryQuestion = help && item.questionId === help.questionId;
+                  const howToCheck = isPrimaryQuestion ? help.howToCheck : undefined;
+                  const hasSteps = howToCheck?.steps && howToCheck.steps.length > 0;
+
+                  // Build fallback steps from inline question tips or helpText
+                  let fallbackSteps: string[] = [];
+                  if (!hasSteps && item.questionId) {
+                    const mod = accessModules.find(m => item.questionId!.startsWith(m.code));
+                    const q = mod?.questions.find(qq => qq.id === item.questionId);
+                    if (q?.helpContent?.tips && q.helpContent.tips.length > 0) {
+                      fallbackSteps = q.helpContent.tips.slice(0, 4);
+                    } else if (q?.helpText) {
+                      fallbackSteps = [q.helpText];
+                    }
+                  }
+
+                  const steps = hasSteps
+                    ? howToCheck!.steps.map(s => s.text)
+                    : fallbackSteps;
+                  const tools = hasSteps ? howToCheck!.tools : undefined;
+                  const categoryLink = `/resources?category=${encodeURIComponent(
+                    finding.group === 'organisational-commitment' ? 'organisation' : finding.group
+                  )}`;
+
+                  return (
+                    <li key={i}>
+                      <details className="rp-explore-details">
+                        <summary className="rp-explore-summary">
+                          {cleanStatementText(item.text)}
+                        </summary>
+                        <div className="rp-explore-guidance">
+                          {steps.length > 0 && (
+                            <div className="rp-explore-steps">
+                              <strong>{hasSteps ? 'How to assess this' : 'What to look for'}</strong>
+                              <ul>
+                                {steps.map((step, si) => <li key={si}>{step}</li>)}
+                              </ul>
+                              {tools && tools.length > 0 && (
+                                <p className="rp-explore-tools">You will need: {tools.join(', ')}</p>
+                              )}
+                            </div>
+                          )}
+                          {help ? (
+                            <Link
+                              to={getResourceLink(item.questionId!)}
+                              state={{ from: 'report' }}
+                              className="rp-resource-link"
+                            >
+                              View guide: {help.title || 'Resource guide'}
+                            </Link>
+                          ) : (
+                            <Link
+                              to={categoryLink}
+                              state={{ from: 'report' }}
+                              className="rp-resource-link"
+                            >
+                              Browse related resources
+                            </Link>
+                          )}
+                        </div>
+                      </details>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
 
-          {/* Detailed findings for this module */}
-          {moduleDetailedFindings && moduleDetailedFindings.issues.length > 0 && (
-            <details className="rp-detailed-section">
-              <summary className="rp-detailed-toggle">View detailed findings ({moduleDetailedFindings.issues.length})</summary>
-              <div className="rp-detailed-content">
-                {moduleDetailedFindings.issues.map((issue, i) => (
-                  <div key={i} className="rp-detailed-issue" id={`issue-${issue.questionId}`}>
-                    <div className="rp-issue-header">
-                      <h5>{issue.questionText}</h5>
-                      <div className="rp-issue-badges">
-                        <span className={`rp-priority-badge rp-priority-badge-${issue.priority}`}>
-                          {issue.priority} priority
-                        </span>
-                        {issue.complianceLevel && (
-                          <span className={`rp-compliance-tag rp-compliance-${issue.complianceLevel}`}>
-                            {issue.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best practice'}
-                            {issue.complianceRef && ` (${issue.complianceRef})`}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <p className="rp-issue-reasoning"><strong>Reasoning:</strong> {issue.reasoning}</p>
-                    <div className="rp-issue-actions">
-                      <strong>Recommended actions:</strong>
-                      <ul>
-                        {issue.recommendedActions.map((action, ai) => (
-                          <li key={ai}>{action}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    {hasHelpContent(issue.questionId) && (() => {
-                      const help = getHelpByQuestionId(issue.questionId);
-                      return (
-                        <Link
-                          to={getResourceLink(issue.questionId)}
-                          state={{ from: 'report' }}
-                          className="rp-resource-link"
-                        >
-                          View guide: {help?.title || 'Resource guide'}
-                        </Link>
-                      );
-                    })()}
-                  </div>
-                ))}
-              </div>
-            </details>
-          )}
         </div>
       )}
     </div>
@@ -307,6 +362,20 @@ export default function ReportPage() {
   const [reportConfig, setReportConfig] = useState<ReportConfig | undefined>(undefined);
   const [expandedModules, setExpandedModules] = useState<Set<string>>(new Set());
   const [showConfig, setShowConfig] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showStrengths, setShowStrengths] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   useEffect(() => {
     try {
@@ -369,13 +438,6 @@ export default function ReportPage() {
   const moduleFindings = useMemo(() => {
     if (!report) return [];
     return buildModuleFindings(report);
-  }, [report]);
-
-  const detailedIssueIds = useMemo(() => {
-    if (!report) return new Set<string>();
-    return new Set<string>(
-      (report.detailedFindings || []).flatMap(f => f.issues.map(i => i.questionId))
-    );
   }, [report]);
 
   const priorityDistribution = useMemo(() => {
@@ -483,6 +545,16 @@ export default function ReportPage() {
               onConfigChange={handleConfigChange}
               initialConfig={reportConfig}
             />
+            <div className="rp-display-options">
+              <label className="rp-toggle-label">
+                <input
+                  type="checkbox"
+                  checked={showStrengths}
+                  onChange={() => setShowStrengths(s => !s)}
+                />
+                Show strengths / what you are doing well
+              </label>
+            </div>
             <button className="btn btn-primary" style={{ marginTop: '12px' }} onClick={handleGenerateReport}>
               Regenerate report
             </button>
@@ -583,39 +655,14 @@ export default function ReportPage() {
                     finding={mf}
                     isExpanded={expandedModules.has(mf.moduleCode)}
                     onToggle={() => toggleModule(mf.moduleCode)}
-                    detailedIssueIds={detailedIssueIds}
                     detailedFindings={report.detailedFindings}
+                    showStrengths={showStrengths}
                   />
                 ))}
               </div>
             </div>
           ))}
         </div>
-
-        {/* Positive observations */}
-        {(report.sections.strengths.categorised?.length || 0) > 0 && (
-          <div className="rp-positives-section">
-            <h2><Lightbulb size={20} aria-hidden="true" /> Positive observations</h2>
-            <p className="rp-section-intro">Accessibility strengths already in place across your organisation.</p>
-            {groupedModules.map(group => {
-              const strengths = group.modules.flatMap(m => m.strengths);
-              if (strengths.length === 0) return null;
-              return (
-                <div key={group.groupId} className="rp-positives-group">
-                  <h3>{group.label}</h3>
-                  <div className="rp-positives-grid">
-                    {strengths.map((s, i) => (
-                      <span key={i} className="rp-positive-chip">
-                        <span className="rp-inline-module">{s.moduleCode}</span>
-                        {cleanStatementText(s.text)}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
 
         {/* Next steps */}
         <div className="rp-next-steps">
@@ -652,6 +699,16 @@ export default function ReportPage() {
 
         <PageFooter />
       </div>
+
+      {showScrollTop && (
+        <button
+          className="rp-back-to-top"
+          onClick={scrollToTop}
+          aria-label="Back to top"
+        >
+          <ArrowUp size={20} aria-hidden="true" />
+        </button>
+      )}
     </div>
   );
 }

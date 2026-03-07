@@ -139,10 +139,16 @@ export interface ModuleProgress {
   runs?: ModuleRun[];            // History of all runs for this module
 }
 
+export interface ExploreItem {
+  questionId: string;
+  questionText: string;
+  action: string;
+}
+
 export interface ModuleSummary {
   doingWell: string[];
   priorityActions: ActionItem[];
-  areasToExplore: string[];
+  areasToExplore: (string | ExploreItem)[];
   professionalReview: string[];
 }
 

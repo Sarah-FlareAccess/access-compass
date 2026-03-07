@@ -29,6 +29,7 @@ export interface ReportConfig {
   moduleSelections: ModuleRunSelection[];
   includeProgressComparison: boolean;
   comparisonRunId?: string;  // Run to compare against (most recent by default)
+  includeEvidence: boolean;
 }
 
 interface ReportConfigSelectorProps {
@@ -56,6 +57,9 @@ export function ReportConfigSelector({
   const [customSelections, setCustomSelections] = useState<Record<string, string | null>>({});
   const [includeComparison, setIncludeComparison] = useState(
     initialConfig?.includeProgressComparison || false
+  );
+  const [includeEvidence, setIncludeEvidence] = useState(
+    initialConfig?.includeEvidence ?? true
   );
 
   // Get all unique contexts from all runs across all modules
@@ -126,16 +130,19 @@ export function ReportConfigSelector({
     contextFilter: string;
     customSelections: Record<string, string | null>;
     includeComparison: boolean;
+    includeEvidence: boolean;
   }>) => {
     const newFilterType = updates.filterType ?? filterType;
     const newContextFilter = updates.contextFilter ?? contextFilter;
     const newIncludeComparison = updates.includeComparison ?? includeComparison;
+    const newIncludeEvidence = updates.includeEvidence ?? includeEvidence;
 
     const config: ReportConfig = {
       filterType: newFilterType,
       contextFilter: newFilterType === 'context' ? newContextFilter : undefined,
       moduleSelections,
       includeProgressComparison: newIncludeComparison,
+      includeEvidence: newIncludeEvidence,
     };
 
     onConfigChange(config);
@@ -174,6 +181,11 @@ export function ReportConfigSelector({
   const handleComparisonToggle = (checked: boolean) => {
     setIncludeComparison(checked);
     emitConfig({ includeComparison: checked });
+  };
+
+  const handleEvidenceToggle = (checked: boolean) => {
+    setIncludeEvidence(checked);
+    emitConfig({ includeEvidence: checked });
   };
 
   const formatDate = (dateString?: string) => {
@@ -238,6 +250,21 @@ export function ReportConfigSelector({
           </label>
         </div>
       )}
+
+      {/* Include evidence toggle */}
+      <div className="config-row comparison-toggle">
+        <label className="toggle-label">
+          <input
+            type="checkbox"
+            checked={includeEvidence}
+            onChange={(e) => handleEvidenceToggle(e.target.checked)}
+          />
+          <span className="toggle-text">
+            <strong>Include evidence</strong>
+            <span className="toggle-hint">Show photos, documents, and notes attached to questions</span>
+          </span>
+        </label>
+      </div>
 
       {/* Show current selection summary */}
       {filterType !== 'all' && (

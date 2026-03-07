@@ -9,11 +9,11 @@ import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { QuestionCard } from './QuestionCard';
 import { ModuleSummaryCard } from './ModuleSummaryCard';
 import { ReviewSummary } from './ReviewSummary';
-import { useBranchingLogic, needsProfessionalReview } from '../../hooks/useBranchingLogic';
-import type { QuestionResponse, ModuleSummary, ActionItem, CompletionMetadata } from '../../hooks/useModuleProgress';
+import { useBranchingLogic } from '../../hooks/useBranchingLogic';
+import type { QuestionResponse, ModuleSummary, CompletionMetadata } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
 import ReminderBanner from '../ReminderBanner';
-import { calculateQuestionPriority, getTimeframeForPriority } from '../../utils/priorityCalculation';
+import { generateModuleSummary } from '../../utils/generateModuleSummary';
 import './questions.css';
 
 interface QuestionFlowProps {
@@ -137,183 +137,9 @@ export function QuestionFlow({
     }
   }, [currentIndex, onBack]);
 
-  // Generate summary from responses
+  // Generate summary from responses using shared utility
   const generateSummary = useCallback((): ModuleSummary => {
-    const doingWell: string[] = [];
-    const priorityActions: ActionItem[] = [];
-    const areasToExplore: string[] = [];
-    const professionalReview: string[] = [];
-
-    responses.forEach((response) => {
-      const question = questions.find((q) => q.id === response.questionId);
-      if (!question) return;
-
-      // Check if needs professional review
-      if (needsProfessionalReview(question, response)) {
-        professionalReview.push(convertQuestionToStatement(question.text));
-      }
-
-      // Determine response sentiment for categorization
-      const sentiment = categorizeResponseSentiment(response, question);
-
-      // Categorize based on answer type
-      if (response.answer === 'yes') {
-        doingWell.push(convertQuestionToStatement(question.text));
-      } else if (response.answer === 'no') {
-        const priority = calculateQuestionPriority({
-          complianceLevel: question.complianceLevel,
-          safetyRelated: question.safetyRelated,
-          impactLevel: question.impactLevel,
-          answer: 'no',
-        });
-
-        priorityActions.push({
-          questionId: question.id,
-          questionText: question.text,
-          action: generateActionText(question.text),
-          priority,
-          timeframe: getTimeframeForPriority(priority),
-          impactStatement: generateImpactStatement(question),
-          complianceLevel: question.complianceLevel,
-        });
-      } else if (response.answer === 'partially') {
-        // Partially in place - acknowledge progress but note improvement needed
-        const statement = convertQuestionToStatement(question.text);
-        const partialDescription = response.notes?.trim();
-
-        // Add to "Going well" with description if provided
-        if (partialDescription) {
-          doingWell.push(`${statement} (partially in place): ${partialDescription}`);
-        } else {
-          doingWell.push(`${statement} (partially in place)`);
-        }
-
-        const partialPriority = calculateQuestionPriority({
-          complianceLevel: question.complianceLevel,
-          safetyRelated: question.safetyRelated,
-          impactLevel: question.impactLevel,
-          answer: 'partially',
-        });
-
-        priorityActions.push({
-          questionId: question.id,
-          questionText: question.text,
-          action: `Complete improvements to: ${statement.toLowerCase()}`,
-          priority: partialPriority,
-          timeframe: getTimeframeForPriority(partialPriority),
-          impactStatement: partialDescription
-            ? `Current status: ${partialDescription}`
-            : 'Partial measures are in place. Complete implementation for full accessibility.',
-          complianceLevel: question.complianceLevel,
-        });
-      } else if (response.answer === 'unable-to-check') {
-        // Unable to check - needs follow-up (use exploratory phrasing)
-        areasToExplore.push(convertQuestionToExploreStatement(question.text));
-      } else if (response.mediaAnalysis) {
-        // Media analysis response - acknowledge evidence provided
-        const analysisType = response.mediaAnalysis.analysisType || 'item';
-        const score = response.mediaAnalysis.overallScore;
-        const status = response.mediaAnalysis.overallStatus;
-
-        if (status === 'excellent' || status === 'good') {
-          doingWell.push(`${analysisType.charAt(0).toUpperCase() + analysisType.slice(1)} analysis: ${score}/100 - ${status}`);
-        } else if (status === 'poor') {
-          priorityActions.push({
-            questionId: question.id,
-            questionText: question.text,
-            action: `Address ${analysisType} accessibility issues identified in analysis`,
-            priority: 'high',
-            timeframe: 'Within 1 month',
-            impactStatement: `Analysis score: ${score}/100. Significant improvements needed.`,
-          });
-        } else {
-          // needs-improvement or not-assessable
-          priorityActions.push({
-            questionId: question.id,
-            questionText: question.text,
-            action: `Review and improve ${analysisType} based on analysis findings`,
-            priority: 'medium',
-            timeframe: 'Within 3 months',
-            impactStatement: `Analysis score: ${score}/100. Some improvements recommended.`,
-          });
-        }
-      } else if (response.multiSelectValues || response.linkValue || response.urlAnalysis) {
-        // Handle multi-select, single-select, links, and URL analysis
-        if (sentiment === 'positive') {
-          const statement = convertQuestionToStatement(question.text);
-          const details = getResponseDetails(response, question);
-          doingWell.push(details ? `${statement} (${details})` : statement);
-        } else if (sentiment === 'negative') {
-          const priority = calculateQuestionPriority({
-            complianceLevel: question.complianceLevel,
-            safetyRelated: question.safetyRelated,
-            impactLevel: question.impactLevel,
-            answer: 'no',
-          });
-
-          priorityActions.push({
-            questionId: question.id,
-            questionText: question.text,
-            action: generateActionText(question.text),
-            priority,
-            timeframe: getTimeframeForPriority(priority),
-            impactStatement: generateImpactStatement(question),
-            complianceLevel: question.complianceLevel,
-          });
-        } else if (sentiment === 'neutral') {
-          areasToExplore.push(convertQuestionToExploreStatement(question.text));
-        }
-
-        // Check for option-level recommendations (specific actions based on selected options)
-        if (response.multiSelectValues && question.options) {
-          response.multiSelectValues.forEach((optionId) => {
-            const option = question.options?.find((opt) => opt.id === optionId);
-            if (option?.recommendation) {
-              priorityActions.push({
-                questionId: question.id,
-                questionText: question.text,
-                action: option.recommendation,
-                priority: 'medium',
-                timeframe: 'Within 3 months',
-                impactStatement: `Based on selecting: ${option.label}`,
-              });
-            }
-          });
-        }
-      }
-
-      // Handle measurement responses
-      if (response.measurement && question.measurementGuidance) {
-        const { value } = response.measurement;
-        const { min, max: _max, ideal } = question.measurementGuidance;
-
-        if (min !== undefined && value < min) {
-          const measPriority = calculateQuestionPriority({
-            complianceLevel: question.complianceLevel,
-            safetyRelated: question.safetyRelated,
-            impactLevel: question.impactLevel,
-            answer: 'no',
-          });
-          priorityActions.push({
-            questionId: question.id,
-            questionText: question.text,
-            action: `Improve measurement to meet minimum requirement of ${min}${question.measurementUnit}`,
-            priority: measPriority,
-            timeframe: getTimeframeForPriority(measPriority),
-          });
-        } else if (ideal !== undefined && value >= ideal) {
-          const statement = convertQuestionToStatement(question.text);
-          doingWell.push(`${statement} (${value}${question.measurementUnit})`);
-        }
-      }
-    });
-
-    return {
-      doingWell,
-      priorityActions,
-      areasToExplore,
-      professionalReview,
-    };
+    return generateModuleSummary(responses, questions);
   }, [responses, questions]);
 
   // Handle completing the module
@@ -761,7 +587,7 @@ function convertQuestionToStatement(questionText: string): string {
   return statement;
 }
 
-function generateActionText(questionText: string): string {
+export function generateActionText(questionText: string): string {
   // Remove question mark for processing
   const cleanQuestion = questionText.replace(/\?$/, '').trim();
   const lowerQuestion = cleanQuestion.toLowerCase();

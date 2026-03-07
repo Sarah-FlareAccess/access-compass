@@ -18,6 +18,7 @@ import { getReportResourceLinks } from '../utils/resourceLinks';
 import { getHelpByQuestionId } from '../data/help';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
 import type { ReportConfig } from '../components/ReportConfigSelector';
+import { generateModuleSummary } from '../utils/generateModuleSummary';
 
 export interface CategorisedItem {
   text: string;
@@ -293,6 +294,9 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
       // Build module evidence (ownership/completion metadata)
       const moduleEvidence: ModuleCompletionEvidence[] = completedModules.map(moduleProgress => {
         const module = getModuleById(moduleProgress.moduleId);
+        const freshSummary = module?.questions
+          ? generateModuleSummary(moduleProgress.responses, module.questions)
+          : moduleProgress.summary;
         return {
           moduleId: moduleProgress.moduleId,
           moduleName: module?.name || moduleProgress.moduleCode,
@@ -303,8 +307,8 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
           assignedTo: moduleProgress.ownership?.assignedTo,
           targetCompletionDate: moduleProgress.ownership?.targetCompletionDate,
           confidenceSnapshot: moduleProgress.confidenceSnapshot,
-          strengthsCount: moduleProgress.summary?.doingWell?.length || 0,
-          actionsCount: moduleProgress.summary?.priorityActions?.length || 0,
+          strengthsCount: freshSummary?.doingWell?.length || 0,
+          actionsCount: freshSummary?.priorityActions?.length || 0,
         };
       });
 
@@ -321,33 +325,41 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
       const questionEvidence: QuestionEvidence[] = [];
 
       completedModules.forEach(moduleProgress => {
-        if (moduleProgress.summary) {
+        {
           const mod = getModuleById(moduleProgress.moduleId);
           const mCode = moduleProgress.moduleCode;
           const mName = mod?.name || mCode;
 
-          if (moduleProgress.summary.doingWell) {
-            allStrengths.push(...moduleProgress.summary.doingWell);
-            moduleProgress.summary.doingWell.forEach(text =>
+          // Regenerate summary from responses + current question data
+          // so that actionText changes take effect without re-completing modules
+          const summary = mod?.questions
+            ? generateModuleSummary(moduleProgress.responses, mod.questions)
+            : moduleProgress.summary;
+
+          if (summary?.doingWell) {
+            allStrengths.push(...summary.doingWell);
+            summary.doingWell.forEach(text =>
               catStrengths.push({ text, moduleCode: mCode, moduleName: mName })
             );
           }
-          if (moduleProgress.summary.priorityActions) {
-            moduleProgress.summary.priorityActions.forEach(a => {
+          if (summary?.priorityActions) {
+            summary.priorityActions.forEach(a => {
               const text = a.action;
               allPriorityActions.push(`${a.action} (${a.priority} priority)`);
               catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel });
             });
           }
-          if (moduleProgress.summary.areasToExplore) {
-            allAreasToExplore.push(...moduleProgress.summary.areasToExplore);
-            moduleProgress.summary.areasToExplore.forEach(text =>
-              catAreasToExplore.push({ text, moduleCode: mCode, moduleName: mName })
-            );
+          if (summary?.areasToExplore) {
+            summary.areasToExplore.forEach(item => {
+              const text = typeof item === 'string' ? item : item.action;
+              const questionId = typeof item === 'string' ? undefined : item.questionId;
+              allAreasToExplore.push(text);
+              catAreasToExplore.push({ text, moduleCode: mCode, moduleName: mName, questionId });
+            });
           }
-          if (moduleProgress.summary.professionalReview) {
-            allProfessionalReview.push(...moduleProgress.summary.professionalReview);
-            moduleProgress.summary.professionalReview.forEach(text =>
+          if (summary?.professionalReview) {
+            allProfessionalReview.push(...summary.professionalReview);
+            summary.professionalReview.forEach(text =>
               catProfessionalReview.push({ text, moduleCode: mCode, moduleName: mName })
             );
           }
@@ -2081,6 +2093,47 @@ const RECOMMENDATION_CONTEXTS: RecommendationContext[] = [
 ];
 
 // Helper: Get specific recommendations based on question context
+const CATEGORY_GUIDANCE: Record<string, string> = {
+  measurement: 'Take measurements and compare against Australian Standards minimum requirements',
+  policy: 'Review your policies and update to include this accessibility requirement',
+  training: 'Incorporate this topic into staff accessibility training and awareness programs',
+  physical: 'Assess the physical environment and plan modifications to improve accessibility',
+  information: 'Review how this information is provided and ensure it is available in accessible formats',
+  feedback: 'Establish a process to collect and act on accessibility feedback from customers',
+  employment: 'Review employment practices to ensure inclusive recruitment and workplace adjustments',
+  procurement: 'Include accessibility requirements in procurement criteria and supplier agreements',
+  digital: 'Audit digital content and platforms for accessibility compliance (WCAG 2.2 AA)',
+  safety: 'Review safety procedures to ensure they are inclusive of people with disability',
+  'sensory-environment': 'Assess the sensory environment and plan adjustments for people with sensory sensitivities',
+  communication: 'Ensure communication methods are inclusive and available in multiple formats',
+  evidence: 'Document and gather evidence of current accessibility provisions',
+};
+
+const ACTION_CONVERSIONS: Array<[RegExp, string]> = [
+  [/^Do you have /i, 'Provide '],
+  [/^Do you /i, 'Ensure you '],
+  [/^Do staff /i, 'Ensure staff '],
+  [/^Does your /i, 'Ensure your '],
+  [/^Does the /i, 'Ensure the '],
+  [/^Do /i, 'Ensure '],
+  [/^Are you /i, 'Ensure you are '],
+  [/^Are your /i, 'Ensure your '],
+  [/^Are there /i, 'Ensure there are '],
+  [/^Are /i, 'Ensure '],
+  [/^Is your /i, 'Ensure your '],
+  [/^Is there /i, 'Ensure there is '],
+  [/^Is /i, 'Ensure '],
+  [/^Can you /i, 'Ensure you can '],
+  [/^Can customers /i, 'Ensure customers can '],
+  [/^Can visitors /i, 'Ensure visitors can '],
+  [/^Can /i, 'Ensure '],
+  [/^Have you /i, 'Ensure you have '],
+  [/^Has your /i, 'Ensure your '],
+  [/^What have you /i, 'Review what you have '],
+  [/^What (.+?) do you /i, 'Review your '],
+  [/^How /i, 'Review how '],
+];
+
 function getSpecificRecommendations(
   questionId: string,
   questionText: string,
@@ -2135,7 +2188,7 @@ function getSpecificRecommendations(
   const module = getModuleById(moduleCode);
   const question = module?.questions.find(q => q.id === questionId);
 
-  // Tier 2.5a: Rich help content (solutions or tips from help system)
+  // Tier 2.5a: Rich help content (solutions with steps from help system)
   const richHelp = getHelpByQuestionId(questionId);
   if (richHelp) {
     if (richHelp.solutions && richHelp.solutions.length > 0) {
@@ -2143,7 +2196,16 @@ function getSpecificRecommendations(
         const order = { low: 0, medium: 1, high: 2 };
         return order[a.resourceLevel] - order[b.resourceLevel];
       });
-      const actions = sorted.slice(0, 4).map(s => `${s.title}: ${s.description}`);
+      // Use steps from the best solution, falling back to description
+      const actions: string[] = [];
+      for (const sol of sorted) {
+        if (sol.steps && sol.steps.length > 0) {
+          actions.push(...sol.steps);
+        } else {
+          actions.push(sol.description);
+        }
+        if (actions.length >= 5) break;
+      }
       if (userNotes?.trim()) {
         actions.unshift(`Address noted issue: "${userNotes.trim()}"`);
       }
@@ -2154,8 +2216,9 @@ function getSpecificRecommendations(
         needsAdminReview: false,
       };
     }
-    if (richHelp.tips && richHelp.tips.length > 0) {
-      const actions = richHelp.tips.slice(0, 4).map(t => t.text);
+    // Use howToCheck steps as actions (these are assessment-focused instructions)
+    if (richHelp.howToCheck?.steps && richHelp.howToCheck.steps.length > 0) {
+      const actions = richHelp.howToCheck.steps.slice(0, 5).map(s => s.text);
       if (userNotes?.trim()) {
         actions.unshift(`Address noted issue: "${userNotes.trim()}"`);
       }
@@ -2168,76 +2231,48 @@ function getSpecificRecommendations(
     }
   }
 
-  // Tier 2.5b: Inline tips from question helpContent (string[])
-  if (question?.helpContent?.tips && question.helpContent.tips.length > 0) {
-    const actions = question.helpContent.tips.slice(0, 4);
+  // Tier 2.5b: Inline helpContent summary + category guidance
+  if (question?.helpContent?.summary) {
+    const actions: string[] = [];
     if (userNotes?.trim()) {
-      actions.unshift(`Address noted issue: "${userNotes.trim()}"`);
+      actions.push(`Address noted issue: "${userNotes.trim()}"`);
     }
+    const catAction = CATEGORY_GUIDANCE[question.category || ''];
+    if (catAction) actions.push(catAction);
+    // Convert question to action
+    let qAction = questionText.replace(/\?$/, '').trim();
+    for (const [pattern, replacement] of ACTION_CONVERSIONS) {
+      if (pattern.test(qAction)) {
+        qAction = qAction.replace(pattern, replacement);
+        break;
+      }
+    }
+    actions.push(qAction.charAt(0).toUpperCase() + qAction.slice(1));
+    actions.push('Document current state with photos and measurements where applicable');
     return {
       actions: actions.slice(0, 6),
-      reasoning: question.helpContent.summary || `Review the recommended actions and consider how they apply to your venue.`,
+      reasoning: question.helpContent.summary,
       resources: [],
       needsAdminReview: false,
     };
   }
 
   // Tier 3: Enhanced fallback with category-specific guidance
-  const categoryGuidance: Record<string, string> = {
-    measurement: 'Take measurements and compare against Australian Standards minimum requirements',
-    policy: 'Review your policies and update to include this accessibility requirement',
-    training: 'Incorporate this topic into staff accessibility training and awareness programs',
-    physical: 'Assess the physical environment and plan modifications to improve accessibility',
-    information: 'Review how this information is provided and ensure it is available in accessible formats',
-    feedback: 'Establish a process to collect and act on accessibility feedback from customers',
-    employment: 'Review employment practices to ensure inclusive recruitment and workplace adjustments',
-    procurement: 'Include accessibility requirements in procurement criteria and supplier agreements',
-    digital: 'Audit digital content and platforms for accessibility compliance (WCAG 2.2 AA)',
-    safety: 'Review safety procedures to ensure they are inclusive of people with disability',
-    'sensory-environment': 'Assess the sensory environment and plan adjustments for people with sensory sensitivities',
-    communication: 'Ensure communication methods are inclusive and available in multiple formats',
-    evidence: 'Document and gather evidence of current accessibility provisions',
-  };
-
   const fallbackActions: string[] = [];
 
   if (userNotes?.trim()) {
     fallbackActions.push(`Address noted issue: "${userNotes.trim()}"`);
   }
 
-  const catAction = categoryGuidance[question?.category || ''];
+  const catAction = CATEGORY_GUIDANCE[question?.category || ''];
   if (catAction) {
     fallbackActions.push(catAction);
   }
 
   // Convert question text to an actionable recommendation
   let fallbackAction = questionText.replace(/\?$/, '').trim();
-  const actionConversions: Array<[RegExp, string]> = [
-    [/^Do you have /i, 'Provide '],
-    [/^Do you /i, 'Ensure you '],
-    [/^Do staff /i, 'Ensure staff '],
-    [/^Does your /i, 'Ensure your '],
-    [/^Does the /i, 'Ensure the '],
-    [/^Do /i, 'Ensure '],
-    [/^Are you /i, 'Ensure you are '],
-    [/^Are your /i, 'Ensure your '],
-    [/^Are there /i, 'Ensure there are '],
-    [/^Are /i, 'Ensure '],
-    [/^Is your /i, 'Ensure your '],
-    [/^Is there /i, 'Ensure there is '],
-    [/^Is /i, 'Ensure '],
-    [/^Can you /i, 'Ensure you can '],
-    [/^Can customers /i, 'Ensure customers can '],
-    [/^Can visitors /i, 'Ensure visitors can '],
-    [/^Can /i, 'Ensure '],
-    [/^Have you /i, 'Ensure you have '],
-    [/^Has your /i, 'Ensure your '],
-    [/^What have you /i, 'Review what you have '],
-    [/^What (.+?) do you /i, 'Review your '],
-    [/^How /i, 'Review how '],
-  ];
   let matched = false;
-  for (const [pattern, replacement] of actionConversions) {
+  for (const [pattern, replacement] of ACTION_CONVERSIONS) {
     if (pattern.test(fallbackAction)) {
       fallbackAction = fallbackAction.replace(pattern, replacement);
       matched = true;
@@ -2304,44 +2339,19 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
           response.notes
         );
 
-        let reasoning: string;
-        if (isNegativeResponse(response.answer)) {
-          reasoning = recommendations.reasoning;
-        } else if (isPartialResponse(response.answer)) {
-          reasoning = response.notes?.trim()
-            ? `Partial measures are in place: ${response.notes.trim()}. ${recommendations.reasoning}`
-            : `Some measures are in place but implementation is incomplete. ${recommendations.reasoning}`;
-        } else {
-          reasoning = 'This item needs follow-up to confirm. Conduct an internal audit to clarify current status and document findings for your team.';
-        }
+        const reasoning: string = recommendations.reasoning;
 
         const recommendedActions: string[] = [];
         if (isNegativeResponse(response.answer)) {
           recommendedActions.push(...recommendations.actions);
         } else if (isPartialResponse(response.answer)) {
-          const completionPrefixes = ['Implement', 'Provide', 'Install', 'Add', 'Create', 'Ensure', 'Set up', 'Review', 'Develop'];
-          const reframed = recommendations.actions.slice(0, 4).map(action => {
-            if (completionPrefixes.some(p => action.startsWith(p))) {
-              return `Complete: ${action.charAt(0).toLowerCase() + action.slice(1)}`;
-            }
-            return action;
-          });
-          if (response.notes?.trim()) {
-            recommendedActions.push(...reframed);
-          } else {
-            recommendedActions.push('Review current partial implementation and identify gaps');
-            recommendedActions.push(...reframed);
-          }
-          recommendedActions.push(
-            'Document what is currently in place and create a plan to address remaining gaps',
-          );
+          recommendedActions.push(...recommendations.actions.slice(0, 5));
         } else {
           recommendedActions.push(
             'Conduct a site walk-through to verify current accessibility features',
             'Take photos or measurements to document current state',
             'Consult with team members who may have more information',
             'Update your accessibility records based on findings',
-            'Schedule follow-up review to confirm status',
           );
         }
 
@@ -2362,7 +2372,8 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
 
     // --- Pass 2: backfill from priority actions that weren't covered by responses ---
     const backfilledIssues: typeof issuesFromResponses = [];
-    const priorityActions = moduleProgress.summary?.priorityActions || [];
+    const freshSummary = generateModuleSummary(moduleProgress.responses, module.questions);
+    const priorityActions = freshSummary.priorityActions;
 
     for (const actionItem of priorityActions) {
       if (coveredQuestionIds.has(actionItem.questionId)) continue;
