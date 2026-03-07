@@ -91,6 +91,13 @@ export interface BranchingQuestion {
   describePlaceholder?: string;
   // Whether this question is optional (can be skipped)
   optional?: boolean;
+  // Explicit action text for report recommendations per answer type
+  actionText?: {
+    yes?: string;       // Positive acknowledgment when answered "yes"
+    no?: string;        // Action when answered "no"
+    partially?: string; // Action when answered "partially"
+    unsure?: string;    // Action when answered "unable to check"
+  };
 }
 
 interface UseBranchingLogicProps {

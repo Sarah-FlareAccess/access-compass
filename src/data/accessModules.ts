@@ -115,6 +115,11 @@ export const accessModules: AccessModule[] = [
             'Consider creating a dedicated accessibility page that is easy to find from your homepage or footer navigation',
           ],
         },
+        actionText: {
+          yes: 'Good foundation for pre-visit accessibility communication.',
+          no: 'Create and publish accessibility information for customers before they visit. Include physical access details, sensory environment descriptions, and available supports. This is a key expectation under the DDA 1992.',
+          partially: 'Review your current accessibility information for completeness. Ensure it covers physical access, sensory environment, communication supports, and practical visit-planning details.',
+        },
       },
       {
         id: '1.1-F-2A',
@@ -182,6 +187,11 @@ export const accessModules: AccessModule[] = [
             'Start with ONE channel and do it well, rather than trying to update everywhere at once',
           ],
         },
+        actionText: {
+          yes: 'Clear starting points identified for sharing accessibility information.',
+          no: 'Identify the most effective channel to begin sharing accessibility information, such as your website, Google Business Profile, or social media pages. Start with the channel most customers use to plan visits.',
+          partially: 'Expand sharing to additional channels beyond your current starting point. Consider which platforms your customers rely on most for visit planning.',
+        },
       },
       // ============================================
       // CONTENT & DEPTH
@@ -221,6 +231,11 @@ export const accessModules: AccessModule[] = [
             'You do not need to cover everything - focus on what is most relevant to your venue and customer base',
           ],
         },
+        actionText: {
+          yes: 'Good range of accessibility information types being shared.',
+          no: 'Begin sharing specific types of accessibility information such as physical access details, sensory environment descriptions, available supports and equipment, transport options, and what to expect on arrival.',
+          partially: 'Broaden the types of accessibility information you share. Identify gaps in your current coverage and prioritise adding information customers most frequently request.',
+        },
       },
       {
         id: '1.1-D-2a',
@@ -250,6 +265,11 @@ export const accessModules: AccessModule[] = [
           { id: 'none', label: 'None of these', sentiment: 'negative' },
         ],
         showWhen: { questionId: '1.1-F-2B', answers: ['physical-access'] },
+        actionText: {
+          yes: 'Detailed physical access information supports effective visit planning.',
+          no: 'Add specific physical access details to your accessibility information, such as entrance type, step counts, ramp availability, door widths, surface types, accessible parking proximity, and lift access. Specifics help customers plan confidently.',
+          partially: 'Enhance your physical access information with additional planning details. Include measurements, surface descriptions, and step-by-step route information where possible.',
+        },
       },
       {
         id: '1.1-D-2b',
@@ -281,6 +301,11 @@ export const accessModules: AccessModule[] = [
           { id: 'none', label: 'None of these', sentiment: 'negative' },
         ],
         showWhen: { questionId: '1.1-F-2B', answers: ['what-to-expect'] },
+        actionText: {
+          yes: 'Sensory and social environment descriptions help a wide range of customers plan ahead.',
+          no: 'Add sensory and social environment descriptions to your accessibility information, covering noise levels, lighting conditions, crowd density, background music, and any potentially overwhelming stimuli. This supports autistic customers and those with sensory sensitivities.',
+          partially: 'Expand your sensory and social environment descriptions to cover additional aspects such as lighting variability, typical crowd levels at different times, and any sudden or unexpected stimuli customers may encounter.',
+        },
       },
       // ============================================
       // FINDABILITY
@@ -349,6 +374,11 @@ export const accessModules: AccessModule[] = [
           },
         ],
         showWhen: { questionId: '1.1-F-1', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Accessibility information is available across multiple platforms.',
+          no: 'Publish your accessibility information on your website as a dedicated page, and consider adding it to your Google Business Profile, social media, and any third-party listing platforms you use.',
+          partially: 'Extend your accessibility information to additional platforms where customers discover your venue. Ensure consistency across all published locations.',
+        },
       },
       {
         id: '1.1-D-1b',
@@ -378,6 +408,11 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: '1.1-F-1', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Accessibility information is easy to find from the homepage.',
+          no: 'Make your accessibility information findable within two clicks from your homepage. Add a prominent link in your main navigation, footer, or header. Avoid burying it under generic headings.',
+          partially: 'Improve the discoverability of your accessibility page. Consider adding a direct link in your main navigation or footer rather than requiring customers to search for it.',
+        },
       },
       {
         id: '1.1-D-1c',
@@ -408,6 +443,11 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: '1.1-F-1', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Customer-focused accessibility communication reflects best practice.',
+          no: 'Rewrite your accessibility information with a customer-first lens. Focus on what customers need to know to plan their visit, not on compliance language. Use plain English and describe the experience, not just the features.',
+          partially: 'Review your accessibility content to ensure the tone and focus are customer-centred. Replace compliance-oriented language with practical, welcoming descriptions that help people plan their visit.',
+        },
       },
       // ============================================
       // ACCURACY & MAINTENANCE
@@ -441,6 +481,11 @@ export const accessModules: AccessModule[] = [
             'It is better to remove outdated information than leave it online - customers may plan based on old details',
           ],
         },
+        actionText: {
+          yes: 'Confidence in the accuracy of accessibility information is well-placed.',
+          no: 'Establish a process to verify the accuracy of your accessibility information. Conduct a physical walkthrough of your venue comparing published details against actual conditions.',
+          partially: 'Improve confidence in your accessibility information by scheduling regular accuracy checks. Cross-reference published details with current venue conditions, particularly after any renovations or layout changes.',
+        },
       },
       {
         id: '1.1-D-3a',
@@ -467,6 +512,11 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: '1.1-F-3B', answers: ['somewhat-confident', 'not-very-confident', 'not-sure'] },
+        actionText: {
+          yes: 'Recent review of accessibility information ensures accuracy.',
+          no: 'Schedule an immediate review of your accessibility information and establish a regular review cycle (at minimum every 6 months, or whenever physical changes occur at your venue).',
+          partially: 'Tighten your review schedule for accessibility information. Aim for updates at least every 6 months and immediately after any changes to your venue layout, facilities, or services.',
+        },
       },
       {
         id: '1.1-D-3b',
@@ -496,6 +546,11 @@ export const accessModules: AccessModule[] = [
           { id: 'not-checked', label: 'Not checked', sentiment: 'negative' },
         ],
         showWhen: { questionId: '1.1-F-3B', answers: ['somewhat-confident', 'not-very-confident', 'not-sure'] },
+        actionText: {
+          yes: 'Verification against multiple sources strengthens information reliability.',
+          no: 'Verify your accessibility information against reliable sources such as a physical site audit, customer feedback, professional access consultant review, or relevant Australian Standards (AS 1428.1). Cross-referencing improves accuracy and trust.',
+          partially: 'Expand your verification process to include additional sources. Consider combining site audits with customer feedback and professional review for the most reliable information.',
+        },
       },
       // ============================================
       // QUALITY & CONSISTENCY
@@ -525,6 +580,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         showWhen: { questionId: '1.1-F-1', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Consistent accessibility information across platforms prevents confusion.',
+          no: 'Audit all platforms where your accessibility information appears and ensure consistency. Discrepancies between your website, Google listing, social media, and third-party platforms create confusion and erode trust.',
+          partially: 'Identify and resolve inconsistencies in your accessibility information across platforms. Create a single source of truth document that all platform updates reference.',
+        },
       },
       {
         id: '1.1-D-10',
@@ -552,6 +612,11 @@ export const accessModules: AccessModule[] = [
             'Update promptly when things change or issues are fixed',
           ],
         },
+        actionText: {
+          yes: 'Transparent communication about limitations builds trust with customers.',
+          no: 'Clearly state any known barriers or limitations on your accessibility page. Customers with disability prefer honest information about what is not accessible so they can plan accordingly, rather than discovering barriers on arrival.',
+          partially: 'Review your accessibility information to ensure all known barriers are honestly described. Include workarounds or alternative arrangements where barriers exist.',
+        },
       },
       {
         id: '1.1-D-11',
@@ -578,6 +643,11 @@ export const accessModules: AccessModule[] = [
             'Track feedback to identify patterns and priorities',
             'It\'s great to close the loop by letting people know when their feedback has led to changes',
           ],
+        },
+        actionText: {
+          yes: 'Inviting feedback shows commitment to continuous improvement.',
+          no: 'Add a clear invitation for customers to provide feedback about the accuracy and completeness of your accessibility information. Include a contact method (email, form, or phone) and indicate how feedback will be used.',
+          partially: 'Strengthen your feedback invitation by making it more prominent and specifying how customer input will be used to improve your accessibility information.',
         },
       },
       {
@@ -611,6 +681,11 @@ export const accessModules: AccessModule[] = [
             'Assign a backup person for when the primary owner is unavailable',
           ],
         },
+        actionText: {
+          yes: 'Clear ownership of accessibility information ensures accountability.',
+          no: 'Assign a specific person or role as responsible for maintaining your accessibility information. Without clear ownership, information becomes outdated and inaccurate.',
+          partially: 'Clarify and formalise the responsibility for maintaining accessibility information. Ensure the designated person has the authority, time allocation, and knowledge to keep information current.',
+        },
       },
       // ============================================
       // LINK REVIEW
@@ -642,6 +717,11 @@ export const accessModules: AccessModule[] = [
             'Results appear in your report with specific suggestions',
             'You can also upload a screenshot if your info isn\'t publicly available',
           ],
+        },
+        actionText: {
+          yes: 'Professional review can identify gaps not visible from the inside.',
+          no: 'Consider having your accessibility information professionally reviewed to identify gaps, inaccuracies, or missed opportunities that may not be apparent internally.',
+          partially: 'Follow through on a professional review of your accessibility information. External perspectives often identify gaps that internal teams overlook.',
         },
       },
       {
@@ -696,6 +776,11 @@ export const accessModules: AccessModule[] = [
             'Ensure all contact methods are clearly displayed and actually monitored - a listed email that takes a week to respond is not helpful',
           ],
         },
+        actionText: {
+          yes: 'Multiple contact channels support customers with different communication needs.',
+          no: 'Provide multiple ways for customers to ask accessibility questions before visiting, such as phone, email, online chat, contact form, and social media messaging. Relying on a single channel excludes customers who cannot use that method.',
+          partially: 'Expand the number of accessible contact channels available for accessibility enquiries. Ensure at least one non-phone option is available for customers who are Deaf or hard of hearing.',
+        },
       },
       {
         id: '1.1-D-5a',
@@ -725,6 +810,11 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: '1.1-F-5', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Structured handling of accessibility enquiries ensures consistent responses.',
+          no: 'Establish a clear process for handling accessibility enquiries, including who responds, expected response times, escalation paths, and how to source accurate answers. Ad hoc handling leads to inconsistent or incorrect information.',
+          partially: 'Formalise your process for handling accessibility enquiries. Document response protocols, designate knowledgeable staff, and set response time expectations.',
+        },
       },
       {
         id: '1.1-D-5b',
@@ -750,6 +840,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         showWhen: { questionId: '1.1-F-5', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Non-phone contact options are essential for inclusive communication.',
+          no: 'Provide at least one accessible non-phone option for accessibility questions, such as email, live chat, or an online contact form. Customers who are Deaf, hard of hearing, or have speech-related disabilities may be unable to use phone-only channels.',
+          partially: 'Review your non-phone contact options to ensure they are genuinely accessible and responsive. Confirm that enquiries via these channels receive the same quality and speed of response as phone calls.',
+        },
       },
       {
         id: '1.1-D-5c',
@@ -775,6 +870,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         showWhen: { questionId: '1.1-F-5', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Proactive invitation of accessibility questions encourages customer engagement.',
+          no: 'Proactively invite customers to ask accessibility questions by adding a clear prompt on your website, in booking confirmations, and on marketing materials. Phrases like "Have accessibility questions? We are here to help" signal openness.',
+          partially: 'Increase the visibility and frequency of your invitation for accessibility questions. Include prompts at key touchpoints such as booking confirmation, pre-visit emails, and your contact page.',
+        },
       },
       {
         id: '1.1-D-5d',
@@ -806,6 +906,11 @@ export const accessModules: AccessModule[] = [
             'Remember that no issues raised does not mean no issues exist - many people simply give up rather than report barriers',
           ],
         },
+        actionText: {
+          yes: 'Testing contact channels with users who have disability confirms real-world accessibility.',
+          no: 'Test your contact channels for accessibility by having people with disability attempt to use each channel. Check that forms are keyboard-accessible, chat supports screen readers, and phone systems work with TTY/relay services.',
+          partially: 'Expand your accessibility testing of contact channels to cover additional assistive technologies and disability types. Include keyboard-only navigation, screen reader compatibility, and hearing-accessible alternatives.',
+        },
       },
       {
         id: '1.1-D-5e',
@@ -836,6 +941,11 @@ export const accessModules: AccessModule[] = [
           { id: 'none', label: 'None / not sure', sentiment: 'negative' },
         ],
         showWhen: { questionId: '1.1-D-5d', answers: ['tested-confident', 'tested-some', 'not-tested-no-issues'] },
+        actionText: {
+          yes: 'Testing across multiple channels ensures broad accessibility.',
+          no: 'Prioritise testing your most-used contact channels for accessibility. At minimum, test your website contact form for keyboard accessibility and screen reader compatibility per WCAG 2.2 Level AA.',
+          partially: 'Extend accessibility testing to cover all contact channels, not just the primary ones. Each untested channel may exclude specific disability groups.',
+        },
       },
       {
         id: '1.1-D-5f',
@@ -862,6 +972,11 @@ export const accessModules: AccessModule[] = [
           { id: 'no-note', label: 'No - note this as an area to review later' },
         ],
         showWhen: { questionId: '1.1-D-5d', answers: ['never-checked', 'not-tested'] },
+        actionText: {
+          yes: 'External review of contact channels can identify barriers not visible internally.',
+          no: 'Consider requesting an Access Compass review of your contact channels to identify accessibility barriers that may not be apparent through internal testing alone.',
+          partially: 'Follow through on having your contact channels reviewed. External evaluation provides objective assessment of real-world accessibility.',
+        },
       },
       // ============================================
       // STAFF RESPONSE
@@ -889,6 +1004,11 @@ export const accessModules: AccessModule[] = [
             'Consider creating a simple one-page reference sheet with key accessibility info and common questions',
             'Role-play accessibility enquiries in team meetings to build confidence',
           ],
+        },
+        actionText: {
+          yes: 'Staff confidence in responding to accessibility enquiries reflects good training and culture.',
+          no: 'Train staff to confidently and respectfully respond to accessibility enquiries. Provide guidance on common questions, appropriate language, and where to find accurate information when unsure.',
+          partially: 'Strengthen staff confidence by providing additional training, reference materials, or mentoring for handling accessibility enquiries. Focus on common scenarios and respectful communication.',
         },
       },
       {
@@ -921,6 +1041,11 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: '1.1-F-6', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Structured guidance ensures consistent, high-quality accessibility responses.',
+          no: 'Create formal guidance for staff on responding to accessibility enquiries, such as an FAQ document, response templates, or a knowledge base. Informal or ad hoc approaches lead to inconsistent customer experiences.',
+          partially: 'Formalise and expand your guidance materials for accessibility enquiries. Ensure they cover the most common questions and are regularly updated as venue conditions change.',
+        },
       },
       {
         id: '1.1-D-6b',
@@ -951,6 +1076,11 @@ export const accessModules: AccessModule[] = [
           { id: 'not-sure', label: 'Not sure' },
         ],
         showWhen: { questionId: '1.1-F-6', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Clear escalation process ensures customers always receive an answer.',
+          no: 'Establish a clear escalation path for accessibility questions that front-line staff cannot immediately answer. Designate a knowledgeable person or team as the escalation point and set expected turnaround times.',
+          partially: 'Review and strengthen your escalation process for unanswered accessibility questions. Ensure staff know exactly who to escalate to and that response times are communicated to the customer.',
+        },
       },
       {
         id: '1.1-D-6c',
@@ -976,6 +1106,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         showWhen: { questionId: '1.1-F-6', answers: ['yes', 'partially'] },
+        actionText: {
+          yes: 'Encouraging honest responses builds customer trust and prevents misinformation.',
+          no: 'Create a culture where staff are encouraged to say "I don\'t know, but I\'ll find out" rather than guessing or providing incorrect accessibility information. Pair this with a reliable process for obtaining and relaying accurate answers.',
+          partially: 'Reinforce the message that it is better to check and follow up than to guess. Ensure the follow-up process is reliable so staff can confidently make that commitment.',
+        },
       },
       // ============================================
       // FAMILIARISATION VISITS
@@ -1014,6 +1149,11 @@ export const accessModules: AccessModule[] = [
           { id: 'not-applicable', label: 'Not applicable to our service' },
           { id: 'no', label: 'No' },
         ],
+        actionText: {
+          yes: 'Familiarisation visits are a highly valued accessibility practice.',
+          no: 'Consider offering familiarisation visits or virtual orientation sessions for customers with disability. These pre-visit experiences significantly reduce anxiety and allow customers to plan their route, understand the sensory environment, and identify any potential barriers.',
+          partially: 'Expand or formalise your familiarisation visit offering. Promote it actively and ensure it is available on request, not just for specific groups or occasions.',
+        },
       },
       {
         id: '1.1-D-7a',
@@ -1047,6 +1187,11 @@ export const accessModules: AccessModule[] = [
         showWhen: { questionId: '1.1-F-7', answers: ['considering', 'no'] },
         // This question identifies barriers, not strengths
         summaryBehavior: 'action-planning',
+        actionText: {
+          yes: 'Understanding barriers is the first step to addressing them.',
+          no: 'Identify and document the specific barriers preventing you from offering familiarisation visits. Common barriers include staffing, scheduling, and not knowing demand. Explore low-resource alternatives such as virtual tours or detailed photo guides.',
+          partially: 'Address the remaining barriers to offering familiarisation visits. Consider phased solutions, such as starting with virtual options or scheduled group orientations.',
+        },
       },
       {
         id: '1.1-D-7b',
@@ -1082,6 +1227,11 @@ export const accessModules: AccessModule[] = [
           { id: 'other', label: 'Other', sentiment: 'neutral' },
         ],
         showWhen: { questionId: '1.1-F-7', answers: ['yes-offered', 'on-request', 'virtual-only'] },
+        actionText: {
+          yes: 'Active promotion ensures customers who need familiarisation visits know they are available.',
+          no: 'Promote the availability of familiarisation visits through your website accessibility page, booking process, social media, and when responding to accessibility enquiries. Customers will not request what they do not know exists.',
+          partially: 'Expand promotion of familiarisation visits across more customer touchpoints. Ensure the offer is visible in your booking flow, pre-visit communications, and accessibility information.',
+        },
       },
       // ============================================
       // TRANSPORT INFORMATION
@@ -1110,6 +1260,11 @@ export const accessModules: AccessModule[] = [
             'Councils and transport authorities often have accessibility maps you can link to as external resources',
           ],
         },
+        actionText: {
+          yes: 'Transport information helps customers plan their full journey.',
+          no: 'Add accessible transport information to your pre-visit materials. Include details about accessible public transport options, accessible parking locations, drop-off points, and any relevant route information for customers using mobility aids.',
+          partially: 'Expand your transport information to cover additional options and provide more specific accessibility details about each transport method to your venue.',
+        },
       },
       {
         id: '1.1-D-8a',
@@ -1137,6 +1292,11 @@ export const accessModules: AccessModule[] = [
             'Walk the route yourself as a real-world check, noting what would matter to someone with mobility or vision needs',
           ],
         },
+        actionText: {
+          yes: 'Accessibility-specific transport details go beyond generic directions.',
+          no: 'Make your transport information specific to accessibility needs. Instead of generic directions, describe accessible features such as lift access at nearby stations, kerb ramp locations, accessible taxi ranks, and gradient information for routes.',
+          partially: 'Add more accessibility-specific detail to your transport information. Include practical information such as surface types, gradients, distances from transport stops, and accessible features at nearby stations or stops.',
+        },
       },
       {
         id: '1.1-D-8b',
@@ -1163,6 +1323,11 @@ export const accessModules: AccessModule[] = [
             'Including alternatives is a great idea - for example, "If the ramp is too steep, ring the bell for assistance or enter via loading dock"',
             'Photos or maps can help - a picture of the accessible entrance is worth many words',
           ],
+        },
+        actionText: {
+          yes: 'Last-50-metre details address a common gap in transport information.',
+          no: 'Describe the "last 50 metres" of the journey from the nearest transport stop or parking area to your entrance. Include surface type, gradient, kerb ramps, crossings, and any obstacles. This is often the most challenging part of the journey for customers with mobility disabilities.',
+          partially: 'Enhance your last-50-metre information with additional detail about surface conditions, gradients, and any obstacles between transport stops/parking and your entrance.',
         },
       },
       {
@@ -1199,6 +1364,11 @@ export const accessModules: AccessModule[] = [
             'Promote its availability on your accessibility page and in booking confirmations',
             'Autism CRC and ASPECT have social story templates and guidance that can help you get started',
           ],
+        },
+        actionText: {
+          yes: 'Social stories or visual narratives are a valuable resource for autistic customers and those with cognitive disabilities.',
+          no: 'Create a social story or visual narrative for your venue. This is a step-by-step visual guide showing what to expect during a visit, from arrival through to departure. It significantly helps autistic customers, those with intellectual disability, and anyone who experiences anxiety about new environments.',
+          partially: 'Review and enhance your social story or visual narrative. Ensure it covers the complete visit journey, uses real photos of your venue, and is kept current when your venue layout or processes change.',
         },
       },
       {
@@ -1983,6 +2153,11 @@ export const accessModules: AccessModule[] = [
             'Audits are conducted by accessibility specialists with experience in assistive technology and WCAG guidelines',
           ],
         },
+        actionText: {
+          yes: 'Professional audits provide the most reliable assessment of digital accessibility.',
+          no: 'Consider engaging a professional digital accessibility auditor to assess your website against WCAG 2.2 Level AA. Automated tools catch only 30-40% of accessibility issues; expert human testing identifies the remainder.',
+          partially: 'Follow through on engaging a professional accessibility audit. Ensure the scope covers your most critical user journeys including booking, contact, and accessibility information pages.',
+        },
       },
       // ============================================
       // FORMS AND ERROR HANDLING
@@ -2018,6 +2193,11 @@ export const accessModules: AccessModule[] = [
             'Move keyboard focus to the first error so screen reader users know there is a problem',
           ],
         },
+        actionText: {
+          yes: 'Clear error messaging supports all users and meets WCAG requirements.',
+          no: 'Implement clear, specific error messages on all online forms that explain what went wrong and how to fix it, per WCAG 2.2 Success Criteria 3.3.1 (Error Identification) and 3.3.3 (Error Suggestion). Errors must be identifiable by text, not colour alone.',
+          partially: 'Review all form error messages for specificity and helpfulness. Ensure each error identifies the field, explains the problem, and suggests how to correct it, as required under WCAG 2.2 Level AA.',
+        },
       },
       {
         id: '1.2-D-10',
@@ -2051,6 +2231,11 @@ export const accessModules: AccessModule[] = [
             'Real-time events like auctions and live bookings may genuinely need time limits as an exception',
             'Try completing your longest form while taking breaks - what happens?',
           ],
+        },
+        actionText: {
+          yes: 'Extended timeouts and warnings protect users who need more time.',
+          no: 'Implement extended session timeouts and provide warnings before automatic logout, as required by WCAG 2.2 Success Criterion 2.2.1 (Timing Adjustable). Users must be able to turn off, adjust, or extend time limits. This is essential for customers using assistive technology or those who need more time to complete forms.',
+          partially: 'Ensure your timeout warnings give users sufficient notice and a simple mechanism to extend their session. Test that the extension mechanism is itself accessible via keyboard and screen reader.',
         },
       },
       {
@@ -2123,6 +2308,11 @@ export const accessModules: AccessModule[] = [
             'Showing the accessibility field early in the booking flow, before payment details, makes it much more likely to be used',
           ],
         },
+        actionText: {
+          yes: 'Inviting accessibility requirements during booking enables proactive support.',
+          no: 'Add a clear, optional field during your booking or enquiry process where customers can share their accessibility requirements. This enables your team to prepare appropriate support before the visit.',
+          partially: 'Review your current accessibility requirements field for prominence and clarity. Ensure it appears at a natural point in the booking flow and uses welcoming, non-clinical language.',
+        },
       },
       {
         id: '1.3-DD-2b',
@@ -2148,6 +2338,11 @@ export const accessModules: AccessModule[] = [
             'A welcoming prompt like "Please share any accessibility requirements or things that would help us support your visit" encourages people to open up',
           ],
         },
+        actionText: {
+          yes: 'Free-text input respects the diversity of accessibility needs.',
+          no: 'Provide a free-text field where customers can explain their accessibility needs in their own words, rather than only offering predefined categories. Disability needs are diverse and cannot always be captured by checkboxes alone.',
+          partially: 'Supplement your current accessibility options with a free-text field so customers can describe needs that do not fit predefined categories.',
+        },
       },
       {
         id: '1.3-DD-2a',
@@ -2172,6 +2367,11 @@ export const accessModules: AccessModule[] = [
             'Positioning the field before payment details rather than at the very end makes it feel like a natural part of the process',
             'Try completing a test booking yourself and count how many clicks it takes to find the accessibility field',
           ],
+        },
+        actionText: {
+          yes: 'A clearly labelled and prominent accessibility field encourages use.',
+          no: 'Ensure the accessibility requirements field is clearly labelled (e.g., "Accessibility or special requirements") and positioned prominently in the booking form, not hidden behind an expandable section or placed at the very end.',
+          partially: 'Improve the visibility and labelling of your accessibility requirements field. Test with customers to confirm it is easy to find and understand.',
         },
       },
 
@@ -2199,6 +2399,11 @@ export const accessModules: AccessModule[] = [
             'Documenting the process means it still works smoothly even when key staff are away',
             'Good roles for this might include a front of house supervisor, reservations coordinator, or customer experience lead',
           ],
+        },
+        actionText: {
+          yes: 'Clear responsibility for reviewing accessibility requests prevents them being overlooked.',
+          no: 'Assign a specific person or role responsible for reviewing and acting on accessibility requests received through bookings. Without clear ownership, requests risk being missed or inadequately addressed.',
+          partially: 'Formalise the responsibility for reviewing accessibility requests. Ensure the designated person has the authority and knowledge to arrange appropriate support.',
         },
       },
 
@@ -2228,6 +2433,11 @@ export const accessModules: AccessModule[] = [
             'Having someone specific accountable for reviewing and responding to accessibility requests keeps things from falling through the cracks',
           ],
         },
+        actionText: {
+          yes: 'Pre-visit follow-up ensures accessibility needs are met on the day.',
+          no: 'Establish a process to follow up with customers who share accessibility requirements before their visit. Confirm arrangements, provide relevant information, and ask if anything else is needed. This prevents issues on arrival.',
+          partially: 'Strengthen your pre-visit follow-up process for accessibility requests. Ensure it is consistent, timely, and includes confirmation that arrangements are in place.',
+        },
       },
       {
         id: '1.3-DD-3b',
@@ -2254,6 +2464,11 @@ export const accessModules: AccessModule[] = [
             'Keep a record of accessibility requests so staff on the day are aware and prepared',
           ],
         },
+        actionText: {
+          yes: 'Confirmation gives customers confidence their needs will be met.',
+          no: 'Send customers a confirmation that their accessibility requirements have been received and noted. Include what actions will be taken and a contact point for further questions.',
+          partially: 'Enhance your confirmation process to include specific details about how accessibility requirements will be addressed, not just an acknowledgement of receipt.',
+        },
       },
       {
         id: '1.3-DD-1d',
@@ -2279,6 +2494,11 @@ export const accessModules: AccessModule[] = [
             'Providing a phone number or email for customers who need help is a simple but really valuable addition',
             'Instructions should appear before the first form field rather than being buried in the process',
           ],
+        },
+        actionText: {
+          yes: 'Clear instructions reduce barriers before the booking process even begins.',
+          no: 'Provide clear, upfront instructions explaining the booking process before customers begin. Include estimated completion time, what information they will need, and any accessibility features available during the process.',
+          partially: 'Review your booking instructions for clarity and completeness. Ensure they set expectations about the process steps, time required, and available accessibility supports.',
         },
       },
 
@@ -2308,6 +2528,11 @@ export const accessModules: AccessModule[] = [
             'An in-person option is valuable for customers who need visual confirmation, have complex needs, or prefer face-to-face communication',
           ],
         },
+        actionText: {
+          yes: 'Alternative booking methods ensure no customer is excluded.',
+          no: 'Provide alternative ways to book (such as phone, email, or in-person) for customers who cannot use your online booking system. This is a requirement under the DDA 1992 to ensure equitable access to services.',
+          partially: 'Ensure your alternative booking methods are clearly promoted and offer an equivalent level of service. Customers should not receive lesser options or longer wait times when using alternatives.',
+        },
       },
       {
         id: '1.3-DD-6b',
@@ -2333,6 +2558,11 @@ export const accessModules: AccessModule[] = [
             'Try not to imply that online is "faster" or "easier" in your messaging — keep the tone neutral',
             'Staff should treat alternative bookings as completely normal, not as an inconvenience',
           ],
+        },
+        actionText: {
+          yes: 'Equivalent service across booking methods upholds the DDA principle of equal access.',
+          no: 'Ensure alternative booking methods provide equivalent service quality without discouraging their use. Customers using phone or email bookings should receive the same options, pricing, and availability as online bookers.',
+          partially: 'Review your alternative booking methods for service parity. Check that customers are not disadvantaged in terms of pricing, availability, response time, or available options.',
         },
       },
       {
@@ -2360,6 +2590,11 @@ export const accessModules: AccessModule[] = [
             'Indicating expected wait times lets customers decide whether to wait or try another option',
             'Make sure the help feature itself is accessible too — keyboard navigable and screen reader compatible',
           ],
+        },
+        actionText: {
+          yes: 'Real-time assistance removes barriers during the booking process.',
+          no: 'Offer real-time assistance (such as live chat, phone support, or callback) for customers who need help during the booking process. Some customers may encounter barriers partway through and need immediate support.',
+          partially: 'Expand the availability and visibility of real-time booking assistance. Ensure it is easy to access from within the booking flow itself, not just from a separate contact page.',
         },
       },
 
@@ -2394,6 +2629,11 @@ export const accessModules: AccessModule[] = [
             'Requesting your provider\'s VPAT or accessibility statement can help you understand any known limitations',
           ],
         },
+        actionText: {
+          yes: 'Understanding third-party platform limitations is important for addressing accessibility gaps.',
+          no: 'Assess whether your third-party booking platform meets WCAG 2.2 Level AA standards. If it does not, provide an accessible alternative and raise accessibility requirements with your platform provider.',
+          partially: 'Continue assessing the accessibility of your third-party booking platform. Document known limitations and ensure accessible alternatives are available for affected customers.',
+        },
       },
 
       // Pulse Check Q8: Accessible tickets and options
@@ -2421,6 +2661,11 @@ export const accessModules: AccessModule[] = [
             'Accessible options should have fair allocation and not be "sold out" by default',
             'If others can book online instantly, asking people to "call us to book accessible tickets" creates an unfair barrier',
           ],
+        },
+        actionText: {
+          yes: 'Integrated accessible booking options ensure equal participation.',
+          no: 'Enable customers to select accessible options or tickets (such as wheelchair spaces, companion seats, or accessible rooms) through the same booking process used by all customers. Separate or manual processes create inequality.',
+          partially: 'Expand the accessible options available through your standard booking process. Aim to eliminate the need for customers to make separate phone calls or emails to arrange accessible bookings.',
         },
       },
 
@@ -2459,6 +2704,11 @@ export const accessModules: AccessModule[] = [
             'Payment forms are often embedded from third parties, so it\'s worth checking if their accessible version is enabled',
             'If you get stuck anywhere, that\'s a barrier for keyboard users',
           ],
+        },
+        actionText: {
+          yes: 'Keyboard-accessible booking supports users of assistive technology.',
+          no: 'Test and fix your booking process for full keyboard operability, as required by WCAG 2.2 Success Criterion 2.1.1 (Keyboard). Every step from selecting dates to completing payment must be usable without a mouse.',
+          partially: 'Identify and fix the remaining keyboard accessibility issues in your booking process. Ensure tab order is logical, focus indicators are visible, and all interactive elements are reachable via keyboard.',
         },
       },
 
@@ -2503,6 +2753,11 @@ export const accessModules: AccessModule[] = [
             },
           ],
         },
+        actionText: {
+          yes: 'Clear error messages in booking forms prevent abandonment.',
+          no: 'Implement clear, specific error messages in your booking forms per WCAG 2.2 Success Criteria 3.3.1 and 3.3.3. Each error should identify the problematic field, explain the issue, and suggest how to fix it.',
+          partially: 'Review all error messages in your booking forms for clarity and helpfulness. Ensure errors appear adjacent to the relevant field and are announced to screen reader users.',
+        },
       },
       {
         id: '1.3-DD-5b',
@@ -2530,6 +2785,11 @@ export const accessModules: AccessModule[] = [
             'If you\'re not sure, that\'s completely okay — this is specialist testing that many organisations haven\'t done yet. You might consider requesting a professional accessibility audit.',
           ],
         },
+        actionText: {
+          yes: 'Screen reader announcement of errors meets WCAG requirements.',
+          no: 'Ensure booking form errors are programmatically announced to screen reader users using aria-live regions or by moving focus to the error summary, per WCAG 2.2 Success Criterion 4.1.3 (Status Messages). Silent errors make forms unusable for screen reader users.',
+          partially: 'Test error announcements with multiple screen readers (NVDA, JAWS, VoiceOver) to ensure consistent behaviour. Verify that both inline errors and summary messages are announced.',
+        },
       },
       {
         id: '1.3-DD-5c',
@@ -2556,6 +2816,11 @@ export const accessModules: AccessModule[] = [
             'Icons and images that reinforce meaning give people extra cues alongside the text',
             'This helps people with intellectual disabilities, learning difficulties, acquired brain injuries, dementia, and those learning English',
           ],
+        },
+        actionText: {
+          yes: 'Plain language and Easy Read support customers with cognitive and intellectual disabilities.',
+          no: 'Provide booking information in plain language, and consider creating an Easy Read version for customers with intellectual or cognitive disabilities. Use short sentences, common words, and supporting images.',
+          partially: 'Review your booking content for plain language compliance. Consider adding an Easy Read version of key booking information and instructions.',
         },
       },
 
@@ -2596,6 +2861,11 @@ export const accessModules: AccessModule[] = [
             'Taking screenshots provides visual evidence that helps developers understand and fix the issue more quickly',
           ],
         },
+        actionText: {
+          yes: 'Identifying specific failure points enables targeted fixes.',
+          no: 'Conduct a keyboard-only walkthrough of your entire booking process and document every step where navigation fails or becomes difficult. Prioritise fixes for payment, date selection, and form submission steps.',
+          partially: 'Continue resolving the remaining keyboard navigation failures in your booking process. Focus on the steps customers are most likely to abandon.',
+        },
       },
       {
         id: '1.3-DD-1b',
@@ -2622,6 +2892,11 @@ export const accessModules: AccessModule[] = [
             'If you haven\'t tested with a screen reader, "Not sure" is a perfectly valid answer — you might consider requesting a professional accessibility audit',
             'If you use a third-party booking platform, ask your provider whether they\'ve tested with screen readers and request their accessibility statement',
           ],
+        },
+        actionText: {
+          yes: 'Screen reader and voice control compatibility ensures broad assistive technology support.',
+          no: 'Test your booking process with screen readers (NVDA, JAWS, VoiceOver) and voice control tools, then fix identified issues. All form fields must have proper labels, and dynamic content must be announced, per WCAG 2.2 Success Criterion 4.1.2 (Name, Role, Value).',
+          partially: 'Expand your assistive technology testing to cover additional screen readers and voice control tools. Address remaining issues with unlabelled fields, missing ARIA attributes, or unannounced dynamic content.',
         },
       },
       {
@@ -2650,6 +2925,11 @@ export const accessModules: AccessModule[] = [
             'Payment pages often have shorter timeouts for security reasons, so it\'s worth checking if they\'re still reasonable',
           ],
         },
+        actionText: {
+          yes: 'Generous or adjustable time limits prevent loss of progress.',
+          no: 'Extend time limits in your booking process or provide a mechanism for users to request more time, as required by WCAG 2.2 Success Criterion 2.2.1 (Timing Adjustable). Users must be warned before timeout and given at least 20 seconds to extend.',
+          partially: 'Review your timeout settings and warning mechanisms. Ensure users receive adequate warning and can easily extend their session without losing entered data.',
+        },
       },
       {
         id: '1.3-PC-9',
@@ -2675,6 +2955,11 @@ export const accessModules: AccessModule[] = [
             'The booking should work well in both portrait and landscape modes',
             'Avoid relying on hover effects since they don\'t work on touchscreens',
           ],
+        },
+        actionText: {
+          yes: 'Mobile-responsive booking supports customers who rely on mobile devices.',
+          no: 'Ensure your booking process is fully functional and usable on mobile devices. Test with both iOS and Android, using touch gestures, screen magnification, and mobile screen readers. Many customers with disability rely primarily on mobile devices.',
+          partially: 'Address remaining mobile usability issues in your booking process. Test across different screen sizes and with mobile assistive technologies to ensure full functionality.',
         },
       },
       {
@@ -2703,6 +2988,11 @@ export const accessModules: AccessModule[] = [
             'This is especially helpful for people with fatigue, chronic pain, cognitive disabilities, and carers who get interrupted',
           ],
         },
+        actionText: {
+          yes: 'Save-and-return functionality prevents data loss and reduces fatigue.',
+          no: 'Implement save-and-return functionality so customers can pause and resume their booking later. This is essential for customers who experience fatigue, pain, or cognitive overload and cannot complete the process in one session.',
+          partially: 'Ensure your save-and-return feature is reliable and clearly communicated to users. Test that saved data persists and the resumption point is intuitive.',
+        },
       },
       {
         id: '1.3-DD-1g',
@@ -2730,6 +3020,11 @@ export const accessModules: AccessModule[] = [
             'Offering a phone payment option gives customers who can\'t complete online a way to finish their booking',
             'Try completing a test transaction yourself using only the keyboard, and ideally with a screen reader as well',
           ],
+        },
+        actionText: {
+          yes: 'An accessible payment step prevents booking abandonment at the final stage.',
+          no: 'Ensure the payment step of your booking process is fully keyboard-accessible, screen reader-compatible, and works with autofill, per WCAG 2.2 Level AA. Payment is where many accessible booking journeys fail.',
+          partially: 'Test your payment step with keyboard-only navigation and screen readers. Address any issues with payment field labels, error handling, or confirmation announcements.',
         },
       },
 
@@ -2760,6 +3055,11 @@ export const accessModules: AccessModule[] = [
             'Testing the mobile experience separately is important since fields are sometimes hidden on smaller screens',
             'If you use third-party platforms, you may need to configure accessibility fields in your platform settings',
           ],
+        },
+        actionText: {
+          yes: 'Consistent availability of the accessibility field across booking paths prevents gaps.',
+          no: 'Ensure the accessibility requirements field appears on all booking paths, including group bookings, phone bookings, third-party platforms, and any express or simplified booking flows.',
+          partially: 'Audit all booking paths to identify where the accessibility field is missing. Prioritise adding it to high-traffic booking flows first.',
         },
       },
 
@@ -2793,6 +3093,11 @@ export const accessModules: AccessModule[] = [
             'Aiming to acknowledge requests within 24 hours and confirm arrangements before the visit is a great standard to set',
           ],
         },
+        actionText: {
+          yes: 'A well-defined follow-up process ensures reliability.',
+          no: 'Establish a consistent follow-up process (automated or manual with clear protocols) for customers who submit accessibility requirements. Inconsistent follow-up means some customers receive support while others do not.',
+          partially: 'Improve the consistency of your follow-up process. If automated, review trigger conditions; if manual, document the process and assign clear responsibility.',
+        },
       },
       {
         id: '1.3-DD-3d',
@@ -2820,6 +3125,11 @@ export const accessModules: AccessModule[] = [
             'Including details on how to get help if something is wrong with the booking is a reassuring final touch',
           ],
         },
+        actionText: {
+          yes: 'Accessible booking confirmations complete the inclusive booking journey.',
+          no: 'Ensure your booking confirmation emails and pages are accessible. Use semantic HTML, sufficient colour contrast, and plain language. Include accessibility arrangements in the confirmation details.',
+          partially: 'Review your booking confirmations for accessibility. Ensure they work with screen readers, use adequate contrast, and clearly summarise any accessibility arrangements made.',
+        },
       },
       {
         id: '1.3-DD-3e',
@@ -2846,6 +3156,11 @@ export const accessModules: AccessModule[] = [
             'Providing a direct contact for accessibility questions before their visit gives customers peace of mind',
             'Matching the information you send to the requirements indicated, like hearing loop details for hearing aid users, shows real thoughtfulness',
           ],
+        },
+        actionText: {
+          yes: 'Automatic sharing of accessibility information anticipates customer needs.',
+          no: 'Set up automatic delivery of relevant accessibility information when customers indicate accessibility requirements during booking. Include venue access details, available supports, and a contact point for further questions.',
+          partially: 'Enhance the accessibility information automatically sent to customers who indicate requirements. Ensure it is comprehensive, current, and tailored to the type of need indicated.',
         },
       },
 
@@ -2875,6 +3190,11 @@ export const accessModules: AccessModule[] = [
             'Including accessibility in regular team briefings, not just at induction, keeps it fresh in everyone\'s mind',
           ],
         },
+        actionText: {
+          yes: 'Trained staff can effectively interpret and respond to diverse accessibility requests.',
+          no: 'Train staff who handle bookings to interpret and respond to accessibility requests. Cover common disability types, appropriate language, practical arrangements, and how to ask clarifying questions respectfully.',
+          partially: 'Expand staff training to cover a broader range of accessibility requests and scenarios. Include refresher training and real examples of requests your organisation has received.',
+        },
       },
       {
         id: '1.3-DD-4c',
@@ -2900,6 +3220,11 @@ export const accessModules: AccessModule[] = [
             'Tracking escalated requests helps you identify patterns and spot opportunities for improvement over time',
             'It\'s always better to explain limitations honestly than to ignore the request or overpromise',
           ],
+        },
+        actionText: {
+          yes: 'A clear escalation process ensures complex accessibility requests are resolved.',
+          no: 'Establish an escalation process for accessibility requests that cannot be met through standard procedures. Designate a decision-maker who can authorise reasonable adjustments and communicate the outcome to the customer.',
+          partially: 'Formalise your escalation process with documented steps, designated contacts, and expected resolution timeframes. Ensure front-line staff know when and how to escalate.',
         },
       },
 
@@ -2951,6 +3276,11 @@ export const accessModules: AccessModule[] = [
             'It\'s worth checking whether your platform supports companion card or carer ticket types',
           ],
         },
+        actionText: {
+          yes: 'Configurable accessibility features in your booking platform enable continuous improvement.',
+          no: 'Investigate which accessibility features can be configured in your booking platform, such as field labels, alternative text, keyboard navigation, and timeout settings. Contact your platform provider for accessibility configuration documentation.',
+          partially: 'Continue exploring and implementing accessibility configurations available in your booking platform. Document which features are configurable and which require vendor action.',
+        },
       },
       {
         id: '1.3-DD-7c',
@@ -2977,6 +3307,11 @@ export const accessModules: AccessModule[] = [
             'Offering phone booking or email as alternatives where online barriers exist is a practical way to bridge the gap',
           ],
         },
+        actionText: {
+          yes: 'Identifying platform limitations enables informed workarounds and procurement decisions.',
+          no: 'Conduct an accessibility assessment of your booking platform and document its limitations. Use this to create workarounds, inform your platform provider of required improvements, and factor accessibility into future procurement.',
+          partially: 'Complete your assessment of booking platform limitations and create a prioritised list of issues to raise with your platform provider or address through workarounds.',
+        },
       },
       {
         id: '1.3-DD-7d',
@@ -3002,6 +3337,11 @@ export const accessModules: AccessModule[] = [
             'Including accessibility requirements and remediation timelines in contracts ensures accountability',
             'Public sector organisations often have specific procurement accessibility obligations, so it\'s worth checking yours',
           ],
+        },
+        actionText: {
+          yes: 'Including accessibility in procurement protects against acquiring inaccessible systems.',
+          no: 'Include accessibility requirements (WCAG 2.2 Level AA compliance, keyboard operability, screen reader compatibility) in your procurement criteria for booking systems. Request a VPAT or accessibility conformance report from vendors.',
+          partially: 'Strengthen accessibility requirements in your procurement process. Move beyond general accessibility statements to specific, measurable criteria such as WCAG 2.2 conformance level and assistive technology compatibility.',
         },
       },
 
@@ -3032,6 +3372,11 @@ export const accessModules: AccessModule[] = [
             'Making companion ticket availability visible and not hidden in fine print ensures people actually know it\'s an option',
           ],
         },
+        actionText: {
+          yes: 'Integrated companion and support worker ticketing streamlines the booking experience.',
+          no: 'Enable companion or support worker tickets to be booked through the standard booking process. Many venues offer free or discounted companion tickets, but requiring a separate process or phone call creates an unnecessary barrier.',
+          partially: 'Review your companion ticket process for ease of use. Ensure it is available online, clearly explained, and does not require additional verification steps beyond what is reasonable.',
+        },
       },
       {
         id: '1.3-DD-8c',
@@ -3058,6 +3403,11 @@ export const accessModules: AccessModule[] = [
             'Pricing should be shown on your website so customers don\'t have to make a phone call to find out costs',
           ],
         },
+        actionText: {
+          yes: 'Transparent and fair pricing for accessible options demonstrates equitable service.',
+          no: 'Ensure pricing for accessible options is transparent and equitable. Customers with disability should not pay more for accessible seating, rooms, or services. Display pricing clearly alongside standard options.',
+          partially: 'Review your pricing for accessible options to ensure parity with standard offerings. Address any instances where accessible options incur surcharges or where pricing is not clearly displayed.',
+        },
       },
       {
         id: '1.3-DD-8d',
@@ -3083,6 +3433,11 @@ export const accessModules: AccessModule[] = [
             'The ability to modify or cancel should be identical for accessible and standard bookings',
             'There shouldn\'t be extra hurdles like phone calls, proof of disability, or manager approval for accessible bookings',
           ],
+        },
+        actionText: {
+          yes: 'Equivalent booking processes for accessible options uphold the DDA principle of equal access.',
+          no: 'Ensure the booking process for accessible options (accessible rooms, wheelchair spaces, companion seats) is equivalent to the standard booking process in terms of steps, convenience, and available features.',
+          partially: 'Identify and eliminate any additional steps or complexity in the booking process for accessible options compared to standard bookings.',
         },
       },
       {
@@ -3111,6 +3466,11 @@ export const accessModules: AccessModule[] = [
             'Allowing substitutions in packages when an activity isn\'t accessible gives customers real flexibility',
           ],
         },
+        actionText: {
+          yes: 'Including accessible bookings in promotions ensures equal access to deals.',
+          no: 'Ensure all promotional offers, packages, and discounts are available for accessible bookings. Excluding accessible options from promotions is discriminatory under the DDA 1992.',
+          partially: 'Audit your current and upcoming promotions to confirm accessible bookings are included. Establish a standard process to verify inclusion of accessible options in all future promotional campaigns.',
+        },
       },
       {
         id: '1.3-DD-8f',
@@ -3136,6 +3496,11 @@ export const accessModules: AccessModule[] = [
             'Sending an accessible confirmation whenever bookings are modified keeps customers informed',
             'Customers should also be able to update companion or support worker arrangements easily',
           ],
+        },
+        actionText: {
+          yes: 'Independent online modification and cancellation gives customers control.',
+          no: 'Enable customers to independently modify or cancel accessible bookings online, just as they would for standard bookings. Requiring phone calls for changes to accessible bookings creates an unnecessary and potentially discriminatory barrier.',
+          partially: 'Expand online self-service capabilities for accessible bookings. Ensure all modification and cancellation options available for standard bookings are equally available for accessible ones.',
         },
       },
       {
@@ -3163,6 +3528,11 @@ export const accessModules: AccessModule[] = [
             'Making any flexibility available known at booking time, rather than only when customers ask, helps people feel welcome from the start',
             'This is especially important for people with chronic illness, mental health conditions, autoimmune conditions, and unpredictable symptoms',
           ],
+        },
+        actionText: {
+          yes: 'Flexible cancellation policies recognise the realities of living with disability.',
+          no: 'Implement flexible cancellation policies for customers who may need to cancel due to disability-related circumstances such as health fluctuations, carer availability, or hospitalisation. This is a reasonable adjustment under the DDA 1992.',
+          partially: 'Review your cancellation policies to ensure they adequately account for disability-related circumstances. Consider offering longer cancellation windows or waiving fees for documented disability-related cancellations.',
         },
       },
       {
@@ -3196,6 +3566,11 @@ export const accessModules: AccessModule[] = [
             'Proactively contacting group organisers to confirm arrangements before arrival shows great service',
             'Some dietary requirements are disability-related, like allergies and texture needs, so it\'s worth capturing these too',
           ],
+        },
+        actionText: {
+          yes: 'Group booking accessibility options ensure inclusive participation.',
+          no: 'Add the ability for group booking organisers to specify accessibility requirements for individual group members. Group visits often include participants with diverse needs that should be captured at the booking stage.',
+          partially: 'Enhance your group booking process to allow more detailed accessibility requirements per participant, rather than a single field for the entire group.',
         },
       },
       {
@@ -3268,6 +3643,11 @@ export const accessModules: AccessModule[] = [
             'No video content? Select "Not applicable" if you don\'t create video content',
           ],
         },
+        actionText: {
+          yes: 'Captioned videos meet WCAG requirements and benefit all viewers.',
+          no: 'Add captions or subtitles to all published videos, as required by WCAG 2.2 Success Criterion 1.2.2 (Captions - Prerecorded). Captions are essential for Deaf and hard of hearing viewers and benefit many others in noisy or sound-restricted environments.',
+          partially: 'Extend captioning to all videos across all platforms. Prioritise customer-facing content such as promotional videos, instructional content, and accessibility information.',
+        },
       },
 
       // Pulse Check Q2: Audio descriptions
@@ -3296,6 +3676,11 @@ export const accessModules: AccessModule[] = [
             'If a video is purely talking head with no significant visual content, audio description is not needed',
             'Try listening to your video without watching — can you understand what is being shown?',
           ],
+        },
+        actionText: {
+          yes: 'Audio descriptions make visual content accessible to blind and low vision viewers.',
+          no: 'Add audio descriptions to videos where important visual content is not conveyed through the existing audio track, per WCAG 2.2 Success Criterion 1.2.5 (Audio Description - Prerecorded). Describe key actions, text on screen, and scene changes.',
+          partially: 'Extend audio descriptions to additional videos, prioritising content where visual information is essential to understanding. Review existing descriptions for completeness.',
         },
       },
 
@@ -3333,6 +3718,11 @@ export const accessModules: AccessModule[] = [
             { type: 'good', caption: 'Image description example: "[ID: A woman in a powered wheelchair smiles as she enters a sunlit café. A staff member holds the door open, greeting her warmly. The entrance is level with the footpath, with no steps.]"' },
           ],
         },
+        actionText: {
+          yes: 'Alt text on social media images supports screen reader users.',
+          no: 'Add descriptive alt text or image descriptions to all images posted on social media. Most platforms (Instagram, Facebook, X/Twitter, LinkedIn) support alt text natively. Describe the content and context of the image, not just "photo" or "image."',
+          partially: 'Ensure alt text is added consistently to all social media images, not just some. Develop guidelines for your team on writing effective image descriptions.',
+        },
       },
 
       // Pulse Check Q4: Video player accessibility
@@ -3363,6 +3753,11 @@ export const accessModules: AccessModule[] = [
             'Vimeo has good accessibility, but make sure the caption button is visible',
           ],
         },
+        actionText: {
+          yes: 'Keyboard and assistive technology control of video playback meets WCAG requirements.',
+          no: 'Ensure all video players on your website support keyboard controls and are compatible with screen readers and other assistive technology, per WCAG 2.2 Success Criterion 2.1.1 (Keyboard). Users must be able to play, pause, adjust volume, and toggle captions without a mouse.',
+          partially: 'Test video player controls with keyboard-only navigation and screen readers. Address any controls that are not reachable or operable via keyboard.',
+        },
       },
 
       // Pulse Check Q5: Content warnings and trigger warnings
@@ -3391,6 +3786,11 @@ export const accessModules: AccessModule[] = [
             'On Instagram, use content warning screens or put warning text at the start of captions',
           ],
         },
+        actionText: {
+          yes: 'Content warnings protect viewers who may be affected by specific content.',
+          no: 'Provide content warnings for videos or posts that may affect some viewers, including flashing/strobing, loud sounds, distressing imagery, or content depicting medical procedures. Place warnings before the content begins.',
+          partially: 'Review your content warning practices for consistency. Ensure warnings cover all relevant trigger types and appear prominently before the content, not just in descriptions.',
+        },
       },
 
       // Pulse Check Q6: Inclusive representation
@@ -3417,6 +3817,11 @@ export const accessModules: AccessModule[] = [
             'Don\'t frame disability as inherently inspiring or overcoming',
             'Diverse representation in your team also matters to customers',
           ],
+        },
+        actionText: {
+          yes: 'Inclusive representation in media content normalises disability and expands your audience.',
+          no: 'Include authentic representation of people with disability in your video and social media content. Feature people with visible and non-visible disabilities as customers, participants, and community members, not just in accessibility-specific contexts.',
+          partially: 'Expand disability representation in your content beyond current efforts. Aim for authentic, diverse representation across a range of disability types and contexts, not just tokenistic inclusion.',
         },
       },
 
@@ -3445,6 +3850,11 @@ export const accessModules: AccessModule[] = [
             'Poor audio quality affects everyone but especially hearing aid users, so test your audio beforehand',
             'After the live event, add corrected captions to the recorded version',
           ],
+        },
+        actionText: {
+          yes: 'Accessible live content extends your reach to all audiences.',
+          no: 'Implement accessibility measures for live video content, including live captions (CART or auto-generated), sign language interpretation where appropriate, and verbal description of key visual elements.',
+          partially: 'Strengthen accessibility provisions for live content. Ensure live captions are available at minimum, and consider adding sign language interpretation for key events.',
         },
       },
 
@@ -3490,6 +3900,11 @@ export const accessModules: AccessModule[] = [
             'Best practice is to use closed captions (.srt files) for flexibility, and always review them for accuracy',
           ],
         },
+        actionText: {
+          yes: 'Professional-quality captions provide the best experience.',
+          no: 'Implement accurate captions for your videos. Professionally written or carefully reviewed captions are significantly more accurate than auto-generated. At minimum, review and correct auto-generated captions before publishing.',
+          partially: 'Upgrade your captioning approach. If using auto-generated captions, implement a review and correction process. Consider professional captioning for high-priority content.',
+        },
       },
       {
         id: '1.4-DD-1b',
@@ -3524,6 +3939,11 @@ export const accessModules: AccessModule[] = [
             'Auto-captions never include these elements, so you will always need to add them manually',
           ],
         },
+        actionText: {
+          yes: 'Speaker identification and sound descriptions enhance caption quality.',
+          no: 'Include speaker identification and relevant sound descriptions in your captions (e.g., [music playing], [applause], [Jane speaking]). These details are essential for Deaf and hard of hearing viewers to fully understand the content.',
+          partially: 'Expand your captioning to consistently include speaker identification and sound descriptions across all videos, not just some.',
+        },
       },
       {
         id: '1.4-DD-1c',
@@ -3557,6 +3977,11 @@ export const accessModules: AccessModule[] = [
             'The average reader needs about 150-180 words per minute, so don\'t flash captions too fast',
           ],
         },
+        actionText: {
+          yes: 'Well-synchronised captions provide accurate real-time comprehension.',
+          no: 'Ensure captions are accurately synchronised with the audio. Captions should appear and disappear in time with the spoken words. Poorly timed captions create confusion and reduce comprehension.',
+          partially: 'Review caption timing across your video content and correct synchronisation issues. Pay particular attention to fast-paced dialogue and scene transitions.',
+        },
       },
       {
         id: '1.4-DD-1d',
@@ -3583,6 +4008,11 @@ export const accessModules: AccessModule[] = [
             'Bottom centre is the standard position, but avoid covering important visual information',
             'YouTube and Facebook defaults are generally acceptable for caption styling',
           ],
+        },
+        actionText: {
+          yes: 'Readable captions ensure they serve their purpose effectively.',
+          no: 'Improve caption readability by ensuring sufficient contrast between caption text and background, using an appropriately sized font, and selecting a clear, sans-serif typeface. Consider using a semi-transparent background behind captions for variable video backgrounds.',
+          partially: 'Review caption readability across your video content. Test captions on different devices and screen sizes to ensure they remain legible.',
         },
       },
 
@@ -3615,6 +4045,11 @@ export const accessModules: AccessModule[] = [
             'When sharing customer photos, make sure to add alt text',
             'It helps to keep a document of alt text for frequently shared images',
           ],
+        },
+        actionText: {
+          yes: 'Verifying alt text preservation ensures accessibility is maintained through content sharing.',
+          no: 'Verify that alt text is preserved when reposting, resharing, or cross-posting content between platforms. Some platforms strip alt text during sharing. Re-add alt text manually when it is lost.',
+          partially: 'Establish a routine check for alt text preservation when sharing content across platforms. Document which platforms strip alt text so your team knows where manual re-entry is needed.',
         },
       },
       {
@@ -3657,6 +4092,11 @@ export const accessModules: AccessModule[] = [
             },
           ],
         },
+        actionText: {
+          yes: 'Sufficient contrast on text overlays ensures readability for people with low vision.',
+          no: 'Ensure text overlaid on images meets the minimum contrast ratio of 4.5:1 for normal text or 3:1 for large text, per WCAG 2.2 Success Criterion 1.4.3 (Contrast - Minimum). Use a semi-transparent background behind text when placed over variable image backgrounds.',
+          partially: 'Audit your image-based content for text contrast issues. Use a contrast checker tool and apply semi-transparent backgrounds or solid colour bars behind text overlays.',
+        },
       },
       {
         id: '1.4-DD-3f',
@@ -3683,6 +4123,11 @@ export const accessModules: AccessModule[] = [
             'For informational carousels, make sure key info is not only in the images — include it in the caption too',
             'Even similar images need their own descriptions, so don\'t skip any',
           ],
+        },
+        actionText: {
+          yes: 'Alt text on each carousel image ensures complete accessibility.',
+          no: 'Add descriptive alt text to each individual image in carousel or multi-image posts. Each image should have its own description, as screen reader users navigate them one at a time.',
+          partially: 'Review your multi-image and carousel posts to ensure every image has individual alt text, not just the first image.',
         },
       },
 
@@ -3722,6 +4167,11 @@ export const accessModules: AccessModule[] = [
             'Purely decorative background videos should always be muted and pausable',
           ],
         },
+        actionText: {
+          yes: 'User-controlled video playback respects viewer autonomy.',
+          no: 'Disable autoplay for videos on your website, or ensure autoplaying videos are muted by default with easy-to-find pause/stop controls, per WCAG 2.2 Success Criteria 1.4.2 (Audio Control) and 2.2.2 (Pause, Stop, Hide). Autoplaying video with sound is disorienting and inaccessible.',
+          partially: 'Review all autoplaying video instances and ensure they meet WCAG requirements. Mute audio by default, provide visible pause/stop controls, and consider disabling autoplay entirely.',
+        },
       },
 
       // ============================================
@@ -3753,6 +4203,11 @@ export const accessModules: AccessModule[] = [
             'Putting warnings in the description only is not effective — viewers often skip straight to the content',
           ],
         },
+        actionText: {
+          yes: 'Pre-content warnings give viewers time to prepare or opt out.',
+          no: 'Place content warnings before the content begins (in the video intro, at the start of a post, or in a preceding frame), not just in video descriptions or captions. Warnings must be seen before exposure to the content.',
+          partially: 'Review the placement of your content warnings to ensure they appear before content begins on all platforms, including in-player warnings for videos.',
+        },
       },
       {
         id: '1.4-DD-5c',
@@ -3780,6 +4235,11 @@ export const accessModules: AccessModule[] = [
             'When in doubt, warn: If you cannot test or are unsure, add a content warning at the start of the video: "This video contains flashing images"',
             'Flashing content can trigger seizures in people with photosensitive epilepsy — this is a serious medical emergency, not just discomfort',
           ],
+        },
+        actionText: {
+          yes: 'Testing for seizure-triggering content protects viewers with photosensitive epilepsy.',
+          no: 'Test all videos for flashing or strobing content that could trigger seizures, per WCAG 2.2 Success Criterion 2.3.1 (Three Flashes or Below Threshold). Content must not flash more than three times per second. Use tools such as PEAT (Photosensitive Epilepsy Analysis Tool) for automated testing.',
+          partially: 'Extend flash testing to all video content, including social media videos and animations. Establish a pre-publication check for seizure-triggering content in your content creation workflow.',
         },
       },
 
@@ -3814,6 +4274,11 @@ export const accessModules: AccessModule[] = [
             'Describe accessibility positively, not as "special" or "accommodation"',
           ],
         },
+        actionText: {
+          yes: 'Inclusive language in content reflects respect and awareness.',
+          no: 'Adopt inclusive language in your video scripts and social media copy. Use person-first or preference-aligned language, avoid euphemisms like "differently abled," and refer to people with disability as active participants, not passive recipients.',
+          partially: 'Review your content guidelines for inclusive language and audit recent content for problematic terminology. Provide training to content creators on current best practice for disability language in Australia.',
+        },
       },
 
       // ============================================
@@ -3844,6 +4309,11 @@ export const accessModules: AccessModule[] = [
             'Use the same casing each time you use a hashtag for consistency',
           ],
         },
+        actionText: {
+          yes: 'CamelCase hashtags ensure screen readers announce each word separately.',
+          no: 'Write hashtags in CamelCase (e.g., #AccessibleTourism instead of #accessibletourism) so screen readers can distinguish individual words. Without CamelCase, screen readers may attempt to pronounce the hashtag as a single garbled word.',
+          partially: 'Ensure CamelCase is applied consistently across all hashtags in your social media content. Update your social media guidelines and train content creators on this practice.',
+        },
       },
       {
         id: '1.4-DD-8c',
@@ -3867,6 +4337,11 @@ export const accessModules: AccessModule[] = [
             'One to three emojis is fine, but ten or more becomes tedious for screen reader users',
             'Avoid using emojis as bullet points or list markers',
           ],
+        },
+        actionText: {
+          yes: 'Considered emoji placement improves screen reader experience.',
+          no: 'Place emojis at the end of sentences or posts rather than interspersed throughout. Screen readers read out the description of each emoji (e.g., "red heart," "clapping hands"), which interrupts comprehension when scattered through text.',
+          partially: 'Review your social media posting practices to ensure emojis are consistently placed at the end of text content. Limit emoji quantity and avoid using them as bullet points or inline decoration.',
         },
       },
       {
@@ -3900,6 +4375,11 @@ export const accessModules: AccessModule[] = [
             'Tools like Otter.ai or Descript can create draft transcripts, but human review is essential for accuracy',
             'Transcripts also make your audio content searchable and discoverable, which is a nice SEO benefit',
           ],
+        },
+        actionText: {
+          yes: 'Transcripts for audio content meet WCAG requirements and expand access.',
+          no: 'Provide text transcripts for all audio-only content such as podcasts, audio guides, and recorded announcements, per WCAG 2.2 Success Criterion 1.2.1 (Audio-only and Video-only - Prerecorded). Transcripts should include speaker identification and all spoken content.',
+          partially: 'Extend transcription to all audio-only content. Ensure existing transcripts are accurate, include speaker identification, and are easy to find alongside the audio content.',
         },
       },
       {
@@ -3968,6 +4448,11 @@ export const accessModules: AccessModule[] = [
             'One of the best tests is to ask someone unfamiliar with your business to read your content and explain it back to you',
           ],
         },
+        actionText: {
+          yes: 'Clear, plain language benefits all customers and is essential for cognitive accessibility.',
+          no: 'Review and rewrite website and communication content in clear, plain language. Use short sentences, common words, and active voice. Aim for a reading level accessible to a broad audience, including people with cognitive, intellectual, or learning disabilities.',
+          partially: 'Extend plain language practices across all customer-facing content. Identify and simplify remaining sections with jargon, complex sentences, or technical terms that are not explained.',
+        },
       },
       {
         id: '1.5-PC-2',
@@ -3994,6 +4479,11 @@ export const accessModules: AccessModule[] = [
             'When unsure, ask the person how they prefer to be described',
           ],
         },
+        actionText: {
+          yes: 'Respectful, person-centred language reflects current Australian disability etiquette.',
+          no: 'Adopt person-centred language when referring to people with disability across all communications. Use "people with disability" (not "disabled people" unless reflecting individual preference), avoid outdated terms like "handicapped" or "wheelchair-bound," and follow the style guidance of People with Disability Australia.',
+          partially: 'Conduct a full audit of your website and communications for outdated or problematic disability language. Update your style guide and provide guidance to all content creators.',
+        },
       },
       {
         id: '1.5-PC-3',
@@ -4019,6 +4509,11 @@ export const accessModules: AccessModule[] = [
             'Celebrate inclusion — "We welcome all customers" not "We try to accommodate..."',
           ],
         },
+        actionText: {
+          yes: 'Positive framing of accessibility features creates a welcoming impression.',
+          no: 'Reframe your accessibility information to focus on what IS available rather than what is not. For example, "Our venue has step-free access and an accessible bathroom" is more welcoming than "We cannot accommodate wheelchairs upstairs."',
+          partially: 'Review your accessibility content for negative framing and rewrite to lead with available features and supports. Note limitations honestly but position them after positive information.',
+        },
       },
       {
         id: '1.5-PC-4',
@@ -4043,6 +4538,11 @@ export const accessModules: AccessModule[] = [
             'Consider a dedicated section on your homepage to make accessibility prominent',
             'Ask someone unfamiliar with your site to find your accessibility information — can they?',
           ],
+        },
+        actionText: {
+          yes: 'Prominent accessibility information signals that inclusion is a priority.',
+          no: 'Make your accessibility information easy to find on your website. Add it to your main navigation or footer menu with a clear label such as "Accessibility" or "Access Information." Do not bury it under unrelated sections.',
+          partially: 'Improve the prominence of your accessibility information. Test with customers to confirm they can find it within two clicks from the homepage without needing to use site search.',
         },
       },
       {
@@ -4070,6 +4570,11 @@ export const accessModules: AccessModule[] = [
             'Being specific and honest really matters - "Step-free entrance via side door" is much more useful than just "accessible", and customers prefer knowing limitations in advance',
           ],
         },
+        actionText: {
+          yes: 'Practical visit-planning information empowers customers to make informed decisions.',
+          no: 'Expand your accessibility information to cover practical details customers need to plan their visit, including physical access, parking, transport, toilets, sensory environment, available supports, and what to expect on arrival.',
+          partially: 'Identify gaps in your accessibility information by comparing it against common customer needs. Prioritise adding details about physical access, toilets, and the sensory environment.',
+        },
       },
       {
         id: '1.5-PC-6',
@@ -4094,6 +4599,11 @@ export const accessModules: AccessModule[] = [
             'Don\'t overclaim — honest, authentic communication builds trust',
             'Train staff to speak positively and confidently about your accessibility efforts',
           ],
+        },
+        actionText: {
+          yes: 'Communicating commitment goes beyond listing features to building trust.',
+          no: 'Actively communicate your commitment to accessibility. Include an accessibility statement on your website that describes your approach, ongoing improvement efforts, and how customers can provide feedback or request support.',
+          partially: 'Strengthen your accessibility commitment communication. Move beyond a basic compliance statement to describe your values, actions, and willingness to make adjustments.',
         },
       },
       {
@@ -4120,6 +4630,11 @@ export const accessModules: AccessModule[] = [
             'Be realistic about response times — how quickly can you actually provide alternatives?',
           ],
         },
+        actionText: {
+          yes: 'Offering alternative formats ensures information access for all customers.',
+          no: 'Inform customers that key information is available in alternative formats such as large print, Easy Read, audio, or Braille on request. Include this offer on your website, in print materials, and in customer communications.',
+          partially: 'Expand the visibility of your alternative format offer. Ensure it is mentioned consistently across your website, printed materials, and communications, and that fulfillment processes are in place.',
+        },
       },
       {
         id: '1.5-PC-8',
@@ -4144,6 +4659,11 @@ export const accessModules: AccessModule[] = [
             'Social stories are particularly valuable for autistic visitors preparing for their visit',
             'Don\'t forget to make visual content itself accessible by adding alt text on photos and captions on videos',
           ],
+        },
+        actionText: {
+          yes: 'Visual content helps customers understand and prepare for their visit.',
+          no: 'Add visual content such as photos, videos, or virtual tours to help customers understand your venue before visiting. Show key areas including entrances, pathways, toilets, and service areas. This is particularly valuable for autistic customers and those with anxiety about unfamiliar environments.',
+          partially: 'Expand your visual content to cover additional areas of your venue and the full visitor journey. Ensure images are current and accurately represent current conditions.',
         },
       },
 
@@ -4175,6 +4695,11 @@ export const accessModules: AccessModule[] = [
             'Make it a habit to check new content for readability before publishing',
           ],
         },
+        actionText: {
+          yes: 'Readability testing provides objective assessment of content accessibility.',
+          no: 'Test your website content for readability level using tools such as the Flesch-Kincaid readability score or Hemingway Editor. Aim for a reading level of Year 8 or below for general public content.',
+          partially: 'Extend readability testing to all key pages, not just selected content. Use the results to systematically simplify content that scores above Year 8 reading level.',
+        },
       },
       {
         id: '1.5-DD-1b',
@@ -4201,6 +4726,11 @@ export const accessModules: AccessModule[] = [
             'Review and update annually as language evolves',
           ],
         },
+        actionText: {
+          yes: 'Content guidelines embed accessibility into everyday writing practices.',
+          no: 'Create content guidelines or a style guide that includes accessibility and plain language requirements. Cover readability levels, heading structure, link text, disability language, and alt text standards.',
+          partially: 'Expand your existing content guidelines to include specific accessibility and plain language requirements. Ensure the guidelines are easily accessible to all content creators.',
+        },
       },
       {
         id: '1.5-DD-1c',
@@ -4225,6 +4755,11 @@ export const accessModules: AccessModule[] = [
             'Provide reference materials like a style guide, word lists, and readability tool recommendations',
             'Annual refresher sessions help keep skills current',
           ],
+        },
+        actionText: {
+          yes: 'Trained content creators produce accessible content as standard practice.',
+          no: 'Provide training for content creators on plain language writing and accessible content creation. Cover readability, heading structure, meaningful link text, alt text, and disability-inclusive language.',
+          partially: 'Extend accessibility writing training to additional content creators and provide refresher training for those already trained. Include practical exercises using your own content.',
         },
       },
       {
@@ -4252,6 +4787,11 @@ export const accessModules: AccessModule[] = [
             'Provide quick-reference guides staff can access easily',
           ],
         },
+        actionText: {
+          yes: 'Staff training on disability language reduces the risk of offensive or exclusionary communication.',
+          no: 'Train all staff who create content or communicate with customers on respectful disability language and terminology. Cover person-first language, outdated terms to avoid, and the importance of following individual preferences.',
+          partially: 'Expand disability language training to additional staff and schedule regular refreshers. Language evolves, so ongoing education is important.',
+        },
       },
       {
         id: '1.5-DD-2b',
@@ -4277,6 +4817,11 @@ export const accessModules: AccessModule[] = [
             'Include social media history in your audit',
             'Update templates and boilerplate text',
           ],
+        },
+        actionText: {
+          yes: 'Language audits catch outdated terminology that may be overlooked.',
+          no: 'Conduct an audit of your website and marketing materials for outdated, offensive, or problematic disability language. Search for terms such as "handicapped," "wheelchair-bound," "suffers from," "special needs," and "differently abled."',
+          partially: 'Complete your language audit across all customer-facing materials, including PDFs, email templates, and social media profiles. Create a list of terms to replace and update your style guide.',
         },
       },
       {
@@ -4313,6 +4858,11 @@ export const accessModules: AccessModule[] = [
             'Contact information for accessibility questions should always be included',
           ],
         },
+        actionText: {
+          yes: 'Comprehensive topic coverage in accessibility information supports diverse customer needs.',
+          no: 'Expand your accessibility information to cover all relevant topics: physical access, sensory environment, communication supports, assistive technology, transport, toilets, dietary needs, companion and carer policies, and service animal access.',
+          partially: 'Identify topics missing from your current accessibility information and prioritise adding them based on customer enquiry frequency and relevance to your venue type.',
+        },
       },
       {
         id: '1.5-DD-6a',
@@ -4346,6 +4896,11 @@ export const accessModules: AccessModule[] = [
             'Staff verbal communication reinforces written messages',
           ],
         },
+        actionText: {
+          yes: 'Multiple channels for communicating accessibility commitment maximise reach.',
+          no: 'Communicate your accessibility commitment through multiple channels, including a website accessibility statement, social media posts, email signatures, staff training, and physical signage at your venue.',
+          partially: 'Expand the channels through which you communicate your accessibility commitment. Ensure consistency of message across all touchpoints.',
+        },
       },
       {
         id: '1.5-DD-7a',
@@ -4378,6 +4933,11 @@ export const accessModules: AccessModule[] = [
             'Braille typically requires external providers, so establish relationships in advance',
           ],
         },
+        actionText: {
+          yes: 'Multiple alternative format options demonstrate strong commitment to information access.',
+          no: 'Develop the capability to provide key documents in alternative formats such as large print, Easy Read, audio recording, electronic text (for screen readers), and Braille. Prioritise the formats most commonly requested in your sector.',
+          partially: 'Expand the range of alternative formats you can provide. Establish relationships with format conversion services for formats you cannot produce in-house, such as Braille or Auslan translation.',
+        },
       },
       {
         id: '1.5-DD-7b',
@@ -4403,6 +4963,11 @@ export const accessModules: AccessModule[] = [
             'Keep commonly requested documents pre-prepared in alternative formats',
             'Track requests to identify patterns and prepare proactively',
           ],
+        },
+        actionText: {
+          yes: 'A clear process for requesting alternative formats makes the offer practical.',
+          no: 'Establish a clear, documented process for customers to request information in alternative formats. Include expected turnaround times, who is responsible for fulfillment, and how to make the request (phone, email, online form).',
+          partially: 'Refine your alternative format request process to ensure it is well-documented, communicated to customers, and has realistic turnaround time commitments that are met consistently.',
         },
       },
       {
@@ -4436,6 +5001,11 @@ export const accessModules: AccessModule[] = [
             'Floor plans help customers understand the layout before arriving',
           ],
         },
+        actionText: {
+          yes: 'Multiple types of visual accessibility content serve diverse customer needs.',
+          no: 'Provide a range of visual accessibility content such as venue photos (entrances, pathways, facilities), video walkthroughs, virtual tours, maps with accessible routes marked, and social stories or visual narratives.',
+          partially: 'Expand the types of visual accessibility content you offer. Prioritise adding content that shows the full visitor journey from arrival to departure.',
+        },
       },
       {
         id: '1.5-DD-8b',
@@ -4461,6 +5031,11 @@ export const accessModules: AccessModule[] = [
             'Ensure virtual tours have text alternatives',
             'Test with screen reader to verify accessibility',
           ],
+        },
+        actionText: {
+          yes: 'Accessible visual content ensures it serves all customers, including those using assistive technology.',
+          no: 'Ensure your visual accessibility content is itself accessible. Add alt text to all photos, captions to all videos, and text descriptions for maps and virtual tours. Visual content without these alternatives excludes the very customers it aims to help.',
+          partially: 'Audit your visual content for accessibility gaps. Ensure all images have alt text, all videos have captions, and interactive content like virtual tours is navigable by keyboard and screen reader.',
         },
       },
       {
@@ -4529,6 +5104,11 @@ export const accessModules: AccessModule[] = [
             'For authentic imagery, check out Getty Disability Collection and The Disability Collection (Australian) — both offer authentic imagery including non-visible disabilities',
           ],
         },
+        actionText: {
+          yes: 'Inclusive imagery normalises disability and signals a welcoming environment.',
+          no: 'Include people with disability in your marketing imagery. Feature people with a range of visible and non-visible disabilities as active participants in your marketing, not just in accessibility-specific content. This signals that your venue welcomes everyone.',
+          partially: 'Expand disability representation in your marketing to include a broader range of disability types and contexts. Move beyond single-image inclusion to consistent representation across campaigns.',
+        },
       },
       {
         id: '1.6-PC-2',
@@ -4554,6 +5134,11 @@ export const accessModules: AccessModule[] = [
             'A good test is to ask — would this depiction be acceptable if the person didn\'t have a disability?',
             'Get feedback from people with disability on your marketing to make sure it feels right',
           ],
+        },
+        actionText: {
+          yes: 'Authentic, stereotype-free representation respects the dignity of people with disability.',
+          no: 'Review your promotional materials for stereotypical or "inspiration porn" depictions of disability (e.g., portraying disabled people as brave or inspiring for doing ordinary things). Show people with disability as regular customers enjoying your services.',
+          partially: 'Continue reviewing marketing content for subtle stereotypes. Involve people with disability in reviewing materials to identify portrayals that may seem authentic internally but are perceived differently by the disability community.',
         },
       },
       {
@@ -4582,6 +5167,11 @@ export const accessModules: AccessModule[] = [
             'Use accessibility checkers to test your digital materials',
           ],
         },
+        actionText: {
+          yes: 'Accessible marketing materials demonstrate inclusive practice.',
+          no: 'Make your marketing materials (brochures, flyers, advertisements) accessible by ensuring sufficient colour contrast, readable font sizes (minimum 12pt for print), clear layouts, and alt text on digital versions. Consider providing large print or Easy Read versions.',
+          partially: 'Audit your marketing materials for accessibility gaps. Ensure contrast ratios meet WCAG 2.2 Level AA requirements for digital materials and use clear, readable design for print materials.',
+        },
       },
       {
         id: '1.6-PC-4',
@@ -4607,6 +5197,11 @@ export const accessModules: AccessModule[] = [
             'Share your accessibility improvements and journey with your audience',
             'Only promote what you can deliver — authenticity builds trust',
           ],
+        },
+        actionText: {
+          yes: 'Positioning accessibility as a positive attribute attracts a broader customer base.',
+          no: 'Feature accessibility as a positive attribute in your marketing, not just a compliance obligation. Highlight inclusive experiences, accessible features, and welcoming service as part of your brand value proposition.',
+          partially: 'Strengthen how accessibility is positioned in your marketing. Move from mentioning accessibility as an afterthought to featuring it as a genuine selling point and brand differentiator.',
         },
       },
       {
@@ -4638,6 +5233,11 @@ export const accessModules: AccessModule[] = [
             'Avoid inspiration porn, images of people "overcoming" disability, or images that feel staged or pitying',
           ],
         },
+        actionText: {
+          yes: 'Sourcing disability-inclusive imagery ensures authenticity.',
+          no: 'Source marketing imagery from disability-inclusive stock libraries (e.g., Disability:IN, Getty Disability Collection, Pexels Disability) or feature real customers with disability (with informed consent). Avoid generic stock images that tokenise or misrepresent disability.',
+          partially: 'Expand your sourcing of disability-inclusive imagery. Prioritise featuring your own customers with disability (with permission) for the most authentic representation.',
+        },
       },
 
       // ============================================
@@ -4668,6 +5268,11 @@ export const accessModules: AccessModule[] = [
             'Some great questions to ask reviewers are whether it feels authentic, whether they would feel welcomed, whether anything feels cringeworthy, and whether it represents diverse disability experiences',
           ],
         },
+        actionText: {
+          yes: 'Review by people with disability ensures authentic and respectful representation.',
+          no: 'Engage people with disability to review your marketing materials for authentic representation. This could include paid consultants, advisory panel members, or community members with disability. Lived experience perspectives identify issues that others may miss.',
+          partially: 'Expand your review process to include a broader range of disability perspectives. Ensure reviewers include people with different types of disability and from diverse cultural backgrounds.',
+        },
       },
       {
         id: '1.6-DD-3a',
@@ -4695,6 +5300,11 @@ export const accessModules: AccessModule[] = [
             'Verify that captions are accurate and audio descriptions are included where needed in your video content',
           ],
         },
+        actionText: {
+          yes: 'Tested marketing materials confirm accessibility is not just assumed.',
+          no: 'Test your marketing materials for accessibility, including colour contrast (minimum 4.5:1 for text per WCAG 2.2), font readability, layout clarity, and alternative text on digital materials. Use automated tools for initial checks and manual review for nuanced issues.',
+          partially: 'Extend accessibility testing to cover all marketing material types and formats, including print, digital, social media, and video content.',
+        },
       },
       {
         id: '1.6-DD-4a',
@@ -4721,6 +5331,11 @@ export const accessModules: AccessModule[] = [
             'Share positive feedback from customers with disability in your marketing (always with their permission)',
             'Highlight team members with disability if they are comfortable being featured',
           ],
+        },
+        actionText: {
+          yes: 'Featuring accessibility in campaigns demonstrates genuine commitment.',
+          no: 'Feature accessibility in marketing campaigns or promotions, such as highlighting accessible experiences, promoting International Day of People with Disability events, or showcasing accessibility improvements at your venue.',
+          partially: 'Expand how accessibility features in your marketing campaigns. Move from occasional mentions to consistent inclusion as part of your regular marketing calendar.',
         },
       },
       {
@@ -4755,6 +5370,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Formal representation guidelines embed inclusive marketing as standard practice.',
+          no: 'Develop formal guidelines for ensuring disability representation in new marketing materials. Include standards for imagery sourcing, language use, representation across disability types, and review processes.',
+          partially: 'Strengthen your representation guidelines with more specific requirements, such as minimum representation targets, approved image sources, and mandatory review by people with disability.',
+        },
       },
       {
         id: '1.6-DD-4b',
@@ -4788,6 +5408,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Tracking disability audience engagement supports evidence-based marketing decisions.',
+          no: 'Establish methods to track engagement and reach among audiences with disability, such as monitoring accessibility page traffic, feedback from disability community channels, and engagement with accessibility-related content.',
+          partially: 'Expand your tracking of disability audience engagement. Combine quantitative metrics (page views, click-through rates) with qualitative feedback from the disability community.',
+        },
       },
       {
         id: '1.6-DD-5a',
@@ -4820,6 +5445,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Advertising through disability-specific channels reaches underserved audiences directly.',
+          no: 'Identify and advertise through disability-specific channels and media, such as disability organisation newsletters, accessible tourism directories, disability podcasts, and community social media groups. These channels reach audiences who may not encounter your mainstream marketing.',
+          partially: 'Expand your presence across disability-specific channels. Build ongoing relationships rather than one-off advertisements for sustained reach within the disability community.',
+        },
       },
       {
         id: '1.6-DD-5b',
@@ -4852,6 +5482,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Partnerships with disability organisations strengthen credibility and reach.',
+          no: 'Develop relationships with disability organisations for cross-promotion or co-marketing opportunities. Partnerships with organisations such as local disability advocacy groups, peak bodies, or accessible tourism networks lend credibility and extend your reach into the disability community.',
+          partially: 'Deepen your existing relationships with disability organisations. Explore co-marketing opportunities, joint events, and ongoing partnerships rather than transactional arrangements.',
+        },
       },
       {
         id: '1.6-OTHER',
@@ -4928,6 +5563,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Designated accessible parking is provided, meeting a core obligation under the Australian Premises Standards.',
+          no: 'Provide designated accessible parking spaces. Under the Premises Standards and AS/NZS 2890.6, at least one accessible space is required. Each space must be min 2400mm wide with a 2400mm shared area (or 3200mm for a single space) and 5400mm long.',
+          partially: 'Accessible parking spaces exist but may not fully comply. Audit each space against AS/NZS 2890.6 for correct dimensions (min 2400mm wide, 5400mm long with shared area), signage, and surface condition.',
+        },
       },
       {
         id: '2.1-F-2',
@@ -4954,6 +5594,11 @@ export const accessModules: AccessModule[] = [
             'Ensure the route from parking to entrance is clearly marked',
           ],
         },
+        actionText: {
+          yes: 'Accessible parking is well-positioned close to the main entrance, reducing travel distance for customers with disability.',
+          no: 'Relocate or designate accessible parking spaces as close as practicable to the main entrance. AS/NZS 2890.6 recommends the shortest practicable route. Prioritise spaces nearest to the accessible entry path.',
+          partially: 'Some accessible spaces are close to the entrance but others are not. Review the layout and prioritise relocating any distant spaces to minimise the travel distance to the main entrance.',
+        },
       },
       {
         id: '2.1-F-3',
@@ -4978,6 +5623,11 @@ export const accessModules: AccessModule[] = [
             'Clearly mark drop-off areas so drivers know they can stop',
             'Communicate drop-off options on your website for customers using taxis or ride-share',
           ],
+        },
+        actionText: {
+          yes: 'A drop-off zone near the entrance supports customers who rely on assisted transport or need to minimise walking distance.',
+          no: 'Establish a designated drop-off zone near the main entrance. Mark it clearly with signage and ensure it connects to the accessible path of travel. Consider a minimum 6000mm length to accommodate larger accessible vehicles.',
+          partially: 'A drop-off area exists but may lack clear signage, adequate length, or a direct connection to the accessible path. Review and formalise the zone with appropriate markings and kerb ramps to the footpath.',
         },
       },
       {
@@ -5005,6 +5655,11 @@ export const accessModules: AccessModule[] = [
             'Make sure there\'s a clear, level path from the drop-off to the entrance',
             'Consider shelter at the drop-off point for passengers waiting in rain',
           ],
+        },
+        actionText: {
+          yes: 'The drop-off zone is level and provides a smooth transition to the footpath, supporting safe transfers.',
+          no: 'Regrade or modify the drop-off zone to provide a firm, level surface flush with the adjacent footpath. Install a kerb ramp or dropped kerb per AS 1428.1 Cl 10 if there is a level change between the roadway and the path.',
+          partially: 'The drop-off zone is partially level but has uneven areas or a gap to the footpath. Address remaining level changes with kerb ramps (max 1:8 gradient per AS 1428.1) and ensure the transfer area surface is firm and slip-resistant.',
         },
       },
       {
@@ -5036,6 +5691,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'The path from accessible parking to the entrance is smooth and level, supporting safe independent travel.',
+          no: 'Resurface or regrade the path from accessible parking to the entrance to provide a continuous accessible path of travel. The surface must be firm, slip-resistant, and free of trip hazards per AS 1428.1 Cl 7. Maximum crossfall is 1:40.',
+          partially: 'The path is mostly smooth but has uneven sections or minor level changes. Identify and remediate all trip hazards, cracks, or loose surfaces. Ensure the entire route meets AS 1428.1 requirements for a continuous accessible path.',
+        },
       },
       {
         id: '2.1-F-5',
@@ -5061,6 +5721,11 @@ export const accessModules: AccessModule[] = [
             'Service animals walk alongside their handler - allow extra width',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'Path width meets the minimum requirement, allowing comfortable passage for people using mobility aids.',
+          no: 'Widen the path to at least 1000mm clear width (1200mm preferred, 1800mm at passing points) per AS 1428.1 Cl 7. Remove any obstructions that narrow the effective width, including overhanging vegetation, bins, or signage.',
+          partially: 'The path meets minimum width in some sections but narrows at pinch points. Identify all constrictions and widen to at least 1000mm clear. Provide 1800mm passing spaces at regular intervals along longer paths.',
         },
       },
       {
@@ -5091,6 +5756,11 @@ export const accessModules: AccessModule[] = [
             'If accessible bays are on-street, check the council signage is clear - you might add your own signs to help',
           ],
         },
+        actionText: {
+          yes: 'Directional signage on the road approach helps visitors locate accessible parking before entering the car park.',
+          no: 'Install directional signage on the road approach indicating the location of accessible parking. Use the International Symbol of Access (ISA) with a directional arrow, visible from the vehicle approach. Position signs at each decision point.',
+          partially: 'Some directional signage exists but may be incomplete or poorly positioned. Audit the road approach from all entry points and add ISA directional signs at every decision point where drivers need guidance to the accessible bays.',
+        },
       },
       {
         id: '2.1-F-6a',
@@ -5118,6 +5788,11 @@ export const accessModules: AccessModule[] = [
             'In large car parks, numbered, coloured, patterned, or textured sections help people remember where they parked',
             'Check that wayfinding works in low light - good lighting and high contrast colours help',
           ],
+        },
+        actionText: {
+          yes: 'Wayfinding signage from the parking area to the entrance guides visitors along the accessible route.',
+          no: 'Install wayfinding signage from accessible parking to the entrance. Signs must include the ISA and directional arrows, be positioned at each turn or decision point, and comply with AS 1428.1 Cl 8 for height and contrast.',
+          partially: 'Wayfinding is partially in place but has gaps. Walk the route from each accessible bay to the entrance and add signage at every decision point or change of direction where the next sign is not already visible.',
         },
       },
       {
@@ -5150,6 +5825,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'The alternative accessible route is clearly signed, ensuring visitors can find it independently.',
+          no: 'Install clear signage at the point where the accessible route diverges from the main pedestrian path. Use the ISA with directional arrows and ensure signs are visible from both directions. Include distance or travel time where helpful.',
+          partially: 'Some signage exists but the divergence point is not clearly marked. Add prominent ISA signage at the exact point of divergence and at intervals along the alternative route until it reaches the entrance.',
+        },
       },
       {
         id: '2.1-F-7',
@@ -5175,6 +5855,11 @@ export const accessModules: AccessModule[] = [
             'Phone and online booking staff need this information too, not just front-of-house',
           ],
         },
+        actionText: {
+          yes: 'Staff awareness of accessible parking and entry points supports a positive first impression for customers.',
+          no: 'Train all customer-facing staff on the location of accessible parking, the accessible entry route, and how to provide clear directions. Include this in induction and refresher training. Provide a simple reference map at reception.',
+          partially: 'Some staff are aware but knowledge is inconsistent. Standardise training so all customer-facing staff can confidently direct visitors to accessible parking and entry points. Consider a printed quick-reference card for new team members.',
+        },
       },
       {
         id: '2.1-F-8',
@@ -5199,6 +5884,11 @@ export const accessModules: AccessModule[] = [
             'Motion-sensor lighting can help if 24/7 lighting is not practical',
             'Good lighting also deters misuse of accessible spaces',
           ],
+        },
+        actionText: {
+          yes: 'Well-lit parking supports safety and orientation for all visitors, particularly those with low vision.',
+          no: 'Improve lighting across the parking area, with particular focus on accessible bays, the path to the entrance, and any changes in level. Aim for uniform illumination of at least 40 lux at ground level in accordance with AS/NZS 1158.',
+          partially: 'Lighting is adequate in some areas but has dark spots. Conduct an after-dark walkthrough from each accessible bay to the entrance and address any poorly lit sections, especially at kerb ramps and direction changes.',
         },
       },
       // Deep Dive Questions
@@ -5227,6 +5917,11 @@ export const accessModules: AccessModule[] = [
             'If bays must be temporarily unavailable, provide equivalent alternative accessible parking nearby and communicate this clearly',
             'Assign someone to monitor accessible parking during major events',
           ],
+        },
+        actionText: {
+          yes: 'Accessible parking is consistently protected from being blocked during events and peak periods.',
+          no: 'Implement measures to protect accessible parking spaces during busy periods. Options include bollards, clear "no standing" enforcement, staff monitoring, and traffic management plans that explicitly address accessible bays.',
+          partially: 'Protection measures exist but are inconsistently applied. Formalise an operational procedure requiring accessible spaces to be checked before and during peak periods. Assign responsibility for monitoring.',
         },
       },
       {
@@ -5258,6 +5953,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Accessible parking surfaces are firm and slip-resistant, supporting safe transfers and wheelchair manoeuvring.',
+          no: 'Resurface accessible parking spaces with a firm, slip-resistant material (e.g., sealed concrete or asphalt). Gravel, loose pebbles, and worn bitumen with potholes do not meet the requirements of AS 1428.1 for a continuous accessible path.',
+          partially: 'Surfaces are partially compliant but some bays or the shared area have wear, cracking, or loose material. Schedule resurfacing for affected bays. Ensure water does not pool on the surface after rain.',
+        },
       },
       {
         id: '2.1-D-9c',
@@ -5287,6 +5987,11 @@ export const accessModules: AccessModule[] = [
             'Alternative options like pay-by-app or paying at reception give people choices',
             'Check boom gate buttons can be reached from a car - some drivers have limited reach',
           ],
+        },
+        actionText: {
+          yes: 'Accessible payment methods at parking ensure customers with disability can pay independently.',
+          no: 'Ensure parking payment is accessible. Options include contactless tap-and-go, a parking app with screen reader support, or a meter at accessible height (900-1100mm) with large buttons and high-contrast display. Avoid touch-screen-only meters without alternatives.',
+          partially: 'Some accessible payment options exist but gaps remain. Review whether the payment method is reachable from a seated position, operable with one hand, and usable by someone with low vision. Provide at least one fully accessible alternative.',
         },
       },
       {
@@ -5319,6 +6024,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Clear ground markings and vertical signage on accessible parking spaces meet the requirements of AS/NZS 2890.6.',
+          no: 'Mark accessible parking spaces with both ground-level ISA symbols (painted on the bay surface) and vertical signage (a sign post or wall-mounted sign at min 1200mm height). Both are required under AS/NZS 2890.6 Cl 2.4.',
+          partially: 'Markings are partially in place (e.g., ground markings but no vertical sign, or vice versa). Install the missing element. Repaint faded ground markings and ensure vertical signs are clearly visible from the vehicle approach.',
+        },
       },
       {
         id: '2.1-D-10',
@@ -5344,6 +6054,11 @@ export const accessModules: AccessModule[] = [
             'Umbrellas available for customers to borrow can help during wet weather',
             'Make sure covered areas still have good lighting',
           ],
+        },
+        actionText: {
+          yes: 'Weather protection along the path from parking to the entrance improves comfort and safety for all visitors.',
+          no: 'Consider installing weather protection (awnings, covered walkways, or canopies) along the path from accessible parking to the entrance. Prioritise sections where visitors are most exposed, particularly near the drop-off zone and entrance.',
+          partially: 'Partial coverage exists but sections of the path remain exposed. Extend weather protection to cover the full route, or at minimum the most critical sections (drop-off zone, entrance approach, and any rest points).',
         },
       },
       {
@@ -5371,6 +6086,11 @@ export const accessModules: AccessModule[] = [
             'Contrasting colours make seats easier to spot',
             'For very long paths, consider multiple rest points',
           ],
+        },
+        actionText: {
+          yes: 'Rest points along longer paths give visitors the option to pause, which is essential for people with limited stamina or chronic pain.',
+          no: 'Install rest seating along the path from parking to the entrance. Best practice is seating every 30 metres on longer routes. Include armrests and backrests to assist people who have difficulty sitting down or standing up.',
+          partially: 'Some rest points exist but spacing is too far apart or seating lacks supportive features. Add seats at max 30m intervals and ensure they have armrests, backrests, and a firm level surface beside the seat for a wheelchair companion.',
         },
       },
       {
@@ -5401,6 +6121,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Kerb ramps or dropped kerbs at level changes ensure the path remains continuous and accessible.',
+          no: 'Install kerb ramps or dropped kerbs at every point where the accessible path crosses a vehicle area or encounters a level change. Ramps must have a maximum gradient of 1:8, tactile ground surface indicators at the base, and a slip-resistant surface per AS 1428.1 Cl 10.',
+          partially: 'Kerb ramps exist at some crossings but are missing at others. Survey the full route for every level change and vehicle crossing. Install compliant kerb ramps where absent and remediate any that are too steep or lack TGSIs.',
+        },
       },
       {
         id: '2.1-D-12c',
@@ -5426,6 +6151,11 @@ export const accessModules: AccessModule[] = [
             'In shared areas with vehicles, clear path edges are especially important',
             'Keep edges clear of overgrown plants or debris',
           ],
+        },
+        actionText: {
+          yes: 'Clearly defined path edges assist people with low vision and guide cane users along the route.',
+          no: 'Define path edges using contrasting materials, raised kerbs, or tactile edging. This helps people with low vision and cane users detect the path boundary. Avoid paths that blend into surrounding surfaces without a detectable edge.',
+          partially: 'Some path edges are defined but others are unclear. Audit the full route and add contrasting edging or raised kerbs where the path boundary is not detectable by touch or visually distinguishable from the surroundings.',
         },
       },
       {
@@ -5457,6 +6187,11 @@ export const accessModules: AccessModule[] = [
             'This info works well on both your Contact/Visit page and your Accessibility page',
           ],
         },
+        actionText: {
+          yes: 'Online arrival information helps visitors plan their journey with confidence, reducing anxiety and barriers.',
+          no: 'Add clear arrival information to your website, covering accessible parking location, drop-off zones, the route from parking to the entrance, public transport options, and any steps or ramps along the way. Include photos or a map where possible.',
+          partially: 'Some arrival information is published but it is incomplete. Review and expand to cover parking location and type, the walking route, any level changes, nearest accessible public transport stops, and alternative entrance details.',
+        },
       },
       {
         id: '2.1-D-16',
@@ -5483,6 +6218,11 @@ export const accessModules: AccessModule[] = [
             'Remember winter - what works in summer may fail when it gets dark earlier',
             'Check for shadows from buildings or vegetation that create dark patches',
           ],
+        },
+        actionText: {
+          yes: 'After-dark lighting and readable signage support safe, independent arrival for visitors at all hours.',
+          no: 'Install or upgrade lighting along the walking route from parking to the entrance so that surfaces and signage are clearly visible after dark. Ensure wayfinding signs are illuminated or retroreflective. Target at least 40 lux at ground level per AS/NZS 1158.',
+          partially: 'Lighting is adequate in parts but some sections or signs are difficult to see after dark. Conduct an after-dark audit of the full route and address all poorly lit areas, focusing on level changes, direction changes, and signage locations.',
         },
       },
       // Deep Dive Wayfinding Questions
@@ -5517,6 +6257,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Consistent use of the International Symbol of Access across wayfinding supports clear, universally understood navigation.',
+          no: 'Standardise all wayfinding signage to include the International Symbol of Access (ISA) as required by the Premises Standards. Replace any outdated or non-standard accessibility symbols. Ensure the ISA is used at every accessible parking bay, path junction, and entrance.',
+          partially: 'The ISA is used in some locations but not consistently throughout. Audit all wayfinding signage from parking to entry and add the ISA where it is missing. Remove any non-standard symbols that could cause confusion.',
+        },
       },
       {
         id: '2.1-D-18',
@@ -5543,6 +6288,11 @@ export const accessModules: AccessModule[] = [
             'For complex sites, a simple map near the entrance can really help orient visitors',
             'Keeping signs at a consistent height and style makes them easier to spot',
           ],
+        },
+        actionText: {
+          yes: 'Signage at decision points prevents visitors from getting lost and reduces reliance on staff for directions.',
+          no: 'Install wayfinding signage at every decision point (intersections, turns, forks) along the route from parking and public transport to the entrance. Signs should be visible from the previous sign so visitors can navigate independently.',
+          partially: 'Signage exists at some decision points but gaps remain. Walk the route as a first-time visitor and note every point of uncertainty. Add signage at each gap, ensuring the next sign is always visible before the previous one is out of sight.',
         },
       },
       {
@@ -5575,6 +6325,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Wayfinding signage is large and high-contrast, supporting readability for people with low vision.',
+          no: 'Replace or upgrade wayfinding signage to meet AS 1428.1 Cl 8 requirements: min 70% luminance contrast between text and background, sans-serif font, and character height appropriate for viewing distance (min 15mm per metre of viewing distance). Avoid glossy finishes that cause glare.',
+          partially: 'Some signage meets contrast and size standards but others are too small or low-contrast. Audit all wayfinding signs and prioritise replacing those that are faded, too small, or use serif fonts or decorative text.',
+        },
       },
       {
         id: '2.1-D-20',
@@ -5605,6 +6360,11 @@ export const accessModules: AccessModule[] = [
             'Not all premises have TGSIs - they\'re most common in larger public buildings and transport hubs',
           ],
         },
+        actionText: {
+          yes: 'Tactile ground surface indicators guide visitors with vision impairment safely to the entrance.',
+          no: 'Install tactile ground surface indicators (TGSIs) along the accessible route to the entrance per AS 1428.4.1. Use directional TGSIs (elongated bars) to indicate the path of travel and warning TGSIs (truncated domes) at hazards and decision points. Ensure min 30% luminance contrast with the surrounding surface.',
+          partially: 'TGSIs are installed in some locations but the tactile path is incomplete. Map the full accessible route and fill gaps in the TGSI trail, ensuring continuous guidance from parking and transport stops to the entrance.',
+        },
       },
       {
         id: '2.1-D-22',
@@ -5630,6 +6390,11 @@ export const accessModules: AccessModule[] = [
             'After storms or high winds, check that signs haven\'t been knocked or twisted',
             'If signs are consistently getting dirty, consider repositioning or adding protection',
           ],
+        },
+        actionText: {
+          yes: 'Wayfinding signage is well-maintained and in good condition, supporting reliable navigation.',
+          no: 'Inspect all wayfinding signage and replace or repair any that is faded, damaged, obscured by vegetation, or no longer accurate. Establish a regular maintenance schedule (at least quarterly) to keep signage in good condition.',
+          partially: 'Most signage is in good condition but some signs are deteriorating. Replace damaged or faded signs promptly and add wayfinding signage maintenance to your regular property inspection checklist.',
         },
       },
       {
@@ -5663,6 +6428,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'An accessible departure process ensures the experience is positive from arrival through to exit.',
+          no: 'Review the departure experience from an accessibility perspective. Ensure exit wayfinding is as clear as entry wayfinding, checkout counters have a lowered section, farewell processes do not rely solely on verbal communication, and the route to the exit is step-free.',
+          partially: 'Some elements of the departure process are accessible but gaps remain. Audit the full exit journey, including checkout, wayfinding to exits, and the transition to transport or parking, and address any barriers identified.',
+        },
       },
       {
         id: '2.1-D-24',
@@ -5696,6 +6466,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'An accessible pick-up or waiting area supports customers who depend on arranged transport after their visit.',
+          no: 'Designate an accessible waiting area near the main exit for customers awaiting pick-up. Include weather protection, seating with armrests and backrests, adequate lighting, and clear signage. Ensure it connects to a level kerb or drop-off zone accessible to vehicles.',
+          partially: 'A pick-up area exists but lacks some accessibility features. Review and add any missing elements: weather cover, supportive seating, lighting, signage, and a level connection to the vehicle loading zone.',
+        },
       },
       {
         id: '2.1-OTHER',
@@ -5772,6 +6547,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Your entrance features are noted. Continue reviewing the detailed questions for each element to ensure full compliance.',
+          no: 'Assess your main entrance for level access, ramps, steps, lifts, or escalators. At least one step-free entry is required under the Premises Standards. Plan modifications to provide an accessible entrance.',
+          partially: 'Some entrance features are in place. Complete the detailed questions for each element (stairs, ramps, lifts, doors) to identify any compliance gaps and prioritise remediation.',
+        },
       },
       {
         id: '2.2-D-23',
@@ -5802,6 +6582,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Handrails on both sides of entrance stairs support safe use for people with mobility impairment or balance issues.',
+          no: 'Install handrails on both sides of entrance stairs. Handrails must be continuous, 865-1000mm above the stair nosing, extend 300mm beyond the top and bottom treads, and have a graspable circular profile of 30-50mm diameter per AS 1428.1 Cl 11.',
+          partially: 'Handrails are present but may be on one side only or not fully compliant. Install a second handrail where missing and check that both meet AS 1428.1 for height, extension, graspability, and continuity.',
+        },
       },
       {
         id: '2.2-D-24',
@@ -5831,6 +6616,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Contrasting nosing strips on stair edges help prevent trips and falls, a key safety measure.',
+          no: 'Apply contrasting nosing strips to every step edge on entrance stairs. Strips must provide min 30% luminance contrast with both the tread and the riser, extend the full width of the stair, and be 50-75mm on the tread and 30mm on the riser per AS 1428.1 Cl 11.',
+          partially: 'Nosing strips are installed on some steps but not all, or contrast is insufficient. Apply compliant strips to every step edge and verify luminance contrast meets the 30% minimum using a contrast meter or approved calculator.',
+        },
       },
       {
         id: '2.2-D-25',
@@ -5857,6 +6647,11 @@ export const accessModules: AccessModule[] = [
             'This is a common issue with older metal or decorative staircases',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'Enclosed stair risers eliminate a catch hazard for people using mobility aids or prosthetics.',
+          no: 'Enclose all open risers on entrance stairs. Open risers create a catch hazard for cane tips, prosthetic feet, and shoe toes. Install riser panels or replace the staircase with a compliant design per AS 1428.1 Cl 11.',
+          partially: 'Some risers are enclosed but others remain open. Retrofit riser panels on all remaining open risers to eliminate the catch hazard across the full staircase.',
         },
       },
       {
@@ -5885,6 +6680,11 @@ export const accessModules: AccessModule[] = [
             'Check TGSIs regularly as they can wear down, become loose, or get covered by dirt or paint',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'TGSIs at the top and bottom of entrance stairs alert people with vision impairment to the level change.',
+          no: 'Install tactile ground surface indicators (TGSIs) at the top and bottom of entrance stairs. Warning TGSIs (truncated domes) must extend 600mm from the stair nosing across the full width, with min 30% luminance contrast, per AS 1428.4.1.',
+          partially: 'TGSIs are present at one end but missing at the other, or do not extend the full width. Install compliant warning TGSIs at both the top and bottom landings, ensuring correct depth (600mm) and full-width coverage.',
         },
       },
       // Ramp questions - shown when entrance has steps/ramp
@@ -5915,6 +6715,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Handrails on both sides of the entrance ramp support safe use for wheelchair users and ambulant visitors.',
+          no: 'Install handrails on both sides of the entrance ramp. Handrails must be continuous, 865-1000mm above the ramp surface, extend 300mm beyond the top and bottom, and have a graspable profile of 30-50mm diameter per AS 1428.1 Cl 10.',
+          partially: 'A handrail exists on one side but is missing on the other. Install a second handrail and verify both meet AS 1428.1 for height (865-1000mm), extension (300mm), and graspable profile.',
+        },
       },
       {
         id: '2.2-D-28',
@@ -5942,6 +6747,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure about the gradient, a building surveyor or access consultant can measure it accurately',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'The ramp gradient is manageable, supporting independent access for wheelchair and mobility aid users.',
+          no: 'Regrade or rebuild the ramp to comply with AS 1428.1 Cl 10: max gradient 1:14 for ramps up to 9m, 1:8 for kerb ramps. Provide level landings (min 1200mm long) at the top, bottom, and at max 9m intervals. Consider 1:20 or gentler for best practice.',
+          partially: 'The ramp gradient is borderline or steep in sections. Measure the gradient at all points. If any section exceeds 1:14, plan regrading. Add intermediate landings if the ramp run exceeds 9m without a rest point.',
         },
       },
       {
@@ -5971,6 +6781,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'TGSIs at the top and bottom of the entrance ramp alert people with vision impairment to the gradient change.',
+          no: 'Install warning TGSIs (truncated domes) at the top and bottom of the entrance ramp per AS 1428.4.1. TGSIs must extend 600mm from the ramp edge across the full width, with min 30% luminance contrast against the surrounding surface.',
+          partially: 'TGSIs are present at one end but missing at the other. Install compliant warning TGSIs at both the top and bottom of the ramp, ensuring full-width coverage and correct 600mm depth.',
+        },
       },
       {
         id: '2.2-D-30',
@@ -5998,6 +6813,11 @@ export const accessModules: AccessModule[] = [
             'Metal ramps and metal grating can be very slippery when wet — anti-slip strips can help',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'A slip-resistant ramp surface supports safe use in all weather conditions.',
+          no: 'Apply a slip-resistant finish to the ramp surface. The surface must provide adequate traction in both wet and dry conditions per AS 1428.1 Cl 10. Options include broomed concrete, anti-slip coating, or slip-resistant tiles rated R11 or higher.',
+          partially: 'The ramp surface is slip-resistant in dry conditions but may be slippery when wet. Test the surface when wet and apply anti-slip treatment or overlay if traction is inadequate. Pay particular attention to the top and bottom transitions.',
         },
       },
       // Entrance lift questions (conditional on lift-at-entrance)
@@ -6027,6 +6847,11 @@ export const accessModules: AccessModule[] = [
             'The lift floor should be level with the landing (within 12mm) so wheelchairs can roll in smoothly',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'The entrance lift meets minimum size and door width requirements for wheelchair access.',
+          no: 'Ensure the entrance lift has a minimum internal dimension of 1400mm deep x 1100mm wide and a door clear opening of at least 900mm per AS 1735.12. If the current lift does not meet these minimums, plan for replacement or modification.',
+          partially: 'The lift partially meets requirements but may fall short on door width or internal dimensions. Measure against AS 1735.12 minimums (900mm door, 1400 x 1100mm cabin) and plan modifications for any non-compliant dimension.',
         },
       },
       {
@@ -6063,6 +6888,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Independent lift operation means all visitors can enter without relying on staff availability.',
+          no: 'Modify the entrance lift to enable independent use. Install accessible call buttons at 900-1100mm height, ensure the door remains open long enough for slow entry (min 8 seconds per AS 1735.12), and provide clear operating instructions in accessible formats.',
+          partially: 'The lift can be partially operated independently but some functions require assistance. Identify the specific barriers (key lock, inaccessible controls, insufficient door hold time) and remediate to enable fully independent use.',
+        },
       },
       // Entrance escalator question (conditional on escalator)
       {
@@ -6092,6 +6922,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'An accessible alternative to the escalator ensures all visitors can access the entrance independently.',
+          no: 'Provide an accessible alternative (lift or ramp) adjacent to or clearly signed from the escalator. Under the Premises Standards, where an escalator is the primary means of access, a step-free alternative must be available.',
+          partially: 'An alternative exists but may be poorly signed, out of the way, or not always available. Ensure the lift or ramp is clearly signed from the escalator location, operational during all opening hours, and does not require staff assistance.',
+        },
       },
       {
         id: '2.2-D-13',
@@ -6119,6 +6954,11 @@ export const accessModules: AccessModule[] = [
             'If your threshold is too high, threshold ramps or wedges are an affordable retrofit option',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'A level threshold at the entrance allows smooth passage for wheelchairs, walkers, and prams.',
+          no: 'Reduce the door threshold to max 5mm (bevelled if 5-13mm) per AS 1428.1 Cl 13. A threshold exceeding 13mm is a barrier. Options include grinding down the existing threshold, installing a threshold ramp, or replacing the threshold strip.',
+          partially: 'The threshold is close to compliant but slightly raised or uneven. Measure precisely; if between 5-13mm, bevel the edges. If over 13mm, install a compliant threshold or micro-ramp to eliminate the step.',
         },
       },
       {
@@ -6149,6 +6989,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Flush, secure entrance mats and surfaces prevent trip hazards for all visitors.',
+          no: 'Secure all entrance mats flush with the surrounding floor surface (max 3mm lip). Replace any mats that curl at edges, have thick pile that impedes wheels, or sit in a recessed frame with raised edges. Ensure surface changes do not create trip hazards.',
+          partially: 'Mats are mostly secure but some edges lift or the frame is slightly raised. Re-secure or replace problem mats. Choose thin, firm-pile mats in flush recessed frames. Check after cleaning that mats are re-seated properly.',
+        },
       },
       {
         id: '2.2-D-12',
@@ -6174,6 +7019,11 @@ export const accessModules: AccessModule[] = [
             'Check that mats or drainage grates on the landing are flush and do not create trip hazards',
             'Landing requirements have nuance — the angle of approach, slope, and door type all affect what is needed. Contact Flare Access for specialist advice tailored to your entrance',
           ],
+        },
+        actionText: {
+          yes: 'Adequate clear space in front of the entrance door supports independent access for wheelchair users.',
+          no: 'Provide a level clear space of at least 1200mm x 1200mm in front of the entrance door on both sides per AS 1428.1 Cl 13. This allows someone using a wheelchair to approach the door, stop, and operate it without rolling backwards. Remove any obstructions.',
+          partially: 'Some clear space exists but it is restricted by furniture, planters, or signage. Remove obstructions to achieve the full 1200mm x 1200mm clear area on both sides of the door.',
         },
       },
       {
@@ -6201,6 +7051,11 @@ export const accessModules: AccessModule[] = [
             'Check vestibule or airlock doors too - the narrowest door in the sequence is the barrier',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'The entrance door width meets the minimum required for wheelchair access.',
+          no: 'Widen the entrance door to provide at least 850mm clear opening width (measured from the face of the open door to the opposite frame). AS 1428.1 Cl 13 requires min 850mm. Consider 900-950mm for best practice to accommodate larger power wheelchairs.',
+          partially: 'The door width is close to the 850mm minimum but may be narrowed by hardware, weather seals, or the door not opening fully. Measure the effective clear opening and adjust hinges, stops, or hardware to achieve at least 850mm clear.',
         },
       },
       {
@@ -6244,6 +7099,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Entrance doors are easy to open, supporting independent access for people with limited strength or dexterity.',
+          no: 'Modify entrance doors so they can be opened with minimal force and without requiring a tight grip or twist. Install automatic openers, power-assist devices, or lever handles. Maximum opening force should not exceed 20N for internal doors per AS 1428.1 Cl 13.',
+          partially: 'Doors are partially accessible (e.g., lever handles but heavy to push). Measure the opening force and install a power-assist closer or automatic opener if it exceeds 20N. Ensure the mechanism is intuitive and does not require tight gripping.',
+        },
       },
       {
         id: '2.2-D-11',
@@ -6269,6 +7129,11 @@ export const accessModules: AccessModule[] = [
             'Check both the inside and outside handles - sometimes one side meets the standard but the other does not',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'Door handles at accessible height allow operation from both standing and seated positions.',
+          no: 'Reposition door handles to between 900mm and 1100mm from the finished floor level per AS 1428.1 Cl 13. Use D-pull or lever-style handles that can be operated with one hand and do not require gripping, pinching, or twisting.',
+          partially: 'Handles are close to the required height range but may be slightly outside 900-1100mm. Measure and adjust. Also verify the handle type; replace round knobs with lever or D-pull handles if needed.',
         },
       },
       {
@@ -6299,6 +7164,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'The intercom or bell is at accessible height and easy to operate, supporting independent communication at the entrance.',
+          no: 'Install or relocate the intercom or bell to between 900mm and 1200mm from floor level. Ensure it is operable with one hand without tight gripping (large button preferred), has a visual indicator confirming activation, and includes a visual or vibrating response option for Deaf visitors.',
+          partially: 'The intercom is partially accessible but may be too high, hard to reach, or lacking visual feedback. Lower the unit to 900-1200mm and add a visual indicator (light) to confirm when the call has been received.',
+        },
       },
       {
         id: '2.2-F-4',
@@ -6323,6 +7193,11 @@ export const accessModules: AccessModule[] = [
             'Check visibility from drop-off zones and nearby bus or tram stops too',
             'Glass doors should have contrast markings so they are visible to people with low vision',
           ],
+        },
+        actionText: {
+          yes: 'A clearly visible and identifiable entrance supports confident, independent wayfinding for all visitors.',
+          no: 'Improve entrance visibility using contrasting colours on the door and frame, prominent signage, and adequate lighting. The entrance should be visually distinguishable from the surrounding facade. Add the ISA if an accessible entrance exists elsewhere.',
+          partially: 'The entrance is somewhat visible but could be more prominent. Add visual contrast between the door/frame and the wall, install a canopy or awning as a visual cue, and ensure building identification signage is large and well-lit.',
         },
       },
       {
@@ -6355,6 +7230,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Clear signage to the alternative accessible entrance ensures visitors can find it independently.',
+          no: 'Install prominent signage at the main entrance directing visitors to the accessible alternative. Include the ISA, a directional arrow, and estimated distance. The sign must be at accessible reading height and high-contrast per AS 1428.1 Cl 8.',
+          partially: 'Signage exists but is small, poorly placed, or lacks key information. Upgrade to a prominent, high-contrast ISA sign with a directional arrow at the main entrance. Ensure it is visible on approach, not just at the door itself.',
+        },
       },
       {
         id: '2.2-F-6',
@@ -6381,6 +7261,11 @@ export const accessModules: AccessModule[] = [
             'Brief all staff, not just reception - anyone might be first to see a customer at the entrance',
           ],
         },
+        actionText: {
+          yes: 'Staff who can assist customers entering the building contribute to a welcoming and inclusive experience.',
+          no: 'Train customer-facing staff on how to assist visitors who may need support entering the building. Cover door holding, guiding someone with vision impairment, wheelchair etiquette (always ask first), and the location of the accessible entrance and alternative routes.',
+          partially: 'Some staff are trained but coverage is inconsistent. Extend training to all customer-facing roles and include it in induction. Provide a quick-reference guide covering common assistance scenarios at the entrance.',
+        },
       },
       {
         id: '2.2-F-7',
@@ -6406,6 +7291,11 @@ export const accessModules: AccessModule[] = [
             'Consider motion-sensor lights if 24-hour lighting is not practical',
             'Be aware that fairy lights and low ambient lighting, while attractive, may not provide enough illumination for people with low vision to safely navigate the entrance',
           ],
+        },
+        actionText: {
+          yes: 'Adequate lighting at the entrance supports visitors with low vision and helps everyone identify the entry safely.',
+          no: 'Increase lighting at the entrance to at least 150 lux at floor level. Ensure even illumination without harsh glare or deep shadows. Light the door, threshold, any steps or ramp, intercom, and signage. Avoid downlighting that casts shadows on faces.',
+          partially: 'Lighting is present but uneven or insufficient at key points. Measure lux levels at the door, threshold, and intercom. Supplement with additional fittings where levels are below 150 lux, and adjust angles to eliminate glare and shadows.',
         },
       },
       {
@@ -6435,6 +7325,11 @@ export const accessModules: AccessModule[] = [
             'Not all premises require TGSIs, but they significantly improve navigation for people with vision impairment',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'TGSIs at key entry points guide visitors with vision impairment and provide a detectable warning at hazards.',
+          no: 'Install TGSIs at key entry points per AS 1428.4.1. Use warning TGSIs (truncated domes) at the top and bottom of steps and ramps, and directional TGSIs (elongated bars) to guide visitors to the entrance where the path is not otherwise detectable.',
+          partially: 'TGSIs are present at some entry points but not all. Survey the entrance area and install TGSIs wherever a level change, hazard, or path direction change occurs without adequate tactile warning.',
         },
       },
       // Deep Dive Questions
@@ -6469,6 +7364,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether your markings meet the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'Contrasting strips on glass doors prevent collisions for people with low vision.',
+          no: 'Apply contrasting manifestation strips or patterns to all full-height glass doors and sidelights. Strips should be 75mm wide, positioned at two heights (1000mm and 1500mm from floor), and provide min 30% luminance contrast against the glass per AS 1428.1 Cl 13.',
+          partially: 'Contrasting markings are present but may be faded, at one height only, or insufficient contrast. Apply fresh strips at both 1000mm and 1500mm heights and verify they contrast against both the glass and what is visible behind it.',
+        },
       },
       {
         id: '2.2-D-15a',
@@ -6495,6 +7395,11 @@ export const accessModules: AccessModule[] = [
             'Consider marking the clear zone on the ground so staff know where not to place items',
           ],
         },
+        actionText: {
+          yes: 'A clear entrance area free of obstructions supports safe and dignified access for all visitors.',
+          no: 'Remove all obstructions from the entrance area, including A-frames, display stands, stacked stock, and outdoor furniture. Maintain a minimum 1200mm clear path at all times. Establish a daily checklist to keep the entrance zone clear.',
+          partially: 'The entrance is mostly clear but occasional obstructions appear. Formalise a policy that no items are placed within the entrance clearance zone. Include entrance clearance in opening and shift-change checklists.',
+        },
       },
       {
         id: '2.2-D-15b',
@@ -6519,6 +7424,11 @@ export const accessModules: AccessModule[] = [
             'Consider having a staff member manage flow during peak periods to ensure the accessible path stays clear',
             'Events and seasonal changes often bring new congestion patterns — plan ahead for these',
           ],
+        },
+        actionText: {
+          yes: 'Maintaining entrance accessibility during busy periods ensures no visitor is excluded when demand is highest.',
+          no: 'Develop a busy-period management plan that maintains entrance accessibility. Address queue overflow, propped-open doors blocking paths, temporary signage placement, and crowd management. Assign a staff member to monitor entrance access during peak times.',
+          partially: 'The entrance remains mostly accessible during busy periods but some issues occur. Document specific scenarios that cause blockages and create procedures to prevent them. Consider queue barriers that maintain the accessible path width.',
         },
       },
       {
@@ -6545,6 +7455,11 @@ export const accessModules: AccessModule[] = [
             'Watch how the doors perform during actual busy periods, not just when testing in quiet conditions',
             'Consider adding a second sensor lower down if the existing sensor only detects people at standing height',
           ],
+        },
+        actionText: {
+          yes: 'Automatic doors with adequate hold-open time support visitors who move slowly or use mobility aids.',
+          no: 'Adjust automatic door timing to remain open for at least 8 seconds (AS 1735.12 lift doors guideline applied as best practice to auto doors) or until the sensor detects the person has cleared the doorway. Set the closing speed to slow. Install presence sensors rather than motion-only activation.',
+          partially: 'Automatic doors close slightly too quickly for some visitors. Increase the hold-open time and verify the sensor detects slow-moving visitors. Test with someone using a wheelchair or walking frame to confirm adequate timing.',
         },
       },
       {
@@ -6574,6 +7489,11 @@ export const accessModules: AccessModule[] = [
             'It helps to keep vision panels clean and unobstructed by posters or signage',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'A vision panel allows people on both sides to see approaching traffic, preventing collisions.',
+          no: 'Install a vision panel in the entrance door. The panel should extend from at least 500mm to 1500mm above floor level to be visible to both standing and seated users per AS 1428.1 Cl 13. Use safety glass and ensure the panel provides clear visibility.',
+          partially: 'A vision panel exists but may be too small, too high, or obscured. Verify it extends from 500mm to 1500mm above floor level and is not blocked by signage, frosting, or blinds in the critical viewing zone.',
         },
       },
       {
@@ -6605,6 +7525,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 10.1',
+        actionText: {
+          yes: 'Visual contrast between the door and wall helps people with low vision identify the entrance.',
+          no: 'Apply colour or material contrast between the door, door frame, and the surrounding wall surface. Aim for at least 30% luminance contrast per AS 1428.1. Options include painting the frame a contrasting colour or using a door with a distinctly different finish from the wall.',
+          partially: 'Some contrast exists but it is subtle. Measure the luminance contrast and increase it if below 30%. The simplest approach is often repainting the door frame in a colour that contrasts strongly with both the door and the adjacent wall.',
+        },
       },
       // Deep Dive Entrance Wayfinding Questions
       {
@@ -6633,6 +7558,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Directional signage at the entrance helps visitors orient themselves upon entry, reducing confusion.',
+          no: 'Install directional signage inside the entrance indicating key destinations: reception, toilets, lifts, and main service areas. Signs should be at accessible height (1400-1600mm eye level), high-contrast, and use standard symbols alongside text.',
+          partially: 'Some directional signage is present but key destinations are missing. Add signs for all major internal destinations visible from the entrance point. Ensure consistency in style, height, and contrast with the rest of your wayfinding system.',
+        },
       },
       {
         id: '2.2-D-22',
@@ -6660,6 +7590,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A clearly distinguishable entrance helps visitors identify your business from neighbouring premises, reducing confusion.',
+          no: 'Make your entrance clearly distinguishable from neighbouring businesses. Use prominent signage with your business name at an accessible reading height, contrasting door or frame colours, a canopy, or other visual cues that differentiate your entrance.',
+          partially: 'Your entrance is somewhat distinguishable but could be clearer, particularly for first-time visitors or people with low vision. Increase the prominence of your signage, add contrasting elements, or install lighting that highlights your entrance specifically.',
+        },
       },
       {
         id: '2.2-OTHER',
@@ -6819,6 +7754,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.2',
+        actionText: {
+          yes: 'Adequate overhead clearance of at least 2 metres prevents head-strike hazards for all visitors.',
+          no: 'Ensure a minimum 2000mm overhead clearance along all accessible paths per AS 1428.1 Cl 7. Remove, raise, or guard any low-hanging signs, light fittings, ducts, or branches. Where an overhead hazard cannot be removed, install a detectable barrier (cane-detectable at max 680mm height) beneath it.',
+          partially: 'Most paths have adequate clearance but some areas are low. Identify all pinch points below 2000mm and either raise the obstruction or install a cane-detectable guard rail beneath it to warn people with vision impairment.',
+        },
       },
       {
         id: '2.3-D-21',
@@ -6847,6 +7787,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.4, Cl. 3.5, APS D3.3',
+        actionText: {
+          yes: 'Adequate path width allows two people to pass and wheelchairs to turn, supporting comfortable internal circulation.',
+          no: 'Widen internal paths to at least 1000mm continuous clear width, with 1800mm passing spaces where two wheelchairs may need to pass, and a 2070mm diameter turning circle at key junctions per AS 1428.1 Cl 7. Rearrange furniture or displays if needed.',
+          partially: 'Paths meet minimum width in most areas but narrow at certain points. Identify all constrictions and rearrange furniture, displays, or equipment to maintain at least 1000mm clear width throughout, with 1800mm at passing points.',
+        },
       },
       {
         id: '2.3-D-22',
@@ -6874,6 +7819,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 10.3',
+        actionText: {
+          yes: 'Adequate manoeuvring space at internal doors allows wheelchair users to approach and operate doors independently.',
+          no: 'Provide at least 1200mm x 1200mm clear space on both sides of internal doors per AS 1428.1 Cl 13. On the pull side of a hinged door, provide at least 600mm beside the latch edge. Remove any furniture or obstacles restricting this space.',
+          partially: 'Manoeuvring space is adequate at some doors but restricted at others. Survey all internal doors on the accessible route and clear obstructions. Pay particular attention to the latch side of pull-open doors where extra space is critical.',
+        },
       },
       {
         id: '2.3-D-23',
@@ -6902,6 +7852,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 10.1',
+        actionText: {
+          yes: 'Contrasting floor surfaces and doors help people with low vision orient themselves and navigate confidently.',
+          no: 'Increase visual contrast between floor surfaces, internal doors, and walls. Doors and frames should contrast with the adjacent wall by at least 30% luminance. Use contrasting floor colours or materials at transitions. Avoid monochrome colour schemes throughout.',
+          partially: 'Some contrast exists but is inconsistent. Audit each internal door and floor transition for luminance contrast. Prioritise high-traffic doors and key circulation routes for contrast improvements.',
+        },
       },
       // Deep Dive Internal Wayfinding Questions
       {
@@ -6930,6 +7885,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Wayfinding signage to key destinations helps visitors navigate your venue independently.',
+          no: 'Install clear wayfinding signage directing visitors to key internal destinations: toilets, lifts, reception, accessible routes, and main service areas. Use consistent styling, high contrast, and standard symbols. Position signs at every decision point.',
+          partially: 'Some wayfinding signage exists but does not cover all key destinations. Add signs for any unaddressed destinations and ensure the signage system is consistent in style, height, and placement across the venue.',
+        },
       },
       {
         id: '2.3-D-6',
@@ -6960,6 +7920,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8',
+        actionText: {
+          yes: 'Signage at accessible heights serves both standing and seated users effectively.',
+          no: 'Reposition wayfinding signage to accessible heights. Wall-mounted signs should be at 1400-1600mm centre height per AS 1428.1 Cl 8. Avoid placing signs above 1800mm where they cannot be read by seated users or people of short stature.',
+          partially: 'Some signage is at accessible height but others are positioned too high. Audit all internal signs and lower any that are above 1600mm centre height. Ensure consistency across the venue.',
+        },
       },
       {
         id: '2.3-D-7',
@@ -6988,6 +7953,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Providing a floor plan or site map helps visitors orient themselves in larger or complex venues.',
+          no: 'Produce an accessible floor plan or site map and make it available at the entrance and on your website. Use clear labelling, high contrast, large text, and mark accessible routes, lifts, toilets, and exits. Consider tactile or digital versions for visitors with vision impairment.',
+          partially: 'A floor plan exists but may not be accessible (too small, low contrast, or missing accessible route information). Update it with clear labelling of accessible features and provide it in multiple formats (print, digital, and tactile if feasible).',
+        },
       },
       {
         id: '2.3-D-8',
@@ -7019,6 +7989,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8, APS D3.6(e)',
+        actionText: {
+          yes: 'High-contrast, easy-to-read internal signage supports visitors with low vision and cognitive disability.',
+          no: 'Replace or upgrade internal signage to high-contrast (min 70% luminance contrast), sans-serif font, minimum character height appropriate for viewing distance (15mm per metre). Avoid decorative fonts, italics, and all-capitals for body text. Use matt finishes to prevent glare.',
+          partially: 'Most internal signage is readable but some signs are low-contrast or use hard-to-read fonts. Identify and replace non-compliant signs. Prioritise signs at decision points and for key destinations like toilets, lifts, and exits.',
+        },
       },
       {
         id: '2.3-D-9',
@@ -7048,6 +8023,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.4, AS 1428.4.1',
+        actionText: {
+          yes: 'Tactile or auditory wayfinding supports independent navigation for visitors with vision impairment.',
+          no: 'Install tactile wayfinding elements (TGSIs per AS 1428.4.1, tactile signs with Braille and raised lettering per AS 1428.1 Cl 8) at key locations. Consider auditory cues (talking signs, audio beacons) at main destinations. As a minimum, provide tactile room identification signs on accessible toilets, lifts, and exits.',
+          partially: 'Some tactile or auditory wayfinding is in place but coverage is incomplete. Extend tactile signage to all key locations on the accessible route and add TGSIs where visitors need guidance between destinations.',
+        },
       },
       {
         id: '2.3-D-10',
@@ -7076,6 +8056,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Clearly distinguished accessible routes give visitors confidence they are on the correct path.',
+          no: 'Distinguish accessible routes from other paths using signage (ISA with directional arrows), contrasting floor treatments, or tactile indicators. This is especially important where the accessible route differs from the most obvious path.',
+          partially: 'Accessible routes are partially distinguished but could be clearer. Add ISA signage at the start and along each accessible route, and consider contrasting floor treatments to make the route visually distinct.',
+        },
       },
       // Deep Dive Floor Surface and Environment Questions
       {
@@ -7107,6 +8092,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 4.1, AS/NZS 4586',
+        actionText: {
+          yes: 'Slip-resistant floor surfaces reduce the risk of falls for all visitors, particularly in areas that may get wet.',
+          no: 'Replace or treat floor surfaces in wet-prone areas (entrances, near sinks, kitchens, bathrooms) with slip-resistant finishes rated R10 or higher. Ensure slip-resistance is maintained when cleaned. Provide entrance matting to reduce water tracking.',
+          partially: 'Floor surfaces are slip-resistant in most areas but some wet-prone zones remain slippery. Identify the specific locations and apply anti-slip treatment, replace flooring, or install drainage and matting to address the risk.',
+        },
       },
       {
         id: '2.3-D-24',
@@ -7137,6 +8127,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 4.1, Cl. 4.2, Cl. 4.3',
+        actionText: {
+          yes: 'Level, well-maintained floor surfaces free from trip hazards support safe circulation for all visitors.',
+          no: 'Survey all floor surfaces for trip hazards including cracked tiles, lifted edges, loose carpet, cable runs, and abrupt thresholds. Repair or replace damaged surfaces, secure loose edges, and install cable covers. Establish a regular inspection schedule to catch new hazards promptly.',
+          partially: 'Most floor surfaces are in good condition but some trip hazards exist. Identify and rectify all hazards immediately. Flag any issues that require longer-term repair with temporary measures (warning signs, tape, or temporary ramps for thresholds).',
+        },
       },
       {
         id: '2.3-D-12',
@@ -7167,6 +8162,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 4.2',
+        actionText: {
+          yes: 'Adequate lighting throughout circulation paths supports safe, confident navigation for all visitors.',
+          no: 'Increase lighting along all internal circulation paths to at least 160 lux per AS 1680.1. Eliminate dark spots, particularly at intersections, stairs, ramps, and doorways. Use even, diffused lighting to avoid harsh shadows and glare.',
+          partially: 'Lighting is adequate in main areas but some circulation paths have dark spots. Conduct a lighting audit of all paths, stairs, and doorways and supplement where levels fall below 160 lux, focusing on level changes and decision points.',
+        },
       },
       {
         id: '2.3-D-13',
@@ -7195,6 +8195,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Rest seating along longer internal paths supports visitors with limited stamina or chronic pain.',
+          no: 'Install rest seating at regular intervals along longer internal paths (every 30 metres as best practice). Seats should have armrests and backrests, with a firm level space beside the seat for a wheelchair companion. Position seats in alcoves where possible so they do not obstruct the path.',
+          partially: 'Some rest points exist but spacing is too far apart or seating lacks supportive features. Add seating at closer intervals with armrests and backrests. Ensure seats do not narrow the circulation path below 1000mm.',
+        },
       },
       // Deep Dive Internal Door Questions
       {
@@ -7233,6 +8238,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 10.4',
+        actionText: {
+          yes: 'Internal doors are easy to open for people with limited hand strength or dexterity, supporting independent movement.',
+          no: 'Modify internal doors to reduce operating force to max 20N per AS 1428.1 Cl 13. Replace round knobs with D-pull or lever handles. Consider hold-open devices on fire doors (linked to fire alarm), power-assist openers, or removing non-essential doors from the accessible path entirely.',
+          partially: 'Some doors are easy to open but others are heavy or have knob handles. Audit all doors on the accessible route. Prioritise replacing knob handles with levers and adjusting closers to reduce force on the most frequently used doors.',
+        },
       },
       {
         id: '2.3-D-19',
@@ -7262,6 +8272,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 10.2',
+        actionText: {
+          yes: 'Internal doors provide adequate clear width for wheelchairs and mobility aids.',
+          no: 'Widen internal doors to provide at least 850mm clear opening width per AS 1428.1 Cl 13. Where structural constraints prevent widening, consider offset hinges (which gain ~50mm), sliding doors, or removing the door if it is not required for fire or acoustic separation.',
+          partially: 'Most internal doors meet the minimum width but some are slightly narrow. Measure all doors on the accessible route and address those under 850mm clear. Offset hinges can be a cost-effective solution for doors that are close to compliant.',
+        },
       },
       // Deep Dive Internal Stairs Questions (conditional on internal-stairs)
       {
@@ -7292,6 +8307,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8.2',
+        actionText: {
+          yes: 'Handrails on both sides of internal stairs support safe use for people with mobility impairment.',
+          no: 'Install handrails on both sides of all internal stairs. Handrails must be continuous, 865-1000mm above the stair nosing, extend 300mm beyond the top and bottom, with a graspable profile of 30-50mm diameter per AS 1428.1 Cl 11.',
+          partially: 'Handrails are present on one side only or are incomplete. Install a second handrail where missing and verify both comply with AS 1428.1 for height, extension, and graspable profile.',
+        },
       },
       {
         id: '2.3-D-26',
@@ -7321,6 +8341,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8.1',
+        actionText: {
+          yes: 'Contrasting nosing strips on internal stair edges are a critical safety measure for people with low vision.',
+          no: 'Apply contrasting nosing strips to every step edge on internal stairs. Strips must provide min 30% luminance contrast with both the tread and riser, extend the full width, and be 50-75mm on the tread and 30mm on the riser per AS 1428.1 Cl 11.',
+          partially: 'Nosing strips are installed on some stairs but not all, or contrast is fading. Apply fresh strips to every step edge on all internal stairs and verify luminance contrast meets the 30% minimum.',
+        },
       },
       {
         id: '2.3-D-27',
@@ -7348,6 +8373,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8.1(c)',
+        actionText: {
+          yes: 'Enclosed internal stair risers eliminate the catch hazard for mobility aid and prosthetic users.',
+          no: 'Enclose all open risers on internal stairs. Open risers are a catch hazard for cane tips, prosthetic feet, and shoe toes per AS 1428.1 Cl 11. Retrofit riser panels to close any gaps between treads.',
+          partially: 'Some internal stair risers are enclosed but others remain open. Retrofit panels on all remaining open risers to fully eliminate the catch hazard.',
+        },
       },
       {
         id: '2.3-D-28',
@@ -7376,6 +8406,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.4.1 Cl. 2.2',
+        actionText: {
+          yes: 'TGSIs at the top and bottom of internal stairs warn people with vision impairment of the level change.',
+          no: 'Install warning TGSIs (truncated domes) at the top and bottom of all internal stairs per AS 1428.4.1. TGSIs must extend 600mm from the nosing across the full width, with min 30% luminance contrast against the floor surface.',
+          partially: 'TGSIs are present at some internal stairs but missing at others. Survey all internal staircases and install compliant warning TGSIs at the top and bottom of each.',
+        },
       },
       // Deep Dive Internal Ramp Questions (conditional on internal-ramp)
       {
@@ -7409,6 +8444,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 5.3',
+        actionText: {
+          yes: 'Handrails on both sides of internal ramps support safe use for ambulant and wheelchair users.',
+          no: 'Install handrails on both sides of all internal ramps per AS 1428.1 Cl 10. Handrails must be continuous, 865-1000mm above the ramp surface, extend 300mm beyond the top and bottom, with a 30-50mm graspable profile.',
+          partially: 'Handrails are present on one side but missing on the other. Install a second handrail and verify both meet AS 1428.1 for height, extension, and profile.',
+        },
       },
       {
         id: '2.3-D-29',
@@ -7437,6 +8477,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 7.3',
+        actionText: {
+          yes: 'The internal ramp gradient is manageable for wheelchair and walking frame users.',
+          no: 'Regrade or rebuild internal ramps to comply with AS 1428.1 Cl 10: max 1:14 gradient for ramps up to 9m, with level landings at the top, bottom, and at 9m intervals. A gradient of 1:20 or gentler is best practice for longer ramps.',
+          partially: 'The ramp gradient is borderline or steep in sections. Measure all points of the ramp. If any section exceeds 1:14, plan regrading. Add intermediate landings if the ramp length exceeds 9m between rest points.',
+        },
       },
       {
         id: '2.3-D-30',
@@ -7465,6 +8510,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.4.1 Cl. 2.2',
+        actionText: {
+          yes: 'TGSIs at the top and bottom of internal ramps alert people with vision impairment to the gradient change.',
+          no: 'Install warning TGSIs (truncated domes) at the top and bottom of all internal ramps per AS 1428.4.1. TGSIs must extend 600mm from the ramp edge across the full width, with min 30% luminance contrast.',
+          partially: 'TGSIs are present at some ramps but not all. Survey all internal ramps and install compliant warning TGSIs at the top and bottom of each.',
+        },
       },
       // Deep Dive Lift Accessibility Questions (conditional on lift/platform-lift)
       {
@@ -7514,6 +8564,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1735.12',
+        actionText: {
+          yes: 'The lift includes accessible features that support independent use by visitors with disability.',
+          no: 'Upgrade the lift to include accessible features per AS 1735.12: tactile and Braille buttons at 900-1100mm, audible floor announcements, visual floor indicators, a mirror on the rear wall, handrails, and min 900mm door opening with adequate hold-open time.',
+          partially: 'The lift has some accessible features but is missing others. Audit against AS 1735.12 requirements and prioritise adding tactile/Braille buttons, audible announcements, and adequate door timing. A full list of features is provided in the question options.',
+        },
       },
       {
         id: '2.3-D-17',
@@ -7551,6 +8606,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Independent lift operation ensures visitors are not dependent on staff availability to move between levels.',
+          no: 'Modify the lift for independent operation. Remove key-lock requirements, install accessible call and floor buttons at 900-1100mm, set the door hold-open time to at least 8 seconds per AS 1735.12, and provide clear operating instructions in accessible formats.',
+          partially: 'The lift is partially usable without assistance but some functions still require staff help. Identify the specific barriers (key lock, high buttons, short door timing) and address each to enable fully independent use.',
+        },
       },
       // Deep Dive Escalator Questions (conditional on escalator)
       {
@@ -7580,6 +8640,11 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
+        actionText: {
+          yes: 'An accessible alternative to escalators ensures all visitors can move between levels independently.',
+          no: 'Provide a lift or ramp as an accessible alternative alongside every internal escalator. Sign the alternative clearly from the escalator location with the ISA and a directional arrow. Ensure it is operational during all opening hours.',
+          partially: 'An alternative exists but may be poorly signed, difficult to find, or not always operational. Improve signage at the escalator, verify the alternative operates during all hours, and ensure it does not require staff assistance.',
+        },
       },
       {
         id: '2.3-D-32',
@@ -7607,6 +8672,11 @@ export const accessModules: AccessModule[] = [
             'Check TGSIs regularly as they can wear down in high-traffic escalator areas',
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
+        },
+        actionText: {
+          yes: 'TGSIs at escalators alert people with vision impairment to the moving surface.',
+          no: 'Install warning TGSIs (truncated domes) at the top and bottom of all internal escalators per AS 1428.4.1. TGSIs must extend 600mm from the escalator entry point across the full width, with min 30% luminance contrast.',
+          partially: 'TGSIs are present at some escalators but missing at others. Install compliant warning TGSIs at both the top and bottom of every escalator in the venue.',
         },
       },
       // Deep Dive Visual Contrast at Level Changes (conditional on any level change)
@@ -7638,6 +8708,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 4.5, Cl. 6.5',
+        actionText: {
+          yes: 'Visual contrast at level changes helps prevent trips and falls, particularly for people with low vision.',
+          no: 'Apply contrasting visual treatments at all level changes, including step edges, ramp transitions, and floor-level changes. Use materials or paint with at least 30% luminance contrast per AS 1428.1. This includes the top and bottom edges of ramps and each stair nosing.',
+          partially: 'Contrast is provided at some level changes but not all. Audit every level change on the accessible route and apply contrasting treatments where missing, prioritising stairs, ramp edges, and any single-step changes.',
+        },
       },
       // Reflective wrap-up question (after user has considered all specifics)
       {
@@ -7839,6 +8914,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.3',
+        actionText: {
+          yes: 'The queue layout accommodates wheelchair users and people with mobility aids, supporting equitable access.',
+          no: 'Redesign the queue layout to provide at least 1000mm clear width throughout, a 2070mm turning circle at the service point, and no barriers that impede wheelchairs (e.g., narrow stanchion spacing, high rope barriers). Ensure the queue path is level with a firm surface.',
+          partially: 'The queue is partially accessible but some sections are too narrow or difficult to navigate with a mobility aid. Widen the path to 1000mm minimum, space stanchions to allow wheelchair passage, and ensure the route to the service counter is step-free.',
+        },
       },
       {
         id: '2.4-D-5',
@@ -7866,6 +8946,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Visible signage offering queue assistance helps customers who might otherwise struggle in silence.',
+          no: 'Install clear signage at the entrance to queue areas stating that assistance is available for people who need it. Include the ISA and a brief message such as "Ask a team member for queue assistance." Position signs at eye level (1400-1600mm).',
+          partially: 'Signage exists but is not prominent or is placed where many visitors miss it. Relocate or enlarge the sign to ensure it is visible on approach to the queue. Consider adding the same message to digital screens or printed on queue barriers.',
+        },
       },
       {
         id: '2.4-D-6',
@@ -7893,6 +8978,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Alternative queue arrangements support customers who cannot stand for extended periods or manage crowded environments.',
+          no: 'Introduce at least one alternative queue option, such as SMS or app-based notification, a numbered ticket system, call-ahead registration, or a dedicated "queue from seated" option. Advertise the alternative clearly with signage and on your website.',
+          partially: 'An alternative queue option exists but is not widely known or consistently offered. Promote it through signage at the queue entrance, staff prompts, and pre-visit information on your website and booking confirmations.',
+        },
       },
       {
         id: '2.4-D-7',
@@ -7920,6 +9010,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Communicating expected wait times helps all customers plan, and is especially valuable for people with anxiety, fatigue, or pain.',
+          no: 'Implement a system to communicate expected wait times to customers. Options include digital displays, staff announcements, app notifications, or a simple chalkboard. Update the estimate at regular intervals. Provide the information in both visual and auditory formats.',
+          partially: 'Wait times are communicated sometimes but not consistently. Formalise the process so wait times are always visible and updated regularly. Add a visual display if currently relying solely on verbal announcements.',
+        },
       },
       {
         id: '2.4-D-8',
@@ -7949,6 +9044,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.3, APS D3.3',
+        actionText: {
+          yes: 'Maintaining accessible pathways during busy periods ensures customers with disability are not excluded at peak times.',
+          no: 'Develop a crowd management plan that explicitly protects accessible pathways during peak periods. Assign staff to monitor key routes, use barriers that maintain 1000mm clear width, and never use queuing overflow to block accessible paths, ramps, or lift access.',
+          partially: 'Pathways are mostly maintained but occasionally blocked during very busy periods. Formalise procedures and assign staff responsibility for monitoring accessible routes. Use fixed barriers to physically protect minimum path widths.',
+        },
       },
       {
         id: '2.4-D-9',
@@ -7976,6 +9076,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Pre-visit queuing information helps customers plan their arrival and choose quieter times if needed.',
+          no: 'Publish queuing and busy-period information on your website and booking confirmation materials. Include typical wait times, peak periods, quieter alternatives, and any priority access options. Update regularly to reflect seasonal or event-driven changes.',
+          partially: 'Some information is available but it is incomplete or hard to find. Expand coverage to include peak hours, estimated wait times, quiet periods, and any priority access arrangements. Make it prominent on your accessibility information page.',
+        },
       },
       {
         id: '2.4-D-10',
@@ -8003,6 +9108,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Queue seating with armrests supports people who have difficulty standing for extended periods.',
+          no: 'Provide seating with armrests in or adjacent to queue areas. Armrests are essential for people who need support to sit down and stand up. Include a mix of seat heights and ensure at least some seats have firm backrests. Leave a clear space for a wheelchair beside the seating.',
+          partially: 'Seating is available but lacks armrests or is limited in quantity. Add armrests to existing seats or install new chairs with armrests. Ensure seating does not obstruct the queue path and is available at regular intervals in longer queues.',
+        },
       },
       {
         id: '2.4-D-11',
@@ -8032,6 +9142,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.6',
+        actionText: {
+          yes: 'Visible queue barriers help people with low vision navigate the queue safely without collision.',
+          no: 'Ensure all queue barriers (ropes, tapes, stanchions) are visually detectable. Use barriers in colours that contrast with the floor and background (min 30% luminance contrast). Avoid clear or thin barriers that are invisible to people with low vision. Add cane-detectable elements at the base.',
+          partially: 'Some barriers are visible but others are hard to see. Replace any low-visibility barriers (clear tape, thin chrome ropes) with high-contrast alternatives. Check that stanchion bases are detectable with a long cane.',
+        },
       },
       {
         id: '2.4-D-12',
@@ -8061,6 +9176,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 4.3',
+        actionText: {
+          yes: 'Firm, level, slip-resistant queue surfaces support safe access for all visitors, including wheelchair and mobility aid users.',
+          no: 'Ensure floor surfaces in all queue areas are firm, level, and slip-resistant. Replace uneven surfaces, repair cracks, and apply anti-slip treatment where needed. Avoid temporary matting with raised edges that create trip hazards.',
+          partially: 'Most queue surfaces are adequate but some areas are uneven or become slippery. Repair specific problem areas and establish a maintenance routine that includes checking queue surfaces, particularly after cleaning.',
+        },
       },
       {
         id: '2.4-D-13',
@@ -8088,6 +9208,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Audible announcements that reach queue areas help all customers stay informed about their turn.',
+          no: 'Improve audibility of staff announcements in queue areas. Options include a PA system, portable speakers, or staff positioned to project clearly. Supplement audio with visual displays (screens, number boards) so Deaf and hard of hearing customers also receive the information.',
+          partially: 'Announcements are sometimes audible but inconsistent. Adjust speaker placement or volume, reduce competing background noise, and add a visual display to complement audio announcements.',
+        },
       },
       {
         id: '2.4-D-14',
@@ -8115,6 +9240,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Documented and pre-communicated priority access processes set clear expectations for both customers and staff.',
+          no: 'Document your accessible entry and priority access policy and publish it on your website, in booking confirmations, and at the venue entrance. Include what is offered, who is eligible, and how to request it. Train all staff so the process is consistent.',
+          partially: 'A process exists but is not consistently communicated before arrival. Add the information to your website accessibility page, include it in booking confirmations, and ensure signage at the venue makes it clear.',
+        },
       },
       {
         id: '2.4-D-15',
@@ -8142,6 +9272,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Recognising Companion Card and access passes demonstrates commitment to equitable access and streamlines entry for customers with disability.',
+          no: 'Register as a Companion Card affiliate (or your state equivalent) and train staff to recognise and accept the card. Display the Companion Card logo at your entrance and ticketing points. Also consider recognising other access schemes relevant to your industry.',
+          partially: 'You recognise some access passes but not all relevant schemes. Review which passes are common in your state and industry (Companion Card, NDIS participant cards, Carer Cards) and extend recognition. Update signage and staff training accordingly.',
+        },
       },
       {
         id: '2.4-D-16',
@@ -8175,6 +9310,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible queue displays ensure customers with hearing or vision impairment can follow their position in the queue.',
+          no: 'Ensure queue display systems are accessible to people with both hearing and vision impairment. Use large, high-contrast visual displays with number or name callouts alongside audible announcements. Position screens at accessible viewing heights (1200-1600mm). Consider adding a vibrating pager or SMS notification option.',
+          partially: 'Queue displays are partially accessible but do not fully serve customers with hearing or vision impairment. Add visual components if relying on audio only, or audio if relying on visual only. Increase text size and contrast on screens. Consider adding haptic or SMS-based alerts as a supplement.',
+        },
       },
       {
         id: '2.4-OTHER',
@@ -8278,6 +9418,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good range of seating options available for customers.',
+          no: 'Review your seating provision and introduce a variety of options including movable chairs, seats with armrests, and spaces for wheelchair users alongside companions.',
+          partially: 'Some seating options are in place. Review the gaps and prioritise adding wheelchair companion seating, seats with armrests for transfer, and movable furniture for flexible arrangements.',
+        },
       },
       {
         id: '3.1-1-2',
@@ -8396,6 +9541,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.3',
+        actionText: {
+          yes: 'Aisle and pathway widths between furniture meet accessibility requirements.',
+          no: 'Rearrange furniture to achieve minimum 1000mm clear width between obstacles, with 1200mm preferred and 1800mm at passing points, per AS 1428.1:2021 Clause 7.',
+          partially: 'Some pathways meet clearance requirements but others are too narrow. Audit all routes through the space and rearrange furniture where needed to maintain minimum 1000mm clear width consistently.',
+        },
       },
       {
         id: '3.1-D-3',
@@ -8431,6 +9581,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8.1',
+        actionText: {
+          yes: 'Lowered service counter or alternative service point is available.',
+          no: 'Install a lowered section of the service counter at 830mm maximum height with 800mm minimum knee clearance depth, or establish a clearly signed alternative service point accessible to wheelchair users, per AS 1428.1:2021.',
+          partially: 'A partial solution is in place. Ensure the lowered counter section meets 830mm maximum height and 800mm minimum knee clearance, and that it is clearly signed and staffed during operating hours.',
+        },
       },
       {
         id: '3.1-D-4',
@@ -8473,6 +9628,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.8',
+        actionText: {
+          yes: 'Accessible seating provision in fixed seating areas meets requirements.',
+          no: 'Provide wheelchair spaces, extra-width seats, companion seating, and Easy Access (ambulant) seats in fixed seating areas. Wheelchair spaces must be on an accessible path with 900mm minimum width and 1300mm depth per AS 1428.1:2021.',
+          partially: 'Some accessible seating types are provided. Review against AS 1428.1 requirements and add any missing types, particularly wheelchair companion seating and ambulant accessible seats with armrests.',
+        },
       },
       {
         id: '3.1-D-5',
@@ -8510,6 +9670,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Rest seating is available along routes and at key locations.',
+          no: 'Install rest seating at regular intervals along walking routes (every 60m recommended), near high-traffic areas, and at points of interest. Include seats with armrests and backrests at 450mm seat height.',
+          partially: 'Some rest seating is available but coverage is incomplete. Map your walking routes and high-traffic areas, then fill gaps to ensure seating is available at regular intervals throughout.',
+        },
       },
       {
         id: '3.1-D-6',
@@ -8539,6 +9704,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA 1992',
+        actionText: {
+          yes: 'Service animals can be accommodated at seating areas.',
+          no: 'Ensure all seating areas can accommodate assistance animals under the DDA 1992. Provide adequate floor space beside or under tables, avoid blocking emergency exits, and train staff never to refuse entry to recognised assistance animals.',
+          partially: 'Some seating areas accommodate assistance animals. Ensure all seating zones have space for animals to rest comfortably beside their handler, and update staff training to cover all areas.',
+        },
       },
       {
         id: '3.1-D-7',
@@ -8575,6 +9745,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Designated assistance animal relief area is available.',
+          no: 'Establish a designated assistance animal relief area with appropriate surface, drainage, waste disposal, and clear signage. Locate it within reasonable distance of main areas and communicate its location to visitors.',
+          partially: 'A relief area exists but may need improvements. Ensure it has appropriate surface material, waste disposal, signage, and that its location is communicated to visitors on arrival and in pre-visit information.',
+        },
       },
       // Accessible storage, controls, writing surfaces, beds, sightlines, booking, contrast
       {
@@ -8603,6 +9778,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Coat hooks, lockers, and shelving are at accessible heights.',
+          no: 'Install coat hooks and shelving at two heights: one between 900-1100mm and one between 1500-1700mm from the floor. Ensure lockers include options with accessible locks at 900-1100mm height.',
+          partially: 'Some items are at accessible heights. Audit all hooks, lockers, and shelving and add lower options (900-1100mm) where they are currently only at standing height.',
+        },
       },
       {
         id: '3.1-D-9',
@@ -8631,6 +9811,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Controls within the space are at accessible heights and operable.',
+          no: 'Relocate or supplement controls (light switches, outlets, thermostats) to be between 900-1100mm from the floor, operable with one hand, and reachable from a seated position without tight grasping or twisting, per AS 1428.1:2021 Clause 16.',
+          partially: 'Some controls are accessible but others are not. Audit all controls and prioritise relocating those used most frequently by customers to the 900-1100mm height range.',
+        },
       },
       {
         id: '3.1-D-10',
@@ -8665,6 +9850,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible writing surfaces are available where needed.',
+          no: 'Provide an accessible writing surface at locations where forms or paperwork are completed. Include a table or counter at 750-830mm height with minimum 800mm knee clearance and clear floor space for a wheelchair.',
+          partially: 'An accessible writing surface exists but may not be at all locations where paperwork is needed. Ensure every form-filling location has an accessible option with adequate knee clearance and clear floor space.',
+        },
       },
       {
         id: '3.1-D-12',
@@ -8703,6 +9893,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.8',
+        actionText: {
+          yes: 'Wheelchair spaces provide equivalent sightlines to other patrons.',
+          no: 'Reposition wheelchair spaces or install raised platforms so wheelchair users have equivalent sightlines to standing or seated patrons, including when others stand. Sightlines must not be obstructed by barriers or railings per AS 1428.1:2021.',
+          partially: 'Sightlines are partially equivalent. Review wheelchair positions for all event scenarios (seated audience, standing audience) and adjust platforms or locations so views are never blocked.',
+        },
       },
       {
         id: '3.1-D-13',
@@ -8740,6 +9935,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible seating can be booked through the same channels as standard seating.',
+          no: 'Enable accessible seating booking through all standard channels (online, phone, in-person) without requiring a separate process. Remove any requirements for customers to call a special number or provide proof of disability.',
+          partially: 'Accessible seating is bookable through some channels but not all. Extend availability to all booking platforms and remove any extra steps not required for standard seating purchases.',
+        },
       },
       {
         id: '3.1-D-14',
@@ -8768,6 +9968,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         safetyRelated: true,
+        actionText: {
+          yes: 'Furniture provides good visual contrast with the floor.',
+          no: 'Improve visual contrast between furniture and flooring using colour and luminance differences. Ensure a minimum 30% luminance contrast ratio between furniture edges and the floor to aid navigation for people with low vision.',
+          partially: 'Some furniture contrasts well but not all. Prioritise high-traffic areas and replace or modify furniture that blends with the floor, using contrasting edge strips or different coloured seats.',
+        },
       },
       {
         id: '3.1-D-15',
@@ -8801,6 +10006,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Outdoor seating and dining areas are accessible.',
+          no: 'Make outdoor seating areas accessible by providing a level, firm surface, shade or weather protection, an accessible path from indoors, and proximity to accessible toilets. Include movable furniture and a wheelchair-accessible table.',
+          partially: 'Outdoor areas are partially accessible. Address remaining gaps such as uneven surfaces, lack of shade, missing accessible path connections, or distance from accessible toilets.',
+        },
       },
       {
         id: '3.1-OTHER',
@@ -9056,6 +10266,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15.5',
+        actionText: {
+          yes: 'Toilet doors are easy to open and lock from inside.',
+          no: 'Replace toilet door hardware with lever handles or D-pulls operable with one hand. Ensure the lock is a sliding bolt type easy to operate without fine motor skills. The accessible toilet door must open outward or slide, and provide minimum 850mm clear opening width per AS 1428.1:2021 Clause 19.',
+          partially: 'Some doors are compliant. Upgrade remaining toilet door hardware to lever or D-pull type with accessible locking mechanisms and ensure minimum 850mm clear opening width.',
+        },
       },
       {
         id: '3.2-D-2',
@@ -9087,6 +10302,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Baby change facilities are accessible.',
+          no: 'Install at least one baby change station at an accessible height (no higher than 900mm when folded down), with clear floor space for a wheelchair, and accessible from the accessible toilet or a separate accessible room. Do not restrict baby change to female-only facilities.',
+          partially: 'Baby change is partially accessible. Ensure the accessible baby change has adequate clear floor space, appropriate height, and is not restricted to a single-gender facility.',
+        },
       },
       {
         id: '3.2-D-3',
@@ -9118,6 +10338,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Ambulant accessible toilet is provided.',
+          no: 'Install an ambulant accessible toilet cubicle per AS 1428.1:2021 Clause 20, with minimum 900mm width, a grab rail on the side wall, 540mm minimum from the pan centreline to the near wall, and outward-opening door.',
+          partially: 'An ambulant toilet exists but may not fully comply. Review against AS 1428.1 Clause 20 requirements for dimensions, grab rail positioning, and door swing direction.',
+        },
       },
       {
         id: '3.2-D-4',
@@ -9146,6 +10371,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 12.2.1',
+        actionText: {
+          yes: 'Taps are lever-type, sensor-operated, or otherwise accessible.',
+          no: 'Replace all taps in accessible facilities with lever-type, sensor-operated, or push-type taps that can be operated without gripping or twisting, per AS 1428.1:2021 Clause 19.5. Set sensor taps to stay on for at least 10 seconds.',
+          partially: 'Some taps are accessible. Replace remaining cross-head or round taps with lever or sensor-operated alternatives in all accessible toilet and amenity areas.',
+        },
       },
       {
         id: '3.2-D-5',
@@ -9181,6 +10411,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 12.4.3',
+        actionText: {
+          yes: 'Soap dispensers and hand-drying facilities are accessible and locatable.',
+          no: 'Install soap dispensers and hand dryers at 900-1100mm height, reachable from a seated position. Use push-button or sensor-operated dispensers. Position near the washbasin and ensure they contrast visually with the wall.',
+          partially: 'Some dispensers are accessible. Ensure all soap and drying facilities in accessible toilets are within reach at 900-1100mm, operable with one hand, and visually easy to locate.',
+        },
       },
       {
         id: '3.2-D-6',
@@ -9216,6 +10451,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 12.4.5',
+        actionText: {
+          yes: 'Sanitary disposal and waste bins are accessible in the accessible toilet.',
+          no: 'Provide sanitary disposal and waste bins in the accessible toilet at accessible height (500-1100mm), within reach of the toilet, operable with one hand, and available regardless of the gender of the user.',
+          partially: 'Some bins are provided but accessibility could be improved. Ensure bins are at the correct height range, within reach from the toilet, and operable with one hand without tight grasping.',
+        },
       },
       {
         id: '3.2-D-7',
@@ -9248,6 +10488,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Adult change facilities are available.',
+          no: 'Install an adult change facility (Changing Places standard) with a height-adjustable adult-sized change table (minimum 1800x750mm), ceiling hoist, adequate clear floor space, and a privacy screen. This is separate from the standard accessible toilet.',
+          partially: 'Adult change facilities are partially provided. Review against Changing Places specifications and address any missing elements such as ceiling hoist, height-adjustable bench, or adequate space.',
+        },
       },
       // Observational questions for "Not sure" path
       {
@@ -9285,6 +10530,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15.3',
+        actionText: {
+          yes: 'Grab rails are present on both sides of the toilet.',
+          no: 'Install grab rails per AS 1428.1:2021 Clause 19.3: a 600mm drop-down rail on the transfer side at 800-810mm height, and a fixed rail on the wall side. Both must support 1100N and have 30-40mm diameter with 35-45mm wall clearance.',
+          partially: 'Grab rails are partially installed. Ensure both a drop-down rail on the transfer side and a fixed rail on the wall side are in place at the correct heights and load-bearing capacity per AS 1428.1.',
+        },
       },
       {
         id: '3.2-D-9',
@@ -9320,6 +10570,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15.2',
+        actionText: {
+          yes: 'Adequate clear space is provided beside the toilet for wheelchair transfer.',
+          no: 'Reconfigure the accessible toilet layout to provide minimum 900mm clear space on the transfer side of the toilet pan, with a 1160mm minimum circulation space, per AS 1428.1:2021 Clause 19. Remove any obstructions in the transfer zone.',
+          partially: 'Some transfer space exists but may be restricted. Measure the clear space on the transfer side and remove any encroaching items (bins, dispensers) to achieve the minimum 900mm clearance.',
+        },
       },
       {
         id: '3.2-D-10',
@@ -9355,6 +10610,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15.4',
+        actionText: {
+          yes: 'Washbasin is accessible from a seated position.',
+          no: 'Install a washbasin with the rim at maximum 830mm height, minimum 600mm knee clearance underneath, and insulated or recessed pipes to prevent burns. Ensure it is reachable from a wheelchair without obstruction per AS 1428.1:2021 Clause 19.5.',
+          partially: 'The washbasin is partially accessible. Check height, knee clearance, and pipe protection against AS 1428.1 Clause 19.5 and address any non-compliant elements.',
+        },
       },
       {
         id: '3.2-D-11',
@@ -9390,6 +10650,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15.5',
+        actionText: {
+          yes: 'Toilet fittings are easy to reach from the toilet.',
+          no: 'Reposition fittings so they are reachable from the toilet: flush control within 300mm of the front of the cistern on the transfer side, toilet paper holder 600-700mm from the floor within arm reach, and coat hook at 1200mm height on the back of the door per AS 1428.1:2021.',
+          partially: 'Some fittings are within reach but others are not. Audit each fitting position against AS 1428.1 requirements and relocate those that are difficult to reach from a seated position.',
+        },
       },
       {
         id: '3.2-D-12',
@@ -9425,6 +10690,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15.4.7',
+        actionText: {
+          yes: 'Mirror is usable from both standing and seated positions.',
+          no: 'Install a mirror with the bottom edge at 900mm or lower and the top edge at 1850mm or higher, or provide a tilted mirror, so it serves both standing and seated users per AS 1428.1:2021.',
+          partially: 'A mirror is available but may not serve all users. Adjust the mirror height or angle so both seated (900mm bottom edge) and standing users (1850mm top edge) can use it.',
+        },
       },
       {
         id: '3.2-D-13',
@@ -9460,6 +10730,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15.3.8',
+        actionText: {
+          yes: 'Toilet backrest is provided.',
+          no: 'Install a padded backrest behind the toilet cistern or mounted on the wall at an appropriate height to support users who need trunk support, as specified in AS 1428.1:2021.',
+          partially: 'A backrest is present but may need adjustment. Ensure it is securely mounted, appropriately padded, and at the correct height to provide trunk support for a range of users.',
+        },
       },
       {
         id: '3.2-D-14',
@@ -9496,6 +10771,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 6',
+        actionText: {
+          yes: 'Surfaces and fittings provide adequate visual contrast.',
+          no: 'Improve visual contrast of toilet fittings against walls and floors. Grab rails, flush buttons, door handles, and sanitary fittings should have a minimum 30% luminance contrast ratio against their background per AS 1428.1:2021 Clause 19.',
+          partially: 'Some fittings contrast well but others blend with surfaces. Prioritise grab rails, flush buttons, and door hardware for contrast improvements using differing colours or luminance values.',
+        },
       },
       {
         id: '3.2-OTHER',
@@ -9809,6 +11089,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Lighting can be adjusted or dimmed in some areas.',
+          no: 'Install dimmable lighting or provide areas with adjustable light levels. This supports people with light sensitivity, migraines, autism, and acquired brain injury. Ensure controls are accessible at 900-1100mm height.',
+          partially: 'Some areas have adjustable lighting. Extend dimmable options to reception, waiting areas, and other key service points where customers spend extended time.',
+        },
       },
       {
         id: '3.3-D-2',
@@ -9837,6 +11122,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2 Cl. 19',
+        actionText: {
+          yes: 'Lighting is even and consistent at key service areas.',
+          no: 'Improve lighting at service counters, reception, and information points to a minimum 300 lux evenly distributed, avoiding shadows on faces. Good lighting at these points is essential for lipreading and clear communication.',
+          partially: 'Lighting is adequate in some service areas but not all. Audit illumination levels at every counter and communication point, ensuring even 300 lux minimum with no harsh shadows.',
+        },
       },
       {
         id: '3.3-D-3',
@@ -9867,6 +11157,11 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2',
         safetyRelated: true,
+        actionText: {
+          yes: 'Glare is well managed throughout the venue.',
+          no: 'Address glare by installing non-reflective floor surfaces, matte finishes on counters, blinds or film on windows, and transitional lighting at entrances. Glare creates fall risks and makes lipreading and sign reading difficult.',
+          partially: 'Glare is managed in some areas. Identify remaining problem spots (large windows, reflective floors, polished counters) and apply anti-glare treatments such as blinds, matte finishes, or repositioned lighting.',
+        },
       },
       // Sound & Acoustics
       {
@@ -9905,6 +11200,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.5',
+        actionText: {
+          yes: 'Good range of acoustic design features in use.',
+          no: 'Introduce acoustic management measures such as sound-absorbing ceiling panels, carpet or soft flooring in key areas, fabric furnishings, and acoustic screens. Target a background noise level below 45dB in customer service areas.',
+          partially: 'Some acoustic treatments are in place. Extend sound-absorbing materials to remaining areas with high noise levels, particularly service counters, waiting areas, and enclosed spaces.',
+        },
       },
       {
         id: '3.3-D-5',
@@ -9932,6 +11232,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Background music volume is adjustable or manageable.',
+          no: 'Install zone controls for background music so volume can be reduced or muted in service areas. Background music above 50dB significantly impairs communication for hearing aid users and people who lipread.',
+          partially: 'Music is manageable in some zones. Extend zone controls so staff can adjust or mute music in key communication areas (service counters, information points) when needed.',
+        },
       },
       {
         id: '3.3-D-6',
@@ -9970,6 +11275,11 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.7(4)',
         safetyRelated: true,
+        actionText: {
+          yes: 'PA announcements are supplemented with visual or text alternatives.',
+          no: 'Install visual display screens at key locations that show text versions of PA announcements, especially safety and emergency alerts. This is essential for Deaf and hard of hearing customers. Emergency announcements must always have a visual alternative per the DDA.',
+          partially: 'Some visual alternatives exist. Ensure all locations where PA announcements are audible also have visual display screens showing text equivalents, particularly for emergency and safety alerts.',
+        },
       },
       // Hearing Augmentation
       {
@@ -10009,6 +11319,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.5',
+        actionText: {
+          yes: 'Hearing loops are installed at key locations.',
+          no: 'Install hearing (induction) loops at service counters, ticketing points, information desks, and any performance or meeting spaces per AS 1428.5 and AS 60118.4. Loops must provide a consistent field strength of 400mA/m with less than plus or minus 3dB variation.',
+          partially: 'Hearing loops are installed in some locations. Extend coverage to all service counters, meeting rooms, and performance areas. Prioritise the reception desk and main service point.',
+        },
       },
       {
         id: '3.3-D-8',
@@ -10043,6 +11358,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.5',
+        actionText: {
+          yes: 'Hearing loop signage is clearly displayed.',
+          no: 'Install the international hearing loop symbol (blue ear with T) at every location where a loop is operational, at eye level, and visible before reaching the counter. Signs must comply with AS 1428.1 for size and contrast.',
+          partially: 'Signage exists at some locations. Audit all loop-equipped areas and add the international symbol where missing, ensuring signs are at eye level and visible on approach.',
+        },
       },
       // Sensory Environment
       {
@@ -10088,6 +11408,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Quiet space has supportive features for sensory regulation.',
+          no: 'Equip your quiet space with dimmable lighting, comfortable seating, minimal visual stimuli, noise-reducing features, and clear signage. Include a timer or visual cue so users know how long they can stay, and locate it away from noisy areas.',
+          partially: 'Some sensory regulation features are in place. Add any missing elements such as dimmable lighting, noise reduction, or comfortable seating to create a more effective space for sensory breaks.',
+        },
       },
       {
         id: '3.3-D-10',
@@ -10122,6 +11447,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Sensory map or guide is available for the venue.',
+          no: 'Create a sensory map showing noise levels, lighting conditions, quiet zones, and potential sensory triggers throughout the venue. Make it available online and in print at reception to help visitors plan their route.',
+          partially: 'A sensory guide exists but may be incomplete. Review and update it to cover all areas, including noise levels, lighting, sensory triggers, and quiet zones, and ensure it is available both online and on-site.',
+        },
       },
       {
         id: '3.3-D-11',
@@ -10155,6 +11485,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Scent or fragrance policy is in place.',
+          no: 'Develop a scent and fragrance policy that avoids strong air fresheners, reduces use of scented cleaning products, and communicates fragrance expectations to staff. Many people with chemical sensitivities, asthma, or autism are affected by fragrances.',
+          partially: 'A partial policy is in place. Strengthen it to cover all areas including cleaning products, air fresheners, and staff personal fragrance, and communicate the policy visibly.',
+        },
       },
       {
         id: '3.3-D-12',
@@ -10188,6 +11523,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Sensory information is included in pre-visit materials.',
+          no: 'Add sensory information to your website and pre-visit materials including noise levels, lighting conditions, available quiet spaces, and potential sensory triggers. This helps people with sensory processing differences plan their visit.',
+          partially: 'Some sensory information is provided. Expand to cover all relevant areas, including noise levels, lighting, fragrance policies, quiet zones, and any sensory triggers visitors may encounter.',
+        },
       },
       // Wayfinding & Tactile
       {
@@ -10223,6 +11563,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Colour-coded or landmark wayfinding elements are in place.',
+          no: 'Introduce colour-coded zones, visual landmarks, or themed wayfinding elements to aid navigation. These help people with cognitive disability, acquired brain injury, or those unfamiliar with the venue to orient themselves independently.',
+          partially: 'Some wayfinding elements exist. Extend the system to cover all main routes and decision points, using consistent colour coding or landmarks that are easy to remember and describe.',
+        },
       },
       {
         id: '3.3-D-14',
@@ -10256,6 +11601,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Tactile elements are used in signage, wayfinding, or experiences.',
+          no: 'Incorporate tactile elements into your venue including tactile ground surface indicators at key locations, raised lettering on room signage, and tactile maps or models at entry points per AS 1428.4.1.',
+          partially: 'Some tactile elements are provided. Extend coverage to all key decision points, room signs, and entry areas, and ensure TGSIs are installed at stairs, ramps, and hazard locations per AS 1428.4.1.',
+        },
       },
       // Safety
       {
@@ -10294,6 +11644,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1670.4, APS D3.9',
+        actionText: {
+          yes: 'Visual emergency alerts are installed throughout the venue.',
+          no: 'Install visual emergency alerting (flashing strobes) throughout the venue, including in accessible toilets, meeting rooms, and all public areas. Flash rate must be between 1-3Hz per AS 1670.4 and NCC requirements. This is critical for Deaf and hard of hearing people.',
+          partially: 'Visual alerts are installed in some areas. Extend coverage to all public areas, accessible toilets, meeting rooms, and any area where people may be alone. Verify flash rate and brightness compliance.',
+        },
       },
       {
         id: '3.3-OTHER',
@@ -10363,6 +11718,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Equipment and resources are offered for customer use.',
+          no: 'Introduce equipment and resources that customers can use during their visit. Start with high-impact items such as portable hearing loops, magnifying glasses, wheelchairs, and sensory kits.',
+          partially: 'Some equipment is available. Review customer feedback and common requests to identify gaps and prioritise additional items that would improve the visit experience.',
+        },
       },
       {
         id: '3.4-F-2',
@@ -10396,6 +11756,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Customers are informed about available equipment before visiting.',
+          no: 'Add information about available accessibility equipment to your website, booking confirmation emails, and social media. Include what is available, how to request it, and whether booking is required.',
+          partially: 'Equipment information is available through some channels. Extend to all pre-visit touchpoints including the website accessibility page, booking confirmations, and phone enquiry scripts.',
+        },
       },
       {
         id: '3.4-F-3',
@@ -10431,6 +11796,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Equipment is easy to access or request on arrival.',
+          no: 'Create a simple process for customers to access equipment on arrival. Place items at reception or a clearly signed collection point, train front-line staff on what is available, and ensure no justification is required.',
+          partially: 'Equipment can be accessed but the process could be smoother. Reduce barriers by placing commonly requested items at reception, simplifying request processes, and training all front-of-house staff.',
+        },
       },
       {
         id: '3.4-F-4',
@@ -10464,6 +11834,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Equipment is provided free of charge.',
+          no: 'Remove charges for accessibility equipment. Charging for items that enable basic participation creates a barrier and may constitute discrimination under the DDA 1992. Factor equipment costs into general operating budgets.',
+          partially: 'Some equipment is free but others have a fee. Review all charges and remove fees for accessibility-related equipment. People should not pay extra for equitable access.',
+        },
       },
       // Deep Dive Questions
       {
@@ -10504,6 +11879,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good range of equipment and resources available for customers.',
+          no: 'Build an equipment library including portable hearing loops, wheelchairs, magnifiers, communication boards, sensory kits, and large-print materials. Prioritise based on your visitor profile and venue type.',
+          partially: 'Some equipment is available. Identify gaps based on customer requests and feedback, and prioritise adding items that are most frequently needed at your venue.',
+        },
       },
       {
         id: '3.4-D-2',
@@ -10538,6 +11918,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Designated quiet space or chill-out zone is available.',
+          no: 'Establish a designated quiet space with dimmable lighting, comfortable seating, low stimulation decor, and clear signage. Locate it away from noisy areas and ensure it is on an accessible path of travel.',
+          partially: 'A quiet space exists but needs enhancement. Improve it with adjustable lighting, more comfortable seating, reduced visual stimuli, and clearer signage directing visitors to it.',
+        },
       },
       {
         id: '3.4-D-3',
@@ -10574,6 +11959,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Wheelchairs or mobility aids are available for customer use.',
+          no: 'Provide a range of manual wheelchairs and consider motorised scooters for larger venues. Include regular and bariatric sizes. Store them near the entrance and train staff on safe operation and basic adjustments.',
+          partially: 'Some mobility aids are available. Review the range and condition, and consider adding bariatric options, motorised scooters for large venues, or additional standard wheelchairs to meet demand.',
+        },
       },
       {
         id: '3.4-D-4',
@@ -10608,6 +11998,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Sensory support items are provided.',
+          no: 'Assemble sensory support kits including noise-cancelling headphones, fidget tools, sunglasses, weighted lap pads, and visual timers. Make them available at reception for free loan during visits.',
+          partially: 'Some sensory items are available. Expand the range to include a broader variety such as noise-cancelling headphones, fidget tools, sunglasses for light sensitivity, and visual timers.',
+        },
       },
       {
         id: '3.4-D-5',
@@ -10640,6 +12035,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Communication aids are available for customers.',
+          no: 'Provide communication aids including picture-based communication boards, pen and paper, a tablet with communication app, and clear face masks for lipreading. Train staff to use them confidently.',
+          partially: 'Some communication aids exist. Add further options such as picture communication boards, a tablet with AAC app, or clear face masks, and ensure staff are trained in their use.',
+        },
       },
       {
         id: '3.4-D-6',
@@ -10673,6 +12073,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Equipment is well maintained and regularly checked.',
+          no: 'Establish a maintenance schedule for all accessibility equipment. Include regular cleaning, battery checks, functionality testing, and prompt repair or replacement. Log checks and assign responsibility.',
+          partially: 'Some maintenance occurs but not systematically. Create a formal schedule with assigned responsibility, regular check dates, and a process for taking broken items out of service promptly.',
+        },
       },
       {
         id: '3.4-D-7',
@@ -10707,6 +12112,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Equipment caters for a range of body sizes and needs.',
+          no: 'Expand equipment range to include options for different body sizes such as bariatric wheelchairs (minimum 600mm seat width), extra-large sensory headphones, and adjustable-height mobility aids.',
+          partially: 'Some size variety exists. Audit the equipment range for body size inclusivity and add bariatric or larger-sized options where gaps exist, particularly for wheelchairs and seating.',
+        },
       },
       {
         id: '3.4-D-8',
@@ -10740,6 +12150,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff know what equipment is available and how to provide it.',
+          no: 'Train all customer-facing staff on the full inventory of accessibility equipment, where it is stored, how to operate each item, and how to offer it proactively and respectfully. Include this in onboarding.',
+          partially: 'Some staff are trained. Extend training to all customer-facing roles including casual and new staff, and add equipment knowledge to induction checklists.',
+        },
       },
       {
         id: '3.4-D-9',
@@ -10774,6 +12189,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Clear understanding of what would help expand equipment provision.',
+          no: 'Conduct a needs assessment through customer feedback, staff observations, and benchmarking against similar venues to identify which additional equipment would have the greatest impact.',
+          partially: 'Some barriers are identified. Develop a prioritised plan addressing budget, storage, staffing, and procurement to systematically expand your equipment offerings.',
+        },
       },
       // Pool and aquatic facility accessibility
       {
@@ -10813,6 +12233,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 16',
+        actionText: {
+          yes: 'Accessible pool entry options are available.',
+          no: 'Install accessible entry to the pool per AS 1428.1:2021. Options include a pool hoist (minimum 136kg capacity), zero-depth entry (beach entry), or a submersible wheelchair ramp. Provide at least one independent entry option.',
+          partially: 'Some accessible entry exists. Review options against best practice and ensure at least one independent entry method is available alongside assisted options such as a pool hoist or ramp.',
+        },
       },
       {
         id: '3.4-D-11',
@@ -10847,6 +12272,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Aquatic wheelchairs are available for pool access.',
+          no: 'Provide at least one aquatic wheelchair rated for pool use, including a bariatric option for larger venues. Store near the pool entrance with clear instructions and train lifeguard staff on safe use.',
+          partially: 'Aquatic wheelchairs are available but the provision may be limited. Review demand, add a second chair or bariatric option if needed, and ensure staff are confident assisting with transfers.',
+        },
       },
       {
         id: '3.4-D-12',
@@ -10882,6 +12312,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15',
+        actionText: {
+          yes: 'Accessible changing and showering near the pool meets requirements.',
+          no: 'Provide accessible change rooms and showers near the pool per AS 1428.1:2021. Include a roll-in shower with fold-down seat, grab rails, non-slip flooring, and minimum 1540mm turning circle. Ensure a direct accessible route to the pool.',
+          partially: 'Accessible changing exists but may have gaps. Review against AS 1428.1 for shower dimensions, grab rail positioning, non-slip surfaces, and proximity to the pool entrance.',
+        },
       },
       {
         id: '3.4-D-13',
@@ -10913,6 +12348,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Visual and audible warnings for wave pools and water features are in place.',
+          no: 'Install both visual (flashing lights) and audible (alarm/siren) warnings that activate before wave machines, water cannons, or other features start. Give at least 30 seconds warning and include signage explaining the warning system.',
+          partially: 'Some warnings exist. Ensure both visual and audible alerts are provided for all water features, with adequate lead time and clear signage explaining the warning signals.',
+        },
       },
       {
         id: '3.4-D-14',
@@ -10946,6 +12386,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'WiFi or reliable connectivity is available for assistive technology users.',
+          no: 'Provide free WiFi throughout public areas to support visitors who use assistive technology apps for navigation, communication, hearing, or translation. Ensure coverage includes outdoor areas and all levels.',
+          partially: 'WiFi is available in some areas. Extend coverage to all public spaces, particularly outdoor areas, and ensure signal strength supports real-time assistive technology apps.',
+        },
       },
       {
         id: '3.4-D-15',
@@ -10979,6 +12424,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Device charging points are available for visitors.',
+          no: 'Install accessible charging points (USB and power outlets) at key locations including reception, waiting areas, and rest seating. Position at 600-1100mm height so wheelchair users can reach them independently.',
+          partially: 'Some charging points exist. Add more at key rest points and waiting areas, and ensure at least some are at accessible heights (600-1100mm) for wheelchair users.',
+        },
       },
       {
         id: '3.4-OTHER',
@@ -11171,6 +12621,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.5',
+        actionText: {
+          yes: 'Key signs include tactile lettering and Braille.',
+          no: 'Add tactile lettering and Grade 1 Braille to all key signs including room identification, toilet signs, exit signs, and level indicators per AS 1428.1:2021 Clause 18 and AS 1428.4.2. Mount at 1250-1500mm height on the latch side of doors.',
+          partially: 'Some signs have tactile lettering and Braille. Audit all key locations and add compliant tactile signage where missing, particularly toilets, exits, lifts, and room identification signs.',
+        },
       },
       {
         id: '3.5-D-2',
@@ -11208,6 +12663,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.5',
+        actionText: {
+          yes: 'Signs have adequate colour contrast between text and background.',
+          no: 'Upgrade signage to meet minimum 70% luminance contrast ratio between text and background per AS 1428.1:2021 Clause 18. Use light text on dark background or vice versa. Avoid patterned backgrounds and ensure characters are sans-serif.',
+          partially: 'Some signs have good contrast but others do not. Audit all signage for luminance contrast and replace non-compliant signs, prioritising safety and wayfinding signs.',
+        },
       },
       {
         id: '3.5-D-3',
@@ -11236,6 +12696,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.2',
+        actionText: {
+          yes: 'Directional signage is provided at key decision points.',
+          no: 'Install directional signage at every point where a visitor needs to make a navigation decision, including corridor intersections, floor landings, and major room entries. Include arrows, distances, and key facility locations (toilets, exits, lifts) per AS 1428.1:2021.',
+          partially: 'Directional signs exist at some decision points. Map the visitor journey and identify all decision points where signage is needed, prioritising routes to toilets, exits, and lifts.',
+        },
       },
       {
         id: '3.5-D-4',
@@ -11269,6 +12734,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Map, floor plan, or directory is available showing layout and key facilities.',
+          no: 'Create an accessible map or directory showing the venue layout including accessible toilets, lifts, exits, quiet spaces, hearing loop locations, and accessible parking. Provide in large print, digital, and tactile formats at the entrance.',
+          partially: 'A map or directory exists but may not be fully accessible or complete. Update it to include all accessible facilities, provide in multiple formats (large print, digital, tactile), and place at the main entrance.',
+        },
       },
       {
         id: '3.5-D-5',
@@ -11296,6 +12766,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Clear signage is visible on approach and at the entrance.',
+          no: 'Install clear, high-contrast signage on the approach to your venue and at the entrance. Include the venue name, entrance location, and international accessibility symbols where relevant. Ensure signs are visible from the street and car park.',
+          partially: 'Some approach signage exists. Improve visibility by adding larger or better-lit signs on the street frontage, at the car park exit, and near the main entrance.',
+        },
       },
       {
         id: '3.5-D-6',
@@ -11325,6 +12800,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'BCA Cl. E4.5-E4.8',
+        actionText: {
+          yes: 'Emergency exit signs are clearly visible and illuminated.',
+          no: 'Install illuminated emergency exit signs per AS 2293 at all exits and along escape routes. Signs must be visible from the accessible path of travel, include the running-person pictogram, and remain lit during power failure with battery backup.',
+          partially: 'Some exit signs are compliant but coverage is incomplete. Audit all escape routes and add illuminated signs where missing, ensuring visibility from all points on the accessible path of travel.',
+        },
       },
       {
         id: '3.5-D-7',
@@ -11356,6 +12836,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Pictures, symbols, or Easy Read formats are used alongside text on key signs.',
+          no: 'Add universally recognised pictograms and symbols to key signs (toilets, exits, lifts, reception). Consider Easy Read versions of complex information such as venue rules or instructions for people with intellectual disability.',
+          partially: 'Some signs use symbols or pictograms. Extend to all key wayfinding and facility signs, and create Easy Read versions of any complex information or instructions.',
+        },
       },
       {
         id: '3.5-OTHER',
@@ -11578,6 +13063,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'QR codes link to accessible content.',
+          no: 'Ensure all QR code destinations are WCAG 2.2 AA compliant: proper heading structure, alt text for images, sufficient colour contrast, keyboard navigable, and compatible with screen readers. Test with VoiceOver and TalkBack.',
+          partially: 'Some QR destinations are accessible. Audit all linked content against WCAG 2.2 AA and fix accessibility issues, prioritising the most frequently used QR codes.',
+        },
       },
       {
         id: '3.6-D-2',
@@ -11606,6 +13096,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'QR codes are well-sized and well-positioned.',
+          no: 'Resize QR codes to at least 30x30mm and position between 900-1200mm height, reachable from a seated position, on a contrasting background, and away from glare. Add a short text description of where the code leads.',
+          partially: 'Some QR codes are well-positioned but others are not. Audit placements for height, size, contrast, and reachability from a wheelchair, and reposition any that are inaccessible.',
+        },
       },
       {
         id: '3.6-D-3',
@@ -11638,6 +13133,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Braille versions of materials are offered.',
+          no: 'Engage a certified Braille transcription service to produce Braille versions of key materials (menus, safety information, visitor guides). Store copies at reception and advertise their availability in pre-visit information.',
+          partially: 'Some materials are in Braille. Expand to cover all key documents, ensure Braille versions are updated when originals change, and store them in a known, easily accessed location.',
+        },
       },
       {
         id: '3.6-D-4',
@@ -11671,6 +13171,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Audio descriptions or audio guides are available.',
+          no: 'Develop audio descriptions or audio guides for key content, exhibitions, or experiences. Use professional narration, include wayfinding cues, and make them available via an app, QR code, or loanable audio player.',
+          partially: 'Audio guides cover some content. Extend descriptions to all major exhibits, displays, or experiences, and ensure the delivery method (app, device, QR code) is easy to access.',
+        },
       },
       {
         id: '3.6-D-5',
@@ -11704,6 +13209,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Materials are available in languages other than English.',
+          no: 'Identify the most common languages spoken by your visitors and produce translations of key materials. Consider Auslan video for Deaf visitors. At minimum, provide safety information and wayfinding in the top community languages for your area.',
+          partially: 'Some translated materials are available. Expand to cover additional languages based on visitor demographics and ensure translations are professionally done and kept up to date.',
+        },
       },
       {
         id: '3.6-D-6',
@@ -11737,6 +13247,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Tactile maps or models are provided.',
+          no: 'Commission tactile maps or models for key areas of the venue. Include raised lines for pathways, textured areas for different zones, and Braille labels. Position at the main entrance at a height accessible from a seated position.',
+          partially: 'Some tactile maps or models exist. Review coverage and accuracy, and add tactile representations at additional key points such as secondary entrances or each floor level.',
+        },
       },
       {
         id: '3.6-D-7',
@@ -11772,6 +13287,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Videos and multimedia content are captioned.',
+          no: 'Add accurate captions (not auto-generated) to all video and multimedia content. Captions must include dialogue, speaker identification, and relevant sound effects per WCAG 2.2 Success Criterion 1.2.2.',
+          partially: 'Some content is captioned. Audit all video and multimedia and add professional captions where missing. Review existing captions for accuracy, particularly speaker identification and sound effects.',
+        },
       },
       {
         id: '3.6-D-8',
@@ -11806,6 +13326,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Videos include audio description for visual content.',
+          no: 'Add audio description to videos that contain important visual information not conveyed by the soundtrack. Describe key visual elements during natural pauses in dialogue per WCAG 2.2 Success Criterion 1.2.5.',
+          partially: 'Some videos have audio description. Extend coverage to all videos with significant visual content, prioritising safety videos, promotional content, and key exhibit or experience videos.',
+        },
       },
       // Media Analysis Questions
       {
@@ -11910,6 +13435,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Menus and printed materials are physically easy to handle.',
+          no: 'Provide materials that are easy to handle: use sturdy card stock or rigid clipboards for menus, offer large-print versions (minimum 16pt), and ensure pages can be turned with one hand. Avoid laminated surfaces that cause glare.',
+          partially: 'Some materials are easy to handle. Review all customer-facing print materials and improve any that are flimsy, glossy, small-print, or difficult to hold and read with one hand.',
+        },
       },
       {
         id: '3.6-D-10',
@@ -11943,6 +13473,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Alternative format materials are kept up to date.',
+          no: 'Establish a process to update alternative format materials (Braille, large print, audio, Easy Read) whenever the standard version changes. Assign responsibility and set review dates to prevent outdated information being provided.',
+          partially: 'Some alternative formats are current. Establish a systematic update process with assigned responsibility so that all formats are refreshed whenever standard materials change.',
+        },
       },
       {
         id: '3.6-D-11',
@@ -11970,6 +13505,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Pricing information is easy to read and locate.',
+          no: 'Display prices in large, high-contrast text (minimum 18pt) at a readable height (1000-1600mm). Include prices on menus, product labels, and digital displays. Avoid small print or placement that requires bending or reaching.',
+          partially: 'Pricing is readable in some areas. Audit all price displays for text size, contrast, and positioning, and improve any that are hard to read due to small font, poor contrast, or awkward placement.',
+        },
       },
       {
         id: '3.6-OTHER',
@@ -12034,6 +13574,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Key information is available in alternative formats on-site.',
+          no: 'Produce alternative formats of key information including large print (minimum 18pt, sans-serif), Easy Read, and audio versions. Make them available at reception and key information points without requiring a special request.',
+          partially: 'Some alternative formats are available. Expand to cover all key information and ensure formats include large print, Easy Read, and audio options readily available at information points.',
+        },
       },
       {
         id: '3.7-PC-2',
@@ -12060,6 +13605,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Customers can access information digitally during their visit.',
+          no: 'Provide digital access to venue information via QR codes, a mobile-friendly website, or a dedicated app. Ensure digital content is WCAG 2.2 AA compliant and works with screen readers and assistive technology.',
+          partially: 'Some digital access is available. Ensure all key content is accessible digitally and that the platform meets WCAG 2.2 AA, including screen reader compatibility and keyboard navigation.',
+        },
       },
       {
         id: '3.7-PC-5',
@@ -12088,6 +13638,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.5, AS 1428.4.1',
+        actionText: {
+          yes: 'Tactile information is provided for blind and low-vision visitors.',
+          no: 'Install tactile signage (raised lettering and Braille) per AS 1428.4.2, provide tactile maps at entry points, and consider tactile models of key exhibits or features. All tactile signs must be mounted at 1250-1500mm height.',
+          partially: 'Some tactile information is provided. Extend to include Braille on all room signs, tactile maps at each entry, and tactile elements on key exhibits or displays.',
+        },
       },
       {
         id: '3.7-PC-6',
@@ -12116,6 +13671,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.5',
+        actionText: {
+          yes: 'Hearing support signage is displayed.',
+          no: 'Install the international hearing loop symbol (blue ear with T) at every location where hearing support is available. Mount signs at eye level so they are visible on approach. Include signage at reception indicating what hearing support is available venue-wide.',
+          partially: 'Some hearing support signs are in place. Audit all locations with hearing loops or assistive listening and add signage where missing. Include venue-wide information at reception.',
+        },
       },
       {
         id: '3.7-PC-7',
@@ -12143,6 +13703,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Real-time captioning is provided for live presentations, tours, or events.',
+          no: 'Engage a CART (Communication Access Realtime Translation) provider for live presentations, tours, and events. Position the caption display where it is clearly visible from accessible seating. Allow booking of captioning when events are scheduled.',
+          partially: 'Captioning is available for some events. Extend to all scheduled presentations and tours, and establish an on-request process for other events with adequate lead time.',
+        },
       },
       {
         id: '3.7-PC-8',
@@ -12169,6 +13734,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Audio information is provided for visitors who cannot read printed materials.',
+          no: 'Develop audio guides, verbal descriptions, or announcements covering key content for visitors who are blind, have low vision, or have print disability. Deliver via app, loanable devices, or staff-led descriptions.',
+          partially: 'Some audio content is available. Expand to cover all major exhibits, displays, and information points, and ensure the delivery method is easy to use independently.',
+        },
       },
       {
         id: '3.7-PC-9',
@@ -12196,6 +13766,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Communication supports are available for customers who need them.',
+          no: 'Provide communication supports including picture-based communication boards (with venue-specific vocabulary), pen and paper, and access to a tablet with a communication app. Make them visible at reception and key service points.',
+          partially: 'Some communication aids are provided. Expand the range and ensure they are visible and available at all main service points, not just on request.',
+        },
       },
       {
         id: '3.7-PC-10',
@@ -12223,6 +13798,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Changes and disruptions are communicated accessibly.',
+          no: 'Develop a process to communicate changes (closures, event modifications, disruptions) in multiple accessible formats: visual displays, website updates, social media, email, and verbal announcements. Ensure emergency changes include visual alerts.',
+          partially: 'Some changes are communicated accessibly. Strengthen the process to ensure all disruptions are communicated via at least three channels (visual, digital, and verbal) and that emergency changes always include visual alerts.',
+        },
       },
 
       // ============================================
@@ -12261,6 +13841,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good range of alternative formats available on-site.',
+          no: 'Develop large print (minimum 18pt sans-serif), Easy Read, Braille, and audio versions of key visitor information. Prioritise safety information, venue maps, and exhibit guides.',
+          partially: 'Some formats are available. Fill gaps by adding missing formats such as Easy Read, audio guides, or Braille, starting with the most commonly requested information.',
+        },
       },
       {
         id: '3.7-DD-1b',
@@ -12287,6 +13872,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff proactively offer alternative formats to visitors.',
+          no: 'Train staff to proactively offer alternative formats rather than waiting for requests. Include this in greeting scripts and staff induction. Display signs at service points listing available formats.',
+          partially: 'Some staff offer formats proactively. Extend training to all customer-facing staff including volunteers and casual workers. Add prompts to greeting scripts and display available formats at service points.',
+        },
       },
       {
         id: '3.7-DD-2a',
@@ -12322,6 +13912,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Interactive exhibits and digital displays are accessible.',
+          no: 'Audit interactive exhibits and touchscreens for accessibility: ensure screen readers can access content, provide physical alternatives (buttons, switches) for touchscreen-only displays, position at accessible height (900-1100mm), and include audio and visual output.',
+          partially: 'Some interactive elements are accessible. Audit all touchscreens and digital displays and address gaps, prioritising screen reader compatibility, physical alternatives, and accessible height positioning.',
+        },
       },
       {
         id: '3.7-DD-5a',
@@ -12359,6 +13954,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.5, AS 1428.4.1',
+        actionText: {
+          yes: 'Tactile elements are installed at key locations.',
+          no: 'Install tactile ground surface indicators (TGSIs) at stairs, ramps, and escalators per AS 1428.4.1. Add tactile and Braille room signs per AS 1428.4.2. Consider tactile maps and models of key features at main entry points.',
+          partially: 'Some tactile elements exist. Audit all locations requiring TGSIs (stairs, ramps, pedestrian crossings) and tactile room signs, and fill any gaps to achieve compliance with AS 1428.4.',
+        },
       },
       {
         id: '3.7-DD-6a',
@@ -12394,6 +13994,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.5, APS D3.7',
+        actionText: {
+          yes: 'Hearing loops or assistive listening installed at key locations.',
+          no: 'Install hearing loops at service counters, presentation spaces, tour gathering points, and meeting rooms. Loops must comply with AS 60118.4 for field strength and frequency response. Test monthly and display the international symbol.',
+          partially: 'Loops are installed in some areas. Extend to all service counters and presentation spaces, prioritising locations where detailed verbal communication occurs.',
+        },
       },
       {
         id: '3.7-DD-6b',
@@ -12423,6 +14028,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.5',
+        actionText: {
+          yes: 'Hearing loops are regularly tested and maintained.',
+          no: 'Establish a monthly testing schedule for all hearing loops. Test field strength with a loop listener or field-strength meter, check for interference from electronic equipment, and keep a maintenance log. Engage a specialist for annual calibration.',
+          partially: 'Some testing occurs. Formalise the schedule to monthly checks with a loop listener, keep written records, and arrange annual professional calibration for all loops.',
+        },
       },
       {
         id: '3.7-DD-7a',
@@ -12449,6 +14059,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Relationship with a CART or captioning provider is established.',
+          no: 'Research and establish a relationship with an accredited CART or captioning provider. Agree on response times, pricing, and technical requirements so captioning can be arranged promptly when needed.',
+          partially: 'An informal arrangement exists. Formalise the relationship with an agreed service-level arrangement, including response times and backup provider options.',
+        },
       },
       {
         id: '3.7-DD-7b',
@@ -12475,6 +14090,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Captioning needs are asked about during booking or registration.',
+          no: 'Add a question about captioning or communication needs to event registration, tour booking, and group visit enquiry forms. Allow adequate lead time (minimum 2 weeks) to arrange services.',
+          partially: 'Captioning needs are asked in some processes. Extend the question to all booking, registration, and enquiry touchpoints, and ensure responses trigger a clear internal process to arrange services.',
+        },
       },
       {
         id: '3.7-DD-8a',
@@ -12507,6 +14127,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Audio guides or descriptions cover key content areas.',
+          no: 'Develop audio content covering permanent exhibitions, key displays, wayfinding, and safety information. Include vivid descriptions of visual elements and spatial orientation cues. Deliver via app, QR codes, or loanable devices.',
+          partially: 'Audio guides cover some content. Expand to include all permanent and major temporary exhibitions, wayfinding between galleries or zones, and safety information.',
+        },
       },
       {
         id: '3.7-DD-9a',
@@ -12539,6 +14164,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Communication supports include relevant symbols and options.',
+          no: 'Develop communication boards with venue-specific symbols covering common requests (toilet, help, pain, drink, directions), emotions, and key activities. Use standardised symbol sets (eg Boardmaker or SymbolStix) and laminate for durability.',
+          partially: 'Some symbols are included. Expand to cover a fuller range of common requests, emotions, and venue-specific vocabulary. Review with speech pathologist input for completeness.',
+        },
       },
       {
         id: '3.7-DD-9b',
@@ -12565,6 +14195,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff are trained on communication boards and supporting diverse communicators.',
+          no: 'Provide training on using communication boards and supporting customers who communicate differently, including people who use AAC devices, sign language, or gesture. Include practical role-play exercises in training.',
+          partially: 'Some staff have been trained. Extend training to all customer-facing roles including volunteers and casual staff, and schedule regular refreshers.',
+        },
       },
       {
         id: '3.7-DD-10a',
@@ -12600,6 +14235,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Emergency and safety information is available in accessible formats.',
+          no: 'Produce emergency and safety information in large print, Easy Read, Braille, and audio formats. Include evacuation procedures, assembly points, and how to request assistance. Display at key locations and include in room information packs.',
+          partially: 'Some accessible safety information exists. Ensure all formats (large print, Easy Read, Braille, audio) are complete, current, and available at every key location including accessible rooms and common areas.',
+        },
       },
       {
         id: '3.7-DD-11a',
@@ -12633,6 +14273,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Real-time information displays are accessible.',
+          no: 'Ensure real-time displays (screens, timetables, boards) have sufficient text size (minimum 20mm character height), high contrast, no reliance on colour alone, and an audible alternative. Position at a readable height and angle for seated users.',
+          partially: 'Some displays are accessible. Audit all real-time information displays for text size, contrast, colour independence, and height. Add audible alternatives where they are missing.',
+        },
       },
       {
         id: '3.7-OTHER',
@@ -12795,6 +14440,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Customers can take breaks during experiences without losing their place.',
+          no: 'Introduce a pause or break policy so customers can step away and return without penalty, losing their spot, or needing to restart. Communicate this option clearly at the start of experiences.',
+          partially: 'Breaks are possible for some experiences. Extend the policy to all activities and ensure staff proactively communicate the option at the start of each session or experience.',
+        },
       },
       {
         id: '3.8-D-2',
@@ -12828,6 +14478,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Walking distances and physical demands are communicated in advance.',
+          no: 'Publish specific information about walking distances (in metres), terrain types, gradient, physical demands, and rest points for all experiences. Include on the website, booking page, and at the start of each activity.',
+          partially: 'Some physical demand information is provided. Expand to cover all experiences with specific measurements (distance, gradient percentage, surface type) rather than vague descriptions.',
+        },
       },
       {
         id: '3.8-D-3',
@@ -12867,6 +14522,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.8',
+        actionText: {
+          yes: 'Designated wheelchair spaces are provided in spectator or audience seating.',
+          no: 'Provide designated wheelchair spaces per AS 1428.1:2021 and the Premises Standards. Spaces must be on an accessible path, dispersed throughout price categories, have level surfaces, and be at least 900mm wide by 1300mm deep.',
+          partially: 'Wheelchair spaces exist but may not fully comply. Review location dispersal, dimensions (900mm x 1300mm minimum), sightlines, and accessible path connections for all wheelchair spaces.',
+        },
       },
       {
         id: '3.8-D-4',
@@ -12906,6 +14566,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.8',
+        actionText: {
+          yes: 'Ambulant accessible (Easy Access) seating is provided.',
+          no: 'Provide ambulant accessible seating (Easy Access seats) with wider dimensions, armrests, additional legroom, and aisle access without steps. Locate at end-of-row positions near accessible paths.',
+          partially: 'Some ambulant seating is available. Increase the number and dispersal across seating zones and price categories, ensuring all are on accessible routes with aisle-end placement.',
+        },
       },
       {
         id: '3.8-D-5',
@@ -12942,6 +14607,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.8',
+        actionText: {
+          yes: 'Companion seating is adjacent to wheelchair spaces.',
+          no: 'Install companion seats immediately adjacent to every wheelchair space, at the same level, so companions sit beside (not behind or in front of) the wheelchair user. Provide at least one companion seat per wheelchair space.',
+          partially: 'Some wheelchair spaces have companion seating. Ensure every wheelchair space has at least one adjacent companion seat at the same level and integrated into the seating layout.',
+        },
       },
       {
         id: '3.8-D-6',
@@ -12979,6 +14649,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.8',
+        actionText: {
+          yes: 'Wheelchair users have clear sightlines when other patrons stand.',
+          no: 'Reposition wheelchair spaces or install raised platforms so wheelchair users maintain clear sightlines even when surrounding patrons stand. Consider elevated positions or front-of-section placement where standing is likely.',
+          partially: 'Sightlines are adequate in some scenarios. Review all wheelchair positions for worst-case (standing audience) sightlines and adjust platform heights or relocate spaces where views are obstructed.',
+        },
       },
       {
         id: '3.8-D-7',
@@ -13015,6 +14690,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible seating can be booked at the same time as other tickets.',
+          no: 'Make accessible seating available through all standard booking channels (online, phone, box office) from the moment tickets go on sale. Do not require a separate process, callback, or proof of disability.',
+          partially: 'Accessible seating is bookable through some channels. Enable booking through all channels simultaneously with standard tickets, and remove any additional verification requirements.',
+        },
       },
       {
         id: '3.8-D-8',
@@ -13052,6 +14732,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.4',
+        actionText: {
+          yes: 'Step-free access is provided to all spectator areas including premium areas.',
+          no: 'Provide step-free access (ramps, lifts, or level routes) to all spectator areas including premium, VIP, and hospitality areas. Under the DDA, restricting wheelchair users to only standard areas is discriminatory.',
+          partially: 'Step-free access reaches some areas. Extend to all zones including premium and hospitality areas via ramps (maximum 1:14 gradient) or lifts, ensuring equal access to all ticket categories.',
+        },
       },
       {
         id: '3.8-D-9',
@@ -13090,6 +14775,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.3, Cl. 8',
+        actionText: {
+          yes: 'Meeting and conference rooms are accessible for wheelchair users.',
+          no: 'Ensure meeting rooms have level access, minimum 1540mm turning circle, accessible furniture layout with 900mm clear aisles, and an accessible podium or presentation area. Include hearing augmentation and adjustable lighting.',
+          partially: 'Some rooms are accessible. Audit all meeting spaces for wheelchair access, clear floor space, accessible furniture, and supporting technology, then prioritise upgrades to the most frequently used rooms.',
+        },
       },
       {
         id: '3.8-D-10',
@@ -13128,6 +14818,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.5',
+        actionText: {
+          yes: 'Hearing augmentation is available in meeting rooms.',
+          no: 'Install hearing loops or infrared/FM assistive listening systems in all meeting rooms per AS 1428.5 and AS 60118.4. Display the international hearing loop symbol and test systems monthly.',
+          partially: 'Hearing augmentation is in some rooms. Extend to all meeting and conference spaces, or at minimum provide portable loop systems for rooms without fixed installations.',
+        },
       },
       {
         id: '3.8-D-11',
@@ -13163,6 +14858,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Provision exists for Auslan interpreters or captioning in meeting spaces.',
+          no: 'Establish capability for Auslan interpreting and live captioning in meeting spaces. Include appropriate lighting on the interpreter, clear sightlines from all accessible seating, and a screen or monitor for displaying captions.',
+          partially: 'Some provision exists. Ensure all major meeting rooms have dedicated interpreter positioning with good lighting, sightlines from wheelchair spaces, and a caption display option.',
+        },
       },
       {
         id: '3.8-D-12',
@@ -13200,6 +14900,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8.1',
+        actionText: {
+          yes: 'Accessible tables with knee clearance are available in meeting rooms.',
+          no: 'Provide tables at 750-830mm height with minimum 700mm knee clearance height and 500mm knee clearance depth per AS 1428.1:2021. Ensure at least some tables in each room allow wheelchair users to sit alongside other participants.',
+          partially: 'Some accessible tables are available. Ensure every meeting room has at least one accessible table position with correct knee clearance, and that wheelchair users are not segregated to a separate table.',
+        },
       },
       {
         id: '3.8-D-13',
@@ -13231,6 +14936,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible rest points or seating are available along activity routes.',
+          no: 'Install rest seating with backrests and armrests at regular intervals (every 60m maximum) along activity routes. Include shade where outdoors, and ensure seats are on firm level ground accessible from the path.',
+          partially: 'Some rest points exist. Map activity routes and add seating where gaps exceed 60m, ensuring each rest point has a backrest, armrest, and firm level surface.',
+        },
       },
       {
         id: '3.8-D-14',
@@ -13262,6 +14972,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible transport or transfer is available between activity locations.',
+          no: 'Provide accessible transport (wheelchair-accessible vehicle, buggy, golf cart with ramp) between activity locations for visitors who cannot walk the distance. Communicate availability in advance and on arrival.',
+          partially: 'Some transport options exist. Review the accessible transport provision and address gaps such as wheelchair-accessible vehicles, booking processes, or communication about availability.',
+        },
       },
       {
         id: '3.8-D-15',
@@ -13294,6 +15009,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Alternative routes are available for people who cannot manage stairs or rough terrain.',
+          no: 'Map and sign alternative accessible routes that avoid stairs, steep gradients (over 1:14), and rough terrain. Communicate alternatives clearly in advance and with on-site signage. Ensure alternatives lead to the same destinations.',
+          partially: 'Some alternative routes exist. Complete the network so all key destinations are reachable via an accessible route, and improve signage for alternatives at every point where the standard route becomes inaccessible.',
+        },
       },
       {
         id: '3.8-D-16',
@@ -13327,6 +15047,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Route information including distance, terrain, and rest points is provided in advance.',
+          no: 'Publish detailed route information for all experiences: distance in metres, surface type, gradient percentages, rest point locations, shade availability, and accessibility rating. Include on website, at trailheads, and in booking information.',
+          partially: 'Some route information is available. Add specific measurements (distance, gradient, surface type) and rest point locations for all routes, and make it available both online and at the activity starting point.',
+        },
       },
       {
         id: '3.8-D-17',
@@ -13359,6 +15084,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Adaptive or modified equipment is available for participants.',
+          no: 'Source adaptive equipment appropriate to your activities (sports wheelchairs, tandem bikes, modified bats or racquets, seated equipment options). Partner with disability sport organisations for guidance on equipment selection.',
+          partially: 'Some adaptive equipment exists. Identify the most common activities and expand the adaptive equipment range, consulting with disability sport organisations or occupational therapists.',
+        },
       },
       {
         id: '3.8-D-18',
@@ -13391,6 +15121,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Inclusive programs or sessions are available for people with disability.',
+          no: 'Develop inclusive programs such as sensory-friendly sessions, adaptive sports classes, quiet hours, or guided experiences designed for people with disability. Co-design with community members and disability organisations.',
+          partially: 'Some inclusive programs exist. Expand the range of inclusive offerings, seek co-design input from the disability community, and promote programs through disability networks.',
+        },
       },
       {
         id: '3.8-D-19',
@@ -13425,6 +15160,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.8',
+        actionText: {
+          yes: 'Changing rooms and showers are accessible for activity participants.',
+          no: 'Provide accessible change rooms with minimum 1540mm turning circle, accessible shower with fold-down seat and grab rails, non-slip flooring, and coat hooks at two heights per AS 1428.1:2021. Locate near the activity area.',
+          partially: 'Accessible changing is available but may have gaps. Review against AS 1428.1 for turning space, shower seat, grab rails, and proximity to activity areas, and address any non-compliant elements.',
+        },
       },
       {
         id: '3.8-D-19a',
@@ -13460,6 +15200,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Gym or fitness equipment is accessible.',
+          no: 'Provide accessible gym equipment including adjustable machines usable from a wheelchair, clear pathways (minimum 900mm) between equipment, accessible weight benches, and at least one of each major equipment type at an accessible height.',
+          partially: 'Some equipment is accessible. Audit the gym layout for pathway widths, add adjustable machines usable from a seated position, and ensure clear pathways between all equipment.',
+        },
       },
       {
         id: '3.8-D-20',
@@ -13492,6 +15237,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Treatment or session spaces accommodate wheelchair users and mobility aids.',
+          no: 'Reconfigure treatment rooms to provide minimum 1540mm turning circle, height-adjustable treatment tables (or accessible transfer option), and sufficient clear floor space for a wheelchair beside the treatment area.',
+          partially: 'Some spaces accommodate wheelchair users. Review all treatment and session rooms for turning space, transfer options, and clear floor space, and upgrade those that fall short.',
+        },
       },
       {
         id: '3.8-D-21',
@@ -13524,6 +15274,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Treatments or sessions can be modified for different physical needs.',
+          no: 'Develop a modification framework so staff can adapt treatments and sessions for people with different physical needs. Include seated alternatives, adjusted pressure or intensity, flexible timing, and consultation on individual requirements.',
+          partially: 'Some modifications are possible. Formalise the approach with documented modification options, staff training, and a pre-session consultation process to identify and accommodate individual needs.',
+        },
       },
       {
         id: '3.8-D-22',
@@ -13556,6 +15311,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Audio description is available for visual performances or events.',
+          no: 'Engage professional audio describers for performances and events with significant visual content. Provide descriptions via a dedicated headset channel, include a pre-show touch tour where possible, and advertise described performances in marketing.',
+          partially: 'Audio description is offered for some performances. Increase the frequency of described sessions, promote them widely, and ensure headset equipment is sufficient for demand.',
+        },
       },
       {
         id: '3.8-D-23',
@@ -13588,6 +15348,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Live captioning or surtitles are available for performances.',
+          no: 'Provide live captioning or surtitles for spoken and sung performances. Position captions on a screen visible from accessible seating. Schedule regular captioned performances and advertise them in all marketing materials.',
+          partially: 'Captioning is available for some performances. Increase the number of captioned sessions, ensure caption display positioning works from accessible seating, and promote availability more widely.',
+        },
       },
       {
         id: '3.8-D-24',
@@ -13622,6 +15387,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Relaxed or sensory-friendly sessions are offered.',
+          no: 'Introduce relaxed or sensory-friendly sessions with reduced lighting and sound levels, no sudden effects, a relaxed attitude to movement and noise, clearly signed quiet spaces nearby, and pre-visit information about the session.',
+          partially: 'Some relaxed sessions are offered. Expand the frequency and range of relaxed performances, and strengthen supporting measures such as pre-visit guides, quiet spaces, and trained staff.',
+        },
       },
       {
         id: '3.8-D-25',
@@ -13658,6 +15428,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.5, APS D3.7',
+        actionText: {
+          yes: 'Hearing augmentation is available in performance or event spaces.',
+          no: 'Install a hearing loop (or infrared/FM system) in performance and event spaces per AS 1428.5 and AS 60118.4. Cover the entire accessible seating area, display the international hearing loop symbol, and test before every event.',
+          partially: 'Some hearing augmentation exists. Extend coverage to all performance and event areas, ensure the system covers accessible seating positions, and implement pre-event testing as standard.',
+        },
       },
       {
         id: '3.8-D-26',
@@ -13692,6 +15467,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Customers can bring their own food or drinks for dietary needs.',
+          no: 'Allow customers to bring their own food and drinks when they have specific dietary, allergy, or medical needs. Communicate this policy clearly on the website, at entry, and train staff to support it without challenge.',
+          partially: 'An informal approach exists. Formalise the policy, communicate it on the website and in pre-visit information, and train all staff to be supportive when customers explain dietary needs.',
+        },
       },
       {
         id: '3.8-D-27',
@@ -13726,6 +15506,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Food preparation can be modified to accommodate sensory needs.',
+          no: 'Train kitchen and service staff to accommodate sensory food needs such as foods not touching, specific textures, plain options, and consistent presentation. Include these options on the menu or make them available on request.',
+          partially: 'Some modifications are possible. Formalise the process so all staff know how to handle sensory food requests, and consider adding a menu note about customisation availability.',
+        },
       },
       {
         id: '3.8-D-28',
@@ -13759,6 +15544,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Divided or segmented plates are available.',
+          no: 'Source divided or segmented plates and offer them to customers who need foods kept separate. This is a low-cost measure that makes a significant difference for people with autism, sensory processing differences, or other needs.',
+          partially: 'Some divided plates are available. Ensure sufficient stock and that all service staff know where they are stored and how to offer them proactively.',
+        },
       },
       {
         id: '3.8-D-29',
@@ -13795,6 +15585,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible paths or boardwalks are provided through natural areas.',
+          no: 'Install accessible boardwalks, compacted gravel paths, or sealed surfaces through key natural areas. Ensure minimum 1200mm width, maximum 1:14 gradient, edge protection, and rest points. Prioritise routes to main attractions and viewpoints.',
+          partially: 'Some accessible paths exist. Extend the accessible path network to reach more key features, and maintain surfaces to prevent deterioration from weather or vegetation encroachment.',
+        },
       },
       {
         id: '3.8-D-30',
@@ -13828,6 +15623,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Beach wheelchairs or accessible beach access is available.',
+          no: 'Provide beach wheelchairs (floating and sand models) and install mobi-mats or accessible boardwalks to the water edge. Advertise availability online and at the beach entry, and train lifeguards on beach wheelchair use.',
+          partially: 'Some beach access is provided. Expand with additional beach wheelchairs, extend mobi-mat coverage closer to the water, and improve promotion of available equipment.',
+        },
       },
       {
         id: '3.8-D-31',
@@ -13862,6 +15662,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Playground equipment is inclusive and accessible.',
+          no: 'Upgrade playground equipment to include transfer platforms, accessible swings (supportive harness or platform swing), ground-level sensory play, accessible rubber surfacing, and a wheelchair-accessible path to all play zones.',
+          partially: 'Some inclusive play equipment exists. Add missing elements such as transfer platforms, accessible surfacing to connect equipment, ground-level play options, or accessible swings.',
+        },
       },
       {
         id: '3.8-D-32',
@@ -13895,6 +15700,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible camping or glamping options are available.',
+          no: 'Develop accessible camping or glamping options with firm level surfaces, accessible tent platforms or hard-floor cabins, proximity to accessible amenities, and accessible paths to common areas. Include at least one fully accessible option.',
+          partially: 'Some accessible options exist. Improve the provision with features such as ramped access, firm surfaces, accessible bathroom proximity, and accessible paths to common facilities.',
+        },
       },
       {
         id: '3.8-D-33',
@@ -13929,6 +15739,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Lookouts, viewing platforms, and rest points are accessible along outdoor routes.',
+          no: 'Construct accessible lookouts and viewing platforms with wheelchair-height railings (maximum 1000mm to allow views from a seated position), level surfaces, rest seating, and accessible paths from the main trail.',
+          partially: 'Some lookouts are accessible. Extend accessible design to more viewpoints, ensuring railing heights allow wheelchair views, surfaces are level, and accessible paths connect to the main trail.',
+        },
       },
       {
         id: '3.8-D-34',
@@ -13963,6 +15778,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Trail difficulty is rated with accessibility-specific information.',
+          no: 'Implement an accessibility trail rating system that includes surface type, average and maximum gradient, width, rest point spacing, hazards, and wheelchair suitability. Display at trailheads, on the website, and in trail brochures.',
+          partially: 'Some trail information exists. Enhance with specific accessibility data including surface type, gradient percentages, width measurements, and rest point distances rather than general difficulty ratings.',
+        },
       },
       {
         id: '3.8-OTHER',
@@ -14169,6 +15989,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2 Cl. 24.3',
+        actionText: {
+          yes: 'Bed height is accessible for wheelchair transfer and hoist access.',
+          no: 'Provide beds at 480-500mm height from the floor to the top of the mattress for wheelchair transfer. Ensure clearance under the bed for portable hoists (minimum 150mm). Offer bed blocks or adjustable bases on request.',
+          partially: 'Bed height is partially suitable. Offer adjustable bed bases or bed blocks to achieve 480-500mm transfer height and ensure under-bed clearance for hoist access when requested.',
+        },
       },
       {
         id: '3.9-D-2',
@@ -14204,6 +16029,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2 Cl. 22-24',
+        actionText: {
+          yes: 'Good range of accessible bedroom features are provided.',
+          no: 'Equip accessible rooms with: clear floor space for wheelchair turning (1540mm circle), accessible wardrobe (rail at 1200mm, shelf at 900-1100mm), bedside controls for lighting and curtains, visual and vibrating alert systems, and lever handles throughout.',
+          partially: 'Some features are provided. Audit against the full list and add missing elements, prioritising wheelchair turning space, accessible storage, and bedside controls.',
+        },
       },
       {
         id: '3.9-D-3',
@@ -14241,6 +16071,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA / AS 1670.4',
+        actionText: {
+          yes: 'Alerting and communication aids are available for Deaf and hard of hearing guests.',
+          no: 'Provide vibrating pillow alerts for fire alarm, door knock, and phone ring. Include a visual door knock indicator, visual fire alarm strobe, TTY or captioned phone, and a portable hearing loop for in-room TV. These are requirements under the DDA and Premises Standards.',
+          partially: 'Some alerting systems are provided. Complete the set to include vibrating pillow alert (fire and door), visual fire alarm strobe, visual door indicator, and communication devices.',
+        },
       },
       {
         id: '3.9-D-4',
@@ -14270,6 +16105,11 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 10.9',
         safetyRelated: true,
+        actionText: {
+          yes: 'In-room bathroom has an emergency call system.',
+          no: 'Install an emergency call cord or button in the bathroom, positioned beside the toilet and reachable from the floor (within 150mm of floor level). Connect to a monitored system with both visual and audible alerts at the staff response point per AS 1428.1:2021.',
+          partially: 'An emergency call system exists but may not be fully compliant. Ensure the call cord reaches floor level (within 150mm), is accessible from beside the toilet and from the floor, and is connected to a monitored system.',
+        },
       },
       {
         id: '3.9-D-5',
@@ -14296,6 +16136,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2',
+        actionText: {
+          yes: 'Bathroom mirror is usable from a seated position.',
+          no: 'Install a mirror with the bottom edge at 900mm or lower, or a tilting mirror, so wheelchair users can see themselves from a seated position. The mirror should extend to 1850mm minimum for standing users.',
+          partially: 'A mirror is available but may not serve all seated users. Adjust the mounting height or add a tilting mirror to ensure usability from both seated and standing positions.',
+        },
       },
       {
         id: '3.9-D-6',
@@ -14328,6 +16173,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2 Cl. 24.1',
+        actionText: {
+          yes: 'Kitchenette counters and appliances are at accessible heights.',
+          no: 'Lower countertops to 830mm maximum height with 700mm knee clearance underneath. Position appliances (microwave, kettle, toaster) on the accessible benchtop, and ensure controls are front-mounted and operable with one hand.',
+          partially: 'Some elements are at accessible heights. Audit all counters and appliance positions and adjust to provide at least one accessible work area at 830mm with knee clearance and reachable appliances.',
+        },
       },
       {
         id: '3.9-D-7',
@@ -14367,6 +16217,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2 Cl. 22-24',
+        actionText: {
+          yes: 'Good range of kitchenette accessibility features are provided.',
+          no: 'Equip the accessible kitchenette with lever taps, D-pull cupboard handles, front-controlled cooktop, side-opening oven, pull-out shelves in lower cupboards, and appliances (kettle, microwave) on the benchtop. Ensure power points are at 900-1100mm.',
+          partially: 'Some features are provided. Add missing elements such as lever taps, accessible cupboard handles, and repositioned appliances to the accessible benchtop height.',
+        },
       },
       {
         id: '3.9-D-8',
@@ -14403,6 +16258,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2 Cl. 22-23',
+        actionText: {
+          yes: 'Good range of in-room amenity accessibility features are provided.',
+          no: 'Provide accessible in-room amenities: bedside and bathroom grab rails, portable magnifying mirror, non-slip bath mat, accessible iron/ironing board height, lever-operated curtains or motorised blinds, and easy-open packaging on toiletries.',
+          partially: 'Some accessible amenities are provided. Add missing items such as grab rails, accessible controls for curtains and lighting, non-slip mats, and easy-open packaging.',
+        },
       },
       {
         id: '3.9-D-9',
@@ -14431,6 +16291,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1',
+        actionText: {
+          yes: 'Room door entry system is accessible.',
+          no: 'Ensure the key card reader is at 900-1100mm height, the door has a lever handle, operating force is under 20N, and the card can be operated with one hand without tight grasping. Consider contactless entry options.',
+          partially: 'Door entry is partially accessible. Review card reader height, handle type, and operating force, and address any element that requires fine motor skills, excess force, or two-handed operation.',
+        },
       },
       {
         id: '3.9-D-10',
@@ -14458,6 +16323,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 / AS 1428.4.1',
+        actionText: {
+          yes: 'Accessible rooms have tactile and high-contrast room numbers.',
+          no: 'Install tactile room numbers with raised lettering and Braille at 1250-1500mm height on the latch side of accessible room doors per AS 1428.1:2021 Clause 18. Ensure minimum 70% luminance contrast between text and background.',
+          partially: 'Some tactile signage is present. Ensure all accessible rooms have compliant tactile and Braille room numbers at the correct height and position per AS 1428.1.',
+        },
       },
       {
         id: '3.9-D-11',
@@ -14485,6 +16355,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'best-practice',
         complianceRef: 'DDA',
+        actionText: {
+          yes: 'Guest information is available in accessible formats.',
+          no: 'Produce the room directory, safety card, TV guide, and hotel information in large print (minimum 18pt), digital format accessible via device, and Braille. Have audio versions available on request. Include evacuation procedures in all formats.',
+          partially: 'Some materials are in accessible formats. Expand to cover all guest information including safety cards and evacuation procedures in large print, Braille, digital, and audio.',
+        },
       },
       {
         id: '3.9-D-12',
@@ -14511,6 +16386,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Guests can request accessibility features when booking.',
+          no: 'Add accessibility feature fields to the booking process (online and phone) so guests can specify needs such as shower chair, bed height, hearing kit, or room location. Ensure requests are actioned before arrival.',
+          partially: 'Some features can be requested. Expand the booking form to cover all available accessibility features and establish a workflow to ensure requests are prepared before guest arrival.',
+        },
       },
       {
         id: '3.9-D-13',
@@ -14541,6 +16421,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible room inventory is well managed.',
+          no: 'Implement an accessible room management policy: never sell accessible rooms to non-disabled guests when other rooms are available, maintain equipment in good condition, and track accessible room bookings separately in the property management system.',
+          partially: 'Some management practices are in place. Strengthen the policy to ensure accessible rooms are protected for guests who need them, equipment is maintained, and inventory is tracked systematically.',
+        },
       },
       {
         id: '3.9-D-14',
@@ -14567,6 +16452,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Shared accommodation facilities are accessible.',
+          no: 'Audit shared facilities (laundry, pool, gym, breakfast area) for wheelchair access, accessible controls, and clear paths of travel. Prioritise the facilities most used by guests and ensure at least one of each type is fully accessible.',
+          partially: 'Some shared facilities are accessible. Complete the audit and upgrade remaining facilities, prioritising the most frequently used areas and those closest to accessible rooms.',
+        },
       },
       {
         id: '3.9-D-15',
@@ -14596,6 +16486,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'BCA D3 / AS 4586',
+        actionText: {
+          yes: 'Bathroom has non-slip surfaces and adequate lighting.',
+          no: 'Install non-slip flooring (minimum R10 rating wet) in the bathroom and shower. Ensure lighting is minimum 300 lux at floor level with no dark spots. Both measures are essential for fall prevention and are required under AS 1428.1:2021.',
+          partially: 'Some safety features are in place. Complete with non-slip flooring rated R10 or higher throughout, and even lighting at 300 lux minimum. Test wet-surface slip resistance periodically.',
+        },
       },
       {
         id: '3.9-D-16',
@@ -14623,6 +16518,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible rooms are close to shared facilities with step-free paths.',
+          no: 'Locate accessible rooms close to lifts, breakfast areas, pools, and other shared facilities. Ensure step-free paths with adequate width (minimum 1000mm) connect accessible rooms to all amenities. Avoid placing accessible rooms in isolated locations.',
+          partially: 'Proximity is adequate for some facilities. Review the location of accessible rooms relative to all shared amenities and relocate the accessible room allocation or add step-free routes where needed.',
+        },
       },
       {
         id: '3.9-D-17',
@@ -14656,6 +16556,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Guests can store medication or medical equipment in their room.',
+          no: 'Provide an in-room bar fridge for medication storage, adequate power points for medical equipment, and secure storage for medical supplies. Offer these as standard in accessible rooms and on request in other rooms.',
+          partially: 'Some storage is available. Ensure all accessible rooms have a bar fridge (for medication requiring refrigeration), extra power points for CPAP or other medical devices, and secure storage space.',
+        },
       },
       // Catch-all
       {
@@ -14745,6 +16650,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Customers can easily ask for assistance with products.',
+          no: 'Train staff to offer assistance proactively when they notice someone browsing or struggling with products. Install call buttons or service bells at accessible height in aisles. Ensure staff can assist with reaching, carrying, and describing products.',
+          partially: 'Some assistance is available. Improve by adding call points in aisles, training all staff on how to offer help respectfully, and ensuring coverage during all trading hours.',
+        },
       },
       {
         id: '3.10-PC-2',
@@ -14771,6 +16681,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Product labels, price tags, and shelf information are readable and accessible.',
+          no: 'Improve product labelling with minimum 14pt text, high-contrast price tags, shelf-edge labels at 900-1400mm height, and clear product names. Avoid handwritten tags and ensure pricing is visible without bending or reaching.',
+          partially: 'Some labelling is accessible. Audit label sizes, contrast, and heights across all departments, and improve areas where tags are too small, too high, or hard to read.',
+        },
       },
       {
         id: '3.10-PC-3',
@@ -14803,6 +16718,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Shopping aids are available for customers.',
+          no: 'Provide accessible shopping aids including shallow trolleys or baskets with handles at accessible height, motorised scooters for large stores, personal shopping assistance, and trolleys with magnifying glass attachments for reading labels.',
+          partially: 'Some shopping aids are available. Expand the range based on customer needs, such as adding motorised scooters for larger venues or accessible trolley designs with lower baskets.',
+        },
       },
       {
         id: '3.10-PC-4',
@@ -14831,6 +16751,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'APS D3.3',
+        actionText: {
+          yes: 'Checkout area is accessible for wheelchair users and people with different disabilities.',
+          no: 'Ensure at least one checkout has a lowered counter (830mm maximum height), adequate clear floor space, accessible EFTPOS terminal height (900-1100mm), and is wide enough for wheelchair access. Maintain a staffed checkout as an alternative to self-service.',
+          partially: 'The checkout is partially accessible. Address remaining gaps such as counter height, EFTPOS terminal positioning, clear floor space, or ensuring a staffed checkout is always available.',
+        },
       },
       {
         id: '3.10-D-1',
@@ -14867,6 +16792,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 11',
+        actionText: {
+          yes: 'Fitting rooms are wheelchair accessible.',
+          no: 'Provide at least one wheelchair-accessible fitting room with minimum 1400x1500mm clear space, outward-opening or curtain door (minimum 850mm clear opening), grab rails, a fold-down seat, full-length mirror angled for seated use, and coat hooks at two heights.',
+          partially: 'A larger fitting room exists but may not fully comply. Review dimensions, grab rail installation, seat provision, mirror angle, and door opening direction against AS 1428.1 requirements.',
+        },
       },
       {
         id: '3.10-D-2',
@@ -14895,6 +16825,11 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 10.9',
         safetyRelated: true,
+        actionText: {
+          yes: 'Emergency call button or alarm is installed in fitting rooms.',
+          no: 'Install an emergency call button or pull cord in all accessible fitting rooms, reachable from floor level (within 150mm of the floor). Connect to a monitored staff alert system with both visual and audible notification.',
+          partially: 'An alert system exists but may not be fully compliant. Ensure the cord reaches floor level, the button is clearly marked, and the system alerts staff reliably.',
+        },
       },
       {
         id: '3.10-D-3',
@@ -14928,6 +16863,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff can provide fitting room assistance when requested.',
+          no: 'Train staff to offer fitting room assistance respectfully when requested, including helping with garments, providing size alternatives, and bringing items to try. Ensure a same-gender staff member can be made available and that privacy is maintained.',
+          partially: 'Some staff can assist. Extend training to all floor staff, establish a clear process for requesting assistance, and ensure coverage during all trading hours.',
+        },
       },
       {
         id: '3.10-D-4',
@@ -14962,6 +16902,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Self-checkout machines are accessible.',
+          no: 'Configure self-checkout for accessibility: adjustable screen height or angle, audio guidance option, extended time settings, reachable scanner and bagging area from a seated position, weight tolerance that does not reject items when using a wheelchair tray.',
+          partially: 'Self-checkouts are partially accessible. Address remaining issues such as screen height adjustment, audio guidance, time extensions, or bagging area reach from a seated position.',
+        },
       },
       {
         id: '3.10-D-5',
@@ -14994,6 +16939,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Bag packing assistance is available at checkout.',
+          no: 'Offer bag packing assistance at checkout for customers who need it. Train staff to offer proactively without requiring customers to ask. Ensure the service is available at all checkout types including self-checkout.',
+          partially: 'Packing assistance is sometimes available. Ensure it is consistently offered during all trading hours and that staff proactively offer without customers needing to request.',
+        },
       },
       {
         id: '3.10-D-6',
@@ -15026,6 +16976,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Returns and exchange process is accessible.',
+          no: 'Ensure the returns process is accessible via multiple channels (in-store, online, phone, post). Remove requirements for original packaging where this creates a barrier, extend return windows for access-related reasons, and provide accessible forms.',
+          partially: 'Returns are accessible through some channels. Extend options to all channels, ensure online returns forms are WCAG compliant, and consider flexible return periods for disability-related delays.',
+        },
       },
       {
         id: '3.10-D-7',
@@ -15058,6 +17013,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Alternative shopping methods (click-and-collect, delivery) are available.',
+          no: 'Introduce accessible alternatives to in-store shopping: click-and-collect with accessible pickup points, curbside collection, and home delivery. Ensure the online ordering platform meets WCAG 2.2 AA.',
+          partially: 'Some alternatives exist. Expand options and ensure all digital ordering platforms are WCAG 2.2 AA compliant, pickup points are accessible, and delivery tracking is in accessible formats.',
+        },
       },
       {
         id: '3.10-D-8',
@@ -15090,6 +17050,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Product information is available in accessible formats on request.',
+          no: 'Enable staff to provide product information verbally, in large print, or digitally (emailed or on a tablet). Train staff to describe products including colour, material, care instructions, and ingredients when asked.',
+          partially: 'Some accessible information is available. Expand to cover all products and ensure staff are confident describing items in detail, including visual characteristics, for customers who need it.',
+        },
       },
       {
         id: '3.10-D-9',
@@ -15124,6 +17089,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 7',
+        actionText: {
+          yes: 'Aisles and displays maintain accessible clearance widths.',
+          no: 'Rearrange displays and stock to maintain minimum 1000mm clear aisle width (1200mm preferred) throughout the store per AS 1428.1:2021. Avoid temporary displays, promotional bins, or stock trolleys that reduce clearance. Audit after restocking.',
+          partially: 'Most aisles are wide enough but some are restricted. Identify narrow points caused by displays, stock, or fixtures, and implement a post-restock check to ensure clearances are maintained consistently.',
+        },
       },
       {
         id: '3.10-OTHER',
@@ -15196,6 +17166,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Offering alternatives to phone calls ensures customers with hearing, speech, or cognitive disabilities can contact you.',
+          no: 'Provide at least two non-phone contact options (e.g., email, live chat, SMS, online form). Under the DDA 1992, services must be accessible to people who cannot use voice telephone.',
+          partially: 'You have started offering phone alternatives. Ensure all non-phone channels are actively promoted and staffed with equivalent response times to phone enquiries.',
+        },
       },
       {
         id: '4.1-PC-2',
@@ -15224,6 +17199,11 @@ export const accessModules: AccessModule[] = [
           learnMoreText: 'About the National Relay Service',
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. NRS awareness means Deaf, hard of hearing, and speech-impaired customers can contact you through the relay service.',
+          no: 'Train all customer-facing staff to receive and handle National Relay Service (NRS) calls. Register with the NRS and display the NRS number alongside your main phone number.',
+          partially: 'Some staff are NRS-aware. Extend training to all customer-facing roles and include NRS call handling in onboarding materials.',
+        },
       },
       {
         id: '4.1-PC-3',
@@ -15251,6 +17231,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Capturing communication preferences allows you to contact customers in their preferred and most accessible format.',
+          no: 'Add a communication preferences field to your customer records (preferred contact method, format needs such as large print or Easy Read). Ask at first contact and store for future use.',
+          partially: 'You capture some preferences. Ensure the system covers contact method, document format, and language needs, and that preferences are applied consistently across all touchpoints.',
+        },
       },
       {
         id: '4.1-PC-4',
@@ -15278,6 +17263,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Equal response times across channels prevents discrimination against customers who cannot use the phone.',
+          no: 'Set and enforce equivalent service-level agreements for non-phone channels. If phone calls are answered within 2 minutes, email and chat should receive responses within the same window.',
+          partially: 'Response times are partially aligned. Review SLAs for all channels and bring non-phone response times in line with phone benchmarks.',
+        },
       },
       {
         id: '4.1-PC-5',
@@ -15307,6 +17297,11 @@ export const accessModules: AccessModule[] = [
           learnMoreText: 'Communication Access resources',
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Patient, skilled communication with people who have speech disabilities or use AAC devices is essential for equitable service.',
+          no: 'Provide staff training on communicating with people who have speech disabilities, strong accents, or who use AAC (Augmentative and Alternative Communication) devices. Include practical scenarios and allow extra time in interactions.',
+          partially: 'Some training is in place. Ensure it covers AAC device interaction, patience strategies, and is refreshed regularly for all customer-facing staff.',
+        },
       },
       {
         id: '4.1-PC-6',
@@ -15333,6 +17328,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. AAC awareness ensures staff can interact effectively with customers using communication boards, speech-generating devices, or apps.',
+          no: 'Train staff on what AAC (Augmentative and Alternative Communication) devices are, how they work, and how to interact respectfully with people who use them. Include examples of low-tech (picture boards) and high-tech (speech apps) AAC.',
+          partially: 'Basic awareness exists. Deepen training to cover different AAC types and practical interaction techniques, including allowing extra time and directing conversation to the customer (not their support person).',
+        },
       },
       {
         id: '4.1-PC-7',
@@ -15359,6 +17359,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A quiet space supports effective communication for customers who are Deaf or hard of hearing, have sensory sensitivities, or experience anxiety.',
+          no: 'Designate a quiet, low-stimulus space where staff can have conversations with customers who need a calmer environment. This could be a private office, meeting room, or screened area.',
+          partially: 'A space is sometimes available. Formalise a designated quiet space, ensure all staff know where it is, and make it consistently available during operating hours.',
+        },
       },
       {
         id: '4.1-PC-8',
@@ -15385,6 +17390,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Written follow-ups reduce reliance on memory and ensure customers with cognitive or hearing disabilities have a record of important information.',
+          no: 'Offer written confirmation (email, SMS, or letter) after important phone or in-person conversations covering bookings, service changes, or access arrangements.',
+          partially: 'Written follow-ups happen sometimes. Make them standard practice for all significant interactions, not just on request.',
+        },
       },
       {
         id: '4.1-PC-9',
@@ -15411,6 +17421,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Multiple feedback channels ensure customers with different access needs can share concerns or complaints.',
+          no: 'Offer at least three feedback channels (e.g., phone, email, in-person, mail, SMS). Ensure at least one does not require internet access and at least one does not require verbal communication.',
+          partially: 'Some channels are available. Review whether your current options cover customers who cannot use digital tools, cannot speak, or need to provide feedback anonymously.',
+        },
       },
       {
         id: '4.1-PC-10',
@@ -15437,6 +17452,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Responding in the customer\'s preferred format demonstrates genuine commitment to accessible communication.',
+          no: 'Establish a process for responding to customers in their stated preferred format (e.g., large print letter, email instead of phone, Easy Read). Document preferences and ensure all staff follow them.',
+          partially: 'Some preferred-format responses are provided. Systematise this so every customer\'s stated preference is recorded and applied by default across all departments.',
+        },
       },
 
       // ============================================
@@ -15475,6 +17495,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. You actively promote multiple alternatives to phone contact.',
+          no: 'Identify and promote at least two non-phone contact options. Display them alongside your phone number on your website, signage, and printed materials.',
+          partially: 'Some alternatives are available but may not be well promoted. Ensure all non-phone options are listed prominently wherever your phone number appears.',
+        },
       },
       {
         id: '4.1-DD-1b',
@@ -15501,6 +17526,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Equal prominence of phone alternatives signals that all contact methods are genuinely supported.',
+          no: 'Display non-phone contact options (email, chat, SMS) with equal prominence to your phone number on your website, Google Business listing, and printed materials. Avoid burying alternatives in sub-pages.',
+          partially: 'Alternatives are listed but not as prominently as the phone number. Adjust your website and materials so all contact methods appear together at the same visual weight.',
+        },
       },
       {
         id: '4.1-DD-2a',
@@ -15532,6 +17562,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. NRS training has reached relevant staff groups.',
+          no: 'Deliver National Relay Service training to all customer-facing staff, reception, and phone-handling teams. Include practical exercises handling NRS voice relay and TTY relay calls.',
+          partially: 'NRS training has reached some teams. Extend it to all staff who answer phones or handle customer enquiries, including casual and agency staff.',
+        },
       },
       {
         id: '4.1-DD-3a',
@@ -15563,6 +17598,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Communication preferences are captured in your systems.',
+          no: 'Add communication preference fields to your CRM, booking system, or customer database. Capture preferred contact method, document format, and any communication support needs at first interaction.',
+          partially: 'Preferences are captured in some systems but not all. Ensure all customer-facing systems share or sync communication preference data so staff always have it available.',
+        },
       },
       {
         id: '4.1-DD-3b',
@@ -15589,6 +17629,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Staff can quickly access customer preferences when initiating contact.',
+          no: 'Ensure communication preferences are visible in the customer record and easily accessible to staff before they make outbound contact. Add preference flags or alerts to your CRM or booking system.',
+          partially: 'Preferences are recorded but not always easy to find. Surface them prominently in customer records so staff see them before initiating any contact.',
+        },
       },
       {
         id: '4.1-DD-5a',
@@ -15621,6 +17666,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Staff have received relevant training on communicating with people who have speech differences.',
+          no: 'Deliver practical training on communicating with people who have speech disabilities, including allowing extra time, using yes/no questions, offering writing materials, and working with AAC devices.',
+          partially: 'Some training has occurred. Ensure it includes hands-on practice, covers both low-tech and high-tech communication aids, and is refreshed annually.',
+        },
       },
       {
         id: '4.1-DD-6a',
@@ -15652,6 +17702,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. You have AAC resources available for staff to use with customers.',
+          no: 'Provide staff with basic AAC resources: a communication board with common service phrases, a picture menu (if applicable), pen and paper, and a reference guide on interacting with AAC users.',
+          partially: 'Some AAC resources exist. Review whether they cover your most common customer interactions, are up to date, and are accessible to all customer-facing staff.',
+        },
       },
       {
         id: '4.1-DD-8a',
@@ -15679,6 +17734,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Written confirmation is offered as a standard part of your service.',
+          no: 'Make written confirmation of important conversations (bookings, service changes, complaints) a standard practice offered to all customers, not only when specifically requested.',
+          partially: 'Written confirmation is available on request. Shift to offering it proactively as standard practice for all significant interactions.',
+        },
       },
       {
         id: '4.1-DD-9a',
@@ -15714,6 +17774,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Multiple feedback channels are available to customers.',
+          no: 'Establish at least three feedback channels spanning different access needs: online form, email, phone, in-person, and postal mail. Ensure at least one option works without internet and one without voice.',
+          partially: 'Some channels exist. Assess whether the current mix serves customers who are Deaf, blind, have cognitive disabilities, or lack internet access, and fill any gaps.',
+        },
       },
       {
         id: '4.1-DD-10a',
@@ -15746,6 +17811,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. You have provided responses in alternative formats.',
+          no: 'Develop the capability to respond in alternative formats: large print (minimum 18pt), Easy Read, audio, email (for customers who requested non-postal), and Braille (via a transcription service if needed).',
+          partially: 'Some formats are available. Expand your range to cover large print, Easy Read, audio, and digital formats, and document the process so any staff member can fulfil a request.',
+        },
       },
       {
         id: '4.1-DD-11a',
@@ -15779,6 +17849,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Your contact page is accessible to people using keyboards, screen readers, and assistive technology.',
+          no: 'Audit your website contact page for WCAG 2.2 AA compliance. Ensure it is keyboard navigable, screen reader compatible, avoids inaccessible CAPTCHAs, and has properly labelled form fields with clear error messages.',
+          partially: 'Your contact page is partially accessible. Test with a screen reader and keyboard-only navigation to identify remaining barriers, particularly around form labels, error handling, and CAPTCHA alternatives.',
+        },
       },
       {
         id: '4.1-DD-12a',
@@ -15804,6 +17879,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible after-hours contact options ensure customers with disabilities can reach you in urgent situations.',
+          no: 'Provide accessible after-hours or emergency contact options. Ensure at least one non-phone option (email, SMS, online form) is monitored outside business hours for urgent accessibility-related enquiries.',
+          partially: 'Some after-hours options exist. Verify they are accessible to people who cannot use voice phone, and clearly communicate after-hours contact methods on your website and voicemail.',
+        },
       },
       {
         id: '4.1-OTHER',
@@ -15878,6 +17958,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Disability awareness training builds staff confidence and competence in serving customers with diverse needs.',
+          no: 'Implement disability awareness and inclusion training for all customer-facing staff. Source training that includes lived-experience perspectives and practical scenario-based exercises, not just online modules.',
+          partially: 'Some training has been provided. Ensure it covers all customer-facing roles, is regularly refreshed, and includes practical scenarios rather than theory alone.',
+        },
       },
       {
         id: '4.2-F-2',
@@ -15907,6 +17992,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA 1992',
+        actionText: {
+          yes: 'Good. Under the DDA 1992, refusing entry to an assistance animal is unlawful discrimination. Staff awareness is essential.',
+          no: 'Train all staff on assistance animal rights under the Disability Discrimination Act 1992. Staff must know they cannot refuse entry, request proof of disability, or charge extra for assistance animals.',
+          partially: 'Some staff are aware. Ensure all staff (including casuals and contractors) know that assistance animals must be admitted, cannot be questioned, and must not be separated from their handler.',
+        },
       },
       {
         id: '4.2-F-3',
@@ -15934,6 +18024,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Staff confidence in communicating with customers who have diverse needs leads to better service outcomes.',
+          no: 'Provide practical communication training covering interactions with people who are Deaf, blind, have intellectual disabilities, use wheelchairs, or have speech differences. Include role-play exercises.',
+          partially: 'Staff have some confidence but gaps remain. Identify specific areas of uncertainty through a staff survey and provide targeted training to build comfort across all disability types.',
+        },
       },
       {
         id: '4.2-F-4',
@@ -15960,6 +18055,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Pre-arrival assistance requests allow you to prepare properly and deliver a better experience.',
+          no: 'Create a process for customers to request assistance before arriving. Include it in your booking flow, on your website contact page, and in booking confirmations. Nominate a staff member to action requests.',
+          partially: 'A process exists but may not be well promoted or consistently actioned. Ensure the request option is visible in all booking channels and that requests are acknowledged and fulfilled.',
+        },
       },
       {
         id: '4.2-F-5',
@@ -15987,6 +18087,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Communication strategy training equips staff to adapt their approach for different customers.',
+          no: 'Train staff in varied communication strategies: speaking clearly and at a moderate pace, using plain language, offering written information, using gestures or visual aids, and adjusting approach based on customer cues.',
+          partially: 'Some strategies are known. Broaden training to cover signing basics (at minimum, greeting in Auslan), written communication, visual supports, and techniques for communicating with people who have cognitive disabilities.',
+        },
       },
       {
         id: '4.2-F-6',
@@ -16013,6 +18118,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Staff who can confidently direct customers to accessible facilities provide a smoother experience.',
+          no: 'Ensure all staff know the location of accessible toilets, lifts, hearing loops, quiet spaces, accessible parking, and any other accessible facilities. Include this in onboarding and display a staff reference map.',
+          partially: 'Some staff know facility locations. Create a quick-reference map or guide for all staff and include accessible facility locations in onboarding orientation walks.',
+        },
       },
       {
         id: '4.2-F-7',
@@ -16043,6 +18153,11 @@ export const accessModules: AccessModule[] = [
         evidenceHint: 'Upload your feedback or complaints process document',
         partialPlaceholder: "E.g., 'General complaints process but not accessibility-specific' or 'Handled ad-hoc rather than formal process'",
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A clear complaints process ensures accessibility issues are captured, escalated, and resolved.',
+          no: 'Document a clear process for handling accessibility complaints and feedback. Include who receives them, response timeframes, escalation paths, and how outcomes are communicated back to the customer.',
+          partially: 'A process exists but may not be well documented or consistently followed. Formalise it in writing, train all staff, and ensure customers are informed of expected response times.',
+        },
       },
       // Deep Dive Questions
       {
@@ -16070,6 +18185,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Respectful, non-condescending assistance preserves customer dignity and autonomy.',
+          no: 'Train staff to offer assistance respectfully: ask "Can I help with anything?" rather than assuming, speak directly to the customer (not their companion), and follow the customer\'s lead on what help they want.',
+          partially: 'Staff generally offer help appropriately. Reinforce training on avoiding over-helpfulness, speaking directly to the customer, and waiting for consent before providing physical assistance.',
+        },
       },
       {
         id: '4.2-D-10',
@@ -16096,6 +18216,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Staff know how to communicate with customers who are Deaf or hard of hearing.',
+          no: 'Train staff on communicating with Deaf and hard of hearing customers: face them when speaking, reduce background noise, offer pen and paper, use gestures, and know how to book an Auslan interpreter when needed.',
+          partially: 'Some awareness exists. Ensure all staff know the basics (face the person, don\'t shout, offer written communication) and know how to access Auslan interpretation services.',
+        },
       },
       {
         id: '4.2-D-11',
@@ -16122,6 +18247,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Having pen and paper readily available supports written communication when verbal communication is difficult.',
+          no: 'Keep pen and paper (or a whiteboard and marker) at all customer service points for written communication with customers who are Deaf, have speech disabilities, or prefer written exchange.',
+          partially: 'Materials are available in some locations. Ensure every customer service point, reception, and counter has writing materials readily accessible without customers needing to ask.',
+        },
       },
       {
         id: '4.2-D-12',
@@ -16148,6 +18278,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Staff patience and understanding with customers who need extra time supports cognitive accessibility.',
+          no: 'Train staff to allow extra time for customers with cognitive, intellectual, or psychosocial disabilities. Teach them to use plain language, break information into steps, offer to repeat or write things down, and avoid rushing.',
+          partially: 'Staff are generally patient. Formalise training on cognitive accessibility techniques: chunking information, using visual supports, checking understanding without being patronising, and allowing processing time.',
+        },
       },
       {
         id: '4.2-D-13',
@@ -16174,6 +18309,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A quiet space for overwhelmed customers supports people with sensory sensitivities, anxiety, autism, or psychosocial disabilities.',
+          no: 'Designate a quiet, low-stimulus space where customers who become overwhelmed can decompress. Ensure staff know where it is and can offer it proactively when a customer appears distressed.',
+          partially: 'A space is sometimes available. Formalise a designated quiet room or area, clearly sign it, and train all staff to offer it when they notice a customer becoming overwhelmed.',
+        },
       },
       {
         id: '4.2-D-14',
@@ -16203,6 +18343,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A documented policy sets clear expectations for staff and demonstrates organisational commitment.',
+          no: 'Develop and document a policy on serving customers with disabilities. Cover assistance animals, communication strategies, alternative service delivery, complaint handling, and staff training requirements.',
+          partially: 'A policy exists in draft or partial form. Finalise it, ensure it covers all key areas (assistance animals, communication, alternative service, complaints), and make it accessible to all staff.',
+        },
       },
       {
         id: '4.2-D-15',
@@ -16229,6 +18374,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessibility training in onboarding ensures every new staff member starts with the right knowledge and attitude.',
+          no: 'Include accessibility and disability awareness training as a mandatory component of new staff onboarding. Cover assistance animal rights, communication strategies, accessible facility locations, and your complaints process.',
+          partially: 'Some onboarding content exists. Ensure accessibility training is a mandatory, assessed component of onboarding for all roles, not an optional add-on.',
+        },
       },
       {
         id: '4.2-D-16',
@@ -16258,6 +18408,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Good. Staff who know how to assist during evacuation protect the safety of customers with disabilities. This is a mandatory safety requirement.',
+          no: 'Train all staff on assisting customers with disabilities during emergency evacuation. Cover Personal Emergency Evacuation Plans (PEEPs), refuge areas, evacuation chairs, and communication with Deaf customers. This is a mandatory safety requirement.',
+          partially: 'Some staff have evacuation training. Ensure all customer-facing staff are trained, including on PEEPs, evacuation equipment, and communicating with customers who are Deaf, blind, or have mobility disabilities.',
+        },
       },
       {
         id: '4.2-D-17',
@@ -16284,6 +18439,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Staff awareness of accessibility equipment means they can direct customers to hearing loops, portable ramps, and other aids.',
+          no: 'Ensure all staff know what accessibility equipment is available (hearing loops, wheelchairs, portable ramps, magnifiers), where it is located, and how to operate or deploy it.',
+          partially: 'Some awareness exists. Create a staff reference list of all accessibility equipment, its location, and basic operating instructions. Include it in onboarding.',
+        },
       },
       {
         id: '4.2-D-18',
@@ -16310,6 +18470,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Offering assistive technology and equipment removes barriers and improves customer independence.',
+          no: 'Assess what assistive technology or equipment would benefit your customers (e.g., hearing loop, magnifying sheet, wheelchair for loan, portable ramp, tablet for communication). Procure and make available the most impactful items.',
+          partially: 'Some equipment is available. Review whether additional items would address unmet needs, and ensure existing equipment is maintained, charged, and staff know how to offer it.',
+        },
       },
       {
         id: '4.2-D-18b',
@@ -16345,6 +18510,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Access to Auslan interpretation is critical for equitable service for Deaf customers.',
+          no: 'Establish a relationship with an Auslan interpreting service (e.g., Auslan Connections, The Deaf Society) so you can arrange interpretation for planned appointments and know how to access on-demand video remote interpreting (VRI).',
+          partially: 'Some capacity exists. Ensure you have both a pre-booked interpreting arrangement and access to on-demand video remote interpreting (VRI) for unplanned interactions.',
+        },
       },
       {
         id: '4.2-D-19',
@@ -16371,6 +18541,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Welcoming carers and support people appropriately shows respect for the customer\'s autonomy and their support network.',
+          no: 'Develop guidelines for welcoming carers and support people: offer them a seat, direct conversation to the customer (not the carer), do not charge carers for entry (honour the Companion Card), and ask the customer how they would like to be supported.',
+          partially: 'Carers are generally welcomed. Formalise guidance on directing conversation to the customer, honouring the Companion Card, and asking the customer (not the carer) about their preferences.',
+        },
       },
       {
         id: '4.2-D-20',
@@ -16397,6 +18572,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Providing information in alternative formats on request meets DDA obligations and supports diverse access needs.',
+          no: 'Establish a process for providing key documents in alternative formats (large print, Easy Read, audio, Braille, digital). Nominate a responsible person, set response timeframes, and train staff to offer this proactively.',
+          partially: 'Some alternative formats can be produced. Document the full process, set target turnaround times, and ensure all staff know how to take and fulfil alternative format requests.',
+        },
       },
       // Additional Deep Dive - Service Animals
       {
@@ -16432,6 +18612,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA 1992',
+        actionText: {
+          yes: 'Good. A documented assistance animal policy ensures consistent, lawful treatment across all staff and situations.',
+          no: 'Document an assistance animal policy aligned with the DDA 1992. It must state that assistance animals are permitted in all public areas, staff must not request proof of disability, and no surcharges apply. Train all staff on the policy.',
+          partially: 'A policy exists but may not be comprehensive or well communicated. Ensure it explicitly covers DDA requirements, is accessible to all staff, and addresses common scenarios (other customer complaints, hygiene areas, outdoor spaces).',
+        },
       },
       {
         id: '4.2-D-22',
@@ -16461,6 +18646,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA 1992',
+        actionText: {
+          yes: 'Good. Staff know how to handle complaints about assistance animals while upholding the handler\'s legal rights.',
+          no: 'Train staff to respond to complaints about assistance animals by explaining the legal right of the handler under the DDA 1992. The animal must not be removed. Offer the complaining customer an alternative seat or area if possible.',
+          partially: 'Some staff are aware. Ensure all staff know that the assistance animal handler\'s rights take priority, and practise de-escalation responses to other customers\' complaints.',
+        },
       },
       // Queue Management and Wait Times
       {
@@ -16497,6 +18687,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accommodating different service needs, including priority access and wait time communication, supports equitable service.',
+          no: 'Implement priority access options for customers who cannot stand or wait for extended periods, and communicate expected wait times in accessible formats (visual displays, verbal updates). Allow flexible service delivery for customers who need it.',
+          partially: 'Some accommodations exist. Formalise priority access criteria, ensure wait times are communicated accessibly, and train staff to offer flexible service arrangements proactively.',
+        },
       },
       // Alternative Service Delivery
       {
@@ -16532,6 +18727,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Alternative service delivery ensures customers who cannot access your standard service are not excluded.',
+          no: 'Identify and offer alternative service delivery methods for customers who face barriers: home delivery, phone ordering, assisted shopping, table service instead of counter service, or appointment-based service for customers who cannot manage queues.',
+          partially: 'Some alternatives are available. Review your standard service process for barriers and develop additional alternatives for customers with mobility, sensory, or cognitive access needs.',
+        },
       },
       {
         id: '4.2-D-26',
@@ -16559,6 +18759,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Proactive offers of assistance are welcoming and help customers who may not feel comfortable asking.',
+          no: 'Train staff to proactively offer assistance when they notice a customer may need support, using a respectful approach: "Is there anything I can help you with?" rather than assuming what help is needed.',
+          partially: 'Some staff offer proactively. Reinforce this as a standard service behaviour for all staff, with training on how to offer without being intrusive or making assumptions.',
+        },
       },
       {
         id: '4.2-D-27',
@@ -16592,6 +18797,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A feedback process specific to staff interactions helps you identify training gaps and celebrate good practice.',
+          no: 'Create a simple feedback mechanism for customers to comment on their service interaction. Include it on receipts, follow-up emails, or a visible feedback point. Review results regularly to inform staff training.',
+          partially: 'A general feedback process exists. Add a specific prompt about the quality of the staff interaction and whether accessibility needs were well handled.',
+        },
       },
       // Intersectionality in customer service
       {
@@ -16629,6 +18839,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Intersectional awareness means staff understand that disability experiences are shaped by culture, language, gender, age, and past experiences.',
+          no: 'Include intersectionality in disability awareness training. Cover how disability intersects with cultural background, gender identity, age, language, and past negative experiences with services. Avoid one-size-fits-all assumptions.',
+          partially: 'Basic disability awareness exists. Deepen training to cover intersectional experiences, including culturally diverse people with disability, Aboriginal and Torres Strait Islander people, LGBTIQ+ people, and older Australians.',
+        },
       },
       // Customer service level flexibility
       {
@@ -16665,6 +18880,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Offering adjustable levels of customer service supports customers with social anxiety, autism, or who simply prefer less interaction.',
+          no: 'Allow customers to request increased or reduced levels of service interaction. Consider "assistance available" badges, quiet shopping options, or a way to signal whether they want proactive help or prefer to browse independently.',
+          partially: 'Some flexibility exists. Formalise options for customers to indicate their preferred level of interaction (e.g., lanyard schemes, "help needed" / "browsing" cards) and train staff to respect these preferences.',
+        },
       },
       {
         id: '4.2-D-32',
@@ -16699,6 +18919,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Co-design with people with disabilities leads to more effective and genuine customer service improvements.',
+          no: 'Involve people with disabilities in reviewing or co-designing your customer service approach. Engage paid consultants with lived experience, establish an advisory panel, or commission a co-design workshop. Ensure participants are compensated.',
+          partially: 'Some engagement has occurred. Move towards structured, ongoing co-design with diverse disability representation, ensuring participants are compensated for their expertise and time.',
+        },
       },
       {
         id: '4.2-D-33',
@@ -16731,6 +18956,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Privacy in discussing access needs respects customer dignity and encourages people to share their requirements.',
+          no: 'Provide a way for customers to discuss accessibility needs privately, away from public counters. Options include a quiet consultation area, a phone or email option, or a discreet card system for communicating needs.',
+          partially: 'Some privacy options exist. Ensure every service point has a private alternative for customers who need to discuss access requirements, and train staff to offer it proactively.',
+        },
       },
       {
         id: '4.2-OTHER',
@@ -16910,6 +19140,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. An accessible booking system ensures customers with disabilities can independently make reservations.',
+          no: 'Audit your online booking system against WCAG 2.2 AA. Ensure it is keyboard navigable, screen reader compatible, has clear labels and error messages, and works with browser zoom up to 200%. Provide a phone or email alternative.',
+          partially: 'Your booking system is partially accessible. Commission a WCAG 2.2 AA audit, prioritise keyboard navigation and screen reader compatibility, and ensure a non-digital booking alternative is available.',
+        },
       },
       {
         id: '4.3-D-2',
@@ -16944,6 +19179,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Allowing customers to specify accessibility requirements during booking lets you prepare appropriately.',
+          no: 'Add an accessibility requirements field to your booking process. Include options for wheelchair access, hearing loop, Auslan interpreter, quiet seating, assistance animal, and a free-text field for other needs.',
+          partially: 'Some accessibility options are in the booking flow. Expand to cover all common needs (mobility, sensory, cognitive, assistance animals) and ensure requests are actioned and confirmed before arrival.',
+        },
       },
       {
         id: '4.3-D-3',
@@ -16979,6 +19219,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Recognising the Companion Card scheme means carers can accompany customers with disability at no extra cost.',
+          no: 'Register as a Companion Card affiliate through your state or territory scheme. Train staff to recognise and accept the card, and update your ticketing or booking system to apply the companion concession automatically.',
+          partially: 'You are aware of the Companion Card but may not be formally registered or consistently applying it. Complete registration, update systems, and train all ticketing and front-of-house staff.',
+        },
       },
       {
         id: '4.3-D-4',
@@ -17014,6 +19259,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Concession pricing acknowledges the additional costs many people with disability face.',
+          no: 'Consider offering concession pricing or reduced fees for people with disability and their companions. Review what peer organisations offer and establish clear eligibility criteria and a simple verification process.',
+          partially: 'Some concessions are available. Review whether they are well promoted, easy to access, and cover companions where applicable (e.g., Companion Card holders).',
+        },
       },
       {
         id: '4.3-D-5',
@@ -17048,6 +19298,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Multiple payment methods reduce barriers for customers with different disabilities.',
+          no: 'Accept a range of payment methods including contactless (tap-and-go), chip and PIN, cash, and online payment. Contactless payment is particularly important for customers with fine motor difficulties.',
+          partially: 'Multiple methods are accepted. Ensure contactless payment is available at all service points, as it is the most accessible option for customers with dexterity, vision, or cognitive access needs.',
+        },
       },
       {
         id: '4.3-D-6',
@@ -17082,6 +19337,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible confirmations and receipts ensure customers can review their booking details independently.',
+          no: 'Ensure booking confirmations and receipts are available in accessible formats: well-structured HTML email (not image-only), plain text option, large print on request, and screen reader compatible PDF if attached.',
+          partially: 'Some formats are accessible. Audit your confirmation emails and receipts for screen reader compatibility, ensure PDFs are tagged, and offer alternative formats on request.',
+        },
       },
       {
         id: '4.3-D-7',
@@ -17116,6 +19376,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Pre-booking accessible spaces and equipment lets customers plan with confidence.',
+          no: 'Enable customers to book accessible spaces, seating, or equipment (e.g., wheelchair spaces, hearing loop seats, accessible rooms) in advance through your standard booking system, not only by phone.',
+          partially: 'Some accessible options are bookable. Ensure all accessible spaces and equipment can be reserved through the same channels as standard bookings, with clear descriptions of what is available.',
+        },
       },
       {
         id: '4.3-D-8',
@@ -17148,6 +19413,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Multiple channels for requesting assistance during booking support customers with different access needs.',
+          no: 'Offer multiple ways for customers to request additional assistance when booking: a field in the online form, a dedicated phone line, an email address, and a note option in third-party booking platforms.',
+          partially: 'Some request channels exist. Ensure there is at least one non-digital and one non-verbal option, and that all requests are routed to a staff member who can action them before the customer arrives.',
+        },
       },
       // ============================================
       // FINANCIAL ACCESSIBILITY
@@ -17184,6 +19454,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible pricing information lets customers plan independently without needing to ask.',
+          no: 'Publish pricing information in accessible formats: on your website (meeting WCAG 2.2 AA), in large print at your venue, and available in Easy Read or audio on request. Avoid pricing only in images or non-tagged PDFs.',
+          partially: 'Pricing is partially accessible. Ensure your website pricing is not embedded in images, large print versions are available on-site, and staff can provide pricing verbally or in alternative formats.',
+        },
       },
       {
         id: '4.3-D-10',
@@ -17216,6 +19491,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Clear communication of concessions ensures eligible customers can easily access them.',
+          no: 'Clearly promote concessions and discounts on your website, at point of sale, and in booking confirmations. Include eligibility criteria, how to claim, and what evidence (if any) is needed. Avoid requiring customers to ask.',
+          partially: 'Concessions are available but not prominently communicated. Display them alongside standard pricing and train staff to mention them proactively rather than waiting for customers to ask.',
+        },
       },
       {
         id: '4.3-D-11',
@@ -17248,6 +19528,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Equal access to payment methods prevents discrimination at the point of sale.',
+          no: 'Ensure customers with disability can use all the same payment methods as other customers. If any method is inaccessible (e.g., PIN pad out of reach, no audio feedback on EFTPOS), provide an equally convenient alternative.',
+          partially: 'Most methods are accessible. Identify any payment methods that present barriers (e.g., elevated PIN pads, touchscreen-only kiosks) and provide accessible alternatives at every service point.',
+        },
       },
       {
         id: '4.3-D-12',
@@ -17281,6 +19566,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible EFTPOS terminals enable independent payment for customers with diverse disabilities.',
+          no: 'Audit your EFTPOS and payment terminals for accessibility: tactile buttons, audio feedback option, screen contrast, reachable height (900-1100mm), and ability to be handed to the customer. Replace or supplement inaccessible terminals.',
+          partially: 'Terminals are partially accessible. Prioritise audio feedback capability, tactile key markings, and ensuring at least one terminal per service point can be positioned at wheelchair-accessible height.',
+        },
       },
       {
         id: '4.3-D-13',
@@ -17314,6 +19604,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible receipts and invoices ensure customers can independently review their transactions.',
+          no: 'Ensure receipts and invoices are available in accessible formats: minimum 12pt font on printed receipts, well-structured HTML email receipts, tagged PDF invoices, and alternative formats (large print, audio) on request.',
+          partially: 'Some formats are accessible. Review printed receipt font size and contrast, ensure emailed receipts are screen reader compatible, and offer alternative formats for customers who request them.',
+        },
       },
       // Food service flexibility
       {
@@ -17348,6 +19643,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible self-service kiosks enable independent use by customers with diverse disabilities.',
+          no: 'Audit self-service kiosks for accessibility: screen height (reachable from a wheelchair), screen reader or audio output, high contrast display, timeout extensions, and physical controls with tactile markings. Ensure a staffed alternative is always available.',
+          partially: 'Kiosks are partially accessible. Prioritise height adjustment or lowered screens, audio output, and timeout extensions. Always provide a staffed alternative for customers who cannot use the kiosk.',
+        },
       },
       {
         id: '4.3-D-15',
@@ -17381,6 +19681,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. An accessible queuing or ticket system ensures customers with disabilities can use it independently.',
+          no: 'Audit your digital queuing or ticket system for accessibility: screen reader compatibility, keyboard navigation, visual and audio alerts for queue position, and an alternative for customers who cannot use the digital system.',
+          partially: 'The system is partially accessible. Ensure it provides both visual and audio cues, is operable by keyboard, and that staff offer a manual alternative for customers who face barriers.',
+        },
       },
       {
         id: '4.3-D-16',
@@ -17414,6 +19719,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible self-checkout supports customer independence and reduces reliance on staffed checkouts.',
+          no: 'Audit self-checkout machines for accessibility: screen height from a wheelchair, audio feedback and screen reader mode, bagging area layout accommodating wheelchair trays, weight tolerance settings, and clear visual instructions. Ensure a staffed checkout is always available.',
+          partially: 'Self-checkouts are partially accessible. Prioritise audio feedback, screen height, and weight tolerance adjustments. Ensure at least one machine per bank is fully accessible, and a staffed alternative is always open.',
+        },
       },
       {
         id: '4.3-OTHER',
@@ -17613,6 +19923,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Good. PEEPs are a critical safety requirement for people who need tailored evacuation assistance.',
+          no: 'Implement Personal Emergency Evacuation Plans (PEEPs) for staff and regular visitors who need them. For casual visitors, develop generic PEEPs covering common disability types (wheelchair user, blind person, Deaf person). This is a mandatory safety requirement under Australian workplace and building legislation.',
+          partially: 'PEEPs are partially in place. Ensure they cover both staff and visitors, are reviewed regularly, and that generic PEEPs exist for common disability scenarios encountered by casual visitors.',
+        },
       },
       {
         id: '4.4-D-2',
@@ -17650,6 +19965,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Good. Designated refuge areas are essential for safe evacuation of people who cannot use stairs.',
+          no: 'Identify and clearly sign designated refuge areas on all floors above and below ground level. Refuge areas must be fire-rated, have two-way communication with the control point, and be included in your emergency procedures. This is required under the National Construction Code and AS 1428.1.',
+          partially: 'Some refuge areas exist. Ensure they are on every non-ground floor, are clearly signed with the international symbol, have two-way communication, and are included in all evacuation plans and drills.',
+        },
       },
       {
         id: '4.4-D-3',
@@ -17688,6 +20008,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Good. Evacuation equipment enables safe egress for people who cannot use stairs independently.',
+          no: 'Procure appropriate evacuation equipment (evacuation chairs, slide sheets, or carry chairs) for all multi-storey areas. Train designated staff in their use and conduct regular practice sessions. This is a mandatory safety obligation.',
+          partially: 'Some equipment is available. Ensure sufficient equipment for all floors, that it is regularly maintained, and that enough trained staff are rostered on every shift to operate it.',
+        },
       },
       {
         id: '4.4-D-4',
@@ -17726,6 +20051,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 1670.4, APS D3.9',
+        actionText: {
+          yes: 'Good. Multiple communication methods for Deaf visitors during emergencies saves lives.',
+          no: 'Implement visual emergency alerts (flashing beacons, digital signage messages) alongside audible alarms. Train staff to use written instructions, gestures, and physical guidance to direct Deaf visitors during evacuation. This is a mandatory safety requirement.',
+          partially: 'Some visual alerts exist. Ensure visual alarms are installed in all areas including toilets, and that staff are trained in non-verbal emergency communication techniques.',
+        },
       },
       {
         id: '4.4-D-5',
@@ -17765,6 +20095,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Good. Accessible emergency procedure displays ensure all visitors can understand evacuation routes.',
+          no: 'Display emergency procedures in accessible formats: tactile and Braille evacuation maps at key points, large print signage, high-contrast colour schemes, and Easy Read versions at reception. Include accessible formats in any pre-visit information.',
+          partially: 'Some accessible formats exist. Ensure coverage across all formats (tactile, Braille, large print, Easy Read, high contrast) and that accessible emergency information is provided at key decision points.',
+        },
       },
       {
         id: '4.4-D-6',
@@ -17800,6 +20135,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Supporting people with anxiety or cognitive differences during emergencies prevents additional harm.',
+          no: 'Develop procedures for supporting people with anxiety, autism, intellectual disability, or cognitive differences during emergencies. Include staff training on calm communication, sensory overload management, and buddy systems for confused or distressed individuals.',
+          partially: 'Some awareness exists. Formalise procedures including designated calm communicators, simplified instructions, visual supports, and a buddy system for visitors who may become disoriented during evacuation.',
+        },
       },
       {
         id: '4.4-D-7',
@@ -17835,6 +20175,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA 1992',
+        actionText: {
+          yes: 'Good. Including assistance animals in evacuation planning protects both the animal and the handler.',
+          no: 'Include assistance animals in your emergency evacuation procedures. Animals must stay with their handler during evacuation. Train staff to never separate an assistance animal from their handler, and plan for animal welfare at assembly points.',
+          partially: 'Some consideration exists. Ensure your written procedures explicitly state that assistance animals remain with their handler at all times during evacuation, and train staff on this requirement.',
+        },
       },
       {
         id: '4.4-D-8',
@@ -17871,6 +20216,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Good. Regular drills that include disability scenarios ensure your team is genuinely prepared.',
+          no: 'Conduct evacuation drills at least every six months that include disability scenarios: evacuating a wheelchair user, guiding a blind person, communicating with a Deaf visitor, and supporting a person with cognitive disability. Document outcomes and improve procedures based on findings.',
+          partially: 'Drills occur but may not consistently include disability scenarios. Add specific disability scenarios to every drill, rotate the types tested, and document lessons learned.',
+        },
       },
       {
         id: '4.4-D-9',
@@ -17905,6 +20255,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Good. Providing emergency orientation on arrival gives visitors with disabilities critical safety information.',
+          no: 'Brief visitors with disabilities on emergency procedures on arrival: nearest accessible exit, refuge area location, how alarms are communicated (audible and visual), and who to contact for assistance. Include this in any pre-visit information pack.',
+          partially: 'Some information is provided. Formalise an emergency orientation process for visitors with disabilities that covers exit routes, refuge areas, alarm types, and staff contact, delivered both verbally and in writing.',
+        },
       },
       {
         id: '4.4-D-10',
@@ -17939,6 +20294,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Good. Communicating visitor disability needs to emergency services ensures appropriate response and prevents secondary harm.',
+          no: 'Develop a process to communicate visitor disability information to external emergency services on arrival. Include a register of visitors with PEEPs, their location, mobility and communication needs, and whether they have an assistance animal. Make this available to the chief warden.',
+          partially: 'Some information can be shared. Formalise a handover document or briefing process for emergency services that includes the number and location of people with disabilities, their specific needs, and any assistance animals on site.',
+        },
       },
       {
         id: '4.4-OTHER',
@@ -18000,6 +20360,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A dedicated accessibility feedback channel shows customers their experience matters.',
+          no: 'Create a way for customers to provide feedback specifically about accessibility. Include it in your general feedback channels but also offer a dedicated accessibility feedback option (email address, form, or phone line).',
+          partially: 'Feedback can be provided through general channels. Add a specific accessibility feedback prompt or channel so customers know their access-related comments will be directed to the right team.',
+        },
       },
       {
         id: '4.5-F-2',
@@ -18035,6 +20400,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible surveys and forms ensure customers with disabilities can actually provide feedback.',
+          no: 'Audit your surveys and feedback forms for WCAG 2.2 AA compliance. Ensure they are keyboard navigable, screen reader compatible, have clear labels, provide adequate time, and are available in alternative formats (phone, paper, Easy Read).',
+          partially: 'Forms are partially accessible. Test with screen readers and keyboard-only navigation, add alternative format options, and ensure forms work with browser zoom at 200%.',
+        },
       },
       {
         id: '4.5-F-3',
@@ -18069,6 +20439,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Monitoring online reviews for accessibility mentions helps you identify barriers and respond to customer concerns.',
+          no: 'Set up monitoring for accessibility-related mentions in Google Reviews, TripAdvisor, social media, and industry platforms. Respond to accessibility concerns promptly and publicly, showing you take them seriously and are acting on them.',
+          partially: 'Some monitoring occurs. Formalise a regular review schedule, assign responsibility for responding to accessibility-related reviews, and track themes to inform improvement priorities.',
+        },
       },
       {
         id: '4.5-F-4',
@@ -18097,6 +20472,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Regularly reviewing and acting on accessibility feedback closes the loop and drives genuine improvement.',
+          no: 'Establish a regular review cycle (at least quarterly) for accessibility feedback. Assign responsibility for reviewing, categorising, prioritising, and acting on feedback. Report back to customers on changes made.',
+          partially: 'Feedback is reviewed but action is inconsistent. Formalise a quarterly review process with documented actions, responsible owners, and timelines. Communicate improvements to customers.',
+        },
       },
       {
         id: '4.5-D-1',
@@ -18129,6 +20509,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Multiple feedback channels ensure customers with different access needs can all provide input.',
+          no: 'Offer at least three feedback channels: online form, email, phone, in-person, and postal mail. Ensure at least one option does not require internet access and at least one does not require verbal communication.',
+          partially: 'Some channels exist. Assess whether the current mix covers customers who are Deaf, blind, have cognitive disabilities, or lack internet access, and add channels to fill gaps.',
+        },
       },
       {
         id: '4.5-D-2',
@@ -18161,6 +20546,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Responding to accessibility-related reviews demonstrates accountability and encourages future feedback.',
+          no: 'Respond to accessibility-related reviews publicly and promptly. Acknowledge the concern, explain what action you are taking, and invite the reviewer to contact you directly for follow-up. Avoid defensive language.',
+          partially: 'Some responses have been made. Develop a consistent response framework: acknowledge, thank, explain action, and invite follow-up. Ensure responses are timely (within 48 hours).',
+        },
       },
       {
         id: '4.5-D-3',
@@ -18187,6 +20577,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Tracking feedback patterns reveals systemic issues and helps prioritise improvements.',
+          no: 'Implement a system for tracking and categorising accessibility feedback. Log each item with the date, channel, category (physical, sensory, cognitive, digital, attitudinal), action taken, and outcome. Review quarterly for patterns.',
+          partially: 'Some tracking occurs. Formalise a categorisation system and conduct quarterly analysis to identify recurring themes, prioritise improvements, and measure whether actions are reducing complaints.',
+        },
       },
       {
         id: '4.5-D-4',
@@ -18221,6 +20616,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Target response times for accessibility complaints demonstrate your commitment to resolution.',
+          no: 'Set target response times for accessibility complaints: acknowledge within 24 hours, provide a substantive response within 5 business days, and resolve within 20 business days. Communicate these timeframes to customers.',
+          partially: 'Informal targets exist. Formalise them, communicate them to customers and staff, and track actual performance against targets.',
+        },
       },
       {
         id: '4.5-D-5',
@@ -18257,6 +20657,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Communicating improvements made in response to feedback encourages ongoing engagement and builds trust.',
+          no: 'Develop a process for communicating accessibility improvements back to customers: update your accessibility page, include improvements in newsletters, post on social media, and directly notify customers who provided the original feedback.',
+          partially: 'Some improvements are communicated. Systematise this with a "You said, we did" approach on your website and in regular communications, crediting feedback as the driver of change.',
+        },
       },
       {
         id: '4.5-D-6',
@@ -18291,6 +20696,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. An escalation process ensures serious accessibility complaints receive appropriate attention and resolution.',
+          no: 'Document an escalation process for serious accessibility complaints. Define what constitutes a serious complaint (safety risk, discrimination allegation, repeated issue), who it escalates to, and the expected resolution timeframe.',
+          partially: 'An informal process exists. Formalise escalation criteria, assign senior ownership, and set resolution timeframes. Ensure all staff know how to escalate and that customers are informed of the process.',
+        },
       },
       {
         id: '4.5-D-7',
@@ -18319,6 +20729,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Anonymous feedback options encourage customers who may fear identification or retribution.',
+          no: 'Offer at least one anonymous feedback channel. Options include an anonymous online form, a physical suggestion box, or a third-party feedback service. Ensure customers know the option exists.',
+          partially: 'An anonymous option may be theoretically available but not promoted. Actively promote the anonymous feedback option alongside other channels, and ensure it is genuinely anonymous (no tracking or mandatory identification).',
+        },
       },
       {
         id: '4.5-D-8',
@@ -18353,6 +20768,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Involving people with disabilities in service review leads to more effective and relevant improvements.',
+          no: 'Engage people with disabilities in reviewing and improving your services. Options include a paid advisory panel, co-design workshops, or commissioned reviews by disability consultants with lived experience. Ensure participants are compensated.',
+          partially: 'Some engagement has occurred. Move towards structured, ongoing involvement with diverse disability representation. Ensure participants are compensated for their time and expertise.',
+        },
       },
       {
         id: '4.5-D-9',
@@ -18386,6 +20806,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessibility audits and mystery visits by people with lived experience reveal barriers that desk-based reviews miss.',
+          no: 'Commission accessibility audits or mystery visits conducted by people with lived experience of disability. Cover physical access, sensory access, digital access, and customer service interactions. Act on findings and re-audit annually.',
+          partially: 'Some audits or visits have occurred. Ensure they cover all access dimensions (physical, sensory, cognitive, digital, attitudinal), are conducted by people with diverse disabilities, and are repeated regularly.',
+        },
       },
       {
         id: '4.5-D-10',
@@ -18418,6 +20843,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Benchmarking helps you understand your accessibility maturity relative to peers and identify improvement opportunities.',
+          no: 'Benchmark your accessibility performance against industry standards, peer organisations, or frameworks such as the Australian Network on Disability Access and Inclusion Index. Use results to set targets and track progress.',
+          partially: 'Some benchmarking has occurred. Formalise an annual benchmarking process, compare against at least two reference points (industry peers and a recognised framework), and use results to set measurable improvement targets.',
+        },
       },
       {
         id: '4.5-OTHER',
@@ -18486,6 +20916,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible emails and newsletters reach customers who use screen readers, magnification, or other assistive technology.',
+          no: 'Audit your marketing emails and newsletters for accessibility: use semantic HTML (proper headings, lists), include alt text on all images, ensure sufficient colour contrast, use a single-column layout, and test with a screen reader before sending.',
+          partially: 'Some accessibility practices are in place. Test a recent newsletter with a screen reader and images disabled. Address any issues with heading structure, alt text, link text, and colour contrast.',
+        },
       },
       {
         id: '4.6-F-2',
@@ -18514,6 +20949,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Easy preference management gives customers control over how and when they receive communications.',
+          no: 'Ensure customers can easily manage their communication preferences: frequency, format (HTML, plain text, large print), channel (email, SMS, post), and content interests. Make the preference centre accessible and keyboard navigable.',
+          partially: 'Some preferences can be managed. Expand options to include communication format and channel preferences, ensure the preference centre meets WCAG 2.2 AA, and test with assistive technology.',
+        },
       },
       {
         id: '4.6-F-3',
@@ -18549,6 +20989,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible promotions ensure customers with disabilities can learn about and redeem offers independently.',
+          no: 'Ensure promotional offers and discounts are accessible: not communicated only through images, available in text format, redeemable through accessible channels, and with clear terms in plain language. Avoid time-limited offers that disadvantage people who need more time.',
+          partially: 'Promotions are partially accessible. Review whether all offers are available in text format, can be redeemed through accessible channels, and have adequate redemption timeframes for customers who need more time.',
+        },
       },
       {
         id: '4.6-F-4',
@@ -18584,6 +21029,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. An accessible loyalty program ensures customers with disabilities benefit equally from repeat patronage.',
+          no: 'Audit your loyalty or rewards program for accessibility: can customers join and manage their account using assistive technology? Are points balances and rewards communicated in accessible formats? Is the signup process keyboard navigable?',
+          partially: 'The program is partially accessible. Test the full customer journey (signup, earn, redeem, manage) with a screen reader and keyboard-only navigation. Address any barriers to independent use.',
+        },
       },
       {
         id: '4.6-D-1',
@@ -18610,6 +21060,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. SMS or text alternatives serve customers who cannot easily read emails or access the internet.',
+          no: 'Offer SMS or text message alternatives to email for key communications: appointment reminders, booking confirmations, service updates, and promotional offers. Allow customers to opt in to SMS as their preferred channel.',
+          partially: 'SMS is used for some communications. Extend it as an option for all customer communication types and allow customers to select it as their default preference.',
+        },
       },
       {
         id: '4.6-D-2',
@@ -18642,6 +21097,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. An accessible referral program ensures customers with disabilities can participate and benefit.',
+          no: 'Audit your referral program for accessibility. Ensure the referral process is keyboard navigable, screen reader compatible, and available through non-digital channels. Referral codes should be easy to share in any format.',
+          partially: 'The program is partially accessible. Test the full referral journey with assistive technology and provide a non-digital referral option (phone or in-person).',
+        },
       },
       {
         id: '4.6-D-3',
@@ -18668,6 +21128,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Including accessibility information in regular communications normalises access and helps customers plan.',
+          no: 'Include accessibility information in your regular customer communications: mention accessible facilities in newsletters, highlight new accessibility features in updates, and include access details in event promotions.',
+          partially: 'Accessibility is occasionally mentioned. Make it a standard inclusion in communications: add an "accessibility" section to newsletters and include access information in every event or service promotion.',
+        },
       },
       {
         id: '4.6-D-4',
@@ -18703,6 +21168,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible social media posts reach a wider audience and demonstrate inclusive practice.',
+          no: 'Make your social media posts accessible: add alt text to all images, caption all videos, use camelCase hashtags (e.g., #AccessibleDesign), avoid conveying information through colour alone, and write in plain language. Avoid flashing or rapidly moving content.',
+          partially: 'Some accessibility practices are followed. Develop a social media accessibility checklist covering alt text, captions, hashtag format, colour use, and plain language. Apply it to every post.',
+        },
       },
       {
         id: '4.6-D-5',
@@ -18738,6 +21208,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. An accessible live chat or messaging service gives customers with hearing or speech disabilities a real-time communication option.',
+          no: 'Audit your live chat or online messaging for WCAG 2.2 AA compliance: keyboard navigable, screen reader compatible, adequate timeout warnings, works with browser zoom, and does not rely on colour alone for status indicators.',
+          partially: 'Your chat is partially accessible. Test with a screen reader and keyboard-only navigation. Prioritise fixing any issues with focus management, timeout warnings, and chat history readability.',
+        },
       },
       {
         id: '4.6-D-6',
@@ -18772,6 +21247,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Storing accessibility preferences means returning customers do not have to repeat their needs each time.',
+          no: 'Implement a system for storing customer accessibility preferences (seating, communication format, assistance needs) so they are automatically applied on future visits or interactions. Ensure data is stored securely and with customer consent.',
+          partially: 'Some preferences are stored. Ensure they cover all access dimensions (mobility, sensory, cognitive, communication) and are accessible to all relevant staff and systems, with customer consent.',
+        },
       },
       {
         id: '4.6-D-7',
@@ -18806,6 +21286,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Notifying customers of accessibility improvements demonstrates ongoing commitment and encourages visits.',
+          no: 'Communicate accessibility improvements to customers: update your website, send targeted notifications to customers who previously flagged related needs, post on social media, and include in newsletters.',
+          partially: 'Improvements are sometimes communicated. Systematise notifications so every significant accessibility improvement is shared through at least three channels, reaching both existing and prospective customers.',
+        },
       },
       {
         id: '4.6-D-8',
@@ -18840,6 +21325,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Push notifications that work with assistive technology ensure mobile app users with disabilities receive timely information.',
+          no: 'Test your app push notifications with VoiceOver (iOS) and TalkBack (Android). Ensure notifications are announced by screen readers, contain meaningful text (not just a title), and link to accessible content within the app.',
+          partially: 'Push notifications partially work with assistive technology. Test systematically with both VoiceOver and TalkBack, fix any issues with notification announcement or linked content accessibility.',
+        },
       },
       {
         id: '4.6-D-9',
@@ -18874,6 +21364,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Including Auslan content demonstrates strong commitment to Deaf community inclusion.',
+          no: 'Consider incorporating Auslan (Australian Sign Language) content into your communications. Start with key information: welcome messages, safety information, or service explanations. Engage qualified Auslan interpreters, not amateur signers.',
+          partially: 'Some Auslan content exists. Expand to cover key customer-facing information, ensure Auslan videos are captioned (for Deaf people who use English), and feature Auslan content prominently rather than as a hidden option.',
+        },
       },
       {
         id: '4.6-D-10',
@@ -18908,6 +21403,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Captioned and audio-described video content is accessible to Deaf, hard of hearing, and blind customers.',
+          no: 'Caption all video content (open or closed captions meeting WCAG 2.2 AA accuracy standards) and provide audio description for videos that convey important visual information. This applies to website, social media, and in-venue video content.',
+          partially: 'Some content is captioned. Ensure all video content has accurate captions (auto-generated captions alone are insufficient) and assess which videos also need audio description for blind or low-vision viewers.',
+        },
       },
       {
         id: '4.6-D-11',
@@ -18939,6 +21439,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible event invitations and RSVPs ensure customers with disabilities can learn about, register for, and request accommodations at your events.',
+          no: 'Ensure event invitations are accessible (alt text on images, structured HTML, plain language) and that RSVPs include an accessibility requirements field. Send invitations in multiple formats and provide a non-digital RSVP option.',
+          partially: 'Invitations or RSVPs are partially accessible. Add an accessibility requirements question to all RSVPs, test invitation emails with a screen reader, and offer phone or email RSVP alternatives.',
+        },
       },
       {
         id: '4.6-D-12',
@@ -18966,6 +21471,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A dedicated accessibility page is a central resource for customers planning their visit or interaction.',
+          no: 'Create a dedicated accessibility page on your website describing your accessible features, services, equipment, and any known limitations. Link to it from your main navigation, footer, and Google Business listing. Keep it updated.',
+          partially: 'Some accessibility information is on your website. Consolidate it into a dedicated, easy-to-find accessibility page with comprehensive, honest information about your accessible features and any current barriers.',
+        },
       },
       {
         id: '4.6-OTHER',
@@ -19030,6 +21540,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Clear, accessible written communications benefit all customers, particularly those with cognitive, vision, or literacy access needs.',
+          no: 'Review your written communications (letters, emails, invoices) for accessibility: use minimum 12pt sans-serif font, left-aligned text, clear headings, plain language, and adequate white space. Avoid justified text and decorative fonts.',
+          partially: 'Some communications are accessible. Audit all customer-facing documents for font size, plain language, heading structure, and layout. Create accessible templates to standardise future output.',
+        },
       },
       {
         id: '4.7-PC-2',
@@ -19057,6 +21572,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible emails ensure your messages reach customers who use screen readers, magnification, or have images disabled.',
+          no: 'Design emails for accessibility: use semantic HTML headings, include alt text on all images, ensure content is readable with images disabled, provide a plain text version, use sufficient colour contrast, and include meaningful link text (not "click here").',
+          partially: 'Some email accessibility practices are in place. Test emails with images disabled and with a screen reader. Address any issues with heading structure, alt text, link text, and colour contrast.',
+        },
       },
       {
         id: '4.7-PC-3',
@@ -19086,6 +21606,11 @@ export const accessModules: AccessModule[] = [
           learnMoreText: 'Creating accessible documents guide',
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible PDFs ensure customers using screen readers and other assistive technology can read your documents.',
+          no: 'Create PDF documents accessibly: use tagged PDF structure, proper heading hierarchy, alt text on images, meaningful link text, specified document language, and logical reading order. Use the PDF/UA standard as your benchmark. Never distribute scanned image-only PDFs.',
+          partially: 'Some PDFs are tagged. Audit your most-used customer documents, remediate them to PDF/UA standard, and establish a process for creating all new PDFs accessibly from the source application.',
+        },
       },
       {
         id: '4.7-PC-4',
@@ -19112,6 +21637,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible email templates ensure consistent accessibility across all customer communications.',
+          no: 'Create accessible email templates for common customer communications (booking confirmations, receipts, newsletters, service updates). Include proper heading structure, alt text placeholders, high-contrast design, and meaningful link text.',
+          partially: 'Some templates are accessible. Audit all email templates for accessibility, fix any issues, and ensure staff use approved templates rather than creating ad-hoc emails.',
+        },
       },
       {
         id: '4.7-PC-5',
@@ -19139,6 +21669,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible document templates make it easy for staff to produce accessible content by default.',
+          no: 'Create accessible Word and InDesign templates for all common document types: letters, reports, flyers, menus, and forms. Include pre-set heading styles, alt text prompts, accessible colour palettes, and minimum 12pt body text.',
+          partially: 'Some templates exist. Ensure they cover all common document types, include built-in accessibility features (heading styles, alt text prompts), and that staff are trained to use them correctly.',
+        },
       },
       {
         id: '4.7-PC-6',
@@ -19165,6 +21700,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Offering alternative formats on request meets your obligations under the DDA 1992 and ensures all customers can access important information.',
+          no: 'Establish a process for providing important documents in alternative formats on request: large print (minimum 18pt), audio (recorded or synthesised), Easy Read, Braille (via a transcription service), and accessible digital (tagged PDF, HTML). Set turnaround time targets.',
+          partially: 'Some formats are available. Document the full range of formats you can provide, set target turnaround times, and ensure all customer-facing staff know how to take and fulfil alternative format requests.',
+        },
       },
       {
         id: '4.7-PC-7',
@@ -19191,6 +21731,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Remembering and applying communication preferences avoids customers having to repeat their needs with every interaction.',
+          no: 'Record customer communication preferences (format, channel, font size) in your CRM or customer database and apply them automatically to ongoing correspondence. Flag preferences so all staff can see and follow them.',
+          partially: 'Preferences are recorded but not consistently applied. Ensure your systems can automatically generate correspondence in the customer\'s preferred format and that all staff check preferences before sending communications.',
+        },
       },
       {
         id: '4.7-PC-8',
@@ -19218,6 +21763,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible mailing list management ensures customers with disabilities can subscribe, adjust preferences, and unsubscribe independently.',
+          no: 'Audit your mailing list subscription and unsubscribe process for accessibility: keyboard navigable forms, screen reader compatible, clear confirmation messages, accessible preference centre, and simple unsubscribe (no multi-step process requiring login).',
+          partially: 'The process is partially accessible. Test the full journey (subscribe, manage preferences, unsubscribe) with a screen reader and keyboard-only navigation. Fix any barriers to independent use.',
+        },
       },
 
       // ============================================
@@ -19256,6 +21806,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. You have reviewed key written communications for accessibility.',
+          no: 'Conduct an accessibility review of all customer-facing written communications: letters, emails, invoices, receipts, forms, policies, and terms and conditions. Check for plain language, font size, heading structure, and alternative format availability.',
+          partially: 'Some document types have been reviewed. Extend the review to all customer-facing written communications and create a schedule for regular re-audits.',
+        },
       },
       {
         id: '4.7-DD-2a',
@@ -19282,6 +21837,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Testing emails with screen readers and images disabled reveals real-world accessibility barriers.',
+          no: 'Test your customer emails for accessibility: use a screen reader (NVDA or VoiceOver) to read the email, disable images to check content is still understandable, verify keyboard navigation, and check colour contrast. Test on both desktop and mobile.',
+          partially: 'Some testing has occurred. Formalise a pre-send accessibility check for all customer email campaigns: screen reader test, images-off test, keyboard navigation, and mobile responsiveness.',
+        },
       },
       {
         id: '4.7-DD-3a',
@@ -19315,6 +21875,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. You are creating documents accessibly across multiple document types.',
+          no: 'Identify all document types you produce for customers and assess which are created accessibly. Prioritise the most frequently used documents (letters, invoices, menus, forms) and remediate them first. Establish accessible creation as the default for all new documents.',
+          partially: 'Some document types are created accessibly. Extend accessible creation practices to all customer-facing documents and establish quality checks before publication.',
+        },
       },
       {
         id: '4.7-DD-3b',
@@ -19341,6 +21906,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Staff document creation skills directly affect the accessibility of everything you produce.',
+          no: 'Train all staff who create documents on accessibility essentials: using heading styles (not just bold text), adding alt text to images, creating accessible tables, specifying document language, and checking reading order. Cover both Word and PDF output.',
+          partially: 'Some staff have these skills. Extend training to all document creators, provide a quick-reference guide, and include an accessibility check step in your document review process.',
+        },
       },
       {
         id: '4.7-DD-4a',
@@ -19374,6 +21944,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible templates exist for your key email communications.',
+          no: 'Create accessible email templates for each communication type: transactional (confirmations, receipts), marketing (newsletters, promotions), and service (updates, notifications). Test each with a screen reader before deployment.',
+          partially: 'Some email types have accessible templates. Extend template coverage to all customer email types and ensure staff use the approved templates rather than creating one-off designs.',
+        },
       },
       {
         id: '4.7-DD-5a',
@@ -19411,6 +21986,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Staff have accessible templates for key document types.',
+          no: 'Create accessible templates for all document types staff produce: letters, reports, proposals, flyers, menus, forms, and signage. Include built-in heading styles, accessible colour palettes, alt text prompts, and minimum font sizes.',
+          partially: 'Templates exist for some document types. Identify gaps, create templates for missing types, and ensure all templates include accessibility features built in by default.',
+        },
       },
       {
         id: '4.7-DD-6a',
@@ -19445,6 +22025,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. You have a clear process for handling alternative format requests.',
+          no: 'Document a process for alternative format requests: who receives the request, turnaround time targets (48 hours for large print, 5 days for Easy Read, 10 days for Braille), approved suppliers, and how to track and fulfil requests.',
+          partially: 'An informal process exists. Formalise it with documented steps, turnaround targets, supplier contacts, and make the process known to all customer-facing staff.',
+        },
       },
       {
         id: '4.7-DD-7a',
@@ -19476,6 +22061,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Customer communication preferences are stored in your systems.',
+          no: 'Store customer communication preferences in your CRM, booking system, or customer database. Include preferred format (standard, large print, Easy Read, audio), preferred channel (email, post, SMS), and any specific needs (e.g., plain text email only).',
+          partially: 'Preferences are stored in some systems. Ensure all customer-facing systems can access preferences and that data is consistent across platforms.',
+        },
       },
       {
         id: '4.7-DD-7b',
@@ -19502,6 +22092,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Automatic preference application reduces staff workload and ensures consistency.',
+          no: 'Configure your systems to automatically apply customer communication preferences. For example, if a customer needs large print, the system should generate large-print versions by default. If automation is not possible, implement staff checklists.',
+          partially: 'Some automation exists. Extend it to cover all communication types, or implement systematic manual checks where automation is not yet feasible.',
+        },
       },
       {
         id: '4.7-DD-8a',
@@ -19529,6 +22124,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Testing the full subscription lifecycle ensures customers with disabilities can manage their mailing list participation independently.',
+          no: 'Test your mailing list subscription and unsubscribe process for accessibility: navigate the subscribe form with keyboard and screen reader, verify confirmation emails are accessible, test the preference centre, and test unsubscribe. Fix any barriers found.',
+          partially: 'Some testing has occurred. Conduct a full end-to-end test covering subscribe, confirm, manage preferences, and unsubscribe using keyboard-only navigation and a screen reader. Document and fix all issues.',
+        },
       },
       {
         id: '4.7-OTHER',
@@ -19603,6 +22203,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Having a documented accessibility policy provides a strong governance foundation.',
+          no: 'Develop a formal accessibility or disability inclusion policy. Reference the DDA 1992 and the Disability Discrimination Act as the legal baseline, and align with the Australian Human Rights Commission guidance on inclusive service delivery.',
+          partially: 'Your policy groundwork is underway. Review it against DDA 1992 obligations, ensure it covers both physical and digital access, and formally adopt it through your governance process.',
+        },
       },
       {
         id: '5.1-F-3',
@@ -19641,6 +22246,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A DIAP demonstrates genuine organisational commitment to disability inclusion.',
+          no: 'Develop a Disability Inclusion Action Plan (DIAP) with measurable targets, timeframes, and accountability. Use the Australian Human Rights Commission framework or your state disability inclusion legislation as a guide.',
+          partially: 'Your DIAP foundations are in place. Ensure it includes measurable actions, assigned owners, timeframes, and a reporting mechanism to track progress.',
+        },
       },
       {
         id: '5.1-F-4',
@@ -19676,6 +22286,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accepting the Companion Card removes financial barriers for people who need support to participate.',
+          no: 'Register as a Companion Card affiliate. The scheme ensures carers and support people attend free of charge, removing a significant financial barrier. Contact your state or territory Companion Card program to enrol.',
+          partially: 'Good progress on the Companion Card. Ensure all staff are aware of the program, that signage is displayed at entry points, and that your booking systems accommodate companion tickets.',
+        },
       },
       {
         id: '5.1-F-5',
@@ -19712,6 +22327,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible pricing demonstrates a commitment to equitable access for all customers.',
+          no: 'Introduce concession pricing for people with disability. Consider free or discounted entry for Companion Card holders, pensioners, and NDIS participants. Make pricing information clear and easy to find.',
+          partially: 'You have some concessional pricing in place. Review whether it covers all relevant cohorts (Companion Card, DSP, NDIS participants) and ensure pricing options are clearly communicated on your website and at point of sale.',
+        },
       },
       {
         id: '5.1-F-6',
@@ -19749,6 +22369,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA 1992',
+        actionText: {
+          yes: 'A clear assistance animal policy meets your mandatory obligations under the DDA 1992.',
+          no: 'Establish a formal assistance animal policy immediately. Under the DDA 1992 and state legislation, refusing entry to an assistance animal is unlawful. Train all staff on their obligations, including recognising different types of accreditation.',
+          partially: 'Your assistance animal policy needs strengthening. Ensure it aligns with the DDA 1992, covers all assistance animal types (not just guide dogs), and that every customer-facing staff member has been briefed.',
+        },
       },
       {
         id: '5.1-D-6',
@@ -19775,6 +22400,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Integrating accessibility into your marketing strategy ensures inclusive representation and reach.',
+          no: 'Include accessibility considerations in your marketing and communications strategy. Ensure marketing materials feature diverse representation including people with disability, and that all content is produced in accessible formats.',
+          partially: 'Some accessibility considerations are present in your marketing approach. Extend this to cover accessible formats for all materials, inclusive imagery, and accessible social media practices.',
+        },
       },
       {
         id: '5.1-D-7',
@@ -19807,6 +22437,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Engaging people with disability in planning ensures services meet real needs.',
+          no: 'Establish formal mechanisms to engage people with disability in service planning and review. This could include an accessibility advisory committee, regular consultation sessions, or co-design workshops with disability organisations.',
+          partially: 'Engagement with people with disability has started. Formalise this into a regular, structured process with diverse representation across disability types, and ensure input directly influences service decisions.',
+        },
       },
       {
         id: '5.1-D-8',
@@ -19833,6 +22468,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Tracking and reporting on accessibility improvements supports accountability and demonstrates progress.',
+          no: 'Implement a system to track accessibility improvements over time. Record what changes have been made, when, and their impact. Report progress to leadership at least quarterly to maintain momentum and accountability.',
+          partially: 'You have some tracking in place. Strengthen it by establishing consistent metrics, setting baseline measurements, and reporting regularly to leadership with clear before-and-after comparisons.',
+        },
       },
       {
         id: '5.1-D-9',
@@ -19867,6 +22507,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Having an executive sponsor provides the authority and visibility needed to drive accessibility progress.',
+          no: 'Appoint a senior leader as executive sponsor for accessibility. This role should have authority to allocate resources, champion accessibility at board level, and hold teams accountable for delivering on inclusion commitments.',
+          partially: 'Leadership engagement exists but could be strengthened. Ensure the executive sponsor has explicit accountability in their role description, reports on accessibility to the board, and actively champions initiatives across the organisation.',
+        },
       },
       {
         id: '5.1-D-10',
@@ -19901,6 +22546,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A dedicated budget signals that accessibility is a genuine organisational priority.',
+          no: 'Allocate a dedicated budget line for accessibility improvements. Without ring-fenced funding, accessibility competes with other priorities and is often deprioritised. Include both capital works and ongoing operational costs.',
+          partially: 'Some funding is allocated but may not be sufficient or consistent. Establish a dedicated, recurring budget line that covers physical modifications, digital accessibility, training, and assistive technology.',
+        },
       },
       {
         id: '5.1-D-11',
@@ -19935,6 +22585,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff awareness of legal obligations is essential for organisational compliance.',
+          no: 'Brief all staff on obligations under the Disability Discrimination Act 1992, relevant state anti-discrimination legislation, and the Disability Standards for Accessible Public Transport or Premises Standards where applicable. Make this part of mandatory induction.',
+          partially: 'Some staff awareness exists but coverage is incomplete. Ensure all staff, not just managers, understand the DDA 1992 obligations, what constitutes unlawful discrimination, and the organisation\'s duty to make reasonable adjustments.',
+        },
       },
       {
         id: '5.1-D-12',
@@ -19969,6 +22624,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A clear complaints process ensures accessibility issues are identified and resolved promptly.',
+          no: 'Establish a formal process for handling accessibility-related complaints. Include clear steps for logging, investigating, resolving, and following up. Ensure the process itself is accessible (multiple contact methods, accessible forms, plain language).',
+          partially: 'A complaints process exists but may need refinement. Ensure it specifically addresses accessibility complaints, has defined response timeframes, is available in accessible formats, and feeds into your continuous improvement process.',
+        },
       },
       {
         id: '5.1-D-13',
@@ -20003,6 +22663,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Pursuing accreditation demonstrates a serious, verified commitment to accessibility.',
+          no: 'Investigate accessibility accreditation or certification programs relevant to your sector. Options include the Australian Network on Disability\'s Access and Inclusion Index, or sector-specific programs. Accreditation provides external validation and a framework for improvement.',
+          partially: 'You are exploring or working towards accreditation. Continue the process, addressing any gaps identified in the assessment. Use the accreditation framework as a structured improvement roadmap.',
+        },
       },
       {
         id: '5.1-D-14',
@@ -20038,6 +22703,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Board-level visibility keeps accessibility on the strategic agenda.',
+          no: 'Add accessibility as a standing item on your board or senior leadership meeting agenda. Regular reporting at this level ensures strategic visibility, resource allocation, and organisational accountability for progress.',
+          partially: 'Accessibility receives some leadership attention. Make it a formal standing agenda item with structured reporting on progress against DIAP targets, complaints data, and planned improvements.',
+        },
       },
       {
         id: '5.1-D-15',
@@ -20072,6 +22742,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A comprehensive DIAP covering all organisational areas drives systemic change.',
+          no: 'Expand your DIAP to cover all key areas: service delivery, employment, community engagement, and organisational culture. Use the Australian Human Rights Commission\'s DIAP framework to ensure no area is overlooked.',
+          partially: 'Your DIAP covers some areas but has gaps. Map it against the four pillars (service delivery, employment, community engagement, and organisational governance) and develop actions for any missing areas.',
+        },
       },
       {
         id: '5.1-D-16',
@@ -20108,6 +22783,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'People with disability in leadership roles brings authentic perspective to decision-making.',
+          no: 'Actively work towards representation of people with disability in leadership and decision-making positions. This includes board membership, advisory roles, and management positions. Set targets and create pathways for progression.',
+          partially: 'Some representation exists. Strengthen it by setting explicit targets for disability representation at leadership level, creating development pathways, and ensuring people with disability have genuine decision-making authority.',
+        },
       },
       {
         id: '5.1-D-17',
@@ -20145,6 +22825,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Proactively providing alternative formats removes barriers before customers need to ask.',
+          no: 'Make key information available in alternative formats without requiring a specific request. This includes Easy Read, large print, Auslan video, audio description, and accessible digital documents. Advertise format availability.',
+          partially: 'Some alternative formats are available. Expand the range to include Easy Read, large print, Braille (on request), Auslan video, and accessible digital formats. Promote their availability so customers know to ask.',
+        },
       },
       {
         id: '5.1-D-18',
@@ -20180,6 +22865,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'An accessibility statement demonstrates transparency about your current accessibility and planned improvements.',
+          no: 'Publish an accessibility statement on your website. Include current accessibility features, known limitations, planned improvements, and how to request assistance or provide feedback. Follow WCAG 2.2 guidance on accessibility statements.',
+          partially: 'Your accessibility statement is a good start. Ensure it covers current features, known barriers, a timeline for improvements, feedback mechanisms, and contact details for accessibility enquiries.',
+        },
       },
       {
         id: '5.1-D-19',
@@ -20213,6 +22903,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Covering digital channels in your policy ensures a consistent approach across all customer touchpoints.',
+          no: 'Extend your accessibility policy to explicitly cover all digital channels: website, mobile apps, social media, online booking systems, email communications, and digital kiosks. Reference WCAG 2.2 Level AA as the minimum standard for web content.',
+          partially: 'Digital channels are partially covered. Ensure your policy explicitly addresses website accessibility (WCAG 2.2 AA), app accessibility, social media content, online booking, and any digital communications sent to customers.',
+        },
       },
       {
         id: '5.1-D-20',
@@ -20247,6 +22942,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Including accessibility in risk management ensures it is treated as a strategic and legal priority.',
+          no: 'Add accessibility to your risk register and business continuity planning. Include risks such as DDA non-compliance, inaccessible emergency procedures, digital accessibility failures, and reputational impact. Assign risk owners and mitigation actions.',
+          partially: 'Accessibility appears in some risk management activities. Ensure it is formally entered in the risk register with specific risks identified, likelihood and impact ratings assigned, and mitigation strategies documented.',
+        },
       },
       {
         id: '5.1-OTHER',
@@ -20314,6 +23014,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Actively recruiting people with disability strengthens your workforce and reflects your community.',
+          no: 'Develop a targeted strategy to recruit people with disability. Partner with Disability Employment Services (DES) providers, advertise through disability-specific job boards, and include a welcoming statement about adjustments in all job advertisements.',
+          partially: 'Some recruitment efforts target people with disability. Formalise this with partnerships with DES providers, consistent inclusive language in all job ads, and targets for disability representation in your workforce.',
+        },
       },
       {
         id: '5.2-F-2',
@@ -20350,6 +23055,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'An accessible recruitment process ensures you are not excluding qualified candidates with disability.',
+          no: 'Review and redesign your recruitment process for accessibility. Ensure job ads are in accessible formats, application forms work with screen readers, interviews can be adjusted (location, format, timing), and selection criteria focus on essential requirements only.',
+          partially: 'Your recruitment process has some accessible elements. Conduct a full review covering job advertisements, application systems, interview processes, and assessment methods to ensure no stage creates unnecessary barriers.',
+        },
       },
       {
         id: '5.2-F-3',
@@ -20388,6 +23098,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA 1992',
+        actionText: {
+          yes: 'Providing workplace adjustments fulfils your legal obligations and supports employee productivity.',
+          no: 'Establish a workplace adjustment process immediately. Under the DDA 1992, employers must make reasonable adjustments for employees with disability. The JobAccess Employer Toolkit provides practical guidance and the Employment Assistance Fund can subsidise costs.',
+          partially: 'Workplace adjustments are provided in some cases. Formalise the process so all employees know how to request adjustments, decisions are made promptly, and the Employment Assistance Fund is used where applicable to offset costs.',
+        },
       },
       {
         id: '5.2-D-1',
@@ -20414,6 +23129,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A clear adjustment request process ensures employees can get support without unnecessary barriers.',
+          no: 'Create a documented process for requesting workplace adjustments. Include clear steps, timeframes for response, a confidential point of contact, and information about the Employment Assistance Fund. Make the process itself accessible and well-publicised.',
+          partially: 'An informal process exists but needs formalising. Document clear steps, assign responsibility for processing requests, set response timeframes, and communicate the process to all employees during onboarding and regularly thereafter.',
+        },
       },
       {
         id: '5.2-D-2',
@@ -20440,6 +23160,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Tracking disability employment data helps you measure progress and identify gaps.',
+          no: 'Implement voluntary, confidential disability disclosure tracking. Use this data to measure representation, identify barriers, and set improvement targets. Ensure data collection is voluntary, confidential, and employees understand how it will be used.',
+          partially: 'Some tracking exists. Strengthen it by ensuring data collection is consistent, voluntary, confidential, and used to inform workforce planning. Benchmark against the Australian Public Service target of 7% or set your own meaningful target.',
+        },
       },
       {
         id: '5.2-D-3',
@@ -20466,6 +23191,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Manager training on disability support creates a more inclusive workplace culture.',
+          no: 'Provide all managers with training on supporting employees with disability. Cover topics including making reasonable adjustments, the Employment Assistance Fund, having conversations about support needs, and avoiding assumptions about capability.',
+          partially: 'Some managers have received training. Extend this to all people managers and make it part of mandatory management development. Include practical scenarios, legal obligations, and available support resources like JobAccess.',
+        },
       },
       {
         id: '5.2-D-4',
@@ -20500,6 +23230,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Inclusive job descriptions attract a wider talent pool and focus on genuine requirements.',
+          no: 'Rewrite job descriptions to focus on essential outcomes rather than prescriptive methods. Remove unnecessary physical or cognitive requirements, use inclusive language, and include a statement welcoming applicants with disability and offering adjustments.',
+          partially: 'Some job descriptions use inclusive language. Apply this consistently across all roles. Review inherent requirements critically, remove unnecessary criteria (such as "must hold a driver\'s licence" where driving is not essential), and focus on outcomes.',
+        },
       },
       {
         id: '5.2-D-5',
@@ -20534,6 +23269,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A return-to-work program supports employees through significant life changes and retains valuable staff.',
+          no: 'Develop a return-to-work program for employees who acquire a disability or experience significant illness. Include graduated return options, workplace adjustment assessments, ongoing support, and connection with occupational rehabilitation services.',
+          partially: 'A return-to-work process exists but could be more comprehensive. Ensure it includes individualised plans, graduated return options, proactive adjustment assessments, and regular check-ins during the transition period.',
+        },
       },
       {
         id: '5.2-D-6',
@@ -20568,6 +23308,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Equal access to career development ensures employees with disability can reach their full potential.',
+          no: 'Review career development and promotion processes to ensure employees with disability have equal access. Address barriers such as inaccessible training platforms, networking events in inaccessible venues, or assessment methods that disadvantage specific disability types.',
+          partially: 'Some steps have been taken toward equitable career development. Audit all development programs, mentoring opportunities, and promotion pathways to ensure none inadvertently exclude employees with disability.',
+        },
       },
       {
         id: '5.2-D-7',
@@ -20602,6 +23347,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Supported employment pathways create entry points and build a pipeline of diverse talent.',
+          no: 'Establish internship, work experience, or supported employment pathways for people with disability. Partner with universities, disability employment services, or Australian Disability Enterprises to create meaningful opportunities that can lead to ongoing employment.',
+          partially: 'Some pathways exist. Expand them by partnering with additional disability employment providers, creating structured programs with mentoring, and tracking conversion rates from placements to permanent roles.',
+        },
       },
       {
         id: '5.2-D-8',
@@ -20636,6 +23386,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A disability employee network provides peer support and valuable organisational insight.',
+          no: 'Establish an employee disability network or resource group. Provide executive sponsorship, a modest budget, and dedicated time for participation. These networks improve retention, provide lived-experience input to policy, and foster belonging.',
+          partially: 'An informal network or early-stage group exists. Formalise it with executive sponsorship, allocated budget, regular meeting times, and a clear mandate to advise on workplace inclusion policies and practices.',
+        },
       },
       {
         id: '5.2-D-9',
@@ -20670,6 +23425,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Integrating disability considerations into mental health support recognises the intersection of these experiences.',
+          no: 'Review your mental health and wellbeing support to include disability-related considerations. Recognise that employees with disability may face additional stressors including ableism, adjustment fatigue, and disclosure anxiety. Ensure EAP providers have disability expertise.',
+          partially: 'Mental health support is available but may not address disability-specific needs. Ensure your EAP provider has disability expertise, and that wellbeing initiatives consider the specific experiences of employees with disability.',
+        },
       },
       {
         id: '5.2-D-10',
@@ -20702,6 +23462,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Considering intersectionality recognises that disability intersects with other aspects of identity and experience.',
+          no: 'Incorporate an intersectional approach into disability employment practices. Recognise that employees may experience compounding disadvantage from disability combined with race, gender, sexuality, age, or cultural background. Tailor support accordingly.',
+          partially: 'Some intersectional awareness exists. Deepen this by training HR staff on intersectionality, reviewing policies for compounding barriers, and ensuring diversity data can capture multiple dimensions of identity.',
+        },
       },
       {
         id: '5.2-D-11',
@@ -20734,6 +23499,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Tracking retention and satisfaction data for staff with disability reveals whether your workplace is truly inclusive.',
+          no: 'Begin tracking retention rates and satisfaction scores specifically for employees with disability. Use confidential surveys and exit interviews to understand barriers. Compare results with overall workforce data to identify disparities.',
+          partially: 'Some data is collected but may be incomplete. Implement consistent, confidential tracking of retention and satisfaction, analyse trends over time, and use findings to drive targeted improvements.',
+        },
       },
       {
         id: '5.2-D-12',
@@ -20767,6 +23537,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'An accessible onboarding process sets new employees with disability up for success from day one.',
+          no: 'Review and redesign your onboarding process for accessibility. Ensure orientation materials are available in accessible formats, induction venues are physically accessible, IT setup includes any required assistive technology, and new starters are asked about adjustment needs before their first day.',
+          partially: 'Some onboarding accommodations are made on request. Shift to a proactive approach where all new employees are asked about access needs before starting, materials are available in multiple formats by default, and adjustment requests are actioned before day one.',
+        },
       },
       {
         id: '5.2-D-13',
@@ -20800,6 +23575,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Flexible work arrangements support employees with disability to work at their best.',
+          no: 'Offer flexible work arrangements that support employees with disability. This includes flexible hours, remote work options, modified duties, part-time arrangements, and flexibility for medical appointments. Ensure these are genuinely available without stigma.',
+          partially: 'Some flexibility is available. Ensure flexible arrangements are formalised in policy, genuinely available to all employees with disability without requiring excessive justification, and that managers are trained to support flexible working.',
+        },
       },
       {
         id: '5.2-D-14',
@@ -20833,6 +23613,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible internal communications ensure all employees can fully participate in the workplace.',
+          no: 'Audit internal communications and meetings for accessibility. Ensure emails use accessible formatting, documents meet WCAG standards, meeting platforms support captioning and screen readers, and video content includes captions and audio description.',
+          partially: 'Some accessibility measures are in place for internal communications. Extend this to cover all channels: email templates, intranet, meeting platforms (with live captioning), documents, and video content.',
+        },
       },
       {
         id: '5.2-OTHER',
@@ -20905,6 +23690,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Disability awareness training for all customer-facing staff creates a consistently inclusive experience.',
+          no: 'Implement disability awareness training for all customer-facing staff. Use training developed or delivered by people with lived experience of disability. Cover respectful communication, common barriers, assistance animal obligations, and how to offer help appropriately.',
+          partially: 'Some customer-facing staff have been trained. Extend training to all customer-facing roles, including casuals and new starters. Ensure consistent content delivery and schedule regular refreshers.',
+        },
       },
       {
         id: '5.3-F-2',
@@ -20933,6 +23723,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Including disability awareness in onboarding ensures every new team member starts with the right foundations.',
+          no: 'Add disability awareness to your staff onboarding program. Cover your legal obligations under the DDA 1992, your organisation\'s accessibility policy, how to communicate respectfully, and where to find accessibility resources and support.',
+          partially: 'Disability awareness features in onboarding but may not be comprehensive. Ensure it covers legal obligations, your organisation\'s specific policies, practical communication tips, and where staff can go for guidance.',
+        },
       },
       {
         id: '5.3-F-3',
@@ -20970,6 +23765,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staff competence with accessibility features ensures equipment and services are actually usable by customers.',
+          no: 'Train all relevant staff on how to operate accessibility features and equipment at your venue. This includes hearing loops, accessible toilets (including master locks and adult change facilities), adjustable counters, lifts, and any assistive technology you provide.',
+          partially: 'Some staff know how to use accessibility equipment. Ensure all relevant staff are trained, create quick-reference guides for each piece of equipment, and include equipment training in onboarding for new starters.',
+        },
       },
       {
         id: '5.3-D-1',
@@ -20996,6 +23796,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Regular training refreshers keep accessibility knowledge current and front-of-mind.',
+          no: 'Schedule regular disability training refreshers, at minimum annually. Accessibility standards, technology, and best practice evolve. Refresher training also reinforces the importance of inclusion and addresses staff turnover.',
+          partially: 'Some refresher training occurs but may not be consistent. Establish a formal schedule (at least annual) for all staff, track completion rates, and update content to reflect current best practice and any changes to your services.',
+        },
       },
       {
         id: '5.3-D-2',
@@ -21022,6 +23827,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Training from people with lived experience provides authentic insight that builds genuine understanding.',
+          no: 'Engage people with lived experience of disability to deliver or co-deliver training. Lived-experience training is consistently rated as more impactful and memorable. Contact disability organisations or consultancies led by people with disability.',
+          partially: 'Some lived-experience input has been incorporated. Make this a standard component of all disability training, ensuring diverse disability perspectives are represented (physical, sensory, cognitive, psychosocial).',
+        },
       },
       {
         id: '5.3-D-3',
@@ -21048,6 +23858,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Ongoing access to resources supports staff to apply their training in day-to-day situations.',
+          no: 'Provide staff with ongoing access to accessibility resources. Create an internal resource hub or toolkit with quick-reference guides, links to external resources (JobAccess, Australian Human Rights Commission), and your organisation\'s accessibility policies and procedures.',
+          partially: 'Some resources are available. Consolidate them into a single, easy-to-find location. Include practical guides, your accessibility policy, equipment instructions, and links to external resources like the Australian Network on Disability.',
+        },
       },
       {
         id: '5.3-D-4',
@@ -21080,6 +23895,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Coverage of non-apparent disabilities ensures staff do not make assumptions based on visible appearance.',
+          no: 'Expand training to specifically cover hidden and non-apparent disabilities including chronic pain, mental health conditions, autism, ADHD, learning disabilities, epilepsy, and chronic fatigue. Emphasise that most disabilities are not visible.',
+          partially: 'Non-apparent disabilities are mentioned but may not receive sufficient depth. Dedicate specific training time to hidden disabilities, challenge assumptions about what disability "looks like", and cover practical support strategies.',
+        },
       },
       {
         id: '5.3-D-5',
@@ -21112,6 +23932,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Communication techniques training equips staff to interact confidently with all customers.',
+          no: 'Include practical communication techniques in training: speaking directly to the person (not their companion), offering assistance without assuming it is needed, using plain language, facing Deaf or hard of hearing people when speaking, and communicating with people who use AAC devices.',
+          partially: 'Some communication techniques are covered. Ensure training addresses communication across all disability types: Deaf and hard of hearing, blind and low vision, speech differences, cognitive disability, and people using augmentative communication.',
+        },
       },
       {
         id: '5.3-D-6',
@@ -21149,6 +23974,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Emergency evacuation training for people with disability is a critical safety requirement.',
+          no: 'Implement emergency evacuation training that specifically covers assisting people with disability. This is a mandatory safety requirement. Cover Personal Emergency Evacuation Plans (PEEPs), refuge areas, evacuation chairs, and communication with people who are Deaf or have cognitive disabilities during emergencies.',
+          partially: 'Some emergency training exists but may not adequately address disability. Ensure all staff are trained on PEEPs, know the location and operation of evacuation equipment, and practise evacuating with people with different disability types.',
+        },
       },
       {
         id: '5.3-D-7',
@@ -21181,6 +24011,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Evaluating training effectiveness ensures it translates into real behaviour change.',
+          no: 'Implement evaluation of disability training effectiveness. Go beyond satisfaction surveys to measure behaviour change: observe customer interactions, survey customers with disability about their experience, and track accessibility complaint trends pre and post training.',
+          partially: 'Some evaluation occurs but may focus only on participant satisfaction. Add measures of knowledge retention, observed behaviour change, and customer experience outcomes to build a complete picture of training impact.',
+        },
       },
       {
         id: '5.3-D-8',
@@ -21209,6 +24044,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A clear point of contact for accessibility advice empowers staff to seek help when needed.',
+          no: 'Designate and publicise a clear point of contact for accessibility advice. Staff need to know who to call when they encounter an unfamiliar situation. This could be an accessibility champion, a dedicated role, or an external advisory service.',
+          partially: 'A contact exists but may not be widely known. Ensure all staff know who to contact, that the contact details are prominently displayed in staff areas, and that the designated person has the knowledge to provide practical guidance.',
+        },
       },
       {
         id: '5.3-D-9',
@@ -21241,6 +24081,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Auslan awareness ensures staff can communicate effectively with Deaf customers.',
+          no: 'Include Auslan and Deaf communication awareness in training. Cover basic Auslan greetings, how to book an Auslan interpreter, using the National Relay Service, and communication tips such as maintaining eye contact and not covering your mouth.',
+          partially: 'Some Deaf awareness is included. Expand to cover practical skills: basic Auslan signs relevant to your service, how to arrange interpreters, using the National Relay Service, and communication strategies when no interpreter is available.',
+        },
       },
       {
         id: '5.3-D-10',
@@ -21273,6 +24118,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Autism and neurodivergence training helps staff create welcoming experiences for a significant customer group.',
+          no: 'Add autism and neurodivergence training to your program. Cover sensory sensitivities, communication preferences, the importance of predictability, social stories, quiet spaces, and how to respond supportively during sensory overload or meltdowns.',
+          partially: 'Some neurodivergence awareness is included. Deepen the content to cover practical strategies: reducing sensory triggers, offering quiet times or spaces, using clear and literal language, and supporting customers during moments of distress.',
+        },
       },
       {
         id: '5.3-D-11',
@@ -21307,6 +24157,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Training all staff types ensures a consistent experience regardless of who is on shift.',
+          no: 'Extend disability awareness training to contractors, casuals, and agency staff. These workers often have the most customer contact and must deliver the same inclusive service. Include an abbreviated accessibility induction as a minimum for short-term staff.',
+          partially: 'Some non-permanent staff receive training. Develop a streamlined accessibility induction for all contractors, casuals, and agency staff that covers essential knowledge. Ensure it is delivered before they begin customer-facing work.',
+        },
       },
       {
         id: '5.3-D-12',
@@ -21340,6 +24195,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Assistive technology awareness helps staff support customers who use these tools.',
+          no: 'Include assistive technology awareness in staff training. Cover common tools customers may use: screen readers, magnification software, hearing aids and cochlear implants (and their interaction with hearing loops), mobility aids, and communication devices.',
+          partially: 'Some assistive technology is covered. Broaden the scope to include all common categories: vision aids, hearing technology, mobility equipment, communication devices, and cognitive support tools. Include hands-on demonstration where possible.',
+        },
       },
       {
         id: '5.3-D-13',
@@ -21373,6 +24233,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Practical scenarios build confidence and competence that theoretical training alone cannot achieve.',
+          no: 'Incorporate practical scenarios and role-playing exercises into disability training. Use realistic situations specific to your venue and services. This builds confidence and helps staff apply knowledge in real interactions.',
+          partially: 'Some practical elements are included. Expand the scenario library to cover a wider range of disability types and situations specific to your service context. Include both routine interactions and challenging situations.',
+        },
       },
       {
         id: '5.3-OTHER',
@@ -21441,6 +24306,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Considering accessibility in supplier selection drives market-wide improvement.',
+          no: 'Integrate accessibility criteria into your supplier and partner selection process. Include accessibility as a weighted evaluation criterion alongside price, quality, and delivery. This drives your supply chain toward better accessibility practices.',
+          partially: 'Accessibility is sometimes considered in supplier selection. Formalise it as a standard criterion in your evaluation framework, with specific questions and minimum requirements defined for all procurement activities.',
+        },
       },
       {
         id: '5.4-F-2',
@@ -21475,6 +24345,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Embedding accessibility in contracts ensures it is a binding, enforceable requirement.',
+          no: 'Add accessibility requirements to all contracts and tenders. Specify standards (e.g., WCAG 2.2 AA for digital products, AS 1428.1 for physical works), require compliance evidence, and include remediation clauses for non-compliance.',
+          partially: 'Accessibility appears in some contracts. Make it standard across all procurement. Define specific, measurable accessibility requirements and include acceptance criteria that must be demonstrated before final payment.',
+        },
       },
       {
         id: '5.4-D-1',
@@ -21501,6 +24376,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Asking suppliers about accessibility practices encourages them to prioritise it.',
+          no: 'Include accessibility questions in your supplier assessment process. Ask about their accessibility policy, WCAG compliance (for digital suppliers), physical accessibility of their premises, and whether they employ people with disability.',
+          partially: 'Some supplier conversations include accessibility. Make it a standard part of all supplier assessments with a consistent set of questions that allow you to compare and benchmark suppliers\' accessibility maturity.',
+        },
       },
       {
         id: '5.4-D-2',
@@ -21527,6 +24407,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Prioritising accessible suppliers rewards good practice and incentivises improvement.',
+          no: 'Give preference to suppliers with strong accessibility practices where capability and price are comparable. This creates market incentive for suppliers to invest in accessibility and aligns your supply chain with your inclusion values.',
+          partially: 'Accessibility is a consideration but not a deciding factor. Strengthen this by weighting accessibility in scoring, including it as a tiebreaker criterion, and communicating to suppliers that it influences selection decisions.',
+        },
       },
       {
         id: '5.4-D-3',
@@ -21553,6 +24438,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Verifying delivered accessibility prevents specifications from being ignored in practice.',
+          no: 'Implement accessibility verification for all products and services delivered. Test digital products against WCAG 2.2 AA, inspect physical works against AS 1428.1, and include people with disability in user acceptance testing where possible.',
+          partially: 'Some verification occurs. Formalise accessibility acceptance testing as a standard step before sign-off on all deliverables. Document testing methods, results, and any remediation required.',
+        },
       },
       {
         id: '5.4-D-4',
@@ -21587,6 +24477,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Purchasing from disability enterprises creates meaningful employment and economic participation.',
+          no: 'Identify opportunities to purchase from Australian Disability Enterprises (ADEs) or disability-led businesses. Review your supply categories for suitable products and services. The BuyAbility directory lists ADEs by state and capability.',
+          partially: 'Some purchasing from disability enterprises occurs. Set targets for increasing spend with ADEs and disability-led businesses, identify additional supply categories where they can compete, and track progress against targets.',
+        },
       },
       {
         id: '5.4-D-5',
@@ -21623,6 +24518,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Applying ICT accessibility standards ensures technology purchases work for all users.',
+          no: 'Apply EN 301 549 or equivalent ICT accessibility standards when purchasing technology. Require WCAG 2.2 AA compliance for web-based products, and request Voluntary Product Accessibility Templates (VPATs) or Accessibility Conformance Reports from vendors.',
+          partially: 'ICT accessibility is considered for some purchases. Apply it consistently to all technology procurement. Require VPATs or ACRs from all vendors, and include accessibility in evaluation scoring for all technology tenders.',
+        },
       },
       {
         id: '5.4-D-6',
@@ -21657,6 +24557,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Considering physical accessibility when selecting venues ensures all attendees can participate.',
+          no: 'Include physical accessibility as a mandatory criterion when selecting event venues or partner locations. Use an accessibility checklist covering entrances, pathways, toilets, hearing augmentation, signage, and emergency egress before confirming any venue.',
+          partially: 'Physical accessibility is sometimes considered for venue selection. Make it a mandatory screening criterion with a standard checklist. Do not confirm any venue that does not meet minimum accessibility requirements.',
+        },
       },
       {
         id: '5.4-D-7',
@@ -21691,6 +24596,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessibility expertise in procurement decisions ensures requirements are technically sound.',
+          no: 'Include people with accessibility expertise in procurement decision-making. This could be an internal accessibility specialist, an external consultant, or an advisory panel that includes people with disability. Their input improves specification quality and evaluation accuracy.',
+          partially: 'Some accessibility input exists in procurement. Formalise this by designating accessibility reviewers for all significant procurement, ensuring they are involved from specification through to acceptance testing.',
+        },
       },
       {
         id: '5.4-D-8',
@@ -21725,6 +24635,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Monitoring ongoing partners ensures accessibility does not degrade over time.',
+          no: 'Implement regular accessibility reviews of ongoing suppliers and partners. Include accessibility in contract renewals, annual reviews, and performance assessments. Address any decline in accessibility standards through formal contract management processes.',
+          partially: 'Some monitoring occurs. Formalise accessibility into regular supplier performance reviews, set clear expectations for maintaining standards, and define consequences for failure to meet agreed accessibility requirements.',
+        },
       },
       {
         id: '5.4-D-9',
@@ -21759,6 +24674,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Requiring partners to demonstrate their own accessibility commitment creates aligned expectations.',
+          no: 'Require key partners and suppliers to demonstrate their own accessibility commitments. Ask for their accessibility policy, DIAP, or evidence of accessibility accreditation. Shared commitment creates consistency across the customer experience.',
+          partially: 'Some partners have been asked about their commitments. Extend this to all key partners, set minimum expectations for their accessibility posture, and include it as a factor in partnership renewals.',
+        },
       },
       {
         id: '5.4-D-10',
@@ -21793,6 +24713,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Social procurement targets create meaningful economic opportunities for people with disability.',
+          no: 'Set social procurement targets for purchasing from disability enterprises and disability-led businesses. Even a modest target (e.g., 3-5% of addressable spend) creates significant impact. Track and report progress against these targets.',
+          partially: 'Informal social procurement goals exist. Formalise them with specific, measurable targets, assign accountability for achieving them, and report progress to leadership alongside other procurement metrics.',
+        },
       },
       {
         id: '5.4-D-11',
@@ -21826,6 +24751,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessible procurement processes ensure suppliers with disability can compete fairly for your business.',
+          no: 'Review your procurement and tendering processes for accessibility. Ensure tender documents are in accessible formats, online portals work with assistive technology, briefing sessions are held in accessible venues, and alternative submission methods are available.',
+          partially: 'Some accessibility measures are in place for procurement processes. Conduct a full review of the end-to-end tendering process, including document formats, portal accessibility, briefing venues, and submission methods.',
+        },
       },
       {
         id: '5.4-D-12',
@@ -21857,6 +24787,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Including accessibility in total cost of ownership prevents false economies from inaccessible purchases.',
+          no: 'Factor accessibility into total cost-of-ownership calculations. An initially cheaper product that requires expensive retrofitting or workarounds for accessibility often costs more over its lifetime. Include remediation costs, support costs, and potential complaint or legal costs.',
+          partially: 'Accessibility costs are sometimes considered. Formalise this by requiring all procurement business cases to include accessibility in lifecycle cost analysis, covering upfront accessibility, potential retrofitting, and ongoing support costs.',
+        },
       },
       {
         id: '5.4-OTHER',
@@ -21924,6 +24859,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Regular accessibility performance reviews keep improvement on track and visible.',
+          no: 'Establish a regular cadence for reviewing accessibility performance. At minimum, conduct a quarterly review covering complaint trends, DIAP progress, audit findings, and customer feedback. Use the results to adjust priorities and allocate resources.',
+          partially: 'Some performance review occurs. Formalise it with a set schedule, consistent metrics, and documented outcomes. Ensure reviews lead to specific actions with owners and deadlines.',
+        },
       },
       {
         id: '5.5-F-2',
@@ -21952,6 +24892,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Setting accessibility improvement goals provides direction and enables measurement of progress.',
+          no: 'Set specific, measurable, time-bound accessibility improvement goals. Link them to your DIAP or strategic plan. Examples include WCAG 2.2 AA compliance by a set date, staff training completion rates, or physical access upgrades prioritised by impact.',
+          partially: 'Some goals are in place. Ensure they are SMART (specific, measurable, achievable, relevant, time-bound), cover both physical and digital accessibility, and are reviewed and updated at least annually.',
+        },
       },
       {
         id: '5.5-F-3',
@@ -21986,6 +24931,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Reporting accessibility progress to leadership and stakeholders maintains accountability.',
+          no: 'Implement regular reporting on accessibility progress to leadership and stakeholders. Include DIAP progress, complaint data, audit outcomes, training metrics, and budget utilisation. Consider publishing an annual accessibility progress report.',
+          partially: 'Some reporting occurs. Strengthen it by establishing a standard reporting template, regular cadence (at least quarterly to leadership), and including both quantitative metrics and qualitative outcomes.',
+        },
       },
       {
         id: '5.5-D-1',
@@ -22020,6 +24970,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Regular accessibility audits identify issues before they become complaints or barriers.',
+          no: 'Implement a regular accessibility audit program. Include physical access audits (against AS 1428.1), digital audits (against WCAG 2.2 AA), and service delivery audits. Engage people with disability as auditors where possible for authentic assessment.',
+          partially: 'Some auditing occurs. Establish a formal audit schedule covering all areas (physical, digital, service delivery), with clear scope, qualified auditors, and a process for tracking remediation of findings.',
+        },
       },
       {
         id: '5.5-D-2',
@@ -22046,6 +25001,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Accessibility metrics and KPIs enable data-driven decision making and progress tracking.',
+          no: 'Define and track accessibility-related KPIs. Examples include percentage of web pages meeting WCAG 2.2 AA, physical access compliance rate, staff training completion, complaint resolution time, and customer satisfaction scores from people with disability.',
+          partially: 'Some metrics are tracked. Expand your KPI set to cover all dimensions of accessibility (physical, digital, service, employment), set targets for each, and report them alongside other organisational performance metrics.',
+        },
       },
       {
         id: '5.5-D-3',
@@ -22078,6 +25038,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Publishing accessibility information publicly demonstrates transparency and accountability.',
+          no: 'Publish accessibility information publicly. This could include an annual accessibility report, your DIAP and progress updates, your accessibility statement, or participation in the Australian Network on Disability Access and Inclusion Index.',
+          partially: 'Some information is published. Expand public reporting to include progress against DIAP actions, audit outcomes, planned improvements, and how customers can provide feedback on accessibility.',
+        },
       },
       {
         id: '5.5-D-4',
@@ -22112,6 +25077,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Benchmarking against peers and standards reveals gaps and drives continuous improvement.',
+          no: 'Benchmark your accessibility against industry standards and peer organisations. Participate in the Australian Network on Disability Access and Inclusion Index, compare practices with sector leaders, and use frameworks like the Disability Confidence Maturity Model.',
+          partially: 'Some informal benchmarking occurs. Formalise it by participating in structured programs like the AND Access and Inclusion Index, establishing peer learning networks, and setting targets based on benchmark findings.',
+        },
       },
       {
         id: '5.5-D-5',
@@ -22146,6 +25116,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Learning from complaints and incidents prevents recurrence and drives systemic improvement.',
+          no: 'Implement a systematic process for learning from accessibility complaints and incidents. Conduct root cause analysis, identify systemic issues, implement corrective actions, and share learnings across the organisation to prevent recurrence.',
+          partially: 'Some complaint learning occurs. Formalise root cause analysis for all accessibility complaints, track whether corrective actions are implemented, and report on themes and trends to identify systemic issues.',
+        },
       },
       {
         id: '5.5-D-6',
@@ -22180,6 +25155,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'External audits provide independent, expert assessment of your accessibility maturity.',
+          no: 'Commission an external accessibility audit or review. Independent assessment by qualified access consultants provides credible findings, identifies blind spots, and can benchmark your performance. Budget for physical, digital, and service delivery audits.',
+          partially: 'Some external review has occurred. Ensure audits cover all dimensions (physical, digital, service), are conducted by accredited access consultants, and that findings are actioned with tracked remediation plans.',
+        },
       },
       {
         id: '5.5-D-7',
@@ -22214,6 +25194,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Engaging with disability organisations ensures your approach is informed by real community needs.',
+          no: 'Establish ongoing engagement with disability organisations and community groups. This could include an accessibility advisory panel, regular consultation sessions, or partnership with local disability peak bodies. Compensate participants for their time and expertise.',
+          partially: 'Some engagement exists. Strengthen it by formalising relationships, ensuring diverse disability representation, compensating participants fairly, and demonstrating how their input has influenced decisions.',
+        },
       },
       {
         id: '5.5-D-8',
@@ -22248,6 +25233,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Staying informed about emerging practices ensures your approach evolves with the field.',
+          no: 'Establish processes to stay informed about emerging accessibility practices and technology. Subscribe to disability sector publications, join professional networks like the Australian Network on Disability, attend accessibility conferences, and monitor changes to standards and legislation.',
+          partially: 'Some awareness of emerging practices exists. Formalise this by assigning responsibility for monitoring accessibility developments, subscribing to key publications, and sharing relevant updates across the organisation.',
+        },
       },
       {
         id: '5.5-D-9',
@@ -22276,6 +25266,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Celebrating achievements and recognising contributions reinforces accessibility as an organisational value.',
+          no: 'Celebrate accessibility achievements and recognise staff who contribute to inclusion. Feature progress in internal communications, nominate for accessibility awards, and acknowledge individual contributions. Recognition reinforces the message that accessibility matters.',
+          partially: 'Some recognition occurs informally. Formalise it through regular internal communications highlighting progress, awards or recognition programs, and inclusion of accessibility achievements in performance reviews.',
+        },
       },
       {
         id: '5.5-D-10',
@@ -22310,6 +25305,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Measuring satisfaction among customers with disability reveals whether your efforts translate into real experience improvement.',
+          no: 'Implement specific satisfaction measurement for customers with disability. Standard satisfaction surveys often miss accessibility issues. Add accessibility-specific questions, offer surveys in accessible formats, and consider partnering with disability organisations for independent feedback.',
+          partially: 'Some feedback from customers with disability is collected. Strengthen this with targeted, accessible surveys, disaggregated analysis, and comparison against overall satisfaction scores to identify experience gaps.',
+        },
       },
       {
         id: '5.5-D-11',
@@ -22344,6 +25344,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Tracking accessibility complaints separately reveals patterns and enables targeted improvement.',
+          no: 'Implement separate tracking and reporting for accessibility-related complaints. Tag complaints by type (physical access, digital, communication, service), track resolution times, analyse trends, and use the data to prioritise improvements.',
+          partially: 'Some complaint categorisation exists. Ensure all accessibility complaints are consistently tagged, tracked separately, analysed for trends, and reported to leadership with recommended actions.',
+        },
       },
       {
         id: '5.5-D-12',
@@ -22377,6 +25382,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'A multi-year roadmap ensures accessibility improvement is sustained beyond short-term initiatives.',
+          no: 'Develop a multi-year accessibility roadmap or strategy that extends beyond annual goals. Include phased targets for physical works, digital compliance, training maturity, and cultural change. Align it with capital planning and budget cycles.',
+          partially: 'Some longer-term planning exists. Formalise it into a documented multi-year roadmap with phased milestones, resource allocation, and governance oversight. Ensure it integrates with broader organisational strategic planning.',
+        },
       },
       {
         id: '5.5-D-13',
@@ -22410,6 +25420,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Sharing learnings and best practices with your sector lifts accessibility standards industry-wide.',
+          no: 'Share your accessibility learnings and best practices with your industry or sector. Present at conferences, publish case studies, participate in industry accessibility working groups, or contribute to sector-specific accessibility guidelines.',
+          partially: 'Some knowledge sharing occurs. Expand this by formally participating in industry forums, publishing case studies of what has worked (and what has not), and contributing to sector accessibility initiatives.',
+        },
       },
       {
         id: '5.5-OTHER',
@@ -22481,6 +25496,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Strong foundation. Embedding accessibility from the planning stage sets the event up for genuine inclusion.',
+          no: 'Integrate accessibility into your event planning checklist from the earliest concept stage. Retrofitting accommodations is costlier and less effective than designing them in.',
+          partially: 'Good that accessibility has been raised. Formalise it by adding accessibility as a standing agenda item in all planning meetings and assigning clear ownership.',
+        },
       },
       {
         id: '6.1-PC-2',
@@ -22513,6 +25533,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Well done. Promoting accessibility information upfront helps attendees plan and builds confidence in your event.',
+          no: 'Add accessibility details to all event promotion materials, including what accommodations are available, how to request support, and who to contact. This should appear on your event website, social media, and printed collateral.',
+          partially: 'Some accessibility info is better than none. Expand your promotional materials to cover all key areas: physical access, communication support, sensory environment, and how to request accommodations.',
+        },
       },
       {
         id: '6.1-PC-3',
@@ -22545,6 +25570,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Excellent. Providing a clear accommodation request pathway during registration is essential under DDA 1992 obligations.',
+          no: 'Add an accessibility accommodation request field to your registration or ticketing process. Under the DDA 1992, you have an obligation to make reasonable adjustments. Attendees need a clear, private way to communicate their needs before the event.',
+          partially: 'The accommodation request pathway exists but needs strengthening. Ensure it covers all disability types (mobility, sensory, cognitive, psychosocial), provides a free-text option, and confirms requests will be actioned.',
+        },
       },
       {
         id: '6.1-PC-4',
@@ -22578,6 +25608,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Great. Recognising Companion Cards removes a significant financial barrier to event attendance.',
+          no: 'Register as a Companion Card affiliate and offer free companion tickets. The Companion Card program operates across Australian states and territories to ensure people who require attendant care are not financially disadvantaged.',
+          partially: 'Good start with companion ticket arrangements. Ensure your policy covers all Companion Card holders, is clearly communicated during ticketing, and does not require attendees to justify their need.',
+        },
       },
       {
         id: '6.1-PC-5',
@@ -22610,6 +25645,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Well done. An accessible registration process ensures no one is excluded before the event even begins.',
+          no: 'Audit your registration and ticketing platform against WCAG 2.2 Level AA. Ensure it works with screen readers, supports keyboard navigation, has sufficient colour contrast, and provides an alternative booking method (phone or email) for people who cannot use the online system.',
+          partially: 'Your registration process has some accessible features but gaps remain. Test the full booking flow with assistive technologies and provide at least one alternative booking channel.',
+        },
       },
       // Deep Dive Questions
       {
@@ -22642,6 +25682,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Strong commitment. A dedicated accessibility budget demonstrates organisational priority and enables proper planning.',
+          no: 'Allocate a specific accessibility budget line item for your event. Include Auslan interpreters, captioning, hearing augmentation, accessible materials, equipment hire, and contingency for on-the-day requests. A typical allocation is 5-15% of overall event budget.',
+          partially: 'Some accessibility spending is planned but a formal budget line is missing. Document all accessibility costs as a distinct category to enable tracking, justify future investment, and ensure nothing falls through the cracks.',
+        },
       },
       {
         id: '6.1-D-2',
@@ -22675,6 +25720,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Co-design with people with disability produces better outcomes than assumptions about what is needed.',
+          no: 'Engage people with disability in your event planning process. This could include a disability advisory group, paid consultants with lived experience, or partnerships with disability organisations. Consultation should happen early enough to influence decisions.',
+          partially: 'Some consultation has occurred. Broaden participation to include people with diverse disability types and ensure their input is integrated into actual event decisions, not just noted.',
+        },
       },
       {
         id: '6.1-D-3',
@@ -22714,6 +25764,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Comprehensive accessibility statement. This gives attendees the information they need to plan their visit.',
+          no: 'Develop an event accessibility statement covering: physical access details, available supports (Auslan, captioning, hearing loops), sensory environment, quiet spaces, accessible transport, food and dietary options, service animal policy, and contact details for accessibility queries.',
+          partially: 'Your accessibility statement covers some areas. Expand it to include all key topics: physical access, communication supports, sensory environment, transport, catering, service animals, and a direct contact for accessibility queries.',
+        },
       },
       {
         id: '6.1-D-4',
@@ -22750,6 +25805,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good practice. Accessible promotional materials ensure your event reaches the widest possible audience.',
+          no: 'Produce promotional materials in accessible formats: digital documents meeting WCAG 2.2 AA, captioned video, audio-described visual content, Easy Read versions for key information, and large print options. Ensure images include alt text in digital channels.',
+          partially: 'Some formats are covered. Review which accessible formats are missing and prioritise those that reach the most people: captioned video, WCAG-compliant digital content, and Easy Read summaries.',
+        },
       },
       {
         id: '6.1-D-5',
@@ -22784,6 +25844,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A reasonable deadline with flexibility for late requests balances logistics with inclusion.',
+          no: 'Set a clear deadline for accommodation requests (typically 2-4 weeks before the event) and communicate it prominently. Also establish a process for handling late or on-the-day requests, as some needs cannot be anticipated in advance.',
+          partially: 'A deadline exists but may not be well communicated or flexible enough. Ensure the deadline is prominent in all event materials and that you have a documented process for requests received after the cut-off.',
+        },
       },
       {
         id: '6.1-D-6',
@@ -22818,6 +25883,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Positive step. Reducing financial barriers increases event participation for people with disability.',
+          no: 'Consider offering discounted or free tickets for people with disability. Many people with disability face higher costs of living and lower average incomes. Even a concession rate acknowledges this inequity and signals your event values inclusion.',
+          partially: 'Some pricing concessions are available. Review whether the discount is sufficient, clearly promoted, and easy to access without requiring invasive proof of disability.',
+        },
       },
       {
         id: '6.1-D-7',
@@ -22850,6 +25920,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Hybrid options dramatically expand access for people who face barriers to in-person attendance.',
+          no: 'Explore virtual or hybrid attendance options. Livestreaming, recorded sessions, or virtual participation channels enable attendance by people who cannot travel, manage crowds, or be away from medical support. Even partial hybrid coverage is valuable.',
+          partially: 'A hybrid option exists but may be limited. Ensure virtual attendance includes accessible features: captions, Auslan interpreting on screen, chat-based Q&A, and post-event access to recordings.',
+        },
       },
       {
         id: '6.1-D-8',
@@ -22884,6 +25959,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good practice. Accessible workplaces extend to event operations, not just the attendee experience.',
+          no: 'Ensure volunteers and staff with disability can fully participate. This includes accessible briefing materials, physical access to staff-only areas, flexible shift arrangements, and the same accommodation request process available to attendees.',
+          partially: 'Some provisions exist for staff and volunteers with disability. Formalise this by including accessibility in volunteer recruitment, briefing processes, and operational planning.',
+        },
       },
       {
         id: '6.1-D-9',
@@ -22921,6 +26001,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Strong governance. Embedding accessibility in procurement extends your standards across the supply chain.',
+          no: 'Include accessibility requirements in all supplier and vendor contracts. Specify that stalls, stages, temporary structures, digital platforms, and services must meet relevant accessibility standards. This creates accountability beyond your own team.',
+          partially: 'Some contracts reference accessibility. Standardise this by adding accessibility clauses to your procurement template and verifying compliance during event setup.',
+        },
       },
       {
         id: '6.1-D-10',
@@ -22954,6 +26039,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Confirming accommodations builds trust and reduces anxiety for attendees with disability.',
+          no: 'Contact all attendees who requested accommodations at least one week before the event to confirm arrangements, provide specific details (e.g. interpreter name, seating location), and offer a point of contact for the day.',
+          partially: 'Some confirmation is happening. Ensure every person who requested accommodations receives a personalised confirmation with specific details about what has been arranged and who to contact if something is wrong on the day.',
+        },
       },
       {
         id: '6.1-D-11',
@@ -22988,6 +26078,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Representation matters. Including people with disability in programming normalises disability as part of everyday life.',
+          no: 'Actively seek to include people with disability as speakers, performers, panellists, or facilitators. This goes beyond tokenism: people with disability bring expertise and perspectives that enrich programming. Ensure accessible presentation conditions are provided.',
+          partially: 'Some representation exists. Broaden this by proactively seeking diverse disability representation and ensuring your speaker/performer recruitment processes are accessible.',
+        },
       },
       {
         id: '6.1-D-12',
@@ -23020,6 +26115,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good practice. A named contact person gives attendees confidence that their needs will be heard and actioned.',
+          no: 'Designate a named accessibility contact person and include their details on all event communications: website, registration confirmation, event programs, and signage. This person should have authority to make decisions and arrange accommodations.',
+          partially: 'A contact exists but may not be prominently listed. Ensure the accessibility contact appears on every piece of event communication and that attendees know they can reach this person before, during, and after the event.',
+        },
       },
       {
         id: '6.1-OTHER',
@@ -23089,6 +26189,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Good. Physical accessibility of the venue is fundamental to inclusion and a legal requirement under the DDA 1992 and Australian Premises Standards.',
+          no: 'Assess the venue for wheelchair accessibility, including entrances, circulation routes, stages, amenities, and emergency egress. Under the Disability (Access to Premises) Standards 2010, public venues must provide accessible entry and facilities. If the venue has barriers, identify modifications or choose an alternative.',
+          partially: 'Some areas are accessible but gaps remain. Conduct a full accessibility audit covering all attendee journey points: arrival, entry, movement through the venue, amenities, and exit. Address gaps with temporary solutions where permanent modifications are not possible.',
+        },
       },
       {
         id: '6.2-PC-2',
@@ -23123,6 +26228,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Good. Accessible parking and drop-off are essential first steps in the attendee journey.',
+          no: 'Provide accessible parking spaces compliant with AS/NZS 2890.6 and a drop-off zone close to an accessible entrance. Spaces must have adequate width (minimum 3.2m for shared zones), firm level surfaces, and clear signage. If on-site parking is unavailable, arrange accessible shuttle services.',
+          partially: 'Some accessible parking or drop-off exists. Verify spaces meet AS/NZS 2890.6 dimensions, are on firm level surfaces, have clear signage, and connect to the venue via an accessible path of travel.',
+        },
       },
       {
         id: '6.2-PC-3',
@@ -23157,6 +26267,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Essential provision. Accessible toilets are a legal requirement under the Premises Standards.',
+          no: 'Provide accessible toilets compliant with AS 1428.1. For temporary or outdoor events, hire accessible portable toilets. Ensure they are on level ground, connected by accessible paths, well-lit, and clearly signed. The ratio should be at least 1 accessible toilet per 100 attendees.',
+          partially: 'Some accessible toilets are available. Ensure they meet AS 1428.1 requirements for dimensions, grab rails, and circulation space. Check that accessible paths connect them to all event areas.',
+        },
       },
       {
         id: '6.2-PC-4',
@@ -23195,6 +26310,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Good range of seating options. Flexible seating ensures people with different needs can enjoy the event comfortably.',
+          no: 'Provide diverse accessible seating: wheelchair spaces integrated into general seating (not segregated), companion seating adjacent to wheelchair spaces, extra-width seating, end-of-row aisle seats, and seating with back support. AS 1428.1 requires wheelchair spaces with clear dimensions and sightlines.',
+          partially: 'Some accessible seating is provided. Review whether you cover all needs: wheelchair spaces with companion seats, aisle-accessible seats, extra-width options, and seats with clear sightlines to the stage or screen.',
+        },
       },
       {
         id: '6.2-PC-5',
@@ -23229,6 +26349,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Valuable provision. Quiet spaces are essential for neurodivergent attendees and anyone experiencing sensory overload.',
+          no: 'Designate a quiet or low-sensory space away from the main event area. It should have comfortable seating, reduced lighting, minimal noise, and be staffed or monitored. Clearly sign and promote its location in event materials.',
+          partially: 'A quiet space exists but may need improvement. Ensure it is genuinely low-sensory (not just a spare room near loudspeakers), adequately signed, and promoted in pre-event communications so attendees know it is available.',
+        },
       },
       // Deep Dive Questions
       {
@@ -23265,6 +26390,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good practice. A pre-event site visit is the best way to identify and resolve access barriers before attendees arrive.',
+          no: 'Conduct an accessibility site visit at the venue well before the event. Walk the full attendee journey: arrival, entry, registration, seating, amenities, food areas, and emergency exits. Ideally include a person with disability or access consultant in the walk-through.',
+          partially: 'A site visit occurred but may not have been comprehensive. Revisit with a structured accessibility checklist covering all attendee touchpoints and include someone with lived experience of disability.',
+        },
       },
       {
         id: '6.2-D-2',
@@ -23300,6 +26430,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. An accessible stage ensures presenters and performers with disability can participate fully.',
+          no: 'Ensure the stage or presentation area has step-free access via a ramp (1:14 gradient or gentler) or platform lift. Provide an accessible lectern with adjustable height, adequate lighting on the presenter, and hearing augmentation coverage.',
+          partially: 'Some stage access provisions exist. Verify ramp gradient meets AS 1428.1 requirements (maximum 1:14 for new ramps), check lighting on presenters, and ensure hearing augmentation covers the stage area.',
+        },
       },
       {
         id: '6.2-D-3',
@@ -23334,6 +26469,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Changing Places facilities provide essential support for people with complex access needs that standard accessible toilets cannot meet.',
+          no: 'Check the Changing Places website (changingplaces.org.au) for a facility near your venue. If none is nearby, consider hiring a temporary Changing Places unit for large events. Communicate the nearest facility location in your event accessibility information.',
+          partially: 'Awareness of Changing Places is good. Ensure the facility location is clearly communicated in event materials and that the route from your venue is accessible.',
+        },
       },
       {
         id: '6.2-D-4',
@@ -23368,6 +26508,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good coverage. Providing accessible transport information removes a major barrier to attendance.',
+          no: 'Research and communicate accessible transport options: accessible public transport stops/stations, accessible taxi and rideshare availability, accessible shuttle services, and accessible parking. Include specific details like distance from stops to entrance and surface conditions.',
+          partially: 'Some transport information is available. Expand to cover all options and include practical details: accessibility of the route from transport stops to the venue entrance, distance, surface type, and any assistance available.',
+        },
       },
       {
         id: '6.2-D-5',
@@ -23404,6 +26549,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Safe, navigable surfaces are essential for mobility aid users and people with balance or vision impairments.',
+          no: 'Assess all surfaces and terrain for accessibility. Paths must be firm, level, and slip-resistant. For outdoor events, provide temporary accessible pathways (e.g. aluminium trackway or event matting) over grass, gravel, or uneven ground. Address gradients and cross-falls.',
+          partially: 'Some surface improvements are in place. Conduct a full assessment of all routes attendees will use, including paths to parking, entries, amenities, and emergency exits. Ensure temporary surfaces are secured and maintained throughout the event.',
+        },
       },
       {
         id: '6.2-D-6',
@@ -23439,6 +26589,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good management approach. Proactive seating management prevents accessible spaces being taken by people who do not need them.',
+          no: 'Implement an accessible seating management plan. Reserve and clearly mark wheelchair spaces and companion seats, train staff to manage them, and have a process for reallocating seats if demand exceeds supply. Do not rely on general admission for accessible seating.',
+          partially: 'Some seating management exists. Strengthen it by training front-of-house staff, implementing a reservation system for accessible seats, and having a contingency plan for high demand.',
+        },
       },
       {
         id: '6.2-D-7',
@@ -23475,6 +26630,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good provision. Elevated or designated viewing areas ensure wheelchair users and people of short stature have equitable sightlines at standing events.',
+          no: 'Provide designated accessible viewing areas at standing events. These should offer clear sightlines to the stage, be on level firm ground, include companion spaces, and be protected from crowd crush. Position them where the atmosphere is still part of the event experience.',
+          partially: 'Accessible viewing exists but may need improvement. Check sightlines from the designated area, ensure companion spaces are adjacent, and verify the area is protected from crowd movement while still providing a good event experience.',
+        },
       },
       {
         id: '6.2-D-8',
@@ -23510,6 +26670,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Good. Trip hazard management is a safety-critical requirement, particularly for people using mobility aids or with vision impairments.',
+          no: 'Implement comprehensive trip hazard management: use cable covers rated for mobility aids, secure all wiring and cabling, eliminate changes in floor level or clearly mark them with high-contrast tape, and conduct regular walk-throughs during the event. This is a safety and legal obligation.',
+          partially: 'Some hazard management is in place. Conduct a thorough pre-event check of all pedestrian routes for cables, uneven surfaces, and level changes. Assign staff to monitor and maintain hazard-free routes throughout the event.',
+        },
       },
       {
         id: '6.2-D-9',
@@ -23543,6 +26708,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good inclusion. Accessible baby change facilities support parents and carers with disability.',
+          no: 'Provide at least one accessible baby change facility with adequate space for a wheelchair user, a change table at accessible height, and appropriate disposal facilities. Ensure it is in a gender-neutral location so all parents and carers can use it.',
+          partially: 'A baby change facility exists but may not be fully accessible. Check that it has wheelchair circulation space, is reachable via an accessible path, and is in a location usable by all parents and carers regardless of gender.',
+        },
       },
       {
         id: '6.2-D-10',
@@ -23578,6 +26748,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Good safety practice. Clearly defined edges prevent falls and are particularly important for people with vision impairments.',
+          no: 'Mark all stage and platform edges with high-contrast, non-slip strip (minimum 50mm width) that is both visually and tactilely detectable. Ensure adequate lighting on edges and provide guardrails where the drop exceeds 250mm. This is a safety requirement.',
+          partially: 'Some edge marking is present. Verify all elevated surfaces have high-contrast non-slip edge marking visible under event lighting conditions, and that guardrails are provided where required.',
+        },
       },
       {
         id: '6.2-D-11',
@@ -23611,6 +26786,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Thoughtful provision. A secure storage area means attendees do not have to worry about their equipment during the event.',
+          no: 'Designate a secure, staffed area near the main event space where attendees can store mobility aids, walking frames, or other equipment. Ensure the area is accessible, clearly signed, and that staff understand the importance of handling equipment carefully.',
+          partially: 'Some storage is available. Ensure it is secure, staffed, close to the event area, and that attendees are informed about it in advance.',
+        },
       },
       {
         id: '6.2-D-12',
@@ -23648,6 +26828,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good planning. Weather contingencies protect accessible routes that are particularly vulnerable to rain, wind, or heat.',
+          no: 'Develop a weather contingency plan specifically for accessible routes and facilities. Plan for temporary coverings, alternative accessible paths if ground becomes waterlogged, cooling/heating stations, and communication of changes to attendees with disability.',
+          partially: 'Some weather planning exists. Ensure it specifically addresses accessible routes, outdoor accessible seating, and how changes will be communicated to attendees who pre-registered accessibility needs.',
+        },
       },
       {
         id: '6.2-D-13',
@@ -23684,6 +26869,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible vendor stalls ensure the full event experience is available to everyone.',
+          no: 'Require all merchandise stalls, vendors, and pop-up stands to be accessible: counter heights of 850mm or lower, clear wheelchair approach space, price labels in readable font size, and accessible payment options. Include this in vendor agreements.',
+          partially: 'Some vendors are accessible. Standardise requirements by including accessibility specifications in all vendor contracts and conducting an accessibility check during event setup.',
+        },
       },
       {
         id: '6.2-D-14',
@@ -23721,6 +26911,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Elevated platforms provide equitable viewing for wheelchair users and people of short stature at events where others stand.',
+          no: 'Provide elevated viewing platforms for wheelchair users and people of short stature. Platforms should have ramp access, guardrails, companion spaces, and sightlines equivalent to a standing adult. Position them to provide a genuine event experience, not an afterthought.',
+          partially: 'Viewing platforms are available but may need refinement. Verify ramp access, guardrail safety, adequate size for wheelchairs plus companions, and that sightlines genuinely match what standing attendees see.',
+        },
       },
       {
         id: '6.2-D-15',
@@ -23760,6 +26955,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Proper accessible pathway surfaces are critical for safety and independence at outdoor or temporary venues.',
+          no: 'Install accessible pathway surfaces (e.g. aluminium trackway, interlocking event matting, or compacted surfaces) across all pedestrian routes at outdoor or temporary venues. Surfaces must be firm, level, slip-resistant, and securely fixed. Maintain them throughout the event.',
+          partially: 'Some accessible pathways are provided. Extend coverage to all routes attendees use, including paths to parking, amenities, food areas, and emergency exits. Check that surfaces remain secure and level under foot and wheel traffic.',
+        },
       },
       {
         id: '6.2-D-16',
@@ -23798,6 +26998,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good provision. Intra-venue transport removes a significant barrier at large or spread-out events.',
+          no: 'Provide accessible transport within the venue for large events (e.g. accessible golf carts, shuttle buses, or buggy services). These should accommodate wheelchairs, be available on request and at regular intervals, and operate on accessible routes.',
+          partially: 'Some intra-venue transport is available. Ensure vehicles can accommodate wheelchairs, operate on accessible routes, run frequently enough to be practical, and are promoted to attendees who need them.',
+        },
       },
       {
         id: '6.2-D-17',
@@ -23833,6 +27038,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Thoughtful provision. Charging points address a practical need for powered mobility device users at lengthy events.',
+          no: 'Provide accessible charging points for electric wheelchairs and mobility devices. Locate them near seating areas, ensure standard Australian power outlets are available at accessible heights, and include the locations in your event map and accessibility information.',
+          partially: 'Some charging facilities exist. Ensure they are at accessible heights, on accessible routes, clearly signed, and communicated in pre-event accessibility information.',
+        },
       },
       {
         id: '6.2-D-18',
@@ -23868,6 +27078,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible crowd management ensures wheelchair users and people with mobility impairments are not trapped or endangered.',
+          no: 'Ensure all crowd barriers, bollards, and queuing systems provide wheelchair-width gaps (minimum 900mm clear, ideally 1000mm). Train crowd management staff to assist people with disability. Avoid using barriers that create dead-ends without accessible alternatives.',
+          partially: 'Some accessible gaps exist in barriers. Review all crowd management infrastructure for wheelchair clearance, ensure every queuing path has an accessible alternative, and brief security and crowd management staff.',
+        },
       },
       {
         id: '6.2-D-19',
@@ -23901,6 +27116,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Well-managed drop-off areas are crucial for attendees who rely on accessible transport.',
+          no: 'Establish clearly marked accessible drop-off and pick-up areas close to the accessible entrance. Provide firm level surfaces, kerb ramps, adequate lighting, and staff to manage traffic flow. Communicate the location in pre-event information and via wayfinding signage.',
+          partially: 'Drop-off areas exist but may not be fully managed. Ensure they have adequate signage, lighting, level surfaces, traffic management, and that their location is included in all pre-event accessibility communications.',
+        },
       },
       {
         id: '6.2-OTHER',
@@ -23968,6 +27188,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Clear wayfinding signage reduces anxiety and supports independent navigation for all attendees.',
+          no: 'Install clear, accessible wayfinding signage throughout the event. Signs should have high contrast (70% minimum), large sans-serif fonts (minimum 18pt at reading distance), consistent placement, and include pictograms. Ensure signs to accessible facilities (toilets, quiet rooms, lifts) are prominent.',
+          partially: 'Some signage is in place. Audit it for consistency, contrast, font size, pictogram use, and placement. Ensure accessible routes, facilities, and key areas are all signed.',
+        },
       },
       {
         id: '6.3-PC-2',
@@ -24003,6 +27228,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good range of accessible formats. This ensures attendees can access information in the way that works best for them.',
+          no: 'Provide event information in multiple accessible formats: large print programs, digital versions meeting WCAG 2.2 AA, Easy Read summaries, audio versions, and Braille for key documents if requested. At minimum, ensure digital information is screen-reader compatible.',
+          partially: 'Some accessible formats are available. Identify which formats are missing and prioritise based on your attendee requests and the most common needs: digital accessible, large print, and Easy Read.',
+        },
       },
       {
         id: '6.3-PC-3',
@@ -24038,6 +27268,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Good. Multi-modal announcements ensure safety-critical information reaches everyone, regardless of hearing or vision ability.',
+          no: 'Implement multi-modal announcements: combine PA/audio with visual displays (screens, LED boards), text messages or app notifications, and Auslan interpretation for live announcements. Emergency announcements must be both audible and visible as required under the DDA 1992.',
+          partially: 'Some multi-modal announcements are planned. Ensure emergency announcements are covered by at least audio plus visual display. Test all systems before the event opens.',
+        },
       },
       {
         id: '6.3-PC-4',
@@ -24071,6 +27306,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. An accessible information desk gives attendees a reliable point of contact for assistance.',
+          no: 'Set up an information or help desk at the event. Ensure it has an accessible counter height (no higher than 850mm for a section), is staffed by people with disability awareness training, and is clearly signed and located near the main entrance.',
+          partially: 'An information desk exists but may not be fully accessible. Check counter height, approach clearance, staff training, and signage. Ensure hearing augmentation (portable loop) is available at the desk.',
+        },
       },
       // Deep Dive Questions
       {
@@ -24105,6 +27345,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good use of technology. QR codes linking to digital accessible content bridge physical and digital information needs.',
+          no: 'Add QR codes to key signage that link to accessible digital versions of event information. This benefits people using screen readers, those who need content in different languages, and anyone who prefers digital formats. Ensure linked pages meet WCAG 2.2 AA.',
+          partially: 'QR codes are used in some locations. Extend coverage to all key signage, verify linked content is accessible, and ensure QR codes have adequate size and contrast for scanning.',
+        },
       },
       {
         id: '6.3-D-2',
@@ -24139,6 +27384,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Tactile wayfinding elements support independent navigation for people with vision impairments.',
+          no: 'Provide tactile wayfinding elements such as tactile ground surface indicators (TGSIs) at key decision points, tactile signage with raised lettering and Braille at room entries, and tactile maps at information points. TGSIs should comply with AS 1428.4.1.',
+          partially: 'Some tactile elements are provided. Extend to cover key decision points, room entries, and hazard warnings. Ensure TGSIs meet AS 1428.4.1 specifications for pattern, contrast, and placement.',
+        },
       },
       {
         id: '6.3-D-3',
@@ -24172,6 +27422,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Sensory maps help neurodivergent attendees and others plan their experience around their sensory needs.',
+          no: 'Create a sensory map or guide for the event, indicating noise levels, lighting conditions, crowd density, and sensory hotspots across the venue. Make it available in advance (on the website) and on the day (at the information desk). Include quiet spaces and low-sensory routes.',
+          partially: 'A sensory guide exists but may be incomplete. Ensure it covers all event areas, is available both online and in print, and includes specific information about noise, lighting, crowds, and quiet zones.',
+        },
       },
       {
         id: '6.3-D-4',
@@ -24205,6 +27460,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Thoughtful provision. Social stories reduce anxiety and help people prepare for unfamiliar environments.',
+          no: 'Develop social stories or visual narratives for the event, particularly useful for autistic attendees and people with intellectual disability. Include what to expect on arrival, what the event looks like, where to go for help, and what happens at key moments. Publish them on the event website at least two weeks beforehand.',
+          partially: 'Social stories are partially developed. Ensure they cover the full attendee journey from arrival to departure, use real photos of the venue where possible, and are available well in advance.',
+        },
       },
       {
         id: '6.3-D-5',
@@ -24240,6 +27500,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Multi-channel change communication ensures no attendee misses important updates.',
+          no: 'Establish multiple channels for communicating program changes or delays: PA announcements, on-screen displays, app push notifications, SMS updates for registered attendees, and updates at the information desk. Ensure at least two channels are accessible for each sensory modality.',
+          partially: 'Some communication channels are planned. Ensure changes reach attendees who are deaf (visual channels), blind (audio channels), or not near the main stage (digital notifications).',
+        },
       },
       {
         id: '6.3-D-6',
@@ -24274,6 +27539,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good provision. Communication aids support autonomy and participation for people with speech or communication differences.',
+          no: 'Provide communication aids at the event: picture boards, communication apps on tablets, key-word signing guides for staff, and pen and paper at service points. Train staff to use these tools patiently and without assumptions about cognitive ability.',
+          partially: 'Some communication aids are available. Expand the range to include both low-tech (picture boards, pen and paper) and high-tech (tablet apps) options, and train all front-of-house staff in their use.',
+        },
       },
       {
         id: '6.3-D-7',
@@ -24309,6 +27579,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Flexible audio equipment enables diverse presenters to participate fully.',
+          no: 'Provide a range of microphone options for diverse presenters: lapel mics (hands-free), headset mics, gooseneck mics at adjustable lecterns, and handheld options. Ensure the sound system feeds the hearing loop. Test all equipment with presenters before their session.',
+          partially: 'Some microphone options exist. Ensure the range covers presenters who use wheelchairs (adjustable lectern), who cannot hold a mic (lapel or headset), and who need to move freely (wireless). Confirm all mics feed the hearing loop.',
+        },
       },
       {
         id: '6.3-D-8',
@@ -24345,6 +27620,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good use of technology. Digital wayfinding helps attendees navigate independently, especially in large or complex venues.',
+          no: 'Consider providing a digital wayfinding or navigation app for the event. It should be accessible (screen-reader compatible, high contrast), include accessible routes, and show key facilities. For large events, this significantly improves independence and reduces anxiety.',
+          partially: 'A navigation app exists but may have accessibility gaps. Test it with screen readers and keyboard navigation, verify accessible route information is included, and ensure it works reliably on the event site.',
+        },
       },
       {
         id: '6.3-D-9',
@@ -24380,6 +27660,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good practice. Briefed speakers deliver more inclusive presentations that benefit all attendees.',
+          no: 'Brief all speakers and presenters on accessible presentation practices: describe visual content verbally, face the audience (for lip-readers), use plain language, pause for interpreters, provide slides in advance for captioners, and use high-contrast slide design. Circulate a written accessibility guide as part of speaker onboarding.',
+          partially: 'Some speaker guidance is provided. Formalise this into a standard accessibility briefing document distributed to all presenters, and follow up to ensure they understand and will apply the practices.',
+        },
       },
       {
         id: '6.3-D-10',
@@ -24416,6 +27701,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Plain language makes event information accessible to the widest audience, including people with cognitive disability, low literacy, or English as an additional language.',
+          no: 'Write all event communications in plain language: short sentences, common words, active voice, clear structure, and avoid jargon. Test key documents with the Hemingway Editor or similar readability tool (aim for Grade 8 reading level). This benefits all attendees, not just those with disability.',
+          partially: 'Some communications use plain language. Apply it consistently across all materials: website, registration, event program, signage, and on-the-day communications. Create a style guide for your event team.',
+        },
       },
       {
         id: '6.3-D-11',
@@ -24453,6 +27743,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Testing the app with assistive technologies ensures it does not create a barrier for the attendees who may need it most.',
+          no: 'Test your event app against WCAG 2.2 Level AA, including screen reader compatibility (VoiceOver and TalkBack), keyboard navigation, colour contrast, text resizing, and touch target size (minimum 24x24 CSS pixels). Fix critical issues before launch and provide a non-app alternative for any inaccessible features.',
+          partially: 'Some testing has been done. Conduct systematic testing with actual assistive technologies, address identified issues, and ensure a non-app alternative exists for attendees who cannot use the app.',
+        },
       },
       {
         id: '6.3-OTHER',
@@ -24524,6 +27819,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good hearing access provision. Multiple hearing support options ensure the widest coverage for deaf and hard of hearing attendees.',
+          no: 'Plan hearing access services for your event: Auslan interpreters for presentations and key interactions, live captioning (CART) for spoken content, hearing loop systems in presentation areas, and assistive listening devices. Under the DDA 1992, providing access to information is a reasonable adjustment.',
+          partially: 'Some hearing access is planned. Review coverage for gaps: Auslan for live content, captioning for presentations, hearing loops for seated areas, and assistive listening devices for other spaces.',
+        },
       },
       {
         id: '6.4-PC-2',
@@ -24560,6 +27860,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good vision access provision. Multiple services support attendees with different levels of vision.',
+          no: 'Plan vision access services: audio description for visual presentations and performances, large print event materials, screen reader-compatible digital content, sighted guide volunteers, and tactile maps or models. Communicate available services in advance so attendees can plan.',
+          partially: 'Some vision access services are planned. Expand to cover presentations (audio description), navigation (sighted guides, tactile maps), and information access (large print, screen-reader compatible content).',
+        },
       },
       {
         id: '6.4-PC-3',
@@ -24594,6 +27899,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Sensory considerations demonstrate awareness that neurodivergent attendees have specific environmental needs.',
+          no: 'Address sensory needs for neurodivergent attendees: provide a quiet room, offer noise-reducing earplugs or ear defenders, warn about sensory triggers in advance, create a sensory map, allow early entry to avoid crowds, and designate low-stimulation routes through the venue.',
+          partially: 'Some sensory provisions are in place. Review whether you cover the full range: quiet space, sensory warnings, earplugs available, sensory map, early entry option, and low-stimulation pathways.',
+        },
       },
       // Deep Dive Questions
       {
@@ -24630,6 +27940,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good positioning. Optimal interpreter visibility is essential for deaf attendees to follow presentations.',
+          no: 'Position Auslan interpreters where they are clearly visible: well-lit, against a plain dark background, close to the speaker but not blocking screens, and at the same level as the presenter. Reserve front-of-house seating for deaf attendees. Consult your interpreters on optimal positioning.',
+          partially: 'Interpreters are provided but positioning may not be optimal. Consult with the interpreters and deaf attendees to ensure visibility, lighting, background contrast, and proximity to screens are all addressed.',
+        },
       },
       {
         id: '6.4-D-2',
@@ -24665,6 +27980,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good setup. Visible, readable captioning ensures deaf and hard of hearing attendees can follow spoken content.',
+          no: 'Display live captioning on screens visible from all accessible seating areas. Use a dedicated caption screen or a lower-third overlay on presentation screens. Text should be minimum 48pt on screen, high contrast (white on dark background), and positioned where attendees can see both the speaker and the captions.',
+          partially: 'Captioning is provided but display may need improvement. Verify text size, contrast, visibility from all accessible seating areas, and that captions do not obstruct critical visual content.',
+        },
       },
       {
         id: '6.4-D-3',
@@ -24700,6 +28020,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Good. Hearing loop coverage is essential for hearing aid users and is required in public assembly areas under the Premises Standards.',
+          no: 'Install or hire hearing loop systems that cover all presentation and seated areas. Loops must meet AS 60118.4 for signal strength and clarity. Test coverage with a loop receiver before the event. Display the hearing loop symbol prominently. This is a mandatory requirement in public assembly buildings.',
+          partially: 'Hearing loop coverage exists but may have gaps. Test the loop with a receiver across all seating areas, verify it meets AS 60118.4, and ensure signage with the hearing loop symbol is displayed.',
+        },
       },
       {
         id: '6.4-D-4',
@@ -24736,6 +28061,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good provision. Audio description enables blind and vision-impaired attendees to follow visual content and performances.',
+          no: 'Arrange audio description for visual content: live describers for performances, pre-recorded audio description for video content, and described event programs. Provide receivers or a dedicated audio channel for attendees. Promote availability in pre-event communications.',
+          partially: 'Some audio description is available. Extend to cover all significant visual content (presentations, performances, video), ensure adequate receivers are available, and promote the service in advance.',
+        },
       },
       {
         id: '6.4-D-5',
@@ -24770,6 +28100,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Assistive listening devices extend hearing support beyond hearing loop coverage.',
+          no: 'Provide assistive listening devices (e.g. FM receivers, infrared systems, or personal amplifiers) for attendees who do not use hearing aids or who are in areas without hearing loop coverage. Ensure an adequate supply and a simple sign-out process.',
+          partially: 'Some devices are available. Ensure supply meets demand, devices are maintained and tested before the event, and the sign-out process is simple and dignified.',
+        },
       },
       {
         id: '6.4-D-6',
@@ -24805,6 +28140,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Innovative and inclusive. Haptic devices enable deaf attendees to experience the rhythm and energy of music events.',
+          no: 'Explore haptic devices (e.g. wearable bass vests, vibrating wristbands, or tactile flooring sections) for music events. These devices translate sound into vibration, allowing deaf attendees to feel musical rhythm. Partner with specialist providers and promote availability in advance.',
+          partially: 'Haptic options are being explored. Secure a provider, determine the number of devices needed based on registrations, test the equipment in your venue, and promote availability in accessibility information.',
+        },
       },
       {
         id: '6.4-D-7',
@@ -24840,6 +28180,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Essential safety practice. Sensory trigger warnings allow attendees to prepare or move to a safe space.',
+          no: 'Provide advance warnings for sensory triggers including strobe lights, pyrotechnics, loud sudden noises, smoke/haze effects, and strong scents. Warnings must appear in pre-event materials, at venue entry, and immediately before the trigger occurs. Under DDA obligations, this is a safety and access requirement.',
+          partially: 'Some warnings are provided. Ensure they cover all trigger types, appear in pre-event communications, on-site signage, and are announced immediately before effects occur. Include timing information so attendees can leave or prepare.',
+        },
       },
       {
         id: '6.4-D-8',
@@ -24874,6 +28219,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Relaxed or low-sensory sessions enable attendance by people who cannot manage standard event conditions.',
+          no: 'Offer relaxed or low-sensory sessions with reduced volume, house lights up, no strobe or smoke effects, flexible audience behaviour (moving, making noise), and lower crowd density. Schedule them at practical times and promote them as part of your main program, not as a separate "special" offering.',
+          partially: 'A relaxed session is planned but may need refinement. Ensure it includes all key modifications (lighting, sound, effects, crowd size), is scheduled at a practical time, and is promoted equitably alongside regular sessions.',
+        },
       },
       {
         id: '6.4-D-9',
@@ -24912,6 +28262,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Creative inclusion. Multi-sensory experiences allow deaf attendees to engage with music and performance beyond audio alone.',
+          no: 'Explore multi-sensory music experiences for deaf attendees: tactile sound floors, visual music interpretation (signed song, visual DJ), bass-heavy speaker placement, and LED wristbands synced to music. These enhance the experience for deaf attendees and often delight all audiences.',
+          partially: 'Some multi-sensory options exist. Expand the range and ensure they are available in areas where deaf attendees can use them alongside other attendees, not in a segregated area.',
+        },
       },
       {
         id: '6.4-D-10',
@@ -24947,6 +28302,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Fragrance-free policies support attendees with chemical sensitivities, respiratory conditions, and sensory processing differences.',
+          no: 'Implement a fragrance-free or scent-aware policy. Communicate it to attendees, staff, and vendors in advance. Avoid scented cleaning products in the venue, request that food vendors manage strong cooking odours, and provide a scent-free zone for attendees who are affected.',
+          partially: 'A scent-aware approach exists but may not be comprehensive. Extend the policy to cover venue cleaning products, vendor cooking odours, and staff personal products. Communicate the policy clearly in pre-event materials.',
+        },
       },
       {
         id: '6.4-D-11',
@@ -24982,6 +28342,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible lighting management supports attendees with vision impairments, photosensitivity, and epilepsy.',
+          no: 'Manage lighting for accessibility: maintain adequate ambient lighting for lip-reading and wayfinding (even during performances), avoid flashing lights exceeding 3 flashes per second (WCAG 2.3.1), ensure consistent lighting on interpreters and captioning, and provide warnings before lighting changes.',
+          partially: 'Some lighting management is in place. Review coverage for all areas: adequate ambient light for wayfinding, consistent interpreter/captioner lighting, flash frequency compliance, and warnings before sudden lighting changes.',
+        },
       },
       {
         id: '6.4-D-12',
@@ -25017,6 +28382,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Touch tours and familiarisation visits significantly reduce anxiety and improve the event experience for attendees with disability.',
+          no: 'Offer touch tours or pre-event familiarisation visits for attendees with vision impairments, autism, or anxiety. Allow attendees to explore the venue layout, locate key facilities, and become familiar with the environment before crowds arrive. Schedule at least one session before the event and promote it during registration.',
+          partially: 'Some familiarisation options exist. Formalise them into a structured offering: scheduled sessions before the event, promoted during registration, covering the full venue layout including accessible routes, facilities, and quiet spaces.',
+        },
       },
       {
         id: '6.4-OTHER',
@@ -25084,6 +28454,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Trained staff and volunteers are the single most important factor in delivering an accessible event experience.',
+          no: 'Provide disability awareness training to all staff and volunteers before the event. Cover respectful language, common accommodations, how to assist without assuming, service animal etiquette, communication with deaf and non-verbal attendees, and emergency procedures for people with disability.',
+          partially: 'Some training has been provided. Ensure all staff and volunteers receive it, including security, catering, and contractor teams. Training should be practical and scenario-based, not just a policy document.',
+        },
       },
       {
         id: '6.5-PC-2',
@@ -25120,6 +28495,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Priority entry reduces barriers related to standing, fatigue, crowd anxiety, and temperature exposure.',
+          no: 'Implement priority entry or express queuing for people with disability, including wheelchair users, people with chronic pain or fatigue conditions, and attendees with anxiety about crowds. Communicate this in pre-event information and clearly sign the priority entry point.',
+          partially: 'Priority entry exists but may not cover all needs. Extend it beyond wheelchair users to include people with invisible disabilities, ensure it is clearly communicated and signed, and train staff to manage it respectfully.',
+        },
       },
       {
         id: '6.5-PC-3',
@@ -25155,6 +28535,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. An accessible food and beverage policy ensures all attendees can eat and drink safely and independently.',
+          no: 'Develop an accessible food and beverage policy: clear allergen and ingredient labelling, dietary options (gluten-free, dairy-free, etc.), accessible serving heights, straws and adaptive utensils available, seated eating areas, and staff available to assist. Communicate options in advance.',
+          partially: 'Some accessible food practices exist. Formalise them into a policy covering allergen labelling, dietary options, serving accessibility, adaptive utensils, and communication of food information in accessible formats.',
+        },
       },
       {
         id: '6.5-PC-4',
@@ -25190,6 +28575,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'DDA 1992',
+        actionText: {
+          yes: 'Good. Service animal access is a legal right under the DDA 1992 and state/territory legislation.',
+          no: 'Develop a service animal policy that complies with the DDA 1992: allow access to all areas, provide a relief area for animals, ensure staff understand they cannot request proof of disability or refuse entry, and brief security and door staff. Include the policy in event information.',
+          partially: 'Some provisions exist for service animals. Ensure all staff (especially security) are briefed on legal requirements, a relief area is designated and signed, and water is available for animals.',
+        },
       },
       {
         id: '6.5-PC-5',
@@ -25225,6 +28615,11 @@ export const accessModules: AccessModule[] = [
         },
         complianceLevel: 'mandatory',
         complianceRef: 'AS 3745',
+        actionText: {
+          yes: 'Essential. An accessible evacuation plan is a safety and legal requirement that protects the most vulnerable attendees.',
+          no: 'Develop an accessible emergency evacuation plan covering: personal emergency evacuation plans (PEEPs) for registered attendees, accessible egress routes, refuge points, evacuation equipment (evacuation chairs, mattresses), multi-modal alarms (audible and visual), and trained evacuation marshals. Test the plan before the event.',
+          partially: 'An evacuation plan exists but has accessibility gaps. Ensure it includes PEEPs for pre-registered attendees, accessible egress routes from all areas, refuge points, multi-modal alarms, and that all marshals are trained on disability-specific procedures.',
+        },
       },
       // Deep Dive Questions
       {
@@ -25261,6 +28656,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good governance. Clear accountability ensures accessibility commitments are actually delivered on the day.',
+          no: 'Designate a named person responsible for accessibility on the day with authority to make decisions and allocate resources. This person should be identifiable (vest, badge), reachable by radio, and briefed on all pre-registered accommodations. Include their name in the event run sheet.',
+          partially: 'Someone is loosely responsible but the role may not be formalised. Assign the role explicitly, give the person decision-making authority, and ensure all staff know who to escalate accessibility issues to.',
+        },
       },
       {
         id: '6.5-D-2',
@@ -25295,6 +28695,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible feedback mechanisms show attendees their experience matters and drive continuous improvement.',
+          no: 'Provide accessible feedback channels during and after the event: on-site feedback forms (paper and digital), a text or app-based option, post-event accessible survey (WCAG 2.2 AA compliant), and a direct email or phone contact. Ask specifically about the accessibility experience.',
+          partially: 'Some feedback channels exist. Ensure they are accessible (screen-reader compatible surveys, large print forms, verbal feedback option) and include specific questions about accessibility.',
+        },
       },
       {
         id: '6.5-D-3',
@@ -25331,6 +28736,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good provision. Loan equipment enables attendance by people who may not have brought everything they need.',
+          no: 'Provide equipment available for loan at the event: wheelchairs, hearing loop receivers, noise-reducing earplugs or ear defenders, magnifying sheets, portable seats or stools, phone chargers, and communication boards. Advertise availability in pre-event communications and at the information desk.',
+          partially: 'Some loan equipment is available. Expand the range based on attendee needs, ensure quantities are adequate, and promote availability both in advance and on-site.',
+        },
       },
       {
         id: '6.5-D-4',
@@ -25364,6 +28774,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Flexibility with late requests reflects a genuine commitment to inclusion, not just a compliance exercise.',
+          no: 'Develop a protocol for handling late or on-the-day accessibility requests. Maintain a contingency budget, have backup supplier contacts (Auslan interpreters, captioners, equipment hire), and empower the accessibility lead to approve reasonable requests without escalation.',
+          partially: 'Some flexibility exists for late requests. Formalise it into a documented protocol with pre-approved supplier contacts, a contingency budget, and clear authority for the on-site accessibility lead to act.',
+        },
       },
       {
         id: '6.5-D-5',
@@ -25396,6 +28811,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A dedicated rest area acknowledges the physical demands on carers and companions and supports their wellbeing.',
+          no: 'Provide a rest area for carers and companions separate from the quiet/sensory room. Include comfortable seating, power outlets for device charging, water, and proximity to the main event area. Carers often have their own accessibility needs and this provision recognises their essential role.',
+          partially: 'Some rest area provision exists. Ensure it is distinct from the quiet room (which should be for attendees with sensory needs), has adequate amenities, and is communicated in event materials.',
+        },
       },
       {
         id: '6.5-D-6',
@@ -25429,6 +28849,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Excellent. Post-event reviews drive continuous improvement and demonstrate accountability.',
+          no: 'Conduct a structured post-event accessibility review. Analyse accessibility feedback, review incident reports, assess what worked and what did not, document lessons learned, and set improvement targets for the next event. Include people with disability in the review process.',
+          partially: 'Some post-event review occurs. Formalise it by including disability-specific questions in feedback surveys, reviewing all accessibility incident reports, and documenting improvements for next time.',
+        },
       },
       {
         id: '6.5-D-7',
@@ -25462,6 +28887,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Reserved front-row seating enables deaf and hard of hearing attendees to see interpreters and lip-read speakers.',
+          no: 'Reserve front-row or near-front seating for attendees who are deaf or hard of hearing. This enables clear sightlines to interpreters, captioning screens, and speaker faces for lip-reading. Mark these seats clearly and brief front-of-house staff to manage them.',
+          partially: 'Some reserved seating exists. Ensure it covers all presentation areas (not just the main stage), is clearly marked, and that staff understand it is specifically for hearing access, not general accessibility seating.',
+        },
       },
       {
         id: '6.5-D-8',
@@ -25495,6 +28925,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Food that can be eaten independently promotes dignity and reduces the need for assistance.',
+          no: 'Include finger foods, pre-cut items, food served in bowls with handles, and items that do not require fine motor skills to eat. Avoid exclusively offering food that requires two-handed use, complex wrapping, or precise utensil work. Provide straws, adaptive utensils, and seated eating areas.',
+          partially: 'Some easy-to-eat options are available. Review the full menu for independence: can someone with one hand, limited grip strength, or tremor eat every course? Ensure options are not limited to "special" meals but are part of the standard offering.',
+        },
       },
       {
         id: '6.5-D-9',
@@ -25528,6 +28963,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Proper lighting on speakers and interpreters is essential for lip-reading, sign language visibility, and captioning camera feeds.',
+          no: 'Ensure consistent, adequate lighting on speakers, presenters, and Auslan interpreters throughout all sessions. Lighting should illuminate faces clearly for lip-reading, maintain visibility during audiovisual presentations, and avoid backlighting that silhouettes the speaker. Test under actual event conditions.',
+          partially: 'Some presenter lighting exists. Verify it works during all session types (including when house lights are down for AV presentations), covers interpreter positions, and does not create glare or shadows on faces.',
+        },
       },
       {
         id: '6.5-D-10',
@@ -25563,6 +29003,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Dedicated accessibility stewards provide proactive, visible support that goes beyond reactive complaint handling.',
+          no: 'Assign dedicated accessibility stewards or access support personnel on site. They should be clearly identifiable (vest, badge), trained in disability awareness, positioned at key locations (entry, information desk, accessible seating), and empowered to resolve issues. Brief them on all pre-registered accommodations.',
+          partially: 'Some accessibility support staff are on site. Ensure they are clearly identifiable, trained, positioned at key touchpoints, and have radio contact with the accessibility lead to resolve issues quickly.',
+        },
       },
       {
         id: '6.5-D-11',
@@ -25598,6 +29043,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A flexible re-entry policy accommodates attendees who need to leave temporarily for sensory breaks, medical needs, or assistance animal relief.',
+          no: 'Implement a re-entry policy that accommodates people with disability. Allow re-entry for attendees who need sensory breaks, medical management, assistance animal relief, or equipment charging. Use a hand stamp, wristband, or ticket system that does not penalise people who need to step out.',
+          partially: 'A re-entry policy exists but may not explicitly address disability needs. Ensure it covers sensory breaks, medical needs, and assistance animal relief, and that all door staff understand and apply it consistently.',
+        },
       },
       {
         id: '6.5-D-12',
@@ -25631,6 +29081,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Recognising the Sunflower lanyard enables staff to offer proactive, discreet support to people with hidden disabilities.',
+          no: 'Adopt the Sunflower lanyard scheme (or equivalent hidden disability indicator). Train all staff and volunteers to recognise it and respond appropriately: offer assistance, allow extra time, and be patient. Do not require people to explain their disability. Include Sunflower recognition in your event accessibility information.',
+          partially: 'Some awareness of hidden disability indicators exists. Ensure all staff and volunteers (including security and contractors) are trained to recognise and respond to the Sunflower lanyard, and that the scheme is promoted in event communications.',
+        },
       },
       {
         id: '6.5-D-13',
@@ -25669,6 +29124,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        actionText: {
+          yes: 'Good. Comprehensive medical support is essential for attendee safety, particularly for people with disability who may have complex health needs.',
+          no: 'Provide comprehensive medical support: first aid officers trained in disability-specific scenarios (seizures, insulin management, communication with non-verbal patients), accessible first aid stations, medical equipment storage for attendees, and a clear escalation path to emergency services. This is a mandatory safety requirement.',
+          partially: 'Medical support exists but may not cover disability-specific needs. Ensure first aid staff are trained in seizure management, communication with non-verbal or deaf patients, and that first aid stations are physically accessible.',
+        },
       },
       {
         id: '6.5-D-14',
@@ -25706,6 +29166,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Extending accessibility training to contractors ensures a consistent experience across all event touchpoints.',
+          no: 'Require all third-party contractors and partners (security, catering, AV, cleaning) to complete accessibility awareness training before the event. Include accessibility requirements in contractor agreements and verify compliance during setup. A single untrained team can undermine the entire accessible event experience.',
+          partially: 'Some contractors receive training. Extend to all third parties, make it a contractual requirement, and verify during setup that all teams understand accessible service delivery.',
+        },
       },
       {
         id: '6.5-D-15',
@@ -25741,6 +29206,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Accessible security screening maintains safety without creating additional barriers for people with disability.',
+          no: 'Review security screening procedures for accessibility. Provide a private screening option for people who need to explain medical devices or prosthetics, allow wheelchair users to remain seated during screening, ensure deaf attendees receive visual instructions, and train security staff to interact respectfully with people with disability.',
+          partially: 'Some accessible screening provisions exist. Ensure they cover all disability types: wheelchair users, people with prosthetics or medical devices, deaf attendees, people with intellectual disability, and those with anxiety about physical screening.',
+        },
       },
       {
         id: '6.5-D-16',
@@ -25777,6 +29247,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. A distress response plan protects vulnerable attendees and demonstrates genuine duty of care.',
+          no: 'Develop a protocol for supporting attendees who become distressed, disoriented, or separated from their group. Train staff to recognise signs of distress, approach calmly, and offer specific assistance. Have a designated meeting point, a communication plan for finding carers, and a calm space to wait. This is particularly important for attendees with cognitive disability, autism, or psychosocial disability.',
+          partially: 'Some distress response procedures exist. Formalise into a protocol covering recognition, approach, communication (including non-verbal attendees), a designated meeting point, and carer contact procedures.',
+        },
       },
       {
         id: '6.5-D-17',
@@ -25812,6 +29287,11 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'best-practice',
+        actionText: {
+          yes: 'Good. Active management of pre-registered accommodations ensures promises made during registration are actually delivered.',
+          no: 'Create a system to actively manage pre-registered accommodations on the day. Assign staff to verify each accommodation is in place before the event opens, check in with attendees who requested support, and resolve any issues immediately. Use a checklist linked to registration data to track delivery.',
+          partially: 'Some accommodation management happens on the day. Formalise it with a checklist tied to registration data, assign specific staff to verify each accommodation, and build in a check-in process with attendees who requested support.',
+        },
       },
       {
         id: '6.5-OTHER',
