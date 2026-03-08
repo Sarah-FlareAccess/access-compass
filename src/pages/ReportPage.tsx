@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronUp, Download, BarChart3, Shield, ArrowUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Download, BarChart3, ArrowUp } from 'lucide-react';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useReportGeneration } from '../hooks/useReportGeneration';
@@ -451,54 +451,6 @@ export default function ReportPage() {
     return counts;
   }, [report]);
 
-  const criticalSummary = useMemo(() => {
-    if (!report) return [];
-    const highItems = (report.sections.priorityActions.categorised || [])
-      .filter(i => i.priority === 'high');
-
-    // Group by module
-    const moduleMap = new Map<string, { moduleCode: string; moduleName: string; items: CategorisedItem[]; hasSafety: boolean }>();
-    for (const item of highItems) {
-      const existing = moduleMap.get(item.moduleCode);
-      if (existing) {
-        existing.items.push(item);
-        if (item.safetyRelated) existing.hasSafety = true;
-      } else {
-        moduleMap.set(item.moduleCode, {
-          moduleCode: item.moduleCode,
-          moduleName: item.moduleName,
-          items: [item],
-          hasSafety: !!item.safetyRelated,
-        });
-      }
-    }
-
-    // Sort modules: those with safety issues first, then by issue count descending
-    const groups = Array.from(moduleMap.values());
-    groups.sort((a, b) => {
-      if (a.hasSafety && !b.hasSafety) return -1;
-      if (!a.hasSafety && b.hasSafety) return 1;
-      return b.items.length - a.items.length;
-    });
-
-    // Build summary text for each module (up to 3 key topics)
-    return groups.map(g => {
-      const topics = g.items.slice(0, 3).map(item => {
-        const raw = stripPrioritySuffix(item.text);
-        // Extract a short phrase: take first clause or first ~60 chars
-        const short = raw.length > 60 ? raw.slice(0, raw.indexOf(' ', 50)) + '...' : raw;
-        return short.charAt(0).toLowerCase() + short.slice(1);
-      });
-      const extra = g.items.length > 3 ? g.items.length - 3 : 0;
-      return {
-        moduleCode: g.moduleCode,
-        moduleName: g.moduleName,
-        count: g.items.length,
-        hasSafety: g.hasSafety,
-        summary: topics.join('; ') + (extra > 0 ? ` (+${extra} more)` : ''),
-      };
-    });
-  }, [report]);
 
   const groupedModules = useMemo(() => {
     const groups: { groupId: string; label: string; modules: ModuleFindings[] }[] = [];
@@ -656,26 +608,7 @@ export default function ReportPage() {
           </div>
         )}
 
-        {/* Critical issues */}
-        {criticalSummary.length > 0 && (
-          <details className="rp-critical-issues" open>
-            <summary className="rp-critical-summary">
-              <h2><Shield size={20} aria-hidden="true" /> Key areas requiring priority attention</h2>
-              <ChevronDown size={18} className="rp-critical-chevron" aria-hidden="true" />
-            </summary>
-            <ul className="rp-critical-list">
-              {criticalSummary.map((group) => (
-                <li key={group.moduleCode}>
-                  <span className="rp-critical-module">{group.moduleCode}</span>
-                  <span className="rp-critical-name">{group.moduleName}</span>
-                  <span className="rp-critical-count">{group.count} issue{group.count !== 1 ? 's' : ''}</span>
-                  {group.hasSafety && <span className="rp-critical-safety">Safety</span>}
-                  <p className="rp-critical-topics">{group.summary}</p>
-                </li>
-              ))}
-            </ul>
-          </details>
-        )}
+        {/* Critical issues section removed - findings by module provides this detail */}
 
         {/* Module findings - grouped by category */}
         <div className="rp-modules-section">
