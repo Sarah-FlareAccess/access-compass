@@ -70,6 +70,42 @@
   box-shadow: 0 1px 4px rgba(73, 14, 103, 0.06);
 }
 
+.rp-config-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.rp-config-panel-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.rp-config-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.rp-config-close:hover {
+  color: #374151;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.rp-config-close:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
 .rp-display-options {
   margin-top: 16px;
   padding-top: 16px;
@@ -454,6 +490,46 @@
 .rp-legend-def-high dt { color: #b91c1c; }
 .rp-legend-def-medium dt { color: #945a00; }
 .rp-legend-def-low dt { color: #1a4fd6; }
+
+.rp-priority-encouragement {
+  margin: 8px 0 16px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #374151;
+  background: rgba(73, 14, 103, 0.04);
+  border-radius: 8px;
+  border-left: 3px solid var(--amethyst-diamond, #490E67);
+}
+
+/* Collapsible sections within module tiles */
+.rp-collapsible-section > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.rp-collapsible-section > summary::-webkit-details-marker {
+  display: none;
+}
+
+.rp-collapsible-section > summary::before {
+  content: '▶';
+  display: inline-block;
+  font-size: 0.65rem;
+  margin-right: 8px;
+  color: var(--amethyst-diamond, #490E67);
+  transition: transform 0.15s ease;
+}
+
+.rp-collapsible-section[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.rp-collapsible-section > summary:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
 /* Category group */
 .rp-category-group {
@@ -1161,6 +1237,113 @@
 }
 
 /* Disclaimer */
+/* Professional Support */
+.rp-professional-support {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f5fc 100%);
+  border: 1px solid rgba(73, 14, 103, 0.12);
+  border-left: 4px solid var(--amethyst-light, #6b21a8);
+  border-radius: 10px;
+  padding: 22px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 4px rgba(73, 14, 103, 0.06);
+}
+
+.rp-professional-support h2 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--amethyst-diamond, #490E67);
+}
+
+.rp-prof-intro {
+  font-size: 0.9375rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.rp-prof-group {
+  background: rgba(73, 14, 103, 0.04);
+  border-left: 3px solid var(--amethyst-light, #6b21a8);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.rp-prof-group-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.rp-prof-group-header strong {
+  font-size: 0.9375rem;
+  color: var(--amethyst-diamond, #490E67);
+}
+
+.rp-prof-codes {
+  font-size: 0.8125rem;
+  color: #6b7280;
+}
+
+.rp-prof-group-desc {
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.rp-prof-cta {
+  background: linear-gradient(135deg, #490E67 0%, #5b1897 100%);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-top: 14px;
+  color: #ffffff;
+}
+
+.rp-prof-cta strong {
+  font-size: 0.9375rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.rp-prof-cta p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0 0 10px;
+  opacity: 0.92;
+}
+
+.rp-prof-cta-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rp-prof-cta-links a {
+  color: #FF9015;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.rp-prof-cta-links a:hover {
+  text-decoration: underline;
+}
+
+.rp-prof-cta-links a:focus-visible {
+  outline: 2px solid #FF9015;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.rp-prof-cta-sep {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.875rem;
+}
+
 .rp-disclaimer {
   background: linear-gradient(135deg, #ffffff 0%, #fdf8f2 100%);
   border: 1px solid rgba(230, 119, 0, 0.15);

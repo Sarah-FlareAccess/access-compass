@@ -1,16 +1,15 @@
 /**
  * ReportConfigSelector Component
  *
- * Allows users to select which assessment runs to include in their report.
- * Supports:
- * - Quick selection by context (team, department, event, etc.)
- * - Custom selection of specific modules and runs
- * - Progress comparison toggle
+ * Allows users to configure their report:
+ * - Include/exclude individual modules via inline checkboxes
+ * - Filter by context (team, department, event)
+ * - Toggle progress comparison and evidence
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import type { ModuleRun, ModuleRunContext } from '../hooks/useModuleProgress';
-import { accessModules } from '../data/accessModules';
+import { accessModules, moduleGroups } from '../data/accessModules';
 import './ReportConfigSelector.css';
 
 // Selection for a single module
@@ -18,17 +17,17 @@ export interface ModuleRunSelection {
   moduleId: string;
   moduleName: string;
   moduleCode: string;
-  selectedRunId: string | null;  // null means use current/default
+  selectedRunId: string | null;  // null means excluded
   availableRuns: ModuleRun[];
 }
 
 // Complete report configuration
 export interface ReportConfig {
   filterType: 'all' | 'context' | 'custom';
-  contextFilter?: string;  // The context name to filter by
+  contextFilter?: string;
   moduleSelections: ModuleRunSelection[];
   includeProgressComparison: boolean;
-  comparisonRunId?: string;  // Run to compare against (most recent by default)
+  comparisonRunId?: string;
   includeEvidence: boolean;
 }
 
@@ -40,6 +39,8 @@ interface ReportConfigSelectorProps {
   initialConfig?: ReportConfig;
 }
 
+const GROUP_ORDER = ['before-arrival', 'getting-in', 'during-visit', 'service-support', 'organisational-commitment', 'events'];
+
 export function ReportConfigSelector({
   selectedModuleIds,
   getModuleRuns,
@@ -47,14 +48,20 @@ export function ReportConfigSelector({
   onConfigChange,
   initialConfig,
 }: ReportConfigSelectorProps) {
-  const [filterType, setFilterType] = useState<'all' | 'context' | 'custom'>(
-    initialConfig?.filterType || 'all'
-  );
   const [contextFilter, setContextFilter] = useState<string>(
     initialConfig?.contextFilter || ''
   );
-  const [showCustomModal, setShowCustomModal] = useState(false);
-  const [customSelections, setCustomSelections] = useState<Record<string, string | null>>({});
+  // Track which modules are excluded (by id). Starts empty = all included.
+  const [excludedModules, setExcludedModules] = useState<Set<string>>(() => {
+    if (initialConfig?.filterType === 'custom') {
+      const excluded = new Set<string>();
+      initialConfig.moduleSelections.forEach(s => {
+        if (!s.selectedRunId) excluded.add(s.moduleId);
+      });
+      return excluded;
+    }
+    return new Set();
+  });
   const [includeComparison, setIncludeComparison] = useState(
     initialConfig?.includeProgressComparison || false
   );
@@ -62,10 +69,9 @@ export function ReportConfigSelector({
     initialConfig?.includeEvidence ?? true
   );
 
-  // Get all unique contexts from all runs across all modules
+  // Get all unique contexts from all runs
   const allContexts = useMemo(() => {
     const contexts = new Map<string, { type: ModuleRunContext['type']; name: string; count: number }>();
-
     selectedModuleIds.forEach(moduleId => {
       const runs = getModuleRuns(moduleId);
       runs.forEach(run => {
@@ -74,141 +80,135 @@ export function ReportConfigSelector({
         if (existing) {
           existing.count++;
         } else {
-          contexts.set(key, {
-            type: run.context.type,
-            name: run.context.name,
-            count: 1,
-          });
+          contexts.set(key, { type: run.context.type, name: run.context.name, count: 1 });
         }
       });
     });
-
     return Array.from(contexts.values()).sort((a, b) => b.count - a.count);
   }, [selectedModuleIds, getModuleRuns]);
 
-  // Build module selections based on current filter
-  const moduleSelections = useMemo((): ModuleRunSelection[] => {
+  // Build module info with group data for display
+  const moduleEntries = useMemo(() => {
     return selectedModuleIds.map(moduleId => {
-      const module = accessModules.find(m => m.id === moduleId);
+      const mod = accessModules.find(m => m.id === moduleId);
       const runs = getModuleRuns(moduleId);
-      const progress = currentProgress[moduleId];
-
-      let selectedRunId: string | null = null;
-
-      if (filterType === 'context' && contextFilter) {
-        // Find run matching the context
-        const matchingRun = runs.find(r => r.context.name === contextFilter);
-        selectedRunId = matchingRun?.id || null;
-      } else if (filterType === 'custom') {
-        selectedRunId = customSelections[moduleId] ?? progress?.activeRunId ?? null;
-      } else {
-        // 'all' - use current/active run
-        selectedRunId = progress?.activeRunId || (runs.length > 0 ? runs[runs.length - 1]?.id : null);
-      }
-
+      const prog = currentProgress[moduleId];
       return {
         moduleId,
-        moduleName: module?.name || moduleId,
-        moduleCode: module?.code || moduleId,
-        selectedRunId,
+        moduleName: mod?.name || moduleId,
+        moduleCode: mod?.code || moduleId,
+        group: mod?.group || 'during-visit',
         availableRuns: runs,
+        activeRunId: prog?.activeRunId || (runs.length > 0 ? runs[runs.length - 1]?.id : null),
+        status: prog?.status || 'not-started',
       };
     });
-  }, [selectedModuleIds, getModuleRuns, currentProgress, filterType, contextFilter, customSelections]);
+  }, [selectedModuleIds, getModuleRuns, currentProgress]);
 
-  // Check if there are previous runs to compare against
+  // Group modules by category
+  const groupedModules = useMemo(() => {
+    const groups: { groupId: string; label: string; modules: typeof moduleEntries }[] = [];
+    for (const gId of GROUP_ORDER) {
+      const groupDef = moduleGroups.find(g => g.id === gId);
+      const mods = moduleEntries.filter(m => m.group === gId);
+      if (mods.length > 0) {
+        groups.push({ groupId: gId, label: groupDef?.label || gId, modules: mods });
+      }
+    }
+    return groups;
+  }, [moduleEntries]);
+
   const hasPreviousRuns = useMemo(() => {
-    return selectedModuleIds.some(moduleId => {
-      const runs = getModuleRuns(moduleId);
-      return runs.length > 1;
-    });
+    return selectedModuleIds.some(moduleId => getModuleRuns(moduleId).length > 1);
   }, [selectedModuleIds, getModuleRuns]);
 
-  // Emit config changes
-  const emitConfig = (updates: Partial<{
-    filterType: 'all' | 'context' | 'custom';
-    contextFilter: string;
-    customSelections: Record<string, string | null>;
-    includeComparison: boolean;
-    includeEvidence: boolean;
-  }>) => {
-    const newFilterType = updates.filterType ?? filterType;
-    const newContextFilter = updates.contextFilter ?? contextFilter;
-    const newIncludeComparison = updates.includeComparison ?? includeComparison;
-    const newIncludeEvidence = updates.includeEvidence ?? includeEvidence;
-
-    const config: ReportConfig = {
-      filterType: newFilterType,
-      contextFilter: newFilterType === 'context' ? newContextFilter : undefined,
-      moduleSelections,
-      includeProgressComparison: newIncludeComparison,
-      includeEvidence: newIncludeEvidence,
-    };
-
-    onConfigChange(config);
-  };
-
-  const handleFilterChange = (value: string) => {
-    if (value === 'custom') {
-      setShowCustomModal(true);
-      return;
-    }
-
-    if (value === 'all') {
-      setFilterType('all');
-      setContextFilter('');
-      emitConfig({ filterType: 'all', contextFilter: '' });
-    } else {
-      setFilterType('context');
-      setContextFilter(value);
-      emitConfig({ filterType: 'context', contextFilter: value });
-    }
-  };
-
-  const handleCustomSelectionChange = (moduleId: string, runId: string | null) => {
-    setCustomSelections(prev => ({
-      ...prev,
-      [moduleId]: runId,
+  // Build selections and emit config
+  const emitConfig = useCallback((
+    ctx: string,
+    excluded: Set<string>,
+    comparison: boolean,
+    evidence: boolean,
+  ) => {
+    const hasExclusions = excluded.size > 0;
+    const selections: ModuleRunSelection[] = moduleEntries.map(entry => ({
+      moduleId: entry.moduleId,
+      moduleName: entry.moduleName,
+      moduleCode: entry.moduleCode,
+      selectedRunId: excluded.has(entry.moduleId) ? null : (
+        ctx
+          ? (entry.availableRuns.find(r => r.context.name === ctx)?.id || null)
+          : entry.activeRunId
+      ),
+      availableRuns: entry.availableRuns,
     }));
+
+    onConfigChange({
+      filterType: hasExclusions ? 'custom' : (ctx ? 'context' : 'all'),
+      contextFilter: ctx || undefined,
+      moduleSelections: selections,
+      includeProgressComparison: comparison,
+      includeEvidence: evidence,
+    });
+  }, [moduleEntries, onConfigChange]);
+
+  const handleContextChange = (value: string) => {
+    const ctx = value === 'all' ? '' : value;
+    setContextFilter(ctx);
+    if (value === 'all') {
+      setExcludedModules(new Set());
+      emitConfig('', new Set(), includeComparison, includeEvidence);
+    } else {
+      emitConfig(ctx, excludedModules, includeComparison, includeEvidence);
+    }
   };
 
-  const handleApplyCustomSelection = () => {
-    setFilterType('custom');
-    setShowCustomModal(false);
-    emitConfig({ filterType: 'custom', customSelections });
+  const handleModuleToggle = (moduleId: string) => {
+    setExcludedModules(prev => {
+      const next = new Set(prev);
+      if (next.has(moduleId)) {
+        next.delete(moduleId);
+      } else {
+        next.add(moduleId);
+      }
+      emitConfig(contextFilter, next, includeComparison, includeEvidence);
+      return next;
+    });
+  };
+
+  const handleSelectAllInGroup = (groupModuleIds: string[], include: boolean) => {
+    setExcludedModules(prev => {
+      const next = new Set(prev);
+      for (const id of groupModuleIds) {
+        if (include) {
+          next.delete(id);
+        } else {
+          next.add(id);
+        }
+      }
+      emitConfig(contextFilter, next, includeComparison, includeEvidence);
+      return next;
+    });
   };
 
   const handleComparisonToggle = (checked: boolean) => {
     setIncludeComparison(checked);
-    emitConfig({ includeComparison: checked });
+    emitConfig(contextFilter, excludedModules, checked, includeEvidence);
   };
 
   const handleEvidenceToggle = (checked: boolean) => {
     setIncludeEvidence(checked);
-    emitConfig({ includeEvidence: checked });
-  };
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return '';
-    return new Date(dateString).toLocaleDateString('en-AU', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    });
+    emitConfig(contextFilter, excludedModules, includeComparison, checked);
   };
 
   const getContextTypeLabel = (type: ModuleRunContext['type']) => {
     const labels: Record<ModuleRunContext['type'], string> = {
-      general: 'General',
-      team: 'Team',
-      department: 'Department',
-      event: 'Event',
-      location: 'Location',
-      experience: 'Experience',
-      other: 'Other',
+      general: 'General', team: 'Team', department: 'Department',
+      event: 'Event', location: 'Location', experience: 'Experience', other: 'Other',
     };
     return labels[type] || type;
   };
+
+  const includedCount = selectedModuleIds.length - excludedModules.size;
 
   return (
     <div className="report-config-selector">
@@ -216,8 +216,8 @@ export function ReportConfigSelector({
 
       <div className="config-row">
         <select
-          value={filterType === 'context' ? contextFilter : filterType}
-          onChange={(e) => handleFilterChange(e.target.value)}
+          value={contextFilter || 'all'}
+          onChange={(e) => handleContextChange(e.target.value)}
           className="context-select"
         >
           <option value="all">All assessments (current data)</option>
@@ -230,9 +230,65 @@ export function ReportConfigSelector({
               ))}
             </optgroup>
           )}
-          <option value="custom">Custom selection...</option>
         </select>
       </div>
+
+      {/* Inline module selection */}
+      <details className="module-select-section">
+        <summary className="module-select-toggle">
+          Select modules
+          <span className="module-select-count">{includedCount} of {selectedModuleIds.length} included</span>
+        </summary>
+        <div className="module-select-body">
+          {groupedModules.map(group => {
+            const groupIds = group.modules.map(m => m.moduleId);
+            const allIncluded = groupIds.every(id => !excludedModules.has(id));
+            const noneIncluded = groupIds.every(id => excludedModules.has(id));
+
+            return (
+              <fieldset key={group.groupId} className="module-select-group">
+                <legend className="module-select-group-legend">
+                  <span>{group.label}</span>
+                  <span className="group-toggle-btns">
+                    <button
+                      type="button"
+                      className="group-toggle-btn"
+                      onClick={() => handleSelectAllInGroup(groupIds, true)}
+                      disabled={allIncluded}
+                    >
+                      All
+                    </button>
+                    <button
+                      type="button"
+                      className="group-toggle-btn"
+                      onClick={() => handleSelectAllInGroup(groupIds, false)}
+                      disabled={noneIncluded}
+                    >
+                      None
+                    </button>
+                  </span>
+                </legend>
+                {group.modules.map(mod => {
+                  const isIncluded = !excludedModules.has(mod.moduleId);
+                  const inputId = `mod-select-${mod.moduleId}`;
+                  return (
+                    <label key={mod.moduleId} className={`module-select-item${isIncluded ? '' : ' module-excluded'}`} htmlFor={inputId}>
+                      <input
+                        type="checkbox"
+                        id={inputId}
+                        checked={isIncluded}
+                        onChange={() => handleModuleToggle(mod.moduleId)}
+                      />
+                      <span className="module-select-code">{mod.moduleCode}</span>
+                      <span className="module-select-name">{mod.moduleName}</span>
+                    </label>
+                  );
+                })}
+              </fieldset>
+            );
+          })}
+        </div>
+      </details>
 
       {/* Progress comparison toggle */}
       {hasPreviousRuns && (
@@ -265,92 +321,6 @@ export function ReportConfigSelector({
           </span>
         </label>
       </div>
-
-      {/* Show current selection summary */}
-      {filterType !== 'all' && (
-        <div className="selection-summary">
-          {filterType === 'context' && (
-            <p>
-              Showing data for: <strong>{contextFilter}</strong>
-              {moduleSelections.filter(m => m.selectedRunId).length < moduleSelections.length && (
-                <span className="warning">
-                  ({moduleSelections.length - moduleSelections.filter(m => m.selectedRunId).length} module(s) have no matching assessment)
-                </span>
-              )}
-            </p>
-          )}
-          {filterType === 'custom' && (
-            <p>
-              Custom selection: {moduleSelections.filter(m => m.selectedRunId).length} of {moduleSelections.length} modules
-              <button
-                className="btn-edit-selection"
-                onClick={() => setShowCustomModal(true)}
-              >
-                Edit
-              </button>
-            </p>
-          )}
-        </div>
-      )}
-
-      {/* Custom Selection Modal */}
-      {showCustomModal && (
-        <div className="custom-modal-overlay">
-          <div className="custom-modal">
-            <div className="custom-modal-header">
-              <h3>Select modules and assessments</h3>
-              <button className="close-btn" onClick={() => setShowCustomModal(false)}>×</button>
-            </div>
-
-            <div className="custom-modal-content">
-              <p className="modal-intro">
-                Choose which assessment to include for each module. Modules without a selection will be excluded from the report.
-              </p>
-
-              <div className="module-selection-list">
-                {moduleSelections.map(selection => (
-                  <div key={selection.moduleId} className="module-selection-item">
-                    <div className="module-info">
-                      <span className="module-code">{selection.moduleCode}</span>
-                      <span className="module-name">{selection.moduleName}</span>
-                    </div>
-
-                    <select
-                      value={customSelections[selection.moduleId] ?? selection.selectedRunId ?? ''}
-                      onChange={(e) => handleCustomSelectionChange(
-                        selection.moduleId,
-                        e.target.value || null
-                      )}
-                      className="run-select"
-                    >
-                      <option value="">Exclude from report</option>
-                      {selection.availableRuns.length === 0 ? (
-                        <option value="" disabled>No assessments available</option>
-                      ) : (
-                        selection.availableRuns.map(run => (
-                          <option key={run.id} value={run.id}>
-                            {run.context.name} ({formatDate(run.completedAt || run.startedAt)})
-                            {run.status === 'completed' ? ' ✓' : ' (in progress)'}
-                          </option>
-                        ))
-                      )}
-                    </select>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="custom-modal-footer">
-              <button className="btn-secondary" onClick={() => setShowCustomModal(false)}>
-                Cancel
-              </button>
-              <button className="btn-primary" onClick={handleApplyCustomSelection}>
-                Apply Selection
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

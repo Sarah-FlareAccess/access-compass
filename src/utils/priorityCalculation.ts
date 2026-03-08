@@ -35,31 +35,33 @@ export function calculateQuestionPriority({
 }
 
 export const PRIORITY_LABELS: Record<Priority, string> = {
-  high: 'Essential',
-  medium: 'Important',
-  low: 'Beneficial',
+  high: 'High',
+  medium: 'Medium',
+  low: 'Low',
 };
 
 export const PRIORITY_BADGE_ABBR: Record<Priority, string> = {
-  high: 'E',
-  medium: 'I',
-  low: 'B',
+  high: 'H',
+  medium: 'M',
+  low: 'L',
 };
 
 export const PRIORITY_LEGEND: { level: Priority; label: string; description: string }[] = [
   {
     level: 'high',
-    label: 'Essential',
-    description: 'Mandatory compliance gaps and safety items.',
+    label: 'High',
+    description: 'Gaps in mandatory compliance requirements (Premises Standards, WCAG, NCC) and safety-related items. These carry the highest legal and safety risk and should be addressed first where possible.',
   },
   {
     level: 'medium',
-    label: 'Important',
-    description: 'High-impact best-practice gaps and items needing investigation.',
+    label: 'Medium',
+    description: 'High-impact improvements that significantly affect the experience of people with disability, and items that need further investigation to determine their current state.',
   },
   {
     level: 'low',
-    label: 'Beneficial',
-    description: 'Best-practice improvements that enhance the experience for people with disability.',
+    label: 'Low',
+    description: 'Best-practice improvements that make a real, meaningful difference to accessibility and inclusion. These are not less important, just lower legal risk.',
   },
 ];
+
+export const PRIORITY_ENCOURAGEMENT = 'Every action here is worth doing. Priority levels help you decide where to start, not what to skip. Even "low" priority items can have a meaningful impact on someone\'s experience. Start wherever you can and build from there.';

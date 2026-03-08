@@ -11,7 +11,7 @@
 import { useState } from 'react';
 import type { ModuleSummary, CompletionMetadata } from '../../hooks/useModuleProgress';
 import { Confetti, useConfetti } from '../Confetti';
-import { PRIORITY_LEGEND } from '../../utils/priorityCalculation';
+import { PRIORITY_LEGEND, PRIORITY_ENCOURAGEMENT } from '../../utils/priorityCalculation';
 import './questions.css';
 
 export type { CompletionMetadata };
@@ -161,13 +161,13 @@ export function ModuleSummaryCard({
             <h3 className="section-title">Priority actions</h3>
             <div className="priority-badges">
               {highPriorityCount > 0 && (
-                <span className="priority-badge high">{highPriorityCount} essential</span>
+                <span className="priority-badge high">{highPriorityCount} high</span>
               )}
               {mediumPriorityCount > 0 && (
-                <span className="priority-badge medium">{mediumPriorityCount} important</span>
+                <span className="priority-badge medium">{mediumPriorityCount} medium</span>
               )}
               {lowPriorityCount > 0 && (
-                <span className="priority-badge low">{lowPriorityCount} beneficial</span>
+                <span className="priority-badge low">{lowPriorityCount} low</span>
               )}
             </div>
           </div>
@@ -179,6 +179,7 @@ export function ModuleSummaryCard({
               </div>
             ))}
           </dl>
+          <p className="priority-encouragement">{PRIORITY_ENCOURAGEMENT}</p>
           <ul className="summary-list action-list">
             {(expandedSections['actions'] ? priorityActions : priorityActions.slice(0, 5)).map((action, index) => (
               <li key={index} className={`action-item priority-${action.priority}`}>

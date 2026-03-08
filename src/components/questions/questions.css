@@ -1251,6 +1251,17 @@
   color: #16a34a;
 }
 
+.priority-encouragement {
+  margin: 8px 0 12px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #374151;
+  background: rgba(73, 14, 103, 0.04);
+  border-radius: 6px;
+  border-left: 3px solid var(--amethyst-diamond, #490E67);
+}
+
 /* Summary Lists */
 .summary-list {
   list-style: none;

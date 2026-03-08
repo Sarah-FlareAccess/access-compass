@@ -248,38 +248,58 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
       let modulesIncluded = 0;
       let modulesExcluded = 0;
 
+      // Build set of excluded module IDs from config
+      const excludedIds = new Set<string>();
       if (reportConfig && reportConfig.filterType !== 'all') {
-        // Filter based on selected runs
-        completedModules = [];
         reportConfig.moduleSelections.forEach(selection => {
-          if (selection.selectedRunId) {
-            const moduleProgress = progress[selection.moduleId];
-            if (moduleProgress) {
-              const run = moduleProgress.runs?.find(r => r.id === selection.selectedRunId);
-              if (run && run.status === 'completed') {
-                // Create a progress object from the specific run
-                completedModules.push({
-                  ...moduleProgress,
-                  responses: run.responses,
-                  summary: run.summary,
-                  completedAt: run.completedAt,
-                  ownership: run.ownership,
-                  confidenceSnapshot: run.confidenceSnapshot,
-                });
-                modulesIncluded++;
-              } else {
-                modulesExcluded++;
-              }
-            }
+          if (!selection.selectedRunId) {
+            excludedIds.add(selection.moduleId);
+          }
+        });
+      }
+
+      // For modules with a specific non-current run selected, use that run's data
+      const specificRuns = new Map<string, string>();
+      if (reportConfig && reportConfig.filterType !== 'all') {
+        reportConfig.moduleSelections.forEach(selection => {
+          if (selection.selectedRunId && selection.selectedRunId !== 'current') {
+            specificRuns.set(selection.moduleId, selection.selectedRunId);
+          }
+        });
+      }
+
+      completedModules = [];
+      for (const [moduleId, moduleProgress] of Object.entries(progress)) {
+        if (moduleProgress.status !== 'completed') {
+          modulesExcluded++;
+          continue;
+        }
+        if (excludedIds.has(moduleId)) {
+          modulesExcluded++;
+          continue;
+        }
+
+        const specificRunId = specificRuns.get(moduleId);
+        if (specificRunId) {
+          const run = moduleProgress.runs?.find(r => r.id === specificRunId);
+          if (run && run.status === 'completed') {
+            completedModules.push({
+              ...moduleProgress,
+              responses: run.responses,
+              summary: run.summary,
+              completedAt: run.completedAt,
+              ownership: run.ownership,
+              confidenceSnapshot: run.confidenceSnapshot,
+            });
+            modulesIncluded++;
           } else {
             modulesExcluded++;
           }
-        });
-      } else {
-        // Use all current/default progress
-        completedModules = Object.values(progress).filter(p => p.status === 'completed');
-        modulesIncluded = completedModules.length;
-        modulesExcluded = selectedModuleIds.length - completedModules.length;
+        } else {
+          // Use current progress data
+          completedModules.push(moduleProgress);
+          modulesIncluded++;
+        }
       }
 
       // Aggregate all summaries
@@ -730,40 +750,60 @@ function generateNextSteps(
   const exploreNow: string[] = [];
   const planForLater: string[] = [];
 
-  // Things to explore now
-  if (areasToExplore.length > 0) {
-    exploreNow.push('Review areas marked as opportunities to improve');
-  }
-
-  const toConfirmResponses = completedModules.reduce((count, module) => {
+  // Count key metrics for tailored suggestions
+  const toConfirmCount = completedModules.reduce((count, module) => {
     return count + module.responses.filter(r => needsFollowUp(r.answer)).length;
   }, 0);
 
-  if (toConfirmResponses > 0) {
-    exploreNow.push('Follow up on "Unable to check" items with your team');
-  }
-
-  exploreNow.push('Identify quick wins that require minimal effort');
-  exploreNow.push('Share this report with relevant stakeholders');
-
-  // Things to plan for later
   const highPriorityCount = completedModules.reduce((count, module) => {
     return count + (module.summary?.priorityActions.filter(a => a.priority === 'high').length || 0);
   }, 0);
 
+  const lowPriorityCount = completedModules.reduce((count, module) => {
+    return count + (module.summary?.priorityActions.filter(a => a.priority === 'low').length || 0);
+  }, 0);
+
+  const partiallyCount = completedModules.reduce((count, module) => {
+    return count + module.responses.filter(r => r.answer === 'partially').length;
+  }, 0);
+
+  const incompleteModuleCount = selectedModuleIds.length - completedModules.length;
+
+  // --- Things to explore now ---
+
+  if (lowPriorityCount > 0) {
+    exploreNow.push(`Review the ${lowPriorityCount} low-priority items for quick wins. Many of these are small changes (signage, wording, staff awareness) that can be done without budget approval.`);
+  }
+
+  if (toConfirmCount > 0) {
+    exploreNow.push(`Follow up on the ${toConfirmCount} item${toConfirmCount === 1 ? '' : 's'} marked "Unable to check". Walk the site with a colleague, or contact your building manager to verify these.`);
+  }
+
+  if (partiallyCount > 3) {
+    exploreNow.push(`Look at the ${partiallyCount} items marked "partially in place". These are often the easiest to bring up to full compliance since the foundation is already there.`);
+  }
+
+  if (areasToExplore.length > 0) {
+    exploreNow.push('Use the in-app report to view detailed action guides and resource links for each item. Start with the areas you feel most confident tackling.');
+  }
+
+  exploreNow.push('Share this report with relevant stakeholders so they understand the current state and can contribute to planning improvements.');
+
+  // --- Things to plan for later ---
+
   if (highPriorityCount > 0) {
-    planForLater.push('Schedule improvements that need budget or time');
+    planForLater.push(`Address the ${highPriorityCount} high-priority item${highPriorityCount === 1 ? '' : 's'} relating to mandatory compliance requirements. These may need budget allocation, building works, or specialist input.`);
   }
 
-  if (completedModules.length < selectedModuleIds.length) {
-    planForLater.push('Complete any modules you haven\'t reviewed yet');
+  if (incompleteModuleCount > 0) {
+    planForLater.push(`Complete the remaining ${incompleteModuleCount} module${incompleteModuleCount === 1 ? '' : 's'} you haven't reviewed yet to get a full picture of your accessibility position.`);
   }
 
-  if (completedModules.length === selectedModuleIds.length) {
-    planForLater.push('Consider a more detailed review if needed');
-  }
+  planForLater.push('Set a review date (e.g. quarterly or after major changes) to re-assess and track your progress over time.');
 
-  planForLater.push('Set review dates to track progress');
+  if (completedModules.length >= 5) {
+    planForLater.push('Consider developing a Disability Inclusion Action Plan (DIAP) using the DIAP builder in Access Compass to formalise your accessibility goals and timelines.');
+  }
 
   return { exploreNow, planForLater };
 }

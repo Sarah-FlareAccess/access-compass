@@ -7,6 +7,8 @@
 
 import jsPDF from 'jspdf';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
+import { accessModules, moduleGroups } from '../data/accessModules';
+import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from './professionalSupportGroups';
 
 // Brand Colors - matching Access Compass design system
 const COLORS = {
@@ -15,8 +17,8 @@ const COLORS = {
   amethystDiamond: '#490E67',
   amethystLight: '#6b21a8',
   // Accent
-  aussieDark: '#CC7700',
-  aussieLight: '#e68a00',
+  aussieDark: '#E07D00',
+  aussieLight: '#FF9015',
   // Status
   green: '#22c55e',
   greenLight: '#dcfce7',
@@ -53,6 +55,16 @@ interface PDFGeneratorOptions {
   includeTableOfContents?: boolean;
 }
 
+// Module group ordering and labels for the findings section
+const GROUP_ORDER: { id: string; label: string }[] = [
+  { id: 'before-arrival', label: 'Before they arrive' },
+  { id: 'getting-in', label: 'Getting in and moving around' },
+  { id: 'during-visit', label: 'During the visit' },
+  { id: 'service-support', label: 'Service and support' },
+  { id: 'organisational-commitment', label: 'Organisational commitment' },
+  { id: 'events', label: 'Events' },
+];
+
 /**
  * Generate a professional PDF report
  */
@@ -71,8 +83,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFillColor(73, 14, 103); // amethystDiamond
     doc.rect(0, 0, PAGE.width * 0.6, 15, 'F');
 
-    // Orange accent line at bottom
-    doc.setFillColor(204, 119, 0); // aussieDark
+    // Orange accent line at bottom (brand orange)
+    doc.setFillColor(255, 144, 21); // aussieLight / brand orange
     doc.rect(0, 14, PAGE.width, 1.5, 'F');
 
     doc.setTextColor(255, 255, 255);
@@ -112,6 +124,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       footerY,
       { align: 'center' }
     );
+    // Page number placeholder (updated in final pass with total)
     doc.setTextColor(107, 114, 128);
     doc.text(`Page ${currentPage}`, PAGE.width - PAGE.marginRight, footerY, { align: 'right' });
 
@@ -126,19 +139,26 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     addHeader();
   };
 
-  // Helper: Check if we need a new page
+  // Helper: Check if we need a new page (preserves font state across breaks)
   const checkNewPage = (neededHeight: number) => {
     if (yPosition + neededHeight > PAGE.height - PAGE.marginBottom) {
+      // Capture current font state before page break
+      const prevFontSize = doc.getFontSize();
+      const prevFont = doc.getFont();
+
       addFooter();
       addNewPage();
+
+      // Restore font state after page break
+      doc.setFontSize(prevFontSize);
+      doc.setFont(prevFont.fontName, prevFont.fontStyle);
       return true;
     }
     return false;
   };
 
-  // Helper: Add group header divider (full-width purple band)
-  const addGroupHeader = (title: string) => {
-    // Ensure group header + some content fits (40mm minimum)
+  // Helper: Add group header (left-border accent style matching app)
+  const addGroupHeader = (title: string, isFindings: boolean = false) => {
     checkNewPage(40);
 
     // Add extra spacing before groups (except if at top of page)
@@ -147,22 +167,37 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       checkNewPage(40);
     }
 
-    // Purple background band
-    doc.setFillColor(73, 14, 103); // amethystDiamond
-    doc.roundedRect(PAGE.marginLeft - 3, yPosition - 4, PAGE.contentWidth + 6, 12, 2, 2, 'F');
+    if (isFindings) {
+      // Findings group headers: light ivory bg with purple left accent bar (matching app)
+      doc.setFillColor(250, 248, 245); // ivory bg
+      doc.roundedRect(PAGE.marginLeft - 3, yPosition - 4, PAGE.contentWidth + 6, 10, 2, 2, 'F');
 
-    // White text
-    doc.setFontSize(13);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(255, 255, 255);
-    doc.text(title, PAGE.marginLeft + 4, yPosition + 4);
+      // Purple left accent bar
+      doc.setFillColor(73, 14, 103); // amethystDiamond
+      doc.roundedRect(PAGE.marginLeft - 3, yPosition - 4, 3, 10, 2, 2, 'F');
 
-    yPosition += 16;
+      // Dark text
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(COLORS.text);
+      doc.text(title, PAGE.marginLeft + 5, yPosition + 3);
+    } else {
+      // Non-findings group headers: full purple band (Overview, Evidence, etc.)
+      doc.setFillColor(73, 14, 103); // amethystDiamond
+      doc.roundedRect(PAGE.marginLeft - 3, yPosition - 4, PAGE.contentWidth + 6, 10, 2, 2, 'F');
+
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      doc.text(title, PAGE.marginLeft + 4, yPosition + 3);
+    }
+
+    yPosition += 14;
     doc.setTextColor(0, 0, 0);
     doc.setFont('helvetica', 'normal');
   };
 
-  // Helper: Add section title with visual depth
+  // Helper: Add section title with visual depth (11pt, not 13pt)
   const addSectionTitle = (title: string, accentColor: string = COLORS.amethystDiamond) => {
     checkNewPage(20);
 
@@ -174,7 +209,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFillColor(accentColor);
     doc.roundedRect(PAGE.marginLeft - 3, yPosition - 5, 3, 14, 1, 1, 'F');
 
-    doc.setFontSize(13);
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(accentColor);
     doc.text(title, PAGE.marginLeft + 4, yPosition + 4);
@@ -185,7 +220,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   };
 
   // Helper: Add paragraph text with word wrapping
-  const addParagraph = (text: string, fontSize: number = 10) => {
+  const addParagraph = (text: string, fontSize: number = 9) => {
     doc.setFontSize(fontSize);
     const lines = doc.splitTextToSize(text, PAGE.contentWidth);
     const lineHeight = fontSize * 0.4;
@@ -200,7 +235,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // Helper: Add bullet list
   const addBulletList = (items: string[], bulletColor: string = COLORS.gray) => {
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     const lineHeight = 5;
 
     for (const item of items) {
@@ -224,209 +259,61 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     yPosition += 3;
   };
 
-  // Priority sort order and colors for PDF
-  const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 };
-  const priorityBulletColors: Record<string, string> = {
-    high: COLORS.red,
-    medium: COLORS.amberDark,
-    low: COLORS.blue,
-  };
-  const priorityBadgeLabels: Record<string, string> = { high: 'E', medium: 'I', low: 'B' };
-  const priorityBadgeBg: Record<string, string> = {
-    high: COLORS.redLight,
-    medium: COLORS.amberLight,
-    low: COLORS.blueLight,
-  };
-  const priorityBadgeText: Record<string, string> = {
-    high: '#991b1b',
-    medium: '#78350f',
-    low: '#1e3a8a',
-  };
+  // Strip legacy "(high priority)" suffix
+  const stripSuffix = (t: string) => t.replace(/\s*\((high|medium|low) priority\)\s*$/i, '');
 
-  // Helper: Add categorised bullet list (grouped by module)
-  const addCategorisedBulletList = (
-    categorised: CategorisedItem[] | undefined,
-    flat: string[],
-    bulletColor: string = COLORS.gray,
-    showPriority: boolean = false
-  ) => {
-    if (!categorised || categorised.length === 0) {
-      addBulletList(flat, bulletColor);
-      return;
-    }
-
-    // Group by module, sorted by module code
-    const groups = new Map<string, { moduleCode: string; moduleName: string; items: CategorisedItem[] }>();
-    for (const item of categorised) {
-      const existing = groups.get(item.moduleCode);
-      if (existing) {
-        existing.items.push(item);
-      } else {
-        groups.set(item.moduleCode, { moduleCode: item.moduleCode, moduleName: item.moduleName, items: [item] });
-      }
-    }
-    const sortedGroups = Array.from(groups.values());
-    sortedGroups.sort((a, b) => a.moduleCode.localeCompare(b.moduleCode, undefined, { numeric: true }));
-
-    for (const group of sortedGroups) {
-      // Sort items by priority within group
-      if (showPriority) {
-        group.items.sort((a, b) => (priorityOrder[a.priority || 'low'] ?? 2) - (priorityOrder[b.priority || 'low'] ?? 2));
-      }
-
-      checkNewPage(14);
-
-      // Module code badge
-      doc.setFillColor(COLORS.amethystDiamond);
-      doc.roundedRect(PAGE.marginLeft, yPosition - 3, 14, 6, 2, 2, 'F');
-      doc.setFontSize(7);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(255, 255, 255);
-      doc.text(group.moduleCode, PAGE.marginLeft + 7, yPosition + 1, { align: 'center' });
-
-      // Module name
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(COLORS.text);
-      doc.text(group.moduleName, PAGE.marginLeft + 17, yPosition + 1);
-
-      // Priority summary counts (e.g. "2H · 1M · 3L")
-      if (showPriority) {
-        const counts: Record<string, number> = { high: 0, medium: 0, low: 0 };
-        for (const item of group.items) counts[item.priority || 'low']++;
-        const parts: string[] = [];
-        if (counts.high > 0) parts.push(`${counts.high}E`);
-        if (counts.medium > 0) parts.push(`${counts.medium}I`);
-        if (counts.low > 0) parts.push(`${counts.low}B`);
-        if (parts.length > 0) {
-          const summaryText = parts.join(' \u00B7 ');
-          doc.setFontSize(8);
-          doc.setFont('helvetica', 'normal');
-          doc.setTextColor(COLORS.gray);
-          doc.text(summaryText, PAGE.marginLeft + PAGE.contentWidth, yPosition + 1, { align: 'right' });
-        }
-      }
-      yPosition += 7;
-
-      // Strip legacy "(high priority)" suffix
-      const stripSuffix = (t: string) => t.replace(/\s*\((high|medium|low) priority\)\s*$/i, '');
-
-      if (showPriority) {
-        // Group items by priority tier
-        const tierLabels: Record<string, string> = { high: 'Essential', medium: 'Important', low: 'Beneficial' };
-        const tiers = (['high', 'medium', 'low'] as const)
-          .map(p => ({ priority: p, items: group.items.filter(i => (i.priority || 'low') === p) }))
-          .filter(t => t.items.length > 0);
-
-        for (const tier of tiers) {
-          checkNewPage(12);
-
-          // Tier heading: badge + label
-          const badgeBg = priorityBadgeBg[tier.priority] || COLORS.grayLight;
-          const badgeTextColor = priorityBadgeText[tier.priority] || COLORS.text;
-          const badgeLabel = priorityBadgeLabels[tier.priority] || '?';
-
-          doc.setFillColor(badgeBg);
-          doc.roundedRect(PAGE.marginLeft + 2, yPosition - 3, 5, 5, 1, 1, 'F');
-          doc.setFontSize(7);
-          doc.setFont('helvetica', 'bold');
-          doc.setTextColor(badgeTextColor);
-          doc.text(badgeLabel, PAGE.marginLeft + 4.5, yPosition, { align: 'center' });
-
-          doc.setFontSize(9);
-          doc.setFont('helvetica', 'bold');
-          doc.setTextColor(badgeTextColor);
-          doc.text(`${tierLabels[tier.priority]} (${tier.items.length})`, PAGE.marginLeft + 10, yPosition);
-          yPosition += 5;
-
-          // Render tier items
-          doc.setFontSize(9);
-          const lineHeight = 4.5;
-
-          for (const item of tier.items) {
-            const cleanText = stripSuffix(item.text);
-            const lines = doc.splitTextToSize(cleanText, PAGE.contentWidth - 14);
-            const totalHeight = lines.length * lineHeight + 2;
-            checkNewPage(totalHeight);
-
-            // Small colored bullet
-            doc.setFillColor(priorityBulletColors[tier.priority] || bulletColor);
-            doc.circle(PAGE.marginLeft + 6, yPosition - 1.2, 0.8, 'F');
-
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(0, 0, 0);
-            for (let i = 0; i < lines.length; i++) {
-              doc.text(lines[i], PAGE.marginLeft + 10, yPosition);
-              yPosition += lineHeight;
-            }
-            yPosition += 0.5;
-          }
-          yPosition += 2;
-        }
-      } else {
-        // Non-priority: simple bullet list
-        doc.setFontSize(10);
-        const lineHeight = 5;
-
-        for (const item of group.items) {
-          const lines = doc.splitTextToSize(item.text, PAGE.contentWidth - 8);
-          const totalHeight = lines.length * lineHeight + 2;
-          checkNewPage(totalHeight);
-
-          doc.setFillColor(bulletColor);
-          doc.circle(PAGE.marginLeft + 2, yPosition - 1.5, 1.2, 'F');
-
-          doc.setFont('helvetica', 'normal');
-          doc.setTextColor(0, 0, 0);
-          for (let i = 0; i < lines.length; i++) {
-            doc.text(lines[i], PAGE.marginLeft + 8, yPosition);
-            yPosition += lineHeight;
-          }
-          yPosition += 1;
-        }
-        yPosition += 3;
-      }
-    }
-  };
-
-  // Helper: Add stat box with depth
+  // Helper: Add stat box (clean style with colored left border)
   const addStatBox = (
     x: number,
     y: number,
     width: number,
     value: string,
     label: string,
-    bgColor: string,
-    accentColor?: string
+    borderColor: string,
+    textColor?: string
   ) => {
-    // Shadow effect (lighter rect behind)
-    doc.setFillColor(200, 200, 200);
-    doc.roundedRect(x + 1, y + 1, width, 28, 4, 4, 'F');
+    const numColor = textColor || borderColor;
 
-    // Main background
-    doc.setFillColor(bgColor);
-    doc.roundedRect(x, y, width, 28, 4, 4, 'F');
+    // White background with subtle border
+    doc.setFillColor(255, 255, 255);
+    doc.roundedRect(x, y, width, 28, 3, 3, 'F');
 
-    // Top accent bar
-    if (accentColor) {
-      doc.setFillColor(accentColor);
-      doc.roundedRect(x, y, width, 3, 4, 4, 'F');
-      doc.rect(x, y + 2, width, 2, 'F'); // Fill the bottom corners
-    }
+    // Light border
+    doc.setDrawColor(230, 230, 230);
+    doc.setLineWidth(0.3);
+    doc.roundedRect(x, y, width, 28, 3, 3, 'S');
 
-    // Value
+    // Colored left border (3px)
+    doc.setFillColor(borderColor);
+    doc.roundedRect(x, y, 3, 28, 2, 0, 'F');
+    doc.rect(x + 1, y, 2, 28, 'F');
+
+    // Value in contrast-safe color
     doc.setFontSize(22);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(255, 255, 255);
-    doc.text(value, x + width / 2, y + 14, { align: 'center' });
+    doc.setTextColor(numColor);
+    doc.text(value, x + width / 2, y + 13, { align: 'center' });
 
-    // Label
+    // Label in dark gray below
     doc.setFontSize(7);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(255, 255, 255);
-    doc.text(label, x + width / 2, y + 22, { align: 'center' });
+    doc.setTextColor(75, 85, 99);
+    doc.text(label, x + width / 2, y + 21, { align: 'center' });
 
     doc.setTextColor(0, 0, 0);
+    doc.setDrawColor(0, 0, 0);
+  };
+
+  // Helper: Look up module group from accessModules data
+  const getModuleGroup = (moduleCode: string): string => {
+    const mod = accessModules.find(m => m.code === moduleCode);
+    return mod ? mod.group : 'during-visit';
+  };
+
+  // Helper: Get module group label
+  const getGroupLabel = (groupId: string): string => {
+    const found = GROUP_ORDER.find(g => g.id === groupId);
+    return found ? found.label : groupId;
   };
 
   // ============================================
@@ -445,12 +332,12 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFillColor(91, 24, 151); // lighter purple
     doc.ellipse(PAGE.width * 0.8, PAGE.height * 0.2, 60, 80, 'F');
 
-    // Orange accent bar
-    doc.setFillColor(204, 119, 0); // aussieDark
+    // Orange accent bar (brand orange)
+    doc.setFillColor(255, 144, 21); // brand orange
     doc.rect(0, PAGE.height * 0.42, PAGE.width, 4, 'F');
 
     // Secondary thin accent
-    doc.setFillColor(230, 138, 0); // aussieLight
+    doc.setFillColor(255, 144, 21); // brand orange
     doc.rect(0, PAGE.height * 0.42 + 4, PAGE.width * 0.4, 1, 'F');
 
     // Title
@@ -460,16 +347,20 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text('Accessibility', PAGE.width / 2, PAGE.height * 0.28, { align: 'center' });
     doc.text('Self-Review Report', PAGE.width / 2, PAGE.height * 0.28 + 16, { align: 'center' });
 
-    // Report type badge
+    // Report type badge (dark text on light amber for contrast)
     const reportTypeText =
       report.reportType === 'pulse-check' ? 'Pulse Check' : 'Deep Dive';
-    doc.setFillColor(204, 119, 0); // aussieDark
+    doc.setFillColor(255, 237, 200); // light amber bg
     const badgeWidth = 50;
     doc.roundedRect(PAGE.width / 2 - badgeWidth / 2, PAGE.height * 0.5 - 5, badgeWidth, 12, 3, 3, 'F');
+    doc.setDrawColor(224, 125, 0); // aussieDark border
+    doc.setLineWidth(0.5);
+    doc.roundedRect(PAGE.width / 2 - badgeWidth / 2, PAGE.height * 0.5 - 5, badgeWidth, 12, 3, 3, 'S');
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(120, 53, 0); // dark amber text for contrast
     doc.text(reportTypeText, PAGE.width / 2, PAGE.height * 0.5 + 3, { align: 'center' });
+    doc.setDrawColor(0, 0, 0);
 
     // Organisation name with background card
     doc.setFillColor(255, 255, 255);
@@ -531,8 +422,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     const hasAnalysisData =
       (report.urlAnalysisResults && report.urlAnalysisResults.length > 0) ||
       (report.mediaAnalysisResults && report.mediaAnalysisResults.length > 0);
-    const hasDetailedData =
-      report.detailedFindings && report.detailedFindings.length > 0;
 
     const tocGroups: { group: string; items: string[] }[] = [
       {
@@ -563,17 +452,23 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         : []),
       {
         group: 'Key Findings',
-        items: [
-          ...(report.sections.strengths.content.length ? ["What's Going Well"] : []),
-          ...(report.sections.priorityActions.content.length ? ['Priority Actions'] : []),
-          ...(report.quickWins?.length ? ['Quick Wins'] : []),
-          ...(report.sections.areasToExplore.content.length ? ['Areas to Explore'] : []),
-          ...(report.sections.professionalReview.content.length ? ['Professional Review'] : []),
-        ],
+        items: (() => {
+          // List modules that have findings
+          const modCodes = new Set<string>();
+          for (const s of [
+            ...(report.sections.strengths.categorised || []),
+            ...(report.sections.priorityActions.categorised || []),
+            ...(report.sections.areasToExplore.categorised || []),
+          ]) {
+            modCodes.add(s.moduleCode);
+          }
+          const sorted = Array.from(modCodes).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+          return sorted.map(code => {
+            const mod = accessModules.find(m => m.code === code);
+            return `${code}  ${mod?.name || code}`;
+          });
+        })(),
       },
-      ...(hasDetailedData
-        ? [{ group: 'Detailed Findings', items: ['Per-module Issue Breakdown'] }]
-        : []),
       {
         group: 'Next Steps & Guidance',
         items: [
@@ -613,7 +508,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   addGroupHeader('Overview');
   addSectionTitle('Executive Summary');
 
-  // Stats boxes with brand colors
+  // Stats boxes with clean style (white bg, colored left border)
   const boxWidth = 38;
   const boxGap = 6;
   const startX = PAGE.marginLeft;
@@ -626,8 +521,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     boxWidth,
     String(report.executiveSummary.modulesCompleted),
     'Modules Completed',
-    COLORS.amethystDiamond,
-    COLORS.aussieDark
+    COLORS.amethystDiamond
   );
   addStatBox(
     startX + boxWidth + boxGap,
@@ -635,7 +529,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     boxWidth,
     String(report.executiveSummary.strengthsCount),
     'Strengths',
-    COLORS.green
+    COLORS.green,
+    '#15803d'
   );
   addStatBox(
     startX + (boxWidth + boxGap) * 2,
@@ -643,7 +538,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     boxWidth,
     String(report.executiveSummary.actionsCount),
     'Priority Actions',
-    COLORS.red
+    '#b91c1c'
   );
   addStatBox(
     startX + (boxWidth + boxGap) * 3,
@@ -651,41 +546,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     boxWidth,
     String(report.executiveSummary.areasToExploreCount),
     'Areas to Explore',
-    COLORS.amber
+    COLORS.amber,
+    '#92400e'
   );
 
   yPosition += 38;
-
-  // Completion progress with card background
-  doc.setFillColor(250, 248, 245); // ivory
-  doc.roundedRect(PAGE.marginLeft, yPosition - 3, PAGE.contentWidth, 20, 3, 3, 'F');
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(73, 14, 103); // amethystDiamond
-  doc.text(
-    `Overall Completion: ${report.executiveSummary.completionPercentage}%`,
-    PAGE.marginLeft + 5,
-    yPosition + 4
-  );
-  doc.setTextColor(0, 0, 0);
-
-  // Progress bar with depth
-  const barY = yPosition + 8;
-  doc.setFillColor(230, 230, 230);
-  doc.roundedRect(PAGE.marginLeft + 5, barY, PAGE.contentWidth - 10, 6, 3, 3, 'F');
-  doc.setFillColor(73, 14, 103); // amethystDiamond
-  const progressWidth = ((PAGE.contentWidth - 10) * report.executiveSummary.completionPercentage) / 100;
-  if (progressWidth > 0) {
-    doc.roundedRect(PAGE.marginLeft + 5, barY, progressWidth, 6, 3, 3, 'F');
-    // Orange highlight at end of progress
-    if (progressWidth > 3) {
-      doc.setFillColor(204, 119, 0); // aussieDark
-      doc.roundedRect(PAGE.marginLeft + 5 + progressWidth - 3, barY, 3, 6, 0, 3, 'F');
-    }
-  }
-
-  yPosition += 25;
 
   // ============================================
   // INTRODUCTION
@@ -742,12 +607,12 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.setFillColor(73, 14, 103); // amethystDiamond
       doc.roundedRect(PAGE.marginLeft, yPosition - 1, 3, 22, 2, 2, 'F');
 
-      // Module code badge
-      doc.setFillColor(73, 14, 103);
+      // Module code badge (light purple bg, purple text - matching app)
+      doc.setFillColor(240, 233, 245);
       doc.roundedRect(PAGE.marginLeft + 8, yPosition + 3, 18, 7, 2, 2, 'F');
       doc.setFontSize(7);
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(255, 255, 255);
+      doc.setTextColor(73, 14, 103);
       doc.text(evidence.moduleCode, PAGE.marginLeft + 17, yPosition + 8, { align: 'center' });
 
       // Module name
@@ -772,17 +637,17 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         doc.text(metaText, PAGE.marginLeft + 30, yPosition + 15);
       }
 
-      // Stats badges
+      // Stats badges (contrast-safe text colors)
       doc.setFillColor(220, 252, 231); // greenLight
       doc.roundedRect(PAGE.width - PAGE.marginRight - 52, yPosition + 3, 24, 7, 2, 2, 'F');
       doc.setFontSize(7);
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(COLORS.green);
+      doc.setTextColor('#15803d'); // dark green for contrast on light green bg
       doc.text(`${evidence.strengthsCount} good`, PAGE.width - PAGE.marginRight - 40, yPosition + 8, { align: 'center' });
 
       doc.setFillColor(254, 226, 226); // redLight
       doc.roundedRect(PAGE.width - PAGE.marginRight - 26, yPosition + 3, 24, 7, 2, 2, 'F');
-      doc.setTextColor(COLORS.red);
+      doc.setTextColor('#991b1b'); // dark red for contrast on light red bg
       doc.text(`${evidence.actionsCount} action`, PAGE.width - PAGE.marginRight - 14, yPosition + 8, { align: 'center' });
 
       doc.setTextColor(0, 0, 0);
@@ -876,125 +741,327 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   }
 
   // ============================================
-  // GROUP 4: KEY FINDINGS
+  // GROUP 4: KEY FINDINGS (per-module structure)
   // ============================================
   addGroupHeader('Key Findings');
 
-  // ============================================
-  // WHAT'S GOING WELL
-  // ============================================
-  if (report.sections.strengths.content.length > 0) {
-    addSectionTitle("What's Going Well", COLORS.green);
-    addCategorisedBulletList(report.sections.strengths.categorised, report.sections.strengths.content as string[], COLORS.green);
+  // Build per-module findings map
+  interface ModuleFindings {
+    moduleCode: string;
+    moduleName: string;
+    group: string;
+    strengths: CategorisedItem[];
+    highActions: CategorisedItem[];
+    mediumActions: CategorisedItem[];
+    lowActions: CategorisedItem[];
+    explores: CategorisedItem[];
   }
 
-  // ============================================
-  // PRIORITY ACTIONS
-  // ============================================
-  if (report.sections.priorityActions.content.length > 0) {
-    addSectionTitle('Priority Actions', COLORS.red);
-    addCategorisedBulletList(report.sections.priorityActions.categorised, report.sections.priorityActions.content as string[], COLORS.red, true);
+  const moduleMap = new Map<string, ModuleFindings>();
+
+  const ensureModule = (item: CategorisedItem): ModuleFindings => {
+    let entry = moduleMap.get(item.moduleCode);
+    if (!entry) {
+      entry = {
+        moduleCode: item.moduleCode,
+        moduleName: item.moduleName,
+        group: getModuleGroup(item.moduleCode),
+        strengths: [],
+        highActions: [],
+        mediumActions: [],
+        lowActions: [],
+        explores: [],
+      };
+      moduleMap.set(item.moduleCode, entry);
+    }
+    return entry;
+  };
+
+  // Populate from strengths
+  if (report.sections.strengths.categorised) {
+    for (const item of report.sections.strengths.categorised) {
+      ensureModule(item).strengths.push(item);
+    }
   }
 
-  // ============================================
-  // QUICK WINS
-  // ============================================
-  if (report.quickWins && report.quickWins.length > 0) {
-    addSectionTitle('Quick Wins', COLORS.aussieDark);
-    addParagraph(
-      'These actions offer significant accessibility improvements with minimal effort:',
-      9
-    );
+  // Populate from priority actions
+  if (report.sections.priorityActions.categorised) {
+    for (const item of report.sections.priorityActions.categorised) {
+      const entry = ensureModule(item);
+      const p = item.priority || 'low';
+      if (p === 'high') entry.highActions.push(item);
+      else if (p === 'medium') entry.mediumActions.push(item);
+      else entry.lowActions.push(item);
+    }
+  }
 
-    report.quickWins.forEach((win) => {
-      checkNewPage(20);
+  // Populate from areas to explore
+  if (report.sections.areasToExplore.categorised) {
+    for (const item of report.sections.areasToExplore.categorised) {
+      ensureModule(item).explores.push(item);
+    }
+  }
 
-      doc.setFontSize(10);
+  // Sort modules into group order
+  const allModules = Array.from(moduleMap.values());
+  allModules.sort((a, b) => {
+    const groupA = GROUP_ORDER.findIndex(g => g.id === a.group);
+    const groupB = GROUP_ORDER.findIndex(g => g.id === b.group);
+    if (groupA !== groupB) return groupA - groupB;
+    return a.moduleCode.localeCompare(b.moduleCode, undefined, { numeric: true });
+  });
+
+  // Priority legend (shown once before the first module)
+  checkNewPage(50);
+
+  // Subheading for priority legend
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(COLORS.amethystDiamond);
+  doc.text('Understanding Priority Levels', PAGE.marginLeft, yPosition);
+  yPosition += 7;
+
+  const legendItems: { label: string; color: string; desc: string }[] = [
+    { label: 'High', color: '#b91c1c', desc: 'Gaps in mandatory compliance requirements (Premises Standards, WCAG, NCC) and safety-related items. Highest legal and safety risk.' },
+    { label: 'Medium', color: '#945a00', desc: 'High-impact improvements that significantly affect the experience of people with disability, and items needing further investigation.' },
+    { label: 'Low', color: '#1a4fd6', desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower legal risk.' },
+  ];
+  for (const item of legendItems) {
+    // Label in priority color
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(item.color);
+    doc.text(`${item.label}`, PAGE.marginLeft + 4, yPosition);
+    yPosition += 4;
+
+    // Description wrapped
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(COLORS.gray);
+    const descLines = doc.splitTextToSize(item.desc, PAGE.contentWidth - 10);
+    for (const line of descLines) {
+      checkNewPage(4);
+      doc.text(line, PAGE.marginLeft + 4, yPosition);
+      yPosition += 3.5;
+    }
+    yPosition += 2;
+  }
+  yPosition += 2;
+
+  // Encouragement text (shown once)
+  checkNewPage(14);
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'italic');
+  doc.setTextColor(COLORS.gray);
+  const encLines = doc.splitTextToSize(
+    'Every action here is worth doing. Priority levels help you decide where to start, not what to skip. Even "low" priority items can have a meaningful impact on someone\'s experience. Start wherever you can and build from there.',
+    PAGE.contentWidth - 8
+  );
+  for (const line of encLines) {
+    checkNewPage(5);
+    doc.text(line, PAGE.marginLeft + 4, yPosition);
+    yPosition += 4;
+  }
+  yPosition += 6;
+
+  // Render per-module findings grouped by category
+  let lastGroup = '';
+
+  for (const mod of allModules) {
+    // Group header when entering a new group (findings style)
+    if (mod.group !== lastGroup) {
+      lastGroup = mod.group;
+      addGroupHeader(getGroupLabel(mod.group), true);
+    }
+
+    // 6mm space before module card
+    yPosition += 6;
+    checkNewPage(25);
+
+    // Count summary badges for this module
+    const mCount = mod.mediumActions.length;
+    const lCount = mod.lowActions.length;
+    const hCount = mod.highActions.length;
+
+    // Module card: bordered container (matching app style)
+    // Draw left border accent (purple)
+    doc.setDrawColor(200, 200, 200);
+    doc.setLineWidth(0.3);
+    // Top + right + bottom border in light gray
+    const moduleCardTop = yPosition - 5;
+    const moduleCardHeight = 12;
+    doc.roundedRect(PAGE.marginLeft + 2, moduleCardTop, PAGE.contentWidth - 2, moduleCardHeight, 2, 2, 'S');
+    // Purple left accent
+    doc.setFillColor(COLORS.amethystDiamond);
+    doc.roundedRect(PAGE.marginLeft, moduleCardTop, 3, moduleCardHeight, 2, 2, 'F');
+
+    // Module code badge (light purple bg, purple text)
+    doc.setFillColor(240, 233, 245);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    const codeWidth = doc.getTextWidth(mod.moduleCode) + 5;
+    const badgeW = Math.max(codeWidth, 14);
+    doc.roundedRect(PAGE.marginLeft + 8, yPosition - 2.5, badgeW, 6, 2, 2, 'F');
+    doc.setTextColor(COLORS.amethystDiamond);
+    doc.text(mod.moduleCode, PAGE.marginLeft + 8 + badgeW / 2, yPosition + 1.5, { align: 'center' });
+
+    // Module name
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(COLORS.text);
+    doc.text(mod.moduleName, PAGE.marginLeft + 8 + badgeW + 3, yPosition + 1.5);
+
+    // Summary count badges on the right (like app: "6M 4L")
+    const badgeY = yPosition - 1.5;
+    let badgeX = PAGE.width - PAGE.marginRight - 5;
+
+    const renderCountBadge = (count: number, label: string, bgColor: string, textColor: string) => {
+      if (count === 0) return;
+      doc.setFontSize(7);
       doc.setFont('helvetica', 'bold');
-      doc.text(`${win.title}`, PAGE.marginLeft, yPosition);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8);
-      doc.setTextColor(COLORS.gray);
-      doc.text(`(${win.effort} effort, ${win.impact} impact)`, PAGE.marginLeft + 80, yPosition);
-      doc.setTextColor(0, 0, 0);
-      yPosition += 5;
-      addParagraph(win.description, 9);
-    });
-  }
+      const badgeText = `${count}${label}`;
+      const tw = doc.getTextWidth(badgeText) + 4;
+      badgeX -= tw + 2;
+      doc.setFillColor(bgColor);
+      doc.roundedRect(badgeX, badgeY, tw, 5, 1.5, 1.5, 'F');
+      doc.setTextColor(textColor);
+      doc.text(badgeText, badgeX + tw / 2, badgeY + 3.5, { align: 'center' });
+    };
 
-  // ============================================
-  // AREAS TO EXPLORE
-  // ============================================
-  if (report.sections.areasToExplore.content.length > 0) {
-    addSectionTitle('Areas to Explore', COLORS.amber);
-    addCategorisedBulletList(report.sections.areasToExplore.categorised, report.sections.areasToExplore.content as string[], COLORS.amber);
-  }
+    // Render badges right-to-left: L, M, H
+    renderCountBadge(lCount, 'L', COLORS.blueLight, '#1e3a8a');
+    renderCountBadge(mCount, 'M', COLORS.amberLight, '#78350f');
+    renderCountBadge(hCount, 'H', COLORS.redLight, '#991b1b');
 
-  // ============================================
-  // GROUP 5: DETAILED FINDINGS (Deep Dive only)
-  // ============================================
-  if (report.reportType === 'deep-dive' && report.detailedFindings && report.detailedFindings.length > 0) {
-    addGroupHeader('Detailed Findings');
-    addSectionTitle('Detailed Findings');
+    yPosition += moduleCardHeight - 1;
+    doc.setDrawColor(0, 0, 0);
 
-    report.detailedFindings.forEach((finding) => {
-      checkNewPage(15);
+    // Card-style item renderer: colored left-border cards (matching app)
+    const renderCardSection = (
+      items: CategorisedItem[],
+      heading: string,
+      headingColor: string,
+      cardBg: [number, number, number],
+      accentColor: string,
+    ) => {
+      if (items.length === 0) return;
 
-      doc.setFontSize(12);
+      // Section heading (colored text, no background bar)
+      checkNewPage(14);
+      doc.setFontSize(9);
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(COLORS.amethystDiamond);
-      doc.text(finding.moduleName, PAGE.marginLeft, yPosition);
-      yPosition += 8;
-      doc.setTextColor(0, 0, 0);
+      doc.setTextColor(headingColor);
+      doc.text(`${heading} (${items.length})`, PAGE.marginLeft + 6, yPosition + 1);
+      yPosition += 6;
 
-      finding.issues.forEach((issue) => {
-        checkNewPage(30);
+      // Individual cards with left-border accent
+      const cardLeft = PAGE.marginLeft + 4;
+      const cardWidth = PAGE.contentWidth - 6;
+      const textInset = 8; // text offset from card left edge
 
-        // Issue header
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'bold');
-        doc.text(issue.questionText, PAGE.marginLeft + 5, yPosition, {
-          maxWidth: PAGE.contentWidth - 30,
-        });
-
-        // Priority badge
-        const priorityColor =
-          issue.priority === 'high' ? COLORS.red : issue.priority === 'medium' ? COLORS.amber : COLORS.gray;
-        doc.setFillColor(priorityColor);
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(7);
-        doc.roundedRect(PAGE.width - PAGE.marginRight - 25, yPosition - 3, 20, 6, 1, 1, 'F');
-        doc.text(`${issue.priority}`, PAGE.width - PAGE.marginRight - 15, yPosition + 1, {
-          align: 'center',
-        });
-        doc.setTextColor(0, 0, 0);
-        yPosition += 8;
-
-        // Reasoning
+      for (const item of items) {
+        const cleanText = stripSuffix(item.text);
         doc.setFontSize(9);
-        doc.setFont('helvetica', 'italic');
-        addParagraph(issue.reasoning, 9);
+        const lines = doc.splitTextToSize(cleanText, cardWidth - textInset - 4);
+        const lineHeight = 4.2;
+        const cardPadY = 3;
+        const cardHeight = lines.length * lineHeight + cardPadY * 2;
 
-        // Recommended actions
-        if (issue.recommendedActions.length > 0) {
-          doc.setFont('helvetica', 'bold');
-          doc.setFontSize(9);
-          doc.text('Recommended Actions:', PAGE.marginLeft + 5, yPosition);
-          yPosition += 4;
-          doc.setFont('helvetica', 'normal');
-          addBulletList(
-            issue.recommendedActions.map((a) => a),
-            COLORS.amethystDiamond
-          );
+        checkNewPage(cardHeight + 2);
+
+        // Card background
+        doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
+        doc.roundedRect(cardLeft, yPosition, cardWidth, cardHeight, 2, 2, 'F');
+
+        // Left accent border
+        doc.setFillColor(accentColor);
+        doc.roundedRect(cardLeft, yPosition, 2.5, cardHeight, 1, 1, 'F');
+
+        // Text
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(COLORS.text);
+        for (let i = 0; i < lines.length; i++) {
+          doc.text(lines[i], cardLeft + textInset, yPosition + cardPadY + (i * lineHeight) + 3);
         }
 
-        yPosition += 3;
-      });
-    });
+        yPosition += cardHeight + 2; // 2mm gap between cards
+      }
+
+      yPosition += 2;
+    };
+
+    // Strengths (green cards)
+    renderCardSection(
+      mod.strengths,
+      "What's going well",
+      '#166534',
+      [236, 253, 243],     // light mint bg
+      '#22c55e',           // green accent
+    );
+
+    // High priority (red cards)
+    renderCardSection(
+      mod.highActions,
+      'High priority',
+      '#991b1b',
+      [255, 241, 241],     // light red bg
+      '#ef4444',           // red accent
+    );
+
+    // Medium priority (amber cards)
+    renderCardSection(
+      mod.mediumActions,
+      'Medium priority',
+      '#78350f',
+      [255, 249, 235],     // light amber bg
+      '#d97706',           // amber accent
+    );
+
+    // Low priority (blue cards)
+    renderCardSection(
+      mod.lowActions,
+      'Low priority',
+      '#1e3a8a',
+      [239, 246, 255],     // light blue bg
+      '#3b82f6',           // blue accent
+    );
+
+    // Areas to explore (purple/violet cards - distinct from amber medium)
+    renderCardSection(
+      mod.explores,
+      'Areas to explore',
+      '#5b1897',
+      [245, 240, 255],     // light violet bg
+      '#8b5cf6',           // violet accent
+    );
+
+    // 4mm extra space after each module's findings block
+    yPosition += 4;
   }
 
+  // Note about detailed recommendations in-app (info style, not section heading)
+  yPosition += 4;
+  checkNewPage(14);
+  doc.setFillColor(240, 249, 255); // light blue bg
+  doc.roundedRect(PAGE.marginLeft, yPosition - 3, PAGE.contentWidth, 14, 2, 2, 'F');
+  doc.setDrawColor(180, 210, 240); // subtle blue border
+  doc.setLineWidth(0.3);
+  doc.roundedRect(PAGE.marginLeft, yPosition - 3, PAGE.contentWidth, 14, 2, 2, 'S');
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'italic');
+  doc.setTextColor(COLORS.gray);
+  const noteLines = doc.splitTextToSize(
+    'For detailed recommendations, action guides, and resource links for each item, refer to the in-app report.',
+    PAGE.contentWidth - 12
+  );
+  for (let i = 0; i < noteLines.length; i++) {
+    doc.text(noteLines[i], PAGE.marginLeft + 6, yPosition + 1 + i * 4);
+  }
+  doc.setDrawColor(0, 0, 0);
+  yPosition += 18;
+
   // ============================================
-  // GROUP 6: NEXT STEPS & GUIDANCE
+  // GROUP 5: NEXT STEPS & GUIDANCE
   // ============================================
   addGroupHeader('Next Steps & Guidance');
 
@@ -1003,106 +1070,202 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // ============================================
   addSectionTitle('Suggested Next Steps');
 
-  // Two columns
-  checkNewPage(40);
-  const colWidth = (PAGE.contentWidth - 10) / 2;
-
-  doc.setFontSize(11);
+  // "Things you can explore now" section
+  checkNewPage(20);
+  doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
-  doc.text('Things you can explore now', PAGE.marginLeft, yPosition);
-  doc.text('Things to plan for later', PAGE.marginLeft + colWidth + 10, yPosition);
+  doc.setTextColor('#166534');
+  doc.text('Things you can explore now', PAGE.marginLeft + 4, yPosition);
   yPosition += 6;
 
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
+  for (const item of report.nextSteps.exploreNow) {
+    doc.setFontSize(9);
+    const lines = doc.splitTextToSize(item, PAGE.contentWidth - 14);
+    const itemHeight = lines.length * 4.2 + 6;
+    checkNewPage(itemHeight);
 
-  const maxItems = Math.max(report.nextSteps.exploreNow.length, report.nextSteps.planForLater.length);
+    // Card with green left accent
+    doc.setFillColor(245, 253, 247);
+    doc.roundedRect(PAGE.marginLeft + 2, yPosition - 2, PAGE.contentWidth - 4, itemHeight - 2, 2, 2, 'F');
+    doc.setFillColor(COLORS.green);
+    doc.roundedRect(PAGE.marginLeft + 2, yPosition - 2, 2.5, itemHeight - 2, 1, 1, 'F');
 
-  for (let i = 0; i < maxItems; i++) {
-    checkNewPage(6);
-
-    if (i < report.nextSteps.exploreNow.length) {
-      doc.setFillColor(COLORS.green);
-      doc.circle(PAGE.marginLeft + 2, yPosition - 1, 1, 'F');
-      const lines = doc.splitTextToSize(report.nextSteps.exploreNow[i], colWidth - 8);
-      doc.text(lines[0], PAGE.marginLeft + 6, yPosition);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(COLORS.text);
+    for (let j = 0; j < lines.length; j++) {
+      doc.text(lines[j], PAGE.marginLeft + 9, yPosition + 2 + j * 4.2);
     }
+    yPosition += itemHeight;
+  }
+  yPosition += 4;
 
-    if (i < report.nextSteps.planForLater.length) {
-      doc.setFillColor(COLORS.amethystDiamond);
-      doc.circle(PAGE.marginLeft + colWidth + 12, yPosition - 1, 1, 'F');
-      const lines = doc.splitTextToSize(report.nextSteps.planForLater[i], colWidth - 8);
-      doc.text(lines[0], PAGE.marginLeft + colWidth + 16, yPosition);
+  // "Things to plan for later" section
+  checkNewPage(20);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(COLORS.amethystDiamond);
+  doc.text('Things to plan for later', PAGE.marginLeft + 4, yPosition);
+  yPosition += 6;
+
+  for (const item of report.nextSteps.planForLater) {
+    doc.setFontSize(9);
+    const lines = doc.splitTextToSize(item, PAGE.contentWidth - 14);
+    const itemHeight = lines.length * 4.2 + 6;
+    checkNewPage(itemHeight);
+
+    // Card with purple left accent
+    doc.setFillColor(248, 245, 255);
+    doc.roundedRect(PAGE.marginLeft + 2, yPosition - 2, PAGE.contentWidth - 4, itemHeight - 2, 2, 2, 'F');
+    doc.setFillColor(COLORS.amethystDiamond);
+    doc.roundedRect(PAGE.marginLeft + 2, yPosition - 2, 2.5, itemHeight - 2, 1, 1, 'F');
+
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(COLORS.text);
+    for (let j = 0; j < lines.length; j++) {
+      doc.text(lines[j], PAGE.marginLeft + 9, yPosition + 2 + j * 4.2);
     }
-
-    yPosition += 6;
+    yPosition += itemHeight;
   }
   yPosition += 5;
 
   // ============================================
-  // PROFESSIONAL SUPPORT
+  // PROFESSIONAL SUPPORT (grouped by expertise type)
   // ============================================
-  addSectionTitle('When Professional Support May Help', COLORS.amethystLight);
+  addSectionTitle('Professional Support', COLORS.amethystLight);
 
-  addParagraph('Based on your self-review, you may benefit from professional advice if:');
+  const profReviewItems = report.sections.professionalReview?.categorised || [];
+  const expertiseGroups = groupProfessionalReviewByExpertise(profReviewItems);
 
-  const detectedIndicators = report.professionalSupport.indicators.filter((i) => i.detected);
-  if (detectedIndicators.length > 0) {
-    addBulletList(
-      detectedIndicators.map((i) => `${i.category}: ${i.reason}`),
-      COLORS.amethystLight
+  if (expertiseGroups.length > 0) {
+    addParagraph(
+      'Based on your responses, the following areas may benefit from specialist input. Items are grouped by the type of professional who can help.',
+      9
+    );
+
+    for (const group of expertiseGroups) {
+      checkNewPage(22);
+
+      // Expertise type card
+      doc.setFillColor(248, 240, 252); // light purple bg
+      const descLines = doc.splitTextToSize(group.description, PAGE.contentWidth - 14);
+      const cardHeight = 8 + descLines.length * 3.8 + 4;
+      doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, cardHeight, 2, 2, 'F');
+
+      // Left accent
+      doc.setFillColor(COLORS.amethystLight);
+      doc.roundedRect(PAGE.marginLeft, yPosition, 3, cardHeight, 1, 1, 'F');
+
+      // Label + module codes
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(COLORS.amethystDiamond);
+      doc.text(group.label, PAGE.marginLeft + 7, yPosition + 5);
+
+      // Module codes badge inline
+      const codesText = `(${group.moduleCodes.join(', ')})`;
+      const labelWidth = doc.getTextWidth(group.label);
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(COLORS.gray);
+      doc.text(codesText, PAGE.marginLeft + 7 + labelWidth + 2, yPosition + 5);
+
+      // Description
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(COLORS.textSecondary);
+      let descY = yPosition + 9;
+      for (const line of descLines) {
+        doc.text(line, PAGE.marginLeft + 7, descY);
+        descY += 3.8;
+      }
+
+      yPosition += cardHeight + 4;
+    }
+  } else {
+    addParagraph(
+      'No specific areas requiring specialist support were identified based on your current responses. As you progress through more modules, this section will update accordingly.',
+      9
     );
   }
 
-  if (report.professionalSupport.recommended) {
-    checkNewPage(15);
-    doc.setFillColor(248, 240, 252);
-    doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, 12, 2, 2, 'F');
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(COLORS.amethystLight);
-    doc.text(
-      'Based on your responses, we recommend considering professional support.',
-      PAGE.marginLeft + 5,
-      yPosition + 7
-    );
-    doc.setTextColor(0, 0, 0);
-    yPosition += 18;
-  }
+  // Flare Access CTA card
+  checkNewPage(24);
+  doc.setFillColor(73, 14, 103); // amethystDiamond
+  doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, 20, 3, 3, 'F');
 
-  addParagraph(
-    "This self-review is designed to support learning and planning. Seeking professional advice doesn't mean you've failed - it's a normal next step for many organisations.",
-    9
-  );
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text(FLARE_CONTACT.label, PAGE.marginLeft + 8, yPosition + 6);
+
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(255, 255, 255);
+  doc.text(FLARE_CONTACT.description, PAGE.marginLeft + 8, yPosition + 12);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 144, 21); // brand orange
+  doc.text(FLARE_CONTACT.email, PAGE.marginLeft + 8, yPosition + 17);
+  const emailWidth = doc.getTextWidth(FLARE_CONTACT.email);
+  doc.setTextColor(255, 255, 255);
+  doc.text('  |  ', PAGE.marginLeft + 8 + emailWidth, yPosition + 17);
+  doc.setTextColor(255, 144, 21);
+  doc.text(FLARE_CONTACT.website, PAGE.marginLeft + 8 + emailWidth + doc.getTextWidth('  |  '), yPosition + 17);
+
+  doc.setTextColor(0, 0, 0);
+  yPosition += 26;
 
   // ============================================
   // DISCLAIMER
   // ============================================
-  addSectionTitle('Important Disclaimer', COLORS.amber);
+  addSectionTitle('Important Disclaimer', '#92400e');
 
   checkNewPage(30);
   doc.setFillColor(255, 251, 235);
   doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, 35, 2, 2, 'F');
-  doc.setDrawColor(COLORS.amber);
-  doc.setLineWidth(0.5);
+  // Dark amber left accent bar for contrast
+  doc.setFillColor('#92400e');
+  doc.roundedRect(PAGE.marginLeft, yPosition, 3, 35, 1, 1, 'F');
+  // Subtle border
+  doc.setDrawColor(217, 119, 6); // amber-600
+  doc.setLineWidth(0.3);
   doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, 35, 2, 2, 'S');
 
   yPosition += 5;
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
+  doc.setTextColor(COLORS.text); // dark text for contrast on light yellow bg
 
   const disclaimerLines = doc.splitTextToSize(
     'This guidance is for information only. It is not legal advice, a compliance certificate, or a substitute for professional accessibility auditing. Actions are suggestions based on your responses. This review is indicative only and based on self-reported information. It does not verify accuracy or confirm compliance with accessibility standards or legal requirements.',
-    PAGE.contentWidth - 10
+    PAGE.contentWidth - 12
   );
 
   disclaimerLines.forEach((line: string) => {
-    doc.text(line, PAGE.marginLeft + 5, yPosition);
+    doc.text(line, PAGE.marginLeft + 7, yPosition);
     yPosition += 4;
   });
+  doc.setDrawColor(0, 0, 0);
 
   // Add final footer
   addFooter();
+
+  // Second pass: overwrite page numbers with "Page X of Y"
+  const totalPages = doc.getNumberOfPages();
+  for (let i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    const footerY = PAGE.height - 12;
+
+    // Clear the old page number area
+    doc.setFillColor(250, 248, 245); // ivory (matches footer bg)
+    doc.rect(PAGE.width - PAGE.marginRight - 30, footerY - 3, 32, 8, 'F');
+
+    // Write updated page number
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(107, 114, 128);
+    doc.text(`Page ${i} of ${totalPages}`, PAGE.width - PAGE.marginRight, footerY, { align: 'right' });
+  }
 
   return doc;
 }
