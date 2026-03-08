@@ -10757,7 +10757,7 @@ export const accessModules: AccessModule[] = [
       {
         id: '3.3-1-7',
         text: 'Do you offer relaxed or sensory-friendly sessions?',
-        helpText: 'Relaxed or sensory-friendly sessions are modified experiences with reduced sensory input. This might include lower lighting, reduced sound levels, fewer crowds, quieter music or no music, and a more flexible atmosphere.\n\nThese sessions support people with autism, sensory processing differences, anxiety, dementia, or anyone who benefits from a calmer environment. This can apply to a monthly quiet morning, a sensory-friendly session at a festival, or individual events in a season. They are commonly offered by cinemas, museums, theatres, and retail venues.',
+        helpText: 'Relaxed or sensory-friendly sessions are modified experiences with reduced sensory input. This might include lower lighting, reduced sound levels, fewer crowds, quieter music or no music, and a more flexible atmosphere.\n\nThese sessions support people with autism, sensory processing differences, anxiety, or anyone who benefits from a calmer environment. This can apply to a monthly quiet morning, a sensory-friendly session at a festival, or individual events in a season. They are commonly offered by cinemas, museums, theatres, and retail venues.',
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
@@ -10771,7 +10771,7 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No' },
         ],
         helpContent: {
-          summary: 'Relaxed sessions open your venue to people who cannot visit during regular operating conditions. These are modified experiences with reduced sensory stimulation, including lower lighting, reduced or no music, smaller crowds, and a more tolerant atmosphere, allowing people with autism, sensory sensitivities, anxiety, or dementia to visit.',
+          summary: 'Relaxed sessions open your venue to people who cannot visit during regular operating conditions. These are modified experiences with reduced sensory stimulation, including lower lighting, reduced or no music, smaller crowds, and a more tolerant atmosphere, allowing people with autism, sensory sensitivities, or anxiety to visit.',
           understanding: [
             'Answer "Yes, regularly scheduled" if you offer relaxed sessions on a regular basis (e.g., weekly) that are advertised and available to all',
             'Answer "Yes, occasionally" if you offer sensory-friendly sessions periodically, such as monthly, during specific events, or as part of a seasonal programme',
@@ -11326,7 +11326,7 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No colour coding or landmarks' },
         ],
         helpContent: {
-          summary: 'Colour coding and landmarks provide non-text wayfinding cues that help many people navigate more easily. These help people who have difficulty reading signage, including those with cognitive differences, literacy challenges, dementia, or vision impairment.',
+          summary: 'Colour coding and landmarks provide non-text wayfinding cues that help many people navigate more easily. These help people who have difficulty reading signage, including those with cognitive differences, literacy challenges, or vision impairment.',
           understanding: [
             'Answer "Yes, colour coding and landmarks" if your venue uses both colour-coded zones or routes and distinctive physical landmarks (sculptures, murals, unique furniture) as navigation aids',
             'Answer "Colour-coded zones or routes" if you use colour coding (e.g., different coloured walls, floors, painted lines, or zones) but do not have distinctive landmarks for navigation',
@@ -15188,7 +15188,7 @@ export const accessModules: AccessModule[] = [
       {
         id: '3.8-D-24',
         text: 'Do you offer relaxed or sensory-friendly sessions?',
-        helpText: 'Relaxed performances, sensory-friendly sessions, and quiet hours are modified versions of regular activities designed to be more comfortable for people with sensory sensitivities, autism, anxiety, dementia, or learning disabilities. Modifications typically include reduced sound levels, softer lighting, a relaxed attitude to noise and movement in the audience, and a calm-down space available nearby.',
+        helpText: 'Relaxed performances, sensory-friendly sessions, and quiet hours are modified versions of regular activities designed to be more comfortable for people with sensory sensitivities, autism, anxiety, or learning disabilities. Modifications typically include reduced sound levels, softer lighting, a relaxed attitude to noise and movement in the audience, and a calm-down space available nearby.',
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
@@ -15201,7 +15201,7 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No' },
         ],
         helpContent: {
-          summary: 'Relaxed and sensory-friendly sessions remove many of the barriers that prevent people with sensory sensitivities, autism, anxiety, dementia, or learning disabilities from attending events and activities. These sessions typically modify the sensory environment: lower volume, gentler lighting, no sudden loud noises or strobe effects, a relaxed attitude to audience noise and movement, and a designated calm-down space nearby. They allow people to participate in experiences that would otherwise be overwhelming or inaccessible.',
+          summary: 'Relaxed and sensory-friendly sessions remove many of the barriers that prevent people with sensory sensitivities, autism, anxiety, or learning disabilities from attending events and activities. These sessions typically modify the sensory environment: lower volume, gentler lighting, no sudden loud noises or strobe effects, a relaxed attitude to audience noise and movement, and a designated calm-down space nearby. They allow people to participate in experiences that would otherwise be overwhelming or inaccessible.',
           understanding: [
             'Answer "Yes, regular schedule" if you offer relaxed or sensory-friendly sessions as a regular part of your programme (e.g., monthly relaxed performance, weekly quiet hour)',
             'Answer "Yes, occasionally" if you have offered relaxed sessions but they are not a regular or ongoing part of your programme',
@@ -20001,7 +20001,7 @@ export const accessModules: AccessModule[] = [
       {
         id: '4.4-D-6',
         text: 'How do you support people with anxiety or cognitive differences during emergencies?',
-        helpText: 'Emergencies can be particularly distressing for people with anxiety, autism, intellectual disability, or dementia. How you communicate and support them can make a significant difference.',
+        helpText: 'Emergencies can be particularly distressing for people with anxiety, autism, or intellectual disability. How you communicate and support them can make a significant difference.',
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'medium',
@@ -20017,7 +20017,7 @@ export const accessModules: AccessModule[] = [
           { id: 'no-specific', label: 'No specific provisions' },
         ],
         helpContent: {
-          summary: 'Emergencies are overwhelming for anyone - people with anxiety or cognitive differences may need additional support to stay safe. Consider what provisions you have to support people who may become confused, distressed, or overwhelmed during an emergency, including people with anxiety, autism, intellectual disability, or dementia.',
+          summary: 'Emergencies are overwhelming for anyone - people with anxiety or cognitive differences may need additional support to stay safe. Consider what provisions you have to support people who may become confused, distressed, or overwhelmed during an emergency, including people with anxiety, autism, or intellectual disability.',
           understanding: [
             'Select ALL approaches you have in place',
           ],
@@ -28099,7 +28099,7 @@ export const accessModules: AccessModule[] = [
           { id: 'na', label: 'Not applicable for this event type' },
         ],
         helpContent: {
-          summary: 'Relaxed sessions open events to autistic people, those with sensory sensitivities, young children, and people with dementia.',
+          summary: 'Relaxed sessions open events to autistic people, those with sensory sensitivities, and young children.',
           understanding: [
             'This question helps determine whether your event offers modified sessions with reduced sensory intensity for attendees who need them',
             'Select "Yes - dedicated relaxed/low-sensory session" if you schedule specific sessions with lower volume, gentler lighting, and a relaxed atmosphere',
@@ -29125,7 +29125,7 @@ export const accessModules: AccessModule[] = [
           { id: 'no', label: 'No - this has not been planned for' },
         ],
         helpContent: {
-          summary: 'People with autism, intellectual disability, dementia, anxiety disorders, and other conditions may become overwhelmed, confused, or separated from their support person at an event. Having a clear plan ensures these situations are handled with compassion and skill.',
+          summary: 'People with autism, intellectual disability, anxiety disorders, and other conditions may become overwhelmed, confused, or separated from their support person at an event. Having a clear plan ensures these situations are handled with compassion and skill.',
           understanding: [
             'Select "Yes - documented plan" if you have written procedures for supporting distressed or separated attendees, including trained staff and identified calm spaces',
             'Select "Staff know to assist but no formal plan" if your team would help instinctively but there are no documented procedures or specific training',
