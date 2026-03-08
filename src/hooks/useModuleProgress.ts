@@ -160,6 +160,7 @@ export interface ActionItem {
   timeframe: string;
   impactStatement?: string;
   complianceLevel?: 'mandatory' | 'best-practice';
+  safetyRelated?: boolean;
 }
 
 const MODULE_PROGRESS_KEY = 'access_compass_module_progress';

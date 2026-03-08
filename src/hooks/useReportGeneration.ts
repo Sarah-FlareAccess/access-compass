@@ -27,6 +27,7 @@ export interface CategorisedItem {
   questionId?: string;
   priority?: 'high' | 'medium' | 'low';
   complianceLevel?: 'mandatory' | 'best-practice';
+  safetyRelated?: boolean;
 }
 
 export interface ReportSection {
@@ -346,7 +347,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
             summary.priorityActions.forEach(a => {
               const text = a.action;
               allPriorityActions.push(`${a.action} (${a.priority} priority)`);
-              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel });
+              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel, safetyRelated: a.safetyRelated });
             });
           }
           if (summary?.areasToExplore) {

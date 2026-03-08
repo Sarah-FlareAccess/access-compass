@@ -350,6 +350,7 @@ export function generateModuleSummary(
         timeframe: getTimeframeForPriority(priority),
         impactStatement: generateImpactStatement(question),
         complianceLevel: question.complianceLevel,
+        safetyRelated: question.safetyRelated,
       });
     } else if (response.answer === 'partially') {
       const statement = convertQuestionToStatement(question.text);
@@ -381,6 +382,7 @@ export function generateModuleSummary(
           ? `Current status: ${partialDescription}`
           : 'Partial measures are in place. Complete implementation for full accessibility.',
         complianceLevel: question.complianceLevel,
+        safetyRelated: question.safetyRelated,
       });
     } else if (response.answer === 'unable-to-check') {
       areasToExplore.push({

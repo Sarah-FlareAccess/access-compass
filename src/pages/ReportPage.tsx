@@ -454,9 +454,43 @@ export default function ReportPage() {
   const criticalIssues = useMemo(() => {
     if (!report) return [];
     const highItems = (report.sections.priorityActions.categorised || [])
-      .filter(i => i.priority === 'high')
-      .slice(0, 7);
-    return highItems;
+      .filter(i => i.priority === 'high');
+
+    // Sort: safety-related first, then mandatory, then spread across modules
+    highItems.sort((a, b) => {
+      // Safety items first
+      if (a.safetyRelated && !b.safetyRelated) return -1;
+      if (!a.safetyRelated && b.safetyRelated) return 1;
+      // Mandatory before best-practice
+      if (a.complianceLevel === 'mandatory' && b.complianceLevel !== 'mandatory') return -1;
+      if (a.complianceLevel !== 'mandatory' && b.complianceLevel === 'mandatory') return 1;
+      return 0;
+    });
+
+    // Spread across modules: take at most 2 per module initially, then fill remaining
+    const result: typeof highItems = [];
+    const moduleCounts = new Map<string, number>();
+    const deferred: typeof highItems = [];
+    const MAX_ITEMS = 12;
+
+    for (const item of highItems) {
+      const count = moduleCounts.get(item.moduleCode) || 0;
+      if (count < 2) {
+        result.push(item);
+        moduleCounts.set(item.moduleCode, count + 1);
+      } else {
+        deferred.push(item);
+      }
+      if (result.length >= MAX_ITEMS) break;
+    }
+
+    // Fill remaining slots from deferred items
+    for (const item of deferred) {
+      if (result.length >= MAX_ITEMS) break;
+      result.push(item);
+    }
+
+    return result;
   }, [report]);
 
   const groupedModules = useMemo(() => {
