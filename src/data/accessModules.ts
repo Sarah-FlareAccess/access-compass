@@ -11427,7 +11427,7 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 1670.4, APS D3.9',
         actionText: {
           yes: 'Visual emergency alerts are installed throughout the venue.',
-          no: 'Install visual emergency alerting (flashing strobes) throughout the venue, including in accessible toilets, meeting rooms, and all public areas. Flash rate must be between 1-3Hz per AS 1670.4 and NCC requirements. This is critical for Deaf and hard of hearing people.',
+          no: 'Install visual emergency alerting (flashing strobes) throughout the venue, including in accessible toilets, meeting rooms, and all public areas. Flash rate must be between 1-3Hz per AS 1670.4 and National Construction Code (NCC) requirements. This is critical for Deaf and hard of hearing people.',
           partially: 'Visual alerts are installed in some areas. Extend coverage to all public areas, accessible toilets, meeting rooms, and any area where people may be alone. Verify flash rate and brightness compliance.',
         },
       },
