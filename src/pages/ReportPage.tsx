@@ -451,46 +451,53 @@ export default function ReportPage() {
     return counts;
   }, [report]);
 
-  const criticalIssues = useMemo(() => {
+  const criticalSummary = useMemo(() => {
     if (!report) return [];
     const highItems = (report.sections.priorityActions.categorised || [])
       .filter(i => i.priority === 'high');
 
-    // Sort: safety-related first, then mandatory, then spread across modules
-    highItems.sort((a, b) => {
-      // Safety items first
-      if (a.safetyRelated && !b.safetyRelated) return -1;
-      if (!a.safetyRelated && b.safetyRelated) return 1;
-      // Mandatory before best-practice
-      if (a.complianceLevel === 'mandatory' && b.complianceLevel !== 'mandatory') return -1;
-      if (a.complianceLevel !== 'mandatory' && b.complianceLevel === 'mandatory') return 1;
-      return 0;
+    // Group by module
+    const moduleMap = new Map<string, { moduleCode: string; moduleName: string; items: CategorisedItem[]; hasSafety: boolean }>();
+    for (const item of highItems) {
+      const existing = moduleMap.get(item.moduleCode);
+      if (existing) {
+        existing.items.push(item);
+        if (item.safetyRelated) existing.hasSafety = true;
+      } else {
+        moduleMap.set(item.moduleCode, {
+          moduleCode: item.moduleCode,
+          moduleName: item.moduleName,
+          items: [item],
+          hasSafety: !!item.safetyRelated,
+        });
+      }
+    }
+
+    // Sort modules: those with safety issues first, then by issue count descending
+    const groups = Array.from(moduleMap.values());
+    groups.sort((a, b) => {
+      if (a.hasSafety && !b.hasSafety) return -1;
+      if (!a.hasSafety && b.hasSafety) return 1;
+      return b.items.length - a.items.length;
     });
 
-    // Spread across modules: take at most 2 per module initially, then fill remaining
-    const result: typeof highItems = [];
-    const moduleCounts = new Map<string, number>();
-    const deferred: typeof highItems = [];
-    const MAX_ITEMS = 12;
-
-    for (const item of highItems) {
-      const count = moduleCounts.get(item.moduleCode) || 0;
-      if (count < 2) {
-        result.push(item);
-        moduleCounts.set(item.moduleCode, count + 1);
-      } else {
-        deferred.push(item);
-      }
-      if (result.length >= MAX_ITEMS) break;
-    }
-
-    // Fill remaining slots from deferred items
-    for (const item of deferred) {
-      if (result.length >= MAX_ITEMS) break;
-      result.push(item);
-    }
-
-    return result;
+    // Build summary text for each module (up to 3 key topics)
+    return groups.map(g => {
+      const topics = g.items.slice(0, 3).map(item => {
+        const raw = stripPrioritySuffix(item.text);
+        // Extract a short phrase: take first clause or first ~60 chars
+        const short = raw.length > 60 ? raw.slice(0, raw.indexOf(' ', 50)) + '...' : raw;
+        return short.charAt(0).toLowerCase() + short.slice(1);
+      });
+      const extra = g.items.length > 3 ? g.items.length - 3 : 0;
+      return {
+        moduleCode: g.moduleCode,
+        moduleName: g.moduleName,
+        count: g.items.length,
+        hasSafety: g.hasSafety,
+        summary: topics.join('; ') + (extra > 0 ? ` (+${extra} more)` : ''),
+      };
+    });
   }, [report]);
 
   const groupedModules = useMemo(() => {
@@ -650,20 +657,23 @@ export default function ReportPage() {
         )}
 
         {/* Critical issues */}
-        {criticalIssues.length > 0 && (
+        {criticalSummary.length > 0 && (
           <details className="rp-critical-issues" open>
             <summary className="rp-critical-summary">
-              <h2><Shield size={20} aria-hidden="true" /> Critical issues requiring priority attention ({criticalIssues.length})</h2>
+              <h2><Shield size={20} aria-hidden="true" /> Key areas requiring priority attention</h2>
               <ChevronDown size={18} className="rp-critical-chevron" aria-hidden="true" />
             </summary>
-            <ol className="rp-critical-list">
-              {criticalIssues.map((item, i) => (
-                <li key={i}>
-                  <span className="rp-critical-module">{item.moduleCode}</span>
-                  <span>{formatActionText(item)}</span>
+            <ul className="rp-critical-list">
+              {criticalSummary.map((group) => (
+                <li key={group.moduleCode}>
+                  <span className="rp-critical-module">{group.moduleCode}</span>
+                  <span className="rp-critical-name">{group.moduleName}</span>
+                  <span className="rp-critical-count">{group.count} issue{group.count !== 1 ? 's' : ''}</span>
+                  {group.hasSafety && <span className="rp-critical-safety">Safety</span>}
+                  <p className="rp-critical-topics">{group.summary}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
           </details>
         )}
 
