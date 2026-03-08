@@ -201,14 +201,46 @@
   box-shadow: 0 1px 4px rgba(211, 47, 47, 0.06);
 }
 
+.rp-critical-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+}
+
+.rp-critical-summary::-webkit-details-marker {
+  display: none;
+}
+
+.rp-critical-summary:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.rp-critical-chevron {
+  flex-shrink: 0;
+  color: #b91c1c;
+  transition: transform 0.2s ease;
+}
+
+.rp-critical-issues[open] > .rp-critical-summary .rp-critical-chevron {
+  transform: rotate(180deg);
+}
+
 .rp-critical-issues h2 {
   font-size: 1.125rem;
   font-weight: 700;
-  margin: 0 0 16px;
+  margin: 0;
   color: #b91c1c;
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.rp-critical-issues[open] .rp-critical-list {
+  margin-top: 16px;
 }
 
 .rp-critical-list {

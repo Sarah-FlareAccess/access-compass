@@ -651,8 +651,11 @@ export default function ReportPage() {
 
         {/* Critical issues */}
         {criticalIssues.length > 0 && (
-          <div className="rp-critical-issues">
-            <h2><Shield size={20} aria-hidden="true" /> Critical issues requiring priority attention</h2>
+          <details className="rp-critical-issues" open>
+            <summary className="rp-critical-summary">
+              <h2><Shield size={20} aria-hidden="true" /> Critical issues requiring priority attention ({criticalIssues.length})</h2>
+              <ChevronDown size={18} className="rp-critical-chevron" aria-hidden="true" />
+            </summary>
             <ol className="rp-critical-list">
               {criticalIssues.map((item, i) => (
                 <li key={i}>
@@ -661,7 +664,7 @@ export default function ReportPage() {
                 </li>
               ))}
             </ol>
-          </div>
+          </details>
         )}
 
         {/* Module findings - grouped by category */}
