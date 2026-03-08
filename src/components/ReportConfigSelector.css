@@ -80,7 +80,7 @@
   height: 1.25rem;
   margin-top: 0.125rem;
   cursor: pointer;
-  accent-color: #2563eb;
+  accent-color: var(--deep-purple, #490E67);
 }
 
 .toggle-text {

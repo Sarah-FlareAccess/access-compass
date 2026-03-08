@@ -546,14 +546,19 @@ export default function ReportPage() {
               initialConfig={reportConfig}
             />
             <div className="rp-display-options">
-              <label className="rp-toggle-label">
-                <input
-                  type="checkbox"
-                  checked={showStrengths}
-                  onChange={() => setShowStrengths(s => !s)}
-                />
-                Show strengths / what you are doing well
-              </label>
+              <div className="config-row comparison-toggle">
+                <label className="toggle-label">
+                  <input
+                    type="checkbox"
+                    checked={showStrengths}
+                    onChange={() => setShowStrengths(s => !s)}
+                  />
+                  <span className="toggle-text">
+                    <strong>Show strengths / what you are doing well</strong>
+                    <span className="toggle-hint">Include positive findings alongside priority actions</span>
+                  </span>
+                </label>
+              </div>
             </div>
             <button className="btn btn-primary" style={{ marginTop: '12px' }} onClick={handleGenerateReport}>
               Regenerate report
