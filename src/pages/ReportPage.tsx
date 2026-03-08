@@ -559,6 +559,40 @@ export default function ReportPage() {
           </div>
         )}
 
+        {/* Introduction */}
+        <div className="rp-intro">
+          <p>
+            This report summarises the findings of {isPulseCheck ? 'a pulse check' : 'an accessibility review'} conducted
+            using Access Compass. {isPulseCheck
+              ? 'A pulse check provides a high-level snapshot of current accessibility across selected areas.'
+              : 'The review covers detailed findings across selected accessibility areas.'
+            } Findings are benchmarked against the Disability (Access to Premises-Buildings) Standards 2010,
+            the National Construction Code and relevant Australian Standards including AS 1428.1.
+            Recommendations that extend beyond mandatory compliance are identified as best practice.
+          </p>
+          <details className="rp-intro-details">
+            <summary className="rp-intro-summary">Your obligations under the Disability Discrimination Act</summary>
+            <div className="rp-intro-body">
+              <p>
+                All organisations have responsibilities under the <strong>Disability Discrimination Act 1992</strong> to
+                provide equitable and dignified access to premises, goods and services. Disability is broadly defined and
+                includes physical, intellectual, sensory, neurological, cognitive and psychosocial conditions.
+              </p>
+              <p>
+                The <strong>Disability (Access to Premises-Buildings) Standards 2010</strong> set minimum access
+                requirements for new buildings and those undergoing significant upgrade or refurbishment. Elements not
+                covered by the Premises Standards remain subject to the broader provisions of the DDA.
+              </p>
+              <p>
+                Where a person with disability seeks to access or use premises, appropriate and reasonable adjustments
+                are required. Provision of wheelchair access alone does not meet all access needs. Older people and
+                people with disability experience a wide range of needs affecting sight, hearing, mobility, balance
+                and cognitive processing.
+              </p>
+            </div>
+          </details>
+        </div>
+
         {/* Executive summary stats */}
         <div className="rp-summary-stats">
           <div className="rp-stat-card">

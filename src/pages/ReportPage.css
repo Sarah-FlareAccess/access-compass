@@ -92,6 +92,75 @@
   color: var(--text-primary, #2d2420);
 }
 
+/* Introduction */
+.rp-intro {
+  margin-bottom: 28px;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-secondary, #4a4340);
+}
+
+.rp-intro > p {
+  margin: 0;
+}
+
+.rp-intro-details {
+  margin-top: 12px;
+}
+
+.rp-intro-summary {
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond, #6F5FA8);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rp-intro-summary::-webkit-details-marker {
+  display: none;
+}
+
+.rp-intro-summary::before {
+  content: '▶';
+  font-size: 0.5rem;
+  transition: transform 0.15s ease;
+}
+
+.rp-intro-details[open] > .rp-intro-summary::before {
+  transform: rotate(90deg);
+}
+
+.rp-intro-summary:hover {
+  text-decoration: underline;
+}
+
+.rp-intro-summary:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.rp-intro-body {
+  margin-top: 10px;
+  padding: 14px 16px;
+  background: rgba(73, 14, 103, 0.03);
+  border-radius: 8px;
+  border-left: 3px solid var(--amethyst-diamond, #490E67);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.rp-intro-body p {
+  margin: 0 0 10px;
+}
+
+.rp-intro-body p:last-child {
+  margin-bottom: 0;
+}
+
 /* Summary stats - use brand/neutral colours, NOT priority colours */
 .rp-summary-stats {
   display: grid;
