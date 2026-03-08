@@ -231,7 +231,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     medium: COLORS.amberDark,
     low: COLORS.blue,
   };
-  const priorityBadgeLabels: Record<string, string> = { high: 'H', medium: 'M', low: 'L' };
+  const priorityBadgeLabels: Record<string, string> = { high: 'E', medium: 'I', low: 'B' };
   const priorityBadgeBg: Record<string, string> = {
     high: COLORS.redLight,
     medium: COLORS.amberLight,
@@ -295,9 +295,9 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         const counts: Record<string, number> = { high: 0, medium: 0, low: 0 };
         for (const item of group.items) counts[item.priority || 'low']++;
         const parts: string[] = [];
-        if (counts.high > 0) parts.push(`${counts.high}H`);
-        if (counts.medium > 0) parts.push(`${counts.medium}M`);
-        if (counts.low > 0) parts.push(`${counts.low}L`);
+        if (counts.high > 0) parts.push(`${counts.high}E`);
+        if (counts.medium > 0) parts.push(`${counts.medium}I`);
+        if (counts.low > 0) parts.push(`${counts.low}B`);
         if (parts.length > 0) {
           const summaryText = parts.join(' \u00B7 ');
           doc.setFontSize(8);
@@ -539,6 +539,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         group: 'Overview',
         items: [
           'Executive Summary',
+          'About This Report',
+          'Your Obligations',
           ...(report.progressComparison?.enabled ? ['Progress Comparison'] : []),
         ],
       },
@@ -684,6 +686,35 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   }
 
   yPosition += 25;
+
+  // ============================================
+  // INTRODUCTION
+  // ============================================
+  addSectionTitle('About This Report');
+
+  const reportTypeIntro = report.reportType === 'pulse-check'
+    ? 'a pulse check, providing a high-level snapshot of current accessibility across selected areas'
+    : 'an accessibility review covering detailed findings across selected accessibility areas';
+
+  addParagraph(
+    `This report summarises the findings of ${reportTypeIntro} conducted using Access Compass. Findings are benchmarked against the Disability (Access to Premises-Buildings) Standards 2010, the National Construction Code, relevant Australian Standards including AS 1428.1, and the Web Content Accessibility Guidelines (WCAG) 2.2 for digital content. Recommendations that extend beyond mandatory compliance are identified as best practice.`,
+    9
+  );
+
+  addSectionTitle('Your Obligations', COLORS.amethystLight);
+
+  addParagraph(
+    'All organisations have responsibilities under the Disability Discrimination Act 1992 to provide equitable and dignified access to premises, goods and services. Disability is broadly defined and includes physical, intellectual, sensory, neurological, cognitive and psychosocial conditions.',
+    9
+  );
+  addParagraph(
+    'The Disability (Access to Premises-Buildings) Standards 2010 set minimum access requirements for new buildings and those undergoing significant upgrade or refurbishment. Mandatory compliance requirements are triggered when building work requires development approval. However, organisations can voluntarily make accessibility improvements at any time. Elements not covered by the Premises Standards remain subject to the broader provisions of the DDA.',
+    9
+  );
+  addParagraph(
+    'Regardless of whether building work is planned, any person with disability may lodge a complaint under the DDA if they experience discrimination in accessing premises, goods or services. Proactively addressing accessibility barriers reduces this risk and demonstrates a commitment to equitable access.',
+    9
+  );
 
   // ============================================
   // GROUP 2: ASSESSMENT EVIDENCE
