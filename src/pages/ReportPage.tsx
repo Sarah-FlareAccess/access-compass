@@ -9,7 +9,7 @@ import { ReportConfigSelector, type ReportConfig } from '../components/ReportCon
 import { downloadPDFReport } from '../utils/pdfGenerator';
 import { getHelpByQuestionId } from '../data/help';
 import { getResourceLink } from '../utils/resourceLinks';
-import { PRIORITY_LEGEND } from '../utils/priorityCalculation';
+import { PRIORITY_LEGEND, PRIORITY_LABELS, PRIORITY_BADGE_ABBR } from '../utils/priorityCalculation';
 import { accessModules, moduleGroups } from '../data/accessModules';
 import { PageFooter } from '../components/PageFooter';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -17,7 +17,7 @@ import type { ReviewMode } from '../types/index';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 import './ReportPage.css';
 
-const PRIORITY_BADGE_LABEL: Record<string, string> = { high: 'H', medium: 'M', low: 'L' };
+const PRIORITY_BADGE_LABEL = PRIORITY_BADGE_ABBR;
 
 const GROUP_ORDER = ['before-arrival', 'getting-in', 'during-visit', 'service-support', 'organisational-commitment', 'events'];
 
@@ -81,12 +81,12 @@ function buildModuleFindings(report: Report): ModuleFindings[] {
 
 function PriorityCountBadges({ counts }: { counts: { high: number; medium: number; low: number } }) {
   const parts: { key: string; label: string; count: number }[] = [];
-  if (counts.high > 0) parts.push({ key: 'high', label: 'H', count: counts.high });
-  if (counts.medium > 0) parts.push({ key: 'medium', label: 'M', count: counts.medium });
-  if (counts.low > 0) parts.push({ key: 'low', label: 'L', count: counts.low });
+  if (counts.high > 0) parts.push({ key: 'high', label: PRIORITY_BADGE_ABBR.high, count: counts.high });
+  if (counts.medium > 0) parts.push({ key: 'medium', label: PRIORITY_BADGE_ABBR.medium, count: counts.medium });
+  if (counts.low > 0) parts.push({ key: 'low', label: PRIORITY_BADGE_ABBR.low, count: counts.low });
   if (parts.length === 0) return <span className="rp-no-actions">No actions needed</span>;
   return (
-    <span className="rp-priority-counts" aria-label={parts.map(p => `${p.count} ${p.key} priority`).join(', ')}>
+    <span className="rp-priority-counts" aria-label={parts.map(p => `${p.count} ${PRIORITY_LABELS[p.key as keyof typeof PRIORITY_LABELS]}`).join(', ')}>
       {parts.map((p) => (
         <span key={p.key} className={`rp-priority-count rp-priority-${p.key}`}>{p.count}{p.label}</span>
       ))}
@@ -206,7 +206,7 @@ function ModuleTile({
                     <span className={`rp-tier-badge rp-tier-badge-${tier.priority}`} aria-hidden="true">
                       {PRIORITY_BADGE_LABEL[tier.priority]}
                     </span>
-                    <span>{tier.priority.charAt(0).toUpperCase() + tier.priority.slice(1)} priority</span>
+                    <span>{PRIORITY_LABELS[tier.priority]}</span>
                     <span className="rp-tier-count">({tier.items.length})</span>
                   </div>
                   <ul className="rp-item-list rp-list-actions">
@@ -567,7 +567,8 @@ export default function ReportPage() {
               ? 'A pulse check provides a high-level snapshot of current accessibility across selected areas.'
               : 'The review covers detailed findings across selected accessibility areas.'
             } Findings are benchmarked against the Disability (Access to Premises-Buildings) Standards 2010,
-            the National Construction Code and relevant Australian Standards including AS 1428.1.
+            the National Construction Code, relevant Australian Standards including AS 1428.1, and the
+            Web Content Accessibility Guidelines (WCAG) 2.2 for digital content.
             Recommendations that extend beyond mandatory compliance are identified as best practice.
           </p>
           <details className="rp-intro-details">
@@ -580,8 +581,16 @@ export default function ReportPage() {
               </p>
               <p>
                 The <strong>Disability (Access to Premises-Buildings) Standards 2010</strong> set minimum access
-                requirements for new buildings and those undergoing significant upgrade or refurbishment. Elements not
-                covered by the Premises Standards remain subject to the broader provisions of the DDA.
+                requirements for new buildings and those undergoing significant upgrade or refurbishment. Mandatory
+                compliance requirements are triggered when building work requires development approval.
+                However, organisations can voluntarily make accessibility improvements at any time.
+                Elements not covered by the Premises Standards remain subject to the broader provisions of the DDA.
+              </p>
+              <p>
+                Regardless of whether building work is planned, any person with disability may lodge a complaint
+                under the DDA if they experience discrimination in accessing premises, goods or services.
+                Proactively addressing accessibility barriers reduces this risk and demonstrates a commitment
+                to equitable access.
               </p>
               <p>
                 Where a person with disability seeks to access or use premises, appropriate and reasonable adjustments
@@ -617,7 +626,7 @@ export default function ReportPage() {
         {priorityDistribution.total > 0 && (
           <div className="rp-priority-distribution">
             <h2>Priority distribution</h2>
-            <div className="rp-distribution-bar" role="img" aria-label={`${priorityDistribution.high} high, ${priorityDistribution.medium} medium, ${priorityDistribution.low} low priority actions`}>
+            <div className="rp-distribution-bar" role="img" aria-label={`${priorityDistribution.high} essential, ${priorityDistribution.medium} important, ${priorityDistribution.low} beneficial actions`}>
               {priorityDistribution.high > 0 && (
                 <div className="rp-dist-segment rp-dist-high" style={{ flex: priorityDistribution.high }}>
                   {priorityDistribution.high}
@@ -635,9 +644,9 @@ export default function ReportPage() {
               )}
             </div>
             <div className="rp-distribution-legend">
-              <span className="rp-legend-item"><span className="rp-legend-dot rp-dot-high" /> High ({priorityDistribution.high}) - {priorityDistribution.total > 0 ? Math.round((priorityDistribution.high / priorityDistribution.total) * 100) : 0}%</span>
-              <span className="rp-legend-item"><span className="rp-legend-dot rp-dot-medium" /> Medium ({priorityDistribution.medium}) - {priorityDistribution.total > 0 ? Math.round((priorityDistribution.medium / priorityDistribution.total) * 100) : 0}%</span>
-              <span className="rp-legend-item"><span className="rp-legend-dot rp-dot-low" /> Low ({priorityDistribution.low}) - {priorityDistribution.total > 0 ? Math.round((priorityDistribution.low / priorityDistribution.total) * 100) : 0}%</span>
+              <span className="rp-legend-item"><span className="rp-legend-dot rp-dot-high" /> Essential ({priorityDistribution.high}) - {priorityDistribution.total > 0 ? Math.round((priorityDistribution.high / priorityDistribution.total) * 100) : 0}%</span>
+              <span className="rp-legend-item"><span className="rp-legend-dot rp-dot-medium" /> Important ({priorityDistribution.medium}) - {priorityDistribution.total > 0 ? Math.round((priorityDistribution.medium / priorityDistribution.total) * 100) : 0}%</span>
+              <span className="rp-legend-item"><span className="rp-legend-dot rp-dot-low" /> Beneficial ({priorityDistribution.low}) - {priorityDistribution.total > 0 ? Math.round((priorityDistribution.low / priorityDistribution.total) * 100) : 0}%</span>
             </div>
           </div>
         )}

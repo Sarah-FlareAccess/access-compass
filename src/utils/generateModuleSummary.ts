@@ -10,7 +10,7 @@ import type { QuestionResponse } from '../hooks/useModuleProgress';
 import type { ModuleSummary, ActionItem, ExploreItem } from '../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../hooks/useBranchingLogic';
 import { needsProfessionalReview } from '../hooks/useBranchingLogic';
-import { calculateQuestionPriority, getTimeframeForPriority } from './priorityCalculation';
+import { calculateQuestionPriority } from './priorityCalculation';
 import { generateActionText } from '../components/questions/QuestionFlow';
 
 /**
@@ -347,7 +347,7 @@ export function generateModuleSummary(
         questionText: question.text,
         action: question.actionText?.no || generateActionText(question.text),
         priority,
-        timeframe: getTimeframeForPriority(priority),
+        timeframe: '',
         impactStatement: generateImpactStatement(question),
         complianceLevel: question.complianceLevel,
         safetyRelated: question.safetyRelated,
@@ -377,7 +377,7 @@ export function generateModuleSummary(
         questionText: question.text,
         action: partialAction,
         priority: partialPriority,
-        timeframe: getTimeframeForPriority(partialPriority),
+        timeframe: '',
         impactStatement: partialDescription
           ? `Current status: ${partialDescription}`
           : 'Partial measures are in place. Complete implementation for full accessibility.',
@@ -403,7 +403,7 @@ export function generateModuleSummary(
           questionText: question.text,
           action: `Address ${analysisType} accessibility issues identified in analysis`,
           priority: 'high',
-          timeframe: 'Within 1 month',
+          timeframe: '',
           impactStatement: `Analysis score: ${score}/100. Significant improvements needed.`,
         });
       } else {
@@ -412,7 +412,7 @@ export function generateModuleSummary(
           questionText: question.text,
           action: `Review and improve ${analysisType} based on analysis findings`,
           priority: 'medium',
-          timeframe: 'Within 3 months',
+          timeframe: '',
           impactStatement: `Analysis score: ${score}/100. Some improvements recommended.`,
         });
       }
@@ -434,7 +434,7 @@ export function generateModuleSummary(
           questionText: question.text,
           action: question.actionText?.no || generateActionText(question.text),
           priority,
-          timeframe: getTimeframeForPriority(priority),
+          timeframe: '',
           impactStatement: generateImpactStatement(question),
           complianceLevel: question.complianceLevel,
         });
@@ -455,7 +455,7 @@ export function generateModuleSummary(
               questionText: question.text,
               action: option.recommendation,
               priority: 'medium',
-              timeframe: 'Within 3 months',
+              timeframe: '',
               impactStatement: `Based on selecting: ${option.label}`,
             });
           }
@@ -479,7 +479,7 @@ export function generateModuleSummary(
           questionText: question.text,
           action: `Improve measurement to meet minimum requirement of ${min}${question.measurementUnit}`,
           priority: measPriority,
-          timeframe: getTimeframeForPriority(measPriority),
+          timeframe: '',
         });
       } else if (ideal !== undefined && value >= ideal) {
         const statement = convertQuestionToStatement(question.text);

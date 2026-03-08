@@ -622,13 +622,12 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
 function identifyQuickWins(_completedModules: ModuleProgress[], diapItems: DIAPItem[]): QuickWin[] {
   const quickWins: QuickWin[] = [];
 
-  // Look for low-effort, high-impact actions
-  const lowEffortActions = diapItems.filter(item =>
-    item.timeframe === '0-30 days' &&
-    (item.priority === 'high' || item.priority === 'medium')
+  // Look for high-impact actions
+  const highImpactActions = diapItems.filter(item =>
+    item.priority === 'high' || item.priority === 'medium'
   );
 
-  lowEffortActions.slice(0, 5).forEach(action => {
+  highImpactActions.slice(0, 5).forEach(action => {
     quickWins.push({
       title: action.action,
       description: action.impactStatement || 'Quick improvement with significant accessibility benefit',

@@ -313,7 +313,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
       if (showPriority) {
         // Group items by priority tier
-        const tierLabels: Record<string, string> = { high: 'High priority', medium: 'Medium priority', low: 'Low priority' };
+        const tierLabels: Record<string, string> = { high: 'Essential', medium: 'Important', low: 'Beneficial' };
         const tiers = (['high', 'medium', 'low'] as const)
           .map(p => ({ priority: p, items: group.items.filter(i => (i.priority || 'low') === p) }))
           .filter(t => t.items.length > 0);

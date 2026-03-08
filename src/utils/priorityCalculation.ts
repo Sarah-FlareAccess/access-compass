@@ -34,36 +34,32 @@ export function calculateQuestionPriority({
   return 'medium';
 }
 
-export function getTimeframeForPriority(priority: Priority): string {
-  switch (priority) {
-    case 'high': return 'Within 1 month';
-    case 'medium': return 'Within 3 months';
-    case 'low': return 'Within 6 months';
-  }
-}
+export const PRIORITY_LABELS: Record<Priority, string> = {
+  high: 'Essential',
+  medium: 'Important',
+  low: 'Beneficial',
+};
 
-export function getDIAPTimeframeForPriority(priority: Priority): string {
-  switch (priority) {
-    case 'high': return '0-30 days';
-    case 'medium': return '30-90 days';
-    case 'low': return '3-12 months';
-  }
-}
+export const PRIORITY_BADGE_ABBR: Record<Priority, string> = {
+  high: 'E',
+  medium: 'I',
+  low: 'B',
+};
 
 export const PRIORITY_LEGEND: { level: Priority; label: string; description: string }[] = [
   {
     level: 'high',
-    label: 'High',
-    description: 'Mandatory compliance gaps and safety items. Address within 1 month.',
+    label: 'Essential',
+    description: 'Mandatory compliance gaps and safety items.',
   },
   {
     level: 'medium',
-    label: 'Medium',
-    description: 'High-impact best-practice gaps and items needing investigation. Address within 3 months.',
+    label: 'Important',
+    description: 'High-impact best-practice gaps and items needing investigation.',
   },
   {
     level: 'low',
-    label: 'Low',
-    description: 'Lower-impact best-practice improvements. Address within 6 months.',
+    label: 'Beneficial',
+    description: 'Best-practice improvements that enhance the experience for people with disability.',
   },
 ];

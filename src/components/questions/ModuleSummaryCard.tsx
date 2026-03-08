@@ -161,13 +161,13 @@ export function ModuleSummaryCard({
             <h3 className="section-title">Priority actions</h3>
             <div className="priority-badges">
               {highPriorityCount > 0 && (
-                <span className="priority-badge high">{highPriorityCount} high</span>
+                <span className="priority-badge high">{highPriorityCount} essential</span>
               )}
               {mediumPriorityCount > 0 && (
-                <span className="priority-badge medium">{mediumPriorityCount} medium</span>
+                <span className="priority-badge medium">{mediumPriorityCount} important</span>
               )}
               {lowPriorityCount > 0 && (
-                <span className="priority-badge low">{lowPriorityCount} low</span>
+                <span className="priority-badge low">{lowPriorityCount} beneficial</span>
               )}
             </div>
           </div>
@@ -184,7 +184,6 @@ export function ModuleSummaryCard({
               <li key={index} className={`action-item priority-${action.priority}`}>
                 <div className="action-content">
                   <span className="action-text">{action.action}</span>
-                  <span className="action-timeframe">{action.timeframe}</span>
                 </div>
                 {action.impactStatement && (
                   <p className="action-impact">{action.impactStatement}</p>

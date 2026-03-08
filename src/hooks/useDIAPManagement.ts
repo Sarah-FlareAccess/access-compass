@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
-import { calculateQuestionPriority, getDIAPTimeframeForPriority } from '../utils/priorityCalculation';
+import { calculateQuestionPriority } from '../utils/priorityCalculation';
 
 export type DIAPCategory =
   | 'physical-access'
@@ -200,7 +200,7 @@ function calculatePriority(response: ResponseForDIAP): DIAPPriority {
 }
 
 function calculateTimeframe(priority: DIAPPriority): string {
-  return getDIAPTimeframeForPriority(priority);
+  return '';
 }
 
 // Convert question to action text
@@ -955,7 +955,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             category,
             priority,
             status: 'not-started',
-            timeframe: getDIAPTimeframeForPriority(priority),
+            timeframe: '',
             dueDate,
             responsibleRole: responsible,
             importSource: 'pdf',
@@ -1076,7 +1076,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           category: mapModuleToCategory(moduleName),
           priority,
           status: 'not-started',
-          timeframe: getDIAPTimeframeForPriority(priority),
+          timeframe: '',
           moduleSource: moduleName,
           questionSource: response.questionId,
           importSource: 'audit',
@@ -1109,7 +1109,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             category: mapAnalysisTypeToCategory(analysisType),
             priority,
             status: 'not-started',
-            timeframe: getDIAPTimeframeForPriority(priority),
+            timeframe: '',
             moduleSource: moduleName,
             questionSource: itemId,
             importSource: 'audit',
@@ -1139,7 +1139,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             category: 'information-communication-marketing',
             priority,
             status: 'not-started',
-            timeframe: getDIAPTimeframeForPriority(priority),
+            timeframe: '',
             moduleSource: moduleName,
             questionSource: itemId,
             importSource: 'audit',

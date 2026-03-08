@@ -681,7 +681,7 @@ export default function DIAPWorkspace() {
           </div>
           <div className="stat-card high-priority">
             <span className="stat-value">{stats.byPriority['high']}</span>
-            <span className="stat-label">High Priority</span>
+            <span className="stat-label">Essential</span>
           </div>
         </div>
 
@@ -820,9 +820,9 @@ export default function DIAPWorkspace() {
                 className="filter-select"
               >
                 <option value="all">All Priorities</option>
-                <option value="high">High Priority</option>
-                <option value="medium">Medium Priority</option>
-                <option value="low">Low Priority</option>
+                <option value="high">Essential</option>
+                <option value="medium">Important</option>
+                <option value="low">Beneficial</option>
               </select>
             </div>
 
@@ -1423,21 +1423,21 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
               className={`priority-btn priority-high ${formData.priority === 'high' ? 'active' : ''}`}
               onClick={() => handlePriorityChange('high')}
             >
-              High
+              Essential
             </button>
             <button
               type="button"
               className={`priority-btn priority-medium ${formData.priority === 'medium' ? 'active' : ''}`}
               onClick={() => handlePriorityChange('medium')}
             >
-              Medium
+              Important
             </button>
             <button
               type="button"
               className={`priority-btn priority-low ${formData.priority === 'low' ? 'active' : ''}`}
               onClick={() => handlePriorityChange('low')}
             >
-              Low
+              Beneficial
             </button>
           </div>
         </label>
