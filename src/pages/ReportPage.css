@@ -53,12 +53,37 @@
 
 .rp-header-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
-.rp-config-toggle {
-  font-size: 0.875rem;
+.rp-header-actions .btn-export {
+  padding: 10px 18px;
+  background: transparent;
+  border: 1.5px solid rgba(73, 14, 103, 0.2);
+  border-radius: var(--radius-sm);
+  color: var(--amethyst-diamond, #490E67);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rp-header-actions .btn-export:hover {
+  background: #723d8d;
+  color: white;
+  border-color: #723d8d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+}
+
+.rp-header-actions .btn-export:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
 }
 
 .rp-config-panel {
@@ -1302,16 +1327,10 @@
   color: #ffffff;
 }
 
-.rp-prof-cta strong {
+.rp-prof-cta-label {
   font-size: 0.9375rem;
   display: block;
-  margin-bottom: 4px;
-}
-
-.rp-prof-cta p {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin: 0 0 10px;
+  margin-bottom: 10px;
   opacity: 0.92;
 }
 
@@ -1387,7 +1406,7 @@
     width: 100%;
   }
 
-  .rp-header-actions .btn {
+  .rp-header-actions .btn-export {
     flex: 1;
     text-align: center;
     justify-content: center;

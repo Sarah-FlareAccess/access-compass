@@ -201,7 +201,7 @@ export default function DiscoveryQuestions() {
           generateFromResponses(
             moduleProgress.responses,
             currentQuestions,
-            currentModule.moduleName
+            `${currentModule.moduleCode}: ${currentModule.moduleName}`
           );
         }
       } catch (diapError) {

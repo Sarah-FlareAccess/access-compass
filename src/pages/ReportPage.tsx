@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronUp, Download, BarChart3, ArrowUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Download, Award, BarChart3, Settings, Eye, Users as UsersIcon } from 'lucide-react';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useReportGeneration } from '../hooks/useReportGeneration';
@@ -14,9 +14,21 @@ import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from '../utils/prof
 import { accessModules, moduleGroups } from '../data/accessModules';
 import { PageFooter } from '../components/PageFooter';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { useBadgeProgress } from '../hooks/useBadgeProgress';
+import { downloadCertificate } from '../utils/certificateGenerator';
 import type { ReviewMode } from '../types/index';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
+import { PageGuide, type GuideFeature } from '../components/PageGuide';
 import './ReportPage.css';
+
+const REPORT_FEATURES: GuideFeature[] = [
+  { icon: Download, title: 'Download PDF', description: 'Export your full accessibility report as a formatted PDF document.' },
+  { icon: Award, title: 'Certificate', description: 'Download a completion certificate when you finish modules.' },
+  { icon: Settings, title: 'Report options', description: 'Switch between pulse check and full review, or filter by module.' },
+  { icon: ChevronDown, title: 'Expand and collapse', description: 'Click module headers to expand or collapse individual findings.' },
+  { icon: Eye, title: 'Show strengths', description: 'Toggle positive findings on or off alongside priority actions.' },
+  { icon: UsersIcon, title: 'Professional support', description: 'See recommended specialist areas grouped by expertise type.' },
+];
 
 const PRIORITY_BADGE_LABEL = PRIORITY_BADGE_ABBR;
 
@@ -357,20 +369,7 @@ export default function ReportPage() {
   const [reportConfig, setReportConfig] = useState<ReportConfig | undefined>(undefined);
   const [expandedModules, setExpandedModules] = useState<Set<string>>(new Set());
   const [showConfig, setShowConfig] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [showStrengths, setShowStrengths] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
 
   useEffect(() => {
     try {
@@ -403,6 +402,23 @@ export default function ReportPage() {
 
   const { generateReport, isReady, getModuleRuns } = useReportGeneration(selectedModuleIds);
   const { progress } = useModuleProgress(selectedModuleIds);
+  const badgeProgress = useBadgeProgress(progress);
+
+  const handleDownloadCertificate = useCallback(() => {
+    const completedModuleNames = Object.entries(progress)
+      .filter(([, p]) => p.status === 'completed')
+      .map(([id]) => {
+        const mod = accessModules.find(m => m.id === id);
+        return mod ? `${mod.code} ${mod.name}` : id;
+      });
+    downloadCertificate({
+      organisationName,
+      level: badgeProgress.level,
+      completedModules: completedModuleNames,
+      totalModules: badgeProgress.totalModules,
+      completionDate: new Date().toISOString(),
+    });
+  }, [progress, organisationName, badgeProgress.level, badgeProgress.totalModules]);
 
   const hasCompletedModules = useMemo(() => {
     return Object.values(progress).some(p => p.status === 'completed');
@@ -516,15 +532,23 @@ export default function ReportPage() {
             </p>
           </div>
           <div className="rp-header-actions">
-            <button className="btn btn-secondary rp-config-toggle" onClick={() => setShowConfig(!showConfig)}>
+            <button className="btn-export rp-config-toggle" onClick={() => setShowConfig(!showConfig)}>
               {showConfig ? 'Close options' : 'Report options'}
             </button>
-            <button className="btn btn-primary" onClick={handleDownloadPDF}>
+            <button className="btn-export" onClick={handleDownloadPDF}>
               <Download size={16} aria-hidden="true" />
               Download PDF
             </button>
+            {badgeProgress.level !== 'none' && (
+              <button className="btn-export" onClick={handleDownloadCertificate}>
+                <Award size={16} aria-hidden="true" />
+                Certificate
+              </button>
+            )}
           </div>
         </div>
+
+        <PageGuide pageId="report" features={REPORT_FEATURES} />
 
         {/* Collapsible report config */}
         {showConfig && (
@@ -739,8 +763,7 @@ export default function ReportPage() {
               </div>
             ))}
             <div className="rp-prof-cta">
-              <strong>{FLARE_CONTACT.label}</strong>
-              <p>{FLARE_CONTACT.description}</p>
+              <span className="rp-prof-cta-label">{FLARE_CONTACT.label}</span>
               <div className="rp-prof-cta-links">
                 <a href={`mailto:${FLARE_CONTACT.email}`}>{FLARE_CONTACT.email}</a>
                 <span className="rp-prof-cta-sep" aria-hidden="true">|</span>
@@ -767,15 +790,6 @@ export default function ReportPage() {
         <PageFooter />
       </div>
 
-      {showScrollTop && (
-        <button
-          className="rp-back-to-top"
-          onClick={scrollToTop}
-          aria-label="Back to top"
-        >
-          <ArrowUp size={20} aria-hidden="true" />
-        </button>
-      )}
     </div>
   );
 }

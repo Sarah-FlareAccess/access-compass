@@ -6,6 +6,7 @@
 // ============================================
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useOrgAdmin } from '../hooks/useOrgAdmin';
 import type {
@@ -379,7 +380,7 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
     return labels[action] || action.replace(/_/g, ' ');
   };
 
-  return (
+  return createPortal(
     <div className="admin-panel-overlay" onClick={onClose}>
       <div ref={adminPanelRef} className="admin-panel" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="admin-panel-title">
         <div className="admin-panel-header">
@@ -1023,6 +1024,7 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
 
         {orgAdmin.error && <div className="admin-error">{orgAdmin.error}</div>}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

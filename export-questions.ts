@@ -43,6 +43,10 @@ interface QuestionRow {
   'Measurement Guidance': string;
   'Media Analysis Type': string;
   'Media Analysis Hint': string;
+  'Action Text (Yes)': string;
+  'Action Text (No)': string;
+  'Action Text (Partially)': string;
+  'Action Text (Unsure)': string;
 }
 
 const questionRows: QuestionRow[] = [];
@@ -101,6 +105,10 @@ for (const mod of accessModules) {
       'Measurement Guidance': measurementGuidance,
       'Media Analysis Type': (q as any).mediaAnalysisType ?? '',
       'Media Analysis Hint': (q as any).mediaAnalysisHint ?? '',
+      'Action Text (Yes)': q.actionText?.yes ?? '',
+      'Action Text (No)': q.actionText?.no ?? '',
+      'Action Text (Partially)': q.actionText?.partially ?? '',
+      'Action Text (Unsure)': q.actionText?.unsure ?? '',
     });
   }
 }

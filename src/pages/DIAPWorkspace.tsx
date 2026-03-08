@@ -13,15 +13,32 @@
 import { useState, useMemo, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
+import { PRIORITY_LEGEND, PRIORITY_ENCOURAGEMENT } from '../utils/priorityCalculation';
+import { FLARE_CONTACT, groupModuleCodesByExpertise } from '../utils/professionalSupportGroups';
+import { generateDIAPPdf } from '../utils/diapPdfGenerator';
+import { getSession } from '../utils/session';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategory } from '../data/diapMapping';
-import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
+import type { DIAPItem, DIAPAttachment, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { hasHelpContent, getHelpByQuestionId } from '../data/help';
 import { getResourceLink } from '../utils/resourceLinks';
+import { PageGuide, type GuideFeature } from '../components/PageGuide';
+import { Zap, Upload, Paperclip, Filter, LayoutGrid, Download, PenLine, Users as UsersIcon, CalendarDays, CheckCircle2 } from 'lucide-react';
 import '../styles/diap.css';
+
+const DIAP_FEATURES: GuideFeature[] = [
+  { icon: PenLine, title: 'Edit items', description: 'Click any card to edit the objective, action steps, notes, budget, and success indicators.' },
+  { icon: Paperclip, title: 'Upload evidence', description: 'Attach photos, quotes, or research to each action item as supporting evidence.' },
+  { icon: UsersIcon, title: 'Assign responsibility', description: 'Set a responsible person or team for each item so ownership is clear.' },
+  { icon: CalendarDays, title: 'Due dates and timeframes', description: 'Add a specific due date or general timeframe to track deadlines.' },
+  { icon: CheckCircle2, title: 'Status tracking', description: 'Update item status (Not Started, In Progress, Completed, On Hold) as work progresses.' },
+  { icon: Zap, title: 'Generate from responses', description: 'Auto-populate action items from your completed module assessment findings.' },
+  { icon: Upload, title: 'Import and export', description: 'Import from CSV, Excel, or PDF. Export as CSV or formatted PDF to share with management.' },
+  { icon: Filter, title: 'Filter and view modes', description: 'Filter by priority, category, or person. Switch between list and section views.' },
+];
 
 type TabType = 'all' | 'in-progress' | 'completed';
 type ViewMode = 'list' | 'by-section';
@@ -45,6 +62,9 @@ export default function DIAPWorkspace() {
     exportToCSV,
     getCSVTemplate,
     generateFromResponses,
+    addAttachment,
+    removeAttachment,
+    reorderItem,
   } = useDIAPManagement();
 
   const [activeTab, setActiveTab] = useState<TabType>('all');
@@ -54,7 +74,6 @@ export default function DIAPWorkspace() {
   const [filterPriority, setFilterPriority] = useState<DIAPPriority | 'all'>('all');
   const [filterResponsible, setFilterResponsible] = useState<string>('all');
   const [showDocuments, setShowDocuments] = useState(false);
-  const [showEvidence, setShowEvidence] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [showImportModal, setShowImportModal] = useState(false);
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
@@ -268,11 +287,16 @@ export default function DIAPWorkspace() {
       filtered = filtered.filter(i => i.responsibleRole === filterResponsible);
     }
 
-    // Sort by priority (high > medium > low)
-    const priorityOrder = { high: 0, medium: 1, low: 2 };
-    filtered.sort((a, b) =>
-      (priorityOrder[a.priority] || 2) - (priorityOrder[b.priority] || 2)
-    );
+    // Sort: use manual sortOrder if set, otherwise group by priority
+    const hasManualOrder = filtered.some(i => i.sortOrder !== undefined);
+    if (hasManualOrder) {
+      filtered.sort((a, b) => (a.sortOrder ?? Infinity) - (b.sortOrder ?? Infinity));
+    } else {
+      const priorityOrder = { high: 0, medium: 1, low: 2 };
+      filtered.sort((a, b) =>
+        (priorityOrder[a.priority] || 2) - (priorityOrder[b.priority] || 2)
+      );
+    }
 
     return filtered;
   }, [items, activeTab, filterCategory, filterPriority, filterResponsible]);
@@ -284,6 +308,19 @@ export default function DIAPWorkspace() {
 
   // Get stats
   const stats = getStats();
+
+  // Extract unique module codes from items for professional support grouping
+  const expertiseGroups = useMemo(() => {
+    const codes = new Set<string>();
+    for (const item of items) {
+      if (item.moduleSource) {
+        // moduleSource can be "2.1" or "Module 2.1: Name" — extract the code
+        const match = item.moduleSource.match(/(\d+\.\d+)/);
+        if (match) codes.add(match[1]);
+      }
+    }
+    return groupModuleCodesByExpertise(Array.from(codes));
+  }, [items]);
 
   // Handle status change
   const handleStatusChange = (itemId: string, newStatus: DIAPStatus) => {
@@ -302,6 +339,13 @@ export default function DIAPWorkspace() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  };
+
+  // Handle export to PDF
+  const handleExportPDF = () => {
+    const session = getSession();
+    const orgName = session?.business_snapshot?.organisation_name || 'Your Organisation';
+    generateDIAPPdf({ items, orgName });
   };
 
   // Handle download CSV template
@@ -406,7 +450,7 @@ export default function DIAPWorkspace() {
         const count = generateFromResponses(
           moduleData.responses,
           questions,
-          module.name
+          `${module.code}: ${module.name}`
         );
 
         totalGenerated += count;
@@ -460,8 +504,13 @@ export default function DIAPWorkspace() {
             <button className="btn-export" onClick={handleExportCSV}>
               Export CSV
             </button>
+            <button className="btn-export" onClick={handleExportPDF}>
+              Export PDF
+            </button>
           </div>
         </div>
+
+        <PageGuide pageId="diap" features={DIAP_FEATURES} />
 
         {/* Generation Result Notification */}
         {generationResult?.shown && (
@@ -681,72 +730,9 @@ export default function DIAPWorkspace() {
           </div>
           <div className="stat-card high-priority">
             <span className="stat-value">{stats.byPriority['high']}</span>
-            <span className="stat-label">Essential</span>
+            <span className="stat-label">High Priority</span>
           </div>
         </div>
-
-        {/* Evidence Layer - Module Completion Metadata */}
-        {completedModulesEvidence.length > 0 && (
-          <div className="evidence-layer">
-            <button
-              type="button"
-              className="evidence-layer-header"
-              onClick={() => setShowEvidence(!showEvidence)}
-              aria-expanded={showEvidence}
-            >
-              <h2>Assessment Evidence ({completedModulesEvidence.length} modules completed)</h2>
-              <span className={`chevron ${showEvidence ? 'open' : ''}`} aria-hidden="true">&#9660;</span>
-            </button>
-
-            {showEvidence && (
-              <div className="evidence-layer-content">
-                <p className="evidence-intro">
-                  These completed reviews provide the evidence base for your DIAP.
-                  Each module's findings have been used to generate suggested actions.
-                </p>
-
-                <div className="evidence-grid">
-                  {completedModulesEvidence.map(evidence => (
-                    <div key={evidence.moduleId} className="evidence-card">
-                      <div className="evidence-card-header">
-                        <span className="evidence-module-name">{evidence.moduleName}</span>
-                        <span className={`evidence-confidence confidence-${evidence.confidenceSnapshot || 'mixed'}`}>
-                          {evidence.confidenceSnapshot === 'strong' && 'Strong'}
-                          {evidence.confidenceSnapshot === 'mixed' && 'Mixed'}
-                          {evidence.confidenceSnapshot === 'needs-work' && 'Needs work'}
-                          {!evidence.confidenceSnapshot && 'Reviewed'}
-                        </span>
-                      </div>
-                      <div className="evidence-card-body">
-                        <span className="evidence-diap-section">{evidence.diapSection}</span>
-                        <div className="evidence-stats">
-                          <span className="evidence-stat positive">{evidence.doingWellCount} strengths</span>
-                          <span className="evidence-stat action">{evidence.actionsCount} actions</span>
-                        </div>
-                      </div>
-                      <div className="evidence-card-footer">
-                        {evidence.completedBy && (
-                          <span className="evidence-completed-by">
-                            Completed by: {evidence.completedBy}
-                          </span>
-                        )}
-                        {evidence.completedAt && (
-                          <span className="evidence-completed-date">
-                            {new Date(evidence.completedAt).toLocaleDateString('en-AU', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric',
-                            })}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
 
         {/* View Mode Toggle */}
         <div className="view-mode-toggle">
@@ -820,9 +806,9 @@ export default function DIAPWorkspace() {
                 className="filter-select"
               >
                 <option value="all">All Priorities</option>
-                <option value="high">Essential</option>
-                <option value="medium">Important</option>
-                <option value="low">Beneficial</option>
+                <option value="high">High Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="low">Low Priority</option>
               </select>
             </div>
 
@@ -849,6 +835,22 @@ export default function DIAPWorkspace() {
             </button>
           </div>
         </div>
+
+        {/* Priority legend (collapsible) */}
+        {items.length > 0 && (
+          <details className="diap-priority-legend">
+            <summary>Understanding priority levels</summary>
+            <dl className="diap-priority-legend-list">
+              {PRIORITY_LEGEND.map(({ level, label, description }) => (
+                <div key={level} className={`diap-priority-legend-item diap-priority-${level}`}>
+                  <dt>{label}</dt>
+                  <dd>{description}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="diap-priority-encouragement">{PRIORITY_ENCOURAGEMENT}</p>
+          </details>
+        )}
 
         {/* Add Form (only for new items - edit is inline) */}
         {showAddForm && (
@@ -889,6 +891,8 @@ export default function DIAPWorkspace() {
                         setEditingItem(null);
                       }}
                       responsiblePeopleList={responsiblePeople}
+                      onAddAttachment={addAttachment}
+                      onRemoveAttachment={removeAttachment}
                     />
                   </div>
                 ) : (
@@ -901,6 +905,10 @@ export default function DIAPWorkspace() {
                       setEditingItem(item);
                     }}
                     onDelete={() => deleteItem(item.id)}
+                    onAddAttachment={addAttachment}
+                    onRemoveAttachment={removeAttachment}
+                    onMoveUp={index > 0 ? () => reorderItem(item.id, filteredItems[index - 1].id) : undefined}
+                    onMoveDown={index < filteredItems.length - 1 ? () => reorderItem(item.id, filteredItems[index + 1].id) : undefined}
                     showEditHint={showEditHint && index === 0}
                   />
                 )
@@ -967,6 +975,10 @@ export default function DIAPWorkspace() {
                                       setEditingItem(item);
                                     }}
                                     onDelete={() => deleteItem(item.id)}
+                                    onAddAttachment={addAttachment}
+                                    onRemoveAttachment={removeAttachment}
+                                    onMoveUp={index > 0 ? () => reorderItem(item.id, categoryItems[index - 1].id) : undefined}
+                                    onMoveDown={index < categoryItems.length - 1 ? () => reorderItem(item.id, categoryItems[index + 1].id) : undefined}
                                     showEditHint={showEditHint && index === 0 && group.id === 'access'}
                                   />
                                 )
@@ -1105,6 +1117,33 @@ export default function DIAPWorkspace() {
           )}
         </div>
 
+        {/* Professional Support */}
+        {expertiseGroups.length > 0 && (
+          <div className="diap-professional-support">
+            <h2>Professional support</h2>
+            <p className="diap-prof-intro">
+              Based on your action items, the following areas may benefit from specialist input.
+            </p>
+            {expertiseGroups.map(group => (
+              <div key={group.type} className="diap-prof-group">
+                <div className="diap-prof-group-header">
+                  <strong>{group.label}</strong>
+                  <span className="diap-prof-codes">{group.moduleCodes.join(', ')}</span>
+                </div>
+                <p className="diap-prof-group-desc">{group.description}</p>
+              </div>
+            ))}
+            <div className="diap-prof-cta">
+              <span className="diap-prof-cta-label">{FLARE_CONTACT.label}</span>
+              <div className="diap-prof-cta-links">
+                <a href={`mailto:${FLARE_CONTACT.email}`}>{FLARE_CONTACT.email}</a>
+                <span className="diap-prof-cta-sep" aria-hidden="true">|</span>
+                <a href={`https://${FLARE_CONTACT.website}`} target="_blank" rel="noopener noreferrer">{FLARE_CONTACT.website}</a>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Quick Actions */}
         <div className="diap-actions">
           <Link to="/dashboard" className="btn btn-secondary">
@@ -1117,6 +1156,7 @@ export default function DIAPWorkspace() {
 
         <PageFooter />
       </div>
+
     </div>
   );
 }
@@ -1127,11 +1167,16 @@ interface DIAPItemCardProps {
   onStatusChange: (id: string, status: DIAPStatus) => void;
   onEdit: () => void;
   onDelete: () => void;
+  onAddAttachment: (id: string, file: File) => void;
+  onRemoveAttachment: (itemId: string, attachmentId: string) => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
   showEditHint?: boolean;
 }
 
-function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, showEditHint }: DIAPItemCardProps) {
+function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, onAddAttachment, onRemoveAttachment, onMoveUp, onMoveDown, showEditHint }: DIAPItemCardProps) {
   const [showStatusMenu, setShowStatusMenu] = useState(false);
+  const attachInputRef = useRef<HTMLInputElement>(null);
 
   const priorityColors = {
     high: { bg: 'rgba(239, 68, 68, 0.1)', border: '#dc2626', text: '#dc2626' },
@@ -1204,11 +1249,33 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, showEditHint }: 
           {item.complianceLevel && (
             <span className={`compliance-badge compliance-${item.complianceLevel}`}>
               {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best Practice'}
-              {item.complianceRef && ` (${item.complianceRef})`}
+            </span>
+          )}
+          {item.moduleSource && (
+            <span className="module-source-badge" title={item.moduleSource}>
+              {item.moduleSource.replace(/^\d+\.\d+:\s*/, '') || item.moduleSource}
             </span>
           )}
         </div>
         <div className="item-actions">
+          {onMoveUp && (
+            <button
+              className="action-btn reorder"
+              onClick={(e) => { e.stopPropagation(); onMoveUp(); }}
+              aria-label="Move item up"
+            >
+              ▲
+            </button>
+          )}
+          {onMoveDown && (
+            <button
+              className="action-btn reorder"
+              onClick={(e) => { e.stopPropagation(); onMoveDown(); }}
+              aria-label="Move item down"
+            >
+              ▼
+            </button>
+          )}
           <button
             className="action-btn delete"
             onClick={(e) => { e.stopPropagation(); onDelete(); }}
@@ -1232,12 +1299,11 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, showEditHint }: 
       </div>
 
       {item.action && (
-        <p className="item-description">{item.action}</p>
+        <div className="item-description">{item.action}</div>
       )}
 
       {/* Key details row - owner and timeline */}
-      {(item.responsibleRole || item.dueDate || item.timeframe) && (
-        <div className="item-details-row">
+      <div className="item-details-row">
           {item.responsibleRole && (
             <div className="detail-chip owner-chip">
               <span className="detail-icon" aria-hidden="true">👤</span>
@@ -1255,14 +1321,22 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, showEditHint }: 
                 })}
               </span>
             </div>
-          ) : item.timeframe && (
+          ) : item.timeframe ? (
             <div className="detail-chip timeframe-chip">
               <span className="detail-icon" aria-hidden="true">⏱️</span>
               <span className="detail-text">{item.timeframe}</span>
             </div>
+          ) : (
+            <button
+              className="detail-chip set-timeframe-btn"
+              onClick={(e) => { e.stopPropagation(); onEdit(); }}
+              aria-label="Set a timeframe for this item"
+            >
+              <span className="detail-icon" aria-hidden="true">⏱️</span>
+              <span className="detail-text">Set your timeframe</span>
+            </button>
           )}
-        </div>
-      )}
+      </div>
 
       <div className="item-footer">
         <div className="status-selector" onClick={(e) => e.stopPropagation()}>
@@ -1297,11 +1371,6 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, showEditHint }: 
         </div>
       </div>
 
-      {item.moduleSource && (
-        <div className="item-source">
-          From module: {item.moduleSource}
-        </div>
-      )}
       {item.questionSource && hasHelpContent(item.questionSource) && (() => {
         const help = getHelpByQuestionId(item.questionSource!);
         return (
@@ -1316,6 +1385,55 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, showEditHint }: 
           </div>
         );
       })()}
+
+      {/* Per-item attachments */}
+      <div className="item-attachments" onClick={(e) => e.stopPropagation()}>
+        {(item.attachments || []).length === 0 && (
+          <p className="evidence-hint">
+            Add evidence: site photos, supplier quotes, policy documents, training records, or research.
+          </p>
+        )}
+        {(item.attachments || []).length > 0 && (
+          <div className="attachment-list">
+            {item.attachments!.map(att => (
+              <div key={att.id} className="attachment-chip">
+                <span className="attachment-icon" aria-hidden="true">
+                  {att.type.startsWith('image/') ? '🖼️' : '📎'}
+                </span>
+                <span className="attachment-name" title={att.name}>{att.name}</span>
+                <button
+                  className="attachment-remove"
+                  onClick={() => onRemoveAttachment(item.id, att.id)}
+                  aria-label={`Remove ${att.name}`}
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        <input
+          ref={attachInputRef}
+          type="file"
+          className="sr-only"
+          accept="image/*,.pdf,.doc,.docx,.txt,.csv,.xlsx"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              onAddAttachment(item.id, file);
+              e.target.value = '';
+            }
+          }}
+          aria-label="Upload attachment"
+        />
+        <button
+          className="btn-attach"
+          onClick={() => attachInputRef.current?.click()}
+          aria-label="Add evidence or attachment"
+        >
+          + Add evidence
+        </button>
+      </div>
     </div>
   );
 }
@@ -1326,16 +1444,19 @@ interface DIAPItemFormProps {
   onSave: (data: Partial<DIAPItem>) => void;
   onCancel: () => void;
   responsiblePeopleList?: string[];
+  onAddAttachment?: (itemId: string, file: File) => void;
+  onRemoveAttachment?: (itemId: string, attachmentId: string) => void;
 }
 
-function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DIAPItemFormProps) {
+function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [], onAddAttachment, onRemoveAttachment }: DIAPItemFormProps) {
+  const formAttachRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     objective: item?.objective || '',
     action: item?.action || '',
     category: item?.category || 'physical-access' as DIAPCategory,
     priority: item?.priority || 'medium' as DIAPPriority,
     status: item?.status || 'not-started' as DIAPStatus,
-    timeframe: item?.timeframe || '30-90 days',
+    timeframe: item?.timeframe || '',
     dueDate: item?.dueDate || '',
     responsibleRole: item?.responsibleRole || '',
     notes: item?.notes || '',
@@ -1352,21 +1473,10 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
     });
   };
 
-  // Calculate suggested timeframe based on priority
-  const getSuggestedTimeframe = (priority: DIAPPriority) => {
-    switch (priority) {
-      case 'high': return '0-30 days';
-      case 'medium': return '30-90 days';
-      case 'low': return '3-12 months';
-      default: return '30-90 days';
-    }
-  };
-
   const handlePriorityChange = (newPriority: DIAPPriority) => {
     setFormData({
       ...formData,
       priority: newPriority,
-      timeframe: getSuggestedTimeframe(newPriority),
     });
   };
 
@@ -1423,21 +1533,21 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
               className={`priority-btn priority-high ${formData.priority === 'high' ? 'active' : ''}`}
               onClick={() => handlePriorityChange('high')}
             >
-              Essential
+              High
             </button>
             <button
               type="button"
               className={`priority-btn priority-medium ${formData.priority === 'medium' ? 'active' : ''}`}
               onClick={() => handlePriorityChange('medium')}
             >
-              Important
+              Medium
             </button>
             <button
               type="button"
               className={`priority-btn priority-low ${formData.priority === 'low' ? 'active' : ''}`}
               onClick={() => handlePriorityChange('low')}
             >
-              Beneficial
+              Low
             </button>
           </div>
         </label>
@@ -1469,9 +1579,10 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
             value={formData.timeframe}
             onChange={(e) => setFormData({ ...formData, timeframe: e.target.value })}
           >
-            <option value="0-30 days">Do now (0-30 days)</option>
-            <option value="30-90 days">Do next (30-90 days)</option>
-            <option value="3-12 months">Plan later (3-12 months)</option>
+            <option value="">Select timeframe</option>
+            <option value="0-30 days">0-30 days</option>
+            <option value="30-90 days">30-90 days</option>
+            <option value="3-12 months">3-12 months</option>
             <option value="Ongoing">Ongoing</option>
           </select>
         </label>
@@ -1535,6 +1646,61 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [] }: DI
           />
         </label>
       </div>
+
+      {/* Evidence upload (only when editing existing item) */}
+      {item && onAddAttachment && (
+        <div className="form-row">
+          <label>
+            Evidence
+            <span className="field-hint">
+              Upload photos, quotes, research, or documents. Examples: site photos showing current state,
+              supplier quotes for improvements, staff training certificates, policy documents.
+            </span>
+          </label>
+          {(item.attachments || []).length > 0 && (
+            <div className="attachment-list" style={{ marginBottom: '8px' }}>
+              {item.attachments!.map(att => (
+                <div key={att.id} className="attachment-chip">
+                  <span className="attachment-icon" aria-hidden="true">
+                    {att.type.startsWith('image/') ? '🖼️' : '📎'}
+                  </span>
+                  <span className="attachment-name" title={att.name}>{att.name}</span>
+                  {onRemoveAttachment && (
+                    <button
+                      type="button"
+                      className="attachment-remove"
+                      onClick={() => onRemoveAttachment(item.id, att.id)}
+                      aria-label={`Remove ${att.name}`}
+                    >
+                      &times;
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          <input
+            ref={formAttachRef}
+            type="file"
+            className="sr-only"
+            accept="image/*,.pdf,.doc,.docx,.txt,.csv,.xlsx"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                onAddAttachment(item.id, file);
+                e.target.value = '';
+              }
+            }}
+          />
+          <button
+            type="button"
+            className="btn-attach"
+            onClick={() => formAttachRef.current?.click()}
+          >
+            + Add evidence
+          </button>
+        </div>
+      )}
 
       <div className="form-actions">
         <button type="button" className="btn-cancel" onClick={onCancel}>

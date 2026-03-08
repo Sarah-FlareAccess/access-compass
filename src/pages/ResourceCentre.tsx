@@ -86,7 +86,16 @@ import { useModuleProgress } from '../hooks/useModuleProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { MODULES } from '../lib/recommendationEngine';
 import { accessModules } from '../data/accessModules';
+import { PageGuide, type GuideFeature } from '../components/PageGuide';
 import './ResourceCentre.css';
+
+const RESOURCE_FEATURES: GuideFeature[] = [
+  { icon: Search, title: 'Search all resources', description: 'Find guides using keyword search across all resource articles.' },
+  { icon: BookOpen, title: 'Browse by category', description: 'Explore resources organised by 6 accessibility topic categories.' },
+  { icon: Lock, title: 'Unlock content', description: 'Complete modules to unlock detailed resource guides and checklists.' },
+  { icon: Filter, title: 'DIAP category filter', description: 'Filter resources by DIAP category like physical access or customer service.' },
+  { icon: Scale, title: 'Standards and legislation', description: 'Access external links to Australian laws, codes, and guidelines.' },
+];
 
 // Category configuration
 const CATEGORIES: {
@@ -880,6 +889,8 @@ export function ResourceCentre() {
               </div>
             </dl>
           </section>
+
+          <PageGuide pageId="resources" features={RESOURCE_FEATURES} />
 
           {/* === HUB BODY === */}
           <div className="hub-body">

@@ -44,8 +44,8 @@
   color: white;
 }
 
-.back-link:focus {
-  outline: 2px solid white;
+.back-link:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 4px;
   border-radius: 4px;
 }

@@ -10,6 +10,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
+import { MODULE_TO_DIAP_MAPPING, DIAP_SECTIONS } from '../data/diapMapping';
+import { getModuleById, getQuestionsForMode } from '../data/accessModules';
+import { generateActionText } from '../components/questions/QuestionFlow';
 
 export type DIAPCategory =
   | 'physical-access'
@@ -65,10 +68,25 @@ export interface DIAPItem {
   notes?: string;
   successIndicators?: string; // How success will be measured
 
+  // Per-item attachments (evidence, quotes, research)
+  attachments?: DIAPAttachment[];
+
+  // Display order (lower = higher in list)
+  sortOrder?: number;
+
   // Timestamps
   createdAt: string;
   updatedAt: string;
   completedAt?: string;
+}
+
+export interface DIAPAttachment {
+  id: string;
+  name: string;
+  type: string;
+  size: number;
+  dataUrl: string;
+  addedAt: string;
 }
 
 export interface DIAPDocument {
@@ -87,9 +105,87 @@ const DIAP_ITEMS_KEY = 'access_compass_diap_items';
 const DIAP_DOCUMENTS_KEY = 'access_compass_diap_documents';
 
 // Local storage functions
+const DIAP_MIGRATION_KEY = 'diap_migration_v6';
+
 function getLocalItems(): DIAPItem[] {
   const data = localStorage.getItem(DIAP_ITEMS_KEY);
-  return data ? JSON.parse(data) : [];
+  if (!data) return [];
+  const items: DIAPItem[] = JSON.parse(data);
+
+  // One-time migration: fix timeframes, priorities, categories, and complianceLevel
+  if (!localStorage.getItem(DIAP_MIGRATION_KEY)) {
+    let changed = false;
+    for (const item of items) {
+      // Clear all preset timeframes (old defaults)
+      if (item.timeframe && item.timeframe !== 'Ongoing') {
+        item.timeframe = '';
+        changed = true;
+      }
+
+      // Recalculate priority and fix category/complianceLevel from source question
+      if (item.questionSource && item.moduleSource) {
+        const moduleCode = extractModuleCode(item.moduleSource);
+        if (moduleCode) {
+          const mod = getModuleById(moduleCode);
+          if (mod) {
+            const questions = getQuestionsForMode(mod, 'deep-dive');
+            // Strip suffixes like "-media-0" or "-url-1" to find the base question ID
+            const baseQuestionId = item.questionSource.replace(/-(media|url)-\d+$/, '');
+            const question = questions.find(q => q.id === baseQuestionId || q.id === item.questionSource);
+            if (question) {
+              // Fix complianceLevel if missing
+              if (!item.complianceLevel && question.complianceLevel) {
+                item.complianceLevel = question.complianceLevel;
+                changed = true;
+              }
+
+              // Recalculate priority from question data
+              const answer = item.status === 'completed' ? 'yes' : 'no';
+              const newPriority = calculateQuestionPriority({
+                complianceLevel: question.complianceLevel,
+                safetyRelated: question.safetyRelated,
+                impactLevel: question.impactLevel,
+                answer,
+              });
+              if (item.priority !== newPriority) {
+                item.priority = newPriority;
+                changed = true;
+              }
+
+              // Regenerate objective and actions using outcome-focused system
+              if (item.importSource === 'audit') {
+                const newObjective = generateObjective(question, answer, moduleCode);
+                if (item.objective !== newObjective) {
+                  item.objective = newObjective;
+                  item.action = generateDIAPActions(question, answer);
+                  changed = true;
+                }
+              }
+            }
+
+            // Fix category using authoritative mapping
+            const correctCategory = mapModuleToCategory(moduleCode);
+            if (item.category !== correctCategory) {
+              item.category = correctCategory;
+              changed = true;
+            }
+          }
+        }
+      }
+
+      // Ensure every item has a complianceLevel (default to best-practice)
+      if (!item.complianceLevel) {
+        item.complianceLevel = 'best-practice';
+        changed = true;
+      }
+    }
+    localStorage.setItem(DIAP_MIGRATION_KEY, 'true');
+    if (changed) {
+      localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
+    }
+  }
+
+  return items;
 }
 
 function saveLocalItems(items: DIAPItem[]) {
@@ -203,29 +299,17 @@ function calculateTimeframe(priority: DIAPPriority): string {
   return '';
 }
 
-// Convert question to action text
-function questionToAction(questionText: string): string {
-  // Remove question mark and convert to action
-  let action = questionText.replace(/\?$/, '');
-
-  // Common patterns to convert
-  const patterns = [
-    { match: /^Do you have/i, replace: 'Implement' },
-    { match: /^Is there/i, replace: 'Add' },
-    { match: /^Are there/i, replace: 'Provide' },
-    { match: /^Can customers/i, replace: 'Enable customers to' },
-    { match: /^Do customers/i, replace: 'Ensure customers can' },
-    { match: /^Does your/i, replace: 'Ensure your' },
-  ];
-
-  for (const { match, replace } of patterns) {
-    if (match.test(action)) {
-      action = action.replace(match, replace);
-      break;
-    }
+// Get DIAP action text from question - uses same system as the report
+function getDIAPActionText(question: any, answer: string): string {
+  if (answer === 'no' || answer === 'not-sure') {
+    return question.actionText?.no || generateActionText(question.text);
   }
-
-  return action;
+  if (answer === 'partially') {
+    if (question.actionText?.partially) return question.actionText.partially;
+    const base = generateActionText(question.text);
+    return `Complete improvements: ${base.charAt(0).toLowerCase() + base.slice(1)}`;
+  }
+  return generateActionText(question.text);
 }
 
 export function useDIAPManagement(): UseDIAPManagementReturn {
@@ -402,8 +486,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       const item: DIAPItem = {
         id: uuidv4(),
         sessionId: session?.session_id || '',
-        objective: `Improve ${response.moduleName.toLowerCase()}`,
-        action: questionToAction(response.questionText),
+        objective: generateObjective({ text: response.questionText }, response.answer, response.moduleCode),
+        action: generateDIAPActions({ text: response.questionText }, response.answer),
         category: response.category || 'operations-policy-procedure',
         priority,
         timeframe,
@@ -984,7 +1068,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
               category: categorizeFromText(text),
               priority: 'medium',
               status: 'not-started',
-              timeframe: '30-90 days',
+              timeframe: '',
               importSource: 'pdf',
               createdAt: now,
               updatedAt: now,
@@ -1063,16 +1147,14 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             : undefined;
         }
 
-        // Generate action text based on response type
-        const action = response.answer === 'partially'
-          ? `Complete improvements to: ${questionToAction(question.text).toLowerCase()}`
-          : questionToAction(question.text);
+        // Extract module code from moduleName (e.g. "1.4: Social media..." -> "1.4")
+        const moduleCodeForObj = moduleName.match(/(\d+\.\d+)/)?.[1] || '';
 
         const item: DIAPItem = {
           id: uuidv4(),
           sessionId: session?.session_id || '',
-          objective: generateObjective(question.text, moduleName),
-          action,
+          objective: generateObjective(question, response.answer, moduleCodeForObj),
+          action: generateDIAPActions(question, response.answer),
           category: mapModuleToCategory(moduleName),
           priority,
           status: 'not-started',
@@ -1093,9 +1175,13 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       // Generate items from media analysis improvements
       if (response.mediaAnalysis && response.mediaAnalysis.improvements?.length > 0) {
         const analysisType = response.mediaAnalysis.analysisType || 'media';
-        const priority: DIAPPriority = response.mediaAnalysis.needsProfessionalReview ? 'high' :
-          response.mediaAnalysis.overallScore < 50 ? 'high' :
-          response.mediaAnalysis.overallScore < 70 ? 'medium' : 'low';
+        // Use the same priority system as regular questions
+        const priority: DIAPPriority = calculateQuestionPriority({
+          complianceLevel: question?.complianceLevel,
+          safetyRelated: question?.safetyRelated,
+          impactLevel: question?.impactLevel,
+          answer: response.answer || 'no',
+        });
 
         response.mediaAnalysis.improvements.forEach((improvement: string, idx: number) => {
           const itemId = `${response.questionId}-media-${idx}`;
@@ -1113,6 +1199,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             moduleSource: moduleName,
             questionSource: itemId,
             importSource: 'audit',
+            complianceLevel: question?.complianceLevel,
+            complianceRef: question?.complianceRef,
             notes: `From ${formatAnalysisType(analysisType)} analysis (Score: ${response.mediaAnalysis.overallScore}/100)`,
             createdAt: now,
             updatedAt: now,
@@ -1124,8 +1212,13 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
 
       // Generate items from URL/website analysis improvements
       if (response.urlAnalysis && response.urlAnalysis.improvements?.length > 0) {
-        const priority: DIAPPriority = response.urlAnalysis.overallScore < 50 ? 'high' :
-          response.urlAnalysis.overallScore < 70 ? 'medium' : 'low';
+        // Use the same priority system as regular questions
+        const priority: DIAPPriority = calculateQuestionPriority({
+          complianceLevel: question?.complianceLevel,
+          safetyRelated: question?.safetyRelated,
+          impactLevel: question?.impactLevel,
+          answer: response.answer || 'no',
+        });
 
         response.urlAnalysis.improvements.forEach((improvement: string, idx: number) => {
           const itemId = `${response.questionId}-url-${idx}`;
@@ -1143,6 +1236,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             moduleSource: moduleName,
             questionSource: itemId,
             importSource: 'audit',
+            complianceLevel: question?.complianceLevel,
+            complianceRef: question?.complianceRef,
             notes: `From website audit of ${response.urlAnalysis.url} (Score: ${response.urlAnalysis.overallScore}/100)`,
             createdAt: now,
             updatedAt: now,
@@ -1259,6 +1354,59 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     }
   }, [items, documents]);
 
+  // Add attachment to an item
+  const addAttachment = useCallback(async (itemId: string, file: File) => {
+    const dataUrl = await fileToBase64(file);
+    const attachment: DIAPAttachment = {
+      id: uuidv4(),
+      name: file.name,
+      type: file.type,
+      size: file.size,
+      dataUrl,
+      addedAt: new Date().toISOString(),
+    };
+    setItems(prev => {
+      const updated = prev.map(item => {
+        if (item.id === itemId) {
+          return { ...item, attachments: [...(item.attachments || []), attachment], updatedAt: new Date().toISOString() };
+        }
+        return item;
+      });
+      saveLocalItems(updated);
+      return updated;
+    });
+  }, []);
+
+  // Remove attachment from an item
+  const removeAttachment = useCallback((itemId: string, attachmentId: string) => {
+    setItems(prev => {
+      const updated = prev.map(item => {
+        if (item.id === itemId) {
+          return { ...item, attachments: (item.attachments || []).filter(a => a.id !== attachmentId), updatedAt: new Date().toISOString() };
+        }
+        return item;
+      });
+      saveLocalItems(updated);
+      return updated;
+    });
+  }, []);
+
+  // Reorder: swap two items by their IDs
+  const reorderItem = useCallback((itemIdA: string, itemIdB: string) => {
+    setItems(prev => {
+      const idxA = prev.findIndex(i => i.id === itemIdA);
+      const idxB = prev.findIndex(i => i.id === itemIdB);
+      if (idxA === -1 || idxB === -1) return prev;
+
+      const updated = [...prev];
+      [updated[idxA], updated[idxB]] = [updated[idxB], updated[idxA]];
+      // Update sortOrder to match array positions
+      const reordered = updated.map((item, i) => ({ ...item, sortOrder: i }));
+      saveLocalItems(reordered);
+      return reordered;
+    });
+  }, []);
+
   return {
     items,
     documents,
@@ -1275,6 +1423,9 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     uploadDocument,
     deleteDocument,
     linkDocumentToItem,
+    addAttachment,
+    removeAttachment,
+    reorderItem,
     getItemsByPriority,
     getItemsByStatus,
     getItemsByTimeframe,
@@ -1353,7 +1504,7 @@ function categorizeFromText(text: string): DIAPCategory {
     return 'physical-access';
   }
   // Information, Communication & Marketing - digital, print, signage, marketing
-  if (lower.match(/website|online|digital|app|software|screen reader|wcag|alt text|caption|sign|braille|auslan|interpreter|language|document|format|font|print|marketing|brochure|flyer|menu/)) {
+  if (lower.match(/website|online|digital|app|software|screen reader|wcag|alt text|caption|subtitle|video|audio|social media|sign|braille|auslan|interpreter|language|document|format|font|print|marketing|brochure|flyer|menu|booking|ticketing/)) {
     return 'information-communication-marketing';
   }
   // Customer Service - service delivery, customer interactions
@@ -1386,32 +1537,31 @@ function prioritizeFromText(text: string): DIAPPriority {
   return 'medium';
 }
 
-// Helper: Map module name to category
-function mapModuleToCategory(moduleName: string): DIAPCategory {
-  const lower = moduleName.toLowerCase();
-
-  // Physical Access
-  if (lower.match(/entrance|arrival|parking|path|physical|toilet|facility|wayfinding|seating|sensory/)) {
-    return 'physical-access';
-  }
-  // Information, Communication & Marketing
-  if (lower.match(/communication|information|signage|document|website|digital|online|technology|marketing/)) {
-    return 'information-communication-marketing';
-  }
-  // Customer Service
-  if (lower.match(/customer|service|experience|service point/)) {
-    return 'customer-service';
-  }
-  // People & Culture
-  if (lower.match(/staff|training|awareness/)) {
-    return 'people-culture';
-  }
-  // Operations, Policy & Procedure (default)
-  if (lower.match(/policy|procedure|operations/)) {
-    return 'operations-policy-procedure';
+// Helper: Map module code or name to DIAP category using authoritative mapping
+function mapModuleToCategory(moduleNameOrCode: string): DIAPCategory {
+  // Extract module code (e.g. "1.4" from "Social media, video & audio" or "1.4")
+  const codeMatch = moduleNameOrCode.match(/(\d+\.\d+)/);
+  if (codeMatch) {
+    const sectionId = MODULE_TO_DIAP_MAPPING[codeMatch[1]];
+    if (sectionId) {
+      const section = DIAP_SECTIONS.find(s => s.id === sectionId);
+      if (section) return section.categoryId as DIAPCategory;
+    }
   }
 
+  // Fallback: try to find module by name
+  const lower = moduleNameOrCode.toLowerCase();
+  if (lower.match(/entrance|arrival|parking|path|toilet|seating|sensory|accommodation|signage|wayfinding|lighting|sound/)) return 'physical-access';
+  if (lower.match(/communication|information|website|digital|marketing|social media|video|audio|menu|brochure|booking|ticketing/)) return 'information-communication-marketing';
+  if (lower.match(/customer|service|experience|equipment|activity|retail|safety|feedback/)) return 'customer-service';
+  if (lower.match(/staff|training|awareness/)) return 'people-culture';
   return 'operations-policy-procedure';
+}
+
+// Helper: Extract module code from moduleSource string
+function extractModuleCode(moduleSource: string): string | undefined {
+  const match = moduleSource.match(/(\d+\.\d+)/);
+  return match ? match[1] : undefined;
 }
 
 // Helper: Map analysis type to category
@@ -1460,29 +1610,110 @@ function formatAnalysisType(analysisType: string): string {
   return labels[analysisType] || analysisType;
 }
 
-// Helper: Generate objective from question text
-function generateObjective(questionText: string, moduleName: string): string {
-  // Extract key concepts from the question
-  const lower = questionText.toLowerCase();
+// Helper: Generate outcome-focused objective from question topic
+function generateObjective(question: any, answer: string, moduleCode?: string): string {
+  const lower = question.text.toLowerCase();
 
-  if (lower.includes('accessible') || lower.includes('accessibility')) {
-    return `Ensure accessibility of ${moduleName.toLowerCase()}`;
+  // Module-group outcome themes
+  const code = moduleCode || '';
+  if (code.startsWith('1.')) {
+    // Before Arrival
+    if (lower.includes('transport')) return 'Build visitor confidence by providing pre-visit accessible transport information';
+    if (lower.includes('parking')) return 'Enable independent arrival by providing clear accessible parking information';
+    if (lower.includes('booking') || lower.includes('reservation') || lower.includes('ticketing')) return 'Ensure all customers can book and plan their visit independently';
+    if (lower.includes('website') || lower.includes('online')) return 'Ensure your online presence is accessible to all potential visitors';
+    if (lower.includes('video') || lower.includes('audio') || lower.includes('caption') || lower.includes('subtitle')) return 'Ensure video and audio content is accessible to people with hearing or vision disabilities';
+    if (lower.includes('social media') || lower.includes('alt text') || lower.includes('image description')) return 'Ensure social media content reaches and is usable by all audiences';
+    if (lower.includes('marketing') || lower.includes('representation')) return 'Ensure marketing materials reflect and welcome diverse audiences';
+    if (lower.includes('language') || lower.includes('plain') || lower.includes('easy read')) return 'Ensure communications are clear and understandable for all audiences';
+    if (lower.includes('auslan') || lower.includes('sign language') || lower.includes('interpreter')) return 'Provide communication options for Deaf and hard of hearing visitors';
+    return 'Enable all visitors to plan and prepare for their visit with confidence';
   }
-  if (lower.includes('clear') || lower.includes('visible')) {
-    return `Improve clarity and visibility in ${moduleName.toLowerCase()}`;
+  if (code.startsWith('2.')) {
+    // Getting In
+    if (lower.includes('entrance') || lower.includes('entry') || lower.includes('door')) return 'Ensure all visitors can enter the premises independently and with dignity';
+    if (lower.includes('ramp') || lower.includes('step') || lower.includes('stair') || lower.includes('level')) return 'Remove physical barriers to entry for people with mobility disabilities';
+    if (lower.includes('path') || lower.includes('aisle') || lower.includes('route')) return 'Ensure all paths and aisles are navigable for wheelchair visitors and people with mobility aids';
+    if (lower.includes('queue') || lower.includes('wait') || lower.includes('busy')) return 'Reduce barriers for people who cannot stand in queues or manage busy environments';
+    if (lower.includes('parking') || lower.includes('drop-off')) return 'Ensure accessible arrival options for people with mobility disabilities';
+    return 'Remove barriers to entry and ensure all visitors can access the premises';
   }
-  if (lower.includes('safe') || lower.includes('safety')) {
-    return `Address safety concerns in ${moduleName.toLowerCase()}`;
+  if (code.startsWith('3.')) {
+    // During Visit
+    if (lower.includes('toilet') || lower.includes('bathroom') || lower.includes('amenit')) return 'Ensure toilet and amenity facilities are accessible and meet visitor needs';
+    if (lower.includes('seating') || lower.includes('chair') || lower.includes('furniture')) return 'Provide comfortable and accessible seating and furniture options';
+    if (lower.includes('lighting') || lower.includes('glare')) return 'Create a comfortable visual environment for all visitors';
+    if (lower.includes('noise') || lower.includes('sound') || lower.includes('acoustic') || lower.includes('sensory')) return 'Create a comfortable sensory environment for visitors with sensory sensitivities';
+    if (lower.includes('sign') || lower.includes('wayfinding') || lower.includes('direction')) return 'Help all visitors navigate the space confidently and independently';
+    if (lower.includes('menu') || lower.includes('printed') || lower.includes('brochure')) return 'Ensure printed materials are accessible to people with vision or cognitive disabilities';
+    if (lower.includes('hearing loop') || lower.includes('assistive listening')) return 'Ensure people with hearing disabilities can participate fully';
+    if (lower.includes('accommodation') || lower.includes('room') || lower.includes('bed')) return 'Provide accessible accommodation that meets diverse guest needs';
+    if (lower.includes('retail') || lower.includes('shopping') || lower.includes('checkout')) return 'Ensure all customers can browse, select, and purchase independently';
+    if (lower.includes('activity') || lower.includes('experience') || lower.includes('recreation')) return 'Enable all visitors to participate fully in activities and experiences';
+    return 'Ensure all visitors can participate comfortably during their visit';
   }
-  if (lower.includes('train') || lower.includes('staff')) {
-    return `Improve staff awareness and training`;
+  if (code.startsWith('4.')) {
+    // Service & Support
+    if (lower.includes('staff') && (lower.includes('train') || lower.includes('aware') || lower.includes('confiden'))) return 'Build staff confidence and capability in supporting customers with disability';
+    if (lower.includes('feedback') || lower.includes('complaint') || lower.includes('review')) return 'Ensure customers with disability can easily provide feedback';
+    if (lower.includes('safety') || lower.includes('emergency') || lower.includes('evacuation')) return 'Ensure safety and emergency procedures are inclusive of people with disability';
+    if (lower.includes('companion') || lower.includes('carer') || lower.includes('support person')) return 'Ensure companion and support person needs are accommodated';
+    if (lower.includes('service') || lower.includes('assistance')) return 'Deliver inclusive and responsive customer service';
+    return 'Ensure service and support is inclusive and responsive';
   }
-  if (lower.includes('sign') || lower.includes('wayfinding')) {
-    return `Enhance signage and wayfinding`;
+  if (code.startsWith('5.')) {
+    // Organisation
+    if (lower.includes('policy') || lower.includes('procedure')) return 'Embed accessibility into organisational policies and procedures';
+    if (lower.includes('employ') || lower.includes('recruit') || lower.includes('workplace')) return 'Create an inclusive workplace for employees with disability';
+    if (lower.includes('procurement') || lower.includes('purchasing') || lower.includes('supplier')) return 'Ensure procurement processes consider accessibility requirements';
+    if (lower.includes('train') || lower.includes('awareness')) return 'Build organisational capacity through accessibility training';
+    if (lower.includes('review') || lower.includes('audit') || lower.includes('improvement') || lower.includes('report')) return 'Drive continuous improvement in accessibility outcomes';
+    return 'Strengthen organisational commitment to disability inclusion';
   }
-  if (lower.includes('website') || lower.includes('digital')) {
-    return `Improve digital accessibility`;
+  if (code.startsWith('6.')) {
+    // Events
+    if (lower.includes('venue') || lower.includes('location') || lower.includes('space')) return 'Ensure event venues are physically accessible';
+    if (lower.includes('registration') || lower.includes('booking') || lower.includes('sign up')) return 'Ensure event registration is accessible and captures access needs';
+    if (lower.includes('communication') || lower.includes('promotion') || lower.includes('information')) return 'Ensure event communications are accessible to all audiences';
+    return 'Deliver events that are inclusive and accessible to all participants';
   }
 
-  return `Improve ${moduleName.toLowerCase()} accessibility`;
+  // Generic fallbacks by topic
+  if (lower.includes('safe') || lower.includes('hazard') || lower.includes('emergency')) return 'Ensure safety measures are inclusive of people with disability';
+  if (lower.includes('staff') || lower.includes('train')) return 'Build staff capability in disability inclusion';
+  if (lower.includes('sign') || lower.includes('wayfind')) return 'Ensure all visitors can navigate the space independently';
+  if (lower.includes('website') || lower.includes('digital') || lower.includes('online')) return 'Ensure digital presence is accessible to all visitors';
+
+  return 'Improve accessibility and inclusion in this area';
+}
+
+// Helper: Generate multi-step action text for DIAP items
+function generateDIAPActions(question: any, answer: string): string {
+  const primaryAction = getDIAPActionText(question, answer);
+  const lower = question.text.toLowerCase();
+
+  // Build supporting actions based on topic
+  const supportingActions: string[] = [];
+
+  // Staff-related actions
+  if (lower.includes('staff') || lower.includes('customer') || lower.includes('service') || lower.includes('greeting')) {
+    supportingActions.push('Train relevant staff on requirements and procedures');
+  } else {
+    supportingActions.push('Brief relevant staff on changes and expectations');
+  }
+
+  // Policy/review actions
+  if (lower.includes('policy') || lower.includes('procedure') || lower.includes('process')) {
+    supportingActions.push('Schedule policy review every 12 months');
+  } else if (lower.includes('website') || lower.includes('digital') || lower.includes('online') || lower.includes('social media')) {
+    supportingActions.push('Schedule regular accessibility audits of digital content');
+  } else if (lower.includes('sign') || lower.includes('material') || lower.includes('print') || lower.includes('menu') || lower.includes('brochure')) {
+    supportingActions.push('Create process to review materials every 6 months');
+  } else {
+    supportingActions.push('Document the change and schedule review in 6 months');
+  }
+
+  // Format as numbered steps
+  const steps = [primaryAction, ...supportingActions];
+  return steps.map((s, i) => `${i + 1}. ${s}`).join('\n');
 }

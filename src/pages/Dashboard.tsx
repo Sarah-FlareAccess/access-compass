@@ -28,6 +28,8 @@ import { ReportProblem, ReportProblemTrigger } from '../components/ReportProblem
 import { BottomTabBar } from '../components/BottomTabBar';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { InstallPrompt } from '../components/InstallPrompt';
+import { PageGuide, type GuideFeature } from '../components/PageGuide';
+import { GitCompare, Gauge, Users, ImagePlus, BarChart3, ListChecks } from 'lucide-react';
 import { getCategoryLink } from '../utils/resourceLinks';
 import '../styles/dashboard.css';
 
@@ -55,6 +57,15 @@ interface ModuleGroupWithProgress {
   completedCount: number;
   totalCount: number;
 }
+
+const DASHBOARD_FEATURES: GuideFeature[] = [
+  { icon: Users, title: 'Module allocation', description: 'Assign modules to team members so the right people review the right areas.' },
+  { icon: GitCompare, title: 'Run comparison', description: 'Compare responses across multiple assessment runs side by side.' },
+  { icon: Gauge, title: 'Confidence snapshot', description: 'See how confident each module assessment is (strong, mixed, needs work).' },
+  { icon: ImagePlus, title: 'Evidence gallery', description: 'Upload and manage photos and documents collected during assessments.' },
+  { icon: BarChart3, title: 'Report and DIAP', description: 'Jump to your Report or DIAP directly from any completed module.' },
+  { icon: ListChecks, title: 'Expand module groups', description: 'Click group headers to expand and see individual module progress.' },
+];
 
 export default function Dashboard() {
   usePageTitle('Dashboard');
@@ -522,20 +533,6 @@ Thanks!`;
               Dashboard
             </Link>
 
-            {/* Settings (Dashboard only) */}
-            <div className="sidebar-section-title">Settings</div>
-            <button
-              type="button"
-              className="sidebar-nav-item"
-              onClick={() => setShowAdminPanel(true)}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.092.1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.092.1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-              </svg>
-              Organisation Settings
-            </button>
-
             {/* Discovery */}
             <div className="sidebar-section-title">Discovery</div>
             <Link to="/discovery/summary" className="sidebar-nav-item" aria-current={location.pathname === '/discovery/summary' ? 'page' : undefined}>
@@ -557,14 +554,6 @@ Thanks!`;
                 <polyline points="10 9 9 9 8 9"/>
               </svg>
               Report
-            </Link>
-            <Link to="/export" className="sidebar-nav-item" aria-current={location.pathname === '/export' ? 'page' : undefined}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7 10 12 15 17 10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
-              Export / Download
             </Link>
             <Link to="/diap" className="sidebar-nav-item" aria-current={location.pathname === '/diap' ? 'page' : undefined}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -628,6 +617,7 @@ Thanks!`;
           <h1 className="sr-only">Accessibility Dashboard</h1>
           <div className="dashboard-container">
             <InstallPrompt />
+            <PageGuide pageId="dashboard" features={DASHBOARD_FEATURES} />
             {/* Primary Action Hero - Clickable */}
             {overallStats.modulesInProgress > 0 ? (
               <button

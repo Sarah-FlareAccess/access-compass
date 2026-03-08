@@ -821,7 +821,7 @@
 }
 
 .btn-pathway-simple:focus-visible {
-  outline: 3px solid currentColor;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1445,7 +1445,7 @@
 }
 
 .btn-pathway-choice:focus-visible {
-  outline: 3px solid currentColor;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

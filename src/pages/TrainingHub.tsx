@@ -73,12 +73,58 @@ export default function TrainingHub() {
 
   return (
     <div className="training-hub">
-      <div className="training-hub-header">
-        <h1 className="training-hub-title">Training Hub</h1>
-        <p className="training-hub-subtitle">
-          Build your team's accessibility knowledge with courses, webinars, and practical resources.
+      {/* Hero header */}
+      <section className="training-hero">
+        <span className="training-eyebrow">Training Hub</span>
+        <h1 className="training-hero-title">Build your team's <em>accessibility skills</em></h1>
+        <p className="training-hero-subtitle">
+          Courses, webinars, and practical resources to grow confidence in disability inclusion.
         </p>
-      </div>
+
+        <div className="training-hero-search">
+          <form className="training-search-form" onSubmit={handleSearch} role="search">
+            <label htmlFor="training-search" className="sr-only">Search training</label>
+            <div className="training-search-wrapper">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="training-search-icon" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              <input
+                id="training-search"
+                type="search"
+                className="training-search-input"
+                placeholder="Search courses and resources..."
+                value={localSearchQuery}
+                onChange={(e) => setLocalSearchQuery(e.target.value)}
+              />
+              {localSearchQuery && (
+                <button
+                  type="button"
+                  className="training-search-clear"
+                  onClick={() => {
+                    setLocalSearchQuery('');
+                    const params = new URLSearchParams(searchParams);
+                    params.delete('q');
+                    setSearchParams(params);
+                  }}
+                  aria-label="Clear search"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+
+        <dl className="training-hero-stats">
+          <div><dd>{allCourses.length}</dd><dt>Courses</dt></div>
+          <div><dd>{allResources.length}</dd><dt>Resources</dt></div>
+          <div><dd>{TRAINING_CATEGORIES.length}</dd><dt>Topics</dt></div>
+        </dl>
+      </section>
 
       {/* Featured course banner */}
       {featuredCourse && !hasActiveFilters && (
@@ -93,49 +139,13 @@ export default function TrainingHub() {
             <span className="training-featured-meta">
               {featuredCourse.lessons.length} lessons &middot; {featuredCourse.totalEstimatedMinutes} min &middot; {featuredCourse.skillLevel}
             </span>
-            <span className="training-featured-cta">View program</span>
+            <span className="training-featured-cta">View program &rarr;</span>
           </div>
         </button>
       )}
 
-      {/* Search + filters */}
+      {/* Category filter chips */}
       <div className="training-filters">
-        <form className="training-search-form" onSubmit={handleSearch} role="search">
-          <label htmlFor="training-search" className="sr-only">Search training</label>
-          <div className="training-search-wrapper">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="training-search-icon" aria-hidden="true">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-            </svg>
-            <input
-              id="training-search"
-              type="search"
-              className="training-search-input"
-              placeholder="Search courses and resources..."
-              value={localSearchQuery}
-              onChange={(e) => setLocalSearchQuery(e.target.value)}
-            />
-            {localSearchQuery && (
-              <button
-                type="button"
-                className="training-search-clear"
-                onClick={() => {
-                  setLocalSearchQuery('');
-                  const params = new URLSearchParams(searchParams);
-                  params.delete('q');
-                  setSearchParams(params);
-                }}
-                aria-label="Clear search"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="18" y1="6" x2="6" y2="18"/>
-                  <line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-              </button>
-            )}
-          </div>
-        </form>
-
         <div className="training-category-chips" role="group" aria-label="Filter by category">
           {TRAINING_CATEGORIES.map((cat) => (
             <button

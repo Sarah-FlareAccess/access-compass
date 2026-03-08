@@ -249,9 +249,10 @@ export function getCategoriesForGroup(groupId: string): string[] {
 /**
  * Group items by category group, then by item category within each group
  */
-export function groupItemsByCategory<T extends { category?: string }>(
+export function groupItemsByCategory<T extends { category?: string; priority?: string }>(
   items: T[]
 ): { group: DIAPCategoryGroup; subcategories: { id: string; label: string; items: T[] }[] }[] {
+  const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 };
   const result: { group: DIAPCategoryGroup; subcategories: { id: string; label: string; items: T[] }[] }[] = [];
 
   DIAP_CATEGORIES.forEach(group => {
@@ -259,7 +260,9 @@ export function groupItemsByCategory<T extends { category?: string }>(
     const subcategories: { id: string; label: string; items: T[] }[] = [];
 
     categoryIds.forEach(categoryId => {
-      const categoryItems = items.filter(item => item.category === categoryId);
+      const categoryItems = items
+        .filter(item => item.category === categoryId)
+        .sort((a, b) => (priorityOrder[a.priority || 'low'] ?? 2) - (priorityOrder[b.priority || 'low'] ?? 2));
       subcategories.push({
         id: categoryId,
         label: getCategoryLabel(categoryId),

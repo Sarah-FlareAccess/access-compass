@@ -8,9 +8,8 @@ export interface ProfessionalSupportGroup {
 }
 
 export const FLARE_CONTACT = {
-  label: 'Need a hand?',
-  description: 'Flare Access provides expert support across all of these areas.',
-  email: 'hello@flareaccess.com.au',
+  label: 'Flare Access provides expert support across all of these areas.',
+  email: 'info@flareaccess.com',
   website: 'flareaccess.com.au',
 };
 
@@ -72,23 +71,7 @@ function getExpertiseType(moduleCode: string): string {
   return 'physical'; // default fallback
 }
 
-export function groupProfessionalReviewByExpertise(
-  items: CategorisedItem[]
-): ProfessionalSupportGroup[] {
-  if (items.length === 0) return [];
-
-  const grouped = new Map<string, Set<string>>();
-
-  for (const item of items) {
-    const type = getExpertiseType(item.moduleCode);
-    let codes = grouped.get(type);
-    if (!codes) {
-      codes = new Set();
-      grouped.set(type, codes);
-    }
-    codes.add(item.moduleCode);
-  }
-
+function buildExpertiseGroups(grouped: Map<string, Set<string>>): ProfessionalSupportGroup[] {
   const result: ProfessionalSupportGroup[] = [];
 
   for (const exp of EXPERTISE_TYPES) {
@@ -107,4 +90,44 @@ export function groupProfessionalReviewByExpertise(
   }
 
   return result;
+}
+
+export function groupProfessionalReviewByExpertise(
+  items: CategorisedItem[]
+): ProfessionalSupportGroup[] {
+  if (items.length === 0) return [];
+
+  const grouped = new Map<string, Set<string>>();
+
+  for (const item of items) {
+    const type = getExpertiseType(item.moduleCode);
+    let codes = grouped.get(type);
+    if (!codes) {
+      codes = new Set();
+      grouped.set(type, codes);
+    }
+    codes.add(item.moduleCode);
+  }
+
+  return buildExpertiseGroups(grouped);
+}
+
+export function groupModuleCodesByExpertise(
+  moduleCodes: string[]
+): ProfessionalSupportGroup[] {
+  if (moduleCodes.length === 0) return [];
+
+  const grouped = new Map<string, Set<string>>();
+
+  for (const code of moduleCodes) {
+    const type = getExpertiseType(code);
+    let codes = grouped.get(type);
+    if (!codes) {
+      codes = new Set();
+      grouped.set(type, codes);
+    }
+    codes.add(code);
+  }
+
+  return buildExpertiseGroups(grouped);
 }

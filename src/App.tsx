@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { SessionManager } from './components/SessionManager';
 import AppLayout from './components/AppLayout';
@@ -146,14 +146,7 @@ function App() {
                 </RouteGuard>
               }
             />
-            <Route
-              path="/export"
-              element={
-                <RouteGuard requireAuth requireAccess="pulse">
-                  <Export />
-                </RouteGuard>
-              }
-            />
+            <Route path="/export" element={<Navigate to="/report" replace />} />
             <Route
               path="/report"
               element={

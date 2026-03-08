@@ -1193,24 +1193,19 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   doc.setFillColor(73, 14, 103); // amethystDiamond
   doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, 20, 3, 3, 'F');
 
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(255, 255, 255);
-  doc.text(FLARE_CONTACT.label, PAGE.marginLeft + 8, yPosition + 6);
-
-  doc.setFontSize(8);
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(255, 255, 255);
-  doc.text(FLARE_CONTACT.description, PAGE.marginLeft + 8, yPosition + 12);
+  doc.text(FLARE_CONTACT.label, PAGE.marginLeft + 8, yPosition + 7);
 
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 144, 21); // brand orange
-  doc.text(FLARE_CONTACT.email, PAGE.marginLeft + 8, yPosition + 17);
+  doc.text(FLARE_CONTACT.email, PAGE.marginLeft + 8, yPosition + 14);
   const emailWidth = doc.getTextWidth(FLARE_CONTACT.email);
   doc.setTextColor(255, 255, 255);
-  doc.text('  |  ', PAGE.marginLeft + 8 + emailWidth, yPosition + 17);
+  doc.text('  |  ', PAGE.marginLeft + 8 + emailWidth, yPosition + 14);
   doc.setTextColor(255, 144, 21);
-  doc.text(FLARE_CONTACT.website, PAGE.marginLeft + 8 + emailWidth + doc.getTextWidth('  |  '), yPosition + 17);
+  doc.text(FLARE_CONTACT.website, PAGE.marginLeft + 8 + emailWidth + doc.getTextWidth('  |  '), yPosition + 14);
 
   doc.setTextColor(0, 0, 0);
   yPosition += 26;

@@ -121,7 +121,7 @@ function groupByModule(items: CategorisedItem[]): { moduleCode: string; moduleNa
 }
 
 // --- Priority badge labels ---
-const PRIORITY_BADGE_LABEL: Record<string, string> = { high: 'E', medium: 'I', low: 'B' };
+const PRIORITY_BADGE_LABEL: Record<string, string> = { high: 'H', medium: 'M', low: 'L' };
 
 // --- Summary counts for a module group ---
 function PrioritySummary({ items }: { items: CategorisedItem[] }) {
@@ -131,12 +131,12 @@ function PrioritySummary({ items }: { items: CategorisedItem[] }) {
     counts[p]++;
   }
   const parts: { key: string; label: string; count: number }[] = [];
-  if (counts.high > 0) parts.push({ key: 'high', label: 'E', count: counts.high });
-  if (counts.medium > 0) parts.push({ key: 'medium', label: 'I', count: counts.medium });
-  if (counts.low > 0) parts.push({ key: 'low', label: 'B', count: counts.low });
+  if (counts.high > 0) parts.push({ key: 'high', label: 'H', count: counts.high });
+  if (counts.medium > 0) parts.push({ key: 'medium', label: 'M', count: counts.medium });
+  if (counts.low > 0) parts.push({ key: 'low', label: 'L', count: counts.low });
   if (parts.length === 0) return null;
   return (
-    <span className="priority-summary" aria-label={parts.map(p => `${p.count} ${p.key === 'high' ? 'essential' : p.key === 'medium' ? 'important' : 'beneficial'}`).join(', ')}>
+    <span className="priority-summary" aria-label={parts.map(p => `${p.count} ${p.key === 'high' ? 'high' : p.key === 'medium' ? 'medium' : 'low'} priority`).join(', ')}>
       {parts.map((p, i) => (
         <span key={p.key}>
           {i > 0 && <span className="priority-summary-sep" aria-hidden="true"> · </span>}
@@ -154,9 +154,9 @@ function stripPrioritySuffix(text: string): string {
 
 // Priority tier labels for sub-group headings
 const PRIORITY_TIER_LABEL: Record<string, string> = {
-  high: 'Essential',
-  medium: 'Important',
-  low: 'Beneficial',
+  high: 'High priority',
+  medium: 'Medium priority',
+  low: 'Low priority',
 };
 
 // --- Categorised list grouped by module, with jump-to-details ---

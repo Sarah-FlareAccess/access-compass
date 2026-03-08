@@ -14,6 +14,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 import { Sidebar } from './Sidebar';
 import { BottomTabBar } from './BottomTabBar';
+import { BackToTop } from './BackToTop';
 import '../styles/dashboard.css';
 
 // Pages that should NOT have the global nav bar (entry/onboarding pages)
@@ -27,7 +28,6 @@ const PAGES_WITH_SIDEBAR = [
   '/constraints',
   '/discovery',
   '/discovery/summary',
-  '/export',
   '/report',
   '/diap',
   '/clarify',
@@ -81,6 +81,8 @@ export default function AppLayout() {
 
       {/* Mobile bottom tab bar - replaces sidebar on small screens */}
       {showNav && <BottomTabBar />}
+
+      {showNav && <BackToTop />}
     </>
   );
 }
