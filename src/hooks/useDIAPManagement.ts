@@ -24,7 +24,8 @@ export type DIAPCategory =
 export type DIAPStatus =
   | 'not-started'
   | 'in-progress'
-  | 'completed'
+  | 'achieved'
+  | 'ongoing'
   | 'on-hold'
   | 'cancelled';
 
@@ -105,12 +106,27 @@ const DIAP_ITEMS_KEY = 'access_compass_diap_items';
 const DIAP_DOCUMENTS_KEY = 'access_compass_diap_documents';
 
 // Local storage functions
-const DIAP_MIGRATION_KEY = 'diap_migration_v6';
+const DIAP_MIGRATION_KEY = 'diap_migration_v7';
 
 function getLocalItems(): DIAPItem[] {
   const data = localStorage.getItem(DIAP_ITEMS_KEY);
   if (!data) return [];
   const items: DIAPItem[] = JSON.parse(data);
+
+  // Migrate old 'completed' status to 'achieved'
+  if (!localStorage.getItem('diap_status_migration_v1')) {
+    let statusChanged = false;
+    for (const item of items) {
+      if ((item.status as string) === 'completed') {
+        (item as Record<string, unknown>).status = 'achieved';
+        statusChanged = true;
+      }
+    }
+    if (statusChanged) {
+      localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
+    }
+    localStorage.setItem('diap_status_migration_v1', 'done');
+  }
 
   // One-time migration: fix timeframes, priorities, categories, and complianceLevel
   if (!localStorage.getItem(DIAP_MIGRATION_KEY)) {
@@ -140,7 +156,7 @@ function getLocalItems(): DIAPItem[] {
               }
 
               // Recalculate priority from question data
-              const answer = item.status === 'completed' ? 'yes' : 'no';
+              const answer = item.status === 'achieved' ? 'yes' : 'no';
               const newPriority = calculateQuestionPriority({
                 complianceLevel: question.complianceLevel,
                 safetyRelated: question.safetyRelated,
@@ -449,8 +465,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             updatedAt: new Date().toISOString(),
           };
 
-          // Set completedAt if status changed to completed
-          if (updates.status === 'completed' && item.status !== 'completed') {
+          // Set completedAt if status changed to achieved
+          if (updates.status === 'achieved' && item.status !== 'achieved') {
             newItem.completedAt = new Date().toISOString();
           }
 
@@ -632,7 +648,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     const byStatus: Record<DIAPStatus, number> = {
       'not-started': 0,
       'in-progress': 0,
-      'completed': 0,
+      'achieved': 0,
+      'ongoing': 0,
       'on-hold': 0,
       'cancelled': 0,
     };
@@ -651,8 +668,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       byTimeframe[item.timeframe] = (byTimeframe[item.timeframe] || 0) + 1;
     });
 
-    const completed = byStatus['completed'];
-    const completedPercentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+    const achieved = byStatus['achieved'];
+    const completedPercentage = total > 0 ? Math.round((achieved / total) * 100) : 0;
 
     return { total, byStatus, byPriority, byTimeframe, completedPercentage };
   }, [items]);
@@ -876,10 +893,12 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           // Parse status
           let status: DIAPStatus = 'not-started';
           const statusValue = getValue(colIdx.status).toLowerCase();
-          if (statusValue.includes('progress') || statusValue.includes('ongoing')) {
+          if (statusValue.includes('progress')) {
             status = 'in-progress';
-          } else if (statusValue.includes('complete') || statusValue.includes('done')) {
-            status = 'completed';
+          } else if (statusValue.includes('achiev') || statusValue.includes('complete') || statusValue.includes('done')) {
+            status = 'achieved';
+          } else if (statusValue.includes('ongoing') || statusValue.includes('continuous') || statusValue.includes('recurring')) {
+            status = 'ongoing';
           } else if (statusValue.includes('hold') || statusValue.includes('pause')) {
             status = 'on-hold';
           }
@@ -1491,7 +1510,7 @@ function isValidCategory(value: string): boolean {
 
 // Helper: Validate status
 function isValidStatus(value: string): boolean {
-  const validStatuses = ['not-started', 'in-progress', 'completed', 'on-hold', 'cancelled'];
+  const validStatuses = ['not-started', 'in-progress', 'achieved', 'ongoing', 'on-hold', 'cancelled'];
   return validStatuses.includes(value);
 }
 

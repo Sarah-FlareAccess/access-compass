@@ -10,7 +10,7 @@
  * - Calendar date picker for due dates
  */
 
-import { useState, useMemo, useRef, useCallback } from 'react';
+import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { PRIORITY_LEGEND, PRIORITY_ENCOURAGEMENT } from '../utils/priorityCalculation';
@@ -26,23 +26,48 @@ import { usePageTitle } from '../hooks/usePageTitle';
 import { hasHelpContent, getHelpByQuestionId } from '../data/help';
 import { getResourceLink } from '../utils/resourceLinks';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
-import { Zap, Upload, Paperclip, Filter, LayoutGrid, Download, PenLine, Users as UsersIcon, CalendarDays, CheckCircle2 } from 'lucide-react';
+import { Zap, Upload, Paperclip, Filter, Download, Users as UsersIcon, CalendarDays, Plus } from 'lucide-react';
 import '../styles/diap.css';
 
 const DIAP_FEATURES: GuideFeature[] = [
-  { icon: PenLine, title: 'Edit items', description: 'Click any card to edit the objective, action steps, notes, budget, and success indicators.' },
-  { icon: Paperclip, title: 'Upload evidence', description: 'Attach photos, quotes, or research to each action item as supporting evidence.' },
-  { icon: UsersIcon, title: 'Assign responsibility', description: 'Set a responsible person or team for each item so ownership is clear.' },
-  { icon: CalendarDays, title: 'Due dates and timeframes', description: 'Add a specific due date or general timeframe to track deadlines.' },
-  { icon: CheckCircle2, title: 'Status tracking', description: 'Update item status (Not Started, In Progress, Completed, On Hold) as work progresses.' },
+  { icon: Plus, title: 'Add a DIAP item', description: 'Use the round button in the bottom-right corner to create a new action item manually.' },
   { icon: Zap, title: 'Generate from responses', description: 'Auto-populate action items from your completed module assessment findings.' },
   { icon: Upload, title: 'Import and export', description: 'Import from CSV, Excel, or PDF. Export as CSV or formatted PDF to share with management.' },
-  { icon: Filter, title: 'Filter and view modes', description: 'Filter by priority, category, or person. Switch between list and section views.' },
+  { icon: Paperclip, title: 'Upload evidence', description: 'Attach photos, quotes, or research to each action item as supporting evidence.' },
+  { icon: UsersIcon, title: 'Assign responsibility', description: 'Set a responsible role for each item so ownership is clear.' },
+  { icon: CalendarDays, title: 'Set due dates', description: 'Add a due date for accountability. Cards colour-code automatically as deadlines approach.' },
+  { icon: Filter, title: 'Filter items', description: 'Filter by status, priority, category, assigned role, or due date. Click a summary card to jump to that section.' },
 ];
 
-type TabType = 'all' | 'in-progress' | 'completed';
-type ViewMode = 'list' | 'by-section';
+// Filter types are Set-based for multi-select
 type ImportResult = CSVImportResult | PDFImportResult | ExcelImportResult;
+
+const DIAP_ROLES_KEY = 'diap_managed_roles';
+
+const ROLE_PRESETS = [
+  'Facilities Manager',
+  'Operations Manager',
+  'HR / People & Culture',
+  'IT / Digital Team',
+  'Marketing / Communications',
+  'Customer Service Manager',
+  'WHS / Safety Officer',
+  'Senior Leadership',
+  'Finance / Procurement',
+  'External Consultant',
+];
+
+function loadManagedRoles(): string[] {
+  try {
+    const stored = localStorage.getItem(DIAP_ROLES_KEY);
+    if (stored) return JSON.parse(stored) as string[];
+  } catch { /* ignore */ }
+  return [...ROLE_PRESETS];
+}
+
+function saveManagedRoles(roles: string[]) {
+  localStorage.setItem(DIAP_ROLES_KEY, JSON.stringify(roles));
+}
 
 export default function DIAPWorkspace() {
   usePageTitle('DIAP Workspace');
@@ -67,14 +92,17 @@ export default function DIAPWorkspace() {
     reorderItem,
   } = useDIAPManagement();
 
-  const [activeTab, setActiveTab] = useState<TabType>('all');
+  const [filterStatuses, setFilterStatuses] = useState<Set<DIAPStatus>>(new Set());
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingItem, setEditingItem] = useState<DIAPItem | null>(null);
-  const [filterCategory, setFilterCategory] = useState<DIAPCategory | 'all'>('all');
-  const [filterPriority, setFilterPriority] = useState<DIAPPriority | 'all'>('all');
+  const [filterCategories, setFilterCategories] = useState<Set<DIAPCategory>>(new Set());
+  const [filterPriorities, setFilterPriorities] = useState<Set<DIAPPriority>>(new Set());
   const [filterResponsible, setFilterResponsible] = useState<string>('all');
+  const [filterDueDate, setFilterDueDate] = useState<Set<string>>(new Set());
+  const [customDateFrom, setCustomDateFrom] = useState('');
+  const [customDateTo, setCustomDateTo] = useState('');
   const [showDocuments, setShowDocuments] = useState(false);
-  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [compactCards, setCompactCards] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const [isImporting, setIsImporting] = useState(false);
@@ -217,14 +245,8 @@ export default function DIAPWorkspace() {
     }));
   };
 
-  // Track which category groups are expanded (start all expanded)
-  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>(() => {
-    const initial: Record<string, boolean> = {};
-    DIAP_CATEGORIES.forEach(cat => {
-      initial[cat.id] = true;
-    });
-    return initial;
-  });
+  // Track which category groups are expanded (start all collapsed for scanability)
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
 
   const toggleCategory = (categoryId: string) => {
     setExpandedCategories(prev => ({
@@ -233,58 +255,118 @@ export default function DIAPWorkspace() {
     }));
   };
 
-  // Get unique list of responsible people from all items (for dropdown)
+  // Managed roles list (persisted in localStorage)
+  const [managedRoles, setManagedRoles] = useState<string[]>(loadManagedRoles);
+  const [showManageRoles, setShowManageRoles] = useState(false);
+
+  // Ensure any roles used in items are in the managed list
   const responsiblePeople = useMemo(() => {
-    const people = new Set<string>();
+    const all = new Set(managedRoles);
     items.forEach(item => {
-      if (item.responsibleRole && item.responsibleRole.trim()) {
-        people.add(item.responsibleRole.trim());
+      if (item.responsibleRole?.trim()) all.add(item.responsibleRole.trim());
+    });
+    return Array.from(all).sort((a, b) => a.localeCompare(b));
+  }, [items, managedRoles]);
+
+  const addManagedRole = useCallback((role: string) => {
+    const trimmed = role.trim();
+    if (!trimmed) return;
+    setManagedRoles(prev => {
+      if (prev.some(r => r.toLowerCase() === trimmed.toLowerCase())) return prev;
+      const next = [...prev, trimmed].sort((a, b) => a.localeCompare(b));
+      saveManagedRoles(next);
+      return next;
+    });
+  }, []);
+
+  const renameManagedRole = useCallback((oldName: string, newName: string) => {
+    const trimmed = newName.trim();
+    if (!trimmed || oldName === trimmed) return;
+    setManagedRoles(prev => {
+      const next = prev.map(r => r === oldName ? trimmed : r);
+      const deduped = [...new Set(next)].sort((a, b) => a.localeCompare(b));
+      saveManagedRoles(deduped);
+      return deduped;
+    });
+    // Update all items that use the old name
+    items.forEach(item => {
+      if (item.responsibleRole === oldName) {
+        updateItem(item.id, { responsibleRole: trimmed });
       }
     });
-    // Also check localStorage for previously assigned people
-    const storedPeople = localStorage.getItem('diap_responsible_people');
-    if (storedPeople) {
-      try {
-        const parsed = JSON.parse(storedPeople) as string[];
-        parsed.forEach(p => people.add(p));
-      } catch {
-        // Ignore parse errors
-      }
-    }
-    return Array.from(people).sort((a, b) => a.localeCompare(b));
-  }, [items]);
+  }, [items, updateItem]);
 
-  // Save responsible people to localStorage when items change
-  useMemo(() => {
-    if (responsiblePeople.length > 0) {
-      localStorage.setItem('diap_responsible_people', JSON.stringify(responsiblePeople));
+  const deleteManagedRole = useCallback((role: string) => {
+    setManagedRoles(prev => {
+      const next = prev.filter(r => r !== role);
+      saveManagedRoles(next);
+      return next;
+    });
+  }, []);
+
+  const getDueBucket = useCallback((dueDate?: string): string => {
+    if (!dueDate) return 'no-date';
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const due = new Date(dueDate);
+    due.setHours(0, 0, 0, 0);
+    const daysLeft = Math.ceil((due.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+    if (daysLeft < 0) return 'overdue';
+    if (daysLeft <= 7) return 'this-week';
+    if (daysLeft <= 30) return 'this-month';
+    return 'later';
+  }, []);
+
+  const dueDateCounts = useMemo(() => {
+    const counts: Record<string, number> = { overdue: 0, 'this-week': 0, 'this-month': 0, later: 0, 'no-date': 0 };
+    for (const item of items) {
+      counts[getDueBucket(item.dueDate)]++;
     }
-  }, [responsiblePeople]);
+    return counts;
+  }, [items, getDueBucket]);
 
   // Filter items based on tab and filters
   const filteredItems = useMemo(() => {
     let filtered = [...items];
 
-    // Filter by tab
-    if (activeTab === 'in-progress') {
-      filtered = filtered.filter(i => i.status === 'in-progress');
-    } else if (activeTab === 'completed') {
-      filtered = filtered.filter(i => i.status === 'completed');
+    // Filter by status (multi-select)
+    if (filterStatuses.size > 0) {
+      filtered = filtered.filter(i => filterStatuses.has(i.status));
     }
 
-    // Filter by category
-    if (filterCategory !== 'all') {
-      filtered = filtered.filter(i => i.category === filterCategory);
+    // Filter by category (multi-select)
+    if (filterCategories.size > 0) {
+      filtered = filtered.filter(i => filterCategories.has(i.category));
     }
 
-    // Filter by priority
-    if (filterPriority !== 'all') {
-      filtered = filtered.filter(i => i.priority === filterPriority);
+    // Filter by priority (multi-select)
+    if (filterPriorities.size > 0) {
+      filtered = filtered.filter(i => filterPriorities.has(i.priority));
     }
 
     // Filter by responsible person
     if (filterResponsible !== 'all') {
       filtered = filtered.filter(i => i.responsibleRole === filterResponsible);
+    }
+
+    // Filter by due date period
+    if (filterDueDate.size > 0) {
+      filtered = filtered.filter(i => {
+        if (filterDueDate.has('custom')) {
+          if (!i.dueDate) return filterDueDate.has('no-date');
+          const due = new Date(i.dueDate);
+          due.setHours(0, 0, 0, 0);
+          const from = customDateFrom ? new Date(customDateFrom) : null;
+          const to = customDateTo ? new Date(customDateTo) : null;
+          if (from) from.setHours(0, 0, 0, 0);
+          if (to) to.setHours(0, 0, 0, 0);
+          if (from && to) return due >= from && due <= to;
+          if (from) return due >= from;
+          if (to) return due <= to;
+          return true;
+        }
+        return filterDueDate.has(getDueBucket(i.dueDate));
+      });
     }
 
     // Sort: use manual sortOrder if set, otherwise group by priority
@@ -299,7 +381,7 @@ export default function DIAPWorkspace() {
     }
 
     return filtered;
-  }, [items, activeTab, filterCategory, filterPriority, filterResponsible]);
+  }, [items, filterStatuses, filterCategories, filterPriorities, filterResponsible, filterDueDate, getDueBucket, customDateFrom, customDateTo]);
 
   // Group filtered items by category for the by-section view
   const itemsByCategory = useMemo(() => {
@@ -308,6 +390,22 @@ export default function DIAPWorkspace() {
 
   // Get stats
   const stats = getStats();
+
+  // Compute per-category stats for the overview cards
+  const categoryStats = useMemo(() => {
+    return DIAP_CATEGORIES.map(cat => {
+      const catItems = items.filter(i => i.category === cat.id);
+      const total = catItems.length;
+      const achieved = catItems.filter(i => i.status === 'achieved').length;
+      const ongoing = catItems.filter(i => i.status === 'ongoing').length;
+      const inProgress = catItems.filter(i => i.status === 'in-progress').length;
+      const high = catItems.filter(i => i.priority === 'high').length;
+      const medium = catItems.filter(i => i.priority === 'medium').length;
+      const low = catItems.filter(i => i.priority === 'low').length;
+      const pct = total > 0 ? Math.round(((achieved + ongoing) / total) * 100) : 0;
+      return { ...cat, total, achieved, ongoing, inProgress, high, medium, low, pct };
+    });
+  }, [items]);
 
   // Extract unique module codes from items for professional support grouping
   const expertiseGroups = useMemo(() => {
@@ -544,7 +642,7 @@ export default function DIAPWorkspace() {
         {completedModulesEvidence.length > 0 && items.length === 0 && (
           <div className="generate-banner">
             <div className="generate-banner-content">
-              <h3>✨ Generate DIAP from Your Assessment</h3>
+              <h2 className="generate-banner-heading">Generate DIAP from Your Assessment</h2>
               <p>You have {completedModulesEvidence.length} completed module{completedModulesEvidence.length !== 1 ? 's' : ''}. Generate action items based on your assessment findings.</p>
             </div>
             <button
@@ -562,6 +660,18 @@ export default function DIAPWorkspace() {
               )}
             </button>
           </div>
+        )}
+
+        {/* Manage Roles Modal */}
+        {showManageRoles && (
+          <ManageRolesModal
+            roles={managedRoles}
+            items={items}
+            onRename={renameManagedRole}
+            onDelete={deleteManagedRole}
+            onAdd={addManagedRole}
+            onClose={() => setShowManageRoles(false)}
+          />
         )}
 
         {/* Import Modal */}
@@ -724,9 +834,9 @@ export default function DIAPWorkspace() {
             <span className="stat-value">{stats.byStatus['in-progress']}</span>
             <span className="stat-label">In Progress</span>
           </div>
-          <div className="stat-card completed">
-            <span className="stat-value">{stats.byStatus['completed']}</span>
-            <span className="stat-label">Completed</span>
+          <div className="stat-card achieved">
+            <span className="stat-value">{stats.byStatus['achieved']}</span>
+            <span className="stat-label">Achieved</span>
           </div>
           <div className="stat-card high-priority">
             <span className="stat-value">{stats.byPriority['high']}</span>
@@ -734,106 +844,186 @@ export default function DIAPWorkspace() {
           </div>
         </div>
 
-        {/* View Mode Toggle */}
-        <div className="view-mode-toggle">
-          <button
-            className={`view-mode-btn ${viewMode === 'list' ? 'active' : ''}`}
-            onClick={() => setViewMode('list')}
-          >
-            List View
-          </button>
-          <button
-            className={`view-mode-btn ${viewMode === 'by-section' ? 'active' : ''}`}
-            onClick={() => setViewMode('by-section')}
-          >
-            By DIAP Section
-          </button>
-        </div>
-
-        {/* Tabs and Filters */}
         <div className="diap-controls">
-          <div className="tabs" role="tablist" aria-label="DIAP item status">
-            <button
-              className={`tab ${activeTab === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveTab('all')}
-              role="tab"
-              aria-selected={activeTab === 'all'}
-            >
-              All ({items.length})
-            </button>
-            <button
-              className={`tab ${activeTab === 'in-progress' ? 'active' : ''}`}
-              onClick={() => setActiveTab('in-progress')}
-              role="tab"
-              aria-selected={activeTab === 'in-progress'}
-            >
-              In Progress ({stats.byStatus['in-progress']})
-            </button>
-            <button
-              className={`tab ${activeTab === 'completed' ? 'active' : ''}`}
-              onClick={() => setActiveTab('completed')}
-              role="tab"
-              aria-selected={activeTab === 'completed'}
-            >
-              Completed ({stats.byStatus['completed']})
-            </button>
-          </div>
-
-          <div className="filters">
-            <div className="filter-field">
-              <label htmlFor="diap-filter-category" className="sr-only">Filter by category</label>
-              <select
-                id="diap-filter-category"
-                value={filterCategory}
-                onChange={(e) => setFilterCategory(e.target.value as DIAPCategory | 'all')}
-                className="filter-select"
-              >
-                <option value="all">All Categories</option>
-                <option value="physical-access">Physical Access</option>
-                <option value="information-communication-marketing">Information, Communication & Marketing</option>
-                <option value="customer-service">Customer Service</option>
-                <option value="operations-policy-procedure">Operations, Policy & Procedure</option>
-                <option value="people-culture">People & Culture</option>
-              </select>
-            </div>
-
-            <div className="filter-field">
-              <label htmlFor="diap-filter-priority" className="sr-only">Filter by priority</label>
-              <select
-                id="diap-filter-priority"
-                value={filterPriority}
-                onChange={(e) => setFilterPriority(e.target.value as DIAPPriority | 'all')}
-                className="filter-select"
-              >
-                <option value="all">All Priorities</option>
-                <option value="high">High Priority</option>
-                <option value="medium">Medium Priority</option>
-                <option value="low">Low Priority</option>
-              </select>
-            </div>
-
-            <div className="filter-field">
-              <label htmlFor="diap-filter-assigned" className="sr-only">Filter by assigned person</label>
-              <select
-                id="diap-filter-assigned"
-                value={filterResponsible}
-                onChange={(e) => setFilterResponsible(e.target.value)}
-                className="filter-select"
-              >
-                <option value="all">All Assigned</option>
-                {responsiblePeople.map(person => (
-                  <option key={person} value={person}>{person}</option>
+          <div className="diap-filter-panel" role="group" aria-label="Filter DIAP items">
+            <div className="filter-group">
+              <span className="filter-group-label">Status</span>
+              <div className="filter-chips" role="group" aria-label="Filter by status">
+                {([
+                  ['not-started', 'Not Started'],
+                  ['in-progress', 'In Progress'],
+                  ['achieved', 'Achieved'],
+                  ['ongoing', 'Ongoing'],
+                  ['on-hold', 'On Hold'],
+                  ['cancelled', 'Cancelled'],
+                ] as [DIAPStatus, string][]).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className={`filter-chip status-chip ${filterStatuses.has(value) ? 'active' : ''}`}
+                    onClick={() => setFilterStatuses(prev => {
+                      const next = new Set(prev);
+                      next.has(value) ? next.delete(value) : next.add(value);
+                      return next;
+                    })}
+                    aria-pressed={filterStatuses.has(value)}
+                  >
+                    {label} ({stats.byStatus[value]})
+                  </button>
                 ))}
-              </select>
+              </div>
             </div>
 
-            <button
-              className={`btn-add-item ${showAddForm ? 'active' : ''}`}
-              onClick={() => setShowAddForm(!showAddForm)}
-            >
-              + Add Item
-            </button>
+            <div className="filter-group">
+              <span className="filter-group-label">Priority</span>
+              <div className="filter-chips" role="group" aria-label="Filter by priority">
+                {([
+                  ['high', 'High'],
+                  ['medium', 'Medium'],
+                  ['low', 'Low'],
+                ] as [DIAPPriority, string][]).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className={`filter-chip priority-chip ${filterPriorities.has(value) ? 'active' : ''}`}
+                    onClick={() => setFilterPriorities(prev => {
+                      const next = new Set(prev);
+                      next.has(value) ? next.delete(value) : next.add(value);
+                      return next;
+                    })}
+                    aria-pressed={filterPriorities.has(value)}
+                  >
+                    {label} ({stats.byPriority[value]})
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="filter-group">
+              <span className="filter-group-label">Category</span>
+              <div className="filter-chips" role="group" aria-label="Filter by category">
+                {DIAP_CATEGORIES.map(cat => {
+                  const count = categoryStats.find(c => c.id === cat.id)?.total || 0;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      className={`filter-chip category-chip ${filterCategories.has(cat.id as DIAPCategory) ? 'active' : ''}`}
+                      onClick={() => setFilterCategories(prev => {
+                        const next = new Set(prev);
+                        const id = cat.id as DIAPCategory;
+                        next.has(id) ? next.delete(id) : next.add(id);
+                        return next;
+                      })}
+                      aria-pressed={filterCategories.has(cat.id as DIAPCategory)}
+                    >
+                      {cat.name} ({count})
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="filter-group">
+              <span className="filter-group-label">Assigned</span>
+              <div className="filter-chips">
+                <select
+                  id="diap-filter-assigned"
+                  value={filterResponsible}
+                  onChange={(e) => setFilterResponsible(e.target.value)}
+                  className="filter-select"
+                  aria-label="Filter by assigned role"
+                >
+                  <option value="all">All Roles</option>
+                  {responsiblePeople.map(person => (
+                    <option key={person} value={person}>{person}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="filter-group">
+              <span className="filter-group-label">Due</span>
+              <div className="filter-chips" role="group" aria-label="Filter by due date">
+                {([
+                  ['overdue', 'Overdue'],
+                  ['this-week', 'This week'],
+                  ['this-month', 'This month'],
+                  ['no-date', 'No date'],
+                  ['custom', 'Custom'],
+                ] as [string, string][]).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className={`filter-chip due-chip ${filterDueDate.has(value) ? 'active' : ''}`}
+                    onClick={() => setFilterDueDate(prev => {
+                      const next = new Set(prev);
+                      if (value === 'custom') {
+                        if (next.has('custom')) {
+                          next.delete('custom');
+                          setCustomDateFrom('');
+                          setCustomDateTo('');
+                        } else {
+                          next.clear();
+                          next.add('custom');
+                        }
+                      } else {
+                        next.delete('custom');
+                        setCustomDateFrom('');
+                        setCustomDateTo('');
+                        next.has(value) ? next.delete(value) : next.add(value);
+                      }
+                      return next;
+                    })}
+                    aria-pressed={filterDueDate.has(value)}
+                  >
+                    {value === 'custom' ? label : `${label} (${dueDateCounts[value] ?? 0})`}
+                  </button>
+                ))}
+              </div>
+              {filterDueDate.has('custom') && (
+                <div className="custom-date-range">
+                  <label className="date-range-label">
+                    From
+                    <input
+                      type="date"
+                      value={customDateFrom}
+                      onChange={(e) => setCustomDateFrom(e.target.value)}
+                      className="date-range-input"
+                    />
+                  </label>
+                  <label className="date-range-label">
+                    To
+                    <input
+                      type="date"
+                      value={customDateTo}
+                      onChange={(e) => setCustomDateTo(e.target.value)}
+                      className="date-range-input"
+                    />
+                  </label>
+                </div>
+              )}
+            </div>
+
+            {(filterStatuses.size > 0 || filterPriorities.size > 0 || filterCategories.size > 0 || filterResponsible !== 'all' || filterDueDate.size > 0) && (
+              <button
+                type="button"
+                className="filter-clear-btn"
+                onClick={() => {
+                  setFilterStatuses(new Set());
+                  setFilterPriorities(new Set());
+                  setFilterCategories(new Set());
+                  setFilterResponsible('all');
+                  setFilterDueDate(new Set());
+                  setCustomDateFrom('');
+                  setCustomDateTo('');
+                }}
+              >
+                Clear all filters
+              </button>
+            )}
           </div>
+
         </div>
 
         {/* Priority legend (collapsible) */}
@@ -864,82 +1054,131 @@ export default function DIAPWorkspace() {
               setShowAddForm(false);
             }}
             responsiblePeopleList={responsiblePeople}
+            onAddRole={addManagedRole}
+            onManageRoles={() => setShowManageRoles(true)}
           />
         )}
 
-        {/* Items - List View or By Category View */}
-        {viewMode === 'list' ? (
-          <div className="diap-items-list" aria-live="polite">
-            {filteredItems.length === 0 ? (
-              <div className="empty-state">
-                <p>No items found.</p>
-                {activeTab !== 'all' && (
-                  <button onClick={() => setActiveTab('all')}>View all items</button>
-                )}
-              </div>
-            ) : (
-              filteredItems.map((item, index) => (
-                editingItem?.id === item.id ? (
-                  <div key={item.id} className="inline-edit-wrapper">
-                    <DIAPItemForm
-                      item={editingItem}
-                      onSave={(data) => {
-                        updateItem(editingItem.id, data);
-                        setEditingItem(null);
-                      }}
-                      onCancel={() => {
-                        setEditingItem(null);
-                      }}
-                      responsiblePeopleList={responsiblePeople}
-                      onAddAttachment={addAttachment}
-                      onRemoveAttachment={removeAttachment}
-                    />
-                  </div>
-                ) : (
-                  <DIAPItemCard
-                    key={item.id}
-                    item={item}
-                    onStatusChange={handleStatusChange}
-                    onEdit={() => {
-                      dismissHint();
-                      setEditingItem(item);
-                    }}
-                    onDelete={() => deleteItem(item.id)}
-                    onAddAttachment={addAttachment}
-                    onRemoveAttachment={removeAttachment}
-                    onMoveUp={index > 0 ? () => reorderItem(item.id, filteredItems[index - 1].id) : undefined}
-                    onMoveDown={index < filteredItems.length - 1 ? () => reorderItem(item.id, filteredItems[index + 1].id) : undefined}
-                    showEditHint={showEditHint && index === 0}
-                  />
-                )
-              ))
-            )}
+        {/* Overview Summary Cards */}
+        <div className="diap-overview" aria-label="DIAP category overview">
+          <div className="overview-grid">
+            {categoryStats.map(cat => (
+              <button
+                key={cat.id}
+                className="overview-card"
+                onClick={() => {
+                  setExpandedCategories(prev => ({ ...prev, [cat.id]: true }));
+                  document.getElementById(`diap-cat-${cat.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                aria-label={`${cat.name}: ${cat.total} items, ${cat.pct}% achieved or ongoing. Click to jump to section.`}
+              >
+                <div className="overview-card-header">
+                  <span className="overview-card-icon" aria-hidden="true">{cat.icon}</span>
+                  <span className="overview-card-name">{cat.name}</span>
+                </div>
+                <div className="overview-card-stats">
+                  <span className="overview-card-total">{cat.total} item{cat.total !== 1 ? 's' : ''}</span>
+                  <span className="overview-card-pct">{cat.pct}% <span className="overview-card-pct-label">done</span></span>
+                </div>
+                <div className="overview-progress-bar" role="progressbar" aria-valuenow={cat.pct} aria-valuemin={0} aria-valuemax={100}>
+                  <div className="overview-progress-fill" style={{ width: `${cat.pct}%` }} />
+                </div>
+                <div className="overview-card-breakdown">
+                  {cat.high > 0 && <span className="overview-priority high">{cat.high} high</span>}
+                  {cat.medium > 0 && <span className="overview-priority medium">{cat.medium} med</span>}
+                  {cat.low > 0 && <span className="overview-priority low">{cat.low} low</span>}
+                  {cat.inProgress > 0 && <span className="overview-status in-progress">{cat.inProgress} in progress</span>}
+                  {cat.achieved > 0 && <span className="overview-status achieved">{cat.achieved} achieved</span>}
+                  {cat.ongoing > 0 && <span className="overview-status ongoing">{cat.ongoing} ongoing</span>}
+                </div>
+              </button>
+            ))}
           </div>
-        ) : (
-          /* By Category View - Grouped into 3 main groups */
-          <div className="diap-category-view" aria-live="polite">
+        </div>
+
+        {/* Display density toggle */}
+        {filteredItems.length > 0 && (
+          <div className="density-toolbar">
+            <span className="density-count">{filteredItems.length} item{filteredItems.length !== 1 ? 's' : ''}</span>
+            <button
+              className={`density-toggle ${compactCards ? 'is-compact' : ''}`}
+              onClick={() => setCompactCards(!compactCards)}
+              aria-pressed={compactCards}
+            >
+              {compactCards ? 'Expand cards' : 'Compact cards'}
+            </button>
+          </div>
+        )}
+
+        {/* DIAP Sections */}
+        <div className={`diap-category-view ${compactCards ? 'compact-mode' : ''}`} aria-live="polite">
+            {/* Sticky section nav */}
+            <nav className="diap-section-nav" aria-label="Jump to category">
+              {itemsByCategory.map(({ group, subcategories }) => {
+                const total = subcategories.reduce((sum, s) => sum + s.items.length, 0);
+                if (filterCategories.size > 0 && total === 0) return null;
+                const catStat = categoryStats.find(c => c.id === group.id);
+                return (
+                  <a
+                    key={group.id}
+                    href={`#diap-cat-${group.id}`}
+                    className="section-nav-link"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setExpandedCategories(prev => ({ ...prev, [group.id]: true }));
+                      document.getElementById(`diap-cat-${group.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                  >
+                    <span className="section-nav-icon" aria-hidden="true">{group.icon}</span>
+                    <span className="section-nav-name">{group.name}</span>
+                    <span className="section-nav-count">{total}</span>
+                    {catStat && catStat.total > 0 && (
+                      <span className="section-nav-bar" role="progressbar" aria-valuenow={catStat.pct} aria-valuemin={0} aria-valuemax={100}>
+                        <span className="section-nav-bar-fill" style={{ width: `${catStat.pct}%` }} />
+                      </span>
+                    )}
+                  </a>
+                );
+              })}
+            </nav>
+
             {itemsByCategory.map(({ group, subcategories }) => {
               const totalItemsInGroup = subcategories.reduce((sum, s) => sum + s.items.length, 0);
+              if (filterCategories.size > 0 && totalItemsInGroup === 0) return null;
               const isExpanded = expandedCategories[group.id];
+              const catStat = categoryStats.find(c => c.id === group.id);
 
               return (
-                <div key={group.id} className={`diap-category-group ${isExpanded ? 'expanded' : ''}`}>
-                  <button
-                    className="category-header"
-                    onClick={() => toggleCategory(group.id)}
-                    aria-expanded={isExpanded}
-                  >
+                <div
+                  key={group.id}
+                  id={`diap-cat-${group.id}`}
+                  className={`diap-category-group ${isExpanded ? 'expanded' : ''}`}
+                  onClick={() => toggleCategory(group.id)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCategory(group.id); } }}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isExpanded}
+                >
+                  <div className="category-header">
                     <span className="category-icon" aria-hidden="true">{group.icon}</span>
                     <div className="category-info">
-                      <span className="category-name">{group.name}</span>
+                      <h2 className="category-name">{group.name}</h2>
                       <span className="category-description">{group.description}</span>
+                      {catStat && catStat.total > 0 && (
+                        <span className="category-progress-inline">
+                          <span className="category-progress-bar" role="progressbar" aria-valuenow={catStat.pct} aria-valuemin={0} aria-valuemax={100}>
+                            <span className="category-progress-fill" style={{ width: `${catStat.pct}%` }} />
+                          </span>
+                          <span className="category-progress-text">{catStat.pct}%</span>
+                        </span>
+                      )}
                     </div>
                     <span className="category-count">{totalItemsInGroup}</span>
                     <span className="category-chevron" aria-hidden="true">&#9660;</span>
-                  </button>
+                  </div>
 
                   {isExpanded && (
-                    <div className="category-content">
+                    <div className="category-content" onClick={(e) => e.stopPropagation()}>
                       {subcategories.map(({ id, label, items: categoryItems }) => (
                         <div key={id} className="diap-section-block">
                           <div className="section-label">
@@ -963,12 +1202,15 @@ export default function DIAPWorkspace() {
                                         setEditingItem(null);
                                       }}
                                       responsiblePeopleList={responsiblePeople}
+                                      onAddRole={addManagedRole}
+                                      onManageRoles={() => setShowManageRoles(true)}
                                     />
                                   </div>
                                 ) : (
                                   <DIAPItemCard
                                     key={item.id}
                                     item={item}
+                                    compact={compactCards}
                                     onStatusChange={handleStatusChange}
                                     onEdit={() => {
                                       dismissHint();
@@ -992,8 +1234,7 @@ export default function DIAPWorkspace() {
                 </div>
               );
             })}
-          </div>
-        )}
+        </div>
 
         {/* Documents Section */}
         <div className="documents-section">
@@ -1155,8 +1396,17 @@ export default function DIAPWorkspace() {
         </div>
 
         <PageFooter />
-      </div>
 
+        {/* Floating Add Item button */}
+        <button
+          className={`fab-add-item ${showAddForm ? 'active' : ''}`}
+          onClick={() => setShowAddForm(!showAddForm)}
+          aria-label={showAddForm ? 'Close add item form' : 'Add new DIAP item'}
+          title={showAddForm ? 'Close' : 'Add Item'}
+        >
+          <span aria-hidden="true">{showAddForm ? '×' : '+'}</span>
+        </button>
+      </div>
     </div>
   );
 }
@@ -1164,6 +1414,7 @@ export default function DIAPWorkspace() {
 // DIAP Item Card Component
 interface DIAPItemCardProps {
   item: DIAPItem;
+  compact?: boolean;
   onStatusChange: (id: string, status: DIAPStatus) => void;
   onEdit: () => void;
   onDelete: () => void;
@@ -1174,20 +1425,36 @@ interface DIAPItemCardProps {
   showEditHint?: boolean;
 }
 
-function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, onAddAttachment, onRemoveAttachment, onMoveUp, onMoveDown, showEditHint }: DIAPItemCardProps) {
+function DIAPItemCard({ item, compact, onStatusChange, onEdit, onDelete, onAddAttachment, onRemoveAttachment, onMoveUp, onMoveDown, showEditHint }: DIAPItemCardProps) {
   const [showStatusMenu, setShowStatusMenu] = useState(false);
   const attachInputRef = useRef<HTMLInputElement>(null);
 
   const priorityColors = {
-    high: { bg: 'rgba(239, 68, 68, 0.1)', border: '#dc2626', text: '#dc2626' },
-    medium: { bg: 'rgba(251, 191, 36, 0.1)', border: '#d97706', text: '#d97706' },
-    low: { bg: 'rgba(34, 197, 94, 0.1)', border: '#16a34a', text: '#16a34a' },
+    high: { bg: '#fef2f2', border: '#dc2626', badgeBorder: '#e88a8a', text: '#b91c1c' },
+    medium: { bg: '#fef6ee', border: '#b45309', badgeBorder: '#d4a06a', text: '#92400e' },
+    low: { bg: '#f0fdf4', border: '#15803d', badgeBorder: '#6bc88e', text: '#166534' },
+  };
+
+  const getDueDateUrgency = (dueDate?: string): { label: string; className: string } | null => {
+    if (!dueDate) return null;
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const due = new Date(dueDate);
+    due.setHours(0, 0, 0, 0);
+    const daysLeft = Math.ceil((due.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+    const formatted = due.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
+    if (daysLeft < 0) return { label: `Overdue: ${formatted}`, className: 'due-overdue' };
+    if (daysLeft === 0) return { label: `Due today`, className: 'due-overdue' };
+    if (daysLeft <= 7) return { label: `Due ${formatted}`, className: 'due-soon' };
+    if (daysLeft <= 30) return { label: `Due ${formatted}`, className: 'due-approaching' };
+    return { label: `Due ${formatted}`, className: 'due-future' };
   };
 
   const statusLabels: Record<DIAPStatus, string> = {
     'not-started': 'Not Started',
     'in-progress': 'In Progress',
-    'completed': 'Completed',
+    'achieved': 'Achieved',
+    'ongoing': 'Ongoing',
     'on-hold': 'On Hold',
     'cancelled': 'Cancelled',
   };
@@ -1221,7 +1488,7 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, onAddAttachment,
 
   return (
     <div
-      className={`diap-item-card status-${item.status} clickable-card`}
+      className={`diap-item-card status-${item.status} clickable-card${compact ? ' compact' : ''}`}
       style={{ borderLeftColor: colors.border }}
       onClick={handleCardClick}
       onKeyDown={handleKeyDown}
@@ -1237,25 +1504,21 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, onAddAttachment,
         </div>
       )}
 
+      {/* Section label */}
+      <div className="item-section-label">
+        {item.moduleSource
+          ? (item.moduleSource.replace(/^\d+\.\d+:\s*/, '') || item.moduleSource)
+          : item.category.replace(/-/g, ' ')}
+      </div>
+
       <div className="item-header">
         <div className="item-badges">
           <span
             className="priority-badge"
-            style={{ background: colors.bg, color: colors.text }}
+            style={{ background: colors.bg, color: colors.text, borderColor: colors.badgeBorder }}
           >
             {item.priority} priority
           </span>
-          <span className="category-badge">{item.category.replace(/-/g, ' ')}</span>
-          {item.complianceLevel && (
-            <span className={`compliance-badge compliance-${item.complianceLevel}`}>
-              {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best Practice'}
-            </span>
-          )}
-          {item.moduleSource && (
-            <span className="module-source-badge" title={item.moduleSource}>
-              {item.moduleSource.replace(/^\d+\.\d+:\s*/, '') || item.moduleSource}
-            </span>
-          )}
         </div>
         <div className="item-actions">
           {onMoveUp && (
@@ -1310,32 +1573,27 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, onAddAttachment,
               <span className="detail-text">{item.responsibleRole}</span>
             </div>
           )}
-          {item.dueDate ? (
-            <div className="detail-chip date-chip">
-              <span className="detail-icon" aria-hidden="true">📅</span>
-              <span className="detail-text">
-                {new Date(item.dueDate).toLocaleDateString('en-AU', {
-                  day: 'numeric',
-                  month: 'short',
-                  year: 'numeric'
-                })}
-              </span>
-            </div>
-          ) : item.timeframe ? (
-            <div className="detail-chip timeframe-chip">
-              <span className="detail-icon" aria-hidden="true">⏱️</span>
-              <span className="detail-text">{item.timeframe}</span>
-            </div>
-          ) : (
-            <button
-              className="detail-chip set-timeframe-btn"
-              onClick={(e) => { e.stopPropagation(); onEdit(); }}
-              aria-label="Set a timeframe for this item"
-            >
-              <span className="detail-icon" aria-hidden="true">⏱️</span>
-              <span className="detail-text">Set your timeframe</span>
-            </button>
-          )}
+          {(() => {
+            const urgency = getDueDateUrgency(item.dueDate);
+            if (urgency) {
+              return (
+                <div className={`detail-chip date-chip ${urgency.className}`}>
+                  <span className="detail-icon" aria-hidden="true">📅</span>
+                  <span className="detail-text">{urgency.label}</span>
+                </div>
+              );
+            }
+            return (
+              <button
+                className="detail-chip set-date-btn"
+                onClick={(e) => { e.stopPropagation(); onEdit(); }}
+                aria-label="Set a due date for this item"
+              >
+                <span className="detail-icon" aria-hidden="true">📅</span>
+                <span className="detail-text">Set due date</span>
+              </button>
+            );
+          })()}
       </div>
 
       <div className="item-footer">
@@ -1369,6 +1627,11 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, onAddAttachment,
             </div>
           )}
         </div>
+        {item.complianceLevel && (
+          <span className={`compliance-badge compliance-${item.complianceLevel}`}>
+            {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best Practice'}
+          </span>
+        )}
       </div>
 
       {item.questionSource && hasHelpContent(item.questionSource) && (() => {
@@ -1438,17 +1701,291 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onDelete, onAddAttachment,
   );
 }
 
+// Role Combo Box Component
+interface RoleComboBoxProps {
+  value: string;
+  roles: string[];
+  onChange: (value: string) => void;
+  onAddRole?: (role: string) => void;
+  onManageRoles?: () => void;
+  inputId?: string;
+}
+
+function RoleComboBox({ value, roles, onChange, onAddRole, onManageRoles, inputId }: RoleComboBoxProps) {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const filtered = useMemo(() => {
+    if (!search) return roles;
+    const q = search.toLowerCase();
+    return roles.filter(r => r.toLowerCase().includes(q));
+  }, [roles, search]);
+
+  const exactMatch = roles.some(r => r.toLowerCase() === search.toLowerCase());
+
+  // Close on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const selectRole = (role: string) => {
+    onChange(role);
+    setSearch('');
+    setOpen(false);
+  };
+
+  const handleCreate = () => {
+    const trimmed = search.trim();
+    if (!trimmed) return;
+    onAddRole?.(trimmed);
+    onChange(trimmed);
+    setSearch('');
+    setOpen(false);
+  };
+
+  return (
+    <div className="role-combobox" ref={wrapRef}>
+      <div className="role-combobox-input-row">
+        <input
+          ref={inputRef}
+          id={inputId}
+          type="text"
+          className="role-combobox-input"
+          value={open ? search : value}
+          placeholder="Select or type a role..."
+          onFocus={() => { setOpen(true); setSearch(''); }}
+          onChange={(e) => { setSearch(e.target.value); setOpen(true); }}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') { setOpen(false); inputRef.current?.blur(); }
+            if (e.key === 'Enter' && search.trim()) {
+              e.preventDefault();
+              if (filtered.length === 1) { selectRole(filtered[0]); }
+              else if (!exactMatch && search.trim()) { handleCreate(); }
+            }
+          }}
+          role="combobox"
+          aria-expanded={open}
+          aria-autocomplete="list"
+          autoComplete="off"
+        />
+        {value && (
+          <button
+            type="button"
+            className="role-combobox-clear"
+            onClick={() => { onChange(''); setSearch(''); }}
+            aria-label="Clear role"
+          >
+            &times;
+          </button>
+        )}
+      </div>
+      {open && (
+        <ul className="role-combobox-list" role="listbox">
+          {filtered.map(role => (
+            <li
+              key={role}
+              className={`role-combobox-option ${role === value ? 'selected' : ''}`}
+              onMouseDown={(e) => { e.preventDefault(); selectRole(role); }}
+              role="option"
+              aria-selected={role === value}
+            >
+              {role}
+            </li>
+          ))}
+          {search.trim() && !exactMatch && (
+            <li
+              className="role-combobox-option create-new"
+              onMouseDown={(e) => { e.preventDefault(); handleCreate(); }}
+              role="option"
+            >
+              + Add "{search.trim()}"
+            </li>
+          )}
+          {filtered.length === 0 && !search.trim() && (
+            <li className="role-combobox-empty">No roles defined yet</li>
+          )}
+          {onManageRoles && (
+            <>
+              <li className="role-combobox-divider" role="separator" />
+              <li
+                className="role-combobox-option manage-roles-option"
+                onMouseDown={(e) => { e.preventDefault(); setOpen(false); onManageRoles(); }}
+                role="option"
+              >
+                Manage Roles...
+              </li>
+            </>
+          )}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+// Manage Roles Modal Component
+interface ManageRolesModalProps {
+  roles: string[];
+  items: DIAPItem[];
+  onRename: (oldName: string, newName: string) => void;
+  onDelete: (role: string) => void;
+  onAdd: (role: string) => void;
+  onClose: () => void;
+}
+
+function ManageRolesModal({ roles, items, onRename, onDelete, onAdd, onClose }: ManageRolesModalProps) {
+  const [editingRole, setEditingRole] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState('');
+  const [newRole, setNewRole] = useState('');
+  const modalRef = useRef<HTMLDivElement>(null);
+  const addInputRef = useRef<HTMLInputElement>(null);
+
+  const countForRole = (role: string) => items.filter(i => i.responsibleRole === role).length;
+
+  // Focus trap
+  useEffect(() => {
+    const modal = modalRef.current;
+    if (!modal) return;
+    const focusable = modal.querySelectorAll<HTMLElement>('button, input, [tabindex]:not([tabindex="-1"])');
+    if (focusable.length > 0) addInputRef.current?.focus();
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const els = modal.querySelectorAll<HTMLElement>('button:not([disabled]), input, [tabindex]:not([tabindex="-1"])');
+      if (els.length === 0) return;
+      const first = els[0];
+      const last = els[els.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', handleTab);
+    return () => document.removeEventListener('keydown', handleTab);
+  }, [roles, editingRole]);
+
+  const handleRename = (oldName: string) => {
+    const trimmed = editValue.trim();
+    if (trimmed && trimmed !== oldName) {
+      onRename(oldName, trimmed);
+    }
+    setEditingRole(null);
+    setEditValue('');
+  };
+
+  const handleAdd = () => {
+    const trimmed = newRole.trim();
+    if (trimmed) {
+      onAdd(trimmed);
+      setNewRole('');
+    }
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose} onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } }}>
+      <div ref={modalRef} className="modal-content manage-roles-modal" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="manage-roles-title">
+        <div className="modal-header">
+          <h2 id="manage-roles-title">Manage Roles</h2>
+          <button className="modal-close" onClick={onClose} aria-label="Close manage roles">&times;</button>
+        </div>
+        <div className="modal-body">
+          <p className="manage-roles-intro">
+            Define the roles and departments responsible for DIAP actions. Use roles (not individual names) so accountability persists when people change positions.
+          </p>
+
+          <div className="manage-roles-add">
+            <input
+              ref={addInputRef}
+              type="text"
+              value={newRole}
+              onChange={(e) => setNewRole(e.target.value)}
+              placeholder="Add a new role..."
+              aria-label="New role name"
+              onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAdd(); } }}
+            />
+            <button type="button" className="btn-sm btn-save" onClick={handleAdd} disabled={!newRole.trim()}>
+              Add
+            </button>
+          </div>
+
+          <ul className="manage-roles-list">
+            {roles.map(role => {
+              const count = countForRole(role);
+              const isEditing = editingRole === role;
+              return (
+                <li key={role} className="manage-roles-item">
+                  {isEditing ? (
+                    <div className="manage-roles-edit-row">
+                      <input
+                        type="text"
+                        value={editValue}
+                        onChange={(e) => setEditValue(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') { e.preventDefault(); handleRename(role); }
+                          if (e.key === 'Escape') { setEditingRole(null); }
+                        }}
+                        aria-label={`Rename ${role}`}
+                        autoFocus
+                      />
+                      <button type="button" className="btn-sm btn-save" onClick={() => handleRename(role)}>Save</button>
+                      <button type="button" className="btn-sm btn-cancel" onClick={() => setEditingRole(null)}>Cancel</button>
+                    </div>
+                  ) : (
+                    <>
+                      <span className="manage-roles-name">{role}</span>
+                      {count > 0 && <span className="manage-roles-count">{count} item{count !== 1 ? 's' : ''}</span>}
+                      <div className="manage-roles-actions">
+                        <button
+                          type="button"
+                          className="btn-sm btn-rename"
+                          onClick={() => { setEditingRole(role); setEditValue(role); }}
+                          aria-label={`Rename ${role}`}
+                        >
+                          Rename
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-sm btn-delete"
+                          onClick={() => { if (count > 0) { if (window.confirm(`"${role}" is assigned to ${count} item${count !== 1 ? 's' : ''}. Those items will keep their current assignment. Remove this role from the list?`)) onDelete(role); } else { onDelete(role); } }}
+                          aria-label={`Remove ${role}`}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+          {roles.length === 0 && (
+            <p className="manage-roles-empty">No roles defined. Add one above or they'll be created when you assign items.</p>
+          )}
+        </div>
+        <div className="modal-footer">
+          <button type="button" className="btn-sm btn-done" onClick={onClose}>Done</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // DIAP Item Form Component
 interface DIAPItemFormProps {
   item?: DIAPItem | null;
   onSave: (data: Partial<DIAPItem>) => void;
   onCancel: () => void;
   responsiblePeopleList?: string[];
+  onAddRole?: (role: string) => void;
+  onManageRoles?: () => void;
   onAddAttachment?: (itemId: string, file: File) => void;
   onRemoveAttachment?: (itemId: string, attachmentId: string) => void;
 }
 
-function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [], onAddAttachment, onRemoveAttachment }: DIAPItemFormProps) {
+function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [], onAddRole, onManageRoles, onAddAttachment, onRemoveAttachment }: DIAPItemFormProps) {
   const formAttachRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     objective: item?.objective || '',
@@ -1525,13 +2062,14 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [], onAd
           </select>
         </label>
 
-        <label>
-          Priority
+        <fieldset className="priority-fieldset" role="radiogroup" aria-label="Priority">
+          <legend>Priority</legend>
           <div className="priority-toggle">
             <button
               type="button"
               className={`priority-btn priority-high ${formData.priority === 'high' ? 'active' : ''}`}
               onClick={() => handlePriorityChange('high')}
+              aria-pressed={formData.priority === 'high'}
             >
               High
             </button>
@@ -1539,6 +2077,7 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [], onAd
               type="button"
               className={`priority-btn priority-medium ${formData.priority === 'medium' ? 'active' : ''}`}
               onClick={() => handlePriorityChange('medium')}
+              aria-pressed={formData.priority === 'medium'}
             >
               Medium
             </button>
@@ -1546,59 +2085,41 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [], onAd
               type="button"
               className={`priority-btn priority-low ${formData.priority === 'low' ? 'active' : ''}`}
               onClick={() => handlePriorityChange('low')}
+              aria-pressed={formData.priority === 'low'}
             >
               Low
             </button>
           </div>
-        </label>
+        </fieldset>
       </div>
 
       <div className="form-row double">
-        <label>
-          Responsible Person/Role
-          <span className="field-hint">e.g., Facilities Manager, HR Team</span>
-          <input
-            type="text"
+        <div className="form-field">
+          <label htmlFor="diap-role-input">
+            Responsible Role
+            <span className="field-hint">Select a role or type to create a new one</span>
+          </label>
+          <RoleComboBox
+            inputId="diap-role-input"
             value={formData.responsibleRole}
-            onChange={(e) => setFormData({ ...formData, responsibleRole: e.target.value })}
-            list="responsible-people-list"
-            autoComplete="off"
+            roles={responsiblePeopleList}
+            onChange={(val) => setFormData({ ...formData, responsibleRole: val })}
+            onAddRole={onAddRole}
+            onManageRoles={onManageRoles}
           />
-          {responsiblePeopleList.length > 0 && (
-            <datalist id="responsible-people-list">
-              {responsiblePeopleList.map(person => (
-                <option key={person} value={person} />
-              ))}
-            </datalist>
-          )}
-        </label>
+        </div>
 
-        <label>
-          Timeframe
-          <select
-            value={formData.timeframe}
-            onChange={(e) => setFormData({ ...formData, timeframe: e.target.value })}
-          >
-            <option value="">Select timeframe</option>
-            <option value="0-30 days">0-30 days</option>
-            <option value="30-90 days">30-90 days</option>
-            <option value="3-12 months">3-12 months</option>
-            <option value="Ongoing">Ongoing</option>
-          </select>
-        </label>
-      </div>
-
-      <div className="form-row double">
         <label>
           Due Date
           <input
             type="date"
             value={formData.dueDate}
             onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-            min={new Date().toISOString().split('T')[0]}
           />
         </label>
+      </div>
 
+      <div className="form-row double">
         <label>
           Status
           <select
@@ -1607,8 +2128,10 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [], onAd
           >
             <option value="not-started">Not Started</option>
             <option value="in-progress">In Progress</option>
-            <option value="completed">Completed</option>
+            <option value="achieved">Achieved</option>
+            <option value="ongoing">Ongoing</option>
             <option value="on-hold">On Hold</option>
+            <option value="cancelled">Cancelled</option>
           </select>
         </label>
       </div>
