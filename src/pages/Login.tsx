@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { getSession, getDiscoveryData } from '../utils/session';
 import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/login.css';
 
@@ -25,14 +26,37 @@ export default function Login() {
     if (error) errorRef.current?.focus();
   }, [error]);
 
-  // Redirect if already authenticated
-  const from = (location.state as { from?: string })?.from || '/dashboard';
+  // Determine where to redirect based on user progress
+  const getResumeRoute = (): string => {
+    const explicitFrom = (location.state as { from?: string })?.from;
+    if (explicitFrom) return explicitFrom;
+
+    const session = getSession();
+    const discovery = getDiscoveryData();
+
+    if (!session?.business_snapshot?.organisation_name) {
+      return '/start';
+    }
+
+    const hasCompletedDiscovery = discovery?.discovery_data?.selectedTouchpoints &&
+      discovery.discovery_data.selectedTouchpoints.length > 0;
+
+    if (!hasCompletedDiscovery && !discovery?.recommended_modules?.length) {
+      return '/discovery';
+    }
+
+    if (!session?.selected_modules?.length) {
+      return '/decision';
+    }
+
+    return '/dashboard';
+  };
 
   useEffect(() => {
     if (isAuthenticated && !authLoading) {
-      navigate(from, { replace: true });
+      navigate(getResumeRoute(), { replace: true });
     }
-  }, [isAuthenticated, authLoading, navigate, from]);
+  }, [isAuthenticated, authLoading, navigate]);
 
   // Show loading while checking auth
   if (authLoading) {
@@ -73,7 +97,7 @@ export default function Login() {
             setError(error.message || 'Unable to sign in. Please check your email and password, then try again.');
           }
         } else {
-          navigate(from, { replace: true });
+          navigate(getResumeRoute(), { replace: true });
         }
       } else if (mode === 'forgot') {
         const { error } = await resetPassword(email);
