@@ -103,6 +103,12 @@ export function HelpPanelMobile({
             onFeedback={onFeedback}
           />
         </div>
+
+        <div className="help-panel-footer">
+          <button type="button" className="help-panel-done-btn" onClick={onClose}>
+            Done
+          </button>
+        </div>
       </div>
     </>
   );

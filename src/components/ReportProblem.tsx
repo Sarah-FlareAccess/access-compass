@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import './ReportProblem.css';
 
@@ -11,7 +12,7 @@ type IssueType = 'bug' | 'suggestion' | 'question' | 'other';
 
 export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
   const location = useLocation();
-  const [issueType, setIssueType] = useState<IssueType>('bug');
+  const [issueType, setIssueType] = useState<IssueType | null>(null);
   const [description, setDescription] = useState('');
   const [screenshot, setScreenshot] = useState<File | null>(null);
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
@@ -41,7 +42,7 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!description.trim()) return;
+    if (!issueType || !description.trim()) return;
 
     setIsSubmitting(true);
 
@@ -73,7 +74,7 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
 
   const handleClose = () => {
     // Reset form state
-    setIssueType('bug');
+    setIssueType(null);
     setDescription('');
     setScreenshot(null);
     setScreenshotPreview(null);
@@ -95,13 +96,44 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
 
   useEffect(() => {
     if (isOpen) {
-      modalRef.current?.querySelector<HTMLElement>('.report-close-btn')?.focus();
+      const firstBtn = modalRef.current?.querySelector<HTMLElement>('.issue-type-btn');
+      if (firstBtn) {
+        firstBtn.focus({ preventScroll: true });
+      } else {
+        modalRef.current?.querySelector<HTMLElement>('.report-close-btn')?.focus();
+      }
     }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const modal = modalRef.current;
+    if (!modal) return;
+
+    const handleTrapFocus = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const focusable = modal.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleTrapFocus);
+    return () => document.removeEventListener('keydown', handleTrapFocus);
   }, [isOpen]);
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="report-problem-overlay" onClick={handleClose}>
       <div
         ref={modalRef}
@@ -232,12 +264,12 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
                   className="btn btn-secondary"
                   onClick={handleClose}
                 >
-                  Cancel
+                  Close
                 </button>
                 <button
                   type="submit"
                   className="btn btn-primary"
-                  disabled={!description.trim() || isSubmitting}
+                  disabled={!issueType || !description.trim() || isSubmitting}
                 >
                   {isSubmitting ? (
                     <>
@@ -253,7 +285,8 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
           </>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

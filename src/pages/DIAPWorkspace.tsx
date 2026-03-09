@@ -30,7 +30,7 @@ import { Zap, Upload, Paperclip, Filter, Download, Users as UsersIcon, CalendarD
 import '../styles/diap.css';
 
 const DIAP_FEATURES: GuideFeature[] = [
-  { icon: Plus, title: 'Add a DIAP item', description: 'Use the round button in the bottom-right corner to create a new action item manually.' },
+  { icon: Plus, title: 'Add a DIAP item', description: 'Click "Add Item" in the top-right to create a new action item manually.' },
   { icon: Zap, title: 'Generate from responses', description: 'Auto-populate action items from your completed module assessment findings.' },
   { icon: Upload, title: 'Import and export', description: 'Import from CSV, Excel, or PDF. Export as CSV or formatted PDF to share with management.' },
   { icon: Paperclip, title: 'Upload evidence', description: 'Attach photos, quotes, or research to each action item as supporting evidence.' },
@@ -102,7 +102,6 @@ export default function DIAPWorkspace() {
   const [customDateFrom, setCustomDateFrom] = useState('');
   const [customDateTo, setCustomDateTo] = useState('');
   const [showDocuments, setShowDocuments] = useState(false);
-  const [compactCards, setCompactCards] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const [isImporting, setIsImporting] = useState(false);
@@ -596,6 +595,11 @@ export default function DIAPWorkspace() {
             <p className="header-subtitle">Management System</p>
           </div>
           <div className="diap-header-actions">
+            {!showAddForm && (
+              <button className="btn-add-item" onClick={() => setShowAddForm(true)}>
+                + Add Item
+              </button>
+            )}
             <button className="btn-import" onClick={() => setShowImportModal(true)}>
               Import DIAP
             </button>
@@ -820,31 +824,15 @@ export default function DIAPWorkspace() {
           </div>
         )}
 
-        {/* Stats Overview */}
-        <div className="diap-stats-grid">
-          <div className="stat-card total">
-            <span className="stat-value">{stats.total}</span>
-            <span className="stat-label">Total Items</span>
-          </div>
-          <div className="stat-card not-started">
-            <span className="stat-value">{stats.byStatus['not-started']}</span>
-            <span className="stat-label">Not Started</span>
-          </div>
-          <div className="stat-card in-progress">
-            <span className="stat-value">{stats.byStatus['in-progress']}</span>
-            <span className="stat-label">In Progress</span>
-          </div>
-          <div className="stat-card achieved">
-            <span className="stat-value">{stats.byStatus['achieved']}</span>
-            <span className="stat-label">Achieved</span>
-          </div>
-          <div className="stat-card high-priority">
-            <span className="stat-value">{stats.byPriority['high']}</span>
-            <span className="stat-label">High Priority</span>
-          </div>
-        </div>
-
-        <div className="diap-controls">
+        <details className="diap-controls-collapsible">
+          <summary className="diap-controls-summary">
+            Filters
+            {(filterStatuses.size > 0 || filterPriorities.size > 0 || filterCategories.size > 0 || filterResponsible !== 'all' || filterDueDate.size > 0) && (
+              <span className="filter-active-count">
+                {filterStatuses.size + filterPriorities.size + filterCategories.size + (filterResponsible !== 'all' ? 1 : 0) + filterDueDate.size} active
+              </span>
+            )}
+          </summary>
           <div className="diap-filter-panel" role="group" aria-label="Filter DIAP items">
             <div className="filter-group">
               <span className="filter-group-label">Status</span>
@@ -1023,13 +1011,12 @@ export default function DIAPWorkspace() {
               </button>
             )}
           </div>
-
-        </div>
+        </details>
 
         {/* Priority legend (collapsible) */}
         {items.length > 0 && (
-          <details className="diap-priority-legend">
-            <summary>Understanding priority levels</summary>
+          <details className="diap-controls-collapsible diap-priority-legend">
+            <summary className="diap-controls-summary">Understanding priority levels</summary>
             <dl className="diap-priority-legend-list">
               {PRIORITY_LEGEND.map(({ level, label, description }) => (
                 <div key={level} className={`diap-priority-legend-item diap-priority-${level}`}>
@@ -1059,89 +1046,8 @@ export default function DIAPWorkspace() {
           />
         )}
 
-        {/* Overview Summary Cards */}
-        <div className="diap-overview" aria-label="DIAP category overview">
-          <div className="overview-grid">
-            {categoryStats.map(cat => (
-              <button
-                key={cat.id}
-                className="overview-card"
-                onClick={() => {
-                  setExpandedCategories(prev => ({ ...prev, [cat.id]: true }));
-                  document.getElementById(`diap-cat-${cat.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-                aria-label={`${cat.name}: ${cat.total} items, ${cat.pct}% achieved or ongoing. Click to jump to section.`}
-              >
-                <div className="overview-card-header">
-                  <span className="overview-card-icon" aria-hidden="true">{cat.icon}</span>
-                  <span className="overview-card-name">{cat.name}</span>
-                </div>
-                <div className="overview-card-stats">
-                  <span className="overview-card-total">{cat.total} item{cat.total !== 1 ? 's' : ''}</span>
-                  <span className="overview-card-pct">{cat.pct}% <span className="overview-card-pct-label">done</span></span>
-                </div>
-                <div className="overview-progress-bar" role="progressbar" aria-valuenow={cat.pct} aria-valuemin={0} aria-valuemax={100}>
-                  <div className="overview-progress-fill" style={{ width: `${cat.pct}%` }} />
-                </div>
-                <div className="overview-card-breakdown">
-                  {cat.high > 0 && <span className="overview-priority high">{cat.high} high</span>}
-                  {cat.medium > 0 && <span className="overview-priority medium">{cat.medium} med</span>}
-                  {cat.low > 0 && <span className="overview-priority low">{cat.low} low</span>}
-                  {cat.inProgress > 0 && <span className="overview-status in-progress">{cat.inProgress} in progress</span>}
-                  {cat.achieved > 0 && <span className="overview-status achieved">{cat.achieved} achieved</span>}
-                  {cat.ongoing > 0 && <span className="overview-status ongoing">{cat.ongoing} ongoing</span>}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Display density toggle */}
-        {filteredItems.length > 0 && (
-          <div className="density-toolbar">
-            <span className="density-count">{filteredItems.length} item{filteredItems.length !== 1 ? 's' : ''}</span>
-            <button
-              className={`density-toggle ${compactCards ? 'is-compact' : ''}`}
-              onClick={() => setCompactCards(!compactCards)}
-              aria-pressed={compactCards}
-            >
-              {compactCards ? 'Expand cards' : 'Compact cards'}
-            </button>
-          </div>
-        )}
-
         {/* DIAP Sections */}
-        <div className={`diap-category-view ${compactCards ? 'compact-mode' : ''}`} aria-live="polite">
-            {/* Sticky section nav */}
-            <nav className="diap-section-nav" aria-label="Jump to category">
-              {itemsByCategory.map(({ group, subcategories }) => {
-                const total = subcategories.reduce((sum, s) => sum + s.items.length, 0);
-                if (filterCategories.size > 0 && total === 0) return null;
-                const catStat = categoryStats.find(c => c.id === group.id);
-                return (
-                  <a
-                    key={group.id}
-                    href={`#diap-cat-${group.id}`}
-                    className="section-nav-link"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setExpandedCategories(prev => ({ ...prev, [group.id]: true }));
-                      document.getElementById(`diap-cat-${group.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }}
-                  >
-                    <span className="section-nav-icon" aria-hidden="true">{group.icon}</span>
-                    <span className="section-nav-name">{group.name}</span>
-                    <span className="section-nav-count">{total}</span>
-                    {catStat && catStat.total > 0 && (
-                      <span className="section-nav-bar" role="progressbar" aria-valuenow={catStat.pct} aria-valuemin={0} aria-valuemax={100}>
-                        <span className="section-nav-bar-fill" style={{ width: `${catStat.pct}%` }} />
-                      </span>
-                    )}
-                  </a>
-                );
-              })}
-            </nav>
-
+        <div className="diap-category-view" aria-live="polite">
             {itemsByCategory.map(({ group, subcategories }) => {
               const totalItemsInGroup = subcategories.reduce((sum, s) => sum + s.items.length, 0);
               if (filterCategories.size > 0 && totalItemsInGroup === 0) return null;
@@ -1201,22 +1107,26 @@ export default function DIAPWorkspace() {
                                       onCancel={() => {
                                         setEditingItem(null);
                                       }}
+                                      onDelete={() => {
+                                        deleteItem(editingItem.id);
+                                        setEditingItem(null);
+                                      }}
                                       responsiblePeopleList={responsiblePeople}
                                       onAddRole={addManagedRole}
                                       onManageRoles={() => setShowManageRoles(true)}
+                                      onAddAttachment={addAttachment}
+                                      onRemoveAttachment={removeAttachment}
                                     />
                                   </div>
                                 ) : (
                                   <DIAPItemCard
                                     key={item.id}
                                     item={item}
-                                    compact={compactCards}
                                     onStatusChange={handleStatusChange}
                                     onEdit={() => {
                                       dismissHint();
                                       setEditingItem(item);
                                     }}
-                                    onDelete={() => deleteItem(item.id)}
                                     onAddAttachment={addAttachment}
                                     onRemoveAttachment={removeAttachment}
                                     onMoveUp={index > 0 ? () => reorderItem(item.id, categoryItems[index - 1].id) : undefined}
@@ -1385,27 +1295,7 @@ export default function DIAPWorkspace() {
           </div>
         )}
 
-        {/* Quick Actions */}
-        <div className="diap-actions">
-          <Link to="/dashboard" className="btn btn-secondary">
-            ← Back to Dashboard
-          </Link>
-          <Link to="/questions" className="btn btn-secondary">
-            Continue Review
-          </Link>
-        </div>
-
         <PageFooter />
-
-        {/* Floating Add Item button */}
-        <button
-          className={`fab-add-item ${showAddForm ? 'active' : ''}`}
-          onClick={() => setShowAddForm(!showAddForm)}
-          aria-label={showAddForm ? 'Close add item form' : 'Add new DIAP item'}
-          title={showAddForm ? 'Close' : 'Add Item'}
-        >
-          <span aria-hidden="true">{showAddForm ? '×' : '+'}</span>
-        </button>
       </div>
     </div>
   );
@@ -1414,10 +1304,8 @@ export default function DIAPWorkspace() {
 // DIAP Item Card Component
 interface DIAPItemCardProps {
   item: DIAPItem;
-  compact?: boolean;
   onStatusChange: (id: string, status: DIAPStatus) => void;
   onEdit: () => void;
-  onDelete: () => void;
   onAddAttachment: (id: string, file: File) => void;
   onRemoveAttachment: (itemId: string, attachmentId: string) => void;
   onMoveUp?: () => void;
@@ -1425,7 +1313,7 @@ interface DIAPItemCardProps {
   showEditHint?: boolean;
 }
 
-function DIAPItemCard({ item, compact, onStatusChange, onEdit, onDelete, onAddAttachment, onRemoveAttachment, onMoveUp, onMoveDown, showEditHint }: DIAPItemCardProps) {
+function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveAttachment, onMoveUp, onMoveDown, showEditHint }: DIAPItemCardProps) {
   const [showStatusMenu, setShowStatusMenu] = useState(false);
   const attachInputRef = useRef<HTMLInputElement>(null);
 
@@ -1488,7 +1376,7 @@ function DIAPItemCard({ item, compact, onStatusChange, onEdit, onDelete, onAddAt
 
   return (
     <div
-      className={`diap-item-card status-${item.status} clickable-card${compact ? ' compact' : ''}`}
+      className={`diap-item-card status-${item.status} clickable-card`}
       style={{ borderLeftColor: colors.border }}
       onClick={handleCardClick}
       onKeyDown={handleKeyDown}
@@ -1539,13 +1427,6 @@ function DIAPItemCard({ item, compact, onStatusChange, onEdit, onDelete, onAddAt
               ▼
             </button>
           )}
-          <button
-            className="action-btn delete"
-            onClick={(e) => { e.stopPropagation(); onDelete(); }}
-            aria-label={`Delete ${item.objective}`}
-          >
-            Delete
-          </button>
         </div>
       </div>
 
@@ -1651,11 +1532,6 @@ function DIAPItemCard({ item, compact, onStatusChange, onEdit, onDelete, onAddAt
 
       {/* Per-item attachments */}
       <div className="item-attachments" onClick={(e) => e.stopPropagation()}>
-        {(item.attachments || []).length === 0 && (
-          <p className="evidence-hint">
-            Add evidence: site photos, supplier quotes, policy documents, training records, or research.
-          </p>
-        )}
         {(item.attachments || []).length > 0 && (
           <div className="attachment-list">
             {item.attachments!.map(att => (
@@ -1978,6 +1854,7 @@ interface DIAPItemFormProps {
   item?: DIAPItem | null;
   onSave: (data: Partial<DIAPItem>) => void;
   onCancel: () => void;
+  onDelete?: () => void;
   responsiblePeopleList?: string[];
   onAddRole?: (role: string) => void;
   onManageRoles?: () => void;
@@ -1985,7 +1862,7 @@ interface DIAPItemFormProps {
   onRemoveAttachment?: (itemId: string, attachmentId: string) => void;
 }
 
-function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [], onAddRole, onManageRoles, onAddAttachment, onRemoveAttachment }: DIAPItemFormProps) {
+function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList = [], onAddRole, onManageRoles, onAddAttachment, onRemoveAttachment }: DIAPItemFormProps) {
   const formAttachRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     objective: item?.objective || '',
@@ -2226,12 +2103,23 @@ function DIAPItemForm({ item, onSave, onCancel, responsiblePeopleList = [], onAd
       )}
 
       <div className="form-actions">
-        <button type="button" className="btn-cancel" onClick={onCancel}>
-          Cancel
-        </button>
-        <button type="submit" className="btn-save">
-          {item ? 'Update Item' : 'Add Item'}
-        </button>
+        {item && onDelete && (
+          <button
+            type="button"
+            className="btn-delete-item"
+            onClick={() => { if (window.confirm('Delete this item? This cannot be undone.')) onDelete(); }}
+          >
+            Delete Item
+          </button>
+        )}
+        <div className="form-actions-right">
+          <button type="button" className="btn-cancel" onClick={onCancel}>
+            Cancel
+          </button>
+          <button type="submit" className="btn-save">
+            {item ? 'Update Item' : 'Add Item'}
+          </button>
+        </div>
       </div>
     </form>
   );

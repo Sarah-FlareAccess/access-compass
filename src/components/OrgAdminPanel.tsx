@@ -1023,6 +1023,12 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
         </div>
 
         {orgAdmin.error && <div className="admin-error">{orgAdmin.error}</div>}
+
+        <div className="admin-panel-footer">
+          <button type="button" className="btn-done-admin" onClick={onClose}>
+            Done
+          </button>
+        </div>
       </div>
     </div>,
     document.body

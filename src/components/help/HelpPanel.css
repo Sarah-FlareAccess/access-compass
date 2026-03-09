@@ -319,3 +319,32 @@
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
+
+/* Footer with Done button */
+.help-panel-footer {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(73, 14, 103, 0.1);
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.help-panel-done-btn {
+  padding: 10px 24px;
+  background: var(--amethyst-diamond);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.help-panel-done-btn:hover {
+  background: #723d8d;
+}
+
+.help-panel-done-btn:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}

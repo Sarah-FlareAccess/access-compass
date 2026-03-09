@@ -1244,3 +1244,31 @@
     flex-wrap: wrap;
   }
 }
+
+/* Footer with Done button */
+.admin-panel-footer {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid rgba(73, 14, 103, 0.1);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-done-admin {
+  padding: 10px 24px;
+  background: var(--amethyst-diamond);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-done-admin:hover {
+  background: #723d8d;
+}
+
+.btn-done-admin:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}

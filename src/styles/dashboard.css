@@ -304,7 +304,7 @@
 
 .stat-item {
   text-align: center;
-  padding: var(--spacing-sm);
+  padding: 6px var(--spacing-sm);
   background: white;
   border-radius: var(--radius-sm);
   border: 1px solid rgba(73, 14, 103, 0.08);
@@ -312,7 +312,7 @@
 
 .stat-value {
   display: block;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--amethyst-diamond);
   line-height: 1.2;
@@ -1784,8 +1784,25 @@
   align-items: center;
 }
 
+a.evidence-action-btn,
+a.evidence-action-btn:visited {
+  color: #fff;
+}
+
 .evidence-action-btn:hover {
-  background: var(--amethyst-light);
+  background: #5a1a7a;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(73, 14, 103, 0.35);
+}
+
+.evidence-action-btn:active {
+  background: #4a1068;
+}
+
+.evidence-action-btn:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
 }
 
 /* ============================================

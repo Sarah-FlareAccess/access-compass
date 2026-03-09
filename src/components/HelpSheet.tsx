@@ -238,6 +238,9 @@ export function HelpSheet({ isOpen, onClose }: HelpSheetProps) {
               </svg>
               <span>Email Support</span>
             </a>
+            <button type="button" className="help-sheet-close-btn" onClick={onClose}>
+              Close
+            </button>
           </div>
         </div>
       </div>

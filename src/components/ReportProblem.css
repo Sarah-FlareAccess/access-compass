@@ -63,6 +63,11 @@
   color: white;
 }
 
+.report-close-btn:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
 /* Header */
 .report-header {
   padding: 24px 24px 0;
@@ -129,6 +134,11 @@
 .issue-type-btn:hover {
   border-color: rgba(114, 61, 141, 0.4);
   background: rgba(114, 61, 141, 0.04);
+}
+
+.issue-type-btn:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
 }
 
 .issue-type-btn.active {
@@ -245,6 +255,16 @@
   background: #dc2626;
 }
 
+.remove-screenshot-btn:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+.screenshot-upload:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
 /* Page Context */
 .page-context {
   display: flex;
@@ -274,6 +294,47 @@
   margin-top: 24px;
   padding-top: 20px;
   border-top: 1px solid #e5e7eb;
+}
+
+.report-actions .btn-secondary {
+  padding: 10px 20px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.report-actions .btn-secondary:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.report-actions .btn-primary {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--amethyst-diamond);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+
+.report-actions .btn-primary:hover:not(:disabled) {
+  background: #723d8d;
+}
+
+.report-actions .btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.report-actions button:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
 }
 
 .report-actions .spinner {

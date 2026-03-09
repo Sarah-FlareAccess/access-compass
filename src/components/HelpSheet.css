@@ -289,7 +289,30 @@
 }
 
 .help-sheet-contact-btn:focus {
-  outline: 2px solid white;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+.help-sheet-close-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: #fff;
+  color: var(--text-primary);
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.help-sheet-close-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.help-sheet-close-btn:focus {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
