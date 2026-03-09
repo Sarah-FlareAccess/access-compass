@@ -41,6 +41,7 @@ export type BusinessType =
   | 'event-venue'
   | 'local-government'
   | 'health-wellness'
+  | 'recreation'
   | 'general';
 
 // Standards that may be referenced
@@ -53,7 +54,9 @@ export type StandardReference =
   | 'WCAG2.1-AA'         // Web Content Accessibility Guidelines 2.1 Level AA
   | 'WCAG2.2-AA'         // Web Content Accessibility Guidelines 2.2 Level AA
   | 'DDA'                // Disability Discrimination Act 1992
-  | 'NCC';               // National Construction Code
+  | 'NCC'                // National Construction Code
+  | 'UNCRPD'             // UN Convention on the Rights of Persons with Disabilities
+  | 'WCAG';              // Web Content Accessibility Guidelines (general)
 
 export interface HelpContent {
   /** Must match question ID from accessModules.ts (e.g., '1.1-F-1', '2.2-F-3') */
@@ -147,6 +150,9 @@ export interface HelpTip {
 
   /** Optional: expand on hover/click */
   detail?: string;
+
+  /** Optional measurement guidance */
+  measurement?: string | { target: string; acceptable: string; unit: string };
 
   /** Priority for ordering (1 = most important) */
   priority?: number;

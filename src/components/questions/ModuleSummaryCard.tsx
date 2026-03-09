@@ -222,7 +222,7 @@ export function ModuleSummaryCard({
           <ul className="summary-list">
             {(expandedSections['explore'] ? areasToExplore : areasToExplore.slice(0, 3)).map((item, index) => (
               <li key={index} className="summary-item explore-item">
-                {item}
+                {typeof item === 'string' ? item : item.action}
               </li>
             ))}
             {areasToExplore.length > 3 && (

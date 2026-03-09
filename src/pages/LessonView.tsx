@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getCourseBySlug } from '../data/training/index';
 import { LessonContentRenderer } from '../components/training/LessonContentRenderer';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
@@ -11,7 +11,6 @@ import './LessonView.css';
 
 export default function LessonView() {
   const { slug, lessonId } = useParams<{ slug: string; lessonId: string }>();
-  const navigate = useNavigate();
   const { accessState } = useAuth();
 
   const course = useMemo(() => getCourseBySlug(slug ?? ''), [slug]);

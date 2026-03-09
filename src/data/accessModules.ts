@@ -29072,7 +29072,7 @@ export const accessModules: AccessModule[] = [
         text: 'Is your security screening process accessible to people with different disabilities?',
         helpText: 'This covers bag checks, metal detectors, pat-downs, wristband application, and ID verification.',
         type: 'single-select',
-        category: 'operations',
+        category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         options: [
@@ -29112,7 +29112,7 @@ export const accessModules: AccessModule[] = [
         text: 'Do you have a plan for supporting attendees who become distressed, disoriented, or separated from their group?',
         helpText: 'This covers people experiencing sensory overload, panic attacks, confusion, or who have become lost or separated from carers.',
         type: 'single-select',
-        category: 'operations',
+        category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         safetyRelated: true,
@@ -29153,7 +29153,7 @@ export const accessModules: AccessModule[] = [
         text: 'Do you actively manage pre-registered accessibility accommodations on the day?',
         helpText: 'This covers whether accommodations requested during booking (e.g., wheelchair spaces, Auslan interpreters, companion seats, dietary requirements) are followed through.',
         type: 'single-select',
-        category: 'operations',
+        category: 'operational',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         options: [

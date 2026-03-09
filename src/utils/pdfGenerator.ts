@@ -7,7 +7,7 @@
 
 import jsPDF from 'jspdf';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
-import { accessModules, moduleGroups } from '../data/accessModules';
+import { accessModules } from '../data/accessModules';
 import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from './professionalSupportGroups';
 
 // Brand Colors - matching Access Compass design system

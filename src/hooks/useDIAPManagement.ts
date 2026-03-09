@@ -120,7 +120,7 @@ function getLocalItems(): DIAPItem[] {
     let statusChanged = false;
     for (const item of items) {
       if ((item.status as string) === 'completed') {
-        (item as Record<string, unknown>).status = 'achieved';
+        (item as unknown as Record<string, unknown>).status = 'achieved';
         statusChanged = true;
       }
     }
@@ -268,6 +268,13 @@ interface UseDIAPManagementReturn {
   deleteDocument: (id: string) => Promise<void>;
   linkDocumentToItem: (documentId: string, itemId: string) => void;
 
+  // Attachments
+  addAttachment: (itemId: string, file: File) => Promise<void>;
+  removeAttachment: (itemId: string, attachmentId: string) => void;
+
+  // Reorder
+  reorderItem: (itemIdA: string, itemIdB: string) => void;
+
   // Queries
   getItemsByPriority: (priority: DIAPPriority) => DIAPItem[];
   getItemsByStatus: (status: DIAPStatus) => DIAPItem[];
@@ -313,7 +320,7 @@ function calculatePriority(response: ResponseForDIAP): DIAPPriority {
   });
 }
 
-function calculateTimeframe(priority: DIAPPriority): string {
+function calculateTimeframe(_priority: DIAPPriority): string {
   return '';
 }
 

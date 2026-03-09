@@ -52,12 +52,6 @@ const PRIORITY_COLORS: Record<string, string> = {
   low: COLORS.statusLow,
 };
 
-const PRIORITY_BG: Record<string, [number, number, number]> = {
-  high: [255, 241, 241],
-  medium: [255, 249, 235],
-  low: [239, 246, 255],
-};
-
 const PRIORITY_ACCENT: Record<string, string> = {
   high: '#ef4444',
   medium: '#d97706',
@@ -246,7 +240,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   const highItems = items.filter(i => i.priority === 'high');
   const medItems = items.filter(i => i.priority === 'medium');
   const lowItems = items.filter(i => i.priority === 'low');
-  const completedCount = items.filter(i => i.status === 'completed').length;
+  const completedCount = items.filter(i => i.status === 'achieved').length;
   const inProgressCount = items.filter(i => i.status === 'in-progress').length;
   const notStartedCount = items.filter(i => i.status === 'not-started').length;
   const onHoldCount = items.filter(i => i.status === 'on-hold').length;
@@ -533,7 +527,6 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     const objectiveLines = wrapText(item.objective, textMaxWidth);
     const actionLines = wrapText(item.action, textMaxWidth);
     const itemPriority = item.priority || 'low';
-    const cardBg = PRIORITY_BG[itemPriority] || [255, 255, 255];
     const accentColor = PRIORITY_ACCENT[itemPriority] || PRIORITY_COLORS[itemPriority] || COLORS.statusLow;
     const priorityColor = PRIORITY_COLORS[itemPriority] || COLORS.statusLow;
 
@@ -708,11 +701,6 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     // Category header (full purple band)
     addSectionHeader(`${catLabel} (${catItems.length})`);
-
-    // Count badges for this category
-    const hCount = catItems.filter(i => i.priority === 'high').length;
-    const mCount = catItems.filter(i => i.priority === 'medium').length;
-    const lCount = catItems.filter(i => i.priority === 'low').length;
 
     // Priority sub-groups within the category
     const prioritySubs: { priority: string; label: string; items: DIAPItem[] }[] = [

@@ -628,7 +628,6 @@ function toRecommendedModule(score: ModuleScore, _discoveryData: DiscoveryData |
 
   // Determine "why suggested" type
   const isPadding = score.triggeringTouchpoints.some(t => t.startsWith('_padding'));
-  const isContext = score.triggeringTouchpoints.some(t => t.startsWith('_context_'));
   const isIndustryDefault = score.triggeringTouchpoints.includes('_padding_industry_default');
 
   let whySuggestedType: 'discovery' | 'default-starter' | 'padding' = 'discovery';

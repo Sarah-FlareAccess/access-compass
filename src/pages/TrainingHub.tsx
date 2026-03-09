@@ -6,7 +6,7 @@ import {
   TRAINING_CATEGORIES,
   searchTraining,
 } from '../data/training/index';
-import type { TrainingCategory, TrainingCourse, TrainingResource } from '../data/training/types';
+import type { TrainingCategory } from '../data/training/types';
 import { TrainingCard } from '../components/training/TrainingCard';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { usePageTitle } from '../hooks/usePageTitle';

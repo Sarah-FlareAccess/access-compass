@@ -191,7 +191,7 @@ export function ModuleRunSelector({
       rows.push(['Priority Actions']);
       run.summary.priorityActions.forEach(item => rows.push(['', item.action, item.priority, item.timeframe]));
       rows.push(['Areas to Explore']);
-      run.summary.areasToExplore.forEach(item => rows.push(['', item]));
+      run.summary.areasToExplore.forEach(item => rows.push(['', typeof item === 'string' ? item : item.action]));
     }
 
     // Convert to CSV string with proper escaping

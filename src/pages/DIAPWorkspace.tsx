@@ -21,12 +21,12 @@ import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategoryAndObjective, getCustomCategoryNames, setCustomCategoryName, getCategoryDisplayName, getCustomCategories, addCustomCategory, removeCustomCategory, getAllCategories } from '../data/diapMapping';
-import type { DIAPItem, DIAPAttachment, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
+import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { hasHelpContent, getHelpByQuestionId } from '../data/help';
 import { getResourceLink } from '../utils/resourceLinks';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
-import { Zap, Upload, Paperclip, Filter, Download, Users as UsersIcon, CalendarDays, Plus } from 'lucide-react';
+import { Zap, Upload, Paperclip, Filter, Users as UsersIcon, CalendarDays, Plus } from 'lucide-react';
 import '../styles/diap.css';
 
 const DIAP_FEATURES: GuideFeature[] = [
@@ -161,7 +161,7 @@ export default function DIAPWorkspace() {
     Object.values(moduleProgress).forEach(mp => {
       if (!mp.responses) return;
       mp.responses.forEach(r => {
-        currentResponses[r.questionId] = r.answer;
+        currentResponses[r.questionId] = r.answer || '';
       });
     });
     // Compare against each DIAP item's sourceAnswer
@@ -174,8 +174,6 @@ export default function DIAPWorkspace() {
     });
     return changes;
   }, [items, moduleProgress]);
-
-  const changedItemCount = Object.keys(changedItems).length;
 
   const dismissChange = useCallback((itemId: string) => {
     const change = changedItems[itemId];

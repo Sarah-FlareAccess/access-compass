@@ -101,21 +101,6 @@ export default function Export() {
     });
   }, [progress, organisationName, badgeProgress.level, badgeProgress.totalModules]);
 
-  const handleViewReport = () => {
-    if (!isReady) return;
-    const report = generateReport(reviewMode, organisationName, reportConfig);
-
-    // Apply filters based on options
-    const filteredReport = {
-      ...report,
-      questionNotes: includeNotes ? report.questionNotes : [],
-      questionEvidence: includePhotos ? report.questionEvidence : [],
-    };
-
-    setCurrentReport(filteredReport);
-    setShowReport(true);
-  };
-
   const handleDownloadPDF = () => {
     if (!currentReport) return;
     downloadPDFReport(currentReport);

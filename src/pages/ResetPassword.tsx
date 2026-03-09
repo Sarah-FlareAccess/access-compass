@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/login.css';
 
 export default function ResetPassword() {
-  const navigate = useNavigate();
   const { updatePassword } = useAuth();
 
   const [password, setPassword] = useState('');

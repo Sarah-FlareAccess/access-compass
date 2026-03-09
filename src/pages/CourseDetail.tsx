@@ -70,7 +70,7 @@ export default function CourseDetail() {
     navigate(`/training/course/${course.slug}/lesson/${lessonId}`);
   };
 
-  const isLessonLocked = (lessonIndex: number, lessonTier: string, isPreview?: boolean): boolean => {
+  const isLessonLocked = (_lessonIndex: number, lessonTier: string, isPreview?: boolean): boolean => {
     if (isPreview) return false;
     if (lessonTier === 'free') return false;
     return !canAccess;

@@ -44,7 +44,7 @@ export interface BranchingQuestion {
   helpText?: string;
   example?: string;
   type: 'yes-no-unsure' | 'measurement' | 'text' | 'multi-select' | 'single-select' | 'link-input' | 'evidence' | 'url-analysis' | 'media-analysis';
-  category?: 'lived-experience' | 'operational' | 'information' | 'measurement' | 'policy' | 'evidence' | 'employment' | 'training' | 'procurement' | 'improvement' | 'feedback';
+  category?: 'lived-experience' | 'operational' | 'information' | 'measurement' | 'policy' | 'evidence' | 'employment' | 'training' | 'procurement' | 'improvement' | 'feedback' | 'safety' | 'physical' | 'digital' | 'communication' | 'sensory-environment';
   reviewMode?: 'pulse-check' | 'deep-dive' | 'both';
   impactLevel?: 'high' | 'medium' | 'low';
   safetyRelated?: boolean;

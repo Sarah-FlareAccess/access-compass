@@ -4974,7 +4974,7 @@ function getSpecificRecommendations(
   questionId: string,
   questionText: string,
   moduleCode: string,
-  answer: string | null,
+  _answer: string | null,
   userNotes?: string
 ): { actions: string[]; reasoning: string; resources: string[]; needsAdminReview?: boolean } {
   // First, check for question-specific recommendations (most precise)
@@ -5164,7 +5164,7 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
           complianceLevel: question.complianceLevel,
           safetyRelated: question.safetyRelated,
           impactLevel: question.impactLevel,
-          answer: response.answer,
+          answer: response.answer || '',
         });
 
         const recommendations = getSpecificRecommendations(

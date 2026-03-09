@@ -1035,11 +1035,6 @@ Thanks!`;
                   </section>
                 );
               })}
-
-              {/* Subtle Guidance Footer */}
-              <footer className="guidance-footer">
-                <p>Start with the areas most relevant to your visitors. You can always revisit other modules later.</p>
-              </footer>
             </div>
           )}
 

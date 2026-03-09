@@ -15,7 +15,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ChevronUp, ExternalLink, ArrowUp } from 'lucide-react';
+import { ChevronDown, ExternalLink, ArrowUp } from 'lucide-react';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 import { downloadPDFReport } from '../utils/pdfGenerator';
 import { RESPONSE_LABELS } from '../constants/responseOptions';
