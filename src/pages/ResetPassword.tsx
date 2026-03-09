@@ -105,7 +105,7 @@ export default function ResetPassword() {
         <div className="container">
           <div className="login-card">
             <div className="login-header">
-              <span className="login-icon">🧭</span>
+              <img src="/images/access-compass-logo.png" alt="Access Compass" className="login-logo" />
               <h1>Invalid or expired link</h1>
               <p className="login-subtitle">
                 This password reset link is no longer valid. Please request a new one.
@@ -130,7 +130,7 @@ export default function ResetPassword() {
         <div className="container">
           <div className="login-card">
             <div className="login-header">
-              <span className="login-icon">🧭</span>
+              <img src="/images/access-compass-logo.png" alt="Access Compass" className="login-logo" />
               <h1>Password updated</h1>
               <p className="login-subtitle">
                 Your password has been reset successfully.
@@ -157,7 +157,7 @@ export default function ResetPassword() {
       <div className="container">
         <div className="login-card">
           <div className="login-header">
-            <span className="login-icon">🧭</span>
+            <img src="/images/access-compass-logo.png" alt="Access Compass" className="login-logo" />
             <h1>Set new password</h1>
             <p className="login-subtitle">
               Enter your new password below

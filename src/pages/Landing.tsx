@@ -15,8 +15,7 @@ export default function Landing() {
       <header className="landing-header">
         <div className="container header-container">
           <div className="logo">
-            <span className="logo-icon">🧭</span>
-            <span className="logo-text">Access Compass</span>
+            <img src="/images/access-compass-logo.png" alt="Access Compass" className="logo-img" />
           </div>
 
           {/* Mobile hamburger button */}

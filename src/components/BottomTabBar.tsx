@@ -160,14 +160,16 @@ export function BottomTabBar() {
     return null;
   }
 
-  // For first-time users, only show tab bar if they're past the discovery intro
+  // Hide tab bar during discovery flow
+  const inDiscoveryFlow = location.pathname.startsWith('/discovery') ||
+                          location.pathname === '/start';
+  if (inDiscoveryFlow) {
+    return null;
+  }
+
+  // For first-time users, only show tab bar if they have modules
   if (!hasModules) {
-    // During active discovery flow, show minimal help-only bar
-    const inDiscoveryFlow = location.pathname.startsWith('/discovery') ||
-                            location.pathname === '/start';
-    if (!inDiscoveryFlow) {
-      return null; // Don't show tab bar on random pages if no modules
-    }
+    return null;
   }
 
   return (

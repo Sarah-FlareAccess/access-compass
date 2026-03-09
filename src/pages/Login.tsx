@@ -105,7 +105,7 @@ export default function Login() {
       <div className="container">
         <div className="login-card">
           <div className="login-header">
-            <span className="login-icon">🧭</span>
+            <img src="/images/access-compass-logo.png" alt="Access Compass" className="login-logo" />
             <h1>
               {mode === 'signin' && 'Welcome back'}
               {mode === 'forgot' && 'Reset password'}

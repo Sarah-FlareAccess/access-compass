@@ -44,6 +44,12 @@
   letter-spacing: -0.3px;
 }
 
+.brand-logo {
+  height: 32px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
 .brand-byline {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.75);

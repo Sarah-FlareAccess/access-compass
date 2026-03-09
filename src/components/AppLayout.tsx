@@ -26,8 +26,6 @@ const PAGES_WITH_SIDEBAR = [
   '/modules',
   '/questions',
   '/constraints',
-  '/discovery',
-  '/discovery/summary',
   '/report',
   '/diap',
   '/clarify',
