@@ -457,7 +457,7 @@
 
 .phase-tip .tip-text {
   font-size: 13px;
-  color: #555;
+  color: #4a4340;
   line-height: 1.5;
   margin: 0;
 }
@@ -1276,7 +1276,7 @@
 
 .pathway-intro {
   font-size: 14px;
-  color: #555;
+  color: #4a4340;
   margin: 0 0 12px 0;
 }
 
@@ -1836,7 +1836,8 @@
     border-radius: 12px;
   }
 
-  .context-question label {
+  .context-question label,
+  .context-question legend {
     font-size: 0.95rem;
   }
 
@@ -1967,6 +1968,12 @@
   flex-shrink: 0;
 }
 
+fieldset.context-question {
+  border: none;
+  margin: 0;
+  min-width: 0;
+}
+
 .context-question {
   margin-bottom: 32px;
   padding: 24px;
@@ -1985,12 +1992,19 @@
   margin-bottom: 0;
 }
 
+.context-question legend,
 .context-question label {
   display: block;
   font-weight: 700;
   color: var(--amethyst-diamond);
   margin-bottom: 8px;
   font-size: 1.05rem;
+}
+
+.context-question legend {
+  padding: 0;
+  float: left;
+  width: 100%;
 }
 
 .context-question .field-helper {
@@ -2070,7 +2084,7 @@
 
 .field-tip {
   font-size: 13px;
-  color: #555;
+  color: #4a4340;
   line-height: 1.5;
   margin: 0;
 }

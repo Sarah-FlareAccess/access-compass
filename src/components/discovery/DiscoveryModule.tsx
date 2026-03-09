@@ -492,10 +492,10 @@ export function DiscoveryModule({
               </div>
 
               {/* Physical Venue */}
-              <div className="context-question">
-                <label>
+              <fieldset className="context-question">
+                <legend>
                   Do you have a physical venue customers visit? <span className="required">*</span>
-                </label>
+                </legend>
                 <p className="field-helper">e.g. shop, office, facility, or site</p>
                 <div className="radio-group">
                   <label className="radio-label">
@@ -523,14 +523,14 @@ export function DiscoveryModule({
                   <span className="tip-icon">💡</span>
                   Select "Yes" even for small spaces like a pop-up stall, market booth, or shared office where customers come to you.
                 </p>
-              </div>
+              </fieldset>
 
               {/* Online Presence */}
-              <div className="context-question">
-                <label>
+              <fieldset className="context-question">
+                <legend>
                   Do you have an online presence (website, booking system)?{' '}
                   <span className="required">*</span>
-                </label>
+                </legend>
                 <p className="field-helper">e.g. website, app, online booking, or digital services</p>
                 <div className="radio-group">
                   <label className="radio-label">
@@ -558,13 +558,13 @@ export function DiscoveryModule({
                   <span className="tip-icon">💡</span>
                   This includes a Facebook page, Google Business listing, or any way customers find information about you online.
                 </p>
-              </div>
+              </fieldset>
 
               {/* Public-Facing Customers */}
-              <div className="context-question">
-                <label>
+              <fieldset className="context-question">
+                <legend>
                   Do you serve public-facing customers? <span className="required">*</span>
-                </label>
+                </legend>
                 <p className="field-helper">e.g. visitors, guests, clients, or members of the public</p>
                 <div className="radio-group">
                   <label className="radio-label">
@@ -590,15 +590,15 @@ export function DiscoveryModule({
                 </div>
                 <p className="field-tip">
                   <span className="tip-icon">💡</span>
-                  If anyone outside your organisation interacts with your services — whether as a customer, client, patient, or visitor — select "Yes".
+                  If anyone outside your organisation interacts with your services, whether as a customer, client, patient, or visitor, select "Yes".
                 </p>
-              </div>
+              </fieldset>
 
               {/* Online Services */}
-              <div className="context-question">
-                <label>
+              <fieldset className="context-question">
+                <legend>
                   Do you operate online services? <span className="required">*</span>
-                </label>
+                </legend>
                 <p className="field-helper">e.g. online retail, business coaching, consulting, digital services</p>
                 <div className="radio-group">
                   <label className="radio-label">
@@ -624,16 +624,16 @@ export function DiscoveryModule({
                 </div>
                 <p className="field-tip">
                   <span className="tip-icon">💡</span>
-                  This means customers can complete a transaction or receive a service entirely online — not just find information.
+                  This means customers can complete a transaction or receive a service entirely online, not just find information.
                 </p>
-              </div>
+              </fieldset>
 
               {/* Experiences and Activities - only for physical venues */}
               {hasPhysicalVenue === true && (
-                <div className="context-question">
-                  <label>
+                <fieldset className="context-question">
+                  <legend>
                     Do you offer experiences, activities, tours, or events? <span className="required">*</span>
-                  </label>
+                  </legend>
                   <p className="field-helper">e.g. spectator events, guided tours, recreation, gym, pool, conferences, therapy services</p>
                   <div className="radio-group">
                     <label className="radio-label">
@@ -661,15 +661,15 @@ export function DiscoveryModule({
                     <span className="tip-icon">💡</span>
                     Select "Yes" if customers participate in any activity, performance, tour, class, or experience at your venue.
                   </p>
-                </div>
+                </fieldset>
               )}
 
               {/* Accommodation - only for physical venues */}
               {hasPhysicalVenue === true && (
-                <div className="context-question">
-                  <label>
+                <fieldset className="context-question">
+                  <legend>
                     Do you offer overnight accommodation? <span className="required">*</span>
-                  </label>
+                  </legend>
                   <p className="field-helper">e.g. hotel rooms, apartments, cabins, hostels, retreat rooms</p>
                   <div className="radio-group">
                     <label className="radio-label">
@@ -697,14 +697,14 @@ export function DiscoveryModule({
                     <span className="tip-icon">💡</span>
                     Select "Yes" if guests stay overnight in any type of accommodation you manage.
                   </p>
-                </div>
+                </fieldset>
               )}
 
               {/* Assessment Type Toggle */}
-              <div className="context-question event-assessment-question">
-                <label>
+              <fieldset className="context-question event-assessment-question">
+                <legend>
                   What would you like to assess?
-                </label>
+                </legend>
                 <p className="field-helper">Choose based on what you're reviewing for accessibility</p>
                 <div className="radio-group radio-group-vertical">
                   <label className="radio-label radio-label-card">
@@ -744,7 +744,7 @@ export function DiscoveryModule({
                     </div>
                   </label>
                 </div>
-              </div>
+              </fieldset>
             </div>
 
             {/* Event or Both mode message */}
