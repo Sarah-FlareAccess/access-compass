@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import type { DIAPItem } from '../hooks/useDIAPManagement';
+import { getCustomCategories } from '../data/diapMapping';
 
 const COLORS = {
   amethystDark: '#3a0b52',
@@ -75,6 +76,7 @@ interface DIAPPdfOptions {
   items: DIAPItem[];
   orgName?: string;
   generatedDate?: string;
+  customCategoryNames?: Record<string, string>;
 }
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -87,7 +89,16 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 export function generateDIAPPdf(options: DIAPPdfOptions): void {
-  const { items, orgName = 'Your Organisation', generatedDate } = options;
+  const { items, orgName = 'Your Organisation', generatedDate, customCategoryNames = {} } = options;
+
+  // Build category labels with custom categories and name overrides
+  const categoryLabels: Record<string, string> = { ...CATEGORY_LABELS };
+  getCustomCategories().forEach(cat => {
+    categoryLabels[cat.id] = cat.name;
+  });
+  Object.entries(customCategoryNames).forEach(([id, name]) => {
+    if (name.trim()) categoryLabels[id] = name.trim();
+  });
   const dateStr = generatedDate || new Date().toISOString();
   const formattedDate = new Date(dateStr).toLocaleDateString('en-AU', {
     day: 'numeric',
@@ -330,7 +341,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
   // Build category TOC items
   const catTocItems: string[] = [];
-  for (const [key, label] of Object.entries(CATEGORY_LABELS)) {
+  for (const [key, label] of Object.entries(categoryLabels)) {
     const count = items.filter(i => i.category === key).length;
     if (count > 0) catTocItems.push(`${label} (${count})`);
   }
@@ -436,7 +447,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // Category breakdown
   addSectionHeader('Items by Category', 'accent');
 
-  Object.entries(CATEGORY_LABELS).forEach(([key, label]) => {
+  Object.entries(categoryLabels).forEach(([key, label]) => {
     const count = items.filter(i => i.category === key).length;
     if (count === 0) return;
 
@@ -685,7 +696,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   };
 
   // Render by category, then priority within each category
-  for (const [catKey, catLabel] of Object.entries(CATEGORY_LABELS)) {
+  for (const [catKey, catLabel] of Object.entries(categoryLabels)) {
     const catItems = items.filter(i => i.category === catKey);
     if (catItems.length === 0) continue;
 

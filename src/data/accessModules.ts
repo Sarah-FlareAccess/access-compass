@@ -8282,7 +8282,6 @@ export const accessModules: AccessModule[] = [
             'Make sure emergency communication such as an intercom or phone works in all lifts',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Independent lift operation ensures visitors are not dependent on staff availability to move between levels.',
           no: 'Modify the lift for independent operation. Remove key-lock requirements, install accessible call and floor buttons at 900-1100mm, set the door hold-open time to at least 8 seconds per AS 1735.12, and provide clear operating instructions in accessible formats.',
@@ -9948,7 +9947,6 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'An emergency alarm is installed in the accessible toilet.',
           no: 'Install an emergency alarm cord or button in the accessible toilet, reachable from floor level (per AS 1428.1 Clause 15), connected to a monitored alarm point, and test it regularly.',

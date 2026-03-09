@@ -19,7 +19,8 @@ export type DIAPCategory =
   | 'information-communication-marketing'
   | 'customer-service'
   | 'operations-policy-procedure'
-  | 'people-culture';
+  | 'people-culture'
+  | (string & {});
 
 export type DIAPStatus =
   | 'not-started'
@@ -55,6 +56,7 @@ export interface DIAPItem {
   // Source tracking
   moduleSource?: string;
   questionSource?: string;
+  sourceAnswer?: string; // Original answer when item was generated (no, partially, not-sure)
   importSource?: 'audit' | 'manual' | 'csv' | 'pdf'; // Track where item came from
 
   // Compliance information
@@ -106,7 +108,7 @@ const DIAP_ITEMS_KEY = 'access_compass_diap_items';
 const DIAP_DOCUMENTS_KEY = 'access_compass_diap_documents';
 
 // Local storage functions
-const DIAP_MIGRATION_KEY = 'diap_migration_v7';
+const DIAP_MIGRATION_KEY = 'diap_migration_v8';
 
 function getLocalItems(): DIAPItem[] {
   const data = localStorage.getItem(DIAP_ITEMS_KEY);
@@ -1180,6 +1182,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           timeframe: '',
           moduleSource: moduleName,
           questionSource: response.questionId,
+          sourceAnswer: response.answer,
           importSource: 'audit',
           impactStatement,
           complianceLevel: question.complianceLevel,
@@ -1505,7 +1508,12 @@ function escapeCSV(value: string): string {
 // Helper: Validate category
 function isValidCategory(value: string): boolean {
   const validCategories = ['physical-access', 'information-communication-marketing', 'customer-service', 'operations-policy-procedure', 'people-culture'];
-  return validCategories.includes(value);
+  if (validCategories.includes(value)) return true;
+  // Also accept custom categories
+  try {
+    const custom = JSON.parse(localStorage.getItem('diap_custom_categories') || '[]');
+    return custom.some((c: { id: string }) => c.id === value);
+  } catch { return false; }
 }
 
 // Helper: Validate status
@@ -1630,80 +1638,100 @@ function formatAnalysisType(analysisType: string): string {
 }
 
 // Helper: Generate outcome-focused objective from question topic
-function generateObjective(question: any, answer: string, moduleCode?: string): string {
-  const lower = question.text.toLowerCase();
+// Module-specific objective lookup. Each module maps to a single objective,
+// or an object with keyword-based sub-objectives for larger modules.
+const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { pattern: RegExp; objective: string }[] }> = {
+  // 1.x Before Arrival
+  '1.1': 'Welcome all visitors with clear pre-visit information to plan their journey',
+  '1.2': 'Provide a website that all visitors can use with confidence',
+  '1.3': 'Offer booking and ticketing systems that work for all customers',
+  '1.4': 'Create social media, video, and audio content everyone can enjoy',
+  '1.5': 'Communicate in clear, welcoming, and inclusive language',
+  '1.6': 'Reflect and welcome diverse audiences in marketing materials',
+  // 2.x Getting In
+  '2.1': 'Provide welcoming arrival, parking, and drop-off options for all visitors',
+  '2.2': 'Welcome all visitors through accessible, dignified entry points',
+  '2.3': 'Provide paths and aisles that all visitors can use comfortably',
+  '2.4': 'Create a comfortable queuing and arrival experience for all visitors',
+  // 3.x During Visit
+  '3.1': {
+    default: 'Provide comfortable seating, furniture, and layout for all visitors',
+    keywords: [
+      { pattern: /seating|chair|bench|wheelchair.*space/i, objective: 'Offer seating options that welcome all visitors' },
+      { pattern: /furniture|table|counter|height/i, objective: 'Provide furniture and surfaces that work for all visitors' },
+      { pattern: /layout|space|manoeuvr|circulation/i, objective: 'Create a layout that supports comfortable movement for all visitors' },
+    ],
+  },
+  '3.2': {
+    default: 'Provide toilet and amenity facilities that all visitors can use',
+    keywords: [
+      { pattern: /changing places|adult change|hoist/i, objective: 'Offer Changing Places or adult change facilities for visitors who need them' },
+      { pattern: /shower|bath/i, objective: 'Provide shower and bathing facilities all guests can use' },
+    ],
+  },
+  '3.3': {
+    default: 'Create a comfortable sensory environment that all visitors can enjoy',
+    keywords: [
+      { pattern: /light|glare|bright/i, objective: 'Provide lighting that is comfortable and functional for all visitors' },
+      { pattern: /noise|sound|acoustic/i, objective: 'Create a sound environment that is comfortable for all visitors' },
+      { pattern: /quiet|calm|sensory room/i, objective: 'Offer sensory-friendly spaces and options for visitors who need them' },
+    ],
+  },
+  '3.4': 'Provide equipment and resources that all visitors can use',
+  '3.5': 'Help all visitors navigate independently through clear signage and wayfinding',
+  '3.6': 'Provide menus and printed materials that all visitors can read and use',
+  '3.7': 'Share on-site information in formats all visitors can access',
+  '3.8': 'Welcome all visitors to participate fully in experiences and activities',
+  '3.9': {
+    default: 'Provide accommodation that welcomes guests with diverse needs',
+    keywords: [
+      { pattern: /kitchen|kitchenette|cook/i, objective: 'Provide kitchenette and cooking facilities all guests can use' },
+      { pattern: /bathroom|ensuite|shower/i, objective: 'Provide accommodation bathrooms all guests can use' },
+    ],
+  },
+  '3.10': 'Support all customers to browse, select, and purchase independently',
+  // 4.x Service & Support
+  '4.1': 'Offer contact channels that all customers can use with ease',
+  '4.2': 'Build staff confidence in delivering welcoming, inclusive service',
+  '4.3': 'Offer booking and ticketing processes that all customers can complete',
+  '4.4': 'Include all visitors in safety and emergency planning',
+  '4.5': 'Invite feedback through channels all customers can use',
+  '4.6': 'Keep in touch with all customers through accessible communications',
+  '4.7': 'Maintain welcoming, accessible communication with all customers over time',
+  // 5.x Organisation
+  '5.1': 'Embed accessibility and inclusion into organisational policies and culture',
+  '5.2': 'Foster an inclusive workplace where all employees can thrive',
+  '5.3': 'Strengthen organisational capability through accessibility training',
+  '5.4': 'Incorporate accessibility into procurement and supplier decisions',
+  '5.5': 'Celebrate progress and drive continuous improvement in accessibility',
+  // 6.x Events
+  '6.1': 'Plan and promote events that welcome all attendees',
+  '6.2': 'Choose and set up venues that all attendees can enjoy',
+  '6.3': 'Share event information in formats all attendees can access',
+  '6.4': 'Offer sensory access and assistive technology so all attendees can participate',
+  '6.5': 'Deliver inclusive, welcoming event operations on the day',
+};
 
-  // Module-group outcome themes
+function generateObjective(question: any, _answer: string, moduleCode?: string): string {
   const code = moduleCode || '';
-  if (code.startsWith('1.')) {
-    // Before Arrival
-    if (lower.includes('transport')) return 'Build visitor confidence by providing pre-visit accessible transport information';
-    if (lower.includes('parking')) return 'Enable independent arrival by providing clear accessible parking information';
-    if (lower.includes('booking') || lower.includes('reservation') || lower.includes('ticketing')) return 'Ensure all customers can book and plan their visit independently';
-    if (lower.includes('website') || lower.includes('online')) return 'Ensure your online presence is accessible to all potential visitors';
-    if (lower.includes('video') || lower.includes('audio') || lower.includes('caption') || lower.includes('subtitle')) return 'Ensure video and audio content is accessible to people with hearing or vision disabilities';
-    if (lower.includes('social media') || lower.includes('alt text') || lower.includes('image description')) return 'Ensure social media content reaches and is usable by all audiences';
-    if (lower.includes('marketing') || lower.includes('representation')) return 'Ensure marketing materials reflect and welcome diverse audiences';
-    if (lower.includes('language') || lower.includes('plain') || lower.includes('easy read')) return 'Ensure communications are clear and understandable for all audiences';
-    if (lower.includes('auslan') || lower.includes('sign language') || lower.includes('interpreter')) return 'Provide communication options for Deaf and hard of hearing visitors';
-    return 'Enable all visitors to plan and prepare for their visit with confidence';
-  }
-  if (code.startsWith('2.')) {
-    // Getting In
-    if (lower.includes('entrance') || lower.includes('entry') || lower.includes('door')) return 'Ensure all visitors can enter the premises independently and with dignity';
-    if (lower.includes('ramp') || lower.includes('step') || lower.includes('stair') || lower.includes('level')) return 'Remove physical barriers to entry for people with mobility disabilities';
-    if (lower.includes('path') || lower.includes('aisle') || lower.includes('route')) return 'Ensure all paths and aisles are navigable for wheelchair visitors and people with mobility aids';
-    if (lower.includes('queue') || lower.includes('wait') || lower.includes('busy')) return 'Reduce barriers for people who cannot stand in queues or manage busy environments';
-    if (lower.includes('parking') || lower.includes('drop-off')) return 'Ensure accessible arrival options for people with mobility disabilities';
-    return 'Remove barriers to entry and ensure all visitors can access the premises';
-  }
-  if (code.startsWith('3.')) {
-    // During Visit
-    if (lower.includes('toilet') || lower.includes('bathroom') || lower.includes('amenit')) return 'Ensure toilet and amenity facilities are accessible and meet visitor needs';
-    if (lower.includes('seating') || lower.includes('chair') || lower.includes('furniture')) return 'Provide comfortable and accessible seating and furniture options';
-    if (lower.includes('lighting') || lower.includes('glare')) return 'Create a comfortable visual environment for all visitors';
-    if (lower.includes('noise') || lower.includes('sound') || lower.includes('acoustic') || lower.includes('sensory')) return 'Create a comfortable sensory environment for visitors with sensory sensitivities';
-    if (lower.includes('sign') || lower.includes('wayfinding') || lower.includes('direction')) return 'Help all visitors navigate the space confidently and independently';
-    if (lower.includes('menu') || lower.includes('printed') || lower.includes('brochure')) return 'Ensure printed materials are accessible to people with vision or cognitive disabilities';
-    if (lower.includes('hearing loop') || lower.includes('assistive listening')) return 'Ensure people with hearing disabilities can participate fully';
-    if (lower.includes('accommodation') || lower.includes('room') || lower.includes('bed')) return 'Provide accessible accommodation that meets diverse guest needs';
-    if (lower.includes('retail') || lower.includes('shopping') || lower.includes('checkout')) return 'Ensure all customers can browse, select, and purchase independently';
-    if (lower.includes('activity') || lower.includes('experience') || lower.includes('recreation')) return 'Enable all visitors to participate fully in activities and experiences';
-    return 'Ensure all visitors can participate comfortably during their visit';
-  }
-  if (code.startsWith('4.')) {
-    // Service & Support
-    if (lower.includes('staff') && (lower.includes('train') || lower.includes('aware') || lower.includes('confiden'))) return 'Build staff confidence and capability in supporting customers with disability';
-    if (lower.includes('feedback') || lower.includes('complaint') || lower.includes('review')) return 'Ensure customers with disability can easily provide feedback';
-    if (lower.includes('safety') || lower.includes('emergency') || lower.includes('evacuation')) return 'Ensure safety and emergency procedures are inclusive of people with disability';
-    if (lower.includes('companion') || lower.includes('carer') || lower.includes('support person')) return 'Ensure companion and support person needs are accommodated';
-    if (lower.includes('service') || lower.includes('assistance')) return 'Deliver inclusive and responsive customer service';
-    return 'Ensure service and support is inclusive and responsive';
-  }
-  if (code.startsWith('5.')) {
-    // Organisation
-    if (lower.includes('policy') || lower.includes('procedure')) return 'Embed accessibility into organisational policies and procedures';
-    if (lower.includes('employ') || lower.includes('recruit') || lower.includes('workplace')) return 'Create an inclusive workplace for employees with disability';
-    if (lower.includes('procurement') || lower.includes('purchasing') || lower.includes('supplier')) return 'Ensure procurement processes consider accessibility requirements';
-    if (lower.includes('train') || lower.includes('awareness')) return 'Build organisational capacity through accessibility training';
-    if (lower.includes('review') || lower.includes('audit') || lower.includes('improvement') || lower.includes('report')) return 'Drive continuous improvement in accessibility outcomes';
-    return 'Strengthen organisational commitment to disability inclusion';
-  }
-  if (code.startsWith('6.')) {
-    // Events
-    if (lower.includes('venue') || lower.includes('location') || lower.includes('space')) return 'Ensure event venues are physically accessible';
-    if (lower.includes('registration') || lower.includes('booking') || lower.includes('sign up')) return 'Ensure event registration is accessible and captures access needs';
-    if (lower.includes('communication') || lower.includes('promotion') || lower.includes('information')) return 'Ensure event communications are accessible to all audiences';
-    return 'Deliver events that are inclusive and accessible to all participants';
+  const entry = MODULE_OBJECTIVES[code];
+
+  if (!entry) {
+    return 'Create a welcoming, accessible experience for all visitors';
   }
 
-  // Generic fallbacks by topic
-  if (lower.includes('safe') || lower.includes('hazard') || lower.includes('emergency')) return 'Ensure safety measures are inclusive of people with disability';
-  if (lower.includes('staff') || lower.includes('train')) return 'Build staff capability in disability inclusion';
-  if (lower.includes('sign') || lower.includes('wayfind')) return 'Ensure all visitors can navigate the space independently';
-  if (lower.includes('website') || lower.includes('digital') || lower.includes('online')) return 'Ensure digital presence is accessible to all visitors';
+  if (typeof entry === 'string') {
+    return entry;
+  }
 
-  return 'Improve accessibility and inclusion in this area';
+  // Module has keyword sub-objectives
+  const lower = question.text.toLowerCase();
+  for (const kw of entry.keywords) {
+    if (kw.pattern.test(lower)) {
+      return kw.objective;
+    }
+  }
+  return entry.default;
 }
 
 // Helper: Generate multi-step action text for DIAP items

@@ -20,7 +20,7 @@ import { getSession } from '../utils/session';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
-import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategory } from '../data/diapMapping';
+import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategoryAndObjective, getCustomCategoryNames, setCustomCategoryName, getCategoryDisplayName, getCustomCategories, addCustomCategory, removeCustomCategory, getAllCategories } from '../data/diapMapping';
 import type { DIAPItem, DIAPAttachment, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { hasHelpContent, getHelpByQuestionId } from '../data/help';
@@ -105,6 +105,7 @@ export default function DIAPWorkspace() {
   const [showImportModal, setShowImportModal] = useState(false);
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const [isImporting, setIsImporting] = useState(false);
+  const filtersRef = useRef<HTMLDetailsElement>(null);
   const csvInputRef = useRef<HTMLInputElement>(null);
   const excelInputRef = useRef<HTMLInputElement>(null);
   const pdfInputRef = useRef<HTMLInputElement>(null);
@@ -151,6 +152,37 @@ export default function DIAPWorkspace() {
       })
       .sort((a, b) => new Date(b.completedAt || 0).getTime() - new Date(a.completedAt || 0).getTime());
   }, [moduleProgress]);
+
+  // Detect DIAP items whose source response has changed
+  const changedItems = useMemo(() => {
+    const changes: Record<string, { oldAnswer: string; newAnswer: string }> = {};
+    // Build a lookup of current responses by questionId
+    const currentResponses: Record<string, string> = {};
+    Object.values(moduleProgress).forEach(mp => {
+      if (!mp.responses) return;
+      mp.responses.forEach(r => {
+        currentResponses[r.questionId] = r.answer;
+      });
+    });
+    // Compare against each DIAP item's sourceAnswer
+    items.forEach(item => {
+      if (!item.questionSource || !item.sourceAnswer) return;
+      const current = currentResponses[item.questionSource];
+      if (current && current !== item.sourceAnswer) {
+        changes[item.id] = { oldAnswer: item.sourceAnswer, newAnswer: current };
+      }
+    });
+    return changes;
+  }, [items, moduleProgress]);
+
+  const changedItemCount = Object.keys(changedItems).length;
+
+  const dismissChange = useCallback((itemId: string) => {
+    const change = changedItems[itemId];
+    if (change) {
+      updateItem(itemId, { sourceAnswer: change.newAnswer });
+    }
+  }, [changedItems, updateItem]);
 
   // Collect evidence from completed module responses (photos, documents)
   interface CollectedEvidence {
@@ -247,11 +279,66 @@ export default function DIAPWorkspace() {
   // Track which category groups are expanded (start all collapsed for scanability)
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
 
+  // Custom category names
+  const [customCategoryNames, setCustomCategoryNames] = useState<Record<string, string>>(getCustomCategoryNames);
+  const [editingCategoryName, setEditingCategoryName] = useState<string | null>(null);
+  const [editingNameValue, setEditingNameValue] = useState('');
+  const categoryNameInputRef = useRef<HTMLInputElement>(null);
+
   const toggleCategory = (categoryId: string) => {
+    if (editingCategoryName) return;
     setExpandedCategories(prev => ({
       ...prev,
       [categoryId]: !prev[categoryId],
     }));
+  };
+
+  const startEditingCategoryName = (categoryId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const displayName = getCategoryDisplayName(categoryId, customCategoryNames);
+    setEditingCategoryName(categoryId);
+    setEditingNameValue(displayName);
+    setTimeout(() => categoryNameInputRef.current?.select(), 0);
+  };
+
+  const saveCategoryName = () => {
+    if (editingCategoryName && editingNameValue.trim()) {
+      setCustomCategoryName(editingCategoryName, editingNameValue.trim());
+      setCustomCategoryNames(getCustomCategoryNames());
+    }
+    setEditingCategoryName(null);
+  };
+
+  const cancelEditingCategoryName = () => {
+    setEditingCategoryName(null);
+  };
+
+  // Custom categories
+  const [customCategories, setCustomCategories] = useState(getCustomCategories);
+  const [showAddCategory, setShowAddCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newCategoryDesc, setNewCategoryDesc] = useState('');
+  const newCategoryInputRef = useRef<HTMLInputElement>(null);
+  const allCategories = useMemo(() => [...DIAP_CATEGORIES, ...customCategories], [customCategories]);
+
+  const handleAddCategory = () => {
+    if (!newCategoryName.trim()) return;
+    addCustomCategory(newCategoryName, newCategoryDesc);
+    setCustomCategories(getCustomCategories());
+    setNewCategoryName('');
+    setNewCategoryDesc('');
+    setShowAddCategory(false);
+  };
+
+  const handleRemoveCategory = (categoryId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const catItems = items.filter(i => i.category === categoryId);
+    if (catItems.length > 0) {
+      alert('Move or delete all items in this category before removing it.');
+      return;
+    }
+    removeCustomCategory(categoryId);
+    setCustomCategories(getCustomCategories());
   };
 
   // Managed roles list (persisted in localStorage)
@@ -382,9 +469,9 @@ export default function DIAPWorkspace() {
     return filtered;
   }, [items, filterStatuses, filterCategories, filterPriorities, filterResponsible, filterDueDate, getDueBucket, customDateFrom, customDateTo]);
 
-  // Group filtered items by category for the by-section view
+  // Group filtered items by category, then by objective within each category
   const itemsByCategory = useMemo(() => {
-    return groupItemsByCategory(filteredItems);
+    return groupItemsByCategoryAndObjective(filteredItems);
   }, [filteredItems]);
 
   // Get stats
@@ -392,7 +479,7 @@ export default function DIAPWorkspace() {
 
   // Compute per-category stats for the overview cards
   const categoryStats = useMemo(() => {
-    return DIAP_CATEGORIES.map(cat => {
+    return allCategories.map(cat => {
       const catItems = items.filter(i => i.category === cat.id);
       const total = catItems.length;
       const achieved = catItems.filter(i => i.status === 'achieved').length;
@@ -404,7 +491,7 @@ export default function DIAPWorkspace() {
       const pct = total > 0 ? Math.round(((achieved + ongoing) / total) * 100) : 0;
       return { ...cat, total, achieved, ongoing, inProgress, high, medium, low, pct };
     });
-  }, [items]);
+  }, [items, allCategories]);
 
   // Extract unique module codes from items for professional support grouping
   const expertiseGroups = useMemo(() => {
@@ -442,7 +529,7 @@ export default function DIAPWorkspace() {
   const handleExportPDF = () => {
     const session = getSession();
     const orgName = session?.business_snapshot?.organisation_name || 'Your Organisation';
-    generateDIAPPdf({ items, orgName });
+    generateDIAPPdf({ items, orgName, customCategoryNames });
   };
 
   // Handle download CSV template
@@ -824,7 +911,7 @@ export default function DIAPWorkspace() {
           </div>
         )}
 
-        <details className="diap-controls-collapsible">
+        <details ref={filtersRef} className="diap-controls-collapsible">
           <summary className="diap-controls-summary">
             Filters
             {(filterStatuses.size > 0 || filterPriorities.size > 0 || filterCategories.size > 0 || filterResponsible !== 'all' || filterDueDate.size > 0) && (
@@ -890,7 +977,7 @@ export default function DIAPWorkspace() {
             <div className="filter-group">
               <span className="filter-group-label">Category</span>
               <div className="filter-chips" role="group" aria-label="Filter by category">
-                {DIAP_CATEGORIES.map(cat => {
+                {allCategories.map(cat => {
                   const count = categoryStats.find(c => c.id === cat.id)?.total || 0;
                   return (
                     <button
@@ -905,7 +992,7 @@ export default function DIAPWorkspace() {
                       })}
                       aria-pressed={filterCategories.has(cat.id as DIAPCategory)}
                     >
-                      {cat.name} ({count})
+                      {getCategoryDisplayName(cat.id, customCategoryNames)} ({count})
                     </button>
                   );
                 })}
@@ -1010,6 +1097,21 @@ export default function DIAPWorkspace() {
                 Clear all filters
               </button>
             )}
+
+            {/* Apply Filters (collapse panel and expand categories with results) */}
+            <button
+              className="btn-generate btn-generate-full"
+              onClick={() => {
+                if (filtersRef.current) filtersRef.current.open = false;
+                const expanded: Record<string, boolean> = {};
+                itemsByCategory.forEach(({ group, totalItems }) => {
+                  if (totalItems > 0) expanded[group.id] = true;
+                });
+                setExpandedCategories(expanded);
+              }}
+            >
+              Apply Filters
+            </button>
           </div>
         </details>
 
@@ -1048,18 +1150,18 @@ export default function DIAPWorkspace() {
 
         {/* DIAP Sections */}
         <div className="diap-category-view" aria-live="polite">
-            {itemsByCategory.map(({ group, subcategories }) => {
-              const totalItemsInGroup = subcategories.reduce((sum, s) => sum + s.items.length, 0);
-              if (filterCategories.size > 0 && totalItemsInGroup === 0) return null;
+            {itemsByCategory.map(({ group, objectiveGroups, totalItems }) => {
+              if (filterCategories.size > 0 && totalItems === 0) return null;
               const isExpanded = expandedCategories[group.id];
               const catStat = categoryStats.find(c => c.id === group.id);
+              const displayName = getCategoryDisplayName(group.id, customCategoryNames);
 
               return (
                 <div
                   key={group.id}
                   id={`diap-cat-${group.id}`}
                   className={`diap-category-group ${isExpanded ? 'expanded' : ''}`}
-                  onClick={() => toggleCategory(group.id)}
+                  onClick={() => { dismissHint(); toggleCategory(group.id); }}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCategory(group.id); } }}
                   role="button"
                   tabIndex={0}
@@ -1068,7 +1170,46 @@ export default function DIAPWorkspace() {
                   <div className="category-header">
                     <span className="category-icon" aria-hidden="true">{group.icon}</span>
                     <div className="category-info">
-                      <h2 className="category-name">{group.name}</h2>
+                      {editingCategoryName === group.id ? (
+                        <div className="category-name-edit" onClick={(e) => e.stopPropagation()}>
+                          <input
+                            ref={categoryNameInputRef}
+                            type="text"
+                            className="category-name-input"
+                            value={editingNameValue}
+                            onChange={(e) => setEditingNameValue(e.target.value)}
+                            onKeyDown={(e) => {
+                              e.stopPropagation();
+                              if (e.key === 'Enter') saveCategoryName();
+                              if (e.key === 'Escape') cancelEditingCategoryName();
+                            }}
+                            onBlur={saveCategoryName}
+                            aria-label="Category name"
+                          />
+                        </div>
+                      ) : (
+                        <h2 className="category-name">
+                          {displayName}
+                          <button
+                            className="category-rename-btn"
+                            onClick={(e) => startEditingCategoryName(group.id, e)}
+                            aria-label={`Rename ${displayName}`}
+                            title="Rename category"
+                          >
+                            ✎
+                          </button>
+                          {group.id.startsWith('custom-') && (
+                            <button
+                              className="category-remove-btn"
+                              onClick={(e) => handleRemoveCategory(group.id, e)}
+                              aria-label={`Remove ${displayName} category`}
+                              title="Remove category"
+                            >
+                              ×
+                            </button>
+                          )}
+                        </h2>
+                      )}
                       <span className="category-description">{group.description}</span>
                       {catStat && catStat.total > 0 && (
                         <span className="category-progress-inline">
@@ -1079,23 +1220,23 @@ export default function DIAPWorkspace() {
                         </span>
                       )}
                     </div>
-                    <span className="category-count">{totalItemsInGroup}</span>
+                    <span className="category-count">{totalItems}</span>
                     <span className="category-chevron" aria-hidden="true">&#9660;</span>
                   </div>
 
                   {isExpanded && (
                     <div className="category-content" onClick={(e) => e.stopPropagation()}>
-                      {subcategories.map(({ id, label, items: categoryItems }) => (
-                        <div key={id} className="diap-section-block">
-                          <div className="section-label">
-                            <span className="section-name">{label}</span>
-                            <span className="section-count">{categoryItems.length}</span>
-                          </div>
-                          {categoryItems.length === 0 ? (
-                            <p className="section-empty">No items in this category</p>
-                          ) : (
+                      {objectiveGroups.length === 0 ? (
+                        <p className="section-empty">No items in this category</p>
+                      ) : (
+                        objectiveGroups.map(({ objective, items: objItems }) => (
+                          <div key={objective} className="objective-group">
+                            <div className="objective-group-header">
+                              <h3 className="objective-group-title">{objective}</h3>
+                              <span className="objective-group-count">{objItems.length} {objItems.length === 1 ? 'action' : 'actions'}</span>
+                            </div>
                             <div className="section-items">
-                              {categoryItems.map((item, index) => (
+                              {objItems.map((item, index) => (
                                 editingItem?.id === item.id ? (
                                   <div key={item.id} className="inline-edit-wrapper">
                                     <DIAPItemForm
@@ -1129,21 +1270,76 @@ export default function DIAPWorkspace() {
                                     }}
                                     onAddAttachment={addAttachment}
                                     onRemoveAttachment={removeAttachment}
-                                    onMoveUp={index > 0 ? () => reorderItem(item.id, categoryItems[index - 1].id) : undefined}
-                                    onMoveDown={index < categoryItems.length - 1 ? () => reorderItem(item.id, categoryItems[index + 1].id) : undefined}
+                                    onMoveUp={index > 0 ? () => reorderItem(item.id, objItems[index - 1].id) : undefined}
+                                    onMoveDown={index < objItems.length - 1 ? () => reorderItem(item.id, objItems[index + 1].id) : undefined}
                                     showEditHint={showEditHint && index === 0 && group.id === 'access'}
+                                    responseChange={changedItems[item.id]}
+                                    onDismissChange={() => dismissChange(item.id)}
                                   />
                                 )
                               ))}
                             </div>
-                          )}
-                        </div>
-                      ))}
+                          </div>
+                        ))
+                      )}
                     </div>
                   )}
                 </div>
               );
             })}
+
+            {/* Add Category */}
+            {showAddCategory ? (
+              <div className="add-category-form">
+                <h3>Add a custom category</h3>
+                <div className="form-row">
+                  <label>
+                    Category name *
+                    <input
+                      ref={newCategoryInputRef}
+                      type="text"
+                      value={newCategoryName}
+                      onChange={(e) => setNewCategoryName(e.target.value)}
+                      placeholder="e.g. Digital Accessibility"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleAddCategory();
+                        if (e.key === 'Escape') setShowAddCategory(false);
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="form-row">
+                  <label>
+                    Description
+                    <input
+                      type="text"
+                      value={newCategoryDesc}
+                      onChange={(e) => setNewCategoryDesc(e.target.value)}
+                      placeholder="Brief description (optional)"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleAddCategory();
+                        if (e.key === 'Escape') setShowAddCategory(false);
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="add-category-actions">
+                  <button type="button" className="btn-secondary" onClick={() => setShowAddCategory(false)}>Cancel</button>
+                  <button type="button" className="btn-primary" onClick={handleAddCategory} disabled={!newCategoryName.trim()}>Add Category</button>
+                </div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="btn-add-category"
+                onClick={() => {
+                  setShowAddCategory(true);
+                  setTimeout(() => newCategoryInputRef.current?.focus(), 0);
+                }}
+              >
+                <Plus size={16} aria-hidden="true" /> Add Category
+              </button>
+            )}
         </div>
 
         {/* Documents Section */}
@@ -1301,6 +1497,26 @@ export default function DIAPWorkspace() {
   );
 }
 
+function getChangeMessage(oldAnswer: string, newAnswer: string): string {
+  if (newAnswer === 'yes') {
+    return 'Your assessment response has changed to Yes. This item may no longer be needed.';
+  }
+  if (newAnswer === 'partially') {
+    return 'Your assessment response has changed to Partially. You may want to update this action to reflect partial progress.';
+  }
+  if (newAnswer === 'not-sure' || newAnswer === 'unable-to-check') {
+    return 'Your assessment response has changed to Unsure. This item may need further investigation before action.';
+  }
+  if (newAnswer === 'no' && oldAnswer !== 'no') {
+    return 'Your assessment response has changed to No. This item may need to be reprioritised.';
+  }
+  // Multi-select or other value changes
+  if (oldAnswer !== newAnswer) {
+    return 'Your assessment response for this item has been updated. Review whether this action still applies.';
+  }
+  return 'Your assessment response has changed. Review this item.';
+}
+
 // DIAP Item Card Component
 interface DIAPItemCardProps {
   item: DIAPItem;
@@ -1311,9 +1527,11 @@ interface DIAPItemCardProps {
   onMoveUp?: () => void;
   onMoveDown?: () => void;
   showEditHint?: boolean;
+  responseChange?: { oldAnswer: string; newAnswer: string };
+  onDismissChange?: () => void;
 }
 
-function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveAttachment, onMoveUp, onMoveDown, showEditHint }: DIAPItemCardProps) {
+function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveAttachment, onMoveUp, onMoveDown, showEditHint, responseChange, onDismissChange }: DIAPItemCardProps) {
   const [showStatusMenu, setShowStatusMenu] = useState(false);
   const attachInputRef = useRef<HTMLInputElement>(null);
 
@@ -1389,6 +1607,23 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveA
         <div className="edit-hint" role="status">
           <span className="hint-icon">💡</span>
           Click anywhere on a card to edit it
+        </div>
+      )}
+
+      {/* Response changed indicator */}
+      {responseChange && (
+        <div className="response-changed-banner" role="alert" onClick={(e) => e.stopPropagation()}>
+          <span className="response-changed-icon" aria-hidden="true">⚠</span>
+          <span className="response-changed-text">
+            {getChangeMessage(responseChange.oldAnswer, responseChange.newAnswer)}
+          </span>
+          <button
+            className="response-changed-dismiss"
+            onClick={(e) => { e.stopPropagation(); onDismissChange?.(); }}
+            aria-label="Dismiss change notification"
+          >
+            Acknowledge
+          </button>
         </div>
       )}
 
@@ -1931,11 +2166,9 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
             value={formData.category}
             onChange={(e) => setFormData({ ...formData, category: e.target.value as DIAPCategory })}
           >
-            <option value="physical-access">Physical Access</option>
-            <option value="information-communication-marketing">Information, Communication & Marketing</option>
-            <option value="customer-service">Customer Service</option>
-            <option value="operations-policy-procedure">Operations, Policy & Procedure</option>
-            <option value="people-culture">People & Culture</option>
+            {getAllCategories().map(cat => (
+              <option key={cat.id} value={cat.id}>{getCategoryDisplayName(cat.id)}</option>
+            ))}
           </select>
         </label>
 

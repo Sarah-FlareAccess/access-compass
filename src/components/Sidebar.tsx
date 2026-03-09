@@ -5,27 +5,44 @@
  * Uses the same styling as the Dashboard sidebar for consistency.
  */
 
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { getSession } from '../utils/session';
 import { useInstallPrompt } from '../hooks/useInstallPrompt';
+import { useAlerts } from '../hooks/useAlerts';
 import { OrgAdminPanel } from './OrgAdminPanel';
 import { ReportProblem, ReportProblemTrigger } from './ReportProblem';
 import '../styles/dashboard.css';
 
 export function Sidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { accessState, user } = useAuth();
   const { canInstall, triggerInstall } = useInstallPrompt();
+  const { alerts, unreadCount, markAsRead, markAllAsRead } = useAlerts();
   const [session, setSession] = useState<any>(null);
   const [showReportProblem, setShowReportProblem] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [showAlerts, setShowAlerts] = useState(false);
+  const alertsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const sessionData = getSession();
     setSession(sessionData);
   }, [location.pathname]); // Re-fetch when route changes
+
+  // Close alerts dropdown on click outside
+  useEffect(() => {
+    if (!showAlerts) return;
+    const handleClick = (e: MouseEvent) => {
+      if (alertsRef.current && !alertsRef.current.contains(e.target as Node)) {
+        setShowAlerts(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [showAlerts]);
 
   // Priority: Auth context org name > Session business snapshot > Email > Fallback
   // Filter out "Test Organisation" as it's a dev fallback
@@ -118,6 +135,67 @@ export function Sidebar() {
           Training Hub
         </Link>
       </nav>
+
+      {/* Alerts */}
+      <div className="sidebar-alerts-wrapper" ref={alertsRef}>
+        <button
+          type="button"
+          className="sidebar-alerts-btn"
+          onClick={() => setShowAlerts(!showAlerts)}
+          aria-label={`Alerts${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
+          aria-expanded={showAlerts}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          Alerts
+          {unreadCount > 0 && (
+            <span className="sidebar-alerts-badge" aria-hidden="true">{unreadCount}</span>
+          )}
+        </button>
+
+        {showAlerts && (
+          <div className="sidebar-alerts-dropdown" role="region" aria-label="Alerts">
+            <div className="alerts-dropdown-header">
+              <strong>Alerts</strong>
+              {unreadCount > 0 && (
+                <button type="button" className="alerts-mark-read" onClick={markAllAsRead}>
+                  Mark all read
+                </button>
+              )}
+            </div>
+            {alerts.length === 0 ? (
+              <p className="alerts-empty">No alerts</p>
+            ) : (
+              <ul className="alerts-list">
+                {alerts.map(alert => (
+                  <li key={alert.id} className={`alerts-item ${alert.read ? 'read' : 'unread'}`}>
+                    <button
+                      type="button"
+                      className="alerts-item-btn"
+                      onClick={() => {
+                        markAsRead(alert.id);
+                        if (alert.link) navigate(alert.link);
+                        setShowAlerts(false);
+                      }}
+                    >
+                      <span className="alerts-item-icon" aria-hidden="true">
+                        {alert.type === 'diap-change' ? '⚠' : alert.type === 'training' ? '🎓' : alert.type === 'workshop' ? '📅' : '📢'}
+                      </span>
+                      <span className="alerts-item-content">
+                        <span className="alerts-item-title">{alert.title}</span>
+                        <span className="alerts-item-message">{alert.message}</span>
+                      </span>
+                      {!alert.read && <span className="alerts-unread-dot" aria-label="Unread" />}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+      </div>
 
       {/* Help Section */}
       <div className="sidebar-section sidebar-help">

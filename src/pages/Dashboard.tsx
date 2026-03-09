@@ -234,7 +234,7 @@ export default function Dashboard() {
     // DEV MODE: Create a mock session ONLY if no session exists at all
     // Don't overwrite existing sessions that have user data
     if (!currentSession) {
-      console.log('[Dashboard] No local session found - creating dev session');
+      // Create a default session when none exists
       const devSession = {
         session_id: 'dev-session',
         created_at: new Date().toISOString(),

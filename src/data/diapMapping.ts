@@ -275,3 +275,129 @@ export function groupItemsByCategory<T extends { category?: string; priority?: s
 
   return result;
 }
+
+export interface ObjectiveGroup<T> {
+  objective: string;
+  items: T[];
+}
+
+/**
+ * Group items by category group, then by shared objective within each group.
+ * Items sharing the same objective string are clustered together.
+ */
+export function groupItemsByCategoryAndObjective<T extends { category?: string; priority?: string; objective?: string }>(
+  items: T[]
+): { group: DIAPCategoryGroup; objectiveGroups: ObjectiveGroup<T>[]; totalItems: number }[] {
+  const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 };
+  const result: { group: DIAPCategoryGroup; objectiveGroups: ObjectiveGroup<T>[]; totalItems: number }[] = [];
+
+  const allCats = getAllCategories();
+
+  allCats.forEach(group => {
+    const categoryIds = getCategoriesForGroup(group.id);
+    // For custom categories, the group.id IS the category id directly
+    if (!categoryIds.includes(group.id)) categoryIds.push(group.id);
+    const allCategoryItems = items.filter(item => categoryIds.includes(item.category || ''));
+
+    // Group by objective string
+    const objectiveMap = new Map<string, T[]>();
+    allCategoryItems.forEach(item => {
+      const obj = (item.objective || 'Other actions').trim();
+      if (!objectiveMap.has(obj)) objectiveMap.set(obj, []);
+      objectiveMap.get(obj)!.push(item);
+    });
+
+    // Sort items within each objective group by priority
+    const objectiveGroups: ObjectiveGroup<T>[] = [];
+    objectiveMap.forEach((groupItems, objective) => {
+      groupItems.sort((a, b) => (priorityOrder[a.priority || 'low'] ?? 2) - (priorityOrder[b.priority || 'low'] ?? 2));
+      objectiveGroups.push({ objective, items: groupItems });
+    });
+
+    // Sort objective groups by highest-priority item in each (high-priority groups first)
+    objectiveGroups.sort((a, b) => {
+      const aPri = priorityOrder[a.items[0]?.priority || 'low'] ?? 2;
+      const bPri = priorityOrder[b.items[0]?.priority || 'low'] ?? 2;
+      return aPri - bPri;
+    });
+
+    result.push({ group, objectiveGroups, totalItems: allCategoryItems.length });
+  });
+
+  return result;
+}
+
+// Custom category name storage
+const CUSTOM_CATEGORY_NAMES_KEY = 'diap_custom_category_names';
+const CUSTOM_CATEGORIES_KEY = 'diap_custom_categories';
+
+export function getCustomCategoryNames(): Record<string, string> {
+  const data = localStorage.getItem(CUSTOM_CATEGORY_NAMES_KEY);
+  return data ? JSON.parse(data) : {};
+}
+
+export function setCustomCategoryName(categoryId: string, name: string): void {
+  const names = getCustomCategoryNames();
+  const defaultGroup = DIAP_CATEGORIES.find(c => c.id === categoryId);
+  if (defaultGroup && name.trim() === defaultGroup.name) {
+    delete names[categoryId];
+  } else {
+    names[categoryId] = name.trim();
+  }
+  localStorage.setItem(CUSTOM_CATEGORY_NAMES_KEY, JSON.stringify(names));
+}
+
+export function getCategoryDisplayName(categoryId: string, customNames?: Record<string, string>): string {
+  const names = customNames || getCustomCategoryNames();
+  if (names[categoryId]) return names[categoryId];
+  const group = DIAP_CATEGORIES.find(c => c.id === categoryId);
+  const custom = getCustomCategories().find(c => c.id === categoryId);
+  return group?.name || custom?.name || categoryId;
+}
+
+// Custom category CRUD
+export function getCustomCategories(): DIAPCategoryGroup[] {
+  try {
+    const data = localStorage.getItem(CUSTOM_CATEGORIES_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch { return []; }
+}
+
+export function addCustomCategory(name: string, description?: string): DIAPCategoryGroup {
+  const categories = getCustomCategories();
+  const id = 'custom-' + name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const newCat: DIAPCategoryGroup = {
+    id,
+    name: name.trim(),
+    description: description?.trim() || '',
+    icon: '📌',
+  };
+  categories.push(newCat);
+  localStorage.setItem(CUSTOM_CATEGORIES_KEY, JSON.stringify(categories));
+  return newCat;
+}
+
+export function removeCustomCategory(categoryId: string): void {
+  const categories = getCustomCategories().filter(c => c.id !== categoryId);
+  localStorage.setItem(CUSTOM_CATEGORIES_KEY, JSON.stringify(categories));
+  // Also clean up any custom name for this category
+  const names = getCustomCategoryNames();
+  if (names[categoryId]) {
+    delete names[categoryId];
+    localStorage.setItem(CUSTOM_CATEGORY_NAMES_KEY, JSON.stringify(names));
+  }
+}
+
+export function updateCustomCategory(categoryId: string, updates: Partial<Pick<DIAPCategoryGroup, 'name' | 'description'>>): void {
+  const categories = getCustomCategories();
+  const idx = categories.findIndex(c => c.id === categoryId);
+  if (idx >= 0) {
+    if (updates.name !== undefined) categories[idx].name = updates.name.trim();
+    if (updates.description !== undefined) categories[idx].description = updates.description.trim();
+    localStorage.setItem(CUSTOM_CATEGORIES_KEY, JSON.stringify(categories));
+  }
+}
+
+export function getAllCategories(): DIAPCategoryGroup[] {
+  return [...DIAP_CATEGORIES, ...getCustomCategories()];
+}

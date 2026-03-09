@@ -571,6 +571,56 @@
   50% { transform: translateX(-50%) scale(1.02); }
 }
 
+/* Response changed banner */
+.response-changed-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background: #fef3cd;
+  border: 1px solid #f0c674;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.response-changed-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.response-changed-text {
+  flex: 1;
+  color: #664d03;
+}
+
+.response-changed-text strong {
+  text-transform: capitalize;
+}
+
+.response-changed-dismiss {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border: 1px solid #d4a017;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #664d03;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.response-changed-dismiss:hover {
+  background: #fef3cd;
+}
+
+.response-changed-dismiss:focus {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
 /* Screen reader only */
 .sr-only {
   position: absolute;
@@ -2234,6 +2284,12 @@ button.evidence-layer-header {
   }
 }
 
+.btn-generate-full {
+  width: 100%;
+  justify-content: center;
+  margin-top: 16px;
+}
+
 /* Generation Notification */
 .generation-notification {
   position: fixed;
@@ -2530,6 +2586,199 @@ button.evidence-layer-header {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* Objective sub-groups within each category */
+.objective-group {
+  margin-bottom: 20px;
+}
+
+.objective-group:last-child {
+  margin-bottom: 0;
+}
+
+.objective-group-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(73, 14, 103, 0.1);
+  margin-bottom: 12px;
+}
+
+.objective-group-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.objective-group-count {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #636363;
+  background: #f3f4f6;
+  padding: 2px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* Category name inline editing */
+.category-rename-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: 8px;
+  padding: 0;
+  border: 1px solid rgba(73, 14, 103, 0.2);
+  background: rgba(73, 14, 103, 0.06);
+  color: var(--amethyst-diamond);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  vertical-align: middle;
+  border-radius: 6px;
+}
+
+.category-rename-btn:hover {
+  background: rgba(73, 14, 103, 0.14);
+  border-color: var(--amethyst-diamond);
+}
+
+.category-rename-btn:focus {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+.category-name-edit {
+  display: flex;
+  align-items: center;
+}
+
+.category-name-input {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond);
+  border: 2px solid var(--amethyst-diamond);
+  border-radius: 6px;
+  padding: 4px 8px;
+  background: #fff;
+  width: 100%;
+  max-width: 400px;
+  font-family: inherit;
+}
+
+.category-name-input:focus {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+/* Remove custom category button */
+.category-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: 4px;
+  padding: 0;
+  border: 1px solid rgba(185, 28, 28, 0.2);
+  background: rgba(185, 28, 28, 0.06);
+  color: #b91c1c;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  vertical-align: middle;
+  border-radius: 6px;
+}
+
+.category-remove-btn:hover {
+  opacity: 1 !important;
+  color: #b91c1c;
+  background: rgba(185, 28, 28, 0.08);
+}
+
+.category-remove-btn:focus {
+  opacity: 1 !important;
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+/* Add Category */
+.btn-add-category {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px dashed #c4b5d0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--amethyst-diamond);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-add-category:hover {
+  background: rgba(73, 14, 103, 0.04);
+  border-color: var(--amethyst-diamond);
+}
+
+.btn-add-category:focus {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+.add-category-form {
+  padding: 20px 24px;
+  border: 2px solid var(--amethyst-diamond);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.add-category-form h3 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  color: var(--amethyst-diamond);
+}
+
+.add-category-form .form-row {
+  margin-bottom: 10px;
+}
+
+.add-category-form label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.add-category-form input {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  font-family: inherit;
+}
+
+.add-category-form input:focus {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+  border-color: var(--amethyst-diamond);
+}
+
+.add-category-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
 }
 
 /* Smaller cards in section view */

@@ -1092,7 +1092,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                   advice doesn't mean you've failed — it's a normal next step for many organisations.
                 </p>
                 <p className="support-link">
-                  <strong>Learn about professional support</strong> (Coming soon)
+                  <a href="mailto:hello@flareaccess.com.au"><strong>Learn about professional support</strong></a>
                 </p>
               </div>
             </section>
