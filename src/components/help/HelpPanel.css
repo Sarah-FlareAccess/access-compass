@@ -101,7 +101,7 @@
   color: var(--text-primary);
 }
 
-.help-panel-close:focus {
+.help-panel-close:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -256,7 +256,7 @@
   border-color: var(--amethyst-diamond);
 }
 
-.help-related-link:focus {
+.help-related-link:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -315,7 +315,7 @@
   color: var(--amethyst-diamond);
 }
 
-.help-feedback button:focus {
+.help-feedback button:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -344,7 +344,7 @@
   background: #723d8d;
 }
 
-.help-panel-done-btn:focus {
+.help-panel-done-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

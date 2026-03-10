@@ -78,7 +78,7 @@
   box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
 }
 
-.btn-analyze:focus {
+.btn-analyze:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
@@ -124,7 +124,7 @@
   border-color: #7c3aed;
 }
 
-.btn-skip-analysis:focus {
+.btn-skip-analysis:focus-visible {
   outline: 2px solid #7c3aed;
   outline-offset: 2px;
 }
@@ -221,7 +221,7 @@
   border-color: #7c3aed;
 }
 
-.btn-change-url:focus {
+.btn-change-url:focus-visible {
   outline: 2px solid #7c3aed;
   outline-offset: 2px;
 }
@@ -244,7 +244,7 @@
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
 }
 
-.btn-continue-confirmed:focus {
+.btn-continue-confirmed:focus-visible {
   outline: 2px solid #052e16;
   outline-offset: 2px;
 }

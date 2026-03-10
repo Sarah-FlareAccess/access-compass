@@ -185,7 +185,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
-.module-list-item:focus {
+.module-list-item:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
 }
@@ -282,7 +282,7 @@
   background: #e5e7eb;
 }
 
-.btn-start-module:focus {
+.btn-start-module:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -298,7 +298,7 @@
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
-.btn-continue-module:focus {
+.btn-continue-module:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
   box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
@@ -337,7 +337,7 @@
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
-.module-list-actions .btn-back:focus {
+.module-list-actions .btn-back:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -361,7 +361,7 @@
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
 }
 
-.btn-view-results:focus {
+.btn-view-results:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
   box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);

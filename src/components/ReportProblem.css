@@ -63,7 +63,7 @@
   color: white;
 }
 
-.report-close-btn:focus {
+.report-close-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -136,7 +136,7 @@
   background: rgba(114, 61, 141, 0.04);
 }
 
-.issue-type-btn:focus {
+.issue-type-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
 }
@@ -174,7 +174,7 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.report-form textarea:focus {
+.report-form textarea:focus-visible {
   outline: none;
   border-color: var(--amethyst-diamond);
   box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
@@ -255,12 +255,12 @@
   background: #dc2626;
 }
 
-.remove-screenshot-btn:focus {
+.remove-screenshot-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
-.screenshot-upload:focus {
+.screenshot-upload:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -332,7 +332,7 @@
   cursor: not-allowed;
 }
 
-.report-actions button:focus {
+.report-actions button:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

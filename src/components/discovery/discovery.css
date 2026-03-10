@@ -192,7 +192,7 @@
   border-color: #723d8d;
 }
 
-.summary-actions .btn-secondary:focus {
+.summary-actions .btn-secondary:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -208,7 +208,7 @@
   border-color: #723d8d;
 }
 
-.summary-actions .btn-primary:focus {
+.summary-actions .btn-primary:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
   box-shadow: 0 0 0 6px rgba(255, 144, 21, 0.3);
@@ -847,7 +847,7 @@
   color: var(--text-muted);
 }
 
-.discovery-skip-link button:focus {
+.discovery-skip-link button:focus-visible {
   outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-radius: 4px;

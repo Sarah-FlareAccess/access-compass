@@ -162,13 +162,8 @@
   line-height: 1.4;
 }
 
-.question-card .question-text:focus {
-  outline: none;
-}
-
 .question-card .question-text:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
+  outline: none;
 }
 
 .question-card .question-help-text {
@@ -354,11 +349,6 @@
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
 }
 
-.partial-description-section textarea:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
-}
-
 .partial-report-hint {
   font-size: 13px;
   color: #6b7280;
@@ -496,11 +486,6 @@
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
 }
 
-.notes-section-enhanced textarea:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
-}
-
 .notes-section-enhanced textarea::placeholder {
   color: #adb5bd;
 }
@@ -618,11 +603,6 @@
 .measurement-value-input:focus {
   outline: none;
   border-color: #7c3aed;
-}
-
-.measurement-value-input:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
 }
 
 .measurement-unit {
@@ -802,7 +782,7 @@
   background: #fff;
 }
 
-.describe-input-highlight .other-text-input:focus {
+.describe-input-highlight .other-text-input:focus-visible {
   border-color: #d97706;
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
 }
@@ -847,11 +827,6 @@
   border-color: #7c3aed;
 }
 
-.other-text-input:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
-}
-
 /* Submit button spacing for single-select section */
 .single-select-section .submit-btn {
   width: 100%;
@@ -875,11 +850,6 @@
 .link-input:focus {
   outline: none;
   border-color: #7c3aed;
-}
-
-.link-input:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
 }
 
 /* Text Input */
@@ -937,11 +907,6 @@
   border-color: #7c3aed;
 }
 
-.text-input:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
-}
-
 /* Submit Button */
 .submit-btn {
   width: 100%;
@@ -993,11 +958,6 @@
 .notes-section input:focus {
   outline: none;
   border-color: #7c3aed;
-}
-
-.notes-section input:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
 }
 
 /* Skip to Summary */
@@ -1305,7 +1265,7 @@
   color: #6d28d9;
 }
 
-.expand-toggle:focus {
+.expand-toggle:focus-visible {
   outline: 2px solid #7c3aed;
   outline-offset: 2px;
 }
@@ -1439,7 +1399,7 @@
   border-color: #7c3aed;
 }
 
-.btn-review:focus {
+.btn-review:focus-visible {
   outline: 2px solid #7c3aed;
   outline-offset: 2px;
 }
@@ -1463,7 +1423,7 @@
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
 }
 
-.btn-complete:focus {
+.btn-complete:focus-visible {
   outline: 2px solid #052e16;
   outline-offset: 2px;
 }
@@ -1522,11 +1482,6 @@
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-.completion-field input:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
-}
-
 .completion-form-note {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
@@ -1575,7 +1530,7 @@
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
 }
 
-.btn-confirm-complete:focus {
+.btn-confirm-complete:focus-visible {
   outline: 2px solid #052e16;
   outline-offset: 2px;
 }

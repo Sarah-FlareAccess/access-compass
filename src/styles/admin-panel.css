@@ -1268,7 +1268,7 @@
   background: #723d8d;
 }
 
-.btn-done-admin:focus {
+.btn-done-admin:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

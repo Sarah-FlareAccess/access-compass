@@ -96,7 +96,7 @@
   color: #374151;
 }
 
-.help-sheet-close:focus {
+.help-sheet-close:focus-visible {
   outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -180,7 +180,7 @@
   background: #f9fafb;
 }
 
-.faq-question:focus {
+.faq-question:focus-visible {
   outline: none;
   background: rgba(73, 14, 103, 0.04);
 }
@@ -244,7 +244,7 @@
   background: rgba(73, 14, 103, 0.06);
 }
 
-.help-sheet-link:focus {
+.help-sheet-link:focus-visible {
   outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -288,7 +288,7 @@
   box-shadow: 0 4px 12px rgba(73, 14, 103, 0.25);
 }
 
-.help-sheet-contact-btn:focus {
+.help-sheet-contact-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -311,7 +311,7 @@
   border-color: #9ca3af;
 }
 
-.help-sheet-close-btn:focus {
+.help-sheet-close-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

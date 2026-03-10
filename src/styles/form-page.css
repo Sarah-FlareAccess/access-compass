@@ -183,7 +183,7 @@ fieldset.form-group legend {
   box-shadow: var(--shadow-sm);
 }
 
-.bubble-option:focus {
+.bubble-option:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -242,7 +242,7 @@ fieldset.form-group legend {
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
-.form-actions .btn-primary:focus {
+.form-actions .btn-primary:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -262,7 +262,7 @@ fieldset.form-group legend {
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
-.form-actions .btn-secondary:focus {
+.form-actions .btn-secondary:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

@@ -68,7 +68,7 @@
   background: #f0eee9;
 }
 
-.review-mode-btn:focus {
+.review-mode-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -115,7 +115,7 @@
   color: white;
 }
 
-.select-all-btn:focus {
+.select-all-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
@@ -195,7 +195,7 @@
   color: var(--amethyst-diamond);
 }
 
-.select-group-btn:focus {
+.select-group-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

@@ -83,7 +83,7 @@
   }
 
   /* Focus state - visible outline for keyboard navigation */
-  .tab-bar-item:focus {
+  .tab-bar-item:focus-visible {
     outline: none;
   }
 

@@ -489,7 +489,7 @@ p {
   box-shadow: var(--surface-2-hover-shadow), var(--glow-brand);
 }
 
-.card-interactive:focus {
+.card-interactive:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

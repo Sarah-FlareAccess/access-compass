@@ -526,7 +526,7 @@
   transform: translateY(-1px);
 }
 
-.btn-analyze:focus {
+.btn-analyze:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
@@ -568,7 +568,7 @@
   border-color: #7c3aed;
 }
 
-.btn-skip:focus {
+.btn-skip:focus-visible {
   outline: 2px solid #7c3aed;
   outline-offset: 2px;
 }
