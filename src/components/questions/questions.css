@@ -1310,6 +1310,41 @@
   outline-offset: 2px;
 }
 
+/* Action tier groupings */
+.action-tier {
+  margin-bottom: 20px;
+}
+
+.action-tier:last-child {
+  margin-bottom: 0;
+}
+
+.action-tier-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.action-tier-badge {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.action-tier-heading-high { color: #b91c1c; }
+.action-tier-heading-medium { color: #945a00; }
+.action-tier-heading-low { color: #1a7a6d; }
+
+.action-tier-badge-high { background: #dc2626; }
+.action-tier-badge-medium { background: #d97706; }
+.action-tier-badge-low { background: #16a34a; }
+
 /* Action Items */
 .action-list .action-item {
   padding: 16px;
@@ -1545,12 +1580,87 @@
   outline-offset: 2px;
 }
 
-/* DIAP Note */
-.diap-note {
-  text-align: center;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 16px 0 0 0;
+/* High priority callout */
+.summary-high-callout {
+  padding: 14px 18px;
+  background: white;
+  border-left: 4px solid #dc2626;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #1a1a2e;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.summary-high-callout strong {
+  color: #b91c1c;
+}
+
+/* What to do next */
+.summary-next-steps {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.summary-next-heading {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text-primary, #2d2420);
+  margin: 0 0 14px;
+}
+
+.summary-next-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.summary-next-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(73, 14, 103, 0.04);
+  border: 1px solid rgba(73, 14, 103, 0.10);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text-primary, #2d2420);
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.summary-next-card:hover {
+  background: rgba(73, 14, 103, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.10);
+}
+
+.summary-next-card:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+.summary-next-card svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--amethyst-diamond, #490E67);
+}
+
+.summary-next-card strong {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--amethyst-diamond, #490E67);
+  margin-bottom: 2px;
+}
+
+.summary-next-card span {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #4a4340);
+  line-height: 1.45;
 }
 
 /* Responsive - Tablet */
