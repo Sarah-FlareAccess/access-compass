@@ -151,7 +151,7 @@
   cursor: pointer;
 }
 
-.checkbox-label:focus-within {
+.checkbox-label:has(:focus-visible) {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 4px;
   border-radius: var(--radius-sm);
