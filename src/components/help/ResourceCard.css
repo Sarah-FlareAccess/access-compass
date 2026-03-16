@@ -45,7 +45,7 @@
     0 4px 8px rgba(62, 43, 47, 0.06);
 }
 
-.resource-card:focus-within {
+.resource-card:has(:focus-visible) {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

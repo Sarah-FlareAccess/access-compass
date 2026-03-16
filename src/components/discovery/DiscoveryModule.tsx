@@ -79,24 +79,12 @@ export function DiscoveryModule({
     savedProgress?.notApplicablePhases || []
   );
 
-  // Business context questions
+  // Business context questions (only the two that control phase/touchpoint visibility)
   const [hasPhysicalVenue, setHasPhysicalVenue] = useState<boolean | null>(
     existingData?.businessContext?.hasPhysicalVenue ?? savedProgress?.businessContext?.hasPhysicalVenue ?? null
   );
   const [hasOnlinePresence, setHasOnlinePresence] = useState<boolean | null>(
     existingData?.businessContext?.hasOnlinePresence ?? savedProgress?.businessContext?.hasOnlinePresence ?? null
-  );
-  const [servesPublicCustomers, setServesPublicCustomers] = useState<boolean | null>(
-    existingData?.businessContext?.servesPublicCustomers ?? savedProgress?.businessContext?.servesPublicCustomers ?? null
-  );
-  const [hasOnlineServices, setHasOnlineServices] = useState<boolean | null>(
-    existingData?.businessContext?.hasOnlineServices ?? savedProgress?.businessContext?.hasOnlineServices ?? null
-  );
-  const [offersExperiences, setOffersExperiences] = useState<boolean | null>(
-    existingData?.businessContext?.offersExperiences ?? savedProgress?.businessContext?.offersExperiences ?? null
-  );
-  const [offersAccommodation, setOffersAccommodation] = useState<boolean | null>(
-    existingData?.businessContext?.offersAccommodation ?? savedProgress?.businessContext?.offersAccommodation ?? null
   );
   // Assessment type - 'business' for ongoing operations, 'event' for standalone events, 'both' for both
   type AssessmentType = 'business' | 'event' | 'both';
@@ -139,10 +127,10 @@ export function DiscoveryModule({
       businessContext: {
         hasPhysicalVenue,
         hasOnlinePresence,
-        servesPublicCustomers,
-        hasOnlineServices,
-        offersExperiences,
-        offersAccommodation,
+        servesPublicCustomers: null,
+        hasOnlineServices: null,
+        offersExperiences: null,
+        offersAccommodation: null,
         assessmentType,
       },
       lastUpdated: new Date().toISOString(),
@@ -155,34 +143,9 @@ export function DiscoveryModule({
     currentStep,
     hasPhysicalVenue,
     hasOnlinePresence,
-    servesPublicCustomers,
-    hasOnlineServices,
-    offersExperiences,
-    offersAccommodation,
     assessmentType,
     existingData,
   ]);
-
-  // Auto-select/deselect touchpoints based on business context answers
-  useEffect(() => {
-    if (offersExperiences === true) {
-      setSelectedTouchpoints(prev =>
-        prev.includes('experiences-activities') ? prev : [...prev, 'experiences-activities']
-      );
-    } else if (offersExperiences === false) {
-      setSelectedTouchpoints(prev => prev.filter(t => t !== 'experiences-activities'));
-    }
-  }, [offersExperiences]);
-
-  useEffect(() => {
-    if (offersAccommodation === true) {
-      setSelectedTouchpoints(prev =>
-        prev.includes('accommodation-rooms') ? prev : [...prev, 'accommodation-rooms']
-      );
-    } else if (offersAccommodation === false) {
-      setSelectedTouchpoints(prev => prev.filter(t => t !== 'accommodation-rooms'));
-    }
-  }, [offersAccommodation]);
 
   const toggleModuleSelection = (moduleId: string) => {
     setCustomSelectedModules(prev =>
@@ -303,8 +266,25 @@ export function DiscoveryModule({
         };
       }
 
+      // Filter out auto-included touchpoints for physical venues
+      if (hasPhysicalVenue) {
+        const visibleTouchpoints = phase.touchpoints.filter(tp => tp.autoInclude !== 'physical');
+        if (visibleTouchpoints.length !== phase.touchpoints.length) {
+          return {
+            ...phase,
+            touchpoints: visibleTouchpoints,
+            blocks: phase.blocks?.map(block => ({
+              ...block,
+              touchpointIds: block.touchpointIds.filter(id =>
+                visibleTouchpoints.some(tp => tp.id === id)
+              ),
+            })).filter(block => block.touchpointIds.length > 0),
+          };
+        }
+      }
+
       return phase;
-    });
+    }).filter(phase => phase.touchpoints.length > 0);
   }, [hasPhysicalVenue, hasOnlinePresence]);
 
   // Check if a phase has been reviewed (has selections OR marked as N/A)
@@ -330,10 +310,8 @@ export function DiscoveryModule({
       businessContext: {
         hasPhysicalVenue: hasPhysicalVenue ?? undefined,
         hasOnlinePresence: hasOnlinePresence ?? undefined,
-        servesPublicCustomers: servesPublicCustomers ?? undefined,
-        hasOnlineServices: hasOnlineServices ?? undefined,
-        offersExperiences: offersExperiences ?? undefined,
-        offersAccommodation: offersAccommodation ?? undefined,
+        offersExperiences: selectedTouchpoints.includes('experiences-activities') || undefined,
+        offersAccommodation: selectedTouchpoints.includes('accommodation-rooms') || undefined,
         assessmentType,
       },
     };
@@ -344,7 +322,7 @@ export function DiscoveryModule({
     });
 
     return generateRecommendations(discoveryData, industryId, serviceType);
-  }, [selectedTouchpoints, selectedSubTouchpoints, notApplicablePhases, filteredJourneyPhases, industryId, serviceType, hasPhysicalVenue, hasOnlinePresence, servesPublicCustomers, hasOnlineServices, offersExperiences, offersAccommodation, assessmentType]);
+  }, [selectedTouchpoints, selectedSubTouchpoints, notApplicablePhases, filteredJourneyPhases, industryId, serviceType, hasPhysicalVenue, hasOnlinePresence, assessmentType]);
 
   // Calculate depth recommendation
   const depthRecommendation = useMemo(() => {
@@ -416,10 +394,10 @@ export function DiscoveryModule({
         businessContext: {
           hasPhysicalVenue: hasPhysicalVenue ?? false,
           hasOnlinePresence: hasOnlinePresence ?? false,
-          servesPublicCustomers: servesPublicCustomers ?? false,
-          hasOnlineServices: hasOnlineServices ?? false,
-          offersExperiences: offersExperiences ?? false,
-          offersAccommodation: offersAccommodation ?? false,
+          servesPublicCustomers: true,
+          hasOnlineServices: (hasOnlinePresence ?? false),
+          offersExperiences: selectedTouchpoints.includes('experiences-activities'),
+          offersAccommodation: selectedTouchpoints.includes('accommodation-rooms'),
           assessmentType,
         },
       });
@@ -484,267 +462,122 @@ export function DiscoveryModule({
               </div>
             </div>
 
-            {/* Business Context Questions */}
+            {/* Lead questions - shape which journey phases appear */}
             <div className="business-context-questions">
-              <div className="context-step-header">
-                <span className="instruction-number">Step 1</span>
-                <h2>Tell us about your business</h2>
+              <div className="context-lead-questions">
+                {/* Assessment Type - first question, sets the frame */}
+                <fieldset className="context-question event-assessment-question">
+                  <legend>
+                    What would you like to assess?
+                  </legend>
+                  <p className="field-helper">Choose based on what you're reviewing</p>
+                  <div className="radio-group radio-group-vertical">
+                    <label className="radio-label radio-label-card">
+                      <input
+                        type="radio"
+                        name="assessment_type"
+                        checked={assessmentType === 'business'}
+                        onChange={() => setAssessmentType('business')}
+                      />
+                      <div className="radio-card-content">
+                        <span className="radio-card-title">Ongoing business operations</span>
+                        <span className="radio-card-description">Your venue, services, website, and day-to-day customer experience. Best for permanent locations, ongoing services, or general improvement.</span>
+                      </div>
+                    </label>
+                    <label className="radio-label radio-label-card">
+                      <input
+                        type="radio"
+                        name="assessment_type"
+                        checked={assessmentType === 'event'}
+                        onChange={() => setAssessmentType('event')}
+                      />
+                      <div className="radio-card-content">
+                        <span className="radio-card-title">Standalone event</span>
+                        <span className="radio-card-description">A specific event like a festival, conference, concert, market, or function. Covers event planning, promotion, venue setup, and on-the-day operations.</span>
+                      </div>
+                    </label>
+                    <label className="radio-label radio-label-card">
+                      <input
+                        type="radio"
+                        name="assessment_type"
+                        checked={assessmentType === 'both'}
+                        onChange={() => setAssessmentType('both')}
+                      />
+                      <div className="radio-card-content">
+                        <span className="radio-card-title">Both</span>
+                        <span className="radio-card-description">Assess both your ongoing business operations and a specific event.</span>
+                      </div>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <fieldset className="context-question">
+                  <legend>
+                    Do you have a physical venue customers visit? <span className="required">*</span>
+                  </legend>
+                  <p className="field-helper">e.g. shop, office, facility, or site</p>
+                  <div className="radio-group">
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="has_physical_venue"
+                        checked={hasPhysicalVenue === true}
+                        onChange={() => setHasPhysicalVenue(true)}
+                        required
+                      />
+                      <span>Yes</span>
+                    </label>
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="has_physical_venue"
+                        checked={hasPhysicalVenue === false}
+                        onChange={() => setHasPhysicalVenue(false)}
+                        required
+                      />
+                      <span>No</span>
+                    </label>
+                  </div>
+                  <p className="field-tip">
+                    <span className="tip-icon">💡</span>
+                    Select "Yes" even for small spaces like a pop-up stall, market booth, or shared office where customers come to you.
+                  </p>
+                </fieldset>
+
+                <fieldset className="context-question">
+                  <legend>
+                    Do you have an online presence?{' '}
+                    <span className="required">*</span>
+                  </legend>
+                  <p className="field-helper">e.g. website, app, social media, online booking, or digital services</p>
+                  <div className="radio-group">
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="has_online_presence"
+                        checked={hasOnlinePresence === true}
+                        onChange={() => setHasOnlinePresence(true)}
+                        required
+                      />
+                      <span>Yes</span>
+                    </label>
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="has_online_presence"
+                        checked={hasOnlinePresence === false}
+                        onChange={() => setHasOnlinePresence(false)}
+                        required
+                      />
+                      <span>No</span>
+                    </label>
+                  </div>
+                  <p className="field-tip">
+                    <span className="tip-icon">💡</span>
+                    This includes a Facebook page, Google Business listing, or any way customers find information about you online.
+                  </p>
+                </fieldset>
               </div>
-
-              {/* Physical Venue */}
-              <fieldset className="context-question">
-                <legend>
-                  Do you have a physical venue customers visit? <span className="required">*</span>
-                </legend>
-                <p className="field-helper">e.g. shop, office, facility, or site</p>
-                <div className="radio-group">
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="has_physical_venue"
-                      checked={hasPhysicalVenue === true}
-                      onChange={() => setHasPhysicalVenue(true)}
-                      required
-                    />
-                    <span>Yes</span>
-                  </label>
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="has_physical_venue"
-                      checked={hasPhysicalVenue === false}
-                      onChange={() => setHasPhysicalVenue(false)}
-                      required
-                    />
-                    <span>No</span>
-                  </label>
-                </div>
-                <p className="field-tip">
-                  <span className="tip-icon">💡</span>
-                  Select "Yes" even for small spaces like a pop-up stall, market booth, or shared office where customers come to you.
-                </p>
-              </fieldset>
-
-              {/* Online Presence */}
-              <fieldset className="context-question">
-                <legend>
-                  Do you have an online presence (website, booking system)?{' '}
-                  <span className="required">*</span>
-                </legend>
-                <p className="field-helper">e.g. website, app, online booking, or digital services</p>
-                <div className="radio-group">
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="has_online_presence"
-                      checked={hasOnlinePresence === true}
-                      onChange={() => setHasOnlinePresence(true)}
-                      required
-                    />
-                    <span>Yes</span>
-                  </label>
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="has_online_presence"
-                      checked={hasOnlinePresence === false}
-                      onChange={() => setHasOnlinePresence(false)}
-                      required
-                    />
-                    <span>No</span>
-                  </label>
-                </div>
-                <p className="field-tip">
-                  <span className="tip-icon">💡</span>
-                  This includes a Facebook page, Google Business listing, or any way customers find information about you online.
-                </p>
-              </fieldset>
-
-              {/* Public-Facing Customers */}
-              <fieldset className="context-question">
-                <legend>
-                  Do you serve public-facing customers? <span className="required">*</span>
-                </legend>
-                <p className="field-helper">e.g. visitors, guests, clients, or members of the public</p>
-                <div className="radio-group">
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="serves_public_customers"
-                      checked={servesPublicCustomers === true}
-                      onChange={() => setServesPublicCustomers(true)}
-                      required
-                    />
-                    <span>Yes</span>
-                  </label>
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="serves_public_customers"
-                      checked={servesPublicCustomers === false}
-                      onChange={() => setServesPublicCustomers(false)}
-                      required
-                    />
-                    <span>No</span>
-                  </label>
-                </div>
-                <p className="field-tip">
-                  <span className="tip-icon">💡</span>
-                  If anyone outside your organisation interacts with your services, whether as a customer, client, patient, or visitor, select "Yes".
-                </p>
-              </fieldset>
-
-              {/* Online Services */}
-              <fieldset className="context-question">
-                <legend>
-                  Do you operate online services? <span className="required">*</span>
-                </legend>
-                <p className="field-helper">e.g. online retail, business coaching, consulting, digital services</p>
-                <div className="radio-group">
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="has_online_services"
-                      checked={hasOnlineServices === true}
-                      onChange={() => setHasOnlineServices(true)}
-                      required
-                    />
-                    <span>Yes</span>
-                  </label>
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="has_online_services"
-                      checked={hasOnlineServices === false}
-                      onChange={() => setHasOnlineServices(false)}
-                      required
-                    />
-                    <span>No</span>
-                  </label>
-                </div>
-                <p className="field-tip">
-                  <span className="tip-icon">💡</span>
-                  This means customers can complete a transaction or receive a service entirely online, not just find information.
-                </p>
-              </fieldset>
-
-              {/* Experiences and Activities - only for physical venues */}
-              {hasPhysicalVenue === true && (
-                <fieldset className="context-question">
-                  <legend>
-                    Do you offer experiences, activities, tours, or events? <span className="required">*</span>
-                  </legend>
-                  <p className="field-helper">e.g. spectator events, guided tours, recreation, gym, pool, conferences, therapy services</p>
-                  <div className="radio-group">
-                    <label className="radio-label">
-                      <input
-                        type="radio"
-                        name="offers_experiences"
-                        checked={offersExperiences === true}
-                        onChange={() => setOffersExperiences(true)}
-                        required
-                      />
-                      <span>Yes</span>
-                    </label>
-                    <label className="radio-label">
-                      <input
-                        type="radio"
-                        name="offers_experiences"
-                        checked={offersExperiences === false}
-                        onChange={() => setOffersExperiences(false)}
-                        required
-                      />
-                      <span>No</span>
-                    </label>
-                  </div>
-                  <p className="field-tip">
-                    <span className="tip-icon">💡</span>
-                    Select "Yes" if customers participate in any activity, performance, tour, class, or experience at your venue.
-                  </p>
-                </fieldset>
-              )}
-
-              {/* Accommodation - only for physical venues */}
-              {hasPhysicalVenue === true && (
-                <fieldset className="context-question">
-                  <legend>
-                    Do you offer overnight accommodation? <span className="required">*</span>
-                  </legend>
-                  <p className="field-helper">e.g. hotel rooms, apartments, cabins, hostels, retreat rooms</p>
-                  <div className="radio-group">
-                    <label className="radio-label">
-                      <input
-                        type="radio"
-                        name="offers_accommodation"
-                        checked={offersAccommodation === true}
-                        onChange={() => setOffersAccommodation(true)}
-                        required
-                      />
-                      <span>Yes</span>
-                    </label>
-                    <label className="radio-label">
-                      <input
-                        type="radio"
-                        name="offers_accommodation"
-                        checked={offersAccommodation === false}
-                        onChange={() => setOffersAccommodation(false)}
-                        required
-                      />
-                      <span>No</span>
-                    </label>
-                  </div>
-                  <p className="field-tip">
-                    <span className="tip-icon">💡</span>
-                    Select "Yes" if guests stay overnight in any type of accommodation you manage.
-                  </p>
-                </fieldset>
-              )}
-
-              {/* Assessment Type Toggle */}
-              <fieldset className="context-question event-assessment-question">
-                <legend>
-                  What would you like to assess?
-                </legend>
-                <p className="field-helper">Choose based on what you're reviewing for accessibility</p>
-                <div className="radio-group radio-group-vertical">
-                  <label className="radio-label radio-label-card">
-                    <input
-                      type="radio"
-                      name="assessment_type"
-                      checked={assessmentType === 'business'}
-                      onChange={() => setAssessmentType('business')}
-                    />
-                    <div className="radio-card-content">
-                      <span className="radio-card-title">Ongoing business operations</span>
-                      <span className="radio-card-description">Your venue, services, website, and day-to-day customer experience. Best for permanent locations, ongoing services, or general accessibility improvement.</span>
-                    </div>
-                  </label>
-                  <label className="radio-label radio-label-card">
-                    <input
-                      type="radio"
-                      name="assessment_type"
-                      checked={assessmentType === 'event'}
-                      onChange={() => setAssessmentType('event')}
-                    />
-                    <div className="radio-card-content">
-                      <span className="radio-card-title">🎪 Standalone event assessment</span>
-                      <span className="radio-card-description">A specific event like a festival, conference, concert, market, or function. Covers event planning, promotion, venue setup, sensory access, and on-the-day operations.</span>
-                    </div>
-                  </label>
-                  <label className="radio-label radio-label-card">
-                    <input
-                      type="radio"
-                      name="assessment_type"
-                      checked={assessmentType === 'both'}
-                      onChange={() => setAssessmentType('both')}
-                    />
-                    <div className="radio-card-content">
-                      <span className="radio-card-title">🏢 + 🎪 Both</span>
-                      <span className="radio-card-description">Assess both your ongoing business operations AND a specific event. Get the full organisational modules plus the 5 standalone event modules.</span>
-                    </div>
-                  </label>
-                </div>
-              </fieldset>
             </div>
 
             {/* Event or Both mode message */}
@@ -755,10 +588,7 @@ export function DiscoveryModule({
                   <p><strong>Event assessment mode</strong></p>
                   <p>
                     You'll receive the 5 standalone Event modules covering the full event journey from planning to pack-down.
-                    These are designed for one-off events and don't require you to complete the organisational modules.
-                  </p>
-                  <p style={{ marginTop: '0.5rem', fontSize: '0.9em', opacity: 0.85 }}>
-                    The touchpoint selection below is optional for event-only assessments — you can skip it if you're only reviewing an event.
+                    The touchpoint selection below is optional for event-only assessments.
                   </p>
                 </div>
               </div>
@@ -768,10 +598,9 @@ export function DiscoveryModule({
               <div className="context-message both-mode-message">
                 <span className="context-icon">🏢🎪</span>
                 <div>
-                  <p><strong>Combined assessment mode</strong></p>
+                  <p><strong>Combined assessment</strong></p>
                   <p>
-                    You'll receive both the organisational modules (based on touchpoints you select below) AND the 5 standalone Event modules.
-                    This is ideal if you want to improve your overall accessibility while also preparing for a specific event.
+                    You'll receive organisational modules based on the touchpoints below, plus the 5 standalone Event modules.
                   </p>
                 </div>
               </div>
@@ -798,16 +627,17 @@ export function DiscoveryModule({
               </div>
             )}
 
-            {/* Transition instruction - always visible */}
-            <div className="journey-instruction">
-              <div className="instruction-header">
-                <span className="instruction-number">Step 2</span>
-                <h2>Select the touchpoints that apply to your business</h2>
+            {/* Journey mapping instruction - shown once lead questions are answered */}
+            {hasPhysicalVenue !== null && hasOnlinePresence !== null && (
+              <div className="journey-instruction">
+                <div className="instruction-header">
+                  <h2>Walk through your customer journey</h2>
+                </div>
+                <p className="instruction-detail">
+                  Below are the stages of a typical customer experience. <strong>Expand each section</strong> and tick the touchpoints that apply to your business. This helps us recommend the right modules for your review.
+                </p>
               </div>
-              <p className="instruction-detail">
-                Below are the stages of a typical customer journey. <strong>Expand each section</strong> and tick the touchpoints where customers interact with your business. This helps us recommend the right accessibility modules for you.
-              </p>
-            </div>
+            )}
 
             {/* Journey Phase Cards */}
             <div className="journey-phases">
@@ -857,13 +687,9 @@ export function DiscoveryModule({
                   className="btn-continue"
                   onClick={handleContinue}
                   disabled={
-                    // All business context questions must be answered
+                    // Lead questions must be answered
                     hasPhysicalVenue === null ||
                     hasOnlinePresence === null ||
-                    servesPublicCustomers === null ||
-                    hasOnlineServices === null ||
-                    (hasPhysicalVenue === true && offersExperiences === null) ||
-                    (hasPhysicalVenue === true && offersAccommodation === null) ||
                     // All journey phases must be reviewed (selected OR marked N/A)
                     !filteredJourneyPhases.every(phase => isPhaseReviewed(phase.id))
                   }
@@ -902,7 +728,7 @@ export function DiscoveryModule({
               </div>
             </div>
 
-            {/* Selected modules count - enhanced */}
+            {/* Selected modules count */}
             <div className="module-selection-summary">
               <div className="selection-info">
                 <span className="selection-count">
@@ -918,13 +744,6 @@ export function DiscoveryModule({
                   <span className="selection-time">
                     ~{MODULES.filter(m => customSelectedModules.includes(m.id))
                       .reduce((sum, m) => sum + m.estimatedTime, 0)} min
-                  </span>
-                </div>
-                <div className="selection-cost-wrapper">
-                  <span className="cost-icon">💰</span>
-                  <span className="selection-cost-total">
-                    ${MODULES.filter(m => customSelectedModules.includes(m.id))
-                      .reduce((sum, m) => sum + m.cost, 0)}
                   </span>
                 </div>
               </div>
@@ -1091,6 +910,17 @@ export function DiscoveryModule({
               <p className="reassurance-subtext">
                 Click any module to add or remove it from your review.
               </p>
+            </div>
+
+            {/* Cost summary */}
+            <div className="selection-cost-summary">
+              <div className="cost-summary-content">
+                <span className="cost-summary-label">Estimated cost for {customSelectedModules.length} module{customSelectedModules.length !== 1 ? 's' : ''}:</span>
+                <span className="cost-summary-total">
+                  ${MODULES.filter(m => customSelectedModules.includes(m.id))
+                    .reduce((sum, m) => sum + m.cost, 0)}
+                </span>
+              </div>
             </div>
 
             {/* Actions */}

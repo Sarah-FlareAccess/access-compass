@@ -562,10 +562,13 @@ textarea::placeholder {
 
 input:focus,
 textarea:focus,
-select:focus {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
+select:focus,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none !important;
   border-color: var(--amethyst-diamond);
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
 textarea {

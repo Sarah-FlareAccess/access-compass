@@ -192,6 +192,7 @@ export interface Touchpoint {
   example?: string; // Example text to help users understand what this includes
   subTouchpoints?: SubTouchpoint[];
   moduleMapping: string[];
+  autoInclude?: 'physical'; // Auto-included for physical venues, hidden from selection UI
 }
 
 export interface TouchpointBlock {

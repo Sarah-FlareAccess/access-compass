@@ -1530,7 +1530,7 @@
   transform: translateY(-2px) scale(1.005);
 }
 
-.module-tile:focus-within {
+.module-tile:has(:focus-visible) {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   box-shadow: var(--surface-2-hover-shadow), var(--glow-brand);
@@ -1843,7 +1843,7 @@
   outline-offset: 2px;
 }
 
-.module-action-btn.btn-start:focus,
+.module-action-btn.btn-start:focus-visible,
 .module-action-btn.btn-continue:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;

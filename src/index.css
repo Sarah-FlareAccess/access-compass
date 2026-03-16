@@ -37,19 +37,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Universal Focus Indicator - WCAG AA */
+/* Universal Focus Indicator - WCAG AA
+   Keyboard-only: :focus-visible fires for keyboard nav on buttons/links/etc.
+   Text inputs/textareas/selects are excluded because browsers always set
+   :focus-visible on them (even on click) and they have their own focus styles. */
 *:focus {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
-}
-
-*:focus:not(:focus-visible) {
   outline: none;
 }
 
 *:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
 }
 
 /* Links */

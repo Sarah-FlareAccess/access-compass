@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { Touchpoint } from '../../types';
 import './discovery.css';
 
@@ -50,9 +49,9 @@ export function JourneyPhaseSection({
   touchpoints,
   touchpointBlocks,
   selectedTouchpoints,
-  selectedSubTouchpoints,
+  selectedSubTouchpoints: _selectedSubTouchpoints,
   onToggleTouchpoint,
-  onToggleSubTouchpoint,
+  onToggleSubTouchpoint: _onToggleSubTouchpoint,
   isOpen,
   onOpenChange,
   bgColorClass,
@@ -60,35 +59,15 @@ export function JourneyPhaseSection({
   isNotApplicable = false,
   onToggleNotApplicable,
 }: JourneyPhaseSectionProps) {
-  const [expandedTouchpoints, setExpandedTouchpoints] = useState<string[]>([]);
-
   const selectedCount = touchpoints.filter(t => selectedTouchpoints.includes(t.id)).length;
   const hasSelections = selectedCount > 0;
 
-  const toggleExpanded = (id: string) => {
-    setExpandedTouchpoints(prev =>
-      prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]
-    );
-  };
-
   const handleTouchpointToggle = (touchpoint: Touchpoint) => {
-    const isCurrentlySelected = selectedTouchpoints.includes(touchpoint.id);
-    const hasSubTouchpoints = touchpoint.subTouchpoints && touchpoint.subTouchpoints.length > 0;
-
-    // If selecting (not deselecting) and has sub-touchpoints, auto-expand
-    if (!isCurrentlySelected && hasSubTouchpoints) {
-      setExpandedTouchpoints(prev =>
-        prev.includes(touchpoint.id) ? prev : [...prev, touchpoint.id]
-      );
-    }
-
     onToggleTouchpoint(touchpoint.id);
   };
 
   const renderTouchpoint = (touchpoint: Touchpoint) => {
     const isSelected = selectedTouchpoints.includes(touchpoint.id);
-    const isExpanded = expandedTouchpoints.includes(touchpoint.id);
-    const hasSubTouchpoints = touchpoint.subTouchpoints && touchpoint.subTouchpoints.length > 0;
 
     // Use online-specific labels when applicable
     const touchpointLabel = useOnlineLabels && touchpoint.labelOnline ? touchpoint.labelOnline : touchpoint.label;
@@ -114,47 +93,7 @@ export function JourneyPhaseSection({
               <div className="touchpoint-example">{touchpoint.example}</div>
             )}
           </div>
-          {hasSubTouchpoints && isSelected && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                toggleExpanded(touchpoint.id);
-              }}
-              className="expand-button"
-              aria-expanded={isExpanded}
-              aria-label={isExpanded ? `Collapse ${touchpointLabel} options` : `Expand ${touchpointLabel} options`}
-              type="button"
-            >
-              <span className={`chevron ${isExpanded ? 'rotated' : ''}`} aria-hidden="true">▼</span>
-            </button>
-          )}
         </label>
-
-        {/* Sub-touchpoints */}
-        {hasSubTouchpoints && isSelected && isExpanded && (
-          <div className="sub-touchpoints">
-            <p className="sub-touchpoints-hint">
-              Optional: Select specific areas to refine recommendations
-            </p>
-            {touchpoint.subTouchpoints!.map((sub) => (
-              <label
-                key={sub.id}
-                className={`sub-touchpoint-item ${selectedSubTouchpoints.includes(sub.id) ? 'selected' : ''}`}
-                htmlFor={`subtouchpoint-${sub.id}`}
-              >
-                <input
-                  type="checkbox"
-                  id={`subtouchpoint-${sub.id}`}
-                  checked={selectedSubTouchpoints.includes(sub.id)}
-                  onChange={() => onToggleSubTouchpoint(sub.id)}
-                  className="touchpoint-checkbox"
-                />
-                <span className="sub-touchpoint-label">{sub.label}</span>
-              </label>
-            ))}
-          </div>
-        )}
       </div>
     );
   };

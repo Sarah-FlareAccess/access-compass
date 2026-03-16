@@ -1176,6 +1176,34 @@
   margin: 0;
 }
 
+/* Cost Summary - Bottom of recommendation view */
+.selection-cost-summary {
+  text-align: center;
+  margin: 20px 0 8px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(73, 14, 103, 0.04) 0%, rgba(73, 14, 103, 0.08) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(73, 14, 103, 0.12);
+}
+
+.cost-summary-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cost-summary-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.cost-summary-total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+}
+
 /* Action Card - Condensed */
 .action-context {
   text-align: center;
@@ -2058,6 +2086,12 @@ fieldset.context-question {
   font-size: 15px;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+.context-question .radio-label .radio-card-description {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-secondary);
 }
 
 .context-question .required {
@@ -3013,9 +3047,10 @@ fieldset.context-question {
 }
 
 .radio-card-description {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.5;
+  font-weight: 400;
   font-weight: 400;
 }
 

@@ -1,0 +1,662 @@
+diff --git a/src/components/discovery/DiscoveryModule.tsx b/src/components/discovery/DiscoveryModule.tsx
+index bd65805..6cce4fa 100644
+--- a/src/components/discovery/DiscoveryModule.tsx
++++ b/src/components/discovery/DiscoveryModule.tsx
+@@ -303,8 +303,25 @@ export function DiscoveryModule({
+         };
+       }
+ 
++      // Filter out auto-included touchpoints for physical venues
++      if (hasPhysicalVenue) {
++        const visibleTouchpoints = phase.touchpoints.filter(tp => tp.autoInclude !== 'physical');
++        if (visibleTouchpoints.length !== phase.touchpoints.length) {
++          return {
++            ...phase,
++            touchpoints: visibleTouchpoints,
++            blocks: phase.blocks?.map(block => ({
++              ...block,
++              touchpointIds: block.touchpointIds.filter(id =>
++                visibleTouchpoints.some(tp => tp.id === id)
++              ),
++            })).filter(block => block.touchpointIds.length > 0),
++          };
++        }
++      }
++
+       return phase;
+-    });
++    }).filter(phase => phase.touchpoints.length > 0);
+   }, [hasPhysicalVenue, hasOnlinePresence]);
+ 
+   // Check if a phase has been reviewed (has selections OR marked as N/A)
+diff --git a/src/components/discovery/JourneyPhaseSection.tsx b/src/components/discovery/JourneyPhaseSection.tsx
+index 3084075..711c1a4 100644
+--- a/src/components/discovery/JourneyPhaseSection.tsx
++++ b/src/components/discovery/JourneyPhaseSection.tsx
+@@ -1,4 +1,3 @@
+-import { useState } from 'react';
+ import type { Touchpoint } from '../../types';
+ import './discovery.css';
+ 
+@@ -50,9 +49,9 @@ export function JourneyPhaseSection({
+   touchpoints,
+   touchpointBlocks,
+   selectedTouchpoints,
+-  selectedSubTouchpoints,
++  selectedSubTouchpoints: _selectedSubTouchpoints,
+   onToggleTouchpoint,
+-  onToggleSubTouchpoint,
++  onToggleSubTouchpoint: _onToggleSubTouchpoint,
+   isOpen,
+   onOpenChange,
+   bgColorClass,
+@@ -60,35 +59,15 @@ export function JourneyPhaseSection({
+   isNotApplicable = false,
+   onToggleNotApplicable,
+ }: JourneyPhaseSectionProps) {
+-  const [expandedTouchpoints, setExpandedTouchpoints] = useState<string[]>([]);
+-
+   const selectedCount = touchpoints.filter(t => selectedTouchpoints.includes(t.id)).length;
+   const hasSelections = selectedCount > 0;
+ 
+-  const toggleExpanded = (id: string) => {
+-    setExpandedTouchpoints(prev =>
+-      prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]
+-    );
+-  };
+-
+   const handleTouchpointToggle = (touchpoint: Touchpoint) => {
+-    const isCurrentlySelected = selectedTouchpoints.includes(touchpoint.id);
+-    const hasSubTouchpoints = touchpoint.subTouchpoints && touchpoint.subTouchpoints.length > 0;
+-
+-    // If selecting (not deselecting) and has sub-touchpoints, auto-expand
+-    if (!isCurrentlySelected && hasSubTouchpoints) {
+-      setExpandedTouchpoints(prev =>
+-        prev.includes(touchpoint.id) ? prev : [...prev, touchpoint.id]
+-      );
+-    }
+-
+     onToggleTouchpoint(touchpoint.id);
+   };
+ 
+   const renderTouchpoint = (touchpoint: Touchpoint) => {
+     const isSelected = selectedTouchpoints.includes(touchpoint.id);
+-    const isExpanded = expandedTouchpoints.includes(touchpoint.id);
+-    const hasSubTouchpoints = touchpoint.subTouchpoints && touchpoint.subTouchpoints.length > 0;
+ 
+     // Use online-specific labels when applicable
+     const touchpointLabel = useOnlineLabels && touchpoint.labelOnline ? touchpoint.labelOnline : touchpoint.label;
+@@ -114,47 +93,7 @@ export function JourneyPhaseSection({
+               <div className="touchpoint-example">{touchpoint.example}</div>
+             )}
+           </div>
+-          {hasSubTouchpoints && isSelected && (
+-            <button
+-              onClick={(e) => {
+-                e.stopPropagation();
+-                e.preventDefault();
+-                toggleExpanded(touchpoint.id);
+-              }}
+-              className="expand-button"
+-              aria-expanded={isExpanded}
+-              aria-label={isExpanded ? `Collapse ${touchpointLabel} options` : `Expand ${touchpointLabel} options`}
+-              type="button"
+-            >
+-              <span className={`chevron ${isExpanded ? 'rotated' : ''}`} aria-hidden="true">▼</span>
+-            </button>
+-          )}
+         </label>
+-
+-        {/* Sub-touchpoints */}
+-        {hasSubTouchpoints && isSelected && isExpanded && (
+-          <div className="sub-touchpoints">
+-            <p className="sub-touchpoints-hint">
+-              Optional: Select specific areas to refine recommendations
+-            </p>
+-            {touchpoint.subTouchpoints!.map((sub) => (
+-              <label
+-                key={sub.id}
+-                className={`sub-touchpoint-item ${selectedSubTouchpoints.includes(sub.id) ? 'selected' : ''}`}
+-                htmlFor={`subtouchpoint-${sub.id}`}
+-              >
+-                <input
+-                  type="checkbox"
+-                  id={`subtouchpoint-${sub.id}`}
+-                  checked={selectedSubTouchpoints.includes(sub.id)}
+-                  onChange={() => onToggleSubTouchpoint(sub.id)}
+-                  className="touchpoint-checkbox"
+-                />
+-                <span className="sub-touchpoint-label">{sub.label}</span>
+-              </label>
+-            ))}
+-          </div>
+-        )}
+       </div>
+     );
+   };
+diff --git a/src/data/touchpoints.ts b/src/data/touchpoints.ts
+index f3a7bfa..05d295e 100644
+--- a/src/data/touchpoints.ts
++++ b/src/data/touchpoints.ts
+@@ -50,21 +50,21 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
+         id: 'planning-visit',
+         label: 'Planning their visit',
+         labelOnline: 'Exploring your offering',
+-        description: 'Menus, programs, schedules, photos, accessibility information',
++        description: 'Menus, programs, schedules, photos, visitor guides',
+         descriptionOnline: 'Services, programs, pricing, and what to expect',
+-        example: 'e.g. Menu PDFs, class timetables, facility photos, accessibility statements',
++        example: 'e.g. Menu PDFs, class timetables, facility photos, what-to-expect guides',
+         subTouchpoints: [
+           { id: 'menus-programs', label: 'Menus or programs' },
+           { id: 'schedules', label: 'Schedules and opening hours' },
+-          { id: 'accessibility-info', label: 'Accessibility information' },
++          { id: 'accessibility-info', label: 'Visitor guides and information' },
+         ],
+         moduleMapping: ['1.1', '3.5', '1.5', '1.6'],
+       },
+       {
+         id: 'costs-policies',
+         label: 'Understanding costs and policies',
+-        description: 'Pricing, cancellation, companion or support information',
+-        example: 'e.g. Price lists, refund policies, carer discount information, Companion Card acceptance',
++        description: 'Pricing, cancellation, concessions, terms and conditions',
++        example: 'e.g. Price lists, refund policies, concession pricing, group discounts, terms and conditions',
+         moduleMapping: ['3.5', '4.3'],
+       },
+       {
+@@ -100,7 +100,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
+     blocks: [
+       {
+         id: 'physical-access',
+-        label: 'Physical access',
++        label: 'Your space and facilities',
+         touchpointIds: ['getting-in', 'using-space', 'accommodation-rooms', 'wayfinding'],
+       },
+       {
+@@ -114,7 +114,8 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
+         id: 'getting-in',
+         label: 'Getting in and moving around',
+         description: 'Parking, paths, entry, internal routes, queues',
+-        example: 'e.g. Disabled parking bays, ramps, automatic doors, clear aisles, queue management',
++        example: 'e.g. Car park, drop-off area, front entrance, hallways, waiting areas',
++        autoInclude: 'physical',
+         subTouchpoints: [
+           { id: 'parking', label: 'Parking or drop-off' },
+           { id: 'path-entrance', label: 'Path to the entrance' },
+@@ -128,21 +129,22 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
+         id: 'using-space',
+         label: 'Using your space comfortably',
+         description: 'Seating, counters, furniture, toilets',
+-        example: 'e.g. Chairs with arms, lowered counters, clear floor space, accessible bathroom facilities',
++        example: 'e.g. Dining chairs, waiting area seating, service desks, bathrooms',
++        autoInclude: 'physical',
+         subTouchpoints: [
+           { id: 'seating', label: 'Seating options' },
+           { id: 'counters', label: 'Service counters' },
+-          { id: 'toilets', label: 'Accessible toilets' },
++          { id: 'toilets', label: 'Toilets and bathrooms' },
+         ],
+         moduleMapping: ['3.1', '3.2', '3.3', '3.7'],
+       },
+       {
+         id: 'accommodation-rooms',
+         label: 'Accommodation and guest rooms',
+-        description: 'Accessible rooms, in-room facilities, guest amenities',
+-        example: 'e.g. Bed height, roll-in showers, visual alarms, kitchenette access, room entry',
++        description: 'Guest rooms, in-room facilities, amenities',
++        example: 'e.g. Room layout, bathroom, kitchenette, lighting, room entry',
+         subTouchpoints: [
+-          { id: 'guest-rooms', label: 'Guest room accessibility' },
++          { id: 'guest-rooms', label: 'Guest rooms and layout' },
+           { id: 'in-room-bathroom', label: 'In-room bathroom' },
+           { id: 'in-room-amenities', label: 'In-room amenities and features' },
+         ],
+@@ -153,13 +155,15 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
+         label: 'Finding their way',
+         description: 'Signage, wayfinding, clarity of layout',
+         example: 'e.g. Clear directional signs, maps, colour-coded zones, staff available to assist',
++        autoInclude: 'physical',
+         moduleMapping: ['2.3', '3.5', '3.7'],
+       },
+       {
+         id: 'sensory',
+         label: 'The sensory environment',
+         description: 'Lighting, noise, smells, busy vs quieter times',
+-        example: 'e.g. Adjustable lighting, quiet hours, scent-free areas, visual alerts alongside audio',
++        example: 'e.g. Lighting levels, background music, noise levels, scents, busy periods',
++        autoInclude: 'physical',
+         moduleMapping: ['3.1', '4.4'],
+       },
+       {
+@@ -180,14 +184,14 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
+         id: 'retail-shopping',
+         label: 'Browsing and purchasing products',
+         description: 'How customers browse, try on, and purchase products',
+-        example: 'e.g. Aisle widths, fitting rooms, checkout accessibility, product labelling, shopping aids',
++        example: 'e.g. Store layout, fitting rooms, checkout counters, product labels, shopping baskets',
+         moduleMapping: ['3.10', '4.3'],
+       },
+       {
+         id: 'events-management',
+         label: 'Events and event management',
+-        description: 'Planning, running, and managing accessible events',
+-        example: 'e.g. Event promotion, venue setup, accessible communications, sensory considerations, on-the-day operations',
++        description: 'Planning, running, and managing events',
++        example: 'e.g. Event promotion, venue setup, communications, sensory considerations, on-the-day operations',
+         subTouchpoints: [
+           { id: 'event-planning', label: 'Event planning and promotion' },
+           { id: 'event-venue', label: 'Event venue and access' },
+@@ -213,6 +217,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
+         label: 'Interacting with staff',
+         description: 'Customer service, communication support, assistance animals',
+         example: 'e.g. Front desk interactions, waitstaff, sales assistants, phone support',
++        autoInclude: 'physical',
+         subTouchpoints: [
+           { id: 'customer-service', label: 'General customer service' },
+           { id: 'communication-support', label: 'Communication support' },
+@@ -224,6 +229,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
+         id: 'service-flexibility',
+         label: 'Service flexibility',
+         description: 'Adjustments, accommodations, and alternative options',
++        autoInclude: 'physical',
+         example: 'e.g. Modified service delivery, extra time, alternative formats, dietary accommodations',
+         moduleMapping: ['4.2', '4.3', '3.8'],
+       },
+@@ -240,120 +246,69 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
+     touchpoints: [
+       {
+         id: 'feedback',
+-        label: 'Complaints and feedback',
+-        description: 'Handling complaints, general feedback',
+-        example: 'e.g. Feedback forms, comment cards, complaints handling process',
++        label: 'Feedback, reviews, and complaints',
++        description: 'How customers share their experience afterwards',
++        example: 'e.g. Feedback forms, Google reviews, complaint handling, satisfaction surveys',
+         moduleMapping: ['4.5'],
+       },
+       {
+-        id: 'surveys-forms',
+-        label: 'Surveys and forms',
+-        description: 'Post-visit surveys, feedback questionnaires',
+-        example: 'e.g. Customer satisfaction surveys, Net Promoter Score, feedback questionnaires',
+-        moduleMapping: ['4.5'],
+-      },
+-      {
+-        id: 'online-reviews',
+-        label: 'Online reviews and ratings',
+-        description: 'Google, TripAdvisor, social media reviews',
+-        example: 'e.g. Google reviews, TripAdvisor ratings, Facebook recommendations, responding to reviews',
+-        moduleMapping: ['4.5'],
+-      },
+-      {
+-        id: 'newsletters-email',
+-        label: 'Newsletters and emails',
+-        description: 'Marketing emails, updates, announcements',
+-        example: 'e.g. Email newsletters, promotional emails, event announcements',
+-        moduleMapping: ['4.6', '1.4', '1.5', '1.6'],
+-      },
+-      {
+-        id: 'offers-promotions',
+-        label: 'Offers and promotions',
+-        description: 'Discounts, special offers, deals',
+-        example: 'e.g. Discount codes, seasonal promotions, member-only offers',
+-        moduleMapping: ['4.6', '4.3', '1.6'],
+-      },
+-      {
+-        id: 'loyalty-programs',
+-        label: 'Loyalty and rewards',
+-        description: 'Points, memberships, repeat customer benefits',
+-        example: 'e.g. Loyalty cards, points programs, membership tiers, VIP benefits',
+-        moduleMapping: ['4.6', '4.3'],
+-      },
+-      {
+-        id: 'referrals',
+-        label: 'Referral programs',
+-        description: 'Word of mouth, refer-a-friend incentives',
+-        example: 'e.g. Refer-a-friend discounts, affiliate programs, ambassador programs',
+-        moduleMapping: ['4.6'],
++        id: 'staying-connected-touchpoint',
++        label: 'Staying connected',
++        description: 'Ongoing communication and engagement with customers',
++        example: 'e.g. Newsletters, promotions, loyalty programs, social media, referrals',
++        moduleMapping: ['4.6', '1.4', '1.5', '1.6', '4.3', '4.7'],
+       },
+     ],
+   },
+   {
+     id: 'policy-operations',
+-    label: 'Organisational commitment',
+-    subLabel: 'Policies, employment and operations',
+-    description: 'How your organisation embeds accessibility into policies, employment, and decision-making.',
+-    tip: 'Think about the systems, policies, and practices that guide how your organisation approaches accessibility.',
++    label: 'How you operate',
++    subLabel: 'Policies, people, and improvement',
++    description: 'The internal practices that shape how your organisation runs.',
++    tip: 'Think about your policies, how you hire and train staff, and how you work with suppliers.',
+     icon: 'clipboard',
+     bgColorClass: 'journey-policy',
+     touchpoints: [
+       {
+         id: 'accessibility-policy',
+-        label: 'Accessibility policies',
+-        description: 'Documented commitment, inclusion statements, staff guidelines',
+-        example: 'e.g. Disability inclusion policy, accessibility statement, customer service charter',
++        label: 'Policies and guidelines',
++        description: 'Documented policies, customer service standards, staff guidelines',
++        example: 'e.g. Customer service charter, inclusion policy, staff conduct guidelines',
++        autoInclude: 'physical',
+         moduleMapping: ['5.1'],
+       },
+       {
+         id: 'inclusive-employment',
+-        label: 'Inclusive employment',
+-        description: 'Recruiting, hiring, and retaining employees with disability',
+-        example: 'e.g. Inclusive job ads, accessible recruitment, disability employment programs',
++        label: 'Hiring and employment',
++        description: 'How you recruit, hire, and support your team',
++        example: 'e.g. Job advertisements, recruitment process, onboarding, workplace adjustments',
++        autoInclude: 'physical',
+         moduleMapping: ['5.2'],
+       },
+-      {
+-        id: 'workplace-adjustments',
+-        label: 'Workplace adjustments',
+-        description: 'Reasonable adjustments, flexible work, assistive technology',
+-        example: 'e.g. Modified workstations, flexible hours, screen readers, job coaches',
+-        moduleMapping: ['5.2', '5.1'],
+-      },
+       {
+         id: 'staff-training',
+-        label: 'Staff training and awareness',
+-        description: 'Onboarding, ongoing training, disability confidence',
+-        example: 'e.g. Accessibility training modules, disability awareness sessions, onboarding checklists',
++        label: 'Staff training and development',
++        description: 'Onboarding, ongoing training, professional development',
++        example: 'e.g. Induction programs, training modules, awareness sessions, skill development',
++        autoInclude: 'physical',
+         moduleMapping: ['5.3', '4.2'],
+       },
+       {
+         id: 'procurement-partnerships',
+-        label: 'Procurement and partnerships',
+-        description: 'Supplier requirements, contractor guidelines, partner expectations',
+-        example: 'e.g. Accessibility clauses in contracts, supplier diversity, accessible product sourcing',
+-        moduleMapping: ['5.4'],
+-      },
+-      {
+-        id: 'supplier-accessibility',
+-        label: 'Supplier accessibility standards',
+-        description: 'Vendor assessments, accessibility requirements, contract terms',
+-        example: 'e.g. Accessibility questionnaires for vendors, VPAT requirements, accessibility SLAs',
++        label: 'Suppliers and partners',
++        description: 'How you work with suppliers, contractors, and partners',
++        example: 'e.g. Supplier contracts, vendor requirements, partner agreements',
++        autoInclude: 'physical',
+         moduleMapping: ['5.4'],
+       },
+       {
+         id: 'continuous-improvement',
+-        label: 'Continuous improvement',
+-        description: 'Action plans, audits, progress tracking',
+-        example: 'e.g. Disability Inclusion Action Plan (DIAP), accessibility audits, annual reviews',
++        label: 'Review and improvement',
++        description: 'How you track progress and make improvements',
++        example: 'e.g. Action plans, audits, annual reviews, progress reports',
++        autoInclude: 'physical',
+         moduleMapping: ['5.5', '4.5'],
+       },
+-      {
+-        id: 'accessibility-reporting',
+-        label: 'Accessibility reporting',
+-        description: 'Metrics, progress reports, compliance tracking',
+-        example: 'e.g. Annual accessibility reports, KPIs, compliance dashboards',
+-        moduleMapping: ['5.5', '5.1'],
+-      },
+     ],
+   },
+ ];
+diff --git a/src/lib/recommendationEngine.ts b/src/lib/recommendationEngine.ts
+index 835e71a..6aea9a2 100644
+--- a/src/lib/recommendationEngine.ts
++++ b/src/lib/recommendationEngine.ts
+@@ -34,7 +34,7 @@ export interface DiscoveryQuestion {
+ export const DISCOVERY_QUESTIONS: DiscoveryQuestion[] = [
+   { id: 'DQ01', text: 'Do customers typically visit your website before coming?', journeyPhase: 'before-arrival', touchpointId: 'finding-online' },
+   { id: 'DQ02', text: 'Do customers book or make reservations before visiting?', journeyPhase: 'before-arrival', touchpointId: 'booking' },
+-  { id: 'DQ03', text: 'Do you provide information about accessibility features?', journeyPhase: 'before-arrival', touchpointId: 'planning-visit' },
++  { id: 'DQ03', text: 'Do you provide visitor guides or information about what to expect?', journeyPhase: 'before-arrival', touchpointId: 'planning-visit' },
+   { id: 'DQ04', text: 'Do customers need to understand costs or policies before arrival?', journeyPhase: 'before-arrival', touchpointId: 'costs-policies' },
+   { id: 'DQ05', text: 'Do customers ask questions or make enquiries before visiting?', journeyPhase: 'before-arrival', touchpointId: 'enquiries' },
+   { id: 'DQ06', text: 'Do customers typically drive and park at your location?', journeyPhase: 'during-visit', touchpointId: 'getting-in' },
+@@ -48,23 +48,14 @@ export const DISCOVERY_QUESTIONS: DiscoveryQuestion[] = [
+   { id: 'DQ11', text: 'Do staff regularly interact directly with customers?', journeyPhase: 'during-visit', touchpointId: 'staff-interaction' },
+   { id: 'DQ11a', text: 'Do you offer service adjustments or flexible options for customers?', journeyPhase: 'during-visit', touchpointId: 'service-flexibility' },
+   { id: 'DQ12', text: 'Do you support customers with assistance animals or specific support needs?', journeyPhase: 'during-visit', touchpointId: 'staff-interaction' },
+-  { id: 'DQ13', text: 'Do you collect feedback or handle complaints?', journeyPhase: 'after-visit', touchpointId: 'feedback' },
+-  { id: 'DQ14', text: 'Do you use surveys or feedback forms?', journeyPhase: 'after-visit', touchpointId: 'surveys-forms' },
+-  { id: 'DQ14a', text: 'Do customers leave online reviews or ratings?', journeyPhase: 'after-visit', touchpointId: 'online-reviews' },
++  { id: 'DQ13', text: 'Do you collect feedback, reviews, or handle complaints?', journeyPhase: 'after-visit', touchpointId: 'feedback' },
+   { id: 'DQ14b', text: 'Do you stay connected with customers after their visit?', journeyPhase: 'after-visit', touchpointId: 'staying-connected-touchpoint' },
+-  { id: 'DQ14c', text: 'Do you send newsletters or marketing emails?', journeyPhase: 'after-visit', touchpointId: 'newsletters-email' },
+-  { id: 'DQ14d', text: 'Do you offer discounts, promotions, or special offers?', journeyPhase: 'after-visit', touchpointId: 'offers-promotions' },
+-  { id: 'DQ14e', text: 'Do you have a loyalty or rewards program?', journeyPhase: 'after-visit', touchpointId: 'loyalty-programs' },
+-  { id: 'DQ14f', text: 'Do you have a referral program?', journeyPhase: 'after-visit', touchpointId: 'referrals' },
+-  // Policy and operations touchpoints
+-  { id: 'DQ15', text: 'Do you have accessibility policies or statements?', journeyPhase: 'policy-operations', touchpointId: 'accessibility-policy' },
+-  { id: 'DQ16', text: 'Do staff receive accessibility training?', journeyPhase: 'policy-operations', touchpointId: 'staff-training' },
+-  { id: 'DQ17', text: 'Is accessibility considered in procurement and partnerships?', journeyPhase: 'policy-operations', touchpointId: 'procurement-partnerships' },
+-  { id: 'DQ18', text: 'Do you track and improve accessibility over time?', journeyPhase: 'policy-operations', touchpointId: 'continuous-improvement' },
+-  { id: 'DQ19', text: 'Do you actively recruit or employ people with disability?', journeyPhase: 'policy-operations', touchpointId: 'inclusive-employment' },
+-  { id: 'DQ20', text: 'Do you provide workplace adjustments for employees?', journeyPhase: 'policy-operations', touchpointId: 'workplace-adjustments' },
+-  { id: 'DQ21', text: 'Do you require accessibility standards from suppliers?', journeyPhase: 'policy-operations', touchpointId: 'supplier-accessibility' },
+-  { id: 'DQ22', text: 'Do you report on accessibility progress?', journeyPhase: 'policy-operations', touchpointId: 'accessibility-reporting' },
++  // Policy and operations touchpoints (auto-included for physical venues)
++  { id: 'DQ15', text: 'Do you have policies or guidelines for your team?', journeyPhase: 'policy-operations', touchpointId: 'accessibility-policy' },
++  { id: 'DQ19', text: 'Do you hire and employ staff?', journeyPhase: 'policy-operations', touchpointId: 'inclusive-employment' },
++  { id: 'DQ16', text: 'Do staff receive training or professional development?', journeyPhase: 'policy-operations', touchpointId: 'staff-training' },
++  { id: 'DQ17', text: 'Do you work with suppliers or partners?', journeyPhase: 'policy-operations', touchpointId: 'procurement-partnerships' },
++  { id: 'DQ18', text: 'Do you review and improve how you operate?', journeyPhase: 'policy-operations', touchpointId: 'continuous-improvement' },
+   { id: 'DQ23', text: 'Do you host, organise, or manage events?', journeyPhase: 'during-visit', touchpointId: 'events-management' },
+ ];
+ 
+@@ -234,26 +225,16 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
+   'staff-interaction': ['4.2', '4.3', '4.4', '1.5', '4.1'], // Customer service, payments, safety, communication, ways to reach you
+   'service-flexibility': ['4.2', '4.3', '3.8'],         // Customer service, payments/flexibility, experiences
+ 
+-  // After visit touchpoints
+-  'feedback': ['4.5'],                                 // Feedback and reviews
+-  'surveys-forms': ['4.5'],                            // Feedback and reviews
+-  'online-reviews': ['4.5'],                           // Feedback and reviews
+-  'staying-connected-touchpoint': ['4.6', '1.4', '4.7'], // Staying connected, video/social, keeping in touch
+-  'newsletters-email': ['4.6', '1.4', '4.7'],           // Staying connected, keeping in touch
+-  'offers-promotions': ['4.6', '4.3'],                  // Staying connected, payments
+-  'loyalty-programs': ['4.6', '4.3'],                   // Staying connected, payments
+-  'referrals': ['4.6'],                                // Staying connected
+-  'return-visits': ['4.6', '4.5'],                      // Staying connected, feedback
+-
+-  // Policy and operations touchpoints
+-  'accessibility-policy': ['5.1'],                     // Accessibility policy and commitment
+-  'staff-training': ['5.3', '4.2'],                     // Staff training + customer service
+-  'procurement-partnerships': ['5.4'],                 // Accessible procurement
+-  'continuous-improvement': ['5.5', '4.5'],             // Continuous improvement + learning
+-  'inclusive-employment': ['5.2'],                     // Employing people with disability
+-  'workplace-adjustments': ['5.2', '5.1'],              // Employment + policy
+-  'supplier-accessibility': ['5.4'],                   // Accessible procurement
+-  'accessibility-reporting': ['5.5', '5.1'],            // Reporting + policy
++  // After visit touchpoints (consolidated)
++  'feedback': ['4.5'],                                   // Feedback, reviews, complaints
++  'staying-connected-touchpoint': ['4.6', '1.4', '1.5', '1.6', '4.3', '4.7'], // Newsletters, promotions, loyalty, referrals
++
++  // Policy and operations touchpoints (consolidated)
++  'accessibility-policy': ['5.1'],                       // Policies and guidelines
++  'inclusive-employment': ['5.2', '5.1'],                // Hiring, employment, workplace adjustments
++  'staff-training': ['5.3', '4.2'],                      // Staff training and development
++  'procurement-partnerships': ['5.4'],                   // Suppliers and partners
++  'continuous-improvement': ['5.5', '4.5', '5.1'],       // Review, improvement, reporting
+ };
+ 
+ // ============================================================================
+@@ -268,6 +249,22 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
+  * - "Not sure" response: +1 point
+  * - "No" response or not selected: 0 points
+  */
++// Touchpoints auto-included when the venue has a physical location.
++// These represent universal aspects of any physical visitor experience.
++const PHYSICAL_VENUE_TOUCHPOINTS = [
++  'getting-in',
++  'using-space',
++  'wayfinding',
++  'sensory',
++  'staff-interaction',
++  'service-flexibility',
++  'accessibility-policy',
++  'inclusive-employment',
++  'staff-training',
++  'procurement-partnerships',
++  'continuous-improvement',
++];
++
+ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore[] {
+   const scores: Record<string, ModuleScore> = {};
+ 
+@@ -281,8 +278,15 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
+     };
+   });
+ 
+-  // For each selected touchpoint, add points to mapped modules
+-  discoveryData.selectedTouchpoints.forEach(touchpointId => {
++  // Build effective touchpoint list: user selections + auto-included
++  const effectiveTouchpoints = new Set(discoveryData.selectedTouchpoints);
++  const ctx = discoveryData.businessContext;
++  if (ctx?.hasPhysicalVenue !== false) {
++    PHYSICAL_VENUE_TOUCHPOINTS.forEach(t => effectiveTouchpoints.add(t));
++  }
++
++  // For each touchpoint, add points to mapped modules
++  effectiveTouchpoints.forEach(touchpointId => {
+     const mappedModules = TOUCHPOINT_TO_MODULES[touchpointId] || [];
+     const response = discoveryData.responses?.[touchpointId] || 'yes';
+ 
+@@ -299,7 +303,6 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
+   });
+ 
+   // Business context boosts
+-  const ctx = discoveryData.businessContext;
+   if (ctx?.offersExperiences) {
+     if (scores['3.8']) {
+       scores['3.8'].score += 2;
+@@ -316,6 +319,8 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
+   return Object.values(scores);
+ }
+ 
++export { PHYSICAL_VENUE_TOUCHPOINTS };
++
+ // ============================================================================
+ // DEFAULT STARTER SETS BY INDUSTRY (Mode B)
+ // ============================================================================
+@@ -370,24 +375,14 @@ const TOUCHPOINT_LABELS: Record<string, string> = {
+   'sensory': 'Lighting, noise, or sensory environment is relevant',
+   'staff-interaction': 'Staff regularly interact with customers',
+   'service-flexibility': 'You offer adjustments or flexible service options',
+-  'feedback': 'You collect feedback or handle complaints',
+-  'surveys-forms': 'You use surveys or feedback forms',
+-  'online-reviews': 'Customers leave online reviews or ratings',
+-  'staying-connected-touchpoint': 'You stay connected after visits',
+-  'newsletters-email': 'You send newsletters or marketing emails',
+-  'offers-promotions': 'You offer discounts or promotions',
+-  'loyalty-programs': 'You have a loyalty or rewards program',
+-  'referrals': 'You have a referral program',
+-  'return-visits': 'You encourage return visits',
++  'feedback': 'You collect feedback, reviews, or handle complaints',
++  'staying-connected-touchpoint': 'You stay connected with customers after their visit',
+   // Policy and operations
+-  'accessibility-policy': 'You have or want accessibility policies',
+-  'staff-training': 'Staff receive accessibility training',
+-  'procurement-partnerships': 'Accessibility is considered in procurement',
+-  'continuous-improvement': 'You track and improve accessibility over time',
+-  'inclusive-employment': 'You recruit or employ people with disability',
+-  'workplace-adjustments': 'You provide workplace adjustments for employees',
+-  'supplier-accessibility': 'You require accessibility standards from suppliers',
+-  'accessibility-reporting': 'You report on accessibility progress',
++  'accessibility-policy': 'Your organisation has policies and guidelines',
++  'inclusive-employment': 'You hire and employ staff',
++  'staff-training': 'Staff receive training and development',
++  'procurement-partnerships': 'You work with suppliers and partners',
++  'continuous-improvement': 'You review and improve how you operate',
+ };
+ 
+ // ============================================================================
+diff --git a/src/pages/DiscoverySummary.tsx b/src/pages/DiscoverySummary.tsx
+index 5e12615..b60d8b7 100644
+--- a/src/pages/DiscoverySummary.tsx
++++ b/src/pages/DiscoverySummary.tsx
+@@ -51,8 +51,9 @@ export default function DiscoverySummary() {
+   const [isEditingContext, setIsEditingContext] = useState(false);
+   const [isEditingModules, setIsEditingModules] = useState(false);
+ 
+-  // Modal state for touchpoint edit confirmation
++  // Modal state for edit confirmations
+   const [showTouchpointEditWarning, setShowTouchpointEditWarning] = useState(false);
++  const [showContextEditWarning, setShowContextEditWarning] = useState(false);
+ 
+   // Module detail modal state
+   const [moduleDetailId, setModuleDetailId] = useState<string | null>(null);
+@@ -241,7 +242,7 @@ export default function DiscoverySummary() {
+           <div className="section-header">
+             <h2>Business Context</h2>
+             {!isEditingContext ? (
+-              <button className="btn-edit" onClick={() => setIsEditingContext(true)}>
++              <button className="btn-edit" onClick={() => setShowContextEditWarning(true)}>
+                 Edit
+               </button>
+             ) : (
+@@ -436,6 +437,36 @@ export default function DiscoverySummary() {
+           </div>
+         )}
+ 
++        {/* Business Context Edit Warning Modal */}
++        {showContextEditWarning && (
++          <div className="warning-modal-overlay" onClick={() => setShowContextEditWarning(false)} onKeyDown={(e) => { if (e.key === 'Escape') setShowContextEditWarning(false); }}>
++            <div className="warning-modal" onClick={(e) => e.stopPropagation()} role="alertdialog" aria-modal="true" aria-labelledby="context-warning-title">
++              <div className="warning-modal-icon" aria-hidden="true">⚠️</div>
++              <h3 id="context-warning-title">Update Business Context?</h3>
++              <p>
++                Changing your business context may recalculate your recommended modules, which could affect your plan.
++              </p>
++              <p className="warning-modal-detail">
++                Your existing module progress will be preserved.
++              </p>
++              <div className="warning-modal-actions">
++                <button
++                  className="btn-cancel"
++                  onClick={() => setShowContextEditWarning(false)}
++                >
++                  Cancel
++                </button>
++                <button
++                  className="btn-confirm"
++                  onClick={() => { setShowContextEditWarning(false); setIsEditingContext(true); }}
++                >
++                  Continue to Edit
++                </button>
++              </div>
++            </div>
++          </div>
++        )}
++
+         {/* Modules Section */}
+         <div className="summary-section">
+           <div className="section-header">
+diff --git a/src/types/index.ts b/src/types/index.ts
+index 4ca526d..b28e71b 100644
+--- a/src/types/index.ts
++++ b/src/types/index.ts
+@@ -192,6 +192,7 @@ export interface Touchpoint {
+   example?: string; // Example text to help users understand what this includes
+   subTouchpoints?: SubTouchpoint[];
+   moduleMapping: string[];
++  autoInclude?: 'physical'; // Auto-included for physical venues, hidden from selection UI
+ }
+ 
+ export interface TouchpointBlock {

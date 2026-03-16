@@ -166,7 +166,7 @@
   border-color: var(--surface-2-hover-border);
 }
 
-.pathway-card:focus-within {
+.pathway-card:has(:focus-visible) {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

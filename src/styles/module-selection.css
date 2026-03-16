@@ -226,7 +226,7 @@
     0 2px 6px rgba(62, 43, 47, 0.04);
 }
 
-.module-card:focus-within {
+.module-card:has(:focus-visible) {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   scroll-margin-top: 16px;

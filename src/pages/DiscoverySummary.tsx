@@ -51,8 +51,9 @@ export default function DiscoverySummary() {
   const [isEditingContext, setIsEditingContext] = useState(false);
   const [isEditingModules, setIsEditingModules] = useState(false);
 
-  // Modal state for touchpoint edit confirmation
+  // Modal state for edit confirmations
   const [showTouchpointEditWarning, setShowTouchpointEditWarning] = useState(false);
+  const [showContextEditWarning, setShowContextEditWarning] = useState(false);
 
   // Module detail modal state
   const [moduleDetailId, setModuleDetailId] = useState<string | null>(null);
@@ -241,7 +242,7 @@ export default function DiscoverySummary() {
           <div className="section-header">
             <h2>Business Context</h2>
             {!isEditingContext ? (
-              <button className="btn-edit" onClick={() => setIsEditingContext(true)}>
+              <button className="btn-edit" onClick={() => setShowContextEditWarning(true)}>
                 Edit
               </button>
             ) : (
@@ -274,18 +275,8 @@ export default function DiscoverySummary() {
                   {businessContext.hasOnlinePresence ? 'Yes' : 'No'}
                 </span>
               </div>
-              <div className="context-item">
-                <span className="context-label">Public-facing customers:</span>
-                <span className={`context-value ${businessContext.servesPublicCustomers ? 'yes' : 'no'}`}>
-                  {businessContext.servesPublicCustomers ? 'Yes' : 'No'}
-                </span>
-              </div>
-              <div className="context-item">
-                <span className="context-label">Online services:</span>
-                <span className={`context-value ${businessContext.hasOnlineServices ? 'yes' : 'no'}`}>
-                  {businessContext.hasOnlineServices ? 'Yes' : 'No'}
-                </span>
-              </div>
+
+
             </div>
           ) : (
             <div className="context-edit">
@@ -346,8 +337,6 @@ export default function DiscoverySummary() {
               {[
                 { key: 'hasPhysicalVenue', label: 'Do you have a physical venue?' },
                 { key: 'hasOnlinePresence', label: 'Do you have an online presence?' },
-                { key: 'servesPublicCustomers', label: 'Do you serve public-facing customers?' },
-                { key: 'hasOnlineServices', label: 'Do you operate online services?' },
               ].map(({ key, label }) => (
                 <div key={key} className="context-edit-item">
                   <span className="context-label">{label}</span>
@@ -428,6 +417,36 @@ export default function DiscoverySummary() {
                 <button
                   className="btn-confirm"
                   onClick={handleTouchpointEditConfirm}
+                >
+                  Continue to Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Business Context Edit Warning Modal */}
+        {showContextEditWarning && (
+          <div className="warning-modal-overlay" onClick={() => setShowContextEditWarning(false)} onKeyDown={(e) => { if (e.key === 'Escape') setShowContextEditWarning(false); }}>
+            <div className="warning-modal" onClick={(e) => e.stopPropagation()} role="alertdialog" aria-modal="true" aria-labelledby="context-warning-title">
+              <div className="warning-modal-icon" aria-hidden="true">⚠️</div>
+              <h3 id="context-warning-title">Update Business Context?</h3>
+              <p>
+                Changing your business context may recalculate your recommended modules, which could affect your plan.
+              </p>
+              <p className="warning-modal-detail">
+                Your existing module progress will be preserved.
+              </p>
+              <div className="warning-modal-actions">
+                <button
+                  className="btn-cancel"
+                  onClick={() => setShowContextEditWarning(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="btn-confirm"
+                  onClick={() => { setShowContextEditWarning(false); setIsEditingContext(true); }}
                 >
                   Continue to Edit
                 </button>

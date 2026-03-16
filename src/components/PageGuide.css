@@ -1,6 +1,7 @@
 .page-guide {
   background: #f8f5fc;
   border: 1px solid rgba(73, 14, 103, 0.1);
+  border-left: 3px solid var(--amethyst-diamond, #490E67);
   border-radius: 10px;
   margin-bottom: 20px;
   overflow: hidden;

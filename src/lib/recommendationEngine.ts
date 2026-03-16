@@ -34,7 +34,7 @@ export interface DiscoveryQuestion {
 export const DISCOVERY_QUESTIONS: DiscoveryQuestion[] = [
   { id: 'DQ01', text: 'Do customers typically visit your website before coming?', journeyPhase: 'before-arrival', touchpointId: 'finding-online' },
   { id: 'DQ02', text: 'Do customers book or make reservations before visiting?', journeyPhase: 'before-arrival', touchpointId: 'booking' },
-  { id: 'DQ03', text: 'Do you provide information about accessibility features?', journeyPhase: 'before-arrival', touchpointId: 'planning-visit' },
+  { id: 'DQ03', text: 'Do you provide visitor guides or information about what to expect?', journeyPhase: 'before-arrival', touchpointId: 'planning-visit' },
   { id: 'DQ04', text: 'Do customers need to understand costs or policies before arrival?', journeyPhase: 'before-arrival', touchpointId: 'costs-policies' },
   { id: 'DQ05', text: 'Do customers ask questions or make enquiries before visiting?', journeyPhase: 'before-arrival', touchpointId: 'enquiries' },
   { id: 'DQ06', text: 'Do customers typically drive and park at your location?', journeyPhase: 'during-visit', touchpointId: 'getting-in' },
@@ -48,23 +48,14 @@ export const DISCOVERY_QUESTIONS: DiscoveryQuestion[] = [
   { id: 'DQ11', text: 'Do staff regularly interact directly with customers?', journeyPhase: 'during-visit', touchpointId: 'staff-interaction' },
   { id: 'DQ11a', text: 'Do you offer service adjustments or flexible options for customers?', journeyPhase: 'during-visit', touchpointId: 'service-flexibility' },
   { id: 'DQ12', text: 'Do you support customers with assistance animals or specific support needs?', journeyPhase: 'during-visit', touchpointId: 'staff-interaction' },
-  { id: 'DQ13', text: 'Do you collect feedback or handle complaints?', journeyPhase: 'after-visit', touchpointId: 'feedback' },
-  { id: 'DQ14', text: 'Do you use surveys or feedback forms?', journeyPhase: 'after-visit', touchpointId: 'surveys-forms' },
-  { id: 'DQ14a', text: 'Do customers leave online reviews or ratings?', journeyPhase: 'after-visit', touchpointId: 'online-reviews' },
+  { id: 'DQ13', text: 'Do you collect feedback, reviews, or handle complaints?', journeyPhase: 'after-visit', touchpointId: 'feedback' },
   { id: 'DQ14b', text: 'Do you stay connected with customers after their visit?', journeyPhase: 'after-visit', touchpointId: 'staying-connected-touchpoint' },
-  { id: 'DQ14c', text: 'Do you send newsletters or marketing emails?', journeyPhase: 'after-visit', touchpointId: 'newsletters-email' },
-  { id: 'DQ14d', text: 'Do you offer discounts, promotions, or special offers?', journeyPhase: 'after-visit', touchpointId: 'offers-promotions' },
-  { id: 'DQ14e', text: 'Do you have a loyalty or rewards program?', journeyPhase: 'after-visit', touchpointId: 'loyalty-programs' },
-  { id: 'DQ14f', text: 'Do you have a referral program?', journeyPhase: 'after-visit', touchpointId: 'referrals' },
-  // Policy and operations touchpoints
-  { id: 'DQ15', text: 'Do you have accessibility policies or statements?', journeyPhase: 'policy-operations', touchpointId: 'accessibility-policy' },
-  { id: 'DQ16', text: 'Do staff receive accessibility training?', journeyPhase: 'policy-operations', touchpointId: 'staff-training' },
-  { id: 'DQ17', text: 'Is accessibility considered in procurement and partnerships?', journeyPhase: 'policy-operations', touchpointId: 'procurement-partnerships' },
-  { id: 'DQ18', text: 'Do you track and improve accessibility over time?', journeyPhase: 'policy-operations', touchpointId: 'continuous-improvement' },
-  { id: 'DQ19', text: 'Do you actively recruit or employ people with disability?', journeyPhase: 'policy-operations', touchpointId: 'inclusive-employment' },
-  { id: 'DQ20', text: 'Do you provide workplace adjustments for employees?', journeyPhase: 'policy-operations', touchpointId: 'workplace-adjustments' },
-  { id: 'DQ21', text: 'Do you require accessibility standards from suppliers?', journeyPhase: 'policy-operations', touchpointId: 'supplier-accessibility' },
-  { id: 'DQ22', text: 'Do you report on accessibility progress?', journeyPhase: 'policy-operations', touchpointId: 'accessibility-reporting' },
+  // Policy and operations touchpoints (auto-included for physical venues)
+  { id: 'DQ15', text: 'Do you have policies or guidelines for your team?', journeyPhase: 'policy-operations', touchpointId: 'accessibility-policy' },
+  { id: 'DQ19', text: 'Do you hire and employ staff?', journeyPhase: 'policy-operations', touchpointId: 'inclusive-employment' },
+  { id: 'DQ16', text: 'Do staff receive training or professional development?', journeyPhase: 'policy-operations', touchpointId: 'staff-training' },
+  { id: 'DQ17', text: 'Do you work with suppliers or partners?', journeyPhase: 'policy-operations', touchpointId: 'procurement-partnerships' },
+  { id: 'DQ18', text: 'Do you review and improve how you operate?', journeyPhase: 'policy-operations', touchpointId: 'continuous-improvement' },
   { id: 'DQ23', text: 'Do you host, organise, or manage events?', journeyPhase: 'during-visit', touchpointId: 'events-management' },
 ];
 
@@ -234,26 +225,16 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   'staff-interaction': ['4.2', '4.3', '4.4', '1.5', '4.1'], // Customer service, payments, safety, communication, ways to reach you
   'service-flexibility': ['4.2', '4.3', '3.8'],         // Customer service, payments/flexibility, experiences
 
-  // After visit touchpoints
-  'feedback': ['4.5'],                                 // Feedback and reviews
-  'surveys-forms': ['4.5'],                            // Feedback and reviews
-  'online-reviews': ['4.5'],                           // Feedback and reviews
-  'staying-connected-touchpoint': ['4.6', '1.4', '4.7'], // Staying connected, video/social, keeping in touch
-  'newsletters-email': ['4.6', '1.4', '4.7'],           // Staying connected, keeping in touch
-  'offers-promotions': ['4.6', '4.3'],                  // Staying connected, payments
-  'loyalty-programs': ['4.6', '4.3'],                   // Staying connected, payments
-  'referrals': ['4.6'],                                // Staying connected
-  'return-visits': ['4.6', '4.5'],                      // Staying connected, feedback
+  // After visit touchpoints (consolidated)
+  'feedback': ['4.5'],                                   // Feedback, reviews, complaints
+  'staying-connected-touchpoint': ['4.6', '1.4', '1.5', '1.6', '4.3', '4.7'], // Newsletters, promotions, loyalty, referrals
 
-  // Policy and operations touchpoints
-  'accessibility-policy': ['5.1'],                     // Accessibility policy and commitment
-  'staff-training': ['5.3', '4.2'],                     // Staff training + customer service
-  'procurement-partnerships': ['5.4'],                 // Accessible procurement
-  'continuous-improvement': ['5.5', '4.5'],             // Continuous improvement + learning
-  'inclusive-employment': ['5.2'],                     // Employing people with disability
-  'workplace-adjustments': ['5.2', '5.1'],              // Employment + policy
-  'supplier-accessibility': ['5.4'],                   // Accessible procurement
-  'accessibility-reporting': ['5.5', '5.1'],            // Reporting + policy
+  // Policy and operations touchpoints (consolidated)
+  'accessibility-policy': ['5.1'],                       // Policies and guidelines
+  'inclusive-employment': ['5.2', '5.1'],                // Hiring, employment, workplace adjustments
+  'staff-training': ['5.3', '4.2'],                      // Staff training and development
+  'procurement-partnerships': ['5.4'],                   // Suppliers and partners
+  'continuous-improvement': ['5.5', '4.5', '5.1'],       // Review, improvement, reporting
 };
 
 // ============================================================================
@@ -268,6 +249,22 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
  * - "Not sure" response: +1 point
  * - "No" response or not selected: 0 points
  */
+// Touchpoints auto-included when the venue has a physical location.
+// These represent universal aspects of any physical visitor experience.
+const PHYSICAL_VENUE_TOUCHPOINTS = [
+  'getting-in',
+  'using-space',
+  'wayfinding',
+  'sensory',
+  'staff-interaction',
+  'service-flexibility',
+  'accessibility-policy',
+  'inclusive-employment',
+  'staff-training',
+  'procurement-partnerships',
+  'continuous-improvement',
+];
+
 export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore[] {
   const scores: Record<string, ModuleScore> = {};
 
@@ -281,8 +278,15 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
     };
   });
 
-  // For each selected touchpoint, add points to mapped modules
-  discoveryData.selectedTouchpoints.forEach(touchpointId => {
+  // Build effective touchpoint list: user selections + auto-included
+  const effectiveTouchpoints = new Set(discoveryData.selectedTouchpoints);
+  const ctx = discoveryData.businessContext;
+  if (ctx?.hasPhysicalVenue !== false) {
+    PHYSICAL_VENUE_TOUCHPOINTS.forEach(t => effectiveTouchpoints.add(t));
+  }
+
+  // For each touchpoint, add points to mapped modules
+  effectiveTouchpoints.forEach(touchpointId => {
     const mappedModules = TOUCHPOINT_TO_MODULES[touchpointId] || [];
     const response = discoveryData.responses?.[touchpointId] || 'yes';
 
@@ -299,7 +303,6 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
   });
 
   // Business context boosts
-  const ctx = discoveryData.businessContext;
   if (ctx?.offersExperiences) {
     if (scores['3.8']) {
       scores['3.8'].score += 2;
@@ -315,6 +318,8 @@ export function calculateModuleScores(discoveryData: DiscoveryData): ModuleScore
 
   return Object.values(scores);
 }
+
+export { PHYSICAL_VENUE_TOUCHPOINTS };
 
 // ============================================================================
 // DEFAULT STARTER SETS BY INDUSTRY (Mode B)
@@ -356,38 +361,28 @@ export const SERVICE_TYPE_PRIORITY: Record<string, string[]> = {
 
 const TOUCHPOINT_LABELS: Record<string, string> = {
   'finding-online': 'Customers visit your website before coming',
-  'booking': 'Customers book or make reservations',
-  'planning-visit': 'You provide accessibility information',
+  'booking': 'Customers book, register, or apply',
+  'planning-visit': 'Customers plan or research before visiting',
   'costs-policies': 'Customers understand costs and policies before arrival',
   'enquiries': 'Customers ask questions before visiting',
   'getting-in': 'Customers drive and park, or move through spaces',
   'using-space': 'Customers sit down or use facilities',
   'wayfinding': 'Customers find their way around',
-  'experiences-activities': 'Customers participate in activities, events, tours, or experiences',
+  'experiences-activities': 'Customers take part in programs, activities, or experiences',
   'accommodation-rooms': 'Your venue offers overnight accommodation',
   'retail-shopping': 'Customers browse, try on, or purchase products',
   'events-management': 'You host, organise, or manage events',
   'sensory': 'Lighting, noise, or sensory environment is relevant',
   'staff-interaction': 'Staff regularly interact with customers',
   'service-flexibility': 'You offer adjustments or flexible service options',
-  'feedback': 'You collect feedback or handle complaints',
-  'surveys-forms': 'You use surveys or feedback forms',
-  'online-reviews': 'Customers leave online reviews or ratings',
-  'staying-connected-touchpoint': 'You stay connected after visits',
-  'newsletters-email': 'You send newsletters or marketing emails',
-  'offers-promotions': 'You offer discounts or promotions',
-  'loyalty-programs': 'You have a loyalty or rewards program',
-  'referrals': 'You have a referral program',
-  'return-visits': 'You encourage return visits',
+  'feedback': 'You collect feedback, reviews, or handle complaints',
+  'staying-connected-touchpoint': 'You stay connected with customers after their visit',
   // Policy and operations
-  'accessibility-policy': 'You have or want accessibility policies',
-  'staff-training': 'Staff receive accessibility training',
-  'procurement-partnerships': 'Accessibility is considered in procurement',
-  'continuous-improvement': 'You track and improve accessibility over time',
-  'inclusive-employment': 'You recruit or employ people with disability',
-  'workplace-adjustments': 'You provide workplace adjustments for employees',
-  'supplier-accessibility': 'You require accessibility standards from suppliers',
-  'accessibility-reporting': 'You report on accessibility progress',
+  'accessibility-policy': 'Your organisation has policies and guidelines',
+  'inclusive-employment': 'You hire and employ staff',
+  'staff-training': 'Staff receive training and development',
+  'procurement-partnerships': 'You work with suppliers and partners',
+  'continuous-improvement': 'You review and improve how you operate',
 };
 
 // ============================================================================
