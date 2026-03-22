@@ -199,8 +199,14 @@
 }
 
 .module-select-item input[type="checkbox"]:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
+  outline: 3px solid var(--aussie-sunrise, #FF9015) !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(255, 144, 21, 0.25);
+}
+
+.module-select-item:has(input:focus-visible) {
+  background: rgba(255, 144, 21, 0.08);
+  border-radius: 4px;
 }
 
 .module-select-code {
