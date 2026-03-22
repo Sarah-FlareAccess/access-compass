@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ChevronDown, ChevronUp, Download, BarChart3, Settings, Eye, Users as UsersIcon } from 'lucide-react';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
@@ -371,7 +371,6 @@ function ModuleTile({
 export default function ReportPage() {
   usePageTitle('Report');
   const navigate = useNavigate();
-  const location = useLocation();
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [report, setReport] = useState<Report | null>(null);
