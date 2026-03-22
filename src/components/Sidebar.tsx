@@ -232,6 +232,10 @@ export function Sidebar() {
         )}
       </div>
 
+      <div className="sidebar-attribution">
+        <span>Access Compass by <strong>Flare Access</strong></span>
+      </div>
+
       <OrgAdminPanel
         isOpen={showAdminPanel}
         onClose={() => setShowAdminPanel(false)}
