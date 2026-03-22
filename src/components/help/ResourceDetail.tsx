@@ -36,6 +36,7 @@ import {
 import * as LucideIcons from 'lucide-react';
 import type { HelpContent, HelpTip, HelpExample, GradedSolution } from '../../data/help/types';
 import { getInlineTips } from '../../data/help';
+import { ResourceFeedback } from './ResourceFeedback';
 import './ResourceDetail.css';
 
 interface ResourceDetailProps {
@@ -460,6 +461,9 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
           )}
         </div>
       </section>
+
+      {/* Resource Feedback - do you need more information? */}
+      <ResourceFeedback resourceTitle={resource.title} resourceId={resource.questionId} />
     </div>
   );
 }
