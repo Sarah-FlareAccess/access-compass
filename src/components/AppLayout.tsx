@@ -58,16 +58,18 @@ export default function AppLayout() {
         {routeAnnouncement}
       </div>
 
-      {/* Skip link for keyboard navigation - allows users to bypass navigation */}
+      {/* Skip link for keyboard navigation - MUST be first focusable element */}
       <a
         href="#main-content"
         className="skip-link"
+        tabIndex={1}
         onClick={(e) => {
           e.preventDefault();
           const main = document.getElementById('main-content');
           if (main) {
+            main.setAttribute('tabindex', '-1');
             main.focus();
-            main.scrollIntoView();
+            main.scrollIntoView({ behavior: 'smooth' });
           }
         }}
       >

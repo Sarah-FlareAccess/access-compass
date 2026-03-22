@@ -1011,10 +1011,12 @@ label {
   transition: top 0.2s ease;
 }
 
-.skip-link:focus {
-  top: 0;
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0 !important;
+  outline: 3px solid var(--aussie-sunrise, #FF9015) !important;
   outline-offset: 2px;
+  color: white !important;
 }
 
 #main-content:focus {
