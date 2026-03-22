@@ -269,8 +269,7 @@ function ModuleTile({
           {/* Areas to explore */}
           {finding.explores.length > 0 && (
             <details className="rp-module-section rp-collapsible-section" open>
-              <summary className="rp-module-section-title rp-section-explore">Areas to explore — from "Unable to check" responses ({finding.explores.length})</summary>
-              <p className="rp-section-explainer">These items were marked as "Unable to check" during your assessment. We recommend investigating these areas to confirm your current accessibility status.</p>
+              <summary className="rp-module-section-title rp-section-explore">Areas to explore ({finding.explores.length})</summary>
               <ul className="rp-item-list rp-list-explore">
                 {finding.explores.map((item, i) => {
                   const help = item.questionId ? getRelevantHelp(item.questionId) : undefined;
@@ -704,6 +703,14 @@ export default function ReportPage() {
                 <dd>{description}</dd>
               </div>
             ))}
+            <div className="rp-legend-def rp-legend-def-explore">
+              <dt>Areas to explore</dt>
+              <dd>Items marked "Unable to check" during your assessment — investigate these to confirm your accessibility status</dd>
+            </div>
+            <div className="rp-legend-def rp-legend-def-strengths">
+              <dt>What's going well</dt>
+              <dd>Areas where your current practices meet or exceed accessibility expectations</dd>
+            </div>
           </dl>
           <p className="rp-priority-encouragement">{PRIORITY_ENCOURAGEMENT}</p>
 

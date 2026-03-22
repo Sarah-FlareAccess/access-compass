@@ -515,6 +515,8 @@
 .rp-legend-def-high dt { color: #b91c1c; }
 .rp-legend-def-medium dt { color: #945a00; }
 .rp-legend-def-low dt { color: #1a4fd6; }
+.rp-legend-def-explore dt { color: #92400e; }
+.rp-legend-def-strengths dt { color: #15803d; }
 
 .rp-priority-encouragement {
   margin: 8px 0 16px;
