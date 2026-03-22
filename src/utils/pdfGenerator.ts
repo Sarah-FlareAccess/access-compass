@@ -990,15 +990,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       yPosition += 2;
     };
 
-    // Strengths (green cards)
-    renderCardSection(
-      mod.strengths,
-      "What's going well",
-      '#166534',
-      [236, 253, 243],     // light mint bg
-      '#22c55e',           // green accent
-    );
-
     // High priority (red cards)
     renderCardSection(
       mod.highActions,
@@ -1033,6 +1024,15 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       '#5b1897',
       [245, 240, 255],     // light violet bg
       '#8b5cf6',           // violet accent
+    );
+
+    // Strengths (green cards - at end so actions come first)
+    renderCardSection(
+      mod.strengths,
+      "What's going well",
+      '#166534',
+      [236, 253, 243],     // light mint bg
+      '#22c55e',           // green accent
     );
 
     // 4mm extra space after each module's findings block

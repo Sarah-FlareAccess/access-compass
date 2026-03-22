@@ -849,27 +849,6 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
 
           {/* === KEY FINDINGS GROUP === */}
           <ReportGroup id="section-findings" title="Key Findings" defaultOpen={true}>
-            {/* What's Going Well */}
-            {report.sections.strengths.content.length > 0 && (
-              <section className="report-section">
-                <h2>{report.sections.strengths.title}</h2>
-                {report.sections.strengths.categorised?.length ? (
-                  <CategorisedList
-                    items={report.sections.strengths.categorised}
-                    detailedIssueIds={detailedIssueIds}
-                    onJumpToIssue={handleJumpToIssue}
-                    listClass="report-list-positive"
-                  />
-                ) : (
-                  <ul className="report-list report-list-positive">
-                    {(report.sections.strengths.content as string[]).map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </ul>
-                )}
-              </section>
-            )}
-
             {/* Priority Actions */}
             {report.sections.priorityActions.content.length > 0 && (
               <section className="report-section" id="priority-actions-section">
@@ -934,6 +913,27 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 ) : (
                   <ul className="report-list report-list-explore">
                     {(report.sections.areasToExplore.content as string[]).map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            )}
+
+            {/* What's Going Well - at end so actions come first */}
+            {report.sections.strengths.content.length > 0 && (
+              <section className="report-section">
+                <h2>{report.sections.strengths.title}</h2>
+                {report.sections.strengths.categorised?.length ? (
+                  <CategorisedList
+                    items={report.sections.strengths.categorised}
+                    detailedIssueIds={detailedIssueIds}
+                    onJumpToIssue={handleJumpToIssue}
+                    listClass="report-list-positive"
+                  />
+                ) : (
+                  <ul className="report-list report-list-positive">
+                    {(report.sections.strengths.content as string[]).map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
                   </ul>

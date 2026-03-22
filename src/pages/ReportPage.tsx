@@ -197,18 +197,6 @@ function ModuleTile({
 
       {isExpanded && (
         <div className="rp-module-tile-body">
-          {/* Strengths */}
-          {showStrengths && totalStrengths > 0 && (
-            <details className="rp-module-section rp-collapsible-section" open>
-              <summary className="rp-module-section-title rp-section-strengths">What's going well ({totalStrengths})</summary>
-              <ul className="rp-item-list rp-list-strengths">
-                {finding.strengths.map((item, i) => (
-                  <li key={i}>{cleanStatementText(item.text)}</li>
-                ))}
-              </ul>
-            </details>
-          )}
-
           {/* Actions by priority tier */}
           {totalActions > 0 && tiers.map(tier => (
                 <details key={tier.priority} className={`rp-module-section rp-collapsible-section rp-action-tier-section`} open>
@@ -351,6 +339,18 @@ function ModuleTile({
                     </li>
                   );
                 })}
+              </ul>
+            </details>
+          )}
+
+          {/* Strengths - shown at end so actions come first */}
+          {showStrengths && totalStrengths > 0 && (
+            <details className="rp-module-section rp-collapsible-section">
+              <summary className="rp-module-section-title rp-section-strengths">What's going well ({totalStrengths})</summary>
+              <ul className="rp-item-list rp-list-strengths">
+                {finding.strengths.map((item, i) => (
+                  <li key={i}>{cleanStatementText(item.text)}</li>
+                ))}
               </ul>
             </details>
           )}
