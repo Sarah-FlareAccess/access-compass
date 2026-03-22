@@ -252,6 +252,17 @@
   accent-color: var(--deep-purple, #490E67);
 }
 
+.toggle-label input[type="checkbox"]:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015) !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(255, 144, 21, 0.25);
+}
+
+.toggle-label:has(input:focus-visible) {
+  background: rgba(255, 144, 21, 0.08);
+  border-radius: 6px;
+}
+
 .toggle-text {
   display: flex;
   flex-direction: column;
