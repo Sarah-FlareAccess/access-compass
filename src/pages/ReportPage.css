@@ -170,7 +170,15 @@
   background: rgba(73, 14, 103, 0.04);
   border: 1px solid rgba(73, 14, 103, 0.1);
   border-radius: 8px;
-  padding: 14px 16px;
+  padding: 16px 20px;
+}
+
+.rp-intro-body p {
+  margin: 0 0 10px 0;
+}
+
+.rp-intro-body p:last-child {
+  margin-bottom: 0;
 }
 
 .rp-intro-summary {

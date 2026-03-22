@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronUp, Download, Award, BarChart3, Settings, Eye, Users as UsersIcon } from 'lucide-react';
+import { ChevronDown, ChevronUp, Download, BarChart3, Settings, Eye, Users as UsersIcon } from 'lucide-react';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useReportGeneration } from '../hooks/useReportGeneration';
@@ -14,8 +14,7 @@ import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from '../utils/prof
 import { accessModules, moduleGroups } from '../data/accessModules';
 import { PageFooter } from '../components/PageFooter';
 import { usePageTitle } from '../hooks/usePageTitle';
-import { useBadgeProgress } from '../hooks/useBadgeProgress';
-import { downloadCertificate } from '../utils/certificateGenerator';
+
 import type { ReviewMode } from '../types/index';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
@@ -23,7 +22,6 @@ import './ReportPage.css';
 
 const REPORT_FEATURES: GuideFeature[] = [
   { icon: Download, title: 'Download PDF', description: 'Export your full accessibility report as a formatted PDF document.' },
-  { icon: Award, title: 'Certificate', description: 'Download a completion certificate when you finish modules.' },
   { icon: Settings, title: 'Report options', description: 'Switch between pulse check and full review, or filter by module.' },
   { icon: ChevronDown, title: 'Expand and collapse', description: 'Click module headers to expand or collapse individual findings.' },
   { icon: Eye, title: 'Show strengths', description: 'Toggle positive findings on or off alongside priority actions.' },
@@ -407,23 +405,7 @@ export default function ReportPage() {
 
   const { generateReport, isReady, getModuleRuns } = useReportGeneration(selectedModuleIds);
   const { progress } = useModuleProgress(selectedModuleIds);
-  const badgeProgress = useBadgeProgress(progress);
 
-  const handleDownloadCertificate = useCallback(() => {
-    const completedModuleNames = Object.entries(progress)
-      .filter(([, p]) => p.status === 'completed')
-      .map(([id]) => {
-        const mod = accessModules.find(m => m.id === id);
-        return mod ? `${mod.code} ${mod.name}` : id;
-      });
-    downloadCertificate({
-      organisationName,
-      level: badgeProgress.level,
-      completedModules: completedModuleNames,
-      totalModules: badgeProgress.totalModules,
-      completionDate: new Date().toISOString(),
-    });
-  }, [progress, organisationName, badgeProgress.level, badgeProgress.totalModules]);
 
   const hasCompletedModules = useMemo(() => {
     return Object.values(progress).some(p => p.status === 'completed');
@@ -544,12 +526,6 @@ export default function ReportPage() {
               <Download size={16} aria-hidden="true" />
               Download PDF
             </button>
-            {badgeProgress.level !== 'none' && (
-              <button className="btn-export" onClick={handleDownloadCertificate}>
-                <Award size={16} aria-hidden="true" />
-                Certificate
-              </button>
-            )}
           </div>
         </div>
 
