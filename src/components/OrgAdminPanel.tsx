@@ -87,15 +87,20 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
 
+  // Store orgAdmin functions in a ref to avoid re-render loops
+  const orgAdminRef = useRef(orgAdmin);
+  orgAdminRef.current = orgAdmin;
+
   // Load data based on active tab
   const loadData = useCallback(async () => {
     if (!orgId) return;
+    const admin = orgAdminRef.current;
 
     switch (activeTab) {
       case 'members':
         const [allMembers, pending] = await Promise.all([
-          orgAdmin.getMembers(orgId),
-          orgAdmin.getPendingMembers(orgId),
+          admin.getMembers(orgId),
+          admin.getPendingMembers(orgId),
         ]);
         setMembers(allMembers);
         setPendingMembers(pending);
@@ -103,32 +108,32 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
 
       case 'invites':
         const [codes, emails] = await Promise.all([
-          orgAdmin.getInviteCodes(orgId),
-          orgAdmin.getAllowedEmails(orgId),
+          admin.getInviteCodes(orgId),
+          admin.getAllowedEmails(orgId),
         ]);
         setInviteCodes(codes);
         setAllowedEmails(emails);
         break;
 
       case 'security':
-        const settings = await orgAdmin.getSecuritySettings(orgId);
+        const settings = await admin.getSecuritySettings(orgId);
         setSecuritySettings(settings);
         break;
 
       case 'audit':
-        const logs = await orgAdmin.getAuditLogs(orgId, { days: 30, limit: 100 });
+        const logs = await admin.getAuditLogs(orgId, { days: 30, limit: 100 });
         setAuditLogs(logs);
         break;
     }
-  }, [orgId, activeTab, orgAdmin]);
+  }, [orgId, activeTab]);
 
   useEffect(() => {
     if (isOpen && orgId) {
       loadData();
       // Check if current user is owner
-      orgAdmin.isOrgOwner(orgId).then(setCurrentUserIsOwner);
+      orgAdminRef.current.isOrgOwner(orgId).then(setCurrentUserIsOwner);
     }
-  }, [isOpen, orgId, activeTab, loadData, orgAdmin]);
+  }, [isOpen, orgId, activeTab, loadData]);
 
   // Member actions
   const handleApproveMember = async (membershipId: string) => {
