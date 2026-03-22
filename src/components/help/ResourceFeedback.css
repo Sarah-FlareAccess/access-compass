@@ -47,7 +47,15 @@
   font-size: 1rem;
   font-weight: 700;
   color: var(--antique-walnut, #3E2B2F);
+  margin: 0 0 6px 0;
+}
+
+.feedback-disclaimer {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
   margin: 0 0 14px 0;
+  line-height: 1.5;
+  font-style: italic;
 }
 
 /* Helpful yes/no buttons */

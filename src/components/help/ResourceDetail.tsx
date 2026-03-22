@@ -26,8 +26,6 @@ import {
   Scale,
   Clock,
   Wrench,
-  ThumbsUp,
-  ThumbsDown,
   Quote,
   TrendingUp,
   Target,
@@ -65,7 +63,6 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
   });
 
 
-  const [feedbackGiven, setFeedbackGiven] = useState<'positive' | 'negative' | null>(null);
   const [selectedBusinessType, setSelectedBusinessType] = useState<string | null>(null);
 
   const toggleSection = (section: string) => {
@@ -73,11 +70,6 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
       ...prev,
       [section]: !prev[section],
     }));
-  };
-
-  const handleFeedback = (isPositive: boolean) => {
-    setFeedbackGiven(isPositive ? 'positive' : 'negative');
-    // Analytics tracking would go here
   };
 
   // Collect inline tips from covered questions
@@ -434,35 +426,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
         </section>
       )}
 
-      {/* Feedback */}
-      <section className="resource-section feedback-section">
-        <div className="feedback-prompt">
-          <span>Was this resource helpful?</span>
-          <div className="feedback-buttons">
-            <button
-              className={`feedback-btn ${feedbackGiven === 'positive' ? 'active' : ''}`}
-              onClick={() => handleFeedback(true)}
-              disabled={feedbackGiven !== null}
-            >
-              <ThumbsUp size={18} />
-              <span>Yes</span>
-            </button>
-            <button
-              className={`feedback-btn ${feedbackGiven === 'negative' ? 'active' : ''}`}
-              onClick={() => handleFeedback(false)}
-              disabled={feedbackGiven !== null}
-            >
-              <ThumbsDown size={18} />
-              <span>No</span>
-            </button>
-          </div>
-          {feedbackGiven && (
-            <span className="feedback-thanks">Thanks for your feedback!</span>
-          )}
-        </div>
-      </section>
-
-      {/* Resource Feedback - do you need more information? */}
+      {/* Resource Feedback - need more support? */}
       <ResourceFeedback resourceTitle={resource.title} resourceId={resource.questionId} />
     </div>
   );

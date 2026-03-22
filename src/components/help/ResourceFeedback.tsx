@@ -69,7 +69,7 @@ export function ResourceFeedback({ resourceTitle, resourceId }: ResourceFeedback
     return (
       <div className="resource-feedback resource-feedback-prompt">
         <button className="feedback-prompt-btn" onClick={() => setIsOpen(true)}>
-          Was this resource helpful? Let us know
+          Still have questions? Let us know what you need
         </button>
       </div>
     );
@@ -77,7 +77,8 @@ export function ResourceFeedback({ resourceTitle, resourceId }: ResourceFeedback
 
   return (
     <div className="resource-feedback resource-feedback-form">
-      <h3>Was this resource helpful?</h3>
+      <h3>Do you need more information on this topic?</h3>
+      <p className="feedback-disclaimer">This is not a request for personalised support. Your feedback helps us identify where we need to add more content and guidance.</p>
       <form onSubmit={handleSubmit}>
         <div className="feedback-helpful-row">
           <button
@@ -85,14 +86,14 @@ export function ResourceFeedback({ resourceTitle, resourceId }: ResourceFeedback
             className={`feedback-helpful-btn ${isHelpful === true ? 'selected' : ''}`}
             onClick={() => { setIsHelpful(true); setCategory(null); }}
           >
-            Yes, helpful
+            This covered what I needed
           </button>
           <button
             type="button"
             className={`feedback-helpful-btn feedback-not-helpful ${isHelpful === false ? 'selected' : ''}`}
             onClick={() => setIsHelpful(false)}
           >
-            I need more support
+            I still have questions
           </button>
         </div>
 
