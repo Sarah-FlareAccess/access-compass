@@ -515,7 +515,7 @@
 .rp-legend-def-high dt { color: #b91c1c; }
 .rp-legend-def-medium dt { color: #945a00; }
 .rp-legend-def-low dt { color: #1a4fd6; }
-.rp-legend-def-explore dt { color: #92400e; }
+.rp-legend-def-explore dt { color: #7c3aed; }
 .rp-legend-def-strengths dt { color: #15803d; }
 
 .rp-priority-encouragement {
@@ -667,6 +667,7 @@
 .rp-priority-high { color: #b91c1c; background: rgba(211, 47, 47, 0.10); }
 .rp-priority-medium { color: #945a00; background: rgba(230, 138, 0, 0.10); }
 .rp-priority-low { color: #1a4fd6; background: rgba(41, 98, 255, 0.10); }
+.rp-priority-explore { color: #7c3aed; background: rgba(124, 58, 237, 0.10); }
 
 .rp-no-actions {
   font-size: 0.875rem;
@@ -692,7 +693,7 @@
 
 .rp-section-strengths { color: #15803d; }
 .rp-section-actions { color: #991b1b; }
-.rp-section-explore { color: #92400e; }
+.rp-section-explore { color: #7c3aed; }
 
 .rp-section-explainer {
   font-size: 0.8125rem;

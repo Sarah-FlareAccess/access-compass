@@ -191,6 +191,11 @@ function ModuleTile({
         </div>
         <div className="rp-module-tile-meta">
           <PriorityCountBadges counts={finding.priorityCounts} />
+          {finding.explores.length > 0 && (
+            <span className="rp-priority-count rp-priority-explore" aria-label={`${finding.explores.length} to investigate`}>
+              {finding.explores.length}E
+            </span>
+          )}
           {isExpanded ? <ChevronUp size={18} aria-hidden="true" /> : <ChevronDown size={18} aria-hidden="true" />}
         </div>
       </button>
