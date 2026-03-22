@@ -63,14 +63,22 @@ export default function AppLayout() {
         href="#main-content"
         className="skip-link"
         tabIndex={1}
-        onClick={(e) => {
-          e.preventDefault();
-          const main = document.getElementById('main-content');
-          if (main) {
-            main.setAttribute('tabindex', '-1');
-            main.focus();
-            main.scrollIntoView({ behavior: 'smooth' });
-          }
+        onClick={() => {
+          // Small delay to let native hash navigation happen first
+          setTimeout(() => {
+            const main = document.getElementById('main-content');
+            if (main) {
+              main.setAttribute('tabindex', '-1');
+              main.focus();
+              // Find first focusable element inside main and announce
+              const firstFocusable = main.querySelector<HTMLElement>(
+                'h1, h2, h3, [tabindex], a, button, input, select, textarea'
+              );
+              if (firstFocusable) {
+                firstFocusable.focus();
+              }
+            }
+          }, 50);
         }}
       >
         Skip to main content
