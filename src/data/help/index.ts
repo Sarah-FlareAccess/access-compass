@@ -124,11 +124,13 @@ export function getHelpStats(): {
 
 // Build inline tips lookup from accessModules question data
 const inlineTipsByQuestionId = new Map<string, string[]>();
+const questionTextById = new Map<string, string>();
 for (const mod of accessModules) {
   for (const q of mod.questions) {
     if (q.helpContent?.tips && q.helpContent.tips.length > 0) {
       inlineTipsByQuestionId.set(q.id, q.helpContent.tips);
     }
+    questionTextById.set(q.id, q.text);
   }
 }
 
@@ -150,6 +152,36 @@ export function getInlineTips(questionIds: string[]): string[] {
     }
   }
   return tips;
+}
+
+export interface GroupedTips {
+  questionText: string;
+  tips: string[];
+}
+
+/**
+ * Collect inline tips grouped by source question
+ */
+export function getGroupedInlineTips(questionIds: string[]): GroupedTips[] {
+  const seen = new Set<string>();
+  const groups: GroupedTips[] = [];
+  for (const qId of questionIds) {
+    const qTips = inlineTipsByQuestionId.get(qId);
+    if (qTips && qTips.length > 0) {
+      const uniqueTips: string[] = [];
+      for (const tip of qTips) {
+        if (!seen.has(tip)) {
+          seen.add(tip);
+          uniqueTips.push(tip);
+        }
+      }
+      if (uniqueTips.length > 0) {
+        const text = questionTextById.get(qId) || qId;
+        groups.push({ questionText: text, tips: uniqueTips });
+      }
+    }
+  }
+  return groups;
 }
 
 // Re-export types

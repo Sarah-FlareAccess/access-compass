@@ -5,32 +5,60 @@
   padding-top: 20px;
 }
 
-/* Prompt button */
+/* Prompt */
 .resource-feedback-prompt {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.feedback-prompt-btn {
-  all: unset;
-  cursor: pointer;
-  font-size: 0.875rem;
+.feedback-prompt-text {
+  font-size: 0.9rem;
   font-weight: 600;
-  color: var(--amethyst-diamond, #490E67);
-  padding: 10px 20px;
-  border: 1.5px solid rgba(73, 14, 103, 0.2);
+  color: var(--antique-walnut, #3E2B2F);
+}
+
+.feedback-prompt-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.feedback-thumb-btn {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1.5px solid rgba(73, 14, 103, 0.15);
   border-radius: 8px;
   transition: all 0.2s ease;
-  min-height: 44px;
+  min-height: 40px;
   display: inline-flex;
   align-items: center;
 }
 
-.feedback-prompt-btn:hover {
+.feedback-thumb-yes {
+  color: #15803d;
+}
+
+.feedback-thumb-yes:hover {
+  background: #f0fdf4;
+  border-color: #15803d;
+}
+
+.feedback-thumb-no {
+  color: var(--amethyst-diamond, #490E67);
+}
+
+.feedback-thumb-no:hover {
   background: rgba(73, 14, 103, 0.04);
   border-color: var(--amethyst-diamond);
 }
 
-.feedback-prompt-btn:focus-visible {
+.feedback-thumb-btn:focus-visible {
   outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }

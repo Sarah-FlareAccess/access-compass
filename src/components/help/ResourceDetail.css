@@ -317,6 +317,64 @@
   border-top: 1px solid rgba(99, 102, 241, 0.08);
 }
 
+.guidance-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.guidance-group {
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.guidance-group[open] {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.guidance-group-title {
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #4f46e5;
+  padding: 10px 14px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.guidance-group-title::-webkit-details-marker {
+  display: none;
+}
+
+.guidance-group-title::before {
+  content: '▶';
+  font-size: 0.5rem;
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.guidance-group[open] > .guidance-group-title::before {
+  transform: rotate(90deg);
+}
+
+.guidance-group-title:hover {
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.guidance-group-title:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: -2px;
+}
+
+.guidance-group .guidance-notes-list {
+  margin: 0;
+  padding: 0 14px 10px 32px;
+}
+
 .guidance-notes-count {
   font-size: 0.75rem;
   color: #6b7280;

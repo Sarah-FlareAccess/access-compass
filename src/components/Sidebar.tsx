@@ -202,6 +202,14 @@ export function Sidebar() {
         <div className="sidebar-section-title">Need help?</div>
         <p className="sidebar-hint">Questions about accessibility auditing or using Access Compass?</p>
         <ReportProblemTrigger variant="sidebar" onClick={() => setShowReportProblem(true)} />
+        <Link to="/resources" className="sidebar-help-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ marginRight: '6px', verticalAlign: '-2px' }}>
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          Need more information?
+        </Link>
         <a href="mailto:support@accesscompass.com.au" className="sidebar-help-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ marginRight: '6px', verticalAlign: '-2px' }}>
             <rect x="2" y="4" width="20" height="16" rx="2" />

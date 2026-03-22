@@ -68,95 +68,91 @@ export function ResourceFeedback({ resourceTitle, resourceId }: ResourceFeedback
   if (!isOpen) {
     return (
       <div className="resource-feedback resource-feedback-prompt">
-        <button className="feedback-prompt-btn" onClick={() => setIsOpen(true)}>
-          Still have questions? Let us know what you need
-        </button>
+        <span className="feedback-prompt-text">Did this resource answer your questions?</span>
+        <div className="feedback-prompt-actions">
+          <button className="feedback-thumb-btn feedback-thumb-yes" onClick={() => { setIsHelpful(true); setIsOpen(true); }}>
+            Yes, thanks
+          </button>
+          <button className="feedback-thumb-btn feedback-thumb-no" onClick={() => { setIsHelpful(false); setIsOpen(true); }}>
+            I still have questions
+          </button>
+        </div>
       </div>
     );
   }
 
+  // If they said "yes" - just show thanks
+  if (isHelpful === true && !isSubmitted) {
+    // Auto-submit the positive feedback
+    const feedbackData = {
+      resourceId,
+      resourceTitle,
+      isHelpful: true,
+      category: null,
+      details: null,
+      pageUrl: window.location.href,
+      timestamp: new Date().toISOString(),
+    };
+    console.log('Resource feedback submitted:', feedbackData);
+    setIsSubmitted(true);
+    return null; // will re-render as submitted
+  }
+
   return (
     <div className="resource-feedback resource-feedback-form">
-      <h3>Do you need more information on this topic?</h3>
-      <p className="feedback-disclaimer">This is not a request for personalised support. Your feedback helps us identify where we need to add more content and guidance.</p>
+      <h3>What would help you most?</h3>
+      <p className="feedback-disclaimer">This is not a request for personalised support. Your feedback helps us identify where we need to add more content and guidance on this topic.</p>
       <form onSubmit={handleSubmit}>
-        <div className="feedback-helpful-row">
-          <button
-            type="button"
-            className={`feedback-helpful-btn ${isHelpful === true ? 'selected' : ''}`}
-            onClick={() => { setIsHelpful(true); setCategory(null); }}
-          >
-            This covered what I needed
-          </button>
-          <button
-            type="button"
-            className={`feedback-helpful-btn feedback-not-helpful ${isHelpful === false ? 'selected' : ''}`}
-            onClick={() => setIsHelpful(false)}
-          >
-            I still have questions
-          </button>
+        <div className="feedback-categories">
+          {FEEDBACK_CATEGORIES.map(cat => (
+            <label
+              key={cat.value}
+              className={`feedback-category-option ${category === cat.value ? 'selected' : ''}`}
+            >
+              <input
+                type="radio"
+                name="feedback-category"
+                value={cat.value}
+                checked={category === cat.value}
+                onChange={() => setCategory(cat.value)}
+              />
+              <div>
+                <span className="feedback-category-label">{cat.label}</span>
+                <span className="feedback-category-hint">{cat.hint}</span>
+              </div>
+            </label>
+          ))}
         </div>
 
-        {isHelpful === false && (
-          <div className="feedback-categories">
-            <p className="feedback-categories-label">What would help you most?</p>
-            {FEEDBACK_CATEGORIES.map(cat => (
-              <label
-                key={cat.value}
-                className={`feedback-category-option ${category === cat.value ? 'selected' : ''}`}
-              >
-                <input
-                  type="radio"
-                  name="feedback-category"
-                  value={cat.value}
-                  checked={category === cat.value}
-                  onChange={() => setCategory(cat.value)}
-                />
-                <div>
-                  <span className="feedback-category-label">{cat.label}</span>
-                  <span className="feedback-category-hint">{cat.hint}</span>
-                </div>
-              </label>
-            ))}
-          </div>
-        )}
+        <div className="feedback-details">
+          <label htmlFor="feedback-details-input">
+            Tell us more about what you need (optional)
+          </label>
+          <textarea
+            id="feedback-details-input"
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            rows={3}
+            placeholder="What specific information or support would help?"
+          />
+        </div>
 
-        {isHelpful !== null && (
-          <div className="feedback-details">
-            <label htmlFor="feedback-details-input">
-              {isHelpful ? 'Any other comments? (optional)' : 'Tell us more about what you need (optional)'}
-            </label>
-            <textarea
-              id="feedback-details-input"
-              value={details}
-              onChange={(e) => setDetails(e.target.value)}
-              rows={3}
-              placeholder={isHelpful
-                ? 'What was most useful?'
-                : 'What specific information or support would help?'
-              }
-            />
-          </div>
-        )}
-
-        {isHelpful !== null && (
-          <div className="feedback-actions">
-            <button
-              type="submit"
-              className="feedback-submit-btn"
-              disabled={isSubmitting || (!isHelpful && !category)}
-            >
-              {isSubmitting ? 'Sending...' : 'Send feedback'}
-            </button>
-            <button
-              type="button"
-              className="feedback-cancel-btn"
-              onClick={() => { setIsOpen(false); setIsHelpful(null); setCategory(null); setDetails(''); }}
-            >
-              Cancel
-            </button>
-          </div>
-        )}
+        <div className="feedback-actions">
+          <button
+            type="submit"
+            className="feedback-submit-btn"
+            disabled={isSubmitting || !category}
+          >
+            {isSubmitting ? 'Sending...' : 'Send feedback'}
+          </button>
+          <button
+            type="button"
+            className="feedback-cancel-btn"
+            onClick={() => { setIsOpen(false); setIsHelpful(null); setCategory(null); setDetails(''); }}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

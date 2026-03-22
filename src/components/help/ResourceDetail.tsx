@@ -33,7 +33,8 @@ import {
 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import type { HelpContent, HelpTip, HelpExample, GradedSolution } from '../../data/help/types';
-import { getInlineTips } from '../../data/help';
+import { getInlineTips, getGroupedInlineTips } from '../../data/help';
+import type { GroupedTips } from '../../data/help';
 import { ResourceFeedback } from './ResourceFeedback';
 import './ResourceDetail.css';
 
@@ -75,6 +76,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
   // Collect inline tips from covered questions
   const coveredIds = [resource.questionId, ...(resource.coveredQuestionIds || [])];
   const inlineTips = getInlineTips(coveredIds);
+  const groupedTips = getGroupedInlineTips(coveredIds);
 
   // Filter examples by business type
   const displayedExamples = selectedBusinessType
@@ -154,7 +156,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
 
       {/* Guidance Notes (inline tips from questions) */}
       {inlineTips.length > 0 && (
-        <GuidanceNotesSection tips={inlineTips} />
+        <GuidanceNotesSection tips={inlineTips} groups={groupedTips} />
       )}
 
       {/* Solutions */}
@@ -433,12 +435,12 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
 }
 
 // Tip Card sub-component
-const GUIDANCE_NOTES_INITIAL_COUNT = 5;
+const GUIDANCE_GROUPS_INITIAL = 2;
 
-function GuidanceNotesSection({ tips }: { tips: string[] }) {
+function GuidanceNotesSection({ tips, groups }: { tips: string[]; groups: GroupedTips[] }) {
   const [showAll, setShowAll] = useState(false);
-  const hasMore = tips.length > GUIDANCE_NOTES_INITIAL_COUNT;
-  const displayedTips = showAll ? tips : tips.slice(0, GUIDANCE_NOTES_INITIAL_COUNT);
+  const hasMore = groups.length > GUIDANCE_GROUPS_INITIAL;
+  const displayedGroups = showAll ? groups : groups.slice(0, GUIDANCE_GROUPS_INITIAL);
 
   return (
     <section className="resource-section guidance-notes-section">
@@ -447,11 +449,18 @@ function GuidanceNotesSection({ tips }: { tips: string[] }) {
         <h2>Guidance Notes</h2>
         <span className="guidance-notes-count">{tips.length} tips</span>
       </div>
-      <ul className="guidance-notes-list" role="list">
-        {displayedTips.map((tip, index) => (
-          <li key={index}>{tip}</li>
+      <div className="guidance-groups">
+        {displayedGroups.map((group, gi) => (
+          <details key={gi} className="guidance-group" open={gi === 0}>
+            <summary className="guidance-group-title">{group.questionText}</summary>
+            <ul className="guidance-notes-list" role="list">
+              {group.tips.map((tip, ti) => (
+                <li key={ti}>{tip}</li>
+              ))}
+            </ul>
+          </details>
         ))}
-      </ul>
+      </div>
       {hasMore && (
         <button
           className="guidance-notes-toggle"
@@ -459,9 +468,9 @@ function GuidanceNotesSection({ tips }: { tips: string[] }) {
           aria-expanded={showAll}
         >
           {showAll ? (
-            <><ChevronUp size={16} /> Show fewer tips</>
+            <><ChevronUp size={16} /> Show fewer topics</>
           ) : (
-            <><ChevronDown size={16} /> Show all {tips.length} tips ({tips.length - GUIDANCE_NOTES_INITIAL_COUNT} more)</>
+            <><ChevronDown size={16} /> Show all {groups.length} topics ({groups.length - GUIDANCE_GROUPS_INITIAL} more)</>
           )}
         </button>
       )}
