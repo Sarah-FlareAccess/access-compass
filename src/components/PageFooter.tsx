@@ -12,18 +12,22 @@ export function PageFooter({ showDivider = true }: PageFooterProps) {
   return (
     <>
       <footer className={`page-footer ${showDivider ? 'with-divider' : ''}`}>
-        <span className="page-footer-text">
-          Access Compass by Flare Access
-        </span>
-        <span className="page-footer-divider"></span>
-        <ReportProblemTrigger
-          variant="footer"
-          onClick={() => setShowReportProblem(true)}
-        />
-        <span className="page-footer-divider"></span>
-        <a href="mailto:support@accesscompass.com.au" className="page-footer-help-link">
-          Need help?
-        </a>
+        <div className="page-footer-brand">
+          <img src="/images/access-compass-logo.png" alt="" className="page-footer-logo" />
+          <span className="page-footer-text">
+            Access Compass <span className="page-footer-byline">by Flare Access</span>
+          </span>
+        </div>
+        <div className="page-footer-links">
+          <ReportProblemTrigger
+            variant="footer"
+            onClick={() => setShowReportProblem(true)}
+          />
+          <span className="page-footer-divider"></span>
+          <a href="mailto:support@accesscompass.com.au" className="page-footer-help-link">
+            Need help?
+          </a>
+        </div>
       </footer>
 
       <ReportProblem

@@ -19,7 +19,6 @@ export default function NavBar() {
         <div className="nav-brand">
           <Link to="/" className="brand-link">
             <img src="/images/access-compass-logo.png" alt="Access Compass" className="brand-logo" />
-            <span className="brand-byline">by Flare Access</span>
           </Link>
         </div>
 
