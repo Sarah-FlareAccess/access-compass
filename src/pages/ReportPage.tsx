@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ChevronDown, ChevronUp, Download, BarChart3, Settings, Eye, Users as UsersIcon } from 'lucide-react';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
@@ -160,12 +160,14 @@ function ModuleTile({
   onToggle,
   detailedFindings,
   showStrengths = true,
+  onResourceClick,
 }: {
   finding: ModuleFindings;
   isExpanded: boolean;
   onToggle: () => void;
   detailedFindings?: Report['detailedFindings'];
   showStrengths?: boolean;
+  onResourceClick?: () => void;
 }) {
   const totalActions = finding.actions.length;
   const totalStrengths = finding.strengths.length;
@@ -241,7 +243,8 @@ function ModuleTile({
                                     return (
                                       <Link
                                         to={getResourceLink(issue.questionId)}
-                                        state={{ from: 'report' }}
+                                        state={{ from: 'report', returnTo: '/report' }}
+                                        onClick={onResourceClick}
                                         className="rp-resource-link"
                                       >
                                         View guide: {help.title || 'Resource guide'}
@@ -322,7 +325,8 @@ function ModuleTile({
                           {help ? (
                             <Link
                               to={getResourceLink(item.questionId!)}
-                              state={{ from: 'report' }}
+                              state={{ from: 'report', returnTo: '/report' }}
+                                        onClick={onResourceClick}
                               className="rp-resource-link"
                             >
                               View guide: {help.title || 'Resource guide'}
@@ -330,7 +334,8 @@ function ModuleTile({
                           ) : (
                             <Link
                               to={categoryLink}
-                              state={{ from: 'report' }}
+                              state={{ from: 'report', returnTo: '/report' }}
+                                        onClick={onResourceClick}
                               className="rp-resource-link"
                             >
                               Browse related resources
@@ -366,6 +371,7 @@ function ModuleTile({
 export default function ReportPage() {
   usePageTitle('Report');
   const navigate = useNavigate();
+  const location = useLocation();
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [report, setReport] = useState<Report | null>(null);
@@ -373,6 +379,26 @@ export default function ReportPage() {
   const [expandedModules, setExpandedModules] = useState<Set<string>>(new Set());
   const [showConfig, setShowConfig] = useState(false);
   const [showStrengths, setShowStrengths] = useState(true);
+
+  // Restore scroll position when returning from resource hub
+  useEffect(() => {
+    const returnFrom = (location.state as { from?: string })?.from;
+    if (returnFrom === 'resource-return') {
+      const savedScroll = sessionStorage.getItem('report_scroll_position');
+      if (savedScroll) {
+        // Small delay to let the report render first
+        setTimeout(() => {
+          window.scrollTo(0, parseInt(savedScroll, 10));
+          sessionStorage.removeItem('report_scroll_position');
+        }, 100);
+      }
+    }
+  }, [location.state]);
+
+  // Save scroll position before navigating to resource
+  const handleResourceClick = useCallback(() => {
+    sessionStorage.setItem('report_scroll_position', String(window.scrollY));
+  }, []);
 
   useEffect(() => {
     try {
@@ -708,6 +734,7 @@ export default function ReportPage() {
                     onToggle={() => toggleModule(mf.moduleCode)}
                     detailedFindings={report.detailedFindings}
                     showStrengths={showStrengths}
+                    onResourceClick={handleResourceClick}
                   />
                 ))}
               </div>

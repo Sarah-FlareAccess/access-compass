@@ -513,7 +513,7 @@ export function ResourceCentre() {
     dashboard: 'Back to Dashboard',
   };
   const backLabel = (referrer && backLabels[referrer]) || 'Back to Resources';
-  const handleBack = returnTo ? () => navigate(returnTo) : referrer ? () => navigate(-1) : handleBackFromDetail;
+  const handleBack = returnTo ? () => navigate(returnTo, { state: { from: 'resource-return' } }) : referrer ? () => navigate(-1) : handleBackFromDetail;
 
   // === DETAIL VIEW ===
   if (selectedResource) {
