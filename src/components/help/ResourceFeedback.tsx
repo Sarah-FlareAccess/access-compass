@@ -124,24 +124,30 @@ export function ResourceFeedback({ resourceTitle, resourceId }: ResourceFeedback
           ))}
         </div>
 
-        <div className="feedback-details">
-          <label htmlFor="feedback-details-input">
-            Tell us more about what you need (optional)
-          </label>
-          <textarea
-            id="feedback-details-input"
-            value={details}
-            onChange={(e) => setDetails(e.target.value)}
-            rows={3}
-            placeholder="What specific information or support would help?"
-          />
-        </div>
+        {category && (() => {
+          const requiresDetails = category === 'not-relevant' || category === 'missing-info' || category === 'other';
+          return (
+            <div className="feedback-details">
+              <label htmlFor="feedback-details-input">
+                Tell us more about what you need {requiresDetails ? '' : '(optional)'}
+              </label>
+              <textarea
+                id="feedback-details-input"
+                value={details}
+                onChange={(e) => setDetails(e.target.value)}
+                rows={3}
+                placeholder="What specific information or support would help?"
+                required={requiresDetails}
+              />
+            </div>
+          );
+        })()}
 
         <div className="feedback-actions">
           <button
             type="submit"
             className="feedback-submit-btn"
-            disabled={isSubmitting || !category}
+            disabled={isSubmitting || !category || ((['not-relevant', 'missing-info', 'other'].includes(category || '')) && !details.trim())}
           >
             {isSubmitting ? 'Sending...' : 'Send feedback'}
           </button>
