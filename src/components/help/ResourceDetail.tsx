@@ -161,17 +161,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
 
       {/* Guidance Notes (inline tips from questions) */}
       {inlineTips.length > 0 && (
-        <section className="resource-section guidance-notes-section">
-          <div className="section-header">
-            <MessageSquare size={22} className="section-icon" />
-            <h2>Guidance Notes</h2>
-          </div>
-          <ul className="guidance-notes-list" role="list">
-            {inlineTips.map((tip, index) => (
-              <li key={index}>{tip}</li>
-            ))}
-          </ul>
-        </section>
+        <GuidanceNotesSection tips={inlineTips} />
       )}
 
       {/* Solutions */}
@@ -475,6 +465,42 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
 }
 
 // Tip Card sub-component
+const GUIDANCE_NOTES_INITIAL_COUNT = 5;
+
+function GuidanceNotesSection({ tips }: { tips: string[] }) {
+  const [showAll, setShowAll] = useState(false);
+  const hasMore = tips.length > GUIDANCE_NOTES_INITIAL_COUNT;
+  const displayedTips = showAll ? tips : tips.slice(0, GUIDANCE_NOTES_INITIAL_COUNT);
+
+  return (
+    <section className="resource-section guidance-notes-section">
+      <div className="section-header">
+        <MessageSquare size={22} className="section-icon" />
+        <h2>Guidance Notes</h2>
+        <span className="guidance-notes-count">{tips.length} tips</span>
+      </div>
+      <ul className="guidance-notes-list" role="list">
+        {displayedTips.map((tip, index) => (
+          <li key={index}>{tip}</li>
+        ))}
+      </ul>
+      {hasMore && (
+        <button
+          className="guidance-notes-toggle"
+          onClick={() => setShowAll(!showAll)}
+          aria-expanded={showAll}
+        >
+          {showAll ? (
+            <><ChevronUp size={16} /> Show fewer tips</>
+          ) : (
+            <><ChevronDown size={16} /> Show all {tips.length} tips ({tips.length - GUIDANCE_NOTES_INITIAL_COUNT} more)</>
+          )}
+        </button>
+      )}
+    </section>
+  );
+}
+
 function TipCard({ tip }: { tip: HelpTip }) {
   const [expanded, setExpanded] = useState(false);
 

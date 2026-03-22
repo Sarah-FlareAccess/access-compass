@@ -317,6 +317,39 @@
   border-top: 1px solid rgba(99, 102, 241, 0.08);
 }
 
+.guidance-notes-count {
+  font-size: 0.75rem;
+  color: #6b7280;
+  background: rgba(99, 102, 241, 0.08);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: auto;
+}
+
+.guidance-notes-toggle {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #4f46e5;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.guidance-notes-toggle:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.guidance-notes-toggle:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
 /* Solutions Section - Budget-graded solutions */
 .solutions-content {
   padding-bottom: 16px !important;
