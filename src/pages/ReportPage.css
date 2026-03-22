@@ -166,18 +166,22 @@
 }
 
 .rp-intro-details {
-  margin-top: 12px;
+  margin-top: 16px;
+  background: rgba(73, 14, 103, 0.04);
+  border: 1px solid rgba(73, 14, 103, 0.1);
+  border-radius: 8px;
+  padding: 14px 16px;
 }
 
 .rp-intro-summary {
   cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--amethyst-diamond, #6F5FA8);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--antique-walnut, #3E2B2F);
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .rp-intro-summary::-webkit-details-marker {
@@ -205,10 +209,8 @@
 }
 
 .rp-intro-body {
-  margin-top: 10px;
-  padding: 14px 16px;
-  background: rgba(73, 14, 103, 0.03);
-  border-radius: 8px;
+  margin-top: 12px;
+  padding: 0;
   border-left: 3px solid var(--amethyst-diamond, #490E67);
   font-size: 0.875rem;
   line-height: 1.6;
