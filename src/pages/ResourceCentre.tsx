@@ -357,7 +357,8 @@ export function ResourceCentre() {
   const navigate = useNavigate();
   const { progress } = useModuleProgress();
 
-  const referrer = (location.state as { from?: string })?.from;
+  const referrer = (location.state as { from?: string; returnTo?: string })?.from;
+  const returnTo = (location.state as { returnTo?: string })?.returnTo;
 
   // Get state from URL params
   const selectedResourceId = searchParams.get('resource');
@@ -512,7 +513,7 @@ export function ResourceCentre() {
     dashboard: 'Back to Dashboard',
   };
   const backLabel = (referrer && backLabels[referrer]) || 'Back to Resources';
-  const handleBack = referrer ? () => navigate(-1) : handleBackFromDetail;
+  const handleBack = returnTo ? () => navigate(returnTo) : referrer ? () => navigate(-1) : handleBackFromDetail;
 
   // === DETAIL VIEW ===
   if (selectedResource) {

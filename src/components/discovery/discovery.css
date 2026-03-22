@@ -2413,17 +2413,17 @@ fieldset.context-question {
 .module-tiles.selectable {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 .module-tile.selectable {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 8px;
   background: linear-gradient(135deg, #fafafa 0%, white 100%);
   border: 2px solid #e8e8e8;
-  border-radius: 10px;
-  padding: 12px;
+  border-radius: 8px;
+  padding: 8px 10px;
   cursor: pointer;
   transition: all 0.25s ease;
   position: relative;
@@ -2431,8 +2431,8 @@ fieldset.context-question {
 
 .module-tile.selectable:hover {
   border-color: var(--amethyst-light);
-  box-shadow: 0 6px 20px rgba(73, 14, 103, 0.12);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.1);
+  transform: translateY(-1px);
 }
 
 .module-tile.selectable.selected {
@@ -2469,12 +2469,12 @@ fieldset.context-question {
 
 .tile-checkbox {
   flex-shrink: 0;
-  padding-top: 2px;
+  padding-top: 1px;
 }
 
 .tile-checkbox input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
   accent-color: var(--amethyst-diamond);
 }
@@ -2488,14 +2488,14 @@ fieldset.context-question {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 4px;
+  gap: 6px;
+  margin-bottom: 2px;
 }
 
 .module-tile.selectable .tile-name {
   font-weight: 600;
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.3;
   flex: 1;
 }
@@ -2512,11 +2512,11 @@ fieldset.context-question {
 /* Tap for details hint */
 .module-tile.selectable .tile-tap-hint {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--amethyst-diamond);
   opacity: 0.7;
   font-weight: 500;
-  margin-top: 8px;
+  margin-top: 4px;
   transition: opacity 0.2s ease;
 }
 
@@ -2525,46 +2525,46 @@ fieldset.context-question {
 }
 
 .module-tile.selectable .tile-description {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  line-height: 1.4;
-  margin: 6px 0 8px;
+  line-height: 1.35;
+  margin: 2px 0 4px;
 }
 
 .module-tile.selectable .tile-meta {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .module-tile.selectable .tile-time {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   background: #f0f0f0;
-  padding: 3px 8px;
+  padding: 2px 6px;
   border-radius: 4px;
 }
 
 .module-tile.selectable .tile-cost {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: #166534;
   background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-  padding: 3px 10px;
+  padding: 2px 8px;
   border-radius: 4px;
 }
 
 .tile-badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 0.75rem;
+  gap: 3px;
+  font-size: 0.7rem;
   font-weight: 600;
   color: #166534;
   background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-  padding: 4px 10px;
-  border-radius: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
   box-shadow: 0 1px 3px rgba(34, 197, 94, 0.15);
 }
 

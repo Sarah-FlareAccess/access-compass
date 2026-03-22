@@ -86,7 +86,7 @@
 
 .evidence-section-optional .evidence-hint,
 .question-card .evidence-hint {
-  color: #6b7280;
+  color: #4b5563;
 }
 
 .evidence-section-optional .evidence-item,
@@ -107,7 +107,7 @@
 
 .evidence-section-optional .evidence-item-size,
 .question-card .evidence-item-size {
-  color: #6b7280;
+  color: #4b5563;
 }
 
 .evidence-section-optional .evidence-item-icon,
@@ -130,7 +130,7 @@
 
 .evidence-section-optional .evidence-remove-btn,
 .question-card .evidence-remove-btn {
-  color: #9ca3af;
+  color: #6b7280;
   background: #f3f4f6;
   border-radius: 6px;
 }
@@ -169,7 +169,7 @@
 
 .evidence-section-optional .evidence-note,
 .question-card .evidence-note {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .evidence-upload {
@@ -205,6 +205,7 @@
   height: 20px;
   padding: 0 6px;
   background: #7c3aed;
+  color: #ffffff;
   border-radius: 10px;
   font-size: 12px;
   font-weight: 600;
@@ -307,7 +308,7 @@ a.evidence-item-name:hover {
 .evidence-item-size {
   display: block;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.65);
   margin-top: 2px;
 }
 
@@ -460,7 +461,7 @@ a.evidence-item-name:hover {
 .evidence-note {
   margin: 12px 0 0 0;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Responsive */

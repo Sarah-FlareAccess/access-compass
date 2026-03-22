@@ -186,7 +186,7 @@
 }
 
 .report-form textarea::placeholder {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 /* Screenshot Upload */
@@ -309,7 +309,7 @@
 
 .report-actions .btn-secondary:hover {
   background: #f3f4f6;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .report-actions .btn-primary {

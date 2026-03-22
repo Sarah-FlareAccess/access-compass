@@ -1679,7 +1679,7 @@ export const accessModules: AccessModule[] = [
           ],
           tips: [
             'Text should be readable without pinching to zoom - if visitors need to zoom, text is too small',
-            'Buttons and links should be large enough to tap easily (at least 44x44 pixels)',
+            'Buttons and links should be large enough to tap easily (at least 24x24 pixels per WCAG 2.2 AA, 44x44px recommended)',
             'Content should not require horizontal scrolling - everything should fit the screen width',
             'Forms should be easy to complete with a mobile keyboard - use appropriate input types for email, phone, etc.',
             'Images should be responsive - they should resize to fit the screen without overflowing or becoming tiny',
@@ -1714,7 +1714,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if buttons and links are generally too small or too close together on mobile, making it difficult to tap accurately, or if touch target sizes have never been considered',
           ],
           tips: [
-            'Touch targets should be at least 44x44 pixels (about 9mm)',
+            'Touch targets must be at least 24x24 pixels per WCAG 2.2 AA (44x44px recommended for best usability)',
             'Leave enough space between targets to prevent accidental taps',
             'Common problem areas: footer links, navigation items, form fields',
             'Test with your thumb, not just your fingertip',
@@ -2795,7 +2795,7 @@ export const accessModules: AccessModule[] = [
             'Answer "No" if the booking process cannot be completed on mobile devices or is so difficult on mobile that customers are effectively excluded',
           ],
           tips: [
-            'Buttons and form fields should be large enough to tap accurately, at least 44 by 44 pixels is a good target',
+            'Buttons and form fields should be large enough to tap accurately - at least 24x24 pixels per WCAG 2.2 AA (44x44px recommended)',
             'Users should be able to zoom in without the layout breaking or content being cut off',
             'Testing with VoiceOver on iPhone or TalkBack on Android will show you how the mobile experience works with screen readers',
             'Using appropriate input types like email, telephone and date triggers the right mobile keyboard, which makes form filling much easier',

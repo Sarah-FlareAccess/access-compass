@@ -71,7 +71,7 @@ export function ReviewSummary({
         </button>
         <div className="review-title">
           <h2>Review Your Responses</h2>
-          <p className="review-module">{moduleName} ({moduleCode})</p>
+          <p className="review-module"><span className="module-code-badge">{moduleCode}</span> {moduleName}</p>
         </div>
       </div>
 
@@ -137,16 +137,18 @@ export function ReviewSummary({
           return (
             <div key={response.questionId} className="response-item">
               <div className="response-question">
-                <h4>{question.text}</h4>
+                <div className="response-question-header">
+                  <h4>{question.text}</h4>
+                  <span className={`answer-badge ${getAnswerColorClass(response)}`}>
+                    {getAnswerLabel(response)}
+                  </span>
+                </div>
                 {question.helpText && (
                   <p className="response-help-text">{question.helpText}</p>
                 )}
               </div>
 
               <div className="response-answer">
-                <span className={`answer-badge ${getAnswerColorClass(response)}`}>
-                  {getAnswerLabel(response)}
-                </span>
 
                 {/* Multi-select values */}
                 {response.multiSelectValues && response.multiSelectValues.length > 0 && (
@@ -263,7 +265,7 @@ export function ReviewSummary({
                   return (
                     <Link
                       to={getResourceLink(response.questionId)}
-                      state={{ from: 'review' }}
+                      state={{ from: 'review', returnTo: `/questions?module=${moduleCode}&view=review` }}
                       className="resource-guide-link"
                     >
                       View guide: {help?.title || 'Resource guide'}

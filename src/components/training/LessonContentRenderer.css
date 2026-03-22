@@ -287,14 +287,14 @@
 
 .download-meta {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .download-action {
   flex-shrink: 0;
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .download-block:hover .download-action {

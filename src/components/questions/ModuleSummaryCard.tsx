@@ -73,7 +73,7 @@ export function ModuleSummaryCard({
           </div>
           <h2 className="summary-title">Module Complete</h2>
           <p className="summary-module-name">
-            {moduleName} ({moduleCode})
+            <span className="module-code-badge">{moduleCode}</span> {moduleName}
           </p>
           <p className="summary-stats-brief">
             {totalQuestionsAnswered} question{totalQuestionsAnswered !== 1 ? 's' : ''} answered

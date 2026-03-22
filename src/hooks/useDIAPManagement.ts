@@ -203,6 +203,37 @@ function getLocalItems(): DIAPItem[] {
     }
   }
 
+  // One-time migration: backfill success indicators for existing items
+  if (!localStorage.getItem('diap_success_indicators_v5')) {
+    let indicatorChanged = false;
+    for (const item of items) {
+      if (item.moduleSource && item.importSource === 'audit') {
+        const moduleCode = extractModuleCode(item.moduleSource);
+        if (moduleCode) {
+          const mod = getModuleById(moduleCode);
+          if (mod) {
+            const questions = getQuestionsForMode(mod, 'deep-dive');
+            const baseQuestionId = item.questionSource?.replace(/-(media|url)-\d+$/, '') || '';
+            const question = questions.find(q => q.id === baseQuestionId || q.id === item.questionSource);
+            if (question) {
+              item.successIndicators = generateSuccessIndicator(question, moduleCode);
+              indicatorChanged = true;
+            }
+          }
+        }
+        // Fallback if no question match but we have a module code
+        if (!item.successIndicators && moduleCode) {
+          item.successIndicators = generateSuccessIndicator({ text: '' }, moduleCode);
+          indicatorChanged = true;
+        }
+      }
+    }
+    localStorage.setItem('diap_success_indicators_v5', 'done');
+    if (indicatorChanged) {
+      localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
+    }
+  }
+
   return items;
 }
 
@@ -1192,6 +1223,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           sourceAnswer: response.answer,
           importSource: 'audit',
           impactStatement,
+          successIndicators: generateSuccessIndicator(question, moduleCodeForObj),
           complianceLevel: question.complianceLevel,
           complianceRef: question.complianceRef,
           createdAt: now,
@@ -1718,6 +1750,261 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
   '6.4': 'Offer sensory access and assistive technology so all attendees can participate',
   '6.5': 'Deliver inclusive, welcoming event operations on the day',
 };
+
+// Question-text-driven success indicators with targets and boundaries
+// Each entry: regex pattern matched against question text → bullet-pointed indicators
+const QUESTION_SUCCESS_INDICATORS: { pattern: RegExp; indicators: string[] }[] = [
+  // Doors, entry, clearance
+  { pattern: /door|entry|entrance|clearance|latch/i, indicators: [
+    '• Aim for all primary entry points to meet accessible door clearance requirements (per AS 1428.1) within 12 months',
+    '• Door hardware and clearance checked quarterly and after any renovation',
+    '• All customer-facing staff can direct visitors to accessible entries',
+  ]},
+  // Parking and drop-off
+  { pattern: /parking|drop.?off|pick.?up/i, indicators: [
+    '• Accessible parking spaces checked weekly for obstructions and kept clear',
+    '• Drop-off zone clear and usable during operating hours',
+    '• Accessible parking signage visible and in good condition, reviewed annually',
+  ]},
+  // Paths, aisles, corridors
+  { pattern: /path|aisle|corridor|circulation|manoeuvr/i, indicators: [
+    '• Aim for primary internal paths to meet 1000mm minimum width (1200mm preferred) within 12 months',
+    '• Floor surfaces assessed for slip hazards quarterly',
+    '• Staff process in place to report and clear path obstructions within 1 hour',
+  ]},
+  // Ramps, steps, levels
+  { pattern: /ramp|step|stair|level|gradient/i, indicators: [
+    '• All primary access ramps to meet AS 1428.1 gradient requirements within 12 months; secondary ramps within 24 months',
+    '• Non-slip strips and handrails inspected quarterly',
+    '• Alternative level access route signed at all stepped entries within 6 months',
+  ]},
+  // Signage and wayfinding
+  { pattern: /sign|wayfind|direct|navigat/i, indicators: [
+    '• Signage audit completed within 3 months; priority signs upgraded to high-contrast (min 70% luminance contrast) within 12 months',
+    '• All new signage meets standard: sans-serif, appropriate height, high contrast',
+    '• Signage reviewed annually and after any layout changes',
+  ]},
+  // Braille and tactile
+  { pattern: /braille|tactile/i, indicators: [
+    '• Tactile/Braille signage installed on priority rooms (toilets, lifts, reception) within 12 months',
+    '• Tactile signage condition checked annually and replaced when damaged',
+  ]},
+  // Lighting
+  { pattern: /light|glare|bright/i, indicators: [
+    '• Lighting assessment completed in all public areas within 3 months',
+    '• Priority glare and dim-area issues resolved within 6 months',
+    '• Lighting reviewed after any fit-out changes and annually',
+  ]},
+  // Noise, sound, acoustics
+  { pattern: /noise|sound|acoustic|loud/i, indicators: [
+    '• Noise levels assessed in main service areas within 3 months; solutions implemented for problem areas within 12 months',
+    '• If hearing loop installed, tested monthly and confirmed operational',
+    '• Quiet hours or quiet zones offered where suitable for the business type',
+  ]},
+  // Sensory, quiet space
+  { pattern: /sensory|quiet|calm/i, indicators: [
+    '• At least 1 quiet/sensory-friendly space identified and available during operating hours within 6 months',
+    '• Sensory guide or map created and published within 6 months, updated annually',
+    '• Staff briefed on sensory-friendly options within 1 month of implementation',
+  ]},
+  // Website, digital, online
+  { pattern: /website|web page|digital|online.*access/i, indicators: [
+    '• Initial accessibility scan completed (e.g. WAVE or axe) and critical issues fixed within 3 months',
+    '• Aim for WCAG 2.1 AA compliance on key pages within 12 months',
+    '• Critical accessibility issues (navigation, forms, checkout) resolved within 30 days of discovery',
+  ]},
+  // Screen reader, assistive tech
+  { pattern: /screen reader|assistive|keyboard/i, indicators: [
+    '• Key user journeys (homepage, booking, contact) keyboard-accessible within 6 months',
+    '• Screen reader testing completed on primary pages within 6 months, then annually',
+    '• Accessibility issues logged and critical items resolved within 30 days',
+  ]},
+  // Contrast, colour
+  { pattern: /contrast|colour|color/i, indicators: [
+    '• All text on key pages meets 4.5:1 contrast ratio within 3 months',
+    '• Colour is not the sole method of conveying information on any page',
+    '• Contrast check included in content publishing process',
+  ]},
+  // Forms, inputs
+  { pattern: /form|input|field|checkout/i, indicators: [
+    '• All customer-facing forms have visible labels and clear error messages within 3 months',
+    '• All forms completable via keyboard only, confirmed by testing within 6 months',
+    '• Form accessibility issues tracked and reduced by 50% within 12 months',
+  ]},
+  // Mobile, responsive
+  { pattern: /mobile|responsive|phone.*app/i, indicators: [
+    '• Website tested on iOS and Android devices; critical mobile issues fixed within 3 months',
+    '• Touch targets meet 24x24px minimum (WCAG 2.2 AA), aim for 44x44px on key interactions',
+    '• Mobile experience checked when making website updates',
+  ]},
+  // Social media, video, captions
+  { pattern: /social media|video|caption|subtitle/i, indicators: [
+    '• All new videos include captions before or within 48 hours of publishing',
+    '• Alt text included on all new social media images from [start date]',
+    '• Top 10 existing videos captioned within 6 months',
+  ]},
+  // Audio, podcast, transcript
+  { pattern: /audio|podcast|transcript/i, indicators: [
+    '• All new audio content has a transcript published within 1 week',
+    '• Top 5 most-accessed existing audio items transcribed within 6 months',
+  ]},
+  // Alt text, images
+  { pattern: /alt text|image desc|photo.*access/i, indicators: [
+    '• All new images include descriptive alt text from [start date]',
+    '• Alt text added to top 20 most-viewed existing pages within 3 months',
+    '• Team provided with alt text guidelines and checklist',
+  ]},
+  // Marketing, representation
+  { pattern: /marketing|representation|inclusive.*image|diverse/i, indicators: [
+    '• Aim for at least 1 in 5 marketing images to feature diverse representation including disability within 12 months',
+    '• Inclusive imagery sourced or commissioned within 6 months',
+    '• Representation reviewed as part of each campaign planning process',
+  ]},
+  // Plain language, Easy Read
+  { pattern: /plain language|easy read|readab|jargon/i, indicators: [
+    '• Top 5 customer-facing documents reviewed and simplified to Year 8 reading level within 6 months',
+    '• At least 1 key document (e.g. welcome guide) available in Easy Read within 12 months',
+    '• Plain language check included in process for new content',
+  ]},
+  // Booking, ticketing
+  { pattern: /book|ticket|reserv/i, indicators: [
+    '• Booking process accessibility tested and critical barriers fixed within 3 months',
+    '• Companion/carer ticketing policy published and all booking staff briefed within 3 months',
+    '• At least 1 alternative booking method available (e.g. phone or email)',
+  ]},
+  // Seating, furniture
+  { pattern: /seat|chair|bench|furniture|table|counter/i, indicators: [
+    '• At least 1 wheelchair-accessible option available at each seating/counter type within 6 months',
+    '• At least 1 lowered counter or service point available within 6 months',
+    '• Furniture arrangement checked monthly to maintain minimum 1000mm clear circulation paths',
+  ]},
+  // Toilets, bathrooms, amenities
+  { pattern: /toilet|bathroom|amenit|washroom|restroom/i, indicators: [
+    '• Accessible toilet included in daily cleaning checklist with access kept clear',
+    '• Emergency cord verified to reach floor level, checked monthly',
+    '• Grab rails, signage, and fittings inspected quarterly',
+  ]},
+  // Changing Places
+  { pattern: /changing places|adult change|hoist/i, indicators: [
+    '• If Changing Places facility exists: registered on National map, checked daily, equipment serviced every 6 months',
+    '• If not available: nearest Changing Places facility identified and information provided to visitors who enquire',
+  ]},
+  // Equipment, resources, assistive
+  { pattern: /equipment|resource|assistive.*device|wheelchair.*loan|mobility.*aid/i, indicators: [
+    '• Available assistive equipment listed on website and at reception within 3 months',
+    '• All equipment checked monthly for condition and functionality',
+    '• Customer-facing staff briefed on equipment availability and use within 3 months',
+  ]},
+  // Menus, printed materials
+  { pattern: /menu|printed|brochure|pamphlet|flyer/i, indicators: [
+    '• Top 3 key printed materials available in large print and/or digital format within 6 months',
+    '• Accessible formats updated within 2 weeks of content changes',
+    '• Customers informed that accessible formats are available',
+  ]},
+  // Staff training, awareness
+  { pattern: /staff.*train|train.*staff|awareness|disability.*confident|customer.*service/i, indicators: [
+    '• All customer-facing staff complete disability awareness training within 3 months of starting',
+    '• Annual refresher training or team discussion completed each year',
+    '• Customer feedback on staff interactions reviewed at least every 6 months',
+  ]},
+  // Auslan, sign language
+  { pattern: /auslan|sign language|deaf|hearing/i, indicators: [
+    '• Process established to arrange Auslan interpreter on request within 48 hours notice',
+    '• National Relay Service (NRS) details available to staff and promoted to customers within 3 months',
+    '• Team learns basic Auslan greetings (hello, thank you, help) within 6 months',
+    '• Hearing loop or captioning available for group presentations where feasible',
+  ]},
+  // Emergency, evacuation, safety
+  { pattern: /emergency|evacuat|safety|fire|alarm/i, indicators: [
+    '• Personal Emergency Evacuation Plans (PEEPs) offered to all visitors who identify a need',
+    '• Evacuation drill includes at least 1 accessibility scenario annually',
+    '• Visual and audible alarms reviewed within 6 months; upgrades planned where gaps are found',
+  ]},
+  // Feedback, reviews, complaints
+  { pattern: /feedback|review|complaint|survey/i, indicators: [
+    '• Feedback available in at least 2 formats (e.g. online, verbal, paper)',
+    '• Accessibility-related feedback reviewed and responded to within 5 business days',
+    '• Feedback trends reviewed every 6 months to identify common issues',
+  ]},
+  // Contact, communication channels
+  { pattern: /contact|phone|email|chat|communication channel/i, indicators: [
+    '• At least 2 accessible contact channels available (e.g. phone and email)',
+    '• Enquiries responded to within 1 business day during business hours',
+    '• Contact options clearly promoted on website and at venue',
+  ]},
+  // Policy, procedure, governance
+  { pattern: /policy|procedure|governance|compliance/i, indicators: [
+    '• Accessibility policy published and communicated to all staff within 6 months',
+    '• Policy reviewed annually and updated within 30 days of relevant regulatory changes',
+    '• Accessibility discussed in team or leadership meetings at least quarterly',
+  ]},
+  // Employment, recruitment, workplace
+  { pattern: /employ|recruit|hiring|workplace|job|position/i, indicators: [
+    '• All job advertisements include accessibility and adjustment statement from [start date]',
+    '• Interview adjustment options offered proactively to all candidates',
+    '• Workplace adjustment requests responded to within 5 business days',
+  ]},
+  // Procurement, suppliers
+  { pattern: /procure|supplier|vendor|contract/i, indicators: [
+    '• Accessibility criteria included in procurement checklist for all new suppliers from [start date]',
+    '• Top 5 existing suppliers reviewed for accessibility within 12 months',
+    '• Supplier accessibility practices discussed at annual review',
+  ]},
+  // Continuous improvement, reporting
+  { pattern: /improve|progress|report|measure|review|audit/i, indicators: [
+    '• Accessibility progress reported to leadership at least every 6 months',
+    '• At least 1 accessibility improvement completed per quarter',
+    '• Annual accessibility summary documented and shared with team',
+  ]},
+  // Programs, activities, experiences
+  { pattern: /program|activit|experience|event|participat/i, indicators: [
+    '• All core programs/activities reviewed for accessibility barriers within 12 months',
+    '• At least 1 adapted option available for each core experience within 12 months',
+    '• Feedback sought from participants with disability at least annually',
+  ]},
+  // Accommodation, rooms
+  { pattern: /accommod|room|hotel|stay|guest/i, indicators: [
+    '• Accessible room features verified before each guest arrival as part of standard check-in process',
+    '• Accessibility information on booking platform reviewed and updated every 6 months',
+    '• Guest accessibility feedback reviewed quarterly and used to guide improvements',
+  ]},
+  // Retail, shopping
+  { pattern: /retail|shop|purchas|browse|product/i, indicators: [
+    '• At least 1 accessible checkout option available within 6 months',
+    '• Product information available in accessible format for key product lines within 12 months',
+    '• Staff briefed to proactively offer assistance; approach reviewed every 6 months',
+  ]},
+  // Maps, directories
+  { pattern: /map|director|layout.*guide/i, indicators: [
+    '• Accessible map or directory available in print and digital format within 6 months',
+    '• Map updated within 2 weeks of any layout change',
+    '• Map includes accessible routes, toilets, lifts, and quiet spaces',
+  ]},
+  // Queue, waiting
+  { pattern: /queue|wait|line|busy/i, indicators: [
+    '• Wait times communicated to customers via signage or staff within 3 months',
+    '• Seating available in main queue areas within 3 months',
+    '• Priority or alternative access available for customers who need it',
+  ]},
+];
+
+function generateSuccessIndicator(question: any, _moduleCode?: string): string {
+  const questionText = question.text?.toLowerCase() || '';
+
+  // Match against question text patterns
+  for (const entry of QUESTION_SUCCESS_INDICATORS) {
+    if (entry.pattern.test(questionText)) {
+      return entry.indicators.join('\n');
+    }
+  }
+
+  // Generic fallback
+  return [
+    '• Change implemented and verified within 6 months',
+    '• Staff briefed on changes within 1 month of implementation',
+    '• Reviewed annually for ongoing effectiveness',
+  ].join('\n');
+}
 
 function generateObjective(question: any, _answer: string, moduleCode?: string): string {
   const code = moduleCode || '';

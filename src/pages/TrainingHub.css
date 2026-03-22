@@ -264,7 +264,7 @@
 .training-search-icon {
   position: absolute;
   left: 14px;
-  color: #9ca3af;
+  color: #6b7280;
   pointer-events: none;
 }
 
@@ -286,7 +286,7 @@
 }
 
 .training-search-input::placeholder {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .training-search-clear {
@@ -295,7 +295,7 @@
   padding: 4px;
   border: none;
   background: none;
-  color: #9ca3af;
+  color: #6b7280;
   cursor: pointer;
   border-radius: 4px;
 }

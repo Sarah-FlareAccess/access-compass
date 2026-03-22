@@ -148,22 +148,46 @@ button:disabled {
 }
 
 /* Shared resource guide link style */
+a.resource-guide-link,
 .resource-guide-link {
-  color: var(--amethyst-diamond);
+  color: var(--amethyst-diamond) !important;
   font-size: 0.85rem;
   font-weight: 500;
-  text-decoration: none;
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
 }
 
+a.resource-guide-link:hover,
 .resource-guide-link:hover {
-  text-decoration: underline;
+  color: #1e40af !important;
 }
 
 .resource-guide-link:focus-visible {
   outline: 2px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* Module code badge - used across question flow, review, summary */
+.module-code-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(73, 14, 103, 0.15);
+  color: var(--amethyst-diamond, #490E67);
+  font-size: 0.75em;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Light-on-dark variant for dark backgrounds */
+.review-module .module-code-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }

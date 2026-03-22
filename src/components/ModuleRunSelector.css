@@ -404,7 +404,7 @@
 
 .compare-arrow {
   font-size: 1.5rem;
-  color: #9ca3af;
+  color: #6b7280;
   padding-bottom: 0.75rem;
 }
 
@@ -744,7 +744,7 @@
 
 .btn-cancel:hover {
   background: #f9fafb;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .btn-danger {

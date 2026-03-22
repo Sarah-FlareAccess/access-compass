@@ -259,8 +259,8 @@ export default function DiscoverySummary() {
                 <span className="context-label">Assessment type:</span>
                 <span className={`context-value ${businessContext.assessmentType}`}>
                   {businessContext.assessmentType === 'event' && '🎪 Standalone Event'}
-                  {businessContext.assessmentType === 'business' && 'Ongoing Business Operations'}
-                  {businessContext.assessmentType === 'both' && '🏢 + 🎪 Both'}
+                  {businessContext.assessmentType === 'business' && '🏢 Ongoing Business Operations'}
+                  {businessContext.assessmentType === 'both' && '🏢 + 🎪 Business Operations & Event'}
                 </span>
               </div>
               <div className="context-item">
@@ -316,8 +316,8 @@ export default function DiscoverySummary() {
                       onChange={() => setBusinessContext(prev => ({ ...prev, assessmentType: 'both' }))}
                     />
                     <div className="assessment-card-content">
-                      <span className="assessment-card-title">🏢 + 🎪 Both</span>
-                      <span className="assessment-card-desc">Assess both your ongoing operations AND a specific event</span>
+                      <span className="assessment-card-title">🏢 + 🎪 Business Operations & Event</span>
+                      <span className="assessment-card-desc">Assess both your ongoing operations AND a specific event. Choose this if your business also hosts or runs events like markets, festivals, conferences, or functions.</span>
                     </div>
                   </label>
                 </div>
@@ -380,13 +380,9 @@ export default function DiscoverySummary() {
               touchpointsByPhase.map(({ phase, selected }) => (
                 <div key={phase.id} className="touchpoint-group">
                   <h3 className="group-label">{phase.label}</h3>
-                  <div className="touchpoint-tags">
-                    {selected.map(tpId => (
-                      <span key={tpId} className="touchpoint-tag">
-                        {getTouchpointLabel(tpId)}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="touchpoint-list">
+                    {selected.map(tpId => getTouchpointLabel(tpId)).join(' · ')}
+                  </p>
                 </div>
               ))
             ) : (
@@ -479,18 +475,17 @@ export default function DiscoverySummary() {
                   {modulesByPhase.map(({ phase, label, modules }) => (
                     <div key={phase} className="module-phase-group">
                       <h3 className="group-label">{label}</h3>
-                      <div className="module-tags">
+                      <div className="summary-module-grid" role="list">
                         {modules.map(module => (
-                          <button
-                            key={module.id}
-                            type="button"
-                            className="module-tag clickable"
+                          <div key={module.id} className="summary-module-row" role="listitem"
                             onClick={() => setModuleDetailId(module.id)}
+                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setModuleDetailId(module.id); } }}
+                            tabIndex={0}
                             aria-label={`View details for ${module.name}`}
                           >
-                            {module.name}
-                            <span className="module-tag-arrow">→</span>
-                          </button>
+                            <span className="summary-module-name">{module.name}</span>
+                            <span className="summary-module-arrow">→</span>
+                          </div>
                         ))}
                       </div>
                     </div>
@@ -503,32 +498,40 @@ export default function DiscoverySummary() {
           ) : (
             <div className="modules-edit">
               <p className="modules-edit-hint">Tap a module to learn more. Use the checkbox to select or deselect.</p>
-              <div className="module-edit-cards">
-                {MODULES.map(module => {
-                  const isSelected = selectedModules.includes(module.id);
+              <div className="modules-edit-by-phase">
+                {(['before-arrival', 'during-visit', 'after-visit', 'policy-operations'] as JourneyPhase[]).map(phase => {
+                  const phaseModules = MODULES.filter(m => m.journeyTheme === phase);
+                  if (phaseModules.length === 0) return null;
                   return (
-                    <div
-                      key={module.id}
-                      className={`module-edit-card ${isSelected ? 'selected' : ''}`}
-                    >
-                      <div className="module-edit-checkbox">
-                        <input
-                          type="checkbox"
-                          checked={isSelected}
-                          onChange={() => toggleModule(module.id)}
-                          aria-label={`Select ${module.name}`}
-                        />
+                    <div key={phase} className="module-edit-phase-group">
+                      <h3 className="group-label">{JOURNEY_PHASE_LABELS[phase]}</h3>
+                      <div className="module-edit-cards">
+                        {phaseModules.map(module => {
+                          const isSelected = selectedModules.includes(module.id);
+                          return (
+                            <label
+                              key={module.id}
+                              className={`module-edit-row ${isSelected ? 'selected' : ''}`}
+                            >
+                              <input
+                                type="checkbox"
+                                checked={isSelected}
+                                onChange={() => toggleModule(module.id)}
+                                aria-label={`Select ${module.name}`}
+                              />
+                              <span className="module-edit-name">{module.name}</span>
+                              <button
+                                type="button"
+                                className="module-edit-info-btn"
+                                onClick={(e) => { e.preventDefault(); setModuleDetailId(module.id); }}
+                                aria-label={`View details for ${module.name}`}
+                              >
+                                <span className="module-edit-arrow">→</span>
+                              </button>
+                            </label>
+                          );
+                        })}
                       </div>
-                      <button
-                        type="button"
-                        className="module-edit-info"
-                        onClick={() => setModuleDetailId(module.id)}
-                        aria-label={`View details for ${module.name}`}
-                      >
-                        <span className="module-edit-name">{module.name}</span>
-                        <span className="module-edit-time">{module.estimatedTime} min</span>
-                        <span className="module-edit-arrow">→</span>
-                      </button>
                     </div>
                   );
                 })}

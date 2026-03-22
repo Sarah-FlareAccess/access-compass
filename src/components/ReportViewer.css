@@ -795,7 +795,8 @@
 
 .resource-link {
   color: var(--amethyst-diamond);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
@@ -804,8 +805,7 @@
 }
 
 .resource-link:hover {
-  color: var(--amethyst-diamond);
-  text-decoration: underline;
+  color: #1e40af;
 }
 
 .resource-link::after {
@@ -1104,7 +1104,7 @@
 }
 
 .priority-summary-sep {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .priority-summary-count {
@@ -1264,7 +1264,8 @@
 .url-analysis-header .url-link {
   font-size: 14px;
   color: var(--amethyst-diamond);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
   word-break: break-all;
   flex: 1;
 }
@@ -1417,12 +1418,13 @@
 .analysis-url {
   font-size: 14px;
   color: var(--amethyst-diamond);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
   word-break: break-all;
 }
 
 .analysis-url:hover {
-  text-decoration: underline;
+  color: #2d1a6b;
 }
 
 .media-analysis-score {
@@ -2048,12 +2050,12 @@
 }
 
 .report-progress-comparison .run-date {
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 0.8rem;
 }
 
 .report-progress-comparison .run-arrow {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .report-progress-comparison .comparison-module-stats {

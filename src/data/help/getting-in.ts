@@ -16,7 +16,7 @@ export const gettingInHelp: HelpContent[] = [
   moduleGroup: 'getting-in',
   diapCategory: 'physical-access',
   title: 'Accessible Parking Spaces',
-  coveredQuestionIds: ['2.1-F-2', '2.1-F-3', '2.1-D-9', '2.1-D-13'],
+  coveredQuestionIds: ['2.1-F-2', '2.1-F-3', '2.1-F-3a', '2.1-D-9', '2.1-D-9a', '2.1-D-9c', '2.1-D-13'],
   summary: 'Accessible parking spaces must be wider than standard spaces, located close to the accessible entrance, properly marked with the International Symbol of Access, and include drop-off zones for passengers who cannot use a parked vehicle.',
   lastUpdated: '2026-02-25',
 
@@ -234,7 +234,7 @@ export const gettingInHelp: HelpContent[] = [
   moduleGroup: 'getting-in',
   diapCategory: 'physical-access',
   title: 'Path from Parking to Entrance',
-  coveredQuestionIds: ['2.1-F-5', '2.1-F-8', '2.1-D-10', '2.1-D-11', '2.1-D-16', '2.1-D-20'],
+  coveredQuestionIds: ['2.1-F-5', '2.1-F-8', '2.1-D-10', '2.1-D-11', '2.1-D-12b', '2.1-D-12c', '2.1-D-16', '2.1-D-20'],
   summary: 'The path connecting parking to the entrance must be smooth, level, wide enough for mobility aids, well-lit, with rest points on longer routes and tactile indicators for people with vision impairment.',
   lastUpdated: '2026-02-25',
 
@@ -453,7 +453,7 @@ export const gettingInHelp: HelpContent[] = [
   moduleGroup: 'getting-in',
   diapCategory: 'information-communication-marketing',
   title: 'External Wayfinding and Signage',
-  coveredQuestionIds: ['2.1-D-15', '2.1-D-17', '2.1-D-18', '2.1-D-19', '2.1-D-22'],
+  coveredQuestionIds: ['2.1-F-6a', '2.1-F-6b', '2.1-D-15', '2.1-D-17', '2.1-D-18', '2.1-D-19', '2.1-D-22'],
   summary: 'Comprehensive external wayfinding from road approach to parking to entrance, including online pre-visit arrival information and ongoing signage maintenance.',
   lastUpdated: '2026-02-25',
 
@@ -657,6 +657,7 @@ export const gettingInHelp: HelpContent[] = [
 {
   questionId: '2.1-F-7',
   questionText: 'Do staff know how to direct customers to accessible parking and entry points?',
+  coveredQuestionIds: ['2.1-D-23', '2.1-D-24'],
   moduleCode: '2.1',
   moduleGroup: 'getting-in',
   diapCategory: 'customer-service',

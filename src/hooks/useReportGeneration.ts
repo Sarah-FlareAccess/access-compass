@@ -3382,7 +3382,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '4.3-D-14': {
-    actions: ['Ensure at least one kiosk is at a height accessible from a wheelchair (screen centre no higher than 1200mm, controls within reach range per AS 1428.1).', 'Provide screen reader compatibility or audio output with a headphone jack for customers with vision loss.', 'Ensure touchscreen targets are large enough (minimum 44x44px equivalent) and high contrast for low vision users (WCAG 2.2 SC 2.5.8).', 'Offer an accessible alternative (staff-assisted service, phone ordering) for customers who cannot use the kiosk.', 'Test kiosks with users who have different disabilities before deployment.'],
+    actions: ['Ensure at least one kiosk is at a height accessible from a wheelchair (screen centre no higher than 1200mm, controls within reach range per AS 1428.1).', 'Provide screen reader compatibility or audio output with a headphone jack for customers with vision loss.', 'Ensure touchscreen targets are large enough (minimum 24x24px per WCAG 2.2 AA SC 2.5.8, 44x44px recommended) and high contrast for low vision users.', 'Offer an accessible alternative (staff-assisted service, phone ordering) for customers who cannot use the kiosk.', 'Test kiosks with users who have different disabilities before deployment.'],
     reasoning: 'Self-service kiosks are increasingly common for check-in, ordering, and payment. If they are inaccessible, customers with disabilities are forced to find a staff member or go without the service.',
     resources: [],
   },

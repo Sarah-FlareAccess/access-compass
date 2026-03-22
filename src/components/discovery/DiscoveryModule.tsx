@@ -504,8 +504,8 @@ export function DiscoveryModule({
                         onChange={() => setAssessmentType('both')}
                       />
                       <div className="radio-card-content">
-                        <span className="radio-card-title">Both</span>
-                        <span className="radio-card-description">Assess both your ongoing business operations and a specific event.</span>
+                        <span className="radio-card-title">🏢 + 🎪 Business Operations & Event</span>
+                        <span className="radio-card-description">Assess both your ongoing operations AND a specific event. Choose this if your business also hosts or runs events like markets, festivals, conferences, or functions.</span>
                       </div>
                     </label>
                   </div>

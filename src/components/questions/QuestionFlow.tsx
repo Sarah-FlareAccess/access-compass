@@ -6,6 +6,7 @@
  */
 
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { QuestionCard } from './QuestionCard';
 import { ModuleSummaryCard } from './ModuleSummaryCard';
 import { ReviewSummary } from './ReviewSummary';
@@ -43,10 +44,20 @@ export function QuestionFlow({
   assignedTo,
   complianceNote,
 }: QuestionFlowProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [responses, setResponses] = useState<QuestionResponse[]>(initialResponses);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
-  const [showReviewSummary, setShowReviewSummary] = useState(false);
+  const [showReviewSummary, setShowReviewSummary] = useState(() => {
+    if (searchParams.get('view') === 'review') {
+      // Clean up the URL param after reading it
+      const newParams = new URLSearchParams(searchParams);
+      newParams.delete('view');
+      setSearchParams(newParams, { replace: true });
+      return true;
+    }
+    return false;
+  });
   const questionContainerRef = useRef<HTMLDivElement>(null);
 
   // Scroll to top and move focus to question when it changes

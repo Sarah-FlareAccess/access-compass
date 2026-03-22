@@ -2415,8 +2415,8 @@ export const beforeArrivalHelp: HelpContent[] = [
   tips: [
     {
       icon: 'Smartphone',
-      text: 'Buttons and links should be at least 44x44 pixels for easy tapping.',
-      detail: 'WCAG 2.1 (criterion 2.5.5) specifies a minimum target size of 44x44 CSS pixels for touch targets. This prevents accidental taps on the wrong element, which is especially important for people with motor impairments, tremors, or limited fine motor control. Common offenders include inline text links in paragraphs (add padding to increase the tap area), close buttons on modals (often only 20x20px), and footer navigation links crammed together. Measure tap targets using DevTools: inspect the element and check its computed padding-inclusive dimensions.',
+      text: 'Buttons and links should be at least 24x24 pixels (WCAG 2.2 AA minimum), with 44x44px recommended for best usability.',
+      detail: 'WCAG 2.2 (criterion 2.5.8) specifies a minimum target size of 24x24 CSS pixels for touch targets at AA level. The earlier WCAG 2.1 criterion 2.5.5 (44x44px) is AAA level. For best usability, aim for 44x44px or larger. This prevents accidental taps on the wrong element, which is especially important for people with motor impairments, tremors, or limited fine motor control. Common offenders include inline text links in paragraphs (add padding to increase the tap area), close buttons on modals (often only 20x20px), and footer navigation links crammed together. Measure tap targets using DevTools: inspect the element and check its computed padding-inclusive dimensions.',
       priority: 1
     },
     {
@@ -2452,10 +2452,10 @@ export const beforeArrivalHelp: HelpContent[] = [
         }
       },
       {
-        text: 'Test tap target sizes on navigation links, buttons, form fields, and any interactive elements. Use Chrome DevTools mobile emulation (F12, then toggle device toolbar) and hover over elements to see their dimensions. Each interactive element should be at least 44x44 pixels including padding.',
+        text: 'Test tap target sizes on navigation links, buttons, form fields, and any interactive elements. Use Chrome DevTools mobile emulation (F12, then toggle device toolbar) and hover over elements to see their dimensions. Each interactive element should be at least 24x24 pixels (WCAG 2.2 AA), with 44x44px recommended for best usability.',
         measurement: {
           target: 'Tap target dimensions',
-          acceptable: '44x44 CSS pixels minimum (48x48 recommended)',
+          acceptable: '24x24 CSS pixels minimum per WCAG 2.2 AA (44x44px recommended)',
           unit: 'pixels'
         }
       },
@@ -2480,9 +2480,9 @@ export const beforeArrivalHelp: HelpContent[] = [
 
   standardsReference: {
     primary: {
-      code: 'WCAG2.1-AA',
-      section: '2.5.5 Target Size, 1.4.10 Reflow',
-      requirement: 'Interactive targets should be at least 44x44 CSS pixels. Content must reflow without loss of information at mobile viewport widths.'
+      code: 'WCAG2.2-AA',
+      section: '2.5.8 Target Size (Minimum), 1.4.10 Reflow',
+      requirement: 'Interactive targets should be at least 24x24 CSS pixels (WCAG 2.2 AA). The earlier 44x44px target (WCAG 2.1 SC 2.5.5) is AAA level. Content must reflow without loss of information at mobile viewport widths.'
     },
     plainEnglish: 'Your website must work well on phones and tablets, with easy-to-tap buttons, readable text, and no need for horizontal scrolling.',
     complianceNote: 'The AHRC formally acknowledges that the DDA applies to online services, mobile apps, AI, and digital products, and has acted on digital accessibility discrimination complaints.'
@@ -2521,7 +2521,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Increase tap target sizes',
-      description: 'Update CSS to make all buttons, links, and form fields at least 44x44 pixels on mobile viewports. This is the single most impactful mobile accessibility quick-win because undersized tap targets cause frustration and errors for all users, and completely block some users with motor impairments. The fix is purely CSS with no JavaScript changes needed.',
+      description: 'Update CSS to make all buttons, links, and form fields meet the WCAG 2.2 AA minimum of 24x24 pixels on mobile viewports (44x44px recommended for best usability). This is the single most impactful mobile accessibility quick-win because undersized tap targets cause frustration and errors for all users, and completely block some users with motor impairments. The fix is purely CSS with no JavaScript changes needed.',
       resourceLevel: 'low',
       costRange: 'Free',
       timeRequired: '1-2 hours',
@@ -2530,16 +2530,16 @@ export const beforeArrivalHelp: HelpContent[] = [
       steps: [
         'Open your website in Chrome DevTools mobile emulation (F12, then toggle device toolbar icon or Ctrl+Shift+M). Select a common phone size like iPhone 12 or Samsung Galaxy S21.',
         'Identify all interactive elements: buttons, links, form inputs, checkboxes, radio buttons, menu items, and icons. Use the element inspector to measure each element\'s clickable area (check computed width and height including padding).',
-        'List all elements smaller than 44x44 pixels. Common offenders include: navigation links, footer links, social media icons, close buttons, pagination numbers, and inline text links.',
-        'For buttons, add sufficient padding to meet the minimum size. Example: .btn { min-height: 44px; min-width: 44px; padding: 12px 24px; }',
+        'List all elements smaller than 24x24 pixels (AA minimum). For best usability, aim for 44x44px. Common offenders include: navigation links, footer links, social media icons, close buttons, pagination numbers, and inline text links.',
+        'For buttons, add sufficient padding to meet the recommended size. Example: .btn { min-height: 44px; min-width: 44px; padding: 12px 24px; }',
         'For inline text links in paragraphs, increase line-height to at least 1.5 and add padding: .content a { padding: 4px 0; display: inline-block; } This increases the vertical tap area without changing the visual layout.',
         'For navigation menu items, ensure each item has at least 44px height with padding: .nav-link { padding: 12px 16px; display: block; }',
         'For small icon buttons (close, expand, share), add padding around the icon: .icon-btn { padding: 10px; min-width: 44px; min-height: 44px; }',
         'Ensure adequate spacing between adjacent tap targets. The gap between two tappable elements should be at least 8px to prevent accidental taps on the wrong element.',
-        'Re-test all modified elements in mobile emulation to confirm they now meet the 44x44px minimum.',
+        'Re-test all modified elements in mobile emulation to confirm they meet the 24x24px AA minimum (ideally 44x44px).',
         'Test on an actual phone to verify the improvements feel natural and the layout is not disrupted by the increased padding.'
       ],
-      notes: 'Apple Human Interface Guidelines recommend 44x44 point tap targets, and Google Material Design recommends 48x48dp. Aiming for 48x48 pixels gives a comfortable buffer above the WCAG minimum.'
+      notes: 'WCAG 2.2 AA requires 24x24px minimum (SC 2.5.8). The older 44x44px target (WCAG 2.1 SC 2.5.5) is AAA level. Apple HIG recommends 44pt, Google Material Design recommends 48dp. Aiming for 44-48px gives excellent usability above the AA minimum.'
     },
     {
       title: 'Mobile-first responsive redesign',

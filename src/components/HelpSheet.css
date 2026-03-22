@@ -196,7 +196,7 @@
 
 .faq-chevron {
   flex-shrink: 0;
-  color: #9ca3af;
+  color: #6b7280;
   transition: transform 0.2s ease;
 }
 
@@ -308,7 +308,7 @@
 
 .help-sheet-close-btn:hover {
   background: #f3f4f6;
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 .help-sheet-close-btn:focus-visible {

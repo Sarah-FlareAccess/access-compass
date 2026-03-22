@@ -52,7 +52,7 @@
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #9ca3af;
+  color: #6b7280;
   cursor: pointer;
   padding: 0.25rem;
   line-height: 1;
@@ -107,7 +107,7 @@
 
 .comparison-arrow {
   font-size: 1.5rem;
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 /* Trend summary */
@@ -331,7 +331,7 @@
 }
 
 .response-change .arrow {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .response-change .response.old {

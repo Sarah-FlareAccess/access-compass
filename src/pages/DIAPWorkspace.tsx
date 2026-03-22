@@ -1535,7 +1535,7 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveA
 
   const priorityColors = {
     high: { bg: '#fef2f2', border: '#dc2626', badgeBorder: '#e88a8a', text: '#b91c1c' },
-    medium: { bg: '#fef6ee', border: '#b45309', badgeBorder: '#d4a06a', text: '#92400e' },
+    medium: { bg: '#fff7ed', border: '#f59e0b', badgeBorder: '#fbbf24', text: '#92400e' },
     low: { bg: '#f0fdf4', border: '#15803d', badgeBorder: '#6bc88e', text: '#166534' },
   };
 
@@ -2134,7 +2134,7 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
       <div className="form-row">
         <label>
           Objective *
-          <span className="field-hint">What do you want to achieve?</span>
+          <span className="field-hint">What do you want to achieve? We recommend editing this to suit your business and objectives.</span>
           <input
             type="text"
             value={formData.objective}
@@ -2147,7 +2147,7 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
       <div className="form-row">
         <label>
           Action *
-          <span className="field-hint">What specific steps will you take?</span>
+          <span className="field-hint">What specific steps will you take? Edit these to match your business context.</span>
           <textarea
             value={formData.action}
             onChange={(e) => setFormData({ ...formData, action: e.target.value })}
@@ -2247,11 +2247,11 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
       <div className="form-row">
         <label>
           Success Indicators
-          <span className="field-hint">How will you measure success?</span>
-          <input
-            type="text"
+          <span className="field-hint">How will you measure success? These are suggested starting points based on Australian accessibility standards and best practice. Please adjust the targets, timeframes, and percentages to suit your business size, resources, and context.</span>
+          <textarea
             value={formData.successIndicators}
             onChange={(e) => setFormData({ ...formData, successIndicators: e.target.value })}
+            rows={4}
           />
         </label>
       </div>

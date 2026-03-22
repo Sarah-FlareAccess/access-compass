@@ -35,8 +35,12 @@
 
 .review-module {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Statistics Cards */
@@ -73,15 +77,15 @@
 }
 
 .stat-card.stat-yes .stat-value {
-  color: #22c55e;
+  color: #15803d;
 }
 
 .stat-card.stat-no .stat-value {
-  color: #ef4444;
+  color: #dc2626;
 }
 
 .stat-card.stat-partial .stat-value {
-  color: #f59e0b;
+  color: #ca8a04;
 }
 
 .stat-card.stat-unable .stat-value {
@@ -126,12 +130,11 @@
 }
 
 .response-item {
-  display: flex;
-  gap: 16px;
-  padding: 20px;
+  display: block;
+  padding: 16px 20px;
   background: #f8f9fa;
   border-radius: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   position: relative;
 }
 
@@ -140,7 +143,7 @@
 }
 
 .response-question {
-  flex: 1;
+  padding-right: 80px;
 }
 
 .response-question h4 {
@@ -151,6 +154,22 @@
   line-height: 1.4;
 }
 
+.response-question-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.response-question-header h4 {
+  flex: 1;
+}
+
+.response-question-header .answer-badge {
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
 .response-help-text {
   font-size: 13px;
   color: var(--text-muted);
@@ -159,7 +178,7 @@
 }
 
 .response-answer {
-  flex: 1;
+  margin-top: 4px;
 }
 
 .answer-badge {
@@ -181,9 +200,19 @@
   color: #dc2626;
 }
 
+.answer-badge.answer-partial {
+  background: rgba(202, 138, 4, 0.12);
+  color: #854d0e;
+}
+
 .answer-badge.answer-not-sure {
-  background: rgba(251, 191, 36, 0.1);
-  color: #d97706;
+  background: rgba(251, 191, 36, 0.15);
+  color: #92400e;
+}
+
+.answer-badge.answer-unable {
+  background: rgba(107, 114, 128, 0.1);
+  color: #4b5563;
 }
 
 .answer-badge.answer-too-hard {
@@ -242,13 +271,14 @@
 
 .response-link {
   color: #7c3aed;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
   word-break: break-all;
   font-size: 13px;
 }
 
 .response-link:hover {
-  text-decoration: underline;
+  color: #5b21b6;
 }
 
 .url-analysis-summary {
@@ -326,11 +356,27 @@
 
 .response-actions {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  bottom: 16px;
+  right: 16px;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.response-actions a,
+.response-actions .resource-guide-link {
+  color: var(--amethyst-diamond, #490E67) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.response-actions a:hover,
+.response-actions .resource-guide-link:hover {
+  color: #1e40af !important;
 }
 
 .btn-edit-response {
