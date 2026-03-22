@@ -450,9 +450,6 @@
 }
 
 .rp-modules-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 16px;
 }
 
@@ -463,12 +460,14 @@
   color: var(--amethyst-diamond, #490E67);
 }
 
-.rp-modules-controls {
+.rp-expand-controls {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: #6b7280;
+  margin-bottom: 12px;
 }
 
 .rp-text-btn {
@@ -662,6 +661,8 @@
   white-space: nowrap;
   padding: 2px 8px;
   border-radius: 10px;
+  font-size: 0.8125rem;
+  font-weight: 700;
 }
 
 .rp-priority-high { color: #b91c1c; background: rgba(211, 47, 47, 0.10); }

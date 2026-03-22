@@ -694,11 +694,6 @@ export default function ReportPage() {
         <div className="rp-modules-section">
           <div className="rp-modules-header">
             <h2>Findings by module</h2>
-            <div className="rp-modules-controls">
-              <button className="rp-text-btn" onClick={expandAll}>Expand all</button>
-              <span aria-hidden="true">|</span>
-              <button className="rp-text-btn" onClick={collapseAll}>Collapse all</button>
-            </div>
           </div>
 
           <dl className="rp-priority-legend" aria-label="Priority level definitions">
@@ -718,6 +713,12 @@ export default function ReportPage() {
             </div>
           </dl>
           <p className="rp-priority-encouragement">{PRIORITY_ENCOURAGEMENT}</p>
+
+          <div className="rp-expand-controls">
+            <button className="rp-text-btn" onClick={expandAll}>Expand all</button>
+            <span aria-hidden="true">|</span>
+            <button className="rp-text-btn" onClick={collapseAll}>Collapse all</button>
+          </div>
 
           {groupedModules.map(group => (
             <div key={group.groupId} className="rp-category-group">
