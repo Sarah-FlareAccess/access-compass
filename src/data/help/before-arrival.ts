@@ -17,6 +17,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Pre-visit Accessibility Information',
   summary: 'Sharing accessibility information before customers visit helps them plan confidently and shows your venue is welcoming to everyone.',
+  coveredQuestionIds: ['1.1-F-2A', '1.1-F-2B', '1.1-F-3A', '1.1-D-1a', '1.1-D-1b', '1.1-D-2a', '1.1-D-2b', '1.1-D-9', '1.1-D-10'],
 
   whyItMatters: {
     text: 'People with disabilities often spend significant time researching venues before visiting. Clear, detailed accessibility information reduces anxiety, prevents wasted trips, and demonstrates your commitment to inclusion.',
@@ -273,6 +274,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Familiarisation Visits',
   summary: 'Familiarisation visits let people explore your venue before their main visit, reducing anxiety and helping them feel comfortable with the environment.',
+  coveredQuestionIds: ['1.1-D-7a', '1.1-D-7b', '1.1-D-13'],
 
   whyItMatters: {
     text: 'For many people (particularly those with autism, anxiety, cognitive disabilities, or sensory sensitivities) visiting a new place can be overwhelming. A familiarisation visit allows them to understand the layout, meet staff, and know what to expect without the pressure of a "real" visit.',
@@ -503,6 +505,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Accessible Transport Information',
   summary: 'Helping customers understand how to get to your venue using accessible transport options removes a major barrier to visiting.',
+  coveredQuestionIds: ['1.1-D-8a', '1.1-D-8b'],
 
   whyItMatters: {
     text: 'Getting to a venue is often the hardest part of a visit for people with disabilities. Many cannot drive, rely on accessible public transport, or need to book accessible taxis in advance. Providing clear transport information shows you\'ve thought about the whole journey.',
@@ -745,6 +748,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Multiple Contact Channels for Accessibility Questions',
   summary: 'Offering phone, email, live chat, and social media contact options ensures customers with different communication needs can reach you before visiting.',
+  coveredQuestionIds: ['1.1-D-5a', '1.1-D-5b', '1.1-D-5c', '1.1-D-5d', '1.1-D-5e', '1.1-D-5f'],
 
   whyItMatters: {
     text: 'People communicate differently depending on their disability, preferences, and situation. A deaf person may need email or live chat. Someone with anxiety may prefer texting over calling. A person with low vision may find phone easiest. Providing multiple contact options removes communication barriers and shows you are genuinely prepared to help.',
@@ -970,6 +974,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Staff Confidence in Accessibility Enquiries',
   summary: 'When staff can answer accessibility questions with knowledge and confidence, customers feel welcomed and can plan their visit with certainty.',
+  coveredQuestionIds: ['1.1-D-6a', '1.1-D-6b'],
 
   whyItMatters: {
     text: 'A customer calling to ask about wheelchair access or hearing loops needs a clear, accurate answer. If staff hesitate, give vague responses, or need to "check and call back" for basic questions, it signals that accessibility is not a priority. Confident responses build trust and directly influence whether someone chooses to visit.',
@@ -1212,6 +1217,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Reviewing and Improving Your Accessibility Page',
   summary: 'A well-structured accessibility page helps customers plan their visit. Regular review ensures the information stays accurate, comprehensive, and genuinely useful.',
+  coveredQuestionIds: ['1.1-F-3B', '1.1-F-4-link', '1.1-D-3a', '1.1-D-3b', '1.1-D-11', '1.1-D-12'],
 
   whyItMatters: {
     text: 'Your accessibility page is often the first thing a potential customer with disability checks. If it is incomplete, outdated, or hard to find, they may choose a competitor instead. Regular review ensures you are communicating your genuine accessibility features clearly and catching any changes that need updating.',
@@ -1438,6 +1444,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Keyboard Navigation for Your Website',
   summary: 'Keyboard navigation ensures people who cannot use a mouse (screen reader users, people with motor impairments, power users) can access all content and complete tasks on your website.',
+  coveredQuestionIds: ['1.2-F-10', '1.2-D-10'],
 
   whyItMatters: {
     text: 'Keyboard access is the foundation of web accessibility. Screen readers, switch devices, voice control, and many other assistive technologies all rely on keyboard navigation working properly. If your website fails keyboard testing, it likely fails for a wide range of users with disabilities.',
@@ -2639,7 +2646,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Screen Reader Testing',
   summary: 'Screen readers convert website content to speech or Braille so people who are blind or have low vision can navigate and interact with your site. Testing with one reveals barriers that visual checks and automated tools miss.',
-  coveredQuestionIds: ['1.2-1-8b'],
+  coveredQuestionIds: ['1.2-1-8b', '1.2-MA-1'],
 
   whyItMatters: {
     text: 'Automated accessibility checkers can only detect about 30-40% of accessibility issues. A screen reader test exposes real-world problems: images with no descriptions, form fields without labels, headings that jump from level 1 to level 4, and interactive elements that are invisible to keyboard users. These are the issues that actually prevent someone from using your website. Until you hear your site spoken aloud, you do not know what the experience is really like.',
@@ -2903,6 +2910,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Capturing Accessibility Requirements During Booking',
   summary: 'Proactively asking customers about accessibility needs during booking shows you are prepared to welcome them and allows your team to prepare in advance.',
+  coveredQuestionIds: ['1.3-D-9', '1.3-DD-2a', '1.3-DD-2b', '1.3-DD-2c'],
 
   whyItMatters: {
     text: 'Many customers with disabilities do not mention their needs unless asked, often from past experience of being treated as difficult. A visible, optional accessibility field in your booking process signals that you welcome them and want to help. It also gives your team time to prepare, reducing stress for everyone on the day.',
@@ -3138,6 +3146,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Booking Form Keyboard Accessibility',
   summary: 'If your booking process cannot be completed with a keyboard alone, people who use screen readers, switch devices, or voice control are locked out of booking independently.',
+  coveredQuestionIds: ['1.3-DD-1a', '1.3-DD-1b', '1.3-DD-1c', '1.3-DD-1d', '1.3-DD-1f', '1.3-DD-1g', '1.3-PC-5', '1.3-DD-5b', '1.3-DD-5c', '1.3-PC-7', '1.3-DD-7b', '1.3-DD-7d'],
 
   whyItMatters: {
     text: 'Booking is the moment a potential customer becomes an actual customer. If this step is inaccessible, all the other work you do on accessibility is undermined. Date pickers, payment forms, CAPTCHAs, and multi-step wizards are the most common points where keyboard access fails in booking systems.',
@@ -3352,6 +3361,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Alternative Booking Methods',
   summary: 'Phone, email, and in-person booking options ensure that customers who cannot use online systems are not excluded. These alternatives should offer the same service quality.',
+  coveredQuestionIds: ['1.3-DD-6c', '1.3-PC-8', '1.3-DD-8b', '1.3-DD-8c', '1.3-DD-8d', '1.3-DD-8e', '1.3-DD-8f', '1.3-DD-8g'],
 
   whyItMatters: {
     text: 'No matter how accessible your online booking is, some people will always need alternatives. A person with a complex cognitive disability may need a support worker to book by phone. Someone with severe low vision may find phone easier. Deaf customers may prefer email. Alternative methods should be genuinely equivalent, not a reduced experience.',
@@ -3570,6 +3580,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Following Up on Accessibility Requests',
   summary: 'When a customer shares their accessibility needs during booking, following up before their visit builds confidence and ensures your team is prepared.',
+  coveredQuestionIds: ['1.3-PC-4', '1.3-DD-3b', '1.3-DD-3d', '1.3-DD-3e', '1.3-DD-4b', '1.3-DD-4c'],
 
   whyItMatters: {
     text: 'Collecting accessibility information without acting on it is worse than not collecting it at all. It creates an expectation that the customer\'s needs will be met, and when they arrive unprepared, trust is broken. A simple follow-up call or email confirming arrangements makes customers feel valued and gives your team time to prepare.',
@@ -3786,6 +3797,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Video Captions and Subtitles',
   summary: 'Captions display spoken content as on-screen text, making videos accessible to deaf and hard of hearing viewers, people in noisy or quiet environments, and non-native English speakers.',
+  coveredQuestionIds: ['1.4-PC-2', '1.4-PC-7', '1.4-D-9', '1.4-DD-1a', '1.4-DD-1b', '1.4-DD-1c', '1.4-DD-1d'],
 
   whyItMatters: {
     text: 'Captions are the single most important accessibility feature for video content. Without them, 3.6 million Australians with hearing loss cannot access your message. Captions also benefit the 85% of social media users who watch videos with sound off, people in noisy environments, and anyone whose first language is not English.',
@@ -4039,6 +4051,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Social Media Image Accessibility',
   summary: 'Adding alt text or image descriptions to social media posts ensures blind and low-vision users can understand your visual content. You can use either method, and each platform has built-in tools to help.',
+  coveredQuestionIds: ['1.4-DD-3d', '1.4-DD-3e', '1.4-DD-3f', '1.4-DD-8b', '1.4-DD-8c'],
 
   whyItMatters: {
     text: 'Social media is increasingly visual, with platforms prioritising images, videos, and graphics. Without text descriptions, blind and low-vision users miss out entirely. Adding alt text takes seconds per post and dramatically improves the experience for screen reader users. It also helps when images fail to load on slow connections.',
@@ -4267,6 +4280,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Accessible Video Player Controls',
   summary: 'Video players must be controllable without a mouse. Users need to play, pause, adjust volume, enable captions, and seek through content using keyboard and assistive technology.',
+  coveredQuestionIds: ['1.4-DD-4b', '1.4-PC-5', '1.4-DD-5c'],
 
   whyItMatters: {
     text: 'A captioned video is still inaccessible if a user cannot reach the play button with their keyboard, or cannot find and enable the caption control. Video player accessibility means all controls (play, pause, volume, captions, fullscreen) work with Tab, Enter, and arrow keys, and are labelled for screen readers.',
@@ -4518,6 +4532,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Diverse Representation in Video and Social Content',
   summary: 'When people with disability see themselves in your video and social media content, they know they are welcome as customers, not an afterthought.',
+  coveredQuestionIds: ['1.4-DD-6b'],
 
   whyItMatters: {
     text: 'Representation sends a powerful signal. If your promotional videos and social media only show non-disabled people, customers with disabilities receive an unspoken message that your venue is not for them. Authentic, natural inclusion of people with visible and non-visible disabilities across your content normalises disability and actively welcomes a market of 4.4 million Australians.',
@@ -4743,6 +4758,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Plain Language in Communications',
   summary: 'Plain language helps everyone understand your content, including people with cognitive disabilities, learning differences, non-native English speakers, and people who are stressed or distracted.',
+  coveredQuestionIds: ['1.5-DD-1a', '1.5-DD-1b', '1.5-DD-1c'],
 
   whyItMatters: {
     text: 'Complex language excludes people. About 44% of Australian adults have literacy levels below what is needed to cope with everyday life demands. People with cognitive disabilities, intellectual disabilities, acquired brain injuries, and learning differences such as dyslexia all benefit from plain language. So does everyone else when they are tired, distracted, or in a hurry.',
@@ -4984,6 +5000,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Respectful Disability Language',
   summary: 'The words you use shape how customers feel. Respectful, person-centred language avoids outdated terms and treats people with disability as individuals, not defined by their condition.',
+  coveredQuestionIds: ['1.5-DD-2a', '1.5-DD-2b'],
 
   whyItMatters: {
     text: 'Language that was once common (like "handicapped", "wheelchair-bound", or "suffers from") is now understood to be disrespectful. These terms frame disability as a personal tragedy rather than a characteristic. Using current, respectful language shows customers that your organisation understands disability and values them as people first.',
@@ -5194,6 +5211,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Positive Framing of Accessibility Information',
   summary: 'Describing what you offer (rather than what you lack) creates a welcoming tone. "Step-free access via side entrance" is more helpful and inviting than "Wheelchair users cannot use the main entrance."',
+  coveredQuestionIds: ['1.5-PC-5', '1.5-DD-5a', '1.5-DD-6a'],
 
   whyItMatters: {
     text: 'The way you describe accessibility shapes how customers feel before they arrive. Negative framing ("unfortunately we cannot...", "limited access", "no disabled parking") creates a sense of unwelcome. Positive framing ("accessible parking on Level 1", "step-free route via garden path", "assistance available on request") presents the same information in a way that empowers customers to plan their visit confidently.',
@@ -5397,6 +5415,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Alternative Information Formats',
   summary: 'Offering information in large print, Easy Read, audio, or digital formats ensures customers with different needs can access your content. Even if you cannot produce these in advance, being willing to provide them on request matters.',
+  coveredQuestionIds: ['1.5-DD-7a', '1.5-DD-7b', '1.5-PC-8', '1.5-DD-8a', '1.5-DD-8b'],
 
   whyItMatters: {
     text: 'Not everyone reads standard print. People with low vision may need large print. People with intellectual disabilities may need Easy Read (simple words with pictures). Blind people may need audio or digital formats compatible with screen readers. If customers do not know these options exist, they cannot ask for them.',
@@ -5638,6 +5657,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Disability Representation in Marketing Imagery',
   summary: 'When people with disability see themselves in your marketing, they know they are welcome. Inclusive imagery should appear naturally across all your content, not just on accessibility-specific pages.',
+  coveredQuestionIds: ['1.6-DD-1a', '1.6-PC-5'],
 
   whyItMatters: {
     text: 'Marketing imagery sends a powerful message about who is welcome. If your brochures, website, and advertisements only show non-disabled people, customers with disabilities may assume your venue is not for them. The disability market in Australia represents 4.4 million people, plus their families and carers. Inclusive marketing is both the right thing to do and a sound business decision.',
@@ -5871,6 +5891,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Avoiding Disability Stereotypes in Marketing',
   summary: 'Authentic representation shows people with disability as ordinary customers and community members, not as objects of pity or inspiration for simply living their lives.',
+  coveredQuestionIds: ['1.6-DD-2a'],
 
   whyItMatters: {
     text: '"Inspiration porn" is content that frames people with disability as inspirational simply for existing or doing everyday things. It might seem positive, but it objectifies disabled people for the benefit of non-disabled audiences. Authentic marketing shows people with disability shopping, dining, travelling, and working, not "overcoming" their disability or being "brave" for leaving the house.',
@@ -6079,6 +6100,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Accessible Marketing Materials',
   summary: 'Marketing materials should be designed so everyone can read them: good contrast, readable fonts, tagged PDFs, and alternative formats available on request.',
+  coveredQuestionIds: ['1.6-DD-3a'],
 
   whyItMatters: {
     text: 'Your marketing materials are often the first touchpoint a potential customer has with your business. If a brochure has tiny text, low contrast, or is only available as an image-based PDF that screen readers cannot read, you are excluding the very customers you want to welcome. Accessible design is good design: it benefits all readers.',
@@ -6332,6 +6354,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Marketing Accessibility as a Positive Attribute',
   summary: 'Proactively marketing your accessibility attracts customers, differentiates your business, and shows that inclusion is part of your values, not just a legal obligation.',
+  coveredQuestionIds: ['1.6-DD-5a', '1.6-DD-5b'],
 
   whyItMatters: {
     text: 'Many businesses treat accessibility as a compliance checkbox hidden away on their website. Businesses that actively promote their accessible features attract a loyal customer base. When people with disability find a venue that genuinely welcomes them, they tell their friends, families, and disability networks. This word-of-mouth is powerful and underestimated.',

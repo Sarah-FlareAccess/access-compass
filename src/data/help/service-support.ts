@@ -214,7 +214,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.1-PC-4', '4.1-PC-9', '4.1-PC-10', '4.1-DD-1a', '4.1-DD-1b', '4.1-DD-9a', '4.1-DD-10a'],
+    coveredQuestionIds: ['4.1-PC-4', '4.1-PC-9', '4.1-PC-10', '4.1-DD-1a', '4.1-DD-1b', '4.1-DD-9a', '4.1-DD-10a', '4.1-DD-11a', '4.1-DD-12a'],
     keywords: ['contact', 'phone alternatives', 'email', 'chat', 'SMS', 'multi-channel', 'communication'],
     lastUpdated: '2026-02-26'
   },
@@ -1309,7 +1309,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.2-F-6', '4.2-D-17', '4.2-D-18', '4.2-D-20', '4.2-D-23', '4.2-D-24', '4.2-D-25'],
+    coveredQuestionIds: ['4.2-F-6', '4.2-D-17', '4.2-D-18', '4.2-D-20', '4.2-D-23', '4.2-D-24', '4.2-D-25', '4.2-D-33'],
     keywords: ['assistance', 'equipment', 'queue', 'wait times', 'alternative service', 'facilities', 'pre-arrival'],
     lastUpdated: '2026-02-26'
   },
@@ -1452,7 +1452,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.2-D-19', '4.2-D-28', '4.2-D-29', '4.2-D-30'],
+    coveredQuestionIds: ['4.2-D-19', '4.2-D-28', '4.2-D-29', '4.2-D-30', '4.2-D-32'],
     keywords: ['quiet space', 'sensory', 'carers', 'intersectionality', 'culture', 'trauma', 'autism'],
     lastUpdated: '2026-02-26'
   },
@@ -2352,7 +2352,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.4-D-1', '4.4-D-8'],
+    coveredQuestionIds: ['4.4-D-1', '4.4-D-8', '4.4-D-9'],
     keywords: ['emergency', 'evacuation', 'PEEP', 'fire safety', 'drill', 'warden'],
     lastUpdated: '2026-02-26'
   },
@@ -2640,7 +2640,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.4-1-4', '4.4-D-4', '4.4-D-5', '4.4-D-6'],
+    coveredQuestionIds: ['4.4-1-4', '4.4-D-4', '4.4-D-5', '4.4-D-6', '4.4-D-10'],
     keywords: ['alarm', 'visual alert', 'Deaf', 'emergency communication', 'anxiety', 'cognitive', 'warden'],
     lastUpdated: '2026-02-26'
   },
@@ -3066,7 +3066,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.5-D-3', '4.5-D-4', '4.5-D-6'],
+    coveredQuestionIds: ['4.5-D-3', '4.5-D-4', '4.5-D-6', '4.5-D-8', '4.5-D-9', '4.5-D-10'],
     keywords: ['tracking', 'patterns', 'escalation', 'response time', 'improvement', 'register'],
     lastUpdated: '2026-02-26'
   },
@@ -3219,7 +3219,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.6-F-3', '4.6-D-1', '4.6-D-3', '4.6-D-4', '4.6-D-9'],
+    coveredQuestionIds: ['4.6-F-3', '4.6-D-1', '4.6-D-3', '4.6-D-4', '4.6-D-9', '4.6-D-10', '4.6-D-11'],
     keywords: ['email', 'newsletter', 'social media', 'marketing', 'alt text', 'captions', 'Auslan', 'SMS'],
     lastUpdated: '2026-02-26'
   },
@@ -3501,7 +3501,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.6-D-6', '4.6-D-7', '4.6-D-8'],
+    coveredQuestionIds: ['4.6-D-6', '4.6-D-7', '4.6-D-8', '4.6-D-12'],
     keywords: ['preferences', 'notifications', 'push', 'CRM', 'remember', 'communication method'],
     lastUpdated: '2026-02-26'
   },
@@ -3663,7 +3663,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.7-PC-4', '4.7-PC-5', '4.7-DD-1a', '4.7-DD-4a'],
+    coveredQuestionIds: ['4.7-PC-4', '4.7-PC-5', '4.7-DD-1a', '4.7-DD-4a', '4.7-DD-5a'],
     keywords: ['templates', 'letters', 'invoices', 'plain language', 'headings', 'font', 'accessible documents'],
     lastUpdated: '2026-02-26'
   },
@@ -3971,7 +3971,7 @@ export const serviceSupportHelp: HelpContent[] = [
       }
     ],
 
-    coveredQuestionIds: ['4.7-PC-7', '4.7-PC-8', '4.7-DD-6a', '4.7-DD-7a', '4.7-DD-7b'],
+    coveredQuestionIds: ['4.7-PC-7', '4.7-PC-8', '4.7-DD-6a', '4.7-DD-7a', '4.7-DD-7b', '4.7-DD-8a'],
     keywords: ['large print', 'audio', 'Easy Read', 'Braille', 'alternative formats', 'preferences', 'mailing list'],
     lastUpdated: '2026-02-26'
   }

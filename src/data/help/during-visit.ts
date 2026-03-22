@@ -2397,7 +2397,7 @@ export const duringVisitHelp: HelpContent[] = [
   moduleGroup: 'during-visit',
   diapCategory: 'customer-service',
   title: 'Customer equipment and resources',
-  coveredQuestionIds: ['3.4-F-2', '3.4-F-3', '3.4-F-4', '3.4-D-1', '3.4-D-6', '3.4-D-7', '3.4-D-8', '3.4-D-9'],
+  coveredQuestionIds: ['3.4-F-2', '3.4-F-3', '3.4-F-4', '3.4-D-1', '3.4-D-3', '3.4-D-6', '3.4-D-7', '3.4-D-8', '3.4-D-9'],
   summary: 'Providing accessibility equipment for customer use (wheelchairs, scooters, hearing loops, magnifiers) removes barriers and enables participation. Equipment should be well-maintained, stored accessibly, available in a range of sizes, and provided equitably without surcharges.',
   lastUpdated: '2026-02-26',
 

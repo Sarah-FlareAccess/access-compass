@@ -838,6 +838,7 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Accessible Entrance',
   summary: 'An accessible entrance allows everyone to enter independently, including wheelchair users, people with prams, and those with mobility difficulties. It is the single most important physical access feature of any venue.',
+  coveredQuestionIds: ['2.2-D-15a', '2.2-D-15b'],
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
@@ -1067,7 +1068,7 @@ export const gettingInHelp: HelpContent[] = [
   moduleGroup: 'getting-in',
   diapCategory: 'physical-access',
   title: 'Entrance Doors and Thresholds',
-  coveredQuestionIds: ['2.2-F-3', '2.2-F-6', '2.2-F-7', '2.2-D-11', '2.2-D-12', '2.2-D-13', '2.2-D-14', '2.2-D-16', '2.2-D-17', '2.2-D-18'],
+  coveredQuestionIds: ['2.2-F-3', '2.2-F-6', '2.2-F-7', '2.2-D-11', '2.2-D-12', '2.2-D-13', '2.2-D-14', '2.2-D-16', '2.2-D-17', '2.2-D-18', '2.2-D-18c', '2.2-D-18d'],
   summary: 'Covers everything about the physical entrance door: width, handles, thresholds, lighting, landing space, glass markings, intercom height, automatic door timing, and mat safety.',
   lastUpdated: '2026-02-25',
 
@@ -3597,7 +3598,7 @@ export const gettingInHelp: HelpContent[] = [
   moduleGroup: 'getting-in',
   diapCategory: 'information-communication-marketing',
   title: 'Queue Communication and Signage',
-  coveredQuestionIds: ['2.4-D-7', '2.4-D-9', '2.4-D-13'],
+  coveredQuestionIds: ['2.4-D-7', '2.4-D-9', '2.4-D-13', '2.4-D-16'],
   summary: 'Covers the communication side of queuing: signage offering assistance, communicating wait times visually and audibly, providing pre-visit queue information, and ensuring announcements reach people who are Deaf or hard of hearing.',
   lastUpdated: '2026-02-25',
 
