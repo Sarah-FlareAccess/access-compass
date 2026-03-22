@@ -1380,7 +1380,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
   '1.5-DD-2a': {
     actions: ['Provide disability language training based on the People with Disability Australia (PWDA) language guide.', 'Cover: person-first vs identity-first language, outdated terms to avoid, respectful ways to discuss disability, and the social model of disability.', 'Include people with disability as trainers or co-facilitators to provide authentic perspective.', 'Make training mandatory for all customer-facing and content-creating staff.'],
-    reasoning: 'Language training prevents well-meaning staff from using harmful terms that alienate customers with disability. Terms like "wheelchair-bound", "mentally retarded", or "afflicted by" cause real harm. Trained staff write better content and communicate more respectfully, which directly affects whether people with disability feel welcome and respected.',
+    reasoning: 'Language training prevents well-meaning staff from using outdated terms that alienate customers with disability. Terms like "wheelchair-bound", "suffers from", or "afflicted by" cause real harm. Trained staff write better content and communicate more respectfully, which directly affects whether people with disability feel welcome and respected.',
     resources: [],
   },
   '1.5-DD-2b': {
