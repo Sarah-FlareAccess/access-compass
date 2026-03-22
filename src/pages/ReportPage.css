@@ -1097,11 +1097,12 @@
   margin-top: 10px;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--amethyst-diamond, #6F5FA8);
-  text-decoration: none;
+  color: var(--amethyst-diamond, #490E67) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
 }
 
-.rp-resource-link:hover { text-decoration: underline; }
+.rp-resource-link:hover { color: #1e40af !important; }
 
 .rp-resource-link:focus-visible {
   outline: 2px solid var(--aussie-sunrise, #FF9015);
