@@ -520,8 +520,8 @@ function ExampleCard({ example }: { example: HelpExample }) {
         </div>
         {example.outcome && (
           <div className="example-section example-outcome">
-            <strong>Potential benefit:</strong>
-            <p>{example.outcome}</p>
+            <strong>Potential benefits may include:</strong>
+            <p>{example.outcome.replace(/\b\d+%\b/g, '').replace(/\s{2,}/g, ' ').replace(/by\s+\./g, '.').replace(/dropped\s+\./g, 'reduced.').replace(/rose\s+\./g, 'improved.').trim()}</p>
           </div>
         )}
       </div>

@@ -33,7 +33,7 @@
   padding: 60px 56px 64px;
   position: relative;
   overflow: hidden;
-  margin: 0 -24px;
+  margin: 0 -24px 24px;
   animation: fadeUp 0.5s ease both;
 }
 
