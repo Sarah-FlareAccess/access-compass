@@ -131,10 +131,10 @@
 
 .response-item {
   display: block;
-  padding: 16px 20px;
+  padding: 20px 24px 24px;
   background: #f8f9fa;
   border-radius: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   position: relative;
 }
 
@@ -173,8 +173,9 @@
 .response-help-text {
   font-size: 13px;
   color: var(--text-muted);
-  margin: 0 0 12px 0;
+  margin: 4px 0 0 0;
   line-height: 1.5;
+  padding-bottom: 8px;
 }
 
 .response-answer {
@@ -354,32 +355,10 @@
   line-height: 1.5;
 }
 
-.response-actions {
-  position: absolute;
-  top: 16px;
-  bottom: 16px;
-  right: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.response-actions a,
-.response-actions .resource-guide-link {
-  color: var(--amethyst-diamond, #490E67) !important;
-  text-decoration: underline !important;
-  text-underline-offset: 2px;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.response-actions a:hover,
-.response-actions .resource-guide-link:hover {
-  color: #1e40af !important;
-}
-
 .btn-edit-response {
+  position: absolute;
+  top: 20px;
+  right: 24px;
   padding: 6px 14px;
   background: white;
   border: 1px solid #ddd;
@@ -395,6 +374,27 @@
   background: #7c3aed;
   color: white;
   border-color: #7c3aed;
+}
+
+.response-guide-link {
+  text-align: right;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.response-guide-link a,
+.response-guide-link .resource-guide-link {
+  color: var(--amethyst-diamond, #490E67) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.response-guide-link a:hover,
+.response-guide-link .resource-guide-link:hover {
+  color: #1e40af !important;
 }
 
 /* Media Analysis Summary */
@@ -453,13 +453,13 @@
     padding: 16px;
   }
 
-  .response-actions {
+  .btn-edit-response {
     position: static;
-    flex-direction: column;
-    margin-top: 12px;
+    width: 100%;
+    margin-bottom: 8px;
   }
 
-  .btn-edit-response {
-    width: 100%;
+  .response-question {
+    padding-right: 0;
   }
 }

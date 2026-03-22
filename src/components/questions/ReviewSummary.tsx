@@ -252,17 +252,18 @@ export function ReviewSummary({
                 )}
               </div>
 
-              <div className="response-actions">
-                <button
-                  className="btn-edit-response"
-                  onClick={() => onEditAnswer(response.questionId)}
-                  title="Edit this answer"
-                >
-                  Edit
-                </button>
-                {hasHelpContent(response.questionId) && (() => {
-                  const help = getHelpByQuestionId(response.questionId);
-                  return (
+              <button
+                className="btn-edit-response"
+                onClick={() => onEditAnswer(response.questionId)}
+                title="Edit this answer"
+              >
+                Edit
+              </button>
+
+              {hasHelpContent(response.questionId) && (() => {
+                const help = getHelpByQuestionId(response.questionId);
+                return (
+                  <div className="response-guide-link">
                     <Link
                       to={getResourceLink(response.questionId)}
                       state={{ from: 'review', returnTo: `/questions?module=${moduleCode}&view=review` }}
@@ -270,9 +271,9 @@ export function ReviewSummary({
                     >
                       View guide: {help?.title || 'Resource guide'}
                     </Link>
-                  );
-                })()}
-              </div>
+                  </div>
+                );
+              })()}
             </div>
           );
         })}
