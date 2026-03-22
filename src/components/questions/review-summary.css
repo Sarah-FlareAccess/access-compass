@@ -221,6 +221,17 @@
   color: #6b7280;
 }
 
+.answer-badge.answer-note {
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+}
+
+.answer-badge.answer-skipped {
+  background: rgba(107, 114, 128, 0.08);
+  color: #6b7280;
+  font-style: italic;
+}
+
 .answer-badge.answer-other {
   background: rgba(124, 58, 237, 0.1);
   color: #7c3aed;

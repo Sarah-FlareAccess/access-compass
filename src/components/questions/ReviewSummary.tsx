@@ -52,12 +52,17 @@ export function ReviewSummary({
     if (response.measurement) return 'Measurement recorded';
     if (response.linkValue) return 'Link provided';
     if (response.urlAnalysis) return 'URL analyzed';
-    return 'Response recorded';
+    if (response.notes && response.notes.trim()) return 'Note added';
+    return 'Skipped';
   };
 
   const getAnswerColorClass = (response: QuestionResponse): string => {
     if (response.answer && response.answer in RESPONSE_CSS_CLASSES) {
       return RESPONSE_CSS_CLASSES[response.answer as keyof typeof RESPONSE_CSS_CLASSES];
+    }
+    if (response.notes && response.notes.trim()) return 'answer-note';
+    if (!response.answer && !response.multiSelectValues?.length && !response.measurement && !response.linkValue && !response.urlAnalysis && !response.notes?.trim()) {
+      return 'answer-skipped';
     }
     return 'answer-other';
   };
