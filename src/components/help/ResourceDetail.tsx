@@ -321,7 +321,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
           >
             <div className="section-header">
               <Building2 size={22} className="section-icon" />
-              <h2>Real-World Examples</h2>
+              <h2>Common Scenarios</h2>
             </div>
             {expandedSections.examples ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </button>
@@ -511,16 +511,16 @@ function ExampleCard({ example }: { example: HelpExample }) {
       </div>
       <div className="example-body">
         <div className="example-section">
-          <strong>Challenge:</strong>
+          <strong>Scenario:</strong>
           <p>{example.scenario}</p>
         </div>
         <div className="example-section">
-          <strong>Solution:</strong>
+          <strong>Possible approach:</strong>
           <p>{example.solution}</p>
         </div>
         {example.outcome && (
           <div className="example-section example-outcome">
-            <strong>Outcome:</strong>
+            <strong>Potential benefit:</strong>
             <p>{example.outcome}</p>
           </div>
         )}
