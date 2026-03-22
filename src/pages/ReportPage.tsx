@@ -282,6 +282,7 @@ function ModuleTile({
           {finding.explores.length > 0 && (
             <details className="rp-module-section rp-collapsible-section" open>
               <summary className="rp-module-section-title rp-section-explore">Areas to explore — from "Unable to check" responses ({finding.explores.length})</summary>
+              <p className="rp-section-explainer">These items were marked as "Unable to check" during your assessment. We recommend investigating these areas to confirm your current accessibility status.</p>
               <ul className="rp-item-list rp-list-explore">
                 {finding.explores.map((item, i) => {
                   const help = item.questionId ? getRelevantHelp(item.questionId) : undefined;

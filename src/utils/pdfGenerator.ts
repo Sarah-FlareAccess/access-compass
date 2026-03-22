@@ -545,7 +545,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     yPosition,
     boxWidth,
     String(report.executiveSummary.areasToExploreCount),
-    'Areas to Explore',
+    'To Investigate',
     COLORS.amber,
     '#92400e'
   );
@@ -1029,7 +1029,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Areas to explore (purple/violet cards - distinct from amber medium)
     renderCardSection(
       mod.explores,
-      'Areas to explore',
+      'Areas to explore — from "Unable to check" responses',
       '#5b1897',
       [245, 240, 255],     // light violet bg
       '#8b5cf6',           // violet accent
