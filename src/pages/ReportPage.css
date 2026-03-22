@@ -645,7 +645,7 @@
 .rp-module-tile-meta {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
   flex-shrink: 0;
   color: #6b7280;
 }
@@ -1353,14 +1353,15 @@
 }
 
 .rp-prof-cta-links a {
-  color: #FF9015;
+  color: #FF9015 !important;
   font-size: 0.875rem;
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .rp-prof-cta-links a:hover {
-  text-decoration: underline;
+  color: #ffffff !important;
 }
 
 .rp-prof-cta-links a:focus-visible {
