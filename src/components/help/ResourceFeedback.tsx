@@ -59,7 +59,7 @@ export function ResourceFeedback({ resourceTitle, resourceId }: ResourceFeedback
 
   if (isSubmitted) {
     return (
-      <div className="resource-feedback resource-feedback-submitted">
+      <div className="resource-feedback resource-feedback-submitted" aria-live="polite">
         <p>Thanks for your feedback! We use this to improve our resources.</p>
       </div>
     );
@@ -81,9 +81,8 @@ export function ResourceFeedback({ resourceTitle, resourceId }: ResourceFeedback
     );
   }
 
-  // If they said "yes" - just show thanks
+  // Auto-submit positive feedback
   if (isHelpful === true && !isSubmitted) {
-    // Auto-submit the positive feedback
     const feedbackData = {
       resourceId,
       resourceTitle,
@@ -95,15 +94,18 @@ export function ResourceFeedback({ resourceTitle, resourceId }: ResourceFeedback
     };
     console.log('Resource feedback submitted:', feedbackData);
     setIsSubmitted(true);
-    return null; // will re-render as submitted
   }
 
+  const requiresDetails = category === 'not-relevant' || category === 'missing-info' || category === 'other';
+  const detailsMissing = requiresDetails && !details.trim();
+
   return (
-    <div className="resource-feedback resource-feedback-form">
-      <h3>What would help you most?</h3>
+    <div className="resource-feedback resource-feedback-form" role="region" aria-label="Resource feedback">
+      <h3 id="feedback-heading">What would help you most?</h3>
       <p className="feedback-disclaimer">This is not a request for personalised support. Your feedback helps us identify where we need to add more content and guidance on this topic.</p>
-      <form onSubmit={handleSubmit}>
-        <div className="feedback-categories">
+      <form onSubmit={handleSubmit} noValidate>
+        <fieldset className="feedback-categories" role="radiogroup" aria-labelledby="feedback-heading">
+          <legend className="sr-only">Select what would help you most</legend>
           {FEEDBACK_CATEGORIES.map(cat => (
             <label
               key={cat.value}
@@ -122,32 +124,35 @@ export function ResourceFeedback({ resourceTitle, resourceId }: ResourceFeedback
               </div>
             </label>
           ))}
-        </div>
+        </fieldset>
 
-        {category && (() => {
-          const requiresDetails = category === 'not-relevant' || category === 'missing-info' || category === 'other';
-          return (
-            <div className="feedback-details">
-              <label htmlFor="feedback-details-input">
-                Tell us more about what you need {requiresDetails ? '' : '(optional)'}
-              </label>
-              <textarea
-                id="feedback-details-input"
-                value={details}
-                onChange={(e) => setDetails(e.target.value)}
-                rows={3}
-                placeholder="What specific information or support would help?"
-                required={requiresDetails}
-              />
-            </div>
-          );
-        })()}
+        {category && (
+          <div className="feedback-details">
+            <label htmlFor="feedback-details-input">
+              Tell us more about what you need {requiresDetails ? '(required)' : '(optional)'}
+            </label>
+            <textarea
+              id="feedback-details-input"
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
+              rows={3}
+              placeholder="What specific information or support would help?"
+              aria-required={requiresDetails}
+              aria-describedby={detailsMissing ? 'feedback-details-error' : undefined}
+            />
+            {detailsMissing && (
+              <p id="feedback-details-error" className="feedback-error" role="alert">
+                Please tell us what you need so we can improve this resource.
+              </p>
+            )}
+          </div>
+        )}
 
         <div className="feedback-actions">
           <button
             type="submit"
             className="feedback-submit-btn"
-            disabled={isSubmitting || !category || ((['not-relevant', 'missing-info', 'other'].includes(category || '')) && !details.trim())}
+            disabled={isSubmitting || !category || detailsMissing}
           >
             {isSubmitting ? 'Sending...' : 'Send feedback'}
           </button>

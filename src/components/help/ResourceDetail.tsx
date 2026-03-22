@@ -508,10 +508,6 @@ function ExampleCard({ example }: { example: HelpExample }) {
     <div className="example-card">
       <div className="example-header">
         <span className="example-business-type">{example.businessTypeLabel}</span>
-        <div className="example-meta">
-          {example.cost && <span className="example-cost">{example.cost}</span>}
-          {example.timeframe && <span className="example-timeframe">{example.timeframe}</span>}
-        </div>
       </div>
       <div className="example-body">
         <div className="example-section">
@@ -569,10 +565,6 @@ function SolutionCard({ solution }: { solution: GradedSolution }) {
         <p className="solution-description">{solution.description}</p>
 
         <div className="solution-meta">
-          <div className="solution-meta-item">
-            <Clock size={14} />
-            <span>{solution.timeRequired}</span>
-          </div>
           <div className="solution-meta-item">
             <Hammer size={14} />
             <span>{getImplementerLabel(solution.implementedBy)}</span>
