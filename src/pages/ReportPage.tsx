@@ -281,7 +281,7 @@ function ModuleTile({
           {/* Areas to explore */}
           {finding.explores.length > 0 && (
             <details className="rp-module-section rp-collapsible-section" open>
-              <summary className="rp-module-section-title rp-section-explore">Areas to explore ({finding.explores.length})</summary>
+              <summary className="rp-module-section-title rp-section-explore">Areas to explore — from "Unable to check" responses ({finding.explores.length})</summary>
               <ul className="rp-item-list rp-list-explore">
                 {finding.explores.map((item, i) => {
                   const help = item.questionId ? getRelevantHelp(item.questionId) : undefined;
@@ -650,7 +650,7 @@ export default function ReportPage() {
           </div>
           <div className="rp-stat-card rp-stat-explore">
             <div className="rp-stat-number">{report.executiveSummary.areasToExploreCount}</div>
-            <div className="rp-stat-label">Areas to explore</div>
+            <div className="rp-stat-label">To investigate</div>
           </div>
         </div>
 

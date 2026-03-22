@@ -467,7 +467,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 </div>
                 <div className="stat-card stat-explore">
                   <div className="stat-number">{report.executiveSummary.areasToExploreCount}</div>
-                  <div className="stat-label">Areas to Explore</div>
+                  <div className="stat-label">To Investigate</div>
                 </div>
               </div>
               <div className="completion-progress">
@@ -923,6 +923,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
             {report.sections.areasToExplore.content.length > 0 && (
               <section className="report-section">
                 <h2>{report.sections.areasToExplore.title}</h2>
+                <p className="section-explainer">These items were marked as "Unable to check" during your assessment. We recommend investigating these areas to confirm your current accessibility status.</p>
                 {report.sections.areasToExplore.categorised?.length ? (
                   <CategorisedList
                     items={report.sections.areasToExplore.categorised}

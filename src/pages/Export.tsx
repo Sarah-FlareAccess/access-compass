@@ -310,7 +310,7 @@ export default function Export() {
                 <div>
                   <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#b45309' }}>🔍 Areas to explore</h3>
                   <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: 0 }}>
-                    Opportunities to clarify and potentially improve accessibility
+                    Items marked "Unable to check" during assessment — investigate these to confirm your accessibility status
                   </p>
                 </div>
                 <div>

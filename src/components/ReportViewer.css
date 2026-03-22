@@ -147,6 +147,14 @@
   border-bottom: 2px solid var(--amethyst-diamond);
 }
 
+.section-explainer {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: -8px 0 16px 0;
+  line-height: 1.5;
+  font-style: italic;
+}
+
 .report-section h3 {
   font-size: 18px;
   font-weight: 600;

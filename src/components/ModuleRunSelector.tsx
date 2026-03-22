@@ -267,7 +267,7 @@ export function ModuleRunSelector({
           ` : ''}
           ${run.summary.areasToExplore.length > 0 ? `
             <div class="summary-section explore">
-              <strong>Areas to Explore (${run.summary.areasToExplore.length})</strong>
+              <strong>Areas to Explore — from "Unable to check" responses (${run.summary.areasToExplore.length})</strong>
               <ul>${run.summary.areasToExplore.map(item => `<li>${item}</li>`).join('')}</ul>
             </div>
           ` : ''}

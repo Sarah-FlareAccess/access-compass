@@ -605,7 +605,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
             type: 'list',
           },
           areasToExplore: {
-            title: 'Areas to Explore',
+            title: 'Areas to Explore (from "Unable to Check" responses)',
             content: allAreasToExplore,
             categorised: catAreasToExplore,
             type: 'list',
