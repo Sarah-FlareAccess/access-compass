@@ -218,7 +218,7 @@
 
 .rp-intro-body {
   margin-top: 12px;
-  padding: 0;
+  padding: 0 0 0 16px;
   border-left: 3px solid var(--amethyst-diamond, #490E67);
   font-size: 0.875rem;
   line-height: 1.6;
