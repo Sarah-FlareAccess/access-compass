@@ -376,29 +376,37 @@ export default function ReportPage() {
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [report, setReport] = useState<Report | null>(null);
   const [reportConfig, setReportConfig] = useState<ReportConfig | undefined>(undefined);
-  const [expandedModules, setExpandedModules] = useState<Set<string>>(new Set());
+  const [expandedModules, setExpandedModules] = useState<Set<string>>(() => {
+    const saved = sessionStorage.getItem('report_expanded_modules');
+    if (saved) {
+      try { return new Set(JSON.parse(saved)); } catch { /* ignore */ }
+    }
+    return new Set();
+  });
   const [showConfig, setShowConfig] = useState(false);
   const [showStrengths, setShowStrengths] = useState(true);
 
-  // Restore scroll position when returning from resource hub
+  // Restore scroll position after report renders when returning from resource hub
   useEffect(() => {
-    const returnFrom = (location.state as { from?: string })?.from;
-    if (returnFrom === 'resource-return') {
-      const savedScroll = sessionStorage.getItem('report_scroll_position');
-      if (savedScroll) {
-        // Small delay to let the report render first
+    if (!report) return;
+    const savedScroll = sessionStorage.getItem('report_scroll_position');
+    if (savedScroll) {
+      // Wait for DOM to update with expanded modules and report content
+      requestAnimationFrame(() => {
         setTimeout(() => {
           window.scrollTo(0, parseInt(savedScroll, 10));
           sessionStorage.removeItem('report_scroll_position');
-        }, 100);
-      }
+          sessionStorage.removeItem('report_expanded_modules');
+        }, 300);
+      });
     }
-  }, [location.state]);
+  }, [report]);
 
-  // Save scroll position before navigating to resource
+  // Save scroll position and expanded modules before navigating to resource
   const handleResourceClick = useCallback(() => {
     sessionStorage.setItem('report_scroll_position', String(window.scrollY));
-  }, []);
+    sessionStorage.setItem('report_expanded_modules', JSON.stringify([...expandedModules]));
+  }, [expandedModules]);
 
   useEffect(() => {
     try {
