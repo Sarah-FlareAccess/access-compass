@@ -39,7 +39,7 @@ export default function Disclaimer() {
   const [orgOption, setOrgOption] = useState<OrgOption>('none');
   const [inviteCode, setInviteCode] = useState('');
   const [orgName, setOrgName] = useState('');
-  const [orgSize, setOrgSize] = useState<'small' | 'medium' | 'large' | 'enterprise'>('small');
+  const [orgSize] = useState<'small' | 'medium' | 'large' | 'enterprise'>('small');
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
 

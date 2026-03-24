@@ -33,8 +33,8 @@ import {
 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import type { HelpContent, HelpTip, HelpExample, GradedSolution } from '../../data/help/types';
-import { getInlineTips, getGroupedInlineTips } from '../../data/help';
-import type { GroupedTips } from '../../data/help';
+import { getInlineTips, getGroupedInlineTips } from '../../data/help/inlineTips';
+import type { GroupedTips } from '../../data/help/inlineTips';
 import { ResourceFeedback } from './ResourceFeedback';
 import './ResourceDetail.css';
 

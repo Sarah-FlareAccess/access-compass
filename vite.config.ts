@@ -4,6 +4,24 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'data-help': [
+            './src/data/help/before-arrival',
+            './src/data/help/during-visit',
+            './src/data/help/getting-in',
+            './src/data/help/service-support',
+            './src/data/help/toilets-amenities',
+            './src/data/help/organisation',
+            './src/data/help/events',
+          ],
+        },
+      },
+    },
+  },
   plugins: [
     react(),
     VitePWA({

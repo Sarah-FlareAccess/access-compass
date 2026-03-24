@@ -18,7 +18,6 @@ import { serviceSupportHelp } from './service-support';
 import { toiletsAmenitiesHelp } from './toilets-amenities';
 import { organisationHelp } from './organisation';
 import { eventsHelp } from './events';
-import { accessModules } from '../accessModules';
 
 // Combine all help content into a single array
 export const allHelpContent: HelpContent[] = [
@@ -122,67 +121,9 @@ export function getHelpStats(): {
   };
 }
 
-// Build inline tips lookup from accessModules question data
-const inlineTipsByQuestionId = new Map<string, string[]>();
-const questionTextById = new Map<string, string>();
-for (const mod of accessModules) {
-  for (const q of mod.questions) {
-    if (q.helpContent?.tips && q.helpContent.tips.length > 0) {
-      inlineTipsByQuestionId.set(q.id, q.helpContent.tips);
-    }
-    questionTextById.set(q.id, q.text);
-  }
-}
-
-/**
- * Collect deduplicated inline tips for a list of question IDs
- */
-export function getInlineTips(questionIds: string[]): string[] {
-  const seen = new Set<string>();
-  const tips: string[] = [];
-  for (const qId of questionIds) {
-    const qTips = inlineTipsByQuestionId.get(qId);
-    if (qTips) {
-      for (const tip of qTips) {
-        if (!seen.has(tip)) {
-          seen.add(tip);
-          tips.push(tip);
-        }
-      }
-    }
-  }
-  return tips;
-}
-
-export interface GroupedTips {
-  questionText: string;
-  tips: string[];
-}
-
-/**
- * Collect inline tips grouped by source question
- */
-export function getGroupedInlineTips(questionIds: string[]): GroupedTips[] {
-  const seen = new Set<string>();
-  const groups: GroupedTips[] = [];
-  for (const qId of questionIds) {
-    const qTips = inlineTipsByQuestionId.get(qId);
-    if (qTips && qTips.length > 0) {
-      const uniqueTips: string[] = [];
-      for (const tip of qTips) {
-        if (!seen.has(tip)) {
-          seen.add(tip);
-          uniqueTips.push(tip);
-        }
-      }
-      if (uniqueTips.length > 0) {
-        const text = questionTextById.get(qId) || qId;
-        groups.push({ questionText: text, tips: uniqueTips });
-      }
-    }
-  }
-  return groups;
-}
+// Inline tips (getInlineTips, getGroupedInlineTips) are in a separate
+// file (inlineTips.ts) to avoid pulling accessModules (2.3MB) into
+// this chunk. Import from '../../data/help/inlineTips' directly.
 
 // Re-export types
 export * from './types';

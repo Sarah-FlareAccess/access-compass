@@ -1,0 +1,20 @@
+.page-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 48px 24px;
+}
+
+.page-loader-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(73, 14, 103, 0.12);
+  border-top-color: var(--amethyst-diamond, #490E67);
+  border-radius: 50%;
+  animation: page-spin 0.8s linear infinite;
+}
+
+@keyframes page-spin {
+  to { transform: rotate(360deg); }
+}
