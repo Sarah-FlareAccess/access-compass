@@ -25,6 +25,7 @@ import { ModuleRunSelector } from '../components/ModuleRunSelector';
 import { RunComparisonView } from '../components/RunComparisonView';
 import { OrgAdminPanel } from '../components/OrgAdminPanel';
 import { ReportProblem, ReportProblemTrigger } from '../components/ReportProblem';
+import { ResourceInfoRequest, ResourceInfoTrigger } from '../components/ResourceInfoRequest';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { InstallPrompt } from '../components/InstallPrompt';
@@ -78,6 +79,7 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabType>('modules');
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [showReportProblem, setShowReportProblem] = useState(false);
+  const [showInfoRequest, setShowInfoRequest] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
 
   // Group icons mapping
@@ -606,6 +608,7 @@ Thanks!`;
               variant="sidebar"
               onClick={() => setShowReportProblem(true)}
             />
+            <ResourceInfoTrigger onClick={() => setShowInfoRequest(true)} />
             <a href="mailto:support@accesscompass.com.au" className="sidebar-help-link">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ marginRight: '6px', verticalAlign: '-2px' }}>
                 <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -1240,6 +1243,11 @@ Thanks!`;
       <ReportProblem
         isOpen={showReportProblem}
         onClose={() => setShowReportProblem(false)}
+      />
+
+      <ResourceInfoRequest
+        isOpen={showInfoRequest}
+        onClose={() => setShowInfoRequest(false)}
       />
 
       {/* Mobile bottom tab bar */}

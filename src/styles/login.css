@@ -102,7 +102,7 @@
 .login-success {
   background: rgba(34, 197, 94, 0.1);
   border: 1px solid rgba(34, 197, 94, 0.3);
-  color: #15803d;
+  color: #14532d;
 }
 
 /* Form */
@@ -165,10 +165,10 @@
   background: none;
   border: none;
   color: var(--amethyst-diamond);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 500;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 2px 6px;
   transition: color 0.2s ease;
 }
 

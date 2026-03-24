@@ -25,7 +25,7 @@
   --aussie-dark: #CC7700;
 
   /* Typography */
-  --font-family: 'Circular Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Spacing - Increased for better breathing room */
   --spacing-xs: 8px;
@@ -562,13 +562,19 @@ textarea::placeholder {
 
 input:focus,
 textarea:focus,
-select:focus,
+select:focus {
+  outline: none;
+  border-color: var(--amethyst-diamond);
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
+}
+
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: none !important;
+  outline: 3px solid var(--aussie-sunrise, #FF9015) !important;
+  outline-offset: 2px;
   border-color: var(--amethyst-diamond);
-  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
+  box-shadow: none;
 }
 
 textarea {

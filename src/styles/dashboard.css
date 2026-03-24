@@ -1680,7 +1680,7 @@
 
 .status-badge.status-completed {
   background: rgba(22, 163, 74, 0.08);
-  color: #15803d;
+  color: #14532d;
   border: 1px solid rgba(22, 163, 74, 0.15);
 }
 
@@ -1887,7 +1887,7 @@
 
 .module-action-btn.btn-review {
   background: white;
-  color: #15803d;
+  color: #14532d;
   border: 2px solid #15803d;
 }
 

@@ -171,7 +171,7 @@ export default function TrainingHub() {
       {filtered.courses.length > 0 && (
         <section className="training-section">
           <h2 className="training-section-title">Courses</h2>
-          <div className="training-grid">
+          <div className={`training-grid${filtered.courses.length === 1 ? ' training-grid-single' : ''}`}>
             {filtered.courses.map((course) => (
               <TrainingCard
                 key={course.id}

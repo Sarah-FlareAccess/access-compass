@@ -41,12 +41,12 @@
 }
 
 .feedback-thumb-yes {
-  color: #15803d;
+  color: #14532d;
 }
 
 .feedback-thumb-yes:hover {
   background: #f0fdf4;
-  border-color: #15803d;
+  border-color: #14532d;
 }
 
 .feedback-thumb-no {
@@ -115,9 +115,9 @@
 }
 
 .feedback-helpful-btn.selected {
-  border-color: #15803d;
+  border-color: #14532d;
   background: #f0fdf4;
-  color: #15803d;
+  color: #14532d;
 }
 
 .feedback-helpful-btn.feedback-not-helpful.selected {
@@ -311,7 +311,7 @@
 
 .resource-feedback-submitted p {
   font-size: 0.875rem;
-  color: #15803d;
+  color: #14532d;
   font-weight: 500;
   margin: 0;
   padding: 12px 0;

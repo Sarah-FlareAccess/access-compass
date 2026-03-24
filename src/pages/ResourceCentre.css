@@ -17,7 +17,6 @@
   padding: 0 24px 64px;
   background: var(--ivory-pure, #FAF8F5);
   min-height: 100vh;
-  font-family: 'Circular Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* ========================================
@@ -57,7 +56,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 12px;
   position: relative;
   z-index: 1;
@@ -81,7 +80,7 @@
 
 .hub-subtitle {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.9);
   margin: 0 0 32px;
   max-width: 540px;
   line-height: 1.6;
@@ -115,7 +114,7 @@
   left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.8);
   pointer-events: none;
 }
 
@@ -133,7 +132,7 @@
 }
 
 .hub-search-row .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .hub-search-row .search-input:focus {
@@ -205,7 +204,7 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.9rem;
   cursor: pointer;
   position: relative;
@@ -217,6 +216,11 @@
 .hub-search-row .btn-filter.active {
   background: rgba(255, 255, 255, 0.18);
   color: #fff;
+}
+
+.hub-search-row .btn-filter:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
 }
 
 .hub-search-row .btn-filter .filter-badge {
@@ -254,7 +258,7 @@
 
 .hub-stats dt {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.85);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0;
@@ -269,7 +273,7 @@
 }
 
 .section-label {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 24px;
@@ -359,8 +363,8 @@
 }
 
 .cat-card-desc {
-  font-size: 0.78rem;
-  color: var(--text-muted);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
   margin: 0;
   line-height: 1.5;
   flex: 1;
@@ -399,7 +403,7 @@
 }
 
 .featured-section h2 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 24px;
@@ -407,13 +411,13 @@
 
 .featured-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
 .featured-card {
   border-radius: var(--radius-lg, 16px);
-  padding: 28px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -421,11 +425,15 @@
   text-align: left;
   position: relative;
   overflow: hidden;
-  border: none;
+  border: 1px solid var(--surface-2-border, rgba(62, 43, 47, 0.1));
+  background: var(--surface-2, #ffffff);
+  box-shadow: var(--surface-2-shadow, 0 2px 8px rgba(62, 43, 47, 0.05));
+  color: var(--text-primary);
 }
 
 .featured-card:hover {
   transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(62, 43, 47, 0.12), 0 2px 6px rgba(62, 43, 47, 0.06);
 }
 
 .featured-card:focus-visible {
@@ -433,46 +441,32 @@
   outline-offset: 2px;
 }
 
-.featured-main {
-  background:
-    radial-gradient(ellipse 45% 40% at 25% 55%, rgba(255, 180, 80, 0.06) 0%, rgba(255, 144, 21, 0.03) 40%, transparent 70%),
-    linear-gradient(165deg, #3a0a55 0%, #490E67 25%, #521475 50%, #490E67 75%, #3a0a55 100%);
-  color: #fff;
-  min-height: 200px;
-}
-
-.featured-main:hover {
-  box-shadow: 0 12px 32px rgba(92, 17, 133, 0.4);
-}
-
-.featured-side {
-  background: var(--surface-2, #ffffff);
-  border: 1px solid var(--surface-2-border, rgba(62, 43, 47, 0.1));
-  box-shadow: var(--surface-2-shadow, 0 2px 8px rgba(62, 43, 47, 0.05));
-  color: var(--text-primary);
-}
-
-.featured-side:hover {
-  box-shadow: 0 8px 24px rgba(62, 43, 47, 0.12);
+.featured-card-icon-wrap {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rc-purple-pale);
+  border-radius: 10px;
+  color: var(--rc-purple);
+  flex-shrink: 0;
+  margin-bottom: 14px;
 }
 
 .featured-card-title {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   font-weight: 700;
-  margin: 0 0 8px;
+  color: var(--text-primary);
+  margin: 0 0 6px;
   line-height: 1.3;
 }
 
-.featured-main .featured-card-title {
-  font-size: 1.375rem;
-  font-weight: 700;
-  color: #fff;
-}
-
 .featured-card-summary {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
   line-height: 1.5;
-  margin: 0 0 16px;
+  margin: 0;
   flex: 1;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -480,45 +474,35 @@
   overflow: hidden;
 }
 
-.featured-main .featured-card-summary {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.featured-side .featured-card-summary {
-  color: var(--text-muted);
-}
-
-.featured-card-tags {
+.featured-card-footer {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rc-border);
 }
 
 .featured-card-action {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
+  color: var(--rc-purple);
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-top: auto;
 }
 
-.featured-main .featured-card-action {
-  color: var(--aussie-sunrise, #FF9015);
-}
-
-.featured-main .tag-pill {
-  background: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.featured-side .featured-card-action {
+.featured-card-arrow {
   color: var(--rc-purple);
+  transition: transform 0.2s ease;
+}
+
+.featured-card:hover .featured-card-arrow {
+  transform: translateX(3px);
 }
 
 .featured-card.locked {
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 .featured-card.locked:hover {
@@ -538,11 +522,6 @@
   position: absolute;
   top: 16px;
   right: 16px;
-}
-
-.featured-main .featured-lock-badge {
-  background: rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Tag pills */
@@ -1474,10 +1453,6 @@
 
   .featured-grid {
     grid-template-columns: 1fr;
-  }
-
-  .featured-main {
-    min-height: auto;
   }
 
   .cat-banner {

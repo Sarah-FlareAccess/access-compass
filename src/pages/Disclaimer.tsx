@@ -248,7 +248,7 @@ export default function Disclaimer() {
             <>
               <h1>Before you begin</h1>
               <p className="disclaimer-intro">
-                Access Compass by Flare Access is:
+                Access Compass is:
               </p>
 
               <ul className="disclaimer-list is-list">
@@ -280,6 +280,12 @@ export default function Disclaimer() {
                     type="checkbox"
                     checked={understood}
                     onChange={(e) => setUnderstood(e.target.checked)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        setUnderstood(!understood);
+                      }
+                    }}
                   />
                   <span className="checkbox-text">
                     I understand that Access Compass is a self-review tool designed to help me plan accessibility improvements. It does not provide compliance certification or replace professional accessibility advice.
@@ -552,22 +558,6 @@ export default function Disclaimer() {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="orgSize">Organisation size</label>
-                    <select
-                      id="orgSize"
-                      value={orgSize}
-                      onChange={(e) => setOrgSize(e.target.value as typeof orgSize)}
-                      required
-                    >
-                      <option value="small">Small (1-10 employees)</option>
-                      <option value="medium">Medium (11-50 employees)</option>
-                      <option value="large">Large (51-200 employees)</option>
-                      <option value="enterprise">Enterprise (200+ employees)</option>
-                    </select>
-                    <p className="field-hint">This determines how many team members can be invited</p>
-                  </div>
-
-                  <div className="form-group">
                     <label htmlFor="contactName">Your name</label>
                     <span className="field-hint">Your full name</span>
                     <input
@@ -610,24 +600,26 @@ export default function Disclaimer() {
                 </form>
               )}
 
-              <div className="disclaimer-actions" style={{ marginTop: orgOption === 'none' ? '2rem' : '0' }}>
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => {
-                    // Sign out and go back to start
-                    Object.keys(localStorage).forEach(key => {
-                      if (key.startsWith('sb-') || key.includes('supabase')) {
-                        localStorage.removeItem(key);
-                      }
-                    });
-                    sessionStorage.clear();
-                    window.location.href = '/disclaimer';
-                  }}
-                >
-                  ← Back
-                </button>
-              </div>
+              {orgOption === 'none' && (
+                <div className="disclaimer-actions" style={{ marginTop: '2rem' }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => {
+                      // Sign out and go back to start
+                      Object.keys(localStorage).forEach(key => {
+                        if (key.startsWith('sb-') || key.includes('supabase')) {
+                          localStorage.removeItem(key);
+                        }
+                      });
+                      sessionStorage.clear();
+                      window.location.href = '/disclaimer';
+                    }}
+                  >
+                    ← Back
+                  </button>
+                </div>
+              )}
             </>
           )}
 

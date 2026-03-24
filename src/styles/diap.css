@@ -968,7 +968,7 @@
 }
 
 .status-btn.status-achieved {
-  color: #15803d;
+  color: #14532d;
   border-color: #15803d;
 }
 
@@ -1179,9 +1179,10 @@
 }
 
 .btn-save:hover {
-  background: #723d8d;
+  background: #6d28d9;
+  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  box-shadow: 0 6px 20px rgba(73, 14, 103, 0.35);
 }
 
 .btn-save:focus-visible {
@@ -2026,7 +2027,7 @@ button.evidence-layer-header {
 .import-success h3 {
   font-size: 18px;
   font-weight: 600;
-  color: #15803d;
+  color: #14532d;
   margin: 0 0 8px 0;
 }
 
@@ -2196,7 +2197,7 @@ button.evidence-layer-header {
 }
 
 .priority-btn.priority-low {
-  color: #15803d;
+  color: #14532d;
 }
 
 .priority-btn.priority-low.active {
@@ -2333,7 +2334,7 @@ button.evidence-layer-header {
 .generation-notification-content h4 {
   font-size: 15px;
   font-weight: 600;
-  color: #15803d;
+  color: #14532d;
   margin: 0 0 4px 0;
 }
 
@@ -3624,7 +3625,10 @@ button.evidence-layer-header {
 }
 
 .btn-save:hover {
-  background: #723d8d;
+  background: #6d28d9;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(73, 14, 103, 0.35);
 }
 
 .btn-cancel {

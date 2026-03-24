@@ -528,7 +528,7 @@
 .rp-legend-def-medium dt { color: #945a00; }
 .rp-legend-def-low dt { color: #1a4fd6; }
 .rp-legend-def-explore dt { color: #7c3aed; }
-.rp-legend-def-strengths dt { color: #15803d; }
+.rp-legend-def-strengths dt { color: #14532d; }
 
 .rp-priority-encouragement {
   margin: 8px 0 16px;
@@ -685,7 +685,7 @@
 
 .rp-no-actions {
   font-size: 0.875rem;
-  color: #15803d;
+  color: #14532d;
   font-weight: 500;
 }
 
@@ -705,7 +705,7 @@
   margin: 0 0 10px;
 }
 
-.rp-section-strengths { color: #15803d; }
+.rp-section-strengths { color: #14532d; }
 .rp-section-actions { color: #991b1b; }
 .rp-section-explore { color: #7c3aed; }
 

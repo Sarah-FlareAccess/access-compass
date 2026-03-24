@@ -929,13 +929,13 @@ export function ResourceCentre() {
                 <section className="featured-section">
                   <h2>Popular Resources</h2>
                   <div className="featured-grid">
-                    {allHelpContent.slice(0, 3).map((resource, i) => {
+                    {allHelpContent.slice(0, 3).map((resource) => {
                       const unlocked = isModuleCompleted(resource.moduleCode);
-                      const tags = getResourceTags(resource);
+                      const IconComponent = getResourceIcon(resource.title);
                       return (
                         <button
                           key={resource.questionId}
-                          className={`featured-card ${i === 0 ? 'featured-main' : 'featured-side'} ${!unlocked ? 'locked' : ''}`}
+                          className={`featured-card ${!unlocked ? 'locked' : ''}`}
                           onClick={() => handleResourceSelect(resource.questionId)}
                         >
                           {!unlocked && (
@@ -943,18 +943,17 @@ export function ResourceCentre() {
                               <Lock size={11} aria-hidden="true" /> Locked
                             </span>
                           )}
-                          {tags.length > 0 && (
-                            <div className="featured-card-tags">
-                              {tags.map(t => (
-                                <span key={t.type} className={`tag-pill tag-${t.type}`}>{t.label}</span>
-                              ))}
-                            </div>
-                          )}
+                          <div className="featured-card-icon-wrap" aria-hidden="true">
+                            <IconComponent size={20} />
+                          </div>
                           <h3 className="featured-card-title">{resource.title}</h3>
                           <p className="featured-card-summary">{resource.summary}</p>
-                          <span className="featured-card-action">
-                            View resource <ChevronRight size={14} aria-hidden="true" />
-                          </span>
+                          <div className="featured-card-footer">
+                            <span className="featured-card-action">
+                              View resource
+                            </span>
+                            <ChevronRight size={16} className="featured-card-arrow" aria-hidden="true" />
+                          </div>
                         </button>
                       );
                     })}

@@ -2,7 +2,7 @@
 
 .disclaimer-page {
   min-height: 100vh;
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-md);
   background: linear-gradient(
     135deg,
     var(--amethyst-dark) 0%,
@@ -31,7 +31,7 @@
   margin: 0 auto;
   background: linear-gradient(135deg, white 0%, rgba(250, 248, 245, 0.95) 100%);
   border-radius: 24px;
-  padding: var(--spacing-xl) 48px;
+  padding: var(--spacing-lg) 36px;
   box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.1),
     0 16px 48px rgba(0, 0, 0, 0.2),
@@ -44,42 +44,42 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 48px;
-  right: 48px;
+  left: 36px;
+  right: 36px;
   height: 4px;
   background: linear-gradient(90deg, var(--amethyst-diamond) 0%, var(--aussie-dark) 100%);
   border-radius: 0 0 4px 4px;
 }
 
 .disclaimer-card h1 {
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: var(--amethyst-diamond);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   text-align: center;
-  margin-top: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
 }
 
 .disclaimer-intro {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 }
 
 .disclaimer-intro.not-intro {
-  margin-top: var(--spacing-xl);
+  margin-top: var(--spacing-md);
 }
 
 .disclaimer-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 var(--spacing-md) 0;
+  margin: 0 0 var(--spacing-sm) 0;
 }
 
 .disclaimer-list li {
   position: relative;
-  padding-left: 28px;
-  margin-bottom: var(--spacing-sm);
+  padding-left: 24px;
+  margin-bottom: var(--spacing-xs);
   font-size: 1rem;
   color: var(--text-secondary);
   line-height: 1.5;
@@ -104,8 +104,8 @@
 }
 
 .professional-note {
-  margin: var(--spacing-xl) 0;
-  padding: var(--spacing-lg) var(--spacing-xl);
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-sm) var(--spacing-md);
   background: linear-gradient(135deg, rgba(73, 14, 103, 0.04) 0%, rgba(73, 14, 103, 0.08) 100%);
   border-radius: 14px;
   border-left: 5px solid var(--amethyst-diamond);
@@ -121,8 +121,8 @@
 }
 
 .understanding-section {
-  margin: var(--spacing-xl) 0;
-  padding: var(--spacing-lg) var(--spacing-xl);
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-sm) var(--spacing-md);
   background: linear-gradient(135deg, rgba(250, 248, 245, 0.8) 0%, rgba(73, 14, 103, 0.04) 100%);
   border-radius: 16px;
   border: 2px solid rgba(73, 14, 103, 0.1);
@@ -138,7 +138,7 @@
 .checkbox-label {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   cursor: pointer;
 }
 
@@ -149,18 +149,12 @@
   flex-shrink: 0;
   accent-color: var(--amethyst-diamond);
   cursor: pointer;
-  outline: none;
 }
 
 .checkbox-label input[type="checkbox"]:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
-}
-
-.checkbox-label:has(:focus-visible) {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 4px;
-  border-radius: var(--radius-sm);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--aussie-sunrise, #FF9015);
 }
 
 .checkbox-text {
@@ -172,14 +166,14 @@
 .disclaimer-actions {
   display: flex;
   gap: var(--spacing-md);
-  margin-top: var(--spacing-xl);
+  margin-top: var(--spacing-md);
 }
 
 .disclaimer-actions .btn {
   flex: 1;
-  padding: 18px 24px;
+  padding: 14px 20px;
   font-size: 1rem;
-  min-height: 56px;
+  min-height: 48px;
   border-radius: 12px;
   font-weight: 600;
   transition: all 0.25s ease;
@@ -263,7 +257,7 @@
 .auth-success {
   background: rgba(34, 197, 94, 0.1);
   border: 1px solid rgba(34, 197, 94, 0.3);
-  color: #15803d;
+  color: #14532d;
 }
 
 /* Auth Form */
@@ -288,21 +282,20 @@
 .auth-form input[type="email"],
 .auth-form input[type="password"] {
   width: 100%;
-  padding: 14px 16px;
+  padding: 10px 14px;
   border: 2px solid #ddd;
   border-radius: 10px;
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.2s ease;
   background: white;
-  min-height: 48px;
+  min-height: 42px;
   box-sizing: border-box;
 }
 
 .auth-form input:focus {
   outline: none;
   border-color: var(--amethyst-diamond);
-  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
 .auth-form input::placeholder {
@@ -320,20 +313,20 @@
   padding-right: 70px;
 }
 
-.password-toggle {
+.disclaimer-page .password-toggle {
   position: absolute;
   right: 12px;
   background: none;
   border: none;
   color: var(--amethyst-diamond);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.75rem !important;
+  font-weight: 500;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 2px 6px;
   transition: color 0.2s ease;
 }
 
-.password-toggle:hover {
+.disclaimer-page .password-toggle:hover {
   color: #723d8d;
   background: rgba(114, 61, 141, 0.08);
   border-radius: 4px;
@@ -342,12 +335,12 @@
 .disclaimer-page .auth-submit,
 .disclaimer-page .auth-submit.btn,
 .disclaimer-page .auth-submit.btn-primary {
-  margin-top: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
   width: 100%;
-  padding: 16px 24px;
+  padding: 12px 20px;
   font-size: 1rem;
   font-weight: 600;
-  min-height: 52px;
+  min-height: 44px;
   border-radius: 12px;
   background: var(--amethyst-diamond);
   border: none;
@@ -376,8 +369,8 @@
 /* Auth Switch */
 .auth-switch {
   text-align: center;
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
   border-top: 1px solid rgba(73, 14, 103, 0.1);
 }
 
@@ -401,6 +394,18 @@
 
 .disclaimer-page .text-link:hover {
   color: #723d8d;
+}
+
+.disclaimer-page .text-link:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.disclaimer-page .logout-link:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* Authenticated state */
@@ -505,15 +510,15 @@
 .org-options {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
-  margin: var(--spacing-xl) 0;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
 }
 
 .org-option-card {
   display: flex;
   align-items: center;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-xl) var(--spacing-lg);
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-md);
   background: white;
   border: 2px solid rgba(73, 14, 103, 0.12);
   border-radius: 16px;
@@ -540,9 +545,9 @@
 }
 
 .org-option-icon-wrapper {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -559,7 +564,7 @@
 }
 
 .org-option-icon {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 300;
   color: white;
   line-height: 1;
@@ -606,21 +611,20 @@
 .org-form input[type="text"],
 .org-form input[type="email"] {
   width: 100%;
-  padding: 14px 16px;
+  padding: 10px 14px;
   border: 2px solid #ddd;
   border-radius: 10px;
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.2s ease;
   background: white;
-  min-height: 48px;
+  min-height: 42px;
   box-sizing: border-box;
 }
 
 .org-form input:focus {
   outline: none;
   border-color: var(--amethyst-diamond);
-  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
 .org-form input::placeholder {
@@ -717,19 +721,19 @@
 
 .complete-section {
   text-align: center;
-  padding: 48px var(--spacing-xl) var(--spacing-xl);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md);
 }
 
 .complete-section h1 {
-  margin-top: var(--spacing-lg);
-  margin-bottom: 40px;
+  margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
   font-size: 1.75rem;
 }
 
 .complete-icon {
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   display: block;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
   animation: bounceIn 0.5s ease-out;
 }
 
@@ -1009,13 +1013,13 @@
 
 /* More spacing for CTA button after complete section */
 .complete-section + .disclaimer-actions {
-  margin-top: 40px;
-  padding-top: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
 }
 
 .complete-signout {
   text-align: center;
-  margin-top: 32px;
-  padding-top: 24px;
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
