@@ -157,6 +157,63 @@
   transition: all 0.2s ease;
 }
 
+/* Team Presence Widget */
+.sidebar-team-presence {
+  padding: 0.625rem 0.75rem;
+  margin: 0 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0.375rem;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-team-title {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.375rem;
+}
+
+.sidebar-team-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: team-pulse 2s ease-in-out infinite;
+}
+
+@keyframes team-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.sidebar-team-member {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sidebar-team-member-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.sidebar-team-member-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Sidebar Sections */
 .sidebar-section {
   display: flex;
