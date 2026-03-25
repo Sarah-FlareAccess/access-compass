@@ -108,6 +108,10 @@ export function DeviceConflictAlert({
           That device may have newer changes than what is saved on this one.
         </p>
 
+        <p className="device-conflict-note">
+          This can also appear if you have the app open in another browser tab or window.
+        </p>
+
         <div className="device-conflict-actions">
           <button
             ref={firstButtonRef}

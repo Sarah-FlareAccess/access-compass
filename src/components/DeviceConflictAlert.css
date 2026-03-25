@@ -38,6 +38,16 @@
   margin: 0 0 1.5rem;
 }
 
+.device-conflict-note {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--text-secondary, #4a4340);
+  background: #f5f3f7;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  margin: 0 0 1.25rem;
+}
+
 .device-conflict-actions {
   display: flex;
   flex-direction: column;
