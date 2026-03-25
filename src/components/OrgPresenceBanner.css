@@ -1,6 +1,6 @@
 .org-presence-banner {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   background: #f0edf5;
@@ -9,12 +9,20 @@
   color: var(--text-secondary, #4a4340);
 }
 
+.org-presence-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex: 1;
+}
+
 .org-presence-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #22c55e;
   flex-shrink: 0;
+  margin-top: 0.3rem;
   animation: org-presence-pulse 2s ease-in-out infinite;
 }
 

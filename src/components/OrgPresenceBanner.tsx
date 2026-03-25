@@ -26,13 +26,17 @@ export function OrgPresenceBanner({ members }: OrgPresenceBannerProps) {
 
   const count = members.length;
   const label = count === 1
-    ? 'Another team member is currently using Access Compass'
-    : `${count} other team members are currently using Access Compass`;
+    ? 'Another team member is currently using Access Compass.'
+    : `${count} other team members are currently using Access Compass.`;
 
   return (
     <div className="org-presence-banner" role="status" aria-live="polite">
-      <span className="org-presence-dot" aria-hidden="true" />
-      <span className="org-presence-text">{label}</span>
+      <div className="org-presence-main">
+        <span className="org-presence-dot" aria-hidden="true" />
+        <span className="org-presence-text">
+          {label} If you are both editing the same items, the most recent save will be kept.
+        </span>
+      </div>
       <button
         className="org-presence-dismiss"
         onClick={() => setDismissed(true)}
