@@ -419,7 +419,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         if (orgError) {
           console.error('[createOrganisation] Org insert error:', orgError);
-          return { error: typeof orgError === 'string' ? orgError : 'Failed to create organisation' };
+          const errorStr = typeof orgError === 'string' ? orgError : JSON.stringify(orgError);
+          if (errorStr.includes('organisations_slug_key') || errorStr.includes('23505')) {
+            return { error: `An organisation named "${data.name}" has already been registered. Please choose a different name, or contact support if you believe this is an error.` };
+          }
+          return { error: 'Failed to create organisation. Please try again.' };
         }
 
         // REST API returns array, get first item
