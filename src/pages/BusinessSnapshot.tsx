@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { initializeSession, updateBusinessSnapshot, getSession, getDiscoveryData } from '../utils/session';
+import { useAuth } from '../contexts/AuthContext';
 import type { BusinessSnapshot, BusinessType, UserRole, OrganisationSize } from '../types';
 import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/form-page.css';
@@ -73,6 +74,7 @@ const organisationSizeOptions: { value: OrganisationSize; label: string; descrip
 export default function BusinessSnapshotPage() {
   usePageTitle('Organisation Details');
   const navigate = useNavigate();
+  const { accessState } = useAuth();
   const [validationError, setValidationError] = useState<string | null>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -113,8 +115,14 @@ export default function BusinessSnapshotPage() {
     // Pre-fill form if data exists
     if (session.business_snapshot && session.business_snapshot.organisation_name) {
       setFormData(session.business_snapshot);
+    } else if (accessState.organisation?.name) {
+      // Pre-fill org name from Supabase organisation
+      setFormData(prev => ({
+        ...prev,
+        organisation_name: accessState.organisation!.name,
+      }));
     }
-  }, [navigate]);
+  }, [navigate, accessState.organisation]);
 
   const toggleBusinessType = (type: BusinessType) => {
     setFormData((prev) => ({
