@@ -18,10 +18,10 @@ import { syncRecord, deleteRecord } from '../utils/cloudSync';
 // Background sync helper for non-React context
 function bgSyncCategory(table: string, data: Record<string, unknown>) {
   if (!isSupabaseEnabled() || !supabase) return;
-  supabase.auth.getUser().then(({ data: userData }) => {
+  supabase!.auth.getUser().then(({ data: userData }) => {
     const userId = userData.user?.id;
     if (!userId) return;
-    supabase.from('organisation_memberships')
+    supabase!.from('organisation_memberships')
       .select('organisation_id')
       .eq('user_id', userId)
       .eq('status', 'active')
@@ -35,7 +35,7 @@ function bgSyncCategory(table: string, data: Record<string, unknown>) {
 
 function bgDeleteCategory(table: string, filters: Record<string, unknown>) {
   if (!isSupabaseEnabled() || !supabase) return;
-  supabase.auth.getUser().then(({ data: userData }) => {
+  supabase!.auth.getUser().then(({ data: userData }) => {
     const userId = userData.user?.id;
     if (!userId) return;
     deleteRecord(table, filters, userId).catch(() => {});

@@ -17,7 +17,7 @@ import {
   saveDiscoveryData,
   type StoredDiscoveryData,
 } from '../utils/session';
-import type { Session, RecommendationResult, ReviewMode } from '../types';
+import type { Session, RecommendationResult, ReviewMode, DiscoveryData } from '../types';
 
 interface UseSupabaseSessionReturn {
   session: Session | null;
@@ -103,9 +103,9 @@ export function useSupabaseSession(): UseSupabaseSessionReturn {
           if (cloudSession) {
             const cloudUpdatedAt = (cloudSession.last_updated || cloudSession.updated_at) as string | undefined;
             if (resolveByTimestamp(localSession.last_updated, cloudUpdatedAt) === 'cloud') {
-              const mergedSession = {
+              const mergedSession: Session = {
                 ...localSession,
-                selected_modules: (cloudSession.selected_modules as string[]) || localSession.selected_modules,
+                selected_modules: (cloudSession.selected_modules as Session['selected_modules']) || localSession.selected_modules,
                 last_updated: cloudUpdatedAt || localSession.last_updated,
               };
               updateLocalSession(mergedSession);
@@ -124,7 +124,7 @@ export function useSupabaseSession(): UseSupabaseSessionReturn {
               discovery_data: {
                 selectedTouchpoints: (cloudDiscovery.selected_touchpoints as string[]) || [],
                 selectedSubTouchpoints: (cloudDiscovery.selected_sub_touchpoints as string[]) || [],
-                responses: (cloudDiscovery.touchpoint_responses as Record<string, unknown>) || {},
+                responses: (cloudDiscovery.touchpoint_responses as DiscoveryData['responses']) || {},
               },
               recommendation_result: cloudDiscovery.recommendation_result as RecommendationResult,
               review_mode: (cloudDiscovery.review_mode as ReviewMode) || 'pulse-check',

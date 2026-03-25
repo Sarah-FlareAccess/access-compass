@@ -7,7 +7,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { isSupabaseEnabled } from '../utils/supabase';
+import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
 import { syncRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
 import { useAuthSafe } from '../contexts/AuthContext';

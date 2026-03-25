@@ -18,7 +18,6 @@ import {
   getPendingCount,
   updateSyncMetadata,
   onUserOnline,
-  getDeviceId,
   type SyncState,
 } from '../utils/cloudSync';
 import { isSupabaseEnabled } from '../utils/supabase';
@@ -35,7 +34,7 @@ interface UseCloudSyncReturn {
 
 export function useCloudSync(
   userId: string | undefined,
-  organisationId: string | undefined
+  _organisationId: string | undefined
 ): UseCloudSyncReturn {
   const [syncState, setSyncState] = useState<SyncState>({
     isSyncing: false,

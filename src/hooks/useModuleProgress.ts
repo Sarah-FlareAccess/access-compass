@@ -258,7 +258,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
   }, [userId, organisationId]);
 
   // Background sync a single module's progress to Supabase
-  const syncModuleToCloud = useCallback((moduleId: string, moduleData: ModuleProgress) => {
+  const syncModuleToCloud = useCallback((_moduleId: string, moduleData: ModuleProgress) => {
     const session = getSession();
     if (!session?.session_id || !userIdRef.current) return;
 

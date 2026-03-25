@@ -47,7 +47,6 @@ interface PendingSyncOp {
 const SYNC_QUEUE_KEY = 'access_compass_sync_queue';
 const DEVICE_ID_KEY = 'access_compass_device_id';
 const MAX_RETRIES = 5;
-const RETRY_DELAYS = [1000, 5000, 15000, 30000, 60000]; // exponential-ish backoff
 
 // ============================================
 // DEVICE IDENTIFICATION

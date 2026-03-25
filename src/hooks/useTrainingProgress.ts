@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { TrainingProgress, CourseProgress } from '../data/training/types';
 import { isSupabaseEnabled } from '../utils/supabase';
-import { syncRecord, fetchRecord, resolveByTimestamp } from '../utils/cloudSync';
+import { syncRecord, fetchRecord } from '../utils/cloudSync';
 import { useAuthSafe } from '../contexts/AuthContext';
 
 const TRAINING_PROGRESS_KEY = 'access_compass_training_progress';
@@ -59,7 +59,6 @@ export function useTrainingProgress() {
         );
 
         if (cloudRow) {
-          const cloudUpdatedAt = cloudRow.updated_at as string | undefined;
           // Simple merge: if cloud has courses we don't have locally, add them
           const cloudCourses = (cloudRow.courses as Record<string, CourseProgress>) || {};
           const cloudViewed = (cloudRow.viewed_resources as string[]) || [];
