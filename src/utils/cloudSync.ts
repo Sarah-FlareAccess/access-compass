@@ -171,7 +171,22 @@ export async function syncRecord(
       updated_at: new Date().toISOString(),
     };
 
-    const { error } = await supabase.from(table).upsert(record);
+    // Specify onConflict for tables with composite unique keys
+    const conflictMap: Record<string, string> = {
+      module_progress: 'session_id,module_id',
+      module_responses: 'session_id,module_id,question_id',
+      diap_custom_category_names: 'user_id,category_id',
+      diap_team_roles: 'organisation_id,role_name',
+      sync_metadata: 'user_id,device_id',
+      discovery_data: 'session_id',
+      discovery_progress: 'session_id',
+      training_progress: 'user_id',
+    };
+
+    const onConflict = conflictMap[table];
+    const { error } = onConflict
+      ? await supabase.from(table).upsert(record, { onConflict })
+      : await supabase.from(table).upsert(record);
 
     if (error) {
       console.warn(`[CloudSync] Failed to sync to ${table}:`, error.message);
