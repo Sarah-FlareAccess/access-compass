@@ -11,6 +11,8 @@ import { getSession } from '../utils/session';
 import { syncRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
 import { migrateEvidenceToStorage } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
+import { logActivityStandalone } from './useActivityLog';
+import { getModuleById } from '../data/accessModules';
 import type { ResponseOption } from '../constants/responseOptions';
 
 // Evidence file attached to a question
@@ -360,6 +362,13 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       const updated = { ...prev, [moduleId]: moduleData };
       saveLocalProgress(updated);
       syncModuleToCloud(moduleId, moduleData);
+
+      const mod = getModuleById(moduleId);
+      logActivityStandalone('module-started', {
+        moduleId,
+        moduleName: mod?.name || moduleCode,
+      }, userIdRef.current || undefined);
+
       return updated;
     });
   }, [syncModuleToCloud]);
@@ -405,6 +414,13 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       const updated = { ...prev, [moduleId]: moduleData };
       saveLocalProgress(updated);
       syncModuleToCloud(moduleId, moduleData);
+
+      const mod = getModuleById(moduleId);
+      logActivityStandalone('module-completed', {
+        moduleId,
+        moduleName: mod?.name || moduleData.moduleCode,
+      }, userIdRef.current || undefined);
+
       return updated;
     });
   }, [syncModuleToCloud]);

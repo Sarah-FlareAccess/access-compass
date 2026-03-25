@@ -12,7 +12,9 @@ import { getSession } from '../utils/session';
 import { syncRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
 import { useAuthSafe } from '../contexts/AuthContext';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
+import { logActivityStandalone } from './useActivityLog';
 import { MODULE_TO_DIAP_MAPPING, DIAP_SECTIONS } from '../data/diapMapping';
+import type { DIAPComment } from '../types/activity';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { generateActionText } from '../components/questions/QuestionFlow';
 
@@ -75,6 +77,9 @@ export interface DIAPItem {
 
   // Per-item attachments (evidence, quotes, research)
   attachments?: DIAPAttachment[];
+
+  // Comments thread
+  comments?: DIAPComment[];
 
   // Display order (lower = higher in list)
   sortOrder?: number;
@@ -304,6 +309,9 @@ interface UseDIAPManagementReturn {
   // Attachments
   addAttachment: (itemId: string, file: File) => Promise<void>;
   removeAttachment: (itemId: string, attachmentId: string) => void;
+
+  // Comments
+  addComment: (itemId: string, text: string) => void;
 
   // Reorder
   reorderItem: (itemIdA: string, itemIdB: string) => void;
@@ -587,6 +595,11 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       return updated;
     });
 
+    logActivityStandalone('diap-item-created', {
+      diapItemId: newItem.id,
+      diapItemObjective: newItem.objective,
+    }, userIdRef.current || undefined);
+
     return newItem;
   }, []);
 
@@ -595,6 +608,25 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     setItems(prev => {
       const updated = prev.map(item => {
         if (item.id === id) {
+          // Log status changes
+          if (updates.status && updates.status !== item.status) {
+            logActivityStandalone('diap-status-changed', {
+              diapItemId: item.id,
+              diapItemObjective: item.objective,
+              oldValue: item.status,
+              newValue: updates.status,
+            }, userIdRef.current || undefined);
+          }
+
+          // Log assignment changes
+          if (updates.responsibleRole && updates.responsibleRole !== item.responsibleRole) {
+            logActivityStandalone('diap-assigned', {
+              diapItemId: item.id,
+              diapItemObjective: item.objective,
+              assigneeName: updates.responsibleRole,
+            }, userIdRef.current || undefined);
+          }
+
           const newItem = {
             ...item,
             ...updates,
@@ -1517,6 +1549,42 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     });
   }, []);
 
+  // Add a comment to a DIAP item
+  const addComment = useCallback((itemId: string, text: string) => {
+    const comment: DIAPComment = {
+      id: crypto.randomUUID(),
+      authorName: (() => {
+        const session = getSession();
+        return session?.business_snapshot?.contact_name || 'Team member';
+      })(),
+      authorId: userIdRef.current || undefined,
+      text,
+      createdAt: new Date().toISOString(),
+    };
+
+    setItems(prev => {
+      const updated = prev.map(item => {
+        if (item.id === itemId) {
+          return {
+            ...item,
+            comments: [...(item.comments || []), comment],
+            updatedAt: new Date().toISOString(),
+          };
+        }
+        return item;
+      });
+      saveLocalItems(updated);
+      return updated;
+    });
+
+    const item = items.find(i => i.id === itemId);
+    logActivityStandalone('diap-comment-added', {
+      diapItemId: itemId,
+      diapItemObjective: item?.objective || '',
+      commentText: text,
+    }, userIdRef.current || undefined);
+  }, [items]);
+
   // Reorder: swap two items by their IDs
   const reorderItem = useCallback((itemIdA: string, itemIdB: string) => {
     setItems(prev => {
@@ -1551,6 +1619,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     linkDocumentToItem,
     addAttachment,
     removeAttachment,
+    addComment,
     reorderItem,
     getItemsByPriority,
     getItemsByStatus,

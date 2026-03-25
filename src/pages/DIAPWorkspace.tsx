@@ -27,6 +27,7 @@ import { hasHelpContent, getHelpByQuestionId } from '../data/help';
 import { getResourceLink } from '../utils/resourceLinks';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
 import { AutoSaveIndicator } from '../components/AutoSaveIndicator';
+import { DIAPCommentThread } from '../components/DIAPCommentThread';
 import { Zap, Upload, Paperclip, Filter, Users as UsersIcon, CalendarDays, Plus } from 'lucide-react';
 import '../styles/diap.css';
 
@@ -90,6 +91,7 @@ export default function DIAPWorkspace() {
     generateFromResponses,
     addAttachment,
     removeAttachment,
+    addComment,
     reorderItem,
   } = useDIAPManagement();
 
@@ -1289,6 +1291,7 @@ export default function DIAPWorkspace() {
                                     }}
                                     onAddAttachment={addAttachment}
                                     onRemoveAttachment={removeAttachment}
+                                    onAddComment={addComment}
                                     onMoveUp={index > 0 ? () => reorderItem(item.id, objItems[index - 1].id) : undefined}
                                     onMoveDown={index < objItems.length - 1 ? () => reorderItem(item.id, objItems[index + 1].id) : undefined}
                                     showEditHint={showEditHint && index === 0 && group.id === 'access'}
@@ -1543,6 +1546,7 @@ interface DIAPItemCardProps {
   onEdit: () => void;
   onAddAttachment: (id: string, file: File) => void;
   onRemoveAttachment: (itemId: string, attachmentId: string) => void;
+  onAddComment: (itemId: string, text: string) => void;
   onMoveUp?: () => void;
   onMoveDown?: () => void;
   showEditHint?: boolean;
@@ -1550,7 +1554,7 @@ interface DIAPItemCardProps {
   onDismissChange?: () => void;
 }
 
-function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveAttachment, onMoveUp, onMoveDown, showEditHint, responseChange, onDismissChange }: DIAPItemCardProps) {
+function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveAttachment, onAddComment, onMoveUp, onMoveDown, showEditHint, responseChange, onDismissChange }: DIAPItemCardProps) {
   const [showStatusMenu, setShowStatusMenu] = useState(false);
   const attachInputRef = useRef<HTMLInputElement>(null);
 
@@ -1832,6 +1836,11 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveA
           + Add evidence
         </button>
       </div>
+
+      <DIAPCommentThread
+        comments={item.comments || []}
+        onAddComment={(text) => onAddComment(item.id, text)}
+      />
     </div>
   );
 }

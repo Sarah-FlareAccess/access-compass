@@ -180,6 +180,7 @@ export async function syncRecord(
       discovery_data: 'session_id',
       discovery_progress: 'session_id',
       training_progress: 'user_id',
+      activity_log: 'id',
     };
 
     const onConflict = conflictMap[table];

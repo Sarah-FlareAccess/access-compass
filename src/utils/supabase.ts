@@ -44,10 +44,31 @@ if (supabase) {
 // Helper to check if Supabase is enabled
 export const isSupabaseEnabled = () => supabase !== null;
 
+// Get the current user's JWT token for authenticated REST calls
+async function getAuthToken(): Promise<string> {
+  if (supabase) {
+    try {
+      // Race against a timeout to prevent hanging
+      const result = await Promise.race([
+        supabase.auth.getSession(),
+        new Promise<null>((resolve) => setTimeout(() => resolve(null), 3000)),
+      ]);
+      if (result && 'data' in result && result.data.session?.access_token) {
+        return result.data.session.access_token;
+      }
+    } catch {
+      // Fall through to anon key
+    }
+  }
+  return supabaseAnonKey || '';
+}
+
 // Direct REST API helper (bypasses Supabase JS client issues)
 export const supabaseRest = {
   async query(table: string, select = '*', filters?: Record<string, string>) {
     if (!supabaseUrl || !supabaseAnonKey) return { data: null, error: 'Not configured' };
+
+    const token = await getAuthToken();
 
     let url = `${supabaseUrl}/rest/v1/${table}?select=${select}`;
     if (filters) {
@@ -59,7 +80,7 @@ export const supabaseRest = {
     const response = await fetch(url, {
       headers: {
         'apikey': supabaseAnonKey,
-        'Authorization': `Bearer ${supabaseAnonKey}`,
+        'Authorization': `Bearer ${token}`,
       },
     });
 
@@ -72,11 +93,13 @@ export const supabaseRest = {
   async insert(table: string, data: Record<string, unknown>) {
     if (!supabaseUrl || !supabaseAnonKey) return { data: null, error: 'Not configured' };
 
+    const token = await getAuthToken();
+
     const response = await fetch(`${supabaseUrl}/rest/v1/${table}`, {
       method: 'POST',
       headers: {
         'apikey': supabaseAnonKey,
-        'Authorization': `Bearer ${supabaseAnonKey}`,
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
         'Prefer': 'return=representation',
       },
@@ -92,6 +115,8 @@ export const supabaseRest = {
   async update(table: string, data: Record<string, unknown>, filters: Record<string, string>) {
     if (!supabaseUrl || !supabaseAnonKey) return { data: null, error: 'Not configured' };
 
+    const token = await getAuthToken();
+
     let url = `${supabaseUrl}/rest/v1/${table}?`;
     Object.entries(filters).forEach(([key, value], index) => {
       url += `${index > 0 ? '&' : ''}${key}=eq.${value}`;
@@ -101,7 +126,7 @@ export const supabaseRest = {
       method: 'PATCH',
       headers: {
         'apikey': supabaseAnonKey,
-        'Authorization': `Bearer ${supabaseAnonKey}`,
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
         'Prefer': 'return=representation',
       },
@@ -117,6 +142,8 @@ export const supabaseRest = {
   async delete(table: string, filters: Record<string, string>) {
     if (!supabaseUrl || !supabaseAnonKey) return { data: null, error: 'Not configured' };
 
+    const token = await getAuthToken();
+
     let url = `${supabaseUrl}/rest/v1/${table}?`;
     Object.entries(filters).forEach(([key, value], index) => {
       url += `${index > 0 ? '&' : ''}${key}=eq.${value}`;
@@ -126,7 +153,7 @@ export const supabaseRest = {
       method: 'DELETE',
       headers: {
         'apikey': supabaseAnonKey,
-        'Authorization': `Bearer ${supabaseAnonKey}`,
+        'Authorization': `Bearer ${token}`,
       },
     });
 

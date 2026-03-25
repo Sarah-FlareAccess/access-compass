@@ -31,11 +31,18 @@ import { BottomTabBar } from '../components/BottomTabBar';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { InstallPrompt } from '../components/InstallPrompt';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
+import { logActivityStandalone, useActivityLog } from '../hooks/useActivityLog';
+import { ActivityFeed } from '../components/ActivityFeed';
+import { ShareButton } from '../components/ShareButton';
+import { CopyMessageButton } from '../components/CopyMessageButton';
+import { generateWeeklyDigestMessage } from '../utils/notificationMessages';
+import { generateOverallProgressSummary } from '../utils/shareSummary';
+import '../styles/share-button.css';
 import { GitCompare, Gauge, Users, ImagePlus, BarChart3, ListChecks } from 'lucide-react';
 import { getCategoryLink } from '../utils/resourceLinks';
 import '../styles/dashboard.css';
 
-type TabType = 'modules' | 'evidence';
+type TabType = 'modules' | 'evidence' | 'activity';
 
 interface ModuleWithProgress {
   module: AccessModule;
@@ -79,6 +86,7 @@ export default function Dashboard() {
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<TabType>('modules');
+  const { activities } = useActivityLog();
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [showReportProblem, setShowReportProblem] = useState(false);
   const [showInfoRequest, setShowInfoRequest] = useState(false);
@@ -393,6 +401,14 @@ export default function Dashboard() {
       assignedToEmail: assignedToEmail || undefined,
       targetCompletionDate: targetDate || undefined,
     });
+
+    if (assignedTo) {
+      logActivityStandalone('module-assigned', {
+        moduleId: assignmentModal.moduleId,
+        moduleName: assignmentModal.moduleName,
+        assigneeName: assignedTo,
+      });
+    }
 
     // If we have an email, show the email template
     if (assignedTo && assignedToEmail) {
@@ -791,6 +807,16 @@ Thanks!`;
             >
               Evidence Library
             </button>
+            <button
+              className={`tab-btn ${activeTab === 'activity' ? 'active' : ''}`}
+              onClick={() => setActiveTab('activity')}
+              role="tab"
+              aria-selected={activeTab === 'activity'}
+              aria-controls="tab-panel-activity"
+              id="tab-activity"
+            >
+              Activity
+            </button>
           </div>
 
           {/* Tab Content */}
@@ -1084,6 +1110,24 @@ Thanks!`;
                   </p>
                 )}
               </div>
+            </div>
+          )}
+
+          {activeTab === 'activity' && (
+            <div className="activity-content" role="tabpanel" id="tab-panel-activity" aria-labelledby="tab-activity">
+              <div className="activity-header-actions">
+                <CopyMessageButton
+                  getMessage={() => generateWeeklyDigestMessage(activities, session?.business_snapshot?.organisation_name || 'Our Organisation')}
+                  label="Copy Weekly Digest"
+                  className="btn-digest"
+                />
+                <ShareButton
+                  getSummary={() => generateOverallProgressSummary(progress, session?.selected_modules?.length || 0, session?.business_snapshot?.organisation_name || 'Our Organisation')}
+                  filename={`access-compass-progress-${new Date().toISOString().split('T')[0]}.txt`}
+                  label="Share Progress"
+                />
+              </div>
+              <ActivityFeed activities={activities} />
             </div>
           )}
         </div>

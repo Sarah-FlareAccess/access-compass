@@ -1,0 +1,85 @@
+.share-button-container {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  color: #4a3660;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-share:hover {
+  background: #f9f5ff;
+  border-color: #4a3660;
+}
+
+.btn-share:focus-visible {
+  outline: 2px solid #FF9015;
+  outline-offset: 2px;
+}
+
+.share-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 20;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 10rem;
+  overflow: hidden;
+}
+
+.share-menu button {
+  display: block;
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.8125rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.share-menu button:hover {
+  background: #f3f4f6;
+}
+
+.share-menu button:focus-visible {
+  outline: 2px solid #FF9015;
+  outline-offset: -2px;
+}
+
+.btn-copy-message {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.625rem;
+  background: #4a3660;
+  border: none;
+  border-radius: 0.25rem;
+  color: white;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-copy-message:hover {
+  background: #3a2850;
+}
+
+.btn-copy-message:focus-visible {
+  outline: 2px solid #FF9015;
+  outline-offset: 2px;
+}
