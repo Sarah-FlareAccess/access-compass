@@ -1572,7 +1572,10 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveA
     if (
       target.closest('.status-selector') ||
       target.closest('.item-actions') ||
-      target.closest('button')
+      target.closest('button') ||
+      target.closest('textarea') ||
+      target.closest('input') ||
+      target.closest('select')
     ) {
       return;
     }
@@ -1582,9 +1585,11 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveA
   // Handle keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      // Don't trigger if focus is on a button inside
+      // Don't trigger if focus is on an interactive element inside
       const target = e.target as HTMLElement;
-      if (target.tagName === 'BUTTON') return;
+      const interactiveTags = ['BUTTON', 'TEXTAREA', 'INPUT', 'SELECT', 'A'];
+      if (interactiveTags.includes(target.tagName)) return;
+      if (target.isContentEditable) return;
       e.preventDefault();
       onEdit();
     }
