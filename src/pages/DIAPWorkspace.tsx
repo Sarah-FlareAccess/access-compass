@@ -2143,7 +2143,19 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
   };
 
   return (
-    <form className="diap-item-form" onSubmit={handleSubmit}>
+    <form
+      className="diap-item-form"
+      onSubmit={handleSubmit}
+      onKeyDown={(e) => {
+        // Prevent Enter from submitting the form when inside textareas or inputs
+        // Only allow form submission via the Save button
+        if (e.key === 'Enter') {
+          const target = e.target as HTMLElement;
+          if (target.tagName === 'TEXTAREA') return; // Allow new lines in textareas
+          if (target.tagName !== 'BUTTON') e.preventDefault(); // Block form submit from inputs
+        }
+      }}
+    >
       <h3>{item ? 'Edit Item' : 'Add New Item'}</h3>
 
       <div className="form-row">
