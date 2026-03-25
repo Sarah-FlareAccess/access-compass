@@ -5,9 +5,12 @@
  * Supports both localStorage and Supabase persistence.
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import { supabase, isSupabaseEnabled } from '../utils/supabase';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
+import { syncRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
+import { migrateEvidenceToStorage } from '../utils/evidenceStorage';
+import { useAuthSafe } from '../contexts/AuthContext';
 import type { ResponseOption } from '../constants/responseOptions';
 
 // Evidence file attached to a question
@@ -244,50 +247,85 @@ interface UseModuleProgressReturn {
 export function useModuleProgress(selectedModules: string[] = []): UseModuleProgressReturn {
   const [progress, setProgress] = useState<Record<string, ModuleProgress>>({});
   const [isLoading, setIsLoading] = useState(true);
+  const { userId, organisationId } = useAuthSafe();
+  const userIdRef = useRef(userId);
+  const orgIdRef = useRef(organisationId);
+
+  // Keep refs current so callbacks don't need userId/orgId in deps
+  useEffect(() => {
+    userIdRef.current = userId;
+    orgIdRef.current = organisationId;
+  }, [userId, organisationId]);
+
+  // Background sync a single module's progress to Supabase
+  const syncModuleToCloud = useCallback((moduleId: string, moduleData: ModuleProgress) => {
+    const session = getSession();
+    if (!session?.session_id || !userIdRef.current) return;
+
+    syncRecord('module_progress', {
+      session_id: session.session_id,
+      module_id: moduleData.moduleId,
+      module_code: moduleData.moduleCode,
+      status: moduleData.status,
+      started_at: moduleData.startedAt,
+      completed_at: moduleData.completedAt,
+      summary: moduleData.summary || null,
+      confidence_snapshot: moduleData.confidenceSnapshot || null,
+      completed_by: moduleData.ownership?.completedBy || null,
+      completed_by_role: moduleData.ownership?.completedByRole || null,
+    }, userIdRef.current, orgIdRef.current).catch(() => {
+      // Queued for retry automatically
+    });
+  }, []);
 
   // Load progress on mount
   useEffect(() => {
     const loadProgress = async () => {
       try {
-        // Load from localStorage first
+        // Load from localStorage first (instant)
         const localProgress = getLocalProgress();
         setProgress(localProgress);
 
-        // If Supabase is enabled, sync from cloud (with timeout to handle latency)
-        if (isSupabaseEnabled() && supabase) {
-          const session = getSession();
-          if (session?.session_id) {
-            // Add timeout to prevent hanging on slow connections
-            const timeoutPromise = new Promise<{ data: null; error: Error }>((resolve) => {
-              setTimeout(() => resolve({ data: null, error: new Error('Supabase query timeout') }), 10000);
-            });
+        // If Supabase is enabled and user authenticated, merge cloud data
+        if (isSupabaseEnabled() && userId) {
+          const { data: cloudRows, error: fetchError } = await fetchRecords(
+            'module_progress',
+            userId,
+            undefined
+          );
 
-            const queryPromise = supabase
-              .from('module_progress')
-              .select('*')
-              .eq('session_id', session.session_id);
+          if (fetchError) {
+            console.log('[useModuleProgress] Cloud fetch skipped:', fetchError);
+          } else if (cloudRows && cloudRows.length > 0) {
+            const merged = { ...localProgress };
+            let hasChanges = false;
 
-            const { data: cloudProgress, error: supabaseError } = await Promise.race([queryPromise, timeoutPromise]);
+            for (const row of cloudRows as Record<string, unknown>[]) {
+              const moduleId = row.module_id as string;
+              const localEntry = localProgress[moduleId];
+              const cloudUpdatedAt = row.updated_at as string;
+              const localUpdatedAt = localEntry?.completedAt || localEntry?.startedAt;
 
-            // Skip cloud sync if table doesn't exist, timeout, or other error (silently fall back)
-            if (supabaseError) {
-              console.log('[useModuleProgress] Cloud sync skipped:', supabaseError.message);
-            } else if (cloudProgress && cloudProgress.length > 0) {
-              const cloudMap: Record<string, ModuleProgress> = {};
-              cloudProgress.forEach(p => {
-                cloudMap[p.module_id] = {
-                  moduleId: p.module_id,
-                  moduleCode: p.module_code,
-                  status: p.status,
-                  startedAt: p.started_at,
-                  completedAt: p.completed_at,
-                  responses: p.responses || [],
-                  summary: p.summary,
+              // If cloud is newer, use cloud data
+              if (!localEntry || resolveByTimestamp(localUpdatedAt, cloudUpdatedAt) === 'cloud') {
+                merged[moduleId] = {
+                  moduleId,
+                  moduleCode: (row.module_code as string) || moduleId,
+                  status: (row.status as ModuleProgress['status']) || 'not-started',
+                  startedAt: row.started_at as string,
+                  completedAt: row.completed_at as string | undefined,
+                  responses: localEntry?.responses || [], // Responses stored separately
+                  summary: (row.summary as ModuleSummary) || undefined,
+                  confidenceSnapshot: row.confidence_snapshot as ModuleProgress['confidenceSnapshot'],
+                  ownership: localEntry?.ownership,
+                  runs: localEntry?.runs,
+                  activeRunId: localEntry?.activeRunId,
                 };
-              });
+                hasChanges = true;
+              }
+            }
 
-              // Merge with local (local takes precedence for newer data)
-              const merged = { ...cloudMap, ...localProgress };
+            if (hasChanges) {
               setProgress(merged);
               saveLocalProgress(merged);
             }
@@ -301,7 +339,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     };
 
     loadProgress();
-  }, []);
+  }, [userId]);
 
   // Start a module
   const startModule = useCallback((moduleId: string, moduleCode: string) => {
@@ -311,21 +349,20 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
         return prev; // Already started
       }
 
-      const updated = {
-        ...prev,
-        [moduleId]: {
-          moduleId,
-          moduleCode,
-          status: 'in-progress' as const,
-          startedAt: new Date().toISOString(),
-          responses: existing?.responses || [],
-        },
+      const moduleData: ModuleProgress = {
+        moduleId,
+        moduleCode,
+        status: 'in-progress' as const,
+        startedAt: new Date().toISOString(),
+        responses: existing?.responses || [],
       };
 
+      const updated = { ...prev, [moduleId]: moduleData };
       saveLocalProgress(updated);
+      syncModuleToCloud(moduleId, moduleData);
       return updated;
     });
-  }, []);
+  }, [syncModuleToCloud]);
 
   // Calculate confidence snapshot based on responses
   const calculateConfidenceSnapshot = (responses: QuestionResponse[]): 'strong' | 'mixed' | 'needs-work' => {
@@ -352,26 +389,25 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
 
       const confidenceSnapshot = calculateConfidenceSnapshot(existing.responses);
 
-      const updated = {
-        ...prev,
-        [moduleId]: {
-          ...existing,
-          status: 'completed' as const,
-          completedAt: new Date().toISOString(),
-          summary,
-          confidenceSnapshot,
-          ownership: {
-            ...existing.ownership,
-            completedBy: completionMetadata?.completedBy || existing.ownership?.assignedTo,
-            completedByRole: completionMetadata?.completedByRole,
-          },
+      const moduleData: ModuleProgress = {
+        ...existing,
+        status: 'completed' as const,
+        completedAt: new Date().toISOString(),
+        summary,
+        confidenceSnapshot,
+        ownership: {
+          ...existing.ownership,
+          completedBy: completionMetadata?.completedBy || existing.ownership?.assignedTo,
+          completedByRole: completionMetadata?.completedByRole,
         },
       };
 
+      const updated = { ...prev, [moduleId]: moduleData };
       saveLocalProgress(updated);
+      syncModuleToCloud(moduleId, moduleData);
       return updated;
     });
-  }, []);
+  }, [syncModuleToCloud]);
 
   // Update module ownership (assignment and target date)
   const updateModuleOwnership = useCallback((moduleId: string, ownership: Partial<ModuleOwnership>) => {
@@ -383,21 +419,20 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
         responses: [],
       };
 
-      const updated = {
-        ...prev,
-        [moduleId]: {
-          ...existing,
-          ownership: {
-            ...existing.ownership,
-            ...ownership,
-          },
+      const moduleData: ModuleProgress = {
+        ...existing,
+        ownership: {
+          ...existing.ownership,
+          ...ownership,
         },
       };
 
+      const updated = { ...prev, [moduleId]: moduleData };
       saveLocalProgress(updated);
+      syncModuleToCloud(moduleId, moduleData);
       return updated;
     });
-  }, []);
+  }, [syncModuleToCloud]);
 
   // Save a question response
   const saveResponse = useCallback((moduleId: string, response: QuestionResponse) => {
@@ -420,15 +455,62 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
         updatedResponses.push(response);
       }
 
-      const updated = {
-        ...prev,
-        [moduleId]: {
-          ...existing,
-          responses: updatedResponses,
-        },
+      const moduleData: ModuleProgress = {
+        ...existing,
+        responses: updatedResponses,
       };
 
+      const updated = { ...prev, [moduleId]: moduleData };
       saveLocalProgress(updated);
+
+      // Sync individual response to module_responses table
+      const session = getSession();
+      if (session?.session_id && userIdRef.current) {
+        syncRecord('module_responses', {
+          session_id: session.session_id,
+          module_id: moduleId,
+          question_id: response.questionId,
+          answer: response.answer,
+          notes: response.notes || null,
+        }, userIdRef.current, orgIdRef.current).catch(() => {});
+
+        // Background: migrate evidence files from base64 to Supabase Storage
+        if (response.evidence && response.evidence.length > 0) {
+          for (const ev of response.evidence) {
+            if (ev.dataUrl && (!ev.url || ev.url.startsWith('data:'))) {
+              migrateEvidenceToStorage(
+                ev, userIdRef.current, session.session_id, response.questionId
+              ).then(result => {
+                if (result) {
+                  // Update the evidence URL in localStorage (replace base64 with cloud URL)
+                  setProgress(prev => {
+                    const mod = prev[moduleId];
+                    if (!mod) return prev;
+                    const respIdx = mod.responses.findIndex(r => r.questionId === response.questionId);
+                    if (respIdx < 0) return prev;
+                    const evIdx = mod.responses[respIdx].evidence?.findIndex(e => e.id === ev.id);
+                    if (evIdx === undefined || evIdx < 0) return prev;
+
+                    const updatedResponses = [...mod.responses];
+                    const updatedEvidence = [...(updatedResponses[respIdx].evidence || [])];
+                    updatedEvidence[evIdx] = {
+                      ...updatedEvidence[evIdx],
+                      url: result.url,
+                      // Keep dataUrl as offline fallback but it will be cleared on next quota pressure
+                    };
+                    updatedResponses[respIdx] = { ...updatedResponses[respIdx], evidence: updatedEvidence };
+
+                    const updated = { ...prev, [moduleId]: { ...mod, responses: updatedResponses } };
+                    saveLocalProgress(updated);
+                    return updated;
+                  });
+                }
+              }).catch(() => {});
+            }
+          }
+        }
+      }
+
       return updated;
     });
   }, []);
@@ -452,30 +534,34 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     return { completed, total, percentage };
   }, [progress, selectedModules]);
 
-  // Sync to cloud
+  // Sync all progress to cloud (full push)
   const syncToCloud = useCallback(async () => {
-    if (!isSupabaseEnabled() || !supabase) return;
+    if (!isSupabaseEnabled() || !userIdRef.current) return;
 
     const session = getSession();
     if (!session?.session_id) return;
 
-    try {
-      const progressEntries = Object.values(progress);
-
-      for (const entry of progressEntries) {
-        await supabase.from('module_progress').upsert({
+    const progressEntries = Object.values(progress);
+    const results = await Promise.allSettled(
+      progressEntries.map(entry =>
+        syncRecord('module_progress', {
           session_id: session.session_id,
           module_id: entry.moduleId,
           module_code: entry.moduleCode,
           status: entry.status,
           started_at: entry.startedAt,
           completed_at: entry.completedAt,
-          responses: entry.responses,
-          summary: entry.summary,
-        });
-      }
-    } catch (err) {
-      console.error('Error syncing module progress:', err);
+          summary: entry.summary || null,
+          confidence_snapshot: entry.confidenceSnapshot || null,
+          completed_by: entry.ownership?.completedBy || null,
+          completed_by_role: entry.ownership?.completedByRole || null,
+        }, userIdRef.current!, orgIdRef.current)
+      )
+    );
+
+    const failed = results.filter(r => r.status === 'rejected').length;
+    if (failed > 0) {
+      console.warn(`[useModuleProgress] ${failed}/${progressEntries.length} modules failed to sync`);
     }
   }, [progress]);
 

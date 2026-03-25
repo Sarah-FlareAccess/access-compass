@@ -15,6 +15,9 @@ import NavBar from './NavBar';
 import { Sidebar } from './Sidebar';
 import { BottomTabBar } from './BottomTabBar';
 import { BackToTop } from './BackToTop';
+import { DeviceConflictAlert } from './DeviceConflictAlert';
+import { useCloudSync } from '../hooks/useCloudSync';
+import { useAuth } from '../contexts/AuthContext';
 import '../styles/dashboard.css';
 
 // Pages that should NOT have the global nav bar (entry/onboarding pages)
@@ -38,6 +41,13 @@ export default function AppLayout() {
   const location = useLocation();
   const [routeAnnouncement, setRouteAnnouncement] = useState('');
   const showNav = !PAGES_WITHOUT_NAV.includes(location.pathname);
+  const { user, accessState } = useAuth();
+  const {
+    conflictDetected,
+    conflictDevice,
+    resolveConflict,
+    dismissConflict,
+  } = useCloudSync(user?.id, accessState.organisation?.id);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -102,6 +112,17 @@ export default function AppLayout() {
       {showNav && <BottomTabBar />}
 
       {showNav && <BackToTop />}
+
+      {/* Device conflict resolution modal */}
+      {conflictDetected && conflictDevice && (
+        <DeviceConflictAlert
+          otherDeviceLabel={conflictDevice.label}
+          otherDeviceSyncTime={conflictDevice.lastSyncedAt}
+          onUseCloud={() => resolveConflict('use-cloud')}
+          onKeepLocal={() => resolveConflict('use-local')}
+          onDismiss={dismissConflict}
+        />
+      )}
     </>
   );
 }

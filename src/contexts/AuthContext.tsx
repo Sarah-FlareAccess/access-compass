@@ -753,3 +753,19 @@ export function useAuth() {
   }
   return context;
 }
+
+/**
+ * Safe version that returns null instead of throwing when used outside AuthProvider.
+ * Used by data hooks that need userId/orgId for cloud sync but should still
+ * work in localStorage-only mode without auth.
+ */
+export function useAuthSafe(): { userId: string | undefined; organisationId: string | undefined } {
+  const context = useContext(AuthContext);
+  if (!context) {
+    return { userId: undefined, organisationId: undefined };
+  }
+  return {
+    userId: context.user?.id,
+    organisationId: context.accessState?.organisation?.id,
+  };
+}

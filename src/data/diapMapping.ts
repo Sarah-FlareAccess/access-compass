@@ -12,6 +12,36 @@
  * - People & Culture
  */
 
+import { supabase, isSupabaseEnabled } from '../utils/supabase';
+import { syncRecord, deleteRecord } from '../utils/cloudSync';
+
+// Background sync helper for non-React context
+function bgSyncCategory(table: string, data: Record<string, unknown>) {
+  if (!isSupabaseEnabled() || !supabase) return;
+  supabase.auth.getUser().then(({ data: userData }) => {
+    const userId = userData.user?.id;
+    if (!userId) return;
+    supabase.from('organisation_memberships')
+      .select('organisation_id')
+      .eq('user_id', userId)
+      .eq('status', 'active')
+      .limit(1)
+      .maybeSingle()
+      .then(({ data: membership }) => {
+        syncRecord(table, data, userId, membership?.organisation_id).catch(() => {});
+      });
+  }).catch(() => {});
+}
+
+function bgDeleteCategory(table: string, filters: Record<string, unknown>) {
+  if (!isSupabaseEnabled() || !supabase) return;
+  supabase.auth.getUser().then(({ data: userData }) => {
+    const userId = userData.user?.id;
+    if (!userId) return;
+    deleteRecord(table, filters, userId).catch(() => {});
+  }).catch(() => {});
+}
+
 export interface DIAPSection {
   id: string;
   name: string;
@@ -341,8 +371,13 @@ export function setCustomCategoryName(categoryId: string, name: string): void {
   const defaultGroup = DIAP_CATEGORIES.find(c => c.id === categoryId);
   if (defaultGroup && name.trim() === defaultGroup.name) {
     delete names[categoryId];
+    bgDeleteCategory('diap_custom_category_names', { category_id: categoryId });
   } else {
     names[categoryId] = name.trim();
+    bgSyncCategory('diap_custom_category_names', {
+      category_id: categoryId,
+      custom_name: name.trim(),
+    });
   }
   localStorage.setItem(CUSTOM_CATEGORY_NAMES_KEY, JSON.stringify(names));
 }
@@ -374,17 +409,24 @@ export function addCustomCategory(name: string, description?: string): DIAPCateg
   };
   categories.push(newCat);
   localStorage.setItem(CUSTOM_CATEGORIES_KEY, JSON.stringify(categories));
+  bgSyncCategory('diap_custom_categories', {
+    id,
+    name: newCat.name,
+    description: newCat.description,
+  });
   return newCat;
 }
 
 export function removeCustomCategory(categoryId: string): void {
   const categories = getCustomCategories().filter(c => c.id !== categoryId);
   localStorage.setItem(CUSTOM_CATEGORIES_KEY, JSON.stringify(categories));
+  bgDeleteCategory('diap_custom_categories', { id: categoryId });
   // Also clean up any custom name for this category
   const names = getCustomCategoryNames();
   if (names[categoryId]) {
     delete names[categoryId];
     localStorage.setItem(CUSTOM_CATEGORY_NAMES_KEY, JSON.stringify(names));
+    bgDeleteCategory('diap_custom_category_names', { category_id: categoryId });
   }
 }
 
@@ -395,6 +437,11 @@ export function updateCustomCategory(categoryId: string, updates: Partial<Pick<D
     if (updates.name !== undefined) categories[idx].name = updates.name.trim();
     if (updates.description !== undefined) categories[idx].description = updates.description.trim();
     localStorage.setItem(CUSTOM_CATEGORIES_KEY, JSON.stringify(categories));
+    bgSyncCategory('diap_custom_categories', {
+      id: categoryId,
+      name: categories[idx].name,
+      description: categories[idx].description,
+    });
   }
 }
 

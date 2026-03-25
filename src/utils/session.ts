@@ -1,4 +1,4 @@
-// Session Management using localStorage
+// Session Management using localStorage with Supabase cloud sync
 import { v4 as uuidv4 } from 'uuid';
 import type {
   Session,
@@ -13,6 +13,55 @@ import type {
   RecommendationResult,
   ReviewMode,
 } from '../types';
+import { supabase, isSupabaseEnabled } from './supabase';
+import { syncRecord, deleteRecord } from './cloudSync';
+
+// Helper: get current authenticated user ID from Supabase client (non-React)
+async function getCurrentUserId(): Promise<string | undefined> {
+  if (!isSupabaseEnabled() || !supabase) return undefined;
+  try {
+    const { data } = await supabase.auth.getUser();
+    return data.user?.id;
+  } catch {
+    return undefined;
+  }
+}
+
+// Helper: get current org ID
+async function getCurrentOrgId(): Promise<string | undefined> {
+  if (!isSupabaseEnabled() || !supabase) return undefined;
+  try {
+    const { data } = await supabase.auth.getUser();
+    if (!data.user?.id) return undefined;
+    const { data: membership } = await supabase
+      .from('organisation_memberships')
+      .select('organisation_id')
+      .eq('user_id', data.user.id)
+      .eq('status', 'active')
+      .limit(1)
+      .maybeSingle();
+    return membership?.organisation_id;
+  } catch {
+    return undefined;
+  }
+}
+
+// Background sync helper (fire-and-forget)
+function bgSync(table: string, data: Record<string, unknown>) {
+  getCurrentUserId().then(userId => {
+    if (!userId) return;
+    getCurrentOrgId().then(orgId => {
+      syncRecord(table, data, userId, orgId).catch(() => {});
+    });
+  });
+}
+
+function bgDelete(table: string, filters: Record<string, unknown>) {
+  getCurrentUserId().then(userId => {
+    if (!userId) return;
+    deleteRecord(table, filters, userId).catch(() => {});
+  });
+}
 
 const SESSION_KEY = 'access_compass_session';
 const ACTIONS_KEY = 'access_compass_actions';
@@ -186,6 +235,27 @@ export const getActions = (): Action[] => {
 
 export const saveActions = (actions: Action[]): void => {
   localStorage.setItem(ACTIONS_KEY, JSON.stringify(actions));
+  // Sync each action to cloud
+  const session = getSession();
+  for (const action of actions) {
+    bgSync('actions', {
+      id: action.id,
+      session_id: action.session_id || session?.session_id,
+      priority: action.priority,
+      category: action.category,
+      title: action.title,
+      why_matters: action.why_matters,
+      effort: action.effort,
+      cost_band: action.cost_band,
+      how_to_steps: action.how_to_steps || [],
+      example: action.example || null,
+      owner: action.owner || null,
+      timeframe: action.timeframe || null,
+      status: action.status,
+      notes: action.notes || null,
+      created_at: action.created_at,
+    });
+  }
 };
 
 export const getActionById = (id: string): Action | null => {
@@ -207,7 +277,8 @@ export const deleteAction = (id: string): boolean => {
   const actions = getActions();
   const filtered = actions.filter((action) => action.id !== id);
   if (filtered.length === actions.length) return false;
-  saveActions(filtered);
+  localStorage.setItem(ACTIONS_KEY, JSON.stringify(filtered));
+  bgDelete('actions', { id });
   return true;
 };
 
@@ -228,6 +299,14 @@ export const addEvidence = (evidence: Evidence): void => {
   const allEvidence = getEvidence();
   allEvidence.push(evidence);
   localStorage.setItem(EVIDENCE_KEY, JSON.stringify(allEvidence));
+  bgSync('evidence', {
+    id: evidence.id,
+    action_id: evidence.action_id,
+    type: evidence.type,
+    filename: evidence.filename || null,
+    url: evidence.url || null,
+    uploaded_at: evidence.uploaded_at,
+  });
 };
 
 export const deleteEvidence = (id: string): boolean => {
@@ -235,6 +314,7 @@ export const deleteEvidence = (id: string): boolean => {
   const filtered = allEvidence.filter((e) => e.id !== id);
   if (filtered.length === allEvidence.length) return false;
   localStorage.setItem(EVIDENCE_KEY, JSON.stringify(filtered));
+  bgDelete('evidence', { id });
   return true;
 };
 
@@ -248,6 +328,19 @@ export const getClarifications = (): Clarification[] => {
 
 export const saveClarifications = (clarifications: Clarification[]): void => {
   localStorage.setItem(CLARIFICATIONS_KEY, JSON.stringify(clarifications));
+  const session = getSession();
+  for (const c of clarifications) {
+    bgSync('clarifications', {
+      id: c.id,
+      session_id: c.session_id || session?.session_id,
+      question: c.question,
+      module: c.module,
+      why_matters: c.why_matters || null,
+      how_to_check: c.how_to_check || null,
+      resolved: c.resolved,
+      resolved_at: c.resolved_at || null,
+    });
+  }
 };
 
 export const updateClarification = (

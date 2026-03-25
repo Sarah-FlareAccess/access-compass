@@ -1,0 +1,114 @@
+.device-conflict-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+}
+
+.device-conflict-modal {
+  background: #fff;
+  border-radius: 1rem;
+  max-width: 28rem;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.device-conflict-icon {
+  color: var(--deep-purple, #4a2882);
+  margin-bottom: 1rem;
+}
+
+.device-conflict-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a2e);
+  margin: 0 0 0.75rem;
+}
+
+.device-conflict-desc {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary, #4a4340);
+  margin: 0 0 1.5rem;
+}
+
+.device-conflict-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.device-conflict-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.875rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.device-conflict-btn:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
+
+.device-conflict-btn-primary {
+  background: var(--deep-purple, #4a2882);
+  color: #fff;
+}
+
+.device-conflict-btn-primary:hover {
+  background: var(--deep-purple-dark, #3a1e6a);
+}
+
+.device-conflict-btn-secondary {
+  background: #f5f3f7;
+  color: var(--text-primary, #1a1a2e);
+  border-color: var(--deep-purple, #4a2882);
+}
+
+.device-conflict-btn-secondary:hover {
+  background: #ede9f2;
+}
+
+.device-conflict-btn-hint {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.device-conflict-btn-primary .device-conflict-btn-hint {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.device-conflict-dismiss {
+  background: none;
+  border: none;
+  color: var(--text-secondary, #4a4340);
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.device-conflict-dismiss:hover {
+  color: var(--text-primary, #1a1a2e);
+}
+
+.device-conflict-dismiss:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}

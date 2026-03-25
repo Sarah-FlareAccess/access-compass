@@ -1,5 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { TrainingProgress, CourseProgress } from '../data/training/types';
+import { isSupabaseEnabled } from '../utils/supabase';
+import { syncRecord, fetchRecord, resolveByTimestamp } from '../utils/cloudSync';
+import { useAuthSafe } from '../contexts/AuthContext';
 
 const TRAINING_PROGRESS_KEY = 'access_compass_training_progress';
 
@@ -26,11 +29,96 @@ function saveLocalProgress(data: TrainingProgress): void {
 export function useTrainingProgress() {
   const [progress, setProgress] = useState<TrainingProgress>({ courses: {}, viewedResources: [] });
   const [isLoading, setIsLoading] = useState(true);
+  const { userId, organisationId } = useAuthSafe();
+  const userIdRef = useRef(userId);
+  const orgIdRef = useRef(organisationId);
 
   useEffect(() => {
-    setProgress(getLocalProgress());
-    setIsLoading(false);
+    userIdRef.current = userId;
+    orgIdRef.current = organisationId;
+  }, [userId, organisationId]);
+
+  // Sync progress to cloud (debounced via effect)
+  const syncProgressToCloud = useCallback((data: TrainingProgress) => {
+    if (!userIdRef.current) return;
+    syncRecord('training_progress', {
+      courses: data.courses,
+      viewed_resources: data.viewedResources,
+    }, userIdRef.current, orgIdRef.current).catch(() => {});
   }, []);
+
+  // Load on mount + merge from cloud
+  useEffect(() => {
+    const load = async () => {
+      const localData = getLocalProgress();
+      setProgress(localData);
+
+      if (isSupabaseEnabled() && userId) {
+        const { data: cloudRow } = await fetchRecord<Record<string, unknown>>(
+          'training_progress', userId, {}
+        );
+
+        if (cloudRow) {
+          const cloudUpdatedAt = cloudRow.updated_at as string | undefined;
+          // Simple merge: if cloud has courses we don't have locally, add them
+          const cloudCourses = (cloudRow.courses as Record<string, CourseProgress>) || {};
+          const cloudViewed = (cloudRow.viewed_resources as string[]) || [];
+
+          let hasChanges = false;
+          const merged = { ...localData };
+
+          // Merge courses (keep whichever has more progress)
+          for (const [courseId, cloudCourse] of Object.entries(cloudCourses)) {
+            const localCourse = localData.courses[courseId];
+            if (!localCourse) {
+              merged.courses[courseId] = cloudCourse;
+              hasChanges = true;
+            } else if (cloudCourse.completedLessons.length > localCourse.completedLessons.length) {
+              merged.courses[courseId] = cloudCourse;
+              hasChanges = true;
+            }
+          }
+
+          // Merge viewed resources (union)
+          const allViewed = new Set([...localData.viewedResources, ...cloudViewed]);
+          if (allViewed.size > localData.viewedResources.length) {
+            merged.viewedResources = Array.from(allViewed);
+            hasChanges = true;
+          }
+
+          if (hasChanges) {
+            setProgress(merged);
+            saveLocalProgress(merged);
+          }
+        }
+      }
+
+      setIsLoading(false);
+    };
+
+    load();
+  }, [userId]);
+
+  // Auto-sync when progress changes (debounced)
+  const syncTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const initialLoadDone = useRef(false);
+
+  useEffect(() => {
+    if (!initialLoadDone.current) {
+      if (!isLoading) initialLoadDone.current = true;
+      return;
+    }
+    if (!userIdRef.current) return;
+
+    if (syncTimeoutRef.current) clearTimeout(syncTimeoutRef.current);
+    syncTimeoutRef.current = setTimeout(() => {
+      syncProgressToCloud(progress);
+    }, 2000);
+
+    return () => {
+      if (syncTimeoutRef.current) clearTimeout(syncTimeoutRef.current);
+    };
+  }, [progress, isLoading, syncProgressToCloud]);
 
   const startCourse = useCallback((courseId: string) => {
     setProgress((prev) => {

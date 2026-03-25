@@ -5,10 +5,12 @@
  * Supports auto-generation from module responses and manual management.
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { supabase, isSupabaseEnabled } from '../utils/supabase';
+import { isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
+import { syncRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
+import { useAuthSafe } from '../contexts/AuthContext';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
 import { MODULE_TO_DIAP_MAPPING, DIAP_SECTIONS } from '../data/diapMapping';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
@@ -373,89 +375,160 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
   const [documents, setDocuments] = useState<DIAPDocument[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { userId, organisationId } = useAuthSafe();
+  const userIdRef = useRef(userId);
+  const orgIdRef = useRef(organisationId);
+
+  useEffect(() => {
+    userIdRef.current = userId;
+    orgIdRef.current = organisationId;
+  }, [userId, organisationId]);
+
+  // Background sync a single DIAP item to Supabase
+  const syncItemToCloud = useCallback((item: DIAPItem) => {
+    if (!userIdRef.current) return;
+    syncRecord('diap_items', {
+      id: item.id,
+      session_id: item.sessionId,
+      objective: item.objective,
+      action: item.action,
+      category: item.category,
+      priority: item.priority,
+      timeframe: item.timeframe,
+      responsible_role: item.responsibleRole || null,
+      responsible_team: item.responsibleTeam || null,
+      status: item.status,
+      module_source: item.moduleSource || null,
+      question_source: item.questionSource || null,
+      impact_statement: item.impactStatement || null,
+      dependencies: item.dependencies || [],
+      resources: item.resources || [],
+      budget_estimate: item.budgetEstimate || null,
+      notes: item.notes || null,
+      success_indicators: item.successIndicators || null,
+      created_at: item.createdAt,
+      updated_at: item.updatedAt,
+      completed_at: item.completedAt || null,
+    }, userIdRef.current, orgIdRef.current).catch(() => {});
+  }, []);
+
+  // Sync multiple items (batch after bulk operations)
+  const syncItemsBatchToCloud = useCallback((itemsToSync: DIAPItem[]) => {
+    for (const item of itemsToSync) {
+      syncItemToCloud(item);
+    }
+  }, [syncItemToCloud]);
 
   // Load on mount
   useEffect(() => {
     const load = async () => {
       try {
-        // Load from localStorage
+        // Load from localStorage (instant)
         const localItems = getLocalItems();
         const localDocs = getLocalDocuments();
         setItems(localItems);
         setDocuments(localDocs);
 
-        // Sync from cloud if available (with timeout to handle latency)
-        if (isSupabaseEnabled() && supabase) {
-          const session = getSession();
-          if (session?.session_id) {
-            // Add timeout to prevent hanging on slow connections
-            const timeoutPromise = <T,>() => new Promise<{ data: T | null; error: Error }>((resolve) => {
-              setTimeout(() => resolve({ data: null, error: new Error('Supabase query timeout') }), 10000);
-            });
+        // If authenticated, try to merge cloud data
+        if (isSupabaseEnabled() && userId) {
+          const { data: cloudItems, error: itemsError } = await fetchRecords(
+            'diap_items', userId
+          );
 
-            const itemsQueryPromise = supabase
-              .from('diap_items')
-              .select('*')
-              .eq('session_id', session.session_id);
+          if (itemsError) {
+            console.log('[useDIAPManagement] Items cloud fetch skipped:', itemsError);
+          } else if (cloudItems && cloudItems.length > 0) {
+            // Build lookup of local items by ID
+            const localMap = new Map(localItems.map(i => [i.id, i]));
+            let hasChanges = false;
+            const merged = [...localItems];
 
-            const { data: cloudItems, error: itemsError } = await Promise.race([itemsQueryPromise, timeoutPromise<any[]>()]);
+            for (const row of cloudItems as Record<string, unknown>[]) {
+              const id = row.id as string;
+              const localItem = localMap.get(id);
+              const cloudUpdatedAt = row.updated_at as string;
+              const localUpdatedAt = localItem?.updatedAt;
 
-            // Skip cloud sync if table doesn't exist, timeout, or other error (silently fall back)
-            if (itemsError) {
-              console.log('[useDIAPManagement] Items cloud sync skipped:', itemsError.message);
-            } else if (cloudItems && cloudItems.length > 0) {
-              const mapped = cloudItems.map(item => ({
-                id: item.id,
-                sessionId: item.session_id,
-                objective: item.objective,
-                action: item.action,
-                category: item.category,
-                priority: item.priority,
-                timeframe: item.timeframe,
-                responsibleRole: item.responsible_role,
-                responsibleTeam: item.responsible_team,
-                status: item.status,
-                moduleSource: item.module_source,
-                questionSource: item.question_source,
-                impactStatement: item.impact_statement,
-                dependencies: item.dependencies,
-                resources: item.resources,
-                budgetEstimate: item.budget_estimate,
-                notes: item.notes,
-                createdAt: item.created_at,
-                updatedAt: item.updated_at,
-                completedAt: item.completed_at,
-              }));
-
-              setItems(mapped);
-              saveLocalItems(mapped);
+              if (!localItem) {
+                // Cloud has an item we don't have locally
+                merged.push({
+                  id,
+                  sessionId: row.session_id as string,
+                  objective: row.objective as string,
+                  action: row.action as string,
+                  category: (row.category as DIAPCategory) || 'physical-access',
+                  priority: (row.priority as DIAPPriority) || 'medium',
+                  timeframe: (row.timeframe as string) || '',
+                  responsibleRole: row.responsible_role as string | undefined,
+                  responsibleTeam: row.responsible_team as string | undefined,
+                  status: (row.status as DIAPStatus) || 'not-started',
+                  moduleSource: row.module_source as string | undefined,
+                  questionSource: row.question_source as string | undefined,
+                  impactStatement: row.impact_statement as string | undefined,
+                  dependencies: (row.dependencies as string[]) || [],
+                  resources: (row.resources as string[]) || [],
+                  budgetEstimate: row.budget_estimate as string | undefined,
+                  notes: row.notes as string | undefined,
+                  successIndicators: row.success_indicators as string | undefined,
+                  createdAt: row.created_at as string,
+                  updatedAt: cloudUpdatedAt,
+                  completedAt: row.completed_at as string | undefined,
+                  importSource: (row.import_source as DIAPItem['importSource']) || 'audit',
+                });
+                hasChanges = true;
+              } else if (resolveByTimestamp(localUpdatedAt, cloudUpdatedAt) === 'cloud') {
+                // Cloud is newer, update local
+                const idx = merged.findIndex(i => i.id === id);
+                if (idx >= 0) {
+                  merged[idx] = {
+                    ...merged[idx],
+                    objective: row.objective as string,
+                    action: row.action as string,
+                    status: (row.status as DIAPStatus) || merged[idx].status,
+                    priority: (row.priority as DIAPPriority) || merged[idx].priority,
+                    notes: row.notes as string | undefined,
+                    updatedAt: cloudUpdatedAt,
+                    completedAt: row.completed_at as string | undefined,
+                  };
+                  hasChanges = true;
+                }
+              }
             }
 
-            const docsQueryPromise = supabase
-              .from('diap_documents')
-              .select('*')
-              .eq('session_id', session.session_id);
+            if (hasChanges) {
+              setItems(merged);
+              saveLocalItems(merged);
+            }
+          }
 
-            const { data: cloudDocs, error: docsError } = await Promise.race([docsQueryPromise, timeoutPromise<any[]>()]);
+          // Also fetch cloud documents
+          const { data: cloudDocs } = await fetchRecords('diap_documents', userId);
+          if (cloudDocs && cloudDocs.length > 0) {
+            const localDocMap = new Map(localDocs.map(d => [d.id, d]));
+            let docsChanged = false;
+            const mergedDocs = [...localDocs];
 
-            // Skip cloud sync if table doesn't exist, timeout, or other error (silently fall back)
-            if (docsError) {
-              console.log('[useDIAPManagement] Docs cloud sync skipped:', docsError.message);
-            } else if (cloudDocs && cloudDocs.length > 0) {
-              const mappedDocs = cloudDocs.map(doc => ({
-                id: doc.id,
-                sessionId: doc.session_id,
-                filename: doc.filename,
-                fileType: doc.file_type,
-                fileSize: doc.file_size,
-                storagePath: doc.storage_path,
-                linkedItemIds: doc.linked_item_ids || [],
-                description: doc.description,
-                uploadedAt: doc.uploaded_at,
-              }));
+            for (const row of cloudDocs as Record<string, unknown>[]) {
+              const id = row.id as string;
+              if (!localDocMap.has(id)) {
+                mergedDocs.push({
+                  id,
+                  sessionId: row.session_id as string,
+                  filename: row.filename as string,
+                  fileType: row.file_type as string,
+                  fileSize: row.file_size as number | undefined,
+                  storagePath: row.storage_path as string,
+                  linkedItemIds: (row.linked_item_ids as string[]) || [],
+                  description: row.description as string | undefined,
+                  uploadedAt: row.uploaded_at as string,
+                });
+                docsChanged = true;
+              }
+            }
 
-              setDocuments(mappedDocs);
-              saveLocalDocuments(mappedDocs);
+            if (docsChanged) {
+              setDocuments(mergedDocs);
+              saveLocalDocuments(mergedDocs);
             }
           }
         }
@@ -468,7 +541,30 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     };
 
     load();
-  }, []);
+  }, [userId]);
+
+  // Auto-sync items to cloud when they change (debounced)
+  const syncTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const initialLoadDone = useRef(false);
+
+  useEffect(() => {
+    // Skip the initial load (items set from localStorage)
+    if (!initialLoadDone.current) {
+      if (!isLoading) initialLoadDone.current = true;
+      return;
+    }
+    if (!userIdRef.current || items.length === 0) return;
+
+    // Debounce: wait 2 seconds after last change before syncing
+    if (syncTimeoutRef.current) clearTimeout(syncTimeoutRef.current);
+    syncTimeoutRef.current = setTimeout(() => {
+      syncItemsBatchToCloud(items);
+    }, 2000);
+
+    return () => {
+      if (syncTimeoutRef.current) clearTimeout(syncTimeoutRef.current);
+    };
+  }, [items, isLoading, syncItemsBatchToCloud]);
 
   // Create item
   const createItem = useCallback((
@@ -1363,57 +1459,26 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
 
   // Sync to cloud
   const syncToCloud = useCallback(async () => {
-    if (!isSupabaseEnabled() || !supabase) return;
+    if (!isSupabaseEnabled() || !userIdRef.current) return;
 
-    const session = getSession();
-    if (!session?.session_id) return;
+    // Sync all items
+    syncItemsBatchToCloud(items);
 
-    try {
-      // Sync items
-      for (const item of items) {
-        await supabase.from('diap_items').upsert({
-          id: item.id,
-          session_id: item.sessionId,
-          objective: item.objective,
-          action: item.action,
-          category: item.category,
-          priority: item.priority,
-          timeframe: item.timeframe,
-          responsible_role: item.responsibleRole,
-          responsible_team: item.responsibleTeam,
-          status: item.status,
-          module_source: item.moduleSource,
-          question_source: item.questionSource,
-          impact_statement: item.impactStatement,
-          dependencies: item.dependencies,
-          resources: item.resources,
-          budget_estimate: item.budgetEstimate,
-          notes: item.notes,
-          created_at: item.createdAt,
-          updated_at: item.updatedAt,
-          completed_at: item.completedAt,
-        });
-      }
-
-      // Sync documents metadata (not the files themselves)
-      for (const doc of documents) {
-        await supabase.from('diap_documents').upsert({
-          id: doc.id,
-          session_id: doc.sessionId,
-          filename: doc.filename,
-          file_type: doc.fileType,
-          file_size: doc.fileSize,
-          storage_path: doc.storagePath,
-          linked_item_ids: doc.linkedItemIds,
-          description: doc.description,
-          uploaded_at: doc.uploadedAt,
-        });
-      }
-    } catch (err) {
-      console.error('Error syncing DIAP data:', err);
-      setError('Failed to sync DIAP data');
+    // Sync all documents
+    for (const doc of documents) {
+      syncRecord('diap_documents', {
+        id: doc.id,
+        session_id: doc.sessionId,
+        filename: doc.filename,
+        file_type: doc.fileType,
+        file_size: doc.fileSize || null,
+        storage_path: doc.storagePath,
+        linked_item_ids: doc.linkedItemIds,
+        description: doc.description || null,
+        uploaded_at: doc.uploadedAt,
+      }, userIdRef.current!, orgIdRef.current).catch(() => {});
     }
-  }, [items, documents]);
+  }, [items, documents, syncItemsBatchToCloud]);
 
   // Add attachment to an item
   const addAttachment = useCallback(async (itemId: string, file: File) => {
