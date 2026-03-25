@@ -40,6 +40,11 @@ export default function Login() {
       return '/start';
     }
 
+    // User has selected modules = they have a working dashboard
+    if (session?.selected_modules?.length) {
+      return '/dashboard';
+    }
+
     const hasCompletedDiscovery = discovery?.discovery_data?.selectedTouchpoints &&
       discovery.discovery_data.selectedTouchpoints.length > 0;
 
@@ -47,11 +52,7 @@ export default function Login() {
       return '/discovery';
     }
 
-    if (!session?.selected_modules?.length) {
-      return '/decision';
-    }
-
-    return '/dashboard';
+    return '/decision';
   };
 
   useEffect(() => {
