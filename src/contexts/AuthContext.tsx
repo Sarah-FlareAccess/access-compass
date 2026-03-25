@@ -204,6 +204,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(newSession?.user ?? null);
 
       if (newSession?.user) {
+        // Check if a different user signed in - clear old user's localStorage data
+        const LAST_USER_KEY = 'access_compass_last_user_id';
+        const lastUserId = localStorage.getItem(LAST_USER_KEY);
+        if (lastUserId && lastUserId !== newSession.user.id) {
+          console.log('[AuthContext] Different user signed in, clearing previous user data');
+          const keysToPreserve = [
+            LAST_USER_KEY,
+            'sb-ibvqlyyvlwnwjcoehjkt-auth-token',
+            'access_compass_device_id',
+          ];
+          const keysToRemove: string[] = [];
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('access_compass_') && !keysToPreserve.includes(key)) {
+              keysToRemove.push(key);
+            }
+            if (key && (key.startsWith('diap_') || key === 'access_compass_sync_queue')) {
+              keysToRemove.push(key);
+            }
+          }
+          keysToRemove.forEach(key => localStorage.removeItem(key));
+        }
+        localStorage.setItem(LAST_USER_KEY, newSession.user.id);
+
         const newAccessState = await fetchAccessState(newSession.user.id);
         setAccessState(newAccessState);
         // Note: Domain auto-join is handled by Disclaimer page, not here
