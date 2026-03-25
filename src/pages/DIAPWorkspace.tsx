@@ -1160,7 +1160,17 @@ export default function DIAPWorkspace() {
                   id={`diap-cat-${group.id}`}
                   className={`diap-category-group ${isExpanded ? 'expanded' : ''}`}
                   onClick={() => { dismissHint(); toggleCategory(group.id); }}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCategory(group.id); } }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      const target = e.target as HTMLElement;
+                      const interactiveTags = ['TEXTAREA', 'INPUT', 'SELECT', 'A', 'BUTTON'];
+                      if (interactiveTags.includes(target.tagName)) return;
+                      if (target.isContentEditable) return;
+                      if (target.closest('.category-content')) return;
+                      e.preventDefault();
+                      toggleCategory(group.id);
+                    }
+                  }}
                   role="button"
                   tabIndex={0}
                   aria-expanded={isExpanded}
@@ -1223,7 +1233,7 @@ export default function DIAPWorkspace() {
                   </div>
 
                   {isExpanded && (
-                    <div className="category-content" onClick={(e) => e.stopPropagation()}>
+                    <div className="category-content" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
                       {objectiveGroups.length === 0 ? (
                         <p className="section-empty">No items in this category</p>
                       ) : (
