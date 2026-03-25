@@ -422,10 +422,7 @@ export function DiscoveryModule({
             <div className={`progress-line ${currentStep === 'recommendation' ? 'active' : ''}`} />
             <div className={`progress-dot ${currentStep === 'recommendation' ? 'active' : ''}`} />
           </div>
-          <div className="time-estimate">
-            <span>⏱️</span>
-            <span>About 3-5 minutes</span>
-          </div>
+          {/* Time estimate removed - not useful here */}
         </div>
 
         {currentStep === 'touchpoints' && (
@@ -738,15 +735,7 @@ export function DiscoveryModule({
                   module{customSelectedModules.length !== 1 ? 's' : ''} in your review
                 </span>
               </div>
-              <div className="selection-stats">
-                <div className="selection-time-wrapper">
-                  <span className="time-icon">⏱</span>
-                  <span className="selection-time">
-                    ~{MODULES.filter(m => customSelectedModules.includes(m.id))
-                      .reduce((sum, m) => sum + m.estimatedTime, 0)} min
-                  </span>
-                </div>
-              </div>
+              {/* Time estimate removed */}
             </div>
 
             {/* Instruction prompt */}
@@ -827,7 +816,7 @@ export function DiscoveryModule({
                     <div className="category-header">
                       <span className="category-icon">{category.icon}</span>
                       <div className="category-info">
-                        <h3 className="category-label">{category.label}</h3>
+                        <h2 className="category-label">{category.label}</h2>
                         <p className="category-description">{category.description}</p>
                       </div>
                     </div>
@@ -870,7 +859,6 @@ export function DiscoveryModule({
                               </div>
                               <p className="tile-description">{module.description}</p>
                               <div className="tile-meta">
-                                <span className="tile-time">{module.estimatedTime} min</span>
                                 <span className="tile-cost">${module.cost}</span>
                                 {isRecommended && (
                                   <span className="tile-badge">Recommended</span>

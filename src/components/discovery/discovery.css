@@ -2512,7 +2512,7 @@ fieldset.context-question {
 /* Tap for details hint */
 .module-tile.selectable .tile-tap-hint {
   display: block;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--amethyst-diamond);
   opacity: 0.7;
   font-weight: 500;
@@ -2539,7 +2539,7 @@ fieldset.context-question {
 }
 
 .module-tile.selectable .tile-time {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   background: #f0f0f0;
   padding: 2px 6px;
@@ -2547,7 +2547,7 @@ fieldset.context-question {
 }
 
 .module-tile.selectable .tile-cost {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #166534;
   background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
@@ -2559,7 +2559,7 @@ fieldset.context-question {
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #166534;
   background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
@@ -2887,30 +2887,30 @@ fieldset.context-question {
   }
 
   .module-tile.selectable .tile-time {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     padding: 2px 6px;
   }
 
   /* Show cost badge on mobile */
   .module-tile.selectable .tile-cost {
     display: inline-flex !important;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     padding: 2px 6px;
   }
 
   .tile-badge {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     padding: 2px 6px;
     border-radius: 8px;
   }
 
   .tile-badge::before {
-    font-size: 0.55rem;
+    font-size: 0.75rem;
   }
 
   /* Compact tap hint on mobile */
   .module-tile.selectable .tile-tap-hint {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     margin-top: 6px;
   }
 
