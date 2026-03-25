@@ -114,7 +114,7 @@ export default function Login() {
         if (error) {
           const msg = error.message?.toLowerCase() || '';
           if (msg.includes('invalid') || msg.includes('credentials')) {
-            setError('The email or password you entered is incorrect. Please check both fields and try again.');
+            setError('Unable to sign in. Please check your email and password are correct. If you just created an account, make sure you have confirmed your email by clicking the link we sent you.');
           } else if (msg.includes('not found') || msg.includes('no user')) {
             setError('No account found with that email address. Please check your email or create a new account.');
           } else if (msg.includes('too many') || msg.includes('rate')) {
