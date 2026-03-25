@@ -13,6 +13,7 @@ import { UrlAnalysisInput } from './UrlAnalysisInput';
 import { EvidenceUpload } from './EvidenceUpload';
 import { MediaAnalysisInput } from './MediaAnalysisInput';
 import { HelpPanel } from './HelpPanel';
+import { AutoSaveIndicator } from '../AutoSaveIndicator';
 import { getHelpContent, generateDefaultHelpContent } from '../../data/helpContent';
 import {
   RESPONSE_LABELS,
@@ -51,6 +52,7 @@ interface QuestionCardProps {
   questionNumber: number;
   totalQuestions: number;
   moduleName: string;
+  saveCount?: number;
 }
 
 export function QuestionCard({
@@ -60,6 +62,7 @@ export function QuestionCard({
   questionNumber,
   totalQuestions,
   moduleName,
+  saveCount = 0,
 }: QuestionCardProps) {
   const [notes, setNotes] = useState(currentResponse?.notes || '');
   const [measurementValue, setMeasurementValue] = useState<string>(
@@ -390,6 +393,7 @@ export function QuestionCard({
           <span className="question-progress">
             Question {questionNumber} of {totalQuestions}
           </span>
+          <AutoSaveIndicator saveCount={saveCount} />
         </div>
         <div className="question-badges">
           {renderImpactBadge()}

@@ -47,6 +47,7 @@ export function QuestionFlow({
   const [searchParams, setSearchParams] = useSearchParams();
   const [responses, setResponses] = useState<QuestionResponse[]>(initialResponses);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [saveCount, setSaveCount] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
   const [showReviewSummary, setShowReviewSummary] = useState(() => {
     if (searchParams.get('view') === 'review') {
@@ -127,6 +128,7 @@ export function QuestionFlow({
 
       // Save to parent
       onSaveResponse(response);
+      setSaveCount(c => c + 1);
 
       // Move to next question
       if (currentIndex < visibleQuestions.length - 1) {
@@ -249,6 +251,7 @@ export function QuestionFlow({
           questionNumber={currentIndex + 1}
           totalQuestions={visibleQuestions.length}
           moduleName={moduleName}
+          saveCount={saveCount}
         />
       </div>
 
