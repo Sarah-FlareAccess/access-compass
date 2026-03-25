@@ -26,6 +26,7 @@ import { usePageTitle } from '../hooks/usePageTitle';
 import { hasHelpContent, getHelpByQuestionId } from '../data/help';
 import { getResourceLink } from '../utils/resourceLinks';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
+import { AutoSaveIndicator } from '../components/AutoSaveIndicator';
 import { Zap, Upload, Paperclip, Filter, Users as UsersIcon, CalendarDays, Plus } from 'lucide-react';
 import '../styles/diap.css';
 
@@ -111,6 +112,7 @@ export default function DIAPWorkspace() {
   const pdfInputRef = useRef<HTMLInputElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationResult, setGenerationResult] = useState<{ count: number; shown: boolean } | null>(null);
+  const [saveCount, setSaveCount] = useState(0);
 
   // One-time edit hint - show only on first visit
   const HINT_KEY = 'diap_edit_hint_shown';
@@ -125,6 +127,15 @@ export default function DIAPWorkspace() {
       localStorage.setItem(HINT_KEY, 'true');
     }
   }, [showEditHint]);
+
+  // Track item changes to show save indicator
+  const itemsRef = useRef(items);
+  useEffect(() => {
+    if (itemsRef.current !== items && itemsRef.current.length > 0) {
+      setSaveCount(c => c + 1);
+    }
+    itemsRef.current = items;
+  }, [items]);
 
   // Get module progress for evidence layer
   const { progress: moduleProgress } = useModuleProgress([]);
@@ -677,7 +688,7 @@ export default function DIAPWorkspace() {
         <div className="diap-header">
           <div className="header-content">
             <h1>Disability Inclusion Action Plan</h1>
-            <p className="header-subtitle">Management System</p>
+            <p className="header-subtitle">Management System <AutoSaveIndicator saveCount={saveCount} /></p>
           </div>
           <div className="diap-header-actions">
             {!showAddForm && (
