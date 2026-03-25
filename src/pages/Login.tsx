@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { getSession, getDiscoveryData } from '../utils/session';
+import { isSupabaseEnabled } from '../utils/supabase';
+import { fetchRecords } from '../utils/cloudSync';
 import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/login.css';
 
@@ -11,7 +13,7 @@ export default function Login() {
   usePageTitle('Sign In');
   const navigate = useNavigate();
   const location = useLocation();
-  const { signIn, resetPassword, isAuthenticated, isLoading: authLoading } = useAuth();
+  const { signIn, resetPassword, isAuthenticated, isLoading: authLoading, user } = useAuth();
 
   const [mode, setMode] = useState<AuthMode>('signin');
   const [email, setEmail] = useState('');
@@ -53,7 +55,30 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (isAuthenticated && !authLoading) {
+    if (!isAuthenticated || authLoading) return;
+
+    // If localStorage has data, route based on progress
+    const session = getSession();
+    if (session?.business_snapshot?.organisation_name) {
+      navigate(getResumeRoute(), { replace: true });
+      return;
+    }
+
+    // localStorage is empty (e.g. after password reset or device switch).
+    // Check if this user has cloud data before sending to /start.
+    if (isSupabaseEnabled() && user?.id) {
+      fetchRecords('sessions', user.id).then(({ data }) => {
+        if (data && data.length > 0) {
+          // User has cloud data, send to dashboard (cloud sync will restore it)
+          navigate('/dashboard', { replace: true });
+        } else {
+          // Truly new user, start from beginning
+          navigate(getResumeRoute(), { replace: true });
+        }
+      }).catch(() => {
+        navigate(getResumeRoute(), { replace: true });
+      });
+    } else {
       navigate(getResumeRoute(), { replace: true });
     }
   }, [isAuthenticated, authLoading, navigate]);
