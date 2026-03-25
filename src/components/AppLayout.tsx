@@ -16,7 +16,11 @@ import { Sidebar } from './Sidebar';
 import { BottomTabBar } from './BottomTabBar';
 import { BackToTop } from './BackToTop';
 import { DeviceConflictAlert } from './DeviceConflictAlert';
+import { TabBlockedOverlay } from './TabBlockedOverlay';
+import { OrgPresenceBanner } from './OrgPresenceBanner';
 import { useCloudSync } from '../hooks/useCloudSync';
+import { useTabLock } from '../hooks/useTabLock';
+import { useOrgPresence } from '../hooks/useOrgPresence';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/dashboard.css';
 
@@ -42,12 +46,14 @@ export default function AppLayout() {
   const [routeAnnouncement, setRouteAnnouncement] = useState('');
   const showNav = !PAGES_WITHOUT_NAV.includes(location.pathname);
   const { user, accessState } = useAuth();
+  const { isBlocked, forceUnlock } = useTabLock();
   const {
     conflictDetected,
     conflictDevice,
     resolveConflict,
     dismissConflict,
   } = useCloudSync(user?.id, accessState.organisation?.id);
+  const { activeMembers } = useOrgPresence(user?.id, accessState.organisation?.id);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -60,6 +66,11 @@ export default function AppLayout() {
   const showSidebar = PAGES_WITH_SIDEBAR.some(path =>
     location.pathname === path || location.pathname.startsWith(path)
   );
+
+  // Tab lock blocks everything
+  if (isBlocked) {
+    return <TabBlockedOverlay onForceOpen={forceUnlock} />;
+  }
 
   return (
     <>
@@ -93,6 +104,11 @@ export default function AppLayout() {
       >
         Skip to main content
       </a>
+
+      {/* Org member presence banner */}
+      {activeMembers.length > 0 && showNav && (
+        <OrgPresenceBanner members={activeMembers} />
+      )}
 
       {showNav && <NavBar />}
       {showSidebar ? (

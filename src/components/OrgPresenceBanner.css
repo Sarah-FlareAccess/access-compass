@@ -1,0 +1,47 @@
+.org-presence-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #f0edf5;
+  border-bottom: 1px solid #e0dbe8;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #4a4340);
+}
+
+.org-presence-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+  animation: org-presence-pulse 2s ease-in-out infinite;
+}
+
+@keyframes org-presence-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.org-presence-text {
+  flex: 1;
+}
+
+.org-presence-dismiss {
+  background: none;
+  border: none;
+  font-size: 1.125rem;
+  color: var(--text-secondary, #4a4340);
+  cursor: pointer;
+  padding: 0 0.25rem;
+  line-height: 1;
+}
+
+.org-presence-dismiss:hover {
+  color: var(--text-primary, #1a1a2e);
+}
+
+.org-presence-dismiss:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
