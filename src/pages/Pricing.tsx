@@ -3,19 +3,27 @@ import { Link } from 'react-router-dom';
 import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/pricing.css';
 
-const CheckIcon = () => (
+const CheckIcon = ({ onHighlight = false }: { onHighlight?: boolean }) => (
   <svg width="24" height="24" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="12" r="10" stroke="#490E67" strokeWidth={1.5} />
-    <path stroke="#490E67" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12.5l2.5 2.5L16 9.5" />
+    <circle cx="12" cy="12" r="10" stroke={onHighlight ? '#FFFFFF' : '#490E67'} strokeWidth={1.5} />
+    <path stroke={onHighlight ? '#FFFFFF' : '#490E67'} strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12.5l2.5 2.5L16 9.5" />
   </svg>
 );
 
-const DashIcon = () => (
-  <span style={{ color: '#9B9596', fontSize: '1.25rem', lineHeight: 1 }} aria-hidden="true">—</span>
+const DashIcon = ({ onHighlight = false }: { onHighlight?: boolean }) => (
+  <span style={{ color: onHighlight ? 'rgba(255,255,255,0.4)' : '#9B9596', fontSize: '1.25rem', lineHeight: 1 }} aria-hidden="true">—</span>
 );
 
-const AddOnBadge = () => (
-  <span className="pricing-addon-badge" style={{ backgroundColor: 'transparent', color: '#6B5E61', fontSize: '0.75rem', padding: '0.125rem 0.5rem', borderRadius: '0.25rem', fontWeight: 500, border: '1px solid #9B9596' }}>Add-on</span>
+const AddOnBadge = ({ onHighlight = false }: { onHighlight?: boolean }) => (
+  <span className="pricing-addon-badge" style={{
+    backgroundColor: 'transparent',
+    color: onHighlight ? 'rgba(255,255,255,0.7)' : '#6B5E61',
+    fontSize: '0.75rem',
+    padding: '0.125rem 0.5rem',
+    borderRadius: '0.25rem',
+    fontWeight: 500,
+    border: onHighlight ? '1px solid rgba(255,255,255,0.4)' : '1px solid #9B9596',
+  }}>Add-on</span>
 );
 
 type TierFeatures = {
@@ -51,12 +59,12 @@ const featureLabels: { key: keyof TierFeatures; label: string }[] = [
   { key: 'support', label: 'Support' },
 ];
 
-function renderFeatureValue(value: boolean | string) {
+function renderFeatureValue(value: boolean | string, onHighlight = false) {
   if (typeof value === 'boolean') {
-    return value ? <CheckIcon /> : <DashIcon />;
+    return value ? <CheckIcon onHighlight={onHighlight} /> : <DashIcon onHighlight={onHighlight} />;
   }
   if (value === 'add-on') {
-    return <AddOnBadge />;
+    return <AddOnBadge onHighlight={onHighlight} />;
   }
   return <span>{value}</span>;
 }
@@ -99,7 +107,7 @@ const assessmentInfo: Record<string, { title: string; description: string; recom
   },
 };
 
-function AssessmentInfoButton({ type }: { type: 'pulse' | 'deep' }) {
+function AssessmentInfoButton({ type, onHighlight = false }: { type: 'pulse' | 'deep'; onHighlight?: boolean }) {
   const [open, setOpen] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const info = assessmentInfo[type];
@@ -120,7 +128,7 @@ function AssessmentInfoButton({ type }: { type: 'pulse' | 'deep' }) {
       <button
         onClick={() => setOpen(!open)}
         aria-label={`Learn more about ${info.title}`}
-        className="assessment-info-btn"
+        className={`assessment-info-btn${onHighlight ? ' on-highlight' : ''}`}
       >
         ?
       </button>
@@ -392,8 +400,8 @@ export default function Pricing() {
                   }}
                 >
                   {tier.features.assessment}
-                  {tier.features.assessment.includes('Pulse') && <AssessmentInfoButton type="pulse" />}
-                  {tier.features.assessment.includes('Deep Dive') && <AssessmentInfoButton type="deep" />}
+                  {tier.features.assessment.includes('Pulse') && <AssessmentInfoButton type="pulse" onHighlight={tier.highlight} />}
+                  {tier.features.assessment.includes('Deep Dive') && <AssessmentInfoButton type="deep" onHighlight={tier.highlight} />}
                 </div>
                 <details className="pricing-card-details">
                   <summary style={{ color: tier.highlight ? '#E0D4E5' : colors.amethyst }}>
@@ -404,7 +412,7 @@ export default function Pricing() {
                       <div key={key} className="pricing-card-feature-row">
                         <span className="pricing-card-feature-label" style={{ color: tier.highlight ? '#C9B8D0' : colors.subtleText }}>{label}</span>
                         <span style={{ color: tier.highlight ? colors.white : colors.textOnWhite }}>
-                          {renderFeatureValue(tier.features[key])}
+                          {renderFeatureValue(tier.features[key], tier.highlight)}
                         </span>
                       </div>
                     ))}

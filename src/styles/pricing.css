@@ -353,6 +353,11 @@
   vertical-align: middle;
 }
 
+.assessment-info-btn.on-highlight {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .assessment-info-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
