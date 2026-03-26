@@ -454,7 +454,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         };
       } catch (error) {
         console.error('[createOrganisation] Exception:', error);
-        return { error: 'An error occurred while creating the organisation' };
+        const msg = error instanceof Error ? error.message : String(error);
+        return { error: `[DEBUG] Exception: ${msg}` };
       }
     },
     [user, refreshAccessState]

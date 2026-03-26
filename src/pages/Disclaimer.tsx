@@ -197,9 +197,7 @@ export default function Disclaimer() {
       console.log('[Disclaimer] createOrganisation result:', { error, organisation });
 
       if (error) {
-        // Show user-friendly message, not raw database errors
-        const isRawError = error.startsWith('{') || error.includes('violates') || error.includes('constraint');
-        setError(isRawError ? 'Failed to create organisation. Please try again.' : error);
+        setError(error);
       } else {
         setSuccessMessage(`${organisation?.name} has been created!`);
         setCurrentStep('complete');
