@@ -425,15 +425,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (errorCode === '23503' || errorStr.includes('foreign key') || errorStr.includes('not present in table')) {
             return { error: 'Your session appears to be invalid. Please sign out and sign in again.' };
           }
-          return { error: 'Failed to create organisation. Please try again.' };
+          return { error: `[DEBUG] ${errorCode}: ${errorStr}` };
         }
 
         const result = Array.isArray(rpcResult) ? rpcResult[0] : rpcResult;
         console.log('[createOrganisation] RPC result:', result);
 
         if (!result?.organisation_id) {
-          console.error('[createOrganisation] No organisation ID returned');
-          return { error: 'Failed to create organisation. Please try again.' };
+          console.error('[createOrganisation] No organisation ID returned. Result:', JSON.stringify(rpcResult));
+          return { error: `[DEBUG] No org ID returned. Raw: ${JSON.stringify(rpcResult)}` };
         }
 
         // Refresh access state
