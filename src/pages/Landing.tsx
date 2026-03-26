@@ -57,7 +57,7 @@ export default function Landing() {
           <div className="hero-content">
             <h1>Make your business more accessible, step by step</h1>
             <p className="hero-subheading">
-              Access Compass cuts through the complexity, giving you a clear, prioritised action plan tailored to your business, your budget, and your capacity. No expertise required. Just practical next steps you can actually take.
+              Covering 35+ touchpoints across your entire visitor journey, Access Compass cuts through the complexity, giving you a clear, prioritised action plan tailored to your business, your budget, and your capacity. No expertise required. Just practical next steps you can actually take.
             </p>
 
             {/* CTA Button */}

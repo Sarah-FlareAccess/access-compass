@@ -23,9 +23,8 @@ type TierFeatures = {
   assessment: string;
   sites: string;
   users: string;
-  report: boolean;
-  resourceHub: boolean;
-  resourceHubDuration: string;
+  report: string;
+  resourceHub: boolean | string;
   diap: boolean | string;
   comparison: boolean | string;
   training: boolean | string;
@@ -46,9 +45,8 @@ const featureLabels: { key: keyof TierFeatures; label: string }[] = [
   { key: 'assessment', label: 'Assessment' },
   { key: 'sites', label: 'Sites' },
   { key: 'users', label: 'Users' },
-  { key: 'report', label: 'PDF Report' },
+  { key: 'report', label: 'Report' },
   { key: 'resourceHub', label: 'Resource Hub' },
-  { key: 'resourceHubDuration', label: 'Hub Duration' },
   { key: 'diap', label: 'DIAP' },
   { key: 'comparison', label: 'Comparison Runs' },
   { key: 'support', label: 'Support' },
@@ -88,9 +86,8 @@ const allTiers: Record<string, Tier[]> = {
         assessment: '1 module (Deep Dive)',
         sites: '1',
         users: '1',
-        report: true,
+        report: 'PDF',
         resourceHub: false,
-        resourceHubDuration: '\u2014',
         diap: false,
         comparison: false,
         training: false,
@@ -104,12 +101,11 @@ const allTiers: Record<string, Tier[]> = {
       description: 'Understand your baseline',
       highlight: false,
       features: {
-        assessment: 'Pulse Check (all modules)',
+        assessment: 'Pulse Check (all relevant modules)',
         sites: '1',
         users: '1',
-        report: true,
-        resourceHub: true,
-        resourceHubDuration: '3 months',
+        report: 'PDF',
+        resourceHub: '3 months',
         diap: false,
         comparison: 'add-on',
         training: false,
@@ -123,12 +119,11 @@ const allTiers: Record<string, Tier[]> = {
       description: 'Full accessibility review',
       highlight: true,
       features: {
-        assessment: 'Deep Dive (all modules)',
+        assessment: 'Deep Dive (all relevant modules)',
         sites: '1',
         users: '1',
-        report: true,
-        resourceHub: true,
-        resourceHubDuration: '12 months',
+        report: 'PDF + in-app',
+        resourceHub: '12 months',
         diap: 'add-on',
         comparison: 'add-on',
         training: false,
@@ -145,12 +140,11 @@ const allTiers: Record<string, Tier[]> = {
       highlight: false,
       perSite: '$633/site',
       features: {
-        assessment: 'Pulse Check (all modules)',
+        assessment: 'Pulse Check (all relevant modules)',
         sites: 'Up to 3',
         users: '3',
-        report: true,
-        resourceHub: true,
-        resourceHubDuration: 'Ongoing',
+        report: 'PDF',
+        resourceHub: '6 months',
         diap: false,
         comparison: 'add-on',
         training: false,
@@ -165,12 +159,11 @@ const allTiers: Record<string, Tier[]> = {
       highlight: true,
       perSite: '$1,267/site',
       features: {
-        assessment: 'Deep Dive (all modules)',
+        assessment: 'Deep Dive (all relevant modules)',
         sites: 'Up to 3',
         users: '3',
-        report: true,
-        resourceHub: true,
-        resourceHubDuration: 'Ongoing',
+        report: 'PDF + in-app',
+        resourceHub: '12 months',
         diap: 'add-on',
         comparison: '2 included',
         training: '1 free course',
@@ -184,12 +177,11 @@ const allTiers: Record<string, Tier[]> = {
       description: 'Organisations & councils',
       highlight: false,
       features: {
-        assessment: 'Deep Dive (all modules)',
+        assessment: 'Deep Dive (all relevant modules)',
         sites: 'Unlimited',
         users: 'Unlimited',
-        report: true,
-        resourceHub: true,
-        resourceHubDuration: 'Ongoing',
+        report: 'PDF + in-app',
+        resourceHub: '12 months',
         diap: true,
         comparison: 'Unlimited',
         training: 'All courses',
@@ -207,7 +199,7 @@ export default function Pricing() {
 
   return (
     <div className="landing-page">
-      <header className="landing-header">
+      <header className="pricing-page-header">
         <div className="container header-container">
           <div className="logo">
             <Link to="/">
@@ -226,7 +218,7 @@ export default function Pricing() {
         {/* Header */}
         <div className="pricing-header">
           <h1 style={{ color: colors.walnut }}>Pricing Plans</h1>
-          <p style={{ color: colors.subtleText }}>Choose the right plan for your accessibility journey</p>
+          <p style={{ color: colors.subtleText }}>35+ modules covering every touchpoint of your visitor journey. Choose the right plan to get started.</p>
         </div>
 
         {/* View Toggle */}
@@ -336,7 +328,7 @@ export default function Pricing() {
                 </tr>
               ))}
               <tr style={{ backgroundColor: colors.white }}>
-                <td style={{ color: colors.textOnWhite }}>Training</td>
+                <td style={{ color: colors.textOnWhite }}>Training Hub</td>
                 <td colSpan={currentTiers.length} style={{ color: colors.subtleText, fontWeight: 500 }}>
                   Coming soon — separate pricing
                 </td>
@@ -358,7 +350,7 @@ export default function Pricing() {
                   </div>
                 ))}
                 <div className="pricing-mobile-row">
-                  <span className="pricing-mobile-label" style={{ color: colors.textOnWhite }}>Training</span>
+                  <span className="pricing-mobile-label" style={{ color: colors.textOnWhite }}>Training Hub</span>
                   <span style={{ color: colors.subtleText }}>Coming soon</span>
                 </div>
               </div>

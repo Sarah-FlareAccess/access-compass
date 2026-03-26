@@ -25,7 +25,7 @@ import { useAuth } from '../contexts/AuthContext';
 import '../styles/dashboard.css';
 
 // Pages that should NOT have the global nav bar (entry/onboarding pages)
-const PAGES_WITHOUT_NAV = ['/', '/disclaimer'];
+const PAGES_WITHOUT_NAV = ['/', '/disclaimer', '/pricing'];
 
 // Pages that should have the sidebar (authenticated/working pages)
 // Note: /dashboard has its own built-in sidebar, so it's excluded
