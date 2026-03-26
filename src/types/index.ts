@@ -80,6 +80,7 @@ export interface BusinessSnapshot {
   has_online_presence: boolean;
   serves_public_customers: boolean;
   has_online_services: boolean;
+  contact_name?: string;
   // Legacy support
   business_type?: BusinessType;
 }

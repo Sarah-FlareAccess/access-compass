@@ -60,7 +60,7 @@ export function useActivityLog() {
     const session = getSession();
     const entry: ActivityEntry = {
       id: crypto.randomUUID(),
-      sessionId: session?.id || '',
+      sessionId: session?.session_id || '',
       type,
       actorName: getActorName(),
       actorId: userRef.current?.id,
@@ -130,7 +130,7 @@ export function logActivityStandalone(
   const session = getSession();
   const entry: ActivityEntry = {
     id: crypto.randomUUID(),
-    sessionId: session?.id || '',
+    sessionId: session?.session_id || '',
     type,
     actorName: getActorName(),
     actorId: userId,
