@@ -430,6 +430,21 @@ export default function Pricing() {
                   {tier.features.assessment.includes('Pulse') && <AssessmentInfoButton type="pulse" />}
                   {tier.features.assessment.includes('Deep Dive') && <AssessmentInfoButton type="deep" />}
                 </div>
+                <details className="pricing-card-details">
+                  <summary style={{ color: tier.highlight ? '#E0D4E5' : colors.amethyst }}>
+                    What's included
+                  </summary>
+                  <div className="pricing-card-features" style={{ borderTop: tier.highlight ? '1px solid rgba(255,255,255,0.2)' : `1px solid ${colors.ivoryDark}` }}>
+                    {featureLabels.map(({ key, label }) => (
+                      <div key={key} className="pricing-card-feature-row">
+                        <span className="pricing-card-feature-label" style={{ color: tier.highlight ? '#C9B8D0' : colors.subtleText }}>{label}</span>
+                        <span style={{ color: tier.highlight ? colors.white : colors.textOnWhite }}>
+                          {renderFeatureValue(tier.features[key])}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </details>
               </div>
             ))}
           </div>
