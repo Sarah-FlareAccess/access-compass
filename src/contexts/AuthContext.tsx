@@ -403,55 +403,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         console.log('[createOrganisation] Starting with user ID:', user.id);
 
-        // Generate invite code
-        const inviteCode = Math.random().toString(36).substring(2, 10).toUpperCase();
-        console.log('[createOrganisation] Generated invite code:', inviteCode);
-
-        // Step 1: Insert organisation using direct REST API (bypasses Supabase JS client issues)
-        console.log('[createOrganisation] Inserting organisation via REST API...');
-        const { data: orgData, error: orgError } = await supabaseRest.insert('organisations', {
-          name: data.name,
-          size: data.size,
-          contact_email: data.contactEmail,
-          contact_name: data.contactName,
-          invite_code: inviteCode,
+        // Use the create_organisation_with_admin RPC (SECURITY DEFINER).
+        // This atomically creates the org + owner membership and generates
+        // the slug and invite code server-side, avoiding FK issues.
+        console.log('[createOrganisation] Calling create_organisation_with_admin RPC...');
+        const { data: rpcResult, error: rpcError } = await supabase.rpc('create_organisation_with_admin', {
+          p_name: data.name,
+          p_size: data.size,
+          p_contact_email: data.contactEmail,
+          p_contact_name: data.contactName,
+          p_creator_user_id: user.id,
         });
 
-        if (orgError) {
-          console.error('[createOrganisation] Org insert error:', orgError);
-          const errorStr = typeof orgError === 'string' ? orgError : JSON.stringify(orgError);
+        if (rpcError) {
+          console.error('[createOrganisation] RPC error:', rpcError);
+          const errorStr = rpcError.message || JSON.stringify(rpcError);
           if (errorStr.includes('organisations_slug_key') || errorStr.includes('23505')) {
             return { error: `An organisation named "${data.name}" has already been registered. Please choose a different name, or contact support if you believe this is an error.` };
           }
           return { error: 'Failed to create organisation. Please try again.' };
         }
 
-        // REST API returns array, get first item
-        const newOrg = Array.isArray(orgData) ? orgData[0] : orgData;
-        console.log('[createOrganisation] Organisation created:', newOrg);
+        const result = Array.isArray(rpcResult) ? rpcResult[0] : rpcResult;
+        console.log('[createOrganisation] RPC result:', result);
 
-        if (!newOrg || !newOrg.id) {
+        if (!result?.organisation_id) {
           console.error('[createOrganisation] No organisation ID returned');
-          return { error: 'Failed to create organisation - no ID returned' };
+          return { error: 'Failed to create organisation. Please try again.' };
         }
-
-        // Step 2: Insert membership using direct REST API
-        console.log('[createOrganisation] Inserting membership via REST API...');
-        const { error: memberError } = await supabaseRest.insert('organisation_memberships', {
-          organisation_id: newOrg.id,
-          user_id: user.id,
-          role: 'owner',
-          status: 'active',
-          invite_accepted_at: new Date().toISOString(),
-        });
-
-        if (memberError) {
-          console.error('[createOrganisation] Membership insert error:', memberError);
-          // Note: Can't easily clean up via REST without delete helper, but that's ok
-          return { error: typeof memberError === 'string' ? memberError : 'Failed to add you as owner' };
-        }
-
-        console.log('[createOrganisation] Membership created');
 
         // Refresh access state
         console.log('[createOrganisation] Refreshing access state...');
@@ -461,8 +440,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         return {
           error: null,
-          organisation: newOrg as Organisation,
-          inviteCode: inviteCode,
+          organisation: {
+            id: result.organisation_id,
+            name: result.organisation_name || data.name,
+            slug: result.organisation_slug,
+          } as Organisation,
+          inviteCode: result.invite_code,
           emailsAdded: 0,
         };
       } catch (error) {
