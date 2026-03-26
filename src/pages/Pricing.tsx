@@ -116,73 +116,38 @@ function AssessmentInfoButton({ type }: { type: 'pulse' | 'deep' }) {
   }, [open]);
 
   return (
-    <span style={{ position: 'relative', display: 'inline-block', marginLeft: '0.35rem', verticalAlign: 'middle' }}>
+    <>
       <button
         onClick={() => setOpen(!open)}
         aria-label={`Learn more about ${info.title}`}
-        style={{
-          background: 'none',
-          border: '1.5px solid #9B9596',
-          borderRadius: '50%',
-          width: '18px',
-          height: '18px',
-          fontSize: '0.7rem',
-          fontWeight: 700,
-          color: '#5C4A4E',
-          cursor: 'pointer',
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 0,
-          lineHeight: 1,
-        }}
+        className="assessment-info-btn"
       >
         ?
       </button>
       {open && (
-        <div
-          ref={popupRef}
-          role="dialog"
-          aria-label={`${info.title} details`}
-          style={{
-            position: 'absolute',
-            top: '28px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '320px',
-            backgroundColor: '#FFFFFF',
-            border: `2px solid ${colors.amethyst}`,
-            borderRadius: '12px',
-            padding: '1.25rem',
-            boxShadow: '0 8px 32px rgba(73, 14, 103, 0.2)',
-            zIndex: 100,
-            textAlign: 'left',
-          }}
-        >
-          <h4 style={{ margin: '0 0 0.5rem', color: colors.amethyst, fontSize: '1rem' }}>{info.title}</h4>
-          <p style={{ margin: '0 0 0.75rem', color: colors.textOnWhite, fontSize: '0.85rem', lineHeight: 1.5 }}>{info.description}</p>
-          <p style={{ margin: '0 0 0.75rem', color: colors.sunrise, fontSize: '0.85rem', lineHeight: 1.5, fontWeight: 600 }}>{info.recommended}</p>
-          <ul style={{ margin: 0, paddingLeft: '1.1rem', fontSize: '0.8rem', color: colors.subtleText, lineHeight: 1.7 }}>
-            {info.includes.map((item, i) => <li key={i}>{item}</li>)}
-          </ul>
-          <button
-            onClick={() => setOpen(false)}
-            style={{
-              marginTop: '0.75rem',
-              background: 'none',
-              border: 'none',
-              color: colors.amethyst,
-              fontSize: '0.8rem',
-              cursor: 'pointer',
-              fontWeight: 600,
-              padding: 0,
-            }}
+        <>
+          <div className="assessment-popup-overlay" onClick={() => setOpen(false)} />
+          <div
+            ref={popupRef}
+            role="dialog"
+            aria-label={`${info.title} details`}
+            className="assessment-popup"
           >
-            Close
-          </button>
-        </div>
+            <div className="assessment-popup-header">
+              <h4>{info.title}</h4>
+              <button onClick={() => setOpen(false)} aria-label="Close" className="assessment-popup-close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+              </button>
+            </div>
+            <p className="assessment-popup-desc">{info.description}</p>
+            <p className="assessment-popup-recommended">{info.recommended}</p>
+            <ul className="assessment-popup-list">
+              {info.includes.map((item, i) => <li key={i}>{item}</li>)}
+            </ul>
+          </div>
+        </>
       )}
-    </span>
+    </>
   );
 }
 

@@ -333,6 +333,137 @@
   font-weight: 500;
 }
 
+/* Assessment info button */
+.assessment-info-btn {
+  background: none;
+  border: 1.5px solid #9B9596;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #5C4A4E;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+
+.assessment-info-btn:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+/* Assessment popup overlay */
+.assessment-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
+/* Assessment popup - mobile first (bottom sheet) */
+.assessment-popup {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border-radius: 16px 16px 0 0;
+  padding: 1.5rem;
+  z-index: 1000;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 -8px 32px rgba(73, 14, 103, 0.2);
+}
+
+.assessment-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.assessment-popup-header h4 {
+  margin: 0;
+  color: #490E67;
+  font-size: 1.1rem;
+}
+
+.assessment-popup-close {
+  background: none;
+  border: none;
+  color: #5C4A4E;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assessment-popup-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.assessment-popup-close:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+.assessment-popup-desc {
+  margin: 0 0 0.75rem;
+  color: #2D2226;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.assessment-popup-recommended {
+  margin: 0 0 0.75rem;
+  color: #D97706;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+.assessment-popup-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  color: #5C4A4E;
+  line-height: 1.8;
+}
+
+/* Desktop: positioned tooltip instead of bottom sheet */
+@media (min-width: 769px) {
+  .assessment-popup-overlay {
+    background: transparent;
+  }
+
+  .assessment-popup {
+    position: absolute;
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    top: 28px;
+    transform: translateX(-50%);
+    width: 340px;
+    max-height: none;
+    border-radius: 12px;
+    border: 2px solid #490E67;
+    box-shadow: 0 8px 32px rgba(73, 14, 103, 0.2);
+    padding: 1.25rem;
+  }
+
+  .pricing-card-assessment {
+    position: relative;
+  }
+}
+
 /* Card expandable details (mobile-first, hidden on desktop) */
 .pricing-card-details {
   display: none;
