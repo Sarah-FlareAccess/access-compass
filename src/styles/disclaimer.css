@@ -907,7 +907,7 @@
   }
 
   .disclaimer-actions {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
   .auth-section {
