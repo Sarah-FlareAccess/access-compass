@@ -859,7 +859,6 @@ export function DiscoveryModule({
                               </div>
                               <p className="tile-description">{module.description}</p>
                               <div className="tile-meta">
-                                <span className="tile-cost">${module.cost}</span>
                                 {isRecommended && (
                                   <span className="tile-badge">Recommended</span>
                                 )}
@@ -898,17 +897,6 @@ export function DiscoveryModule({
               <p className="reassurance-subtext">
                 Click any module to add or remove it from your review.
               </p>
-            </div>
-
-            {/* Cost summary */}
-            <div className="selection-cost-summary">
-              <div className="cost-summary-content">
-                <span className="cost-summary-label">Estimated cost for {customSelectedModules.length} module{customSelectedModules.length !== 1 ? 's' : ''}:</span>
-                <span className="cost-summary-total">
-                  ${MODULES.filter(m => customSelectedModules.includes(m.id))
-                    .reduce((sum, m) => sum + m.cost, 0)}
-                </span>
-              </div>
             </div>
 
             {/* Actions */}
