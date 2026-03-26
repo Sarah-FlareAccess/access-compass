@@ -358,6 +358,36 @@ export default function Pricing() {
           </div>
         </div>
 
+        {/* Individual Modules */}
+        <div className="pricing-addons">
+          <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>
+            <h3 style={{ color: colors.walnut }}>
+              <span style={{ backgroundColor: colors.amethyst, color: colors.white, width: '1.5rem', height: '1.5rem', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700 }}>1</span>
+              Individual Modules
+            </h3>
+            <p style={{ color: colors.subtleText, fontSize: '0.8125rem', marginBottom: '0.75rem' }}>
+              Want to focus on specific areas? Purchase individual Deep Dive modules after your free assessment.
+            </p>
+            <div className="pricing-addons-grid">
+              <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
+                <span>Single module</span>
+                <span style={{ fontWeight: 700 }}>$99</span>
+              </div>
+              <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
+                <span>3-module bundle</span>
+                <span><span style={{ fontWeight: 700 }}>$249</span> <span style={{ color: colors.subtleText, fontSize: '0.75rem' }}>($83/ea)</span></span>
+              </div>
+              <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
+                <span>5-module bundle</span>
+                <span><span style={{ fontWeight: 700 }}>$379</span> <span style={{ color: colors.subtleText, fontSize: '0.75rem' }}>($76/ea)</span></span>
+              </div>
+              <div className="pricing-addon-item" style={{ color: colors.subtleText, fontSize: '0.8125rem' }}>
+                <span>Module spend credited toward tier upgrades</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Add-ons */}
         <div className="pricing-addons">
           <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>

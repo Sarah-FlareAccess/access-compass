@@ -140,6 +140,25 @@ No Resource Hub. No DIAP. No consult. Single user, single site.
 
 ---
 
+## Individual Module Purchases (Deep Dive Only)
+
+For businesses that want to assess specific areas without committing to a full tier. All individual module purchases are Deep Dive depth (not Pulse Check). Available after completing the free tier.
+
+| Option | Price | Per module |
+|---|---|---|
+| Single module | $99 | $99 |
+| 3-module bundle | $249 | $83 |
+| 5-module bundle | $379 | $76 |
+
+**Natural crossover points (by design):**
+- At 9 modules ($891 individually), the Starter tier ($799, Pulse Check) is better value
+- At 16 modules ($1,584 individually), the Committed tier ($1,500, Deep Dive) is better value
+- Discovery typically recommends 10-20 modules, so most businesses land above the crossover
+
+Module spend can be credited toward a tier upgrade (same as tier-to-tier upgrades).
+
+---
+
 ## Paid Add-Ons (Available to All Paid Tiers)
 
 | Add-on | Price |
