@@ -134,7 +134,7 @@
 
 .pricing-cards-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 
@@ -225,7 +225,8 @@
 
 .pricing-comparison th,
 .pricing-comparison td {
-  padding: 0.75rem 1rem;
+  padding: 1.125rem 1rem;
+  border-bottom: 1px solid #ECE9E6;
 }
 
 .pricing-comparison th {
