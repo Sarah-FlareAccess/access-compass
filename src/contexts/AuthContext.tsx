@@ -416,10 +416,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
 
         if (rpcError) {
-          console.error('[createOrganisation] RPC error:', rpcError);
+          console.error('[createOrganisation] RPC error:', JSON.stringify(rpcError));
           const errorStr = rpcError.message || JSON.stringify(rpcError);
-          if (errorStr.includes('organisations_slug_key') || errorStr.includes('23505')) {
+          const errorCode = rpcError.code || '';
+          if (errorStr.includes('organisations_slug_key') || errorCode === '23505') {
             return { error: `An organisation named "${data.name}" has already been registered. Please choose a different name, or contact support if you believe this is an error.` };
+          }
+          if (errorCode === '23503' || errorStr.includes('foreign key') || errorStr.includes('not present in table')) {
+            return { error: 'Your session appears to be invalid. Please sign out and sign in again.' };
           }
           return { error: 'Failed to create organisation. Please try again.' };
         }
