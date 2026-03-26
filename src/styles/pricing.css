@@ -1,0 +1,328 @@
+/* Pricing Page - Responsive Styles */
+
+.pricing-content {
+  width: 100%;
+  padding: 1.25rem;
+  min-height: calc(100vh - 80px);
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+}
+
+.pricing-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.pricing-header p {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* View Toggle */
+.pricing-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.pricing-toggle-inner {
+  border-radius: 9999px;
+  padding: 0.25rem;
+  display: inline-flex;
+}
+
+.pricing-toggle-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+/* Pricing Cards Grid */
+.pricing-cards {
+  max-width: 64rem;
+  margin: 0 auto 1.5rem;
+}
+
+.pricing-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.pricing-card {
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  position: relative;
+}
+
+.pricing-card.highlighted {
+  transform: scale(1.05);
+}
+
+.pricing-card-badge {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.pricing-card h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.pricing-card-desc {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.pricing-card-price {
+  margin-bottom: 0.75rem;
+}
+
+.pricing-card-price span:first-child {
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.pricing-card-price .price-period {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: 0.375rem;
+}
+
+.pricing-card-persite {
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.pricing-card-assessment {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding-top: 0.75rem;
+}
+
+/* Comparison Table */
+.pricing-comparison {
+  max-width: 64rem;
+  margin: 0 auto;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.pricing-comparison-header {
+  padding: 0.75rem 1rem;
+}
+
+.pricing-comparison-header h2 {
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.pricing-comparison table {
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+.pricing-comparison th,
+.pricing-comparison td {
+  padding: 0.75rem 1rem;
+}
+
+.pricing-comparison th {
+  font-weight: 700;
+}
+
+.pricing-comparison th:first-child {
+  text-align: left;
+  width: 25%;
+}
+
+.pricing-comparison th:not(:first-child),
+.pricing-comparison td:not(:first-child) {
+  text-align: center;
+}
+
+.pricing-comparison td:first-child {
+  font-weight: 600;
+}
+
+/* Add-ons */
+.pricing-addons {
+  max-width: 64rem;
+  margin: 1.25rem auto 0;
+}
+
+.pricing-addons-inner {
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.pricing-addons h3 {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pricing-addons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.pricing-addon-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Upgrade Paths */
+.pricing-upgrades {
+  max-width: 64rem;
+  margin: 1.25rem auto 0;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.pricing-upgrades h3 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.pricing-upgrades-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pricing-upgrade-pill {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+}
+
+/* CTA */
+.pricing-cta {
+  max-width: 64rem;
+  margin: 2rem auto 0;
+  text-align: center;
+}
+
+.pricing-footer-note {
+  max-width: 64rem;
+  margin: 1.5rem auto 0;
+  text-align: center;
+}
+
+.pricing-footer-note p {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ============================================
+   MOBILE: Cards stack, table becomes card-style
+   ============================================ */
+
+@media (max-width: 768px) {
+  .pricing-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .pricing-card.highlighted {
+    transform: none;
+  }
+
+  .pricing-addons-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  /* Table: hide full table, show mobile cards */
+  .pricing-comparison table {
+    display: none;
+  }
+
+  .pricing-comparison-mobile {
+    display: block;
+    padding: 1rem;
+  }
+
+  .pricing-mobile-tier {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .pricing-mobile-tier:not(:last-child) {
+    border-bottom: 2px solid #C9C4BE;
+  }
+
+  .pricing-mobile-tier h4 {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .pricing-mobile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+  }
+
+  .pricing-mobile-row:not(:last-child) {
+    border-bottom: 1px solid #ECE9E6;
+  }
+
+  .pricing-mobile-label {
+    font-weight: 600;
+  }
+
+  .pricing-upgrades-list {
+    flex-direction: column;
+  }
+}
+
+/* Desktop: hide mobile cards */
+.pricing-comparison-mobile {
+  display: none;
+}
+
+@media (max-width: 540px) {
+  .pricing-content {
+    padding: 0.75rem;
+  }
+
+  .pricing-addons-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-toggle-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}

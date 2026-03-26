@@ -13,6 +13,7 @@ import './styles/global.css';
 const Landing = lazy(() => import('./pages/Landing'));
 const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const Login = lazy(() => import('./pages/Login'));
+const Pricing = lazy(() => import('./pages/Pricing'));
 
 // Discovery flow
 const BusinessSnapshot = lazy(() => import('./pages/BusinessSnapshot'));
@@ -68,6 +69,7 @@ function App() {
             <Route path="/" element={<Suspense fallback={<PageLoader />}><Landing /></Suspense>} />
             <Route path="/disclaimer" element={<Suspense fallback={<PageLoader />}><Disclaimer /></Suspense>} />
             <Route path="/login" element={<Suspense fallback={<PageLoader />}><Login /></Suspense>} />
+            <Route path="/pricing" element={<Suspense fallback={<PageLoader />}><Pricing /></Suspense>} />
             <Route path="/start" element={<Suspense fallback={<PageLoader />}><BusinessSnapshot /></Suspense>} />
 
             {/* Discovery */}

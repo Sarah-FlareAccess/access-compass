@@ -34,6 +34,7 @@ export default function Landing() {
           </button>
 
           <nav className={`header-nav ${mobileMenuOpen ? 'mobile-open' : ''}`} id="landing-nav-menu">
+            <Link to="/pricing" className="nav-link" onClick={closeMobileMenu}>Pricing</Link>
             <a href="mailto:hello@accesscompass.com.au" className="nav-link" onClick={closeMobileMenu}>Contact</a>
             <Link to="/login" className="nav-link" onClick={closeMobileMenu}>Login</Link>
             <Link to="/disclaimer" className="btn btn-nav" onClick={closeMobileMenu}>Get started</Link>
