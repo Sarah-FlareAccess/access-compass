@@ -403,59 +403,67 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         console.log('[createOrganisation] Starting with user ID:', user.id);
 
-        // Use the create_organisation_with_admin RPC (SECURITY DEFINER).
-        // This atomically creates the org + owner membership and generates
-        // the slug and invite code server-side, avoiding FK issues.
-        console.log('[createOrganisation] Calling create_organisation_with_admin RPC...');
-        const { data: rpcResult, error: rpcError } = await supabase.rpc('create_organisation_with_admin', {
-          p_name: data.name,
-          p_size: data.size,
-          p_contact_email: data.contactEmail,
-          p_contact_name: data.contactName,
-          p_creator_user_id: user.id,
+        // Generate slug from name
+        let slug = data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        slug = `${slug}-${Math.random().toString(36).substring(2, 8)}`;
+
+        // Generate invite code
+        const inviteCode = Math.random().toString(36).substring(2, 10).toUpperCase();
+
+        // Step 1: Insert organisation via REST
+        const { data: orgData, error: orgError } = await supabaseRest.insert('organisations', {
+          name: data.name,
+          slug,
+          size: data.size,
+          contact_email: data.contactEmail,
+          contact_name: data.contactName,
+          invite_code: inviteCode,
         });
 
-        if (rpcError) {
-          console.error('[createOrganisation] RPC error:', JSON.stringify(rpcError));
-          const errorStr = rpcError.message || JSON.stringify(rpcError);
-          const errorCode = rpcError.code || '';
-          if (errorStr.includes('organisations_slug_key') || errorCode === '23505') {
+        if (orgError) {
+          console.error('[createOrganisation] Org insert error:', orgError);
+          const errorStr = typeof orgError === 'string' ? orgError : JSON.stringify(orgError);
+          if (errorStr.includes('organisations_slug_key') || errorStr.includes('23505')) {
             return { error: `An organisation named "${data.name}" has already been registered. Please choose a different name, or contact support if you believe this is an error.` };
           }
-          if (errorCode === '23503' || errorStr.includes('foreign key') || errorStr.includes('not present in table')) {
-            return { error: 'Your session appears to be invalid. Please sign out and sign in again.' };
-          }
-          return { error: `[DEBUG] ${errorCode}: ${errorStr}` };
+          return { error: 'Failed to create organisation. Please try again.' };
         }
 
-        const result = Array.isArray(rpcResult) ? rpcResult[0] : rpcResult;
-        console.log('[createOrganisation] RPC result:', result);
+        const newOrg = Array.isArray(orgData) ? orgData[0] : orgData;
+        if (!newOrg?.id) {
+          return { error: 'Failed to create organisation. No ID returned.' };
+        }
 
-        if (!result?.organisation_id) {
-          console.error('[createOrganisation] No organisation ID returned. Result:', JSON.stringify(rpcResult));
-          return { error: `[DEBUG] No org ID returned. Raw: ${JSON.stringify(rpcResult)}` };
+        // Step 2: Insert membership via REST
+        const { error: memberError } = await supabaseRest.insert('organisation_memberships', {
+          organisation_id: newOrg.id,
+          user_id: user.id,
+          role: 'owner',
+          status: 'active',
+          invite_accepted_at: new Date().toISOString(),
+        });
+
+        if (memberError) {
+          console.error('[createOrganisation] Membership error:', memberError);
+          const errorStr = typeof memberError === 'string' ? memberError : JSON.stringify(memberError);
+          if (errorStr.includes('foreign key') || errorStr.includes('23503')) {
+            return { error: 'Your session appears to be invalid. Please sign out and sign in again.' };
+          }
+          return { error: 'Failed to add you as owner. Please try again.' };
         }
 
         // Refresh access state
-        console.log('[createOrganisation] Refreshing access state...');
         await refreshAccessState();
-
-        console.log('[createOrganisation] Success!');
 
         return {
           error: null,
-          organisation: {
-            id: result.organisation_id,
-            name: result.organisation_name || data.name,
-            slug: result.organisation_slug,
-          } as Organisation,
-          inviteCode: result.invite_code,
+          organisation: newOrg as Organisation,
+          inviteCode,
           emailsAdded: 0,
         };
       } catch (error) {
         console.error('[createOrganisation] Exception:', error);
-        const msg = error instanceof Error ? error.message : String(error);
-        return { error: `[DEBUG] Exception: ${msg}` };
+        return { error: 'An error occurred while creating the organisation.' };
       }
     },
     [user, refreshAccessState]
