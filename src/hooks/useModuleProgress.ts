@@ -345,10 +345,14 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
 
   // Start a module
   const startModule = useCallback((moduleId: string, moduleCode: string) => {
+    // Check if already started BEFORE the state update (avoids StrictMode double-log)
+    const currentProgress = getLocalProgress();
+    const alreadyStarted = currentProgress[moduleId] && currentProgress[moduleId].status !== 'not-started';
+
     setProgress(prev => {
       const existing = prev[moduleId];
       if (existing && existing.status !== 'not-started') {
-        return prev; // Already started
+        return prev;
       }
 
       const moduleData: ModuleProgress = {
@@ -363,14 +367,16 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       saveLocalProgress(updated);
       syncModuleToCloud(moduleId, moduleData);
 
+      return updated;
+    });
+
+    if (!alreadyStarted) {
       const mod = getModuleById(moduleId);
       logActivityStandalone('module-started', {
         moduleId,
         moduleName: mod?.name || moduleCode,
       }, userIdRef.current || undefined);
-
-      return updated;
-    });
+    }
   }, [syncModuleToCloud]);
 
   // Calculate confidence snapshot based on responses
@@ -415,14 +421,14 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       saveLocalProgress(updated);
       syncModuleToCloud(moduleId, moduleData);
 
-      const mod = getModuleById(moduleId);
-      logActivityStandalone('module-completed', {
-        moduleId,
-        moduleName: mod?.name || moduleData.moduleCode,
-      }, userIdRef.current || undefined);
-
       return updated;
     });
+
+    const mod = getModuleById(moduleId);
+    logActivityStandalone('module-completed', {
+      moduleId,
+      moduleName: mod?.name || moduleId,
+    }, userIdRef.current || undefined);
   }, [syncModuleToCloud]);
 
   // Update module ownership (assignment and target date)

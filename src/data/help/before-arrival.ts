@@ -1217,7 +1217,7 @@ export const beforeArrivalHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Reviewing and Improving Your Accessibility Page',
   summary: 'A well-structured accessibility page helps customers plan their visit. Regular review ensures the information stays accurate, comprehensive, and genuinely useful.',
-  coveredQuestionIds: ['1.1-F-3B', '1.1-F-4-link', '1.1-D-3a', '1.1-D-3b', '1.1-D-11', '1.1-D-12'],
+  coveredQuestionIds: ['1.1-F-3B', '1.1-D-3a', '1.1-D-3b', '1.1-D-11', '1.1-D-12'],
 
   whyItMatters: {
     text: 'Your accessibility page is often the first thing a potential customer with disability checks. If it is incomplete, outdated, or hard to find, they may choose a competitor instead. Regular review ensures you are communicating your genuine accessibility features clearly and catching any changes that need updating.',

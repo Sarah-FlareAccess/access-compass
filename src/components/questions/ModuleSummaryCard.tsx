@@ -104,44 +104,7 @@ export function ModuleSummaryCard({
           </div>
         )}
 
-        {/* What to do next */}
-        <div className="summary-next-steps">
-          <h3 className="summary-next-heading">What to do next</h3>
-          <div className="summary-next-grid">
-            <Link to="/report" className="summary-next-card">
-              <BarChart3 size={20} aria-hidden="true" />
-              <div>
-                <strong>View report</strong>
-                <span>See detailed findings, recommendations, and compliance references for this module.</span>
-              </div>
-            </Link>
-            <Link to="/diap" className="summary-next-card">
-              <ClipboardList size={20} aria-hidden="true" />
-              <div>
-                <strong>View action plan</strong>
-                <span>Priority actions have been added to your DIAP. Assign owners and set timelines.</span>
-              </div>
-            </Link>
-            <Link to="/resources" className="summary-next-card">
-              <FileText size={20} aria-hidden="true" />
-              <div>
-                <strong>Browse resources</strong>
-                <span>Step-by-step guides and practical tips for addressing each finding.</span>
-              </div>
-            </Link>
-          </div>
-        </div>
-
-        {/* Empty state */}
-        {doingWell.length === 0 &&
-          priorityActions.length === 0 &&
-          areasToExplore.length === 0 && (
-            <div className="summary-empty">
-              <p>No responses recorded for this module.</p>
-            </div>
-          )}
-
-        {/* Actions */}
+        {/* Completion form - shown first so users must confirm before navigating */}
         {!showCompletionForm ? (
           <div className="summary-actions-footer">
             <button className="btn-review" onClick={onReviewAnswers}>
@@ -201,6 +164,43 @@ export function ModuleSummaryCard({
             </div>
           </div>
         )}
+
+        {/* What to do next - only shown after completion form */}
+        <div className="summary-next-steps">
+          <h3 className="summary-next-heading">What to do next</h3>
+          <div className="summary-next-grid">
+            <Link to="/report" className="summary-next-card">
+              <BarChart3 size={20} aria-hidden="true" />
+              <div>
+                <strong>View report</strong>
+                <span>See detailed findings, recommendations, and compliance references for this module.</span>
+              </div>
+            </Link>
+            <Link to="/diap" className="summary-next-card">
+              <ClipboardList size={20} aria-hidden="true" />
+              <div>
+                <strong>View action plan</strong>
+                <span>Priority actions have been added to your DIAP. Assign owners and set timelines.</span>
+              </div>
+            </Link>
+            <Link to="/resources" className="summary-next-card">
+              <FileText size={20} aria-hidden="true" />
+              <div>
+                <strong>Browse resources</strong>
+                <span>Step-by-step guides and practical tips for addressing each finding.</span>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* Empty state */}
+        {doingWell.length === 0 &&
+          priorityActions.length === 0 &&
+          areasToExplore.length === 0 && (
+            <div className="summary-empty">
+              <p>No responses recorded for this module.</p>
+            </div>
+          )}
       </div>
     </>
   );

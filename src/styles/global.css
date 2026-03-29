@@ -298,12 +298,14 @@ p {
 
 .btn-primary:hover:not(:disabled) {
   background: #723d8d;
+  color: white;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
 }
 
 .btn-primary:active:not(:disabled) {
   transform: translateY(0);
+  color: white;
   box-shadow: 0 2px 8px rgba(73, 14, 103, 0.2);
 }
 
@@ -371,6 +373,27 @@ p {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
   box-shadow: 0 0 0 6px rgba(73, 14, 103, 0.2);
+}
+
+/* Prevent a:hover colour from overriding button text on Link components */
+a.btn-primary,
+a.btn-primary:hover,
+a.btn-primary:visited,
+a.btn-primary:active {
+  color: white;
+  text-decoration: none;
+}
+
+a.btn-secondary:hover,
+a.btn-secondary:active {
+  color: white;
+  text-decoration: none;
+}
+
+a.btn-outline:hover,
+a.btn-outline:active {
+  color: white;
+  text-decoration: none;
 }
 
 /* ----------------------------------------
@@ -571,10 +594,9 @@ select:focus {
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015) !important;
-  outline-offset: 2px;
+  outline: none !important;
   border-color: var(--amethyst-diamond);
-  box-shadow: none;
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
 textarea {

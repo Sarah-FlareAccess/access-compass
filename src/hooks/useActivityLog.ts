@@ -2,15 +2,46 @@ import { useCallback, useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { getSession } from '../utils/session';
 import { syncRecord } from '../utils/cloudSync';
-import type { ActivityEntry, ActivityType } from '../types/activity';
+import { supabase, isSupabaseEnabled } from '../utils/supabase';
+import type { ActivityEntry, ActivityType, ActivityCategory } from '../types/activity';
+import { getActivityCategory } from '../types/activity';
 
 const STORAGE_KEY = 'access_compass_activity_log';
 const MAX_ENTRIES = 500;
+const RETENTION_MONTHS = 12;
+
+function isWithinRetention(timestamp: string): boolean {
+  const cutoff = new Date();
+  cutoff.setMonth(cutoff.getMonth() - RETENTION_MONTHS);
+  return new Date(timestamp).getTime() >= cutoff.getTime();
+}
 
 function loadActivities(): ActivityEntry[] {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) return JSON.parse(stored) as ActivityEntry[];
+    if (!stored) return [];
+    const entries = JSON.parse(stored) as ActivityEntry[];
+
+    // Deduplicate: same type + moduleId/diapItemId within 5 seconds = duplicate
+    const deduped: ActivityEntry[] = [];
+    for (const entry of entries) {
+      const isDupe = deduped.some(e =>
+        e.type === entry.type &&
+        e.moduleId === entry.moduleId &&
+        e.diapItemId === entry.diapItemId &&
+        Math.abs(new Date(e.timestamp).getTime() - new Date(entry.timestamp).getTime()) < 5000
+      );
+      if (!isDupe) deduped.push(entry);
+    }
+
+    // Apply retention filter
+    const retained = deduped.filter(e => isWithinRetention(e.timestamp));
+
+    if (retained.length < entries.length) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(retained));
+    }
+
+    return retained;
   } catch { /* ignore */ }
   return [];
 }
@@ -36,11 +67,110 @@ function getActorName(): string {
   return 'Team member';
 }
 
+export function getActivityDescriptionText(entry: ActivityEntry): string {
+  switch (entry.type) {
+    case 'module-completed':
+      return `completed ${entry.moduleName || 'a module'}`;
+    case 'module-started':
+      return `started ${entry.moduleName || 'a module'}`;
+    case 'module-assigned':
+      return `assigned ${entry.moduleName || 'a module'} to ${entry.assigneeName || 'someone'}`;
+    case 'diap-item-created':
+      return `created DIAP item: ${(entry.diapItemObjective || '').slice(0, 60)}`;
+    case 'diap-status-changed': {
+      const fmtOld = (entry.oldValue || 'unknown').replace(/-/g, ' ');
+      const fmtNew = (entry.newValue || 'unknown').replace(/-/g, ' ');
+      return `changed status of "${(entry.diapItemObjective || '').slice(0, 40)}" from ${fmtOld} to ${fmtNew}`;
+    }
+    case 'diap-assigned':
+      return `assigned "${(entry.diapItemObjective || '').slice(0, 40)}" to ${entry.assigneeName || 'someone'}`;
+    case 'diap-comment-added':
+      return `commented on "${(entry.diapItemObjective || '').slice(0, 40)}"`;
+    case 'report-generated':
+      return 'generated a report';
+    default:
+      return 'performed an action';
+  }
+}
+
+export function exportActivitiesAsCSV(activities: ActivityEntry[]): string {
+  const headers = ['Date', 'Time', 'Category', 'Actor', 'Action', 'Details'];
+  const rows = activities.map(a => {
+    const date = new Date(a.timestamp);
+    const category = getActivityCategory(a.type);
+    const description = getActivityDescriptionText(a);
+    const details = [a.moduleName, a.diapItemObjective, a.commentText].filter(Boolean).join(' | ');
+    return [
+      date.toLocaleDateString('en-AU'),
+      date.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' }),
+      category.charAt(0).toUpperCase() + category.slice(1),
+      a.actorName,
+      description,
+      details,
+    ].map(v => `"${(v || '').replace(/"/g, '""')}"`).join(',');
+  });
+  return [headers.join(','), ...rows].join('\n');
+}
+
 export function useActivityLog() {
   const { user } = useAuth();
   const [activities, setActivities] = useState<ActivityEntry[]>(loadActivities);
+  const [trimmedByRetention, setTrimmedByRetention] = useState(false);
   const userRef = useRef(user);
   userRef.current = user;
+
+  // On mount: load from localStorage first, then fetch from Supabase and merge
+  useEffect(() => {
+    const localEntries = loadActivities();
+    setActivities(localEntries);
+
+    if (isSupabaseEnabled() && supabase && user) {
+      supabase
+        .from('activity_log')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(500)
+        .then(({ data }) => {
+          if (!data || data.length === 0) return;
+
+          const cloudEntries: ActivityEntry[] = data
+            .map((row: Record<string, unknown>) => ({
+              id: row.id as string,
+              sessionId: row.session_id as string,
+              type: row.type as ActivityType,
+              actorName: row.actor_name as string,
+              actorId: row.user_id as string,
+              timestamp: row.created_at as string,
+              ...(row.data as Record<string, unknown> || {}),
+            } as ActivityEntry))
+            .filter((e: ActivityEntry) => isWithinRetention(e.timestamp));
+
+          setActivities(prev => {
+            const existingIds = new Set(prev.map(e => e.id));
+            const newEntries = cloudEntries.filter(e => !existingIds.has(e.id));
+            if (newEntries.length === 0) return prev;
+
+            const merged = [...prev, ...newEntries]
+              .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+              .slice(0, MAX_ENTRIES);
+
+            saveActivities(merged);
+            return merged;
+          });
+        })
+        .catch(() => {});
+    }
+
+    // Check if any entries were trimmed by retention
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const raw = JSON.parse(stored) as ActivityEntry[];
+        const hasOld = raw.some(e => !isWithinRetention(e.timestamp));
+        if (hasOld) setTrimmedByRetention(true);
+      }
+    } catch { /* ignore */ }
+  }, [user]);
 
   // Reload on storage changes from other tabs
   useEffect(() => {
@@ -110,10 +240,17 @@ export function useActivityLog() {
     return result;
   }, [activities]);
 
+  const getActivitiesByCategory = useCallback((category: ActivityCategory): ActivityEntry[] => {
+    if (category === 'all') return activities;
+    return activities.filter(a => getActivityCategory(a.type) === category);
+  }, [activities]);
+
   return {
     activities,
     logActivity,
     getFilteredActivities,
+    getActivitiesByCategory,
+    trimmedByRetention,
     unreadCount: activities.filter(a => {
       const age = Date.now() - new Date(a.timestamp).getTime();
       return age < 24 * 60 * 60 * 1000; // Last 24 hours

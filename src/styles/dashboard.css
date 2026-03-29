@@ -660,11 +660,11 @@
 .primary-action-hero {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   background: linear-gradient(135deg, var(--amethyst-diamond) 0%, #6b21a8 100%);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-md) var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
   position: relative;
   overflow: hidden;
   border: none;
@@ -991,13 +991,13 @@
    PROGRESS CARD - HERO REGION (Warm & Elevated)
    ============================================ */
 .progress-section {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
 }
 
 .progress-card {
   background: var(--surface-hero);
-  border-radius: 24px;
-  padding: var(--spacing-xl) var(--spacing-lg);
+  border-radius: 16px;
+  padding: var(--spacing-md) var(--spacing-lg);
   box-shadow: var(--shadow-hero);
   border: 1px solid var(--surface-hero-border);
   position: relative;
@@ -1263,40 +1263,49 @@
    ============================================ */
 .dashboard-tabs {
   display: flex;
-  gap: var(--spacing-xs);
+  gap: 0;
   margin-bottom: var(--spacing-md);
-  border-bottom: 2px solid var(--ivory-tusk);
+  border-bottom: 2px solid #d1ccc9;
   padding-bottom: 0;
 }
 
 .tab-btn {
-  padding: var(--spacing-sm) var(--spacing-md);
-  background: transparent;
-  border: none;
-  border-bottom: 3px solid transparent;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: #f0ece9;
+  border: 2px solid #d1ccc9;
+  border-bottom: 2px solid #d1ccc9;
+  border-radius: 8px 8px 0 0;
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   margin-bottom: -2px;
+  margin-right: -1px;
   min-height: 44px;
+  position: relative;
 }
 
 .tab-btn:hover {
   color: var(--amethyst-diamond);
-  background: rgba(114, 61, 141, 0.08);
-  border-bottom-color: rgba(114, 61, 141, 0.3);
+  background: #e8e3e0;
+  border-color: #c0b9b5;
+  border-bottom-color: #c0b9b5;
 }
 
 .tab-btn:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
+  z-index: 2;
 }
 
 .tab-btn.active {
   color: var(--amethyst-diamond);
-  border-bottom-color: var(--amethyst-diamond);
+  font-weight: 600;
+  background: #fff;
+  border-color: #d1ccc9;
+  border-bottom-color: #fff;
+  z-index: 1;
 }
 
 /* ============================================
@@ -2046,6 +2055,116 @@ a.evidence-action-btn:visited {
   color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(73, 14, 103, 0.35);
+}
+
+/* Evidence Library - populated state */
+.evidence-library-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--spacing-md);
+}
+
+.evidence-library-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.evidence-count {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.evidence-module-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.evidence-module-heading {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid #e8e3e0;
+}
+
+.evidence-module-code {
+  color: var(--amethyst-diamond);
+  margin-right: 8px;
+}
+
+.evidence-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.evidence-item-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #d1ccc9;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.evidence-item-card:hover {
+  border-color: var(--amethyst-diamond);
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.1);
+}
+
+.evidence-item-card:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+.evidence-item-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.evidence-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.evidence-item-card .evidence-item-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.evidence-item-card .evidence-item-question {
+  font-size: 0.8rem;
+  color: #4a4340;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.evidence-item-card .evidence-item-date {
+  font-size: 0.75rem;
+  color: #4a4340;
+}
+
+.evidence-item-thumbnail {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .evidence-action-btn:active {

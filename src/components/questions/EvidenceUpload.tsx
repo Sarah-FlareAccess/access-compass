@@ -9,6 +9,10 @@
 
 import { useState, useRef, useCallback } from 'react';
 import type { EvidenceFile } from '../../hooks/useModuleProgress';
+import { uploadEvidence } from '../../utils/evidenceStorage';
+import { useAuth } from '../../contexts/AuthContext';
+import { getSession } from '../../utils/session';
+import { supabase, isSupabaseEnabled } from '../../utils/supabase';
 import './evidence-upload.css';
 
 interface EvidenceUploadProps {
@@ -17,6 +21,8 @@ interface EvidenceUploadProps {
   allowedTypes?: ('photo' | 'document' | 'link')[];
   hint?: string;
   maxFiles?: number;
+  questionId?: string;
+  moduleId?: string;
 }
 
 // File type mappings
@@ -37,18 +43,25 @@ const MAX_FILE_SIZE = 2 * 1024 * 1024;
 const MAX_IMAGE_DIMENSION = 800; // Max width or height
 const IMAGE_QUALITY = 0.6; // JPEG quality (0-1)
 
+// Increased limit since we upload to cloud now (fall back to base64 only if offline)
+const CLOUD_MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB for cloud uploads
+
 export function EvidenceUpload({
   evidence,
   onEvidenceChange,
   allowedTypes = ['photo', 'document', 'link'],
   hint,
   maxFiles = 10,
+  questionId,
+  moduleId,
 }: EvidenceUploadProps) {
   const [isExpanded, setIsExpanded] = useState(evidence.length > 0);
   const [linkInput, setLinkInput] = useState('');
   const [linkDescription, setLinkDescription] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { user, organisationId } = useAuth();
 
   // Generate unique ID
   const generateId = () => `ev_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -71,6 +84,7 @@ export function EvidenceUpload({
     if (!files || files.length === 0) return;
 
     setError(null);
+    setUploading(true);
 
     if (evidence.length + files.length > maxFiles) {
       setError(`Maximum ${maxFiles} files allowed`);
@@ -82,9 +96,11 @@ export function EvidenceUpload({
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
 
+      const maxSize = isSupabaseEnabled() ? CLOUD_MAX_FILE_SIZE : MAX_FILE_SIZE;
+
       // Check file size
-      if (file.size > MAX_FILE_SIZE) {
-        setError(`File "${file.name}" is too large. Maximum size is 5MB.`);
+      if (file.size > maxSize) {
+        setError(`File "${file.name}" is too large. Maximum size is ${maxSize / (1024 * 1024)}MB.`);
         continue;
       }
 
@@ -97,29 +113,63 @@ export function EvidenceUpload({
         continue;
       }
 
-      // Convert to base64 (compress photos, keep documents as-is)
       try {
         let dataUrl: string;
         if (isPhoto) {
-          // Compress images to reduce localStorage usage
           dataUrl = await compressImage(file);
         } else {
-          // Documents stored as-is (check size limit)
-          if (file.size > MAX_FILE_SIZE) {
-            setError(`Document "${file.name}" is too large. Maximum size is 2MB.`);
-            continue;
-          }
           dataUrl = await fileToBase64(file);
         }
 
+        const evidenceId = generateId();
+        const session = getSession();
+        const sessionId = session?.session_id || 'no-session';
+        const now = new Date().toISOString();
+
+        // Try cloud upload first
+        let url: string | undefined;
+        let storagePath: string | undefined;
+        if (user?.id && isSupabaseEnabled()) {
+          const result = await uploadEvidence(
+            dataUrl,
+            user.id,
+            sessionId,
+            questionId || 'unknown',
+            file.name
+          );
+          if (result) {
+            url = result.publicUrl;
+            storagePath = result.storagePath;
+
+            // Record metadata in evidence_files table
+            if (supabase) {
+              await supabase.from('evidence_files').insert({
+                id: evidenceId,
+                user_id: user.id,
+                organisation_id: organisationId || null,
+                session_id: sessionId,
+                module_id: moduleId || 'unknown',
+                question_id: questionId || 'unknown',
+                file_name: file.name,
+                file_type: isPhoto ? 'photo' : 'document',
+                file_size: file.size,
+                storage_path: storagePath,
+                mime_type: isPhoto ? 'image/jpeg' : file.type,
+              }).catch(() => {});
+            }
+          }
+        }
+
         newEvidence.push({
-          id: generateId(),
+          id: evidenceId,
           type: isPhoto ? 'photo' : 'document',
           name: file.name,
-          dataUrl,
-          mimeType: isPhoto ? 'image/jpeg' : file.type, // Photos converted to JPEG
+          // If cloud upload succeeded, store URL only (no base64 in localStorage)
+          url: url || undefined,
+          dataUrl: url ? undefined : dataUrl,
+          mimeType: isPhoto ? 'image/jpeg' : file.type,
           size: file.size,
-          uploadedAt: new Date().toISOString(),
+          uploadedAt: now,
         });
       } catch (err) {
         setError(`Failed to process "${file.name}"`);
@@ -130,11 +180,13 @@ export function EvidenceUpload({
       onEvidenceChange([...evidence, ...newEvidence]);
     }
 
+    setUploading(false);
+
     // Reset input
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
-  }, [evidence, maxFiles, onEvidenceChange]);
+  }, [evidence, maxFiles, onEvidenceChange, user, organisationId, questionId, moduleId]);
 
   // Compress image using canvas
   const compressImage = (file: File): Promise<string> => {

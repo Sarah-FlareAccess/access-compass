@@ -31,14 +31,14 @@ import { BottomTabBar } from '../components/BottomTabBar';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { InstallPrompt } from '../components/InstallPrompt';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
-import { logActivityStandalone, useActivityLog } from '../hooks/useActivityLog';
+import { logActivityStandalone, useActivityLog, exportActivitiesAsCSV, getActivityDescriptionText } from '../hooks/useActivityLog';
 import { ActivityFeed } from '../components/ActivityFeed';
 import { ShareButton } from '../components/ShareButton';
 import { CopyMessageButton } from '../components/CopyMessageButton';
 import { generateWeeklyDigestMessage } from '../utils/notificationMessages';
 import { generateOverallProgressSummary } from '../utils/shareSummary';
 import '../styles/share-button.css';
-import { GitCompare, Gauge, Users, ImagePlus, BarChart3, ListChecks } from 'lucide-react';
+import { GitCompare, Gauge, Users, ImagePlus, BarChart3, ListChecks, ClipboardList } from 'lucide-react';
 import { getCategoryLink } from '../utils/resourceLinks';
 import '../styles/dashboard.css';
 
@@ -71,8 +71,9 @@ const DASHBOARD_FEATURES: GuideFeature[] = [
   { icon: Users, title: 'Module allocation', description: 'Assign modules to team members so the right people review the right areas.' },
   { icon: GitCompare, title: 'Run comparison', description: 'Compare responses across multiple assessment runs side by side.' },
   { icon: Gauge, title: 'Confidence snapshot', description: 'See how confident each module assessment is (strong, mixed, needs work).' },
-  { icon: ImagePlus, title: 'Evidence gallery', description: 'Upload and manage photos and documents collected during assessments.' },
+  { icon: ImagePlus, title: 'Evidence Library', description: 'Upload and manage photos and documents collected during assessments.' },
   { icon: BarChart3, title: 'Report and DIAP', description: 'Jump to your Report or DIAP directly from any completed module.' },
+  { icon: ClipboardList, title: 'Activity Log', description: 'Track completed modules, DIAP changes, and team actions. Copy a weekly digest or share progress.' },
   { icon: ListChecks, title: 'Expand module groups', description: 'Click group headers to expand and see individual module progress.' },
 ];
 
@@ -86,7 +87,7 @@ export default function Dashboard() {
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<TabType>('modules');
-  const { activities } = useActivityLog();
+  const { activities, trimmedByRetention } = useActivityLog();
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [showReportProblem, setShowReportProblem] = useState(false);
   const [showInfoRequest, setShowInfoRequest] = useState(false);
@@ -667,14 +668,18 @@ Thanks!`;
                 type="button"
                 className="primary-action-hero clickable"
                 onClick={() => {
+                  // Switch to modules tab first
+                  setActiveTab('modules');
                   // Find the first group with in-progress modules and expand it
                   const groupWithInProgress = groupedModules.find(g =>
                     g.modules.some(m => m.status === 'in-progress')
                   );
                   if (groupWithInProgress) {
                     setExpandedGroups(prev => new Set([...prev, groupWithInProgress.id]));
-                    // Scroll to modules section
-                    document.querySelector('.modules-content')?.scrollIntoView({ behavior: 'smooth' });
+                    // Scroll to modules section after tab switch renders
+                    setTimeout(() => {
+                      document.querySelector('.modules-content')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 50);
                   }
                 }}
               >
@@ -692,13 +697,15 @@ Thanks!`;
                 type="button"
                 className="primary-action-hero clickable"
                 onClick={() => {
-                  // Expand the first group with not-started modules
+                  setActiveTab('modules');
                   const groupWithNotStarted = groupedModules.find(g =>
                     g.modules.some(m => m.status === 'not-started')
                   );
                   if (groupWithNotStarted) {
                     setExpandedGroups(prev => new Set([...prev, groupWithNotStarted.id]));
-                    document.querySelector('.modules-content')?.scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(() => {
+                      document.querySelector('.modules-content')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 50);
                   }
                 }}
               >
@@ -815,7 +822,7 @@ Thanks!`;
               aria-controls="tab-panel-activity"
               id="tab-activity"
             >
-              Activity
+              Activity Log
             </button>
           </div>
 
@@ -1087,31 +1094,124 @@ Thanks!`;
             </div>
           )}
 
-          {activeTab === 'evidence' && (
-            <div className="evidence-content" role="tabpanel" id="tab-panel-evidence" aria-labelledby="tab-evidence">
-              <div className="evidence-empty">
-                <div className="evidence-icon">📁</div>
-                <h3>Evidence Library</h3>
-                <p>
-                  As you complete module reviews, you can upload photos, documents, and links
-                  to support your accessibility improvements.
-                </p>
-                <p className="evidence-note">
-                  Evidence is linked to specific modules and actions, helping you track
-                  progress and demonstrate compliance over time.
-                </p>
-                {hasCompletedModules ? (
-                  <Link to="/questions" className="evidence-action-btn">
-                    Continue reviewing modules
-                  </Link>
+          {activeTab === 'evidence' && (() => {
+            // Collect all evidence from module responses
+            const allEvidence: { moduleCode: string; moduleName: string; questionId: string; questionText: string; file: import('../hooks/useModuleProgress').EvidenceFile }[] = [];
+            for (const mod of accessModules) {
+              const modProgress = progress[mod.id];
+              if (!modProgress?.responses) continue;
+              for (const resp of modProgress.responses) {
+                if (resp.evidence && resp.evidence.length > 0) {
+                  const question = mod.questions.find(q => q.id === resp.questionId);
+                  for (const file of resp.evidence) {
+                    allEvidence.push({
+                      moduleCode: mod.code,
+                      moduleName: mod.name,
+                      questionId: resp.questionId,
+                      questionText: question?.text || resp.questionId,
+                      file,
+                    });
+                  }
+                }
+              }
+            }
+
+            return (
+              <div className="evidence-content" role="tabpanel" id="tab-panel-evidence" aria-labelledby="tab-evidence">
+                {allEvidence.length === 0 ? (
+                  <div className="evidence-empty">
+                    <div className="evidence-icon">📁</div>
+                    <h3>Evidence Library</h3>
+                    <p>
+                      As you complete module reviews, you can upload photos, documents, and links
+                      to support your accessibility improvements.
+                    </p>
+                    <p className="evidence-note">
+                      Evidence is linked to specific modules and questions, helping you track
+                      progress and demonstrate compliance over time.
+                    </p>
+                    <button
+                      type="button"
+                      className="evidence-action-btn"
+                      onClick={() => setActiveTab('modules')}
+                    >
+                      Continue reviewing modules
+                    </button>
+                  </div>
                 ) : (
-                  <p className="evidence-hint">
-                    Start a module review to begin adding evidence.
-                  </p>
+                  <div className="evidence-library">
+                    <div className="evidence-library-header">
+                      <h3>Evidence Library</h3>
+                      <p className="evidence-count">{allEvidence.length} item{allEvidence.length !== 1 ? 's' : ''} uploaded</p>
+                    </div>
+                    {(() => {
+                      // Group by module
+                      const grouped = new Map<string, typeof allEvidence>();
+                      for (const item of allEvidence) {
+                        const key = item.moduleCode;
+                        if (!grouped.has(key)) grouped.set(key, []);
+                        grouped.get(key)!.push(item);
+                      }
+                      return Array.from(grouped.entries()).map(([moduleCode, items]) => (
+                        <div key={moduleCode} className="evidence-module-group">
+                          <h4 className="evidence-module-heading">
+                            <span className="evidence-module-code">{moduleCode}</span>
+                            {items[0].moduleName}
+                          </h4>
+                          <div className="evidence-items">
+                            {items.map(item => {
+                              const fileUrl = item.file.url || item.file.dataUrl;
+                              const handleClick = () => {
+                                if (fileUrl) {
+                                  const a = document.createElement('a');
+                                  a.href = fileUrl;
+                                  a.target = '_blank';
+                                  a.rel = 'noopener noreferrer';
+                                  if (item.file.dataUrl && !item.file.url) {
+                                    a.download = item.file.name;
+                                  }
+                                  a.click();
+                                }
+                              };
+                              return (
+                                <div
+                                  key={item.file.id}
+                                  className="evidence-item-card"
+                                  onClick={handleClick}
+                                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); } }}
+                                  tabIndex={0}
+                                  role="button"
+                                  aria-label={`Open ${item.file.name}`}
+                                >
+                                  <div className="evidence-item-icon" aria-hidden="true">
+                                    {item.file.type === 'photo' ? '🖼️' : item.file.type === 'link' ? '🔗' : '📄'}
+                                  </div>
+                                  <div className="evidence-item-details">
+                                    <span className="evidence-item-name">{item.file.name}</span>
+                                    <span className="evidence-item-question">{item.questionText}</span>
+                                    <span className="evidence-item-date">
+                                      {new Date(item.file.uploadedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                    </span>
+                                  </div>
+                                  {(item.file.url || item.file.dataUrl) && item.file.type === 'photo' && (
+                                    <img
+                                      src={item.file.url || item.file.dataUrl}
+                                      alt={item.file.name}
+                                      className="evidence-item-thumbnail"
+                                    />
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ));
+                    })()}
+                  </div>
                 )}
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {activeTab === 'activity' && (
             <div className="activity-content" role="tabpanel" id="tab-panel-activity" aria-labelledby="tab-activity">
@@ -1127,7 +1227,41 @@ Thanks!`;
                   label="Share Progress"
                 />
               </div>
-              <ActivityFeed activities={activities} />
+              <ActivityFeed
+                activities={activities}
+                trimmedByRetention={trimmedByRetention}
+                onExportCSV={() => {
+                  const csv = exportActivitiesAsCSV(activities);
+                  const blob = new Blob([csv], { type: 'text/csv' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `activity-log-${new Date().toISOString().split('T')[0]}.csv`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                onExportPDF={() => {
+                  const orgName = session?.business_snapshot?.organisation_name || 'N/A';
+                  const lines = [
+                    'ACTIVITY LOG',
+                    `Generated: ${new Date().toLocaleDateString('en-AU')}`,
+                    `Organisation: ${orgName}`,
+                    '',
+                    ...activities.map(a => {
+                      const date = new Date(a.timestamp).toLocaleDateString('en-AU');
+                      const time = new Date(a.timestamp).toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+                      return `[${date} ${time}] ${a.actorName} - ${getActivityDescriptionText(a)}`;
+                    }),
+                  ];
+                  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `activity-log-${new Date().toISOString().split('T')[0]}.txt`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+              />
             </div>
           )}
         </div>

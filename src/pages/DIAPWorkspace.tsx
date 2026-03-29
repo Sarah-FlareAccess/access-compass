@@ -1519,6 +1519,28 @@ export default function DIAPWorkspace() {
   );
 }
 
+const answerLabels: Record<string, string> = {
+  'yes': 'Yes',
+  'no': 'No',
+  'partially': 'Partially',
+  'unable-to-check': 'Unable to check',
+  'not-sure': 'Not sure',
+  'not-applicable': 'Not applicable',
+};
+
+function getQuestionContext(questionSource?: string, moduleSource?: string): { questionText: string; answerLabel: string } | null {
+  if (!questionSource || !moduleSource) return null;
+  const moduleCode = moduleSource.match(/(\d+\.\d+)/)?.[1];
+  if (!moduleCode) return null;
+  const mod = getModuleById(moduleCode);
+  if (!mod) return null;
+  const questions = getQuestionsForMode(mod, 'deep-dive');
+  const baseId = questionSource.replace(/-(media|url)-\d+$/, '');
+  const question = questions.find(q => q.id === baseId || q.id === questionSource);
+  if (!question) return null;
+  return { questionText: question.text, answerLabel: '' };
+}
+
 function getChangeMessage(oldAnswer: string, newAnswer: string): string {
   if (newAnswer === 'yes') {
     return 'Your assessment response has changed to Yes. This item may no longer be needed.';
@@ -1661,6 +1683,20 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveA
           ? (item.moduleSource.replace(/^\d+\.\d+:\s*/, '') || item.moduleSource)
           : item.category.replace(/-/g, ' ')}
       </div>
+
+      {/* Question context */}
+      {(() => {
+        const ctx = getQuestionContext(item.questionSource, item.moduleSource);
+        if (!ctx) return null;
+        const label = item.sourceAnswer ? (answerLabels[item.sourceAnswer] || item.sourceAnswer) : null;
+        return (
+          <div className="item-question-context">
+            <span className="question-context-label">Based on: </span>
+            "{ctx.questionText}"
+            {label && <span className="question-context-answer"> (answered: {label})</span>}
+          </div>
+        );
+      })()}
 
       <div className="item-header">
         <div className="item-badges">
@@ -2177,6 +2213,19 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
       }}
     >
       <h3>{item ? 'Edit Item' : 'Add New Item'}</h3>
+
+      {item?.questionSource && (() => {
+        const ctx = getQuestionContext(item.questionSource, item.moduleSource);
+        if (!ctx) return null;
+        const label = item.sourceAnswer ? (answerLabels[item.sourceAnswer] || item.sourceAnswer) : null;
+        return (
+          <div className="item-question-context edit-context">
+            <span className="question-context-label">Based on: </span>
+            "{ctx.questionText}"
+            {label && <span className="question-context-answer"> (answered: {label})</span>}
+          </div>
+        );
+      })()}
 
       <div className="form-row">
         <label>

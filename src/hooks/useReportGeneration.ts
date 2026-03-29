@@ -959,11 +959,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Outdated accessibility information can be worse than no information at all. A person with disability who plans a visit based on published details and arrives to find a ramp under construction, a broken lift, or a relocated accessible toilet wastes time, energy, and emotional resources. This is particularly harmful for people with chronic fatigue, chronic pain, or limited transport options.',
     resources: [],
   },
-  '1.1-F-4': {
-    actions: ['Share the URL of your accessibility page, Google Business listing, and any other platforms where access information is published.', 'Include the URL of your booking or ticketing page if it has accessibility options.', 'Note any areas you feel may be incomplete or outdated so the review can prioritise those.'],
-    reasoning: 'An expert review of published accessibility information can identify gaps, inaccuracies, and language issues that internal teams may miss. This benefits all people with disability by ensuring the information they rely on for planning is comprehensive and trustworthy.',
-    resources: [],
-  },
   '1.1-F-5': {
     actions: ['Offer at least three contact methods: phone/voice, email, and an online form or live chat.', 'Ensure at least one text-based option is available for people who are Deaf or have speech impairments and cannot use voice calls.', 'Publish contact details prominently on the accessibility page and in the website header or footer.', 'Include the National Relay Service (NRS) number (133 677) alongside your phone number for people who are Deaf or have speech impairments.', 'Ensure online contact forms meet WCAG 2.2 SC 1.3.5 Identify Input Purpose and SC 3.3.2 Labels or Instructions.'],
     reasoning: 'Different disabilities require different communication channels. A person who is Deaf cannot phone; a person with severe anxiety may not be able to call a stranger; a person with a motor disability may find long web forms difficult. The DDA 1992 requires equivalent service access, which means offering only one contact method can constitute indirect discrimination.',

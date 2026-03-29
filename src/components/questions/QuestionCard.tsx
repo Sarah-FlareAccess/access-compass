@@ -548,6 +548,8 @@ export function QuestionCard({
               onEvidenceChange={handleEvidenceChange}
               allowedTypes={['photo', 'document']}
               hint="Photos or documents to support your answer"
+              questionId={question.id}
+              moduleId={question.id.match(/^(\d+\.\d+)/)?.[1]}
             />
           </div>
 
@@ -777,6 +779,8 @@ export function QuestionCard({
               onEvidenceChange={handleEvidenceChange}
               allowedTypes={['photo', 'document']}
               hint="Photos or documents to support your answer"
+              questionId={question.id}
+              moduleId={question.id.match(/^(\d+\.\d+)/)?.[1]}
             />
           </div>
 
@@ -876,6 +880,8 @@ export function QuestionCard({
               onEvidenceChange={handleEvidenceChange}
               allowedTypes={['photo', 'document']}
               hint="Photos or documents to support your answer"
+              questionId={question.id}
+              moduleId={question.id.match(/^(\d+\.\d+)/)?.[1]}
             />
           </div>
 
@@ -954,6 +960,8 @@ export function QuestionCard({
               onEvidenceChange={handleEvidenceChange}
               allowedTypes={['photo', 'document']}
               hint="Photos or documents to support your answer"
+              questionId={question.id}
+              moduleId={question.id.match(/^(\d+\.\d+)/)?.[1]}
             />
           </div>
 

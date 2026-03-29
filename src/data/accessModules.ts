@@ -653,67 +653,10 @@ export const accessModules: AccessModule[] = [
           partially: 'Clarify and formalise the responsibility for maintaining accessibility information. Ensure the designated person has the authority, time allocation, and knowledge to keep information current.',
         },
       },
-      // ============================================
-      // LINK REVIEW
-      // ============================================
-      {
-        id: '1.1-F-4',
-        text: 'Would you like us to review a link to your accessibility information to help identify gaps and opportunities?',
-        helpText: 'We can provide an indicative review based on publicly available information. This does not verify accuracy or confirm compliance.',
-        type: 'single-select',
-        category: 'information',
-        impactLevel: 'low',
-        reviewMode: 'deep-dive',
-        options: [
-          { id: 'yes', label: 'Yes please' },
-          { id: 'no', label: 'No thanks' },
-          { id: 'later', label: 'Maybe later' },
-        ],
-        showWhen: { questionId: '1.1-F-1', answers: ['yes', 'partially'] },
-        helpContent: {
-          summary: 'Our AI-assisted review can quickly identify common gaps in accessibility information and suggest improvements. This optional feature offers an AI-assisted review of your publicly available accessibility information.',
-          understanding: [
-            'Select "Yes please" if you want us to analyse your accessibility page and provide specific feedback',
-            'Select "No thanks" or "Maybe later" if you prefer to skip this - you can always come back to it',
-          ],
-          tips: [
-            'We\'ll check things like completeness, clarity, and findability',
-            'Some common gaps we tend to find include missing transport info, vague descriptions, and hard-to-find pages',
-            'Review is indicative only - we can\'t verify on-the-ground accuracy',
-            'Results appear in your report with specific suggestions',
-            'You can also upload a screenshot if your info isn\'t publicly available',
-          ],
-        },
-        actionText: {
-          yes: 'Professional review can identify gaps not visible from the inside.',
-          no: 'Consider having your accessibility information professionally reviewed to identify gaps, inaccuracies, or missed opportunities that may not be apparent internally.',
-          partially: 'Follow through on a professional review of your accessibility information. External perspectives often identify gaps that internal teams overlook.',
-        },
-      },
-      {
-        id: '1.1-F-4-link',
-        text: 'Share a link to your accessibility information, or upload a screenshot or document',
-        helpText: 'Paste a URL, or upload a screenshot/PDF if your info isn\'t publicly available online.',
-        type: 'url-analysis',
-        category: 'evidence',
-        impactLevel: 'low',
-        reviewMode: 'deep-dive',
-        showWhen: { questionId: '1.1-F-4', answers: ['yes'] },
-        supportsEvidence: true,
-        evidenceTypes: ['photo', 'document'],
-        evidenceHint: 'Upload a screenshot or document if you prefer',
-        helpContent: {
-          summary: 'Share where customers currently find your accessibility information so we can review it. Paste the URL of your accessibility information page, or upload a screenshot or document if your information is not publicly available online. If your information is spread across multiple pages, share the link to the main or most comprehensive page, and our review will analyse the content for completeness, clarity, and common gaps.',
-          understanding: [],
-          tips: [
-            'The best option is a direct link to your dedicated accessibility page',
-            'If info is spread across pages, share the main one - we\'ll note if consolidation would help',
-            'If your info lives on a booking platform, try sharing a link to your listing',
-            'A PDF or screenshot can be useful if your info isn\'t publicly accessible online',
-            'Upload internal documents if you want feedback on draft content before publishing',
-          ],
-        },
-      },
+      // NOTE: Link review feature (1.1-F-4 and 1.1-F-4-link) removed.
+      // The assessment questions already capture the same content. If automated
+      // page analysis is needed in future, implement via server-side API endpoint
+      // (not client-side) to avoid exposing API keys.
       // ============================================
       // CONTACT CHANNELS
       // ============================================
@@ -977,8 +920,8 @@ export const accessModules: AccessModule[] = [
         },
         actionText: {
           yes: 'Staff confidence in responding to accessibility enquiries reflects good training and culture.',
-          no: 'Train staff to confidently and respectfully respond to accessibility enquiries. Provide guidance on common questions, appropriate language, and where to find accurate information when unsure.',
-          partially: 'Strengthen staff confidence by providing additional training, reference materials, or mentoring for handling accessibility enquiries. Focus on common scenarios and respectful communication.',
+          no: 'Prepare a reference guide of common accessibility enquiries and accurate answers so staff can respond confidently. Include details like accessible parking location, entrance type, available supports, and who to escalate to when unsure.',
+          partially: 'Review the most common accessibility enquiries your team receives and ensure accurate, up-to-date answers are documented and easy for staff to access during customer interactions.',
         },
       },
       {
@@ -1201,8 +1144,8 @@ export const accessModules: AccessModule[] = [
         },
         actionText: {
           yes: 'Transport information helps customers plan their full journey.',
-          no: 'Add accessible transport information to your pre-visit materials. Include details about accessible public transport options, accessible parking locations, drop-off points, and any relevant route information for customers using mobility aids.',
-          partially: 'Expand your transport information to cover additional options and provide more specific accessibility details about each transport method to your venue.',
+          no: 'Add accessible transport information to your pre-visit materials. Include nearest accessible public transport stops, taxi and rideshare drop-off options, and walking route details from transport stops to your entrance. Parking and drop-off zones are covered separately.',
+          partially: 'Expand your transport information with more specific details about each option: which bus/train stops have step-free access, typical distances to your entrance, and surface conditions on walking routes.',
         },
       },
       {
@@ -2976,8 +2919,8 @@ export const accessModules: AccessModule[] = [
         },
         actionText: {
           yes: 'Trained staff can effectively interpret and respond to diverse accessibility requests.',
-          no: 'Train staff who handle bookings to interpret and respond to accessibility requests. Cover common disability types, appropriate language, practical arrangements, and how to ask clarifying questions respectfully.',
-          partially: 'Expand staff training to cover a broader range of accessibility requests and scenarios. Include refresher training and real examples of requests your organisation has received.',
+          no: 'Document common accessibility requests and the practical arrangements available for each. Provide booking staff with a reference card listing your venue\'s specific accommodations and how to action each request.',
+          partially: 'Review recent accessibility requests to identify gaps in your reference materials. Update booking procedures with clear steps for each type of request your team receives.',
         },
       },
       {
@@ -4489,8 +4432,8 @@ export const accessModules: AccessModule[] = [
         },
         actionText: {
           yes: 'Trained content creators produce accessible content as standard practice.',
-          no: 'Provide training for content creators on plain language writing and accessible content creation. Cover readability, heading structure, meaningful link text, alt text, and disability-inclusive language.',
-          partially: 'Extend accessibility writing training to additional content creators and provide refresher training for those already trained. Include practical exercises using your own content.',
+          no: 'Create an accessible content style guide covering readability targets, heading structure, meaningful link text, alt text requirements, and plain language principles. Use it as the standard for all published content.',
+          partially: 'Review your content creation process against accessible writing standards. Identify which areas need improvement and update your style guide or templates accordingly.',
         },
       },
       {
@@ -4520,8 +4463,8 @@ export const accessModules: AccessModule[] = [
         },
         actionText: {
           yes: 'Staff training on disability language reduces the risk of offensive or exclusionary communication.',
-          no: 'Train all staff who create content or communicate with customers on respectful disability language and terminology. Cover person-first language, outdated terms to avoid, and the importance of following individual preferences.',
-          partially: 'Expand disability language training to additional staff and schedule regular refreshers. Language evolves, so ongoing education is important.',
+          no: 'Adopt a disability language style guide for all published content. Document preferred terminology, terms to avoid, and a review process for content before publication.',
+          partially: 'Review your current content against a disability language style guide. Update any outdated terminology and establish a review step in your content publishing process.',
         },
       },
       {
@@ -8943,7 +8886,7 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         actionText: {
           yes: 'Documented and pre-communicated priority access processes set clear expectations for both customers and staff.',
-          no: 'Document your accessible entry and priority access policy and publish it on your website, in booking confirmations, and at the venue entrance. Include what is offered, who is eligible, and how to request it. Train all staff so the process is consistent.',
+          no: 'Document your accessible entry and priority access policy and publish it on your website, in booking confirmations, and at the venue entrance. Include what is offered, who is eligible, and how to request it. Document the process so it is applied consistently.',
           partially: 'A process exists but is not consistently communicated before arrival. Add the information to your website accessibility page, include it in booking confirmations, and ensure signage at the venue makes it clear.',
         },
       },
@@ -8975,7 +8918,7 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         actionText: {
           yes: 'Recognising Companion Card and access passes demonstrates commitment to equitable access and streamlines entry for customers with disability.',
-          no: 'Register as a Companion Card affiliate (or your state equivalent) and train staff to recognise and accept the card. Display the Companion Card logo at your entrance and ticketing points. Also consider recognising other access schemes relevant to your industry.',
+          no: 'Register as a Companion Card affiliate (or your state equivalent) and ensure staff are aware of the Companion Card and how to accept it. Display the Companion Card logo at your entrance and ticketing points. Also consider recognising other access schemes relevant to your industry.',
           partially: 'You recognise some access passes but not all relevant schemes. Review which passes are common in your state and industry (Companion Card, NDIS participant cards, Carer Cards) and extend recognition. Update signage and staff training accordingly.',
         },
       },
@@ -9427,7 +9370,7 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'DDA 1992',
         actionText: {
           yes: 'Service animals can be accommodated at seating areas.',
-          no: 'Ensure all seating areas can accommodate assistance animals under the DDA 1992. Provide adequate floor space beside or under tables, avoid blocking emergency exits, and train staff never to refuse entry to recognised assistance animals.',
+          no: 'Ensure all seating areas can accommodate assistance animals under the DDA 1992. Provide adequate floor space beside or under tables, avoid blocking emergency exits, and ensure staff are aware that recognised assistance animals must not be refused entry.',
           partially: 'Some seating areas accommodate assistance animals. Ensure all seating zones have space for animals to rest comfortably beside their handler, and update staff training to cover all areas.',
         },
       },
@@ -14017,8 +13960,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         actionText: {
           yes: 'Staff are trained on communication boards and supporting diverse communicators.',
-          no: 'Provide training on using communication boards and supporting customers who communicate differently, including people who use AAC devices, sign language, or gesture. Include practical role-play exercises in training.',
-          partially: 'Some staff have been trained. Extend training to all customer-facing roles including volunteers and casual staff, and schedule regular refreshers.',
+          no: 'Install communication boards at key service points with simple instructions for use. Ensure boards cover common interactions and are visible and accessible without needing to ask.',
+          partially: 'Review the placement and content of your communication boards. Ensure they cover the most common customer interactions and are easy to locate at all service points.',
         },
       },
       {
@@ -16796,7 +16739,7 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         actionText: {
           yes: 'Bag packing assistance is available at checkout.',
-          no: 'Offer bag packing assistance at checkout for customers who need it. Train staff to offer proactively without requiring customers to ask. Ensure the service is available at all checkout types including self-checkout.',
+          no: 'Offer bag packing assistance at checkout for customers who need it. Ensure staff know to offer assistance proactively without requiring customers to ask. Ensure the service is available at all checkout types including self-checkout.',
           partially: 'Packing assistance is sometimes available. Ensure it is consistently offered during all trading hours and that staff proactively offer without customers needing to request.',
         },
       },
@@ -16907,7 +16850,7 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         actionText: {
           yes: 'Product information is available in accessible formats on request.',
-          no: 'Enable staff to provide product information verbally, in large print, or digitally (emailed or on a tablet). Train staff to describe products including colour, material, care instructions, and ingredients when asked.',
+          no: 'Enable staff to provide product information verbally, in large print, or digitally (emailed or on a tablet). Ensure staff can describe products including colour, material, care instructions, and ingredients when asked.',
           partially: 'Some accessible information is available. Expand to cover all products and ensure staff are confident describing items in detail, including visual characteristics, for customers who need it.',
         },
       },
@@ -18200,8 +18143,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. A documented policy sets clear expectations for staff and demonstrates organisational commitment.',
-          no: 'Develop and document a policy on serving customers with disabilities. Cover assistance animals, communication strategies, alternative service delivery, complaint handling, and staff training requirements.',
-          partially: 'A policy exists in draft or partial form. Finalise it, ensure it covers all key areas (assistance animals, communication, alternative service, complaints), and make it accessible to all staff.',
+          no: 'Develop and document a policy on serving customers with disabilities. The policy should reference your existing procedures and bring them together into a single, accessible document that all staff can consult.',
+          partially: 'Review and strengthen your existing policy to ensure it covers all key areas. Make it a single reference document that connects to your detailed procedures.',
         },
       },
       {
@@ -18265,8 +18208,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 3745',
         actionText: {
           yes: 'Good. Staff who know how to assist during evacuation protect the safety of customers with disabilities. This is a mandatory safety requirement.',
-          no: 'Train all staff on assisting customers with disabilities during emergency evacuation. Cover Personal Emergency Evacuation Plans (PEEPs), refuge areas, evacuation chairs, and communication with Deaf customers. This is a mandatory safety requirement.',
-          partially: 'Some staff have evacuation training. Ensure all customer-facing staff are trained, including on PEEPs, evacuation equipment, and communicating with customers who are Deaf, blind, or have mobility disabilities.',
+          no: 'Ensure staff are aware of your venue\'s accessible evacuation procedures, including where refuge areas are located and how to assist customers with different needs. Detailed evacuation planning is covered in module 4.4.',
+          partially: 'Review staff awareness of accessible evacuation procedures and address any gaps. Ensure all staff know the location of refuge areas and how to communicate during an emergency.',
         },
       },
       {
@@ -21803,8 +21746,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Staff document creation skills directly affect the accessibility of everything you produce.',
-          no: 'Train all staff who create documents on accessibility essentials: using heading styles (not just bold text), adding alt text to images, creating accessible tables, specifying document language, and checking reading order. Cover both Word and PDF output.',
-          partially: 'Some staff have these skills. Extend training to all document creators, provide a quick-reference guide, and include an accessibility check step in your document review process.',
+          no: 'Create accessible document templates with built-in heading styles, alt text prompts, and correct table structure. Add an accessibility checklist to your document review process.',
+          partially: 'Review your existing document templates for accessibility gaps. Update templates with proper heading styles, alt text fields, and accessible table structure.',
         },
       },
       {
@@ -23662,8 +23605,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         actionText: {
           yes: 'Staff competence with accessibility features ensures equipment and services are actually usable by customers.',
-          no: 'Train all relevant staff on how to operate accessibility features and equipment at your venue. This includes hearing loops, accessible toilets (including master locks and adult change facilities), adjustable counters, lifts, and any assistive technology you provide.',
-          partially: 'Some staff know how to use accessibility equipment. Ensure all relevant staff are trained, create quick-reference guides for each piece of equipment, and include equipment training in onboarding for new starters.',
+          no: 'Ensure all relevant staff can operate the accessibility features and equipment at your venue. Create a quick-reference guide covering each item, its location, and basic operation steps.',
+          partially: 'Review which accessibility features and equipment staff are confident using. Address knowledge gaps with hands-on practice sessions and update your reference guide.',
         },
       },
       {
@@ -23871,8 +23814,8 @@ export const accessModules: AccessModule[] = [
         complianceRef: 'AS 3745',
         actionText: {
           yes: 'Emergency evacuation training for people with disability is a critical safety requirement.',
-          no: 'Implement emergency evacuation training that specifically covers assisting people with disability. This is a mandatory safety requirement. Cover Personal Emergency Evacuation Plans (PEEPs), refuge areas, evacuation chairs, and communication with people who are Deaf or have cognitive disabilities during emergencies.',
-          partially: 'Some emergency training exists but may not adequately address disability. Ensure all staff are trained on PEEPs, know the location and operation of evacuation equipment, and practise evacuating with people with different disability types.',
+          no: 'Include disability-specific scenarios in your emergency evacuation training program. Ensure training covers the procedures and equipment detailed in your emergency preparedness plan.',
+          partially: 'Strengthen the disability-specific content in your evacuation training. Ensure staff practise assisting people with different needs during drills.',
         },
       },
       {
@@ -28351,8 +28294,8 @@ export const accessModules: AccessModule[] = [
         complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Trained staff and volunteers are the single most important factor in delivering an accessible event experience.',
-          no: 'Provide disability awareness training to all staff and volunteers before the event. Cover respectful language, common accommodations, how to assist without assuming, service animal etiquette, communication with deaf and non-verbal attendees, and emergency procedures for people with disability.',
-          partially: 'Some training has been provided. Ensure all staff and volunteers receive it, including security, catering, and contractor teams. Training should be practical and scenario-based, not just a policy document.',
+          no: 'Provide disability awareness training to all staff and volunteers before the event. Training should cover the specific accessibility provisions you have planned, so staff can deliver them confidently.',
+          partially: 'Review and strengthen your event-specific disability awareness training. Ensure it covers the accessibility provisions you have planned and includes practical scenarios.',
         },
       },
       {

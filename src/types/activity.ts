@@ -25,6 +25,15 @@ export interface ActivityEntry {
   commentText?: string;
 }
 
+export type ActivityCategory = 'module' | 'diap' | 'report' | 'all';
+
+export function getActivityCategory(type: ActivityType): ActivityCategory {
+  if (type.startsWith('module-')) return 'module';
+  if (type.startsWith('diap-')) return 'diap';
+  if (type === 'report-generated') return 'report';
+  return 'module';
+}
+
 export interface DIAPComment {
   id: string;
   authorName: string;

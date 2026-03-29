@@ -544,6 +544,32 @@
   margin-bottom: 6px;
 }
 
+/* Question context line */
+.item-question-context {
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #4a4340);
+  font-style: italic;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.item-question-context.edit-context {
+  background: #f8f5fc;
+  border-left: 3px solid var(--amethyst-diamond, #490E67);
+  padding: 10px 12px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 16px;
+}
+
+.question-context-label {
+  font-weight: 600;
+  font-style: normal;
+}
+
+.question-context-answer {
+  color: #6b6360;
+}
+
 /* One-time edit hint */
 .edit-hint {
   position: absolute;
