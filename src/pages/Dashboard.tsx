@@ -87,6 +87,8 @@ export default function Dashboard() {
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<TabType>('modules');
+  const [evidenceSearch, setEvidenceSearch] = useState('');
+  const [evidenceTypeFilter, setEvidenceTypeFilter] = useState<'all' | 'photo' | 'document' | 'link'>('all');
   const { activities, trimmedByRetention } = useActivityLog();
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [showReportProblem, setShowReportProblem] = useState(false);
@@ -1144,20 +1146,59 @@ Thanks!`;
                       <h3>Evidence Library</h3>
                       <p className="evidence-count">{allEvidence.length} item{allEvidence.length !== 1 ? 's' : ''} uploaded</p>
                     </div>
+
+                    {/* Search and filter */}
+                    <div className="evidence-toolbar">
+                      <input
+                        type="search"
+                        className="evidence-search"
+                        placeholder="Search by file name or question..."
+                        value={evidenceSearch}
+                        onChange={(e) => setEvidenceSearch(e.target.value)}
+                        aria-label="Search evidence"
+                      />
+                      <div className="evidence-type-filters" role="group" aria-label="Filter by type">
+                        {(['all', 'photo', 'document', 'link'] as const).map(t => (
+                          <button
+                            key={t}
+                            type="button"
+                            className={`evidence-type-btn ${evidenceTypeFilter === t ? 'active' : ''}`}
+                            onClick={() => setEvidenceTypeFilter(t)}
+                            aria-pressed={evidenceTypeFilter === t}
+                          >
+                            {t === 'all' ? 'All' : t === 'photo' ? 'Photos' : t === 'document' ? 'Documents' : 'Links'}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
                     {(() => {
+                      // Apply filters
+                      const searchLower = evidenceSearch.toLowerCase();
+                      const filtered = allEvidence.filter(item => {
+                        if (evidenceTypeFilter !== 'all' && item.file.type !== evidenceTypeFilter) return false;
+                        if (searchLower && !item.file.name.toLowerCase().includes(searchLower) && !item.questionText.toLowerCase().includes(searchLower)) return false;
+                        return true;
+                      });
+
+                      if (filtered.length === 0) {
+                        return <p className="evidence-no-results">No evidence matches your search or filter.</p>;
+                      }
+
                       // Group by module
                       const grouped = new Map<string, typeof allEvidence>();
-                      for (const item of allEvidence) {
+                      for (const item of filtered) {
                         const key = item.moduleCode;
                         if (!grouped.has(key)) grouped.set(key, []);
                         grouped.get(key)!.push(item);
                       }
                       return Array.from(grouped.entries()).map(([moduleCode, items]) => (
-                        <div key={moduleCode} className="evidence-module-group">
-                          <h4 className="evidence-module-heading">
+                        <details key={moduleCode} className="evidence-module-group" open>
+                          <summary className="evidence-module-heading">
                             <span className="evidence-module-code">{moduleCode}</span>
                             {items[0].moduleName}
-                          </h4>
+                            <span className="evidence-module-count">{items.length}</span>
+                          </summary>
                           <div className="evidence-items">
                             {items.map(item => {
                               const fileUrl = item.file.url || item.file.dataUrl;
@@ -1204,7 +1245,7 @@ Thanks!`;
                               );
                             })}
                           </div>
-                        </div>
+                        </details>
                       ));
                     })()}
                   </div>
@@ -1264,6 +1305,9 @@ Thanks!`;
               />
             </div>
           )}
+        </div>
+        <div className="dashboard-footer-link">
+          <Link to="/accessibility">Accessibility Statement</Link>
         </div>
       </main>
       </div>

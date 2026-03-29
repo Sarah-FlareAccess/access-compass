@@ -179,6 +179,7 @@
 
 .info-request-submit:hover:not(:disabled) {
   background: #723d8d;
+  color: #fff;
 }
 
 .info-request-submit:disabled {
@@ -237,6 +238,7 @@
 
 .info-request-done-btn:hover {
   background: #723d8d;
+  color: #fff;
 }
 
 .info-request-done-btn:focus-visible {

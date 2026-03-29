@@ -50,6 +50,6 @@
 }
 
 .org-presence-dismiss:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline: 3px solid var(--aussie-sunrise, #ff9015);
   outline-offset: 2px;
 }

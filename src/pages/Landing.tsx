@@ -205,6 +205,9 @@ export default function Landing() {
           <p className="footer-brand">
             Access Compass is a <a href="https://flareaccess.com.au" target="_blank" rel="noopener noreferrer">Flare Access</a> product designed to help organisations understand, prioritise and take action on accessibility.
           </p>
+          <p className="footer-links">
+            <Link to="/accessibility">Accessibility Statement</Link>
+          </p>
           <p className="footer-copyright">
             © {new Date().getFullYear()} Flare Access. All rights reserved.
           </p>

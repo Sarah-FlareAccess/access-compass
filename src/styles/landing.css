@@ -526,7 +526,7 @@
 }
 
 .landing-page .hero .btn-primary:focus-visible {
-  outline: 3px solid #ffffff;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
 }
 
@@ -934,7 +934,7 @@
 }
 
 .landing-page .features-cta .btn-primary:focus-visible {
-  outline: 3px solid #ffffff;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 3px;
 }
 

@@ -524,10 +524,11 @@
 .btn-analyze:hover:not(:disabled) {
   background: #6d28d9;
   transform: translateY(-1px);
+  color: #fff;
 }
 
 .btn-analyze:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -569,7 +570,7 @@
 }
 
 .btn-skip:focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

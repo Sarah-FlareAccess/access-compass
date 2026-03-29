@@ -206,6 +206,7 @@
 .summary-actions .btn-primary:hover {
   background: #723d8d;
   border-color: #723d8d;
+  color: #fff;
 }
 
 .summary-actions .btn-primary:focus-visible {
@@ -820,6 +821,7 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
   background: #723d8d;
+  color: #fff;
 }
 
 .btn-continue:disabled {
@@ -848,7 +850,7 @@
 }
 
 .discovery-skip-link button:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-radius: 4px;
 }

@@ -97,7 +97,7 @@
 }
 
 .help-sheet-close:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -245,7 +245,7 @@
 }
 
 .help-sheet-link:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -286,6 +286,7 @@
   background: #5a1a7a;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(73, 14, 103, 0.25);
+  color: #fff;
 }
 
 .help-sheet-contact-btn:focus-visible {

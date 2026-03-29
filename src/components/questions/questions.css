@@ -439,6 +439,7 @@
 
 .notes-info-btn:hover {
   background: #495057;
+  color: #fff;
 }
 
 .notes-info-btn .info-icon {
@@ -1276,7 +1277,7 @@
 }
 
 .expand-toggle:focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1410,7 +1411,7 @@
 }
 
 .btn-review:focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1431,10 +1432,11 @@
   background: #16a34a;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+  color: #fff;
 }
 
 .btn-complete:focus-visible {
-  outline: 2px solid #052e16;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -1544,10 +1546,11 @@
   background: #16a34a;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+  color: #fff;
 }
 
 .btn-confirm-complete:focus-visible {
-  outline: 2px solid #052e16;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

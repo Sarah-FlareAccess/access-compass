@@ -397,6 +397,19 @@ a.btn-outline:active {
 }
 
 /* ----------------------------------------
+   GLOBAL: Prevent a:hover from overriding
+   button text colours on link-styled buttons.
+   Each button class MUST set color on :hover.
+   ---------------------------------------- */
+a[class*="btn-"] {
+  text-decoration: none;
+}
+
+a[class*="btn-"]:hover {
+  text-decoration: none;
+}
+
+/* ----------------------------------------
    ACCENT BUTTON - Optional/promotional
    Background: Orange #FF9015
    Text: Dark Brown #3e2b2f (WCAG compliant)
@@ -413,6 +426,7 @@ a.btn-outline:active {
   background: #e68000;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 144, 21, 0.35);
+  color: #3e2b2f;
 }
 
 .btn-accent:active:not(:disabled) {
@@ -441,6 +455,7 @@ a.btn-outline:active {
   background: #c90936;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(234, 11, 63, 0.3);
+  color: #fff;
 }
 
 .btn-destructive:active:not(:disabled),
@@ -1076,6 +1091,7 @@ label {
 .back-to-top-btn:hover {
   background: #c56a00;
   transform: translateY(-2px);
+  color: #3e2b2f;
 }
 
 .back-to-top-btn:focus-visible {

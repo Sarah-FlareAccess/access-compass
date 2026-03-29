@@ -253,6 +253,7 @@
 
 .remove-screenshot-btn:hover {
   background: #dc2626;
+  color: #fff;
 }
 
 .remove-screenshot-btn:focus-visible {
@@ -325,6 +326,7 @@
 
 .report-actions .btn-primary:hover:not(:disabled) {
   background: #723d8d;
+  color: #fff;
 }
 
 .report-actions .btn-primary:disabled {
@@ -470,6 +472,7 @@
   background: #723d8d;
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 6px 24px rgba(114, 61, 141, 0.4);
+  color: #fff;
 }
 
 /* ============================================

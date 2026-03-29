@@ -180,7 +180,7 @@
 }
 
 .faq-question:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: -2px;
   border-radius: 10px;
 }
@@ -275,10 +275,11 @@
   background: #5a1a7a;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(73, 14, 103, 0.25);
+  color: #fff;
 }
 
 .contact-btn.primary:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

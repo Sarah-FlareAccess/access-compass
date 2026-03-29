@@ -48,6 +48,7 @@
   border-radius: 50%;
 }
 
+.page-footer-link,
 .page-footer-help-link {
   font-size: 0.8125rem;
   color: var(--text-muted);
@@ -55,8 +56,9 @@
   text-underline-offset: 2px;
 }
 
+.page-footer-link:hover,
 .page-footer-help-link:hover {
-  color: #1e40af;
+  color: var(--amethyst-diamond, #490E67);
 }
 
 @media (max-width: 640px) {

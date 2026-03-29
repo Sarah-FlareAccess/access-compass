@@ -20,7 +20,7 @@
 }
 
 .device-conflict-icon {
-  color: var(--deep-purple, #4a2882);
+  color: var(--amethyst-diamond, #490E67);
   margin-bottom: 1rem;
 }
 
@@ -75,18 +75,19 @@
 }
 
 .device-conflict-btn-primary {
-  background: var(--deep-purple, #4a2882);
+  background: var(--amethyst-diamond, #490E67);
   color: #fff;
 }
 
 .device-conflict-btn-primary:hover {
   background: var(--deep-purple-dark, #3a1e6a);
+  color: #fff;
 }
 
 .device-conflict-btn-secondary {
   background: #f5f3f7;
   color: var(--text-primary, #1a1a2e);
-  border-color: var(--deep-purple, #4a2882);
+  border-color: var(--amethyst-diamond, #490E67);
 }
 
 .device-conflict-btn-secondary:hover {

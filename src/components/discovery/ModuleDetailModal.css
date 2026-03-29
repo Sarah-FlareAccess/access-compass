@@ -87,7 +87,7 @@
 }
 
 .module-detail-close:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -261,6 +261,7 @@
 .module-detail-toggle.add:hover {
   background: #5a1a7a;
   transform: translateY(-1px);
+  color: #fff;
 }
 
 .module-detail-toggle.remove {
@@ -274,7 +275,7 @@
 }
 
 .module-detail-toggle:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -296,7 +297,7 @@
 }
 
 .module-detail-done:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -326,7 +327,7 @@
 }
 
 .module-tile .tile-learn-more:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

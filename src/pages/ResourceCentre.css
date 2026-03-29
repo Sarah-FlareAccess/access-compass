@@ -819,6 +819,7 @@
 .cat-search-row .btn-search:hover {
   background: #5a1d7a;
   transform: translateY(-1px);
+  color: #fff;
 }
 
 .cat-search-row .btn-search:focus-visible {

@@ -9,4 +9,5 @@
 .export-page .btn-primary:hover:not(:disabled) {
   background: #723d8d;
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }

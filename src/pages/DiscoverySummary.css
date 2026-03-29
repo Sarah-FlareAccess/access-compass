@@ -162,7 +162,7 @@
 }
 
 .btn-edit:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -192,7 +192,7 @@
 }
 
 .btn-save:focus-visible {
-  outline: 2px solid var(--status-completed);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -215,7 +215,7 @@
 }
 
 .btn-cancel:focus-visible {
-  outline: 2px solid var(--text-secondary);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -522,7 +522,7 @@
 }
 
 .summary-module-row:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -647,7 +647,7 @@
 }
 
 .module-edit-info-btn:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -728,6 +728,7 @@
 
 .summary-btn-primary:hover {
   background: #5a1a7a;
+  color: #fff;
 }
 
 .summary-btn-secondary {
@@ -764,7 +765,7 @@
 }
 
 .btn-text-link:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -922,10 +923,11 @@
 .warning-modal-actions .btn-confirm:hover {
   background: #5a1a7a;
   transform: translateY(-1px);
+  color: #fff;
 }
 
 .warning-modal-actions .btn-confirm:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

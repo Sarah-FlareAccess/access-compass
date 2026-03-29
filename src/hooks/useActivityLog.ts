@@ -52,18 +52,46 @@ function saveActivities(entries: ActivityEntry[]): void {
 }
 
 function getActorName(): string {
+  // 1. Try session contact name
   const session = getSession();
   const contactName = session?.business_snapshot?.contact_name;
   if (contactName) return contactName;
-  // Fallback: try auth email from localStorage
+
+  // 2. Try the known Supabase auth token key
   try {
-    const authKey = Object.keys(localStorage).find(k => k.includes('auth-token'));
-    if (authKey) {
-      const authData = JSON.parse(localStorage.getItem(authKey) || '{}');
-      const email = authData?.user?.email;
-      if (email) return email.split('@')[0];
+    const authKey = 'sb-ibvqlyyvlwnwjcoehjkt-auth-token';
+    const raw = localStorage.getItem(authKey);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      const email = parsed?.user?.email
+        || parsed?.currentSession?.user?.email;
+      if (email) {
+        const name = email.split('@')[0];
+        return name.charAt(0).toUpperCase() + name.slice(1);
+      }
     }
   } catch { /* ignore */ }
+
+  // 3. Broader search for any auth key
+  try {
+    for (const key of Object.keys(localStorage)) {
+      if (key.includes('auth-token') || key.includes('sb-')) {
+        const raw = localStorage.getItem(key);
+        if (!raw || !raw.startsWith('{')) continue;
+        try {
+          const parsed = JSON.parse(raw);
+          const email = parsed?.user?.email
+            || parsed?.currentSession?.user?.email
+            || parsed?.session?.user?.email;
+          if (email) {
+            const name = email.split('@')[0];
+            return name.charAt(0).toUpperCase() + name.slice(1);
+          }
+        } catch { /* skip */ }
+      }
+    }
+  } catch { /* ignore */ }
+
   return 'Team member';
 }
 

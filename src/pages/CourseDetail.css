@@ -136,6 +136,7 @@
 
 .course-cta-btn:hover {
   background: #6d28d9;
+  color: #fff;
 }
 
 .course-cta-btn:focus-visible {

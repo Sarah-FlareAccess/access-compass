@@ -69,7 +69,7 @@
 }
 
 .btn-export:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -91,10 +91,11 @@
   border-color: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .btn-add-item:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -199,6 +200,12 @@
   display: none;
 }
 
+.diap-controls-summary:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
 .diap-controls-summary::before {
   content: '▸';
   font-size: 0.75rem;
@@ -241,7 +248,7 @@
 }
 
 .btn-delete-item:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -308,7 +315,7 @@
 }
 
 .filter-chip:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -321,6 +328,7 @@
 .filter-chip.active:hover {
   background: #723d8d;
   border-color: #723d8d;
+  color: #fff;
 }
 
 .filter-clear-btn {
@@ -341,7 +349,7 @@
 }
 
 .filter-clear-btn:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -372,7 +380,7 @@
 }
 
 .date-range-input:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -406,7 +414,7 @@
 }
 
 .filter-select:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -445,7 +453,7 @@
 }
 
 .empty-state button:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -482,11 +490,6 @@
 
 .diap-item-card.clickable-card:focus:not(:focus-visible) {
   outline: none;
-}
-
-.diap-item-card.clickable-card:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
 }
 
 .diap-item-card.status-in-progress {
@@ -643,7 +646,7 @@
 }
 
 .response-changed-dismiss:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -754,17 +757,12 @@
 }
 
 .action-btn.edit-btn:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
 .action-btn.edit-btn:focus:not(:focus-visible) {
   outline: none;
-}
-
-.action-btn.edit-btn:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
 }
 
 .edit-icon {
@@ -865,7 +863,7 @@
 }
 
 .set-date-btn:focus-visible {
-  outline: 2px solid var(--aussie-sunrise);
+  outline: 3px solid var(--aussie-sunrise);
   outline-offset: 2px;
 }
 
@@ -892,17 +890,12 @@
 }
 
 .inline-edit-btn:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
 .inline-edit-btn:focus:not(:focus-visible) {
   outline: none;
-}
-
-.inline-edit-btn:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
 }
 
 /* Show pencil on card hover */
@@ -1146,16 +1139,14 @@
 
 .form-row input:focus,
 .form-row textarea:focus,
-.form-row select:focus {
-  outline: none;
-  border-color: var(--amethyst-diamond);
-}
-
+.form-row select:focus,
 .form-row input:focus-visible,
 .form-row textarea:focus-visible,
 .form-row select:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
+  outline: none;
+  border-color: var(--amethyst-diamond, #490E67);
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.15);
 }
 
 .form-row textarea {
@@ -1900,7 +1891,7 @@ button.evidence-layer-header {
 }
 
 .modal-close:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -2015,6 +2006,7 @@ button.evidence-layer-header {
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .import-note {
@@ -2160,6 +2152,7 @@ button.evidence-layer-header {
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 /* ============================================
@@ -2289,6 +2282,7 @@ button.evidence-layer-header {
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .btn-generate:disabled {
@@ -2459,6 +2453,15 @@ button.evidence-layer-header {
   box-shadow: 0 6px 24px rgba(114, 61, 141, 0.2), inset 0 0 0 2px rgba(114, 61, 141, 0.15);
 }
 
+.diap-category-group:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+.diap-category-group:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .diap-category-group.expanded {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
@@ -2490,12 +2493,8 @@ button.evidence-layer-header {
 }
 
 .category-header:focus-visible {
-  outline: none;
-}
-
-.category-header:focus-visible {
   outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: -3px;
+  outline-offset: 2px;
 }
 
 .category-icon {
@@ -2676,7 +2675,7 @@ button.evidence-layer-header {
 }
 
 .category-rename-btn:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -2699,7 +2698,7 @@ button.evidence-layer-header {
 }
 
 .category-name-input:focus {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -2730,7 +2729,7 @@ button.evidence-layer-header {
 
 .category-remove-btn:focus-visible {
   opacity: 1 !important;
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -2757,7 +2756,7 @@ button.evidence-layer-header {
 }
 
 .btn-add-category:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -2796,7 +2795,7 @@ button.evidence-layer-header {
 }
 
 .add-category-form input:focus {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-color: var(--amethyst-diamond);
 }
@@ -2891,13 +2890,8 @@ button.evidence-layer-header {
 }
 
 .folder-header:focus-visible {
-  outline: none;
-  background: rgba(124, 58, 237, 0.06);
-}
-
-.folder-header:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: -2px;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
 }
 
 .folder-icon {
@@ -3180,7 +3174,7 @@ button.evidence-layer-header {
 }
 
 .diap-prof-cta-links a:focus-visible {
-  outline: 2px solid #FF9015;
+  outline: 3px solid #FF9015;
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -3209,7 +3203,7 @@ button.evidence-layer-header {
 }
 
 .action-btn.reorder:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -3266,9 +3260,8 @@ button.evidence-layer-header {
 }
 
 .attachment-remove:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 1px;
-  border-radius: 2px;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
 }
 
 .btn-attach {
@@ -3288,7 +3281,7 @@ button.evidence-layer-header {
 }
 
 .btn-attach:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -3627,7 +3620,7 @@ button.evidence-layer-header {
 }
 
 .btn-sm:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 
@@ -3675,6 +3668,7 @@ button.evidence-layer-header {
 
 .btn-done:hover {
   background: #723d8d;
+  color: #fff;
 }
 
 .btn-sm.btn-delete {
@@ -3827,7 +3821,7 @@ button.evidence-layer-header {
 .comment-thread-heading {
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #4a3660;
+  color: var(--amethyst-diamond, #490E67);
   margin: 0 0 0.5rem;
 }
 
@@ -3862,7 +3856,7 @@ button.evidence-layer-header {
 
 .comment-author {
   font-size: 0.8125rem;
-  color: #4a3660;
+  color: var(--amethyst-diamond, #490E67);
 }
 
 .comment-time {
@@ -3897,13 +3891,13 @@ button.evidence-layer-header {
 
 .comment-input:focus {
   outline: none;
-  border-color: #4a3660;
+  border-color: var(--amethyst-diamond, #490E67);
   box-shadow: 0 0 0 2px rgba(74, 54, 96, 0.15);
 }
 
 .comment-submit {
   padding: 0.375rem 0.75rem;
-  background: #4a3660;
+  background: var(--amethyst-diamond, #490E67);
   color: white;
   border: none;
   border-radius: 0.25rem;
@@ -3913,7 +3907,8 @@ button.evidence-layer-header {
 }
 
 .comment-submit:hover {
-  background: #3a2850;
+  background: #723d8d;
+  color: #fff;
 }
 
 .comment-submit:disabled {
@@ -3922,7 +3917,7 @@ button.evidence-layer-header {
 }
 
 .comment-submit:focus-visible {
-  outline: 2px solid #FF9015;
+  outline: 3px solid #FF9015;
   outline-offset: 2px;
 }
 
@@ -3939,7 +3934,7 @@ button.evidence-layer-header {
 }
 
 .btn-digest {
-  background: #4a3660;
+  background: var(--amethyst-diamond, #490E67);
   color: white;
   border: none;
   padding: 0.5rem 0.75rem;
@@ -3952,11 +3947,12 @@ button.evidence-layer-header {
 }
 
 .btn-digest:hover {
-  background: #3a2850;
+  background: #723d8d;
+  color: #fff;
 }
 
 .btn-digest:focus-visible {
-  outline: 2px solid #FF9015;
+  outline: 3px solid #FF9015;
   outline-offset: 2px;
 }
 

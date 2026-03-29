@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ReportProblem, ReportProblemTrigger } from './ReportProblem';
 import './PageFooter.css';
 
@@ -19,6 +20,10 @@ export function PageFooter({ showDivider = true }: PageFooterProps) {
           </span>
         </div>
         <div className="page-footer-links">
+          <Link to="/accessibility" className="page-footer-link">
+            Accessibility
+          </Link>
+          <span className="page-footer-divider"></span>
           <ReportProblemTrigger
             variant="footer"
             onClick={() => setShowReportProblem(true)}

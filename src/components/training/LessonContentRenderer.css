@@ -168,7 +168,7 @@
 }
 
 .exercise-copy-btn:focus-visible {
-  outline: 3px solid #0369a1;
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
 }
 

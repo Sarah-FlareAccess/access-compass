@@ -101,7 +101,7 @@
 }
 
 .module-select-toggle:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -167,7 +167,7 @@
 }
 
 .group-toggle-btn:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 1px;
 }
 

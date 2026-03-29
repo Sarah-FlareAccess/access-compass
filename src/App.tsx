@@ -38,6 +38,9 @@ const DIAPWorkspace = lazy(() => import('./pages/DIAPWorkspace'));
 const ClarifyLater = lazy(() => import('./pages/ClarifyLater'));
 const ReportPage = lazy(() => import('./pages/ReportPage'));
 
+// Static pages
+const AccessibilityStatement = lazy(() => import('./pages/AccessibilityStatement'));
+
 // Dev/test pages
 const SupabaseTest = lazy(() => import('./pages/SupabaseTest'));
 
@@ -70,6 +73,7 @@ function App() {
             <Route path="/disclaimer" element={<Suspense fallback={<PageLoader />}><Disclaimer /></Suspense>} />
             <Route path="/login" element={<Suspense fallback={<PageLoader />}><Login /></Suspense>} />
             <Route path="/pricing" element={<Suspense fallback={<PageLoader />}><Pricing /></Suspense>} />
+            <Route path="/accessibility" element={<Suspense fallback={<PageLoader />}><AccessibilityStatement /></Suspense>} />
             <Route path="/start" element={<Suspense fallback={<PageLoader />}><BusinessSnapshot /></Suspense>} />
 
             {/* Discovery */}

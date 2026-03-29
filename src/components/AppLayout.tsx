@@ -113,10 +113,10 @@ export default function AppLayout() {
       {showNav && <NavBar />}
       {showSidebar ? (
         <div className="dashboard-layout">
-          <Sidebar />
           <main id="main-content" className="dashboard-main" role="main" aria-label="Main content" tabIndex={-1}>
             <Outlet />
           </main>
+          <Sidebar />
         </div>
       ) : (
         <main id="main-content" role="main" aria-label="Main content" tabIndex={-1}>

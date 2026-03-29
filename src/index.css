@@ -56,6 +56,10 @@ select:focus-visible,
   outline-offset: 0;
 }
 
+details:focus-visible {
+  outline: none;
+}
+
 /* Links */
 a {
   font-weight: 500;
@@ -166,7 +170,7 @@ a.resource-guide-link:hover,
 }
 
 .resource-guide-link:focus-visible {
-  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
   outline-offset: 2px;
   border-radius: 2px;
 }

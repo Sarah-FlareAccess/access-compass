@@ -262,6 +262,7 @@
 
 .btn-approve:hover:not(:disabled) {
   background: #16a34a;
+  color: #fff;
 }
 
 .btn-reject {
@@ -293,6 +294,7 @@
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .btn-remove {
@@ -341,6 +343,7 @@
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .create-invite-form {
@@ -427,6 +430,7 @@
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .btn-create:disabled {
@@ -494,6 +498,7 @@
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .btn-copy-code:disabled {
@@ -820,6 +825,7 @@
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .btn-export:disabled {
@@ -970,6 +976,7 @@
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 /* ============================================
@@ -1017,6 +1024,7 @@
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .btn-transfer:disabled {
@@ -1164,6 +1172,7 @@
 
 .btn-confirm-transfer:hover:not(:disabled) {
   background: #dc2626;
+  color: #fff;
 }
 
 .btn-confirm-transfer:disabled {
@@ -1266,6 +1275,7 @@
 
 .btn-done-admin:hover {
   background: #723d8d;
+  color: #fff;
 }
 
 .btn-done-admin:focus-visible {

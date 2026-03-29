@@ -342,6 +342,7 @@
 
 .help-panel-done-btn:hover {
   background: #723d8d;
+  color: #fff;
 }
 
 .help-panel-done-btn:focus-visible {

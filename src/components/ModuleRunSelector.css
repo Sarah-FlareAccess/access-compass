@@ -425,6 +425,7 @@
   background: #723d8d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(114, 61, 141, 0.35);
+  color: #fff;
 }
 
 .btn-primary:disabled {
@@ -560,6 +561,7 @@
   background: #723d8d;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(114, 61, 141, 0.3);
+  color: #fff;
 }
 
 .btn-export.exported {
@@ -568,6 +570,7 @@
 
 .btn-export.exported:hover {
   background: #047857;
+  color: #fff;
 }
 
 .export-success {
@@ -761,6 +764,7 @@
 
 .btn-danger:hover {
   background: #b91c1c;
+  color: #fff;
 }
 
 /* Responsive */
