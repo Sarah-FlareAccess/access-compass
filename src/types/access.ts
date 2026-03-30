@@ -12,6 +12,9 @@
 /** Business size tier - determines pricing and access options */
 export type BusinessSizeTier = 'small' | 'medium' | 'large' | 'enterprise';
 
+/** Organisation type - standard business or governing authority */
+export type OrgType = 'standard' | 'authority';
+
 /** Access level - assessment depth */
 export type AccessLevel = 'pulse' | 'deep_dive';
 
@@ -52,6 +55,13 @@ export interface Organisation {
   notes?: string;
   created_at: string;
   updated_at: string;
+
+  // Organisation hierarchy
+  org_type: OrgType;
+  parent_org_id?: string | null;
+  max_child_orgs?: number | null;
+  provisioned_access_level?: AccessLevel | null;
+  provisioned_module_bundle?: ModuleBundle | null;
 
   // Security settings
   require_approval?: boolean;
@@ -135,7 +145,14 @@ export type AuditAction =
   | 'access_denied'
   | 'suspicious_activity'
   | 'ip_blocked'
-  | 'rate_limit_exceeded';
+  | 'rate_limit_exceeded'
+  | 'program_created'
+  | 'program_updated'
+  | 'program_deactivated'
+  | 'child_org_enrolled'
+  | 'child_org_completed'
+  | 'guidance_added'
+  | 'guidance_updated';
 
 /** Audit log entry */
 export interface AuditLog {
@@ -163,6 +180,77 @@ export interface OrgSecuritySettings {
   session_timeout_minutes: number;
   has_ip_restrictions: boolean;
   pending_member_count: number;
+}
+
+// ============================================
+// AUTHORITY / PROGRAM TYPES
+// ============================================
+
+/** Program enrolment status */
+export type EnrolmentStatus = 'enrolled' | 'in_progress' | 'submitted' | 'completed' | 'withdrawn';
+
+/** Program funding model */
+export type FundingModel = 'authority_funded' | 'business_funded' | 'co_funded';
+
+/** Authority program - a scoped assessment requirement (e.g., event permit, grant round) */
+export interface AuthorityProgram {
+  id: string;
+  organisation_id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  required_module_ids: string[];
+  access_level: AccessLevel;
+  starts_at?: string;
+  ends_at?: string | null;
+  allow_self_enrol: boolean;
+  is_active: boolean;
+  funding_model: FundingModel;
+  license_price_cents?: number | null;
+  enrol_message?: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Program enrolment - links a child org to a program */
+export interface ProgramEnrolment {
+  id: string;
+  program_id: string;
+  organisation_id: string;
+  status: EnrolmentStatus;
+  enrolled_at: string;
+  submitted_at?: string | null;
+  completed_at?: string | null;
+  created_at: string;
+  updated_at: string;
+  // Joined data
+  program?: AuthorityProgram;
+  organisation?: Organisation;
+}
+
+/** Question guidance note from an authority */
+export interface AuthorityQuestionGuidance {
+  id: string;
+  organisation_id: string;
+  question_id: string;
+  guidance_text: string;
+  program_id?: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Privacy-preserving summary of a child org for authority dashboards */
+export interface ChildOrgSummary {
+  child_org_id: string;
+  child_org_name: string;
+  child_org_slug: string;
+  authority_org_id: string;
+  child_created_at: string;
+  program_id?: string | null;
+  enrolment_status?: EnrolmentStatus | null;
+  enrolled_at?: string | null;
+  submitted_at?: string | null;
+  completed_at?: string | null;
 }
 
 // ============================================

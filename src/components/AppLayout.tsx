@@ -39,6 +39,7 @@ const PAGES_WITH_SIDEBAR = [
   '/resources',
   '/training',
   '/action/',
+  '/authority',
 ];
 
 export default function AppLayout() {

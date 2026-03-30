@@ -32,7 +32,7 @@
 .pricing-page-header .nav-link,
 .pricing-page-header .nav-link:link,
 .pricing-page-header .nav-link:visited {
-  color: rgba(255, 255, 255, 0.9);
+  color: #FFFFFF;
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
@@ -107,17 +107,18 @@
 .pricing-toggle {
   display: flex;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .pricing-toggle-inner {
   border-radius: 9999px;
   padding: 0.25rem;
   display: inline-flex;
+  gap: 0.25rem;
 }
 
 .pricing-toggle-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.625rem 1.25rem;
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 700;

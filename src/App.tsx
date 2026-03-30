@@ -53,6 +53,14 @@ const CourseDetail = lazy(() => import('./pages/CourseDetail'));
 const LessonView = lazy(() => import('./pages/LessonView'));
 const TrainingResourceDetail = lazy(() => import('./pages/TrainingResourceDetail'));
 
+// Authority Portal
+const AuthorityDashboard = lazy(() => import('./pages/AuthorityDashboard'));
+const AuthorityPrograms = lazy(() => import('./pages/AuthorityPrograms'));
+const AuthorityProgramDetail = lazy(() => import('./pages/AuthorityProgramDetail'));
+const AuthorityBusinesses = lazy(() => import('./pages/AuthorityBusinesses'));
+const AuthorityGuidance = lazy(() => import('./pages/AuthorityGuidance'));
+const ProgramEnrol = lazy(() => import('./pages/ProgramEnrol'));
+
 function App() {
   return (
     <AuthProvider>
@@ -85,6 +93,9 @@ function App() {
             <Route path="/decision" element={<Suspense fallback={<PageLoader />}><Decision /></Suspense>} />
             <Route path="/checkout" element={<Suspense fallback={<PageLoader />}><Checkout /></Suspense>} />
             <Route path="/checkout/success" element={<Suspense fallback={<PageLoader />}><CheckoutSuccess /></Suspense>} />
+
+            {/* Program enrolment (public) */}
+            <Route path="/enrol/:slug" element={<Suspense fallback={<PageLoader />}><ProgramEnrol /></Suspense>} />
 
             {/* Resource Centre */}
             <Route path="/resources" element={<Suspense fallback={<PageLoader />}><ResourceCentre /></Suspense>} />
@@ -160,6 +171,48 @@ function App() {
               element={
                 <RouteGuard requireAuth requireAccess="deep_dive">
                   <Suspense fallback={<PageLoader />}><DIAPWorkspace /></Suspense>
+                </RouteGuard>
+              }
+            />
+
+            {/* Authority Portal (requires auth) */}
+            <Route
+              path="/authority"
+              element={
+                <RouteGuard requireAuth>
+                  <Suspense fallback={<PageLoader />}><AuthorityDashboard /></Suspense>
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/authority/programs"
+              element={
+                <RouteGuard requireAuth>
+                  <Suspense fallback={<PageLoader />}><AuthorityPrograms /></Suspense>
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/authority/programs/:id"
+              element={
+                <RouteGuard requireAuth>
+                  <Suspense fallback={<PageLoader />}><AuthorityProgramDetail /></Suspense>
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/authority/businesses"
+              element={
+                <RouteGuard requireAuth>
+                  <Suspense fallback={<PageLoader />}><AuthorityBusinesses /></Suspense>
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/authority/guidance"
+              element={
+                <RouteGuard requireAuth>
+                  <Suspense fallback={<PageLoader />}><AuthorityGuidance /></Suspense>
                 </RouteGuard>
               }
             />
