@@ -203,7 +203,6 @@ export default function ProgramEnrol() {
         <div className="authority-program-meta" style={{ marginBottom: '1.5rem' }}>
           <span>{program.access_level === 'pulse' ? 'Pulse Check' : 'Deep Dive'}</span>
           <span>{programModules.length} modules</span>
-          <span>~{estimatedTime} min</span>
           <span style={{ fontWeight: 700 }}>{priceLabel}</span>
         </div>
 
