@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
-import { syncRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
+import { syncRecord, deleteRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
 import { useAuthSafe } from '../contexts/AuthContext';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
 import { logActivityStandalone } from './useActivityLog';
@@ -446,6 +446,9 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       budget_estimate: item.budgetEstimate || null,
       notes: item.notes || null,
       success_indicators: item.successIndicators || null,
+      due_date: item.dueDate || null,
+      comments: item.comments ? JSON.stringify(item.comments) : null,
+      sort_order: item.sortOrder ?? null,
       created_at: item.createdAt,
       updated_at: item.updatedAt,
       completed_at: item.completedAt || null,
@@ -716,6 +719,10 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       saveLocalItems(updated);
       return updated;
     });
+
+    if (userIdRef.current) {
+      deleteRecord('diap_items', { id }, userIdRef.current).catch(() => {});
+    }
   }, []);
 
   // Create items from module responses
@@ -808,6 +815,20 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         return updated;
       });
 
+      if (userIdRef.current) {
+        syncRecord('diap_documents', {
+          id: doc.id,
+          session_id: doc.sessionId,
+          filename: doc.filename,
+          file_type: doc.fileType,
+          file_size: doc.fileSize || null,
+          storage_path: doc.storagePath,
+          linked_item_ids: doc.linkedItemIds,
+          description: doc.description || null,
+          uploaded_at: doc.uploadedAt,
+        }, userIdRef.current, orgIdRef.current).catch(() => {});
+      }
+
       return doc;
     } catch (err) {
       console.error('Error uploading document:', err);
@@ -832,6 +853,10 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         saveLocalDocuments(updated);
         return updated;
       });
+
+      if (userIdRef.current) {
+        deleteRecord('diap_documents', { id }, userIdRef.current).catch(() => {});
+      }
     } catch (err) {
       console.error('Error deleting document:', err);
       setError('Failed to delete document');
@@ -1690,12 +1715,21 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     });
 
     const item = items.find(i => i.id === itemId);
+    if (item) {
+      const updatedItem = {
+        ...item,
+        comments: [...(item.comments || []), comment],
+        updatedAt: new Date().toISOString(),
+      };
+      syncItemToCloud(updatedItem);
+    }
+
     logActivityStandalone('diap-comment-added', {
       diapItemId: itemId,
       diapItemObjective: item?.objective || '',
       commentText: text,
     }, userIdRef.current || undefined);
-  }, [items]);
+  }, [items, syncItemToCloud]);
 
   // Reorder: swap two items by their IDs
   const reorderItem = useCallback((itemIdA: string, itemIdB: string) => {

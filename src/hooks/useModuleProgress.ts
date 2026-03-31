@@ -275,6 +275,9 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       confidence_snapshot: moduleData.confidenceSnapshot || null,
       completed_by: moduleData.ownership?.completedBy || null,
       completed_by_role: moduleData.ownership?.completedByRole || null,
+      assigned_to: moduleData.ownership?.assignedTo || null,
+      assigned_to_email: moduleData.ownership?.assignedToEmail || null,
+      target_completion_date: moduleData.ownership?.targetCompletionDate || null,
     }, userIdRef.current, orgIdRef.current).catch(() => {
       // Queued for retry automatically
     });
@@ -546,6 +549,9 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
           other_description: response.otherDescription || null,
           link_value: response.linkValue || null,
           evidence_count: response.evidence?.length || 0,
+          measurement_value: response.measurement?.value ?? null,
+          measurement_unit: response.measurement?.unit || null,
+          measurement_confidence: response.measurement?.confidence || null,
         }, userIdRef.current, orgIdRef.current).catch(() => {});
 
         // Background: migrate evidence files from base64 to Supabase Storage
@@ -629,6 +635,9 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
           confidence_snapshot: entry.confidenceSnapshot || null,
           completed_by: entry.ownership?.completedBy || null,
           completed_by_role: entry.ownership?.completedByRole || null,
+          assigned_to: entry.ownership?.assignedTo || null,
+          assigned_to_email: entry.ownership?.assignedToEmail || null,
+          target_completion_date: entry.ownership?.targetCompletionDate || null,
         }, userIdRef.current!, orgIdRef.current)
       )
     );

@@ -106,6 +106,18 @@ export const updateSession = (updates: Partial<Session>): Session => {
     last_updated: new Date().toISOString(),
   };
   localStorage.setItem(SESSION_KEY, JSON.stringify(updatedSession));
+
+  if (updates.business_snapshot) {
+    const snap = updates.business_snapshot;
+    bgSync('sessions', {
+      session_id: updatedSession.session_id,
+      organisation_name: snap.organisation_name || null,
+      organisation_type: snap.business_types?.[0] || snap.business_type || null,
+      size: snap.organisation_size || null,
+      business_snapshot: snap,
+    });
+  }
+
   return updatedSession;
 };
 
@@ -155,6 +167,21 @@ export const getDiscoveryData = (): StoredDiscoveryData | null => {
 // Save discovery data
 export const saveDiscoveryData = (data: StoredDiscoveryData): void => {
   localStorage.setItem(DISCOVERY_KEY, JSON.stringify(data));
+
+  const session = getSession();
+  if (session?.session_id) {
+    bgSync('discovery_data', {
+      session_id: session.session_id,
+      review_mode: data.review_mode || null,
+      recommended_modules: data.recommended_modules || [],
+      budget_range: data.budget_range || null,
+      work_approach: data.work_approach || null,
+      action_timing: data.action_timing || null,
+      recommendation_result: data.recommendation_result || null,
+      selected_touchpoints: data.discovery_data?.selectedTouchpoints || [],
+      selected_sub_touchpoints: data.discovery_data?.selectedSubTouchpoints || [],
+    });
+  }
 };
 
 // Update discovery data
@@ -209,6 +236,19 @@ export const saveDiscoveryProgress = (progress: DiscoveryProgress): void => {
     ...progress,
     lastUpdated: new Date().toISOString(),
   }));
+
+  const session = getSession();
+  if (session?.session_id) {
+    bgSync('discovery_progress', {
+      session_id: session.session_id,
+      selected_touchpoints: progress.selectedTouchpoints || [],
+      selected_sub_touchpoints: progress.selectedSubTouchpoints || [],
+      not_applicable_phases: progress.notApplicablePhases || [],
+      custom_selected_modules: progress.customSelectedModules || [],
+      current_step: progress.currentStep || 'touchpoints',
+      business_context: progress.businessContext || {},
+    });
+  }
 };
 
 // Clear in-progress discovery data (called when discovery is completed)
