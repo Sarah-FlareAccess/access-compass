@@ -25,18 +25,13 @@ CREATE TABLE IF NOT EXISTS module_carryover_declarations (
   declared_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
   -- Expiry: carryover is valid for this many days from original completion
-  valid_days INTEGER NOT NULL DEFAULT 90,
+  valid_days INTEGER NOT NULL DEFAULT 180,
   expires_at TIMESTAMPTZ NOT NULL,
 
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-  CONSTRAINT unique_carryover_per_module UNIQUE (programme_id, organisation_id, module_id)
+  CONSTRAINT unique_carryover_per_module UNIQUE (program_id, organisation_id, module_id)
 );
-
--- Fix the constraint name typo
-ALTER TABLE module_carryover_declarations DROP CONSTRAINT IF EXISTS unique_carryover_per_module;
-ALTER TABLE module_carryover_declarations ADD CONSTRAINT unique_carryover_per_module
-  UNIQUE (program_id, organisation_id, module_id);
 
 CREATE INDEX IF NOT EXISTS idx_carryover_user ON module_carryover_declarations(user_id);
 CREATE INDEX IF NOT EXISTS idx_carryover_program ON module_carryover_declarations(program_id);

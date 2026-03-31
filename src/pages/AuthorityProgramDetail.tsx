@@ -353,7 +353,7 @@ export default function AuthorityProgramDetail() {
                         );
                       })}
                       <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', fontStyle: 'italic', color: 'var(--text-secondary)' }}>
-                        Declared on {new Date(bizCarryovers[0].declared_at).toLocaleDateString('en-AU')}. Valid for 90 days from original completion.
+                        Declared on {new Date(bizCarryovers[0].declared_at).toLocaleDateString('en-AU')}. Valid for 6 months from original completion.
                       </div>
                     </div>
                   )}

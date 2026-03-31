@@ -164,7 +164,7 @@ export default function ProgramEnrol() {
     if (progressData) {
       const allProgress = JSON.parse(progressData) as Record<string, { moduleId: string; status: string; completedAt?: string }>;
       const threeMonthsAgo = new Date();
-      threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+      threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 6);
 
       const overlap = program.required_module_ids
         .map(moduleId => {
@@ -224,7 +224,7 @@ export default function ProgramEnrol() {
       const overlap = completedOverlap.find(o => o.moduleId === moduleId);
       if (!overlap) continue;
       const expiresAt = new Date(overlap.completedAt);
-      expiresAt.setDate(expiresAt.getDate() + 90);
+      expiresAt.setDate(expiresAt.getDate() + 180);
 
       await supabaseRest.insert('module_carryover_declarations', {
         user_id: user.id,
@@ -235,7 +235,7 @@ export default function ProgramEnrol() {
         declaration_type: 'no_changes',
         declaration_text: 'I confirm no material changes have been made to my venue since the previous assessment of this module.',
         expires_at: expiresAt.toISOString(),
-        valid_days: 90,
+        valid_days: 180,
       }).catch(() => {});
     }
 
@@ -251,7 +251,7 @@ export default function ProgramEnrol() {
         <div className="authority-form-card" style={{ maxWidth: '640px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '0 0 0.5rem' }}>Previous assessment found</h2>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary, #5C4A4E)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-            You have completed {completedOverlap.length} of this program's required modules within the last 3 months. You can carry them forward or choose to re-assess specific modules.
+            You have completed {completedOverlap.length} of this program's required modules within the last 6 months. You can carry them forward or choose to re-assess specific modules.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.5rem' }}>
