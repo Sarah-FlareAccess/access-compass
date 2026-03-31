@@ -267,15 +267,13 @@ export default function AuthorityPrograms() {
       {/* Program list */}
       <div className="authority-program-list">
         {programs.map(program => (
-          <div key={program.id} className="authority-program-card">
+          <Link key={program.id} to={`/authority/programs/${program.id}`} className="authority-program-card">
             <div className="authority-program-card-header">
-              <Link to={`/authority/programs/${program.id}`}>
-                <h3>{program.name}</h3>
-              </Link>
-              <div className="authority-program-actions">
+              <h3>{program.name}</h3>
+              <div className="authority-program-actions" onClick={e => e.preventDefault()}>
                 <button
                   className={`btn btn-small ${program.is_active ? 'btn-outline' : 'btn-primary'}`}
-                  onClick={() => handleToggleActive(program)}
+                  onClick={(e) => { e.preventDefault(); handleToggleActive(program); }}
                 >
                   {program.is_active ? 'Deactivate' : 'Activate'}
                 </button>
@@ -289,7 +287,7 @@ export default function AuthorityPrograms() {
               <span>{program.access_level === 'pulse' ? 'Pulse Check' : 'Deep Dive'}</span>
               <span>{program.required_module_ids.length} modules</span>
             </div>
-          </div>
+          </Link>
         ))}
         {programs.length === 0 && !isLoading && (
           <p className="authority-empty-text">No programs yet. Create one to get started.</p>
