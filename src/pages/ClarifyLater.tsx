@@ -31,7 +31,7 @@ export default function ClarifyLater() {
             {unresolvedItems.length} items
           </span>
           <p className="helper-text" style={{ marginTop: '15px' }}>
-            Questions you weren't sure about—here's how to check each one
+            Questions you weren't sure about. Here's how to check each one
           </p>
         </div>
 

@@ -208,7 +208,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
     label: 'Customer service',
     subLabel: 'Staff and communication',
     description: 'How your team interacts with and supports customers.',
-    tip: 'Think about every interaction between your staff and customers — from greeting to problem-solving.',
+    tip: 'Think about every interaction between your staff and customers, from greeting to problem-solving.',
     icon: 'users',
     bgColorClass: 'journey-service',
     touchpoints: [

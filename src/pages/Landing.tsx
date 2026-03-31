@@ -86,12 +86,12 @@ export default function Landing() {
             <div className="benefit-card">
               <span className="benefit-icon">💪</span>
               <h3>Confidence to take action</h3>
-              <p>Every recommendation is backed by Australian standards, universal design and best practice with real-world examples — so you can move forward knowing you're on the right track.</p>
+              <p>Every recommendation is backed by Australian standards, universal design and best practice with real-world examples, so you can move forward knowing you're on the right track.</p>
             </div>
             <div className="benefit-card">
               <span className="benefit-icon">📋</span>
               <h3>Evidence of action</h3>
-              <p>Turn good intentions into demonstrable action. Your report documents where you are, what you're doing, and your opportunities ahead — ready for leadership, funding applications, and budget discussions.</p>
+              <p>Turn good intentions into demonstrable action. Your report documents where you are, what you're doing, and your opportunities ahead, ready for leadership, funding applications, and budget discussions.</p>
             </div>
             <div className="benefit-card">
               <span className="benefit-icon">📈</span>
@@ -135,7 +135,7 @@ export default function Landing() {
               <div className="step-number">1</div>
               <div className="step-content">
                 <h3>Select what's relevant to you</h3>
-                <p>Choose the accessibility areas that matter most — from physical access and signage to customer service and online bookings. Focus on one area or tackle several at once.</p>
+                <p>Choose the accessibility areas that matter most, from physical access and signage to customer service and online bookings. Focus on one area or tackle several at once.</p>
               </div>
             </div>
 
@@ -151,7 +151,7 @@ export default function Landing() {
               <div className="step-number">3</div>
               <div className="step-content">
                 <h3>Answer at your own pace</h3>
-                <p>Work through questions about your current setup — answer what you know, and flag anything you're unsure about. We'll provide guidance to help you check those items later.</p>
+                <p>Work through questions about your current setup. Answer what you know, and flag anything you're unsure about. We'll provide guidance to help you check those items later.</p>
               </div>
             </div>
 
@@ -159,7 +159,7 @@ export default function Landing() {
               <div className="step-number">4</div>
               <div className="step-content">
                 <h3>Get a prioritised action plan</h3>
-                <p>Receive recommendations organised by impact — what to act on now, plan next, or consider later. Your plan is tailored to your situation, so you know exactly where to start.</p>
+                <p>Receive recommendations organised by impact: what to act on now, plan next, or consider later. Your plan is tailored to your situation, so you know exactly where to start.</p>
               </div>
             </div>
 
@@ -167,7 +167,7 @@ export default function Landing() {
               <div className="step-number">5</div>
               <div className="step-content">
                 <h3>Access the Resource Hub</h3>
-                <p>Every recommendation links to practical support — how-to guides, checklists, real examples, and Australian standards references. Everything you need to move from plan to action.</p>
+                <p>Every recommendation links to practical support: how-to guides, checklists, real examples, and Australian standards references. Everything you need to move from plan to action.</p>
               </div>
             </div>
 

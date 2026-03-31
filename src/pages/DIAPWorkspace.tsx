@@ -509,7 +509,7 @@ export default function DIAPWorkspace() {
     const codes = new Set<string>();
     for (const item of items) {
       if (item.moduleSource) {
-        // moduleSource can be "2.1" or "Module 2.1: Name" — extract the code
+        // moduleSource can be "2.1" or "Module 2.1: Name": extract the code
         const match = item.moduleSource.match(/(\d+\.\d+)/);
         if (match) codes.add(match[1]);
       }

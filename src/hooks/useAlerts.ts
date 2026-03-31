@@ -23,7 +23,7 @@ export interface Alert {
 
 const DISMISSED_KEY = 'access_compass_alerts_dismissed';
 
-// Platform announcements — update this array to push new alerts to all users
+// Platform announcements: update this array to push new alerts to all users
 const PLATFORM_ANNOUNCEMENTS: Omit<Alert, 'read'>[] = [
   {
     id: 'announce-ai-course-2026',

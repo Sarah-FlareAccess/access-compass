@@ -714,7 +714,7 @@ export default function ReportPage() {
             ))}
             <div className="rp-legend-def rp-legend-def-explore">
               <dt>Areas to explore</dt>
-              <dd>Items marked "Unable to check" during your assessment — investigate these to confirm your accessibility status</dd>
+              <dd>Items marked "Unable to check" during your assessment. Investigate these to confirm your accessibility status</dd>
             </div>
             <div className="rp-legend-def rp-legend-def-strengths">
               <dt>What's going well</dt>

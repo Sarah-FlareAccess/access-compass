@@ -123,7 +123,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
                 <span className="statistic-value">{resource.whyItMatters.statistic.value}</span>
                 <span className="statistic-context">{resource.whyItMatters.statistic.context}</span>
                 {resource.whyItMatters.statistic.source && (
-                  <span className="statistic-source">— {resource.whyItMatters.statistic.source}</span>
+                  <span className="statistic-source">{resource.whyItMatters.statistic.source}</span>
                 )}
               </div>
             </div>
@@ -133,7 +133,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
             <blockquote className="quote-card">
               <Quote size={20} className="quote-icon" />
               <p>"{resource.whyItMatters.quote.text}"</p>
-              <cite>— {resource.whyItMatters.quote.attribution}</cite>
+              <cite>{resource.whyItMatters.quote.attribution}</cite>
             </blockquote>
           )}
         </div>

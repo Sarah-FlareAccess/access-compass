@@ -235,7 +235,7 @@ export default function Export() {
                 <h2>Download PDF</h2>
                 <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
                   {isPulseCheck
-                    ? 'Download a 1-page PDF summary—perfect for team briefings and quick sharing'
+                    ? 'Download a 1-page PDF summary, perfect for team briefings and quick sharing'
                     : 'Download a comprehensive PDF report with detailed findings, action steps, and resource links'}
                 </p>
                 <div style={{ marginBottom: '15px' }}>
@@ -310,7 +310,7 @@ export default function Export() {
                 <div>
                   <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#b45309' }}>🔍 Areas to explore</h3>
                   <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: 0 }}>
-                    Items marked "Unable to check" during assessment — investigate these to confirm your accessibility status
+                    Items marked "Unable to check" during assessment. Investigate these to confirm your accessibility status
                   </p>
                 </div>
                 <div>
@@ -389,7 +389,7 @@ export default function Export() {
               </ul>
               <p style={{ margin: '16px 0 0 0', lineHeight: '1.6', fontStyle: 'italic' }}>
                 This self-review is designed to support learning and planning. Seeking professional
-                advice doesn't mean you've failed — it's a normal next step for many organisations.
+                advice doesn't mean you've failed. It's a normal next step for many organisations.
               </p>
               <div style={{ marginTop: '20px' }}>
                 <a href="#" style={{ color: '#7c3aed', fontWeight: 600, textDecoration: 'none' }}>

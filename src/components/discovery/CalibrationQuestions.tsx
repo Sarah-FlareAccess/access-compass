@@ -9,9 +9,9 @@ interface CalibrationQuestionsProps {
 }
 
 const investmentOptions: { value: InvestmentLevel; label: string }[] = [
-  { value: 'minimal', label: 'Minimal — small changes only' },
-  { value: 'moderate', label: 'Moderate — some budget available' },
-  { value: 'significant', label: 'Significant — ready to invest properly' },
+  { value: 'minimal', label: 'Minimal: small changes only' },
+  { value: 'moderate', label: 'Moderate: some budget available' },
+  { value: 'significant', label: 'Significant: ready to invest properly' },
   { value: 'not-sure', label: 'Not sure yet' },
 ];
 

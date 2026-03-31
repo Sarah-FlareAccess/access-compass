@@ -1090,7 +1090,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
               <div className="support-disclaimer">
                 <p>
                   This self-review is designed to support learning and planning. Seeking professional
-                  advice doesn't mean you've failed — it's a normal next step for many organisations.
+                  advice doesn't mean you've failed. It's a normal next step for many organisations.
                 </p>
                 <p className="support-link">
                   <a href="mailto:hello@flareaccess.com.au"><strong>Learn about professional support</strong></a>

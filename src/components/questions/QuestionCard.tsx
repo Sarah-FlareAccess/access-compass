@@ -499,7 +499,7 @@ export function QuestionCard({
                 onChange={(e) => setPartialDescription(e.target.value)}
                 rows={3}
               />
-              <p className="partial-report-hint">Your description will be included in your report and action plan — the more specific you are, the more tailored your recommendations will be.</p>
+              <p className="partial-report-hint">Your description will be included in your report and action plan. The more specific you are, the more tailored your recommendations will be.</p>
             </div>
           )}
 

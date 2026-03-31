@@ -563,7 +563,7 @@ export default function Pricing() {
         {/* Comparison Table - Desktop */}
         <div className="pricing-comparison" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>
           <div className="pricing-comparison-header" style={{ backgroundColor: colors.amethyst }}>
-            <h3 style={{ color: colors.white, fontSize: '1.125rem', fontWeight: 700 }}>Feature Comparison — {viewLabels[view]}</h3>
+            <h3 style={{ color: colors.white, fontSize: '1.125rem', fontWeight: 700 }}>Feature Comparison: {viewLabels[view]}</h3>
           </div>
           <table>
             <thead>
@@ -749,7 +749,7 @@ export default function Pricing() {
         {/* Upgrade Paths (hidden on authority view) */}
         {view !== 'authority' && (
           <div className="pricing-upgrades" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}` }}>
-            <h3 style={{ color: colors.amethyst }}>Upgrade Paths — Full credit applied</h3>
+            <h3 style={{ color: colors.amethyst }}>Upgrade Paths: Full credit applied</h3>
             <div className="pricing-upgrades-list">
               {[
                 { path: 'Starter \u2192 Committed', credit: '$399' },

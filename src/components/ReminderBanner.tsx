@@ -18,7 +18,7 @@ interface ReminderBannerProps {
 
 const defaultMessages: Record<ReminderType, string> = {
   info: 'Remember: This is a self-review tool to help you identify and prioritise accessibility improvements.',
-  guidance: 'Your answers help create a starting point for improvement—professional verification may be needed for complex issues.',
+  guidance: 'Your answers help create a starting point for improvement. Professional verification may be needed for complex issues.',
   professional: 'For compliance verification or complex accessibility requirements, consider engaging a qualified access consultant.',
 };
 

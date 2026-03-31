@@ -1020,7 +1020,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Areas to explore (purple/violet cards - distinct from amber medium)
     renderCardSection(
       mod.explores,
-      'Areas to explore — from "Unable to check" responses',
+      'Areas to explore: from "Unable to check" responses',
       '#5b1897',
       [245, 240, 255],     // light violet bg
       '#8b5cf6',           // violet accent
