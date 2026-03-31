@@ -223,11 +223,11 @@ export default function Landing() {
           <div className="persona-grid">
             <div className="persona-card">
               <h3>Hotels, restaurants, and cafes</h3>
-              <p>Improve the guest experience from booking to checkout. Identify barriers in your dining room, guest rooms, outdoor areas, and customer service. Start with a free assessment on 3 modules and build from there.</p>
+              <p>Guests who cannot find accessibility information will book somewhere else. Assess your booking flow, service, dining, and accommodation, then give your team a clear plan so every guest feels welcome on the first visit and comes back.</p>
             </div>
             <div className="persona-card">
               <h3>Tourist attractions and venues</h3>
-              <p>Assess everything from the car park and entry through to exhibits, activities, playgrounds, and amenities. Show visitors you are ready for them before they arrive.</p>
+              <p>Large sites with diverse visitor needs, from families with prams to guests using wheelchairs. Cover your full visitor journey across outdoor spaces, exhibits, playgrounds, amenities, and wayfinding, and publish an accessibility statement you can stand behind.</p>
             </div>
             <div className="persona-card">
               <h3>Event organisers</h3>
