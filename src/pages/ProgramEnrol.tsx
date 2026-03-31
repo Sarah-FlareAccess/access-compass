@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -22,6 +23,7 @@ export default function ProgramEnrol() {
   const [businessName, setBusinessName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactPassword, setContactPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [step, setStep] = useState<'info' | 'signup' | 'enrolling' | 'done'>('info');
   const [enrolling, setEnrolling] = useState(false);
 
@@ -239,14 +241,37 @@ export default function ProgramEnrol() {
                 </div>
                 <div className="authority-form-group">
                   <label htmlFor="enrol-password">Create a password</label>
-                  <input
-                    id="enrol-password"
-                    type="password"
-                    value={contactPassword}
-                    onChange={e => setContactPassword(e.target.value)}
-                    placeholder="Minimum 8 characters"
-                    minLength={8}
-                  />
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      id="enrol-password"
+                      type={showPassword ? 'text' : 'password'}
+                      value={contactPassword}
+                      onChange={e => setContactPassword(e.target.value)}
+                      placeholder="Minimum 8 characters"
+                      minLength={8}
+                      style={{ paddingRight: '3rem' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      style={{
+                        position: 'absolute',
+                        right: '12px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '4px',
+                        color: 'var(--text-secondary, #5C4A4E)',
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
                 </div>
               </>
             )}

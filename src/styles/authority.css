@@ -290,6 +290,13 @@ a.authority-program-card:focus-visible {
   resize: vertical;
 }
 
+.authority-form-group input:not([type="checkbox"]):focus:not(:focus-visible),
+.authority-form-group textarea:focus:not(:focus-visible),
+.authority-form-group select:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
+}
+
 .authority-form-group input:not([type="checkbox"]):focus-visible,
 .authority-form-group textarea:focus-visible,
 .authority-form-group select:focus-visible {
