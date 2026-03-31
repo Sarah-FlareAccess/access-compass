@@ -313,12 +313,12 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
                 merged[moduleId] = {
                   moduleId,
                   moduleCode: (row.module_code as string) || moduleId,
-                  status: (row.status as ModuleProgress['status']) || 'not-started',
-                  startedAt: row.started_at as string,
-                  completedAt: row.completed_at as string | undefined,
-                  responses: localEntry?.responses || [], // Responses stored separately
-                  summary: (row.summary as ModuleSummary) || undefined,
-                  confidenceSnapshot: row.confidence_snapshot as ModuleProgress['confidenceSnapshot'],
+                  status: (row.status as ModuleProgress['status']) || localEntry?.status || 'not-started',
+                  startedAt: row.started_at as string || localEntry?.startedAt,
+                  completedAt: row.completed_at as string | undefined || localEntry?.completedAt,
+                  responses: localEntry?.responses || [], // Always preserve local responses (not stored in cloud)
+                  summary: (row.summary as ModuleSummary) || localEntry?.summary || undefined,
+                  confidenceSnapshot: row.confidence_snapshot as ModuleProgress['confidenceSnapshot'] || localEntry?.confidenceSnapshot,
                   ownership: localEntry?.ownership,
                   runs: localEntry?.runs,
                   activeRunId: localEntry?.activeRunId,
@@ -330,6 +330,51 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
             if (hasChanges) {
               setProgress(merged);
               saveLocalProgress(merged);
+            }
+          }
+
+          // Recover responses from module_responses for modules with 0 local responses
+          const currentProgress = getLocalProgress();
+          const modulesNeedingRecovery = Object.values(currentProgress)
+            .filter(m => m.status !== 'not-started' && (!m.responses || m.responses.length === 0));
+
+          if (modulesNeedingRecovery.length > 0) {
+            const { data: responseRows } = await fetchRecords(
+              'module_responses',
+              userId,
+              undefined
+            );
+
+            if (responseRows && (responseRows as Record<string, unknown>[]).length > 0) {
+              const recovered = { ...currentProgress };
+              let hasRecovery = false;
+
+              for (const mod of modulesNeedingRecovery) {
+                const modResponses = (responseRows as Record<string, unknown>[])
+                  .filter(r => r.module_id === mod.moduleId)
+                  .map(r => ({
+                    questionId: r.question_id as string,
+                    answer: (r.answer as ResponseOption) || null,
+                    notes: (r.notes as string) || undefined,
+                    partialDescription: (r.partial_description as string) || undefined,
+                    otherDescription: (r.other_description as string) || undefined,
+                    linkValue: (r.link_value as string) || undefined,
+                    timestamp: (r.updated_at as string) || new Date().toISOString(),
+                  }));
+
+                if (modResponses.length > 0) {
+                  recovered[mod.moduleId] = {
+                    ...recovered[mod.moduleId],
+                    responses: modResponses,
+                  };
+                  hasRecovery = true;
+                }
+              }
+
+              if (hasRecovery) {
+                setProgress(recovered);
+                saveLocalProgress(recovered);
+              }
             }
           }
         }
@@ -490,10 +535,17 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       if (session?.session_id && userIdRef.current) {
         syncRecord('module_responses', {
           session_id: session.session_id,
+          user_id: userIdRef.current,
+          organisation_id: orgIdRef.current || null,
           module_id: moduleId,
           question_id: response.questionId,
           answer: response.answer,
           notes: response.notes || null,
+          partial_description: response.partialDescription || null,
+          multi_select_values: response.multiSelectValues ? JSON.stringify(response.multiSelectValues) : null,
+          other_description: response.otherDescription || null,
+          link_value: response.linkValue || null,
+          evidence_count: response.evidence?.length || 0,
         }, userIdRef.current, orgIdRef.current).catch(() => {});
 
         // Background: migrate evidence files from base64 to Supabase Storage
