@@ -24,8 +24,12 @@ export default function ProgramEnrol() {
   const [contactEmail, setContactEmail] = useState('');
   const [contactPassword, setContactPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [step, setStep] = useState<'info' | 'signup' | 'returning' | 'enrolling' | 'done'>('info');
+  const [step, setStep] = useState<'info' | 'signup' | 'returning' | 'enrolling' | 'carryover' | 'done'>('info');
   const [isReturningUser, setIsReturningUser] = useState(false);
+  const [completedOverlap, setCompletedOverlap] = useState<{ moduleId: string; moduleName: string; completedAt: string }[]>([]);
+  const [carryoverModules, setCarryoverModules] = useState<Set<string>>(new Set());
+  const [declarationConfirmed, setDeclarationConfirmed] = useState(false);
+  const [newOrgId, setNewOrgId] = useState<string | null>(null);
   const [enrolling, setEnrolling] = useState(false);
 
   usePageTitle(program?.name || 'Enrol');
@@ -151,7 +155,39 @@ export default function ProgramEnrol() {
       return;
     }
 
+    setNewOrgId(newOrg.id);
     setEnrolling(false);
+
+    // Check for completed modules that overlap with this program
+    const MODULE_PROGRESS_KEY = 'access_compass_module_progress';
+    const progressData = localStorage.getItem(MODULE_PROGRESS_KEY);
+    if (progressData) {
+      const allProgress = JSON.parse(progressData) as Record<string, { moduleId: string; status: string; completedAt?: string }>;
+      const threeMonthsAgo = new Date();
+      threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+      const overlap = program.required_module_ids
+        .map(moduleId => {
+          const prog = allProgress[moduleId];
+          if (prog?.status === 'completed' && prog.completedAt) {
+            const completedDate = new Date(prog.completedAt);
+            if (completedDate >= threeMonthsAgo) {
+              const mod = accessModules.find(m => m.id === moduleId);
+              return { moduleId, moduleName: mod?.name || moduleId, completedAt: prog.completedAt };
+            }
+          }
+          return null;
+        })
+        .filter(Boolean) as { moduleId: string; moduleName: string; completedAt: string }[];
+
+      if (overlap.length > 0) {
+        setCompletedOverlap(overlap);
+        setCarryoverModules(new Set(overlap.map(o => o.moduleId)));
+        setStep('carryover');
+        return;
+      }
+    }
+
     setStep('done');
   };
 
@@ -180,14 +216,147 @@ export default function ProgramEnrol() {
   const isFree = program.funding_model === 'authority_funded' || !program.license_price_cents;
   const priceLabel = isFree ? 'No cost' : `$${(program.license_price_cents! / 100).toFixed(0)} AUD`;
 
+  const handleCarryoverConfirm = async () => {
+    if (!program || !newOrgId || !user?.id) return;
+
+    // Save declarations to Supabase for audit trail
+    for (const moduleId of carryoverModules) {
+      const overlap = completedOverlap.find(o => o.moduleId === moduleId);
+      if (!overlap) continue;
+      const expiresAt = new Date(overlap.completedAt);
+      expiresAt.setDate(expiresAt.getDate() + 90);
+
+      await supabaseRest.insert('module_carryover_declarations', {
+        user_id: user.id,
+        organisation_id: newOrgId,
+        program_id: program.id,
+        module_id: moduleId,
+        original_completed_at: overlap.completedAt,
+        declaration_type: 'no_changes',
+        declaration_text: 'I confirm no material changes have been made to my venue since the previous assessment of this module.',
+        expires_at: expiresAt.toISOString(),
+        valid_days: 90,
+      }).catch(() => {});
+    }
+
+    setStep('done');
+  };
+
+  if (step === 'carryover') {
+    const carryCount = carryoverModules.size;
+    const reassessCount = completedOverlap.length - carryCount;
+
+    return (
+      <div className="authority-page">
+        <div className="authority-form-card" style={{ maxWidth: '640px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '0 0 0.5rem' }}>Previous assessment found</h2>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary, #5C4A4E)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+            You have completed {completedOverlap.length} of this program's required modules within the last 3 months. You can carry them forward or choose to re-assess specific modules.
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.5rem' }}>
+            {completedOverlap.map(item => (
+              <label key={item.moduleId} style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                padding: '0.75rem 1rem',
+                background: carryoverModules.has(item.moduleId) ? 'rgba(22, 163, 74, 0.06)' : 'rgba(239, 68, 68, 0.04)',
+                border: `1px solid ${carryoverModules.has(item.moduleId) ? 'rgba(22, 163, 74, 0.15)' : 'rgba(239, 68, 68, 0.1)'}`,
+                borderRadius: '8px',
+                cursor: 'pointer',
+                transition: 'background 0.15s, border-color 0.15s',
+              }}>
+                <input
+                  type="checkbox"
+                  checked={carryoverModules.has(item.moduleId)}
+                  onChange={() => {
+                    setCarryoverModules(prev => {
+                      const next = new Set(prev);
+                      if (next.has(item.moduleId)) {
+                        next.delete(item.moduleId);
+                      } else {
+                        next.add(item.moduleId);
+                      }
+                      return next;
+                    });
+                  }}
+                  style={{ width: '18px', height: '18px', accentColor: '#16A34A' }}
+                />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                    {item.moduleId} {item.moduleName}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #5C4A4E)' }}>
+                    Completed {new Date(item.completedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    {carryoverModules.has(item.moduleId) ? ' (carry forward)' : ' (will re-assess)'}
+                  </div>
+                </div>
+              </label>
+            ))}
+          </div>
+
+          {carryCount > 0 && (
+            <label style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '0.75rem',
+              padding: '1rem',
+              background: 'rgba(73, 14, 103, 0.04)',
+              border: '1px solid rgba(73, 14, 103, 0.12)',
+              borderRadius: '8px',
+              marginBottom: '1.5rem',
+              cursor: 'pointer',
+            }}>
+              <input
+                type="checkbox"
+                checked={declarationConfirmed}
+                onChange={e => setDeclarationConfirmed(e.target.checked)}
+                style={{ width: '18px', height: '18px', marginTop: '2px', accentColor: '#490E67' }}
+              />
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: 1.5 }}>
+                <strong>Declaration:</strong> I confirm no material changes have been made to my venue or operations that would affect the {carryCount} module{carryCount !== 1 ? 's' : ''} I am carrying forward. I understand I can re-assess at any time.
+              </div>
+            </label>
+          )}
+
+          <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <button
+              className="btn btn-primary"
+              onClick={handleCarryoverConfirm}
+              disabled={carryCount > 0 && !declarationConfirmed}
+              style={{ flex: 1 }}
+            >
+              {carryCount > 0
+                ? `Carry forward ${carryCount} module${carryCount !== 1 ? 's' : ''}${reassessCount > 0 ? `, re-assess ${reassessCount}` : ''}`
+                : `Re-assess all ${completedOverlap.length} modules`}
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => { setCarryoverModules(new Set()); setStep('done'); }}
+            style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontSize: '0.8125rem', color: 'var(--text-secondary, #5C4A4E)',
+              marginTop: '0.75rem', padding: 0,
+            }}
+          >
+            Skip and start all modules fresh
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (step === 'done') {
     return (
       <div className="authority-page">
         <div className="authority-empty">
           <h2>You are enrolled</h2>
           <p>Your business has been enrolled in {program.name}. You can now start your accessibility assessment.</p>
-          <button className="btn btn-primary" onClick={() => navigate('/dashboard')}>
-            Go to Dashboard
+          <button className="btn btn-primary" onClick={() => navigate('/assessment')}>
+            Go to your modules
           </button>
         </div>
       </div>
