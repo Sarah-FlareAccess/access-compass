@@ -322,7 +322,7 @@ export default function AuthorityProgramDetail() {
                           color: '#14532d',
                           border: '1px solid rgba(22, 163, 74, 0.15)',
                         }}>
-                          Fresh assessment
+                          New assessment
                         </span>
                       )}
                     </span>
