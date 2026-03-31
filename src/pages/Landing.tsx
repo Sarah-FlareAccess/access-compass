@@ -74,7 +74,7 @@ export default function Landing() {
       <section className="problem-section">
         <div className="container">
           <p className="problem-statement">
-            <strong>1 in 5 Australians have a disability.</strong> They also influence where their family, friends, and colleagues go. When your business is not accessible, you lose more customers than you realise.
+            Most businesses want to be accessible. The challenge is knowing where to start, what to prioritise, and how to make real progress without an expensive consultant. Access Compass gives your team the structure, guidance, and tools to do it yourselves.
           </p>
         </div>
       </section>
@@ -108,52 +108,63 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* How it works - Two columns, continuous 1-6 */}
       <section className="how-section">
         <div className="container">
           <h2>How it works</h2>
 
-          <div className="steps-list">
-            <div className="step">
-              <div className="step-number">1</div>
-              <div className="step-content">
-                <h3>Tell us about your business</h3>
-                <p>Hotel, gym, retail store, tourist attraction, event venue, clinic? Answer a few questions and we recommend the modules most relevant to your customer journey.</p>
+          <div className="how-streams">
+            <div className="how-stream">
+              <h3 className="stream-label">Assess and plan</h3>
+              <div className="steps-list">
+                <div className="step">
+                  <div className="step-number">1</div>
+                  <div className="step-content">
+                    <h3>Tell us about your business</h3>
+                    <p>Hotel, gym, retail store, tourist attraction, event venue, clinic? Answer a few questions and we recommend the modules most relevant to your customer journey.</p>
+                  </div>
+                </div>
+                <div className="step">
+                  <div className="step-number">2</div>
+                  <div className="step-content">
+                    <h3>Choose your depth</h3>
+                    <p>Take a Pulse Check for a quick baseline, or a Deep Dive for comprehensive coverage. Start light and go deeper when you are ready.</p>
+                  </div>
+                </div>
+                <div className="step">
+                  <div className="step-number">3</div>
+                  <div className="step-content">
+                    <h3>Walk through the assessment</h3>
+                    <p>Answer questions about your venue, services, and operations at your own pace. Not sure about something? Flag it and we will tell you how to check. Upload photos as evidence along the way.</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="step">
-              <div className="step-number">2</div>
-              <div className="step-content">
-                <h3>Choose your depth</h3>
-                <p>Take a Pulse Check for a quick baseline, or a Deep Dive for comprehensive coverage. Start light and go deeper when you are ready.</p>
-              </div>
-            </div>
-            <div className="step">
-              <div className="step-number">3</div>
-              <div className="step-content">
-                <h3>Walk through the assessment</h3>
-                <p>Answer questions about your venue, services, and operations at your own pace. Not sure about something? Flag it and we will tell you how to check. Upload photos as evidence along the way.</p>
-              </div>
-            </div>
-            <div className="step">
-              <div className="step-number">4</div>
-              <div className="step-content">
-                <h3>Get your report and action plan</h3>
-                <p>A prioritised report shows what to fix now, plan next, or consider later. Your action plan structures the work, assigns owners, and sets timeframes so nothing falls through the cracks.</p>
-              </div>
-            </div>
-            <div className="step">
-              <div className="step-number">5</div>
-              <div className="step-content">
-                <h3>Use the Resource Hub to make changes</h3>
-                <p>Every recommendation links to practical support: how-to guides, supplier options, cost estimates, worked examples, and Australian standards references. This is what turns a report into results.</p>
-              </div>
-            </div>
-            <div className="step">
-              <div className="step-number">6</div>
-              <div className="step-content">
-                <h3>Track progress and re-assess</h3>
-                <p>Mark actions complete, track your team's progress on a shared dashboard, and re-assess to measure real improvement. Export a polished summary for stakeholders, funding bodies, or your board.</p>
+
+            <div className="how-stream">
+              <h3 className="stream-label">Act and improve</h3>
+              <div className="steps-list">
+                <div className="step">
+                  <div className="step-number">4</div>
+                  <div className="step-content">
+                    <h3>Get your report and action plan</h3>
+                    <p>A prioritised report shows what to fix now, plan next, or consider later. Your action plan structures the work, assigns owners, and sets timeframes so nothing falls through the cracks.</p>
+                  </div>
+                </div>
+                <div className="step">
+                  <div className="step-number">5</div>
+                  <div className="step-content">
+                    <h3>Use the Resource Hub to make changes</h3>
+                    <p>Every recommendation links to practical support: how-to guides, supplier options, cost estimates, worked examples, and Australian standards references. This is what turns a report into results.</p>
+                  </div>
+                </div>
+                <div className="step">
+                  <div className="step-number">6</div>
+                  <div className="step-content">
+                    <h3>Track progress and re-assess</h3>
+                    <p>Mark actions complete, track your team's progress on a shared dashboard, and re-assess to measure real improvement. Export a polished summary for stakeholders, funding bodies, or your board.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -209,28 +220,28 @@ export default function Landing() {
 
           <div className="persona-grid">
             <div className="persona-card">
-              <h3>Hospitality and tourism</h3>
-              <p>Hotels, restaurants, cafes, bars, and tour operators. Customers who cannot find accessibility information book somewhere else. Assess your booking flow, service, dining, and accommodation so every guest feels welcome on the first visit and comes back.</p>
+              <h3>Hospitality and accommodation</h3>
+              <p>Hotels, restaurants, cafes, bars, nightclubs, and tour operators. Customers who cannot find accessibility information book somewhere else. Assess your booking flow, service, dining, and accommodation so every guest comes back.</p>
             </div>
             <div className="persona-card">
               <h3>Attractions, leisure, and recreation</h3>
-              <p>Theme parks, museums, galleries, gyms, pools, sporting venues, and community centres. Large sites with diverse visitor needs. Cover your full journey across outdoor spaces, play areas, exhibits, amenities, and wayfinding.</p>
+              <p>Theme parks, museums, galleries, gyms, pools, sporting venues, and community centres. Cover your full visitor journey across outdoor spaces, play areas, exhibits, amenities, and wayfinding.</p>
             </div>
             <div className="persona-card">
-              <h3>Retail, health, and services</h3>
-              <p>Shops, clinics, pharmacies, wellness centres, salons, and professional offices. Your customers interact with your space, staff, and systems every day. Identify practical improvements that make your service accessible to everyone.</p>
+              <h3>Retail, health, and education</h3>
+              <p>Shops, clinics, pharmacies, wellness centres, training providers, and professional offices. Your customers interact with your space, staff, and systems every day. Identify practical improvements that make your service accessible to everyone.</p>
             </div>
             <div className="persona-card">
               <h3>Events and conferences</h3>
               <p>Festivals, markets, sporting events, expos, and corporate functions. Demonstrate accessibility planning to councils and sponsors, assess temporary venues, and build a track record you can show every time.</p>
             </div>
-            <div className="persona-card">
-              <h3>Multi-site operators</h3>
-              <p>Franchise networks, shopping centres, hotel groups, and education providers. Assess multiple locations, compare performance across sites, and standardise your approach to accessibility at scale.</p>
+            <div className="persona-card persona-card-highlight">
+              <h3>Councils and government</h3>
+              <p>Create business accessibility programs for your region. Enrol local businesses, track participation across your LGA, and generate aggregate reports for council, state government, or funding bodies.</p>
             </div>
-            <div className="persona-card persona-card-highlight persona-card-wide">
-              <h3>Councils and authorities</h3>
-              <p>Create business accessibility programs for your region. Enrol local businesses across hospitality, tourism, retail, and events. Track participation and completion across your LGA with aggregate dashboards and reporting.</p>
+            <div className="persona-card persona-card-highlight">
+              <h3>Industry bodies and associations</h3>
+              <p>Tourism boards, hospitality associations, nightlife associations, chambers of commerce, and franchise networks. Offer accessibility programs to your members, benchmark across your sector, and lift industry standards at scale.</p>
             </div>
           </div>
         </div>
