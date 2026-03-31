@@ -34,7 +34,7 @@ type TierFeatures = {
   resourceHub: boolean | string;
   diap: boolean | string;
   comparison: boolean | string;
-  training: boolean | string;
+  training?: boolean | string;
   support: string;
   assessments?: string;
   departments?: boolean | string;

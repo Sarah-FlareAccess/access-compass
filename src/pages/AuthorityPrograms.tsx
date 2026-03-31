@@ -15,11 +15,16 @@ export default function AuthorityPrograms() {
   const orgId = accessState.organisation?.id;
   const { getPrograms, createProgram, updateProgram, isLoading } = useAuthorityAdmin();
 
+  // Determine if assessment depth is locked by pricing tier
+  // Once payment integration is wired, replace this with entitlement/tier check
+  const org = accessState.organisation;
+  const lockedAccessLevel: AccessLevel | null = org?.provisioned_access_level ?? null;
+
   const [programs, setPrograms] = useState<AuthorityProgram[]>([]);
   const [showCreate, setShowCreate] = useState(false);
   const [newName, setNewName] = useState('');
   const [newDescription, setNewDescription] = useState('');
-  const [newAccessLevel, setNewAccessLevel] = useState<AccessLevel>('pulse');
+  const [newAccessLevel, setNewAccessLevel] = useState<AccessLevel>(lockedAccessLevel || 'pulse');
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
   const [allowSelfEnrol, setAllowSelfEnrol] = useState(false);
   const [fundingModel, setFundingModel] = useState<FundingModel>('authority_funded');
@@ -128,15 +133,31 @@ export default function AuthorityPrograms() {
           </div>
           <div className="authority-form-group">
             <label htmlFor="access-level">Assessment depth</label>
-            <select id="access-level" value={newAccessLevel} onChange={e => setNewAccessLevel(e.target.value as AccessLevel)}>
-              <option value="pulse">Pulse Check</option>
-              <option value="deep_dive">Deep Dive</option>
-            </select>
-            <p className="authority-form-hint">
-              {newAccessLevel === 'pulse'
-                ? 'Pulse Check: Key questions per module for a quick baseline. Identifies biggest gaps.'
-                : 'Deep Dive: All questions per module. Comprehensive compliance and best-practice coverage.'}
-            </p>
+            {lockedAccessLevel ? (
+              <>
+                <input
+                  id="access-level"
+                  type="text"
+                  readOnly
+                  value={lockedAccessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'}
+                />
+                <p className="authority-form-hint">
+                  Locked to {lockedAccessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'} by your plan.
+                </p>
+              </>
+            ) : (
+              <>
+                <select id="access-level" value={newAccessLevel} onChange={e => setNewAccessLevel(e.target.value as AccessLevel)}>
+                  <option value="pulse">Pulse Check</option>
+                  <option value="deep_dive">Deep Dive</option>
+                </select>
+                <p className="authority-form-hint">
+                  {newAccessLevel === 'pulse'
+                    ? 'Pulse Check: Key questions per module for a quick baseline. Identifies biggest gaps.'
+                    : 'Deep Dive: All questions per module. Comprehensive compliance and best-practice coverage.'}
+                </p>
+              </>
+            )}
           </div>
           <div className="authority-form-group">
             <label>Required modules</label>
@@ -282,6 +303,7 @@ export default function AuthorityPrograms() {
           isSelected={selectedModules.includes(detailModuleId)}
           onClose={() => setDetailModuleId(null)}
           onToggleSelect={toggleModule}
+          accessLevel={newAccessLevel}
         />
       )}
     </div>

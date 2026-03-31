@@ -19,6 +19,7 @@ import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { useAuth } from '../contexts/AuthContext';
 import { useOrgPresence } from '../hooks/useOrgPresence';
+import { useProgramEnrolment } from '../hooks/useProgramEnrolment';
 import { accessModules, moduleGroups, getModuleById } from '../data/accessModules';
 import type { AccessModule } from '../data/accessModules';
 import type { ModuleOwnership, ModuleRunContext, RunComparison } from '../hooks/useModuleProgress';
@@ -83,6 +84,7 @@ export default function Dashboard() {
   const location = useLocation();
   const { accessState, user, hasAccessLevel } = useAuth();
   const { activeMembers } = useOrgPresence(user?.id, accessState.organisation?.id);
+  const { program: enrolledProgram } = useProgramEnrolment(accessState.organisation?.id);
   const isDeepDive = hasAccessLevel('deep_dive');
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
@@ -119,7 +121,12 @@ export default function Dashboard() {
   };
 
   // Get recommended modules from discovery, falling back to selected modules
+  // Program enrolment takes priority: enrolled businesses only see required modules
   const recommendedModuleIds: string[] = useMemo(() => {
+    // If enrolled in a program, scope to that program's required modules
+    if (enrolledProgram?.required_module_ids?.length) {
+      return enrolledProgram.required_module_ids.map(normalizeModuleCode);
+    }
     // First try recommended modules from discovery
     if (discoveryData?.recommended_modules?.length > 0) {
       return discoveryData.recommended_modules.map(normalizeModuleCode);
@@ -130,7 +137,7 @@ export default function Dashboard() {
     }
     // If nothing selected, show all modules
     return accessModules.map(m => m.id);
-  }, [discoveryData, session]);
+  }, [enrolledProgram, discoveryData, session]);
 
   // Module progress hook
   const {

@@ -14,7 +14,7 @@ export default function AuthorityProgramDetail() {
   const { getProgram, getEnrolments, getChildOrgSummaries, enrolBusiness, isLoading } = useAuthorityAdmin();
 
   const [program, setProgram] = useState<AuthorityProgram | null>(null);
-  const [enrolments, setEnrolments] = useState<ProgramEnrolment[]>([]);
+  const [, setEnrolments] = useState<ProgramEnrolment[]>([]);
   const [summaries, setSummaries] = useState<ChildOrgSummary[]>([]);
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteOrgName, setInviteOrgName] = useState('');
@@ -54,7 +54,6 @@ export default function AuthorityProgramDetail() {
 
   if (!program) return null;
 
-  const enrolled = summaries.filter(s => s.enrolment_status === 'enrolled' || s.enrolment_status === 'in_progress');
   const completed = summaries.filter(s => s.enrolment_status === 'completed');
   const submitted = summaries.filter(s => s.enrolment_status === 'submitted');
 

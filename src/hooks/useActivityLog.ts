@@ -153,12 +153,14 @@ export function useActivityLog() {
     setActivities(localEntries);
 
     if (isSupabaseEnabled() && supabase && user) {
-      supabase
-        .from('activity_log')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(500)
-        .then(({ data }) => {
+      (async () => {
+        try {
+          const { data } = await supabase
+            .from('activity_log')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(500);
+
           if (!data || data.length === 0) return;
 
           const cloudEntries: ActivityEntry[] = data
@@ -185,8 +187,8 @@ export function useActivityLog() {
             saveActivities(merged);
             return merged;
           });
-        })
-        .catch(() => {});
+        } catch {}
+      })();
     }
 
     // Check if any entries were trimmed by retention

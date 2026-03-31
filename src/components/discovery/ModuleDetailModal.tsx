@@ -14,6 +14,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { getModuleDetail } from '../../data/moduleDetails';
 import { MODULES } from '../../lib/recommendationEngine';
+import { getModuleById } from '../../data/accessModules';
 import './ModuleDetailModal.css';
 
 interface ModuleDetailModalProps {
@@ -21,6 +22,7 @@ interface ModuleDetailModalProps {
   isSelected: boolean;
   onClose: () => void;
   onToggleSelect: (moduleId: string) => void;
+  accessLevel?: 'pulse' | 'deep_dive';
 }
 
 export function ModuleDetailModal({
@@ -28,6 +30,7 @@ export function ModuleDetailModal({
   isSelected,
   onClose,
   onToggleSelect,
+  accessLevel,
 }: ModuleDetailModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   // Track if we're closing due to popstate (back button) to avoid double history.back()
@@ -37,6 +40,7 @@ export function ModuleDetailModal({
 
   // Get module basic info and detail
   const moduleInfo = MODULES.find(m => m.id === moduleId);
+  const fullModule = getModuleById(moduleId);
   const moduleDetail = getModuleDetail(moduleId);
 
   // Handle close - manages history state
@@ -128,7 +132,13 @@ export function ModuleDetailModal({
                 <circle cx="12" cy="12" r="10" />
                 <path d="M12 6v6l4 2" />
               </svg>
-              {moduleInfo.estimatedTime} min
+              {(() => {
+                const pulseTime = moduleInfo.estimatedTime;
+                const deepDiveTime = fullModule?.estimatedTimeDeepDive ?? pulseTime * 3;
+                if (accessLevel === 'deep_dive') return `${deepDiveTime} min (Deep Dive)`;
+                if (accessLevel === 'pulse') return `${pulseTime} min (Pulse)`;
+                return `${pulseTime} min (Pulse) / ${deepDiveTime} min (Deep Dive)`;
+              })()}
             </span>
             <span className={`module-detail-status ${isSelected ? 'selected' : ''}`}>
               {isSelected ? 'In your review' : 'Not selected'}

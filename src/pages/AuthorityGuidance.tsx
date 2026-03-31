@@ -118,7 +118,7 @@ export default function AuthorityGuidance() {
       {/* Questions for selected module */}
       {currentModule && (
         <div className="authority-section">
-          <h2>{currentModule.id} {currentModule.title}</h2>
+          <h2>{currentModule.id} {currentModule.name}</h2>
           <div className="authority-guidance-list">
             {currentModule.questions.map(question => {
               const existingNote = guidance.find(g => g.question_id === question.id);

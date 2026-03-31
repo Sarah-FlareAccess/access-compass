@@ -11,7 +11,7 @@ export default function AuthorityBusinesses() {
   usePageTitle('Businesses');
   const { accessState } = useAuth();
   const orgId = accessState.organisation?.id;
-  const { getChildOrgSummaries, isLoading } = useAuthorityAdmin();
+  const { getChildOrgSummaries } = useAuthorityAdmin();
 
   const [summaries, setSummaries] = useState<ChildOrgSummary[]>([]);
   const [filter, setFilter] = useState<'all' | 'enrolled' | 'in_progress' | 'completed'>('all');

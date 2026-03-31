@@ -59,9 +59,10 @@ export function EvidenceUpload({
   const [linkInput, setLinkInput] = useState('');
   const [linkDescription, setLinkDescription] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [uploading, setUploading] = useState(false);
+  const [, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { user, organisationId } = useAuth();
+  const { user, accessState } = useAuth();
+  const organisationId = accessState.organisation?.id;
 
   // Generate unique ID
   const generateId = () => `ev_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -143,19 +144,21 @@ export function EvidenceUpload({
 
             // Record metadata in evidence_files table
             if (supabase) {
-              await supabase.from('evidence_files').insert({
-                id: evidenceId,
-                user_id: user.id,
-                organisation_id: organisationId || null,
-                session_id: sessionId,
-                module_id: moduleId || 'unknown',
-                question_id: questionId || 'unknown',
-                file_name: file.name,
-                file_type: isPhoto ? 'photo' : 'document',
-                file_size: file.size,
-                storage_path: storagePath,
-                mime_type: isPhoto ? 'image/jpeg' : file.type,
-              }).catch(() => {});
+              try {
+                await supabase.from('evidence_files').insert({
+                  id: evidenceId,
+                  user_id: user.id,
+                  organisation_id: organisationId || null,
+                  session_id: sessionId,
+                  module_id: moduleId || 'unknown',
+                  question_id: questionId || 'unknown',
+                  file_name: file.name,
+                  file_type: isPhoto ? 'photo' : 'document',
+                  file_size: file.size,
+                  storage_path: storagePath,
+                  mime_type: isPhoto ? 'image/jpeg' : file.type,
+                });
+              } catch {}
             }
           }
         }

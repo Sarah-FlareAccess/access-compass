@@ -38,7 +38,7 @@ export default function ProgramEnrol() {
     const { data, error: fetchError } = await supabaseRest.query(
       'authority_programs',
       '*',
-      { slug, is_active: 'true', allow_self_enrol: 'true' }
+      { slug: slug!, is_active: 'true', allow_self_enrol: 'true' }
     );
     if (fetchError || !data || (data as AuthorityProgram[]).length === 0) {
       setError('Program not found or enrolment is not available.');
