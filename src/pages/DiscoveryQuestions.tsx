@@ -71,7 +71,7 @@ export default function DiscoveryQuestions() {
     if (requestedModuleId) {
       const requestedModule = getModuleById(requestedModuleId);
       if (!requestedModule) {
-        navigate('/dashboard');
+        navigate('/assessment');
         return;
       }
 
@@ -212,7 +212,7 @@ export default function DiscoveryQuestions() {
       console.error('Error completing module:', error);
     } finally {
       // Always navigate back to dashboard
-      navigate('/dashboard');
+      navigate('/assessment');
     }
   };
 
@@ -220,7 +220,7 @@ export default function DiscoveryQuestions() {
   const handleBackToList = () => {
     if (directModuleAccess) {
       // If accessed directly from dashboard, go back to dashboard
-      navigate('/dashboard');
+      navigate('/assessment');
     } else {
       setShowModuleList(true);
     }
@@ -317,7 +317,7 @@ export default function DiscoveryQuestions() {
             {overallProgress.completed === overallProgress.total && (
               <button
                 className="btn-view-results"
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/assessment')}
               >
                 View Results
               </button>

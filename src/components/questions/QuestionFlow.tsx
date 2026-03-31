@@ -141,6 +141,23 @@ export function QuestionFlow({
     [currentIndex, visibleQuestions.length, onSaveResponse]
   );
 
+  // Save response without advancing to next question (used for evidence updates)
+  const handleSaveWithoutAdvance = useCallback(
+    (response: QuestionResponse) => {
+      setResponses((prev) => {
+        const existingIndex = prev.findIndex((r) => r.questionId === response.questionId);
+        if (existingIndex >= 0) {
+          const updated = [...prev];
+          updated[existingIndex] = response;
+          return updated;
+        }
+        return [...prev, response];
+      });
+      onSaveResponse(response);
+    },
+    [onSaveResponse]
+  );
+
   // Navigate to previous question
   const handlePrevious = useCallback(() => {
     if (currentIndex > 0) {
@@ -248,6 +265,7 @@ export function QuestionFlow({
           question={currentQuestion}
           currentResponse={currentResponse}
           onAnswer={handleAnswer}
+          onSaveEvidence={handleSaveWithoutAdvance}
           questionNumber={currentIndex + 1}
           totalQuestions={visibleQuestions.length}
           moduleName={moduleName}

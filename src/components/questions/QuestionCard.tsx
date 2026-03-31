@@ -49,6 +49,7 @@ interface QuestionCardProps {
   question: BranchingQuestion;
   currentResponse?: QuestionResponse;
   onAnswer: (response: QuestionResponse) => void;
+  onSaveEvidence?: (response: QuestionResponse) => void;
   questionNumber: number;
   totalQuestions: number;
   moduleName: string;
@@ -59,6 +60,7 @@ export function QuestionCard({
   question,
   currentResponse,
   onAnswer,
+  onSaveEvidence,
   questionNumber,
   totalQuestions,
   moduleName,
@@ -356,7 +358,15 @@ export function QuestionCard({
 
   const handleEvidenceChange = useCallback((newEvidence: EvidenceFile[]) => {
     setEvidence(newEvidence);
-  }, []);
+    // Auto-save when evidence changes and question already has an answer
+    if (currentResponse?.answer && onSaveEvidence) {
+      onSaveEvidence({
+        ...currentResponse,
+        evidence: newEvidence.length > 0 ? newEvidence : undefined,
+        timestamp: new Date().toISOString(),
+      });
+    }
+  }, [currentResponse, onSaveEvidence]);
 
   const renderImpactBadge = () => {
     if (!question.impactLevel) return null;

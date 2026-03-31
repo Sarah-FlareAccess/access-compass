@@ -866,7 +866,7 @@ Thanks!`;
 
                             <div className="module-actions">
                               <Link
-                                to={`/questions?module=${module.id}`}
+                                to={`/questions?module=${module.id}${status === 'completed' ? '&view=review' : ''}`}
                                 className={`module-action-btn ${action.className}`}
                                 aria-label={`${action.text} ${module.name}`}
                               >
