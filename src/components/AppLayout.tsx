@@ -31,7 +31,7 @@ const PAGES_WITHOUT_NAV = ['/', '/disclaimer', '/pricing'];
 // Note: /dashboard has its own built-in sidebar, so it's excluded
 const PAGES_WITH_SIDEBAR = [
   '/dashboard',
-  '/modules',
+  '/assessment',
   '/evidence',
   '/activity',
   '/questions',

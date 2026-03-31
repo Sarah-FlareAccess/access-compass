@@ -121,7 +121,7 @@ export function BottomTabBar() {
       icon: <DashboardIcon />
     },
     {
-      path: '/modules',
+      path: '/assessment',
       label: 'Modules',
       icon: <DIAPIcon />
     },

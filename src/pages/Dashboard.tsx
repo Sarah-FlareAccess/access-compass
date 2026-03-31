@@ -535,7 +535,7 @@ Thanks!`;
                 className="primary-action-hero clickable"
                 onClick={() => {
                   // Switch to modules tab first
-                  navigate('/modules');
+                  navigate('/assessment');
                   // Find the first group with in-progress modules and expand it
                   const groupWithInProgress = groupedModules.find(g =>
                     g.modules.some(m => m.status === 'in-progress')
@@ -563,7 +563,7 @@ Thanks!`;
                 type="button"
                 className="primary-action-hero clickable"
                 onClick={() => {
-                  navigate('/modules');
+                  navigate('/assessment');
                   const groupWithNotStarted = groupedModules.find(g =>
                     g.modules.some(m => m.status === 'not-started')
                   );
@@ -662,7 +662,7 @@ Thanks!`;
           <div className="dashboard-tabs" role="tablist" aria-label="Dashboard sections">
             <button
               className={`tab-btn ${activeTab === 'modules' ? 'active' : ''}`}
-              onClick={() => navigate('/modules')}
+              onClick={() => navigate('/assessment')}
               role="tab"
               aria-selected={activeTab === 'modules'}
               aria-controls="tab-panel-modules"
@@ -999,7 +999,7 @@ Thanks!`;
                     <button
                       type="button"
                       className="evidence-action-btn"
-                      onClick={() => navigate('/modules')}
+                      onClick={() => navigate('/assessment')}
                     >
                       Continue reviewing modules
                     </button>

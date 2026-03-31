@@ -140,7 +140,7 @@ function App() {
               }
             />
             <Route
-              path="/modules"
+              path="/assessment"
               element={
                 <RouteGuard requireAuth requireAccess="pulse">
                   <Suspense fallback={<PageLoader />}><Dashboard view="modules" /></Suspense>
