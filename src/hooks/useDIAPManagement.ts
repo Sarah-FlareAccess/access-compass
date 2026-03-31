@@ -1994,6 +1994,8 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
     ],
   },
   '3.10': 'Support all customers to browse, select, and purchase independently',
+  '3.11': 'Provide outdoor spaces and grounds that all visitors can access and enjoy',
+  '3.12': 'Create inclusive playgrounds and play spaces where all children can play together',
   // 4.x Service & Support
   '4.1': 'Offer contact channels that all customers can use with ease',
   '4.2': 'Build staff confidence in delivering welcoming, inclusive service',
@@ -2008,6 +2010,7 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
   '5.3': 'Strengthen organisational capability through accessibility training',
   '5.4': 'Incorporate accessibility into procurement and supplier decisions',
   '5.5': 'Celebrate progress and drive continuous improvement in accessibility',
+  '5.6': 'Ensure third-party services and platforms meet your accessibility standards',
   // 6.x Events
   '6.1': 'Plan and promote events that welcome all attendees',
   '6.2': 'Choose and set up venues that all attendees can enjoy',

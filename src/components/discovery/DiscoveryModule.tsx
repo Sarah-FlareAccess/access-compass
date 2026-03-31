@@ -768,7 +768,7 @@ export function DiscoveryModule({
                   icon: '🏪',
                   description: 'Create a physical space where everyone can participate fully',
                   outcome: 'Customers navigate and engage independently',
-                  codes: ['2.1', '2.2', '2.3', '2.4', '3.1', '3.2', '3.3', '3.4', '3.7', '3.8', '3.9', '4.4'],
+                  codes: ['2.1', '2.2', '2.3', '2.4', '3.1', '3.2', '3.3', '3.4', '3.7', '3.8', '3.9', '3.10', '3.11', '3.12', '4.4'],
                 },
                 {
                   id: 'service',
@@ -792,7 +792,7 @@ export function DiscoveryModule({
                   icon: '📋',
                   description: 'Embed accessibility into your organisational practices',
                   outcome: 'Accessibility becomes part of how you operate',
-                  codes: ['5.1', '5.2', '5.3', '5.4', '5.5'],
+                  codes: ['5.1', '5.2', '5.3', '5.4', '5.5', '5.6'],
                 },
               ];
 

@@ -309,9 +309,9 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         id: 'procurement-partnerships',
         label: 'Do you work with suppliers or partners?',
         description: 'How you manage suppliers, contractors, and partner relationships',
-        example: 'e.g. Supplier contracts, tender requirements, vendor agreements, community partners',
+        example: 'e.g. Supplier contracts, tender requirements, vendor agreements, community partners, third-party platforms',
         autoInclude: 'physical',
-        moduleMapping: ['5.4'],
+        moduleMapping: ['5.4', '5.6'],
       },
       {
         id: 'continuous-improvement',
