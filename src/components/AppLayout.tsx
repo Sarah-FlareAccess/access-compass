@@ -32,6 +32,8 @@ const PAGES_WITHOUT_NAV = ['/', '/disclaimer', '/pricing'];
 const PAGES_WITH_SIDEBAR = [
   '/dashboard',
   '/modules',
+  '/evidence',
+  '/activity',
   '/questions',
   '/constraints',
   '/report',

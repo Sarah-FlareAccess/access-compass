@@ -41,7 +41,8 @@ import { GitCompare, Gauge, Users, ImagePlus, BarChart3, ListChecks, ClipboardLi
 import { getCategoryLink } from '../utils/resourceLinks';
 import '../styles/dashboard.css';
 
-type TabType = 'modules' | 'evidence' | 'activity';
+export type DashboardView = 'overview' | 'modules' | 'evidence' | 'activity';
+type TabType = DashboardView;
 
 interface ModuleWithProgress {
   module: AccessModule;
@@ -76,7 +77,7 @@ const DASHBOARD_FEATURES: GuideFeature[] = [
   { icon: ListChecks, title: 'Expand module groups', description: 'Click group headers to expand and see individual module progress.' },
 ];
 
-export default function Dashboard() {
+export default function Dashboard({ view = 'overview' }: { view?: DashboardView }) {
   usePageTitle('Dashboard');
   const navigate = useNavigate();
   const { accessState, user, hasAccessLevel } = useAuth();
@@ -84,7 +85,7 @@ export default function Dashboard() {
   const isDeepDive = hasAccessLevel('deep_dive');
   const [session, setSession] = useState<any>(null);
   const [discoveryData, setDiscoveryData] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<TabType>('modules');
+  const [activeTab, setActiveTab] = useState<TabType>(view);
   const [evidenceSearch, setEvidenceSearch] = useState('');
   const [evidenceTypeFilter, setEvidenceTypeFilter] = useState<'all' | 'photo' | 'document' | 'link'>('all');
   const { activities, trimmedByRetention } = useActivityLog();
@@ -92,6 +93,11 @@ export default function Dashboard() {
   const [showReportProblem, setShowReportProblem] = useState(false);
   const [showInfoRequest, setShowInfoRequest] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
+
+  // Sync activeTab with route-driven view prop
+  useEffect(() => {
+    setActiveTab(view);
+  }, [view]);
 
   // Group icons mapping
   const groupIcons: Record<string, string> = {
@@ -529,7 +535,7 @@ Thanks!`;
                 className="primary-action-hero clickable"
                 onClick={() => {
                   // Switch to modules tab first
-                  setActiveTab('modules');
+                  navigate('/modules');
                   // Find the first group with in-progress modules and expand it
                   const groupWithInProgress = groupedModules.find(g =>
                     g.modules.some(m => m.status === 'in-progress')
@@ -557,7 +563,7 @@ Thanks!`;
                 type="button"
                 className="primary-action-hero clickable"
                 onClick={() => {
-                  setActiveTab('modules');
+                  navigate('/modules');
                   const groupWithNotStarted = groupedModules.find(g =>
                     g.modules.some(m => m.status === 'not-started')
                   );
@@ -656,7 +662,7 @@ Thanks!`;
           <div className="dashboard-tabs" role="tablist" aria-label="Dashboard sections">
             <button
               className={`tab-btn ${activeTab === 'modules' ? 'active' : ''}`}
-              onClick={() => setActiveTab('modules')}
+              onClick={() => navigate('/modules')}
               role="tab"
               aria-selected={activeTab === 'modules'}
               aria-controls="tab-panel-modules"
@@ -666,7 +672,7 @@ Thanks!`;
             </button>
             <button
               className={`tab-btn ${activeTab === 'evidence' ? 'active' : ''}`}
-              onClick={() => setActiveTab('evidence')}
+              onClick={() => navigate('/evidence')}
               role="tab"
               aria-selected={activeTab === 'evidence'}
               aria-controls="tab-panel-evidence"
@@ -676,7 +682,7 @@ Thanks!`;
             </button>
             <button
               className={`tab-btn ${activeTab === 'activity' ? 'active' : ''}`}
-              onClick={() => setActiveTab('activity')}
+              onClick={() => navigate('/activity')}
               role="tab"
               aria-selected={activeTab === 'activity'}
               aria-controls="tab-panel-activity"
@@ -993,7 +999,7 @@ Thanks!`;
                     <button
                       type="button"
                       className="evidence-action-btn"
-                      onClick={() => setActiveTab('modules')}
+                      onClick={() => navigate('/modules')}
                     >
                       Continue reviewing modules
                     </button>

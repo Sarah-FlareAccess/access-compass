@@ -95,8 +95,6 @@ export function BottomTabBar() {
   const [hasModules, setHasModules] = useState<boolean | null>(null);
   const [helpSheetOpen, setHelpSheetOpen] = useState(false);
 
-  // Check if user has deep_dive access (required for DIAP)
-  const hasDeepDiveAccess = accessState.accessLevel === 'deep_dive';
   const isAuthorityOrg = accessState.organisation?.org_type === 'authority';
 
   useEffect(() => {
@@ -122,12 +120,11 @@ export function BottomTabBar() {
       label: 'Dashboard',
       icon: <DashboardIcon />
     },
-    // Only show DIAP tab for users with deep_dive access
-    ...(hasDeepDiveAccess ? [{
-      path: '/diap',
-      label: 'DIAP',
+    {
+      path: '/modules',
+      label: 'Modules',
       icon: <DIAPIcon />
-    }] : []),
+    },
     {
       path: '/report',
       label: 'Report',

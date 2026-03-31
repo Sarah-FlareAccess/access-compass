@@ -135,7 +135,31 @@ function App() {
               path="/dashboard"
               element={
                 <RouteGuard requireAuth requireAccess="pulse">
-                  <Suspense fallback={<PageLoader />}><Dashboard /></Suspense>
+                  <Suspense fallback={<PageLoader />}><Dashboard view="overview" /></Suspense>
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/modules"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <Suspense fallback={<PageLoader />}><Dashboard view="modules" /></Suspense>
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/evidence"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <Suspense fallback={<PageLoader />}><Dashboard view="evidence" /></Suspense>
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/activity"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <Suspense fallback={<PageLoader />}><Dashboard view="activity" /></Suspense>
                 </RouteGuard>
               }
             />
