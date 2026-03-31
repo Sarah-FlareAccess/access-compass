@@ -74,7 +74,7 @@ export default function Landing() {
       <section className="problem-section">
         <div className="container">
           <p className="problem-statement">
-            Most businesses want to be accessible. The challenge is knowing where to start, what to prioritise, and how to make real progress without an expensive consultant. Access Compass gives your team the structure, guidance, and tools to do it yourselves.
+            Most businesses want to be accessible. The challenge is knowing where to start, what to prioritise and how to make real progress with confidence. Access Compass gives your team the structure, guidance and tools to do it yourselves.
           </p>
         </div>
       </section>
