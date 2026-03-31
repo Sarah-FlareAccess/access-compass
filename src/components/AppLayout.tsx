@@ -30,6 +30,7 @@ const PAGES_WITHOUT_NAV = ['/', '/disclaimer', '/pricing'];
 // Pages that should have the sidebar (authenticated/working pages)
 // Note: /dashboard has its own built-in sidebar, so it's excluded
 const PAGES_WITH_SIDEBAR = [
+  '/dashboard',
   '/modules',
   '/questions',
   '/constraints',

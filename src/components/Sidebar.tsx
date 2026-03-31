@@ -11,6 +11,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { getSession } from '../utils/session';
 import { useInstallPrompt } from '../hooks/useInstallPrompt';
 import { useAlerts } from '../hooks/useAlerts';
+import { useOrgPresence } from '../hooks/useOrgPresence';
 import { OrgAdminPanel } from './OrgAdminPanel';
 import { ReportProblem, ReportProblemTrigger } from './ReportProblem';
 import { ResourceInfoRequest, ResourceInfoTrigger } from './ResourceInfoRequest';
@@ -20,6 +21,7 @@ export function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { accessState, user } = useAuth();
+  const { activeMembers } = useOrgPresence(user?.id, accessState.organisation?.id);
   const { canInstall, triggerInstall } = useInstallPrompt();
   const { alerts, unreadCount, markAsRead, markAllAsRead } = useAlerts();
   const [session, setSession] = useState<any>(null);
@@ -83,6 +85,23 @@ export function Sidebar() {
           <polyline points="9 18 15 12 9 6"/>
         </svg>
       </button>
+
+      {activeMembers.length > 0 && (
+        <div className="sidebar-team-presence" role="status" aria-label="Active team members">
+          <div className="sidebar-team-title">
+            <span className="sidebar-team-dot" aria-hidden="true" />
+            Team online
+          </div>
+          {activeMembers.map(member => (
+            <div key={member.userId} className="sidebar-team-member">
+              <span className="sidebar-team-member-dot" aria-hidden="true" />
+              <span className="sidebar-team-member-name">
+                {member.email || member.deviceLabel}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
 
       <nav className="sidebar-nav" aria-label="Sidebar">
         {/* Dashboard */}

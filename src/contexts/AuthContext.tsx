@@ -118,6 +118,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           { id: membership.organisation_id }
         );
         membershipOrg = Array.isArray(orgs) && orgs.length > 0 ? orgs[0] as Organisation : null;
+
       }
 
       const membershipInfo = membership ? {

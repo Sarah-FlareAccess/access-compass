@@ -12,13 +12,12 @@
  */
 
 import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { useAuth } from '../contexts/AuthContext';
-import { useOrgPresence } from '../hooks/useOrgPresence';
 import { useProgramEnrolment } from '../hooks/useProgramEnrolment';
 import { accessModules, moduleGroups, getModuleById } from '../data/accessModules';
 import type { AccessModule } from '../data/accessModules';
@@ -26,9 +25,8 @@ import type { ModuleOwnership, ModuleRunContext, RunComparison } from '../hooks/
 import { ModuleRunSelector } from '../components/ModuleRunSelector';
 import { RunComparisonView } from '../components/RunComparisonView';
 import { OrgAdminPanel } from '../components/OrgAdminPanel';
-import { ReportProblem, ReportProblemTrigger } from '../components/ReportProblem';
-import { ResourceInfoRequest, ResourceInfoTrigger } from '../components/ResourceInfoRequest';
-import { BottomTabBar } from '../components/BottomTabBar';
+import { ReportProblem } from '../components/ReportProblem';
+import { ResourceInfoRequest } from '../components/ResourceInfoRequest';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { InstallPrompt } from '../components/InstallPrompt';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
@@ -81,9 +79,7 @@ const DASHBOARD_FEATURES: GuideFeature[] = [
 export default function Dashboard() {
   usePageTitle('Dashboard');
   const navigate = useNavigate();
-  const location = useLocation();
   const { accessState, user, hasAccessLevel } = useAuth();
-  const { activeMembers } = useOrgPresence(user?.id, accessState.organisation?.id);
   const { program: enrolledProgram } = useProgramEnrolment(accessState.organisation?.id);
   const isDeepDive = hasAccessLevel('deep_dive');
   const [session, setSession] = useState<any>(null);
@@ -518,155 +514,10 @@ Thanks!`;
     );
   }
 
-  const hasCompletedModules = overallStats.modulesCompleted > 0;
 
   return (
     <div className="dashboard-page">
-      <div className="dashboard-layout">
-        {/* Left Sidebar */}
-        <aside className="dashboard-sidebar" role="complementary" aria-label="Dashboard sidebar">
-          {/* Organisation Identity - Always show */}
-          <button
-            type="button"
-            className="sidebar-org-identity"
-            onClick={() => setShowAdminPanel(true)}
-            aria-label="Open organisation settings"
-          >
-            <div className="sidebar-org-info">
-              <div className="sidebar-org-name">
-                {accessState.organisation?.name || session?.business_snapshot?.organisation_name || user?.email || 'Your Organisation'}
-              </div>
-              <div className="sidebar-org-meta">
-                {accessState.membership?.role && (
-                  <span className="sidebar-user-role">
-                    {accessState.membership?.role === 'owner' ? 'Lead' :
-                     accessState.membership?.role === 'admin' ? 'Admin' : 'Contributor'}
-                  </span>
-                )}
-              </div>
-            </div>
-            <svg className="sidebar-org-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </button>
-
-
-          {/* Team presence */}
-          {activeMembers.length > 0 && (
-            <div className="sidebar-team-presence" role="status" aria-label="Active team members">
-              <div className="sidebar-team-title">
-                <span className="sidebar-team-dot" aria-hidden="true" />
-                Team online
-              </div>
-              {activeMembers.map(member => (
-                <div key={member.userId} className="sidebar-team-member">
-                  <span className="sidebar-team-member-dot" aria-hidden="true" />
-                  <span className="sidebar-team-member-name">
-                    {member.email || member.deviceLabel}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <nav className="sidebar-nav" aria-label="Sidebar">
-            {/* Dashboard */}
-            <Link to="/dashboard" className="sidebar-nav-item sidebar-nav-featured" aria-current={location.pathname === '/dashboard' ? 'page' : undefined}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <rect x="3" y="3" width="7" height="7"/>
-                <rect x="14" y="3" width="7" height="7"/>
-                <rect x="14" y="14" width="7" height="7"/>
-                <rect x="3" y="14" width="7" height="7"/>
-              </svg>
-              Dashboard
-            </Link>
-
-            {/* Discovery */}
-            <div className="sidebar-section-title">Discovery</div>
-            <Link to="/discovery/summary" className="sidebar-nav-item" aria-current={location.pathname === '/discovery/summary' ? 'page' : undefined}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="m21 21-4.35-4.35"/>
-              </svg>
-              Discovery
-            </Link>
-
-            {/* Your Outputs */}
-            <div className="sidebar-section-title">Your Outputs</div>
-            <Link to="/report" className="sidebar-nav-item" aria-current={location.pathname === '/report' ? 'page' : undefined}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <polyline points="10 9 9 9 8 9"/>
-              </svg>
-              Report
-            </Link>
-            <Link to="/diap" className="sidebar-nav-item" aria-current={location.pathname === '/diap' ? 'page' : undefined}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M12 20h9"/>
-                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-              </svg>
-              DIAP Workspace
-            </Link>
-
-            {/* Learn */}
-            <div className="sidebar-section-title">Learn</div>
-            <Link to="/resources" className="sidebar-nav-item" aria-current={location.pathname === '/resources' ? 'page' : undefined}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-              </svg>
-              Resource Hub
-            </Link>
-            <Link to="/training" className="sidebar-nav-item" aria-current={location.pathname.startsWith('/training') ? 'page' : undefined}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                <path d="M6 12v5c3 3 12 3 12 0v-5"/>
-              </svg>
-              Training Hub
-            </Link>
-          </nav>
-
-          {/* Quick Stats */}
-          {hasCompletedModules && (
-            <div className="sidebar-section sidebar-stats">
-              <div className="sidebar-section-title">Quick Stats</div>
-              <div className="sidebar-stats-grid">
-                <div className="stat-item">
-                  <span className="stat-value">{overallStats.progressPercentage}%</span>
-                  <span className="stat-label">Complete</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-value">{overallStats.modulesCompleted}</span>
-                  <span className="stat-label">Modules done</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Help Section */}
-          <div className="sidebar-section sidebar-help">
-            <div className="sidebar-section-title">Need help?</div>
-            <p className="sidebar-hint">Questions about accessibility auditing or using Access Compass?</p>
-            <ReportProblemTrigger
-              variant="sidebar"
-              onClick={() => setShowReportProblem(true)}
-            />
-            <ResourceInfoTrigger onClick={() => setShowInfoRequest(true)} />
-            <a href="mailto:support@accesscompass.com.au" className="sidebar-help-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ marginRight: '6px', verticalAlign: '-2px' }}>
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-                <path d="M22 7l-10 7L2 7" />
-              </svg>
-              Contact Support
-            </a>
-          </div>
-        </aside>
-
-        {/* Main Content */}
-        <main id="main-content" className="dashboard-main" role="main" aria-label="Main content" tabIndex={-1}>
+        <main className="dashboard-content">
           <h1 className="sr-only">Accessibility Dashboard</h1>
           <div className="dashboard-container">
             <InstallPrompt />
@@ -1317,7 +1168,6 @@ Thanks!`;
           <Link to="/accessibility">Accessibility Statement</Link>
         </div>
       </main>
-      </div>
 
       {/* Assignment Modal */}
       {assignmentModal && (
@@ -1499,8 +1349,6 @@ Thanks!`;
         onClose={() => setShowInfoRequest(false)}
       />
 
-      {/* Mobile bottom tab bar */}
-      <BottomTabBar />
     </div>
   );
 }
