@@ -372,6 +372,26 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       0
     );
 
+    // Aggregate doing well / actions across all completed modules
+    let totalDoingWell = 0;
+    let totalActions = 0;
+    let totalEvidence = 0;
+    let totalAnswered = 0;
+    for (const group of groupedModules) {
+      for (const m of group.modules) {
+        totalDoingWell += m.doingWellCount;
+        totalActions += m.actionCount;
+        totalAnswered += m.answeredCount;
+        // Count evidence from progress
+        const modProgress = progress[m.module.id];
+        if (modProgress?.responses) {
+          for (const resp of modProgress.responses) {
+            totalEvidence += resp.evidence?.length || 0;
+          }
+        }
+      }
+    }
+
     return {
       modulesCompleted: completedModules,
       modulesInProgress: inProgressModules,
@@ -379,8 +399,14 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       modulesTotal: totalModules,
       progressPercentage: totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0,
       diapItemCount: diapStats.total,
+      diapAchieved: diapStats.byStatus['achieved'] || 0,
+      diapCompletedPercentage: diapStats.completedPercentage,
+      totalDoingWell,
+      totalActions,
+      totalEvidence,
+      totalAnswered,
     };
-  }, [groupedModules, getDIAPStats]);
+  }, [groupedModules, getDIAPStats, progress]);
 
   // Get action button text and style based on status
   const getActionButton = (status: 'not-started' | 'in-progress' | 'completed') => {
@@ -632,6 +658,116 @@ Thanks!`;
             </div>
 
           </section>
+
+          {/* Dashboard Overview Stats - only on overview */}
+          {activeTab === 'overview' && (
+            <>
+              {/* Stat Cards */}
+              {overallStats.totalAnswered > 0 && (
+                <div className="dashboard-stat-cards">
+                  <div className="dash-stat-card">
+                    <div className="dash-stat-value">{overallStats.totalAnswered}</div>
+                    <div className="dash-stat-label">Questions answered</div>
+                  </div>
+                  <div className="dash-stat-card dash-stat-good">
+                    <div className="dash-stat-value">{overallStats.totalDoingWell}</div>
+                    <div className="dash-stat-label">Doing well</div>
+                  </div>
+                  <div className="dash-stat-card dash-stat-actions">
+                    <div className="dash-stat-value">{overallStats.totalActions}</div>
+                    <div className="dash-stat-label">Priority actions</div>
+                  </div>
+                  <div className="dash-stat-card">
+                    <div className="dash-stat-value">{overallStats.totalEvidence}</div>
+                    <div className="dash-stat-label">Evidence items</div>
+                  </div>
+                </div>
+              )}
+
+              {/* Action Plan Snapshot */}
+              {overallStats.diapItemCount > 0 && (
+                <section className="dashboard-snapshot">
+                  <h2>Action Plan</h2>
+                  <div className="snapshot-row">
+                    <div className="snapshot-stat">
+                      <span className="snapshot-value">{overallStats.diapItemCount}</span>
+                      <span className="snapshot-label">Total actions</span>
+                    </div>
+                    <div className="snapshot-stat">
+                      <span className="snapshot-value">{overallStats.diapAchieved}</span>
+                      <span className="snapshot-label">Achieved</span>
+                    </div>
+                    <div className="snapshot-stat">
+                      <span className="snapshot-value">{overallStats.diapCompletedPercentage}%</span>
+                      <span className="snapshot-label">Complete</span>
+                    </div>
+                    <Link to="/diap" className="snapshot-link">View action plan</Link>
+                  </div>
+                </section>
+              )}
+
+              {/* Group Progress Snapshot */}
+              {overallStats.modulesCompleted > 0 && (
+                <section className="dashboard-snapshot">
+                  <h2>Progress by area</h2>
+                  <div className="group-progress-list">
+                    {groupedModules.map(group => {
+                      const pct = group.totalCount > 0 ? Math.round((group.completedCount / group.totalCount) * 100) : 0;
+                      return (
+                        <div key={group.id} className="group-progress-row">
+                          <span className="group-progress-label">{group.label}</span>
+                          <div className="group-progress-bar">
+                            <div className="group-progress-fill" style={{ width: `${pct}%` }} />
+                          </div>
+                          <span className="group-progress-pct">{group.completedCount}/{group.totalCount}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </section>
+              )}
+
+              {/* Recent Activity */}
+              {activities.length > 0 && (
+                <section className="dashboard-snapshot">
+                  <div className="snapshot-header">
+                    <h2>Recent activity</h2>
+                    <Link to="/activity" className="snapshot-link">View all</Link>
+                  </div>
+                  <div className="recent-activity-list">
+                    {activities.slice(0, 5).map(activity => (
+                      <div key={activity.id} className="recent-activity-item">
+                        <span className="recent-activity-text">{getActivityDescriptionText(activity)}</span>
+                        <span className="recent-activity-time">
+                          {new Date(activity.timestamp).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Quick Actions */}
+              <section className="dashboard-quick-actions">
+                <Link to="/assessment" className="quick-action-card">
+                  <span className="quick-action-icon">📋</span>
+                  <span className="quick-action-text">Continue assessment</span>
+                </Link>
+                <Link to="/report" className="quick-action-card">
+                  <span className="quick-action-icon">📊</span>
+                  <span className="quick-action-text">View report</span>
+                </Link>
+                <Link to="/diap" className="quick-action-card">
+                  <span className="quick-action-icon">📝</span>
+                  <span className="quick-action-text">Action plan</span>
+                </Link>
+                <Link to="/resources" className="quick-action-card">
+                  <span className="quick-action-icon">📚</span>
+                  <span className="quick-action-text">Resource Hub</span>
+                </Link>
+              </section>
+            </>
+          )}
 
           {/* Mobile Quick Links - visible only on mobile where sidebar is hidden */}
           <div className="mobile-quick-links">
