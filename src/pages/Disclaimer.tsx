@@ -59,19 +59,16 @@ export default function Disclaimer() {
     if (authLoading) return;
 
     if (isAuthenticated && (currentStep === 'disclaimer' || currentStep === 'auth')) {
-      console.log('[Disclaimer] User authenticated, checking organisation status...');
       setIsSubmitting(false);
       setError(null);
 
       // If returning user already has an org, go to start page (handles session properly)
       if (accessState.organisation) {
-        console.log('[Disclaimer] Returning user with org, redirecting to start:', accessState.organisation.name);
         navigate('/start');
         return;
       }
 
       // New user or user without org - go to organisation step
-      console.log('[Disclaimer] User needs organisation, moving to organisation step');
       setCurrentStep('organisation');
     }
   }, [isAuthenticated, authLoading, currentStep, accessState.organisation, navigate]);
@@ -79,23 +76,18 @@ export default function Disclaimer() {
   // Check org status when authenticated - only skip if user ALREADY has an org (returning user)
   useEffect(() => {
     const checkOrgStatus = async () => {
-      console.log('[Disclaimer] checkOrgStatus:', { isAuthenticated, currentStep, hasOrg: !!accessState.organisation, authLoading });
-
       // Wait for auth to finish loading before making decisions
       if (authLoading) {
-        console.log('[Disclaimer] Auth still loading, waiting...');
         return;
       }
 
       if (isAuthenticated && currentStep === 'organisation') {
         // If user already has an org (returning user), go to start page
         if (accessState.organisation) {
-          console.log('[Disclaimer] Returning user with org, redirecting to start:', accessState.organisation.name);
           navigate('/start');
           return;
         }
         // Don't auto-join here - let user choose their path on the organisation step
-        console.log('[Disclaimer] User has no org, showing organisation selection');
       }
     };
 
@@ -182,20 +174,16 @@ export default function Disclaimer() {
 
   const handleCreateOrg = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('[Disclaimer] handleCreateOrg called', { orgName, orgSize, contactEmail, contactName });
     setError(null);
     setIsSubmitting(true);
 
     try {
-      console.log('[Disclaimer] Calling createOrganisation...');
       const { error, organisation } = await createOrganisation({
         name: orgName,
         size: orgSize,
         contactEmail,
         contactName,
       });
-      console.log('[Disclaimer] createOrganisation result:', { error, organisation });
-
       if (error) {
         const isRawError = error.startsWith('{') || error.includes('violates') || error.includes('constraint');
         setError(isRawError ? 'Failed to create organisation. Please try again.' : error);
@@ -220,9 +208,7 @@ export default function Disclaimer() {
 
   // If authenticated and has org, skip to complete
   useEffect(() => {
-    console.log('[Disclaimer] Skip check:', { isAuthenticated, hasOrg: !!accessState.organisation, currentStep });
     if (isAuthenticated && accessState.organisation && currentStep === 'disclaimer') {
-      console.log('[Disclaimer] Skipping to complete - user has org:', accessState.organisation.name);
       setCurrentStep('complete');
     }
   }, [isAuthenticated, accessState.organisation, currentStep]);
@@ -443,7 +429,6 @@ export default function Disclaimer() {
                   type="button"
                   className="text-link logout-link"
                   onClick={() => {
-                    console.log('[Disclaimer] Forcing sign out - clearing all local storage');
                     // Force clear all Supabase auth data from localStorage
                     Object.keys(localStorage).forEach(key => {
                       if (key.startsWith('sb-') || key.includes('supabase')) {
@@ -658,7 +643,6 @@ export default function Disclaimer() {
                   type="button"
                   className="text-link logout-link"
                   onClick={() => {
-                    console.log('[Disclaimer] Forcing sign out - clearing all local storage');
                     // Force clear all Supabase auth data from localStorage
                     Object.keys(localStorage).forEach(key => {
                       if (key.startsWith('sb-') || key.includes('supabase')) {

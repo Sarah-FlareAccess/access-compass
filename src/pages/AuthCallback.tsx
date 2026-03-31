@@ -24,12 +24,9 @@ export default function AuthCallback() {
     const handleCallback = async () => {
       // Prevent running multiple times
       if (hasRun.current) {
-        console.log('[AuthCallback] Already processed, skipping');
         return;
       }
       hasRun.current = true;
-
-      console.log('[AuthCallback] Starting...');
 
       if (!supabase) {
         console.error('[AuthCallback] Supabase not available');
@@ -44,8 +41,6 @@ export default function AuthCallback() {
         const errorParam = searchParams.get('error');
         const errorDescription = searchParams.get('error_description');
 
-        console.log('[AuthCallback] URL params:', { code: !!code, errorParam });
-
         // Handle error from OAuth provider
         if (errorParam) {
           console.error('[AuthCallback] OAuth error:', errorParam, errorDescription);
@@ -56,7 +51,6 @@ export default function AuthCallback() {
 
         // Exchange code for session if present
         if (code) {
-          console.log('[AuthCallback] Exchanging code for session...');
           const { error } = await supabase.auth.exchangeCodeForSession(code);
           if (error) {
             console.error('[AuthCallback] Exchange error:', error);
@@ -64,18 +58,10 @@ export default function AuthCallback() {
             setErrorMessage(error.message);
             return;
           }
-          console.log('[AuthCallback] Code exchange successful');
         }
 
         // Get the current session
-        console.log('[AuthCallback] Getting session...');
         const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-
-        console.log('[AuthCallback] Session result:', {
-          hasSession: !!session,
-          hasError: !!sessionError,
-          userEmail: session?.user?.email
-        });
 
         if (sessionError) {
           console.error('[AuthCallback] Session error:', sessionError);
@@ -91,25 +77,19 @@ export default function AuthCallback() {
           return;
         }
 
-        console.log('[AuthCallback] Session established for:', session.user.email);
-
         // Merge any anonymous session data
         const localSession = getSession();
         if (localSession?.session_id) {
-          console.log('[AuthCallback] Merging anonymous session...');
           await mergeAnonymousSession(localSession.session_id);
         }
 
         // Refresh access state to get latest entitlements
-        console.log('[AuthCallback] Refreshing access state...');
         await refreshAccessState();
-        console.log('[AuthCallback] Access state refreshed');
 
         setStatus('success');
 
         // Redirect to return URL or dashboard
         const returnTo = searchParams.get('returnTo') || '/dashboard';
-        console.log('[AuthCallback] Redirecting to:', returnTo);
         setTimeout(() => {
           navigate(returnTo, { replace: true });
         }, 1000);

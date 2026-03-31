@@ -189,14 +189,12 @@ export async function syncRecord(
       : await supabase.from(table).upsert(record);
 
     if (error) {
-      console.warn(`[CloudSync] Failed to sync to ${table}:`, error.message);
       addToSyncQueue(table, 'upsert', record);
       return false;
     }
 
     return true;
   } catch (err) {
-    console.warn(`[CloudSync] Network error syncing to ${table}:`, err);
     addToSyncQueue(table, 'upsert', { ...data, user_id: userId, organisation_id: organisationId });
     return false;
   }
@@ -223,7 +221,6 @@ export async function deleteRecord(
     const { error } = await query;
 
     if (error) {
-      console.warn(`[CloudSync] Failed to delete from ${table}:`, error.message);
       addToSyncQueue(table, 'delete', {}, filters);
       return false;
     }
@@ -468,7 +465,6 @@ export function onBackOnline(callback: (userId: string) => void): () => void {
 // Listen for online events and process the queue
 if (typeof window !== 'undefined') {
   window.addEventListener('online', () => {
-    console.log('[CloudSync] Back online, processing sync queue...');
     // Callbacks will be invoked by the hook that has the userId
   });
 }
@@ -478,10 +474,7 @@ if (typeof window !== 'undefined') {
  * Processes the sync queue and notifies listeners.
  */
 export async function onUserOnline(userId: string): Promise<void> {
-  const processed = await processSyncQueue(userId);
-  if (processed > 0) {
-    console.log(`[CloudSync] Processed ${processed} queued sync operations`);
-  }
+  await processSyncQueue(userId);
   for (const cb of onlineCallbacks) {
     try { cb(userId); } catch { /* ignore */ }
   }

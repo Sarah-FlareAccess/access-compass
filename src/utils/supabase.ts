@@ -3,10 +3,6 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Debug logging
-console.log('[Supabase] URL configured:', !!supabaseUrl);
-console.log('[Supabase] Key configured:', !!supabaseAnonKey);
-
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn(
     'Supabase credentials not found. Using localStorage-only mode. ' +
@@ -33,13 +29,6 @@ export const supabase = supabaseUrl && supabaseAnonKey
       },
     })
   : null;
-
-console.log('[Supabase] Client created:', !!supabase);
-
-// Expose to window for debugging (remove in production)
-if (supabase) {
-  (window as unknown as { supabase: typeof supabase }).supabase = supabase;
-}
 
 // Helper to check if Supabase is enabled
 export const isSupabaseEnabled = () => supabase !== null;
@@ -164,26 +153,15 @@ export const supabaseRest = {
   },
 };
 
-// Expose to window for debugging
-if (typeof window !== 'undefined') {
-  (window as unknown as { supabaseRest: typeof supabaseRest }).supabaseRest = supabaseRest;
-}
-
 // Warm-up query using direct REST (more reliable)
 export const warmUpConnection = async () => {
-  console.log('[Supabase] Warming up connection...');
-  const startTime = Date.now();
-
   try {
-    const { data, error } = await supabaseRest.query('organisations', 'id');
-    const duration = Date.now() - startTime;
+    const { error } = await supabaseRest.query('organisations', 'id');
     if (error) {
-      console.warn('[Supabase] Warm-up failed:', error);
-    } else {
-      console.log(`[Supabase] Connection warm-up complete (${duration}ms)`, data);
+      // Warm-up is non-critical; silently ignore
     }
-  } catch (error) {
-    console.warn('[Supabase] Warm-up query failed:', error);
+  } catch {
+    // Warm-up is non-critical; silently ignore
   }
 };
 

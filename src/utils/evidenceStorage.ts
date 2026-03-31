@@ -44,7 +44,6 @@ export async function uploadEvidence(
       });
 
     if (uploadError) {
-      console.warn('[EvidenceStorage] Upload failed:', uploadError.message);
       return null;
     }
 
@@ -57,8 +56,7 @@ export async function uploadEvidence(
       storagePath,
       publicUrl: urlData.publicUrl,
     };
-  } catch (err) {
-    console.warn('[EvidenceStorage] Upload error:', err);
+  } catch {
     return null;
   }
 }
@@ -75,7 +73,6 @@ export async function deleteEvidenceFile(storagePath: string): Promise<boolean> 
       .remove([storagePath]);
 
     if (error) {
-      console.warn('[EvidenceStorage] Delete failed:', error.message);
       return false;
     }
 

@@ -51,7 +51,6 @@ export async function createCheckoutSession(
 
   // If Stripe is not configured, use mock mode
   if (!isStripeEnabled()) {
-    console.warn('Stripe not configured. Using mock checkout.');
     return createMockCheckout(request);
   }
 
@@ -119,13 +118,6 @@ async function createMockCheckout(
     mockSessionId
   );
 
-  console.log('Mock checkout created:', {
-    sessionId: mockSessionId,
-    tier: request.businessSizeTier,
-    level: request.accessLevel,
-    bundle: request.moduleBundle,
-  });
-
   return {
     checkoutUrl: successUrlWithSession,
     sessionId: mockSessionId,
@@ -153,7 +145,6 @@ export async function verifyCheckoutSession(
 
   // Mock verification for development
   if (sessionId.startsWith('mock_')) {
-    console.log('Mock session verified:', sessionId);
     return { success: true, purchaseId: `purchase_${sessionId}` };
   }
 

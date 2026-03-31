@@ -73,7 +73,7 @@ export default function Decision() {
   const [searchParams] = useSearchParams();
   const {
     isAuthenticated,
-    isLoading: authLoading,
+    isLoading: _authLoading,
     accessState,
     signIn,
     signUp,
@@ -115,17 +115,6 @@ export default function Decision() {
 
   // Get recommendation from session (passed from ReviewModeSelection)
   const recommendedMode = searchParams.get('recommended') as AccessLevel | null;
-
-  // Debug logging
-  useEffect(() => {
-    console.log('Decision page state:', {
-      step,
-      recommendedMode,
-      isAuthenticated,
-      authLoading,
-      hasAccess: accessState.hasAccess
-    });
-  }, [step, recommendedMode, isAuthenticated, authLoading, accessState]);
 
   // ============================================
   // INITIALIZE TIER FROM SESSION
@@ -176,14 +165,11 @@ export default function Decision() {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('[handleSignIn] Starting signin for:', email);
     setIsProcessing(true);
     setError(null);
 
     try {
-      console.log('[handleSignIn] Calling signIn...');
       const { error: signInError } = await signIn(email, password);
-      console.log('[handleSignIn] SignIn result:', { error: signInError });
 
       if (signInError) {
         console.error('[handleSignIn] SignIn error:', signInError);
@@ -201,10 +187,7 @@ export default function Decision() {
         return;
       }
 
-      console.log('[handleSignIn] SignIn successful');
-
       if (session?.session_id) {
-        console.log('[handleSignIn] Merging anonymous session...');
         await mergeAnonymousSession(session.session_id);
       }
 
@@ -219,14 +202,11 @@ export default function Decision() {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('[handleSignUp] Starting signup for:', email);
     setIsProcessing(true);
     setError(null);
 
     try {
-      console.log('[handleSignUp] Calling signUp...');
       const { error: signUpError } = await signUp(email, password);
-      console.log('[handleSignUp] SignUp result:', { error: signUpError });
 
       if (signUpError) {
         console.error('[handleSignUp] SignUp error:', signUpError);
@@ -244,7 +224,6 @@ export default function Decision() {
         return;
       }
 
-      console.log('[handleSignUp] SignUp successful');
       setSuccessMessage('Account created! You can now sign in.');
       setIsProcessing(false);
       setStep('login');
@@ -276,10 +255,7 @@ export default function Decision() {
   const handleJoinOrg = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log('Joining org. Auth state:', { isAuthenticated, inviteCode });
-
     if (!isAuthenticated) {
-      console.log('Not authenticated, redirecting to login');
       setError('Please sign in first to join an organisation');
       setIsProcessing(false);
       return;
@@ -289,10 +265,7 @@ export default function Decision() {
     setError(null);
 
     try {
-      console.log('Calling joinOrganisation...');
       const { error: joinError, organisation } = await joinOrganisation(inviteCode);
-
-      console.log('Join result:', { joinError, organisation });
 
       if (joinError) {
         setError(joinError);
@@ -301,10 +274,8 @@ export default function Decision() {
       }
 
       if (accessState.hasAccess) {
-        console.log('Has access, navigating to dashboard');
         navigate(returnTo, { replace: true });
       } else {
-        console.log('Joined but no access yet');
         setSuccessMessage(`Joined ${organisation?.name}. You can now proceed.`);
         setStep('pathway-choice');
       }

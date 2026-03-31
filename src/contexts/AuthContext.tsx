@@ -99,35 +99,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // ============================================
 
   const fetchAccessState = useCallback(async (userId: string): Promise<UserAccessState> => {
-    console.log('[fetchAccessState] Starting for user:', userId);
-
     try {
       // Use REST API to fetch membership (bypasses Supabase JS client issues)
-      console.log('[fetchAccessState] Fetching membership via REST...');
-      const { data: memberships, error: membershipError } = await supabaseRest.query(
+      const { data: memberships } = await supabaseRest.query(
         'organisation_memberships',
         '*',
         { user_id: userId }
       );
-
-      console.log('[fetchAccessState] Memberships result:', { memberships, membershipError });
 
       const membership = Array.isArray(memberships) ? memberships[0] : null;
 
       // If we have a membership, fetch the organisation separately
       let membershipOrg: Organisation | null = null;
       if (membership?.organisation_id) {
-        console.log('[fetchAccessState] Fetching organisation via REST...');
-        const { data: orgs, error: orgError } = await supabaseRest.query(
+        const { data: orgs } = await supabaseRest.query(
           'organisations',
           '*',
           { id: membership.organisation_id }
         );
-        console.log('[fetchAccessState] Organisation result:', { orgs, orgError });
         membershipOrg = Array.isArray(orgs) && orgs.length > 0 ? orgs[0] as Organisation : null;
       }
-
-      console.log('[fetchAccessState] Extracted org:', membershipOrg?.name, 'Role:', membership?.role);
 
       const membershipInfo = membership ? {
         role: membership.role,
@@ -137,8 +128,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // For now, skip entitlement check via RPC (can be added later)
       // Users with membership can access the app
       const hasAccess = !!membership && membership.status === 'active';
-
-      console.log('[fetchAccessState] Result:', { hasAccess, org: membershipOrg?.name, role: membership?.role });
 
       return {
         isAuthenticated: true,
@@ -160,34 +149,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isSupabaseEnabled() || !supabase) {
-      console.log('[AuthContext] Supabase not enabled, skipping auth');
       setIsLoading(false);
       return;
     }
 
     // Get initial session with timeout
-    console.log('[AuthContext] Getting initial session...');
-
     // Timeout after 60 seconds if Supabase doesn't respond (free tier can be slow)
     const timeoutId = setTimeout(() => {
-      console.warn('[AuthContext] Session check timed out - Supabase may be unavailable');
       setIsLoading(false);
     }, 60000);
 
     supabase.auth.getSession()
       .then(({ data: { session: initialSession } }) => {
         clearTimeout(timeoutId);
-        console.log('[AuthContext] Session retrieved:', initialSession ? 'exists' : 'none');
         setSession(initialSession);
         setUser(initialSession?.user ?? null);
 
         if (initialSession?.user) {
-          console.log('[AuthContext] Fetching access state for user:', initialSession.user.id);
           fetchAccessState(initialSession.user.id).then(setAccessState);
         }
 
         setIsLoading(false);
-        console.log('[AuthContext] Loading complete');
       })
       .catch((error) => {
         clearTimeout(timeoutId);
@@ -198,8 +180,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, newSession) => {
-      console.log('[AuthContext] Auth state changed:', event, newSession?.user?.email);
+    } = supabase.auth.onAuthStateChange(async (_event, newSession) => {
       setSession(newSession);
       setUser(newSession?.user ?? null);
 
@@ -208,7 +189,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const LAST_USER_KEY = 'access_compass_last_user_id';
         const lastUserId = localStorage.getItem(LAST_USER_KEY);
         if (lastUserId && lastUserId !== newSession.user.id) {
-          console.log('[AuthContext] Different user signed in, clearing previous user data');
           const keysToPreserve = [
             LAST_USER_KEY,
             'sb-ibvqlyyvlwnwjcoehjkt-auth-token',
@@ -245,14 +225,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // ============================================
 
   const signUp = useCallback(async (email: string, password: string) => {
-    console.log('[AuthContext.signUp] Starting for:', email);
-
     if (!supabase) {
-      console.error('[AuthContext.signUp] Supabase not configured');
       return { error: { message: 'Supabase not configured' } as AuthError };
     }
-
-    console.log('[AuthContext.signUp] Calling supabase.auth.signUp...');
 
     try {
       // Start signUp but don't wait forever
@@ -277,14 +252,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const result = await Promise.race([signUpPromise, timeoutPromise]);
 
       if (result && 'error' in result) {
-        console.log('[AuthContext.signUp] Result:', { error: result.error });
         return { error: result.error };
       }
 
       if (!signUpCompleted) {
         // SignUp timed out - try signing in to see if account was created
-        console.log('[AuthContext.signUp] Timed out, checking if account was created...');
-
         try {
           const { error: signInError } = await supabase.auth.signInWithPassword({
             email,
@@ -292,14 +264,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           });
 
           if (!signInError) {
-            console.log('[AuthContext.signUp] Account was created, sign in successful');
             return { error: null };
           } else if (signInError.message?.includes('Invalid login credentials')) {
             // Account wasn't created or password is wrong
-            console.log('[AuthContext.signUp] Account not created or wrong password');
             return { error: { message: 'Sign up timed out. Please try again.' } as AuthError };
           } else {
-            console.log('[AuthContext.signUp] Sign in failed:', signInError);
             return { error: signInError };
           }
         } catch (signInErr) {
@@ -308,7 +277,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      console.log('[AuthContext.signUp] Success');
       return { error: null };
     } catch (err) {
       console.error('[AuthContext.signUp] Exception:', err);
@@ -318,14 +286,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {
-    console.log('[AuthContext.signIn] Starting for:', email);
-
     if (!supabase) {
-      console.error('[AuthContext.signIn] Supabase not configured');
       return { error: { message: 'Supabase not configured' } as AuthError };
     }
-
-    console.log('[AuthContext.signIn] Calling supabase.auth.signInWithPassword...');
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -333,7 +296,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         password,
       });
 
-      console.log('[AuthContext.signIn] Result:', { error });
       return { error };
     } catch (err) {
       console.error('[AuthContext.signIn] Exception:', err);
@@ -390,18 +352,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       contactName: string;
       allowedEmails?: string[];
     }): Promise<{ error: string | null; organisation?: Organisation; inviteCode?: string; emailsAdded?: number }> => {
-      console.log('[createOrganisation] Called. Supabase:', !!supabase, 'User:', user?.id || 'NULL');
-
       if (!supabase || !user) {
-        console.error('[createOrganisation] BLOCKED - Not authenticated. Supabase:', !!supabase, 'User:', !!user);
         return { error: 'Not authenticated' };
       }
 
-      console.log('[createOrganisation] Starting with data:', data);
-      console.log('[createOrganisation] User ID:', user.id);
-
       try {
-        console.log('[createOrganisation] Starting with user ID:', user.id);
 
         // Generate slug from name
         let slug = data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -475,21 +430,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { error: 'Not authenticated' };
       }
 
-      console.log('[joinOrganisation] Starting with code:', inviteCode);
-
       try {
         // First try the new validation RPC that checks email pre-registration
-        console.log('[joinOrganisation] Calling validate_invite_code_for_email RPC...');
         const { data: validationData, error: validationError } = await supabase.rpc('validate_invite_code_for_email', {
           p_invite_code: inviteCode,
           p_email: user.email,
         });
 
-        console.log('[joinOrganisation] Validation result:', { validationData, validationError });
-
         // If the new RPC doesn't exist, fall back to the old behavior
         if (validationError?.message?.includes('function') && validationError?.message?.includes('does not exist')) {
-          console.log('[joinOrganisation] Falling back to find_org_by_invite_code...');
           const { data: orgData, error: findError } = await supabase.rpc('find_org_by_invite_code', {
             p_invite_code: inviteCode,
           });
@@ -545,16 +494,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
 
         const validation = validationData[0];
-        console.log('[joinOrganisation] Validation:', validation);
 
         // Check if validation passed
         if (!validation.is_valid) {
-          console.log('[joinOrganisation] Validation failed:', validation.error_code, validation.error_message);
           return { error: validation.error_message || 'Unable to join organisation' };
         }
 
         // Check if already a member
-        console.log('[joinOrganisation] Checking existing membership...');
         const { data: existingMembership } = await supabase
           .from('organisation_memberships')
           .select('id')
@@ -563,12 +509,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           .single();
 
         if (existingMembership) {
-          console.log('[joinOrganisation] Already a member');
           return { error: 'Already a member of this organisation' };
         }
 
         // Create membership
-        console.log('[joinOrganisation] Creating membership...');
         const { error: memberError } = await supabase.from('organisation_memberships').insert({
           organisation_id: validation.organisation_id,
           user_id: user.id,
@@ -582,7 +526,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
 
         // Mark the allowed email as used
-        console.log('[joinOrganisation] Marking email as used...');
         await supabase.rpc('mark_allowed_email_as_used', {
           p_org_id: validation.organisation_id,
           p_email: user.email,
@@ -590,19 +533,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
 
         // Fetch full organisation details
-        console.log('[joinOrganisation] Fetching full org details...');
         const { data: fullOrg } = await supabase
           .from('organisations')
           .select('*')
           .eq('id', validation.organisation_id)
           .single();
 
-        console.log('[joinOrganisation] Full org:', fullOrg);
-
         // Refresh access state
-        console.log('[joinOrganisation] Refreshing access state...');
         await refreshAccessState();
-        console.log('[joinOrganisation] Access state refreshed');
 
         return { error: null, organisation: fullOrg as Organisation };
       } catch (error) {
@@ -690,7 +628,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           .eq('session_id', anonymousSessionId)
           .is('user_id', null);
 
-        console.log('Merged anonymous session:', anonymousSessionId);
       } catch (error) {
         console.error('Error merging anonymous session:', error);
       }
