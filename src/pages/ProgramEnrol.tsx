@@ -24,7 +24,8 @@ export default function ProgramEnrol() {
   const [contactEmail, setContactEmail] = useState('');
   const [contactPassword, setContactPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [step, setStep] = useState<'info' | 'signup' | 'enrolling' | 'done'>('info');
+  const [step, setStep] = useState<'info' | 'signup' | 'returning' | 'enrolling' | 'done'>('info');
+  const [isReturningUser, setIsReturningUser] = useState(false);
   const [enrolling, setEnrolling] = useState(false);
 
   usePageTitle(program?.name || 'Enrol');
@@ -67,19 +68,37 @@ export default function ProgramEnrol() {
     setEnrolling(true);
     setError(null);
 
-    // If not authenticated, create account first
+    // If not authenticated, create account or sign in
     if (!isAuthenticated) {
       if (!contactEmail || !contactPassword) {
         setStep('signup');
         setEnrolling(false);
         return;
       }
-      const { error: signUpError } = await signUp(contactEmail, contactPassword);
-      if (signUpError) {
-        // Try signing in instead (account may already exist)
+
+      if (isReturningUser) {
+        // Returning user: sign in with existing password
         const { error: signInError } = await signIn(contactEmail, contactPassword);
         if (signInError) {
-          setError('Could not create or sign into account. Please try again.');
+          setError('Incorrect password. Please try again.');
+          setEnrolling(false);
+          return;
+        }
+      } else {
+        // New user: try sign up
+        const { error: signUpError } = await signUp(contactEmail, contactPassword);
+        if (signUpError) {
+          const errMsg = signUpError.message || '';
+          if (errMsg.toLowerCase().includes('already') || errMsg.toLowerCase().includes('exists') || errMsg.toLowerCase().includes('registered')) {
+            // Email already registered: switch to sign-in mode
+            setIsReturningUser(true);
+            setStep('returning');
+            setContactPassword('');
+            setError(null);
+            setEnrolling(false);
+            return;
+          }
+          setError('Could not create account. Please try again.');
           setEnrolling(false);
           return;
         }
@@ -158,9 +177,6 @@ export default function ProgramEnrol() {
   if (!program) return null;
 
   const programModules = accessModules.filter(m => program.required_module_ids.includes(m.id));
-  const estimatedTime = programModules.reduce((sum, m) =>
-    program.access_level === 'deep_dive' ? sum + (m.estimatedTimeDeepDive || m.estimatedTime) : sum + m.estimatedTime, 0
-  );
   const isFree = program.funding_model === 'authority_funded' || !program.license_price_cents;
   const priceLabel = isFree ? 'No cost' : `$${(program.license_price_cents! / 100).toFixed(0)} AUD`;
 
@@ -311,6 +327,85 @@ export default function ProgramEnrol() {
               style={{ width: '100%' }}
             >
               {enrolling ? 'Enrolling...' : isFree ? 'Enrol and start assessment' : `Pay ${priceLabel} and enrol`}
+            </button>
+          </>
+        )}
+
+        {step === 'returning' && (
+          <>
+            <div style={{
+              background: 'rgba(73, 14, 103, 0.04)',
+              border: '1px solid rgba(73, 14, 103, 0.12)',
+              borderRadius: '12px',
+              padding: '1.25rem',
+              marginBottom: '1rem',
+            }}>
+              <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 0.5rem' }}>
+                Welcome back
+              </p>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary, #5C4A4E)', margin: 0, lineHeight: 1.5 }}>
+                An account with <strong>{contactEmail}</strong> already exists. Sign in with your existing password to enrol in this program. Your previous assessment data will be available.
+              </p>
+            </div>
+
+            <div className="authority-form-group">
+              <label htmlFor="enrol-password-returning">Your password</label>
+              <div style={{ position: 'relative' }}>
+                <input
+                  id="enrol-password-returning"
+                  type={showPassword ? 'text' : 'password'}
+                  value={contactPassword}
+                  onChange={e => setContactPassword(e.target.value)}
+                  placeholder="Enter your existing password"
+                  minLength={8}
+                  style={{ paddingRight: '3rem' }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  style={{
+                    position: 'absolute',
+                    right: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: '4px',
+                    color: 'var(--text-secondary, #5C4A4E)',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              className="btn btn-primary"
+              onClick={handleEnrol}
+              disabled={enrolling || !contactPassword}
+              style={{ width: '100%' }}
+            >
+              {enrolling ? 'Signing in...' : 'Sign in and enrol'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => { setIsReturningUser(false); setStep('info'); setContactPassword(''); setError(null); }}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '0.8125rem',
+                color: 'var(--amethyst-diamond, #490E67)',
+                marginTop: '0.75rem',
+                padding: 0,
+              }}
+            >
+              Use a different email
             </button>
           </>
         )}
