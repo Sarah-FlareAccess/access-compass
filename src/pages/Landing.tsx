@@ -50,14 +50,14 @@ export default function Landing() {
           <div className="compass-needle"></div>
           <div className="guide-arc"></div>
         </div>
-        {/* Visible directional line: compass → CTA → down */}
+        {/* Visible directional line: compass -> CTA -> down */}
         <div className="hero-directional-line" aria-hidden="true"></div>
 
         <div className="container hero-layout">
           <div className="hero-content">
-            <h1>Make your business more accessible, step by step</h1>
+            <h1>Understand, plan and act on accessibility</h1>
             <p className="hero-subheading">
-              Covering 35+ touchpoints across your entire visitor journey, Access Compass cuts through the complexity, giving you a clear, prioritised action plan tailored to your business, your budget, and your capacity. No expertise required. Just practical next steps you can actually take.
+              Access Compass is Australia's guided self-assessment platform for accessibility and inclusion. Covering 37 modules and 800+ questions across the full visitor journey, it gives businesses, venues, and councils a clear, prioritised path from intent to action.
             </p>
 
             {/* CTA Button */}
@@ -67,60 +67,77 @@ export default function Landing() {
 
             {/* Trust signal */}
             <p className="hero-trust">
-              Built by <strong>Flare Access</strong>. Accessibility and inclusion consultants helping businesses like yours turn intent into confident, practical action.
+              Built on Australian Standards, the Disability Discrimination Act, and universal design principles by <strong>Flare Access</strong>, accessibility and inclusion consultants.
             </p>
           </div>
         </div>
       </section>
 
-      {/* What You Get - 4 Cards - Outcomes focused */}
+      {/* What You Get - Outcomes focused */}
       <section className="benefits-section">
         <div className="container">
-          <h2>What you'll get</h2>
+          <h2>What you'll achieve</h2>
           <div className="benefits-grid">
             <div className="benefit-card">
               <span className="benefit-icon">🧭</span>
-              <h3>Clarity on where to start</h3>
-              <p>No more guessing or getting overwhelmed by compliance documents. We guide you through your customer journey, so you understand what matters at each touchpoint. No more uncertainty, just clear priorities for your situation.</p>
-            </div>
-            <div className="benefit-card">
-              <span className="benefit-icon">💪</span>
-              <h3>Confidence to take action</h3>
-              <p>Every recommendation is backed by Australian standards, universal design and best practice with real-world examples, so you can move forward knowing you're on the right track.</p>
+              <h3>Clarity on where you stand</h3>
+              <p>A structured assessment across your full customer journey identifies your strengths, gaps, and priorities. No compliance expertise needed.</p>
             </div>
             <div className="benefit-card">
               <span className="benefit-icon">📋</span>
-              <h3>Evidence of action</h3>
-              <p>Turn good intentions into demonstrable action. Your report documents where you are, what you're doing, and your opportunities ahead, ready for leadership, funding applications, and budget discussions.</p>
+              <h3>A plan you can act on</h3>
+              <p>Every finding comes with prioritised recommendations, practical how-to guidance, and links to Australian standards. Your Disability Inclusion Action Plan (DIAP) takes shape as you go.</p>
+            </div>
+            <div className="benefit-card">
+              <span className="benefit-icon">📸</span>
+              <h3>Evidence that stands up</h3>
+              <p>Capture photos, documents, and notes alongside each question. Your report and evidence library are ready for leadership, funding applications, auditors, and council requirements.</p>
             </div>
             <div className="benefit-card">
               <span className="benefit-icon">📈</span>
-              <h3>Visible progress, together</h3>
-              <p>Give your whole team access to a shared plan. Track what's done, see what's next, and build a culture where accessibility is everyone's responsibility.</p>
+              <h3>Measurable progress over time</h3>
+              <p>Re-assess to track improvement. Compare runs side by side, assign actions across your team, and build a culture where accessibility is everyone's responsibility.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Who It's For Section */}
+      {/* Who It's For Section - Multiple personas */}
       <section className="audience-section">
         <div className="container">
-          <h2>Who it's for</h2>
-          <p className="audience-intro">
-            Access Compass is designed for customer-facing businesses ready to welcome more people.
-          </p>
-          <p className="audience-stage">
-            Whether you're just beginning your accessibility journey or looking to advance your progress, we'll meet you where you are.
-          </p>
-          <div className="audience-grid" role="list" aria-label="Business types we serve">
-            <span className="audience-item" role="listitem">Attractions</span>
-            <span className="audience-item" role="listitem">Leisure & Recreation</span>
-            <span className="audience-item" role="listitem">Hospitality</span>
-            <span className="audience-item" role="listitem">Events & Venues</span>
-            <span className="audience-item" role="listitem">Retail</span>
-            <span className="audience-item" role="listitem">Local Government</span>
-            <span className="audience-item" role="listitem">Health & Wellness</span>
-            <span className="audience-item" role="listitem">Education & Training</span>
+          <h2>Built for every stage and scale</h2>
+
+          <div className="persona-grid">
+            <div className="persona-card">
+              <h3>Individual businesses</h3>
+              <p>Cafes, shops, venues, clinics, gyms. Start with a free check on 3 modules, or go deeper with a full assessment and action plan. No consultants needed to begin.</p>
+            </div>
+            <div className="persona-card">
+              <h3>Multi-site operators</h3>
+              <p>Franchise networks, shopping centres, hotel groups. Assess multiple sites, compare performance, and standardise your approach to accessibility across locations.</p>
+            </div>
+            <div className="persona-card">
+              <h3>Event organisers</h3>
+              <p>Festivals, markets, conferences, sporting events. Meet permit requirements, assess temporary venues, and demonstrate accessibility planning to councils and sponsors.</p>
+            </div>
+            <div className="persona-card persona-card-highlight">
+              <h3>Councils and authorities</h3>
+              <p>Provision assessments to businesses across your LGA. Track compliance for event permits, tourism grants, and DDA programs. See aggregate data across your region without accessing individual answers.</p>
+            </div>
+          </div>
+
+          <div className="industry-section">
+            <p className="audience-stage">Industries using Access Compass</p>
+            <div className="audience-grid" role="list" aria-label="Industries served">
+              <span className="audience-item" role="listitem">Tourism and Attractions</span>
+              <span className="audience-item" role="listitem">Hospitality</span>
+              <span className="audience-item" role="listitem">Events and Venues</span>
+              <span className="audience-item" role="listitem">Retail</span>
+              <span className="audience-item" role="listitem">Health and Wellness</span>
+              <span className="audience-item" role="listitem">Local Government</span>
+              <span className="audience-item" role="listitem">Education and Training</span>
+              <span className="audience-item" role="listitem">Leisure and Recreation</span>
+            </div>
           </div>
         </div>
       </section>
@@ -134,8 +151,8 @@ export default function Landing() {
             <div className="step">
               <div className="step-number">1</div>
               <div className="step-content">
-                <h3>Select what's relevant to you</h3>
-                <p>Choose the accessibility areas that matter most, from physical access and signage to customer service and online bookings. Focus on one area or tackle several at once.</p>
+                <h3>Tell us about your business</h3>
+                <p>Answer a few questions about your industry, venue type, and what matters most. We'll recommend the modules most relevant to your situation.</p>
               </div>
             </div>
 
@@ -143,51 +160,92 @@ export default function Landing() {
               <div className="step-number">2</div>
               <div className="step-content">
                 <h3>Choose your depth</h3>
-                <p>Go with a quick Pulse Check for a snapshot of where you stand, or take a Deep Dive for a comprehensive review. Either way, you'll get clear, tailored recommendations.</p>
+                <p>Take a Pulse Check for a high-level baseline, or a Deep Dive for comprehensive coverage. Both produce tailored recommendations. Start with one and go deeper later.</p>
               </div>
             </div>
 
             <div className="step">
               <div className="step-number">3</div>
               <div className="step-content">
-                <h3>Answer at your own pace</h3>
-                <p>Work through questions about your current setup. Answer what you know, and flag anything you're unsure about. We'll provide guidance to help you check those items later.</p>
+                <h3>Work through the assessment</h3>
+                <p>Answer questions about your current setup at your own pace. Flag anything you're unsure about and we'll tell you how to check. Upload photos and evidence as you go.</p>
               </div>
             </div>
 
             <div className="step">
               <div className="step-number">4</div>
               <div className="step-content">
-                <h3>Get a prioritised action plan</h3>
-                <p>Receive recommendations organised by impact: what to act on now, plan next, or consider later. Your plan is tailored to your situation, so you know exactly where to start.</p>
+                <h3>Get your report and action plan</h3>
+                <p>Receive a prioritised report showing what to act on now, plan next, or consider later. Your Disability Inclusion Action Plan (DIAP) is structured and ready to share.</p>
               </div>
             </div>
 
             <div className="step">
               <div className="step-number">5</div>
               <div className="step-content">
-                <h3>Access the Resource Hub</h3>
-                <p>Every recommendation links to practical support: how-to guides, checklists, real examples, and Australian standards references. Everything you need to move from plan to action.</p>
+                <h3>Use the Resource Hub to take action</h3>
+                <p>Each recommendation links to practical guidance: how-to guides, checklists, worked examples, supplier options, and Australian standards references.</p>
               </div>
             </div>
 
             <div className="step">
               <div className="step-number">6</div>
               <div className="step-content">
-                <h3>Track progress and share your plan</h3>
-                <p>Assign owners, set timeframes, and mark items complete as you go. Export a polished summary to share with your team, leadership, or include in funding applications.</p>
+                <h3>Track, assign, and re-assess</h3>
+                <p>Assign actions to team members, track completion on your dashboard, and re-assess to measure improvement over time. Export your progress for stakeholders at any point.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Journey reinforcement - after process explanation */}
+      {/* Platform highlights */}
+      <section className="platform-section">
+        <div className="container">
+          <h2>What's inside</h2>
+          <div className="platform-grid">
+            <div className="platform-item">
+              <strong>37 modules</strong>
+              <span>Covering before arrival through to organisational commitment and events</span>
+            </div>
+            <div className="platform-item">
+              <strong>800+ questions</strong>
+              <span>Spanning mandatory requirements, best practice, and universal design</span>
+            </div>
+            <div className="platform-item">
+              <strong>Resource Hub</strong>
+              <span>How-to guides, checklists, and real examples for every recommendation</span>
+            </div>
+            <div className="platform-item">
+              <strong>DIAP workspace</strong>
+              <span>Build your Disability Inclusion Action Plan as you assess</span>
+            </div>
+            <div className="platform-item">
+              <strong>Evidence library</strong>
+              <span>Upload photos and documents alongside each question</span>
+            </div>
+            <div className="platform-item">
+              <strong>Team collaboration</strong>
+              <span>Assign modules, track activity, and share progress with your team</span>
+            </div>
+            <div className="platform-item">
+              <strong>Re-assessment</strong>
+              <span>Run again to compare results side by side and track improvement</span>
+            </div>
+            <div className="platform-item">
+              <strong>Authority portal</strong>
+              <span>For councils: provision programs, enrol businesses, view aggregate data</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Journey reinforcement */}
       <section className="journey-section">
         <div className="container">
           <p className="value-statement">
-            <strong>Accessibility is a journey, not a one-off task.</strong>
-            {' '}Access Compass supports progress over perfection, helping you make meaningful improvements one step at a time, within your capacity.
+            <strong>Accessibility is a journey, not a destination.</strong>
+            {' '}Access Compass supports progress over perfection, helping you make meaningful improvements one step at a time, within your capacity and budget.
           </p>
 
           {/* Final CTA */}
@@ -195,6 +253,7 @@ export default function Landing() {
             <Link to="/disclaimer" className="btn btn-primary btn-large">
               Start your accessibility check
             </Link>
+            <p className="cta-subtext">Free for up to 3 modules. No credit card required.</p>
           </div>
         </div>
       </section>
@@ -203,10 +262,11 @@ export default function Landing() {
       <footer className="landing-footer">
         <div className="container">
           <p className="footer-brand">
-            Access Compass is a <a href="https://flareaccess.com.au" target="_blank" rel="noopener noreferrer">Flare Access</a> product designed to help organisations understand, prioritise and take action on accessibility.
+            Access Compass is a <a href="https://flareaccess.com.au" target="_blank" rel="noopener noreferrer">Flare Access</a> product designed to help organisations understand, prioritise and take action on accessibility and inclusion.
           </p>
           <p className="footer-links">
             <Link to="/accessibility">Accessibility Statement</Link>
+            <Link to="/pricing">Pricing</Link>
           </p>
           <p className="footer-copyright">
             © {new Date().getFullYear()} Flare Access. All rights reserved.

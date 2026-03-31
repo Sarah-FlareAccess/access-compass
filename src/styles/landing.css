@@ -1025,6 +1025,122 @@
 }
 
 /* ============================================
+   PERSONA CARDS
+   ============================================ */
+
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.persona-card {
+  background: #ffffff;
+  border: 1px solid rgba(73, 14, 103, 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow:
+    0 2px 4px rgba(73, 14, 103, 0.06),
+    0 4px 12px rgba(73, 14, 103, 0.04);
+}
+
+.persona-card h3 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #490E67;
+  margin: 0 0 0.5rem;
+}
+
+.persona-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #5C4A4E);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.persona-card-highlight {
+  border-color: rgba(73, 14, 103, 0.2);
+  background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%);
+  box-shadow:
+    0 2px 4px rgba(73, 14, 103, 0.08),
+    0 8px 24px rgba(73, 14, 103, 0.08);
+}
+
+.industry-section {
+  margin-top: var(--spacing-lg);
+}
+
+.industry-section .audience-stage {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ============================================
+   PLATFORM SECTION
+   ============================================ */
+
+.platform-section {
+  background:
+    linear-gradient(
+      180deg,
+      #f7f4f1 0%,
+      var(--ivory-tusk) 50%,
+      #f7f4f1 100%
+    );
+  padding: var(--spacing-xxl) var(--spacing-md);
+}
+
+.platform-section h2 {
+  text-align: center;
+  color: #490E67;
+  font-size: 1.9rem;
+  margin-bottom: var(--spacing-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.platform-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: var(--spacing-md);
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(73, 14, 103, 0.08);
+  box-shadow:
+    0 2px 4px rgba(73, 14, 103, 0.04),
+    0 4px 12px rgba(73, 14, 103, 0.03);
+}
+
+.platform-item strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #490E67;
+}
+
+.platform-item span {
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #5C4A4E);
+  line-height: 1.5;
+}
+
+/* CTA subtext */
+.cta-subtext {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 
@@ -1056,6 +1172,31 @@
 
 .footer-brand a:hover {
   color: #fcd34d;
+}
+
+.landing-footer .footer-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.landing-footer .footer-links a,
+.landing-footer .footer-links a:link,
+.landing-footer .footer-links a:visited {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.landing-footer .footer-links a:hover {
+  color: #fbbf24;
+}
+
+.landing-footer .footer-links a:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 3px;
 }
 
 .footer-copyright {
@@ -1276,6 +1417,18 @@
   .benefit-card {
     padding: var(--spacing-md);
   }
+
+  .persona-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .platform-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .platform-section h2 {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 540px) {
@@ -1331,5 +1484,14 @@
   .btn-large {
     padding: 14px 28px;
     font-size: 1rem;
+  }
+
+  .persona-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .platform-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
   }
 }
