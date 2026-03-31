@@ -108,6 +108,16 @@ export default function ProgramEnrol() {
     }
     const newOrg = (orgData as { id: string }[])[0];
 
+    // Create membership linking the user to the new org
+    if (user?.id) {
+      await supabaseRest.insert('organisation_memberships', {
+        organisation_id: newOrg.id,
+        user_id: user.id,
+        role: 'owner',
+        status: 'active',
+      });
+    }
+
     // Create program enrolment
     const { error: enrolError } = await supabaseRest.insert('program_enrolments', {
       program_id: program.id,
