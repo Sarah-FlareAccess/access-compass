@@ -658,8 +658,8 @@ Thanks!`;
             </a>
           </div>
 
-          {/* Navigation Tabs */}
-          <div className="dashboard-tabs" role="tablist" aria-label="Dashboard sections">
+          {/* Navigation Tabs - only show on assessment and evidence views */}
+          {(activeTab === 'modules' || activeTab === 'evidence') && <div className="dashboard-tabs" role="tablist" aria-label="Dashboard sections">
             <button
               className={`tab-btn ${activeTab === 'modules' ? 'active' : ''}`}
               onClick={() => navigate('/assessment')}
@@ -680,17 +680,7 @@ Thanks!`;
             >
               Evidence Library
             </button>
-            <button
-              className={`tab-btn ${activeTab === 'activity' ? 'active' : ''}`}
-              onClick={() => navigate('/activity')}
-              role="tab"
-              aria-selected={activeTab === 'activity'}
-              aria-controls="tab-panel-activity"
-              id="tab-activity"
-            >
-              Activity Log
-            </button>
-          </div>
+          </div>}
 
           {/* Tab Content */}
           {activeTab === 'modules' && (
