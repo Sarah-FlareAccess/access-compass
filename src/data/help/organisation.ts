@@ -1,6 +1,6 @@
 /**
- * Help Content: Organisation (modules 5.1-5.5)
- * 17 entries covering organisational accessibility policy, employment, training, procurement, and performance.
+ * Help Content: Organisation (modules 5.1-5.6)
+ * 19 entries covering organisational accessibility policy, employment, training, procurement, performance, and supplier accessibility.
  */
 
 import type { HelpContent } from './types';
@@ -1258,6 +1258,328 @@ export const organisationHelp: HelpContent[] = [
     { title: 'AND Awards', url: 'https://www.and.org.au/', type: 'website', source: 'Australian Network on Disability', description: 'Information about disability inclusion awards and recognition programs.', isAustralian: true, isFree: true }
   ],
   keywords: ['co-design', 'engagement', 'community', 'awards', 'sharing learnings', 'IDPwD', 'recognition', 'advocacy']
+},
+
+// ─── MODULE 5.6: Supplier and third-party accessibility ─────────────────
+
+// ─── Entry: Third-party service standards and verification ───
+{
+  questionId: '5.6-PC-1',
+  questionText: 'Do you set accessibility standards for third-party service providers?',
+  moduleCode: '5.6',
+  moduleGroup: 'organisational-commitment',
+  diapCategory: 'operations-policy-procedure',
+  title: 'Third-party service standards and verification',
+  coveredQuestionIds: ['5.6-PC-3', '5.6-PC-4', '5.6-PC-5', '5.6-D-3', '5.6-D-4', '5.6-D-5'],
+  summary: 'Your accessibility reputation depends on every touchpoint, including those delivered by third parties. Setting clear accessibility standards for suppliers, delivery partners, contractors, and outsourced services ensures customers with disability receive consistent, quality experiences regardless of who delivers the service.',
+  lastUpdated: '2026-03-31',
+
+  whyItMatters: {
+    text: 'Customers do not distinguish between your staff and your contractors. If a catering company you hired serves food at an inaccessible height, if a cleaning contractor blocks an accessible toilet with equipment, or if a transport partner sends a vehicle without wheelchair access, the customer blames your organisation. Under the DDA, you cannot outsource your accessibility obligations. Section 24 makes it unlawful to discriminate in the provision of goods, services, and facilities, whether delivered directly or through third parties. Setting standards, briefing suppliers, verifying compliance, and reviewing performance at contract renewal are essential to maintaining accessible service across your full operation.',
+    statistic: {
+      value: '4.4 million',
+      context: 'Australians have disability. When they encounter an accessibility failure from a third-party provider at your venue or event, the complaint comes to you. Proactive supplier management prevents reputational and legal risk.',
+      source: 'ABS Survey of Disability, Ageing and Carers 2018'
+    },
+    quote: {
+      text: 'The hotel was fantastic. But the airport transfer they booked for us was a standard van with no ramp. We were stranded at the airport for an hour. The hotel apologised, but the damage was done.',
+      attribution: 'Wheelchair user, travel review'
+    }
+  },
+
+  tips: [
+    {
+      icon: 'FileText',
+      text: 'Include accessibility requirements in all supplier contracts and service level agreements.',
+      detail: 'Add a standard accessibility clause to your procurement templates. Specify what you expect: staff trained in disability awareness, accessible equipment, compliance with DDA and relevant standards, and a process for handling accessibility complaints. Make it a condition of contract, not an optional extra.',
+      priority: 1
+    },
+    {
+      icon: 'ClipboardList',
+      text: 'Create an accessibility briefing template for all contractors and casual suppliers.',
+      detail: 'A one-page briefing covering: key accessibility features of your venue (accessible toilets, paths, parking), behaviours expected (do not block accessible routes, offer assistance without assuming), emergency procedures for people with disability, and who to contact with accessibility questions. Hand it to every caterer, cleaner, AV technician, and event crew member.',
+      priority: 2
+    },
+    {
+      icon: 'Target',
+      text: 'Verify supplier accessibility performance before and during the contract.',
+      detail: 'Ask suppliers about their accessibility capabilities during procurement (not after the contract is signed). Conduct spot checks during service delivery. Include accessibility as a line item in performance reviews and contract renewal assessments.',
+      priority: 3
+    },
+    {
+      icon: 'Users',
+      text: 'Establish a customer reporting pathway for third-party accessibility issues.',
+      detail: 'Customers need a clear way to report accessibility problems with any service provider at your venue, not just your staff. A single feedback channel (online form, phone, email) that you monitor and act on ensures issues reach you, even when a third party caused them.',
+      priority: 4
+    },
+    {
+      icon: 'Shield',
+      text: 'Review supplier accessibility performance at contract renewal.',
+      detail: 'At renewal, assess each supplier against their accessibility obligations. Have there been complaints? Did they meet the standards in the contract? Are there patterns of failure? Use this data to decide whether to renew, renegotiate, or find an alternative supplier with stronger accessibility credentials.',
+      priority: 5
+    },
+    {
+      icon: 'AlertTriangle',
+      text: 'Brief delivery partners specifically on accessible delivery practices.',
+      detail: 'Delivery partners need to know: knock and wait (do not leave packages at a distance), communicate via the customer\'s preferred method (text, call, email), handle goods carefully for customers who cannot inspect on delivery, and offer flexible delivery windows for customers with support worker schedules.',
+      priority: 6
+    }
+  ],
+
+  howToCheck: {
+    title: 'Auditing third-party accessibility standards',
+    steps: [
+      { text: 'Review your standard procurement contract or SLA template. Is there an accessibility clause? Does it specify requirements, not just aspirations?' },
+      { text: 'List all current third-party providers (caterers, cleaners, transport, security, AV, maintenance, etc.). For each, check whether accessibility requirements were communicated at contract signing.' },
+      { text: 'Check whether an accessibility briefing template exists for contractors and casual suppliers. When was it last used?' },
+      { text: 'Review customer complaint records for the past 12 months. How many relate to third-party service accessibility? Were they resolved? Were suppliers notified?' },
+      { text: 'Check whether accessibility performance is included in supplier performance reviews or scorecards.' },
+      { text: 'Review the last three contract renewals. Was accessibility discussed or assessed as part of the renewal decision?' },
+      { text: 'Ask 2-3 current suppliers whether they know your accessibility expectations. Can they describe what is required of them?' },
+      { text: 'Check whether delivery partners have been briefed on accessible delivery practices.' }
+    ],
+    tools: ['Procurement contracts and SLAs', 'Supplier contact list', 'Customer complaint log', 'Supplier performance review records'],
+    estimatedTime: '30-60 minutes'
+  },
+
+  standardsReference: {
+    primary: {
+      code: 'DDA',
+      section: 'Section 24',
+      requirement: 'It is unlawful to discriminate in the provision of goods, services, and facilities. This extends to services delivered by third parties on your behalf. You cannot outsource your DDA obligations.'
+    },
+    related: [
+      { code: 'UNCRPD', relevance: 'Article 9: Accessibility obligations apply to services provided by private entities to the public, including through contractors and suppliers.' }
+    ],
+    plainEnglish: 'If a third party delivers a service on your behalf and that service discriminates against someone with disability, you are responsible. Setting accessibility standards for suppliers, verifying compliance, and acting on complaints protects your customers and your organisation.',
+    complianceNote: 'The AHRC has found organisations liable for third-party accessibility failures in multiple conciliation outcomes. Including accessibility in contracts and actively managing supplier performance is the strongest defence.'
+  },
+
+  solutions: [
+    {
+      title: 'Accessibility briefing template for suppliers',
+      description: 'Create a simple one-page accessibility briefing that all contractors and suppliers receive before starting work.',
+      resourceLevel: 'low',
+      costRange: '$0-200',
+      timeRequired: '2-4 hours',
+      implementedBy: 'staff',
+      impact: 'quick-win',
+      steps: [
+        'Draft a one-page accessibility briefing covering: venue accessible features, expected behaviours, emergency procedures, and contact for accessibility questions.',
+        'Include a simple map showing accessible routes, toilets, and parking.',
+        'Add a section on disability etiquette: offer assistance, do not assume, communicate respectfully.',
+        'Distribute to all current contractors and include in onboarding for new suppliers.',
+        'Keep copies at reception and loading dock for casual suppliers (caterers, AV, delivery).',
+        'Review and update annually or when venue accessibility features change.'
+      ]
+    },
+    {
+      title: 'Vendor accessibility scorecard and contract clauses',
+      description: 'Embed accessibility in procurement processes with standard contract clauses and a supplier assessment scorecard.',
+      resourceLevel: 'medium',
+      costRange: '$1,000-5,000',
+      timeRequired: '1-2 weeks',
+      implementedBy: 'staff',
+      impact: 'moderate',
+      steps: [
+        'Draft a standard accessibility clause for inclusion in all procurement contracts and SLAs.',
+        'Develop a vendor accessibility scorecard with 5-10 criteria (staff training, equipment accessibility, complaint handling, DDA awareness, etc.).',
+        'Assess all current major suppliers against the scorecard.',
+        'Include scorecard results in annual supplier performance reviews.',
+        'Establish a customer feedback channel for third-party accessibility issues, monitored weekly.',
+        'Add accessibility as a weighted criterion in tender evaluation for new contracts.',
+        'Brief procurement staff on accessibility requirements and how to assess supplier capability.'
+      ],
+      notes: 'Start with your highest-risk suppliers (those with direct customer contact) and expand to all suppliers over 12 months.'
+    },
+    {
+      title: 'Comprehensive supplier accessibility program',
+      description: 'Formal program embedding accessibility across the full supplier lifecycle: procurement, onboarding, monitoring, and renewal.',
+      resourceLevel: 'high',
+      costRange: '$10,000-30,000',
+      timeRequired: '2-3 months',
+      implementedBy: 'specialist',
+      impact: 'significant',
+      steps: [
+        'Engage an accessibility consultant to develop a supplier accessibility framework.',
+        'Rewrite procurement templates to include mandatory accessibility requirements with measurable KPIs.',
+        'Develop supplier onboarding program with accessibility training module (online, 30 minutes).',
+        'Implement quarterly spot-check audits of supplier accessibility performance.',
+        'Build a supplier accessibility dashboard tracking complaints, scores, and improvement trends.',
+        'Include accessibility as a mandatory criterion in all tender evaluations (minimum 10% weighting).',
+        'Create a preferred supplier list recognising suppliers with strong accessibility credentials.',
+        'Conduct annual supplier accessibility summit sharing best practice and expectations.',
+        'Integrate supplier accessibility data into DIAP reporting and board-level accessibility KPIs.'
+      ],
+      notes: 'A formal program signals market expectations and drives industry-wide improvement. Suppliers invest in accessibility when customers require it.'
+    }
+  ],
+
+  examples: [
+    { businessType: 'event-venue', businessTypeLabel: 'Event Organiser', scenario: 'Hired caterers who placed food tables at standing height only. Hired security who blocked wheelchair access to the VIP area. Multiple complaints.', solution: 'Created an event supplier accessibility briefing template. Added accessibility clauses to all supplier contracts. Required caterers to provide food at two heights. Briefed security on accessible entry requirements.', outcome: 'No accessibility complaints from supplier-delivered services in the following 6 months. Suppliers report clearer expectations.', cost: '$500', timeframe: '1 week' },
+    { businessType: 'accommodation', businessTypeLabel: 'Hotel', scenario: 'Airport transfer partner consistently sent inaccessible vehicles despite requests. Guest complaints eroding the hotel\'s accessibility reputation.', solution: 'Added a mandatory wheelchair-accessible vehicle clause to the transfer contract. Switched to a partner with a verified accessible fleet. Implemented a pre-arrival confirmation process for accessible transfers.', outcome: 'Zero transfer complaints in 12 months. Guests specifically praise the accessible door-to-door experience.', cost: '$200', timeframe: '2 weeks' },
+    { businessType: 'retail', businessTypeLabel: 'Shopping Centre', scenario: 'Cleaning contractor regularly blocked accessible toilets and ramps with equipment carts. No accountability mechanism.', solution: 'Included accessible route clearance in the cleaning contract with penalty clauses. Provided an accessibility briefing and accessible route map to all cleaning staff. Implemented monthly spot checks.', outcome: 'Route blockages eliminated. Cleaning contractor now trains their own staff on accessibility. Approach adopted by other centres managed by the same group.', cost: '$300', timeframe: '1 week' },
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Council outsourced library programs, pool management, and waste collection. No accessibility requirements in any contract. Complaints about inaccessible library events and pool staff who did not understand adaptive equipment.', solution: 'Developed a council-wide supplier accessibility framework with mandatory contract clauses, onboarding training, and annual performance reviews. Required all major suppliers to nominate an accessibility contact.', outcome: 'Supplier-related accessibility complaints reduced 70%. Council uses the framework as a model for neighbouring councils. Library program participation by people with disability doubled.', cost: '$15,000', timeframe: '3 months' }
+  ],
+
+  keywords: ['supplier', 'third-party', 'contractor', 'procurement', 'SLA', 'service level agreement', 'vendor', 'outsource', 'delivery partner', 'contract', 'briefing', 'DDA section 24']
+},
+
+// ─── Entry: Digital platform and franchise accessibility ───
+{
+  questionId: '5.6-PC-2',
+  questionText: 'Do you assess the accessibility of third-party digital platforms used by your customers?',
+  moduleCode: '5.6',
+  moduleGroup: 'organisational-commitment',
+  diapCategory: 'operations-policy-procedure',
+  title: 'Digital platform and franchise accessibility',
+  coveredQuestionIds: ['5.6-D-1', '5.6-D-2', '5.6-D-6'],
+  summary: 'When customers interact with your organisation through third-party booking platforms, franchise templates, procurement portals, or outsourced digital services, accessibility barriers in those platforms become your barriers. Assessing digital platforms for WCAG compliance, including accessibility in procurement criteria, and ensuring franchise or brand templates meet accessibility standards protects your customers and your brand.',
+  lastUpdated: '2026-03-31',
+
+  whyItMatters: {
+    text: 'Digital platforms are increasingly the front door to your organisation. If a customer with vision impairment cannot complete a booking through your third-party reservation system, or a screen reader user cannot navigate your franchise website template, or a person with motor impairment cannot use the procurement portal to do business with you, the barrier is just as real as a step at your physical entrance. Many organisations assume their platform provider has handled accessibility, but most third-party platforms have significant WCAG gaps. The DDA applies to digital services, and you are responsible for the customer experience you offer, even when a third party built the platform.',
+    statistic: {
+      value: '96.3%',
+      context: 'of the top one million websites have detectable WCAG 2.1 failures. Third-party platforms you rely on are very likely to have accessibility issues unless you specifically require and verify compliance.',
+      source: 'WebAIM Million, 2024'
+    },
+    quote: {
+      text: 'I tried to book a room through the hotel\'s online system. The date picker was completely inaccessible with my screen reader. I called the hotel and they said to just use the website. They had no idea their booking platform excluded blind people.',
+      attribution: 'Screen reader user, accessibility complaint'
+    }
+  },
+
+  tips: [
+    {
+      icon: 'Eye',
+      text: 'Test key third-party platforms with a screen reader and keyboard-only navigation before signing a contract.',
+      detail: 'Before committing to a booking platform, event registration system, or digital service, test it with NVDA (free screen reader) and keyboard-only navigation. Can a user complete the full workflow (search, select, pay, confirm) without a mouse? If not, the platform is not accessible. This 30-minute test can save months of complaints.',
+      priority: 1
+    },
+    {
+      icon: 'FileText',
+      text: 'Request a VPAT or accessibility conformance report from every digital platform provider.',
+      detail: 'A Voluntary Product Accessibility Template (VPAT) documents a product\'s WCAG conformance level. Ask for it during procurement. If the vendor cannot provide one, that is a red flag. Compare VPATs between competing products to choose the most accessible option.',
+      priority: 2
+    },
+    {
+      icon: 'ClipboardList',
+      text: 'Include WCAG 2.1 AA conformance as a mandatory requirement in digital procurement.',
+      detail: 'Add a standard clause to all digital procurement: "The platform must conform to WCAG 2.1 Level AA. The vendor must provide a current VPAT or accessibility conformance report and commit to remediating identified issues within agreed timeframes." Make it a weighted evaluation criterion, not just a checkbox.',
+      priority: 3
+    },
+    {
+      icon: 'Shield',
+      text: 'Audit franchise or brand website templates for WCAG compliance before distributing to franchisees.',
+      detail: 'If you provide website templates, booking widgets, or digital assets to franchisees or partner businesses, test them for WCAG 2.1 AA compliance first. Every franchisee site that uses your inaccessible template multiplies the barrier. Fix the template once and every site benefits.',
+      priority: 4
+    },
+    {
+      icon: 'AlertTriangle',
+      text: 'Provide an accessible alternative when a third-party platform is not accessible.',
+      detail: 'While working with the vendor to fix accessibility issues, offer an alternative: phone booking, email, or an accessible form on your own website. Publish this alternative prominently so customers who encounter barriers know how to complete their transaction.',
+      priority: 5
+    }
+  ],
+
+  howToCheck: {
+    title: 'Auditing digital platform and franchise accessibility',
+    steps: [
+      { text: 'List all third-party digital platforms your customers use: booking systems, event registration, payment portals, loyalty apps, franchise websites, etc.' },
+      { text: 'For each platform, check: does a current VPAT or accessibility conformance report exist? Request it from the vendor if not.' },
+      { text: 'Test the most critical customer-facing platform with keyboard-only navigation. Can you complete the full workflow (search, select, pay, confirm) without a mouse?' },
+      { text: 'Test the same platform with a screen reader (NVDA is free). Can you complete the full workflow? Are form labels, buttons, and error messages announced correctly?' },
+      { text: 'Run an automated accessibility scan (axe DevTools browser extension, free) on the platform. Note the number and severity of issues found.' },
+      { text: 'Review your digital procurement contracts. Do any include WCAG conformance requirements? If so, have they been verified?' },
+      { text: 'If you distribute franchise or brand templates, test one franchisee site built from the template against WCAG 2.1 AA.' },
+      { text: 'Check whether an accessible alternative (phone, email, accessible form) is published for any platform with known accessibility issues.' }
+    ],
+    tools: ['NVDA screen reader (free download)', 'axe DevTools browser extension (free)', 'Keyboard (no mouse)', 'VPAT documents from vendors', 'WCAG 2.1 AA checklist'],
+    estimatedTime: '1-2 hours'
+  },
+
+  standardsReference: {
+    primary: {
+      code: 'WCAG2.1-AA',
+      section: 'All success criteria',
+      requirement: 'WCAG 2.1 Level AA is the accepted standard for web accessibility in Australia. All customer-facing digital platforms, whether built in-house or provided by third parties, should conform to this standard.'
+    },
+    related: [
+      { code: 'DDA', relevance: 'Section 24: Digital services provided to the public are covered. The DDA applies to websites, apps, and digital platforms regardless of who built or hosts them.' }
+    ],
+    plainEnglish: 'Digital platforms your customers use must be accessible. This means they work with screen readers, keyboard navigation, and assistive technology. Ask vendors for proof of accessibility (VPAT), test platforms yourself, and include accessibility in contracts.',
+    complianceNote: 'The AHRC has accepted complaints about inaccessible third-party platforms used by Australian organisations. The organisation offering the service to customers is responsible for the platform\'s accessibility, not just the vendor who built it.'
+  },
+
+  solutions: [
+    {
+      title: 'Test key platforms and request VPATs',
+      description: 'Conduct basic accessibility testing of your most critical customer-facing platforms and request conformance documentation from vendors.',
+      resourceLevel: 'low',
+      costRange: '$0-500',
+      timeRequired: '2-4 hours',
+      implementedBy: 'staff',
+      impact: 'quick-win',
+      steps: [
+        'Identify your top 3 customer-facing digital platforms (booking, registration, payment).',
+        'Test each with keyboard-only navigation: tab through the full workflow and note any barriers.',
+        'Run the axe DevTools browser extension on each platform and export the report.',
+        'Email each vendor requesting a current VPAT or accessibility conformance report.',
+        'If critical barriers are found, publish an accessible alternative (phone number, email, accessible form) on your website immediately.',
+        'Document findings and share with your procurement team for future contract discussions.'
+      ]
+    },
+    {
+      title: 'Accessibility requirements in procurement and platform audit',
+      description: 'Embed WCAG requirements in procurement processes and conduct a structured audit of all customer-facing platforms.',
+      resourceLevel: 'medium',
+      costRange: '$2,000-10,000',
+      timeRequired: '2-4 weeks',
+      implementedBy: 'staff',
+      impact: 'moderate',
+      steps: [
+        'Draft a standard digital accessibility clause for all procurement contracts requiring WCAG 2.1 AA conformance, VPAT provision, and remediation commitments.',
+        'Conduct a structured accessibility audit of all customer-facing platforms using a WCAG 2.1 AA checklist.',
+        'Engage a screen reader user (paid tester or disability organisation) to test the most critical platform end-to-end.',
+        'Score each platform and prioritise remediation based on customer impact and contract timing.',
+        'Negotiate accessibility remediation plans with vendors of non-conformant platforms.',
+        'If distributing franchise templates, commission a WCAG audit of the template and fix all Level A and AA failures.',
+        'Add digital accessibility to the agenda of quarterly vendor performance reviews.'
+      ],
+      notes: 'Testing with real assistive technology users reveals issues that automated tools miss. Budget for paid user testing alongside automated scanning.'
+    },
+    {
+      title: 'WCAG-compliant platform procurement program',
+      description: 'Formal program ensuring all digital platforms meet WCAG 2.1 AA, with ongoing monitoring, vendor accountability, and franchise template governance.',
+      resourceLevel: 'high',
+      costRange: '$15,000-50,000',
+      timeRequired: '2-3 months',
+      implementedBy: 'specialist',
+      impact: 'significant',
+      steps: [
+        'Engage an accessibility consultant to develop a digital procurement accessibility framework.',
+        'Mandate WCAG 2.1 AA conformance in all new digital procurement with minimum 15% weighting in tender evaluation.',
+        'Commission independent WCAG audits of all current customer-facing platforms.',
+        'Negotiate remediation roadmaps with vendors of non-conformant platforms, with contractual deadlines.',
+        'Establish annual WCAG re-certification requirement for all digital platform vendors.',
+        'If operating a franchise model, develop an accessible website template and require all franchisees to use it.',
+        'Implement continuous monitoring using automated accessibility scanning tools (e.g., Siteimprove, Level Access) across all platforms.',
+        'Create a digital accessibility register tracking conformance status, VPAT dates, and remediation progress for all platforms.',
+        'Report digital platform accessibility status in DIAP progress reports.'
+      ],
+      notes: 'Continuous monitoring tools cost $5,000-20,000 per year but catch regressions introduced by platform updates. Essential for organisations with many digital touchpoints.'
+    }
+  ],
+
+  examples: [
+    { businessType: 'accommodation', businessTypeLabel: 'Hospitality Group', scenario: 'Booking engine provided by a major platform vendor was inaccessible to screen reader users. Complaints from blind travellers.', solution: 'Requested VPAT from vendor (none existed). Tested with NVDA and documented 23 WCAG failures. Negotiated a remediation plan in the contract renewal. Published phone booking alternative immediately.', outcome: 'Vendor fixed critical issues within 3 months. Phone bookings from customers with disability handled smoothly in the interim. Group now requires VPATs from all digital vendors.', cost: '$2,000', timeframe: '3 months' },
+    { businessType: 'event-venue', businessTypeLabel: 'Event Venue', scenario: 'Third-party event registration platform had an inaccessible date picker and payment form. Attendees with disability could not register online.', solution: 'Tested three alternative platforms and selected the most accessible. Added WCAG 2.1 AA requirement to the new contract. Published an accessible registration form on the venue website as a backup.', outcome: 'Online registration accessible to all. No more registration complaints. New platform vendor provides annual VPAT updates.', cost: '$500 (testing time)', timeframe: '2 weeks' },
+    { businessType: 'retail', businessTypeLabel: 'Franchise', scenario: 'Franchise website template provided to 50 locations had missing alt text, no keyboard navigation, and poor colour contrast. Every franchisee site was inaccessible.', solution: 'Commissioned a WCAG audit of the template. Fixed 35 issues in the core template. Pushed the updated template to all franchisee sites. Added WCAG compliance to the franchise agreement.', outcome: 'All 50 franchise websites now meet WCAG 2.1 AA baseline. Customer complaints about website accessibility dropped to zero.', cost: '$8,000', timeframe: '4 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Tourism Operator', scenario: 'Used three different third-party platforms: booking, reviews, and loyalty. None had been assessed for accessibility.', solution: 'Tested all three with keyboard and screen reader. Requested VPATs. Found the loyalty platform was the worst offender. Switched loyalty platforms and negotiated remediation plans for the other two.', outcome: 'All customer-facing digital touchpoints now assessed. Accessibility included in annual vendor review for all three platforms.', cost: '$3,000', timeframe: '1 month' }
+  ],
+
+  keywords: ['digital accessibility', 'WCAG', 'VPAT', 'booking platform', 'franchise', 'procurement', 'screen reader', 'keyboard navigation', 'third-party platform', 'vendor', 'template', 'DDA section 24']
 }
 
 ];

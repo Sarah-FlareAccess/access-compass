@@ -1,7 +1,7 @@
 /**
  * Help Content: During Visit (Consolidated)
- * Modules: 3.1, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 3.10
- * 40 entries covering all substantive questions using coveredQuestionIds pattern.
+ * Modules: 3.1, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 3.10, 3.11, 3.12
+ * 46 entries covering all substantive questions using coveredQuestionIds pattern.
  */
 
 import type { HelpContent } from './types';
@@ -5569,6 +5569,1025 @@ export const duringVisitHelp: HelpContent[] = [
     { title: 'Accessible E-commerce Guide', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Guidance on making online shopping accessible.', isAustralian: true, isFree: true }
   ],
   keywords: ['delivery', 'click-and-collect', 'online shopping', 'phone ordering', 'returns', 'alternative channels', 'e-commerce', 'WCAG']
+},
+
+// ─── MODULE 3.11: Outdoor spaces and grounds ────────────────────────────
+
+// ─── Entry: Outdoor paths and step-free access ───
+{
+  questionId: '3.11-PC-1',
+  questionText: 'Are outdoor paths of travel firm, level, and slip-resistant?',
+  moduleCode: '3.11',
+  moduleGroup: 'during-visit',
+  diapCategory: 'physical-access',
+  title: 'Outdoor paths and step-free access',
+  coveredQuestionIds: ['3.11-PC-6', '3.11-D-1', '3.11-D-3', '3.11-D-6', '3.11-D-11'],
+  summary: 'Accessible outdoor paths with firm, level surfaces, adequate widths, tactile indicators, and step-free routes between zones ensure people with mobility impairments, vision impairments, and those using wheeled devices can navigate your grounds safely and independently.',
+  lastUpdated: '2026-03-31',
+
+  whyItMatters: {
+    text: 'Outdoor areas are often the first point of failure for accessibility. Loose gravel, uneven paving, narrow garden paths, and steps between zones exclude wheelchair users, people with walking frames, parents with prams, and people with vision impairments. If a visitor cannot get from the car park to the beer garden, the picnic area, or the lookout, the rest of your accessibility work is wasted. Maintaining path surfaces is equally important: tree roots lifting pavers, moss on shaded paths, and seasonal leaf litter all create trip and fall hazards that disproportionately affect people with disability.',
+    statistic: {
+      value: '2.1 million',
+      context: 'Australians use mobility aids including wheelchairs, scooters, walking frames, and canes. All require firm, level surfaces to travel safely outdoors.',
+      source: 'ABS Survey of Disability, Ageing and Carers 2018'
+    },
+    quote: {
+      text: 'The brochure said the gardens were accessible. When we arrived, the path was crushed gravel that my wheelchair sank into after 10 metres. We had to turn back.',
+      attribution: 'Wheelchair user, online accessibility review'
+    }
+  },
+
+  tips: [
+    {
+      icon: 'Accessibility',
+      text: 'Ensure all primary paths are at least 1200mm wide (1800mm preferred) with a firm, slip-resistant surface.',
+      detail: 'Acceptable surfaces include concrete, asphalt, compacted decomposed granite with binder, or resin-bound gravel. Loose gravel, sand, bark chips, and grass are not accessible. Where decorative surfaces are used for aesthetics, provide a parallel accessible path clearly marked.',
+      measurement: { target: '1200mm minimum width', acceptable: '1800mm for two-way traffic', unit: 'mm' },
+      priority: 1
+    },
+    {
+      icon: 'ArrowRight',
+      text: 'Provide step-free connections between all outdoor zones.',
+      detail: 'Where level changes exist, install ramps with a maximum gradient of 1:14 (AS 1428.1 clause 10), handrails on both sides, and landings at top and bottom. Short ramps under 190mm rise may use 1:8 gradient. Every area visitors are expected to access must have a step-free route.',
+      priority: 2
+    },
+    {
+      icon: 'Eye',
+      text: 'Install tactile ground surface indicators (TGSIs) at path hazards, ramp approaches, and stair tops.',
+      detail: 'Warning TGSIs (truncated domes, 300mm deep) at the top and bottom of ramps and stairs, and at path edges where there is a drop. Directional TGSIs (elongated bars) to guide people along paths to key destinations. Colour contrast TGSIs against the surrounding surface with a minimum 30% luminance contrast.',
+      priority: 3
+    },
+    {
+      icon: 'Target',
+      text: 'Keep landscaping trimmed to maintain a clear path of travel: minimum 2000mm overhead, no encroachment from sides.',
+      detail: 'Overhanging branches at face height are dangerous for people with vision impairments who cannot see them with a cane. Side vegetation that narrows the path below 1200mm forces wheelchair users off the path. Schedule monthly checks during growing season.',
+      priority: 4
+    },
+    {
+      icon: 'ClipboardList',
+      text: 'Establish a maintenance schedule to inspect path surfaces, drainage, and vegetation clearance.',
+      detail: 'Check for cracked or lifted pavers, tree root damage, moss or algae growth, ponding water, and leaf litter buildup. After storms, inspect paths before opening to the public. Keep a log of inspections and repairs.',
+      priority: 5
+    },
+    {
+      icon: 'MapPin',
+      text: 'Provide clear wayfinding signage at path junctions showing accessible routes.',
+      detail: 'Use the International Symbol of Access and directional arrows. Include distance and gradient information so visitors can judge whether the route is manageable for them. Raised tactile signs and Braille at decision points benefit people with vision impairments.',
+      priority: 6
+    }
+  ],
+
+  howToCheck: {
+    title: 'Auditing outdoor paths and step-free access',
+    steps: [
+      {
+        text: 'Walk or wheel every path visitors use, from car park and entrance to all outdoor zones (garden, picnic area, playground, lookout, etc.).',
+        measurement: { target: 'Path width', acceptable: 'Minimum 1200mm clear width, 1800mm for two-way', unit: 'mm' }
+      },
+      {
+        text: 'Test surface firmness: push a loaded wheelchair or pram along each path. If wheels sink more than 5mm, the surface is not accessible.',
+        measurement: { target: 'Surface deflection', acceptable: 'Less than 5mm under wheel load', unit: 'mm' }
+      },
+      {
+        text: 'Measure the gradient of all sloped paths using a digital inclinometer or spirit level.',
+        measurement: { target: 'Path gradient', acceptable: 'Maximum 1:20 for paths, 1:14 for ramps (AS 1428.1 cl.10)', unit: 'ratio' }
+      },
+      {
+        text: 'Measure the cross-fall (side-to-side slope) of all paths.',
+        measurement: { target: 'Cross-fall', acceptable: 'Maximum 1:40 (2.5%)', unit: 'ratio' }
+      },
+      { text: 'Identify every level change and check whether a step-free alternative (ramp or lift) exists. Note any zones that cannot be reached step-free.' },
+      { text: 'Check ramp handrails: present on both sides, 865-1000mm height, extend 300mm beyond top and bottom landings, graspable circular profile 30-50mm diameter (AS 1428.1 clause 12).' },
+      { text: 'Inspect TGSIs at hazards: warning indicators at stair tops, ramp approaches, and drop-offs. Directional indicators along key routes. Check for damage, wear, or colour fading.' },
+      { text: 'Measure overhead clearance along all paths. Check for low-hanging branches, signs, or structures below 2000mm.' },
+      { text: 'Review maintenance records for path surface repairs, vegetation trimming, and drainage clearing over the last 12 months.' }
+    ],
+    tools: ['Tape measure (5m)', 'Digital inclinometer or spirit level', 'Wheelchair or loaded pram for surface testing', 'Camera for documentation', 'Site map for marking routes'],
+    estimatedTime: '45-90 minutes depending on site size'
+  },
+
+  standardsReference: {
+    primary: {
+      code: 'AS1428.1',
+      section: 'Clauses 6, 7, 10, 12',
+      requirement: 'Continuous accessible path of travel: minimum 1200mm wide, firm and slip-resistant surface, maximum gradient 1:14 for ramps with handrails both sides, landings at intervals not exceeding 9m, cross-fall maximum 1:40.'
+    },
+    related: [
+      { code: 'AS1428.4.1', relevance: 'Requirements for tactile ground surface indicators at hazards, stairs, ramps, and along pedestrian paths.' },
+      { code: 'DDA', relevance: 'Section 23: Unlawful to discriminate in access to premises. Outdoor areas open to the public are covered.' }
+    ],
+    plainEnglish: 'All paths visitors use outdoors must be wide enough for a wheelchair, have a firm non-slip surface, and connect all areas without steps. Where levels change, ramps with handrails are required. Tactile indicators warn people with vision impairments about hazards.',
+    complianceNote: 'AHRC Advisory Notes on streetscape and outdoor areas clarify that the DDA applies to outdoor spaces open to the public, not just buildings. Council parks, commercial beer gardens, hotel grounds, and tourist attractions are all covered.'
+  },
+
+  solutions: [
+    {
+      title: 'Path audit and quick-fix signage',
+      description: 'Audit all outdoor paths for accessibility barriers, mark accessible routes, and address immediate hazards.',
+      resourceLevel: 'low',
+      costRange: '$200-1,000',
+      timeRequired: '1-2 days',
+      implementedBy: 'staff',
+      impact: 'quick-win',
+      steps: [
+        'Walk all paths with a tape measure and inclinometer, noting width, surface, gradient, and hazards.',
+        'Trim vegetation encroaching on paths to restore 1200mm clear width and 2000mm overhead clearance.',
+        'Mark accessible routes with directional signage using the International Symbol of Access.',
+        'Place temporary warning signs at known hazards (uneven surfaces, steep grades) while planning permanent fixes.',
+        'Create a simple path map showing accessible routes and share with visitors at reception or online.',
+        'Schedule monthly path inspections and record findings.'
+      ]
+    },
+    {
+      title: 'Path widening, ramps, and TGSI installation',
+      description: 'Widen key paths to 1800mm, install ramps at level changes, and add tactile indicators at hazards.',
+      resourceLevel: 'medium',
+      costRange: '$5,000-30,000',
+      timeRequired: '2-6 weeks',
+      implementedBy: 'contractor',
+      impact: 'moderate',
+      steps: [
+        'Commission an access consultant to survey all outdoor paths and prioritise improvements.',
+        'Widen primary paths to 1800mm and resurface with firm, slip-resistant material (concrete or resin-bound aggregate).',
+        'Install ramps at level changes: maximum 1:14 gradient, handrails both sides, landings at top and bottom.',
+        'Install TGSIs at all stair approaches, ramp approaches, and path edges adjacent to drop-offs.',
+        'Improve drainage to prevent water pooling on accessible paths.',
+        'Install wayfinding signage at all path junctions with distance and gradient information.',
+        'Test completed paths with wheelchair users before reopening.'
+      ],
+      notes: 'Costs vary significantly with site size and terrain. Heritage-listed sites may require heritage-compatible materials.'
+    },
+    {
+      title: 'Full outdoor access redesign',
+      description: 'Comprehensive redesign of all outdoor paths, zones, and connections to create a fully accessible landscape.',
+      resourceLevel: 'high',
+      costRange: '$50,000-250,000+',
+      timeRequired: '3-6 months',
+      implementedBy: 'specialist',
+      impact: 'significant',
+      steps: [
+        'Engage a landscape architect with accessibility expertise and an access consultant.',
+        'Conduct a full site survey including topography, existing infrastructure, and desire lines.',
+        'Develop an accessible landscape masterplan with step-free routes to every public zone.',
+        'Specify accessible materials: exposed aggregate concrete, resin-bound gravel, or similar firm surfaces.',
+        'Design ramps, landings, and rest areas integrated into the landscape rather than as add-ons.',
+        'Install comprehensive wayfinding including tactile maps, Braille signage, and audio beacons at key locations.',
+        'Include accessible features as standard: kerb ramps at all crossings, tactile indicators throughout, edge protection at drop-offs.',
+        'Commission post-construction access audit and address any defects before opening.'
+      ],
+      notes: 'Consider universal design from the outset. Paths designed for wheelchair access also benefit older adults, parents with prams, and delivery staff.'
+    }
+  ],
+
+  examples: [
+    { businessType: 'restaurant-cafe', businessTypeLabel: 'Pub Beer Garden', scenario: 'Beer garden connected by a gravel path and three steps from the main building. Wheelchair users could not access the outdoor dining area.', solution: 'Replaced gravel path with compacted decomposed granite with resin binder (1500mm wide). Installed a 1:12 ramp with stainless steel handrails bypassing the steps. Added TGSI warning indicators at the ramp top and bottom.', outcome: 'Beer garden now fully accessible. Weekend outdoor dining revenue increased 15% with broader customer base.', cost: '$12,000', timeframe: '2 weeks' },
+    { businessType: 'local-government', businessTypeLabel: 'Council Park', scenario: 'Main park paths were 900mm wide with uneven brick paving. No accessible route to the lake lookout or playground.', solution: 'Widened main paths to 1800mm with exposed aggregate concrete. Installed ramps at three level changes. Added directional TGSIs along the main circuit and wayfinding signs at every junction.', outcome: 'Park usage by people with disability increased significantly. Won local government accessibility award.', cost: '$85,000', timeframe: '3 months' },
+    { businessType: 'attraction', businessTypeLabel: 'Tourist Attraction', scenario: 'Heritage garden with 200-year-old paths. Cobblestones and steep grades made most areas inaccessible.', solution: 'Installed a parallel accessible path network using heritage-compatible resin-bound gravel. Built boardwalks over the steepest sections. Added tactile maps at the entrance showing accessible routes.', outcome: 'Accessibility complaints dropped to zero. Visitor numbers up 20%, partly from tour groups that previously bypassed the venue.', cost: '$120,000', timeframe: '4 months' },
+    { businessType: 'accommodation', businessTypeLabel: 'Hotel Grounds', scenario: 'Accessible rooms available but no accessible path from the lobby to the pool, spa, or garden restaurant.', solution: 'Resurfaced garden paths with non-slip concrete pavers (1500mm wide). Installed gentle ramps at level changes and handrails along the steepest sections. Added solar-powered path lighting for evening access.', outcome: 'Guests with disability can now access all outdoor amenities. Positive reviews specifically mention garden accessibility.', cost: '$35,000', timeframe: '3 weeks' }
+  ],
+
+  keywords: ['outdoor paths', 'step-free access', 'ramps', 'TGSIs', 'tactile indicators', 'path surface', 'gravel', 'wheelchair access', 'handrails', 'gradient', 'wayfinding', 'landscaping', 'vegetation clearance', 'maintenance']
+},
+
+// ─── Entry: Outdoor seating, shade, and amenities ───
+{
+  questionId: '3.11-PC-2',
+  questionText: 'Is there accessible seating available in outdoor areas?',
+  moduleCode: '3.11',
+  moduleGroup: 'during-visit',
+  diapCategory: 'physical-access',
+  title: 'Outdoor seating, shade, and amenities',
+  coveredQuestionIds: ['3.11-PC-3', '3.11-PC-4', '3.11-PC-5', '3.11-D-2', '3.11-D-4', '3.11-D-5', '3.11-D-7', '3.11-D-8', '3.11-D-9', '3.11-D-12', '3.11-D-13'],
+  summary: 'Outdoor spaces need more than accessible paths. Visitors need seating they can use, shade to prevent overheating, lighting for safety, rest areas along longer routes, accessible drinking fountains, clear signage, sensory-considerate zones, accessible dining furniture, nearby toilets, usable BBQ and picnic facilities, and information in multiple formats.',
+  lastUpdated: '2026-03-31',
+
+  whyItMatters: {
+    text: 'Getting to an outdoor space is only half the equation. If a wheelchair user reaches the picnic area but every table has fixed bench seats, they cannot sit down. If there is no shade, people with heat sensitivity (common with multiple sclerosis, some medications, and many chronic conditions) cannot stay. If lighting is poor, people with low vision cannot navigate safely after dusk. If the nearest toilet is 500 metres away and not accessible, the visit is effectively time-limited. Every amenity that is not accessible becomes a reason to leave early or not come at all.',
+    statistic: {
+      value: '1 in 3',
+      context: 'Australians over 65 have a disability. Outdoor amenities like shade, seating with back support, and nearby accessible toilets directly affect whether older Australians can enjoy public and commercial outdoor spaces.',
+      source: 'ABS Survey of Disability, Ageing and Carers 2018'
+    },
+    quote: {
+      text: 'The park was beautiful but there was nowhere to sit in the shade, no accessible toilet, and the picnic tables all had fixed benches my wheelchair could not get under. We left after 20 minutes.',
+      attribution: 'Wheelchair user, disability advocacy forum'
+    }
+  },
+
+  tips: [
+    {
+      icon: 'Accessibility',
+      text: 'Provide picnic tables and dining settings where at least one end is open for wheelchair access.',
+      detail: 'A wheelchair-accessible table has a clear space of 800mm wide by 1200mm deep under the table surface, with a table height of 750-850mm. At least 20% of outdoor dining tables should be wheelchair accessible. Settings with removable or fold-down bench seats work well.',
+      priority: 1
+    },
+    {
+      icon: 'Shield',
+      text: 'Install shade structures over accessible seating areas and along primary paths.',
+      detail: 'Shade is a medical necessity for people with heat sensitivity, not just a comfort feature. Permanent structures (pergolas, shade sails) are more reliable than trees alone. Position shade over wheelchair-accessible tables, rest seats, and drinking fountains.',
+      priority: 2
+    },
+    {
+      icon: 'Eye',
+      text: 'Ensure outdoor lighting provides even illumination along paths and at amenity areas.',
+      detail: 'Minimum 40 lux along paths, 80 lux at seating and amenity areas. Avoid pools of light with dark gaps between them, as the contrast makes it harder for people with low vision to adapt. Solar-powered bollard lights work well for paths.',
+      priority: 3
+    },
+    {
+      icon: 'Users',
+      text: 'Provide rest seats with backs and armrests every 60 metres along longer paths.',
+      detail: 'People with chronic pain, fatigue conditions, or limited stamina need regular rest stops. Seats should have a firm seat at 450-500mm height, a backrest, and at least one armrest to assist standing up. Position them on a firm, level pad connected to the path.',
+      measurement: { target: 'Seat spacing', acceptable: 'Maximum 60m apart on primary paths', unit: 'm' },
+      priority: 4
+    },
+    {
+      icon: 'MapPin',
+      text: 'Install accessible drinking fountains with a wheelchair-height spout and a bottle filler.',
+      detail: 'Provide at least one drinking fountain at 750-800mm spout height with a lever or push-button control that requires minimal grip strength. Include a bottle filler at 900-1100mm height. Position on a firm, level pad with 1200mm clear approach.',
+      priority: 5
+    },
+    {
+      icon: 'FileText',
+      text: 'Provide outdoor information in multiple formats: large print, high contrast signage, tactile maps, and QR codes linking to audio or digital guides.',
+      detail: 'Interpretive signs should have text in minimum 18pt sans-serif font with high contrast (light text on dark background or vice versa). QR codes linking to audio descriptions or Auslan video guides extend access to people with vision or cognitive impairments.',
+      priority: 6
+    }
+  ],
+
+  howToCheck: {
+    title: 'Auditing outdoor seating, shade, and amenities',
+    steps: [
+      {
+        text: 'Count outdoor dining and picnic settings. How many have wheelchair-accessible clear space (800mm wide x 1200mm deep, 750-850mm table height)?',
+        measurement: { target: 'Accessible settings', acceptable: 'Minimum 20% of total outdoor settings', unit: '%' }
+      },
+      {
+        text: 'Check shade coverage over accessible seating areas. Is there permanent shade (structure or dense tree canopy) over accessible tables and rest seats?'
+      },
+      {
+        text: 'Measure lighting levels along paths and at amenity areas after dark using a light meter app.',
+        measurement: { target: 'Path lighting', acceptable: 'Minimum 40 lux paths, 80 lux amenity areas', unit: 'lux' }
+      },
+      {
+        text: 'Measure the distance between rest seats along primary paths.',
+        measurement: { target: 'Rest seat spacing', acceptable: 'Maximum 60m apart', unit: 'm' }
+      },
+      { text: 'Test each rest seat: does it have a backrest, at least one armrest, and firm seat at 450-500mm height? Is it on a level, firm surface connected to the path?' },
+      { text: 'Check drinking fountains: wheelchair-height spout (750-800mm), lever or push control, firm level approach pad, and bottle filler.' },
+      { text: 'Locate the nearest accessible toilet from each main outdoor zone. Is it clearly signed, within 100m, and does it meet AS 1428.1 requirements?' },
+      { text: 'Check signage: large print (minimum 18pt), high contrast, positioned at 1000-1600mm height range, and available in alternative formats (tactile, QR code audio).' },
+      { text: 'Identify whether a quiet or low-sensory zone exists for visitors who experience sensory overload. Is it signed and accessible?' },
+      { text: 'Check BBQ and picnic facilities: can a wheelchair user operate the BBQ controls, reach the cooking surface, and sit at a nearby table?' }
+    ],
+    tools: ['Tape measure (5m)', 'Light meter app (smartphone)', 'Camera for documentation', 'Clipboard and site map'],
+    estimatedTime: '45-60 minutes'
+  },
+
+  standardsReference: {
+    primary: {
+      code: 'AS1428.2',
+      section: 'Clauses 6-16',
+      requirement: 'Enhanced and additional provisions for access: requirements for outdoor furniture, drinking fountains, signage, lighting, and rest areas in public spaces. Seating with armrests and back support, clear floor space at tables and counters.'
+    },
+    related: [
+      { code: 'DDA', relevance: 'Section 23: Outdoor areas and grounds open to the public are covered. Amenities within outdoor spaces must be accessible.' }
+    ],
+    plainEnglish: 'Outdoor amenities (seating, tables, fountains, BBQs, toilets, signage) must be usable by people with disability. This means wheelchair-accessible furniture, shade for heat-sensitive visitors, regular rest stops, and information in formats everyone can use.',
+    complianceNote: 'AS 1428.2 is not mandatory under the Premises Standards but represents best practice and is often referenced in DDA complaints about outdoor facilities. Providing these features demonstrates reasonable adjustment.'
+  },
+
+  solutions: [
+    {
+      title: 'Add accessible seating and shade basics',
+      description: 'Install wheelchair-accessible tables, shade over accessible areas, and rest seats along paths.',
+      resourceLevel: 'low',
+      costRange: '$500-3,000',
+      timeRequired: '1-3 days',
+      implementedBy: 'staff',
+      impact: 'quick-win',
+      steps: [
+        'Purchase 2-3 picnic tables with one open end for wheelchair access (or remove bench seat from one end of existing tables).',
+        'Install a portable shade sail or umbrella over at least one accessible table.',
+        'Place 2-3 bench seats with backs and armrests along primary paths at 60m intervals on firm, level pads.',
+        'Install at least one wheelchair-height drinking fountain or a portable water station.',
+        'Add large-print directional signs to the nearest accessible toilet from each outdoor zone.',
+        'Create a simple outdoor accessibility map and display it at the entrance.'
+      ]
+    },
+    {
+      title: 'Accessible furniture, lighting, and amenity upgrade',
+      description: 'Upgrade outdoor furniture, install path lighting, add sensory-considerate zones, and improve signage.',
+      resourceLevel: 'medium',
+      costRange: '$5,000-25,000',
+      timeRequired: '2-4 weeks',
+      implementedBy: 'contractor',
+      impact: 'moderate',
+      steps: [
+        'Replace 20% or more of outdoor settings with wheelchair-accessible designs (open-end tables, adjustable-height settings).',
+        'Install permanent shade structures over all accessible seating and amenity areas.',
+        'Install solar-powered bollard lighting along primary paths (minimum 40 lux) and brighter fixtures at amenity areas (80 lux).',
+        'Designate and sign a quiet zone with low-stimulation seating away from speakers, crowds, and strong smells.',
+        'Install accessible BBQ controls at 900-1100mm height with clear approach space.',
+        'Upgrade signage to large print, high contrast, with QR codes linking to audio descriptions.',
+        'Add tactile map at main entrance showing accessible facilities and routes.'
+      ]
+    },
+    {
+      title: 'Comprehensive outdoor amenity upgrade',
+      description: 'Full redesign of outdoor amenities for universal access, including accessible toilets, sensory gardens, and multi-format information.',
+      resourceLevel: 'high',
+      costRange: '$30,000-150,000+',
+      timeRequired: '2-4 months',
+      implementedBy: 'specialist',
+      impact: 'significant',
+      steps: [
+        'Engage a landscape architect and access consultant for a comprehensive amenity audit and design.',
+        'Install accessible toilet facilities within 100m of all major outdoor zones.',
+        'Design and build a sensory garden with tactile plants, scent zones, and accessible raised garden beds.',
+        'Install universally designed furniture throughout: height-adjustable tables, accessible BBQs, and inclusive play equipment.',
+        'Implement multi-format information system: large print signs, tactile maps, Braille labels, audio guides via app, and Auslan video interpretation via QR codes.',
+        'Install accessible emergency call points throughout outdoor areas.',
+        'Commission post-completion access audit and user testing with people with disability.'
+      ],
+      notes: 'Sensory gardens and multi-format information are excellent marketing assets that attract visitors with and without disability.'
+    }
+  ],
+
+  examples: [
+    { businessType: 'restaurant-cafe', businessTypeLabel: 'Outdoor Dining Venue', scenario: 'All outdoor tables had fixed bench seating. No shade over the accessible parking area. Menu only available on chalkboard.', solution: 'Replaced four tables with open-end accessible designs. Installed shade sails over accessible seating and the path from parking. Added large-print laminated menus and QR code for digital menu.', outcome: 'Bookings from customers with disability increased. Shade sails appreciated by all customers in summer.', cost: '$4,500', timeframe: '1 week' },
+    { businessType: 'attraction', businessTypeLabel: 'Botanic Garden', scenario: '2km walking trail with no rest seats, no shade structures, and interpretive signs in small print only.', solution: 'Installed rest seats with backs and armrests every 50m along the main trail. Added shade shelters at three key viewpoints. Upgraded interpretive signs to large print with QR codes linking to audio descriptions.', outcome: 'Visitor dwell time increased 40%. Older visitors and people with chronic fatigue can now complete the full trail.', cost: '$22,000', timeframe: '3 weeks' },
+    { businessType: 'recreation', businessTypeLabel: 'Sports Club', scenario: 'Outdoor spectator area had no accessible seating, no shade, and no accessible path to the canteen or toilets.', solution: 'Built a raised accessible viewing platform with shade and companion seating. Connected canteen and toilets with a paved accessible path. Installed accessible drinking fountain at the viewing area.', outcome: 'Members with disability can now watch matches comfortably. Club hired for accessible corporate events.', cost: '$18,000', timeframe: '2 weeks' },
+    { businessType: 'accommodation', businessTypeLabel: 'Caravan Park', scenario: 'Communal BBQ area had high-mounted controls, fixed bench seating, and no lighting after dark.', solution: 'Installed two accessible BBQs with controls at 1000mm height and clear approach space. Added three open-end picnic tables. Installed solar path lighting and a shade sail over the accessible BBQ area.', outcome: 'Guests with disability use BBQ facilities independently. Positive reviews on accessibility platforms.', cost: '$8,000', timeframe: '1 week' }
+  ],
+
+  keywords: ['outdoor seating', 'shade', 'lighting', 'rest seats', 'drinking fountains', 'accessible tables', 'picnic', 'BBQ', 'sensory zone', 'signage', 'toilets', 'outdoor dining', 'information formats']
+},
+
+// ─── Entry: Outdoor safety, emergencies, and maintenance ───
+{
+  questionId: '3.11-D-10',
+  questionText: 'Do emergency procedures cover outdoor areas, including evacuation routes that are accessible?',
+  moduleCode: '3.11',
+  moduleGroup: 'during-visit',
+  diapCategory: 'physical-access',
+  title: 'Outdoor safety, emergencies, and maintenance',
+  coveredQuestionIds: ['3.11-D-14'],
+  summary: 'Outdoor accessibility features are only effective if they are maintained and supported by emergency procedures. Regular inspections, seasonal maintenance schedules, and inclusive emergency planning ensure outdoor areas remain safe and accessible year-round.',
+  lastUpdated: '2026-03-31',
+
+  whyItMatters: {
+    text: 'Outdoor accessibility is not a set-and-forget project. Surfaces deteriorate, vegetation grows, weather damages infrastructure, and seasonal changes create new hazards. A ramp with moss is more dangerous than no ramp at all. A path blocked by fallen branches traps someone who relied on it to reach an exit. Emergency procedures that do not account for people in outdoor areas, including those who cannot hear alarms or move quickly, put visitors with disability at serious risk. Maintenance and emergency planning are where accessibility lives or dies over time.',
+    statistic: {
+      value: '35%',
+      context: 'of accessibility complaints to the Australian Human Rights Commission involve maintenance failures rather than original design, such as broken ramps, missing TGSIs, or overgrown paths.',
+      source: 'AHRC Annual Report data'
+    },
+    quote: {
+      text: 'The ramp was so slippery with moss I nearly tipped out of my chair. It obviously had not been cleaned in months. Accessible infrastructure that is not maintained is not accessible.',
+      attribution: 'Wheelchair user, council feedback submission'
+    }
+  },
+
+  tips: [
+    {
+      icon: 'AlertTriangle',
+      text: 'Include all outdoor zones in your emergency evacuation plan with accessible egress routes.',
+      detail: 'Map every outdoor area and identify accessible evacuation routes from each zone to a safe assembly point. Ensure no evacuation route relies solely on stairs. If the terrain makes accessible evacuation difficult, designate refuge points with communication devices where assistance can be summoned.',
+      priority: 1
+    },
+    {
+      icon: 'Shield',
+      text: 'Install emergency communication points in remote outdoor areas.',
+      detail: 'Visitors with disability may not be able to call for help on a mobile phone or walk to find assistance. Emergency call points, duress alarms, or two-way intercoms at key locations allow anyone to summon help. Ensure they are accessible (wheelchair-height button, visual and audible confirmation).',
+      priority: 2
+    },
+    {
+      icon: 'ClipboardList',
+      text: 'Create a seasonal maintenance checklist for all outdoor accessibility features.',
+      detail: 'Spring: trim vegetation, clear drainage, inspect TGSIs. Summer: check shade structures, repair heat-damaged surfaces. Autumn: clear leaf litter from paths and TGSIs, check lighting before earlier sunsets. Winter: treat moss and algae, repair storm damage, check slip resistance on wet surfaces.',
+      priority: 3
+    },
+    {
+      icon: 'Users',
+      text: 'Train outdoor staff and groundskeepers on accessibility maintenance priorities.',
+      detail: 'Groundskeepers need to understand which features are accessibility-critical: path widths, surface conditions, TGSI visibility, vegetation clearance heights, and drainage. A 30-minute briefing with a checklist ensures maintenance staff know what to look for.',
+      priority: 4
+    },
+    {
+      icon: 'Target',
+      text: 'Conduct post-storm inspections of all outdoor accessible paths and features before reopening.',
+      detail: 'Storms can lift pavers, block paths with debris, damage ramp handrails, and create ponding. Inspect all accessible routes after severe weather events before allowing public access. A quick 15-minute walk-through can prevent injuries.',
+      priority: 5
+    }
+  ],
+
+  howToCheck: {
+    title: 'Auditing outdoor safety and maintenance',
+    steps: [
+      { text: 'Review your emergency evacuation plan. Does it include every outdoor area visitors access? Are accessible egress routes mapped for each zone?' },
+      { text: 'Check whether emergency alarms or alerts are audible and visible from all outdoor areas. Can someone at the furthest outdoor point hear or see an evacuation alert?' },
+      { text: 'Locate emergency communication points. Are they within 100m of all outdoor zones, at wheelchair-accessible height (900-1100mm), and clearly signed?' },
+      { text: 'Review maintenance records for the past 12 months. Is there a documented schedule for path surface inspection, vegetation trimming, TGSI cleaning, and drainage clearing?' },
+      { text: 'Inspect all ramps and paths for moss, algae, leaf litter, cracked surfaces, or lifted pavers.' },
+      { text: 'Check that all TGSIs are intact, correctly coloured, and free of paint, dirt, or wear that reduces their detectability.' },
+      { text: 'Verify that staff with outdoor responsibilities have received accessibility maintenance training in the past 12 months.' },
+      { text: 'Simulate an emergency evacuation from the furthest outdoor zone. Can a wheelchair user reach the assembly point via the mapped accessible route within a reasonable time?' }
+    ],
+    tools: ['Emergency evacuation plan', 'Maintenance log', 'Camera for documentation', 'Stopwatch for evacuation simulation'],
+    estimatedTime: '30-45 minutes'
+  },
+
+  standardsReference: {
+    primary: {
+      code: 'DDA',
+      section: 'Section 23',
+      requirement: 'Premises open to the public must not discriminate. This includes maintaining accessibility features so they remain functional, and ensuring emergency procedures do not leave people with disability without a safe exit.'
+    },
+    related: [
+      { code: 'AS1428.1', relevance: 'Clause 6 requires continuous accessible paths of travel. Maintenance failures that break path continuity (damaged surfaces, blocked routes) create non-compliance.' }
+    ],
+    plainEnglish: 'You must keep outdoor accessible features working, not just build them. Emergency plans must include everyone in outdoor areas. If a ramp, path, or indicator breaks down, it needs prompt repair.',
+    complianceNote: 'AHRC Advisory Notes emphasise that ongoing maintenance of accessibility features is an obligation under the DDA. A facility that was compliant at construction but has deteriorated may be found discriminatory.'
+  },
+
+  solutions: [
+    {
+      title: 'Emergency signage and maintenance checklist',
+      description: 'Add emergency wayfinding to outdoor areas and establish a basic maintenance routine.',
+      resourceLevel: 'low',
+      costRange: '$200-800',
+      timeRequired: '1 day',
+      implementedBy: 'staff',
+      impact: 'quick-win',
+      steps: [
+        'Map accessible evacuation routes from each outdoor zone to the nearest assembly point.',
+        'Install emergency exit signs with directional arrows in outdoor areas.',
+        'Create a printed seasonal maintenance checklist for grounds staff covering paths, ramps, TGSIs, vegetation, and drainage.',
+        'Schedule monthly path inspections and record findings in a log.',
+        'Brief all outdoor staff on accessibility maintenance priorities (30-minute session).',
+        'Add post-storm inspection to your severe weather response procedure.'
+      ]
+    },
+    {
+      title: 'Staff training and scheduled inspections',
+      description: 'Implement formal maintenance schedules, staff training, and emergency communication in outdoor areas.',
+      resourceLevel: 'medium',
+      costRange: '$2,000-8,000',
+      timeRequired: '1-2 weeks',
+      implementedBy: 'staff',
+      impact: 'moderate',
+      steps: [
+        'Develop a formal outdoor accessibility maintenance plan with seasonal schedules.',
+        'Install emergency communication points (intercoms or duress buttons) at key outdoor locations.',
+        'Extend the fire alarm or PA system to cover outdoor areas, or install visual alert beacons.',
+        'Train all grounds and outdoor staff on accessibility maintenance (2-hour session with practical walkthrough).',
+        'Create a rapid-response procedure for accessibility feature damage (target: repair within 48 hours or provide alternative).',
+        'Add outdoor areas to the quarterly accessibility audit checklist.',
+        'Document all maintenance activities in a digital log accessible to management.'
+      ]
+    },
+    {
+      title: 'Formal outdoor access management plan',
+      description: 'Comprehensive management system for outdoor accessibility including digital monitoring, contracted maintenance, and tested emergency procedures.',
+      resourceLevel: 'high',
+      costRange: '$10,000-30,000',
+      timeRequired: '1-2 months',
+      implementedBy: 'specialist',
+      impact: 'significant',
+      steps: [
+        'Engage an access consultant to develop a formal Outdoor Access Management Plan.',
+        'Install IoT sensors on critical paths to monitor surface conditions, drainage, and lighting.',
+        'Contract specialist maintenance for accessibility infrastructure (ramps, TGSIs, handrails) with defined response times.',
+        'Conduct full emergency evacuation drill including outdoor areas with volunteer wheelchair users.',
+        'Install refuge points with two-way communication in areas where accessible evacuation is complex.',
+        'Develop a digital asset register of all outdoor accessibility features with maintenance schedules and condition ratings.',
+        'Commission annual third-party access audit of all outdoor areas.',
+        'Integrate outdoor accessibility KPIs into organisational reporting.'
+      ],
+      notes: 'IoT monitoring and contracted maintenance provide the most consistent long-term outcomes but require ongoing budget allocation.'
+    }
+  ],
+
+  examples: [
+    { businessType: 'local-government', businessTypeLabel: 'Council Park', scenario: 'Multiple complaints about deteriorating accessible paths and broken TGSIs. No maintenance schedule. Emergency plan did not cover the park.', solution: 'Developed a seasonal maintenance checklist for grounds staff. Added the park to the emergency evacuation plan with accessible routes mapped. Installed two emergency call points. Contracted annual TGSI replacement.', outcome: 'Complaints dropped 80%. Grounds staff report issues proactively. Emergency drill showed all zones can be evacuated accessibly.', cost: '$6,000', timeframe: '2 weeks' },
+    { businessType: 'event-venue', businessTypeLabel: 'Outdoor Event Space', scenario: 'Temporary event infrastructure (staging, fencing, cabling) regularly blocked accessible paths. No post-event accessibility inspection.', solution: 'Created an event setup checklist requiring accessible path clearance verification. Trained event crew on accessibility requirements. Added post-event path inspection before reopening to the public.', outcome: 'No further path blockage complaints. Event accessibility improved. Crew now flag potential issues during setup.', cost: '$500', timeframe: '1 day' },
+    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Tropical grounds with rapid vegetation growth. Paths narrowed within weeks of trimming. Moss on shaded ramps caused a near-miss fall.', solution: 'Increased vegetation trimming frequency to fortnightly during growing season. Applied anti-slip treatment to all shaded ramps quarterly. Installed solar lighting along all accessible paths. Added weekly ramp inspection to housekeeping checklist.', outcome: 'Paths stay clear year-round. No further slip incidents on ramps. Guest satisfaction improved.', cost: '$3,500 per year', timeframe: 'Ongoing' }
+  ],
+
+  keywords: ['emergency evacuation', 'outdoor safety', 'maintenance', 'seasonal inspection', 'moss', 'TGSIs', 'alarm', 'staff training', 'post-storm', 'accessible egress']
+},
+
+// ─── MODULE 3.12: Playgrounds and play spaces ──────────────────────────
+
+// ─── Entry: Getting to the playground ───
+{
+  questionId: '3.12-PC-1',
+  questionText: 'Is there an accessible path of travel from the car park or entrance to the playground?',
+  moduleCode: '3.12',
+  moduleGroup: 'during-visit',
+  diapCategory: 'physical-access',
+  title: 'Getting to the playground',
+  coveredQuestionIds: ['3.12-PC-2', '3.12-D-5', '3.12-D-6', '3.12-D-12'],
+  summary: 'Before a child can play, their family needs to get there. Accessible paths to the playground, step-free entry, accessible ground surfaces within the play space, impact-attenuating surfaces that support wheeled mobility, caregiver access to all equipment zones, and clear entry signage are fundamental to inclusive play.',
+  lastUpdated: '2026-03-31',
+
+  whyItMatters: {
+    text: 'A playground that cannot be reached is a playground that excludes. Children with disability often rely on caregivers who also have disability, or who are pushing heavy adaptive equipment. Loose bark mulch, sand, and rubber crumb that is too deep or too soft prevent wheelchair access within the play space itself. Impact-attenuating surfaces are essential for safety, but they must also support wheeled mobility. If a caregiver in a wheelchair cannot get to the swing to assist their child, or a child using a walker cannot cross the surfacing to reach the slide, the playground fails at the most basic level.',
+    statistic: {
+      value: '1.3 million',
+      context: 'people in NSW live with a disability. The Everyone Can Play guideline was created because most playgrounds in Australia still have significant barriers to entry and movement within the play space.',
+      source: 'NSW Government, Everyone Can Play 2019'
+    },
+    quote: {
+      text: 'My daughter uses a walking frame. She can see the other kids playing from the path, but the mulch is so deep she cannot get across it to reach the equipment. She just watches.',
+      attribution: 'Parent, disability advocacy consultation'
+    }
+  },
+
+  tips: [
+    {
+      icon: 'Accessibility',
+      text: 'Connect the playground to car parks, paths, and entries with a continuous accessible path (minimum 1200mm wide, firm surface).',
+      detail: 'The accessible path from the nearest car park, bus stop, or pedestrian entry must be continuous, with no steps, lips, or loose surfaces. Gradient maximum 1:14 for ramps, 1:20 for general paths. The path should lead directly to the playground entry, not stop 20 metres away at the grass edge.',
+      priority: 1
+    },
+    {
+      icon: 'ArrowRight',
+      text: 'Use impact-attenuating surfaces that also support wheeled access within the play space.',
+      detail: 'Poured-in-place rubber, rubber tiles, and synthetic turf over shock pads meet both impact attenuation (AS 4422) and accessibility requirements. Loose-fill bark, sand, and pea gravel do not support wheelchair or walker movement. Where loose-fill is used for play value (sandpits), provide a firm-surface path to and around the loose-fill area.',
+      priority: 2
+    },
+    {
+      icon: 'Users',
+      text: 'Ensure caregivers using wheelchairs or mobility aids can reach every equipment zone within the playground.',
+      detail: 'A firm-surface path network within the playground connecting all equipment clusters allows caregivers to assist children at every piece of equipment. Minimum 1500mm width within the playground for two-way traffic (wheelchair and pram passing).',
+      priority: 3
+    },
+    {
+      icon: 'MapPin',
+      text: 'Install entry signage showing the playground layout, accessible features, and age-appropriate zones.',
+      detail: 'A tactile or raised-relief map at the entrance helps families plan their visit. Include the International Symbol of Access on accessible equipment and routes. Use pictograms alongside text for people with cognitive disability or low English literacy.',
+      priority: 4
+    },
+    {
+      icon: 'Shield',
+      text: 'Ensure playground entry gates and fencing are accessible: lever handles, minimum 1000mm clear opening, no raised thresholds.',
+      detail: 'Self-closing gates should have closers that operate slowly enough for a wheelchair to pass through (minimum 5 seconds closing time). Latches should be operable with one hand without tight grip. Raised thresholds at gates must be no higher than 5mm with bevelled edges.',
+      priority: 5
+    }
+  ],
+
+  howToCheck: {
+    title: 'Auditing playground access and surfacing',
+    steps: [
+      {
+        text: 'Trace the route from the nearest accessible car park space to the playground entry. Is the path continuous, firm, and at least 1200mm wide?',
+        measurement: { target: 'Path width', acceptable: 'Minimum 1200mm, 1800mm preferred', unit: 'mm' }
+      },
+      {
+        text: 'Measure the gradient of any sloped sections of the approach path.',
+        measurement: { target: 'Path gradient', acceptable: 'Maximum 1:20, ramps maximum 1:14', unit: 'ratio' }
+      },
+      {
+        text: 'At the playground entry, measure the gate clear opening width and check the latch operation.',
+        measurement: { target: 'Gate opening', acceptable: 'Minimum 1000mm clear', unit: 'mm' }
+      },
+      { text: 'Test the play surface: push a wheelchair or pram across the surfacing to every equipment cluster. Note areas where wheels sink, stick, or cannot traverse.' },
+      {
+        text: 'Check impact attenuation compliance: is the surfacing tested and certified to AS 4422 for the critical fall heights of adjacent equipment?',
+        measurement: { target: 'Critical fall height coverage', acceptable: 'Surfacing rated to or above equipment critical fall height', unit: 'm' }
+      },
+      { text: 'Map the internal path network. Can a caregiver in a wheelchair reach every equipment zone via a firm surface?' },
+      { text: 'Check entry signage: is there a playground map showing accessible features? Are pictograms used alongside text?' },
+      { text: 'Verify that accessible car park spaces are available within 50m of the playground, with clear sightlines for caregiver supervision.' }
+    ],
+    tools: ['Tape measure (5m)', 'Digital inclinometer', 'Wheelchair or loaded pram for surface testing', 'Camera for documentation', 'AS 4422 surface test results (from manufacturer or council)'],
+    estimatedTime: '30-45 minutes'
+  },
+
+  standardsReference: {
+    primary: {
+      code: 'AS1428.1',
+      section: 'Clauses 6, 7, 10',
+      requirement: 'Continuous accessible path of travel to and within public facilities: minimum 1200mm wide, firm and slip-resistant surface, maximum gradient 1:14 for ramps, step-free entry.'
+    },
+    related: [
+      { code: 'DDA', relevance: 'Section 23: Unlawful to discriminate in access to premises including playgrounds and public recreation areas.' },
+      { code: 'NCC', relevance: 'AS 4685 (Playground equipment) and AS 4422 (Playground surfacing) set safety requirements. Everyone Can Play (NSW) provides inclusive design guidance.' }
+    ],
+    plainEnglish: 'The path to the playground must be accessible (firm, wide, step-free). The surface inside the playground must be both safe (impact-attenuating) and accessible (firm enough for wheels). Caregivers with disability must be able to reach every part of the play space.',
+    complianceNote: 'Everyone Can Play (NSW Government, 2019) is the leading Australian guideline for inclusive playgrounds. While not mandatory nationally, it is increasingly referenced by councils and in DDA complaints as the benchmark for inclusive play.'
+  },
+
+  solutions: [
+    {
+      title: 'Path and edge improvements',
+      description: 'Connect the playground to existing paths and improve entry points for wheelchair access.',
+      resourceLevel: 'low',
+      costRange: '$500-3,000',
+      timeRequired: '1-3 days',
+      implementedBy: 'staff',
+      impact: 'quick-win',
+      steps: [
+        'Extend the nearest accessible path to the playground entry (concrete or compacted decomposed granite with binder).',
+        'Install a flush threshold at the playground gate (remove or bevel any raised lip to 5mm or less).',
+        'Adjust gate closer to allow minimum 5 seconds closing time.',
+        'Replace gate latch with a lever handle operable with one hand.',
+        'Lay temporary rubber mats on loose-fill surfacing to create a firm path from the entry to the closest equipment.',
+        'Install a simple entry sign with a playground map and accessibility information.'
+      ]
+    },
+    {
+      title: 'Accessible surfacing upgrade',
+      description: 'Replace loose-fill surfacing with poured-in-place rubber or rubber tiles and build internal accessible paths.',
+      resourceLevel: 'medium',
+      costRange: '$15,000-60,000',
+      timeRequired: '2-4 weeks',
+      implementedBy: 'contractor',
+      impact: 'moderate',
+      steps: [
+        'Commission a playground access audit (surfacing, paths, equipment reach, caregiver access).',
+        'Replace loose-fill bark or sand with poured-in-place rubber surfacing certified to AS 4422 for the critical fall heights present.',
+        'Build a firm-surface internal path network (minimum 1500mm wide) connecting all equipment clusters.',
+        'Install flush transitions between different surface types.',
+        'Upgrade entry gates to accessible standard (1000mm clear opening, lever latch, 5-second closer).',
+        'Install raised-relief playground map at entry showing accessible routes and features.',
+        'Test completed playground with families of children with disability.'
+      ],
+      notes: 'Poured-in-place rubber costs $80-150 per square metre installed, depending on depth and fall height requirements.'
+    },
+    {
+      title: 'Full inclusive playground redevelopment',
+      description: 'Complete playground redesign following Everyone Can Play principles with accessible surfacing, paths, equipment, and amenities.',
+      resourceLevel: 'high',
+      costRange: '$100,000-500,000+',
+      timeRequired: '3-6 months',
+      implementedBy: 'specialist',
+      impact: 'significant',
+      steps: [
+        'Engage a playground designer experienced in inclusive design and an access consultant.',
+        'Consult with families of children with disability, disability organisations, and occupational therapists.',
+        'Design to Everyone Can Play principles: Can I get there? Can I play? Can I stay?',
+        'Specify poured-in-place rubber throughout, certified to AS 4422 for all critical fall heights.',
+        'Design continuous accessible path network connecting car park, entry, all equipment zones, amenities, and exits.',
+        'Include accessible entry with automatic or push-button gate, flush thresholds, and tactile map.',
+        'Select inclusive equipment (see Module 3.12 Entry 2) with transfer platforms, ramps, and sensory elements.',
+        'Provide accessible amenities: toilets, seating, shade, water (see Module 3.12 Entry 3).',
+        'Commission post-construction access audit and user testing before opening.'
+      ],
+      notes: 'Everyone Can Play redevelopments typically attract significant community support and grant funding. Many councils have dedicated inclusive playground budgets.'
+    }
+  ],
+
+  examples: [
+    { businessType: 'local-government', businessTypeLabel: 'Council Playground', scenario: 'Existing playground had bark mulch surfacing and no path from the car park. Families with wheelchair-using children could not enter the play area.', solution: 'Extended concrete path from car park to a new accessible entry gate. Replaced bark mulch with poured-in-place rubber across the main play zone. Built internal paths to three equipment clusters.', outcome: 'Families with disability visit regularly. Playground became a destination for inclusive play groups.', cost: '$45,000', timeframe: '3 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'School', scenario: 'School playground accessible only via steps. Sand surfacing prevented wheelchair access to equipment.', solution: 'Built a ramp bypass to the steps. Installed rubber tiles in the main equipment zone. Added a firm path loop connecting all play areas. Upgraded gate to lever-handle with slow closer.', outcome: 'Students with mobility impairments participate in outdoor play for the first time. Reduced lunch supervision issues.', cost: '$28,000', timeframe: '2 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Tourist Attraction', scenario: 'Family-focused attraction with a playground that was an afterthought: small, fenced, with sand surfacing and no accessible features.', solution: 'Complete playground redevelopment using Everyone Can Play guidelines. Poured-in-place rubber surfacing, inclusive equipment, accessible entry, and internal path network. Added shade and accessible seating.', outcome: 'Playground became a key attraction feature. Families extend their visit by 1-2 hours. Positive media coverage.', cost: '$180,000', timeframe: '4 months' },
+    { businessType: 'recreation', businessTypeLabel: 'Community Centre', scenario: 'Community centre playground shared by daycare and public. No accessible surfacing, gate latch too high for wheelchair users.', solution: 'Resurfaced main play area with synthetic turf over shock pad. Lowered gate latch and added lever handle. Built a concrete path from the centre entrance through the playground.', outcome: 'Daycare can include children with physical disability in outdoor play. Public use increased on weekends.', cost: '$22,000', timeframe: '2 weeks' }
+  ],
+
+  keywords: ['playground access', 'play surface', 'rubber surfacing', 'impact attenuation', 'AS 4422', 'caregiver access', 'playground entry', 'gate', 'Everyone Can Play', 'wheelchair', 'path']
+},
+
+// ─── Entry: Inclusive play experiences ───
+{
+  questionId: '3.12-PC-3',
+  questionText: 'Does the playground include equipment that children with different abilities can use?',
+  moduleCode: '3.12',
+  moduleGroup: 'during-visit',
+  diapCategory: 'physical-access',
+  title: 'Inclusive play experiences',
+  coveredQuestionIds: ['3.12-PC-4', '3.12-D-1', '3.12-D-4', '3.12-D-7', '3.12-D-9', '3.12-D-10'],
+  summary: 'Inclusive play means every child can find something to do, regardless of ability. Equipment with transfer platforms, ramps, and ground-level entry points alongside sensory panels, musical instruments, water play, nature play, graduated challenge levels, and culturally connected design elements ensure the playground welcomes everyone.',
+  lastUpdated: '2026-03-31',
+
+  whyItMatters: {
+    text: 'A playground with only climbing frames and monkey bars excludes children who cannot grip, climb, or balance. Inclusive play is not about separate "accessible" equipment in a corner. It is about designing equipment clusters where children of all abilities play together. A child in a wheelchair should be able to use a ramp to reach the same platform as their friends, then choose between a slide, a sensory panel, or a speaking tube. A child with autism should find sensory-rich elements (music, water, texture) alongside quiet retreats. A child with vision impairment should encounter tactile wayfinding and high-contrast equipment. When play is inclusive, friendships form across ability, and every child develops confidence.',
+    statistic: {
+      value: '7.7%',
+      context: 'of Australian children aged 0-14 have a disability. In a typical school of 500 students, that is approximately 38 children who may face playground barriers.',
+      source: 'ABS Survey of Disability, Ageing and Carers 2018'
+    },
+    quote: {
+      text: 'My son has cerebral palsy. At our local playground, he sits in his chair and watches. At the inclusive playground in the next suburb, he plays alongside other kids on the ramped fort, the ground-level spinner, and the musical panels. He is a different child there.',
+      attribution: 'Parent, inclusive playground consultation'
+    }
+  },
+
+  tips: [
+    {
+      icon: 'Accessibility',
+      text: 'Include equipment with transfer platforms, ramps, and ground-level entry so children using wheelchairs can access elevated play.',
+      detail: 'Transfer platforms (minimum 350mm x 600mm) at the same height as wheelchair seats (450-500mm) allow children to transfer from their chair onto the equipment. Ramps to elevated platforms (maximum 1:8 gradient for short play ramps) allow children to wheel up. Ground-level spinners, rockers, and sensory panels require no transfer at all.',
+      priority: 1
+    },
+    {
+      icon: 'Eye',
+      text: 'Provide sensory play elements: musical instruments, tactile panels, sand and water play, and scented gardens.',
+      detail: 'Sensory play benefits children with autism, vision impairment, intellectual disability, and those who process the world through touch, sound, and smell. Outdoor drums, chimes, and xylophones encourage social play. Tactile panels with different textures and moving parts develop fine motor skills. Sand and water play is universally engaging when accessible.',
+      priority: 2
+    },
+    {
+      icon: 'Target',
+      text: 'Design graduated challenge so children can progress at their own pace.',
+      detail: 'Offer multiple ways to reach the same destination: stairs (hard), ramp (moderate), ground-level entry (easy). Provide swings at different heights. Include both high and low slides. Climbing walls with varied difficulty (vertical holds, angled walls, rope nets) allow children to attempt challenges when ready.',
+      priority: 3
+    },
+    {
+      icon: 'Users',
+      text: 'Include ground-level equipment that requires no climbing or transfer.',
+      detail: 'Ground-level spinners (flush-mounted dish spinners, merry-go-rounds with wheelchair bays), spring rockers with back support and harness points, and interactive panels at 600-1000mm height ensure children who cannot climb or transfer can still play actively alongside peers.',
+      priority: 4
+    },
+    {
+      icon: 'Shield',
+      text: 'Incorporate nature play and loose-parts play alongside fixed equipment.',
+      detail: 'Nature play (logs, boulders, sand, plants, water channels) is inherently inclusive because there is no right or wrong way to play. Children of all abilities can dig, pour, feel, and explore. Provide accessible raised garden beds (700mm height, knee clearance underneath) and accessible sand tables.',
+      priority: 5
+    },
+    {
+      icon: 'MapPin',
+      text: 'Include culturally connected design elements developed in consultation with local Aboriginal and Torres Strait Islander communities.',
+      detail: 'Play spaces that reflect local culture, Country, and stories are more meaningful for all children. Work with local Indigenous communities and artists to incorporate design elements, materials, and narratives. This is a requirement in the Everyone Can Play guideline for public playgrounds.',
+      priority: 6
+    }
+  ],
+
+  howToCheck: {
+    title: 'Auditing inclusive play equipment and experiences',
+    steps: [
+      { text: 'List all play equipment. For each piece, note: Can a child using a wheelchair access it? Can a child with vision impairment use it? Can a child with autism engage with it? Can a child with limited grip or strength use it?' },
+      {
+        text: 'Count equipment with transfer platforms. Measure platform height (should match wheelchair seat height).',
+        measurement: { target: 'Transfer platform height', acceptable: '450-500mm, matching wheelchair seat', unit: 'mm' }
+      },
+      { text: 'Count ground-level equipment items (spinners, rockers, sensory panels, sand/water play) that require no climbing or transfer.' },
+      { text: 'Identify sensory play elements: musical instruments, tactile panels, water play, sand play, scented plants. Are there at least 3 different types of sensory experience?' },
+      { text: 'Check for graduated challenge: can children reach the same platform via multiple routes of different difficulty (stairs, ramp, ground-level)?' },
+      { text: 'Look for nature play elements: logs, boulders, sand, water, plants. Are any accessible (raised beds, accessible sand tables)?' },
+      { text: 'Check whether cultural design elements are present and whether local Aboriginal and Torres Strait Islander communities were consulted in the design.' },
+      { text: 'Count the total equipment items and calculate the percentage that can be used by a child with limited mobility. Aim for at least 50%.' }
+    ],
+    tools: ['Tape measure', 'Camera for documentation', 'Equipment inventory checklist', 'Everyone Can Play guideline (NSW Government, free download)'],
+    estimatedTime: '30-45 minutes'
+  },
+
+  standardsReference: {
+    primary: {
+      code: 'NCC',
+      section: 'AS 4685 (Playground equipment safety)',
+      requirement: 'AS 4685 sets safety requirements for playground equipment. Everyone Can Play (NSW, 2019) provides the inclusive design framework: equipment should offer a range of experiences accessible to children of all abilities with sensory, physical, and social play opportunities.'
+    },
+    related: [
+      { code: 'DDA', relevance: 'Section 23: Public playgrounds must not discriminate. Equipment selection that excludes children with disability may breach the DDA.' }
+    ],
+    plainEnglish: 'Playground equipment should offer something for everyone. Include transfer platforms and ramps for wheelchair users, sensory elements for children with autism or vision impairment, ground-level options for those who cannot climb, and graduated challenge so all children can progress.',
+    complianceNote: 'Everyone Can Play is the primary Australian guideline for inclusive playgrounds. While it originated in NSW, it is used nationally by councils, designers, and in DDA complaint assessments. The "Can I play?" principle requires equipment diversity, not just a single accessible item.'
+  },
+
+  solutions: [
+    {
+      title: 'Add sensory panels and nature play elements',
+      description: 'Supplement existing equipment with sensory and nature play items that are inherently inclusive.',
+      resourceLevel: 'low',
+      costRange: '$1,000-5,000',
+      timeRequired: '1-3 days',
+      implementedBy: 'staff',
+      impact: 'quick-win',
+      steps: [
+        'Install 2-3 sensory panels (tactile, musical, visual) on existing fences or structures at 600-1000mm height.',
+        'Add nature play elements: a log balance beam at ground level, large smooth boulders for climbing and sitting, a sand play area with a raised accessible sand table.',
+        'Install an outdoor drum or chime set at wheelchair-accessible height.',
+        'Plant a small sensory garden adjacent to the playground with textured and scented plants in accessible raised beds.',
+        'Add high-contrast colour markings on existing equipment edges for children with low vision.'
+      ]
+    },
+    {
+      title: 'Inclusive equipment additions',
+      description: 'Add inclusive play equipment with transfer platforms, ground-level options, and sensory experiences.',
+      resourceLevel: 'medium',
+      costRange: '$15,000-50,000',
+      timeRequired: '2-4 weeks',
+      implementedBy: 'contractor',
+      impact: 'moderate',
+      steps: [
+        'Commission an inclusive play audit against Everyone Can Play guidelines.',
+        'Install a flush-mounted dish spinner or inclusive merry-go-round with wheelchair bay.',
+        'Add a ramped play structure with transfer platform, allowing wheelchair access to an elevated platform with slide.',
+        'Install a ground-level spring rocker with back support and harness attachment point.',
+        'Add a water play channel or table at wheelchair-accessible height (700mm).',
+        'Install a musical play area with accessible outdoor instruments.',
+        'Ensure new equipment is installed on accessible surfacing with firm-surface paths connecting to the main play area.'
+      ],
+      notes: 'Prioritise equipment that encourages social play between children with and without disability, rather than separate "accessible" items.'
+    },
+    {
+      title: 'Everyone Can Play-compliant playground redesign',
+      description: 'Full playground redesign to meet Everyone Can Play principles with comprehensive inclusive equipment, sensory zones, nature play, and cultural elements.',
+      resourceLevel: 'high',
+      costRange: '$150,000-500,000+',
+      timeRequired: '4-8 months',
+      implementedBy: 'specialist',
+      impact: 'significant',
+      steps: [
+        'Engage an inclusive playground designer and access consultant.',
+        'Consult with disability organisations, occupational therapists, families, and local Aboriginal and Torres Strait Islander communities.',
+        'Develop concept design addressing all Everyone Can Play principles: Can I get there? Can I play? Can I stay?',
+        'Specify equipment mix: 50% or more accessible to children with limited mobility, sensory play in every zone, graduated challenge throughout.',
+        'Include transfer platforms, ramps, and ground-level entry on all major structures.',
+        'Design dedicated sensory zone with musical instruments, tactile walls, water play, and nature elements.',
+        'Incorporate cultural design elements developed with local Indigenous communities.',
+        'Specify inclusive swings: harness swing, wheelchair-platform swing, and standard swings in one bay.',
+        'Commission post-construction inclusive play audit and user testing with children of varied abilities.'
+      ],
+      notes: 'Inclusive playground redevelopments are strong candidates for state and federal grant funding. Many councils have specific inclusive play budgets and strategies.'
+    }
+  ],
+
+  examples: [
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Existing playground had only climbing frames and standard swings. No equipment usable by children with limited mobility.', solution: 'Added a flush-mounted dish spinner, a ramped fort with transfer platform and slide, three sensory panels, and an outdoor drum set. Installed accessible surfacing around new equipment.', outcome: 'Children with disability visit weekly. Playground listed on disability-friendly venue apps. Community pride in the upgrade.', cost: '$42,000', timeframe: '3 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Tourism Venue', scenario: 'Family attraction with a basic playground. Families of children with disability left negative reviews.', solution: 'Redesigned playground with Everyone Can Play principles. Inclusive equipment, sensory garden, water play, and nature play. Cultural design elements developed with local Elders.', outcome: 'Playground featured in tourism accessibility guides. Family visit duration increased by 90 minutes on average. Award-winning design.', cost: '$280,000', timeframe: '5 months' },
+    { businessType: 'attraction', businessTypeLabel: 'School', scenario: 'Students with disability excluded from playground during breaks. Limited to a bench near the classroom.', solution: 'Installed ground-level inclusive equipment: dish spinner, spring rockers with back support, sensory panels, and an accessible sand table. Created a quiet retreat corner with seating.', outcome: 'All students participate in outdoor play. Social integration improved. Reduced behavioural incidents during breaks.', cost: '$18,000', timeframe: '2 weeks' },
+    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Family resort with a playground that was not inclusive. Guests with children with disability complained.', solution: 'Added a wheelchair-accessible merry-go-round, a ramped play structure, water play table, and sensory musical instruments. All on poured-in-place rubber surfacing.', outcome: 'Resort markets inclusive playground as a differentiator. Bookings from families with children with disability increased. Repeat visitors cite the playground as a key draw.', cost: '$55,000', timeframe: '3 weeks' }
+  ],
+
+  keywords: ['inclusive play', 'sensory play', 'transfer platform', 'ground-level play', 'nature play', 'musical instruments', 'water play', 'graduated challenge', 'Everyone Can Play', 'cultural design', 'autism', 'wheelchair play']
+},
+
+// ─── Entry: Staying at the playground ───
+{
+  questionId: '3.12-PC-5',
+  questionText: 'Is the playground fenced to prevent children from leaving unsupervised?',
+  moduleCode: '3.12',
+  moduleGroup: 'during-visit',
+  diapCategory: 'physical-access',
+  title: 'Staying at the playground',
+  coveredQuestionIds: ['3.12-PC-6', '3.12-PC-7', '3.12-D-2', '3.12-D-3', '3.12-D-8', '3.12-D-11'],
+  summary: 'Once families arrive and children start playing, they need reasons and support to stay. Secure fencing, comfortable caregiver seating with sightlines, shade, accessible toilets and water, quiet zones for sensory breaks, clear signage with universal symbols, well-maintained facilities, and bins all contribute to a play space where families can spend meaningful time.',
+  lastUpdated: '2026-03-31',
+
+  whyItMatters: {
+    text: 'The Everyone Can Play guideline asks "Can I stay?" because many families of children with disability leave playgrounds early. Fencing is critical for children who are runners (common with autism) or who have limited safety awareness. Caregivers need comfortable seating with clear sightlines to supervise. Without shade, children and caregivers with heat sensitivity must leave. Without accessible toilets nearby, visits are cut short. Without a quiet zone, a child experiencing sensory overload has nowhere to recover. Every missing amenity shortens the visit and reduces the value of the play space.',
+    statistic: {
+      value: '65%',
+      context: 'of parents of children with autism report that their child has a tendency to bolt or run from safe areas. Secure, accessible fencing is not optional for inclusive playgrounds.',
+      source: 'Autism CRC, 2020'
+    },
+    quote: {
+      text: 'Without a fence, I cannot let go of my son for a second. He runs. At fenced playgrounds, he can play freely and I can actually sit down. That is the difference between a 10-minute visit and an hour.',
+      attribution: 'Parent of child with autism, playground consultation'
+    }
+  },
+
+  tips: [
+    {
+      icon: 'Shield',
+      text: 'Install secure fencing around the full playground perimeter with self-closing, self-latching gates.',
+      detail: 'Fencing should be minimum 1200mm high with no footholds for climbing. Self-closing gates with child-resistant latches that are still operable by adults with limited hand function (lever or push-button, not twist-and-lift). If water features deeper than 300mm are present, AS 1926.1 pool fencing requirements apply: 1200mm fence with 1500mm non-climbable zone.',
+      priority: 1
+    },
+    {
+      icon: 'Users',
+      text: 'Provide caregiver seating with backs and armrests, positioned for clear sightlines across the play space.',
+      detail: 'At least one accessible seat (with back support, armrests, and adjacent wheelchair space) at every major equipment zone. Position seats so caregivers can see children at play. Include a mix of seating types: bench seats, individual chairs, and wheelchair companion spaces. Seat height 450-500mm with armrests to assist standing.',
+      priority: 2
+    },
+    {
+      icon: 'Target',
+      text: 'Install shade over at least 50% of the play area and all caregiver seating.',
+      detail: 'Shade sails, pergolas, or dense tree canopy protect against UV and reduce heat. Children with some conditions (epilepsy, multiple sclerosis) and those on certain medications are more heat-sensitive. Shade over equipment also extends the life of rubber surfacing and reduces surface temperatures that can cause burns.',
+      priority: 3
+    },
+    {
+      icon: 'Accessibility',
+      text: 'Ensure accessible toilets, drinking water, and bins are within 100m of the playground.',
+      detail: 'An accessible toilet with an adult change facility is the gold standard for inclusive playgrounds. At minimum, an accessible toilet meeting AS 1428.1 should be within 100m. A drinking fountain with wheelchair-height spout (750-800mm) and bottle filler within the fenced area extends visit duration significantly.',
+      priority: 4
+    },
+    {
+      icon: 'Eye',
+      text: 'Create a quiet zone or sensory retreat within or adjacent to the playground.',
+      detail: 'A small fenced area with low-stimulation seating, shade, and a visual barrier from the main play area gives children experiencing sensory overload a place to calm down without leaving the playground. Include soft seating or a hammock swing, muted colours, and no speakers or flashing elements.',
+      priority: 5
+    },
+    {
+      icon: 'MapPin',
+      text: 'Use clear signage with universal symbols, pictograms, and Braille at all entry points and facility areas.',
+      detail: 'Pictogram-based signage supports people with cognitive disability, low literacy, and those from non-English-speaking backgrounds. Include the International Symbol of Access, toilet symbols, drinking water symbols, and playground rules in both text and pictograms. Braille on key signs supports people with vision impairment.',
+      priority: 6
+    }
+  ],
+
+  howToCheck: {
+    title: 'Auditing playground stay amenities',
+    steps: [
+      {
+        text: 'Walk the full fence perimeter. Check height, condition, and absence of footholds.',
+        measurement: { target: 'Fence height', acceptable: 'Minimum 1200mm (1200mm with 1500mm non-climbable zone if water over 300mm deep)', unit: 'mm' }
+      },
+      { text: 'Test every gate: does it self-close, self-latch, and is the latch child-resistant but operable by an adult with limited hand function?' },
+      {
+        text: 'Count caregiver seats and check each for back support, armrests, and adjacent wheelchair space. Can a caregiver seated at each location see the main play areas?',
+        measurement: { target: 'Seat height', acceptable: '450-500mm with back support and armrests', unit: 'mm' }
+      },
+      { text: 'Estimate shade coverage over the play area. Is at least 50% of the play space shaded during peak use hours (10am-2pm)?' },
+      {
+        text: 'Measure the distance from the playground to the nearest accessible toilet.',
+        measurement: { target: 'Toilet distance', acceptable: 'Within 100m of playground', unit: 'm' }
+      },
+      { text: 'Check for drinking water within or immediately adjacent to the fenced area. Is it wheelchair-accessible (750-800mm spout height)?' },
+      { text: 'Look for a quiet zone or sensory retreat. Is it within or adjacent to the fenced area, with shade, comfortable seating, and low stimulation?' },
+      { text: 'Check signage at entry and facilities: are pictograms used alongside text? Is Braille present on key signs? Are playground rules displayed in plain language?' },
+      { text: 'Check for bins within the fenced area (general waste and recycling). Are they at accessible height (opening at 900-1100mm)?' },
+      { text: 'Review the maintenance schedule. Are play surfaces, equipment, fencing, and amenities inspected at least monthly?' }
+    ],
+    tools: ['Tape measure (5m)', 'Camera for documentation', 'Everyone Can Play guideline', 'Compass or sun position app for shade assessment'],
+    estimatedTime: '30-45 minutes'
+  },
+
+  standardsReference: {
+    primary: {
+      code: 'NCC',
+      section: 'Everyone Can Play (NSW, 2019), AS 1926.1 (pool fencing)',
+      requirement: 'Everyone Can Play "Can I stay?" principle requires shade, seating, toilets, water, quiet spaces, and fencing. AS 1926.1 applies to fencing around water features deeper than 300mm: 1200mm high barrier with non-climbable zone.'
+    },
+    related: [
+      { code: 'DDA', relevance: 'Section 23: Facilities associated with public playgrounds (toilets, seating, shade) must be accessible.' },
+      { code: 'AS1428.1', relevance: 'Accessible toilet requirements (clause 16), accessible path to facilities, accessible drinking fountains.' }
+    ],
+    plainEnglish: 'An inclusive playground needs more than equipment. Fencing keeps children safe. Shade, seating, toilets, water, and quiet areas let families stay. Signage with pictures and Braille ensures everyone understands the space. Maintenance keeps it all working.',
+    complianceNote: 'Pool fencing requirements under AS 1926.1 are legally mandated where water features exceed 300mm depth. Everyone Can Play "Can I stay?" provisions are best practice and increasingly referenced in council planning requirements and DDA assessments.'
+  },
+
+  solutions: [
+    {
+      title: 'Add fencing and seating basics',
+      description: 'Install perimeter fencing with accessible gates and add caregiver seating with sightlines.',
+      resourceLevel: 'low',
+      costRange: '$3,000-10,000',
+      timeRequired: '1-2 weeks',
+      implementedBy: 'contractor',
+      impact: 'quick-win',
+      steps: [
+        'Install 1200mm high perimeter fencing with no footholds (tubular steel or similar).',
+        'Fit self-closing, self-latching gates with child-resistant lever latches at all entry points.',
+        'Place 3-4 bench seats with backs and armrests at strategic sightline positions around the play area.',
+        'Ensure at least one seat has adjacent wheelchair companion space on a firm, level surface.',
+        'Install a simple shade sail over the main caregiver seating area.',
+        'Add a general waste bin and recycling bin inside the fenced area.'
+      ]
+    },
+    {
+      title: 'Shade, accessible facilities, and quiet zone',
+      description: 'Install comprehensive shade, accessible toilet access, drinking water, and a quiet retreat area.',
+      resourceLevel: 'medium',
+      costRange: '$15,000-50,000',
+      timeRequired: '2-4 weeks',
+      implementedBy: 'contractor',
+      impact: 'moderate',
+      steps: [
+        'Install shade structures (sails or pergolas) covering at least 50% of the play area and all seating.',
+        'Build or upgrade the nearest toilet to accessible standard (AS 1428.1), including adult change facility if space permits.',
+        'Install a drinking fountain with wheelchair-height spout and bottle filler inside the fenced area.',
+        'Create a quiet zone: small fenced alcove with shade, comfortable seating, hammock swing, and visual screen from the main play area.',
+        'Install pictogram-based signage at all entry points, toilets, water, and the quiet zone.',
+        'Add Braille labels to key signs.',
+        'Upgrade path connections from playground to toilet and car park.'
+      ],
+      notes: 'An adult change facility (height-adjustable change table, hoist, and privacy) transforms playground accessibility for families of older children with disability.'
+    },
+    {
+      title: 'Comprehensive stay infrastructure',
+      description: 'Full amenity package meeting Everyone Can Play "Can I stay?" principles with accessible facilities, shade, quiet zones, and inclusive design throughout.',
+      resourceLevel: 'high',
+      costRange: '$50,000-200,000+',
+      timeRequired: '2-4 months',
+      implementedBy: 'specialist',
+      impact: 'significant',
+      steps: [
+        'Engage a playground designer and access consultant to develop a comprehensive amenity plan.',
+        'Install premium shade structures covering 60% or more of the play area, all seating, and paths.',
+        'Build a dedicated accessible toilet and adult change facility within 50m of the playground.',
+        'Install an accessible drinking fountain, bottle filler, and dog bowl inside the fenced area.',
+        'Design a dedicated quiet zone with shade shelter, soft ground cover, hammock swing, sensory retreat elements, and visual/acoustic separation.',
+        'Implement comprehensive signage system: pictograms, large print, Braille, and QR codes linking to audio guide.',
+        'Install accessible picnic settings for families to eat and socialise.',
+        'Include a covered area (shelter or pavilion) for use during light rain.',
+        'Commission user testing with families of children with disability before finalising.'
+      ],
+      notes: 'The "Can I stay?" infrastructure often determines whether a playground becomes a destination or a brief stop. Investment in stay amenities has the highest impact on visit duration and repeat use.'
+    }
+  ],
+
+  examples: [
+    { businessType: 'local-government', businessTypeLabel: 'Council Park', scenario: 'Unfenced playground adjacent to a busy road. No shade, no accessible toilet within 500m. Average family visit: 20 minutes.', solution: 'Installed full perimeter fencing with accessible gates. Built a shade pavilion over seating and the main play zone. Installed accessible toilet block and drinking fountain. Created a quiet zone with hammock swing.', outcome: 'Average family visit now 75 minutes. Playground listed as a top inclusive play destination in the region.', cost: '$95,000', timeframe: '6 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Family Venue', scenario: 'Playground had fencing but no shade, no accessible toilet, and no quiet area. Families of children with autism reported leaving after sensory overload.', solution: 'Added shade sails over 60% of the play area. Built a quiet retreat room with dimmed lighting and soft furnishings. Upgraded nearest toilet to accessible with adult change table. Added pictogram signage throughout.', outcome: 'Families stay longer. Parents of children with autism report the quiet room is invaluable. Positive word-of-mouth in disability community.', cost: '$38,000', timeframe: '3 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'School', scenario: 'Playground unfenced. Children with autism regularly bolted toward the road. Staff constantly on high alert.', solution: 'Installed 1200mm tubular steel fencing with two self-closing gates. Added caregiver bench seats and a small quiet corner with a shade tree and bean bags.', outcome: 'All children play safely. Staff can supervise rather than chase. Fewer stressful incidents for children and staff.', cost: '$12,000', timeframe: '1 week' },
+    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Family resort playground had no shade (in tropical QLD), no drinking water, and fixed picnic tables that excluded wheelchair users.', solution: 'Installed large shade sails over the entire play area. Added a drinking fountain with wheelchair-height spout. Replaced two picnic settings with open-end accessible designs. Added bins and signage.', outcome: 'Playground usable all day, not just mornings and evenings. Guest satisfaction scores for family facilities improved by 25%.', cost: '$15,000', timeframe: '1 week' }
+  ],
+
+  keywords: ['fencing', 'shade', 'caregiver seating', 'accessible toilet', 'quiet zone', 'sensory retreat', 'drinking water', 'signage', 'pictograms', 'maintenance', 'Everyone Can Play', 'Can I stay']
 },
 
 ];
