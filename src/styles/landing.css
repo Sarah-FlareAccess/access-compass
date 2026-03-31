@@ -555,6 +555,25 @@
 }
 
 /* ============================================
+   PROBLEM SECTION
+   ============================================ */
+
+.problem-section {
+  background: var(--ivory-tusk);
+  padding: var(--spacing-xl) var(--spacing-md) 0;
+  text-align: center;
+}
+
+.problem-statement {
+  max-width: 740px;
+  margin: 0 auto;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ============================================
    BENEFITS SECTION - Clean start, new chapter
    ============================================ */
 
@@ -794,6 +813,42 @@
   margin-bottom: var(--spacing-xl);
   font-weight: 600;
   letter-spacing: -0.02em;
+}
+
+.how-streams {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.how-stream {
+  position: relative;
+}
+
+.stream-label {
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #490E67;
+  background: rgba(73, 14, 103, 0.06);
+  padding: 0.5rem 1.25rem;
+  border-radius: 20px;
+  display: inline-block;
+  margin: 0 auto var(--spacing-md);
+  width: fit-content;
+}
+
+.how-stream .stream-label {
+  display: block;
+  text-align: center;
+}
+
+.how-stream .steps-list {
+  margin: 0 auto;
 }
 
 .steps-list {
@@ -1059,6 +1114,10 @@
   margin: 0;
 }
 
+.persona-card-wide {
+  grid-column: 1 / -1;
+}
+
 .persona-card-highlight {
   border-color: rgba(73, 14, 103, 0.2);
   background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%);
@@ -1095,9 +1154,18 @@
   text-align: center;
   color: #490E67;
   font-size: 1.9rem;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-sm);
   font-weight: 600;
   letter-spacing: -0.02em;
+}
+
+.platform-intro {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto var(--spacing-xl);
+  font-size: 1rem;
+  color: var(--text-secondary, #5C4A4E);
+  line-height: 1.6;
 }
 
 .platform-grid {
@@ -1416,6 +1484,11 @@
 
   .benefit-card {
     padding: var(--spacing-md);
+  }
+
+  .how-streams {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
   }
 
   .persona-grid {
