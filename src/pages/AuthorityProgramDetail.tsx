@@ -3,9 +3,20 @@ import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuthorityAdmin } from '../hooks/useAuthorityAdmin';
+import { supabaseRest } from '../utils/supabase';
+import { accessModules } from '../data/accessModules';
 import '../styles/authority.css';
 
 import type { AuthorityProgram, ProgramEnrolment, ChildOrgSummary } from '../types/access';
+
+interface CarryoverDeclaration {
+  id: string;
+  organisation_id: string;
+  module_id: string;
+  original_completed_at: string;
+  declared_at: string;
+  expires_at: string;
+}
 
 export default function AuthorityProgramDetail() {
   const { id } = useParams<{ id: string }>();
@@ -22,6 +33,8 @@ export default function AuthorityProgramDetail() {
   const [csvUploading, setCsvUploading] = useState(false);
   const [csvResult, setCsvResult] = useState<{ success: number; failed: string[] } | null>(null);
   const csvInputRef = useRef<HTMLInputElement>(null);
+  const [carryovers, setCarryovers] = useState<CarryoverDeclaration[]>([]);
+  const [expandedBusiness, setExpandedBusiness] = useState<string | null>(null);
 
   usePageTitle(program?.name || 'Program Detail');
 
@@ -31,6 +44,10 @@ export default function AuthorityProgramDetail() {
     getEnrolments(id).then(setEnrolments);
     getChildOrgSummaries(orgId).then(s => {
       setSummaries(s.filter(summary => summary.program_id === id));
+    });
+    // Fetch carryover declarations for this program
+    supabaseRest.query('module_carryover_declarations', '*', { program_id: id }).then(({ data }) => {
+      if (data) setCarryovers(data as CarryoverDeclaration[]);
     });
   }, [id, orgId]);
 
@@ -256,18 +273,93 @@ export default function AuthorityProgramDetail() {
               <span>Business</span>
               <span>Status</span>
               <span>Enrolled</span>
-              <span>Completed</span>
+              <span>Assessment</span>
             </div>
-            {summaries.map(summary => (
-              <div key={summary.child_org_id} className="authority-business-row">
-                <span className="authority-business-name">{summary.child_org_name}</span>
-                <span className={`authority-enrolment-status ${summary.enrolment_status || 'enrolled'}`}>
-                  {summary.enrolment_status || 'Enrolled'}
-                </span>
-                <span>{summary.enrolled_at ? new Date(summary.enrolled_at).toLocaleDateString('en-AU') : '-'}</span>
-                <span>{summary.completed_at ? new Date(summary.completed_at).toLocaleDateString('en-AU') : '-'}</span>
-              </div>
-            ))}
+            {summaries.map(summary => {
+              const bizCarryovers = carryovers.filter(c => c.organisation_id === summary.child_org_id);
+              const hasCarryovers = bizCarryovers.length > 0;
+              const isExpanded = expandedBusiness === summary.child_org_id;
+
+              return (
+                <div key={summary.child_org_id}>
+                  <div
+                    className="authority-business-row"
+                    style={{ cursor: hasCarryovers ? 'pointer' : undefined }}
+                    onClick={() => hasCarryovers && setExpandedBusiness(isExpanded ? null : summary.child_org_id)}
+                  >
+                    <span className="authority-business-name">
+                      {summary.child_org_name}
+                      {hasCarryovers && (
+                        <span style={{ marginLeft: '0.5rem', fontSize: '0.7rem', verticalAlign: 'middle' }}>
+                          {isExpanded ? '▾' : '▸'}
+                        </span>
+                      )}
+                    </span>
+                    <span className={`authority-enrolment-status ${summary.enrolment_status || 'enrolled'}`}>
+                      {summary.enrolment_status || 'Enrolled'}
+                    </span>
+                    <span>{summary.enrolled_at ? new Date(summary.enrolled_at).toLocaleDateString('en-AU') : '-'}</span>
+                    <span>
+                      {hasCarryovers ? (
+                        <span style={{
+                          fontSize: '0.6875rem',
+                          fontWeight: 600,
+                          padding: '3px 8px',
+                          borderRadius: '4px',
+                          background: 'rgba(251, 191, 36, 0.1)',
+                          color: '#92400E',
+                          border: '1px solid rgba(251, 191, 36, 0.2)',
+                        }}>
+                          {bizCarryovers.length} carried forward
+                        </span>
+                      ) : (
+                        <span style={{
+                          fontSize: '0.6875rem',
+                          fontWeight: 600,
+                          padding: '3px 8px',
+                          borderRadius: '4px',
+                          background: 'rgba(22, 163, 74, 0.08)',
+                          color: '#14532d',
+                          border: '1px solid rgba(22, 163, 74, 0.15)',
+                        }}>
+                          Fresh assessment
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                  {isExpanded && hasCarryovers && (
+                    <div style={{
+                      padding: '0.75rem 1rem 0.75rem 2rem',
+                      background: 'rgba(251, 191, 36, 0.04)',
+                      borderBottom: '1px solid rgba(62, 43, 47, 0.05)',
+                      fontSize: '0.8125rem',
+                    }}>
+                      <div style={{ fontWeight: 600, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+                        Modules carried forward (declared no changes):
+                      </div>
+                      {bizCarryovers.map(c => {
+                        const mod = accessModules.find(m => m.id === c.module_id);
+                        const expired = new Date(c.expires_at) < new Date();
+                        return (
+                          <div key={c.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.25rem 0', color: 'var(--text-secondary, #5C4A4E)' }}>
+                            <span>{c.module_id} {mod?.name || c.module_id}</span>
+                            <span style={{ fontSize: '0.75rem' }}>
+                              Originally completed {new Date(c.original_completed_at).toLocaleDateString('en-AU')}
+                              {expired && (
+                                <span style={{ color: '#DC2626', fontWeight: 600, marginLeft: '0.5rem' }}>Expired</span>
+                              )}
+                            </span>
+                          </div>
+                        );
+                      })}
+                      <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', fontStyle: 'italic', color: 'var(--text-secondary)' }}>
+                        Declared on {new Date(bizCarryovers[0].declared_at).toLocaleDateString('en-AU')}. Valid for 90 days from original completion.
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
