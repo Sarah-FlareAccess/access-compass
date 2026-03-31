@@ -74,7 +74,7 @@ export default function Landing() {
       <section className="problem-section">
         <div className="container">
           <p className="problem-statement">
-            1 in 5 Australians have a disability. They travel, dine out, attend events, shop, visit gyms, and use local services. When your business is not accessible, you are turning away customers and the people who come with them. Access Compass helps you fix that, step by step.
+            <strong>1 in 5 Australians have a disability.</strong> They also influence where their family, friends, and colleagues go. When your business is not accessible, you lose more customers than you realise.
           </p>
         </div>
       </section>
@@ -108,65 +108,52 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* How it works - Two streams */}
+      {/* How it works */}
       <section className="how-section">
         <div className="container">
           <h2>How it works</h2>
 
-          <div className="how-streams">
-            {/* Stream 1: Assess and Plan */}
-            <div className="how-stream">
-              <h3 className="stream-label">Assess and plan</h3>
-              <div className="steps-list">
-                <div className="step">
-                  <div className="step-number">1</div>
-                  <div className="step-content">
-                    <h3>Tell us about your business</h3>
-                    <p>Are you a hotel, a gym, a retail store, a tourist attraction, an event venue? Answer a few questions about your business and we recommend the modules most relevant to your customer journey.</p>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="step-number">2</div>
-                  <div className="step-content">
-                    <h3>Choose your depth</h3>
-                    <p>Take a Pulse Check for a quick baseline (great before a busy season), or a Deep Dive for comprehensive coverage. Start light and go deeper when you are ready.</p>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="step-number">3</div>
-                  <div className="step-content">
-                    <h3>Walk through the assessment</h3>
-                    <p>Answer questions about your venue, services, and operations at your own pace. Not sure about something? Flag it and we will tell you exactly how to check. Upload photos as evidence along the way.</p>
-                  </div>
-                </div>
+          <div className="steps-list">
+            <div className="step">
+              <div className="step-number">1</div>
+              <div className="step-content">
+                <h3>Tell us about your business</h3>
+                <p>Hotel, gym, retail store, tourist attraction, event venue, clinic? Answer a few questions and we recommend the modules most relevant to your customer journey.</p>
               </div>
             </div>
-
-            {/* Stream 2: Act and Improve */}
-            <div className="how-stream">
-              <h3 className="stream-label">Act and improve</h3>
-              <div className="steps-list">
-                <div className="step">
-                  <div className="step-number">1</div>
-                  <div className="step-content">
-                    <h3>Get your report and action plan</h3>
-                    <p>A prioritised report shows what to fix now, plan next, or consider later. Your action plan structures the work, assigns owners, and sets timeframes so nothing falls through the cracks.</p>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="step-number">2</div>
-                  <div className="step-content">
-                    <h3>Use the Resource Hub to make changes</h3>
-                    <p>Every recommendation links to practical support: how-to guides, supplier options, cost estimates, worked examples from real venues, and Australian standards references. This is what turns a report into results.</p>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="step-number">3</div>
-                  <div className="step-content">
-                    <h3>Track progress and re-assess</h3>
-                    <p>Mark actions complete, track your team's progress on a shared dashboard, and run a follow-up assessment to measure real improvement. Export a polished summary for stakeholders, funding bodies, or your board.</p>
-                  </div>
-                </div>
+            <div className="step">
+              <div className="step-number">2</div>
+              <div className="step-content">
+                <h3>Choose your depth</h3>
+                <p>Take a Pulse Check for a quick baseline, or a Deep Dive for comprehensive coverage. Start light and go deeper when you are ready.</p>
+              </div>
+            </div>
+            <div className="step">
+              <div className="step-number">3</div>
+              <div className="step-content">
+                <h3>Walk through the assessment</h3>
+                <p>Answer questions about your venue, services, and operations at your own pace. Not sure about something? Flag it and we will tell you how to check. Upload photos as evidence along the way.</p>
+              </div>
+            </div>
+            <div className="step">
+              <div className="step-number">4</div>
+              <div className="step-content">
+                <h3>Get your report and action plan</h3>
+                <p>A prioritised report shows what to fix now, plan next, or consider later. Your action plan structures the work, assigns owners, and sets timeframes so nothing falls through the cracks.</p>
+              </div>
+            </div>
+            <div className="step">
+              <div className="step-number">5</div>
+              <div className="step-content">
+                <h3>Use the Resource Hub to make changes</h3>
+                <p>Every recommendation links to practical support: how-to guides, supplier options, cost estimates, worked examples, and Australian standards references. This is what turns a report into results.</p>
+              </div>
+            </div>
+            <div className="step">
+              <div className="step-number">6</div>
+              <div className="step-content">
+                <h3>Track progress and re-assess</h3>
+                <p>Mark actions complete, track your team's progress on a shared dashboard, and re-assess to measure real improvement. Export a polished summary for stakeholders, funding bodies, or your board.</p>
               </div>
             </div>
           </div>
@@ -244,19 +231,6 @@ export default function Landing() {
             <div className="persona-card persona-card-highlight persona-card-wide">
               <h3>Councils and authorities</h3>
               <p>Create business accessibility programs for your region. Enrol local businesses across hospitality, tourism, retail, and events. Track participation and completion across your LGA with aggregate dashboards and reporting.</p>
-            </div>
-          </div>
-
-          <div className="industry-section">
-            <div className="audience-grid" role="list" aria-label="Industries served">
-              <span className="audience-item" role="listitem">Tourism and Attractions</span>
-              <span className="audience-item" role="listitem">Hospitality and Accommodation</span>
-              <span className="audience-item" role="listitem">Events, Conferences, and Nightlife</span>
-              <span className="audience-item" role="listitem">Retail and Shopping</span>
-              <span className="audience-item" role="listitem">Health, Wellness, and Fitness</span>
-              <span className="audience-item" role="listitem">Local Government</span>
-              <span className="audience-item" role="listitem">Education and Training</span>
-              <span className="audience-item" role="listitem">Leisure and Recreation</span>
             </div>
           </div>
         </div>
