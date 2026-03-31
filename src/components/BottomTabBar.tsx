@@ -65,6 +65,14 @@ const TrainingIcon = () => (
   </svg>
 );
 
+const AuthorityIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M3 21h18"/>
+    <path d="M5 21V7l7-4 7 4v14"/>
+    <path d="M9 21v-4h6v4"/>
+  </svg>
+);
+
 const HelpIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <circle cx="12" cy="12" r="10"/>
@@ -89,6 +97,7 @@ export function BottomTabBar() {
 
   // Check if user has deep_dive access (required for DIAP)
   const hasDeepDiveAccess = accessState.accessLevel === 'deep_dive';
+  const isAuthorityOrg = accessState.organisation?.org_type === 'authority';
 
   useEffect(() => {
     const session = getSession();
@@ -129,12 +138,17 @@ export function BottomTabBar() {
       label: 'Resources',
       icon: <ResourcesIcon />
     },
-    {
+    ...(isAuthorityOrg ? [{
+      path: '/authority',
+      label: 'Authority',
+      icon: <AuthorityIcon />,
+      matchPaths: ['/authority'],
+    }] : [{
       path: '/training',
       label: 'Training',
       icon: <TrainingIcon />,
       matchPaths: ['/training'],
-    },
+    }]),
   ];
 
   const tabsWithoutModules: TabItem[] = [

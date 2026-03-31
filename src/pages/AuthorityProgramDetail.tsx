@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -19,6 +19,9 @@ export default function AuthorityProgramDetail() {
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteOrgName, setInviteOrgName] = useState('');
   const [enrolling, setEnrolling] = useState(false);
+  const [csvUploading, setCsvUploading] = useState(false);
+  const [csvResult, setCsvResult] = useState<{ success: number; failed: string[] } | null>(null);
+  const csvInputRef = useRef<HTMLInputElement>(null);
 
   usePageTitle(program?.name || 'Program Detail');
 
@@ -42,6 +45,53 @@ export default function AuthorityProgramDetail() {
     }
     setEnrolling(false);
   };
+
+  const handleCsvUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !id) return;
+
+    setCsvUploading(true);
+    setCsvResult(null);
+
+    const text = await file.text();
+    const lines = text.split(/\r?\n/).filter(line => line.trim());
+
+    // Skip header if it looks like one
+    const firstLine = lines[0]?.toLowerCase() || '';
+    const startIndex = (firstLine.includes('business') || firstLine.includes('name') || firstLine.includes('email')) ? 1 : 0;
+
+    let success = 0;
+    const failed: string[] = [];
+
+    for (let i = startIndex; i < lines.length; i++) {
+      const parts = lines[i].split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
+      const name = parts[0];
+      const email = parts[1] || undefined;
+
+      if (!name) continue;
+
+      const result = await enrolBusiness(id, name, email);
+      if (result) {
+        setEnrolments(prev => [...prev, result]);
+        success++;
+      } else {
+        failed.push(name);
+      }
+    }
+
+    setCsvResult({ success, failed });
+    setCsvUploading(false);
+
+    // Refresh summaries
+    if (orgId) {
+      getChildOrgSummaries(orgId).then(s => {
+        setSummaries(s.filter(summary => summary.program_id === id));
+      });
+    }
+
+    // Reset file input
+    if (csvInputRef.current) csvInputRef.current.value = '';
+  }, [id, orgId, enrolBusiness, getChildOrgSummaries]);
 
   if (!program && !isLoading) {
     return (
@@ -158,6 +208,40 @@ export default function AuthorityProgramDetail() {
               {enrolling ? 'Enrolling...' : 'Enrol'}
             </button>
           </div>
+        </div>
+      )}
+
+      {/* CSV bulk upload */}
+      {program.is_active && (
+        <div className="authority-form-card">
+          <h2>Bulk enrol from CSV</h2>
+          <p className="authority-subtitle">
+            Upload a CSV file with columns: business name, contact email (optional).
+            One business per row.
+          </p>
+          <div className="authority-enrol-row">
+            <input
+              ref={csvInputRef}
+              type="file"
+              accept=".csv,.txt"
+              onChange={handleCsvUpload}
+              disabled={csvUploading}
+              aria-label="Upload CSV file for bulk enrolment"
+            />
+            {csvUploading && <span>Enrolling businesses...</span>}
+          </div>
+          {csvResult && (
+            <div style={{ marginTop: '0.75rem' }}>
+              <p style={{ color: 'var(--deep-plum, #490E67)', fontWeight: 600 }}>
+                {csvResult.success} business{csvResult.success !== 1 ? 'es' : ''} enrolled successfully.
+              </p>
+              {csvResult.failed.length > 0 && (
+                <p style={{ color: 'var(--coral-flare, #ea0b3f)', fontSize: '0.875rem' }}>
+                  Failed: {csvResult.failed.join(', ')}
+                </p>
+              )}
+            </div>
+          )}
         </div>
       )}
 
