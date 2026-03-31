@@ -78,6 +78,13 @@ export function QuestionFlow({
     reviewMode,
   });
 
+  // Sync responses when initialResponses arrive (they may load async)
+  useEffect(() => {
+    if (initialResponses.length > 0 && responses.length === 0) {
+      setResponses(initialResponses);
+    }
+  }, [initialResponses]);
+
   // Resume from first unanswered question when returning to a module
   const [hasResumed, setHasResumed] = useState(false);
   useEffect(() => {
