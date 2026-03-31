@@ -56,7 +56,7 @@ export default function Landing() {
           <div className="hero-content">
             <h1>Welcome more guests. Reach higher standards. Improve every day.</h1>
             <p className="hero-subheading">
-              Access Compass is Australia's guided accessibility platform for tourism, hospitality, events, and customer-facing businesses. It walks your team through a structured self-assessment, builds a prioritised action plan, and gives you the tools and resources to actually make it happen.
+              Access Compass is Australia's guided accessibility platform for customer-facing businesses, venues, and organisations. It walks your team through a structured self-assessment of your full visitor journey, builds a prioritised action plan, and gives you the tools and resources to actually make it happen.
             </p>
 
             <Link to="/disclaimer" className="btn btn-primary btn-large hero-cta">
@@ -74,7 +74,7 @@ export default function Landing() {
       <section className="problem-section">
         <div className="container">
           <p className="problem-statement">
-            1 in 5 Australians have a disability. They travel, dine out, attend events, and shop. When your venue, hotel, or attraction is not accessible, you are turning away guests and the people who travel with them. Access Compass helps you fix that, step by step.
+            1 in 5 Australians have a disability. They travel, dine out, attend events, shop, visit gyms, and use local services. When your business is not accessible, you are turning away customers and the people who come with them. Access Compass helps you fix that, step by step.
           </p>
         </div>
       </section>
@@ -92,7 +92,7 @@ export default function Landing() {
             <div className="benefit-card">
               <span className="benefit-icon">📋</span>
               <h3>A plan your team can own</h3>
-              <p>Every finding generates prioritised actions with practical guidance, cost estimates, and Australian standards references. Your Disability Inclusion Action Plan builds itself as you assess, with actions allocated across your team and tracked on a shared dashboard.</p>
+              <p>Every finding generates prioritised actions with practical guidance, cost estimates, and Australian standards references. Your action plan builds itself as you assess, with tasks allocated across your team and tracked on a shared dashboard.</p>
             </div>
             <div className="benefit-card">
               <span className="benefit-icon">📸</span>
@@ -122,7 +122,7 @@ export default function Landing() {
                   <div className="step-number">1</div>
                   <div className="step-content">
                     <h3>Tell us about your business</h3>
-                    <p>Are you a hotel, a tourist attraction, a restaurant, an event venue? Answer a few questions and we recommend the modules most relevant to your guest journey.</p>
+                    <p>Are you a hotel, a gym, a retail store, a tourist attraction, an event venue? Answer a few questions about your business and we recommend the modules most relevant to your customer journey.</p>
                   </div>
                 </div>
                 <div className="step">
@@ -147,21 +147,21 @@ export default function Landing() {
               <h3 className="stream-label">Act and improve</h3>
               <div className="steps-list">
                 <div className="step">
-                  <div className="step-number">4</div>
+                  <div className="step-number">1</div>
                   <div className="step-content">
                     <h3>Get your report and action plan</h3>
-                    <p>A prioritised report shows what to fix now, plan next, or consider later. Your DIAP structures the actions, assigns owners, and sets timeframes so nothing falls through the cracks.</p>
+                    <p>A prioritised report shows what to fix now, plan next, or consider later. Your action plan structures the work, assigns owners, and sets timeframes so nothing falls through the cracks.</p>
                   </div>
                 </div>
                 <div className="step">
-                  <div className="step-number">5</div>
+                  <div className="step-number">2</div>
                   <div className="step-content">
                     <h3>Use the Resource Hub to make changes</h3>
                     <p>Every recommendation links to practical support: how-to guides, supplier options, cost estimates, worked examples from real venues, and Australian standards references. This is what turns a report into results.</p>
                   </div>
                 </div>
                 <div className="step">
-                  <div className="step-number">6</div>
+                  <div className="step-number">3</div>
                   <div className="step-content">
                     <h3>Track progress and re-assess</h3>
                     <p>Mark actions complete, track your team's progress on a shared dashboard, and run a follow-up assessment to measure real improvement. Export a polished summary for stakeholders, funding bodies, or your board.</p>
@@ -189,10 +189,10 @@ export default function Landing() {
             </div>
             <div className="platform-item">
               <strong>Resource Hub</strong>
-              <span>Do not just find gaps: fix them. Every recommendation links to practical guides, supplier options, cost estimates, and worked examples from real hospitality and tourism businesses.</span>
+              <span>Do not just find gaps: fix them. Every recommendation links to practical guides, supplier options, cost estimates, and worked examples from real businesses across hospitality, tourism, retail, health, and more.</span>
             </div>
             <div className="platform-item">
-              <strong>DIAP workspace</strong>
+              <strong>Action planning workspace</strong>
               <span>Your Disability Inclusion Action Plan builds as you assess. Allocate actions to team members, set deadlines, track completion, and export a professional plan for stakeholders or grant applications.</span>
             </div>
             <div className="platform-item">
@@ -222,34 +222,38 @@ export default function Landing() {
 
           <div className="persona-grid">
             <div className="persona-card">
-              <h3>Hotels, restaurants, and cafes</h3>
-              <p>Guests who cannot find accessibility information will book somewhere else. Assess your booking flow, service, dining, and accommodation, then give your team a clear plan so every guest feels welcome on the first visit and comes back.</p>
+              <h3>Hospitality and tourism</h3>
+              <p>Hotels, restaurants, cafes, bars, and tour operators. Customers who cannot find accessibility information book somewhere else. Assess your booking flow, service, dining, and accommodation so every guest feels welcome on the first visit and comes back.</p>
             </div>
             <div className="persona-card">
-              <h3>Tourist attractions and venues</h3>
-              <p>Large sites with diverse visitor needs, from families with prams to guests using wheelchairs. Cover your full visitor journey across outdoor spaces, exhibits, playgrounds, amenities, and wayfinding, and publish an accessibility statement you can stand behind.</p>
+              <h3>Attractions, leisure, and recreation</h3>
+              <p>Theme parks, museums, galleries, gyms, pools, sporting venues, and community centres. Large sites with diverse visitor needs. Cover your full journey across outdoor spaces, play areas, exhibits, amenities, and wayfinding.</p>
             </div>
             <div className="persona-card">
-              <h3>Event organisers</h3>
-              <p>Festivals, markets, conferences, and sporting events. Demonstrate accessibility planning to councils and sponsors, assess temporary venues, and build a track record across events.</p>
+              <h3>Retail, health, and services</h3>
+              <p>Shops, clinics, pharmacies, wellness centres, salons, and professional offices. Your customers interact with your space, staff, and systems every day. Identify practical improvements that make your service accessible to everyone.</p>
+            </div>
+            <div className="persona-card">
+              <h3>Events and conferences</h3>
+              <p>Festivals, markets, sporting events, expos, and corporate functions. Demonstrate accessibility planning to councils and sponsors, assess temporary venues, and build a track record you can show every time.</p>
             </div>
             <div className="persona-card">
               <h3>Multi-site operators</h3>
-              <p>Franchise networks, shopping centres, hotel groups. Assess multiple locations, compare performance across sites, and standardise your approach to accessibility at scale.</p>
+              <p>Franchise networks, shopping centres, hotel groups, and education providers. Assess multiple locations, compare performance across sites, and standardise your approach to accessibility at scale.</p>
             </div>
             <div className="persona-card persona-card-highlight persona-card-wide">
-              <h3>Councils and tourism authorities</h3>
-              <p>Create business accessibility programs for your region. Enrol local hospitality businesses, tourism operators, and event organisers. Track participation and completion across your LGA with aggregate dashboards and reporting.</p>
+              <h3>Councils and authorities</h3>
+              <p>Create business accessibility programs for your region. Enrol local businesses across hospitality, tourism, retail, and events. Track participation and completion across your LGA with aggregate dashboards and reporting.</p>
             </div>
           </div>
 
           <div className="industry-section">
             <div className="audience-grid" role="list" aria-label="Industries served">
               <span className="audience-item" role="listitem">Tourism and Attractions</span>
-              <span className="audience-item" role="listitem">Hospitality</span>
-              <span className="audience-item" role="listitem">Events and Venues</span>
-              <span className="audience-item" role="listitem">Retail</span>
-              <span className="audience-item" role="listitem">Health and Wellness</span>
+              <span className="audience-item" role="listitem">Hospitality and Accommodation</span>
+              <span className="audience-item" role="listitem">Events, Conferences, and Nightlife</span>
+              <span className="audience-item" role="listitem">Retail and Shopping</span>
+              <span className="audience-item" role="listitem">Health, Wellness, and Fitness</span>
               <span className="audience-item" role="listitem">Local Government</span>
               <span className="audience-item" role="listitem">Education and Training</span>
               <span className="audience-item" role="listitem">Leisure and Recreation</span>
