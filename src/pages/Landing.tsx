@@ -57,7 +57,7 @@ export default function Landing() {
           <div className="hero-content">
             <h1>Understand, plan and act on accessibility</h1>
             <p className="hero-subheading">
-              Access Compass is Australia's guided self-assessment platform for accessibility and inclusion. Covering 35+ modules and 800+ questions across the full visitor journey, it gives businesses, venues, and councils a clear, prioritised path from intent to action.
+              Access Compass is Australia's guided self-assessment platform for accessibility and inclusion. Covering 35+ modules and 850+ questions across the full visitor journey, it gives businesses, venues, and councils a clear, prioritised path from intent to action.
             </p>
 
             {/* CTA Button */}
@@ -209,7 +209,7 @@ export default function Landing() {
               <span>Covering before arrival through to organisational commitment and events</span>
             </div>
             <div className="platform-item">
-              <strong>800+ questions</strong>
+              <strong>850+ questions</strong>
               <span>Spanning mandatory requirements, best practice, and universal design</span>
             </div>
             <div className="platform-item">

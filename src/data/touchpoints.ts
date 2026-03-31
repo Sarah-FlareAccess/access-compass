@@ -106,7 +106,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'experiences-activities',
         label: 'Experiences and activities',
-        touchpointIds: ['experiences-activities', 'sensory', 'retail-shopping', 'events-management'],
+        touchpointIds: ['experiences-activities', 'sensory', 'retail-shopping', 'outdoor-grounds', 'events-management'],
       },
     ],
     touchpoints: [
@@ -186,6 +186,18 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         description: 'How customers browse, try on, and buy products in your space',
         example: 'e.g. Store layout, fitting rooms, checkout counters, product labels, shopping baskets',
         moduleMapping: ['3.10', '4.3'],
+      },
+      {
+        id: 'outdoor-grounds',
+        label: 'Do customers use outdoor areas or playgrounds?',
+        description: 'Gardens, courtyards, outdoor dining, walking trails, playgrounds, and exterior grounds',
+        example: 'e.g. Beer gardens, courtyards, walking paths, picnic areas, playgrounds, pools, outdoor event spaces',
+        subTouchpoints: [
+          { id: 'outdoor-paths', label: 'Outdoor paths and walkways' },
+          { id: 'outdoor-seating', label: 'Outdoor seating and dining' },
+          { id: 'playgrounds', label: 'Playgrounds and play spaces' },
+        ],
+        moduleMapping: ['3.11', '3.12'],
       },
       {
         id: 'events-management',

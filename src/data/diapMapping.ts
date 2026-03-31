@@ -168,6 +168,8 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
   '3.8': 'service-delivery',           // Participating in experiences and activities
   '3.9': 'built-environment',          // Accessible accommodation
   '3.10': 'service-delivery',          // Retail and shopping accessibility
+  '3.11': 'built-environment',          // Outdoor spaces and grounds
+  '3.12': 'built-environment',          // Playgrounds and play spaces
 
   // Service and support
   '4.2': 'customer-service-training',  // Customer service and staff confidence
@@ -182,6 +184,7 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
   '5.3': 'customer-service-training',  // Staff training and awareness
   '5.4': 'policy-procedure',           // Accessible procurement
   '5.5': 'policy-procedure',           // Continuous improvement and reporting
+  '5.6': 'policy-procedure',            // Supplier and third-party accessibility
 
   // Event modules
   '6.1': 'service-delivery',           // Event planning

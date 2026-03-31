@@ -44,6 +44,7 @@ export const DISCOVERY_QUESTIONS: DiscoveryQuestion[] = [
   { id: 'DQ09a', text: 'Do customers participate in activities, events, tours, or experiences at your venue?', journeyPhase: 'during-visit', touchpointId: 'experiences-activities' },
   { id: 'DQ09b', text: 'Does your venue offer overnight accommodation (hotel rooms, apartments, cabins, etc.)?', journeyPhase: 'during-visit', touchpointId: 'accommodation-rooms' },
   { id: 'DQ09c', text: 'Do customers browse, try on, or purchase products at your venue?', journeyPhase: 'during-visit', touchpointId: 'retail-shopping' },
+  { id: 'DQ09d', text: 'Do customers use outdoor areas such as gardens, courtyards, grounds, or playgrounds?', journeyPhase: 'during-visit', touchpointId: 'outdoor-grounds' },
   { id: 'DQ10', text: 'Is lighting, noise, or sensory environment relevant to your space?', journeyPhase: 'during-visit', touchpointId: 'sensory' },
   { id: 'DQ11', text: 'Do staff regularly interact directly with customers?', journeyPhase: 'during-visit', touchpointId: 'staff-interaction' },
   { id: 'DQ11a', text: 'Do you offer service adjustments or flexible options for customers?', journeyPhase: 'during-visit', touchpointId: 'service-flexibility' },
@@ -116,6 +117,10 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Ensures guest rooms and in-room facilities are accessible. Relevant if you offer overnight accommodation (hotels, apartments, cabins, hostels, retreats).' },
   { id: '3.10', name: 'Retail and shopping accessibility', journeyTheme: 'during-visit', estimatedTime: 10, cost: 85,
     description: 'Ensures your retail environment is accessible. Relevant if customers browse, try on, or purchase products at your venue.' },
+  { id: '3.11', name: 'Outdoor spaces and grounds', journeyTheme: 'during-visit', estimatedTime: 12, cost: 90,
+    description: 'Covers paths, seating, lighting, shade, and hazard marking in gardens, courtyards, outdoor dining, and grounds. Relevant if customers use outdoor areas.' },
+  { id: '3.12', name: 'Playgrounds and play spaces', journeyTheme: 'during-visit', estimatedTime: 12, cost: 90,
+    description: 'Covers inclusive play equipment, surfacing, fencing, sensory play, and caregiver access. Relevant if you have a playground or play space.' },
   // Service and support (5 modules)
   { id: '4.1', name: 'Ways to reach you', journeyTheme: 'during-visit', estimatedTime: 10, cost: 75,
     description: 'Ensures customers can contact you through accessible channels. Relevant if customers phone, email, or message you.' },
@@ -142,6 +147,8 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Ensures suppliers and partners meet accessibility standards. Relevant if you purchase products, services, or work with contractors.' },
   { id: '5.5', name: 'Continuous improvement and reporting', journeyTheme: 'policy-operations', estimatedTime: 12, cost: 100,
     description: 'Tracks progress and drives ongoing improvement. Relevant if you want to measure, report, and improve accessibility over time.' },
+  { id: '5.6', name: 'Supplier and third-party accessibility', journeyTheme: 'policy-operations', estimatedTime: 10, cost: 85,
+    description: 'Ensures third-party services, platforms, and contractors maintain your accessibility standards. Relevant if you use external suppliers or booking platforms.' },
   // Events (5 modules)
   { id: '6.1', name: 'Event planning and promotion', journeyTheme: 'during-visit', estimatedTime: 10, cost: 85,
     description: 'Ensures events are planned and promoted accessibly. Relevant if you host, organise, or manage events.' },
@@ -178,6 +185,8 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '3.8': '3.8',
   '3.9': '3.9',
   '3.10': '3.10',
+  '3.11': '3.11',
+  '3.12': '3.12',
   '4.1': '4.1',
   '4.2': '4.2',
   '4.3': '4.3',
@@ -190,6 +199,7 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '5.3': '5.3',
   '5.4': '5.4',
   '5.5': '5.5',
+  '5.6': '5.6',
   '6.1': '6.1',
   '6.2': '6.2',
   '6.3': '6.3',
@@ -219,6 +229,7 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   'experiences-activities': ['3.8'],                     // Experiences, events, tours, recreation
   'accommodation-rooms': ['3.9'],                        // Accommodation and guest rooms
   'retail-shopping': ['3.10', '4.3'],                    // Retail shopping, bookings/ticketing
+  'outdoor-grounds': ['3.11', '3.12'],                   // Outdoor spaces, playgrounds
   'events-management': ['6.1', '6.2', '6.3', '6.4', '6.5'], // All event modules
   'wayfinding': ['3.5', '2.3', '3.6', '3.7'],            // Signage, paths, printed materials, on-site info
   'sensory': ['3.3', '3.1', '3.4'],                     // Sensory environment, seating, equipment
@@ -233,7 +244,7 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   'accessibility-policy': ['5.1'],                       // Policies and guidelines
   'inclusive-employment': ['5.2', '5.1'],                // Hiring, employment, workplace adjustments
   'staff-training': ['5.3', '4.2'],                      // Staff training and development
-  'procurement-partnerships': ['5.4'],                   // Suppliers and partners
+  'procurement-partnerships': ['5.4', '5.6'],             // Suppliers and partners
   'continuous-improvement': ['5.5', '4.5', '5.1'],       // Review, improvement, reporting
 };
 
