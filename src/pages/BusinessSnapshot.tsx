@@ -141,7 +141,6 @@ export default function BusinessSnapshotPage() {
     if (!formData.organisation_name) missing.push('Organisation name');
     if (!formData.organisation_size) missing.push('Organisation size');
     if (formData.business_types.length === 0) missing.push('Organisation type');
-    if (!formData.user_role) missing.push('Your role');
 
     if (missing.length > 0) {
       setValidationError(`Please complete the following: ${missing.join(', ')}.`);
@@ -233,29 +232,6 @@ export default function BusinessSnapshotPage() {
                 ))}
               </div>
             </fieldset>
-
-            {/* User Role */}
-            <div className="form-group">
-              <label htmlFor="user_role">
-                Your role <span className="required">*</span>
-              </label>
-              <select
-                id="user_role"
-                value={formData.user_role}
-                onChange={(e) =>
-                  setFormData({ ...formData, user_role: e.target.value as UserRole })
-                }
-                required
-                aria-invalid={!!validationError && !formData.user_role}
-                aria-describedby={validationError ? 'snapshot-error' : undefined}
-              >
-                <option value="">Select your role</option>
-                <option value="owner">Owner</option>
-                <option value="manager">Manager</option>
-                <option value="operations-lead">Operations Lead</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
 
             {/* Buttons */}
             <div className="form-actions">
