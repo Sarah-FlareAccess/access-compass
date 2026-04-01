@@ -113,6 +113,27 @@ function Discovery() {
       },
     });
 
+    // Determine review mode from selected pricing tier
+    let reviewMode: ReviewMode = data.recommendedDepth;
+    try {
+      const tierData = JSON.parse(localStorage.getItem('access_compass_selected_tier') || '{}');
+      const tierName = (tierData.tier || '').toLowerCase();
+      const tierCategory = tierData.category || '';
+      // Deep Dive tiers: Free (3 modules deep dive), Committed, Multi-Site Deep/Plus, all authority tiers
+      if (
+        tierName === 'free' ||
+        tierName === 'committed' ||
+        tierName.includes('deep') ||
+        tierName.includes('plus') ||
+        tierName.includes('large') ||
+        tierCategory === 'authority'
+      ) {
+        reviewMode = 'deep-dive';
+      } else if (tierName === 'starter' || tierName.includes('pulse')) {
+        reviewMode = 'pulse-check';
+      }
+    } catch { /* ignore, use algorithm recommendation */ }
+
     // Save discovery data
     updateDiscoveryData({
       discovery_data: {
@@ -122,7 +143,7 @@ function Discovery() {
         explicitlyCompleted: true,
       },
       recommendation_result: data.recommendationResult,
-      review_mode: data.recommendedDepth,
+      review_mode: reviewMode,
       recommended_modules: data.recommendedModules,
     });
 
