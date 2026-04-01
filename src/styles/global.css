@@ -1104,4 +1104,9 @@ label {
     bottom: 80px;
     right: 16px;
   }
+
+  /* Ensure bottom tab bar is never covered by page content */
+  main[role="main"] {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 16px)) !important;
+  }
 }

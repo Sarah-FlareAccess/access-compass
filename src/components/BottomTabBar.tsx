@@ -157,7 +157,11 @@ export function BottomTabBar() {
     },
   ];
 
-  const tabs = hasModules ? tabsWithModules : tabsWithoutModules;
+  // Always show full navigation if user is authenticated (has an org)
+  const isOnAppPage = ['/dashboard', '/assessment', '/evidence', '/activity', '/report', '/diap', '/resources', '/training', '/authority'].some(
+    p => location.pathname === p || location.pathname.startsWith(p)
+  );
+  const tabs = (hasModules || isOnAppPage) ? tabsWithModules : tabsWithoutModules;
 
   const isActive = (tab: TabItem) => {
     if (location.pathname === tab.path) return true;
