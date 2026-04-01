@@ -66,10 +66,10 @@ export default function Login() {
     }
 
     // localStorage is empty (e.g. after password reset or device switch).
-    // Check if this user has cloud data before sending to /start.
+    // Check if this user has an org membership before sending to /start.
     if (isSupabaseEnabled()) {
       if (!user?.id) return; // Wait for user object to be available
-      fetchRecords('sessions', user.id).then(({ data }) => {
+      fetchRecords('organisation_memberships', user.id).then(({ data }) => {
         if (data && data.length > 0) {
           navigate('/dashboard', { replace: true });
         } else {
