@@ -1,28 +1,19 @@
-// In-memory store for selected pricing tier.
-// Survives across page navigations within the SPA (no storage needed).
-let selectedTier: { tier: string; category: string } | null = null;
+// Global store for selected pricing tier using window object.
+// This survives across lazy-loaded chunks and cannot be cleared
+// by localStorage/sessionStorage cleanup in the auth flow.
 
-export function setSelectedTier(tier: string, category: string) {
-  selectedTier = { tier, category };
-  // Also persist to storage as backup
-  try {
-    const data = JSON.stringify({ tier, category, selected_at: new Date().toISOString() });
-    localStorage.setItem('access_compass_selected_tier', data);
-    sessionStorage.setItem('access_compass_selected_tier', data);
-  } catch { /* ignore */ }
+interface TierData { tier: string; category: string }
+
+declare global {
+  interface Window {
+    __ac_selected_tier?: TierData;
+  }
 }
 
-export function getSelectedTier(): { tier: string; category: string } | null {
-  if (selectedTier) return selectedTier;
-  // Fallback to storage
-  try {
-    const raw = sessionStorage.getItem('access_compass_selected_tier')
-      || localStorage.getItem('access_compass_selected_tier');
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      selectedTier = { tier: parsed.tier, category: parsed.category };
-      return selectedTier;
-    }
-  } catch { /* ignore */ }
-  return null;
+export function setSelectedTier(tier: string, category: string) {
+  window.__ac_selected_tier = { tier, category };
+}
+
+export function getSelectedTier(): TierData | null {
+  return window.__ac_selected_tier || null;
 }
