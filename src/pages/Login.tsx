@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { getSession, getDiscoveryData } from '../utils/session';
-import { isSupabaseEnabled } from '../utils/supabase';
-import { fetchRecords } from '../utils/cloudSync';
+import { isSupabaseEnabled, supabaseRest } from '../utils/supabase';
 import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/login.css';
 
@@ -69,8 +68,8 @@ export default function Login() {
     // Check if this user has an org membership before sending to /start.
     if (isSupabaseEnabled()) {
       if (!user?.id) return; // Wait for user object to be available
-      fetchRecords('organisation_memberships', user.id).then(({ data }) => {
-        if (data && data.length > 0) {
+      supabaseRest.query('organisation_memberships', '*', { user_id: user.id }).then(({ data }) => {
+        if (data && Array.isArray(data) && data.length > 0) {
           navigate('/dashboard', { replace: true });
         } else {
           navigate(getResumeRoute(), { replace: true });
