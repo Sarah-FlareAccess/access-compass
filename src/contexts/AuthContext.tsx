@@ -203,9 +203,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, newSession) => {
+    } = supabase.auth.onAuthStateChange(async (event, newSession) => {
       setSession(newSession);
       setUser(newSession?.user ?? null);
+
+      // Skip heavy work on token refresh - only run on sign in/out
+      if (event === 'TOKEN_REFRESHED') return;
 
       if (newSession?.user) {
         // Check if a different user signed in - clear old user's localStorage data
