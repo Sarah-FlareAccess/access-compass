@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -27,21 +27,24 @@ export default function AuthorityDashboard() {
   usePageTitle('Authority Portal');
   const { accessState } = useAuth();
   const orgId = accessState.organisation?.id;
+  const orgIdRef = useRef(orgId);
+  if (orgId) orgIdRef.current = orgId;
+  const effectiveOrgId = orgId || orgIdRef.current;
   const { getPrograms, getChildOrgSummaries, isLoading } = useAuthorityAdmin();
 
   const [programs, setPrograms] = useState<AuthorityProgram[]>([]);
   const [childSummaries, setChildSummaries] = useState<ChildOrgSummary[]>([]);
 
   useEffect(() => {
-    if (!orgId) return;
+    if (!effectiveOrgId) return;
     Promise.all([
-      getPrograms(orgId),
-      getChildOrgSummaries(orgId),
+      getPrograms(effectiveOrgId),
+      getChildOrgSummaries(effectiveOrgId),
     ]).then(([progs, summaries]) => {
-      setPrograms(progs);
-      setChildSummaries(summaries);
+      if (progs.length > 0) setPrograms(progs);
+      if (summaries.length > 0) setChildSummaries(summaries);
     });
-  }, [orgId]);
+  }, [effectiveOrgId]);
 
   const totalBusinesses = new Set(childSummaries.map(s => s.child_org_id)).size;
   const completedEnrolments = childSummaries.filter(s => s.enrolment_status === 'completed').length;

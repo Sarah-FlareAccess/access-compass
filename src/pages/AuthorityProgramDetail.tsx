@@ -38,12 +38,18 @@ export default function AuthorityProgramDetail() {
 
   usePageTitle(program?.name || 'Program Detail');
 
+  // Store orgId in ref so it survives accessState resets
+  const orgIdRef = useRef(orgId);
+  if (orgId) orgIdRef.current = orgId;
+  const effectiveOrgId = orgId || orgIdRef.current;
+
   useEffect(() => {
-    if (!id || !orgId) return;
-    getProgram(id).then(setProgram);
-    getEnrolments(id).then(setEnrolments);
-    getChildOrgSummaries(orgId).then(s => {
-      setSummaries(s.filter(summary => summary.program_id === id));
+    if (!id || !effectiveOrgId) return;
+    getProgram(id).then(p => { if (p) setProgram(p); });
+    getEnrolments(id).then(e => { if (e.length > 0) setEnrolments(e); });
+    getChildOrgSummaries(effectiveOrgId).then(s => {
+      const filtered = s.filter(summary => summary.program_id === id);
+      if (filtered.length > 0) setSummaries(filtered);
     });
     // Fetch carryover declarations for this program
     supabaseRest.query('module_carryover_declarations', '*', { program_id: id }).then(({ data }) => {
