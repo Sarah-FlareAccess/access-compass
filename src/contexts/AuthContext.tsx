@@ -189,7 +189,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(initialSession?.user ?? null);
 
         if (initialSession?.user) {
-          fetchAccessState(initialSession.user.id).then(setAccessState);
+          // Only fetch if we don't have cached state with an org
+          const cached = getCachedAccessState();
+          if (!cached.organisation) {
+            fetchAccessState(initialSession.user.id).then(setAccessState);
+          }
         }
 
         setIsLoading(false);
@@ -204,11 +208,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, newSession) => {
+      // Skip token refresh entirely - no state changes needed, avoid re-renders
+      if (event === 'TOKEN_REFRESHED') return;
+
       setSession(newSession);
       setUser(newSession?.user ?? null);
-
-      // Skip heavy work on token refresh - only run on sign in/out
-      if (event === 'TOKEN_REFRESHED') return;
 
       if (newSession?.user) {
         // Check if a different user signed in - clear old user's localStorage data
