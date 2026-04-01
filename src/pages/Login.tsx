@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { getSession, getDiscoveryData } from '../utils/session';
-import { isSupabaseEnabled, supabaseRest } from '../utils/supabase';
+import { isSupabaseEnabled, supabase } from '../utils/supabase';
 import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/login.css';
 
@@ -66,17 +66,18 @@ export default function Login() {
 
     // localStorage is empty (e.g. after password reset or device switch).
     // Check if this user has an org membership before sending to /start.
-    if (isSupabaseEnabled()) {
+    if (isSupabaseEnabled() && supabase) {
       if (!user?.id) return; // Wait for user object to be available
-      supabaseRest.query('organisation_memberships', '*', { user_id: user.id }).then(({ data }) => {
-        if (data && Array.isArray(data) && data.length > 0) {
-          navigate('/dashboard', { replace: true });
-        } else {
+      Promise.resolve(supabase.from('organisation_memberships').select('id').eq('user_id', user.id).limit(1))
+        .then(({ data, error }) => {
+          if (!error && data && data.length > 0) {
+            navigate('/dashboard', { replace: true });
+          } else {
+            navigate(getResumeRoute(), { replace: true });
+          }
+        }).catch(() => {
           navigate(getResumeRoute(), { replace: true });
-        }
-      }).catch(() => {
-        navigate(getResumeRoute(), { replace: true });
-      });
+        });
     } else {
       navigate(getResumeRoute(), { replace: true });
     }
