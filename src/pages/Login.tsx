@@ -67,13 +67,12 @@ export default function Login() {
 
     // localStorage is empty (e.g. after password reset or device switch).
     // Check if this user has cloud data before sending to /start.
-    if (isSupabaseEnabled() && user?.id) {
+    if (isSupabaseEnabled()) {
+      if (!user?.id) return; // Wait for user object to be available
       fetchRecords('sessions', user.id).then(({ data }) => {
         if (data && data.length > 0) {
-          // User has cloud data, send to dashboard (cloud sync will restore it)
           navigate('/dashboard', { replace: true });
         } else {
-          // Truly new user, start from beginning
           navigate(getResumeRoute(), { replace: true });
         }
       }).catch(() => {
@@ -82,7 +81,7 @@ export default function Login() {
     } else {
       navigate(getResumeRoute(), { replace: true });
     }
-  }, [isAuthenticated, authLoading, navigate]);
+  }, [isAuthenticated, authLoading, navigate, user]);
 
   // Show loading while checking auth
   if (authLoading) {
@@ -122,9 +121,10 @@ export default function Login() {
           } else {
             setError(error.message || 'Unable to sign in. Please check your email and password, then try again.');
           }
-        } else {
-          navigate(getResumeRoute(), { replace: true });
         }
+        // On success, don't navigate here. The useEffect handles routing
+        // after isAuthenticated updates, including the Supabase cloud check
+        // for users whose localStorage is empty (device switch, cleared cache).
       } else if (mode === 'forgot') {
         const { error } = await resetPassword(email);
         if (error) {
