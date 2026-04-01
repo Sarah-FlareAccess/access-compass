@@ -16,6 +16,7 @@ import {
 } from 'react';
 import type { User, Session, AuthError } from '@supabase/supabase-js';
 import { supabase, isSupabaseEnabled, supabaseRest } from '../utils/supabase';
+import { restoreFromCloud } from '../utils/cloudSync';
 import type {
   UserAccessState,
   Organisation,
@@ -212,10 +213,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         localStorage.setItem(LAST_USER_KEY, newSession.user.id);
 
+        // Restore cloud data to localStorage before fetching access state
+        await restoreFromCloud(newSession.user.id);
+
         const newAccessState = await fetchAccessState(newSession.user.id);
         setAccessState(newAccessState);
-        // Note: Domain auto-join is handled by Disclaimer page, not here
-        // This allows users to see the organisation selection step
       } else {
         setAccessState(defaultAccessState);
       }

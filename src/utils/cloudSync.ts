@@ -479,3 +479,94 @@ export async function onUserOnline(userId: string): Promise<void> {
     try { cb(userId); } catch { /* ignore */ }
   }
 }
+
+// ============================================
+// RESTORE FROM CLOUD (pull data to localStorage on new device)
+// ============================================
+
+export async function restoreFromCloud(userId: string): Promise<boolean> {
+  if (!isSupabaseEnabled() || !supabase) return false;
+
+  const SESSION_KEY = 'access_compass_session';
+  const DISCOVERY_KEY = 'access_compass_discovery';
+
+  // Skip if localStorage already has session data
+  const existingSession = localStorage.getItem(SESSION_KEY);
+  if (existingSession) {
+    try {
+      const parsed = JSON.parse(existingSession);
+      if (parsed.business_snapshot?.organisation_name) return false;
+    } catch { /* continue with restore */ }
+  }
+
+  let restored = false;
+
+  try {
+    // 1. Restore session (business snapshot, selected modules)
+    const { data: sessions, error: sessErr } = await supabase
+      .from('sessions')
+      .select('*')
+      .eq('user_id', userId)
+      .order('updated_at', { ascending: false })
+      .limit(1);
+
+    if (!sessErr && sessions && sessions.length > 0) {
+      const cloud = sessions[0];
+      const session = {
+        session_id: cloud.session_id || crypto.randomUUID(),
+        created_at: cloud.created_at || new Date().toISOString(),
+        last_updated: cloud.updated_at || new Date().toISOString(),
+        business_snapshot: cloud.business_snapshot || {},
+        selected_modules: cloud.selected_modules || [],
+        discovery_responses: {},
+        constraints: {},
+        ai_response: null,
+      };
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+      restored = true;
+    }
+
+    // 2. Restore discovery data (touchpoints, review mode, recommendations)
+    const { data: discovery, error: discErr } = await supabase
+      .from('discovery_data')
+      .select('*')
+      .eq('user_id', userId)
+      .order('updated_at', { ascending: false })
+      .limit(1);
+
+    if (!discErr && discovery && discovery.length > 0) {
+      const cloud = discovery[0];
+      const recommendedModules = cloud.recommended_modules || [];
+      const discoveryData = {
+        discovery_data: {
+          selectedTouchpoints: cloud.selected_touchpoints || [],
+          selectedSubTouchpoints: cloud.selected_sub_touchpoints || [],
+          notApplicablePhases: cloud.not_applicable_phases || [],
+          explicitlyCompleted: true,
+        },
+        recommendation_result: cloud.recommendation_result || {},
+        review_mode: cloud.review_mode || 'deep-dive',
+        recommended_modules: recommendedModules,
+      };
+      localStorage.setItem(DISCOVERY_KEY, JSON.stringify(discoveryData));
+
+      // Also set selected_modules on the session (not synced separately)
+      try {
+        const sessionRaw = localStorage.getItem(SESSION_KEY);
+        if (sessionRaw) {
+          const session = JSON.parse(sessionRaw);
+          if (!session.selected_modules || session.selected_modules.length === 0) {
+            session.selected_modules = recommendedModules;
+            localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+          }
+        }
+      } catch { /* ignore */ }
+
+      restored = true;
+    }
+  } catch (err) {
+    console.error('[restoreFromCloud] Error:', err);
+  }
+
+  return restored;
+}
