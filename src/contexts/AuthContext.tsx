@@ -86,6 +86,22 @@ const defaultAccessState: UserAccessState = {
   hasAccess: false,
 };
 
+const ACCESS_STATE_CACHE_KEY = 'access_compass_access_state';
+
+function getCachedAccessState(): UserAccessState {
+  try {
+    const cached = localStorage.getItem(ACCESS_STATE_CACHE_KEY);
+    if (cached) return JSON.parse(cached);
+  } catch { /* ignore */ }
+  return defaultAccessState;
+}
+
+function cacheAccessState(state: UserAccessState) {
+  try {
+    localStorage.setItem(ACCESS_STATE_CACHE_KEY, JSON.stringify(state));
+  } catch { /* ignore */ }
+}
+
 // ============================================
 // PROVIDER COMPONENT
 // ============================================
@@ -94,7 +110,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [accessState, setAccessState] = useState<UserAccessState>(defaultAccessState);
+  const [accessState, setAccessStateRaw] = useState<UserAccessState>(getCachedAccessState);
+  const setAccessState = useCallback((state: UserAccessState) => {
+    setAccessStateRaw(state);
+    cacheAccessState(state);
+  }, []);
 
   // ============================================
   // FETCH USER'S ACCESS STATE
@@ -311,6 +331,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = useCallback(async () => {
     if (!supabase) return;
+    localStorage.removeItem(ACCESS_STATE_CACHE_KEY);
     await supabase.auth.signOut();
   }, []);
 
