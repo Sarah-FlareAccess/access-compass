@@ -369,11 +369,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Determine org type from selected pricing tier
         let orgType = 'standard';
         try {
-          const tierData = JSON.parse(localStorage.getItem('access_compass_selected_tier') || '{}');
-          if (tierData.category === 'authority') {
-            orgType = 'authority';
+          const tierRaw = localStorage.getItem('access_compass_selected_tier');
+          if (tierRaw) {
+            const tierData = JSON.parse(tierRaw);
+            console.log('[createOrganisation] Selected tier:', tierData);
+            if (tierData.category === 'authority') {
+              orgType = 'authority';
+            }
+          } else {
+            console.log('[createOrganisation] No tier found in localStorage');
           }
         } catch { /* ignore */ }
+        console.log('[createOrganisation] Using org_type:', orgType);
 
         // Step 1: Insert organisation via REST
         const { data: orgData, error: orgError } = await supabaseRest.insert('organisations', {
