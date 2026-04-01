@@ -396,6 +396,16 @@ export default function Disclaimer() {
                 </button>
               </form>
 
+              {!isSignUp && (
+                <div className="forgot-link-container" style={{ textAlign: 'center', marginTop: '0.5rem' }}>
+                  <Link to="/login" className="text-link" onClick={() => {
+                    // Navigate to login page in forgot password mode
+                  }}>
+                    Forgot your password?
+                  </Link>
+                </div>
+              )}
+
               <div className="auth-switch">
                 {isSignUp ? (
                   <p>
