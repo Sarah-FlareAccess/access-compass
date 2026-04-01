@@ -153,8 +153,8 @@ export default function BusinessSnapshotPage() {
     // Save to session
     updateBusinessSnapshot(formData);
 
-    // Navigate to discovery (touchpoint-based module recommendations)
-    navigate('/discovery');
+    // Show pricing before discovery so users know the cost upfront
+    navigate('/pricing');
   };
 
   return (

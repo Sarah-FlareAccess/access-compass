@@ -49,7 +49,7 @@ export default function Login() {
       discovery.discovery_data.selectedTouchpoints.length > 0;
 
     if (!hasCompletedDiscovery && !discovery?.recommended_modules?.length) {
-      return '/discovery';
+      return '/pricing';
     }
 
     return '/decision';

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { getSession, getDiscoveryData } from '../utils/session';
 import '../styles/pricing.css';
 
 const CheckIcon = ({ onHighlight = false }: { onHighlight?: boolean }) => (
@@ -421,6 +422,12 @@ export default function Pricing() {
   const currentTiers = allTiers[view];
   const featureLabels = view === 'authority' ? featureLabelsAuthority : featureLabelsStandard;
 
+  // Detect if user is in onboarding flow (has business info but hasn't done discovery yet)
+  const session = getSession();
+  const discovery = getDiscoveryData();
+  const isOnboarding = !!session?.business_snapshot?.organisation_name &&
+    !discovery?.discovery_data?.selectedTouchpoints?.length;
+
   const viewLabels: Record<string, string> = {
     individual: 'Single Site / Venue',
     multisite: 'Multi-Site & Organisations',
@@ -768,7 +775,11 @@ export default function Pricing() {
 
         {/* CTA */}
         <div className="pricing-cta">
-          {view === 'authority' ? (
+          {isOnboarding ? (
+            <Link to="/discovery" className="btn btn-primary btn-large">
+              Continue to Discovery
+            </Link>
+          ) : view === 'authority' ? (
             <a href="mailto:hello@accesscompass.com.au?subject=Council%20%2F%20Authority%20enquiry" className="btn btn-primary btn-large">
               Contact us about authority partnerships
             </a>
