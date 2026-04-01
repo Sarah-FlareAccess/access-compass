@@ -307,6 +307,16 @@
 }
 
 /* CTA */
+.pricing-card-select-btn:hover:not(:disabled) {
+  opacity: 0.85;
+  transform: translateY(-1px);
+  transition: all 0.15s ease;
+}
+
+.pricing-card-select-btn:disabled {
+  opacity: 0.5;
+}
+
 .pricing-cta {
   max-width: 64rem;
   margin: 2rem auto 0;

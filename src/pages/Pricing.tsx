@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { getSession, getDiscoveryData } from '../utils/session';
 import '../styles/pricing.css';
@@ -417,6 +417,7 @@ const allTiers: Record<string, Tier[]> = {
 
 export default function Pricing() {
   usePageTitle('Pricing');
+  const navigate = useNavigate();
   const [view, setView] = useState<'individual' | 'multisite' | 'authority'>('individual');
 
   const currentTiers = allTiers[view];
@@ -427,6 +428,19 @@ export default function Pricing() {
   const discovery = getDiscoveryData();
   const isOnboarding = !!session?.business_snapshot?.organisation_name &&
     !discovery?.discovery_data?.selectedTouchpoints?.length;
+
+  const handleSelectTier = (tierName: string, tierView: string) => {
+    localStorage.setItem('access_compass_selected_tier', JSON.stringify({
+      tier: tierName,
+      category: tierView,
+      selected_at: new Date().toISOString(),
+    }));
+    if (isOnboarding) {
+      navigate('/discovery');
+    } else {
+      navigate('/disclaimer');
+    }
+  };
 
   const viewLabels: Record<string, string> = {
     individual: 'Single Site / Venue',
@@ -562,6 +576,25 @@ export default function Pricing() {
                     ))}
                   </div>
                 </details>
+                <button
+                  className="pricing-card-select-btn"
+                  onClick={() => handleSelectTier(tier.name, view)}
+                  style={{
+                    marginTop: '1rem',
+                    width: '100%',
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '0.5rem',
+                    border: tier.highlight ? `2px solid ${colors.sunriseBright}` : `2px solid ${colors.amethyst}`,
+                    backgroundColor: tier.highlight ? colors.sunriseBright : 'transparent',
+                    color: tier.highlight ? '#1A0F11' : colors.amethyst,
+                    fontWeight: 700,
+                    fontSize: '0.9375rem',
+                    cursor: tier.price === 'Contact us' || tier.price === 'Custom pricing' ? 'default' : 'pointer',
+                  }}
+                  {...(tier.price === 'Contact us' || tier.price === 'Custom pricing' ? { disabled: true } : {})}
+                >
+                  {tier.price === 'Contact us' || tier.price === 'Custom pricing' ? 'Contact us' : `Select ${tier.name}`}
+                </button>
               </div>
             ))}
           </div>
@@ -775,18 +808,14 @@ export default function Pricing() {
 
         {/* CTA */}
         <div className="pricing-cta">
-          {isOnboarding ? (
-            <Link to="/discovery" className="btn btn-primary btn-large">
-              Continue to Discovery
-            </Link>
-          ) : view === 'authority' ? (
+          {view === 'authority' ? (
             <a href="mailto:hello@accesscompass.com.au?subject=Council%20%2F%20Authority%20enquiry" className="btn btn-primary btn-large">
               Contact us about authority partnerships
             </a>
           ) : (
-            <Link to="/disclaimer" className="btn btn-primary btn-large">
-              Start your accessibility check
-            </Link>
+            <p style={{ color: colors.subtleText, fontSize: '0.9375rem' }}>
+              Select a plan above to get started
+            </p>
           )}
         </div>
 
