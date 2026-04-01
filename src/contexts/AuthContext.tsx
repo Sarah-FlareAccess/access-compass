@@ -111,9 +111,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [accessState, setAccessStateRaw] = useState<UserAccessState>(getCachedAccessState);
-  const setAccessState = useCallback((state: UserAccessState) => {
-    setAccessStateRaw(state);
-    cacheAccessState(state);
+  const setAccessState = useCallback((newState: UserAccessState) => {
+    setAccessStateRaw(prev => {
+      // Never downgrade: if we already have org data, don't overwrite with empty org
+      if (prev.organisation && !newState.organisation && newState.isAuthenticated) {
+        return prev;
+      }
+      cacheAccessState(newState);
+      return newState;
+    });
   }, []);
 
   // ============================================
