@@ -906,14 +906,14 @@ export function DiscoveryModule({
               </p>
               <div className="discovery-buttons" style={{ flexDirection: 'column' }}>
                 <button className="btn-continue" onClick={handleContinue}>
-                  Choose your path →
+                  Continue to Dashboard →
                 </button>
                 <button className="btn-back" onClick={handleBack}>
                   ← Back to adjust answers
                 </button>
               </div>
               <p className="action-reassurance">
-                Next, you'll choose between a quick pulse check or a comprehensive deep dive.
+                Your selected modules will appear on your dashboard. You can adjust them anytime.
               </p>
             </div>
           </div>

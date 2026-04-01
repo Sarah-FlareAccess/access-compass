@@ -129,8 +129,8 @@ function Discovery() {
     // Save the modules as selected modules
     updateSelectedModules(data.recommendedModules as ModuleType[]);
 
-    // Navigate directly to decision page
-    navigate('/decision');
+    // Navigate directly to dashboard (tier already selected on pricing page)
+    navigate('/dashboard');
   };
 
 
