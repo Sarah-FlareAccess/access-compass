@@ -1691,6 +1691,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     const comment: DIAPComment = {
       id: crypto.randomUUID(),
       authorName: (() => {
+        const displayName = localStorage.getItem('access_compass_user_display_name');
+        if (displayName) return displayName;
         const session = getSession();
         return session?.business_snapshot?.contact_name || 'Team member';
       })(),

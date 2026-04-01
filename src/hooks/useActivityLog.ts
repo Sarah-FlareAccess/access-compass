@@ -52,7 +52,11 @@ function saveActivities(entries: ActivityEntry[]): void {
 }
 
 function getActorName(): string {
-  // 1. Try session contact name
+  // 1. Try stored display name (set during org creation)
+  const displayName = localStorage.getItem('access_compass_user_display_name');
+  if (displayName) return displayName;
+
+  // 2. Try session contact name
   const session = getSession();
   const contactName = session?.business_snapshot?.contact_name;
   if (contactName) return contactName;

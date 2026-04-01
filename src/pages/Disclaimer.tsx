@@ -191,6 +191,9 @@ export default function Disclaimer() {
         const isRawError = error.startsWith('{') || error.includes('violates') || error.includes('constraint');
         setError(isRawError ? 'Failed to create organisation. Please try again.' : error);
       } else {
+        if (contactName) {
+          localStorage.setItem('access_compass_user_display_name', contactName);
+        }
         setSuccessMessage(`${organisation?.name} has been created!`);
         setCurrentStep('complete');
       }
