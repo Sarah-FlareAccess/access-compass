@@ -172,6 +172,19 @@ export default function Disclaimer() {
     }
   };
 
+  // Read tier at component level so it's captured before auth clears storage
+  const [selectedTierCategory] = useState(() => {
+    try {
+      const raw = sessionStorage.getItem('access_compass_selected_tier')
+        || localStorage.getItem('access_compass_selected_tier');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return parsed.category || '';
+      }
+    } catch { /* ignore */ }
+    return '';
+  });
+
   const handleCreateOrg = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -183,6 +196,7 @@ export default function Disclaimer() {
         size: orgSize,
         contactEmail,
         contactName,
+        orgType: selectedTierCategory === 'authority' ? 'authority' : 'standard',
       });
       if (error) {
         const isRawError = error.startsWith('{') || error.includes('violates') || error.includes('constraint');

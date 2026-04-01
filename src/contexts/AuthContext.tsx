@@ -50,6 +50,7 @@ interface AuthContextValue {
     contactEmail: string;
     contactName: string;
     allowedEmails?: string[];
+    orgType?: string;
   }) => Promise<{
     error: string | null;
     organisation?: Organisation;
@@ -353,6 +354,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       contactEmail: string;
       contactName: string;
       allowedEmails?: string[];
+      orgType?: string;
     }): Promise<{ error: string | null; organisation?: Organisation; inviteCode?: string; emailsAdded?: number }> => {
       if (!supabase || !user) {
         return { error: 'Not authenticated' };
@@ -367,22 +369,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Generate invite code
         const inviteCode = Math.random().toString(36).substring(2, 10).toUpperCase();
 
-        // Determine org type from selected pricing tier
-        // Check sessionStorage first (survives auth flow), then localStorage
-        let orgType = 'standard';
-        try {
-          const tierRaw = sessionStorage.getItem('access_compass_selected_tier')
-            || localStorage.getItem('access_compass_selected_tier');
-          if (tierRaw) {
-            const tierData = JSON.parse(tierRaw);
-            console.log('[createOrganisation] Selected tier:', tierData);
-            if (tierData.category === 'authority') {
-              orgType = 'authority';
+        // Determine org type: use explicit param, or fall back to storage
+        let orgType = data.orgType || 'standard';
+        if (orgType === 'standard') {
+          try {
+            const tierRaw = sessionStorage.getItem('access_compass_selected_tier')
+              || localStorage.getItem('access_compass_selected_tier');
+            if (tierRaw) {
+              const tierData = JSON.parse(tierRaw);
+              if (tierData.category === 'authority') {
+                orgType = 'authority';
+              }
             }
-          } else {
-            console.log('[createOrganisation] No tier found in storage');
-          }
-        } catch { /* ignore */ }
+          } catch { /* ignore */ }
+        }
         console.log('[createOrganisation] Using org_type:', orgType);
 
         // Step 1: Insert organisation via REST
