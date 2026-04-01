@@ -618,8 +618,8 @@ Thanks!`;
               </div>
             )}
 
-            {/* Overall Progress Card */}
-            <section className="progress-section">
+            {/* Overall Progress Card - hide on activity tab */}
+            {activeTab !== 'activity' && <section className="progress-section">
             <div className="progress-card">
               <div className="progress-header">
                 <h2 className="progress-title">Overall Progress</h2>
@@ -657,7 +657,7 @@ Thanks!`;
               </div>
             </div>
 
-          </section>
+          </section>}
 
           {/* Dashboard Overview Stats - only on overview */}
           {activeTab === 'overview' && (
