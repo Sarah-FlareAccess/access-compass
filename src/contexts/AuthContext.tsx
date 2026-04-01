@@ -366,11 +366,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Generate invite code
         const inviteCode = Math.random().toString(36).substring(2, 10).toUpperCase();
 
+        // Determine org type from selected pricing tier
+        let orgType = 'standard';
+        try {
+          const tierData = JSON.parse(localStorage.getItem('access_compass_selected_tier') || '{}');
+          if (tierData.category === 'authority') {
+            orgType = 'authority';
+          }
+        } catch { /* ignore */ }
+
         // Step 1: Insert organisation via REST
         const { data: orgData, error: orgError } = await supabaseRest.insert('organisations', {
           name: data.name,
           slug,
           size: data.size,
+          org_type: orgType,
           contact_email: data.contactEmail,
           contact_name: data.contactName,
           invite_code: inviteCode,
