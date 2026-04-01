@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { getSelectedTier } from '../utils/selectedTier';
 import '../styles/disclaimer.css';
 
 type Step = 'disclaimer' | 'auth' | 'organisation' | 'complete';
@@ -172,31 +173,19 @@ export default function Disclaimer() {
     }
   };
 
-  // Read tier at component level so it's captured before auth clears storage
-  const [selectedTierCategory] = useState(() => {
-    try {
-      const raw = sessionStorage.getItem('access_compass_selected_tier')
-        || localStorage.getItem('access_compass_selected_tier');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        return parsed.category || '';
-      }
-    } catch { /* ignore */ }
-    return '';
-  });
-
   const handleCreateOrg = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsSubmitting(true);
 
     try {
+      const tier = getSelectedTier();
       const { error, organisation } = await createOrganisation({
         name: orgName,
         size: orgSize,
         contactEmail,
         contactName,
-        orgType: selectedTierCategory === 'authority' ? 'authority' : 'standard',
+        orgType: tier?.category === 'authority' ? 'authority' : 'standard',
       });
       if (error) {
         const isRawError = error.startsWith('{') || error.includes('violates') || error.includes('constraint');

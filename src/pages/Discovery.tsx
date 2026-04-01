@@ -6,6 +6,7 @@ import { normalizeModuleCode } from '../utils/moduleCompat';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { accessModules } from '../data/accessModules';
 import type { ReviewMode, RecommendationResult, ModuleType } from '../types';
+import { getSelectedTier } from '../utils/selectedTier';
 import { usePageTitle } from '../hooks/usePageTitle';
 import '../components/discovery/discovery.css';
 import './DiscoverySummary.css';
@@ -116,9 +117,8 @@ function Discovery() {
     // Determine review mode from selected pricing tier
     let reviewMode: ReviewMode = data.recommendedDepth;
     try {
-      const tierRaw = sessionStorage.getItem('access_compass_selected_tier')
-        || localStorage.getItem('access_compass_selected_tier');
-      const tierData = JSON.parse(tierRaw || '{}');
+      const tierInfo = getSelectedTier();
+      const tierData = tierInfo || { tier: '', category: '' };
       const tierName = (tierData.tier || '').toLowerCase();
       const tierCategory = tierData.category || '';
       // Deep Dive tiers: Free (3 modules deep dive), Committed, Multi-Site Deep/Plus, all authority tiers

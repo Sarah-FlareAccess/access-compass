@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { getSession, getDiscoveryData } from '../utils/session';
+import { setSelectedTier } from '../utils/selectedTier';
 import '../styles/pricing.css';
 
 const CheckIcon = ({ onHighlight = false }: { onHighlight?: boolean }) => (
@@ -430,13 +431,7 @@ export default function Pricing() {
     !discovery?.discovery_data?.selectedTouchpoints?.length;
 
   const handleSelectTier = (tierName: string, tierView: string) => {
-    const tierData = JSON.stringify({
-      tier: tierName,
-      category: tierView,
-      selected_at: new Date().toISOString(),
-    });
-    localStorage.setItem('access_compass_selected_tier', tierData);
-    sessionStorage.setItem('access_compass_selected_tier', tierData);
+    setSelectedTier(tierName, tierView);
     if (isOnboarding) {
       navigate('/discovery');
     } else {
