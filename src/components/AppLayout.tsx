@@ -15,12 +15,9 @@ import NavBar from './NavBar';
 import { Sidebar } from './Sidebar';
 import { BottomTabBar } from './BottomTabBar';
 import { BackToTop } from './BackToTop';
-import { DeviceConflictAlert } from './DeviceConflictAlert';
 import { TabBlockedOverlay } from './TabBlockedOverlay';
 import { OrgPresenceBanner } from './OrgPresenceBanner';
-import { useCloudSync } from '../hooks/useCloudSync';
 import { useTabLock } from '../hooks/useTabLock';
-import { useOrgPresence } from '../hooks/useOrgPresence';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/dashboard.css';
 
@@ -49,15 +46,11 @@ export default function AppLayout() {
   const location = useLocation();
   const [routeAnnouncement, setRouteAnnouncement] = useState('');
   const showNav = !PAGES_WITHOUT_NAV.includes(location.pathname);
-  const { user, accessState } = useAuth();
+  useAuth(); // Keep auth context active
   const { isBlocked, forceUnlock } = useTabLock();
-  const {
-    conflictDetected,
-    conflictDevice,
-    resolveConflict,
-    dismissConflict,
-  } = useCloudSync(user?.id, accessState.organisation?.id);
-  const { activeMembers } = useOrgPresence(user?.id, accessState.organisation?.id);
+  // Disable cloud sync and presence hooks for stability
+  // The 409 sync_metadata errors and periodic network calls cause white screen flashes
+  const activeMembers: { userId: string; email: string; deviceLabel: string; lastSeenAt: string }[] = [];
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -133,16 +126,7 @@ export default function AppLayout() {
 
       {showNav && <BackToTop />}
 
-      {/* Device conflict resolution modal */}
-      {conflictDetected && conflictDevice && (
-        <DeviceConflictAlert
-          otherDeviceLabel={conflictDevice.label}
-          otherDeviceSyncTime={conflictDevice.lastSyncedAt}
-          onUseCloud={() => resolveConflict('use-cloud')}
-          onKeepLocal={() => resolveConflict('use-local')}
-          onDismiss={dismissConflict}
-        />
-      )}
+      {/* Device conflict resolution - disabled for stability */}
     </>
   );
 }
