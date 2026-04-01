@@ -55,9 +55,9 @@ import './Decision.css';
 const CONSULT_BOOKING_URL = import.meta.env.VITE_CONSULT_BOOKING_URL || '#';
 
 const SIZE_TIER_OPTIONS: { value: BusinessSizeTier; label: string; description: string }[] = [
-  { value: 'small', label: 'Small', description: '1-20 staff' },
-  { value: 'medium', label: 'Medium', description: '21-100 staff' },
-  { value: 'large', label: 'Large', description: '100+ staff' },
+  { value: 'small', label: 'Micro / Small', description: '0-19 staff' },
+  { value: 'medium', label: 'Medium', description: '20-199 staff' },
+  { value: 'large', label: 'Large', description: '200+ staff' },
   { value: 'enterprise', label: 'Enterprise', description: 'Multi-site or precinct' },
 ];
 

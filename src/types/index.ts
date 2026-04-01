@@ -12,7 +12,7 @@ export type BusinessType =
   | 'online-services'
   | 'other';
 
-export type OrganisationSize = 'small' | 'medium' | 'large' | 'enterprise';
+export type OrganisationSize = 'micro' | 'small' | 'medium' | 'large' | 'enterprise';
 
 export type UserRole =
   | 'owner'

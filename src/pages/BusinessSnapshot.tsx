@@ -65,10 +65,10 @@ const businessTypeOptions: BusinessTypeOption[] = [
 ];
 
 const organisationSizeOptions: { value: OrganisationSize; label: string; description: string }[] = [
-  { value: 'small', label: 'Small', description: '1-20 staff' },
-  { value: 'medium', label: 'Medium', description: '21-100 staff' },
-  { value: 'large', label: 'Large', description: '100+ staff' },
-  { value: 'enterprise', label: 'Enterprise', description: 'Multi-site or precinct' },
+  { value: 'micro', label: 'Micro', description: '0-4 staff' },
+  { value: 'small', label: 'Small', description: '5-19 staff' },
+  { value: 'medium', label: 'Medium', description: '20-199 staff' },
+  { value: 'large', label: 'Large', description: '200+ staff' },
 ];
 
 export default function BusinessSnapshotPage() {
