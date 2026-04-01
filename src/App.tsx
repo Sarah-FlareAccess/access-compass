@@ -10,7 +10,8 @@ import { PageLoader } from './components/PageLoader';
 import './styles/global.css';
 
 // Auto-reload on stale chunk errors after a new deploy
-function lazyWithRetry(importFn: () => Promise<{ default: React.ComponentType }>) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function lazyWithRetry(importFn: () => Promise<{ default: React.ComponentType<any> }>) {
   return lazy(() =>
     importFn().catch(() => {
       const hasReloaded = sessionStorage.getItem('chunk_reload');
