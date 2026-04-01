@@ -56,23 +56,24 @@ export default function Login() {
   useEffect(() => {
     if (!isAuthenticated || authLoading) return;
 
-    // If localStorage has data, route based on progress
+    // If user has an org (from cache or fetch), always go to dashboard
+    if (accessState.organisation) {
+      navigate('/dashboard', { replace: true });
+      return;
+    }
+
+    // Wait for accessState to finish loading
+    if (!accessState.isAuthenticated) return;
+
+    // No org - check localStorage for onboarding progress
     const session = getSession();
     if (session?.business_snapshot?.organisation_name) {
       navigate(getResumeRoute(), { replace: true });
       return;
     }
 
-    // localStorage is empty (e.g. after password reset or device switch).
-    // Wait for accessState to load (it fetches org membership from Supabase).
-    // When accessState.isAuthenticated is true, the fetch has completed.
-    if (!accessState.isAuthenticated) return; // Still loading access state
-
-    if (accessState.organisation) {
-      navigate('/dashboard', { replace: true });
-    } else {
-      navigate(getResumeRoute(), { replace: true });
-    }
+    // Truly new user
+    navigate(getResumeRoute(), { replace: true });
   }, [isAuthenticated, authLoading, navigate, user, accessState]);
 
   // Show loading while checking auth
