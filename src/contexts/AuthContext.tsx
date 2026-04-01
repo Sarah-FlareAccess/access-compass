@@ -194,6 +194,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             LAST_USER_KEY,
             'sb-ibvqlyyvlwnwjcoehjkt-auth-token',
             'access_compass_device_id',
+            'access_compass_selected_tier',
           ];
           const keysToRemove: string[] = [];
           for (let i = 0; i < localStorage.length; i++) {
