@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { getSession, getDiscoveryData } from '../utils/session';
-import { isSupabaseEnabled, supabase } from '../utils/supabase';
 import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/login.css';
 
@@ -12,7 +11,7 @@ export default function Login() {
   usePageTitle('Sign In');
   const navigate = useNavigate();
   const location = useLocation();
-  const { signIn, resetPassword, isAuthenticated, isLoading: authLoading, user } = useAuth();
+  const { signIn, resetPassword, isAuthenticated, isLoading: authLoading, user, accessState } = useAuth();
 
   const [mode, setMode] = useState<AuthMode>('signin');
   const [email, setEmail] = useState('');
@@ -65,23 +64,16 @@ export default function Login() {
     }
 
     // localStorage is empty (e.g. after password reset or device switch).
-    // Check if this user has an org membership before sending to /start.
-    if (isSupabaseEnabled() && supabase) {
-      if (!user?.id) return; // Wait for user object to be available
-      Promise.resolve(supabase.from('organisation_memberships').select('id').eq('user_id', user.id).limit(1))
-        .then(({ data, error }) => {
-          if (!error && data && data.length > 0) {
-            navigate('/dashboard', { replace: true });
-          } else {
-            navigate(getResumeRoute(), { replace: true });
-          }
-        }).catch(() => {
-          navigate(getResumeRoute(), { replace: true });
-        });
+    // Wait for accessState to load (it fetches org membership from Supabase).
+    // When accessState.isAuthenticated is true, the fetch has completed.
+    if (!accessState.isAuthenticated) return; // Still loading access state
+
+    if (accessState.organisation) {
+      navigate('/dashboard', { replace: true });
     } else {
       navigate(getResumeRoute(), { replace: true });
     }
-  }, [isAuthenticated, authLoading, navigate, user]);
+  }, [isAuthenticated, authLoading, navigate, user, accessState]);
 
   // Show loading while checking auth
   if (authLoading) {
