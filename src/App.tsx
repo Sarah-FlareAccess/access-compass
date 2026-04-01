@@ -9,57 +9,71 @@ import { PageLoader } from './components/PageLoader';
 
 import './styles/global.css';
 
+// Auto-reload on stale chunk errors after a new deploy
+function lazyWithRetry(importFn: () => Promise<{ default: React.ComponentType }>) {
+  return lazy(() =>
+    importFn().catch(() => {
+      const hasReloaded = sessionStorage.getItem('chunk_reload');
+      if (!hasReloaded) {
+        sessionStorage.setItem('chunk_reload', '1');
+        window.location.reload();
+      }
+      return importFn();
+    })
+  );
+}
+
 // Public pages
-const Landing = lazy(() => import('./pages/Landing'));
-const Disclaimer = lazy(() => import('./pages/Disclaimer'));
-const Login = lazy(() => import('./pages/Login'));
-const Pricing = lazy(() => import('./pages/Pricing'));
+const Landing = lazyWithRetry(() => import('./pages/Landing'));
+const Disclaimer = lazyWithRetry(() => import('./pages/Disclaimer'));
+const Login = lazyWithRetry(() => import('./pages/Login'));
+const Pricing = lazyWithRetry(() => import('./pages/Pricing'));
 
 // Discovery flow
-const BusinessSnapshot = lazy(() => import('./pages/BusinessSnapshot'));
-const Discovery = lazy(() => import('./pages/Discovery'));
-const DiscoverySummary = lazy(() => import('./pages/DiscoverySummary'));
-const DiscoveryHelp = lazy(() => import('./pages/DiscoveryHelp'));
+const BusinessSnapshot = lazyWithRetry(() => import('./pages/BusinessSnapshot'));
+const Discovery = lazyWithRetry(() => import('./pages/Discovery'));
+const DiscoverySummary = lazyWithRetry(() => import('./pages/DiscoverySummary'));
+const DiscoveryHelp = lazyWithRetry(() => import('./pages/DiscoveryHelp'));
 
 // Paywall / Auth pages
-const Decision = lazy(() => import('./pages/Decision'));
-const Checkout = lazy(() => import('./pages/Checkout'));
-const CheckoutSuccess = lazy(() => import('./pages/CheckoutSuccess'));
-const AuthCallback = lazy(() => import('./pages/AuthCallback'));
-const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+const Decision = lazyWithRetry(() => import('./pages/Decision'));
+const Checkout = lazyWithRetry(() => import('./pages/Checkout'));
+const CheckoutSuccess = lazyWithRetry(() => import('./pages/CheckoutSuccess'));
+const AuthCallback = lazyWithRetry(() => import('./pages/AuthCallback'));
+const ResetPassword = lazyWithRetry(() => import('./pages/ResetPassword'));
 
 // Protected pages
-const ModuleSelection = lazy(() => import('./pages/ModuleSelection'));
-const DiscoveryQuestions = lazy(() => import('./pages/DiscoveryQuestions'));
-const Constraints = lazy(() => import('./pages/Constraints'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const ActionDetail = lazy(() => import('./pages/ActionDetail'));
-const DIAPWorkspace = lazy(() => import('./pages/DIAPWorkspace'));
-const ClarifyLater = lazy(() => import('./pages/ClarifyLater'));
-const ReportPage = lazy(() => import('./pages/ReportPage'));
+const ModuleSelection = lazyWithRetry(() => import('./pages/ModuleSelection'));
+const DiscoveryQuestions = lazyWithRetry(() => import('./pages/DiscoveryQuestions'));
+const Constraints = lazyWithRetry(() => import('./pages/Constraints'));
+const Dashboard = lazyWithRetry(() => import('./pages/Dashboard'));
+const ActionDetail = lazyWithRetry(() => import('./pages/ActionDetail'));
+const DIAPWorkspace = lazyWithRetry(() => import('./pages/DIAPWorkspace'));
+const ClarifyLater = lazyWithRetry(() => import('./pages/ClarifyLater'));
+const ReportPage = lazyWithRetry(() => import('./pages/ReportPage'));
 
 // Static pages
-const AccessibilityStatement = lazy(() => import('./pages/AccessibilityStatement'));
+const AccessibilityStatement = lazyWithRetry(() => import('./pages/AccessibilityStatement'));
 
 // Dev/test pages
-const SupabaseTest = lazy(() => import('./pages/SupabaseTest'));
+const SupabaseTest = lazyWithRetry(() => import('./pages/SupabaseTest'));
 
 // Resource Centre
-const ResourceCentre = lazy(() => import('./pages/ResourceCentre'));
+const ResourceCentre = lazyWithRetry(() => import('./pages/ResourceCentre'));
 
 // Training Hub
-const TrainingHub = lazy(() => import('./pages/TrainingHub'));
-const CourseDetail = lazy(() => import('./pages/CourseDetail'));
-const LessonView = lazy(() => import('./pages/LessonView'));
-const TrainingResourceDetail = lazy(() => import('./pages/TrainingResourceDetail'));
+const TrainingHub = lazyWithRetry(() => import('./pages/TrainingHub'));
+const CourseDetail = lazyWithRetry(() => import('./pages/CourseDetail'));
+const LessonView = lazyWithRetry(() => import('./pages/LessonView'));
+const TrainingResourceDetail = lazyWithRetry(() => import('./pages/TrainingResourceDetail'));
 
 // Authority Portal
-const AuthorityDashboard = lazy(() => import('./pages/AuthorityDashboard'));
-const AuthorityPrograms = lazy(() => import('./pages/AuthorityPrograms'));
-const AuthorityProgramDetail = lazy(() => import('./pages/AuthorityProgramDetail'));
-const AuthorityBusinesses = lazy(() => import('./pages/AuthorityBusinesses'));
-const AuthorityGuidance = lazy(() => import('./pages/AuthorityGuidance'));
-const ProgramEnrol = lazy(() => import('./pages/ProgramEnrol'));
+const AuthorityDashboard = lazyWithRetry(() => import('./pages/AuthorityDashboard'));
+const AuthorityPrograms = lazyWithRetry(() => import('./pages/AuthorityPrograms'));
+const AuthorityProgramDetail = lazyWithRetry(() => import('./pages/AuthorityProgramDetail'));
+const AuthorityBusinesses = lazyWithRetry(() => import('./pages/AuthorityBusinesses'));
+const AuthorityGuidance = lazyWithRetry(() => import('./pages/AuthorityGuidance'));
+const ProgramEnrol = lazyWithRetry(() => import('./pages/ProgramEnrol'));
 
 function App() {
   return (

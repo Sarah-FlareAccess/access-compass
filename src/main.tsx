@@ -4,6 +4,7 @@ import App from './App.tsx'
 import { migrateModuleIds } from './utils/moduleCompat'
 
 migrateModuleIds();
+sessionStorage.removeItem('chunk_reload');
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
