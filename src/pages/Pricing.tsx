@@ -430,11 +430,13 @@ export default function Pricing() {
     !discovery?.discovery_data?.selectedTouchpoints?.length;
 
   const handleSelectTier = (tierName: string, tierView: string) => {
-    localStorage.setItem('access_compass_selected_tier', JSON.stringify({
+    const tierData = JSON.stringify({
       tier: tierName,
       category: tierView,
       selected_at: new Date().toISOString(),
-    }));
+    });
+    localStorage.setItem('access_compass_selected_tier', tierData);
+    sessionStorage.setItem('access_compass_selected_tier', tierData);
     if (isOnboarding) {
       navigate('/discovery');
     } else {

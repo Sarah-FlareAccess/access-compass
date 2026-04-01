@@ -368,9 +368,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const inviteCode = Math.random().toString(36).substring(2, 10).toUpperCase();
 
         // Determine org type from selected pricing tier
+        // Check sessionStorage first (survives auth flow), then localStorage
         let orgType = 'standard';
         try {
-          const tierRaw = localStorage.getItem('access_compass_selected_tier');
+          const tierRaw = sessionStorage.getItem('access_compass_selected_tier')
+            || localStorage.getItem('access_compass_selected_tier');
           if (tierRaw) {
             const tierData = JSON.parse(tierRaw);
             console.log('[createOrganisation] Selected tier:', tierData);
@@ -378,7 +380,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               orgType = 'authority';
             }
           } else {
-            console.log('[createOrganisation] No tier found in localStorage');
+            console.log('[createOrganisation] No tier found in storage');
           }
         } catch { /* ignore */ }
         console.log('[createOrganisation] Using org_type:', orgType);

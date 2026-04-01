@@ -116,7 +116,9 @@ function Discovery() {
     // Determine review mode from selected pricing tier
     let reviewMode: ReviewMode = data.recommendedDepth;
     try {
-      const tierData = JSON.parse(localStorage.getItem('access_compass_selected_tier') || '{}');
+      const tierRaw = sessionStorage.getItem('access_compass_selected_tier')
+        || localStorage.getItem('access_compass_selected_tier');
+      const tierData = JSON.parse(tierRaw || '{}');
       const tierName = (tierData.tier || '').toLowerCase();
       const tierCategory = tierData.category || '';
       // Deep Dive tiers: Free (3 modules deep dive), Committed, Multi-Site Deep/Plus, all authority tiers
