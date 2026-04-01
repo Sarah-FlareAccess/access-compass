@@ -35,7 +35,7 @@ const businessTypeOptions: BusinessTypeOption[] = [
   {
     value: 'events-venues',
     label: 'Events & Venues',
-    examples: 'Conference centres, theatres, stadiums, and event spaces',
+    examples: 'Conference centres, theatres, stadiums, function venues, and event spaces',
     icon: '🎭',
   },
   {
