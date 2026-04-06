@@ -37,6 +37,7 @@ export function PageGuide({ pageId, features, tip }: PageGuideProps) {
         className="page-guide-toggle"
         onClick={toggle}
         aria-expanded={isOpen}
+        title={isOpen ? 'Hide page guide' : 'Show page guide'}
       >
         <HelpCircle size={16} aria-hidden="true" className="page-guide-icon" />
         <span>How to use this page</span>

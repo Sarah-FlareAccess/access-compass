@@ -923,7 +923,7 @@ export default function DIAPWorkspace() {
         )}
 
         <details ref={filtersRef} className="diap-controls-collapsible">
-          <summary className="diap-controls-summary">
+          <summary className="diap-controls-summary" title="Expand or collapse filter options">
             Filters
             {(filterStatuses.size > 0 || filterPriorities.size > 0 || filterCategories.size > 0 || filterResponsible !== 'all' || filterDueDate.size > 0) && (
               <span className="filter-active-count">
@@ -1129,7 +1129,7 @@ export default function DIAPWorkspace() {
         {/* Priority legend (collapsible) */}
         {items.length > 0 && (
           <details className="diap-controls-collapsible diap-priority-legend">
-            <summary className="diap-controls-summary">Understanding priority levels</summary>
+            <summary className="diap-controls-summary" title="Expand or collapse priority guide">Understanding priority levels</summary>
             <dl className="diap-priority-legend-list">
               {PRIORITY_LEGEND.map(({ level, label, description }) => (
                 <div key={level} className={`diap-priority-legend-item diap-priority-${level}`}>
@@ -1187,6 +1187,7 @@ export default function DIAPWorkspace() {
                   role="button"
                   tabIndex={0}
                   aria-expanded={isExpanded}
+                  title={isExpanded ? `Collapse ${displayName}` : `Expand ${displayName}`}
                 >
                   <div className="category-header">
                     <span className="category-icon" aria-hidden="true">{group.icon}</span>
@@ -1371,6 +1372,7 @@ export default function DIAPWorkspace() {
             className="section-header"
             onClick={() => setShowDocuments(!showDocuments)}
             aria-expanded={showDocuments}
+            title={showDocuments ? 'Collapse supporting documents' : 'Expand supporting documents'}
           >
             <h2>Supporting Documents ({documents.length + collectedEvidence.length})</h2>
             <span className={`chevron ${showDocuments ? 'open' : ''}`} aria-hidden="true">&#9660;</span>
@@ -1399,6 +1401,7 @@ export default function DIAPWorkspace() {
                           className="folder-header"
                           onClick={() => toggleFolder(folder.moduleCode)}
                           aria-expanded={expandedFolders[folder.moduleCode]}
+                          title={expandedFolders[folder.moduleCode] ? `Collapse ${folder.moduleName}` : `Expand ${folder.moduleName}`}
                         >
                           <span className="folder-icon" aria-hidden="true">
                             {expandedFolders[folder.moduleCode] ? '📂' : '📁'}

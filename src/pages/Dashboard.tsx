@@ -834,6 +834,7 @@ Thanks!`;
                       className={`topic-tile ${isExpanded ? 'expanded' : ''} ${group.completedCount === group.totalCount && group.totalCount > 0 ? 'completed' : ''}`}
                       onClick={() => toggleGroupExpansion(group.id)}
                       aria-expanded={isExpanded}
+                      title={isExpanded ? `Collapse ${group.label}` : `Expand ${group.label}`}
                     >
                       <span className="topic-icon">{groupIcons[group.id] || '📋'}</span>
                       <div className="topic-info">

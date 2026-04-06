@@ -79,6 +79,7 @@ function ReportGroup({
         aria-expanded={open}
         aria-controls={contentId}
         onClick={() => setOpen(v => !v)}
+        title={open ? `Collapse ${title}` : `Expand ${title}`}
       >
         <span className="report-group-title">{title}</span>
         <ChevronDown
@@ -268,6 +269,7 @@ function CollapsibleNotes({
           className="notes-toggle-btn"
           onClick={() => setShowAll(v => !v)}
           aria-expanded={showAll}
+          title={showAll ? 'Show fewer notes' : 'Show all notes'}
         >
           {showAll ? 'Show fewer notes' : `Show all ${notes.length} notes (+${remaining} more)`}
         </button>

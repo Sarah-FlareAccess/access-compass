@@ -181,6 +181,7 @@ export function HelpSheet({ isOpen, onClose }: HelpSheetProps) {
                     onClick={() => toggleFAQ(index)}
                     aria-expanded={expandedFAQ === index}
                     aria-controls={`faq-answer-${index}`}
+                    title={expandedFAQ === index ? 'Collapse answer' : 'Expand answer'}
                   >
                     <span>{faq.question}</span>
                     <svg

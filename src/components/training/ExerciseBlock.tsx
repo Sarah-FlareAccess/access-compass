@@ -103,7 +103,7 @@ export function ExerciseBlock({
 
       {exampleOutput && (
         <details className="exercise-example">
-          <summary>View example output</summary>
+          <summary title="Expand or collapse example output">View example output</summary>
           <div className="exercise-example-content">{exampleOutput}</div>
         </details>
       )}

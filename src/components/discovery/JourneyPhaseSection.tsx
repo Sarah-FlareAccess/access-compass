@@ -116,6 +116,7 @@ export function JourneyPhaseSection({
         role="button"
         tabIndex={0}
         aria-expanded={isOpen}
+        title={isOpen ? `Collapse ${label}` : `Expand ${label}`}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();

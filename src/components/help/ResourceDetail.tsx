@@ -166,6 +166,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
             className="section-toggle"
             onClick={() => toggleSection('solutions')}
             aria-expanded={expandedSections.solutions}
+            title={expandedSections.solutions ? 'Collapse solutions' : 'Expand solutions'}
           >
             <div className="section-header">
               <Target size={22} className="section-icon" />
@@ -212,6 +213,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
             className="section-toggle"
             onClick={() => toggleSection('howToCheck')}
             aria-expanded={expandedSections.howToCheck}
+            title={expandedSections.howToCheck ? 'Collapse how to check' : 'Expand how to check'}
           >
             <div className="section-header">
               <CheckCircle size={22} className="section-icon" />
@@ -264,6 +266,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
             className="section-toggle"
             onClick={() => toggleSection('standards')}
             aria-expanded={expandedSections.standards}
+            title={expandedSections.standards ? 'Collapse Australian standards' : 'Expand Australian standards'}
           >
             <div className="section-header">
               <Scale size={22} className="section-icon" />
@@ -318,6 +321,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
             className="section-toggle"
             onClick={() => toggleSection('examples')}
             aria-expanded={expandedSections.examples}
+            title={expandedSections.examples ? 'Collapse common scenarios' : 'Expand common scenarios'}
           >
             <div className="section-header">
               <Building2 size={22} className="section-icon" />
@@ -370,6 +374,7 @@ export function ResourceDetail({ resource, onNavigateToResource }: ResourceDetai
             className="section-toggle"
             onClick={() => toggleSection('video')}
             aria-expanded={expandedSections.video}
+            title={expandedSections.video ? 'Collapse video' : 'Expand video'}
           >
             <div className="section-header">
               <Play size={22} className="section-icon" />
@@ -452,7 +457,7 @@ function GuidanceNotesSection({ tips, groups }: { tips: string[]; groups: Groupe
       <div className="guidance-groups">
         {displayedGroups.map((group, gi) => (
           <details key={gi} className="guidance-group" open={gi === 0}>
-            <summary className="guidance-group-title">{group.questionText}</summary>
+            <summary className="guidance-group-title" title="Expand or collapse guidance notes">{group.questionText}</summary>
             <ul className="guidance-notes-list" role="list">
               {group.tips.map((tip, ti) => (
                 <li key={ti}>{tip}</li>
@@ -466,6 +471,7 @@ function GuidanceNotesSection({ tips, groups }: { tips: string[]; groups: Groupe
           className="guidance-notes-toggle"
           onClick={() => setShowAll(!showAll)}
           aria-expanded={showAll}
+          title={showAll ? 'Show fewer guidance topics' : 'Show all guidance topics'}
         >
           {showAll ? (
             <><ChevronUp size={16} /> Show fewer topics</>
@@ -491,6 +497,7 @@ function TipCard({ tip }: { tip: HelpTip }) {
             <button
               className="tip-expand"
               onClick={() => setExpanded(!expanded)}
+              title={expanded ? 'Show less detail' : 'Show more detail'}
             >
               {expanded ? 'Less' : 'More'}
             </button>
@@ -576,6 +583,7 @@ function SolutionCard({ solution }: { solution: GradedSolution }) {
             <button
               className="solution-steps-toggle"
               onClick={() => setExpanded(!expanded)}
+              title={expanded ? 'Hide implementation steps' : 'Show implementation steps'}
             >
               {expanded ? 'Hide steps' : 'Show steps'}
               {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
