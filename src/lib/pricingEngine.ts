@@ -58,7 +58,7 @@ const INDIVIDUAL_TIERS: Record<IndividualTier, IndividualTierConfig> = {
   },
   committed: {
     name: 'Committed',
-    priceAmountCents: 69900,
+    priceAmountCents: 89900,
     period: '12 months',
     accessLevel: 'deep_dive',
     moduleLimit: null,
@@ -68,7 +68,6 @@ const INDIVIDUAL_TIERS: Record<IndividualTier, IndividualTierConfig> = {
       'Resource Hub access (12 months)',
       'Full DIAP workspace',
       '1x re-assessment included',
-      '1x 60-minute consultation',
     ],
   },
 };
@@ -150,10 +149,10 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
   },
   deep_3: {
     name: 'Multi-Site Deep',
-    priceAmountCents: 179900,
+    priceAmountCents: 199900,
     period: '12 months',
     sites: 3,
-    perSiteCents: 60000,
+    perSiteCents: 66600,
     isPurchasable: true,
     inclusions: [
       'Deep Dive for 3 sites',
@@ -164,10 +163,10 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
   },
   plus_6: {
     name: 'Multi-Site Plus',
-    priceAmountCents: 299900,
+    priceAmountCents: 349900,
     period: '12 months',
     sites: 6,
-    perSiteCents: 50000,
+    perSiteCents: 58300,
     isPurchasable: true,
     inclusions: [
       'Deep Dive for 6 sites',
@@ -197,7 +196,7 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
 // AUTHORITY TIERS
 // ============================================
 
-export type AuthorityTier = 'essentials' | 'pro' | 'enterprise';
+export type AuthorityTier = 'essentials' | 'standard' | 'pro' | 'enterprise';
 
 interface AuthorityTierConfig {
   name: string;
@@ -205,6 +204,7 @@ interface AuthorityTierConfig {
   perBusinessCents: number;
   period: string;
   accessLevel: AccessLevel;
+  maxBusinesses: number | null;
   maxPrograms: number | null;
   maxAdmins: number | null;
   isPurchasable: boolean;
@@ -213,15 +213,17 @@ interface AuthorityTierConfig {
 
 const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
   essentials: {
-    name: 'Council Essentials',
-    platformFeeCents: 400000,
-    perBusinessCents: 9900,
+    name: 'Essentials',
+    platformFeeCents: 490000,
+    perBusinessCents: 28900,
     period: '1 year',
     accessLevel: 'pulse',
+    maxBusinesses: 20,
     maxPrograms: 1,
     maxAdmins: 3,
     isPurchasable: true,
     inclusions: [
+      'Up to 20 business licenses',
       '1 active program (scoped modules)',
       '3 admin users',
       'Completion tracking dashboard',
@@ -230,21 +232,45 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
       'Email support + onboarding call',
     ],
   },
-  pro: {
-    name: 'Council Pro',
-    platformFeeCents: 890000,
-    perBusinessCents: 34900,
+  standard: {
+    name: 'Standard',
+    platformFeeCents: 790000,
+    perBusinessCents: 49900,
     period: '1 year',
     accessLevel: 'deep_dive',
+    maxBusinesses: 50,
+    maxPrograms: 2,
+    maxAdmins: 5,
+    isPurchasable: true,
+    inclusions: [
+      'Up to 50 business licenses',
+      '2 active programs (scoped modules)',
+      '5 admin users',
+      'Completion tracking dashboard',
+      'Aggregate reporting',
+      '6-month Resource Hub per business',
+      'DIAP workspace for businesses',
+      'Email support + onboarding call',
+    ],
+  },
+  pro: {
+    name: 'Pro',
+    platformFeeCents: 1490000,
+    perBusinessCents: 64900,
+    period: '1 year',
+    accessLevel: 'deep_dive',
+    maxBusinesses: 100,
     maxPrograms: 5,
     maxAdmins: 10,
     isPurchasable: true,
     inclusions: [
-      'Up to 5 active programs (scoped modules)',
+      'Up to 100 business licenses',
+      '5 active programs (scoped modules)',
       '10 admin users',
       'Full aggregate dashboard with trends',
       'Question guidance notes',
-      'Resource Hub + DIAP included for businesses',
+      '12-month Resource Hub per business',
+      'DIAP workspace for businesses',
       '1 re-assessment per business',
       'Priority email + quarterly review',
     ],
@@ -255,11 +281,12 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     perBusinessCents: 0,
     period: '',
     accessLevel: 'deep_dive',
+    maxBusinesses: null,
     maxPrograms: null,
     maxAdmins: null,
     isPurchasable: false,
     inclusions: [
-      'Unlimited programs and admin users',
+      'Unlimited businesses, programs, and admin users',
       'White-label and co-branding options',
       'SSO + integrations + API access',
       'Dedicated partnership manager',
@@ -272,10 +299,9 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
 // AUTHORITY ADD-ONS
 // ============================================
 
-export const AUTHORITY_ADDONS = {
-  extraProgram: { label: 'Extra program', priceCents: 100000, period: '/program/year' },
-  extraAdmin: { label: 'Extra admin seat', priceCents: 50000, period: '/seat/year' },
-  advisory: { label: 'Advisory session', priceCents: 25000, period: '/session' },
+export const CONSULTATION_ADDONS = {
+  thirtyMin: { label: '30-min consultation', priceCents: 20000, standalonePriceCents: 25000 },
+  sixtyMin: { label: '60-min consultation', priceCents: 35000, standalonePriceCents: 45000 },
 };
 
 // ============================================
@@ -297,9 +323,9 @@ const PRICING_MATRIX: Record<BusinessSizeTier, Record<AccessLevel, Record<Module
       full: 39900,
     },
     deep_dive: {
-      core: 69900,      // Committed: $699
-      expanded: 69900,
-      full: 69900,
+      core: 89900,      // Committed: $899
+      expanded: 89900,
+      full: 89900,
     },
   },
   medium: {
@@ -309,20 +335,20 @@ const PRICING_MATRIX: Record<BusinessSizeTier, Record<AccessLevel, Record<Module
       full: 39900,
     },
     deep_dive: {
-      core: 69900,
-      expanded: 69900,
-      full: 69900,
+      core: 89900,
+      expanded: 89900,
+      full: 89900,
     },
   },
   large: {
     pulse: {
       core: 99900,      // Multi-Site Pulse (3 sites): $999
-      expanded: 179900,  // Multi-Site Deep: $1,799
-      full: 299900,      // Multi-Site Plus: $2,999
+      expanded: 199900,  // Multi-Site Deep: $1,999
+      full: 349900,      // Multi-Site Plus: $3,499
     },
     deep_dive: {
-      core: 179900,
-      expanded: 299900,
+      core: 199900,
+      expanded: 349900,
       full: 0,           // Custom
     },
   },

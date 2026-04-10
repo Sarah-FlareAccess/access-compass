@@ -143,6 +143,12 @@
   border-radius: 0.75rem;
   padding: 1.25rem;
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card-select-btn {
+  margin-top: auto !important;
 }
 
 .pricing-card.highlighted {

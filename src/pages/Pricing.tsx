@@ -67,6 +67,7 @@ const featureLabelsStandard: { key: keyof TierFeatures; label: string }[] = [
   { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'diap', label: 'Disability Inclusion Action Plan (DIAP)' },
   { key: 'comparison', label: 'Progress Tracking (Re-assessment)' },
+  { key: 'training', label: 'Consultation' },
   { key: 'support', label: 'Support' },
 ];
 
@@ -81,8 +82,8 @@ const featureLabelsAuthority: { key: keyof TierFeatures; label: string }[] = [
   { key: 'resourceHub', label: 'Resource Hub for Businesses' },
   { key: 'diap', label: 'DIAP Management for Businesses' },
   { key: 'comparison', label: 'Progress Tracking (Re-assessment)' },
-  { key: 'questionGuidance', label: 'Custom Question Guidance Notes' },
-  { key: 'support', label: 'Support' },
+  { key: 'training', label: 'Consultation (per business)' },
+  { key: 'support', label: 'Your Support (Authority / Council)' },
 ];
 
 function renderFeatureValue(value: boolean | string | undefined, onHighlight = false) {
@@ -217,7 +218,7 @@ const allTiers: Record<string, Tier[]> = {
         resourceHub: false,
         diap: false,
         comparison: false,
-        training: false,
+        training: 'Add-on: from $200',
         support: 'Self-service'
       }
     },
@@ -237,13 +238,13 @@ const allTiers: Record<string, Tier[]> = {
         resourceHub: '6 months',
         diap: false,
         comparison: false,
-        training: false,
+        training: 'Add-on: from $200',
         support: 'Self-service'
       }
     },
     {
       name: 'Committed',
-      price: '$699',
+      price: '$899',
       period: '12 months',
       description: 'Comprehensive review with action planning',
       highlight: true,
@@ -257,8 +258,8 @@ const allTiers: Record<string, Tier[]> = {
         resourceHub: '12 months',
         diap: true,
         comparison: '1 re-assessment',
-        training: false,
-        support: '1\u00d7 60-min consult'
+        training: 'Add-on: from $200',
+        support: 'Self-service'
       }
     }
   ],
@@ -280,17 +281,17 @@ const allTiers: Record<string, Tier[]> = {
         resourceHub: '6 months',
         diap: false,
         comparison: false,
-        training: false,
-        support: '1\u00d7 30-min consult'
+        training: 'Add-on: from $200',
+        support: 'Self-service'
       }
     },
     {
       name: 'Multi-Site Deep',
-      price: '$1,799',
+      price: '$1,999',
       period: '12 months',
       description: 'Detailed multi-site review',
       highlight: true,
-      perSite: '$600/site',
+      perSite: '$666/site',
       features: {
         assessment: 'Deep Dive (all relevant modules)',
         sites: 'Up to 3 sites / venues',
@@ -301,17 +302,17 @@ const allTiers: Record<string, Tier[]> = {
         resourceHub: '12 months',
         diap: true,
         comparison: '1 per site',
-        training: false,
-        support: '1\u00d7 60-min consult'
+        training: 'Add-on: from $200',
+        support: 'Email support'
       }
     },
     {
       name: 'Multi-Site Plus',
-      price: '$2,999',
+      price: '$3,499',
       period: '12 months',
       description: 'Growing chains and groups',
       highlight: false,
-      perSite: '$500/site',
+      perSite: '$583/site',
       features: {
         assessment: 'Deep Dive (all relevant modules)',
         sites: 'Up to 6 sites / venues',
@@ -322,8 +323,8 @@ const allTiers: Record<string, Tier[]> = {
         resourceHub: '12 months',
         diap: true,
         comparison: '1 per site',
-        training: false,
-        support: '1\u00d7 60-min + quarterly check-ins'
+        training: 'Add-on: from $200',
+        support: 'Email support + quarterly check-ins'
       }
     },
     {
@@ -342,7 +343,7 @@ const allTiers: Record<string, Tier[]> = {
         resourceHub: '12 months',
         diap: true,
         comparison: 'Unlimited',
-        training: false,
+        training: 'Add-on: from $200',
         support: 'Named consultant + onboarding'
       }
     }
@@ -350,45 +351,67 @@ const allTiers: Record<string, Tier[]> = {
   authority: [
     {
       name: 'Essentials',
-      price: '$4,000 + from $99/business',
-      period: '/year',
-      description: 'Track accessibility compliance across your LGA or network',
+      price: '$4,900 + $289/business',
+      period: '',
+      description: 'Quick baseline across your LGA or network',
       highlight: false,
       perSite: 'Pulse Check assessment per business',
       features: {
-        ownAssessment: '1 site (Deep Dive)',
+        ownAssessment: '1 site (Deep Dive). Extra sites available.',
         assessment: 'Pulse Check (scoped modules)',
-        sites: 'Unlimited business licenses',
+        sites: 'Up to 20 businesses',
         programs: '1 active program',
         users: '3 admin users',
         aggregateDashboard: 'Completion tracking',
         report: 'Aggregate PDF + per-business summary',
-        questionGuidance: false,
         resourceHub: '30 days per business',
         diap: false,
         comparison: false,
+        training: 'Add-on: from $200',
+        support: 'Email + onboarding call'
+      }
+    },
+    {
+      name: 'Standard',
+      price: '$7,900 + $499/business',
+      period: '',
+      description: 'Comprehensive assessment with action planning for your businesses',
+      highlight: true,
+      perSite: 'Deep Dive assessment per business',
+      features: {
+        ownAssessment: '1 site (Deep Dive). Extra sites available.',
+        assessment: 'Deep Dive (scoped modules)',
+        sites: 'Up to 50 businesses',
+        programs: 'Up to 2 active programs',
+        users: '5 admin users',
+        aggregateDashboard: 'Completion tracking',
+        report: 'Aggregate + per-program reporting',
+        resourceHub: '6 months per business',
+        diap: 'Included for businesses',
+        comparison: false,
+        training: 'Add-on: from $200',
         support: 'Email + onboarding call'
       }
     },
     {
       name: 'Pro',
-      price: '$8,900 + $349/business',
-      period: '/year',
-      description: 'Active program management with tools for your businesses',
-      highlight: true,
-      perSite: 'Deep Dive assessment per business (12 months)',
+      price: '$14,900 + $649/business',
+      period: '',
+      description: 'Full-service program with ongoing improvement tracking',
+      highlight: false,
+      perSite: 'Deep Dive assessment per business',
       features: {
-        ownAssessment: '1 site (Deep Dive)',
+        ownAssessment: '1 site (Deep Dive). Extra sites available.',
         assessment: 'Deep Dive (scoped modules)',
-        sites: 'Unlimited business licenses',
+        sites: 'Up to 100 businesses',
         programs: 'Up to 5 active programs',
         users: '10 admin users',
         aggregateDashboard: 'Full aggregate with trends',
         report: 'Aggregate + per-business + program reports',
-        questionGuidance: true,
-        resourceHub: 'Included for businesses',
+        resourceHub: '12 months per business',
         diap: 'Included for businesses',
-        comparison: '1 per business',
+        comparison: '1 re-assessment per business',
+        training: 'Add-on: from $200',
         support: 'Priority email + quarterly review'
       }
     },
@@ -396,7 +419,7 @@ const allTiers: Record<string, Tier[]> = {
       name: 'Enterprise & Partnerships',
       price: 'Contact us',
       period: '',
-      description: 'For venue operators, franchise networks, industry associations, state bodies, and tourism boards',
+      description: 'For state bodies, franchise networks, industry associations, and tourism boards',
       highlight: false,
       features: {
         ownAssessment: 'Unlimited sites (Deep Dive)',
@@ -406,10 +429,10 @@ const allTiers: Record<string, Tier[]> = {
         users: 'Unlimited',
         aggregateDashboard: 'Custom reporting + API access',
         report: 'Full suite + exportable data + white-label',
-        questionGuidance: true,
         resourceHub: 'Included for businesses',
         diap: 'Included for businesses',
         comparison: 'Unlimited',
+        training: 'Add-on: from $200',
         support: 'Dedicated partnership manager + SSO + integrations'
       }
     }
@@ -573,25 +596,50 @@ export default function Pricing() {
                     ))}
                   </div>
                 </details>
-                <button
-                  className="pricing-card-select-btn"
-                  onClick={() => handleSelectTier(tier.name, view)}
-                  style={{
-                    marginTop: '1rem',
-                    width: '100%',
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '0.5rem',
-                    border: tier.highlight ? `2px solid ${colors.sunriseBright}` : `2px solid ${colors.amethyst}`,
-                    backgroundColor: tier.highlight ? colors.sunriseBright : 'transparent',
-                    color: tier.highlight ? '#1A0F11' : colors.amethyst,
-                    fontWeight: 700,
-                    fontSize: '0.9375rem',
-                    cursor: tier.price === 'Contact us' || tier.price === 'Custom pricing' ? 'default' : 'pointer',
-                  }}
-                  {...(tier.price === 'Contact us' || tier.price === 'Custom pricing' ? { disabled: true } : {})}
-                >
-                  {tier.price === 'Contact us' || tier.price === 'Custom pricing' ? 'Contact us' : `Select ${tier.name}`}
-                </button>
+                {tier.price === 'Contact us' ? (
+                  <a
+                    className="pricing-card-select-btn"
+                    href="mailto:hello@accesscompass.com.au?subject=Enterprise%20%2F%20Partnership%20enquiry"
+                    style={{
+                      marginTop: '1rem',
+                      width: '100%',
+                      padding: '0.75rem 1.5rem',
+                      borderRadius: '0.5rem',
+                      border: `2px solid ${colors.amethyst}`,
+                      backgroundColor: 'transparent',
+                      color: colors.amethyst,
+                      fontWeight: 700,
+                      fontSize: '0.9375rem',
+                      cursor: 'pointer',
+                      display: 'block',
+                      textAlign: 'center',
+                      textDecoration: 'none',
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    Contact us
+                  </a>
+                ) : (
+                  <button
+                    className="pricing-card-select-btn"
+                    onClick={() => handleSelectTier(tier.name, view)}
+                    style={{
+                      marginTop: '1rem',
+                      width: '100%',
+                      padding: '0.75rem 1.5rem',
+                      borderRadius: '0.5rem',
+                      border: tier.highlight ? `2px solid ${colors.sunriseBright}` : `2px solid ${colors.amethyst}`,
+                      backgroundColor: tier.highlight ? colors.sunriseBright : 'transparent',
+                      color: tier.highlight ? '#1A0F11' : colors.amethyst,
+                      fontWeight: 700,
+                      fontSize: '0.9375rem',
+                      cursor: tier.price === 'Custom pricing' ? 'default' : 'pointer',
+                    }}
+                    {...(tier.price === 'Custom pricing' ? { disabled: true } : {})}
+                  >
+                    {tier.price === 'Custom pricing' ? 'Contact us' : `Select ${tier.name}`}
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -652,6 +700,23 @@ export default function Pricing() {
         {/* Authority info panel (only shown on authority view) */}
         {view === 'authority' && (
           <>
+            {/* Custom package CTA */}
+            <div className="pricing-addons">
+              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}`, textAlign: 'center', padding: '2rem' }}>
+                <h3 style={{ color: colors.walnut, marginBottom: '0.5rem' }}>Looking for something different?</h3>
+                <p style={{ color: colors.subtleText, fontSize: '0.875rem', marginBottom: '1rem', maxWidth: '32rem', marginLeft: 'auto', marginRight: 'auto' }}>
+                  Every organisation is unique. If you need to mix assessment depths, adjust business caps, or tailor features to your program, we can put together a package that fits.
+                </p>
+                <a
+                  href="mailto:hello@accesscompass.com.au?subject=Custom%20authority%20package%20enquiry"
+                  className="btn btn-primary"
+                  style={{ display: 'inline-block' }}
+                >
+                  Book a call to explore your options
+                </a>
+              </div>
+            </div>
+
             <div className="pricing-addons">
               <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}` }}>
                 <h3 style={{ color: colors.walnut }}>How it works</h3>
@@ -668,61 +733,6 @@ export default function Pricing() {
                   <p style={{ marginBottom: '0' }}>
                     <strong style={{ color: colors.textOnWhite }}>4. Privacy by design.</strong> You see completion status and score bands. Individual answers and evidence remain private to each business.
                   </p>
-                </div>
-              </div>
-            </div>
-
-            {/* License pricing */}
-            <div className="pricing-addons">
-              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>
-                <h3 style={{ color: colors.walnut }}>Business license pricing</h3>
-                <p style={{ color: colors.subtleText, fontSize: '0.8125rem', marginBottom: '0.75rem' }}>
-                  Each business needs a license to complete their assessment. Paid by the authority or by the business directly, depending on your program.
-                </p>
-                <div className="pricing-addons-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                  <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
-                    <span>Assessment only (Pulse, scoped modules)</span>
-                    <span><span style={{ fontWeight: 700 }}>$99</span><span style={{ color: colors.subtleText, fontSize: '0.75rem' }}>/business</span></span>
-                  </div>
-                  <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
-                    <span>Assessment only (Deep Dive, scoped modules)</span>
-                    <span><span style={{ fontWeight: 700 }}>$199</span><span style={{ color: colors.subtleText, fontSize: '0.75rem' }}>/business</span></span>
-                  </div>
-                  <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
-                    <span>Cohort license (Deep Dive + Resource Hub + DIAP, 12mo)</span>
-                    <span><span style={{ fontWeight: 700 }}>$349</span><span style={{ color: colors.subtleText, fontSize: '0.75rem' }}>/business</span></span>
-                  </div>
-                </div>
-                <p style={{ color: colors.subtleText, fontSize: '0.75rem', marginTop: '0.75rem' }}>
-                  Assessment-only licenses include a scoped PDF report. Businesses funding their own license pay standard individual rates. Payment plans available.
-                </p>
-              </div>
-            </div>
-
-            {/* Authority add-ons */}
-            <div className="pricing-addons">
-              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>
-                <h3 style={{ color: colors.walnut }}>
-                  <span style={{ backgroundColor: colors.amethyst, color: colors.white, width: '1.5rem', height: '1.5rem', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700 }}>+</span>
-                  Add-ons
-                </h3>
-                <div className="pricing-addons-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                  <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
-                    <span>Additional own sites/departments</span>
-                    <span style={{ fontWeight: 700 }}>$500/site/yr</span>
-                  </div>
-                  <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
-                    <span>Additional programs</span>
-                    <span style={{ fontWeight: 700 }}>$1,000/program/yr</span>
-                  </div>
-                  <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
-                    <span>Additional admin seats</span>
-                    <span style={{ fontWeight: 700 }}>$500/seat/yr</span>
-                  </div>
-                  <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
-                    <span>60-min advisory session</span>
-                    <span style={{ fontWeight: 700 }}>$450</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -761,27 +771,6 @@ export default function Pricing() {
           </div>
         )}
 
-        {/* Add-ons (hidden on authority view) */}
-        {view !== 'authority' && (
-          <div className="pricing-addons">
-            <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>
-              <h3 style={{ color: colors.walnut }}>
-                <span style={{ backgroundColor: colors.amethyst, color: colors.white, width: '1.5rem', height: '1.5rem', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700 }}>+</span>
-                Paid Add-Ons
-              </h3>
-              <div className="pricing-addons-grid">
-                <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
-                  <span>30-min advisory</span>
-                  <span style={{ fontWeight: 700 }}>$250</span>
-                </div>
-                <div className="pricing-addon-item" style={{ color: colors.textOnWhite }}>
-                  <span>60-min advisory</span>
-                  <span style={{ fontWeight: 700 }}>$450</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Upgrade Paths (hidden on authority view) */}
         {view !== 'authority' && (
@@ -790,10 +779,10 @@ export default function Pricing() {
             <div className="pricing-upgrades-list">
               {[
                 { path: 'Starter \u2192 Committed', credit: '$399' },
-                { path: 'Committed \u2192 Multi-Site Deep', credit: '$699' },
+                { path: 'Committed \u2192 Multi-Site Deep', credit: '$899' },
                 { path: 'Multi-Site Pulse \u2192 Deep', credit: '$999' },
-                { path: 'Multi-Site Deep \u2192 Plus', credit: '$1,799' },
-                { path: 'Multi-Site Plus \u2192 Large Organisation', credit: '$2,999' }
+                { path: 'Multi-Site Deep \u2192 Plus', credit: '$1,999' },
+                { path: 'Multi-Site Plus \u2192 Large Organisation', credit: '$3,499' }
               ].map((item, i) => (
                 <span key={i} className="pricing-upgrade-pill" style={{ backgroundColor: colors.ivory, color: colors.walnut, border: `1px solid ${colors.ivoryDark}` }}>
                   {item.path}: <strong style={{ color: colors.amethyst }}>{item.credit}</strong>
@@ -804,17 +793,13 @@ export default function Pricing() {
         )}
 
         {/* CTA */}
-        <div className="pricing-cta">
-          {view === 'authority' ? (
-            <a href="mailto:hello@accesscompass.com.au?subject=Council%20%2F%20Authority%20enquiry" className="btn btn-primary btn-large">
-              Contact us about authority partnerships
-            </a>
-          ) : (
+        {view !== 'authority' && (
+          <div className="pricing-cta">
             <p style={{ color: colors.subtleText, fontSize: '0.9375rem' }}>
               Select a plan above to get started
             </p>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Footer note */}
         <div className="pricing-footer-note">
