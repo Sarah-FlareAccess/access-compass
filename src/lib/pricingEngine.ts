@@ -287,7 +287,7 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     isPurchasable: false,
     inclusions: [
       'Unlimited businesses, programs, and admin users',
-      'White-label and co-branding options',
+      'Co-branded reports and custom branding options',
       'SSO + integrations + API access',
       'Dedicated partnership manager',
       'Custom reporting and data export',
