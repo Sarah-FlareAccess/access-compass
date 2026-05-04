@@ -200,8 +200,10 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
   '7.1': 'policy-procedure',           // Precinct & multi-venue coordination
   '7.2': 'service-delivery',           // Accessibility programming curation
   '7.3': 'service-delivery',           // Ticketing & box office accessibility
+  '7.4': 'service-delivery',           // Performer/artist/talent access
   '7.5': 'employment-volunteering',    // Volunteer & staff at scale + cohort planning
   '7.6': 'service-delivery',           // Attendee experience operations
+  '7.7': 'service-delivery',           // Ability Camping
 
   // Fallback for any unmapped modules
   'default': 'policy-procedure',

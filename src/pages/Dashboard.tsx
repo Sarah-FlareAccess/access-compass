@@ -1260,7 +1260,7 @@ Thanks!`;
                       const rawRows: DiapEvRow[] = [];
                       for (const it of diapItems) {
                         for (const a of it.attachments || []) {
-                          rawRows.push({ id: a.id, name: a.name, subtitles: [it.title], date: a.addedAt, dataUrl: a.dataUrl, storagePath: a.storagePath, bucket: a.bucket || 'evidence-files', category: it.category });
+                          rawRows.push({ id: a.id, name: a.name, subtitles: [it.objective], date: a.addedAt, dataUrl: a.dataUrl, storagePath: a.storagePath, bucket: a.bucket || 'evidence-files', category: it.category });
                         }
                       }
                       for (const doc of diapDocuments) {
@@ -1268,7 +1268,7 @@ Thanks!`;
                         rawRows.push({
                           id: doc.id,
                           name: doc.filename,
-                          subtitles: [linkedItem ? `Linked to ${linkedItem.title}` : 'Action plan document'],
+                          subtitles: [linkedItem ? `Linked to ${linkedItem.objective}` : 'Action plan document'],
                           storagePath: doc.storagePath?.startsWith('data:') ? undefined : doc.storagePath,
                           dataUrl: doc.storagePath?.startsWith('data:') ? doc.storagePath : undefined,
                           bucket: 'diap-documents',

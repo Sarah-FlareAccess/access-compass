@@ -401,6 +401,7 @@ export function ResourceCentre() {
       'service-support': [],
       'organisational-commitment': [],
       'events': [],
+      'major-events': [],
     };
     filteredResources.forEach(resource => {
       grouped[resource.moduleGroup].push(resource);

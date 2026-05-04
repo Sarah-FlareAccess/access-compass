@@ -186,6 +186,7 @@ export async function findEvidenceByHash(
       mimeType: data.mime_type as string | undefined,
       bucket: (data.bucket_name as string) || 'evidence-files',
       source: 'evidence_files',
+      origin: 'module',
     };
   } catch {
     return null;

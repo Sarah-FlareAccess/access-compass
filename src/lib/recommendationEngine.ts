@@ -166,17 +166,21 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Ensures sensory and technological aspects of events are accessible. Relevant if events use AV, lighting, or amplification.' },
   { id: '6.5', name: 'On-the-day operations', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Ensures event-day operations support accessibility. Relevant if you manage staff, volunteers, or logistics on event days.' },
-  // Major events (3 modules - phase 1 of 6)
+  // Major events (full set: 7.1-7.7)
   { id: '7.1', name: 'Precinct and multi-venue coordination', journeyTheme: 'during-visit', estimatedTime: 12, cost: 110,
     description: 'Coordinates accessibility across all venues, stages and zones in a major event. Relevant if your event spans multiple venues or operates as a precinct (festivals, fashion weeks, major sporting events).' },
   { id: '7.2', name: 'Accessibility programming curation', journeyTheme: 'during-visit', estimatedTime: 12, cost: 110,
     description: 'Curates an accessibility programming track and supports artists to design inclusively. Relevant if you program performances, shows, or curated content (festivals, performing arts events, programmed cultural events).' },
   { id: '7.3', name: 'Ticketing and box office accessibility', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 95,
     description: 'End-to-end accessible ticketing including companion ticketing across many shows and trained box office staff. Relevant if you sell tickets for multiple shows or sessions.' },
+  { id: '7.4', name: 'Performer, artist and talent access', journeyTheme: 'during-visit', estimatedTime: 12, cost: 110,
+    description: 'Performer-side built environment, briefings, riders, paid disabled-artist consultancy, reasonable adjustments and operational performer access. Relevant if you book performers, artists, presenters or talent at any scale.' },
   { id: '7.5', name: 'Volunteer and staff at scale + cohorts', journeyTheme: 'during-visit', estimatedTime: 12, cost: 100,
     description: 'Volunteer and staff briefing systems at major-event scale, identifying clothing, access champion network, inclusive evacuation, Auslan/caption rovers, plus VIP/sponsor/press cohort accessibility. Relevant if you run major events with hundreds of volunteers or special audience cohorts.' },
   { id: '7.6', name: 'Attendee experience operations', journeyTheme: 'during-visit', estimatedTime: 14, cost: 120,
     description: 'Day-of audience-facing service practices: sensory regulation rooms, queue avoidance, coloured zoning, QR-code info network, familiarisation, accessible viewing platforms, support workers, sensory kits, haptic devices, adaptive equipment loan, medical infrastructure, inclusive activities. Relevant for any major event focused on inclusive attendee experience.' },
+  { id: '7.7', name: 'Ability Camping (overnight accommodation)', journeyTheme: 'during-visit', estimatedTime: 12, cost: 100,
+    description: 'Multi-day camping accessibility: pitches, amenities at scale, transport to venues, equipment hire, pitch-side electricity for medical equipment, refrigeration, quiet zones, buddy systems and camping-specific evacuation. Relevant if your event includes on-site camping or overnight accommodation.' },
 ];
 
 // Module IDs now match codes directly (no mapping needed)
@@ -228,8 +232,10 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '7.1': '7.1',
   '7.2': '7.2',
   '7.3': '7.3',
+  '7.4': '7.4',
   '7.5': '7.5',
   '7.6': '7.6',
+  '7.7': '7.7',
 };
 
 export const CODE_TO_MODULE_ID: Record<string, string> = { ...MODULE_ID_TO_CODE };
@@ -255,7 +261,7 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   'accommodation-rooms': ['3.9'],                        // Accommodation and guest rooms
   'retail-shopping': ['3.10', '4.3'],                    // Retail shopping, bookings/ticketing
   'outdoor-grounds': ['3.11', '3.12'],                   // Outdoor spaces, playgrounds
-  'events-management': ['6.1', '6.2', '6.3', '6.4', '6.5', '7.1', '7.2', '7.3', '7.5', '7.6'], // All event modules + major-event modules
+  'events-management': ['6.1', '6.2', '6.3', '6.4', '6.5', '7.1', '7.2', '7.3', '7.4', '7.5', '7.6', '7.7'], // All event modules + major-event modules
   'wayfinding': ['3.5', '2.3', '3.6', '3.7'],            // Signage, paths, printed materials, on-site info
   'sensory': ['3.3', '3.1', '3.4'],                     // Sensory environment, seating, equipment
   'staff-interaction': ['4.2', '4.3', '4.4', '1.5', '4.1'], // Customer service, payments, safety, communication, ways to reach you

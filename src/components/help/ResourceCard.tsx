@@ -55,6 +55,11 @@ const CATEGORY_CONFIG: Record<ModuleGroup, { icon: React.ReactNode; color: strin
     color: '#4c1d95',
     label: 'Events',
   },
+  'major-events': {
+    icon: <Settings size={16} />,
+    color: '#312e81',
+    label: 'Major Events',
+  },
 };
 
 export function ResourceCard({ resource, onClick }: ResourceCardProps) {

@@ -3063,7 +3063,6 @@ export const duringVisitHelp: HelpContent[] = [
       source: 'Accessible Beaches Australia',
       description: 'Directory of accessible beaches with information on beach wheelchairs, matting, and access features.',
       isAustralian: true,
-      isAustralian: true,
       isFree: true
     }
   ],

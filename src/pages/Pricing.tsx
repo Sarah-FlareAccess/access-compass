@@ -922,7 +922,7 @@ export default function Pricing() {
   const isOnboarding = !!session?.business_snapshot?.organisation_name &&
     !discovery?.discovery_data?.selectedTouchpoints?.length;
 
-  const handleSelectTier = (tierName: string, tierView: string) => {
+  const handleSelectTier = (tierName: string, _tierView: string) => {
     // Show the business groups prompt before proceeding
     setShowGroupPrompt(tierName);
   };
@@ -1256,7 +1256,7 @@ export default function Pricing() {
                 <tr key={key} style={{ backgroundColor: idx % 2 === 1 ? colors.ivory : colors.white }}>
                   <td style={{ color: colors.textOnWhite, position: 'relative' }}>
                     {label}
-                    {key === 'ownAssessment' && <AssessmentInfoButton type="site" />}
+                    {(key as string) === 'ownAssessment' && <AssessmentInfoButton type="site" />}
                     {infoKey && <InfoBubble infoKey={infoKey} />}
                   </td>
                   {currentTiers.map((tier, i) => (
@@ -1278,7 +1278,7 @@ export default function Pricing() {
                   <div key={key} className="pricing-mobile-row">
                     <span className="pricing-mobile-label" style={{ color: colors.textOnWhite, position: 'relative' }}>
                       {label}
-                      {key === 'ownAssessment' && <AssessmentInfoButton type="site" />}
+                      {(key as string) === 'ownAssessment' && <AssessmentInfoButton type="site" />}
                       {infoKey && <InfoBubble infoKey={infoKey} />}
                     </span>
                     <span style={{ color: colors.textOnWhite }}>
@@ -1444,7 +1444,7 @@ export default function Pricing() {
                     <tr key={key} style={{ backgroundColor: idx % 2 === 1 ? colors.ivory : colors.white }}>
                       <td style={{ color: colors.textOnWhite, position: 'relative' }}>
                         {label}
-                        {key === 'ownAssessment' && <AssessmentInfoButton type="site" />}
+                        {(key as string) === 'ownAssessment' && <AssessmentInfoButton type="site" />}
                         {infoKey && <InfoBubble infoKey={infoKey} />}
                       </td>
                       {businessGroupsTiers.map((tier, i) => (
@@ -1464,7 +1464,7 @@ export default function Pricing() {
                       <div key={key} className="pricing-mobile-row">
                         <span className="pricing-mobile-label" style={{ color: colors.textOnWhite, position: 'relative' }}>
                           {label}
-                          {key === 'ownAssessment' && <AssessmentInfoButton type="site" />}
+                          {(key as string) === 'ownAssessment' && <AssessmentInfoButton type="site" />}
                           {infoKey && <InfoBubble infoKey={infoKey} />}
                         </span>
                         <span style={{ color: colors.textOnWhite }}>

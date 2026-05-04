@@ -65,7 +65,7 @@ export interface DIAPItem {
   importSource?: 'audit' | 'manual' | 'csv' | 'pdf'; // Track where item came from
 
   // Compliance information
-  complianceLevel?: 'mandatory' | 'best-practice';
+  complianceLevel?: 'mandatory' | 'best-practice' | 'wcag-aa' | 'dda-compliant';
   complianceRef?: string;
 
   // Details
@@ -388,7 +388,7 @@ export interface ResponseForDIAP {
   moduleName: string;
   impactLevel?: 'high' | 'medium' | 'low';
   safetyRelated?: boolean;
-  complianceLevel?: 'mandatory' | 'best-practice';
+  complianceLevel?: 'mandatory' | 'best-practice' | 'wcag-aa' | 'dda-compliant';
   category?: DIAPCategory;
   notes?: string;
 }

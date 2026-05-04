@@ -1,7 +1,7 @@
 type Priority = 'high' | 'medium' | 'low';
 
 interface PriorityInput {
-  complianceLevel?: 'mandatory' | 'best-practice';
+  complianceLevel?: 'mandatory' | 'best-practice' | 'wcag-aa' | 'dda-compliant';
   safetyRelated?: boolean;
   impactLevel?: 'high' | 'medium' | 'low';
   answer: string;

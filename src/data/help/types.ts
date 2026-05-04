@@ -23,7 +23,7 @@ export type ModuleCode =
   | '4.1' | '4.2' | '4.3' | '4.4' | '4.5' | '4.6' | '4.7'  // Service & support
   | '5.1' | '5.3' | '5.4' | '5.5' | '5.6' | '5.7' | '5.8' | '5.9' | '5.10'  // Organisation
   | '6.1' | '6.2' | '6.3' | '6.4' | '6.5'            // Events
-  | '7.1' | '7.2' | '7.3' | '7.4' | '7.5' | '7.6';   // Major events
+  | '7.1' | '7.2' | '7.3' | '7.4' | '7.5' | '7.6' | '7.7';   // Major events
 
 // DIAP categories for cross-referencing
 export type DIAPCategory =

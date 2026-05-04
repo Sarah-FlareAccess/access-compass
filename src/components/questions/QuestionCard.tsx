@@ -5,7 +5,7 @@
  * based on the question type (yes-no-unsure, measurement, text, etc.)
  */
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import type { QuestionResponse, EvidenceFile } from '../../hooks/useModuleProgress';
 import type { BranchingQuestion } from '../../hooks/useBranchingLogic';
 import type { MediaAnalysisResult, MediaAnalysisType } from '../../types/mediaAnalysis';
@@ -14,6 +14,8 @@ import { EvidenceUpload } from './EvidenceUpload';
 import { MediaAnalysisInput } from './MediaAnalysisInput';
 import { HelpPanel } from './HelpPanel';
 import { AutoSaveIndicator } from '../AutoSaveIndicator';
+import { RelatedAnswerBanner, type RelatedAnswerScope } from './RelatedAnswerBanner';
+import { findFirstRelatedResponse, type RelatedResponseMatch } from '../../utils/findRelatedResponse';
 import { getHelpContent, generateDefaultHelpContent } from '../../data/helpContent';
 import {
   RESPONSE_LABELS,
@@ -140,6 +142,21 @@ export function QuestionCard({
   // Notes info tooltip state
   const [showNotesInfo, setShowNotesInfo] = useState(false);
 
+  // Cross-module related answer (skip-if-complete) state
+  const [relatedMatch, setRelatedMatch] = useState<RelatedResponseMatch | null>(null);
+  const [relatedScope, setRelatedScope] = useState<RelatedAnswerScope | undefined>(
+    currentResponse?.applyScope
+  );
+
+  // Look up related response when question changes
+  useEffect(() => {
+    if (question.relatedQuestionIds && question.relatedQuestionIds.length > 0) {
+      setRelatedMatch(findFirstRelatedResponse(question.relatedQuestionIds));
+    } else {
+      setRelatedMatch(null);
+    }
+  }, [question.id, question.relatedQuestionIds]);
+
   // Reset all state when question changes
   useEffect(() => {
     setNotes(currentResponse?.notes || '');
@@ -155,7 +172,43 @@ export function QuestionCard({
     setShowPartialInput(currentResponse?.answer === 'partially');
     setShowNotesInfo(false);
     setIsHelpOpen(false);
+    setRelatedScope(currentResponse?.applyScope);
   }, [question.id, currentResponse]);
+
+  // Decide whether to show the related-answer banner.
+  // Show if a match exists AND the user hasn't already chosen to inherit it.
+  const showRelatedBanner = useMemo(() => {
+    if (!relatedMatch) return false;
+    if (relatedScope === 'event-only' || relatedScope === 'all-events') return false;
+    return true;
+  }, [relatedMatch, relatedScope]);
+
+  const handleApplyRelated = useCallback(
+    (scope: 'event-only' | 'all-events') => {
+      if (!relatedMatch) return;
+      const inherited = relatedMatch.response;
+      const response: QuestionResponse = {
+        questionId: question.id,
+        answer: inherited.answer ?? null,
+        partialDescription: inherited.partialDescription,
+        measurement: inherited.measurement,
+        multiSelectValues: inherited.multiSelectValues,
+        otherDescription: inherited.otherDescription,
+        linkValue: inherited.linkValue,
+        notes: inherited.notes,
+        timestamp: new Date().toISOString(),
+        applyScope: scope,
+        inheritedFromQuestionId: relatedMatch.questionId,
+      };
+      setRelatedScope(scope);
+      onAnswer(response);
+    },
+    [relatedMatch, question.id, onAnswer]
+  );
+
+  const handleAnswerFresh = useCallback(() => {
+    setRelatedScope('fresh');
+  }, []);
 
   // Check if "other" option is selected (multi-select)
   const hasOtherSelected = selectedOptions.some(
@@ -433,6 +486,19 @@ export function QuestionCard({
           <span className="help-trigger-icon">?</span>
           How to answer + quick tips
         </button>
+      )}
+
+      {/* Related-answer banner: cross-module skip-if-complete */}
+      {showRelatedBanner && relatedMatch && (
+        <RelatedAnswerBanner
+          sourceQuestionId={relatedMatch.questionId}
+          sourceModuleCode={relatedMatch.moduleCode}
+          sourceResponse={relatedMatch.response}
+          guidance={question.relatedGuidance}
+          selectedScope={relatedScope}
+          onApply={handleApplyRelated}
+          onAnswerFresh={handleAnswerFresh}
+        />
       )}
 
       {/* Yes/No Question Type - 4 main options + Not applicable */}

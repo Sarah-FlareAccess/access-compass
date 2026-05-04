@@ -26,7 +26,7 @@ export interface CategorisedItem {
   moduleName: string;
   questionId?: string;
   priority?: 'high' | 'medium' | 'low';
-  complianceLevel?: 'mandatory' | 'best-practice';
+  complianceLevel?: 'mandatory' | 'best-practice' | 'wcag-aa' | 'dda-compliant';
   safetyRelated?: boolean;
 }
 
@@ -171,7 +171,7 @@ export interface Report {
       priority: 'high' | 'medium' | 'low';
       recommendedActions: string[];
       resourceLinks: string[];
-      complianceLevel?: 'mandatory' | 'best-practice';
+      complianceLevel?: 'mandatory' | 'best-practice' | 'wcag-aa' | 'dda-compliant';
       complianceRef?: string;
     }>;
   }[];
@@ -5067,6 +5067,178 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   '7.6-DD-21': {
     actions: ['Programme inclusive interactive activities: adaptive sport demonstrations, accessible games, inclusive workshops, parasport try-outs, accessible art-making.', 'Co-design with disability sport bodies, disability arts orgs, or disability-led activity providers.', 'Pay disabled facilitators at consultancy/teaching rates, not goodwill.', 'Position as core programming, not "accessibility programming".', 'Provide adaptive equipment for activities (e.g., specialised sport chairs, tactile art tools).', 'Promote in marketing with the same investment as other activities.'],
     reasoning: 'Inclusive interactive activities open participation to disabled attendees as participants, not just spectators. Co-design with disability community signals genuine commitment.',
+    resources: [],
+  },
+  // Module 7.4 - Performer/artist/talent access (Major Events)
+  '7.4-PC-1': {
+    actions: ['Audit the route from green room to stage on every stage. Identify and resolve every step, narrow door, heavy door, or steep ramp.', 'Procure portable ramps and accessible riser systems for stages where permanent retrofit is not possible.', 'Document the performer access route and brief stage management and stagehands.', 'Make level access from green room to stage a non-negotiable for headline stages from next season.', 'Walk the route with a wheelchair-using performer or consultant for sign-off.'],
+    reasoning: 'Stage access is the gatekeeper of disabled-artist participation. Without level access from green room to stage, the venue silently filters out disabled performers regardless of the booking team\'s intent.',
+    resources: [],
+  },
+  '7.4-PC-2': {
+    actions: ['Identify one dressing room per cluster for accessibility upgrade. Widen door, lower counter and mirror, add grab rails, add accessible fitting space.', 'Confirm an accessible toilet sits within 30m of the room.', 'Document the dressing room as accessible in venue specs and rider materials.', 'Brief artist liaison and venue staff on the room\'s allocation policy.', 'Walk the room with a disabled performer for sign-off.'],
+    reasoning: 'Dressing rooms a wheelchair-using performer cannot enter, with no accessible toilet, and no accessible fitting space, are exclusionary. One per cluster is the floor.',
+    resources: [],
+  },
+  '7.4-PC-3': {
+    actions: ['Carve out a quiet/sensory regulation space in the green room. Curtained corner, adjacent room, or dedicated quiet zone.', 'Stock with low-stim seating, ear defenders, dimmable lighting, sensory regulation tools.', 'Locate accessible refreshments at varied heights so seated and shorter performers can self-serve.', 'Brief green room hosts on the quiet zone protocol (do not disturb signs).', 'Confirm an accessible toilet within 30m of the green room.'],
+    reasoning: 'Green rooms without sensory regulation space exclude performers with sensory sensitivities, often invisibly: artists withdraw rather than disclose. A quiet zone normalises the provision.',
+    resources: [],
+  },
+  '7.4-PC-4': {
+    actions: ['Add accessibility provisions to the standard performer offer email so artists know what is available before signing.', 'Name an artist access contact in the offer email with email and phone.', 'Update rider templates so accessibility provisions appear by default rather than as exceptional add-ons.', 'Brief booking and contracting teams on the new templates and the access contact role.', 'Run the new templates past a disabled artist or peak body for review.'],
+    reasoning: 'When access is in the offer letter, the venue has signalled they have done the work. When it is missing, disabled artists do unpaid emotional labour to find out whether the gig is viable.',
+    resources: [],
+  },
+  '7.4-PC-5': {
+    actions: ['Engage a paid disabled performer or producer to consult on production decisions for headline events.', 'Confirm industry-rate fee. Do not ask for unpaid input.', 'Bring the consultant in early enough to influence decisions, not just to validate them.', 'Credit the consultant publicly. Disabled-led consulting is a credentialled discipline.', 'Source via Arts Access Australia, Accessible Arts, or peer recommendation.'],
+    reasoning: 'Production decisions made without disabled performer input default to non-disabled experience. Paid consultancy at industry rates is the way to bring that perspective in without exploiting it.',
+    resources: [],
+  },
+  '7.4-PC-6': {
+    actions: ['Build performer welfare provisions into multi-day event schedules: rest breaks, quiet space, off-stage support.', 'Limit consecutive show days for headline acts. Disabled performers may need longer recovery.', 'Provide a welfare check-in contact during the run.', 'Confirm accessible accommodation arrangements where the venue is responsible for housing.', 'Brief production teams that welfare requests are not negotiation theatre.'],
+    reasoning: 'Multi-day events compound performer fatigue. Disabled performers carry an additional load (medical management, sensory regulation, equipment management) and welfare provisions are the difference between completing the run and withdrawing.',
+    resources: [],
+  },
+  '7.4-DD-1': {
+    actions: ['Extend the pre-show access check template to cover performer-side spaces and routes.', 'Cover: car drop-off, dressing room access, green room access, stage access, accessible toilet within range, signage.', 'Assign a named owner (typically stage manager or production manager).', 'Run the check at venue open and at each shift change.', 'Log results. Patterns across days indicate systemic issues.'],
+    reasoning: 'Front-of-house pre-show checks miss performer-side failures until the artist arrives. Performer-side checks catch them before show call.',
+    resources: [],
+  },
+  '7.4-DD-2': {
+    actions: ['Map every transport leg in the artist schedule: airport pickup, hotel transfer, rehearsal, venue, after-event return.', 'Procure accessible transport for each leg. Confirm in writing with the supplier.', 'Provision a back-up vehicle within 30 minutes\' reach.', 'Brief drivers on disability-confident assistance and on the artist\'s preferences.', 'Confirm transport handover with each artist before they travel.'],
+    reasoning: 'Transport failures (sedan at airport pickup, no accessible vehicle for hotel-to-venue) cascade into show delays and artist withdrawal. End-to-end coverage with documented back-up resolves most failure modes.',
+    resources: [],
+  },
+  '7.4-DD-3': {
+    actions: ['Audit stage equipment defaults: mic stands, instrument stands, monitor wedges, risers.', 'Replace fixed-height items with adjustable equivalents over time.', 'Add height-adjustable stools to standard stage kit.', 'Brief stagehands that adjustment is the default, not an exception.', 'Add this standard to your stage manager handbook.'],
+    reasoning: 'Equipment standardised on a fixed average excludes performers outside that average (shorter, taller, seated, single-arm). Standardising on adjustability removes most performer-day-of negotiations.',
+    resources: [],
+  },
+  '7.4-DD-4': {
+    actions: ['Brief lighting designers on photosensitivity standards. WCAG flash thresholds apply to performers as well as audiences.', 'Audit cue sheets for strobe and rapid flashing. Flag any cue exceeding safe thresholds.', 'Confirm the lighting plan with each performer pre-show.', 'For multi-stage events, build photosensitivity flagging into the cue-approval workflow.', 'Train deputies and stage managers on what to do if a photosensitive performer is on the bill.'],
+    reasoning: 'Photosensitivity affects performers as well as audiences. Unannounced strobe in a closing set has caused seizures in performers backstage. Cue-sheet review is preventable risk management.',
+    resources: [],
+  },
+  '7.4-DD-5': {
+    actions: ['Build a stage manager pre-show briefing template covering performer access needs.', 'Confirm the stage manager has met or video-called the disabled artist before show day.', 'Note any cue or sequence the artist has flagged.', 'Brief deputy and assistant stage managers on the same access info.', 'Refresh briefings if the lineup or schedule changes.'],
+    reasoning: 'Stage management is the operational glue between booking promises and show-day reality. Briefing gaps between booking and stage management are the most common cause of show-day access failures.',
+    resources: [],
+  },
+  '7.4-DD-6': {
+    actions: ['Build accessibility provisions into rider templates by default: dressing room, stage access, monitor flexibility, sensory regulation, transport, welfare.', 'Make rider accessibility provisions opt-out, not opt-in.', 'Brief booking and contracting teams on the new template.', 'Track which rider provisions are being requested most. Patterns indicate where to invest.', 'Run the template past a touring disabled artist for review.'],
+    reasoning: 'Rider provisions in the template by default mean the artist does not have to ask. They also signal to agents that access is built into how the venue books, not negotiated case-by-case.',
+    resources: [],
+  },
+  '7.4-DD-7': {
+    actions: ['Document categories of reasonable adjustments your venue / event will action by default.', 'Confirm a single artist liaison contact who actions adjustments without escalation.', 'Set a confirmation deadline (typically 2-4 weeks pre-show).', 'Action adjustments and confirm in writing to the performer.', 'Track patterns. If many performers request the same adjustment, make it a default.'],
+    reasoning: 'Reasonable adjustments granted ad-hoc create unequal experiences and recourse problems. A documented process protects both the artist and the venue.',
+    resources: [],
+  },
+  '7.4-DD-8': {
+    actions: ['Confirm scope: how many mentees, which production roles, which event days.', 'Recruit emerging disabled artists via Arts Access Australia, Accessible Arts, or peak bodies.', 'Pair with senior production staff (artistic director, head of production, technical lead).', 'Pay a stipend at industry rate. Mentoring is paid work.', 'Build mentee feedback into next season\'s production decisions.'],
+    reasoning: 'Mentoring is the supply-side investment that builds the next generation of disabled artists and senior crew. Without it, the disabled-artist pool stays small.',
+    resources: [],
+  },
+  '7.4-DD-9': {
+    actions: ['Audit press and interview spaces for level entry, accessible seating, hearing augmentation, and lipreading-friendly lighting.', 'Retrofit or relocate as needed.', 'Brief press team on the new space and provisions.', 'Confirm Auslan interpreter availability for major press calls.', 'Test the space with a disabled artist pre-event.'],
+    reasoning: 'Inaccessible press spaces lose disabled-artist coverage. The interview happens in the bar; the photographs are bad; the outlet drops the piece.',
+    resources: [],
+  },
+  '7.4-DD-10': {
+    actions: ['Stock backstage accessibility kit: spare mic clips, height-adjustable stool, fidget tools, ear defenders, sunglasses, charging cables, snack supply, water.', 'Add accessible mobility aids: spare manual wheelchair, walking stick, transfer board.', 'Designate a backstage manager as kit owner.', 'Write a 1-page restock SOP for multi-day events.', 'Brief artist liaison on the kit and how to access it.'],
+    reasoning: 'A stocked backstage kit handles the small-but-critical needs that arise during the run: a forgotten charger, a sensory regulation tool, a borrowed mobility aid.',
+    resources: [],
+  },
+  '7.4-DD-11': {
+    actions: ['Document a performer evacuation plan covering dressing rooms, green rooms, stage, and backstage transit.', 'Include scenarios: wheelchair user mid-show, performer in dressing room mid-prep, lift outage during the show.', 'Include performer-side PEEPs (Personal Emergency Evacuation Plans) for disabled cast/crew.', 'Drill annually. Brief stage managers on every drill outcome.', 'Coordinate with venue evacuation plans so they are not contradictory.'],
+    reasoning: 'Evacuation drills that cover front-of-house but assume backstage "follows staff" leave disabled performers and crew unaccounted for. Performer-side evacuation is preventable risk management.',
+    resources: [],
+  },
+  // Module 7.7 - Ability Camping (Major Events)
+  '7.7-PC-1': {
+    actions: ['Survey camping land for the most level, most stable ground available.', 'Designate an accessible camping zone within reasonable distance of amenities and venue.', 'Lay temporary or permanent matting where ground is uneven.', 'Pre-position electricity drops within 20m of every accessible pitch.', 'Walk the zone with disabled campers pre-event for sign-off.'],
+    reasoning: 'Pitches on uneven ground exclude wheelchair users and people with chronic pain. Without level pitches and pre-positioned utilities, accessible camping is aspirational.',
+    resources: [],
+  },
+  '7.7-PC-2': {
+    actions: ['Forecast accessible-camping audience based on prior years and ticketed access info.', 'Calculate amenity ratio. Target accessible-toilet ratio of at least 1:50 accessible campers, accessible-shower ratio of at least 1:75.', 'Procure accessible amenities at scale. Some events hire dedicated accessible amenity blocks for the season.', 'Distribute across the accessible camping zone, not concentrated in one spot.', 'Brief amenity cleaners and stewards on disability-confident support.'],
+    reasoning: 'A single accessible toilet for 200+ pitches creates queues, exposure, and indignity. Amenity provisioning at the demographic ratio is the floor.',
+    resources: [],
+  },
+  '7.7-PC-3': {
+    actions: ['Forecast transport demand based on accessible-camping bookings.', 'Procure accessible vehicles: accessible buses, golf cart shuttles, or on-call assistance vans.', 'Set a route covering camping, every venue, and accessible amenity hubs.', 'Run across all event hours including post-show return.', 'Brief drivers on disability-confident assistance.'],
+    reasoning: 'Camp-to-venue distance is the single most-underrated barrier at multi-day festivals. Accessible transport is what turns accessible pitches into accessible attendance.',
+    resources: [],
+  },
+  '7.7-PC-4': {
+    actions: ['Audit current pre-event camping communications. Identify generic or vague language.', 'Rewrite with specific provisions: pitch surface, amenity ratio, transport schedule, equipment hire, carer policy.', 'Stand up a single accessible-camping contact number and email.', 'Brief the contact owner on accessible-camping policies and provisions.', 'Publish in pre-event email, on the website, and in the ticketed access info pack.'],
+    reasoning: '"Accessibility provisions available, contact us" gives disabled campers no basis to plan. Detail in pre-event materials is the basis of an informed booking decision.',
+    resources: [],
+  },
+  '7.7-PC-5': {
+    actions: ['Set policy: carer / support worker pitch is free or subsidised when accompanying a disabled camper.', 'Document evidence requirements (Companion Card, NDIS plan extract, GP letter, or self-declaration depending on tier).', 'Publish policy in pre-event communications and ticketed access info.', 'Brief box office and access team on the process.', 'Track uptake. Patterns inform scale-up.'],
+    reasoning: 'Pricing carers like additional ticketed audience members excludes disabled campers. Free or subsidised carer pitches are the cost-side intervention that unlocks accessible attendance.',
+    resources: [],
+  },
+  '7.7-PC-6': {
+    actions: ['Document camping evacuation plan covering night-time scenarios, mobility-impaired tent extraction, sensory-sensitive campers.', 'Drill annually with state emergency services where possible.', 'Run disability-confident training for camping team: language, support, escalation, equipment use.', 'Equip camping team with communication cards or boards for non-speaking campers.', 'Refresh training each season; people change.'],
+    reasoning: 'Camping-specific evacuation that does not account for disabled campers in tents at night is a known sector risk. Drilling and disability-confident training resolve it.',
+    resources: [],
+  },
+  '7.7-DD-1': {
+    actions: ['Stock accessible camping equipment for hire: height-adjustable beds, accessible camping cots, accessible chairs, weather shelters.', 'Publish hire pricing and reservation process pre-event.', 'Allow pre-booking with on-arrival collection or pre-pitched delivery.', 'Brief camping team on equipment fitting and safe handover.', 'Maintain equipment between events.'],
+    reasoning: 'Standard tents and ground-level sleeping arrangements do not work for many disabled campers. Equipment hire makes attendance possible without forcing campers to buy specialised gear.',
+    resources: [],
+  },
+  '7.7-DD-2': {
+    actions: ['Source adaptive camping equipment from medical equipment hire (Independence Australia, Country Care Group), or build a purchased pool.', 'Stock: portable hoists, transfer boards, raised toilet seats, shower chairs, accessible camping stools.', 'Publish hire pricing and reservation process pre-event.', 'Train camping team on equipment fitting and safe handover.', 'Free or deposit-only - never charge for accessibility equipment.'],
+    reasoning: 'Adaptive equipment loan supports both campers who own equipment they cannot bring and campers with temporary needs. The hire pool is what makes the offer real.',
+    resources: [],
+  },
+  '7.7-DD-3': {
+    actions: ['Survey accessible pitches and identify nearest electrical infrastructure.', 'Run weatherproofed electrical drops within 20m of every accessible pitch.', 'Document electrical capacity per pitch (sufficient for medical equipment + charging).', 'Brief electricians and camping team on the infrastructure.', 'Publish provisions in pre-event materials.'],
+    reasoning: 'Without pitch-side electricity for CPAP, ventilators, AAC devices and powered wheelchairs, campers with these needs cannot stay multi-day. Electricity provisioning is the most-cited unlock for accessible camping.',
+    resources: [],
+  },
+  '7.7-DD-4': {
+    actions: ['Procure medical-grade refrigeration (typically a small lockable medical fridge) and site centrally to accessible camping.', 'Document access logging process. Brief medical and welfare staff.', 'Confirm refrigeration capacity matches expected demand (insulin, injectables, biologics).', 'Publish provisions in pre-event materials.', 'Confirm power back-up in case of grid failure.'],
+    reasoning: 'Insulin-dependent and biologic-using campers cannot rely on ice from the camp shop. Medical-grade refrigeration is the safety floor.',
+    resources: [],
+  },
+  '7.7-DD-5': {
+    actions: ['Site the camp shop on a level-access route from accessible pitches.', 'Procure accessible counter heights and accessible payment options.', 'Stock accessible-relevant items: charging cables, accessible cooking equipment hire, mobility aid spares.', 'Enable pre-order via app or web, with delivery to accessible pitches.', 'Brief shop staff on disability-confident customer service.'],
+    reasoning: 'A camp shop disabled campers cannot reach effectively traps them at their pitch. Pre-order with delivery is the resilience mechanism when the shop itself is unreachable.',
+    resources: [],
+  },
+  '7.7-DD-6': {
+    actions: ['Map sound and light pollution from main stages and amenity hubs.', 'Designate the quietest camping zone for sensory-considered camping. Document the boundary.', 'Brief stewards on noise and light norms in the zone.', 'Lower lighting and exclude amplified music in the zone.', 'Publish provisions in pre-event materials.'],
+    reasoning: 'Without a quiet zone, sensory-sensitive campers regulate by skipping sleep. A designated zone with lower lighting and noise is the difference between completing the event and withdrawing.',
+    resources: [],
+  },
+  '7.7-DD-7': {
+    actions: ['Stand up accessible cooking facilities: lower benches, stable surfaces, accessible safety equipment.', 'Locate accessible cooking on a level-access route from accessible pitches.', 'Brief camping team on accessible cooking provisions.', 'Stock accessible cooking equipment for hire (kettles, induction tops, accessible pans).', 'Publish provisions in pre-event materials.'],
+    reasoning: 'Standard camp kitchens with high benches and unstable surfaces exclude wheelchair users and chronic pain users. Accessible cooking is what makes self-catering possible for disabled campers.',
+    resources: [],
+  },
+  '7.7-DD-8': {
+    actions: ['Map key routes inside camping: pitch-to-amenity, pitch-to-shop, pitch-to-transport, pitch-to-medical.', 'Install high-contrast signage at every junction.', 'Add tactile markers at key decision points.', 'Add audio cues (low-level beacons or QR-triggered audio) at major junctions.', 'Test with Blind, low vision, and wheelchair-using campers pre-event.'],
+    reasoning: 'Camping zones with no internal wayfinding leave Blind and low vision campers reliant on others. Layered visual + tactile + audio wayfinding restores independent navigation.',
+    resources: [],
+  },
+  '7.7-DD-9': {
+    actions: ['Document opt-in policy. Solo disabled campers can request inclusion at booking.', 'Assign a named contact per opt-in camper.', 'Run a daily wellness check at pre-agreed time.', 'Document escalation process: missed check-in triggers escalation within an agreed time window.', 'Tested escalation in pre-event drill.'],
+    reasoning: 'A solo disabled camper having a medical incident may go undetected for hours. A buddy / check-in system is the safety net that makes solo accessible camping viable.',
+    resources: [],
+  },
+  '7.7-DD-10': {
+    actions: ['Install pathway lighting from accessible pitches to amenities. Low-level, glare-free, continuous.', 'Add tactile pathway markers for Blind / low vision campers.', 'Test routes after dark before opening.', 'Confirm lighting back-up for grid failure.', 'Publish provisions in pre-event materials.'],
+    reasoning: 'Disabled campers consistently report being unable to reach amenities at night without continuous pathway lighting. Continuous low-level lighting is the night-time accessibility floor.',
+    resources: [],
+  },
+  '7.7-DD-11': {
+    actions: ['Run disability-confident training for camping team: language, support, escalation, equipment use.', 'Brief the team on the buddy / check-in system and the medical refrigeration access.', 'Equip camping team with communication cards or boards for non-speaking campers.', 'Refresh training each season; people change.', 'Pair experienced camping staff with new starters during the run.'],
+    reasoning: 'Camping team is the operational layer that delivers (or fails to deliver) every other camping accessibility provision. Disability-confident training is what turns provisions into a campsite that works.',
     resources: [],
   },
 };

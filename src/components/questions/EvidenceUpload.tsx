@@ -162,7 +162,7 @@ export function EvidenceUpload({
           dataUrl = await fileToBase64(file);
         }
 
-        let evidenceId = generateId();
+        let evidenceId: string = generateId();
         const session = getSession();
         const sessionId = session?.session_id || 'no-session';
         const now = new Date().toISOString();

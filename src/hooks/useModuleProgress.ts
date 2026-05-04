@@ -174,7 +174,7 @@ export interface ActionItem {
   priority: 'high' | 'medium' | 'low';
   timeframe: string;
   impactStatement?: string;
-  complianceLevel?: 'mandatory' | 'best-practice';
+  complianceLevel?: 'mandatory' | 'best-practice' | 'wcag-aa' | 'dda-compliant';
   safetyRelated?: boolean;
 }
 
