@@ -3,7 +3,21 @@ import { createPortal } from 'react-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { listEvidenceForUser, listLocalEvidence, type ExistingEvidenceMatch } from '../../utils/evidenceStorage';
 import { useSignedUrl } from '../../hooks/useSignedUrl';
+import { getModuleById } from '../../data/accessModules';
 import './evidence-picker.css';
+
+const DIAP_CATEGORY_LABELS: Record<string, string> = {
+  'physical-access': 'Physical Access',
+  'information-communication-marketing': 'Information, Communication & Marketing',
+  'customer-service': 'Customer Service',
+  'operations-policy-procedure': 'Operations, Policy & Procedure',
+  'people-culture': 'People & Culture',
+  'digital-access': 'Digital Access',
+  'communication': 'Communication',
+  'policy-procedure': 'Policy & Procedure',
+  'training': 'Training',
+  'other': 'Other',
+};
 
 interface EvidencePickerProps {
   open: boolean;
@@ -20,6 +34,7 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [], extra
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState<'all' | 'photo' | 'document'>('all');
+  const [sourceFilter, setSourceFilter] = useState<'all' | 'module' | 'diap'>('all');
 
   useEffect(() => {
     if (!open) return;
@@ -65,9 +80,28 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [], extra
         if (typeFilter === 'photo' && !isPhoto) return false;
         if (typeFilter === 'document' && isPhoto) return false;
       }
+      if (sourceFilter !== 'all' && f.origin !== sourceFilter) return false;
       return true;
     });
-  }, [merged, search, typeFilter, excludeIds]);
+  }, [merged, search, typeFilter, sourceFilter, excludeIds]);
+
+  const grouped = useMemo(() => {
+    const moduleGroups = new Map<string, ExistingEvidenceMatch[]>();
+    const diapGroups = new Map<string, ExistingEvidenceMatch[]>();
+    const ungrouped: ExistingEvidenceMatch[] = [];
+    for (const f of filtered) {
+      if (f.origin === 'module' && f.moduleCode) {
+        if (!moduleGroups.has(f.moduleCode)) moduleGroups.set(f.moduleCode, []);
+        moduleGroups.get(f.moduleCode)!.push(f);
+      } else if (f.origin === 'diap' && f.diapCategory) {
+        if (!diapGroups.has(f.diapCategory)) diapGroups.set(f.diapCategory, []);
+        diapGroups.get(f.diapCategory)!.push(f);
+      } else {
+        ungrouped.push(f);
+      }
+    }
+    return { moduleGroups, diapGroups, ungrouped };
+  }, [filtered]);
 
   useEffect(() => {
     if (!open) return;
@@ -111,6 +145,19 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [], extra
             aria-label="Search evidence by file name"
             autoFocus
           />
+          <div className="evidence-picker-type-filters" role="group" aria-label="Filter by source">
+            {(['all', 'module', 'diap'] as const).map(s => (
+              <button
+                key={s}
+                type="button"
+                className={`evidence-picker-type-btn ${sourceFilter === s ? 'active' : ''}`}
+                onClick={() => setSourceFilter(s)}
+                aria-pressed={sourceFilter === s}
+              >
+                {s === 'all' ? 'All sources' : s === 'module' ? 'Assessment' : 'DIAP'}
+              </button>
+            ))}
+          </div>
           <div className="evidence-picker-type-filters" role="group" aria-label="Filter by type">
             {(['all', 'photo', 'document'] as const).map(t => (
               <button
@@ -120,7 +167,7 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [], extra
                 onClick={() => setTypeFilter(t)}
                 aria-pressed={typeFilter === t}
               >
-                {t === 'all' ? 'All' : t === 'photo' ? 'Photos' : 'Documents'}
+                {t === 'all' ? 'All types' : t === 'photo' ? 'Photos' : 'Documents'}
               </button>
             ))}
           </div>
@@ -136,15 +183,69 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [], extra
             </p>
           )}
           {!loading && filtered.length > 0 && (
-            <ul className="evidence-picker-list">
-              {filtered.map(file => (
-                <EvidencePickerRow
-                  key={file.id}
-                  file={file}
-                  onSelect={() => { onSelect(file); onClose(); }}
-                />
-              ))}
-            </ul>
+            <div className="evidence-picker-groups">
+              {Array.from(grouped.moduleGroups.entries())
+                .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+                .map(([moduleCode, items]) => {
+                  const mod = getModuleById(moduleCode);
+                  const heading = mod ? `${moduleCode} ${mod.name}` : `Module ${moduleCode}`;
+                  return (
+                    <section key={`mod-${moduleCode}`} className="evidence-picker-group">
+                      <h3 className="evidence-picker-group-heading">
+                        <span className="evidence-picker-group-tag">Assessment</span>
+                        {heading}
+                        <span className="evidence-picker-group-count">{items.length}</span>
+                      </h3>
+                      <ul className="evidence-picker-list">
+                        {items.map(file => (
+                          <EvidencePickerRow
+                            key={file.id}
+                            file={file}
+                            onSelect={() => { onSelect(file); onClose(); }}
+                          />
+                        ))}
+                      </ul>
+                    </section>
+                  );
+                })}
+              {Array.from(grouped.diapGroups.entries())
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([category, items]) => (
+                  <section key={`diap-${category}`} className="evidence-picker-group">
+                    <h3 className="evidence-picker-group-heading">
+                      <span className="evidence-picker-group-tag evidence-picker-group-tag-diap">DIAP</span>
+                      {DIAP_CATEGORY_LABELS[category] || category}
+                      <span className="evidence-picker-group-count">{items.length}</span>
+                    </h3>
+                    <ul className="evidence-picker-list">
+                      {items.map(file => (
+                        <EvidencePickerRow
+                          key={file.id}
+                          file={file}
+                          onSelect={() => { onSelect(file); onClose(); }}
+                        />
+                      ))}
+                    </ul>
+                  </section>
+                ))}
+              {grouped.ungrouped.length > 0 && (
+                <section className="evidence-picker-group">
+                  <h3 className="evidence-picker-group-heading">
+                    Other
+                    <span className="evidence-picker-group-count">{grouped.ungrouped.length}</span>
+                  </h3>
+                  <ul className="evidence-picker-list">
+                    {grouped.ungrouped.map(file => (
+                      <EvidencePickerRow
+                        key={file.id}
+                        file={file}
+                        onSelect={() => { onSelect(file); onClose(); }}
+                      />
+                    ))}
+                  </ul>
+                </section>
+              )}
+            </div>
           )}
         </div>
 

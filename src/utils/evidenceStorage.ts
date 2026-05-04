@@ -158,6 +158,9 @@ export interface ExistingEvidenceMatch {
   mimeType?: string;
   bucket: string;
   source: 'evidence_files' | 'diap_documents';
+  origin: 'module' | 'diap';
+  moduleCode?: string;
+  diapCategory?: string;
 }
 
 export async function findEvidenceByHash(
@@ -197,7 +200,7 @@ export async function listEvidenceForUser(
   try {
     let efQuery = supabase
       .from('evidence_files')
-      .select('id, file_name, file_type, file_size, storage_path, mime_type, bucket_name, created_at')
+      .select('id, file_name, file_type, file_size, storage_path, mime_type, bucket_name, module_id, diap_item_id, linked_diap_item_ids, created_at')
       .order('created_at', { ascending: false })
       .limit(500);
     if (organisationId) {
@@ -208,7 +211,7 @@ export async function listEvidenceForUser(
 
     let ddQuery = supabase
       .from('diap_documents')
-      .select('id, filename, file_type, file_size, storage_path, uploaded_at')
+      .select('id, filename, file_type, file_size, storage_path, linked_item_ids, uploaded_at')
       .order('uploaded_at', { ascending: false })
       .limit(500);
     if (organisationId) {
@@ -219,44 +222,80 @@ export async function listEvidenceForUser(
 
     const [efResult, ddResult] = await Promise.all([efQuery, ddQuery]);
 
+    const efRows = (!efResult.error && efResult.data) ? (efResult.data as Record<string, unknown>[]) : [];
+    const ddRows = (!ddResult.error && ddResult.data) ? (ddResult.data as Record<string, unknown>[]) : [];
+
+    const itemIdsToLookup = new Set<string>();
+    for (const row of efRows) {
+      const primary = row.diap_item_id as string | null;
+      if (primary) itemIdsToLookup.add(primary);
+      const linked = (row.linked_diap_item_ids as string[] | null) || [];
+      for (const id of linked) itemIdsToLookup.add(id);
+    }
+    for (const row of ddRows) {
+      const linked = (row.linked_item_ids as string[] | null) || [];
+      for (const id of linked) itemIdsToLookup.add(id);
+    }
+
+    const itemCategoryMap = new Map<string, string>();
+    if (itemIdsToLookup.size > 0) {
+      try {
+        const { data: itemRows } = await supabase
+          .from('diap_items')
+          .select('id, category')
+          .in('id', Array.from(itemIdsToLookup));
+        if (itemRows) {
+          for (const ir of itemRows as Record<string, unknown>[]) {
+            itemCategoryMap.set(ir.id as string, (ir.category as string) || 'physical-access');
+          }
+        }
+      } catch {}
+    }
+
     const seenPaths = new Set<string>();
     const out: ExistingEvidenceMatch[] = [];
 
-    if (!efResult.error && efResult.data) {
-      for (const row of efResult.data as Record<string, unknown>[]) {
-        const path = row.storage_path as string;
-        if (!path || seenPaths.has(path)) continue;
-        seenPaths.add(path);
-        out.push({
-          id: row.id as string,
-          fileName: row.file_name as string,
-          fileType: row.file_type as string,
-          fileSize: (row.file_size as number) || 0,
-          storagePath: path,
-          mimeType: row.mime_type as string | undefined,
-          bucket: (row.bucket_name as string) || 'evidence-files',
-          source: 'evidence_files',
-        });
-      }
+    for (const row of efRows) {
+      const path = row.storage_path as string;
+      if (!path || seenPaths.has(path)) continue;
+      seenPaths.add(path);
+      const diapId = (row.diap_item_id as string | null) || ((row.linked_diap_item_ids as string[] | null) || [])[0];
+      const moduleCode = (row.module_id as string | null) || undefined;
+      const isDiap = !!diapId;
+      out.push({
+        id: row.id as string,
+        fileName: row.file_name as string,
+        fileType: row.file_type as string,
+        fileSize: (row.file_size as number) || 0,
+        storagePath: path,
+        mimeType: row.mime_type as string | undefined,
+        bucket: (row.bucket_name as string) || 'evidence-files',
+        source: 'evidence_files',
+        origin: isDiap ? 'diap' : 'module',
+        moduleCode: isDiap ? undefined : moduleCode,
+        diapCategory: isDiap && diapId ? itemCategoryMap.get(diapId) : undefined,
+      });
     }
 
-    if (!ddResult.error && ddResult.data) {
-      for (const row of ddResult.data as Record<string, unknown>[]) {
-        const path = row.storage_path as string;
-        if (!path || path.startsWith('data:') || seenPaths.has(path)) continue;
-        seenPaths.add(path);
-        const fileType = (row.file_type as string) || 'application/octet-stream';
-        out.push({
-          id: row.id as string,
-          fileName: row.filename as string,
-          fileType,
-          fileSize: (row.file_size as number) || 0,
-          storagePath: path,
-          mimeType: fileType,
-          bucket: 'diap-documents',
-          source: 'diap_documents',
-        });
-      }
+    for (const row of ddRows) {
+      const path = row.storage_path as string;
+      if (!path || path.startsWith('data:') || seenPaths.has(path)) continue;
+      seenPaths.add(path);
+      const fileType = (row.file_type as string) || 'application/octet-stream';
+      const linkedIds = (row.linked_item_ids as string[] | null) || [];
+      const linkedCategory = linkedIds.length > 0 ? itemCategoryMap.get(linkedIds[0]) : undefined;
+      out.push({
+        id: row.id as string,
+        fileName: row.filename as string,
+        fileType,
+        fileSize: (row.file_size as number) || 0,
+        storagePath: path,
+        mimeType: fileType,
+        bucket: 'diap-documents',
+        source: 'diap_documents',
+        origin: 'diap',
+        diapCategory: linkedCategory || 'operations-policy-procedure',
+      });
     }
 
     return out;
@@ -271,7 +310,7 @@ export function listLocalEvidence(): ExistingEvidenceMatch[] {
     const raw = localStorage.getItem('access_compass_module_progress');
     if (raw) {
       const progress = JSON.parse(raw) as Record<string, { responses?: Array<{ evidence?: Array<{ id: string; name: string; type?: string; mimeType?: string; size?: number; storagePath?: string; bucket?: string; dataUrl?: string; url?: string }> }> }>;
-      for (const moduleData of Object.values(progress || {})) {
+      for (const [moduleKey, moduleData] of Object.entries(progress || {})) {
         for (const resp of moduleData.responses || []) {
           for (const ev of resp.evidence || []) {
             if (!ev.id || !ev.name) continue;
@@ -286,6 +325,8 @@ export function listLocalEvidence(): ExistingEvidenceMatch[] {
               mimeType: ev.mimeType,
               bucket: ev.bucket || 'evidence-files',
               source: 'evidence_files',
+              origin: 'module',
+              moduleCode: moduleKey,
             });
           }
         }
@@ -295,7 +336,7 @@ export function listLocalEvidence(): ExistingEvidenceMatch[] {
   try {
     const raw = localStorage.getItem('access_compass_diap_items');
     if (raw) {
-      const items = JSON.parse(raw) as Array<{ attachments?: Array<{ id: string; name: string; type?: string; size?: number; storagePath?: string; bucket?: string; dataUrl?: string }> }>;
+      const items = JSON.parse(raw) as Array<{ category?: string; attachments?: Array<{ id: string; name: string; type?: string; size?: number; storagePath?: string; bucket?: string; dataUrl?: string }> }>;
       for (const item of items || []) {
         for (const att of item.attachments || []) {
           if (!att.id || !att.name) continue;
@@ -309,6 +350,8 @@ export function listLocalEvidence(): ExistingEvidenceMatch[] {
             mimeType: att.type,
             bucket: att.bucket || 'evidence-files',
             source: 'evidence_files',
+            origin: 'diap',
+            diapCategory: item.category || 'physical-access',
           });
         }
       }

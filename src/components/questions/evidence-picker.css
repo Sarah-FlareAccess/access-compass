@@ -120,6 +120,55 @@
   margin: 0;
 }
 
+.evidence-picker-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.evidence-picker-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.evidence-picker-group-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 4px 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.evidence-picker-group-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: #ede9fe;
+  color: #4338ca;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.evidence-picker-group-tag-diap {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.evidence-picker-group-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
 .evidence-picker-list {
   list-style: none;
   margin: 0;
