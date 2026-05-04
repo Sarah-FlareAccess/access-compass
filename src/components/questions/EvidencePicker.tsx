@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { listEvidenceForUser, listLocalEvidence, type ExistingEvidenceMatch } from '../../utils/evidenceStorage';
@@ -103,10 +103,42 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [], extra
     return { moduleGroups, diapGroups, ungrouped };
   }, [filtered]);
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (open) {
+      triggerRef.current = (document.activeElement as HTMLElement) || null;
+    } else if (triggerRef.current) {
+      triggerRef.current.focus();
+      triggerRef.current = null;
+    }
+  }, [open]);
+
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+      if (e.key === 'Tab' && dialogRef.current) {
+        const focusables = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
@@ -117,6 +149,7 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [], extra
   return createPortal(
     <div className="evidence-picker-backdrop" onClick={onClose} role="presentation">
       <div
+        ref={dialogRef}
         className="evidence-picker-dialog"
         role="dialog"
         aria-modal="true"

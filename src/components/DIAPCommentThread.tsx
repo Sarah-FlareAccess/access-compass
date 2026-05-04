@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useId } from 'react';
 import type { DIAPComment } from '../types/activity';
 
 interface DIAPCommentThreadProps {
@@ -16,6 +16,7 @@ function formatCommentTime(timestamp: string): string {
 export function DIAPCommentThread({ comments, onAddComment }: DIAPCommentThreadProps) {
   const [text, setText] = useState('');
   const listEndRef = useRef<HTMLDivElement>(null);
+  const inputId = useId();
 
   useEffect(() => {
     if (comments.length > 0) {
@@ -33,9 +34,9 @@ export function DIAPCommentThread({ comments, onAddComment }: DIAPCommentThreadP
 
   return (
     <div className="diap-comment-thread">
-      <h5 className="comment-thread-heading">
+      <h4 className="comment-thread-heading">
         Comments {comments.length > 0 && <span className="comment-count">({comments.length})</span>}
-      </h5>
+      </h4>
 
       {comments.length > 0 && (
         <ul className="comment-list" aria-label="Comments">
@@ -55,9 +56,9 @@ export function DIAPCommentThread({ comments, onAddComment }: DIAPCommentThreadP
       )}
 
       <form className="comment-form" onSubmit={handleSubmit}>
-        <label htmlFor="comment-input" className="sr-only">Add a comment</label>
+        <label htmlFor={inputId} className="sr-only">Add a comment</label>
         <textarea
-          id="comment-input"
+          id={inputId}
           className="comment-input"
           value={text}
           onChange={e => setText(e.target.value)}

@@ -3162,10 +3162,11 @@ button.evidence-layer-header {
 }
 
 .diap-prof-cta-links a {
-  color: #FF9015;
+  color: #c2410c;
   font-size: 0.875rem;
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .diap-prof-cta-links a:hover {
@@ -3887,8 +3888,8 @@ button.evidence-layer-header {
 }
 
 .comment-time {
-  font-size: 0.6875rem;
-  color: #9ca3af;
+  font-size: 0.75rem;
+  color: #4b5563;
 }
 
 .comment-text {
