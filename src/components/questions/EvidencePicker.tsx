@@ -145,31 +145,37 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [], extra
             aria-label="Search evidence by file name"
             autoFocus
           />
-          <div className="evidence-picker-type-filters" role="group" aria-label="Filter by source">
-            {(['all', 'module', 'diap'] as const).map(s => (
-              <button
-                key={s}
-                type="button"
-                className={`evidence-picker-type-btn ${sourceFilter === s ? 'active' : ''}`}
-                onClick={() => setSourceFilter(s)}
-                aria-pressed={sourceFilter === s}
-              >
-                {s === 'all' ? 'All sources' : s === 'module' ? 'Assessment' : 'DIAP'}
-              </button>
-            ))}
+          <div className="evidence-picker-filter-row evidence-picker-filter-row-primary" role="group" aria-label="Filter by source">
+            <span className="evidence-picker-filter-label" id="ep-source-label">Source</span>
+            <div className="evidence-picker-type-filters" aria-labelledby="ep-source-label">
+              {(['all', 'module', 'diap'] as const).map(s => (
+                <button
+                  key={s}
+                  type="button"
+                  className={`evidence-picker-type-btn ${sourceFilter === s ? 'active' : ''}`}
+                  onClick={() => setSourceFilter(s)}
+                  aria-pressed={sourceFilter === s}
+                >
+                  {s === 'all' ? 'All' : s === 'module' ? 'Assessment' : 'DIAP'}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="evidence-picker-type-filters" role="group" aria-label="Filter by type">
-            {(['all', 'photo', 'document'] as const).map(t => (
-              <button
-                key={t}
-                type="button"
-                className={`evidence-picker-type-btn ${typeFilter === t ? 'active' : ''}`}
-                onClick={() => setTypeFilter(t)}
-                aria-pressed={typeFilter === t}
-              >
-                {t === 'all' ? 'All types' : t === 'photo' ? 'Photos' : 'Documents'}
-              </button>
-            ))}
+          <div className="evidence-picker-filter-row evidence-picker-filter-row-secondary" role="group" aria-label="Filter by file type">
+            <span className="evidence-picker-filter-label" id="ep-type-label">File type</span>
+            <div className="evidence-picker-type-filters evidence-picker-type-filters-secondary" aria-labelledby="ep-type-label">
+              {(['all', 'photo', 'document'] as const).map(t => (
+                <button
+                  key={t}
+                  type="button"
+                  className={`evidence-picker-type-btn evidence-picker-type-btn-secondary ${typeFilter === t ? 'active' : ''}`}
+                  onClick={() => setTypeFilter(t)}
+                  aria-pressed={typeFilter === t}
+                >
+                  {t === 'all' ? 'All' : t === 'photo' ? 'Photos' : 'Documents'}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
