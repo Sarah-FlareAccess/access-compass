@@ -95,7 +95,8 @@ export interface DIAPAttachment {
   name: string;
   type: string;
   size: number;
-  dataUrl: string;
+  storagePath?: string;
+  dataUrl?: string;
   addedAt: string;
 }
 
@@ -277,7 +278,11 @@ function getLocalItems(): DIAPItem[] {
 }
 
 function saveLocalItems(items: DIAPItem[]) {
-  localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
+  try {
+    localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
+  } catch (err) {
+    console.warn('saveLocalItems: localStorage write failed (likely quota); cloud sync still active', err);
+  }
 }
 
 function getLocalDocuments(): DIAPDocument[] {
@@ -286,7 +291,16 @@ function getLocalDocuments(): DIAPDocument[] {
 }
 
 function saveLocalDocuments(docs: DIAPDocument[]) {
-  localStorage.setItem(DIAP_DOCUMENTS_KEY, JSON.stringify(docs));
+  try {
+    const safeDocs = docs.map(d =>
+      d.storagePath?.startsWith('data:')
+        ? { ...d, storagePath: '' }
+        : d
+    );
+    localStorage.setItem(DIAP_DOCUMENTS_KEY, JSON.stringify(safeDocs));
+  } catch (err) {
+    console.warn('saveLocalDocuments: localStorage write failed (likely quota); cloud sync still active', err);
+  }
 }
 
 // CSV Import result
@@ -340,7 +354,7 @@ interface UseDIAPManagementReturn {
 
   // Attachments
   addAttachment: (itemId: string, file: File) => Promise<void>;
-  removeAttachment: (itemId: string, attachmentId: string) => void;
+  removeAttachment: (itemId: string, attachmentId: string) => Promise<void>;
 
   // Comments
   addComment: (itemId: string, text: string) => void;
@@ -418,11 +432,16 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
   const { userId, organisationId } = useAuthSafe();
   const userIdRef = useRef(userId);
   const orgIdRef = useRef(organisationId);
+  const itemsRef = useRef<DIAPItem[]>([]);
 
   useEffect(() => {
     userIdRef.current = userId;
     orgIdRef.current = organisationId;
   }, [userId, organisationId]);
+
+  useEffect(() => {
+    itemsRef.current = items;
+  }, [items]);
 
   // Background sync a single DIAP item to Supabase
   const syncItemToCloud = useCallback((item: DIAPItem) => {
@@ -568,6 +587,44 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             }
           }
 
+          // Fetch evidence_files for DIAP items so attachments persist across devices
+          if (supabase) {
+            try {
+              const { data: evRows } = await supabase
+                .from('evidence_files')
+                .select('id, diap_item_id, file_name, file_type, file_size, storage_path, created_at')
+                .eq('user_id', userId)
+                .not('diap_item_id', 'is', null);
+              if (evRows && evRows.length > 0) {
+                const byItem = new Map<string, DIAPAttachment[]>();
+                for (const row of evRows as Record<string, unknown>[]) {
+                  const itemId = row.diap_item_id as string;
+                  if (!byItem.has(itemId)) byItem.set(itemId, []);
+                  byItem.get(itemId)!.push({
+                    id: row.id as string,
+                    name: row.file_name as string,
+                    type: row.file_type as string,
+                    size: (row.file_size as number) || 0,
+                    storagePath: row.storage_path as string,
+                    addedAt: row.created_at as string,
+                  });
+                }
+                setItems(prev => {
+                  const updated = prev.map(it => {
+                    const cloudAtts = byItem.get(it.id);
+                    if (!cloudAtts) return it;
+                    const localOnly = (it.attachments || []).filter(a => !a.storagePath);
+                    return { ...it, attachments: [...cloudAtts, ...localOnly] };
+                  });
+                  saveLocalItems(updated);
+                  return updated;
+                });
+              }
+            } catch (err) {
+              console.log('[useDIAPManagement] evidence_files fetch skipped:', err);
+            }
+          }
+
           // Also fetch cloud documents
           const { data: cloudDocs } = await fetchRecords('diap_documents', userId);
           if (cloudDocs && cloudDocs.length > 0) {
@@ -685,6 +742,21 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           diapItemId: existingItem.id,
           diapItemObjective: existingItem.objective,
           assigneeName: updates.responsibleRole,
+        }, userIdRef.current || undefined);
+      }
+      const trackedFields: (keyof DIAPItem)[] = [
+        'objective', 'action', 'category', 'priority', 'timeframe', 'dueDate',
+        'notes', 'successIndicators', 'budgetEstimate', 'impactStatement',
+      ];
+      const changedFields: string[] = [];
+      for (const f of trackedFields) {
+        if (updates[f] !== undefined && updates[f] !== existingItem[f]) changedFields.push(f);
+      }
+      if (changedFields.length > 0) {
+        logActivityStandalone('diap-item-updated', {
+          diapItemId: existingItem.id,
+          diapItemObjective: existingItem.objective,
+          changedFields,
         }, userIdRef.current || undefined);
       }
     }
@@ -1649,37 +1721,105 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     }
   }, [items, documents, syncItemsBatchToCloud]);
 
-  // Add attachment to an item
   const addAttachment = useCallback(async (itemId: string, file: File) => {
-    const dataUrl = await fileToBase64(file);
+    const session = getSession();
+    const userId = userIdRef.current;
+    const orgId = orgIdRef.current;
+    const item = itemsRef.current.find(i => i.id === itemId);
+
+    let storagePath: string | undefined;
+    let dataUrl: string | undefined;
+    let evidenceFileId: string | undefined;
+
+    if (userId && session?.session_id && isSupabaseEnabled() && supabase) {
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = `${userId}/${session.session_id}/diap-${itemId}/${Date.now()}-${safeName}`;
+      const { error: uploadError } = await supabase.storage
+        .from('evidence-files')
+        .upload(path, file, { contentType: file.type, upsert: true });
+      if (!uploadError) {
+        storagePath = path;
+        evidenceFileId = crypto.randomUUID();
+        const { error: insertError } = await supabase.from('evidence_files').insert({
+          id: evidenceFileId,
+          user_id: userId,
+          organisation_id: orgId || null,
+          session_id: session.session_id,
+          module_id: item?.moduleSource || null,
+          question_id: item?.questionSource || null,
+          diap_item_id: itemId,
+          file_name: file.name,
+          file_type: file.type,
+          file_size: file.size,
+          storage_path: path,
+          mime_type: file.type,
+        });
+        if (insertError) {
+          console.warn('evidence_files insert failed:', insertError);
+        }
+      } else {
+        console.warn('storage upload failed, falling back to base64:', uploadError);
+      }
+    }
+
+    if (!storagePath) {
+      dataUrl = await fileToBase64(file);
+    }
+
     const attachment: DIAPAttachment = {
-      id: uuidv4(),
+      id: evidenceFileId || uuidv4(),
       name: file.name,
       type: file.type,
       size: file.size,
+      storagePath,
       dataUrl,
       addedAt: new Date().toISOString(),
     };
+
+    let itemObjective: string | undefined;
     setItems(prev => {
-      const updated = prev.map(item => {
-        if (item.id === itemId) {
-          return { ...item, attachments: [...(item.attachments || []), attachment], updatedAt: new Date().toISOString() };
+      const updated = prev.map(it => {
+        if (it.id === itemId) {
+          itemObjective = it.objective;
+          return { ...it, attachments: [...(it.attachments || []), attachment], updatedAt: new Date().toISOString() };
         }
-        return item;
+        return it;
       });
       saveLocalItems(updated);
       return updated;
     });
+
+    logActivityStandalone('diap-item-updated', {
+      diapItemId: itemId,
+      diapItemObjective: itemObjective,
+      changedFields: ['evidence-added'],
+      attachmentName: file.name,
+    }, userId || undefined);
   }, []);
 
-  // Remove attachment from an item
-  const removeAttachment = useCallback((itemId: string, attachmentId: string) => {
+  const removeAttachment = useCallback(async (itemId: string, attachmentId: string) => {
+    const item = itemsRef.current.find(i => i.id === itemId);
+    const att = item?.attachments?.find(a => a.id === attachmentId);
+
+    if (att?.storagePath && isSupabaseEnabled() && supabase) {
+      try {
+        await supabase.storage.from('evidence-files').remove([att.storagePath]);
+      } catch (err) {
+        console.warn('storage remove failed:', err);
+      }
+      try {
+        await supabase.from('evidence_files').delete().eq('id', attachmentId);
+      } catch (err) {
+        console.warn('evidence_files delete failed:', err);
+      }
+    }
+
     setItems(prev => {
-      const updated = prev.map(item => {
-        if (item.id === itemId) {
-          return { ...item, attachments: (item.attachments || []).filter(a => a.id !== attachmentId), updatedAt: new Date().toISOString() };
+      const updated = prev.map(it => {
+        if (it.id === itemId) {
+          return { ...it, attachments: (it.attachments || []).filter(a => a.id !== attachmentId), updatedAt: new Date().toISOString() };
         }
-        return item;
+        return it;
       });
       saveLocalItems(updated);
       return updated;
@@ -2042,11 +2182,14 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
   '4.7': 'Maintain welcoming, accessible communication with all customers over time',
   // 5.x Organisation
   '5.1': 'Embed accessibility and inclusion into organisational policies and culture',
-  '5.2': 'Foster an inclusive workplace where all employees can thrive',
   '5.3': 'Strengthen organisational capability through accessibility training',
   '5.4': 'Incorporate accessibility into procurement and supplier decisions',
   '5.5': 'Celebrate progress and drive continuous improvement in accessibility',
   '5.6': 'Ensure third-party services and platforms meet your accessibility standards',
+  '5.7': 'Design jobs and advertise roles in ways that attract candidates with disability',
+  '5.8': 'Run interviews and selection processes that are fair to every candidate',
+  '5.9': 'Induct new staff accessibly and embed workplace adjustments from day one',
+  '5.10': 'Retain disabled staff and build a culture where disclosure is safe',
   // 6.x Events
   '6.1': 'Plan and promote events that welcome all attendees',
   '6.2': 'Choose and set up venues that all attendees can enjoy',

@@ -64,8 +64,7 @@ export function EvidenceUpload({
   const { user, accessState } = useAuth();
   const organisationId = accessState.organisation?.id;
 
-  // Generate unique ID
-  const generateId = () => `ev_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const generateId = () => crypto.randomUUID();
 
   // Get accepted file types for input
   const getAcceptedTypes = () => {

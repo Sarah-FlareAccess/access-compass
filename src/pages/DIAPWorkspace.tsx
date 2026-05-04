@@ -28,6 +28,17 @@ import { getResourceLink } from '../utils/resourceLinks';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
 import { AutoSaveIndicator } from '../components/AutoSaveIndicator';
 import { DIAPCommentThread } from '../components/DIAPCommentThread';
+import { getSignedUrl } from '../utils/signedUrlCache';
+import type { DIAPAttachment } from '../hooks/useDIAPManagement';
+
+async function openAttachment(att: DIAPAttachment) {
+  if (att.storagePath) {
+    const url = await getSignedUrl('evidence-files', att.storagePath);
+    if (url) window.open(url, '_blank', 'noopener,noreferrer');
+  } else if (att.dataUrl) {
+    window.open(att.dataUrl, '_blank', 'noopener,noreferrer');
+  }
+}
 import { Zap, Upload, Paperclip, Filter, Users as UsersIcon, CalendarDays, Plus } from 'lucide-react';
 import '../styles/diap.css';
 
@@ -1262,7 +1273,7 @@ export default function DIAPWorkspace() {
                                 editingItem?.id === item.id ? (
                                   <div key={item.id} className="inline-edit-wrapper">
                                     <DIAPItemForm
-                                      item={editingItem}
+                                      item={items.find(i => i.id === editingItem.id) || editingItem}
                                       onSave={(data) => {
                                         updateItem(editingItem.id, data);
                                         setEditingItem(null);
@@ -1372,9 +1383,9 @@ export default function DIAPWorkspace() {
             className="section-header"
             onClick={() => setShowDocuments(!showDocuments)}
             aria-expanded={showDocuments}
-            title={showDocuments ? 'Collapse supporting documents' : 'Expand supporting documents'}
+            title={showDocuments ? 'Collapse evidence' : 'Expand evidence'}
           >
-            <h2>Supporting Documents ({documents.length + collectedEvidence.length})</h2>
+            <h2>Evidence ({documents.length + collectedEvidence.length})</h2>
             <span className={`chevron ${showDocuments ? 'open' : ''}`} aria-hidden="true">&#9660;</span>
           </button>
 
@@ -1454,7 +1465,7 @@ export default function DIAPWorkspace() {
                       hidden
                     />
                     <span className="upload-icon">+</span>
-                    <span>Upload document</span>
+                    <span>Add evidence</span>
                   </label>
                   <p className="upload-hint">PDF, Word, or images up to 10MB</p>
                 </div>
@@ -1841,7 +1852,14 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveA
                 <span className="attachment-icon" aria-hidden="true">
                   {att.type.startsWith('image/') ? '🖼️' : '📎'}
                 </span>
-                <span className="attachment-name" title={att.name}>{att.name}</span>
+                <button
+                  type="button"
+                  className="attachment-name attachment-name-button"
+                  title={`Open ${att.name}`}
+                  onClick={() => openAttachment(att)}
+                >
+                  {att.name}
+                </button>
                 <button
                   className="attachment-remove"
                   onClick={() => onRemoveAttachment(item.id, att.id)}
@@ -2394,7 +2412,14 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
                   <span className="attachment-icon" aria-hidden="true">
                     {att.type.startsWith('image/') ? '🖼️' : '📎'}
                   </span>
-                  <span className="attachment-name" title={att.name}>{att.name}</span>
+                  <button
+                    type="button"
+                    className="attachment-name attachment-name-button"
+                    title={`Open ${att.name}`}
+                    onClick={() => openAttachment(att)}
+                  >
+                    {att.name}
+                  </button>
                   {onRemoveAttachment && (
                     <button
                       type="button"
@@ -2447,7 +2472,7 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
             Cancel
           </button>
           <button type="submit" className="btn-save">
-            {item ? 'Update Item' : 'Add Item'}
+            {item ? 'Save' : 'Add Item'}
           </button>
         </div>
       </div>

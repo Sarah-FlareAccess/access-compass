@@ -3244,6 +3244,22 @@ button.evidence-layer-header {
   color: #374151;
 }
 
+.attachment-name-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.attachment-name-button:hover,
+.attachment-name-button:focus-visible {
+  color: #1f2937;
+}
+
 .attachment-remove {
   flex-shrink: 0;
   background: none;

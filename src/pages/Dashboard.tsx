@@ -14,6 +14,7 @@
 import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
+import { getSignedUrl } from '../utils/signedUrlCache';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
@@ -88,6 +89,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
   const [activeTab, setActiveTab] = useState<TabType>(view);
   const [evidenceSearch, setEvidenceSearch] = useState('');
   const [evidenceTypeFilter, setEvidenceTypeFilter] = useState<'all' | 'photo' | 'document' | 'link'>('all');
+  const [evidenceSourceFilter, setEvidenceSourceFilter] = useState<'assessment' | 'diap'>('assessment');
   const { activities, trimmedByRetention } = useActivityLog();
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [showReportProblem, setShowReportProblem] = useState(false);
@@ -248,7 +250,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
   }, [assignmentModal]);
 
   // DIAP management hook
-  const { getStats: getDIAPStats } = useDIAPManagement();
+  const { getStats: getDIAPStats, items: diapItems, documents: diapDocuments } = useDIAPManagement();
 
   // Load session and discovery data
   useEffect(() => {
@@ -360,6 +362,21 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       };
     }).filter(g => g.modules.length > 0);
   }, [recommendedModuleIds, progress, currentReviewMode]);
+
+  const didYouKnowTip = useMemo(() => {
+    const inProgress = groupedModules
+      .flatMap(g => g.modules)
+      .filter(m => m.status === 'in-progress');
+    const target = inProgress[0] ?? groupedModules.flatMap(g => g.modules)[0];
+    if (!target) return null;
+    const tips = target.module.questions
+      .map(q => q.helpContent?.summary)
+      .filter((s): s is string => typeof s === 'string' && s.length > 0);
+    if (tips.length === 0) return null;
+    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+    const pick = tips[dayOfYear % tips.length];
+    return { moduleLabel: `${target.module.code} ${target.module.name}`, moduleId: target.module.id, text: pick };
+  }, [groupedModules]);
 
   // Calculate overall stats
   const overallStats = useMemo(() => {
@@ -727,6 +744,16 @@ Thanks!`;
                 </section>
               )}
 
+              {didYouKnowTip && (
+                <section className="dashboard-snapshot dashboard-did-you-know">
+                  <div className="snapshot-header">
+                    <h2>Did you know…</h2>
+                    <span className="snapshot-link" style={{ pointerEvents: 'none' }}>{didYouKnowTip.moduleLabel}</span>
+                  </div>
+                  <p className="did-you-know-text">{didYouKnowTip.text}</p>
+                </section>
+              )}
+
               {/* Recent Activity */}
               {activities.length > 0 && (
                 <section className="dashboard-snapshot">
@@ -735,7 +762,7 @@ Thanks!`;
                     <Link to="/activity" className="snapshot-link">View all</Link>
                   </div>
                   <div className="recent-activity-list">
-                    {activities.slice(0, 5).map(activity => (
+                    {activities.slice(0, 3).map(activity => (
                       <div key={activity.id} className="recent-activity-item">
                         <span className="recent-activity-text">{getActivityDescriptionText(activity)}</span>
                         <span className="recent-activity-time">
@@ -747,25 +774,6 @@ Thanks!`;
                 </section>
               )}
 
-              {/* Quick Actions */}
-              <section className="dashboard-quick-actions">
-                <Link to="/assessment" className="quick-action-card">
-                  <span className="quick-action-icon">📋</span>
-                  <span className="quick-action-text">Continue assessment</span>
-                </Link>
-                <Link to="/report" className="quick-action-card">
-                  <span className="quick-action-icon">📊</span>
-                  <span className="quick-action-text">View report</span>
-                </Link>
-                <Link to="/diap" className="quick-action-card">
-                  <span className="quick-action-icon">📝</span>
-                  <span className="quick-action-text">Action plan</span>
-                </Link>
-                <Link to="/resources" className="quick-action-card">
-                  <span className="quick-action-icon">📚</span>
-                  <span className="quick-action-text">Resource Hub</span>
-                </Link>
-              </section>
             </>
           )}
 
@@ -793,30 +801,6 @@ Thanks!`;
               </svg>
             </a>
           </div>
-
-          {/* Navigation Tabs - only show on assessment and evidence views */}
-          {(activeTab === 'modules' || activeTab === 'evidence') && <div className="dashboard-tabs" role="tablist" aria-label="Dashboard sections">
-            <button
-              className={`tab-btn ${activeTab === 'modules' ? 'active' : ''}`}
-              onClick={() => navigate('/assessment')}
-              role="tab"
-              aria-selected={activeTab === 'modules'}
-              aria-controls="tab-panel-modules"
-              id="tab-modules"
-            >
-              Modules
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'evidence' ? 'active' : ''}`}
-              onClick={() => navigate('/evidence')}
-              role="tab"
-              aria-selected={activeTab === 'evidence'}
-              aria-controls="tab-panel-evidence"
-              id="tab-evidence"
-            >
-              Evidence Library
-            </button>
-          </div>}
 
           {/* Tab Content */}
           {activeTab === 'modules' && (
@@ -1109,9 +1093,10 @@ Thanks!`;
               }
             }
 
+            const totalDiapCount = diapItems.reduce((n, it) => n + (it.attachments?.length || 0), 0) + diapDocuments.length;
             return (
               <div className="evidence-content" role="tabpanel" id="tab-panel-evidence" aria-labelledby="tab-evidence">
-                {allEvidence.length === 0 ? (
+                {allEvidence.length === 0 && totalDiapCount === 0 ? (
                   <div className="evidence-empty">
                     <div className="evidence-icon">📁</div>
                     <h3>Evidence Library</h3>
@@ -1163,6 +1148,27 @@ Thanks!`;
                       </div>
                     </div>
 
+                    <div className="dashboard-tabs" role="tablist" aria-label="Evidence source">
+                      <button
+                        type="button"
+                        className={`tab-btn ${evidenceSourceFilter === 'assessment' ? 'active' : ''}`}
+                        onClick={() => setEvidenceSourceFilter('assessment')}
+                        role="tab"
+                        aria-selected={evidenceSourceFilter === 'assessment'}
+                      >
+                        Assessment Areas
+                      </button>
+                      <button
+                        type="button"
+                        className={`tab-btn ${evidenceSourceFilter === 'diap' ? 'active' : ''}`}
+                        onClick={() => setEvidenceSourceFilter('diap')}
+                        role="tab"
+                        aria-selected={evidenceSourceFilter === 'diap'}
+                      >
+                        DIAP
+                      </button>
+                    </div>
+
                     {(() => {
                       // Apply filters
                       const searchLower = evidenceSearch.toLowerCase();
@@ -1183,15 +1189,16 @@ Thanks!`;
                         if (!grouped.has(key)) grouped.set(key, []);
                         grouped.get(key)!.push(item);
                       }
-                      return Array.from(grouped.entries()).map(([moduleCode, items]) => (
+                      if (evidenceSourceFilter === 'diap') return null;
+                      return Array.from(grouped.entries()).map(([moduleCode, evItems]) => (
                         <details key={moduleCode} className="evidence-module-group" open>
                           <summary className="evidence-module-heading">
                             <span className="evidence-module-code">{moduleCode}</span>
-                            {items[0].moduleName}
-                            <span className="evidence-module-count">{items.length}</span>
+                            {evItems[0].moduleName}
+                            <span className="evidence-module-count">{evItems.length}</span>
                           </summary>
                           <div className="evidence-items">
-                            {items.map(item => {
+                            {evItems.map(item => {
                               const fileUrl = item.file.url || item.file.dataUrl;
                               const handleClick = () => {
                                 if (fileUrl) {
@@ -1233,6 +1240,89 @@ Thanks!`;
                                     />
                                   )}
                                 </div>
+                              );
+                            })}
+                          </div>
+                        </details>
+                      ));
+                    })()}
+
+                    {(() => {
+                      if (evidenceSourceFilter === 'assessment') return null;
+                      const DIAP_CATEGORY_LABELS: Record<string, string> = {
+                        'physical-access': 'Physical Access',
+                        'information-communication-marketing': 'Information, Communication & Marketing',
+                        'customer-service': 'Customer Service',
+                        'operations-policy-procedure': 'Operations, Policy & Procedure',
+                        'people-culture': 'People & Culture',
+                      };
+                      type DiapEvRow = { id: string; name: string; subtitle: string; date?: string; dataUrl?: string; storagePath?: string; bucket?: string; category: string };
+                      const rows: DiapEvRow[] = [];
+                      for (const it of diapItems) {
+                        for (const a of it.attachments || []) {
+                          rows.push({ id: a.id, name: a.name, subtitle: it.title, date: a.addedAt, dataUrl: a.dataUrl, storagePath: a.storagePath, bucket: 'evidence-files', category: it.category });
+                        }
+                      }
+                      for (const doc of diapDocuments) {
+                        const linkedItem = doc.linkedItemIds.length > 0 ? diapItems.find(i => doc.linkedItemIds.includes(i.id)) : undefined;
+                        rows.push({
+                          id: doc.id,
+                          name: doc.filename,
+                          subtitle: linkedItem ? `Linked to ${linkedItem.title}` : 'Action plan document',
+                          storagePath: doc.storagePath?.startsWith('data:') ? undefined : doc.storagePath,
+                          dataUrl: doc.storagePath?.startsWith('data:') ? doc.storagePath : undefined,
+                          bucket: 'diap-documents',
+                          category: linkedItem?.category || 'operations-policy-procedure',
+                        });
+                      }
+                      if (rows.length === 0) return null;
+                      const byCategory = new Map<string, DiapEvRow[]>();
+                      for (const r of rows) {
+                        if (!byCategory.has(r.category)) byCategory.set(r.category, []);
+                        byCategory.get(r.category)!.push(r);
+                      }
+                      return Array.from(byCategory.entries()).map(([cat, catRows]) => (
+                        <details key={cat} className="evidence-module-group" open>
+                          <summary className="evidence-module-heading">
+                            <span className="evidence-module-code">DIAP</span>
+                            {DIAP_CATEGORY_LABELS[cat] || cat}
+                            <span className="evidence-module-count">{catRows.length}</span>
+                          </summary>
+                          <div className="evidence-items">
+                            {catRows.map(r => {
+                              const openRow = async () => {
+                                if (r.storagePath && r.bucket) {
+                                  const url = await getSignedUrl(r.bucket, r.storagePath);
+                                  if (url) window.open(url, '_blank', 'noopener,noreferrer');
+                                } else if (r.dataUrl) {
+                                  const a = document.createElement('a');
+                                  a.href = r.dataUrl;
+                                  a.download = r.name;
+                                  a.click();
+                                }
+                              };
+                              const canOpen = !!(r.storagePath || r.dataUrl);
+                              return (
+                              <div
+                                key={r.id}
+                                className="evidence-item-card"
+                                onClick={canOpen ? openRow : undefined}
+                                onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && canOpen) { e.preventDefault(); openRow(); } }}
+                                tabIndex={canOpen ? 0 : -1}
+                                role={canOpen ? 'button' : undefined}
+                                aria-label={canOpen ? `Open ${r.name}` : r.name}
+                              >
+                                <div className="evidence-item-icon" aria-hidden="true">📎</div>
+                                <div className="evidence-item-details">
+                                  <span className="evidence-item-name">{r.name}</span>
+                                  <span className="evidence-item-question">{r.subtitle}</span>
+                                  {r.date && (
+                                    <span className="evidence-item-date">
+                                      {new Date(r.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
                               );
                             })}
                           </div>

@@ -47,14 +47,17 @@ export async function uploadEvidence(
       return null;
     }
 
-    // Get public URL
-    const { data: urlData } = supabase.storage
+    const { data: signed, error: signError } = await supabase.storage
       .from(BUCKET_NAME)
-      .getPublicUrl(storagePath);
+      .createSignedUrl(storagePath, 60 * 60 * 24 * 365);
+
+    if (signError || !signed?.signedUrl) {
+      return null;
+    }
 
     return {
       storagePath,
-      publicUrl: urlData.publicUrl,
+      publicUrl: signed.signedUrl,
     };
   } catch {
     return null;
