@@ -166,6 +166,13 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Ensures sensory and technological aspects of events are accessible. Relevant if events use AV, lighting, or amplification.' },
   { id: '6.5', name: 'On-the-day operations', journeyTheme: 'during-visit', estimatedTime: 12, cost: 95,
     description: 'Ensures event-day operations support accessibility. Relevant if you manage staff, volunteers, or logistics on event days.' },
+  // Major events (3 modules - phase 1 of 6)
+  { id: '7.1', name: 'Precinct and multi-venue coordination', journeyTheme: 'during-visit', estimatedTime: 12, cost: 110,
+    description: 'Coordinates accessibility across all venues, stages and zones in a major event. Relevant if your event spans multiple venues or operates as a precinct (festivals, fashion weeks, major sporting events).' },
+  { id: '7.2', name: 'Accessibility programming curation', journeyTheme: 'during-visit', estimatedTime: 12, cost: 110,
+    description: 'Curates an accessibility programming track and supports artists to design inclusively. Relevant if you program performances, shows, or curated content (festivals, performing arts events, programmed cultural events).' },
+  { id: '7.3', name: 'Ticketing and box office accessibility', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 95,
+    description: 'End-to-end accessible ticketing including companion ticketing across many shows and trained box office staff. Relevant if you sell tickets for multiple shows or sessions.' },
 ];
 
 // Module IDs now match codes directly (no mapping needed)
@@ -214,6 +221,9 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '6.3': '6.3',
   '6.4': '6.4',
   '6.5': '6.5',
+  '7.1': '7.1',
+  '7.2': '7.2',
+  '7.3': '7.3',
 };
 
 export const CODE_TO_MODULE_ID: Record<string, string> = { ...MODULE_ID_TO_CODE };
@@ -239,7 +249,7 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   'accommodation-rooms': ['3.9'],                        // Accommodation and guest rooms
   'retail-shopping': ['3.10', '4.3'],                    // Retail shopping, bookings/ticketing
   'outdoor-grounds': ['3.11', '3.12'],                   // Outdoor spaces, playgrounds
-  'events-management': ['6.1', '6.2', '6.3', '6.4', '6.5'], // All event modules
+  'events-management': ['6.1', '6.2', '6.3', '6.4', '6.5', '7.1', '7.2', '7.3'], // All event modules + major-event modules (precinct, programming, ticketing)
   'wayfinding': ['3.5', '2.3', '3.6', '3.7'],            // Signage, paths, printed materials, on-site info
   'sensory': ['3.3', '3.1', '3.4'],                     // Sensory environment, seating, equipment
   'staff-interaction': ['4.2', '4.3', '4.4', '1.5', '4.1'], // Customer service, payments, safety, communication, ways to reach you
@@ -349,7 +359,7 @@ export const INDUSTRY_DEFAULT_MODULES: Record<string, string[]> = {
   'attractions': ['2.1', '2.3', '4.2', '3.3', '3.5', '3.8', '3.10'],
   'leisure-recreation': ['2.1', '2.3', '4.2', '3.3', '3.8'],
   'hospitality': ['4.2', '3.1', '3.3', '2.1'],
-  'events-venues': ['2.1', '2.3', '4.2', '3.3', '3.8', '6.1', '6.2', '6.5'],
+  'events-venues': ['2.1', '2.3', '4.2', '3.3', '3.8', '6.1', '6.2', '6.5', '7.3'],
   'retail': ['2.1', '2.3', '4.2', '1.3', '3.10'],
   'local-government': ['1.2', '1.1', '4.3', '4.2'],
   'health-wellness': ['4.2', '2.1', '3.2', '4.3', '3.8'],

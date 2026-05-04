@@ -198,6 +198,8 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
 
   // Major event modules (7.x)
   '7.1': 'policy-procedure',           // Precinct & multi-venue coordination
+  '7.2': 'service-delivery',           // Accessibility programming curation
+  '7.3': 'service-delivery',           // Ticketing & box office accessibility
 
   // Fallback for any unmapped modules
   'default': 'policy-procedure',

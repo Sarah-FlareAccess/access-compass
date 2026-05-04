@@ -4664,6 +4664,178 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Aggregate post-event review is what turns a major event into a learning organisation for accessibility. Venue-by-venue reviews miss precinct-wide patterns that any single venue review would overlook.',
     resources: [],
   },
+  // Module 7.2 - Accessibility programming curation (Major Events)
+  '7.2-PC-1': {
+    actions: ['Curate a formal accessibility programming track including relaxed performances, audio-described shows, captioned and Auslan-interpreted programming, and sensory-friendly events.', 'Plan the track across the program rather than scheduling one-off compliance shows.', 'Include the track in main program marketing alongside standard shows.', 'Partner with disability arts organisations for curatorial expertise.', 'Evaluate the track separately so you can grow it year over year.'],
+    reasoning: 'A curated accessibility programming track makes inclusion visible and intentional. Treated as one-off compliance, the offer becomes invisible and the message to disabled audiences is that they\'re a separate market.',
+    resources: [],
+  },
+  '7.2-PC-2': {
+    actions: ['Develop a formal artist accessibility brief covering supported formats, expected commitments, content warnings, technical capability, and budget.', 'Send the brief in every artist contract pack, not as a follow-up email.', 'Pair the brief with a 30-minute Q&A conversation for first-time artists or those new to inclusive design.', 'Include guidance on inclusive performance design at concept stage.', 'Refresh the brief annually with input from artists and disability arts partners.'],
+    reasoning: 'A formal artist brief turns "we hope it\'s accessible" into "here\'s how to design for it". Without a brief, accessibility tends to bolt on at the end of show development rather than informing concept and design.',
+    resources: [],
+  },
+  '7.2-PC-3': {
+    actions: ['Bring accessibility-formatted shows into mainstream marketing with the same prominence as standard shows.', 'Use accessibility format icons consistently in every program listing.', 'Include access-formatted shows in trailer videos, social campaigns, and press releases.', 'Quote disabled artists and audience members in marketing materials (paid for the appearance).', 'Avoid framing access programming as "for people with disability" - it\'s for everyone.'],
+    reasoning: 'Marketing prominence signals value. Burying accessibility programming on a separate access page tells audiences with disability they\'re a separate market. Equal-prominence marketing communicates that these shows belong to the main program.',
+    resources: [],
+  },
+  '7.2-PC-4': {
+    actions: ['Establish a named, ringfenced budget line for accessibility programming.', 'Cover: Auslan interpreters, captioning, audio description writers, sensory adjustments, accessibility consulting, paid disabled-artist consultancy.', 'Apply for accessibility-specific grants from Australia Council, state arts bodies, and disability arts funding.', 'Track spend year over year and present at Board level so the line is visible.', 'Set 3-year growth targets for the budget.'],
+    reasoning: 'A ringfenced accessibility programming budget protects the offer when other budgets are pressured. Funding from contingency makes accessibility the first thing cut when budgets tighten.',
+    resources: [],
+  },
+  '7.2-PC-5': {
+    actions: ['Identify and engage 1-2 disability-led arts partners aligned to your programming strands.', 'Pay market rates for partnership: programming consultancy, advisory, co-curation - not goodwill.', 'Build partnerships through programming, advisory, and co-curation, not just a single performance booking.', 'Profile disabled artists in marketing with the same investment as headline acts.', 'Review partnerships annually and grow over time.'],
+    reasoning: 'Partnering with disability-led arts shifts your programming from "about" to "with" disabled audiences and artists. Disability-led companies bring their existing audience and credibility.',
+    resources: [],
+  },
+  '7.2-PC-6': {
+    actions: ['Add detailed content warnings to every show listing covering both sensory factors and thematic content.', 'Sensory factors: peak sound level (dB), lighting effects (strobe, blackout, sudden brightness), smoke/haze, sustained or sudden loud passages, audience interaction expected.', 'Thematic factors: violence, sexual content, references to suicide, racism, disability stereotypes, drug use.', 'Use a standardised format across all shows for scannable comparison.', 'For each warning, indicate if relaxed-performance versions soften or remove the factor.'],
+    reasoning: 'Content warnings let audience members make informed choices and meet legal duty of care under WHS legislation and DDA. Generic "contains strobe" warnings are less useful than specific timing and intensity details.',
+    resources: [],
+  },
+  '7.2-DD-1': {
+    actions: ['Develop comprehensive written guidelines for inclusive performance design covering multiple disability perspectives (sensory, cognitive, physical, mental health).', 'Co-design guidelines with disability-led arts organisations - they\'ve worked through these problems.', 'Cover: pacing for processing differences, content warnings, sensory considerations, accessible movement direction, audience interaction protocols, supporting Deaf/Blind/disabled audience members within the show.', 'Make guidelines part of the artist contract pack and refresh annually.', 'Make guidelines available beyond your event as a sector contribution.'],
+    reasoning: 'Written inclusive performance design guidelines help artists think about disability access at script and concept stage rather than retrofitting after blocking. Without them, accessibility tends to bolt on at the end.',
+    resources: [],
+  },
+  '7.2-DD-2': {
+    actions: ['Add accessibility as a standard line in every programming brief, not an "if applicable" addendum.', 'Include in every brief: which formats your event supports (Auslan, AD, captions, relaxed), expected content warnings, sensory considerations, what budget is available, who to contact.', 'For curated programs, add accessibility as an evaluation criterion when selecting work.', 'For commissioning, build accessibility into the commission brief from concept stage.', 'Audit briefs annually to ensure language hasn\'t drifted to "optional" or "if applicable".'],
+    reasoning: 'When accessibility is a standard line in every programming brief (not an "if applicable" addendum), artists begin programming with inclusion already in scope.',
+    resources: [],
+  },
+  '7.2-DD-3': {
+    actions: ['Engage paid autistic and sensory-sensitive consultants to design relaxed performances.', 'Australian providers: Amaze (Vic), Autism Spectrum Australia, autistic-led individual consultants.', 'Pilot with one show before full festival rollout.', 'Standard adjustments: sound -10 to -20 dB from standard, softer lighting cues, no strobe, pre-show sensory map of the venue, available exit for break.', 'Provide a "social story" pre-show: what to expect at this venue and show, with photos.'],
+    reasoning: 'Relaxed performances are designed for sensory-sensitive audiences. Designing without paid input from those audiences risks getting it wrong - the right vocabulary but the wrong details.',
+    resources: [],
+  },
+  '7.2-DD-4': {
+    actions: ['Engage certified theatrical providers for audio description and captioning: Audio Description Australia, Vision Australia, The Captioning Studio, Red Bee Media.', 'Budget benchmarks: AD writing $1,500-3,500/show; live AD performance $400-800; live captioning $800-2,000/show.', 'For touring shows, AD scripts can be reused - invest once, deliver multiple times.', 'Always have human review of any auto-generated content before public release.', 'Brief artists/directors on AD/captioning timing so it integrates with the show.'],
+    reasoning: 'Auto-generated captions and machine audio description are far below the quality standard required for theatrical performances. Certified human providers are the standard.',
+    resources: [],
+  },
+  '7.2-DD-5': {
+    actions: ['Add standard accessibility clauses to every artist contract.', 'Cover: provide content warnings within X weeks of opening; agree to relaxed-performance version (or explain why not feasible); brief stewards on show content; accept production schedule with accessibility provider integration.', 'Make budget commitments explicit: who pays for AD writer, Auslan interpreter, captioner, access consultant.', 'For touring artists, make commitments standard so they travel from contract to contract.', 'Audit contract templates annually to prevent drift.'],
+    reasoning: 'Verbal accessibility commitments are forgotten under production pressure. Contractual commitments survive personnel changes and create accountability.',
+    resources: [],
+  },
+  '7.2-DD-6': {
+    actions: ['Build a sustained PD pathway for artists on inclusive performance design.', 'Partner with disability arts organisations for delivery - they have lived expertise.', 'Offer multiple formats: workshops, residencies, mentoring with disability artists.', 'Pay both presenters (disabled mentors) and participants (artists\' time is valuable).', 'Embed PD into the artist development thread of your festival.', 'Commission PD content (videos, guides) and make it freely available beyond your festival.'],
+    reasoning: 'Many artists want to design inclusively but don\'t know how. PD opportunities (workshops, mentoring, residencies) build sector capacity over time.',
+    resources: [],
+  },
+  '7.2-DD-7': {
+    actions: ['Establish baseline accessibility programming metrics and set 3-year growth targets.', 'Useful metrics: number of shows in each access format (relaxed, AD, captioned, Auslan), accessibility programming as % of total program, attendance at access-formatted shows, accessibility-segmented audience satisfaction, disability-led artist commissions.', 'Report annually to leadership and in DIAP.', 'Share trends with funders, sponsors, and partner venues.', 'Adjust targets based on results, sector context, and funding.'],
+    reasoning: 'Year-on-year tracking shows whether your accessibility programming is genuinely deepening or static. A flat trajectory or decline tells you something; growth tells you something else.',
+    resources: [],
+  },
+  '7.2-DD-8': {
+    actions: ['Adopt a paid-consultancy policy: any accessibility advice from disabled artists is paid separately at consultancy rates ($120-300/hour).', 'Use separate contracts for performance work and consultancy work.', 'For ongoing advisory engagement, negotiate a project fee.', 'Make the policy public so disabled artists know what to expect.', 'Stop the "we\'d love your input for free" expectation.'],
+    reasoning: 'Disabled artists are routinely asked to provide accessibility consultancy "for free" because they have lived experience. This is unpaid labour and should be compensated separately from performance fees.',
+    resources: [],
+  },
+  '7.2-DD-9': {
+    actions: ['Publish detailed sensory information per show using a standardised template.', 'Standard template: peak/sustained sound (dB), lighting effects (strobe, blackout, brightness changes), smoke/haze, audience interaction (none/minimal/expected), sustained loud passages, sudden sounds.', 'Capture sensory information during tech rehearsal - the production team can measure as they go.', 'For relaxed-performance versions, indicate which factors are softened or removed.', 'Make sensory information filterable in digital programs.'],
+    reasoning: 'Detailed sensory information lets audiences make informed choices. Generic warnings ("contains strobe") are less useful than specific details ("3 strobe sequences each 20 seconds, peak at minute 12, 32, and 48").',
+    resources: [],
+  },
+  '7.2-DD-10': {
+    actions: ['Audit current scheduling: what proportion of access-formatted shows are at peak times vs off-peak?', 'A practical target: accessibility-formatted shows should match the peak-vs-off-peak distribution of the overall program (within 10%).', 'Reschedule to bring access shows into peak times: Friday night, Saturday, weekend matinees.', 'Audit scheduling annually to prevent drift toward off-peak.', 'Communicate scheduling commitments publicly.'],
+    reasoning: 'Scheduling accessibility shows at off-peak times signals that they\'re for a "minority". Equal scheduling signals equal value. Drift toward off-peak tends to happen as venues prioritise box-office certainty.',
+    resources: [],
+  },
+  '7.2-DD-11': {
+    actions: ['Develop standard accessibility programming agreements for all partner venues.', 'Cover: which formats hosted, technical capability (caption screen, hearing loop, lighting flexibility), staff briefings, cost-sharing for production, post-show review.', 'Use agreements to support venues to grow capacity - commit to fund partner venue accessibility upgrades over multi-year programming.', 'For multi-year partnerships, build in capability uplift goals.', 'Make accessibility a positive differentiator for partnership programming priority.'],
+    reasoning: 'For multi-venue events programming through partner venues, accessibility programming requires explicit agreement on what each venue will support. Without agreements, partner venues default to their own standards which may differ.',
+    resources: [],
+  },
+  '7.2-DD-12': {
+    actions: ['Introduce attendance and satisfaction measurement for every accessibility-programmed event.', 'Attendance metrics: total attendance, accessible-ticket uptake, support worker / companion ticket uptake.', 'Satisfaction metrics: standard NPS plus disability-specific questions ("How well did the access supports work for you?").', 'Survey design with disabled audiences\' input. Make surveys themselves accessible (Easy Read, audio, large print).', 'Compare year over year and report growth.'],
+    reasoning: 'Without measurement, you can\'t demonstrate value, plan capacity, or improve the offer year over year. Measurement turns accessibility programming from intuition into evidence.',
+    resources: [],
+  },
+  // Module 7.3 - Ticketing & box office accessibility (Major Events)
+  '7.3-PC-1': {
+    actions: ['Register as a Companion Card affiliate via your state Companion Card program.', 'Configure your ticketing system to recognise the Companion Card prefix and auto-add the free companion ticket to every accessible-seat purchase.', 'For multi-show passes (festival passes), include companion tickets at no extra cost.', 'Train box office staff to spot when companion ticketing wasn\'t added and fix retroactively without penalty.', 'For multi-show events, ensure single-transaction multi-show companion ticketing works in the online flow.'],
+    reasoning: 'Companion ticketing recognises that some attendees need a support person to participate. Forcing separate bookings per show is a friction barrier that can prevent disabled audiences from attending multi-show major events.',
+    resources: [],
+  },
+  '7.3-PC-2': {
+    actions: ['Commission an independent WCAG 2.2 AA audit of your booking flow end-to-end.', 'Cover: seat selection, date selection, payment, confirmation, ticket delivery, error handling, time-out behaviour.', 'Address critical issues before next event opening.', 'Common failures to fix: image-based seat maps without alt text or keyboard nav, payment fields without labels, time-out warnings without warning, errors not announced.', 'For ticketing platforms, request a VPAT from the vendor.'],
+    reasoning: 'A WCAG 2.2 AA-compliant booking flow lets screen reader users, keyboard-only users, and users with cognitive differences book tickets independently. Failure at any single step blocks the whole transaction.',
+    resources: [],
+  },
+  '7.3-PC-3': {
+    actions: ['Add voluntary opt-in disability disclosure at booking with privacy assurance.', 'Frame disclosure as "help us prepare" not "tell us about your disability".', 'Disclosure categories: hearing access (loop, Auslan), vision access (large print, AD), cognitive (Easy Read), sensory (relaxed performance interest), wheelchair access.', 'Include privacy statement: how data is used, who sees it, when it\'s deleted.', 'Use disclosure data only for the stated purpose - never for marketing without explicit consent.'],
+    reasoning: 'Voluntary disability disclosure at booking lets you plan capacity (accessible seats, hearing loops, support workers) and proactively communicate access info before the event.',
+    resources: [],
+  },
+  '7.3-PC-4': {
+    actions: ['Establish formal pre-event accessibility training for box office staff.', 'Engage specialist providers: JobAccess, Vision Australia, Deaf Connect, state disability employment bodies.', 'Cover: respectful language, lawful and unlawful questions about access, Companion Card handling, accessible seat allocation, escalation paths.', 'Include role-play scenarios: a Deaf customer needing show info, a wheelchair user asking about an inaccessible venue, a parent of an autistic child asking about relaxed performances.', 'Refresh annually for returning staff and at every new-hire onboarding.'],
+    reasoning: 'Box office staff are the first point of contact for many disabled audience members. Training builds confidence and prevents the common failures (assuming, refusing, deflecting).',
+    resources: [],
+  },
+  '7.3-PC-5': {
+    actions: ['Surface accessible pricing options at point of seat/ticket selection, not buried in T&Cs or FAQ.', 'Common options: disability concession (15-30% off), Companion Card-free companion ticket, support worker free or discounted, group rate for community organisations.', 'Display options at the same level as standard pricing - not under a separate "access" link.', 'For multi-show events, ensure accessible pricing applies across all shows.', 'Audit pricing transparency annually.'],
+    reasoning: 'Accessible pricing options exist in most ticketing systems but are often buried. Clear surfacing helps audiences find them and recognises additional financial barriers (transport, support workers, equipment).',
+    resources: [],
+  },
+  '7.3-PC-6': {
+    actions: ['Add detailed access info at point of ticket purchase covering venue access, seating accessibility, sensory factors, and accessibility-formatted version availability.', 'A standard at-purchase access summary: venue access (step-free, accessible toilet within X), seat accessibility (which seats are accessible, transferable, in accessible row), sensory (peak dB, lighting effects), accessibility formats available (with dates).', 'For digital ticketing platforms, integrate access info via API to your central register so it stays current.', 'For multi-show passes, show access info per show in the pass selection flow.'],
+    reasoning: 'Accessibility info at the point of purchase lets audiences make informed buying decisions, not discover problems on arrival.',
+    resources: [],
+  },
+  '7.3-DD-1': {
+    actions: ['Provide ticket delivery in multiple accessible formats: email (accessible HTML), SMS, accessible PDF.', 'Email tickets: accessible HTML with proper headings, alt text on barcodes, plain text alternative.', 'SMS tickets: short URL plus barcode/QR, must work with screen reader.', 'PDF tickets: tagged PDF with text-based barcode, alt text, logical reading order.', 'For paper tickets, ensure pickup is at an accessible location with accessible queue.'],
+    reasoning: 'Single-format ticket delivery (e.g., PDF only) excludes some users. PDF tickets often fail accessibility (image-only QR codes, no alt text). Multiple formats let audiences receive tickets in the format that works for them.',
+    resources: [],
+  },
+  '7.3-DD-2': {
+    actions: ['Establish always-available phone booking with trained agents during sales periods.', 'Extend hours and staff for major-event sales periods.', 'Train phone agents specifically on accessible-seat allocation, Companion Card processing, disability-confident conversation.', 'Publish phone booking number prominently in access info.', 'For TTY/NRS users, accept National Relay Service calls and brief agents on the protocol.'],
+    reasoning: 'Phone booking is the primary accessible alternative when online booking fails or doesn\'t suit the user. Trained agents matter - untrained staff often refuse, deflect, or apply standard rules in inaccessible ways.',
+    resources: [],
+  },
+  '7.3-DD-3': {
+    actions: ['Develop a documented accessibility refund/exchange policy.', 'Common triggers: illness flare related to disability, support worker unavailable, accessible transport failure, venue access change after booking.', 'Document the policy publicly so audiences know what to expect.', 'Brief box office staff on the policy and the principle: don\'t require medical proof for documented disabled customers.', 'Track use of the policy to demonstrate value (and detect abuse if it occurs).'],
+    reasoning: 'Standard refund policies often don\'t accommodate accessibility-related cancellations. A specific accessibility refund policy prevents loss of access to events when life happens.',
+    resources: [],
+  },
+  '7.3-DD-4': {
+    actions: ['Request accessibility audit from your booking platform vendor (VPAT or similar).', 'Make accessibility audit availability a procurement requirement for ticketing platforms.', 'For existing vendors without audits, request one and set a deadline. Persistent failure is a procurement signal.', 'Major Australian ticketing platforms: Ticketek, Ticketmaster, Moshtix, Humanitix, Eventbrite, Trybooking.', 'Track vendor accessibility commitments annually.'],
+    reasoning: 'When using a third-party ticketing platform, vendor accessibility directly affects your audience. Audit availability lets you assess and pressure for improvements.',
+    resources: [],
+  },
+  '7.3-DD-5': {
+    actions: ['Audit and upgrade box office physical accessibility against AS 1428.1 and Premises Standards 2010.', 'Counter accessibility: lower section at 870mm max height, knee clearance for wheelchair users.', 'Hearing loop: install if absent, sign visible at counter, test monthly, train staff on use.', 'Queue: 1000mm minimum width, clearly marked, no step or threshold, accessible alternative queue or priority for disabled customers.', 'For pop-up box offices at major events, ensure the same standards apply.'],
+    reasoning: 'Physical box office accessibility is a mandatory standard under Premises Standards 2010. Lowered counter, working hearing loop, and accessible queue are baseline.',
+    resources: [],
+  },
+  '7.3-DD-6': {
+    actions: ['Specify EFTPOS terminals with tactile keypad (raised dot on the 5 key) when procuring.', 'Enable contactless tap as standard.', 'For phone-based payments, accept Apple Pay / Google Pay / Samsung Pay.', 'Train staff to offer to assist with payment without taking the card.', 'Replace touchscreen-only EFTPOS at next refresh cycle.'],
+    reasoning: 'Touchscreen-only EFTPOS, no contactless, or PIN entry without tactile keys exclude users with vision or motor impairments. Multiple accessible payment methods accommodate diverse needs.',
+    resources: [],
+  },
+  '7.3-DD-7': {
+    actions: ['Configure ticketing to allow Companion Card holders to add multiple companion tickets when booking with a personal care team.', 'Allocate accessible seating in groups, not isolated single seats.', 'For multi-show events, ensure the support worker can attend all shows the cardholder books.', 'Train box office staff on the principle: support workers travel with the audience member, they\'re not separate.', 'Make group booking for support workers available online, not just via box office.'],
+    reasoning: 'Some disabled attendees travel with a support worker or PCA. Group booking lets the booking party stay together (and benefit from companion ticketing).',
+    resources: [],
+  },
+  '7.3-DD-8': {
+    actions: ['Document the in-person booking process for accessibility needs.', 'Process should cover: greeting (not assuming need), accessing accessible seat allocation system, applying Companion Card / concessions, providing access info pre-event.', 'Make process available at box office workstations for reference.', 'Update process after every event based on issues raised.', 'Provide briefing card for casual / pop-up box office staff at major events.'],
+    reasoning: 'In-person box office bookings should have a documented process for accessibility needs so any staff member knows what to do (not just the access champion).',
+    resources: [],
+  },
+  '7.3-DD-9': {
+    actions: ['Set up automated post-purchase access communication triggered 1 week before event.', 'Personalise to the seat purchased: how to find venue accessibly, accessible parking, accessible toilet locations near seat, hearing loop availability, who to contact for changes.', 'For multi-show passes, consolidate access info for all shows.', 'Provide phone contact for last-minute access changes.', 'Test the email with assistive technology before launch.'],
+    reasoning: 'After ticket purchase, audiences need to know what to expect on the day. Post-purchase access communication closes the gap between booking and arrival.',
+    resources: [],
+  },
+  '7.3-DD-10': {
+    actions: ['Implement an accessible seat allocation policy: hold accessible allocations until day-of release for major events; until 1 week before for smaller events.', 'Track accessible seat uptake by event to right-size allocation.', 'Release accessible seats to general sale only after a confirmed cut-off date with clear messaging to access audiences.', 'For events with low accessible-seat uptake historically, investigate why - it may be access info quality, not seat demand.', 'Communicate the allocation policy publicly.'],
+    reasoning: 'Accessible seats often go unsold to general public at the last minute, leaving disabled buyers without options. Holding allocations later in the sales cycle protects the offer.',
+    resources: [],
+  },
 };
 
 const RECOMMENDATION_CONTEXTS: RecommendationContext[] = [
