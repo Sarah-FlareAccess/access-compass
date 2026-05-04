@@ -37,6 +37,14 @@ export interface QuestionResponse {
   partialDescription?: string; // Description when 'partially' is selected
   photos?: string[];      // Legacy - kept for backwards compatibility
   evidence?: EvidenceFile[]; // New evidence storage
+  // Skip-if-complete: when an answer is sourced from a related org-wide
+  // question, this captures the user's choice of scope.
+  // 'event-only'  = use this answer just for the current event session
+  // 'all-events'  = also apply to future event sessions (org-default flag)
+  // 'fresh'       = answered independently (no scope flag set)
+  applyScope?: 'event-only' | 'all-events' | 'fresh';
+  // The source question ID this answer was inherited from, if any.
+  inheritedFromQuestionId?: string;
   measurement?: {
     value: number;
     unit: string;

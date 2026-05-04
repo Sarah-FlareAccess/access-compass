@@ -4583,6 +4583,87 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'People with disability face disproportionate risk during emergencies if evacuation plans do not account for their needs. An accessible emergency plan is required under WHS legislation and can be life-saving.',
     resources: [],
   },
+  // Module 7.1 - Precinct & multi-venue coordination (Major Events)
+  '7.1-PC-1': {
+    actions: ['Document a multi-venue accessibility coordination plan covering minimum standard, named owners, escalation paths, real-time issue reporting and post-event review.', 'Make the plan a contract requirement for all participating venues.', 'Include a venue-by-venue accessibility appendix listing what each venue offers and what differs from the standard.', 'Brief venue managers on the plan and confirm understanding before contracts are signed.'],
+    reasoning: 'A multi-venue coordination plan is the spine of major-event accessibility. Without it, each venue defaults to its own standard and the audience experience varies unpredictably across the precinct.',
+    resources: [],
+  },
+  '7.1-PC-2': {
+    actions: ['Name a senior role (Director or Head of Operations level) as precinct-wide accessibility owner.', 'Document their authority in writing including budget, escalation, and contract-enforcement powers.', 'Make accessibility part of their named KPIs, not a side responsibility.', 'Establish a direct reporting line to the Event Director or CEO.', 'Brief venue managers on who the owner is and how to escalate.'],
+    reasoning: 'In multi-venue events, accessibility responsibility tends to diffuse across venue managers, production crew, and event leadership. A named senior owner ensures someone has the authority and visibility to enforce standards across third-party venues.',
+    resources: [],
+  },
+  '7.1-PC-3': {
+    actions: ['Build a central accessibility information register covering every venue in the event.', 'Map every customer-facing channel (website, program, app, signage, social, box office briefings) and require each to reference the register as the source.', 'Set a 24-hour propagation SLA for any access change during the event.', 'Run a "lift outage" drill before opening to test propagation across all channels.', 'Hold a daily access huddle during the event to surface and propagate any changes.'],
+    reasoning: 'For multi-venue events, the audience needs one trustworthy source of accessibility information per venue. Outdated or inconsistent venue-by-venue info breaks audience trust faster than any other operational failure.',
+    resources: [],
+  },
+  '7.1-PC-4': {
+    actions: ['Develop a documented minimum venue accessibility standard (e.g., AS 1428.1 entrance access or tested alternative, accessible toilet within 50m, accessible viewing position).', 'Make the standard a contract requirement for all participating venues.', 'For heritage venues that genuinely cannot meet the floor, require explicit alternative-access disclosure on the program listing.', 'Audit a sample of venues against the standard before the event opens, not just at booking.', 'Disclose any venue gaps publicly so audiences can plan.'],
+    reasoning: 'A minimum standard is the access floor every venue must meet to participate. Without one, the event programs through inaccessible venues by default and accessibility commitments become aspirational.',
+    resources: [],
+  },
+  '7.1-PC-5': {
+    actions: ['Develop a precinct-wide wayfinding standard (WCAG-compliant contrast min 4.5:1, sans-serif fonts at min 24pt for direction signs, mounted at 1400-1600mm centre).', 'Apply the standard at HUB and all satellite venues.', 'Provide accessible alternatives: tactile maps at HUB and major venues, audio-describable directions in the event app, captioned digital signage for audio announcements.', 'Test wayfinding with a wheelchair user, a Deaf user, and a Blind user before the event opens (paid walk-through).', 'Brief venue staff on the wayfinding standard so directions given verbally match signage.'],
+    reasoning: 'Wayfinding for multi-venue events should let an audience member with disability navigate from HUB to any satellite venue using consistent visual standards and accessible alternatives. Inconsistent or inaccessible wayfinding strands audience members between venues.',
+    resources: [],
+  },
+  '7.1-PC-6': {
+    actions: ['Produce an accessible event-wide map showing all venues, accessible routes, toilets, parking, quiet spaces, water and first aid.', 'Provide both digital (WCAG 2.2 AA, interactive) and print (high contrast, large type, plain language) versions.', 'For major events, add tactile maps at the HUB and major venues (consult Vision Australia or Guide Dogs Australia).', 'Provide an Easy Read version for cognitive accessibility.', 'For digital maps, make access info filterable (e.g., "show only venues with hearing loops").'],
+    reasoning: 'A multi-format accessible event-wide map is the audience\'s primary navigation tool. Without it, audiences must research each venue separately and navigate without spatial context.',
+    resources: [],
+  },
+  '7.1-DD-1': {
+    actions: ['Engage an accessibility consultant or train internal auditors with disability-access expertise.', 'Build an audit checklist that maps directly to your minimum venue standard.', 'For festivals with many small venues, cluster audits geographically and use trained volunteer auditors.', 'Pre-audit every contracted venue before money has changed hands so improvements can be negotiated.', 'Audit a sample again before the event opens to confirm nothing has slipped.', 'Make audit results public to participating venues to encourage peer improvement.'],
+    reasoning: 'Pre-audit lets you negotiate accessibility improvements as part of the venue contract, before money has changed hands. Self-certification by venues consistently misses issues that an external auditor catches.',
+    resources: [],
+  },
+  '7.1-DD-2': {
+    actions: ['Add a per-venue access summary to every venue listing in the program using a consistent template.', 'Cover entry access, toilet location and type, hearing augmentation, accessible viewing options, parking, and any limitations.', 'Include limitations honestly (e.g., "step-free entry, but loud sound levels with strobe lighting") rather than just positive features.', 'Where possible, include accessibility photos: entrance, toilet, viewing area.', 'For digital programs, make access info filterable so audiences can find venues that meet specific needs.'],
+    reasoning: 'Per-venue access summaries let audience members make informed choices about which shows to attend. A symbol or label alone is not enough; audiences need detail to plan a multi-venue day.',
+    resources: [],
+  },
+  '7.1-DD-3': {
+    actions: ['Investigate accessible inter-venue transport options: event shuttles, partnerships with accessible taxi services, documented public transport routes.', 'For festivals, consider an accessible shuttle loop between major venues during peak hours.', 'Partner with local accessible taxi services and post their numbers prominently in the access info.', 'Document public transport reliability for venue-to-venue routes.', 'Factor inter-venue transport into venue selection: do not pick a venue you cannot get to accessibly.'],
+    reasoning: 'Inter-venue transport accessibility is often overlooked because event teams focus on the venues themselves. For audience members who cannot walk between venues, the transport gap is the show-stopper.',
+    resources: [],
+  },
+  '7.1-DD-4': {
+    actions: ['Audit accessible parking and drop-off at every venue.', 'Document number of accessible bays, max distance from entrance, surface type, whether bays are reserved or first-come.', 'For festivals using street parking, document accessible bays in the surrounding streets too.', 'Ensure drop-off points are on the accessible route to the venue entrance, not 50m away over uneven surface.', 'Add accessible parking info to the central event map and per-venue access summaries.', 'For high-attendance events, consider venue-by-venue accessible parking pre-booking.'],
+    reasoning: 'Accessible parking is the first audience touchpoint at most venues. Inconsistent provision across venues forces audiences to research each one separately and creates significant day-of stress for mobility-aid users.',
+    resources: [],
+  },
+  '7.1-DD-5': {
+    actions: ['Set up formal venue manager briefings before the event opens.', 'Cover event-wide minimum standard, escalation contacts, real-time access info propagation, on-day complaint handling, and post-event review.', 'Provide a one-page event accessibility briefing card venue staff can keep on hand.', 'For festivals with many venues, run cluster briefings (5-10 venues at a time) to make it practical.', 'Include an event-wide WhatsApp / Slack / Teams channel for real-time access issues during the event.'],
+    reasoning: 'A venue manager briefing translates event-wide accessibility commitments into venue-specific operational practice. Without it, venue staff default to their normal practice which may not match event expectations.',
+    resources: [],
+  },
+  '7.1-DD-6': {
+    actions: ['Develop a precinct-wide emergency evacuation strategy with explicit disability-access scenarios.', 'Include accessible refuge points at each venue, evacuation transport for mobility-aid users, visual + audible alerts, captioned PA announcements, and quiet rallying points.', 'Coordinate with emergency services so they know which venues have accessible refuge points and how many likely PEEP-holders are in the crowd.', 'Run a drill before the event opens with simulated disability-access scenarios.', 'Brief volunteer evacuation marshals on disability-aware response.', 'Update the strategy after the drill based on identified gaps.'],
+    reasoning: 'In a major event, a single trigger (fire, weather, security) can require evacuating multiple venues at once. The strategy must include accessible refuge points, transport for mobility-aid users, sign-language alerts, and quiet rallying points - this is a fundamental safety obligation under WHS legislation.',
+    resources: [],
+  },
+  '7.1-DD-7': {
+    actions: ['Establish a single accessibility complaint channel with a named owner who has authority to act.', 'Channel options: SMS short code, email, dedicated phone, in-person at HUB access desk, in-app form.', 'Publish the channel prominently in access info, not buried.', 'Set documented response timeframes.', 'Run a daily access huddle during the event to review complaints and identify patterns.', 'Aggregate complaints into post-event review so systemic issues are addressed.'],
+    reasoning: 'A single complaint channel does two things: lets audience members raise concerns easily, and lets the event team see patterns across venues during the event so they can act before issues scale.',
+    resources: [],
+  },
+  '7.1-DD-8': {
+    actions: ['Document a real-time update process triggered by any access change (lift outage, accessible toilet closure, ramp removal).', 'Define the trigger: any access change must be reported to the central access lead within 15 minutes.', 'Pre-write update templates for common scenarios so propagation is fast.', 'Use event app push notifications (with opt-in) for users who have flagged accessibility needs.', 'Update on-site signage too, not just digital channels.', 'Include the update in the daily access huddle.'],
+    reasoning: 'During a multi-day event, accessibility infrastructure breaks. Audiences need to know in real time, not after they have travelled to a venue. Stale information at the moment of need is a breach of trust.',
+    resources: [],
+  },
+  '7.1-DD-9': {
+    actions: ['Introduce venue-level accessibility metrics: complaint count, audit score, satisfaction score from disabled attendees, accessible service uptake (hearing loop usage, AD audio packs distributed).', 'Compare metrics venue-by-venue and year-over-year for recurring events.', 'Share venue-level scores with venue managers post-event - peer comparison drives improvement.', 'Aggregate to event-wide DIAP reporting.', 'Publish headline metrics where appropriate to build trust.'],
+    reasoning: 'Without venue-level metrics, you cannot tell which venues underperform on access and where to focus improvement. Aggregate accessibility scores hide where the real issues are.',
+    resources: [],
+  },
+  '7.1-DD-10': {
+    actions: ['Run a formal aggregate post-event accessibility review combining venue-level data and feedback into a precinct-wide report.', 'Review inputs: complaint log, audit results, satisfaction scores, venue manager feedback, audience focus group with disabled attendees (paid).', 'Output: precinct-wide report with key findings, venue-by-venue scorecard, and 3-5 priority actions for next year.', 'Feed findings into your DIAP and next year\'s minimum venue standard.', 'Share findings publicly where possible - reputation for transparent accessibility improvement is a competitive advantage.'],
+    reasoning: 'Aggregate post-event review is what turns a major event into a learning organisation for accessibility. Venue-by-venue reviews miss precinct-wide patterns that any single venue review would overlook.',
+    resources: [],
+  },
 };
 
 const RECOMMENDATION_CONTEXTS: RecommendationContext[] = [

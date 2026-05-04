@@ -12,7 +12,8 @@ export type ModuleGroup =
   | 'during-visit'
   | 'service-support'
   | 'organisational-commitment'
-  | 'events';
+  | 'events'
+  | 'major-events';
 
 // Module codes matching accessModules.ts
 export type ModuleCode =
@@ -21,7 +22,8 @@ export type ModuleCode =
   | '3.1' | '3.2' | '3.3' | '3.4' | '3.5' | '3.6' | '3.7' | '3.8' | '3.9' | '3.10' | '3.11' | '3.12'  // During visit
   | '4.1' | '4.2' | '4.3' | '4.4' | '4.5' | '4.6' | '4.7'  // Service & support
   | '5.1' | '5.3' | '5.4' | '5.5' | '5.6' | '5.7' | '5.8' | '5.9' | '5.10'  // Organisation
-  | '6.1' | '6.2' | '6.3' | '6.4' | '6.5';           // Events
+  | '6.1' | '6.2' | '6.3' | '6.4' | '6.5'            // Events
+  | '7.1' | '7.2' | '7.3' | '7.4' | '7.5' | '7.6';   // Major events
 
 // DIAP categories for cross-referencing
 export type DIAPCategory =

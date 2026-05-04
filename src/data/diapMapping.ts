@@ -196,6 +196,9 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
   '6.4': 'service-delivery',           // Event venue and logistics
   '6.5': 'service-delivery',           // Post-event
 
+  // Major event modules (7.x)
+  '7.1': 'policy-procedure',           // Precinct & multi-venue coordination
+
   // Fallback for any unmapped modules
   'default': 'policy-procedure',
 };

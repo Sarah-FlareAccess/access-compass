@@ -98,6 +98,19 @@ export interface BranchingQuestion {
     partially?: string; // Action when answered "partially"
     unsure?: string;    // Action when answered "unable to check"
   };
+  // Cross-references to related questions in other modules. When the user has
+  // answered any of these in a separate context (typically organisation-wide
+  // assessment), the UI surfaces that prior answer with options to:
+  //   1. Apply just to this event
+  //   2. Apply to this event AND all future events
+  //   3. Answer fresh (event-specific response)
+  // Used by Major Events modules (7.x) to avoid duplicating org-wide work.
+  relatedQuestionIds?: string[];
+  // Optional guidance shown alongside the related-answer banner explaining
+  // when the org-level answer typically applies and when a fresh response is
+  // warranted (e.g., "use your org answer if same trained staff; answer fresh
+  // if event uses additional volunteers or contractors").
+  relatedGuidance?: string;
 }
 
 interface UseBranchingLogicProps {
