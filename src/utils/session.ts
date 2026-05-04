@@ -18,10 +18,18 @@ import { syncRecord, deleteRecord } from './cloudSync';
 
 // Helper: get current authenticated user ID from Supabase client (non-React)
 async function getCurrentUserId(): Promise<string | undefined> {
-  if (!isSupabaseEnabled() || !supabase) return undefined;
+  if (!isSupabaseEnabled()) return undefined;
   try {
-    const { data } = await supabase.auth.getUser();
-    return data.user?.id;
+    const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+    if (!url) return undefined;
+    const ref = new URL(url).host.split('.')[0];
+    const raw = localStorage.getItem(`sb-${ref}-auth-token`);
+    if (!raw) return undefined;
+    const parsed = JSON.parse(raw);
+    const token: string | undefined = parsed?.access_token;
+    if (!token) return undefined;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return typeof payload?.sub === 'string' ? payload.sub : undefined;
   } catch {
     return undefined;
   }
@@ -31,12 +39,12 @@ async function getCurrentUserId(): Promise<string | undefined> {
 async function getCurrentOrgId(): Promise<string | undefined> {
   if (!isSupabaseEnabled() || !supabase) return undefined;
   try {
-    const { data } = await supabase.auth.getUser();
-    if (!data.user?.id) return undefined;
+    const userId = await getCurrentUserId();
+    if (!userId) return undefined;
     const { data: membership } = await supabase
       .from('organisation_memberships')
       .select('organisation_id')
-      .eq('user_id', data.user.id)
+      .eq('user_id', userId)
       .eq('status', 'active')
       .limit(1)
       .maybeSingle();

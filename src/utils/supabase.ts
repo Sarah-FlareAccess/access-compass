@@ -33,21 +33,20 @@ export const supabase = supabaseUrl && supabaseAnonKey
 // Helper to check if Supabase is enabled
 export const isSupabaseEnabled = () => supabase !== null;
 
-// Get the current user's JWT token for authenticated REST calls
-async function getAuthToken(): Promise<string> {
-  if (supabase) {
-    try {
-      // Race against a timeout to prevent hanging
-      const result = await Promise.race([
-        supabase.auth.getSession(),
-        new Promise<null>((resolve) => setTimeout(() => resolve(null), 3000)),
-      ]);
-      if (result && 'data' in result && result.data.session?.access_token) {
-        return result.data.session.access_token;
-      }
-    } catch {
-      // Fall through to anon key
+// Get the current user's JWT token for authenticated REST calls.
+// Reads directly from localStorage (synchronous, cannot hang).
+// Falls back to the anon/publishable key only when no session exists.
+function getAuthToken(): string {
+  if (!supabaseUrl) return supabaseAnonKey || '';
+  try {
+    const projectRef = new URL(supabaseUrl).host.split('.')[0];
+    const raw = localStorage.getItem(`sb-${projectRef}-auth-token`);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed?.access_token) return parsed.access_token;
     }
+  } catch {
+    // fall through
   }
   return supabaseAnonKey || '';
 }

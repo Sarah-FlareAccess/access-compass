@@ -177,6 +177,7 @@ export async function syncRecord(
       diap_custom_category_names: 'user_id,category_id',
       diap_team_roles: 'organisation_id,role_name',
       sync_metadata: 'user_id,device_id',
+      sessions: 'session_id',
       discovery_data: 'session_id',
       discovery_progress: 'session_id',
       training_progress: 'user_id',
@@ -375,7 +376,7 @@ export async function updateSyncMetadata(
       device_label: getDeviceLabel(),
       last_synced_at: new Date().toISOString(),
       data_tables_synced: tablesSynced,
-    });
+    }, { onConflict: 'user_id,device_id' });
   } catch {
     // Non-critical, silently fail
   }

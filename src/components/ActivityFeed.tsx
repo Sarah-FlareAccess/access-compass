@@ -20,6 +20,7 @@ function getActivityIcon(type: ActivityEntry['type']): string {
     case 'diap-status-changed': return '\uD83D\uDD04';
     case 'diap-assigned': return '\uD83D\uDC64';
     case 'diap-comment-added': return '\uD83D\uDCAC';
+    case 'diap-item-updated': return '\u270F\uFE0F';
     case 'report-generated': return '\uD83D\uDCC4';
     default: return '\uD83D\uDCCC';
   }
@@ -41,6 +42,21 @@ export function getActivityDescription(entry: ActivityEntry): string {
       return `assigned "${truncate(entry.diapItemObjective || '', 40)}" to ${entry.assigneeName || 'someone'}`;
     case 'diap-comment-added':
       return `commented on "${truncate(entry.diapItemObjective || '', 40)}"`;
+    case 'diap-item-updated': {
+      const objective = truncate(entry.diapItemObjective || '', 40);
+      const fields = entry.changedFields || [];
+      if (fields.includes('evidence-added') && entry.attachmentName) {
+        return `added evidence "${entry.attachmentName}" to "${objective}"`;
+      }
+      const labelMap: Record<string, string> = {
+        objective: 'objective', action: 'action', category: 'category',
+        priority: 'priority', timeframe: 'timeframe', dueDate: 'due date',
+        notes: 'notes', successIndicators: 'success indicators',
+        budgetEstimate: 'budget', impactStatement: 'impact statement',
+      };
+      const labelled = fields.map(f => labelMap[f] || f).join(', ');
+      return `updated ${labelled || 'fields'} on "${objective}"`;
+    }
     case 'report-generated':
       return 'generated a report';
     default:

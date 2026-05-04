@@ -6,6 +6,7 @@ export type ActivityType =
   | 'diap-status-changed'
   | 'diap-assigned'
   | 'diap-comment-added'
+  | 'diap-item-updated'
   | 'report-generated';
 
 export interface ActivityEntry {
@@ -23,6 +24,8 @@ export interface ActivityEntry {
   newValue?: string;
   assigneeName?: string;
   commentText?: string;
+  changedFields?: string[];
+  attachmentName?: string;
 }
 
 export type ActivityCategory = 'module' | 'diap' | 'report' | 'all';

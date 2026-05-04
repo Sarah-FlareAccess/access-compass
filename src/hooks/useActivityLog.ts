@@ -63,7 +63,7 @@ function getActorName(): string {
 
   // 2. Try the known Supabase auth token key
   try {
-    const authKey = 'sb-ibvqlyyvlwnwjcoehjkt-auth-token';
+    const authKey = 'sb-rokauhxngcwlpabcmwnh-auth-token';
     const raw = localStorage.getItem(authKey);
     if (raw) {
       const parsed = JSON.parse(raw);
@@ -118,6 +118,21 @@ export function getActivityDescriptionText(entry: ActivityEntry): string {
       return `assigned "${(entry.diapItemObjective || '').slice(0, 40)}" to ${entry.assigneeName || 'someone'}`;
     case 'diap-comment-added':
       return `commented on "${(entry.diapItemObjective || '').slice(0, 40)}"`;
+    case 'diap-item-updated': {
+      const objective = (entry.diapItemObjective || '').slice(0, 40);
+      const fields = (entry.changedFields as string[] | undefined) || [];
+      if (fields.includes('evidence-added') && entry.attachmentName) {
+        return `added evidence "${entry.attachmentName}" to "${objective}"`;
+      }
+      const labelMap: Record<string, string> = {
+        objective: 'objective', action: 'action', category: 'category',
+        priority: 'priority', timeframe: 'timeframe', dueDate: 'due date',
+        notes: 'notes', successIndicators: 'success indicators',
+        budgetEstimate: 'budget', impactStatement: 'impact statement',
+      };
+      const labelled = fields.map(f => labelMap[f] || f).join(', ');
+      return `updated ${labelled || 'fields'} on "${objective}"`;
+    }
     case 'report-generated':
       return 'generated a report';
     default:
