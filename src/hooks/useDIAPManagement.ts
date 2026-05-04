@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
 import { syncRecord, deleteRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
+import { computeFileHash, findEvidenceByHash, linkExistingEvidence } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
 import { logActivityStandalone } from './useActivityLog';
@@ -354,6 +355,7 @@ interface UseDIAPManagementReturn {
 
   // Attachments
   addAttachment: (itemId: string, file: File) => Promise<void>;
+  attachExistingEvidence: (itemId: string, existing: { id: string; fileName: string; fileType: string; fileSize: number; storagePath: string; mimeType?: string }) => Promise<void>;
   removeAttachment: (itemId: string, attachmentId: string) => Promise<void>;
 
   // Comments
@@ -1730,35 +1732,51 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     let storagePath: string | undefined;
     let dataUrl: string | undefined;
     let evidenceFileId: string | undefined;
+    let dedupedExistingId: string | null = null;
 
     if (userId && session?.session_id && isSupabaseEnabled() && supabase) {
-      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-      const path = `${userId}/${session.session_id}/diap-${itemId}/${Date.now()}-${safeName}`;
-      const { error: uploadError } = await supabase.storage
-        .from('evidence-files')
-        .upload(path, file, { contentType: file.type, upsert: true });
-      if (!uploadError) {
-        storagePath = path;
-        evidenceFileId = crypto.randomUUID();
-        const { error: insertError } = await supabase.from('evidence_files').insert({
-          id: evidenceFileId,
-          user_id: userId,
-          organisation_id: orgId || null,
-          session_id: session.session_id,
-          module_id: item?.moduleSource || null,
-          question_id: item?.questionSource || null,
-          diap_item_id: itemId,
-          file_name: file.name,
-          file_type: file.type,
-          file_size: file.size,
-          storage_path: path,
-          mime_type: file.type,
-        });
-        if (insertError) {
-          console.warn('evidence_files insert failed:', insertError);
+      const hash = await computeFileHash(file);
+      if (hash) {
+        const existing = await findEvidenceByHash(userId, hash);
+        if (existing) {
+          await linkExistingEvidence(existing.id, { diapItemId: itemId });
+          dedupedExistingId = existing.id;
+          evidenceFileId = existing.id;
+          storagePath = existing.storagePath;
         }
-      } else {
-        console.warn('storage upload failed, falling back to base64:', uploadError);
+      }
+
+      if (!dedupedExistingId) {
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        const path = `${userId}/${session.session_id}/diap-${itemId}/${Date.now()}-${safeName}`;
+        const { error: uploadError } = await supabase.storage
+          .from('evidence-files')
+          .upload(path, file, { contentType: file.type, upsert: true });
+        if (!uploadError) {
+          storagePath = path;
+          evidenceFileId = crypto.randomUUID();
+          const { error: insertError } = await supabase.from('evidence_files').insert({
+            id: evidenceFileId,
+            user_id: userId,
+            organisation_id: orgId || null,
+            session_id: session.session_id,
+            module_id: item?.moduleSource || null,
+            question_id: item?.questionSource || null,
+            diap_item_id: itemId,
+            linked_diap_item_ids: [itemId],
+            file_name: file.name,
+            file_type: file.type,
+            file_size: file.size,
+            storage_path: path,
+            mime_type: file.type,
+            file_hash: hash || null,
+          });
+          if (insertError) {
+            console.warn('evidence_files insert failed:', insertError);
+          }
+        } else {
+          console.warn('storage upload failed, falling back to base64:', uploadError);
+        }
       }
     }
 
@@ -1794,6 +1812,44 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       diapItemObjective: itemObjective,
       changedFields: ['evidence-added'],
       attachmentName: file.name,
+    }, userId || undefined);
+  }, []);
+
+  const attachExistingEvidence = useCallback(async (
+    itemId: string,
+    existing: { id: string; fileName: string; fileType: string; fileSize: number; storagePath: string; mimeType?: string }
+  ) => {
+    const userId = userIdRef.current;
+    if (userId && isSupabaseEnabled()) {
+      await linkExistingEvidence(existing.id, { diapItemId: itemId });
+    }
+    const isPhoto = existing.fileType === 'photo' || (existing.mimeType?.startsWith('image/') ?? false);
+    const attachment: DIAPAttachment = {
+      id: existing.id,
+      name: existing.fileName,
+      type: isPhoto ? 'image/jpeg' : existing.fileType,
+      size: existing.fileSize,
+      storagePath: existing.storagePath,
+      addedAt: new Date().toISOString(),
+    };
+    let itemObjective: string | undefined;
+    setItems(prev => {
+      const updated = prev.map(it => {
+        if (it.id === itemId) {
+          itemObjective = it.objective;
+          if ((it.attachments || []).some(a => a.id === existing.id)) return it;
+          return { ...it, attachments: [...(it.attachments || []), attachment], updatedAt: new Date().toISOString() };
+        }
+        return it;
+      });
+      saveLocalItems(updated);
+      return updated;
+    });
+    logActivityStandalone('diap-item-updated', {
+      diapItemId: itemId,
+      diapItemObjective: itemObjective,
+      changedFields: ['evidence-added'],
+      attachmentName: existing.fileName,
     }, userId || undefined);
   }, []);
 
@@ -1906,6 +1962,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     deleteDocument,
     linkDocumentToItem,
     addAttachment,
+    attachExistingEvidence,
     removeAttachment,
     addComment,
     reorderItem,

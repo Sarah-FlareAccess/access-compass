@@ -9,10 +9,11 @@
 
 import { useState, useRef, useCallback } from 'react';
 import type { EvidenceFile } from '../../hooks/useModuleProgress';
-import { uploadEvidence } from '../../utils/evidenceStorage';
+import { uploadEvidence, computeFileHash, findEvidenceByHash, linkExistingEvidence, type ExistingEvidenceMatch } from '../../utils/evidenceStorage';
 import { useAuth } from '../../contexts/AuthContext';
 import { getSession } from '../../utils/session';
 import { supabase, isSupabaseEnabled } from '../../utils/supabase';
+import { EvidencePicker } from './EvidencePicker';
 import './evidence-upload.css';
 
 interface EvidenceUploadProps {
@@ -60,11 +61,34 @@ export function EvidenceUpload({
   const [linkDescription, setLinkDescription] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [, setUploading] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { user, accessState } = useAuth();
   const organisationId = accessState.organisation?.id;
 
   const generateId = () => crypto.randomUUID();
+
+  const handleSelectExisting = useCallback(async (existing: ExistingEvidenceMatch) => {
+    setError(null);
+    if (questionId && user?.id) {
+      await linkExistingEvidence(existing.id, { questionId });
+    }
+    const isPhoto = existing.fileType === 'photo' || (existing.mimeType?.startsWith('image/') ?? false);
+    onEvidenceChange([
+      ...evidence,
+      {
+        id: existing.id,
+        type: isPhoto ? 'photo' : 'document',
+        name: existing.fileName,
+        url: undefined,
+        dataUrl: undefined,
+        storagePath: existing.storagePath,
+        mimeType: existing.mimeType,
+        size: existing.fileSize,
+        uploadedAt: new Date().toISOString(),
+      } as EvidenceFile,
+    ]);
+  }, [evidence, onEvidenceChange, questionId, user?.id]);
 
   // Get accepted file types for input
   const getAcceptedTypes = () => {
@@ -121,43 +145,58 @@ export function EvidenceUpload({
           dataUrl = await fileToBase64(file);
         }
 
-        const evidenceId = generateId();
+        let evidenceId = generateId();
         const session = getSession();
         const sessionId = session?.session_id || 'no-session';
         const now = new Date().toISOString();
 
-        // Try cloud upload first
         let url: string | undefined;
         let storagePath: string | undefined;
-        if (user?.id && isSupabaseEnabled()) {
-          const result = await uploadEvidence(
-            dataUrl,
-            user.id,
-            sessionId,
-            questionId || 'unknown',
-            file.name
-          );
-          if (result) {
-            url = result.publicUrl;
-            storagePath = result.storagePath;
+        let dedupedExistingId: string | null = null;
 
-            // Record metadata in evidence_files table
-            if (supabase) {
-              try {
-                await supabase.from('evidence_files').insert({
-                  id: evidenceId,
-                  user_id: user.id,
-                  organisation_id: organisationId || null,
-                  session_id: sessionId,
-                  module_id: moduleId || 'unknown',
-                  question_id: questionId || 'unknown',
-                  file_name: file.name,
-                  file_type: isPhoto ? 'photo' : 'document',
-                  file_size: file.size,
-                  storage_path: storagePath,
-                  mime_type: isPhoto ? 'image/jpeg' : file.type,
-                });
-              } catch {}
+        if (user?.id && isSupabaseEnabled()) {
+          const hash = await computeFileHash(file);
+          if (hash) {
+            const existing = await findEvidenceByHash(user.id, hash);
+            if (existing && questionId) {
+              await linkExistingEvidence(existing.id, { questionId });
+              dedupedExistingId = existing.id;
+              evidenceId = existing.id;
+              storagePath = existing.storagePath;
+            }
+          }
+
+          if (!dedupedExistingId) {
+            const result = await uploadEvidence(
+              dataUrl,
+              user.id,
+              sessionId,
+              questionId || 'unknown',
+              file.name
+            );
+            if (result) {
+              url = result.publicUrl;
+              storagePath = result.storagePath;
+
+              if (supabase) {
+                try {
+                  await supabase.from('evidence_files').insert({
+                    id: evidenceId,
+                    user_id: user.id,
+                    organisation_id: organisationId || null,
+                    session_id: sessionId,
+                    module_id: moduleId || 'unknown',
+                    question_id: questionId || 'unknown',
+                    linked_question_ids: questionId ? [questionId] : [],
+                    file_name: file.name,
+                    file_type: isPhoto ? 'photo' : 'document',
+                    file_size: file.size,
+                    storage_path: storagePath,
+                    mime_type: isPhoto ? 'image/jpeg' : file.type,
+                    file_hash: hash || null,
+                  });
+                } catch {}
+              }
             }
           }
         }
@@ -166,9 +205,9 @@ export function EvidenceUpload({
           id: evidenceId,
           type: isPhoto ? 'photo' : 'document',
           name: file.name,
-          // If cloud upload succeeded, store URL only (no base64 in localStorage)
           url: url || undefined,
-          dataUrl: url ? undefined : dataUrl,
+          dataUrl: storagePath ? undefined : dataUrl,
+          storagePath,
           mimeType: isPhoto ? 'image/jpeg' : file.type,
           size: file.size,
           uploadedAt: now,
@@ -439,6 +478,20 @@ export function EvidenceUpload({
                 ? 'Upload photo'
                 : 'Upload document'}
             </label>
+            {user?.id && isSupabaseEnabled() && (
+              <button
+                type="button"
+                className="evidence-upload-btn evidence-upload-btn-secondary"
+                onClick={() => setPickerOpen(true)}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+                Select existing
+              </button>
+            )}
           </>
         )}
 
@@ -485,6 +538,13 @@ export function EvidenceUpload({
         {allowedTypes.includes('document') && 'Documents (PDF, Word - max 2MB) '}
         {allowedTypes.includes('link') && 'Links'}
       </p>
+
+      <EvidencePicker
+        open={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onSelect={handleSelectExisting}
+        excludeIds={evidence.map(e => e.id)}
+      />
     </div>
   );
 }

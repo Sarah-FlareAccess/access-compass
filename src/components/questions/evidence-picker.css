@@ -1,0 +1,228 @@
+.evidence-picker-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.evidence-picker-dialog {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.evidence-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.evidence-picker-header h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.evidence-picker-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.evidence-picker-close:hover,
+.evidence-picker-close:focus-visible {
+  color: #111827;
+  background: #f3f4f6;
+  outline: 2px solid #FF9015;
+  outline-offset: 2px;
+}
+
+.evidence-picker-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.evidence-picker-search {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+}
+
+.evidence-picker-search:focus-visible {
+  outline: 2px solid #FF9015;
+  outline-offset: 2px;
+  border-color: #FF9015;
+}
+
+.evidence-picker-type-filters {
+  display: flex;
+  gap: 8px;
+}
+
+.evidence-picker-type-btn {
+  padding: 6px 14px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  color: #374151;
+}
+
+.evidence-picker-type-btn:hover {
+  background: #f9fafb;
+}
+
+.evidence-picker-type-btn.active {
+  background: #4338ca;
+  border-color: #4338ca;
+  color: #ffffff;
+}
+
+.evidence-picker-type-btn:focus-visible {
+  outline: 2px solid #FF9015;
+  outline-offset: 2px;
+}
+
+.evidence-picker-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 8px 12px;
+}
+
+.evidence-picker-status {
+  text-align: center;
+  color: #6b7280;
+  padding: 32px 16px;
+  margin: 0;
+}
+
+.evidence-picker-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.evidence-picker-row {
+  margin: 0;
+}
+
+.evidence-picker-row-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 10px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: #111827;
+}
+
+.evidence-picker-row-button:hover {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+.evidence-picker-row-button:focus-visible {
+  outline: 2px solid #FF9015;
+  outline-offset: 2px;
+}
+
+.evidence-picker-thumb {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.evidence-picker-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.evidence-picker-thumb-icon {
+  font-size: 1.25rem;
+}
+
+.evidence-picker-row-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.evidence-picker-row-name {
+  font-size: 0.9375rem;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.evidence-picker-row-size {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.evidence-picker-footer {
+  padding: 12px 20px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.evidence-picker-cancel {
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #374151;
+  font: inherit;
+}
+
+.evidence-picker-cancel:hover {
+  background: #f9fafb;
+}
+
+.evidence-picker-cancel:focus-visible {
+  outline: 2px solid #FF9015;
+  outline-offset: 2px;
+}

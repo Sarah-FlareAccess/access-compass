@@ -30,6 +30,8 @@ import { AutoSaveIndicator } from '../components/AutoSaveIndicator';
 import { DIAPCommentThread } from '../components/DIAPCommentThread';
 import { getSignedUrl } from '../utils/signedUrlCache';
 import type { DIAPAttachment } from '../hooks/useDIAPManagement';
+import { EvidencePicker } from '../components/questions/EvidencePicker';
+import type { ExistingEvidenceMatch } from '../utils/evidenceStorage';
 
 async function openAttachment(att: DIAPAttachment) {
   if (att.storagePath) {
@@ -101,6 +103,7 @@ export default function DIAPWorkspace() {
     getCSVTemplate,
     generateFromResponses,
     addAttachment,
+    attachExistingEvidence,
     removeAttachment,
     addComment,
     reorderItem,
@@ -1289,6 +1292,7 @@ export default function DIAPWorkspace() {
                                       onAddRole={addManagedRole}
                                       onManageRoles={() => setShowManageRoles(true)}
                                       onAddAttachment={addAttachment}
+                                      onAttachExisting={attachExistingEvidence}
                                       onRemoveAttachment={removeAttachment}
                                     />
                                   </div>
@@ -1302,6 +1306,7 @@ export default function DIAPWorkspace() {
                                       setEditingItem(item);
                                     }}
                                     onAddAttachment={addAttachment}
+                                    onAttachExisting={attachExistingEvidence}
                                     onRemoveAttachment={removeAttachment}
                                     onAddComment={addComment}
                                     onMoveUp={index > 0 ? () => reorderItem(item.id, objItems[index - 1].id) : undefined}
@@ -1581,6 +1586,7 @@ interface DIAPItemCardProps {
   onStatusChange: (id: string, status: DIAPStatus) => void;
   onEdit: () => void;
   onAddAttachment: (id: string, file: File) => void;
+  onAttachExisting: (itemId: string, existing: ExistingEvidenceMatch) => Promise<void>;
   onRemoveAttachment: (itemId: string, attachmentId: string) => void;
   onAddComment: (itemId: string, text: string) => void;
   onMoveUp?: () => void;
@@ -1590,8 +1596,9 @@ interface DIAPItemCardProps {
   onDismissChange?: () => void;
 }
 
-function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveAttachment, onAddComment, onMoveUp, onMoveDown, showEditHint, responseChange, onDismissChange }: DIAPItemCardProps) {
+function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onAttachExisting, onRemoveAttachment, onAddComment, onMoveUp, onMoveDown, showEditHint, responseChange, onDismissChange }: DIAPItemCardProps) {
   const [showStatusMenu, setShowStatusMenu] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const attachInputRef = useRef<HTMLInputElement>(null);
 
   const priorityColors = {
@@ -1892,7 +1899,22 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onRemoveA
         >
           + Add evidence
         </button>
+        <button
+          className="btn-attach btn-attach-secondary"
+          onClick={() => setPickerOpen(true)}
+          aria-label="Select existing evidence"
+          type="button"
+        >
+          Select existing
+        </button>
       </div>
+
+      <EvidencePicker
+        open={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onSelect={(file) => onAttachExisting(item.id, file)}
+        excludeIds={(item.attachments || []).map(a => a.id)}
+      />
 
       <DIAPCommentThread
         comments={item.comments || []}
@@ -2184,11 +2206,13 @@ interface DIAPItemFormProps {
   onAddRole?: (role: string) => void;
   onManageRoles?: () => void;
   onAddAttachment?: (itemId: string, file: File) => void;
+  onAttachExisting?: (itemId: string, existing: ExistingEvidenceMatch) => Promise<void>;
   onRemoveAttachment?: (itemId: string, attachmentId: string) => void;
 }
 
-function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList = [], onAddRole, onManageRoles, onAddAttachment, onRemoveAttachment }: DIAPItemFormProps) {
+function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList = [], onAddRole, onManageRoles, onAddAttachment, onAttachExisting, onRemoveAttachment }: DIAPItemFormProps) {
   const formAttachRef = useRef<HTMLInputElement>(null);
+  const [formPickerOpen, setFormPickerOpen] = useState(false);
   const [formData, setFormData] = useState({
     objective: item?.objective || '',
     action: item?.action || '',
@@ -2454,7 +2478,25 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
           >
             + Add evidence
           </button>
+          {onAttachExisting && item && (
+            <button
+              type="button"
+              className="btn-attach btn-attach-secondary"
+              onClick={() => setFormPickerOpen(true)}
+            >
+              Select existing
+            </button>
+          )}
         </div>
+      )}
+
+      {item && onAttachExisting && (
+        <EvidencePicker
+          open={formPickerOpen}
+          onClose={() => setFormPickerOpen(false)}
+          onSelect={(file) => onAttachExisting(item.id, file)}
+          excludeIds={(item.attachments || []).map(a => a.id)}
+        />
       )}
 
       <div className="form-actions">

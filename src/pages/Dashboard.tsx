@@ -1256,26 +1256,43 @@ Thanks!`;
                         'operations-policy-procedure': 'Operations, Policy & Procedure',
                         'people-culture': 'People & Culture',
                       };
-                      type DiapEvRow = { id: string; name: string; subtitle: string; date?: string; dataUrl?: string; storagePath?: string; bucket?: string; category: string };
-                      const rows: DiapEvRow[] = [];
+                      type DiapEvRow = { id: string; name: string; subtitles: string[]; date?: string; dataUrl?: string; storagePath?: string; bucket?: string; category: string };
+                      const rawRows: DiapEvRow[] = [];
                       for (const it of diapItems) {
                         for (const a of it.attachments || []) {
-                          rows.push({ id: a.id, name: a.name, subtitle: it.title, date: a.addedAt, dataUrl: a.dataUrl, storagePath: a.storagePath, bucket: 'evidence-files', category: it.category });
+                          rawRows.push({ id: a.id, name: a.name, subtitles: [it.title], date: a.addedAt, dataUrl: a.dataUrl, storagePath: a.storagePath, bucket: 'evidence-files', category: it.category });
                         }
                       }
                       for (const doc of diapDocuments) {
                         const linkedItem = doc.linkedItemIds.length > 0 ? diapItems.find(i => doc.linkedItemIds.includes(i.id)) : undefined;
-                        rows.push({
+                        rawRows.push({
                           id: doc.id,
                           name: doc.filename,
-                          subtitle: linkedItem ? `Linked to ${linkedItem.title}` : 'Action plan document',
+                          subtitles: [linkedItem ? `Linked to ${linkedItem.title}` : 'Action plan document'],
                           storagePath: doc.storagePath?.startsWith('data:') ? undefined : doc.storagePath,
                           dataUrl: doc.storagePath?.startsWith('data:') ? doc.storagePath : undefined,
                           bucket: 'diap-documents',
                           category: linkedItem?.category || 'operations-policy-procedure',
                         });
                       }
-                      if (rows.length === 0) return null;
+                      if (rawRows.length === 0) return null;
+
+                      const dedupedByPath = new Map<string, DiapEvRow>();
+                      const rows: DiapEvRow[] = [];
+                      for (const r of rawRows) {
+                        const key = r.storagePath || `id:${r.id}`;
+                        if (dedupedByPath.has(key)) {
+                          const existing = dedupedByPath.get(key)!;
+                          for (const s of r.subtitles) {
+                            if (!existing.subtitles.includes(s)) existing.subtitles.push(s);
+                          }
+                        } else {
+                          const copy: DiapEvRow = { ...r, subtitles: [...r.subtitles] };
+                          dedupedByPath.set(key, copy);
+                          rows.push(copy);
+                        }
+                      }
+
                       const byCategory = new Map<string, DiapEvRow[]>();
                       for (const r of rows) {
                         if (!byCategory.has(r.category)) byCategory.set(r.category, []);
@@ -1315,7 +1332,11 @@ Thanks!`;
                                 <div className="evidence-item-icon" aria-hidden="true">📎</div>
                                 <div className="evidence-item-details">
                                   <span className="evidence-item-name">{r.name}</span>
-                                  <span className="evidence-item-question">{r.subtitle}</span>
+                                  <span className="evidence-item-question">
+                                    {r.subtitles.length > 1
+                                      ? `Used in ${r.subtitles.length} places: ${r.subtitles.join(', ')}`
+                                      : r.subtitles[0]}
+                                  </span>
                                   {r.date && (
                                     <span className="evidence-item-date">
                                       {new Date(r.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}

@@ -3301,6 +3301,17 @@ button.evidence-layer-header {
   outline-offset: 2px;
 }
 
+.btn-attach-secondary {
+  border-style: solid;
+  margin-left: 6px;
+  color: #4338ca;
+}
+
+.btn-attach-secondary:hover {
+  border-color: #4338ca;
+  background: rgba(67, 56, 202, 0.06);
+}
+
 .evidence-hint {
   font-size: 0.8125rem;
   color: #636363;
