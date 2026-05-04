@@ -3846,6 +3846,40 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Under the DDA 1992 and all state/territory laws, refusing entry to an assistance animal is unlawful. A clear policy protects both the organisation and the rights of handlers.',
     resources: [],
   },
+  '5.1-F-7': {
+    actions: [
+      'Establish a single accessibility information register as the named source of truth for all customer-facing channels (website, booking system, signage, brochures, staff scripts).',
+      'Document what the register covers: physical access, sensory access, communication options, support services, and any current exceptions (planned works, temporary changes).',
+      'Map every customer-facing channel that publishes accessibility info, including third-party listings (Google Business, peak body directories, booking aggregators).',
+      'Require each downstream channel to reference the register as its source, not maintain its own version.',
+      'Publish the register internally so all staff know where to find authoritative information.',
+    ],
+    reasoning: 'Without a single source of truth, accessibility information drifts across channels: the website may say one thing, the booking system another, and front-line staff a third. A register prevents this drift, which is the most common operational failure mode for accessibility information.',
+    resources: [],
+  },
+  '5.1-D-21': {
+    actions: [
+      'Name a specific role (not a committee) as owner of the accessibility information register.',
+      'Document the role in the DIAP with a backup nominated for leave coverage.',
+      'Establish a documented review cadence: monthly review (changes since last month?) plus quarterly full audit (every entry verified).',
+      'Tie register currency to a measurable accountability such as the owner\'s performance review or a quarterly Exec report.',
+      'Set an annual major review covering scope, structure, and channel mapping changes.',
+    ],
+    reasoning: 'Without a named owner and defined cadence, an accessibility register quickly stops matching reality. Ownership is what turns a static document into a maintained source of truth.',
+    resources: [],
+  },
+  '5.1-D-22': {
+    actions: [
+      'Document a change-propagation process triggered by any physical, sensory, or service access change.',
+      'List every customer-facing channel including third-party listings (Google Business, TripAdvisor, peak body directories).',
+      'Set a 24-hour SLA: register, website, booking system, staff briefing, signage, and third-party listings all updated within 24 hours of any change.',
+      'Include temporary changes (planned works, equipment outage) as well as permanent changes in the process.',
+      'For planned changes, publish in advance and post a recovery notice on completion.',
+      'Run a "lift outage" drill annually and measure how long each channel takes to update.',
+    ],
+    reasoning: 'Outdated accessibility information at the moment a customer needs it breaks trust faster than missing information altogether. A documented propagation process keeps every channel aligned with current reality.',
+    resources: [],
+  },
   // Module 5.3
   '5.3-D-1': {
     actions: ['Schedule disability awareness refresher training at least annually for all customer-facing staff.', 'Use refresher sessions to cover updates such as new accessibility features, legislative changes, or feedback received.', 'Vary training formats to maintain engagement: e-learning modules, guest speakers with lived experience, team discussions, and practical exercises.', 'Track training completion dates and send automated reminders for overdue refreshers.', 'Tie training currency to performance reviews or compliance requirements.'],
