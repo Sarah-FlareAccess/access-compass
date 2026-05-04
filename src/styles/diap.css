@@ -3266,14 +3266,22 @@ button.evidence-layer-header {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
-  color: #6b7280;
-  padding: 0 2px;
+  color: #4b5563;
+  padding: 0 4px;
+  border-radius: 4px;
 }
 
-.attachment-remove:hover {
+.attachment-remove:hover,
+.attachment-remove:focus-visible {
   color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+}
+
+.attachment-remove:focus-visible {
+  outline: 2px solid #FF9015;
+  outline-offset: 2px;
 }
 
 .attachment-remove:focus-visible {
