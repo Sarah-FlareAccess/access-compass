@@ -58,7 +58,7 @@
 .evidence-picker-toolbar {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   padding: 16px 20px;
   border-bottom: 1px solid #e5e7eb;
 }
@@ -82,20 +82,45 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.evidence-picker-filter-row-primary {
+  background: linear-gradient(180deg, #ede9fe 0%, #ddd6fe 100%);
+  border: 1px solid #c4b5fd;
 }
 
 .evidence-picker-filter-row-secondary {
-  padding-top: 6px;
-  border-top: 1px dashed #e5e7eb;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  margin-left: 16px;
+  margin-top: -4px;
+  position: relative;
+}
+
+.evidence-picker-filter-row-secondary::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 18px;
+  width: 2px;
+  height: 14px;
+  background: #c4b5fd;
+  border-radius: 1px;
 }
 
 .evidence-picker-filter-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #6b7280;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #4338ca;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  min-width: 70px;
+  letter-spacing: 0.06em;
+  min-width: 64px;
+}
+
+.evidence-picker-filter-row-secondary .evidence-picker-filter-label {
+  color: #4b5563;
 }
 
 .evidence-picker-type-filters {
@@ -110,16 +135,19 @@
 
 .evidence-picker-type-btn {
   padding: 6px 14px;
-  border: 1px solid #d1d5db;
-  background: #ffffff;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 999px;
   font-size: 0.8125rem;
   cursor: pointer;
-  color: #374151;
+  color: #4338ca;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .evidence-picker-type-btn:hover {
-  background: #f9fafb;
+  background: #ffffff;
+  border-color: #c4b5fd;
 }
 
 .evidence-picker-type-btn.active {
@@ -134,21 +162,25 @@
 }
 
 .evidence-picker-type-btn-secondary {
-  padding: 4px 10px;
+  padding: 5px 12px;
   font-size: 0.75rem;
-  border-radius: 4px;
-  background: transparent;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
   color: #4b5563;
+  border-color: transparent;
+  font-weight: 500;
 }
 
 .evidence-picker-type-btn-secondary:hover {
-  background: #f3f4f6;
+  background: #ffffff;
+  border-color: #d1d5db;
+  color: #111827;
 }
 
 .evidence-picker-type-btn-secondary.active {
-  background: #f3f4f6;
+  background: #4b5563;
   border-color: #4b5563;
-  color: #111827;
+  color: #ffffff;
 }
 
 .evidence-picker-body {
