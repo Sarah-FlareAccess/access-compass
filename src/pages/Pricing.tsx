@@ -1498,6 +1498,94 @@ export default function Pricing() {
               </div>
             </div>
 
+            {/* Events persona — route event organisers to the right tier */}
+            <div className="pricing-addons pricing-addons-wide" id="events-persona">
+              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `1px solid ${colors.ivoryDark}`, padding: '1.5rem 1.75rem' }}>
+                <h3 style={{ color: colors.walnut, marginBottom: '0.5rem' }}>Running an event? Here's where you fit.</h3>
+                <p style={{ color: colors.subtleText, fontSize: '0.875rem', marginBottom: '1rem', maxWidth: '42rem' }}>
+                  Access Compass has dedicated event modules (planning, venue, communication, sensory access, on-the-day operations). The right tier depends on event scale and recurrence.
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: '0.625rem' }}>
+                  {[
+                    {
+                      title: 'One-off small event',
+                      examples: 'Suburb fair, school fete, single-show production, single-day pop-up (under ~1,000 attendees)',
+                      tier: 'Single Site Starter ($399)',
+                      view: 'individual' as const,
+                    },
+                    {
+                      title: 'Recurring annual event',
+                      examples: 'Council festival, sports day, community gala, recurring single-venue conference (up to ~10,000 attendees)',
+                      tier: 'Single Site Committed ($899)',
+                      view: 'individual' as const,
+                    },
+                    {
+                      title: 'Touring or multi-city event',
+                      examples: 'Multi-city festival tour, travelling exhibition, conference with city-by-city legs',
+                      tier: 'Multi-Site Pulse / Deep / Plus ($999–$3,499)',
+                      view: 'multisite' as const,
+                    },
+                    {
+                      title: 'Mid flagship festival or convention',
+                      examples: 'Regional festival, mid-size convention, civic-led major program',
+                      tier: 'Premier Venue ($7,900)',
+                      view: 'majorvenue' as const,
+                    },
+                    {
+                      title: 'Major festival or precinct event',
+                      examples: 'Fringe Festival, Melbourne Fashion Week, Splendour, Vivid, Royal Show, AFL Grand Final precinct',
+                      tier: 'Major Venue ($14,900)',
+                      view: 'majorvenue' as const,
+                    },
+                  ].map((row) => (
+                    <li
+                      key={row.title}
+                      style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        padding: '0.75rem 1rem',
+                        backgroundColor: colors.ivory,
+                        borderRadius: '8px',
+                        border: `1px solid ${colors.ivoryDark}`,
+                      }}
+                    >
+                      <div style={{ flex: '1 1 18rem', minWidth: 0 }}>
+                        <p style={{ margin: 0, color: colors.textOnWhite, fontWeight: 600, fontSize: '0.9375rem' }}>{row.title}</p>
+                        <p style={{ margin: '0.125rem 0 0', color: colors.subtleText, fontSize: '0.8125rem' }}>{row.examples}</p>
+                      </div>
+                      <div style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ color: colors.amethyst, fontWeight: 700, fontSize: '0.8125rem' }}>{row.tier}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setView(row.view);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                          style={{
+                            padding: '0.375rem 0.75rem',
+                            border: `1px solid ${colors.amethyst}`,
+                            background: 'transparent',
+                            color: colors.amethyst,
+                            borderRadius: '6px',
+                            fontSize: '0.8125rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          View tier
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <p style={{ color: colors.subtleText, fontSize: '0.75rem', marginTop: '0.875rem', marginBottom: 0, fontStyle: 'italic' }}>
+                  Major events also benefit from the organisation modules (information register, training at scale, supplier accessibility, volunteer/contractor management). All Major Venue tiers include the full module set.
+                </p>
+              </div>
+            </div>
+
             {/* Multi-Brand Enterprise footer CTA */}
             <div className="pricing-addons pricing-addons-wide">
               <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}`, textAlign: 'center', padding: '2rem' }}>
