@@ -870,7 +870,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '1.1-D-3b': {
-    actions: ['Conduct a physical walkthrough audit using an accessibility checklist based on AS 1428.1:2021 and the Premises Standards 2010.', 'Engage an access consultant or Disability Access Consultant (as listed on the ACAA register) for an independent review at least once every two years.', 'Cross-reference published information against feedback from customers with disability who have visited.', 'Compare your information against the Access Advisor or similar platforms to identify gaps.', 'Ask a person who uses a wheelchair, a person who is blind, and a person with an intellectual disability to each review the information for completeness.'],
+    actions: ['Conduct a physical walkthrough audit using an accessibility checklist based on AS 1428.1:2021 and the Premises Standards 2010.', 'Engage an accessibility consultant such as Flare Access for an independent review at least once every two years.', 'Cross-reference published information against feedback from customers with disability who have visited.', 'Compare your information against published government and industry accessibility standards to identify gaps.', 'Ask a person who uses a wheelchair, a person who is blind, and a person with an intellectual disability to each review the information for completeness.'],
     reasoning: 'Self-assessment alone often misses barriers that affect people with specific disabilities. For example, a sighted person may not notice missing tactile indicators; a person without mobility impairment may not recognise a too-steep crossfall. Third-party verification against Australian Standards ensures accuracy and legal defensibility under the DDA 1992.',
     resources: [],
   },
@@ -1348,7 +1348,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '1.4-PC-6': {
-    actions: ['Audit your current marketing and social media imagery for disability representation. If absent, commit to including people with visible and invisible disabilities.', 'Feature people with disability as active participants (customers enjoying your venue) rather than passive recipients of help.', 'Source imagery from disability-inclusive stock libraries (e.g., Disability:IN, Center for Disability Rights image library) or photograph real customers with their consent.', 'Ensure representation covers diverse disabilities: mobility, vision, hearing, cognitive, psychosocial, not just wheelchair users.'],
+    actions: ['Audit your current marketing and social media imagery for disability representation. If absent, commit to including people with visible and invisible disabilities.', 'Feature people with disability as active participants (customers enjoying your venue) rather than passive recipients of help.', 'Source imagery from disability-inclusive stock libraries (e.g., Getty Disability Collection, Pexels Disability, Unsplash disability collections) or photograph real customers with their consent.', 'Ensure representation covers diverse disabilities: mobility, vision, hearing, cognitive, psychosocial, not just wheelchair users.'],
     reasoning: 'When people with disability never see themselves in your marketing, they receive a clear message: "This place is not for you." Inclusive representation signals welcome and belonging. It also challenges harmful stereotypes and normalises disability as part of everyday life, benefiting the 4.4 million Australians with disability and their families and friends.',
     resources: [],
   },
@@ -1500,7 +1500,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '1.6-PC-5': {
-    actions: ['Source imagery from disability-inclusive stock libraries: Getty Images disability collection, Disability:IN, The Ability People, or Scope\'s inclusive image library.', 'Better yet, photograph real customers with disability (with informed consent) enjoying your venue for authentic representation.', 'Commission photo shoots that intentionally include people with diverse disabilities as models.', 'Avoid using only stock images of wheelchair users to represent "disability." Include people with various visible and non-visible disabilities.'],
+    actions: ['Source imagery from disability-inclusive stock libraries: Getty Images Disability Collection, Pexels Disability, The Ability People, or Scope Australia\'s inclusive image library.', 'Better yet, photograph real customers with disability (with informed consent) enjoying your venue for authentic representation.', 'Commission photo shoots that intentionally include people with diverse disabilities as models.', 'Avoid using only stock images of wheelchair users to represent "disability." Include people with various visible and non-visible disabilities.'],
     reasoning: 'Generic stock photos of smiling wheelchair users have become a cliche that the disability community recognises and critiques. Authentic imagery (real customers, diverse disabilities, genuine activities) is more credible and respectful. Real photos also accurately represent your specific venue and its features, helping customers with disability plan their visit.',
     resources: [],
   },
@@ -3509,7 +3509,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '4.5-D-10': {
-    actions: ['Participate in the Australian Network on Disability (AND) Access & Inclusion Index or similar industry benchmarking program.', 'Compare your accessibility performance against published standards: DDA 1992 obligations, WCAG 2.2 Level AA, AS 1428.1, and industry-specific best practice guides.', 'Review competitor or peer organisation accessibility pages, reviews, and public commitments to identify gaps in your own offering.', 'Set measurable accessibility KPIs informed by benchmarking data and track progress annually.'],
+    actions: ['Benchmark against published government frameworks such as Australia\'s Disability Strategy outcome indicators and AHRC guidance.', 'Compare your accessibility performance against published standards: DDA 1992 obligations, WCAG 2.2 Level AA, AS 1428.1, and industry-specific best practice guides.', 'Review peer organisation accessibility pages, reviews, and public commitments to identify gaps in your own offering.', 'Set measurable accessibility KPIs informed by benchmarking data and track progress annually.'],
     reasoning: 'Benchmarking reveals how your organisation compares to peers and identifies areas where you are falling behind or leading. Without it, you operate in a vacuum with no external reference point.',
     resources: [],
   },
@@ -3549,7 +3549,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '4.5-D-9': {
-    actions: ['Commission at least one accessibility audit or mystery visit by people with lived experience of disability annually.', 'Ensure auditors include people with diverse disabilities: wheelchair users, people with vision loss, Deaf people, people with cognitive disabilities.', 'Act on audit findings within documented timeframes and track progress against recommendations.', 'Consider the Australian Network on Disability (AND) Access & Inclusion Index or similar benchmarking tools.'],
+    actions: ['Commission at least one accessibility audit or mystery visit by people with lived experience of disability annually.', 'Ensure auditors include people with diverse disabilities: wheelchair users, people with vision loss, Deaf people, people with cognitive disabilities.', 'Act on audit findings within documented timeframes and track progress against recommendations.', 'Align audit scope with Australia\'s Disability Strategy outcome indicators and AHRC reporting frameworks.'],
     reasoning: 'Internal assessments have blind spots. Accessibility audits and mystery visits by people with lived experience reveal barriers that able-bodied staff or consultants may not notice.',
     resources: [],
   },
@@ -3747,7 +3747,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
   // Module 5.1
   '5.1-D-10': {
-    actions: ['Allocate a specific line item in your annual operating budget for accessibility improvements.', 'Include capital expenditure provisions for physical access upgrades (ramps, lifts, accessible toilets) and technology (assistive tech, WCAG remediation).', 'Budget for recurring costs such as Auslan interpreters, captioning services, accessible document conversion, and disability awareness training.', 'Align budget priorities with your DIAP action items and accessibility audit findings.', 'Benchmark your accessibility spend against industry peers and the Australian Network on Disability recommendations.'],
+    actions: ['Allocate a specific line item in your annual operating budget for accessibility improvements.', 'Include capital expenditure provisions for physical access upgrades (ramps, lifts, accessible toilets) and technology (assistive tech, WCAG remediation).', 'Budget for recurring costs such as Auslan interpreters, captioning services, accessible document conversion, and disability awareness training.', 'Align budget priorities with your DIAP action items and accessibility audit findings.', 'Benchmark your accessibility spend against industry peers and published government guidance.'],
     reasoning: 'Without a dedicated budget, accessibility improvements compete with other priorities and are often deferred. Ring-fenced funding ensures consistent progress on inclusion commitments.',
     resources: [],
   },
@@ -3762,7 +3762,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '5.1-D-13': {
-    actions: ['Investigate relevant Australian accessibility accreditation programs such as the Australian Network on Disability Accessibility Confident Recruiter program.', 'Consider international certifications such as the Disability Confident Employer scheme or ISO 21542 (accessibility of the built environment).', 'Pursue sector-specific recognition (e.g., Accessible Tourism accreditation through your state tourism body).', 'Use accreditation frameworks as a roadmap for improvement even before formal certification.', 'Display any achieved certifications prominently on your website and marketing materials.'],
+    actions: ['Register your DIAP with the Australian Human Rights Commission for public accountability.', 'Consider international certifications such as ISO 21542 (accessibility of the built environment).', 'Pursue sector-specific recognition (e.g., Accessible Tourism accreditation through your state tourism body).', 'Use accreditation frameworks as a roadmap for improvement even before formal certification.', 'Display any achieved certifications prominently on your website and marketing materials.'],
     reasoning: 'Accreditation or certification provides external validation, builds customer confidence, and drives continuous improvement through structured assessment frameworks.',
     resources: [],
   },
@@ -3844,92 +3844,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   '5.1-F-6': {
     actions: ['Develop a written assistance animal policy that aligns with the DDA 1992 (s.9) definition covering dogs and other animals trained to assist with disability.', 'Train all staff (including security, front-of-house, and management) to understand that assistance animals must be permitted in all public areas.', 'Ensure staff know they may ask for evidence of the animal being an assistance animal (e.g., ID card, coat, or harness) but cannot require specific documentation in all states.', 'Provide a relief area for assistance animals and communicate its location clearly.', 'Include your assistance animal policy on your website and in your accessibility statement.', 'Review the policy against state-specific legislation (e.g., Guide, Hearing and Assistance Dogs Act 2009 (Vic)) as requirements vary.'],
     reasoning: 'Under the DDA 1992 and all state/territory laws, refusing entry to an assistance animal is unlawful. A clear policy protects both the organisation and the rights of handlers.',
-    resources: [],
-  },
-  // Module 5.2
-  '5.2-D-1': {
-    actions: ['Create a simple, confidential adjustment request form available in accessible formats (online, paper, verbal).', 'Set a clear timeline for responding to requests (e.g., initial response within 5 business days, implementation within 20 business days).', 'Designate a central contact point (e.g., HR accessibility coordinator) who has authority to approve and fund adjustments.', 'Maintain confidential records of all adjustment requests, outcomes, and reviews in compliance with privacy legislation.', 'Promote the adjustment process during onboarding and through regular internal communications.'],
-    reasoning: 'A formal adjustment request process ensures consistency, reduces reliance on individual manager goodwill, and creates an auditable record that demonstrates compliance with the DDA.',
-    resources: [],
-  },
-  '5.2-D-10': {
-    actions: ['Audit your diversity and inclusion data for intersectional representation (e.g., First Nations people with disability, women with disability, culturally diverse employees with disability).', 'Ensure disability inclusion strategies consider cultural differences in understanding and disclosing disability.', 'Partner with organisations that work at intersections, such as First Peoples Disability Network Australia.', 'Provide translated and culturally appropriate information about workplace adjustments and support.', 'Include intersectionality as a standing consideration in DIAP development and review.'],
-    reasoning: 'People with disability who also experience other forms of marginalisation (First Nations, CALD, LGBTQIA+) face compounded barriers. An intersectional approach prevents people falling through gaps between separate diversity programs.',
-    resources: [],
-  },
-  '5.2-D-11': {
-    actions: ['Include disability-related questions in your regular employee engagement surveys (voluntary and confidential).', 'Track retention rates for employees with disability compared to overall workforce rates.', 'Conduct exit interviews with departing employees with disability to identify systemic barriers.', 'Analyse satisfaction data by business unit to identify where inclusion is strongest and weakest.', 'Report retention and satisfaction findings in your DIAP progress report and use them to set improvement actions.'],
-    reasoning: 'Without tracking retention and satisfaction, you cannot identify whether inclusive hiring is translating into inclusive workplaces. High turnover among employees with disability signals systemic barriers.',
-    resources: [],
-  },
-  '5.2-D-12': {
-    actions: ['Ask all new employees (not only those who disclosed disability) about adjustment needs as part of pre-boarding.', 'Ensure onboarding documents, systems, and training materials meet WCAG 2.2 Level AA and are available in alternative formats.', 'Include disability awareness and adjustment request information in all induction programs.', 'Provide accessible IT setup from day one, including assistive technology and accessible software licences.', 'Assign an onboarding buddy who has completed disability awareness training.'],
-    reasoning: 'Inaccessible onboarding creates an immediate negative experience, signals that disability was not anticipated, and can delay an employee ability to perform their role effectively.',
-    resources: [],
-  },
-  '5.2-D-13': {
-    actions: ['Offer flexible work as a standard option for all employees, reducing the need for disability-specific disclosure to access it.', 'Include working from home, flexible start/finish times, compressed weeks, job sharing, and part-time options in your flexibility policy.', 'Ensure flexible work technology (video conferencing, collaboration tools, VPN) is accessible and compatible with assistive technology.', 'Train managers to assess flexible work requests based on business outcomes rather than visibility or presence.', 'Review flexible work arrangements regularly to ensure they continue to meet employee needs.'],
-    reasoning: 'Flexible work is one of the most effective and low-cost adjustments for many disabilities, supporting both physical and psychosocial needs. It also aligns with the modern award flexibility provisions.',
-    resources: [],
-  },
-  '5.2-D-14': {
-    actions: ['Ensure all internal communication platforms (intranet, email, Slack/Teams) meet WCAG 2.2 Level AA.', 'Provide captions on all internal videos and recorded meetings. Enable live captioning in video conferencing tools.', 'Offer Auslan interpretation for important all-staff meetings and events.', 'Send meeting agendas and materials in advance in accessible formats to allow preparation time.', 'Use accessible document templates (Word, PowerPoint) with proper heading structure, alt text, and sufficient colour contrast.'],
-    reasoning: 'Inaccessible internal communications and meetings exclude employees with disability from information, decision-making, and social connection, creating a two-tier workforce experience.',
-    resources: [],
-  },
-  '5.2-D-2': {
-    actions: ['Implement voluntary, confidential disability disclosure surveys aligned with the ABS disability definitions.', 'Track representation data at each stage: application, shortlisting, hiring, retention, promotion, and exit.', 'Report disability employment data in your DIAP progress reports and annual reports (aggregated to protect privacy).', 'Benchmark against the Australian Public Service disability employment target (currently 7%) or your sector standards.', 'Use data to identify and address barriers at specific stages of the employee lifecycle.'],
-    reasoning: 'Tracking disability employment data reveals whether inclusion initiatives are working, identifies barriers to retention, and supports DIAP and Australia Disability Strategy reporting.',
-    resources: [],
-  },
-  '5.2-D-3': {
-    actions: ['Deliver targeted disability confidence training for all people managers, covering legal obligations, adjustment processes, and inclusive leadership.', 'Include practical scenarios such as responding to disclosure, implementing adjustments, and supporting return-to-work.', 'Use training delivered or co-designed by people with lived experience of disability.', 'Make disability management training a prerequisite for management roles and include it in leadership development programs.', 'Evaluate training effectiveness through staff surveys and adjustment request outcomes.'],
-    reasoning: 'Managers are the primary enablers or barriers to workplace inclusion. Without specific training, they may inadvertently create barriers or fail to provide required adjustments.',
-    resources: [],
-  },
-  '5.2-D-4': {
-    actions: ['Rewrite job descriptions to focus on essential outcomes and competencies rather than specific physical or cognitive methods.', 'Distinguish between inherent requirements (genuinely necessary) and preferred attributes, as defined in the DDA 1992.', 'Remove unnecessary requirements such as "must hold a drivers licence" unless driving is an inherent requirement.', 'Use inclusive language guidelines from the Australian Network on Disability or JobAccess.', 'Have job descriptions reviewed by an accessibility specialist or disability employment service before advertising.'],
-    reasoning: 'Prescriptive job descriptions that specify methods rather than outcomes unnecessarily exclude people with disability who may achieve the same results through different approaches.',
-    resources: [],
-  },
-  '5.2-D-5': {
-    actions: ['Develop a formal return-to-work program that complies with your state or territory workers compensation legislation and Safe Work Australia guidelines.', 'Include graduated return options (reduced hours, modified duties, phased re-entry) and workplace adjustment provisions.', 'Appoint a return-to-work coordinator trained in disability-inclusive practices.', 'Ensure the program covers non-work-related disability acquisition, not just workplace injuries.', 'Provide ongoing support post-return including check-ins, adjustment reviews, and access to EAP services.'],
-    reasoning: 'Many employees acquire disability during their working life. A structured return-to-work program supports retention, reduces workers compensation costs, and meets obligations under state WHS and workers compensation legislation.',
-    resources: [],
-  },
-  '5.2-D-6': {
-    actions: ['Audit promotion and career development data by disability status to identify disparities.', 'Ensure all training, mentoring, and development programs are accessible (physically, digitally, and in communication format).', 'Provide adjustments for professional development activities such as conferences, courses, and networking events.', 'Include disability inclusion metrics in manager performance reviews related to team development.', 'Establish mentoring or sponsorship programs specifically connecting employees with disability to senior leaders.'],
-    reasoning: 'Equal access to career development and promotion prevents systemic disadvantage and ensures people with disability are not stuck in entry-level roles, addressing the "disability career ceiling" documented in Australian research.',
-    resources: [],
-  },
-  '5.2-D-7': {
-    actions: ['Partner with disability employment services (DES) providers to offer internships, traineeships, or work experience placements.', 'Investigate the Australian Government Disabled Australian Apprentice Wage Support and other incentive programs.', 'Connect with universities disability services to offer graduate internships for students with disability.', 'Ensure work experience placements include meaningful work, mentoring, and a pathway to ongoing employment where possible.', 'Track conversion rates from placements to permanent employment and set improvement targets.'],
-    reasoning: 'Supported employment pathways create entry points for people with disability who face additional barriers to traditional recruitment, building a pipeline of diverse talent.',
-    resources: [],
-  },
-  '5.2-D-8': {
-    actions: ['Support the establishment of a disability employee resource group (ERG) with executive sponsorship and a modest budget.', 'Ensure the ERG is open to employees with disability, allies, and carers.', 'Provide the ERG with a formal channel to influence policy (e.g., regular meetings with HR leadership, input into DIAP development).', 'Allocate paid time for ERG participation and leadership roles.', 'Connect the ERG with external networks such as the Australian Network on Disability member community.'],
-    reasoning: 'Employee disability networks provide peer support, reduce isolation, inform policy, and create a visible internal culture of inclusion that encourages disclosure and help-seeking.',
-    resources: [],
-  },
-  '5.2-D-9': {
-    actions: ['Ensure your EAP provider has expertise in disability-related mental health, including psychosocial disability.', 'Address the intersection of mental health and disability in your wellbeing strategy, covering anxiety around disclosure, adjustment fatigue, and ableism.', 'Train mental health first aiders on disability-specific considerations.', 'Provide flexible leave options for disability-related medical appointments and mental health days.', 'Include psychosocial risk assessment in your WHS framework as required under model WHS regulations.'],
-    reasoning: 'Mental health conditions are the most common form of disability in the Australian workforce, yet workplace mental health programs often fail to address disability-specific needs such as psychosocial disability under the NDIS.',
-    resources: [],
-  },
-  '5.2-F-1': {
-    actions: ['Partner with disability employment services (DES) providers and Australian Disability Enterprises to reach candidates with disability.', 'Advertise positions through disability-specific job boards and networks such as the Australian Network on Disability Job Board.', 'Include a diversity and disability encouragement statement in all job advertisements.', 'Set disability employment targets aligned with Australia Disability Strategy 2021-2031 goals.', 'Review recruitment channels and outreach strategies annually to improve reach into the disability community.'],
-    reasoning: 'Actively recruiting people with disability addresses underrepresentation (the disability employment gap in Australia remains over 30 percentage points) and builds a workforce that reflects the community.',
-    resources: [],
-  },
-  '5.2-F-2': {
-    actions: ['Ensure job advertisements, application forms, and career pages meet WCAG 2.2 Level AA.', 'Offer alternative application methods (phone, video, in-person) alongside online forms.', 'Proactively ask all candidates if they need adjustments for interviews or assessments, without requiring disability disclosure.', 'Train hiring managers on making reasonable adjustments during recruitment (e.g., extra time, alternative formats, Auslan interpreters).', 'Audit your recruitment platforms (ATS, video interview tools) for accessibility compliance.'],
-    reasoning: 'An inaccessible recruitment process excludes qualified candidates with disability from the outset, breaching DDA obligations and narrowing your talent pool.',
-    resources: [],
-  },
-  '5.2-F-3': {
-    actions: ['Establish a clear, confidential process for employees to request workplace adjustments at any stage of employment.', 'Fund adjustments centrally (not from team budgets) to remove manager reluctance. Leverage the JobAccess Employment Assistance Fund for eligible costs.', 'Provide a range of adjustments including flexible hours, modified duties, assistive technology, ergonomic equipment, and remote work options.', 'Document all adjustment agreements and review them at least annually or when circumstances change.', 'Train managers on their legal obligations under the DDA and how to implement adjustments effectively.'],
-    reasoning: 'Providing workplace adjustments is a legal obligation under the DDA 1992 (s.5, s.6) and state anti-discrimination laws. Failure to provide reasonable adjustments constitutes unlawful disability discrimination.',
     resources: [],
   },
   // Module 5.3
@@ -4086,7 +4000,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
   },
   // Module 5.5
   '5.5-D-1': {
-    actions: ['Conduct formal accessibility audits covering physical premises (against AS 1428.1:2021 and Premises Standards 2010), digital platforms (WCAG 2.2 AA), and service delivery.', 'Engage accredited access consultants who are members of the Association of Consultants in Access Australia (ACAA) for built environment audits.', 'Schedule full audits annually and targeted audits after any significant changes to premises, services, or technology.', 'Include user testing with people with disability as part of the audit methodology.', 'Maintain an audit findings register with remediation actions, owners, and target dates.'],
+    actions: ['Conduct formal accessibility audits covering physical premises (against AS 1428.1:2021 and Premises Standards 2010), digital platforms (WCAG 2.2 AA), and service delivery.', 'Engage accessibility consultants such as Flare Access for built environment and service audits.', 'Schedule full audits annually and targeted audits after any significant changes to premises, services, or technology.', 'Include user testing with people with disability as part of the audit methodology.', 'Maintain an audit findings register with remediation actions, owners, and target dates.'],
     reasoning: 'Regular accessibility audits provide objective, evidence-based assessment of your current state, identify emerging barriers, and create a prioritised remediation plan.',
     resources: [],
   },
@@ -4121,7 +4035,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '5.5-D-4': {
-    actions: ['Participate in industry accessibility benchmarking programs such as the Australian Network on Disability Access and Inclusion Index.', 'Compare your DIAP actions and outcomes against similar organisations in your sector.', 'Review accessibility leaders in your industry (both domestic and international) for ideas and targets.', 'Attend sector conferences and forums focused on accessibility to learn from peer organisations.', 'Use benchmarking data to set stretch targets and identify quick wins from peer practices.'],
+    actions: ['Benchmark your DIAP actions against Australia\'s Disability Strategy outcome areas and peer organisations in your sector.', 'Compare your DIAP actions and outcomes against similar organisations in your sector.', 'Review accessibility leaders in your industry (both domestic and international) for ideas and targets.', 'Attend sector conferences and forums focused on accessibility to learn from peer organisations.', 'Use benchmarking data to set stretch targets and identify quick wins from peer practices.'],
     reasoning: 'Benchmarking reveals how your accessibility compares to peers and identifies practices you can adopt from leading organisations in your sector.',
     resources: [],
   },
@@ -4131,7 +4045,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '5.5-D-6': {
-    actions: ['Commission external accessibility audits from accredited consultants at least every 2-3 years for physical premises and annually for digital platforms.', 'Engage auditors who are ACAA members for built environment reviews and who use WCAG-EM methodology for digital audits.', 'Request audits that include testing by people with disability, not just technical compliance checking.', 'Obtain a written audit report with prioritised findings, remediation recommendations, and estimated costs.', 'Track remediation progress against external audit findings and commission re-audit to verify completion.'],
+    actions: ['Commission external accessibility audits from qualified consultants such as Flare Access at least every 2-3 years for physical premises and annually for digital platforms.', 'Engage auditors who use WCAG-EM methodology for digital audits and AS 1428.1 / Premises Standards 2010 for built environment reviews.', 'Request audits that include testing by people with disability, not just technical compliance checking.', 'Obtain a written audit report with prioritised findings, remediation recommendations, and estimated costs.', 'Track remediation progress against external audit findings and commission re-audit to verify completion.'],
     reasoning: 'External audits provide independent, expert assessment that is more objective than internal reviews and carries greater credibility with stakeholders and regulators.',
     resources: [],
   },
@@ -4141,7 +4055,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '5.5-D-8': {
-    actions: ['Subscribe to key Australian accessibility information sources: AHRC updates, Australian Network on Disability newsletters, Centre for Accessibility Australia, and W3C WAI updates.', 'Attend accessibility conferences and webinars (e.g., A11y Camp, OZeWAI, GAAD events).', 'Assign a staff member or team to monitor accessibility developments and brief the organisation regularly.', 'Join industry accessibility working groups or communities of practice.', 'Pilot emerging accessibility technologies (e.g., AI captioning, indoor navigation, sensory wayfinding) to evaluate their potential.'],
+    actions: ['Subscribe to key Australian accessibility information sources: AHRC updates, state equal opportunity commissions, Centre for Accessibility Australia, and W3C WAI updates.', 'Attend accessibility conferences and webinars (e.g., A11y Camp, OZeWAI, GAAD events).', 'Assign a staff member or team to monitor accessibility developments and brief the organisation regularly.', 'Join industry accessibility working groups or communities of practice.', 'Pilot emerging accessibility technologies (e.g., AI captioning, indoor navigation, sensory wayfinding) to evaluate their potential.'],
     reasoning: 'Accessibility standards, technologies, and community expectations evolve rapidly. Organisations that stay informed can adopt improvements proactively rather than reactively.',
     resources: [],
   },
@@ -4500,7 +4414,7 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '6.4-D-8': {
-    actions: ['Offer at least one relaxed or sensory-friendly session with reduced lighting, lower volume, no sudden effects, and a relaxed atmosphere.', 'Allow movement, noise, and different responses during relaxed sessions without judgment.', 'Reduce audience capacity for relaxed sessions to lower crowd density and noise.', 'Communicate relaxed session options prominently in your event promotion and accessibility statement.', 'Base your approach on the Relaxed Performance guidelines from Arts Access Australia.'],
+    actions: ['Offer at least one relaxed or sensory-friendly session with reduced lighting, lower volume, no sudden effects, and a relaxed atmosphere.', 'Allow movement, noise, and different responses during relaxed sessions without judgment.', 'Reduce audience capacity for relaxed sessions to lower crowd density and noise.', 'Communicate relaxed session options prominently in your event promotion and accessibility statement.', 'Base your approach on guidance from autism-led organisations such as AMAZE and established sensory-friendly event protocols.'],
     reasoning: 'Relaxed or sensory-friendly sessions provide access for people who cannot attend standard sessions due to sensory sensitivities, anxiety, or the need for a calmer environment.',
     resources: [],
   },

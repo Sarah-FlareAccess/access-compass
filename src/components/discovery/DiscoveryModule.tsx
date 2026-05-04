@@ -792,7 +792,7 @@ export function DiscoveryModule({
                   icon: '📋',
                   description: 'Embed accessibility into your organisational practices',
                   outcome: 'Accessibility becomes part of how you operate',
-                  codes: ['5.1', '5.2', '5.3', '5.4', '5.5', '5.6'],
+                  codes: ['5.1', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '5.9', '5.10'],
                 },
               ];
 

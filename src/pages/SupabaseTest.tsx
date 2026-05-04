@@ -61,7 +61,7 @@ export default function SupabaseTest() {
               <li>
                 Go to{' '}
                 <a
-                  href="https://app.supabase.com/project/ibvqlyyvlwnwjcoehjkt/sql/new"
+                  href="https://app.supabase.com/project/rokauhxngcwlpabcmwnh/sql/new"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: 'var(--deep-purple)', textDecoration: 'underline' }}
