@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { listEvidenceForUser, type ExistingEvidenceMatch } from '../../utils/evidenceStorage';
+import { listEvidenceForUser, listLocalEvidence, type ExistingEvidenceMatch } from '../../utils/evidenceStorage';
 import { useSignedUrl } from '../../hooks/useSignedUrl';
 import './evidence-picker.css';
 
@@ -9,9 +10,10 @@ interface EvidencePickerProps {
   onClose: () => void;
   onSelect: (file: ExistingEvidenceMatch) => void;
   excludeIds?: string[];
+  extraSources?: ExistingEvidenceMatch[];
 }
 
-export function EvidencePicker({ open, onClose, onSelect, excludeIds = [] }: EvidencePickerProps) {
+export function EvidencePicker({ open, onClose, onSelect, excludeIds = [], extraSources = [] }: EvidencePickerProps) {
   const { user, accessState } = useAuth();
   const organisationId = accessState.organisation?.id;
   const [files, setFiles] = useState<ExistingEvidenceMatch[]>([]);
@@ -20,10 +22,13 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [] }: Evi
   const [typeFilter, setTypeFilter] = useState<'all' | 'photo' | 'document'>('all');
 
   useEffect(() => {
-    if (!open || !user?.id) return;
+    if (!open) return;
     let cancelled = false;
     setLoading(true);
-    listEvidenceForUser(user.id, organisationId).then(result => {
+    const fetchCloud = user?.id
+      ? listEvidenceForUser(user.id, organisationId)
+      : Promise.resolve([] as ExistingEvidenceMatch[]);
+    fetchCloud.then(result => {
       if (!cancelled) {
         setFiles(result);
         setLoading(false);
@@ -32,8 +37,27 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [] }: Evi
     return () => { cancelled = true; };
   }, [open, user?.id, organisationId]);
 
+  const localItems = useMemo(() => (open ? listLocalEvidence() : []), [open]);
+
+  const merged = useMemo(() => {
+    const seenPaths = new Set<string>();
+    const seenIds = new Set<string>();
+    const out: ExistingEvidenceMatch[] = [];
+    const consider = (f: ExistingEvidenceMatch) => {
+      const pathKey = f.storagePath || `id:${f.id}`;
+      if (seenPaths.has(pathKey) || seenIds.has(f.id)) return;
+      seenPaths.add(pathKey);
+      seenIds.add(f.id);
+      out.push(f);
+    };
+    for (const f of files) consider(f);
+    for (const f of localItems) consider(f);
+    for (const f of extraSources) consider(f);
+    return out;
+  }, [files, localItems, extraSources]);
+
   const filtered = useMemo(() => {
-    return files.filter(f => {
+    return merged.filter(f => {
       if (excludeIds.includes(f.id)) return false;
       if (search && !f.fileName.toLowerCase().includes(search.toLowerCase())) return false;
       if (typeFilter !== 'all') {
@@ -43,7 +67,7 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [] }: Evi
       }
       return true;
     });
-  }, [files, search, typeFilter, excludeIds]);
+  }, [merged, search, typeFilter, excludeIds]);
 
   useEffect(() => {
     if (!open) return;
@@ -56,7 +80,7 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [] }: Evi
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <div className="evidence-picker-backdrop" onClick={onClose} role="presentation">
       <div
         className="evidence-picker-dialog"
@@ -130,7 +154,8 @@ export function EvidencePicker({ open, onClose, onSelect, excludeIds = [] }: Evi
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

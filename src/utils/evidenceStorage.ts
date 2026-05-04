@@ -265,6 +265,58 @@ export async function listEvidenceForUser(
   }
 }
 
+export function listLocalEvidence(): ExistingEvidenceMatch[] {
+  const out: ExistingEvidenceMatch[] = [];
+  try {
+    const raw = localStorage.getItem('access_compass_module_progress');
+    if (raw) {
+      const progress = JSON.parse(raw) as Record<string, { responses?: Array<{ evidence?: Array<{ id: string; name: string; type?: string; mimeType?: string; size?: number; storagePath?: string; bucket?: string; dataUrl?: string; url?: string }> }> }>;
+      for (const moduleData of Object.values(progress || {})) {
+        for (const resp of moduleData.responses || []) {
+          for (const ev of resp.evidence || []) {
+            if (!ev.id || !ev.name) continue;
+            if (ev.type === 'link') continue;
+            const isPhoto = ev.type === 'photo' || (ev.mimeType?.startsWith('image/') ?? false);
+            out.push({
+              id: ev.id,
+              fileName: ev.name,
+              fileType: isPhoto ? 'photo' : 'document',
+              fileSize: ev.size || 0,
+              storagePath: ev.storagePath || '',
+              mimeType: ev.mimeType,
+              bucket: ev.bucket || 'evidence-files',
+              source: 'evidence_files',
+            });
+          }
+        }
+      }
+    }
+  } catch {}
+  try {
+    const raw = localStorage.getItem('access_compass_diap_items');
+    if (raw) {
+      const items = JSON.parse(raw) as Array<{ attachments?: Array<{ id: string; name: string; type?: string; size?: number; storagePath?: string; bucket?: string; dataUrl?: string }> }>;
+      for (const item of items || []) {
+        for (const att of item.attachments || []) {
+          if (!att.id || !att.name) continue;
+          const isPhoto = att.type?.startsWith('image/') ?? false;
+          out.push({
+            id: att.id,
+            fileName: att.name,
+            fileType: isPhoto ? 'photo' : 'document',
+            fileSize: att.size || 0,
+            storagePath: att.storagePath || '',
+            mimeType: att.type,
+            bucket: att.bucket || 'evidence-files',
+            source: 'evidence_files',
+          });
+        }
+      }
+    }
+  } catch {}
+  return out;
+}
+
 export async function promoteToEvidenceFile(
   match: ExistingEvidenceMatch,
   context: { userId: string; organisationId?: string | null; sessionId: string; questionId?: string; diapItemId?: string; moduleId?: string }
