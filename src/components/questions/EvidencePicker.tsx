@@ -140,7 +140,7 @@ interface EvidencePickerRowProps {
 }
 
 function EvidencePickerRow({ file, onSelect }: EvidencePickerRowProps) {
-  const { url } = useSignedUrl('evidence-files', file.storagePath);
+  const { url } = useSignedUrl(file.bucket, file.storagePath);
   const isPhoto = file.fileType === 'photo' || (file.mimeType?.startsWith('image/') ?? false);
   const sizeLabel = file.fileSize ? `${(file.fileSize / 1024).toFixed(1)} KB` : '';
 

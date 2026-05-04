@@ -156,6 +156,8 @@ export interface ExistingEvidenceMatch {
   fileSize: number;
   storagePath: string;
   mimeType?: string;
+  bucket: string;
+  source: 'evidence_files' | 'diap_documents';
 }
 
 export async function findEvidenceByHash(
@@ -166,7 +168,7 @@ export async function findEvidenceByHash(
   try {
     const { data, error } = await supabase
       .from('evidence_files')
-      .select('id, file_name, file_type, file_size, storage_path, mime_type')
+      .select('id, file_name, file_type, file_size, storage_path, mime_type, bucket_name')
       .eq('user_id', userId)
       .eq('file_hash', hash)
       .limit(1)
@@ -179,6 +181,8 @@ export async function findEvidenceByHash(
       fileSize: (data.file_size as number) || 0,
       storagePath: data.storage_path as string,
       mimeType: data.mime_type as string | undefined,
+      bucket: (data.bucket_name as string) || 'evidence-files',
+      source: 'evidence_files',
     };
   } catch {
     return null;
@@ -191,36 +195,117 @@ export async function listEvidenceForUser(
 ): Promise<ExistingEvidenceMatch[]> {
   if (!isSupabaseEnabled() || !supabase || !userId) return [];
   try {
-    let query = supabase
+    let efQuery = supabase
       .from('evidence_files')
-      .select('id, file_name, file_type, file_size, storage_path, mime_type, created_at')
+      .select('id, file_name, file_type, file_size, storage_path, mime_type, bucket_name, created_at')
       .order('created_at', { ascending: false })
       .limit(500);
     if (organisationId) {
-      query = query.or(`user_id.eq.${userId},organisation_id.eq.${organisationId}`);
+      efQuery = efQuery.or(`user_id.eq.${userId},organisation_id.eq.${organisationId}`);
     } else {
-      query = query.eq('user_id', userId);
+      efQuery = efQuery.eq('user_id', userId);
     }
-    const { data, error } = await query;
-    if (error || !data) return [];
-    const seen = new Set<string>();
+
+    let ddQuery = supabase
+      .from('diap_documents')
+      .select('id, filename, file_type, file_size, storage_path, uploaded_at')
+      .order('uploaded_at', { ascending: false })
+      .limit(500);
+    if (organisationId) {
+      ddQuery = ddQuery.or(`user_id.eq.${userId},organisation_id.eq.${organisationId}`);
+    } else {
+      ddQuery = ddQuery.eq('user_id', userId);
+    }
+
+    const [efResult, ddResult] = await Promise.all([efQuery, ddQuery]);
+
+    const seenPaths = new Set<string>();
     const out: ExistingEvidenceMatch[] = [];
-    for (const row of data as Record<string, unknown>[]) {
-      const path = row.storage_path as string;
-      if (seen.has(path)) continue;
-      seen.add(path);
-      out.push({
-        id: row.id as string,
-        fileName: row.file_name as string,
-        fileType: row.file_type as string,
-        fileSize: (row.file_size as number) || 0,
-        storagePath: path,
-        mimeType: row.mime_type as string | undefined,
-      });
+
+    if (!efResult.error && efResult.data) {
+      for (const row of efResult.data as Record<string, unknown>[]) {
+        const path = row.storage_path as string;
+        if (!path || seenPaths.has(path)) continue;
+        seenPaths.add(path);
+        out.push({
+          id: row.id as string,
+          fileName: row.file_name as string,
+          fileType: row.file_type as string,
+          fileSize: (row.file_size as number) || 0,
+          storagePath: path,
+          mimeType: row.mime_type as string | undefined,
+          bucket: (row.bucket_name as string) || 'evidence-files',
+          source: 'evidence_files',
+        });
+      }
     }
+
+    if (!ddResult.error && ddResult.data) {
+      for (const row of ddResult.data as Record<string, unknown>[]) {
+        const path = row.storage_path as string;
+        if (!path || path.startsWith('data:') || seenPaths.has(path)) continue;
+        seenPaths.add(path);
+        const fileType = (row.file_type as string) || 'application/octet-stream';
+        out.push({
+          id: row.id as string,
+          fileName: row.filename as string,
+          fileType,
+          fileSize: (row.file_size as number) || 0,
+          storagePath: path,
+          mimeType: fileType,
+          bucket: 'diap-documents',
+          source: 'diap_documents',
+        });
+      }
+    }
+
     return out;
   } catch {
     return [];
+  }
+}
+
+export async function promoteToEvidenceFile(
+  match: ExistingEvidenceMatch,
+  context: { userId: string; organisationId?: string | null; sessionId: string; questionId?: string; diapItemId?: string; moduleId?: string }
+): Promise<{ id: string; bucket: string; storagePath: string } | null> {
+  if (!isSupabaseEnabled() || !supabase) return null;
+
+  if (match.source === 'evidence_files') {
+    await linkExistingEvidence(match.id, {
+      questionId: context.questionId,
+      diapItemId: context.diapItemId,
+    });
+    return { id: match.id, bucket: match.bucket, storagePath: match.storagePath };
+  }
+
+  try {
+    const newId = crypto.randomUUID();
+    const isPhoto = match.mimeType?.startsWith('image/') ?? false;
+    const { error } = await supabase.from('evidence_files').insert({
+      id: newId,
+      user_id: context.userId,
+      organisation_id: context.organisationId || null,
+      session_id: context.sessionId,
+      module_id: context.moduleId || null,
+      question_id: context.questionId || null,
+      diap_item_id: context.diapItemId || null,
+      linked_question_ids: context.questionId ? [context.questionId] : [],
+      linked_diap_item_ids: context.diapItemId ? [context.diapItemId] : [],
+      file_name: match.fileName,
+      file_type: isPhoto ? 'photo' : 'document',
+      file_size: match.fileSize,
+      storage_path: match.storagePath,
+      mime_type: match.mimeType,
+      bucket_name: match.bucket,
+    });
+    if (error) {
+      console.warn('promoteToEvidenceFile insert failed:', error);
+      return null;
+    }
+    return { id: newId, bucket: match.bucket, storagePath: match.storagePath };
+  } catch {
+    return null;
   }
 }
 

@@ -23,6 +23,7 @@ export interface EvidenceFile {
   url?: string;           // For links or uploaded file URLs
   dataUrl?: string;       // Base64 data URL for local storage (photos/docs)
   storagePath?: string;   // Supabase Storage object path (private bucket; signed URL on demand)
+  bucket?: string;        // Storage bucket name (defaults to 'evidence-files' if absent)
   mimeType?: string;      // e.g., 'image/jpeg', 'application/pdf'
   size?: number;          // File size in bytes
   uploadedAt: string;     // ISO timestamp

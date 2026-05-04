@@ -35,7 +35,7 @@ import type { ExistingEvidenceMatch } from '../utils/evidenceStorage';
 
 async function openAttachment(att: DIAPAttachment) {
   if (att.storagePath) {
-    const url = await getSignedUrl('evidence-files', att.storagePath);
+    const url = await getSignedUrl(att.bucket || 'evidence-files', att.storagePath);
     if (url) window.open(url, '_blank', 'noopener,noreferrer');
   } else if (att.dataUrl) {
     window.open(att.dataUrl, '_blank', 'noopener,noreferrer');

@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
 import { syncRecord, deleteRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
-import { computeFileHash, findEvidenceByHash, linkExistingEvidence } from '../utils/evidenceStorage';
+import { computeFileHash, findEvidenceByHash, linkExistingEvidence, promoteToEvidenceFile, type ExistingEvidenceMatch } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
 import { logActivityStandalone } from './useActivityLog';
@@ -97,6 +97,7 @@ export interface DIAPAttachment {
   type: string;
   size: number;
   storagePath?: string;
+  bucket?: string;
   dataUrl?: string;
   addedAt: string;
 }
@@ -355,7 +356,7 @@ interface UseDIAPManagementReturn {
 
   // Attachments
   addAttachment: (itemId: string, file: File) => Promise<void>;
-  attachExistingEvidence: (itemId: string, existing: { id: string; fileName: string; fileType: string; fileSize: number; storagePath: string; mimeType?: string }) => Promise<void>;
+  attachExistingEvidence: (itemId: string, existing: ExistingEvidenceMatch) => Promise<void>;
   removeAttachment: (itemId: string, attachmentId: string) => Promise<void>;
 
   // Comments
@@ -594,22 +595,29 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             try {
               const { data: evRows } = await supabase
                 .from('evidence_files')
-                .select('id, diap_item_id, file_name, file_type, file_size, storage_path, created_at')
-                .eq('user_id', userId)
-                .not('diap_item_id', 'is', null);
+                .select('id, diap_item_id, linked_diap_item_ids, file_name, file_type, file_size, storage_path, bucket_name, created_at')
+                .eq('user_id', userId);
               if (evRows && evRows.length > 0) {
                 const byItem = new Map<string, DIAPAttachment[]>();
                 for (const row of evRows as Record<string, unknown>[]) {
-                  const itemId = row.diap_item_id as string;
-                  if (!byItem.has(itemId)) byItem.set(itemId, []);
-                  byItem.get(itemId)!.push({
-                    id: row.id as string,
-                    name: row.file_name as string,
-                    type: row.file_type as string,
-                    size: (row.file_size as number) || 0,
-                    storagePath: row.storage_path as string,
-                    addedAt: row.created_at as string,
-                  });
+                  const linkedIds = new Set<string>();
+                  const primary = row.diap_item_id as string | null;
+                  if (primary) linkedIds.add(primary);
+                  const linkedArr = (row.linked_diap_item_ids as string[] | null) || [];
+                  for (const id of linkedArr) linkedIds.add(id);
+                  if (linkedIds.size === 0) continue;
+                  for (const itemId of linkedIds) {
+                    if (!byItem.has(itemId)) byItem.set(itemId, []);
+                    byItem.get(itemId)!.push({
+                      id: row.id as string,
+                      name: row.file_name as string,
+                      type: row.file_type as string,
+                      size: (row.file_size as number) || 0,
+                      storagePath: row.storage_path as string,
+                      bucket: (row.bucket_name as string) || 'evidence-files',
+                      addedAt: row.created_at as string,
+                    });
+                  }
                 }
                 setItems(prev => {
                   const updated = prev.map(it => {
@@ -1817,19 +1825,39 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
 
   const attachExistingEvidence = useCallback(async (
     itemId: string,
-    existing: { id: string; fileName: string; fileType: string; fileSize: number; storagePath: string; mimeType?: string }
+    existing: ExistingEvidenceMatch
   ) => {
     const userId = userIdRef.current;
+    const orgId = orgIdRef.current;
+    let resolvedId = existing.id;
+    let resolvedBucket = existing.bucket;
+    let resolvedPath = existing.storagePath;
     if (userId && isSupabaseEnabled()) {
-      await linkExistingEvidence(existing.id, { diapItemId: itemId });
+      const session = getSession();
+      const sessionId = session?.session_id || 'no-session';
+      const item = itemsRef.current.find(i => i.id === itemId);
+      const promoted = await promoteToEvidenceFile(existing, {
+        userId,
+        organisationId: orgId,
+        sessionId,
+        diapItemId: itemId,
+        moduleId: item?.moduleSource,
+        questionId: item?.questionSource,
+      });
+      if (promoted) {
+        resolvedId = promoted.id;
+        resolvedBucket = promoted.bucket;
+        resolvedPath = promoted.storagePath;
+      }
     }
     const isPhoto = existing.fileType === 'photo' || (existing.mimeType?.startsWith('image/') ?? false);
     const attachment: DIAPAttachment = {
-      id: existing.id,
+      id: resolvedId,
       name: existing.fileName,
       type: isPhoto ? 'image/jpeg' : existing.fileType,
       size: existing.fileSize,
-      storagePath: existing.storagePath,
+      storagePath: resolvedPath,
+      bucket: resolvedBucket,
       addedAt: new Date().toISOString(),
     };
     let itemObjective: string | undefined;

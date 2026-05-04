@@ -9,7 +9,7 @@
 
 import { useState, useRef, useCallback } from 'react';
 import type { EvidenceFile } from '../../hooks/useModuleProgress';
-import { uploadEvidence, computeFileHash, findEvidenceByHash, linkExistingEvidence, type ExistingEvidenceMatch } from '../../utils/evidenceStorage';
+import { uploadEvidence, computeFileHash, findEvidenceByHash, linkExistingEvidence, promoteToEvidenceFile, type ExistingEvidenceMatch } from '../../utils/evidenceStorage';
 import { useAuth } from '../../contexts/AuthContext';
 import { getSession } from '../../utils/session';
 import { supabase, isSupabaseEnabled } from '../../utils/supabase';
@@ -70,25 +70,42 @@ export function EvidenceUpload({
 
   const handleSelectExisting = useCallback(async (existing: ExistingEvidenceMatch) => {
     setError(null);
-    if (questionId && user?.id) {
-      await linkExistingEvidence(existing.id, { questionId });
+    let resolvedId = existing.id;
+    let resolvedBucket = existing.bucket;
+    let resolvedPath = existing.storagePath;
+    if (user?.id && questionId) {
+      const session = getSession();
+      const sessionId = session?.session_id || 'no-session';
+      const promoted = await promoteToEvidenceFile(existing, {
+        userId: user.id,
+        organisationId,
+        sessionId,
+        questionId,
+        moduleId,
+      });
+      if (promoted) {
+        resolvedId = promoted.id;
+        resolvedBucket = promoted.bucket;
+        resolvedPath = promoted.storagePath;
+      }
     }
     const isPhoto = existing.fileType === 'photo' || (existing.mimeType?.startsWith('image/') ?? false);
     onEvidenceChange([
       ...evidence,
       {
-        id: existing.id,
+        id: resolvedId,
         type: isPhoto ? 'photo' : 'document',
         name: existing.fileName,
         url: undefined,
         dataUrl: undefined,
-        storagePath: existing.storagePath,
+        storagePath: resolvedPath,
+        bucket: resolvedBucket,
         mimeType: existing.mimeType,
         size: existing.fileSize,
         uploadedAt: new Date().toISOString(),
       } as EvidenceFile,
     ]);
-  }, [evidence, onEvidenceChange, questionId, user?.id]);
+  }, [evidence, onEvidenceChange, questionId, user?.id, organisationId, moduleId]);
 
   // Get accepted file types for input
   const getAcceptedTypes = () => {

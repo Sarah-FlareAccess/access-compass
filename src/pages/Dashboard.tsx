@@ -1260,7 +1260,7 @@ Thanks!`;
                       const rawRows: DiapEvRow[] = [];
                       for (const it of diapItems) {
                         for (const a of it.attachments || []) {
-                          rawRows.push({ id: a.id, name: a.name, subtitles: [it.title], date: a.addedAt, dataUrl: a.dataUrl, storagePath: a.storagePath, bucket: 'evidence-files', category: it.category });
+                          rawRows.push({ id: a.id, name: a.name, subtitles: [it.title], date: a.addedAt, dataUrl: a.dataUrl, storagePath: a.storagePath, bucket: a.bucket || 'evidence-files', category: it.category });
                         }
                       }
                       for (const doc of diapDocuments) {
