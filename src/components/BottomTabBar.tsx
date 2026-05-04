@@ -122,7 +122,7 @@ export function BottomTabBar() {
     },
     {
       path: '/assessment',
-      label: 'Modules',
+      label: 'Areas',
       icon: <DIAPIcon />
     },
     {

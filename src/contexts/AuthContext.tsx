@@ -227,7 +227,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (lastUserId && lastUserId !== newSession.user.id) {
           const keysToPreserve = [
             LAST_USER_KEY,
-            'sb-ibvqlyyvlwnwjcoehjkt-auth-token',
+            'sb-rokauhxngcwlpabcmwnh-auth-token',
             'access_compass_device_id',
             'access_compass_selected_tier',
             'access_compass_user_display_name',

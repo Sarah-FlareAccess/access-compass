@@ -3170,6 +3170,13 @@ details[open] > .evidence-module-heading::before {
   text-align: center;
 }
 
+.dashboard-did-you-know .did-you-know-text {
+  margin: 0;
+  color: var(--text-primary, #2d2420);
+  line-height: 1.55;
+  font-size: 0.9375rem;
+}
+
 @media (max-width: 768px) {
   .dashboard-stat-cards {
     grid-template-columns: repeat(2, 1fr);

@@ -19,6 +19,7 @@ import { TabBlockedOverlay } from './TabBlockedOverlay';
 import { OrgPresenceBanner } from './OrgPresenceBanner';
 import { useTabLock } from '../hooks/useTabLock';
 import { useAuth } from '../contexts/AuthContext';
+import { useCloudSync } from '../hooks/useCloudSync';
 import '../styles/dashboard.css';
 
 // Pages that should NOT have the global nav bar (entry/onboarding pages)
@@ -28,6 +29,7 @@ const PAGES_WITHOUT_NAV = ['/', '/disclaimer', '/pricing'];
 // Note: /dashboard has its own built-in sidebar, so it's excluded
 const PAGES_WITH_SIDEBAR = [
   '/dashboard',
+  '/discovery/summary',
   '/assessment',
   '/evidence',
   '/activity',
@@ -46,10 +48,10 @@ export default function AppLayout() {
   const location = useLocation();
   const [routeAnnouncement, setRouteAnnouncement] = useState('');
   const showNav = !PAGES_WITHOUT_NAV.includes(location.pathname);
-  useAuth(); // Keep auth context active
+  const { user, accessState } = useAuth();
   const { isBlocked, forceUnlock } = useTabLock();
-  // Disable cloud sync and presence hooks for stability
-  // The 409 sync_metadata errors and periodic network calls cause white screen flashes
+  // Re-enabled cloud sync (2026-04-15) after fixing sync_metadata 409 via onConflict option
+  useCloudSync(user?.id, accessState.organisation?.id);
   const activeMembers: { userId: string; email: string; deviceLabel: string; lastSeenAt: string }[] = [];
 
   useEffect(() => {
