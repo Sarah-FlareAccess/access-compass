@@ -27,7 +27,7 @@ interface ModuleState {
 }
 
 export default function DiscoveryQuestions() {
-  usePageTitle('Discovery Questions');
+  usePageTitle('Business profile questions');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [session, setSession] = useState<any>(null);

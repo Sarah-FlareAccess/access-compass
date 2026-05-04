@@ -373,8 +373,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       .map(q => q.helpContent?.summary)
       .filter((s): s is string => typeof s === 'string' && s.length > 0);
     if (tips.length === 0) return null;
-    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
-    const pick = tips[dayOfYear % tips.length];
+    const pick = tips[Math.floor(Math.random() * tips.length)];
     return { moduleLabel: `${target.module.code} ${target.module.name}`, moduleId: target.module.id, text: pick };
   }, [groupedModules]);
 
@@ -725,7 +724,7 @@ Thanks!`;
 
               {/* Group Progress Snapshot */}
               {overallStats.modulesCompleted > 0 && (
-                <section className="dashboard-snapshot">
+                <section className="dashboard-snapshot dashboard-progress-area">
                   <h2>Progress by area</h2>
                   <div className="group-progress-list">
                     {groupedModules.map(group => {
@@ -1156,7 +1155,7 @@ Thanks!`;
                         role="tab"
                         aria-selected={evidenceSourceFilter === 'assessment'}
                       >
-                        Assessment Areas
+                        Accessibility Review
                       </button>
                       <button
                         type="button"

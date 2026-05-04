@@ -8,7 +8,7 @@ import { usePageTitle } from '../hooks/usePageTitle';
 import '../styles/module-selection.css';
 
 export default function ModuleSelection() {
-  usePageTitle('Select Modules');
+  usePageTitle('Accessibility Review');
   const navigate = useNavigate();
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
 
@@ -92,7 +92,7 @@ export default function ModuleSelection() {
     <div className="module-selection-page">
       <div className="container">
         <div className="page-header">
-          <h1>Choose your modules</h1>
+          <h1>Choose your review areas</h1>
           <p className="helper-text">
             Select the accessibility areas you'd like to review. You can choose individual modules
             or select entire groups. Come back anytime to review additional areas.

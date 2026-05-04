@@ -1235,3 +1235,276 @@
     align-items: flex-start;
   }
 }
+
+/* ─── Persona finder (top of pricing page) ─── */
+.pricing-persona-finder {
+  margin: 1rem auto 0;
+  max-width: 56rem;
+  text-align: left;
+}
+
+.pricing-persona-finder > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+  background: #ffffff;
+  border: 1.5px solid #490E67;
+  color: #490E67;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 18px;
+  border-radius: 999px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.pricing-persona-finder > summary::-webkit-details-marker {
+  display: none;
+}
+
+.pricing-persona-finder > summary:hover {
+  background: #490E67;
+  color: #ffffff;
+}
+
+.pricing-persona-finder > summary:focus-visible {
+  outline: 3px solid #FF9015;
+  outline-offset: 3px;
+}
+
+.pricing-persona-finder[open] > summary {
+  background: #490E67;
+  color: #ffffff;
+}
+
+.pricing-persona-finder-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.pricing-persona-finder-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.625rem;
+}
+
+.pricing-persona-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  border: 1px solid rgba(73, 14, 103, 0.15);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+  width: 100%;
+  font-family: inherit;
+}
+
+.pricing-persona-row:hover {
+  border-color: #490E67;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(73, 14, 103, 0.1);
+}
+
+.pricing-persona-row:focus-visible {
+  outline: 3px solid #FF9015;
+  outline-offset: 2px;
+}
+
+.pricing-persona-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.pricing-persona-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pricing-persona-label {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: #2D2226;
+  line-height: 1.3;
+}
+
+.pricing-persona-sub {
+  font-size: 0.78rem;
+  color: #5C4A4E;
+  line-height: 1.4;
+}
+
+.pricing-persona-arrow {
+  color: #490E67;
+  font-size: 1.125rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ─── Persona finder, inline beside tab toggle ─── */
+.pricing-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.875rem;
+}
+
+.pricing-toggle-row .pricing-toggle-label {
+  margin-bottom: 0;
+}
+
+.pricing-persona-finder-inline {
+  margin: 0;
+  position: relative;
+}
+
+.pricing-persona-finder-inline > summary {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  border-width: 1px;
+}
+
+.pricing-persona-finder-inline .pricing-persona-finder-grid {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(36rem, calc(100vw - 2rem));
+  max-width: 36rem;
+  background: #ffffff;
+  border: 1px solid rgba(73, 14, 103, 0.18);
+  border-radius: 12px;
+  padding: 0.875rem;
+  box-shadow:
+    0 8px 24px rgba(73, 14, 103, 0.14),
+    0 2px 6px rgba(73, 14, 103, 0.08);
+  z-index: 20;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+@media (max-width: 720px) {
+  .pricing-toggle-row {
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  .pricing-persona-finder-inline .pricing-persona-finder-grid {
+    width: calc(100vw - 2rem);
+    left: 1rem;
+    transform: none;
+  }
+}
+
+/* ─── Persona finder: accordion with self-qualification detail ─── */
+.pricing-persona-item {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid rgba(73, 14, 103, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 120ms ease;
+}
+
+.pricing-persona-item.is-expanded {
+  border-color: #490E67;
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.1);
+}
+
+.pricing-persona-item .pricing-persona-row {
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.pricing-persona-item .pricing-persona-row:hover {
+  background: rgba(73, 14, 103, 0.04);
+  transform: none;
+  box-shadow: none;
+}
+
+.pricing-persona-item.is-expanded .pricing-persona-row {
+  background: rgba(73, 14, 103, 0.04);
+}
+
+.pricing-persona-chevron {
+  color: #490E67;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 1rem;
+  text-align: center;
+}
+
+.pricing-persona-detail {
+  padding: 0 1rem 0.875rem;
+  border-top: 1px solid rgba(73, 14, 103, 0.08);
+  background: #fafafa;
+}
+
+.pricing-persona-detail-intro {
+  margin: 0.75rem 0 0.375rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #490E67;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pricing-persona-detail-list {
+  margin: 0 0 0.875rem;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pricing-persona-detail-list li {
+  font-size: 0.8125rem;
+  color: #2D2226;
+  line-height: 1.5;
+}
+
+.pricing-persona-detail-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: #490E67;
+  color: #ffffff;
+  border: 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 120ms ease;
+}
+
+.pricing-persona-detail-cta:hover {
+  background: #350a4d;
+}
+
+.pricing-persona-detail-cta:focus-visible {
+  outline: 3px solid #FF9015;
+  outline-offset: 3px;
+}
+
+/* Drop the previous arrow style - chevron replaces it */
+.pricing-persona-arrow {
+  display: none;
+}

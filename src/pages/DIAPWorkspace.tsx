@@ -85,7 +85,7 @@ function saveManagedRoles(roles: string[]) {
 }
 
 export default function DIAPWorkspace() {
-  usePageTitle('DIAP Workspace');
+  usePageTitle('Action plan');
   const {
     items,
     documents,
@@ -1763,7 +1763,14 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onAttachE
       </div>
 
       {item.action && (
-        <div className="item-description">{item.action}</div>
+        <div className="item-description">{
+          item.action
+            .split(/\n+/)
+            .map(line => line.replace(/^\s*\d+\.\s*/, '').trim())
+            .filter(line => line.length > 0)
+            .map((line, i) => `${i + 1}. ${line}`)
+            .join('\n')
+        }</div>
       )}
 
       {/* Key details row - owner and timeline */}

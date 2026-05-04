@@ -14,7 +14,7 @@ import './DiscoverySummary.css';
 type DiscoveryStep = 'summary' | 'discovery';
 
 function Discovery() {
-  usePageTitle('Discovery');
+  usePageTitle('Business profile');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const session = getSession();
@@ -192,8 +192,8 @@ function Discovery() {
       <div className="discovery-summary-page">
         <div className="discovery-summary-container">
           <div className="summary-header">
-            <h1>Discovery &amp; Modules</h1>
-            <p>Your business context and accessibility module selection</p>
+            <h1>Business profile &amp; Review areas</h1>
+            <p>Your business context and accessibility review selection</p>
           </div>
 
           {/* Business Context */}

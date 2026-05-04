@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { setSelectedTier } from '../utils/selectedTier';
+import { FoundingPartnerBanner } from '../components/FoundingPartnerBanner';
 import '../styles/pricing.css';
 
 const CheckIcon = ({ onHighlight = false }: { onHighlight?: boolean }) => (
@@ -916,6 +917,7 @@ export default function Pricing() {
   const navigate = useNavigate();
   const [view, setView] = useState<'individual' | 'multisite' | 'majorvenue' | 'authority'>('individual');
   const [showGroupPrompt, setShowGroupPrompt] = useState<string | null>(null);
+  const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
   const session = getSession();
   const discovery = getDiscoveryData();
@@ -1022,21 +1024,170 @@ export default function Pricing() {
         <div className="pricing-header">
           <h1 style={{ color: colors.walnut }}>Pricing Plans</h1>
           <p style={{ color: colors.subtleText }}>45+ modules covering every touchpoint of your visitor journey and business operations: staff, policies, procurement and more.</p>
-          <details className="pricing-helper-details" style={{ marginTop: '0.5rem', maxWidth: '44rem', marginLeft: 'auto', marginRight: 'auto', fontSize: '0.8125rem', color: colors.subtleText }}>
-            <summary style={{ cursor: 'pointer', color: colors.amethyst, fontWeight: 600, display: 'inline-block', listStyle: 'none', padding: '0.25rem 0.5rem' }}>
-              Not sure which tab?
-            </summary>
-            <ul style={{ margin: '0.5rem 0 0', paddingLeft: '1.125rem', textAlign: 'left', display: 'inline-block', lineHeight: 1.6 }}>
-              <li>Business or commercial operator &mdash; <strong>Single Site</strong>, <strong>Multi-Site</strong> or <strong>Major Venue</strong></li>
-              <li>Council, public authority, university or health network &mdash; <strong>Authorities</strong></li>
-              <li>Running a supplier, tenant or grant group &mdash; see <a href="#extend-network" style={{ color: colors.amethyst, fontWeight: 700 }}>Business Groups</a> below</li>
-            </ul>
-          </details>
         </div>
+
+        {/* Founding Partner banner */}
+        <FoundingPartnerBanner />
 
         {/* View Toggle */}
         <div className="pricing-toggle" role="group" aria-label="Pricing view selector">
-          <span className="pricing-toggle-label">Choose your pricing view</span>
+          <div className="pricing-toggle-row">
+            <span className="pricing-toggle-label">Choose your pricing view</span>
+            <details className="pricing-persona-finder pricing-persona-finder-inline">
+              <summary>
+                <span className="pricing-persona-finder-icon" aria-hidden="true">🧭</span>
+                Find your tier
+              </summary>
+              <div className="pricing-persona-finder-grid">
+                {([
+                  {
+                    id: 'single',
+                    icon: '🏪',
+                    label: 'Single business or venue',
+                    sub: 'One location, independent operator',
+                    detail: [
+                      'One physical location or address',
+                      'Up to ~200 staff',
+                      'You manage your own day-to-day operations and customer experience',
+                      'Not part of a chain, franchise or multi-site group',
+                      'Want a structured way to assess accessibility across visitor journey, staff and policies',
+                      'Most modules take 1–3 hours to work through',
+                    ],
+                    ctaLabel: 'View Single Site tiers',
+                    view: 'individual' as const,
+                  },
+                  {
+                    id: 'chain',
+                    icon: '🏬',
+                    label: 'Chain or multi-site group',
+                    sub: '2–6 venues under one operator',
+                    detail: [
+                      '2–6 venues across one portfolio under common ownership or operation',
+                      'Similar operational model across sites',
+                      'Want consistent assessment criteria across every site',
+                      'Need cross-site benchmarking to see who\'s leading and where to focus support',
+                      'Centralised team coordinating accessibility for the group',
+                      'Multi-site dashboard to track progress in one view',
+                    ],
+                    ctaLabel: 'View Multi-Site tiers',
+                    view: 'multisite' as const,
+                  },
+                  {
+                    id: 'event',
+                    icon: '🎪',
+                    label: 'Event organiser',
+                    sub: 'One-off, recurring, touring or flagship',
+                    detail: [
+                      'You produce events with attendees, programs and on-the-day operations',
+                      'Could be one-off, recurring annual, touring across cities, or a major flagship festival',
+                      'May own the venue, hire venues, or activate a precinct of venues',
+                      'Need to assess planning, communications, on-the-day ops, sensory access, performer/talent access, attendee experience and volunteer briefings',
+                      'Right tier depends on scale: small one-off events fit Single Site Starter; recurring annual events fit Single Site Committed; touring/multi-city fit Multi-Site; major festivals fit Premier or Major Venue',
+                      'Want to demonstrate accessibility commitment to attendees, sponsors, councils and funders',
+                    ],
+                    ctaLabel: 'View Major Venue & Premier tiers',
+                    view: 'majorvenue' as const,
+                  },
+                  {
+                    id: 'majorvenue',
+                    icon: '🏟️',
+                    label: 'Major venue',
+                    sub: 'Permanent flagship facility',
+                    detail: [
+                      'Permanent flagship facility hosting tens of thousands of visitors annually',
+                      'Multiple operational zones (back-of-house, front-of-house, food and beverage, retail, performance, public realm)',
+                      'Hosts your own programming plus third-party hires and events',
+                      'Public or political accountability for accessibility outcomes',
+                      'Needs ongoing assessment year-on-year, not a one-off audit',
+                      'Coordinates accessibility across hundreds of staff, volunteers and contractors',
+                    ],
+                    ctaLabel: 'View Major Venue tiers',
+                    view: 'majorvenue' as const,
+                  },
+                  {
+                    id: 'authority',
+                    icon: '🏛️',
+                    label: 'Council or public authority',
+                    sub: 'Public body with DIAP obligations',
+                    detail: [
+                      'Public sector body with public-facing facilities or services',
+                      'Often has a legislative obligation to publish a Disability Inclusion Action Plan or equivalent',
+                      'Includes councils, universities, public hospitals, state and federal departments, statutory authorities, school networks',
+                      'Coordinating accessibility across multiple departments, sites or service streams',
+                      'Need stakeholder reporting (council meetings, ministers, boards)',
+                      'Aggregate dashboard across the organisation; may also run programs for businesses or grantees in your area',
+                    ],
+                    ctaLabel: 'View Authorities tiers',
+                    view: 'authority' as const,
+                  },
+                  {
+                    id: 'group',
+                    icon: '🤝',
+                    label: 'Bringing your suppliers, tenants or grantees on the journey',
+                    sub: 'They self-assess in your shared workspace',
+                    detail: [
+                      'You\'re the host, funder or coordinator of a program where multiple businesses self-assess',
+                      'Use cases: supplier accessibility programs, tenant accessibility (property managers, shopping centres, precincts), grant acquittals, member benefit programs, mentoring or capability development, procurement requirements, event-vendor cohorts',
+                      'The businesses do their own assessments using Access Compass',
+                      'You see aggregate progress across the cohort in a shared dashboard',
+                      'Sized by cohort size: small (~10 businesses) up to large (50+)',
+                      'Each business gets their own report and action plan they can use independently',
+                    ],
+                    ctaLabel: 'View Business Groups',
+                    view: 'individual' as const,
+                    anchor: '#extend-network',
+                  },
+                ] as const).map((p) => {
+                  const isExpanded = expandedPersona === p.id;
+                  return (
+                    <div key={p.id} className={`pricing-persona-item ${isExpanded ? 'is-expanded' : ''}`}>
+                      <button
+                        type="button"
+                        className="pricing-persona-row"
+                        aria-expanded={isExpanded}
+                        aria-controls={`persona-detail-${p.id}`}
+                        onClick={() => setExpandedPersona(isExpanded ? null : p.id)}
+                      >
+                        <span className="pricing-persona-icon" aria-hidden="true">{p.icon}</span>
+                        <span className="pricing-persona-text">
+                          <span className="pricing-persona-label">{p.label}</span>
+                          <span className="pricing-persona-sub">{p.sub}</span>
+                        </span>
+                        <span className="pricing-persona-chevron" aria-hidden="true">{isExpanded ? '▾' : '▸'}</span>
+                      </button>
+                      {isExpanded && (
+                        <div id={`persona-detail-${p.id}`} className="pricing-persona-detail">
+                          <p className="pricing-persona-detail-intro">This fits you if:</p>
+                          <ul className="pricing-persona-detail-list">
+                            {p.detail.map((bullet, i) => (
+                              <li key={i}>{bullet}</li>
+                            ))}
+                          </ul>
+                          <button
+                            type="button"
+                            className="pricing-persona-detail-cta"
+                            onClick={(e) => {
+                              setView(p.view);
+                              setExpandedPersona(null);
+                              const details = e.currentTarget.closest('details');
+                              if (details) details.removeAttribute('open');
+                              if ('anchor' in p && p.anchor) {
+                                setTimeout(() => {
+                                  document.querySelector(p.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }, 50);
+                              }
+                            }}
+                          >
+                            {p.ctaLabel} →
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </details>
+          </div>
           <div className="pricing-toggle-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>
             <button
               onClick={() => setView('individual')}
@@ -1495,94 +1646,6 @@ export default function Pricing() {
                     <strong style={{ color: colors.textOnWhite }}>4. Privacy by design.</strong> You see completion status and score bands. Individual answers remain private to each business.
                   </p>
                 </div>
-              </div>
-            </div>
-
-            {/* Events persona — route event organisers to the right tier */}
-            <div className="pricing-addons pricing-addons-wide" id="events-persona">
-              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `1px solid ${colors.ivoryDark}`, padding: '1.5rem 1.75rem' }}>
-                <h3 style={{ color: colors.walnut, marginBottom: '0.5rem' }}>Running an event? Here's where you fit.</h3>
-                <p style={{ color: colors.subtleText, fontSize: '0.875rem', marginBottom: '1rem', maxWidth: '42rem' }}>
-                  Access Compass has dedicated event modules (planning, venue, communication, sensory access, on-the-day operations). The right tier depends on event scale and recurrence.
-                </p>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: '0.625rem' }}>
-                  {[
-                    {
-                      title: 'One-off small event',
-                      examples: 'Suburb fair, school fete, single-show production, single-day pop-up (under ~1,000 attendees)',
-                      tier: 'Single Site Starter ($399)',
-                      view: 'individual' as const,
-                    },
-                    {
-                      title: 'Recurring annual event',
-                      examples: 'Council festival, sports day, community gala, recurring single-venue conference (up to ~10,000 attendees)',
-                      tier: 'Single Site Committed ($899)',
-                      view: 'individual' as const,
-                    },
-                    {
-                      title: 'Touring or multi-city event',
-                      examples: 'Multi-city festival tour, travelling exhibition, conference with city-by-city legs',
-                      tier: 'Multi-Site Pulse / Deep / Plus ($999–$3,499)',
-                      view: 'multisite' as const,
-                    },
-                    {
-                      title: 'Mid flagship festival or convention',
-                      examples: 'Regional festival, mid-size convention, civic-led major program',
-                      tier: 'Premier Venue ($7,900)',
-                      view: 'majorvenue' as const,
-                    },
-                    {
-                      title: 'Major festival or precinct event',
-                      examples: 'Fringe Festival, Melbourne Fashion Week, Splendour, Vivid, Royal Show, AFL Grand Final precinct',
-                      tier: 'Major Venue ($14,900)',
-                      view: 'majorvenue' as const,
-                    },
-                  ].map((row) => (
-                    <li
-                      key={row.title}
-                      style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        alignItems: 'center',
-                        gap: '0.75rem',
-                        padding: '0.75rem 1rem',
-                        backgroundColor: colors.ivory,
-                        borderRadius: '8px',
-                        border: `1px solid ${colors.ivoryDark}`,
-                      }}
-                    >
-                      <div style={{ flex: '1 1 18rem', minWidth: 0 }}>
-                        <p style={{ margin: 0, color: colors.textOnWhite, fontWeight: 600, fontSize: '0.9375rem' }}>{row.title}</p>
-                        <p style={{ margin: '0.125rem 0 0', color: colors.subtleText, fontSize: '0.8125rem' }}>{row.examples}</p>
-                      </div>
-                      <div style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ color: colors.amethyst, fontWeight: 700, fontSize: '0.8125rem' }}>{row.tier}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setView(row.view);
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                          }}
-                          style={{
-                            padding: '0.375rem 0.75rem',
-                            border: `1px solid ${colors.amethyst}`,
-                            background: 'transparent',
-                            color: colors.amethyst,
-                            borderRadius: '6px',
-                            fontSize: '0.8125rem',
-                            fontWeight: 600,
-                            cursor: 'pointer',
-                          }}
-                        >
-                          View tier
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <p style={{ color: colors.subtleText, fontSize: '0.75rem', marginTop: '0.875rem', marginBottom: 0, fontStyle: 'italic' }}>
-                  Major events also benefit from the organisation modules (information register, training at scale, supplier accessibility, volunteer/contractor management). All Major Venue tiers include the full module set.
-                </p>
               </div>
             </div>
 

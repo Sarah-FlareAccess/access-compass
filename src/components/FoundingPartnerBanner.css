@@ -1,0 +1,153 @@
+.founding-partner-banner {
+  margin: 0 auto 2rem;
+  max-width: 56rem;
+  padding: 0 1rem;
+}
+
+.founding-partner-banner-inner {
+  position: relative;
+  background: linear-gradient(135deg, #f7f0fb 0%, #fdf4eb 100%);
+  border: 1px solid rgba(73, 14, 103, 0.18);
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  overflow: hidden;
+  box-shadow:
+    0 2px 6px rgba(73, 14, 103, 0.06),
+    0 8px 22px rgba(73, 14, 103, 0.08);
+}
+
+.founding-partner-banner-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #490E67 0%, #FF9015 100%);
+}
+
+.founding-partner-banner-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.founding-partner-banner-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #490E67;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+
+.founding-partner-banner-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #490E67;
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.founding-partner-banner-subtitle {
+  font-size: 0.9375rem;
+  color: #2D2226;
+  line-height: 1.55;
+  margin: 0 auto;
+  max-width: 38rem;
+}
+
+.founding-partner-banner-subtitle strong {
+  color: #490E67;
+  font-weight: 700;
+}
+
+.founding-partner-banner-toggle {
+  display: block;
+  margin: 0 auto;
+  background: transparent;
+  border: 1.5px solid #490E67;
+  color: #490E67;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.founding-partner-banner-toggle:hover {
+  background: #490E67;
+  color: #ffffff;
+}
+
+.founding-partner-banner-toggle:focus-visible {
+  outline: 3px solid #FF9015;
+  outline-offset: 3px;
+}
+
+.founding-partner-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.875rem;
+}
+
+.founding-partner-benefit {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(73, 14, 103, 0.1);
+  border-radius: 10px;
+  align-items: flex-start;
+}
+
+.founding-partner-benefit-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.founding-partner-benefit-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.founding-partner-benefit-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #490E67;
+  line-height: 1.3;
+}
+
+.founding-partner-benefit-body {
+  font-size: 0.8125rem;
+  color: #2D2226;
+  line-height: 1.45;
+}
+
+@media (max-width: 640px) {
+  .founding-partner-banner-inner {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .founding-partner-banner-title {
+    font-size: 1.125rem;
+  }
+
+  .founding-partner-banner-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .founding-partner-benefits {
+    grid-template-columns: 1fr;
+  }
+}
