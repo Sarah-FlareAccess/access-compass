@@ -139,8 +139,6 @@ export const MODULES: ModuleDefinition[] = [
   // Policy and operations (5 modules)
   { id: '5.1', name: 'Policy and inclusion', journeyTheme: 'policy-operations', estimatedTime: 15, cost: 140,
     description: 'Formalises your accessibility commitment. Relevant if you want documented policies and inclusion statements.' },
-  { id: '5.2', name: 'Employing people with disability', journeyTheme: 'policy-operations', estimatedTime: 20, cost: 160,
-    description: 'Creates an inclusive workplace. Relevant if you want to attract, hire, and support employees with disability.' },
   { id: '5.3', name: 'Staff training and awareness', journeyTheme: 'policy-operations', estimatedTime: 15, cost: 130,
     description: 'Builds disability confidence across your team. Relevant if you want consistent, respectful service from all staff.' },
   { id: '5.4', name: 'Accessible procurement', journeyTheme: 'policy-operations', estimatedTime: 12, cost: 110,
@@ -149,6 +147,14 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Tracks progress and drives ongoing improvement. Relevant if you want to measure, report, and improve accessibility over time.' },
   { id: '5.6', name: 'Supplier and third-party accessibility', journeyTheme: 'policy-operations', estimatedTime: 10, cost: 85,
     description: 'Ensures third-party services, platforms, and contractors maintain your accessibility standards. Relevant if you use external suppliers or booking platforms.' },
+  { id: '5.7', name: 'Inclusive job design and advertising', journeyTheme: 'policy-operations', estimatedTime: 10, cost: 90,
+    description: 'Designs roles and job ads to attract candidates with disability. Relevant if you recruit staff, contractors, or volunteers across education, health, retail, tourism, local government, events, or venues.' },
+  { id: '5.8', name: 'Accessible interviews and selection', journeyTheme: 'policy-operations', estimatedTime: 10, cost: 90,
+    description: 'Runs interviews and assessments fairly across disability. Relevant if you interview candidates or run any selection process.' },
+  { id: '5.9', name: 'Onboarding and workplace adjustments', journeyTheme: 'policy-operations', estimatedTime: 10, cost: 95,
+    description: 'Inducts new staff accessibly and embeds workplace adjustments. Relevant if you hire and onboard staff or want to strengthen adjustment practice.' },
+  { id: '5.10', name: 'Retention, ERGs and inclusive culture', journeyTheme: 'policy-operations', estimatedTime: 10, cost: 90,
+    description: 'Keeps disabled staff and builds a culture where disclosure is safe. Relevant if you employ people and want to measure and improve inclusion over time.' },
   // Events (5 modules)
   { id: '6.1', name: 'Event planning and promotion', journeyTheme: 'during-visit', estimatedTime: 10, cost: 85,
     description: 'Ensures events are planned and promoted accessibly. Relevant if you host, organise, or manage events.' },
@@ -195,11 +201,14 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '4.6': '4.6',
   '4.7': '4.7',
   '5.1': '5.1',
-  '5.2': '5.2',
   '5.3': '5.3',
   '5.4': '5.4',
   '5.5': '5.5',
   '5.6': '5.6',
+  '5.7': '5.7',
+  '5.8': '5.8',
+  '5.9': '5.9',
+  '5.10': '5.10',
   '6.1': '6.1',
   '6.2': '6.2',
   '6.3': '6.3',
@@ -242,7 +251,7 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
 
   // Policy and operations touchpoints (consolidated)
   'accessibility-policy': ['5.1'],                       // Policies and guidelines
-  'inclusive-employment': ['5.2', '5.1'],                // Hiring, employment, workplace adjustments
+  'inclusive-employment': ['5.7', '5.8', '5.9', '5.10', '5.1'], // Hiring, interviews, onboarding, retention, policy
   'staff-training': ['5.3', '4.2'],                      // Staff training and development
   'procurement-partnerships': ['5.4', '5.6'],             // Suppliers and partners
   'continuous-improvement': ['5.5', '4.5', '5.1'],       // Review, improvement, reporting

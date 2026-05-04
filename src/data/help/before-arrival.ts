@@ -159,7 +159,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Engage an accessibility consultant (e.g. through the Australian Network on Disability or a local access consultant) to conduct a detailed access audit of your venue.',
+        'Engage an accessibility consultant such as Flare Access to conduct a detailed access audit of your venue.',
         'Brief a photographer to capture high-quality images at wheelchair height showing all access features, pathways, and key areas. Include 360-degree photos for a virtual tour if budget allows.',
         'Commission a short video walkthrough (2-3 minutes) showing the journey from arrival to key areas. Include captions, audio description, and an Auslan (Australian Sign Language) interpreter overlay.',
         'Work with your web developer to build a dedicated accessibility hub page with interactive floor map, photo gallery, virtual tour embed, and structured data markup for search engines.',
@@ -215,11 +215,11 @@ export const beforeArrivalHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Australian Network on Disability - Accessible Information',
-      url: 'https://www.and.org.au/',
+      title: 'IncludeAbility - Accessible Information Resources',
+      url: 'https://includeability.gov.au/',
       type: 'website',
-      source: 'Australian Network on Disability',
-      description: 'Resources and guidance for what to include on your accessibility page, plus examples of best-practice accessibility information from Australian businesses.',
+      source: 'AHRC',
+      description: 'National resources and case studies for accessible customer information, with templates for accessibility pages.',
       isAustralian: true,
       isFree: true
     },
@@ -918,11 +918,11 @@ export const beforeArrivalHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Accessible Customer Service Guide',
-      url: 'https://www.and.org.au/',
+      title: 'JobAccess - Accessible Communication Guide',
+      url: 'https://www.jobaccess.gov.au/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Tips for providing accessible customer communication, including guidance on multiple contact channels and staff training.',
+      source: 'JobAccess',
+      description: 'Government guidance on accessible customer communication, multiple contact channels, and staff capability.',
       isAustralian: true,
       isFree: true
     },
@@ -1118,7 +1118,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Research accredited disability awareness training providers in your area. The Australian Network on Disability (AND), local disability organisations, and state tourism bodies can recommend trainers. Ask for trainers with lived experience of disability.',
+        'Research accredited disability awareness training providers in your area. Disabled People\'s Organisations, Scope Australia (communication access), and state tourism or disability-employment bodies can recommend trainers. Ask for trainers with lived experience of disability.',
         'Brief the trainer on your venue type, typical customers, and the specific accessibility features and limitations of your premises. Share your cheat sheet and any customer feedback about accessibility.',
         'Schedule a half-day session (3-4 hours) at a time when the maximum number of customer-facing staff can attend. Ideally run two sessions to cover all shifts.',
         'Request the training covers: disability types and communication preferences, language and etiquette (person-first vs. identity-first, asking before helping), practical assistance scenarios specific to your venue, hearing from people with lived experience (either the trainer or guest speakers), role-playing accessibility enquiry conversations, and an action-planning exercise for your venue.',
@@ -1158,11 +1158,11 @@ export const beforeArrivalHelp: HelpContent[] = [
 
   resources: [
     {
-      title: 'Disability Awareness Training - Australian Network on Disability',
-      url: 'https://www.and.org.au/pages/disability-confidence-training.html',
+      title: 'Scope - Communication Access Training',
+      url: 'https://www.scopeaust.org.au/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Find accredited disability awareness training for your team. Includes both online modules and in-person facilitated sessions across Australia.',
+      source: 'Scope Australia',
+      description: 'Disability-led training provider offering communication access and disability awareness programs across Australia.',
       isAustralian: true,
       isFree: false
     },
@@ -1361,7 +1361,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Research accessibility consultants who offer both content review and technical web accessibility auditing. Check the Australian Network on Disability directory, the Access Consultants Australia register, and your state tourism body for referrals.',
+        'Research accessibility consultants who offer both content review and technical web accessibility auditing. Flare Access, Vision Australia digital access services, and your state tourism body can provide referrals.',
         'Request proposals from 2-3 consultants. The brief should specify: review of accessibility page content for accuracy and completeness, technical WCAG 2.1 AA audit of the accessibility page and booking pages, on-site visit to verify stated features, and a written report with prioritised recommendations.',
         'Select a consultant and schedule the audit. Allow 2-4 weeks for the full process (on-site visit, technical testing, report writing, and presentation).',
         'Provide the consultant with: your current accessibility page URL, any venue floor plans or maps, recent renovation or change records, and any customer feedback about accessibility information.',
@@ -1410,13 +1410,13 @@ export const beforeArrivalHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Access Consultants Australia',
-      url: 'https://access.asn.au/',
+      title: 'Flare Access',
+      url: 'https://www.flareaccess.com.au/',
       type: 'website',
-      source: 'Association of Consultants in Access Australia',
-      description: 'Find accredited access consultants who can professionally audit your accessibility information.',
+      source: 'Flare Access',
+      description: 'Accessibility consulting and audit services for organisations seeking professional accessibility review.',
       isAustralian: true,
-      isFree: true
+      isFree: false
     },
     {
       title: 'Australian Human Rights Commission - Disability Rights',
@@ -1803,7 +1803,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       businessTypeLabel: 'Gallery',
       scenario: 'A regional art gallery website displayed 200+ artwork images in its online collection. None had alt text. The gallery had detailed catalogue information (artist, title, medium, dimensions, year) stored in their CMS database but this information was not connected to the image alt attributes. Blind art enthusiasts could not browse the collection at all, and the gallery was also missing an opportunity for search engine visibility.',
       solution: 'The web developer wrote a script to auto-populate alt text from the existing CMS catalogue fields using the template: "[Title] by [Artist], [Year]. [Medium], [Dimensions]." For 30 key works, a staff member also added a brief visual description (e.g., "Abstract composition with bold red and black geometric shapes on a white background"). A style guide was created for future additions, with examples of good and poor alt text. The CMS was configured to require alt text before any image could be published.',
-      outcome: 'The online collection became accessible for the first time in the gallery\'s 15-year web history. Google Image Search traffic increased by 40% within three months as artwork titles and artists became indexable. The gallery received recognition from the Australian Network on Disability for their digital accessibility improvements.',
+      outcome: 'The online collection became accessible for the first time in the gallery\'s 15-year web history. Google Image Search traffic increased by 40% within three months as artwork titles and artists became indexable. The gallery received public recognition for their digital accessibility improvements and has since been cited as a sector case study.',
       cost: '$300-500 (developer time for script, plus 4 hours staff time for visual descriptions)',
       timeframe: '1-2 days'
     }
@@ -3530,11 +3530,11 @@ export const beforeArrivalHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Accessible Customer Service Guide',
-      url: 'https://www.and.org.au/resources/',
+      title: 'IncludeAbility - Customer Service Resources',
+      url: 'https://includeability.gov.au/resources-employers',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Practical guide for businesses on providing accessible customer service across phone, email, and in-person channels.',
+      source: 'AHRC',
+      description: 'Practical resources for accessible customer service across phone, email, and in-person channels.',
       isAustralian: true,
       isFree: true
     },
@@ -3728,11 +3728,11 @@ export const beforeArrivalHelp: HelpContent[] = [
 
   resources: [
     {
-      title: 'Accessible Customer Service: Pre-Visit Communication Guide',
-      url: 'https://www.and.org.au/resources/',
+      title: 'IncludeAbility - Pre-Visit Communication',
+      url: 'https://includeability.gov.au/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Practical templates and guidance for communicating with customers about accessibility requirements before their visit.',
+      source: 'AHRC',
+      description: 'Templates and guidance for communicating with customers about accessibility requirements before their visit.',
       isAustralian: true,
       isFree: true
     },
@@ -4608,7 +4608,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       businessType: 'attraction',
       businessTypeLabel: 'Theme Park',
       scenario: 'A major theme park reviewed their social media analytics and realised disability representation only appeared during International Day of People with Disability (3 December). On that one day each year, they posted a dedicated "accessibility" highlight reel. The rest of the year, across hundreds of posts, no person with a visible disability appeared. This pattern unintentionally sent the message that disability was a once-a-year consideration, not an everyday part of the park experience.',
-      solution: 'The marketing team created a revised content calendar with a standing rule: at least one post per week must include a person with a visible disability in a general context (not disability-themed). They sourced images from a combination of real guest photos (with permission), an inclusive stock library (Disability:IN image library and Getty Images "Disability Collection"), and a commissioned photo shoot of families with disability enjoying the park. They also trained all content creators to naturally consider disability inclusion when planning any shoot or selecting images, rather than treating it as a separate category.',
+      solution: 'The marketing team created a revised content calendar with a standing rule: at least one post per week must include a person with a visible disability in a general context (not disability-themed). They sourced images from a combination of real guest photos (with permission), inclusive stock libraries (Getty Images "Disability Collection", Pexels Disability), and a commissioned photo shoot of families with disability enjoying the park. They also trained all content creators to naturally consider disability inclusion when planning any shoot or selecting images, rather than treating it as a separate category.',
       outcome: 'Disability representation went from 0.3% of posts (1 day per year) to 12% of posts within four months. Social media engagement from followers with disability increased measurably. The park was nominated for an accessibility award by a national disability advocacy organisation for their inclusive marketing. Staff reported that thinking about diverse representation improved their overall content quality and creativity.',
       cost: '$500 for stock image licences, plus $2,000 for a commissioned photo shoot',
       timeframe: '2 weeks to set up the new content calendar and source initial images, then ongoing'
@@ -4716,19 +4716,20 @@ export const beforeArrivalHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Disability:IN - Disability-Inclusive Stock Photography',
-      url: 'https://disabilityin.org/resource/disability-inclusive-stock-photography/',
+      title: 'IncludeAbility - Inclusive Communications',
+      url: 'https://includeability.gov.au/',
       type: 'website',
-      source: 'Disability:IN',
-      description: 'Free curated list of disability-inclusive stock photo sources, with guidance on selecting authentic and respectful imagery for marketing and communications.',
+      source: 'AHRC',
+      description: 'National initiative with resources on authentic, respectful representation of people with disability in marketing and communications.',
+      isAustralian: true,
       isFree: true
     },
     {
-      title: 'Australian Network on Disability - Inclusive Marketing Guide',
-      url: 'https://www.and.org.au/',
+      title: 'People with Disability Australia (PWDA) - Language Guide',
+      url: 'https://pwd.org.au/resources/language-guide/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Resources and guidance for businesses on inclusive marketing, disability confidence, and engaging authentically with customers and employees with disability.',
+      source: 'PWDA',
+      description: 'Disability-led peak body language guide for respectful, accurate communication about and with people with disability.',
       isAustralian: true,
       isFree: true
     }
@@ -5156,11 +5157,11 @@ export const beforeArrivalHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Australian Network on Disability - Inclusive Language Guide',
-      url: 'https://www.and.org.au/resources/inclusive-language/',
+      title: 'PWDA - Language Guide',
+      url: 'https://pwd.org.au/resources/language-guide/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Workplace-focused guide to disability-inclusive language from Australia\'s leading employer disability network. Includes tips for verbal and written communication.',
+      source: 'People with Disability Australia',
+      description: 'Disability-led peak body guide to respectful, accurate language for verbal and written communication.',
       isAustralian: true,
       isFree: true
     },
@@ -5664,7 +5665,7 @@ export const beforeArrivalHelp: HelpContent[] = [
     statistic: {
       value: '$54 billion',
       context: 'is the estimated annual spending power of Australians with disability and their households.',
-      source: 'Australian Network on Disability'
+      source: 'Australian Government - Disability Economic Participation data'
     }
   },
 
@@ -5801,7 +5802,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Engage a disability marketing consultant or organisation (such as the Australian Network on Disability) to review your current marketing and provide a baseline assessment.',
+        'Engage a disability marketing consultant or Disabled People\'s Organisation to review your current marketing and provide a baseline assessment with lived-experience input.',
         'Draft an Inclusive Marketing Policy document covering: representation targets (e.g., minimum 15% disability representation in people imagery), language guidelines, image sourcing standards, and review processes.',
         'Establish a disability advisory panel of 3-5 people with diverse disabilities who can review marketing materials quarterly. Budget $100-200 per person per review session.',
         'Create an inclusive image library brief for your design team, specifying acceptable sources, diversity requirements, and examples of authentic vs. tokenistic representation.',
@@ -5844,11 +5845,11 @@ export const beforeArrivalHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Australian Network on Disability: Inclusive Marketing',
-      url: 'https://www.and.org.au/',
+      title: 'IncludeAbility - Inclusive Marketing Resources',
+      url: 'https://includeability.gov.au/',
       type: 'website',
-      source: 'Australian Network on Disability',
-      description: 'Resources and advisory services for businesses wanting to improve disability inclusion in marketing and communications.',
+      source: 'AHRC',
+      description: 'National resources for improving disability inclusion in marketing, branding, and customer communications.',
       isAustralian: true,
       isFree: true
     },
@@ -6012,7 +6013,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'moderate',
       steps: [
-        'Identify 2-3 disability consultants or organisations in your area. In Australia, options include the Australian Network on Disability, local Disabled People\'s Organisations, and independent disability consultants listed on AND\'s directory.',
+        'Identify 2-3 disability consultants or organisations in your area. In Australia, options include local Disabled People\'s Organisations (PWDA, First Peoples Disability Network, state DPOs), accessibility consultancies such as Flare Access, and disability-led language and communication specialists.',
         'Request a quote for a marketing materials review. Specify the scope: number of assets, types of materials, and whether you want a written report or a workshop-style debrief.',
         'Provide the consultant with all current marketing materials, your brand guidelines, and any planned campaigns or upcoming photo shoots.',
         'Ask the consultant to specifically assess: language and tone, image composition and roles, segregation vs integration of disability content, and overall authenticity.',
@@ -6036,11 +6037,11 @@ export const beforeArrivalHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Language Guide: Disability',
-      url: 'https://www.and.org.au/resources/disability-language-guide/',
+      title: 'PWDA - Disability Language Guide',
+      url: 'https://pwd.org.au/resources/language-guide/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Comprehensive guide to respectful disability language for use in marketing, communications, and everyday interaction. Covers Australian-preferred terminology.',
+      source: 'People with Disability Australia',
+      description: 'Disability-led peak body guide to respectful disability language for marketing, communications, and everyday interaction.',
       isAustralian: true,
       isFree: true
     },
@@ -6496,7 +6497,7 @@ export const beforeArrivalHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Engage an accessible tourism consultant or marketing specialist with disability sector experience. In Australia, options include Travability, the Australian Network on Disability, and state-based accessible tourism advisors.',
+        'Engage an accessible tourism consultant or marketing specialist with disability sector experience. In Australia, options include Travability, state-based accessible tourism advisors, and Tourism Australia\'s accessible tourism program.',
         'Conduct a competitive analysis: identify 5 businesses in your region or industry known for accessible tourism marketing. Document their tactics, messaging, channels, and partnerships.',
         'Define your target segments within the disability market: wheelchair users, people with sensory disabilities, people with intellectual disability and their carers, seniors with mobility challenges, and families with disabled children.',
         'Audit and document all your accessible features with professional photos, measurements, and honest descriptions of both capabilities and limitations.',
@@ -6533,11 +6534,11 @@ export const beforeArrivalHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Australian Network on Disability: Accessible Tourism Toolkit',
-      url: 'https://www.and.org.au/',
+      title: 'Tourism Australia - Accessible Tourism',
+      url: 'https://www.tourism.australia.com/en/about/our-organisation/our-priorities/accessible-tourism.html',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Business resources for understanding and reaching the disability market, including marketing guidance, customer service tips, and case studies from Australian businesses.',
+      source: 'Tourism Australia',
+      description: 'National tourism resources on understanding and reaching the disability travel market.',
       isAustralian: true,
       isFree: true
     },

@@ -182,11 +182,11 @@ export const serviceSupportHelp: HelpContent[] = [
         isFree: true
       },
       {
-        title: 'Accessible Customer Service Guide',
-        url: 'https://www.and.org.au/',
+        title: 'JobAccess - Accessible Customer Service',
+        url: 'https://www.jobaccess.gov.au/',
         type: 'guide',
-        source: 'Australian Network on Disability',
-        description: 'Practical guidance on making customer service channels accessible.',
+        source: 'JobAccess',
+        description: 'Government guidance on making customer service channels accessible.',
         isAustralian: true
       },
       {
@@ -815,11 +815,11 @@ export const serviceSupportHelp: HelpContent[] = [
         isAustralian: true
       },
       {
-        title: 'Australian Network on Disability - Training',
-        url: 'https://www.and.org.au/',
+        title: 'Scope - Communication Access Training',
+        url: 'https://www.scopeaust.org.au/',
         type: 'website',
-        source: 'AND',
-        description: 'Disability awareness training programs for businesses.',
+        source: 'Scope Australia',
+        description: 'Disability-led provider of communication access and awareness training programs.',
         isAustralian: true
       },
       {
@@ -1291,11 +1291,11 @@ export const serviceSupportHelp: HelpContent[] = [
         isFree: true
       },
       {
-        title: 'Australian Network on Disability',
-        url: 'https://www.and.org.au/',
+        title: 'IncludeAbility',
+        url: 'https://includeability.gov.au/',
         type: 'website',
-        source: 'AND',
-        description: 'Resources on accessible customer service for Australian businesses.',
+        source: 'AHRC',
+        description: 'National resources on accessible customer service for Australian businesses.',
         isAustralian: true
       }
     ],
@@ -1579,11 +1579,11 @@ export const serviceSupportHelp: HelpContent[] = [
         isFree: true
       },
       {
-        title: 'AND - Accessible Customer Service',
-        url: 'https://www.and.org.au/',
+        title: 'AHRC - Accessible Customer Service',
+        url: 'https://humanrights.gov.au/our-work/disability-rights',
         type: 'guide',
-        source: 'Australian Network on Disability',
-        description: 'Resources for creating accessible customer service policies.',
+        source: 'AHRC',
+        description: 'Federal guidance for creating accessible customer service policies under the DDA.',
         isAustralian: true
       }
     ],
@@ -3477,11 +3477,11 @@ export const serviceSupportHelp: HelpContent[] = [
         isFree: true
       },
       {
-        title: 'CRM Accessibility Best Practices',
-        url: 'https://www.and.org.au/',
+        title: 'Digital Transformation Agency - Accessibility',
+        url: 'https://www.dta.gov.au/help-and-advice/digital-service-standard',
         type: 'guide',
-        source: 'Australian Network on Disability',
-        description: 'How to build accessibility into customer relationship management.',
+        source: 'DTA',
+        description: 'Federal government standards for building accessibility into digital systems including CRM.',
         isAustralian: true
       }
     ],

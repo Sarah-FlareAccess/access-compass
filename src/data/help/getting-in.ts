@@ -759,14 +759,14 @@ export const gettingInHelp: HelpContent[] = [
       implementedBy: 'staff',
       impact: 'moderate',
       steps: [
-        'Source or develop a 1-hour accessibility awareness training module. The Australian Network on Disability offers free online modules.',
+        'Source or develop a 1-hour accessibility awareness training module. JobAccess and state disability employment bodies offer free government-funded awareness resources.',
         'Add a physical walkthrough of the accessible route (parking to entrance to key facilities) to your induction program.',
         'Include role-play scenarios: directing someone to parking by phone, greeting someone at the non-accessible entrance and redirecting them, assisting someone with a mobility aid.',
         'Create a knowledge quiz covering key locations and measurements (e.g. "How far is accessible parking from the entrance?" "Which entrance has the ramp?").',
         'Schedule annual refresher training aligned with IDPWD (International Day of People with Disability, 3 December).',
         'Record completion in staff training records.'
       ],
-      notes: 'The AND (Australian Network on Disability) provides free online disability awareness training modules suitable for any industry.'
+      notes: 'JobAccess provides free government-funded disability awareness training resources suitable for any industry.'
     }
   ],
 
@@ -793,11 +793,11 @@ export const gettingInHelp: HelpContent[] = [
 
   resources: [
     {
-      title: 'AND Disability Awareness eLearning',
-      url: 'https://www.and.org.au/resources/disability-awareness-elearning/',
+      title: 'JobAccess - Disability Awareness for Staff',
+      url: 'https://www.jobaccess.gov.au/',
       type: 'website',
-      source: 'Australian Network on Disability',
-      description: 'Free online disability awareness training modules suitable for all staff.',
+      source: 'JobAccess',
+      description: 'Free government disability awareness training resources suitable for all staff.',
       isAustralian: true,
       isFree: true
     },
@@ -1041,11 +1041,11 @@ export const gettingInHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'AND Portable Ramp Guide',
-      url: 'https://www.and.org.au/resources/',
+      title: 'AHRC - Premises Access Guide',
+      url: 'https://humanrights.gov.au/our-work/disability-rights/premises-standards',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Guide to selecting, deploying, and maintaining portable ramps for temporary access solutions.',
+      source: 'AHRC',
+      description: 'Federal guidance on premises access including temporary solutions such as portable ramps.',
       isAustralian: true,
       isFree: true
     }
@@ -1447,11 +1447,11 @@ export const gettingInHelp: HelpContent[] = [
 
   resources: [
     {
-      title: 'AND Wayfinding Guide',
-      url: 'https://www.and.org.au/resources/',
+      title: 'Vision Australia - Accessible Wayfinding',
+      url: 'https://www.visionaustralia.org/business-consulting/digital-access/accessible-signage',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Practical guide to wayfinding design for businesses, covering signage, colour coding, and inclusive design.',
+      source: 'Vision Australia',
+      description: 'Specialist guide to wayfinding and signage design covering contrast, colour coding, and inclusive design.',
       isAustralian: true,
       isFree: true
     },
@@ -2036,11 +2036,11 @@ export const gettingInHelp: HelpContent[] = [
       isFree: false
     },
     {
-      title: 'AND Lift Accessibility Checklist',
-      url: 'https://www.and.org.au/resources/',
-      type: 'checklist',
-      source: 'Australian Network on Disability',
-      description: 'Checklist for auditing lift accessibility covering dimensions, controls, Braille, audio, and visual features.',
+      title: 'AS 1735.12 - Lifts for People with Disability',
+      url: 'https://www.standards.org.au/',
+      type: 'guide',
+      source: 'Standards Australia',
+      description: 'Australian Standard for lift accessibility covering dimensions, controls, Braille, audio, and visual features.',
       isAustralian: true,
       isFree: true
     }
@@ -2227,11 +2227,11 @@ export const gettingInHelp: HelpContent[] = [
 
   resources: [
     {
-      title: 'AND Sign Design Guide',
-      url: 'https://www.and.org.au/resources/',
+      title: 'AS 1428.4.2 - Wayfinding Signage',
+      url: 'https://www.standards.org.au/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Practical guide to accessible sign design including contrast, font, tactile elements, and Braille.',
+      source: 'Standards Australia',
+      description: 'Australian Standard for accessible sign design including contrast, font, tactile elements, and Braille.',
       isAustralian: true,
       isFree: true
     },
@@ -2822,11 +2822,11 @@ export const gettingInHelp: HelpContent[] = [
       isFree: false
     },
     {
-      title: 'AND Accessible Door Hardware Guide',
-      url: 'https://www.and.org.au/resources/',
+      title: 'AS 1428.1 - Door Hardware Requirements',
+      url: 'https://www.standards.org.au/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Practical guide to selecting and installing accessible door hardware for businesses.',
+      source: 'Standards Australia',
+      description: 'Australian Standard requirements for accessible door hardware, force, and clearance.',
       isAustralian: true,
       isFree: true
     }
@@ -3381,11 +3381,11 @@ export const gettingInHelp: HelpContent[] = [
       isFree: false
     },
     {
-      title: 'AND Lift Accessibility Checklist',
-      url: 'https://www.and.org.au/resources/',
-      type: 'checklist',
-      source: 'Australian Network on Disability',
-      description: 'Checklist for auditing lift accessibility including dimensions, controls, Braille, and audio features.',
+      title: 'AHRC - Access to Premises Standards',
+      url: 'https://humanrights.gov.au/our-work/disability-rights/premises-standards',
+      type: 'guide',
+      source: 'AHRC',
+      description: 'Federal guidance on lift access including dimensions, controls, Braille, and audio features.',
       isAustralian: true,
       isFree: true
     }
@@ -3562,11 +3562,11 @@ export const gettingInHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'AND Accessible Queue Design Guide',
-      url: 'https://www.and.org.au/resources/',
+      title: 'IncludeAbility - Queue and Service Design',
+      url: 'https://includeability.gov.au/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Practical guide to designing accessible queue layouts for retail and hospitality venues.',
+      source: 'AHRC',
+      description: 'Resources on accessible service design including queue layouts for retail and hospitality venues.',
       isAustralian: true,
       isFree: true
     },
@@ -3765,11 +3765,11 @@ export const gettingInHelp: HelpContent[] = [
 
   resources: [
     {
-      title: 'AND Signage Guide',
-      url: 'https://www.and.org.au/resources/',
+      title: 'Vision Australia - Accessible Signage',
+      url: 'https://www.visionaustralia.org/business-consulting/digital-access/accessible-signage',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Practical guide to accessible signage design including contrast, symbols, and positioning.',
+      source: 'Vision Australia',
+      description: 'Specialist guide to accessible signage design including contrast, symbols, and positioning.',
       isAustralian: true,
       isFree: true
     },
@@ -3988,11 +3988,11 @@ export const gettingInHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'AND Inclusive Customer Service Guide',
-      url: 'https://www.and.org.au/resources/',
+      title: 'JobAccess - Inclusive Customer Service',
+      url: 'https://www.jobaccess.gov.au/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Comprehensive guide to providing inclusive customer service, including queue management and priority access.',
+      source: 'JobAccess',
+      description: 'Government guide to inclusive customer service, including queue management and priority access.',
       isAustralian: true,
       isFree: true
     },

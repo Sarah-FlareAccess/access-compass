@@ -176,11 +176,11 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'AS 1428.1:2021 Summary',
-      url: 'https://www.access.asn.au/standards',
+      title: 'AS 1428.1:2021 - Accessible Toilet Requirements',
+      url: 'https://www.standards.org.au/',
       type: 'guide',
-      source: 'Association of Consultants in Access Australia',
-      description: 'Overview of current accessible toilet requirements.',
+      source: 'Standards Australia',
+      description: 'Australian Standard covering accessible toilet requirements including dimensions, fixtures, and grab rails.',
       isAustralian: true,
       isFree: true
     }
@@ -354,11 +354,11 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
 
   resources: [
     {
-      title: 'Grab Rail Positioning Guide',
-      url: 'https://www.access.asn.au/standards',
+      title: 'AS 1428.1 - Grab Rail Positioning',
+      url: 'https://www.standards.org.au/',
       type: 'guide',
-      source: 'Association of Consultants in Access Australia',
-      description: 'Visual guide to correct grab rail heights and positions.',
+      source: 'Standards Australia',
+      description: 'Australian Standard requirements for grab rail heights and positions in accessible facilities.',
       isAustralian: true,
       isFree: true
     }
@@ -854,11 +854,11 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
 
   resources: [
     {
-      title: 'Ambulant Toilet Requirements',
-      url: 'https://www.access.asn.au/standards',
+      title: 'AS 1428.1 - Ambulant Toilet Requirements',
+      url: 'https://www.standards.org.au/',
       type: 'guide',
-      source: 'Association of Consultants in Access Australia',
-      description: 'Summary of ambulant accessible toilet specifications.',
+      source: 'Standards Australia',
+      description: 'Australian Standard specifications for ambulant accessible toilets.',
       isAustralian: true,
       isFree: true
     }

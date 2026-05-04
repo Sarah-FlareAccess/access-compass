@@ -292,10 +292,10 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'inclusive-employment',
         label: 'How do you recruit and support your team?',
-        description: 'Hiring, onboarding, and supporting your staff',
-        example: 'e.g. Job advertisements, recruitment process, onboarding, workplace adjustments',
+        description: 'Hiring, interviews, onboarding, workplace adjustments, retention, and inclusive culture',
+        example: 'e.g. Job ads, interviews, onboarding, workplace adjustments, ERGs, retention',
         autoInclude: 'physical',
-        moduleMapping: ['5.2'],
+        moduleMapping: ['5.7', '5.8', '5.9', '5.10'],
       },
       {
         id: 'staff-training',

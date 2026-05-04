@@ -717,11 +717,11 @@ export const duringVisitHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Outdoor Dining Accessibility Checklist',
-      url: 'https://www.and.org.au/resources/',
+      title: 'IncludeAbility - Physical Access Resources',
+      url: 'https://includeability.gov.au/',
       type: 'checklist',
-      source: 'Australian Network on Disability',
-      description: 'Checklist for making outdoor dining and seating areas accessible, including surface, shade, and table requirements.',
+      source: 'AHRC',
+      description: 'National resources covering physical access including outdoor areas, surface, shade, and table requirements.',
       isAustralian: true,
       isFree: true
     }
@@ -2140,11 +2140,11 @@ export const duringVisitHelp: HelpContent[] = [
       isFree: false
     },
     {
-      title: 'Arts Access Australia: Relaxed Performances Guide',
-      url: 'https://www.artsaccess.com.au/',
+      title: 'AMAZE - Sensory-Friendly Events Guide',
+      url: 'https://www.amaze.org.au/',
       type: 'guide',
-      source: 'Arts Access Australia',
-      description: 'Guide for running relaxed performances and sensory-friendly events in arts and entertainment venues.',
+      source: 'AMAZE',
+      description: 'Autism-led organisation\'s guide for running sensory-friendly and relaxed events in arts and entertainment venues.',
       isAustralian: true,
       isFree: true
     }
@@ -2605,11 +2605,11 @@ export const duringVisitHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Australian Network on Disability: Reasonable Adjustments',
-      url: 'https://www.and.org.au/resources/',
+      title: 'JobAccess - Reasonable Adjustments',
+      url: 'https://www.jobaccess.gov.au/',
       type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Framework for determining what reasonable adjustments (including equipment provision) are appropriate for your business size and type.',
+      source: 'JobAccess',
+      description: 'Government framework for determining reasonable adjustments (including equipment provision) appropriate to business size and type.',
       isAustralian: true,
       isFree: true
     }
@@ -3057,11 +3057,12 @@ export const duringVisitHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Beach Access Information',
-      url: 'https://www.and.org.au/resources/',
-      type: 'guide',
-      source: 'Australian Network on Disability',
-      description: 'Information about beach wheelchairs, beach matting, and making coastal venues accessible.',
+      title: 'Accessible Beaches Australia',
+      url: 'https://accessiblebeaches.com/',
+      type: 'website',
+      source: 'Accessible Beaches Australia',
+      description: 'Directory of accessible beaches with information on beach wheelchairs, matting, and access features.',
+      isAustralian: true,
       isAustralian: true,
       isFree: true
     }
@@ -3895,7 +3896,7 @@ export const duringVisitHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'Vision Australia Wayfinding', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', isAustralian: true, isFree: true },
-    { title: 'AND Accessible Wayfinding', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', isAustralian: true, isFree: true }
+    { title: 'Vision Australia - Accessible Signage', url: 'https://www.visionaustralia.org/business-consulting/digital-access/accessible-signage', type: 'guide', source: 'Vision Australia', description: 'Specialist guidance on accessible signage and wayfinding for blind and low-vision users.', isAustralian: true, isFree: true }
   ],
   keywords: ['wayfinding', 'navigation', 'directional signs', 'maps', 'floor plans', 'digital wayfinding']
 },
@@ -4639,7 +4640,7 @@ export const duringVisitHelp: HelpContent[] = [
   resources: [
     { title: 'Accessible Meetings Guide', url: 'https://humanrights.gov.au/', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guidelines for running accessible meetings and conferences.', isAustralian: true, isFree: true },
     { title: 'Hearing Loop Standards', url: 'https://www.standards.org.au/', type: 'guide', source: 'Standards Australia', description: 'AS 60118.4 hearing loop performance requirements.', isAustralian: true, isFree: false },
-    { title: 'Accessible Events Toolkit', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Practical toolkit for planning accessible events and conferences.', isAustralian: true, isFree: true }
+    { title: 'Meetings & Events Australia - Accessibility', url: 'https://www.meetingsevents.com.au/', type: 'guide', source: 'Meetings & Events Australia', description: 'Industry body resources for planning accessible events and conferences.', isAustralian: true, isFree: true }
   ],
   keywords: ['conference', 'meeting room', 'hearing loop', 'captioning', 'wheelchair', 'presentation', 'AV', 'Auslan']
 },
@@ -4852,7 +4853,7 @@ export const duringVisitHelp: HelpContent[] = [
       title: 'Schedule accessible performances for existing season',
       description: 'Add one audio-described, one captioned, and one relaxed performance per production.',
       resourceLevel: 'low', costRange: '$500-2,000 per production', timeRequired: '2-4 weeks', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Identify one performance per production for each access type.', 'Book audio describer through Arts Access or state equivalent.', 'Book captioning provider.', 'Develop relaxed performance protocol: adjust lighting, sound, audience rules.', 'Create sensory guides for each production.', 'Promote accessible performances through disability networks.']
+      steps: ['Identify one performance per production for each access type.', 'Book audio describer through Vision Australia or specialist provider.', 'Book captioning provider.', 'Develop relaxed performance protocol: adjust lighting, sound, audience rules.', 'Create sensory guides for each production.', 'Promote accessible performances through disability networks.']
     },
     {
       title: 'Build accessible performance infrastructure',
@@ -4868,12 +4869,12 @@ export const duringVisitHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'event-venue', businessTypeLabel: 'Theatre', scenario: 'No accessible performances offered.', solution: 'Scheduled one audio-described, one captioned, and one relaxed performance per production. Partnered with Arts Access Victoria. Promoted through disability networks.', outcome: 'Accessible performances at 70% capacity within first year. Season ticket holders include regular AD and captioned patrons.', cost: '$8,000 per year', timeframe: '3 months to establish' },
+    { businessType: 'event-venue', businessTypeLabel: 'Theatre', scenario: 'No accessible performances offered.', solution: 'Scheduled one audio-described, one captioned, and one relaxed performance per production. Partnered with Vision Australia and AMAZE. Promoted through disability networks.', outcome: 'Accessible performances at 70% capacity within first year. Season ticket holders include regular AD and captioned patrons.', cost: '$8,000 per year', timeframe: '3 months to establish' },
     { businessType: 'attraction', businessTypeLabel: 'Cinema', scenario: 'No captioned or audio-described sessions.', solution: 'Installed open captioning on selected sessions. Purchased audio description receivers. Scheduled one accessible session per new release.', outcome: 'Deaf and blind patrons return regularly. Positive social media coverage.', cost: '$4,000', timeframe: '4 weeks' },
     { businessType: 'event-venue', businessTypeLabel: 'Concert Venue', scenario: 'Autistic attendees overwhelmed by standard concerts.', solution: 'Launched relaxed concert series with adjusted lighting and volume, chill-out room, and visual song guide. Partnered with Autism CRC.', outcome: 'Relaxed concerts sell out. Families report it is the only way their family members can attend live music.', cost: '$2,000 per event', timeframe: '2 weeks per event' }
   ],
   resources: [
-    { title: 'Arts Access Australia', url: 'https://artsaccess.com.au/', type: 'guide', source: 'Arts Access Australia', description: 'National body for arts and disability. Resources for accessible performances.', isAustralian: true, isFree: true },
+    { title: 'Vision Australia - Audio Description', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'Specialist service provider for audio description at performances and events.', isAustralian: true, isFree: true },
     { title: 'Media Access Australia', url: 'https://www.mediaaccess.org.au/', type: 'guide', source: 'Media Access Australia', description: 'Captioning and audio description resources and providers.', isAustralian: true, isFree: true },
     { title: 'Relaxed Performance Guidelines', url: 'https://www.artscentremelbourne.com.au/', type: 'guide', source: 'Arts Centre Melbourne', description: 'Guide to planning and running relaxed performances.', isAustralian: true, isFree: true }
   ],
@@ -5357,7 +5358,7 @@ export const duringVisitHelp: HelpContent[] = [
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Shopping is an everyday activity that most people take for granted. When products are displayed above reach height, price tags are tiny, or staff do not know how to assist, people with disability lose independence. Wheelchair users can typically reach items between 400mm and 1200mm. Anything higher requires assistance.',
-    statistic: { value: '$54 billion', context: 'is the annual spending power of Australians with disability. Retailers who are accessible capture more of this market.', source: 'Australian Network on Disability' }
+    statistic: { value: '$54 billion', context: 'is the annual spending power of Australians with disability. Retailers who are accessible capture more of this market.', source: 'Australian Government - Disability Economic Participation data' }
   },
   tips: [
     { icon: 'ShoppingCart', text: 'Place popular and essential items within reach range: 400mm to 1200mm from floor.', priority: 1 },
@@ -5414,8 +5415,8 @@ export const duringVisitHelp: HelpContent[] = [
     { businessType: 'retail', businessTypeLabel: 'Clothing Store', scenario: 'Racks too high and aisles too narrow for wheelchair.', solution: 'Widened aisles to 1500mm. Lowered main clothing racks. Added seated browsing area with samples at reach height.', outcome: 'Accessible shopping experience praised online. Increased foot traffic.', cost: '$5,000', timeframe: '2 weeks' }
   ],
   resources: [
-    { title: 'AND Retail Accessibility Guide', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Guide for retailers on accessible customer service.', isAustralian: true, isFree: true },
-    { title: 'Disability Confident Customer Service', url: 'https://www.jobaccess.gov.au/', type: 'guide', source: 'JobAccess', description: 'Training resources for disability-confident customer service.', isAustralian: true, isFree: true }
+    { title: 'Disability Confident Customer Service', url: 'https://www.jobaccess.gov.au/', type: 'guide', source: 'JobAccess', description: 'Training resources for disability-confident customer service.', isAustralian: true, isFree: true },
+    { title: 'IncludeAbility - Customer Service', url: 'https://includeability.gov.au/', type: 'guide', source: 'AHRC', description: 'Resources and case studies on accessible customer service in retail.', isAustralian: true, isFree: true }
   ],
   keywords: ['retail', 'shopping', 'reach height', 'shelves', 'price tags', 'assistance', 'aisle width', 'product access']
 },
@@ -5491,8 +5492,8 @@ export const duringVisitHelp: HelpContent[] = [
     { businessType: 'retail', businessTypeLabel: 'Clothing Boutique', scenario: 'Fitting rooms too small for wheelchair.', solution: 'Combined two cubicles into one accessible space. Added grab rail, seat, and curtain (easier than door for wheelchair entry).', outcome: 'Wheelchair customers try clothes on for the first time. Loyal customer base.', cost: '$2,000', timeframe: '3 days' }
   ],
   resources: [
-    { title: 'Retail Accessibility Guidelines', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Guidance on accessible retail design including checkout and fitting rooms.', isAustralian: true, isFree: true },
-    { title: 'AS 1428.1 Service Counters', url: 'https://www.standards.org.au/', type: 'guide', source: 'Standards Australia', description: 'Requirements for accessible service counters and fitting rooms.', isAustralian: true, isFree: false }
+    { title: 'AS 1428.1 Service Counters', url: 'https://www.standards.org.au/', type: 'guide', source: 'Standards Australia', description: 'Requirements for accessible service counters and fitting rooms.', isAustralian: true, isFree: false },
+    { title: 'AHRC - Access to Premises Standards', url: 'https://humanrights.gov.au/our-work/disability-rights/premises-standards', type: 'guide', source: 'AHRC', description: 'Premises Standards guidance including retail checkout and fitting room requirements.', isAustralian: true, isFree: true }
   ],
   keywords: ['checkout', 'counter', 'EFTPOS', 'fitting room', 'self-checkout', 'grab rail', 'mirror', 'retail']
 },
@@ -5565,8 +5566,8 @@ export const duringVisitHelp: HelpContent[] = [
     { businessType: 'retail', businessTypeLabel: 'Bookshop', scenario: 'Only in-store shopping available.', solution: 'Added phone ordering and accessible click-and-collect with curbside pickup option. Free postal returns.', outcome: 'Regular phone orders from housebound customers. Click-and-collect popular.', cost: '$200', timeframe: '1 week' }
   ],
   resources: [
-    { title: 'WCAG 2.1 Quick Reference', url: 'https://www.w3.org/WAI/WCAG21/quickref/', type: 'website', source: 'W3C', description: 'Full reference for web accessibility standards.', isFree: true },
-    { title: 'Accessible E-commerce Guide', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Guidance on making online shopping accessible.', isAustralian: true, isFree: true }
+    { title: 'WCAG 2.2 Quick Reference', url: 'https://www.w3.org/WAI/WCAG22/quickref/', type: 'website', source: 'W3C', description: 'Full reference for web accessibility standards.', isFree: true },
+    { title: 'Digital Transformation Agency - Accessibility', url: 'https://www.dta.gov.au/help-and-advice/digital-service-standard', type: 'guide', source: 'DTA', description: 'Federal government guidance on accessible digital services including e-commerce.', isAustralian: true, isFree: true }
   ],
   keywords: ['delivery', 'click-and-collect', 'online shopping', 'phone ordering', 'returns', 'alternative channels', 'e-commerce', 'WCAG']
 },

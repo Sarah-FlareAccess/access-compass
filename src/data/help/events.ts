@@ -144,7 +144,7 @@ export const eventsHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Engage an accessibility consultant with event experience (check the Australian Network on Disability consultant directory).',
+        'Engage an accessibility consultant with event experience such as Flare Access, or check the Meetings & Events Australia specialist directory.',
         'Brief the consultant on your event type, scale, venue, and audience.',
         'Have the consultant audit your current planning process and identify gaps.',
         'Co-develop a comprehensive accessibility plan covering physical access, communication, sensory environment, staffing, and emergency procedures.',
@@ -198,11 +198,11 @@ export const eventsHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'AND Accessible Events Checklist',
-      url: 'https://www.and.org.au/resources/',
+      title: 'Meetings & Events Australia - Accessibility',
+      url: 'https://www.meetingsevents.com.au/',
       type: 'checklist',
-      source: 'Australian Network on Disability',
-      description: 'Practical checklist covering all stages of event planning from venue selection to post-event review.',
+      source: 'Meetings & Events Australia',
+      description: 'Industry body resources covering all stages of accessible event planning from venue selection to post-event review.',
       isAustralian: true,
       isFree: true
     },
@@ -872,11 +872,11 @@ export const eventsHelp: HelpContent[] = [
       isFree: true
     },
     {
-      title: 'Accessible Event Venue Checklist (AND)',
-      url: 'https://www.and.org.au/resources/',
-      type: 'checklist',
-      source: 'Australian Network on Disability',
-      description: 'Checklist for assessing physical accessibility of event venues including temporary infrastructure.',
+      title: 'AHRC - Access to Premises Standards',
+      url: 'https://humanrights.gov.au/our-work/disability-rights/premises-standards',
+      type: 'guide',
+      source: 'AHRC',
+      description: 'Federal guidance on physical accessibility of venues including temporary event infrastructure.',
       isAustralian: true,
       isFree: true
     },
@@ -1695,8 +1695,8 @@ export const eventsHelp: HelpContent[] = [
     { businessType: 'event-venue', businessTypeLabel: 'Festival', scenario: 'Event app not screen-reader compatible.', solution: 'Engaged developer to fix app accessibility. Added push notifications. Created accessible web alternative for those without app.', outcome: 'Screen reader users navigated festival schedule independently. 40% higher app satisfaction.', cost: '$5,000', timeframe: '3 weeks' }
   ],
   resources: [
-    { title: 'Accessible Events Toolkit', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Practical toolkit for accessible event communications.', isAustralian: true, isFree: true },
-    { title: 'WCAG 2.1 Quick Reference', url: 'https://www.w3.org/WAI/WCAG21/quickref/', type: 'website', source: 'W3C', description: 'Standards for making event apps and websites accessible.', isFree: true }
+    { title: 'Media Access Australia', url: 'https://mediaaccess.org.au/', type: 'guide', source: 'Media Access Australia', description: 'Specialist resources for accessible arts, event, and media communications.', isAustralian: true, isFree: true },
+    { title: 'WCAG 2.2 Quick Reference', url: 'https://www.w3.org/WAI/WCAG22/quickref/', type: 'website', source: 'W3C', description: 'Standards for making event apps and websites accessible.', isFree: true }
   ],
   keywords: ['event program', 'large print', 'PA announcements', 'event app', 'schedule updates', 'plain language', 'multi-format']
 },
@@ -1766,8 +1766,8 @@ export const eventsHelp: HelpContent[] = [
     { businessType: 'event-venue', businessTypeLabel: 'Industry Event', scenario: 'Slides had tiny text and no visual descriptions.', solution: 'Provided accessible slide template. Reviewed all presentations. Briefed speakers on describing visual content.', outcome: 'All slides readable from rear. Blind attendees followed content through descriptions.', cost: '$500', timeframe: '2 weeks' }
   ],
   resources: [
-    { title: 'Accessible Presentations Guide', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'How to create and deliver accessible presentations.', isAustralian: true, isFree: true },
-    { title: 'W3C Accessible Slide Design', url: 'https://www.w3.org/WAI/teach-advocate/accessible-presentations/', type: 'guide', source: 'W3C', description: 'Guidelines for creating accessible presentation materials.', isFree: true }
+    { title: 'W3C Accessible Slide Design', url: 'https://www.w3.org/WAI/teach-advocate/accessible-presentations/', type: 'guide', source: 'W3C', description: 'Guidelines for creating accessible presentation materials.', isFree: true },
+    { title: 'Media Access Australia', url: 'https://mediaaccess.org.au/', type: 'guide', source: 'Media Access Australia', description: 'Specialist resources on accessible audio, video, and presentation content.', isAustralian: true, isFree: true }
   ],
   keywords: ['speaker', 'presenter', 'microphone', 'captioning', 'slides', 'visual description', 'pacing', 'briefing']
 },
@@ -1908,11 +1908,11 @@ export const eventsHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'event-venue', businessTypeLabel: 'Arts Festival', scenario: 'No vision access for visual art exhibitions.', solution: 'Created audio guides for exhibitions. Offered touch tours with artist. Large-print labels. Guide dog area.', outcome: 'Blind arts enthusiasts attended. Featured in Arts Access newsletter.', cost: '$3,000', timeframe: '4 weeks' },
+    { businessType: 'event-venue', businessTypeLabel: 'Arts Festival', scenario: 'No vision access for visual art exhibitions.', solution: 'Created audio guides for exhibitions. Offered touch tours with artist. Large-print labels. Guide dog area.', outcome: 'Blind arts enthusiasts attended. Featured in sector accessibility publications.', cost: '$3,000', timeframe: '4 weeks' },
     { businessType: 'event-venue', businessTypeLabel: 'Outdoor Festival', scenario: 'Blind attendees could not navigate site.', solution: 'Offered pre-event orientation walks. Trained wayfinding volunteers in sighted guide. Created audio site guide via app.', outcome: 'Blind attendees reported feeling welcome and independent.', cost: '$1,500', timeframe: '2 weeks' }
   ],
   resources: [
-    { title: 'Arts Access Australia', url: 'https://artsaccess.com.au/', type: 'guide', source: 'Arts Access Australia', description: 'Resources on vision access at arts and cultural events.', isAustralian: true, isFree: true },
+    { title: 'Vision Australia - Audio Description', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'Specialist service provider for audio description at cultural and arts events.', isAustralian: true, isFree: true },
     { title: 'Vision Australia Events', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'How to make events accessible for blind and low-vision people.', isAustralian: true, isFree: true }
   ],
   keywords: ['audio description', 'large print', 'touch tour', 'guide dog', 'orientation', 'blind', 'low vision', 'tactile']
@@ -2055,7 +2055,7 @@ export const eventsHelp: HelpContent[] = [
     { businessType: 'event-venue', businessTypeLabel: 'Sports Event', scenario: 'Security refused entry to assistance dog.', solution: 'Trained all security on assistance animal rights. Created disability scenario cards. Accessibility stewards at every gate.', outcome: 'Zero assistance animal incidents since. Disability community trust restored.', cost: '$500', timeframe: '1 week' }
   ],
   resources: [
-    { title: 'AND Event Accessibility Guide', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Training resources for event staff on disability awareness.', isAustralian: true, isFree: true },
+    { title: 'JobAccess - Disability Awareness for Staff', url: 'https://www.jobaccess.gov.au/', type: 'guide', source: 'JobAccess', description: 'Free government training resources for event staff and volunteers on disability awareness.', isAustralian: true, isFree: true },
     { title: 'Guide Dogs Event Access', url: 'https://www.guidedogs.com.au/', type: 'guide', source: 'Guide Dogs Australia', description: 'Resources on assistance animals at events.', isAustralian: true, isFree: true }
   ],
   keywords: ['staff training', 'volunteers', 'accessibility steward', 'security', 'disability awareness', 'event team']
@@ -2275,8 +2275,8 @@ export const eventsHelp: HelpContent[] = [
     { businessType: 'event-venue', businessTypeLabel: 'Festival', scenario: 'No re-entry for sensory breaks.', solution: 'Implemented wristband re-entry for anyone needing a medical, sensory, or assistance animal break. Quiet exit and re-entry point.', outcome: 'Attendees with sensory needs stay for full event. Positive community feedback.', cost: '$50', timeframe: '1 day' }
   ],
   resources: [
-    { title: 'Accessible Events Post-Event Guide', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Guidance on collecting and acting on accessibility feedback.', isAustralian: true, isFree: true },
-    { title: 'AHRC Events Accessibility', url: 'https://humanrights.gov.au/', type: 'guide', source: 'AHRC', description: 'Rights and obligations for accessible event services.', isAustralian: true, isFree: true }
+    { title: 'AHRC Events Accessibility', url: 'https://humanrights.gov.au/our-work/disability-rights', type: 'guide', source: 'AHRC', description: 'Rights and obligations for accessible event services including feedback handling.', isAustralian: true, isFree: true },
+    { title: 'IncludeAbility - Feedback and Reporting', url: 'https://includeability.gov.au/', type: 'guide', source: 'AHRC', description: 'National resources for collecting and acting on accessibility feedback.', isAustralian: true, isFree: true }
   ],
   keywords: ['feedback', 're-entry', 'accommodation', 'follow-through', 'survey', 'lost property', 'post-event', 'reporting']
 },

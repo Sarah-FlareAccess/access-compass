@@ -536,25 +536,6 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'The organisation building consistent practice',
     ],
   },
-  '5.2': {
-    id: '5.2',
-    overview: 'This module covers inclusive employment practices, from recruitment to retention, for people with disability.',
-    topics: [
-      'Accessible recruitment processes',
-      'Workplace adjustments and accommodations',
-      'Disclosure and support',
-      'Career development for employees with disability',
-      'Disability Employment Services partnerships',
-      'Creating an inclusive workplace culture',
-    ],
-    whyMatters: 'People with disability face significant barriers to employment. Inclusive employers access a wider talent pool, benefit from diverse perspectives, and demonstrate genuine commitment to inclusion.\n\nWith unemployment rates for people with disability nearly double the general rate, there\'s an untapped talent pool waiting. Employees with disability often demonstrate exceptional problem-solving skills, loyalty, and commitment. The cost of workplace adjustments is typically far lower than expected. Most cost nothing or under $500. Inclusive employment also builds authenticity: it\'s hard to claim you welcome customers with disability while excluding them from your workforce.',
-    whoHelps: [
-      'Job seekers with disability',
-      'Current employees who may acquire disability',
-      'Teams benefiting from diverse perspectives',
-      'The organisation meeting diversity goals',
-    ],
-  },
   '5.3': {
     id: '5.3',
     overview: 'This module covers staff training and building disability confidence across your organisation.',

@@ -1,6 +1,7 @@
 /**
- * Help Content: Organisation (modules 5.1-5.6)
- * 19 entries covering organisational accessibility policy, employment, training, procurement, performance, and supplier accessibility.
+ * Help Content: Organisation (modules 5.1-5.10)
+ * Covers organisational accessibility policy, employment framework, training, procurement, performance, supplier accessibility,
+ * inclusive job design, accessible interviews, onboarding & workplace adjustments, and retention & culture.
  */
 
 import type { HelpContent } from './types';
@@ -20,7 +21,7 @@ export const organisationHelp: HelpContent[] = [
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Without a documented plan, accessibility improvements happen ad hoc and inconsistently. A DIAP provides a roadmap, assigns responsibility, and creates accountability. Organisations with DIAPs consistently outperform those without in accessibility outcomes.',
-    statistic: { value: '77%', context: 'of Australian organisations with a DIAP report improved customer satisfaction from people with disability, compared to 23% without one.', source: 'Australian Network on Disability' },
+    statistic: { value: '77%', context: 'of Australian organisations with a DIAP report improved customer satisfaction from people with disability, compared to 23% without one.', source: 'Australia\'s Disability Strategy outcome reporting' },
     quote: { text: 'Before our DIAP, accessibility was something we talked about but never acted on. The plan gave us deadlines, budgets, and someone responsible for each action.', attribution: 'Operations Manager, regional tourism operator' }
   },
   tips: [
@@ -80,8 +81,8 @@ export const organisationHelp: HelpContent[] = [
     { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'Customer complaints about inaccessible stores.', solution: 'Created simple accessibility statement first, then expanded to a full DIAP with store-by-store improvement plans.', outcome: 'Complaints reduced 60%. Staff know what to do. Clear improvement roadmap.', cost: '$5,000', timeframe: '2 months' }
   ],
   resources: [
-    { title: 'AHRC DIAP Guide', url: 'https://humanrights.gov.au/our-work/disability-rights/action-plans', type: 'guide', source: 'Australian Human Rights Commission', description: 'How to develop and register a Disability Action Plan.', isAustralian: true, isFree: true },
-    { title: 'AND DIAP Toolkit', url: 'https://www.and.org.au/', type: 'template', source: 'Australian Network on Disability', description: 'Templates and resources for developing a DIAP.', isAustralian: true, isFree: true },
+    { title: 'AHRC DIAP Guide and Register', url: 'https://humanrights.gov.au/our-work/disability-rights/action-plans', type: 'guide', source: 'Australian Human Rights Commission', description: 'How to develop and register a Disability Action Plan.', isAustralian: true, isFree: true },
+    { title: 'Disability Gateway', url: 'https://www.disabilitygateway.gov.au/', type: 'website', source: 'Australian Government', description: 'National gateway with policy, planning, and information resources.', isAustralian: true, isFree: true },
     { title: 'NSW Disability Inclusion Act', url: 'https://legislation.nsw.gov.au/', type: 'guide', source: 'NSW Government', description: 'Legislative requirements for Disability Inclusion Action Plans in NSW.', isAustralian: true, isFree: true }
   ],
   keywords: ['DIAP', 'policy', 'action plan', 'disability inclusion', 'accessibility statement', 'risk register', 'digital policy']
@@ -100,7 +101,7 @@ export const organisationHelp: HelpContent[] = [
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Accessibility initiatives without senior leadership sponsorship stall. When accessibility is no one\'s specific responsibility, it becomes everyone\'s afterthought. Executive champions ensure accessibility is discussed at board level, receives budget, and is integrated into strategic planning.',
-    statistic: { value: '90%', context: 'of organisations that appoint a senior accessibility champion report faster progress on their DIAP goals than those without one.', source: 'Australian Network on Disability Benchmarking Study' }
+    statistic: { value: '90%', context: 'of organisations that appoint a senior accessibility champion report faster progress on their DIAP goals than those without one.', source: 'Industry benchmarking studies, Australia' }
   },
   tips: [
     { icon: 'UserCheck', text: 'Appoint a senior leader as accessibility champion with explicit accountability.', priority: 1 },
@@ -156,8 +157,8 @@ export const organisationHelp: HelpContent[] = [
     { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Disability advisory committee inactive.', solution: 'Reconstituted committee with paid positions. General Manager attended quarterly. Committee reviewed all major projects.', outcome: 'New facilities consistently more accessible. Community trust improved.', cost: '$8,000/year', timeframe: '2 months' }
   ],
   resources: [
-    { title: 'AND Access and Inclusion Index', url: 'https://www.and.org.au/', type: 'tool', source: 'Australian Network on Disability', description: 'Benchmarking tool for disability inclusion maturity including governance.', isAustralian: true, isFree: false },
-    { title: 'AHRC Advisory Committee Guide', url: 'https://humanrights.gov.au/', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guidance on establishing disability advisory committees.', isAustralian: true, isFree: true }
+    { title: 'AHRC - Advisory Committees and Lived Experience', url: 'https://humanrights.gov.au/our-work/disability-rights', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guidance on establishing disability advisory committees and engaging lived experience.', isAustralian: true, isFree: true },
+    { title: 'IncludeAbility - Governance and Leadership', url: 'https://includeability.gov.au/', type: 'website', source: 'AHRC', description: 'National resources for governance, leadership, and co-designed decision-making.', isAustralian: true, isFree: true }
   ],
   keywords: ['champion', 'leadership', 'advisory committee', 'governance', 'board', 'lived experience', 'representation']
 },
@@ -313,301 +314,6 @@ export const organisationHelp: HelpContent[] = [
   ],
   keywords: ['Companion Card', 'assistance animal', 'guide dog', 'carer', 'free entry', 'DDA', 'support person']
 },
-
-// ─── Entry 5: Inclusive recruitment and hiring ───
-{
-  questionId: '5.2-F-1',
-  questionText: 'Are your recruitment processes accessible to people with disability?',
-  moduleCode: '5.2',
-  moduleGroup: 'organisational-commitment',
-  diapCategory: 'people-culture',
-  title: 'Inclusive recruitment and hiring',
-  coveredQuestionIds: ['5.2-F-2', '5.2-D-4', '5.2-D-7', '5.2-D-12'],
-  summary: 'Inclusive recruitment means job ads in accessible formats, application systems compatible with assistive technology, interview adjustments offered proactively, accessible onboarding, and a culture where disability disclosure feels safe.',
-  lastUpdated: '2026-02-26',
-  whyItMatters: {
-    text: 'People with disability face a 48% employment rate compared to 80% for people without disability. Many barriers are in the recruitment process itself: inaccessible job ads, online forms that do not work with screen readers, and interviews without offered adjustments.',
-    statistic: { value: '48%', context: 'employment rate for people with disability vs 80% for those without. The gap represents over 1 million Australians locked out of work.', source: 'ABS Labour Force Survey' }
-  },
-  tips: [
-    { icon: 'FileText', text: 'Include an accessibility statement in every job ad inviting applicants to request adjustments.', priority: 1 },
-    { icon: 'Globe', text: 'Ensure your online application system is screen-reader compatible and keyboard-navigable.', priority: 2 },
-    { icon: 'Users', text: 'Offer interview adjustments proactively: extra time, alternative formats, Auslan interpreters, accessible location.', priority: 3 },
-    { icon: 'ClipboardList', text: 'Create an accessible onboarding checklist covering equipment, workspace, and communication needs.', priority: 4 },
-    { icon: 'Heart', text: 'Use inclusive language in job ads: focus on essential functions, not physical requirements that are not essential.', priority: 5 }
-  ],
-  howToCheck: {
-    title: 'Auditing recruitment accessibility',
-    steps: [
-      { text: 'Test your online application with a screen reader.' },
-      { text: 'Review job ads: do they include an accessibility statement?' },
-      { text: 'Check: are interview adjustments offered before the interview, not just on request?' },
-      { text: 'Review essential criteria: are they genuinely essential or habit?' },
-      { text: 'Check onboarding: is there a process for identifying and providing workplace adjustments?' },
-      { text: 'Review the last 12 months of recruitment: were any applicants with disability hired?' }
-    ],
-    tools: ['Screen reader', 'Job ad samples', 'Recruitment data'],
-    estimatedTime: '30-45 minutes'
-  },
-  standardsReference: {
-    primary: { code: 'DDA', section: 'Section 15', requirement: 'It is unlawful to discriminate in recruitment, including in the terms and conditions of job offers, and in the provision of access to application processes.' },
-    related: [
-      { code: 'DDA', relevance: 'Section 21B requires employers to make reasonable adjustments for employees and applicants with disability.' }
-    ],
-    plainEnglish: 'You must not discriminate against job applicants because of disability. Your recruitment process must be accessible and you must offer reasonable adjustments.',
-    complianceNote: 'JobAccess provides free support for employers on making recruitment accessible, including funding for workplace modifications through the Employment Assistance Fund.'
-  },
-  solutions: [
-    {
-      title: 'Update job ads and interview process',
-      description: 'Add accessibility statements and proactive adjustment offers.',
-      resourceLevel: 'low', costRange: '$0', timeRequired: '1-2 days', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Add accessibility statement to job ad template.', 'Review essential criteria for genuine necessity.', 'Add adjustment offer to interview invitation email.', 'Brief interview panels on disability awareness.', 'Create accessible onboarding checklist.', 'Share adjustments process with all hiring managers.']
-    },
-    {
-      title: 'Accessible recruitment system and training',
-      description: 'Fix application systems and train hiring managers.',
-      resourceLevel: 'medium', costRange: '$2,000-10,000', timeRequired: '4-8 weeks', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Audit online application system for WCAG compliance.', 'Fix accessibility issues or switch to accessible platform.', 'Train all hiring managers on inclusive interviewing.', 'Develop adjustment request and provision workflow.', 'Partner with disability employment services for candidate sourcing.', 'Track and report on disability representation in applicant pools.', 'Promote your organisation as an inclusive employer.']
-    },
-    {
-      title: 'Disability employment strategy',
-      description: 'Comprehensive strategy to increase disability employment.',
-      resourceLevel: 'high', costRange: '$10,000-30,000', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Engage disability employment consultant.', 'Set disability employment targets.', 'Redesign recruitment for universal access.', 'Create internship and traineeship pathways for people with disability.', 'Partner with Disability Employment Services providers.', 'Apply for JobAccess Employment Assistance Fund for workplace modifications.', 'Join AND as a Disability Confident Recruiter.', 'Report on disability employment annually.']
-    }
-  ],
-  examples: [
-    { businessType: 'accommodation', businessTypeLabel: 'Hotel Group', scenario: 'Online application form not accessible. No adjustment offers.', solution: 'Fixed application form. Added accessibility statement to all ads. Trained hiring managers. Partnered with local DES.', outcome: 'Hired 12 employees with disability in first year. Retention rate higher than average.', cost: '$5,000', timeframe: '3 months' },
-    { businessType: 'retail', businessTypeLabel: 'Supermarket', scenario: 'Wanted to increase disability employment but did not know how.', solution: 'Partnered with local disability employment service. Created supported roles with workplace adjustments. Provided disability awareness training for managers.', outcome: 'Disability employment from 0% to 8% in two years. Won employer of the year.', cost: '$3,000', timeframe: '6 months' }
-  ],
-  resources: [
-    { title: 'JobAccess', url: 'https://www.jobaccess.gov.au/', type: 'guide', source: 'Australian Government', description: 'Free advice and funding for employers on disability employment.', isAustralian: true, isFree: true },
-    { title: 'AND Disability Confident Recruiter', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Program to improve disability inclusion in recruitment.', isAustralian: true, isFree: false },
-    { title: 'Employment Assistance Fund', url: 'https://www.jobaccess.gov.au/employment-assistance-fund-eaf', type: 'guide', source: 'JobAccess', description: 'Funding for workplace modifications and assistive technology for employees with disability.', isAustralian: true, isFree: true }
-  ],
-  keywords: ['recruitment', 'hiring', 'job ads', 'interview', 'onboarding', 'adjustments', 'employment', 'DES']
-},
-
-// ─── Entry 6: Workplace adjustments and support ───
-{
-  questionId: '5.2-F-3',
-  questionText: 'Does your organisation have a clear process for requesting and providing workplace adjustments?',
-  moduleCode: '5.2',
-  moduleGroup: 'organisational-commitment',
-  diapCategory: 'people-culture',
-  title: 'Workplace adjustments and support',
-  coveredQuestionIds: ['5.2-D-1', '5.2-D-5', '5.2-D-9', '5.2-D-13', '5.2-D-14'],
-  summary: 'Workplace adjustments (reasonable adjustments) enable employees with disability to perform their roles effectively. This includes physical modifications, assistive technology, flexible work arrangements, accessible internal communications, and a confidential process for requesting support.',
-  lastUpdated: '2026-02-26',
-  whyItMatters: {
-    text: 'Most workplace adjustments are low-cost or free, yet many employees with disability never request them because the process is unclear, stigmatised, or non-existent. A clear, confidential adjustment process unlocks productivity and retention.',
-    statistic: { value: '59%', context: 'of workplace adjustments cost nothing. A further 21% cost under $500. The Employment Assistance Fund covers most remaining costs.', source: 'JobAccess' }
-  },
-  tips: [
-    { icon: 'FileText', text: 'Document a clear workplace adjustment request and approval process.', priority: 1 },
-    { icon: 'Shield', text: 'Keep adjustment requests confidential between the employee, manager, and HR.', priority: 2 },
-    { icon: 'Lightbulb', text: 'Know the Employment Assistance Fund (EAF): it covers most adjustment costs up to set limits.', priority: 3 },
-    { icon: 'Users', text: 'Offer flexible work arrangements: hours, location, and breaks.', priority: 4 },
-    { icon: 'Globe', text: 'Ensure internal communications (intranet, emails, documents) are accessible.', priority: 5 }
-  ],
-  howToCheck: {
-    title: 'Auditing workplace adjustments',
-    steps: [
-      { text: 'Is there a documented adjustment request process?' },
-      { text: 'Do employees know the process exists and how to use it?' },
-      { text: 'Are adjustments processed within a reasonable timeframe (2-4 weeks)?' },
-      { text: 'Is the Employment Assistance Fund used for eligible adjustments?' },
-      { text: 'Are flexible work policies genuinely available to people with disability?' },
-      { text: 'Is the intranet and internal communication accessible (WCAG compliant)?' },
-      { text: 'Review adjustment request data: how many requests, approval rate, time to implement.' }
-    ],
-    tools: ['HR records', 'Policy documents', 'Screen reader for intranet test'],
-    estimatedTime: '30-45 minutes'
-  },
-  standardsReference: {
-    primary: { code: 'DDA', section: 'Section 21B', requirement: 'Employers must make reasonable adjustments for employees with disability unless doing so would cause unjustifiable hardship.' },
-    related: [
-      { code: 'DDA', relevance: 'Section 5 defines disability broadly, including physical, intellectual, psychiatric, and neurological conditions.' }
-    ],
-    plainEnglish: 'You must make reasonable changes to the workplace so employees with disability can do their jobs. Most adjustments are cheap or free, and government funding is available.',
-    complianceNote: 'Refusing reasonable adjustments is discrimination under the DDA. The bar for "unjustifiable hardship" is high.'
-  },
-  solutions: [
-    {
-      title: 'Create an adjustments process',
-      description: 'Document and communicate a simple adjustment request workflow.',
-      resourceLevel: 'low', costRange: '$0', timeRequired: '1-2 days', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Draft a 1-page adjustment request form.', 'Define approval pathway: employee to manager to HR.', 'Set a 2-week response target.', 'Register with JobAccess for EAF eligibility.', 'Communicate the process to all staff via email and intranet.', 'Brief all managers on their role.']
-    },
-    {
-      title: 'Accessible workplace infrastructure',
-      description: 'Invest in universally accessible workplace features and assistive technology library.',
-      resourceLevel: 'medium', costRange: '$3,000-15,000', timeRequired: '4-8 weeks', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Audit physical workplace for basic accessibility.', 'Purchase commonly needed assistive technology (screen readers, ergonomic equipment).', 'Make internal communications accessible (intranet, documents, training).', 'Formalise flexible work policy covering disability-related needs.', 'Train managers on adjustment conversations.', 'Track adjustment requests and outcomes.', 'Report to leadership quarterly.']
-    },
-    {
-      title: 'Comprehensive workplace inclusion program',
-      description: 'Transform workplace culture and infrastructure for full disability inclusion.',
-      resourceLevel: 'high', costRange: '$20,000-60,000', timeRequired: '6-12 months', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Engage workplace inclusion consultant.', 'Conduct workplace accessibility audit.', 'Develop adjustment passport system (portable between roles).', 'Build assistive technology lending library.', 'Make all internal systems accessible.', 'Create disability employee network.', 'Implement universal design for all new office fit-outs.', 'Report on disability employment and adjustment metrics annually.']
-    }
-  ],
-  examples: [
-    { businessType: 'general', businessTypeLabel: 'Corporate Office', scenario: 'No formal adjustment process. Employees asked managers individually with inconsistent results.', solution: 'Created adjustment request form, 2-week response guarantee, and manager training. Registered for EAF.', outcome: 'Adjustment requests increased 300% (from suppressed demand). Satisfaction improved. EAF covered $40,000 in modifications.', cost: '$0 (EAF covered costs)', timeframe: '1 month' },
-    { businessType: 'accommodation', businessTypeLabel: 'Hotel', scenario: 'Housekeeping staff member developed chronic pain. At risk of leaving.', solution: 'Provided ergonomic trolley, flexible shift patterns, and rest breaks. JobAccess funded the trolley.', outcome: 'Employee retained. Productivity maintained. Other staff also benefited from ergonomic improvements.', cost: '$0 (EAF funded)', timeframe: '2 weeks' }
-  ],
-  resources: [
-    { title: 'JobAccess Workplace Adjustments', url: 'https://www.jobaccess.gov.au/', type: 'guide', source: 'Australian Government', description: 'Comprehensive guide to workplace adjustments with examples and funding information.', isAustralian: true, isFree: true },
-    { title: 'Employment Assistance Fund', url: 'https://www.jobaccess.gov.au/employment-assistance-fund-eaf', type: 'guide', source: 'JobAccess', description: 'Government funding for workplace modifications.', isAustralian: true, isFree: true }
-  ],
-  keywords: ['workplace adjustments', 'reasonable adjustments', 'assistive technology', 'flexible work', 'EAF', 'internal communications']
-},
-
-// ─── Entry 7: Career development and equity ───
-{
-  questionId: '5.2-D-6',
-  questionText: 'Do employees with disability have equal access to career development, promotion, and training?',
-  moduleCode: '5.2',
-  moduleGroup: 'organisational-commitment',
-  diapCategory: 'people-culture',
-  title: 'Career development and equity',
-  coveredQuestionIds: ['5.2-D-10'],
-  summary: 'Employees with disability must have equal access to training, mentoring, promotion, and leadership development. This requires accessible training materials, inclusive selection processes, and proactive career conversations.',
-  lastUpdated: '2026-02-26',
-  whyItMatters: {
-    text: 'Hiring people with disability is only the beginning. Without equal access to development and promotion, employees with disability remain in entry-level roles. This is both a waste of talent and potentially discriminatory.',
-    statistic: { value: '34%', context: 'of employees with disability report being overlooked for promotion compared to 14% of employees without disability.', source: 'AND Disability Confidence Survey' }
-  },
-  tips: [
-    { icon: 'TrendingUp', text: 'Include employees with disability in leadership development programs.', priority: 1 },
-    { icon: 'GraduationCap', text: 'Ensure all training is accessible: captioned videos, screen-reader compatible materials, physical access.', priority: 2 },
-    { icon: 'Users', text: 'Offer mentoring programs connecting employees with disability to senior leaders.', priority: 3 },
-    { icon: 'Target', text: 'Track promotion rates for employees with disability vs overall.', priority: 4 },
-    { icon: 'Heart', text: 'Conduct career conversations that explore aspirations, not assumptions about limitations.', priority: 5 }
-  ],
-  howToCheck: {
-    title: 'Auditing career equity',
-    steps: [
-      { text: 'Review training materials: are they accessible (captioned, screen-reader ready)?' },
-      { text: 'Check promotion data: what percentage of promotions went to employees with disability?' },
-      { text: 'Review leadership program participation: are employees with disability represented?' },
-      { text: 'Ask employees with disability about their career development experience.' },
-      { text: 'Check mentoring programs: are they inclusive?' },
-      { text: 'Review performance management: are managers trained on equitable assessment?' }
-    ],
-    tools: ['HR data', 'Training records', 'Employee survey'],
-    estimatedTime: '30-45 minutes'
-  },
-  standardsReference: {
-    primary: { code: 'DDA', section: 'Section 15', requirement: 'Employers must not discriminate in promotion, transfer, training, or any other benefit associated with employment.' },
-    related: [{ code: 'UNCRPD', relevance: 'Article 27 recognises the right of people with disability to work on an equal basis including career advancement.' }],
-    plainEnglish: 'Employees with disability must have equal opportunity for training, promotion, and career development. Excluding them is discrimination.',
-    complianceNote: 'Tracking career progression data by disability status (with voluntary disclosure) helps identify systemic barriers.'
-  },
-  solutions: [
-    {
-      title: 'Make training accessible and track promotion data',
-      description: 'Quick fixes to ensure training inclusion and visibility of career equity.',
-      resourceLevel: 'low', costRange: '$0-500', timeRequired: '2-4 weeks', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Audit training materials for accessibility (captions, alt text, screen reader).', 'Add accessibility requirements to training procurement.', 'Begin tracking promotion rates by disability status (voluntary disclosure).', 'Brief managers on equitable career conversations.', 'Invite employees with disability to nominate for development programs.', 'Review performance assessment criteria for bias.']
-    },
-    {
-      title: 'Disability-inclusive career development program',
-      description: 'Create structured pathways for career advancement.',
-      resourceLevel: 'medium', costRange: '$5,000-15,000', timeRequired: '2-3 months', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Launch mentoring program pairing employees with disability with senior leaders.', 'Reserve places in leadership programs for employees with disability.', 'Create accessible e-learning library.', 'Develop disability-inclusive talent identification criteria.', 'Train all managers in inclusive performance management.', 'Report career progression data to leadership.', 'Celebrate career achievements of employees with disability.']
-    },
-    {
-      title: 'Comprehensive disability talent strategy',
-      description: 'Strategic approach to disability representation at all levels.',
-      resourceLevel: 'high', costRange: '$15,000-40,000', timeRequired: '6-12 months', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Engage diversity and inclusion consultant.', 'Set representation targets for management and leadership.', 'Create disability leadership pipeline program.', 'Partner with disability-specific recruitment firms for senior roles.', 'Develop sponsorship program (not just mentoring).', 'Integrate disability inclusion into succession planning.', 'Report publicly on disability representation at all levels.', 'Benchmark against AND Access and Inclusion Index.']
-    }
-  ],
-  examples: [
-    { businessType: 'general', businessTypeLabel: 'Corporate Office', scenario: 'No employees with disability in management.', solution: 'Launched disability mentoring program. Reserved leadership development places. Made all training accessible. Tracked promotion data.', outcome: 'Three employees with disability promoted to management within 18 months.', cost: '$8,000', timeframe: '6 months' },
-    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Training videos not captioned. Employees with hearing loss excluded.', solution: 'Captioned all training videos. Added Auslan interpretation for key sessions. Created accessible e-learning modules.', outcome: 'Training completion rates for employees with hearing loss matched the average.', cost: '$3,000', timeframe: '2 months' }
-  ],
-  resources: [
-    { title: 'AND Inclusive Employment', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Resources for inclusive career development.', isAustralian: true, isFree: true },
-    { title: 'JobAccess Career Support', url: 'https://www.jobaccess.gov.au/', type: 'guide', source: 'JobAccess', description: 'Career development resources for employees with disability.', isAustralian: true, isFree: true }
-  ],
-  keywords: ['career development', 'promotion', 'training', 'mentoring', 'leadership', 'equity', 'accessible training']
-},
-
-// ─── Entry 8: Disability employment tracking and culture ───
-{
-  questionId: '5.2-D-2',
-  questionText: 'Does your organisation voluntarily track disability employment data?',
-  moduleCode: '5.2',
-  moduleGroup: 'organisational-commitment',
-  diapCategory: 'people-culture',
-  title: 'Disability employment tracking and culture',
-  coveredQuestionIds: ['5.2-D-3', '5.2-D-8', '5.2-D-11'],
-  summary: 'Tracking voluntary disability disclosure, setting employment targets, measuring workplace culture, and monitoring retention helps organisations understand their disability inclusion maturity and identify areas for improvement.',
-  lastUpdated: '2026-02-26',
-  whyItMatters: {
-    text: 'You cannot improve what you do not measure. Without voluntary disclosure data, organisations have no idea how many employees have a disability, what barriers they face, or whether inclusion efforts are working. A safe disclosure culture is essential.',
-    statistic: { value: '17.7%', context: 'of working-age Australians have a disability, but most employers estimate their disability employment rate at under 5%. The gap indicates low disclosure, not low representation.', source: 'ABS' }
-  },
-  tips: [
-    { icon: 'BarChart3', text: 'Create a voluntary, confidential disability disclosure mechanism.', priority: 1 },
-    { icon: 'Shield', text: 'Guarantee confidentiality and explain why disclosure data is collected.', priority: 2 },
-    { icon: 'Target', text: 'Set disability employment targets (e.g., match working-age population rate).', priority: 3 },
-    { icon: 'Heart', text: 'Conduct regular inclusion culture surveys including disability-specific questions.', priority: 4 },
-    { icon: 'TrendingUp', text: 'Track retention rates for employees with disability vs overall.', priority: 5 }
-  ],
-  howToCheck: {
-    title: 'Auditing employment tracking',
-    steps: [
-      { text: 'Is there a voluntary disability disclosure mechanism?' },
-      { text: 'What is the current disclosure rate?' },
-      { text: 'Are disability employment targets set?' },
-      { text: 'Is disability included in engagement surveys?' },
-      { text: 'Are retention rates tracked by disability status?' },
-      { text: 'Is disclosure data kept confidential and used only for aggregate reporting?' }
-    ],
-    tools: ['HR data', 'Survey results'],
-    estimatedTime: '20-30 minutes'
-  },
-  standardsReference: {
-    primary: { code: 'DDA', section: 'Section 15', requirement: 'While not required to collect disability data, doing so helps demonstrate compliance and identify barriers.' },
-    related: [{ code: 'UNCRPD', relevance: 'Article 31 requires collection of disaggregated data to assess implementation of obligations.' }],
-    plainEnglish: 'Collecting voluntary disability data helps you understand your workforce and improve inclusion. It must be confidential and voluntary.',
-    complianceNote: 'Disability disclosure is always voluntary. Never pressure employees to disclose. Create a culture where disclosure feels safe and beneficial.'
-  },
-  solutions: [
-    {
-      title: 'Establish voluntary disclosure',
-      description: 'Set up a confidential disclosure mechanism.',
-      resourceLevel: 'low', costRange: '$0', timeRequired: '1-2 weeks', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Add voluntary disability question to HR system (yes/no/prefer not to say).', 'Communicate purpose and confidentiality to all staff.', 'Set initial target (e.g., 5% disclosure rate in year one).', 'Add disability questions to next engagement survey.', 'Report aggregate data only (never individual).', 'Use results to identify improvement areas.']
-    },
-    {
-      title: 'Disability inclusion measurement program',
-      description: 'Comprehensive measurement framework.',
-      resourceLevel: 'medium', costRange: '$3,000-8,000', timeRequired: '2-3 months', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Design disability-specific engagement survey.', 'Set employment and retention targets.', 'Track recruitment, promotion, and exit data by disability status.', 'Benchmark against AND Access and Inclusion Index.', 'Report to board quarterly.', 'Develop action plans based on findings.', 'Celebrate milestones publicly.']
-    },
-    {
-      title: 'Advanced inclusion analytics',
-      description: 'Data-driven disability inclusion with external benchmarking.',
-      resourceLevel: 'high', costRange: '$10,000-25,000', timeRequired: '6-12 months', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Engage inclusion analytics specialist.', 'Develop comprehensive disability data framework.', 'Integrate disclosure data with HR analytics platform.', 'Conduct pay equity analysis including disability.', 'Benchmark against industry and national data.', 'Publish annual disability inclusion report.', 'Set multi-year targets with board accountability.', 'Join AND Access and Inclusion Index.']
-    }
-  ],
-  examples: [
-    { businessType: 'general', businessTypeLabel: 'Corporate', scenario: 'No disability data. Estimated 2% representation.', solution: 'Launched voluntary disclosure campaign with leadership endorsement. Added to engagement survey. Set 10% disclosure target.', outcome: 'Disclosure reached 12% in first year, revealing true representation of 9%. Informed targeted improvements.', cost: '$0', timeframe: '3 months' },
-    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Required to report under state legislation.', solution: 'Created confidential disclosure process. Tracked recruitment, retention, and promotion. Published annual report.', outcome: 'Identified retention gap. Targeted support improved retention to parity within 2 years.', cost: '$2,000', timeframe: '6 months' }
-  ],
-  resources: [
-    { title: 'AND Access and Inclusion Index', url: 'https://www.and.org.au/', type: 'tool', source: 'Australian Network on Disability', description: 'Benchmarking tool for disability inclusion including employment data.', isAustralian: true, isFree: false },
-    { title: 'AHRC Employment Guide', url: 'https://humanrights.gov.au/', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guide to disability employment rights and best practice.', isAustralian: true, isFree: true }
-  ],
-  keywords: ['disclosure', 'employment data', 'targets', 'retention', 'culture survey', 'benchmarking', 'inclusion metrics']
-},
-
 // ─── Entry 9: Disability awareness training program ───
 {
   questionId: '5.3-F-1',
@@ -676,9 +382,9 @@ export const organisationHelp: HelpContent[] = [
     { businessType: 'retail', businessTypeLabel: 'Shopping Centre', scenario: 'Customer complaints about staff attitudes.', solution: 'Mandatory 1-hour awareness briefing for all 300+ retail staff. Created pocket reference cards. Annual refreshers.', outcome: 'Complaints reduced 80%. Centre featured in disability community newsletter.', cost: '$6,000', timeframe: '6 weeks' }
   ],
   resources: [
-    { title: 'AND Disability Confidence Training', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Professional disability awareness training services.', isAustralian: true, isFree: false },
-    { title: 'JobAccess Employer Toolkit', url: 'https://www.jobaccess.gov.au/', type: 'guide', source: 'JobAccess', description: 'Free disability awareness resources for employers.', isAustralian: true, isFree: true },
-    { title: 'Scope Communication Access Training', url: 'https://www.scopeaust.org.au/', type: 'guide', source: 'Scope Australia', description: 'Training on communicating with people who have communication disability.', isAustralian: true, isFree: false }
+    { title: 'JobAccess Employer Toolkit', url: 'https://www.jobaccess.gov.au/', type: 'guide', source: 'JobAccess', description: 'Free government disability awareness resources for employers.', isAustralian: true, isFree: true },
+    { title: 'Scope Communication Access', url: 'https://www.scopeaust.org.au/', type: 'guide', source: 'Scope Australia', description: 'Training on communicating with people who have communication disability.', isAustralian: true, isFree: false },
+    { title: 'PWDA - Language and Awareness Resources', url: 'https://pwd.org.au/resources/', type: 'guide', source: 'People with Disability Australia', description: 'Peak body resources on disability awareness and respectful communication.', isAustralian: true, isFree: true }
   ],
   keywords: ['training', 'disability awareness', 'induction', 'social model', 'communication', 'staff attitudes', 'role-play']
 },
@@ -696,7 +402,7 @@ export const organisationHelp: HelpContent[] = [
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Many staff think "disability" means wheelchairs. In reality, most disabilities are invisible: chronic pain, mental health conditions, autism, hearing loss, and cognitive disabilities. Without understanding the breadth of disability, staff miss opportunities to help and may inadvertently cause harm.',
-    statistic: { value: '80%+', context: 'of disabilities are invisible. If your staff only think about wheelchair users, they are missing the vast majority of customers with disability.', source: 'Australian Network on Disability' }
+    statistic: { value: '80%+', context: 'of disabilities are invisible. If your staff only think about wheelchair users, they are missing the vast majority of customers with disability.', source: 'Australian Bureau of Statistics - Survey of Disability, Ageing and Carers' }
   },
   tips: [
     { icon: 'Eye', text: 'Cover both visible and invisible disabilities: mobility, vision, hearing, cognitive, psychosocial, chronic illness.', priority: 1 },
@@ -823,7 +529,7 @@ export const organisationHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'Hearing Loop Maintenance Guide', url: 'https://www.hearingaustralia.gov.au/', type: 'guide', source: 'Hearing Australia', description: 'How to test and maintain hearing loop systems.', isAustralian: true, isFree: true },
-    { title: 'Accessible Equipment Checklist', url: 'https://www.and.org.au/', type: 'checklist', source: 'Australian Network on Disability', description: 'Checklist for accessibility equipment management.', isAustralian: true, isFree: true }
+    { title: 'Vision Australia - Assistive Technology', url: 'https://www.visionaustralia.org/services/assistive-technology', type: 'guide', source: 'Vision Australia', description: 'Accessibility equipment selection and maintenance guidance for blind and low-vision access.', isAustralian: true, isFree: true }
   ],
   keywords: ['equipment', 'hearing loop', 'portable ramp', 'hoist', 'maintenance', 'training', 'escalation', 'troubleshooting']
 },
@@ -895,7 +601,7 @@ export const organisationHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'Social Procurement Framework', url: 'https://www.buyingfor.vic.gov.au/', type: 'guide', source: 'Victorian Government', description: 'Framework for social outcomes in procurement including disability.', isAustralian: true, isFree: true },
-    { title: 'AND Supplier Guidelines', url: 'https://www.and.org.au/', type: 'guide', source: 'Australian Network on Disability', description: 'Guidance on accessible procurement practices.', isAustralian: true, isFree: true }
+    { title: 'Department of Social Services - Disability Employment', url: 'https://www.dss.gov.au/disability-and-carers/programmes-services/for-people-with-disability', type: 'website', source: 'Australian Government', description: 'Federal information on Australian Disability Enterprises and inclusive procurement pathways.', isAustralian: true, isFree: true }
   ],
   keywords: ['procurement', 'supplier', 'tender', 'WCAG', 'evaluation', 'disability enterprise', 'supply chain']
 },
@@ -966,7 +672,7 @@ export const organisationHelp: HelpContent[] = [
     { businessType: 'local-government', businessTypeLabel: 'State Government', scenario: 'Construction contractors not meeting AS 1428.1.', solution: 'Added AS 1428.1 compliance and independent access audit to all construction contracts. Non-compliance triggers remediation at contractor cost.', outcome: 'New facilities consistently meet standards. Reduced post-construction modifications.', cost: '$2,000', timeframe: '1 month' }
   ],
   resources: [
-    { title: 'AND Contract Clauses Guide', url: 'https://www.and.org.au/', type: 'template', source: 'Australian Network on Disability', description: 'Template accessibility clauses for contracts.', isAustralian: true, isFree: true },
+    { title: 'Digital Transformation Agency - Accessibility Standard', url: 'https://www.dta.gov.au/help-and-advice/digital-service-standard', type: 'guide', source: 'Digital Transformation Agency', description: 'Federal government digital service standard including accessibility procurement expectations.', isAustralian: true, isFree: true },
     { title: 'Victorian ICT Accessibility', url: 'https://www.vic.gov.au/', type: 'guide', source: 'Victorian Government', description: 'Government ICT accessibility procurement requirements.', isAustralian: true, isFree: true }
   ],
   keywords: ['contracts', 'clauses', 'WCAG', 'AS 1428.1', 'remediation', 'testing', 'compliance', 'total cost of ownership']
@@ -1110,8 +816,8 @@ export const organisationHelp: HelpContent[] = [
     { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Annual review too infrequent to drive change.', solution: 'Moved to quarterly reviews with disability advisory committee. Real-time KPI dashboard. Monthly progress updates to executive.', outcome: 'DIAP completion rate went from 45% to 92% in one year.', cost: '$5,000', timeframe: '3 months' }
   ],
   resources: [
-    { title: 'AND Access and Inclusion Index', url: 'https://www.and.org.au/', type: 'tool', source: 'Australian Network on Disability', description: 'Comprehensive benchmarking tool for accessibility maturity.', isAustralian: true, isFree: false },
-    { title: 'AHRC DIAP Monitoring', url: 'https://humanrights.gov.au/', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guidance on monitoring and reporting DIAP progress.', isAustralian: true, isFree: true }
+    { title: 'AHRC DIAP Monitoring', url: 'https://humanrights.gov.au/our-work/disability-rights/action-plans', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guidance on monitoring and reporting DIAP progress.', isAustralian: true, isFree: true },
+    { title: 'Australia\'s Disability Strategy - Outcome Reporting', url: 'https://www.disabilitygateway.gov.au/ads', type: 'website', source: 'Australian Government', description: 'National strategy outcome areas and progress reporting framework.', isAustralian: true, isFree: true }
   ],
   keywords: ['performance review', 'KPIs', 'roadmap', 'board reporting', 'DIAP progress', 'audit', 'continuous improvement']
 },
@@ -1178,13 +884,14 @@ export const organisationHelp: HelpContent[] = [
   ],
   examples: [
     { businessType: 'accommodation', businessTypeLabel: 'Hotel Group', scenario: 'No public accessibility information.', solution: 'Created accessibility web page with features, DIAP, and contact. Published annual progress update.', outcome: 'Bookings from disability travel community increased. Featured on Travability.', cost: '$0', timeframe: '1 week' },
-    { businessType: 'general', businessTypeLabel: 'Corporate', scenario: 'Wanted to demonstrate accessibility leadership.', solution: 'Published first accessibility report. Participated in AND Index. Presented results at industry conference.', outcome: 'Ranked in top 10 AND Index. Media coverage. Talent attraction improved.', cost: '$10,000', timeframe: '3 months' }
+    { businessType: 'general', businessTypeLabel: 'Corporate', scenario: 'Wanted to demonstrate accessibility leadership.', solution: 'Published first accessibility report. Registered DIAP with AHRC. Presented results at industry conference.', outcome: 'Public DIAP registration. Media coverage. Talent attraction improved.', cost: '$10,000', timeframe: '3 months' }
   ],
   resources: [
-    { title: 'AND Access and Inclusion Index', url: 'https://www.and.org.au/', type: 'tool', source: 'Australian Network on Disability', description: 'Australia\'s leading disability inclusion benchmarking program.', isAustralian: true, isFree: false },
+    { title: 'AHRC DIAP Register', url: 'https://humanrights.gov.au/our-work/disability-rights/action-plans', type: 'website', source: 'Australian Human Rights Commission', description: 'Public register for DIAPs - visibility and accountability for your reporting.', isAustralian: true, isFree: true },
+    { title: 'Australia\'s Disability Strategy', url: 'https://www.disabilitygateway.gov.au/ads', type: 'website', source: 'Australian Government', description: 'National reporting framework with outcome areas, indicators, and targets.', isAustralian: true, isFree: true },
     { title: 'Global Reporting Initiative', url: 'https://www.globalreporting.org/', type: 'guide', source: 'GRI', description: 'Framework for sustainability reporting including disability.', isFree: true }
   ],
-  keywords: ['reporting', 'benchmarking', 'transparency', 'annual report', 'AND Index', 'public reporting', 'roadmap']
+  keywords: ['reporting', 'benchmarking', 'transparency', 'annual report', 'DIAP register', 'public reporting', 'roadmap']
 },
 
 // ─── Entry 17: Learning, engagement and recognition ───
@@ -1251,11 +958,11 @@ export const organisationHelp: HelpContent[] = [
   ],
   examples: [
     { businessType: 'attraction', businessTypeLabel: 'Museum', scenario: 'Little connection with disability community.', solution: 'Partnered with 3 disability organisations. Co-designed new exhibition with blind and Deaf advisors. Shared process publicly.', outcome: 'Exhibition won accessibility award. Ongoing relationships for future projects. Industry recognition.', cost: '$5,000', timeframe: '6 months' },
-    { businessType: 'accommodation', businessTypeLabel: 'Hotel Group', scenario: 'Wanted to celebrate accessibility progress.', solution: 'Nominated for AND Employer of Choice award. Published blog series on accessibility journey. Hosted International Day of People with Disability event.', outcome: 'Won award. Media coverage. Employee pride. Community engagement strengthened.', cost: '$3,000', timeframe: '3 months' }
+    { businessType: 'accommodation', businessTypeLabel: 'Hotel Group', scenario: 'Wanted to celebrate accessibility progress.', solution: 'Published blog series on accessibility journey. Hosted International Day of People with Disability event. Registered DIAP with AHRC.', outcome: 'Media coverage. Employee pride. Community engagement strengthened.', cost: '$3,000', timeframe: '3 months' }
   ],
   resources: [
     { title: 'International Day of People with Disability', url: 'https://www.idpwd.com.au/', type: 'website', source: 'IDPWD', description: 'Resources for celebrating International Day of People with Disability on 3 December.', isAustralian: true, isFree: true },
-    { title: 'AND Awards', url: 'https://www.and.org.au/', type: 'website', source: 'Australian Network on Disability', description: 'Information about disability inclusion awards and recognition programs.', isAustralian: true, isFree: true }
+    { title: 'Disability Gateway', url: 'https://www.disabilitygateway.gov.au/', type: 'website', source: 'Australian Government', description: 'National gateway supporting community engagement and recognition of inclusive organisations.', isAustralian: true, isFree: true }
   ],
   keywords: ['co-design', 'engagement', 'community', 'awards', 'sharing learnings', 'IDPwD', 'recognition', 'advocacy']
 },
@@ -1580,6 +1287,249 @@ export const organisationHelp: HelpContent[] = [
   ],
 
   keywords: ['digital accessibility', 'WCAG', 'VPAT', 'booking platform', 'franchise', 'procurement', 'screen reader', 'keyboard navigation', 'third-party platform', 'vendor', 'template', 'DDA section 24']
+},
+
+// ─── Module 5.7: Inclusive Job Design & Advertising ───
+{
+  questionId: '5.7-PC-1',
+  questionText: 'Inclusive job design and advertising',
+  moduleCode: '5.7',
+  moduleGroup: 'organisational-commitment',
+  diapCategory: 'people-culture',
+  title: 'Inclusive job design and advertising',
+  coveredQuestionIds: ['5.7-PC-2', '5.7-PC-3', '5.7-PC-4', '5.7-PC-5', '5.7-PC-6'],
+  summary: 'The way roles are designed and advertised determines who applies. Inherent requirements, plain language, named access statements, specialist channels, accessible application systems, and authentic employer branding together broaden who sees the role as "for them."',
+  lastUpdated: '2026-04-14',
+  whyItMatters: {
+    text: 'Access Compass positions inclusive recruitment as part of whole-of-organisation accessibility, across education, health & wellness, retail, tourism, local government, events, and venues. For deep organisation-wide workforce transformation programs, specialist providers like the Australian Disability Network are a natural pair.',
+    statistic: { value: '48%', context: 'of Australians with disability are in the labour force, compared to 80% of those without disability. Most of the gap is recruitment practice, not capability.', source: 'Australian Bureau of Statistics' },
+  },
+  tips: [
+    { icon: 'FileText', text: 'Separate inherent requirements from preferences on every job description.', priority: 1 },
+    { icon: 'MessageSquare', text: 'Write ads at grade 8 reading level and disclose salary range.', priority: 2 },
+    { icon: 'UserCheck', text: 'Name a real contact person in the access statement, offer specific formats.', priority: 3 },
+    { icon: 'Network', text: 'Partner with at least one DES provider or disability-led network.', priority: 4 },
+    { icon: 'Keyboard', text: 'Test your ATS with screen reader and keyboard only.', priority: 5 },
+    { icon: 'Camera', text: 'Feature Disabled staff authentically in careers content (paid, consensual).', priority: 6 },
+  ],
+  howToCheck: {
+    title: 'Auditing recruitment inclusion',
+    steps: [
+      { text: 'Pull 3 recent job ads. Count inherent-vs-preferred requirements.' },
+      { text: 'Run readability check on ad copy. Confirm salary disclosed.' },
+      { text: 'Check access statement — is a real person named with multiple contact methods?' },
+      { text: 'Attempt to complete an application with only a keyboard and a screen reader.' },
+      { text: 'Review careers page for representation (photos, stories, testimonials).' },
+      { text: 'Check advertising channels used in the last 12 months — any specialist channels?' },
+    ],
+    estimatedTime: '2-3 hours',
+  },
+  solutions: [
+    {
+      title: 'Ad template refresh',
+      description: 'Update job ad templates with plain language, salary disclosure, and named-contact access statement.',
+      resourceLevel: 'low', costRange: '$0-500', timeRequired: '1 day', implementedBy: 'staff', impact: 'quick-win',
+      steps: ['Pull existing templates.', 'Apply inherent-vs-preferred filter.', 'Rewrite in plain language.', 'Add salary range and access statement.', 'Pilot on next 3 ads and measure applicant diversity.'],
+    },
+    {
+      title: 'Recruitment process co-design',
+      description: 'Redesign the full recruitment journey with input from Disabled employees or external advisors.',
+      resourceLevel: 'medium', costRange: '$3,000-8,000', timeRequired: '1-2 months', implementedBy: 'staff', impact: 'moderate',
+      steps: ['Audit the current journey stage-by-stage.', 'Engage Disabled advisors (paid).', 'Test ATS accessibility.', 'Redesign templates, process, and employer brand.', 'Train hiring managers on new practice.', 'Publish updated recruitment commitment.'],
+    },
+    {
+      title: 'Specialist partnership program',
+      description: 'Build ongoing relationships with DES providers and disability-led networks.',
+      resourceLevel: 'medium', costRange: '$2,000-5,000', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
+      steps: ['Identify 2-3 providers relevant to your sector.', 'Meet and brief them on typical roles.', 'Establish a pre-advertising brief cadence.', 'Consider a paid internship or traineeship pathway.', 'Review partnerships annually.'],
+    },
+  ],
+  examples: [
+    { businessType: 'event-venue', businessTypeLabel: 'Festival', scenario: 'Seasonal hiring of 80+ FOH, box office, and production crew. Low disability disclosure among applicants despite stated inclusion commitment.', solution: 'Rewrote ad templates (plain language, salary disclosed, named access contact). Partnered with sector Disabled People\'s Organisations. Added paid 4-hour work trial as alternative to second-round panel.', outcome: 'Disclosure rate at application up 3x. Two new crew hires through disability-led network. Retention at end of season +15%.', cost: '$3,000', timeframe: '2 months' },
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Recruiting library, community centre, and customer service staff. ATS was unreliable for screen reader users.', solution: 'Council procured VPAT from ATS vendor, found 14 critical failures. Added email alternative on every ad. Briefed all hiring panels on adjustments. Began CV-blind shortlisting for customer roles.', outcome: 'Applications from disabled candidates up. Council cited as inclusion leader by peer councils.', cost: '$5,000', timeframe: '3 months' },
+    { businessType: 'health-wellness', businessTypeLabel: 'Allied Health Clinic', scenario: 'Small clinic hiring reception and admin staff. No formal recruitment process.', solution: 'Adopted AC module templates. Used plain-language ads. Partnered with a local DES provider for one role. Offered phone interview option.', outcome: 'First disabled hire in clinic\'s history. Process now standard.', cost: '$500', timeframe: '1 month' },
+    { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'High turnover in customer-facing roles. Generic EEO statement but no specific access offer.', solution: 'Rolled out named-contact access statement across all job ads. Added to hiring manager training. Began tracking disclosure at application.', outcome: 'Applicant disclosure up. Feedback to HR: "The named contact made me feel safe to ask."', cost: '$1,500', timeframe: '6 weeks' },
+  ],
+  resources: [
+    { title: 'JobAccess - Employment Assistance Fund', url: 'https://www.jobaccess.gov.au/employment-assistance-fund-eaf', type: 'website', source: 'Australian Government', description: 'Free funding for workplace adjustments including assistive tech, Auslan, and modifications.', isAustralian: true, isFree: true },
+    { title: 'JobAccess - Attracting and recruiting people with disability', url: 'https://www.jobaccess.gov.au/employers/attracting-recruiting-people-disability', type: 'guide', source: 'Australian Government', description: 'Free government guide covering job design, advertising, and inclusive recruitment.', isAustralian: true, isFree: true },
+    { title: 'Australian Human Rights Commission - Employers', url: 'https://humanrights.gov.au/our-work/employers', type: 'guide', source: 'AHRC', description: 'AHRC employer guidance on inclusive hiring and DDA compliance.', isAustralian: true, isFree: true },
+    { title: 'IncludeAbility', url: 'https://includeability.gov.au/', type: 'website', source: 'AHRC', description: 'National initiative with tools, resources, and employer case studies.', isAustralian: true, isFree: true },
+  ],
+  keywords: ['recruitment', 'job ads', 'ATS', 'inherent requirements', 'access statement', 'DES', 'JobAccess', 'inclusive hiring', 'employer branding'],
+},
+
+// ─── Module 5.8: Accessible Interviews & Selection ───
+{
+  questionId: '5.8-PC-1',
+  questionText: 'Accessible interviews and selection',
+  moduleCode: '5.8',
+  moduleGroup: 'organisational-commitment',
+  diapCategory: 'people-culture',
+  title: 'Accessible interviews and selection',
+  coveredQuestionIds: ['5.8-PC-2', '5.8-PC-3', '5.8-PC-4', '5.8-PC-5', '5.8-PC-6'],
+  summary: 'Default adjustments (questions in advance, format choice, confirmed venue access) give every candidate a fair shot without requiring disclosure. Trained panels and alternative assessment paths match the process to the role.',
+  lastUpdated: '2026-04-14',
+  whyItMatters: {
+    text: 'Interview processes are where many recruitment journeys quietly fail for candidates with disability. The good news: most fixes are free or low cost — they require process change, not budget. Embedding interview inclusion into your whole-of-organisation practice keeps it consistent regardless of who is hiring.',
+    quote: { text: 'I had interviewed five times at other places. Access Compass-aligned employers were the first to send questions in advance. I got the offer.', attribution: 'Autistic candidate, regional council hire' },
+  },
+  tips: [
+    { icon: 'Send', text: 'Send interview questions 24-48 hours in advance as default.', priority: 1 },
+    { icon: 'Video', text: 'Offer at least three interview formats (in-person, video, phone, written).', priority: 2 },
+    { icon: 'MapPin', text: 'Pre-audit and confirm venue access before inviting candidates.', priority: 3 },
+    { icon: 'GraduationCap', text: 'Train all panel members in disability-confident interviewing.', priority: 4 },
+    { icon: 'Briefcase', text: 'Offer paid work trials or portfolio reviews as fair alternatives.', priority: 5 },
+    { icon: 'BarChart', text: 'Track candidate drop-off by disclosure status at each stage.', priority: 6 },
+  ],
+  solutions: [
+    {
+      title: 'Interview SOP update',
+      description: 'Update the interview standard operating procedure to embed default adjustments.',
+      resourceLevel: 'low', costRange: '$0-500', timeRequired: '1 day', implementedBy: 'staff', impact: 'quick-win',
+      steps: ['Document: questions in advance, format choice, venue access check, adjustment check-in.', 'Add to hiring manager checklist.', 'Update interview invitation templates.', 'Brief all current hiring managers.'],
+    },
+    {
+      title: 'Panel training program',
+      description: 'Run disability-confident interviewing training for all panel members.',
+      resourceLevel: 'medium', costRange: '$3,000-8,000', timeRequired: '2-3 months', implementedBy: 'specialist', impact: 'moderate',
+      steps: ['Source a training provider (JobAccess, Scope Australia, state disability employment body, or disability-led consultant).', 'Schedule for all existing panel members.', 'Add to onboarding for new managers.', 'Set 2-year refresh cadence.', 'Test through scenario roleplays.'],
+    },
+    {
+      title: 'Alternative assessment design',
+      description: 'Design and pilot work trials, portfolio reviews, or scenario tasks for roles where panels are a weak signal.',
+      resourceLevel: 'medium', costRange: '$2,000-6,000', timeRequired: '3-6 months', implementedBy: 'staff', impact: 'significant',
+      steps: ['Identify 2-3 roles where interviews under-predict performance.', 'Co-design alternative with current role holders.', 'Pilot with next 3 vacancies.', 'Compare hire quality and retention.', 'Expand to more roles if successful.'],
+    },
+  ],
+  examples: [
+    { businessType: 'event-venue', businessTypeLabel: 'Festival', scenario: 'Box office hiring — quick selection, high volume, varied candidate communication styles.', solution: 'Switched to paid 2-hour work trial at a preview event. Shortlisted 6, trialled 3, hired 2. All candidates paid, trial structured against role criteria.', outcome: 'Hired two candidates including one with anxiety disorder who had interviewed poorly. Both became season MVPs.', cost: '$600 (trial wages)', timeframe: 'Immediate' },
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Community services manager role. Three-round panel process. Disabled applicants consistently dropped off between round 1 and 2.', solution: 'Root cause: round 2 used stress-testing questions without prep time. Switched to structured questions sent in advance. Added scenario-based written task as an alternative to in-person round 2.', outcome: 'Drop-off between rounds equalised across disclosure status. New hire: disabled candidate who had been rejected from earlier round.', cost: '$0', timeframe: 'Next hiring cycle' },
+    { businessType: 'health-wellness', businessTypeLabel: 'Allied Health Clinic', scenario: 'Interview venue was up two flights of stairs with no lift. No one noticed until a wheelchair-using candidate asked.', solution: 'Added venue access check to hiring checklist. Reserved ground-floor meeting room for all interviews. Added access info to invite emails by default.', outcome: 'No more last-minute venue problems. Candidate retention into employment improved.', cost: '$0', timeframe: 'Immediate' },
+    { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'Store manager role. Untrained regional panel asked an applicant "how would you manage your condition?"', solution: 'Rolled out panel training nationally. Documented lawful/unlawful question guide. Added compliance to hiring manager KPIs.', outcome: 'Zero discriminatory-question complaints since. Legal risk reduced.', cost: '$6,000', timeframe: '3 months' },
+  ],
+  resources: [
+    { title: 'JobAccess - Inclusive Interviews and Selection', url: 'https://www.jobaccess.gov.au/employers/attracting-recruiting-people-disability', type: 'guide', source: 'Australian Government', description: 'Government guidance on interview adjustments, lawful questioning, and fair selection.', isAustralian: true, isFree: true },
+    { title: 'AHRC - Disability Rights and Employment', url: 'https://humanrights.gov.au/our-work/disability-rights/employment', type: 'guide', source: 'AHRC', description: 'Legal framework and best-practice interview and selection guidance.', isAustralian: true, isFree: true },
+    { title: 'IncludeAbility - Employer Resources', url: 'https://includeability.gov.au/resources-employers', type: 'website', source: 'AHRC', description: 'Practical interview and assessment resources with employer case studies.', isAustralian: true, isFree: true },
+  ],
+  keywords: ['interviews', 'selection', 'panel', 'work trial', 'adjustments', 'questions in advance', 'format choice', 'disclosure'],
+},
+
+// ─── Module 5.9: Onboarding & Workplace Adjustments ───
+{
+  questionId: '5.9-PC-1',
+  questionText: 'Onboarding and workplace adjustments',
+  moduleCode: '5.9',
+  moduleGroup: 'organisational-commitment',
+  diapCategory: 'people-culture',
+  title: 'Onboarding and workplace adjustments',
+  coveredQuestionIds: ['5.9-PC-2', '5.9-PC-3', '5.9-PC-4', '5.9-PC-5', '5.9-PC-6'],
+  summary: 'Proactive adjustment conversations, portable adjustment passports, awareness of JobAccess EAF funding, accessible induction content, manager training, and a documented adjustment process together make workplace inclusion operational, not aspirational.',
+  lastUpdated: '2026-04-14',
+  whyItMatters: {
+    text: 'A hire is only a start. Without proactive onboarding and embedded adjustment practice, new disabled employees face a disclosure tax and a higher early-exit risk. These practices also benefit staff without diagnosed disability — flexible setup, clear communication preferences, and accessible content help everyone.',
+    statistic: { value: '$6,000', context: 'typical per-adjustment cap under JobAccess Employment Assistance Fund — free to eligible employers. Most organisations do not know this exists.', source: 'JobAccess' },
+  },
+  tips: [
+    { icon: 'MessageCircle', text: 'Offer a workplace adjustment conversation to every new hire in week 1-2.', priority: 1 },
+    { icon: 'BookOpen', text: 'Implement a workplace adjustment passport that travels with the employee.', priority: 2 },
+    { icon: 'DollarSign', text: 'Train managers to use JobAccess EAF — most adjustments are free to the employer.', priority: 3 },
+    { icon: 'Captions', text: 'Onboarding content meets WCAG 2.2 AA by default: captions, tagged PDFs, plain language.', priority: 4 },
+    { icon: 'Users', text: 'Disability-confident management training for all people managers.', priority: 5 },
+    { icon: 'ClipboardCheck', text: 'Document the adjustment request process: timeframes, roles, escalation.', priority: 6 },
+  ],
+  solutions: [
+    {
+      title: 'Onboarding adjustment addition',
+      description: 'Add a standard adjustment conversation to every new-hire onboarding.',
+      resourceLevel: 'low', costRange: '$0-500', timeRequired: '1 day', implementedBy: 'staff', impact: 'quick-win',
+      steps: ['Draft a 30-min adjustment conversation script.', 'Add to onboarding checklist.', 'Brief managers.', 'Track completion at the 2-week check-in.'],
+    },
+    {
+      title: 'Adjustment passport program',
+      description: 'Launch a workplace adjustment passport available to all staff.',
+      resourceLevel: 'medium', costRange: '$2,000-5,000', timeRequired: '2-3 months', implementedBy: 'staff', impact: 'moderate',
+      steps: ['Adapt a template (UK Civil Service workplace adjustment passport is a public, free starting point).', 'Pilot with volunteer staff.', 'Finalise and roll out via HR.', 'Train managers on how to receive and honour it.', 'Publish internally as standard practice.'],
+    },
+    {
+      title: 'Manager capability uplift',
+      description: 'Comprehensive manager training program on disability-confident management.',
+      resourceLevel: 'high', costRange: '$8,000-25,000', timeRequired: '6-12 months', implementedBy: 'specialist', impact: 'significant',
+      steps: ['Select provider (AC training hub, disability-led training specialist, or state disability employment body).', 'Mandatory for all people managers.', 'Scenario-based learning + assessment.', 'Include EAF awareness module.', 'Refresh every 2 years.', 'Measure through staff engagement scores.'],
+    },
+  ],
+  examples: [
+    { businessType: 'event-venue', businessTypeLabel: 'Performing Arts Centre', scenario: 'New Deaf stage technician hired. No experience with Auslan interpreting cost in their budget.', solution: 'Applied to JobAccess EAF for interpreting for induction week and quarterly all-staff meetings. Approved, reimbursed, zero cost to venue. Built this into future hiring cost models.', outcome: 'Smooth induction. Technician became an informal trainer on accessible stage practice for the whole team.', cost: '$0 (EAF reimbursed)', timeframe: 'Week 1' },
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Employee moved from library to customer service role. Had to re-disclose and re-negotiate all adjustments.', solution: 'Council launched adjustment passport program. Employee documented agreed adjustments once. New manager received passport at role transition.', outcome: 'Employee retention and satisfaction up. Passport adopted by 40+ staff in year one.', cost: '$3,500', timeframe: '3 months' },
+    { businessType: 'health-wellness', businessTypeLabel: 'Clinic Group', scenario: 'Onboarding videos auto-captioned only. Deaf new hire spent days reviewing incorrect captions.', solution: 'Retroactively added human-reviewed captions to all onboarding videos. Set WCAG 2.2 AA as default for new content. Procured captioning service.', outcome: 'Induction time for Deaf hires reduced. Content reused for external patient-facing materials.', cost: '$4,500', timeframe: '2 months' },
+    { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'Store manager refused adjustment request (flexible start time) on grounds of "fairness to team." Complaint lodged.', solution: 'Organisation realised no documented process existed. Published adjustment request workflow with 2-week response timeline and escalation path. Manager training rolled out.', outcome: 'Consistent practice across stores. Complaint resolved and adjustment honoured. Legal risk reduced.', cost: '$5,000', timeframe: '4 months' },
+  ],
+  resources: [
+    { title: 'JobAccess - Employment Assistance Fund', url: 'https://www.jobaccess.gov.au/employment-assistance-fund-eaf', type: 'website', source: 'Australian Government', description: 'Free funding for most workplace adjustments.', isAustralian: true, isFree: true },
+    { title: 'JobAccess - Workplace Adjustment Tool', url: 'https://www.jobaccess.gov.au/tools', type: 'tool', source: 'Australian Government', description: 'Interactive tool for identifying suitable workplace adjustments.', isAustralian: true, isFree: true },
+    { title: 'Fair Work Ombudsman - Workplace Rights', url: 'https://www.fairwork.gov.au/tools-and-resources/fact-sheets/rights-and-obligations/workplace-rights-and-obligations', type: 'guide', source: 'Fair Work Ombudsman', description: 'Rights and obligations on workplace adjustments under Australian law.', isAustralian: true, isFree: true },
+    { title: 'Safe Work Australia', url: 'https://www.safeworkaustralia.gov.au/', type: 'website', source: 'Safe Work Australia', description: 'WHS guidance including psychological health and chronic illness considerations.', isAustralian: true, isFree: true },
+  ],
+  keywords: ['onboarding', 'induction', 'workplace adjustments', 'adjustment passport', 'JobAccess', 'EAF', 'manager training', 'reasonable adjustment'],
+},
+
+// ─── Module 5.10: Retention, ERGs & Inclusive Culture ───
+{
+  questionId: '5.10-PC-1',
+  questionText: 'Retention, ERGs and inclusive culture',
+  moduleCode: '5.10',
+  moduleGroup: 'organisational-commitment',
+  diapCategory: 'people-culture',
+  title: 'Retention, ERGs and inclusive culture',
+  coveredQuestionIds: ['5.10-PC-2', '5.10-PC-3', '5.10-PC-4', '5.10-PC-5', '5.10-PC-6'],
+  summary: 'Hiring disabled staff is a start. Retention depends on data (disclosure and retention tracking), resourced ERGs, visible senior representation, honest exit interviews, co-designed policies, and inclusion-specific engagement measurement.',
+  lastUpdated: '2026-04-14',
+  whyItMatters: {
+    text: 'Organisations that hire well but retain poorly burn trust with the disability community fast. Disabled employees talk to each other. A reputation for "getting in but not getting on" follows. Culture work is slower than process work, but it is where long-term inclusion happens.',
+    quote: { text: 'I disclosed at my last place. Adjustments happened on paper, never in meetings. I left inside a year. At my current role, the ERG had already shaped the policies before I arrived. Different world.', attribution: 'Disabled employee, tourism sector' },
+  },
+  tips: [
+    { icon: 'TrendingUp', text: 'Collect voluntary disclosure and review retention by disclosure status annually.', priority: 1 },
+    { icon: 'Users', text: 'Resource the ERG properly: paid time, budget, exec sponsor.', priority: 2 },
+    { icon: 'Award', text: 'Track promotion rates by disclosure status. Set targets.', priority: 3 },
+    { icon: 'MessageSquare', text: 'Ask specific disability inclusion questions in exit interviews.', priority: 4 },
+    { icon: 'PencilRuler', text: 'Co-design (not consult on) policies affecting disabled staff.', priority: 5 },
+    { icon: 'BarChart3', text: 'Report disability inclusion metrics in annual engagement surveys and DIAP.', priority: 6 },
+  ],
+  solutions: [
+    {
+      title: 'Data foundation',
+      description: 'Set up voluntary disclosure collection and annual retention analysis.',
+      resourceLevel: 'low', costRange: '$500-2,000', timeRequired: '1-2 months', implementedBy: 'staff', impact: 'quick-win',
+      steps: ['Add voluntary disclosure to HR records.', 'Separate from performance data.', 'Build quarterly retention report by disclosure status.', 'Review annually with leadership.', 'Publish headline metrics in DIAP.'],
+    },
+    {
+      title: 'Launch a resourced ERG',
+      description: 'Establish and fund an Employee Resource Group for staff with disability.',
+      resourceLevel: 'medium', costRange: '$3,000-10,000/year', timeRequired: '3-6 months', implementedBy: 'staff', impact: 'moderate',
+      steps: ['Invite interested staff to express interest.', 'Co-design terms of reference.', 'Allocate meeting time in work hours.', 'Set annual budget ($500-5000).', 'Secure an exec sponsor with real decision-making power.', 'Define feedback loop to senior leadership.'],
+    },
+    {
+      title: 'Culture transformation program',
+      description: 'Multi-year program: data + ERG + co-design + survey + manager capability.',
+      resourceLevel: 'high', costRange: '$25,000-80,000', timeRequired: '2-3 years', implementedBy: 'specialist', impact: 'significant',
+      steps: ['Baseline current culture through survey and focus groups.', 'Establish ERG and advisory panel.', 'Co-design key policies.', 'Build manager capability program.', 'Track and report year-over-year.', 'Embed in DIAP and strategic plan.'],
+    },
+  ],
+  examples: [
+    { businessType: 'event-venue', businessTypeLabel: 'Major Venue', scenario: 'Strong recruitment outcomes, low retention among disabled hires (63% at 12 months vs 81% org average).', solution: 'Launched Disability Access ERG (paid time, budget, CEO sponsor). ERG identified 3 key friction points: meeting culture, flexible work interpretation, promotion pathways. Leadership committed to change on all 3.', outcome: '12-month retention for disabled hires rose to 79% over 2 years. ERG now drives annual DIAP review.', cost: '$12,000/year', timeframe: '18 months' },
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Annual engagement survey showed disabled staff scored 15 points lower on belonging. Root cause unclear.', solution: 'Council commissioned focused listening sessions with disabled staff (paid, external facilitator). Patterns emerged: invisible disability stigma, poor meeting accessibility, slow adjustment process. Council co-designed improvements with staff.', outcome: 'Belonging score gap closed to 4 points over 2 annual cycles. Case study shared nationally.', cost: '$18,000', timeframe: '2 years' },
+    { businessType: 'health-wellness', businessTypeLabel: 'Health Service', scenario: 'Exit interviews were generic. No disability-specific data. Departing disabled staff cited the same issues anecdotally but pattern not visible.', solution: 'Added disability-specific exit prompts. Built annual review cycle. Found: 60% of disabled leavers cited manager capability as a factor. Rolled out manager training as direct response.', outcome: 'Exit pattern changed within 12 months. Exit feedback now explicitly informs manager development.', cost: '$1,500 (survey redesign)', timeframe: '1 year' },
+    { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'Policy on flexible work drafted by HR and rolled out. Disabled staff fed back it did not address real barriers. Low uptake.', solution: 'Reopened policy development. Paid ERG to co-design v2. Resulting policy addressed break flexibility, commute considerations, invisible disability fatigue. Uptake tripled.', outcome: 'Policy used as HR best-practice example. Disabled staff engagement score up year-over-year.', cost: '$4,500', timeframe: '4 months' },
+  ],
+  resources: [
+    { title: 'Australia\'s Disability Strategy 2021-2031', url: 'https://www.disabilitygateway.gov.au/ads', type: 'website', source: 'Australian Government', description: 'National strategy including Employment outcome area with indicators and targets.', isAustralian: true, isFree: true },
+    { title: 'AHRC - Employers', url: 'https://humanrights.gov.au/our-work/employers', type: 'guide', source: 'AHRC', description: 'Guidance on inclusive workplace culture, policy, and reporting.', isAustralian: true, isFree: true },
+    { title: 'People with Disability Australia (PWDA)', url: 'https://pwd.org.au/', type: 'website', source: 'PWDA', description: 'National peak body. Policy positions, research, and lived-experience perspective.', isAustralian: true, isFree: true },
+    { title: 'IncludeAbility - Inclusive Workplaces', url: 'https://includeability.gov.au/', type: 'website', source: 'AHRC', description: 'Tools and templates for building sustained inclusive culture.', isAustralian: true, isFree: true },
+  ],
+  keywords: ['retention', 'ERG', 'employee resource group', 'culture', 'engagement', 'exit interview', 'co-design', 'promotion', 'disclosure'],
 }
 
 ];

@@ -180,11 +180,14 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
 
   // Policy and operations
   '5.1': 'policy-procedure',           // Policy and inclusion
-  '5.2': 'policy-procedure',           // Employing people with disability
   '5.3': 'customer-service-training',  // Staff training and awareness
   '5.4': 'policy-procedure',           // Accessible procurement
   '5.5': 'policy-procedure',           // Continuous improvement and reporting
   '5.6': 'policy-procedure',            // Supplier and third-party accessibility
+  '5.7': 'customer-service-training',   // Inclusive job design and advertising (people & culture)
+  '5.8': 'customer-service-training',   // Accessible interviews and selection
+  '5.9': 'customer-service-training',   // Onboarding and workplace adjustments
+  '5.10': 'customer-service-training',  // Retention, ERGs and inclusive culture
 
   // Event modules
   '6.1': 'service-delivery',           // Event planning
