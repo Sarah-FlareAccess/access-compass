@@ -173,6 +173,10 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Curates an accessibility programming track and supports artists to design inclusively. Relevant if you program performances, shows, or curated content (festivals, performing arts events, programmed cultural events).' },
   { id: '7.3', name: 'Ticketing and box office accessibility', journeyTheme: 'before-arrival', estimatedTime: 12, cost: 95,
     description: 'End-to-end accessible ticketing including companion ticketing across many shows and trained box office staff. Relevant if you sell tickets for multiple shows or sessions.' },
+  { id: '7.5', name: 'Volunteer and staff at scale + cohorts', journeyTheme: 'during-visit', estimatedTime: 12, cost: 100,
+    description: 'Volunteer and staff briefing systems at major-event scale, identifying clothing, access champion network, inclusive evacuation, Auslan/caption rovers, plus VIP/sponsor/press cohort accessibility. Relevant if you run major events with hundreds of volunteers or special audience cohorts.' },
+  { id: '7.6', name: 'Attendee experience operations', journeyTheme: 'during-visit', estimatedTime: 14, cost: 120,
+    description: 'Day-of audience-facing service practices: sensory regulation rooms, queue avoidance, coloured zoning, QR-code info network, familiarisation, accessible viewing platforms, support workers, sensory kits, haptic devices, adaptive equipment loan, medical infrastructure, inclusive activities. Relevant for any major event focused on inclusive attendee experience.' },
 ];
 
 // Module IDs now match codes directly (no mapping needed)
@@ -224,6 +228,8 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '7.1': '7.1',
   '7.2': '7.2',
   '7.3': '7.3',
+  '7.5': '7.5',
+  '7.6': '7.6',
 };
 
 export const CODE_TO_MODULE_ID: Record<string, string> = { ...MODULE_ID_TO_CODE };
@@ -249,7 +255,7 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
   'accommodation-rooms': ['3.9'],                        // Accommodation and guest rooms
   'retail-shopping': ['3.10', '4.3'],                    // Retail shopping, bookings/ticketing
   'outdoor-grounds': ['3.11', '3.12'],                   // Outdoor spaces, playgrounds
-  'events-management': ['6.1', '6.2', '6.3', '6.4', '6.5', '7.1', '7.2', '7.3'], // All event modules + major-event modules (precinct, programming, ticketing)
+  'events-management': ['6.1', '6.2', '6.3', '6.4', '6.5', '7.1', '7.2', '7.3', '7.5', '7.6'], // All event modules + major-event modules
   'wayfinding': ['3.5', '2.3', '3.6', '3.7'],            // Signage, paths, printed materials, on-site info
   'sensory': ['3.3', '3.1', '3.4'],                     // Sensory environment, seating, equipment
   'staff-interaction': ['4.2', '4.3', '4.4', '1.5', '4.1'], // Customer service, payments, safety, communication, ways to reach you

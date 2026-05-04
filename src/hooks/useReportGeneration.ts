@@ -4836,6 +4836,239 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Accessible seats often go unsold to general public at the last minute, leaving disabled buyers without options. Holding allocations later in the sales cycle protects the offer.',
     resources: [],
   },
+  // Module 7.1 additions - parking demographic + intra-precinct transport
+  '7.1-DD-11': {
+    actions: ['Track accessible parking demand year over year for recurring events.', 'For accessibility-promoted events (Ability Fest model), expect 10-15% of attendees to require accessible parking - far above the 1-2% AS 2890.6 minimum.', 'Use registration disclosure data to anticipate demand precisely.', 'For pop-up venues, partner with adjacent property owners to expand allocation.', 'Communicate expanded provision in marketing - it drives attendance from disability-engaged audiences.'],
+    reasoning: 'Standard accessible parking provision (~1-2%) is a minimum compliance figure. Events serving disability-engaged audiences routinely see 5-15% demand. Underprovision turns attendees away or forces distant parking.',
+    resources: [],
+  },
+  '7.1-DD-12': {
+    actions: ['Establish intra-precinct accessible transport for large sites: scheduled accessible shuttles, electric mobility buggies, or mobility loops.', 'For large festivals: scheduled loop with 4-6 pickup points, 15-min frequency at peak.', 'For sporting events: stage-to-stage shuttle service.', 'Train operators on disability-confident transport (loading, securing, communication).', 'Make transport free or included in ticket - never charge for accessibility transport.', 'Map service routes and pickup points on event map.'],
+    reasoning: 'For large sites or precincts where venues are spread over significant distance, walking between venues isn\'t viable for many disabled attendees. Intra-precinct transport bridges the distance.',
+    resources: [],
+  },
+  // Module 7.5 - Volunteer & staff at scale + special cohorts (Major Events)
+  '7.5-PC-1': {
+    actions: ['Develop universal volunteer accessibility briefing covering respectful language, lawful/unlawful questions, Companion Card, escalation paths.', 'Make briefing accessible: captioned video alternative, Easy Read written version, in-person Q&A.', 'For festivals with 100+ volunteers, train-the-trainer model: senior volunteers deliver to teams.', 'Track briefing completion as a volunteer onboarding requirement.', 'Add 5-min refresher at every shift start covering current access issues.'],
+    reasoning: 'Every volunteer at a major event is a customer-facing point of contact. A briefing that scales to all volunteers (not just an "access team") means every interaction starts from the same standards.',
+    resources: [],
+  },
+  '7.5-PC-2': {
+    actions: ['Standardise identifying clothing for all staff: high-vis tabard or branded shirt with visible role.', 'Make Access team distinctly identifiable: distinct colour + large "ACCESS" text + international access symbol.', 'Lanyards: role visible (e.g., "ACCESS ROVER", "INFO POINT"), large print, tactile elements for vision-impaired staff.', 'For Deaf attendees, lanyards including Auslan-fluent indicator help connect.', 'Brief all staff to route to right role identifier when an attendee asks for help.'],
+    reasoning: 'Identifying clothing makes "who can I ask?" obvious. Access team distinct identification lets attendees find specialist help quickly across crowds.',
+    resources: [],
+  },
+  '7.5-PC-3': {
+    actions: ['Develop inclusive evacuation processes covering visual alerts, accessible refuge, sensory awareness, trained support team.', 'Visual alerts: install flashing strobes paired with audible alarms; captioned digital signs broadcast emergency messages.', 'Accessible refuge points at every venue with trained response teams.', 'Pre-script PA evacuation messages calm and clear; post-evacuation quiet rallying point.', 'Drill before opening with multiple disability-access scenarios.', 'Coordinate with state emergency services on accessible refuge locations.'],
+    reasoning: 'Standard evacuation often fails for disabled attendees: PA-only alerts inaccessible to Deaf attendees, no accessible refuge, no team trained on disability-aware response. Inclusive evacuation addresses each gap deliberately and meets WHS obligations.',
+    resources: [],
+  },
+  '7.5-PC-4': {
+    actions: ['Set up dedicated WhatsApp/Slack/Teams channel including every venue access lead, info point staff, rover team, central access lead, register owner.', 'Channel etiquette: brief reports with location, issue, severity, action taken.', 'For very large events, multiple channels (per zone) feeding a central channel.', 'Daily access huddle reviews channel activity and identifies patterns.', 'For multi-day events, archive each day for post-event review.'],
+    reasoning: 'Access issues at major events need fast resolution and pattern detection. A real-time comms channel keeps venue leads coordinated.',
+    resources: [],
+  },
+  '7.5-PC-5': {
+    actions: ['Develop accessibility planning for VIP, sponsor, and press cohorts.', 'VIP/sponsor: accessible hospitality (counter heights, knee-clearance seating), accessible transport, briefing for hosts.', 'Press/media: accessible camera positions and tripod plates, captioned press releases, accessible interview rooms with hearing loops, NRS-friendly press contact.', 'Brief cohort hosts (sponsorship managers, press team, VIP team) on disability-confident hosting.', 'Track cohort accessibility uptake and feedback for next year.'],
+    reasoning: 'Different audience cohorts have different accessibility planning needs. VIP, sponsor, and press cohorts have distinct expectations that standard audience access doesn\'t cover.',
+    resources: [],
+  },
+  '7.5-PC-6': {
+    actions: ['Deploy Auslan rovers (interpreters circulating the precinct) at least one team during peak hours; identifiable lanyard; contactable via SMS.', 'For multi-stage events, Auslan rovers can be stage-attached during peak performance times.', 'Captioned screens at info points showing rolling event info, current announcements, lost-and-found.', 'Brief PA announcers to cue captioner before announcements.', 'For emergency announcements, captioned screens AND Auslan rover activation are essential.'],
+    reasoning: 'Auslan/captioning at programmed shows is one layer; the broader event runs on PA announcements, info point conversations, and impromptu communications that often exclude Deaf attendees. Rovers and captioned screens close the gap.',
+    resources: [],
+  },
+  '7.5-DD-1': {
+    actions: ['Develop comprehensive volunteer kit: identifying lanyard with role, briefing card with key scripts, accessible facility map, communication board for nonverbal exchange, contact card for access lead.', 'Briefing card content: greeting script, lawful/unlawful questions, Companion Card recognition, escalation contact, where access info is.', 'Communication board: visual icons for common needs (toilet, water, help, lost, medical). Laminated.', 'Map: precinct-wide map showing accessible toilets, lifts, sensory rooms, parking, info points.', 'For multi-day events, refresh kit content daily based on issues raised.'],
+    reasoning: 'A volunteer kit standardises support across hundreds of volunteers. Each component addresses a different operational need.',
+    resources: [],
+  },
+  '7.5-DD-2': {
+    actions: ['Build access champion network: train selected volunteers (full-day training + scenario practice) as resource people.', 'Champion ratio: 1 per 5-10 venues during peak hours.', 'Recognise champions: distinct lanyard, named in volunteer materials, paid where possible.', 'Champions feed insights into post-event review.', 'Recruit champions with lived experience of disability where possible - pay them at consultancy rates.'],
+    reasoning: 'Access champions are designated volunteers with deeper access training. Distributed across the precinct, they\'re findable for complex issues without bottlenecking through a single access lead.',
+    resources: [],
+  },
+  '7.5-DD-3': {
+    actions: ['Engage Disabled-led organisations (PWDA, Inclusion Australia, state disability peak bodies, disability-led consultancies) for paid training delivery.', 'Pay at consultancy rates ($150-300/hour or project rates).', 'Co-design training content with disabled trainers - don\'t just hire them to deliver someone else\'s slides.', 'For repeat events, build ongoing relationships rather than one-off engagements.', 'Make this a public commitment - visible to disability community and partners.'],
+    reasoning: 'Training delivered by disabled trainers carries lived expertise that non-disabled trainers can\'t replicate. Paid engagement values the work.',
+    resources: [],
+  },
+  '7.5-DD-4': {
+    actions: ['Add daily access update as standard agenda item at every shift briefing.', 'Format: 2-3 minute update at shift start covering current access issues, register changes, scheduled drills.', 'Owner: precinct access lead briefs venue leads who brief volunteers.', 'For very large events, brief via comms channel before shift start; in-person reinforces at briefing.', 'Include any positive feedback or learning - keeps volunteers engaged.'],
+    reasoning: 'For multi-day events, access issues identified during one shift should reach the next shift\'s volunteers. Without daily updates, issues recur shift after shift.',
+    resources: [],
+  },
+  '7.5-DD-5': {
+    actions: ['Establish volunteer welfare provisions: dedicated rest area separate from event noise, complimentary food and water, sensory regulation space, mental health support contact.', 'Rest area: comfortable seating, near accessible toilets.', 'Food: complimentary at scheduled break times; water bottle provided at start of shift.', 'For multi-day events, day-end debrief sessions for volunteers who supported difficult situations.', 'EAP-style mental health contact for difficult shifts (incidents, complaints, distress).'],
+    reasoning: 'Volunteer welfare matters for retention, performance, and inclusion (volunteers with disability need rest provisions too).',
+    resources: [],
+  },
+  '7.5-DD-6': {
+    actions: ['Active volunteer recruitment: partner with state DES providers, disability community groups, university disability societies.', 'Audit volunteer role descriptions for assumed-ability barriers; focus on essential requirements not assumed full physical capability.', 'Document reasonable adjustment process; engage JobAccess EAF for funding where applicable.', 'Buddy system: pair new volunteers with disability with experienced volunteers (with consent).', 'Track and report disabled-volunteer participation as part of inclusion metrics.'],
+    reasoning: 'Recruiting disabled volunteers diversifies your team, brings lived expertise into operations, and signals genuine inclusion.',
+    resources: [],
+  },
+  '7.5-DD-7': {
+    actions: ['Develop sponsor activation accessibility checklist covering: pathway clearance, counter heights, accessible seating in hospitality, accessible payment, content captioning.', 'Provide checklist to sponsors at sponsorship pack stage so they design accessibly from concept.', 'Audit activations during set-up before doors open.', 'Make accessibility standards a sponsorship contract requirement.', 'Track sponsor accessibility delivery for renewal conversations.'],
+    reasoning: 'Sponsor activations often default to standard event-stand design. Without accessibility vetting, they exclude attendees and undermine the event\'s overall accessibility commitment.',
+    resources: [],
+  },
+  '7.5-DD-8': {
+    actions: ['Provide accessible camera positions for wheelchair-using camera operators with tested sight lines.', 'Distribute press releases as accessible HTML or tagged PDF; never image-only.', 'Provide accessible interview rooms: hearing loop, accessible seating, quiet acoustic environment.', 'Press contact line accepts National Relay Service calls; brief media liaison team on protocol.', 'Brief media liaison team on disability-confident press handling.'],
+    reasoning: 'Press cohort access often gets overlooked because press are seen as workers, not audience. But disabled press exist and the lack of provision excludes them from covering the event.',
+    resources: [],
+  },
+  '7.5-DD-9': {
+    actions: ['VIP/hospitality counter: lowered section for accessible bar service.', 'Seating: tables with knee clearance for wheelchair users mixed throughout.', 'Acoustic: hearing loops in covered hospitality; lower background noise levels.', 'Menus: large print + plain language; Easy Read for major events. Allergen labelling standard.', 'Brief hospitality staff on disability-confident hosting.'],
+    reasoning: 'VIP and hospitality areas often default to bar-style design that excludes wheelchair users and people who can\'t stand for hours. Accessible design opens the cohort to disabled VIPs.',
+    resources: [],
+  },
+  '7.5-DD-10': {
+    actions: ['Redesign accreditation passes accessible-by-default.', 'Large print: 16-20pt for role; coloured background for zone identification.', 'Tactile: raised dot indicating "ACCESS" lanyard, embossed role marker.', 'Lanyard: adjustable length, breakaway clip, no rough edges.', 'Colour: WCAG-compliant contrast for colour-blind users.'],
+    reasoning: 'Accreditation passes default to small print on white card. For staff and contractors with vision impairment, this is unreadable. Tactile elements and large print resolve.',
+    resources: [],
+  },
+  '7.5-DD-11': {
+    actions: ['Engage disabled actors or community volunteers (paid) to play scenarios authentically.', 'Drill with full event team (security, ushers, access team, info points, emergency services).', 'Drill scenarios: wheelchair user on second floor needing assisted evacuation, Deaf attendee in audible-only venue, autistic attendee in sensory overload, medical equipment user requiring power, service animal handler in crowd.', 'Time each scenario; identify gaps; iterate.', 'Document outcomes and update process.', 'Brief volunteer evacuation marshals on disability-aware response.'],
+    reasoning: 'Documented drill with disability-access scenarios is what turns inclusive evacuation processes from policy into practice. Without drilling, gaps don\'t show until a real emergency.',
+    resources: [],
+  },
+  // Module 7.6 - Attendee experience operations (Major Events)
+  '7.6-PC-1': {
+    actions: ['Establish dedicated sensory regulation rooms with both calming AND stimulating options.', 'Locate at least one sensory room within 5 minutes walk of every major venue.', 'Quiet room essentials: dimmable lighting, sound-dampening, comfortable seating, no expectations.', 'Stimulating room essentials: weighted blankets/cushions, fidget tools, alternative seating, sensory items.', 'Staff sensory rooms with trained access team - rooms that can be claimed but unsupervised may be misused.', 'Mark on the event map and access info clearly.'],
+    reasoning: 'Sensory regulation supports neurodivergent attendees, people with PTSD, anxiety, sensory-induced migraine, and anyone overwhelmed by event intensity. Some attendees need stimulating environments to regulate, not just calming.',
+    resources: [],
+  },
+  '7.6-PC-2': {
+    actions: ['Introduce queue-avoidance options across food, merchandise, and service points.', 'App-based ordering with venue or seat collection works for most major events.', 'Pre-order at booking time (food included with ticket) works for ticketed seated events.', 'Seat delivery by trained staff works for seated venues - chargeable as premium service or free as accessibility provision.', 'For smaller venues without app capability, dedicated accessibility queue with seating works as fallback.', 'Communicate options clearly in pre-event communication and at venue.'],
+    reasoning: 'Long queues are a barrier for many disabled audience members: chronic fatigue, standing intolerance, sensory overwhelm, hyper-mobility. Queue-avoidance is one of the most-requested but least-provided accessibility features.',
+    resources: [],
+  },
+  '7.6-PC-3': {
+    actions: ['Offer multiple familiarisation formats: in-person sensory previews, virtual tours, social stories per venue.', 'In-person sensory previews: schedule 1-2 days before event opens in low-stimulation conditions.', 'Virtual tours: 360-degree photos or short videos walking from entrance to seat.', 'Social stories: photo-based step-by-step guides. Co-design with autistic adults.', 'Distribute familiarisation materials in registration/ticketing pack.', 'Pre-event online Q&A sessions for first-time attendees with access needs work well at scale.'],
+    reasoning: 'Many attendees with disability - particularly autistic attendees, those with anxiety, or those new to your event - benefit from pre-event familiarisation. Knowing what to expect reduces day-of overwhelm.',
+    resources: [],
+  },
+  '7.6-PC-4': {
+    actions: ['Develop a precinct-wide coloured zoning system with WCAG-compliant colour selection (distinguishable for colour-blind users).', 'Always pair colour with text labels and a symbol - colour alone isn\'t accessible.', 'Apply consistently: maps, signage, lanyards, ushering script, info points.', 'Train all staff to refer to zones consistently ("The Blue Zone is over there").', 'For very large precincts, sub-divide colours (e.g., Light Blue, Dark Blue) - but keep variations distinguishable.'],
+    reasoning: 'Coloured zones give attendees a memorable spatial reference, especially valuable for cognitive accessibility, neurodivergent attendees, and anyone navigating large precincts.',
+    resources: [],
+  },
+  '7.6-PC-5': {
+    actions: ['Establish a QR-code info network at every venue and key zone.', 'Link to live info via the central accessibility register so info updates automatically.', 'Linked page content: current accessible toilet status, hearing loop on/off, sensory environment, accessible exit, contact for help.', 'For older or low-tech audiences, pair with a phone number alternative on the same sign.', 'Test QR codes work in low light and from a distance. Position at standing eye height.', 'For venues without good mobile data, provide event WiFi or pre-cache info in the event app.'],
+    reasoning: 'QR codes at venues turn every venue sign into a live information channel. Maintained centrally via the access register, attendees can self-serve current access info instead of waiting at info points.',
+    resources: [],
+  },
+  '7.6-PC-6': {
+    actions: ['Schedule precinct-wide sensory-friendly attendance windows in lower-attendance periods.', 'Brief all venues, vendors, and roving entertainment in advance.', 'Communicate clearly in marketing - sensory-friendly windows attract families with neurodivergent kids and adults.', 'Pair with extended sensory regulation room hours during these windows.', 'Capture feedback and grow the offer year over year.'],
+    reasoning: 'Sensory-friendly windows go beyond programmed relaxed performances to make the whole event experience sensory-friendly for set hours. They serve attendees whose needs aren\'t met by single relaxed shows.',
+    resources: [],
+  },
+  '7.6-DD-1': {
+    actions: ['Establish service animal relief areas across the precinct: max 10 minutes walk from any major venue.', 'Design: small fenced grass area OR specialised dog-relief mat with disposal facilities.', 'Water bowls maintained by access staff or refilled regularly.', 'Signage clear at every venue entrance and on the event map. Use international service animal symbol.', 'Brief security and ushers on service animal access - refusing entry is unlawful under DDA 1992.'],
+    reasoning: 'Service animals need water and relief facilities. For multi-day major events, this requires dedicated infrastructure, not improvisation.',
+    resources: [],
+  },
+  '7.6-DD-2': {
+    actions: ['Audit major routes between venues. Hire portable rest seating to fill gaps every 30-50m.', 'Place at junctions and natural rest points (shade, view, near accessible toilets).', 'Avoid blocking accessible routes - seating beside the path, not on it.', 'Mark on the event map so attendees can plan rest stops.', 'Keep maintained: empty bins, clean seats, replace damaged seating quickly.'],
+    reasoning: 'Walkable distance for many disabled attendees is shorter than for non-disabled attendees. Rest seating along major routes lets attendees rest, regroup, and continue.',
+    resources: [],
+  },
+  '7.6-DD-3': {
+    actions: ['Make accessibility a vendor selection criterion: dietary range, accessible service, pre-prepared options.', 'Publish vendor-by-vendor dietary info in the event app or on signs at each vendor.', 'For multi-day events, allergen labelling is essential - make standard.', 'Counter height max 870mm for accessible service section.', 'Brief vendors on disability awareness, particularly invisible disabilities.'],
+    reasoning: 'Food and drink accessibility encompasses dietary inclusion, physical accessibility, and operational accessibility. Inconsistent provision means audiences must research per vendor.',
+    resources: [],
+  },
+  '7.6-DD-4': {
+    actions: ['Add captioned digital signs at info points showing current lost-and-found notices.', 'Event app push notifications for high-priority items (lost children, important medical items).', 'Pictogram + text signs at info points and HUB.', 'For lost children: visual + text alerts in addition to PA.', 'For service animals: all-channels alert with handler photo if available.'],
+    reasoning: 'Lost-and-found is a routine service that often relies on standard PA announcements. For Deaf, vision-impaired, or cognitive-access attendees, PA-only is inaccessible.',
+    resources: [],
+  },
+  '7.6-DD-5': {
+    actions: ['Develop sensory map layered on event map: colour-coded zones (calm, busy, loud), icons for sensory factors.', 'Distribute via email pre-event for digital users; print version available for those who prefer.', 'Include sensory regulation room locations on the map.', 'For multi-day events, indicate if sensory environment changes by day or time.', 'Co-design with autistic adults and parents of autistic children.'],
+    reasoning: 'Sensory maps show sensory environment factors (loud zones, quiet zones, lighting intensity). Distributed in advance, attendees can plan around their sensory needs.',
+    resources: [],
+  },
+  '7.6-DD-6': {
+    actions: ['Co-design social stories with autistic adults or parents of autistic children to get tone and detail right.', 'Photo each step from attendee perspective: doorway, queue, seat, view of stage, toilet, exit.', 'Use short, concrete sentences. Avoid abstraction.', 'Available as PDF, print version, and (for major events) video walkthrough.', 'Distribute in pre-event email and on event app.'],
+    reasoning: 'Social stories use photos and short text to walk an attendee through the experience step by step. Reduces day-of overwhelm and supports autonomous attendance.',
+    resources: [],
+  },
+  '7.6-DD-7': {
+    actions: ['In-person familiarisation tours: schedule 1-2 days before event opens, in low-stimulation conditions. Trained access staff guide.', 'Virtual tours: 360-degree photo (Matterport-style) or short video walking from entrance to seat.', 'Free of charge; book in advance to manage capacity.', 'For multi-venue events, group familiarisation tours by venue cluster.', 'Promote in pre-event communication. Particularly valuable for first-time attendees.'],
+    reasoning: 'Familiarisation tours go beyond social stories - they let attendees experience the space before the event. In-person walks the venue when quiet; virtual provides photo or video equivalents.',
+    resources: [],
+  },
+  '7.6-DD-8': {
+    actions: ['Add visual schedules to every venue: large whiteboard updated by staff, digital screen pulling from event database, OR printed poster.', 'Format: high contrast (4.5:1 minimum), sans-serif, min 24pt body text.', 'Show: today\'s sessions in chronological order, current session highlighted, next session emphasised.', 'Position at venue entrance, visible from queue.', 'For Deaf attendees, ensure announcements made over PA also appear on visual schedule update.'],
+    reasoning: 'Visual schedules at the venue let attendees see "what\'s happening here right now and next" without flipping through a program. Critical for cognitive accessibility and Deaf attendees.',
+    resources: [],
+  },
+  '7.6-DD-9': {
+    actions: ['Audit hearing augmentation per venue. Map on the event map with standardised symbols and pickup info.', 'Use standardised symbols: hearing loop (T-coil ear icon), FM system, infrared.', 'Indicate pickup process: hearing loop (T-coil mode), FM/infrared (collect receiver from venue or HUB).', 'Test hearing loops before opening - failure rate is high without testing.', 'Brief venue staff on hearing augmentation use and how to support audiences.'],
+    reasoning: 'Audiences with hearing aids or cochlear implants benefit from hearing loops, FM systems, or infrared systems. A precinct map shows where each is available, supporting venue choice planning.',
+    resources: [],
+  },
+  '7.6-DD-10': {
+    actions: ['Establish identifiable rover team with high-vis tabard, large "ACCESS" text, lanyard with international access symbol.', 'Contact channels: SMS short code, in-app message button, dedicated phone, in-person at info points.', 'Rover-to-venue ratio: at least 1 rover per 5 venues during peak hours.', 'Train rovers on disability-confident support, escalation, and de-escalation.', 'Brief all event staff to refer access enquiries to rovers, not handle themselves.'],
+    reasoning: 'Access rovers are dedicated staff who circulate the precinct supporting attendees with disability. Identifiable clothing plus a clear contact channel make them findable - the human layer of access support.',
+    resources: [],
+  },
+  '7.6-DD-11': {
+    actions: ['Develop documented access rest pass / re-entry policy.', 'Policy: rest pass available at venue entrance for any access-disclosed attendee. Allows re-entry within X hours.', 'Communicate proactively in pre-event email and at venue entrance.', 'Brief venue staff on the policy.', 'Track use to validate the policy and detect abuse if it occurs (rare in practice).', 'For seated venues, hold the seat for the duration of the rest pass.'],
+    reasoning: 'Standard re-entry policies often penalise attendees who need to leave temporarily for sensory regulation, medication, or fatigue. An access rest pass removes this barrier.',
+    resources: [],
+  },
+  '7.6-DD-12': {
+    actions: ['Develop a communication board with major needs covered: toilet, water, food, help, lost, medical, hearing loop, sensory room, exit.', 'Co-design with AAC users - consult Speech Pathology Australia for guidance on icon standards.', 'Train staff at all info points on board use.', 'Print laminated boards for distribution to all venue info points.', 'Digital version on event app for staff to use on tablet.'],
+    reasoning: 'Communication boards use visual icons for common needs. Particularly valuable for nonverbal autistic attendees and English-as-additional-language attendees.',
+    resources: [],
+  },
+  '7.6-DD-13': {
+    actions: ['Develop sensory kits with input from autistic adults: ear defenders (adult and child sizes), sunglasses, fidget tool, weighted lap pad, sensory chew, communication board card, info on sensory rooms.', 'Co-design kit contents with autistic adults and parents of autistic children.', 'Distribute via deposit-and-return or free distribution model.', 'Stock multiple sizes (children to adults).', 'Train info-point staff on offering kits proactively ("Would a sensory kit help?").', 'Replenish stock daily for multi-day events.'],
+    reasoning: 'Sensory kits give attendees portable regulation tools they can use throughout the event without retreating to a sensory room.',
+    resources: [],
+  },
+  '7.6-DD-14': {
+    actions: ['Source haptic devices: Subpac vests (~$500 each), Woojer wristbands (~$200), or hire pools from accessibility tech specialists for events.', 'Pair with Auslan interpretation and captioning - haptics complement, don\'t replace.', 'Train staff on device handover, fit, and audio-source connection.', 'Promote in pre-event communication to Deaf community - the offer drives attendance.', 'For Ability Fest model: deposit-based loan, distributed at access desk on entry.'],
+    reasoning: 'Haptic devices translate audio into vibrations the wearer feels. Pioneered at Ability Fest with Subpac vests, this transforms music experience for Deaf attendees from "watching" to "feeling".',
+    resources: [],
+  },
+  '7.6-DD-15': {
+    actions: ['Audit accessible viewing platforms at every stage. Add companion seating. Test sight lines from every position.', 'Platform height: high enough to see over standing crowds, generally 600-800mm above ground.', 'Width: minimum 1.5x typical demand, never overcrowded.', 'Companion seating: chair or bench beside each wheelchair position so support workers, family, and friends can sit together.', 'Sight lines: check from every position to stage centre. Lighting trusses, speakers, and barriers must not block.', 'For multi-stage events, every stage with audience-standing area must have accessible platform.'],
+    reasoning: 'Accessible viewing platforms must give wheelchair users equivalent access to performance. Common failures: platform too low, no companion seating, view blocked by lighting trusses.',
+    resources: [],
+  },
+  '7.6-DD-16': {
+    actions: ['Pilot a multisensory zone at next event. Co-design with disabled artists who work in multisensory practice.', 'Zone formats: tactile installation (sculpture, textured walk-through), audio environment (soundscape with seating), scent trail (curated aromatic walk), accessible light show.', 'For Blind audiences, tactile + audio combinations are particularly valued.', 'For Deaf audiences, tactile + visual combinations work well.', 'Pair with quiet seating so attendees can dwell in the experience.', 'Promote in marketing - multisensory experiences attract diverse audiences.'],
+    reasoning: 'Multisensory zones offer sensory-rich experiences accessible across vision, hearing, touch, and movement. They serve diverse sensory profiles and broaden the experience for all attendees.',
+    resources: [],
+  },
+  '7.6-DD-17': {
+    actions: ['Establish support worker rest area with food/water/charging.', 'Rest area: comfortable seating, away from event noise/crowd, near accessible toilets.', 'Food/water: complimentary or discounted at vendor of choice; water bottle refills free.', 'Charging: power points for medical equipment (e.g., ventilator, tube feed, hearing aid), phones for emergency contact.', 'Locate near accessible viewing platforms and sensory rooms.', 'Communicate provisions to support workers proactively.'],
+    reasoning: 'Support workers are working at your event, often for multi-hour shifts. Free entry via Companion Card is baseline; dedicated rest area, accessible food/water, and charging facilities recognise the work being done.',
+    resources: [],
+  },
+  '7.6-DD-18': {
+    actions: ['Produce pocket communication cards for every customer-facing staff member.', 'Card design: laminated, attached to lanyard or in pocket sleeve, A6 or credit-card size.', 'Content: visual icons (8-12 most common needs), blank text/draw area, large print key contact.', 'Co-design with AAC users via Speech Pathology Australia.', 'Brief all staff at onboarding on use ("If verbal isn\'t working, try the card").', 'For multi-language events, include common-need words in major community languages.'],
+    reasoning: 'Pocket communication cards let staff initiate or respond to communication anywhere - at a queue, on the move, in a venue - without retreating to an info point.',
+    resources: [],
+  },
+  '7.6-DD-19': {
+    actions: ['Establish equipment loan service with manual wheelchairs, walking aids, mobility scooters at HUB or major venues.', 'Source from medical equipment hire (Independence Australia, Country Care Group), or build a purchased pool.', 'Booking: pre-booking system with on-day allocation; deposit and ID required for return.', 'Train access desk staff on equipment fitting and safe handover.', 'Maintain equipment: tyre pressure, brakes, batteries checked daily for multi-day events.', 'Free or deposit-only - never charge for accessibility equipment.'],
+    reasoning: 'Some attendees own their equipment but can\'t bring it. Others have temporary needs. Equipment loan service supports both.',
+    resources: [],
+  },
+  '7.6-DD-20': {
+    actions: ['Establish charging stations, medicine fridges, and an accessible medical waiting room.', 'Charging: power outlets at access desk, HUB, sensory rooms. Standard wall sockets sufficient for most equipment.', 'Fridges: small medicine fridges at HUB and at major venues, dedicated to attendee use.', 'Medical waiting room: separate from first aid, accessible toilets adjacent, comfortable seating, dim lighting option.', 'Communicate provisions in pre-event communication.', 'For multi-day events, provide overnight charging facilities.'],
+    reasoning: 'Many attendees rely on equipment that needs charging or medicines that need refrigeration. Medical infrastructure at major events makes attending viable.',
+    resources: [],
+  },
+  '7.6-DD-21': {
+    actions: ['Programme inclusive interactive activities: adaptive sport demonstrations, accessible games, inclusive workshops, parasport try-outs, accessible art-making.', 'Co-design with disability sport bodies, disability arts orgs, or disability-led activity providers.', 'Pay disabled facilitators at consultancy/teaching rates, not goodwill.', 'Position as core programming, not "accessibility programming".', 'Provide adaptive equipment for activities (e.g., specialised sport chairs, tactile art tools).', 'Promote in marketing with the same investment as other activities.'],
+    reasoning: 'Inclusive interactive activities open participation to disabled attendees as participants, not just spectators. Co-design with disability community signals genuine commitment.',
+    resources: [],
+  },
 };
 
 const RECOMMENDATION_CONTEXTS: RecommendationContext[] = [
