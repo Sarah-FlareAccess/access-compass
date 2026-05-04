@@ -1,0 +1,62 @@
+Name,Section,Due Date,Priority,Description,Status
+Stripe integration - implement real checkout backend,CRITICAL - Payment (Week 1-2),2026-04-22,High,"Create /api/create-checkout-session endpoint. Replace mock checkout in src/lib/stripe.ts. Wire up Individual + Multi-Site + Authority payment flows. Need VITE_STRIPE_PUBLIC_KEY and backend secret key.",Not started
+Set bypassPaywall to false in RouteGuard.tsx,CRITICAL - Payment (Week 1-2),2026-04-22,High,"src/components/guards/RouteGuard.tsx line 109. Currently true (all routes open). Must be false before any paying customer.",Not started
+Wire Decision.tsx payment logic,CRITICAL - Payment (Week 1-2),2026-04-22,High,"Lines 9-39 have TODO: entitlement checking / module access logic / upgrade flow / subscription management. Implement after Stripe backend is live.",Not started
+Set VITE_STRIPE_PUBLIC_KEY in production env,CRITICAL - Payment (Week 1-2),2026-04-22,High,"Replace placeholder pk_test_ key with real Stripe publishable key.",Not started
+Test full payment flow end-to-end,CRITICAL - Payment (Week 1-2),2026-04-25,High,"Signup -> tier selection -> Stripe checkout -> success page -> correct access level. Test all tiers.",Not started
+Configure SMTP for Supabase email,CRITICAL - Email & Auth (Week 1-2),2026-04-22,High,"Email verification is DISABLED. No password reset emails working. Configure SMTP provider (Resend / SendGrid / AWS SES) in Supabase dashboard.",Not started
+Re-enable email verification in Supabase,CRITICAL - Email & Auth (Week 1-2),2026-04-22,High,"Deployment checklist line 90: DISABLED for testing. Re-enable before launch.",Not started
+Set VITE_ENABLE_AUTH to true,CRITICAL - Email & Auth (Week 1-2),2026-04-22,High,".env line 30: currently false. Must be true for production auth to work.",Not started
+Test signup -> email confirmation -> login flow,CRITICAL - Email & Auth (Week 1-2),2026-04-25,High,"End-to-end auth flow with real SMTP. Password reset flow too.",Not started
+Create Privacy Policy page,CRITICAL - Legal (Week 1-2),2026-04-18,High,"No privacy policy exists. Required under Australian Privacy Act. Create src/pages/PrivacyPolicy.tsx. Cover: data collection / storage / Supabase / cookies / third parties / user rights / contact.",Not started
+Create Terms of Service page,CRITICAL - Legal (Week 1-2),2026-04-18,High,"No ToS exists. Must include: self-assessment disclaimer / limitation of liability / acceptable use / subscription terms / refund policy. Key line: Access Compass provides guided self-assessment tools not professional accessibility advice.",Not started
+Add Privacy Policy and ToS links to footer and signup flow,CRITICAL - Legal (Week 1-2),2026-04-20,High,"Links must be visible on landing page footer / signup page / checkout page.",Not started
+Professional indemnity insurance - get quote and purchase,CRITICAL - Legal (Week 1-2),2026-04-18,High,"Legal protection before first paying customer. Non-negotiable.",Not started
+Remove .env and .env.local from git tracking,CRITICAL - Security (Week 1),2026-04-14,High,".env is committed with credentials. WAVE API key exposed. .env.local has Vercel OIDC token. Remove from git history. Revoke exposed keys.",Not started
+Move Anthropic API calls to backend,CRITICAL - Security (Week 1),2026-04-18,High,"src/utils/visionAnalysis.ts lines 310 and 357: client-side calls expose VITE_ANTHROPIC_API_KEY in browser. Move to server-side API route.",Not started
+Revoke exposed credentials,CRITICAL - Security (Week 1),2026-04-14,High,"Revoke: WAVE API key (VITE_WAVE_API_KEY in .env) / Vercel OIDC token (.env.local). Regenerate and store securely.",Not started
+Set real VITE_CONSULT_BOOKING_URL,CRITICAL - Config (Week 1-2),2026-04-18,Medium,"Currently placeholder Calendly link. Replace with actual booking URL or remove if not ready.",Not started
+Set VITE_API_BASE_URL for Stripe backend,CRITICAL - Config (Week 1-2),2026-04-22,High,"Currently empty. Needed for checkout API calls.",Not started
+Verify support email addresses are active,CRITICAL - Config (Week 1-2),2026-04-18,Medium,"support@accesscompass.com.au and hello@accesscompass.com.au appear in multiple places. Confirm they receive mail.",Not started
+Package council program offer (one-pager),MUST DO - Sales Prep (Week 1-2),2026-04-22,High,"One clear sellable thing: Access Compass Council Program. Light / Guided / Full options. See growth bible.",Not started
+Create Business Getting Started Guide (PDF),MUST DO - Sales Prep (Week 1-2),2026-04-25,High,"2-4 pages. For businesses in council programs. See prompt-onboarding-assets.md.",Not started
+Create Council Outreach Email Templates (6 templates),MUST DO - Sales Prep (Week 1-2),2026-04-25,High,"Invitation / Reminder / Halfway / Completion / Re-assessment / Wrap-up. See prompt-onboarding-assets.md.",Not started
+Create One-Page Program Overview (PDF),MUST DO - Sales Prep (Week 1-2),2026-04-25,Medium,"For council internal stakeholders. What / Why / How / Cost. See prompt-onboarding-assets.md.",Not started
+Update pricing page - add Program Support grouping,MUST DO - Sales Prep (Week 1-2),2026-04-25,Medium,"Add Program support feature grouping to Authority tiers. Add one-line facilitation CTA below tiers.",Not started
+Set up case study capture template,MUST DO - Sales Prep (Week 1-2),2026-04-22,Medium,"Template: what we did / what happened / what they said / metrics. Start using from day 1 of any pilot.",Not started
+Prepare demo walkthrough,MUST DO - Sales Prep (Week 1-2),2026-04-22,Medium,"Scripted 30-min demo: discovery -> assessment -> action plan -> authority dashboard. See sales playbook.",Not started
+Prepare CoM proposal (program-framed),MUST DO - Sales Prep (Week 2-3),2026-04-25,High,"Structured accessibility program positioning. Guided Program at founders rate. See growth bible for pricing.",Not started
+Final copy review - app and landing page,LAUNCH PREP (Week 2-3),2026-04-28,Medium,"Review all user-facing text for typos / outdated content / placeholder text. Landing page / pricing / onboarding / dashboard.",Not started
+Draft intro and onboarding email sequence,LAUNCH PREP (Week 2-3),2026-04-28,Medium,"Welcome email / getting started / first module prompt / completion. Needs SMTP configured first.",Not started
+Final smoke testing - all user flows,LAUNCH PREP (Week 2-3),2026-04-28,High,"Signup -> discovery -> module assessment -> report -> DIAP -> evidence upload. Test on desktop and mobile. Test all tier access levels.",Not started
+Test Pulse Check end-to-end,LAUNCH PREP (Week 2-3),2026-04-28,High,"Full Pulse Check flow: discovery -> modules -> output -> resources. Verify completion and reporting.",Carried from old Asana
+Test Deep Dive end-to-end,LAUNCH PREP (Week 2-3),2026-04-28,High,"Full Deep Dive flow: discovery -> modules -> output -> resources. Verify completion and reporting.",Carried from old Asana
+Review Deep Dive question content (clarity and tone),CONTENT REVIEW (Week 2-4),2026-05-02,Medium,"Review questions across all modules for clarity / duplication / tone consistency. 850+ questions.",Carried from old Asana
+Audit Deep Dive resources - identify gaps,CONTENT REVIEW (Week 2-4),2026-05-02,Medium,"Map questions to resources. Identify missing or weak resource content.",Carried from old Asana
+Review Pulse Check question flow and completion time,CONTENT REVIEW (Week 2-4),2026-05-02,Medium,"Verify Pulse Check is achievable in 2-3 hours. Check flow makes sense.",Carried from old Asana
+Fix placeholder training videos,CONTENT REVIEW (Week 2-4),2026-05-02,Low,"AccessibilityStatement.tsx notes placeholder videos. Training Hub has placeholder Vimeo IDs. Replace or remove.",Carried from old Asana
+Migrate Supabase to Sydney region,INFRASTRUCTURE (Month 2),2026-05-15,High,"Currently Tokyo (ap-northeast-1). 3-5x latency improvement for AU users. Requires data migration.",Not started
+Re-enable Authority table RLS in Supabase,INFRASTRUCTURE (Month 2),2026-05-15,High,"RLS DISABLED temporarily on authority tables. Needs non-recursive policies before production.",Not started
+Fix cloud sync 409 errors,INFRASTRUCTURE (Month 2),2026-05-15,Medium,"useCloudSync and useOrgPresence disabled in AppLayout.tsx due to 409 sync_metadata errors. Fix and re-enable.",Not started
+Fix PWA icon-192.png on Vercel,INFRASTRUCTURE (Month 2),2026-05-15,Low,"PWA icon broken on Vercel. Blocks install prompt on mobile.",Known bug
+Fix authority org_type not setting during signup,INFRASTRUCTURE (Month 2),2026-05-15,Medium,"Authority tier selection doesn't set org_type. Current workaround: manual SQL. See bug-authority-org-type-signup.md.",Known bug
+Personal outreach to 10-15 warm contacts,SALES ACTIVATION (Weeks 3-4),2026-05-01,High,"Email and LinkedIn. Businesses + council contacts. You do this yourself first.",Not started
+Segment existing network by fit,SALES ACTIVATION (Weeks 3-4),2026-05-01,Medium,"Categorise contacts: council / association / business / NDIS provider. Prioritise by warmth and fit.",Carried from old Asana
+Call with Josie - present CoM proposal,SALES ACTIVATION (Weeks 3-6),2026-05-15,High,"Present the program. Ask: Would CoM pilot this with DAE cohort?",Not started
+Close CoM pilot deal,SALES ACTIVATION (Weeks 3-6),2026-05-29,High,"Agree pricing / send contract / onboard. Target $13K-$23K.",Not started
+Announce paid tiers to existing free users,SALES ACTIVATION (Weeks 3-6),2026-05-08,Medium,"Email to current users about Starter and Committed tiers.",Not started
+Target 5-10 individual paying customers,SALES ACTIVATION (Weeks 3-6),2026-05-29,Medium,"Warm network only. Free tier as entry. For proof and case study material.",Not started
+Create Kickoff Webinar Slide Deck,SALES ACTIVATION (Weeks 3-6),2026-05-15,Medium,"15-20 slides. See prompt-onboarding-assets.md. Need before first program launches.",Not started
+Create Council Admin Quick Start Guide (PDF),SALES ACTIVATION (Weeks 3-6),2026-05-15,Medium,"2 pages. Authority Portal guide. See prompt-onboarding-assets.md.",Not started
+Recruit 3-4 external testers (Deep Dive),EXTERNAL TESTING (Month 2),2026-05-15,Medium,"Real businesses testing the Deep Dive flow. Capture feedback.",Carried from old Asana
+Recruit 3-4 external testers (Pulse Check),EXTERNAL TESTING (Month 2),2026-05-15,Medium,"Real businesses testing the Pulse Check flow. Capture feedback.",Carried from old Asana
+Prepare testing briefs for external testers,EXTERNAL TESTING (Month 2),2026-05-10,Medium,"What to test / how to report issues / what feedback you need.",Carried from old Asana
+Run external testing and collect feedback,EXTERNAL TESTING (Month 2),2026-05-22,Medium,"Both Deep Dive and Pulse Check. Document pattern-based issues.",Carried from old Asana
+Fix issues identified in external testing,EXTERNAL TESTING (Month 2),2026-05-29,Medium,"Critical issues only. Don't scope-creep.",Carried from old Asana
+Write VA job brief,NEXT - Once Revenue Starts (Month 2-3),2026-06-15,Medium,"10-15 hrs/week. AU-based. See growth bible for scope.",Not started
+Hire VA,NEXT - Once Revenue Starts (Month 2-3),2026-06-30,Medium,"Only after 15-20 personal outreach emails. Know what works first.",Not started
+Schedule first monthly webinar,NEXT - Once Revenue Starts (Month 3),2026-07-15,Medium,"Only after first deal closes. You need a story to tell.",Not started
+Start broader council outreach,NEXT - Once Revenue Starts (Month 3),2026-07-15,Medium,"Using CoM proof. VA builds prospect lists.",Not started
+First association conversation (pick 2),NEXT - Once Revenue Starts (Month 3-4),2026-07-31,Medium,"Tourism body + one other. See sales playbook for templates.",Not started
+Publish CoM case study,NEXT - Once Revenue Starts (Month 4-5),2026-09-30,High,"1-page PDF + landing page + LinkedIn series. Most important sales asset.",Not started
+Cross-organisation benchmarking,PARKED,,,Deferred. Revisit when 50+ businesses on platform.,Parked

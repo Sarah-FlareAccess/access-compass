@@ -2,8 +2,8 @@
 
 **Author:** Sarah O'Mara, CEO Flare Access
 **Date created:** 6 April 2026
-**Last updated:** 6 April 2026
-**Version:** 1.0
+**Last updated:** 28 April 2026
+**Version:** 1.1
 
 ---
 
@@ -25,7 +25,10 @@ This document records the methodology, sources, and authorship behind the origin
 | 31 Mar 2026 | 3 new modules added (3.11 Outdoor Spaces, 3.12 Playgrounds, 5.6 Supplier Accessibility), bringing total to 40 modules |
 | 30 Mar 2026 | Pricing model designed (8 tiers), authority portal content |
 | 2 Apr 2026 | 380 commits across 111 active development days |
-| 6 Apr 2026 | Current state: 31,183 lines of question content, 850+ questions across 40 modules, 8 Resource Hub help entry groups covering 53+ questions |
+| 6 Apr 2026 | Methodology document v1.0 published. State: 31,183 lines of question content, 850+ questions across 40 modules, 8 Resource Hub help entry groups covering 53+ questions |
+| 14 Apr 2026 | Employment lifecycle modules added (5.7 Inclusive job design, 5.8 Accessible interviews, 5.9 Onboarding and adjustments, 5.10 Retention and culture). Module 5.2 retired as redundant. Net +3 modules. |
+| 19-20 Apr 2026 | Pricing model v3 implemented: 4-tab structure (Single Site, Multi-Site, Major Venue, Authorities), Business Groups SME-only safeguards, Major Venue tier for flagship venues |
+| 28 Apr 2026 | Methodology document v1.1: AI-assisted development disclosure and explicit human authorship statement added. Current state: 43 modules. |
 
 **Git repository:** Private repository with full commit history from 17 December 2025 onward, providing verifiable date-stamped evidence of content creation and evolution.
 
@@ -113,7 +116,34 @@ Questions and guidance reference (but do not reproduce) the following standards 
 - Success indicator patterns tested with word-boundary matching to prevent false positives
 - 10-step question change checklist ensures all dependent systems are updated when content changes (see Section 5)
 
-### 4.5 Content Governance
+### 4.5 AI-Assisted Development Disclosure
+
+The platform was built with the assistance of AI coding tools (primarily Anthropic's Claude, used via Claude Code). This section documents how AI was and was not used, in the interests of full transparency for due diligence, copyright, and originality enquiries.
+
+**AI assistance was used for:**
+- Code implementation: translating design decisions and content specifications written by the founder into TypeScript, React, and SQL code
+- Drafting prose against detailed prompts: producing initial drafts of help text, tips, action text, and graded solutions based on briefs that specify scope, tone, audience, and standards references provided by the founder
+- Restructuring and reformatting existing content into new schemas as the data model evolved
+- Audit and review tasks: identifying gaps, overlaps, missing fields, and inconsistencies across modules
+- Routine refactoring, type fixes, build error resolution, and similar implementation work
+- Drafting marketing, sales, and strategy documents for review and editing
+
+**AI assistance was NOT used for:**
+- Original module scoping: the choice of what modules exist, what they cover, and how the journey is divided into 6 groups was made by the founder based on consulting experience
+- Methodology design: the assessment structure, scoring approach, compliance tagging, DIAP generation logic, recommendation engine logic, and pricing model are original creative decisions of the founder
+- Selection of standards and legislation referenced
+- Compliance level and safety classifications, which require professional judgement under Australian accessibility law
+- Final content approval: every question, help text, tip, and action text has been read, edited, or approved by the founder before publication
+
+**How AI is treated for the purposes of authorship:**
+The AI functions as a drafting and implementation tool operating under continuous, detailed human direction. It is comparable to commissioning a junior writer or developer to produce drafts against a detailed brief, where the strategic decisions, editorial judgement, and final approval remain with the human commissioner. The originality of the work resides in the founder's selection, arrangement, refinement, and validation of all content. AI does not autonomously generate content that is published unreviewed.
+
+**Provenance evidence:**
+- Git commit history records every change to the codebase and content from 17 December 2025
+- Conversation transcripts and session logs document the prompts, briefs, and editorial decisions behind major content additions
+- The founder's professional consulting record (Flare Access engagements with MCG, Scenic World, FIFA Women's World Cup, City of Melbourne, Darwin Waterfront, and others) predates the platform and is the primary source of subject matter expertise
+
+### 4.6 Content Governance
 A formal checklist governs any modification to question content, ensuring changes propagate correctly across:
 1. The question itself (text, type, options, help content, action text)
 2. Branching/conditional logic (showWhen references)
@@ -135,6 +165,8 @@ Where Australian Standards or legislation are referenced, the content provides o
 
 The platform's unique contribution is translating complex accessibility standards and legislation into a structured, self-guided assessment that non-expert business owners can complete independently, with tailored action planning that goes beyond generic compliance checklists.
 
+Originality is preserved notwithstanding the use of AI-assisted drafting tools (see Section 4.5). The selection of subject matter, the design of the methodology, the editorial judgement applied to drafts, and the validation of all content against professional consulting expertise are human creative acts that meet the originality threshold under Australian copyright law.
+
 ---
 
 ## 6. Copyright Notice
@@ -152,7 +184,41 @@ The content described in this document, including but not limited to assessment 
 - **Content volume**: 31,183 lines in primary content file (accessModules.ts) alone
 - **Development session records**: Detailed session logs documenting content decisions, rationale, and changes made on specific dates
 - **Supabase database**: Migration files (001-019) with timestamps documenting data model evolution
+- **AI-assisted development records**: Conversation transcripts and session logs documenting the prompts, briefs, and editorial direction provided by the founder for AI-assisted drafting work
 
 ---
 
-*This document should be updated whenever significant new content is added to the platform.*
+## 8. Human Authorship Statement
+
+This statement clarifies the human authorship of Access Compass content for the purposes of copyright, originality, investor due diligence, and similar enquiries. It is intended as a standalone declaration that may be supplied alongside this document.
+
+**1. Author and contact**
+Sarah O'Mara, Founder and CEO, Flare Access (T/A Access Compass).
+
+**2. Subject matter expertise**
+All content reflects the professional accessibility consulting expertise of the author, accumulated through direct on-site work with major Australian venues and organisations including the Melbourne Cricket Ground, Scenic World, FIFA Women's World Cup operations, City of Melbourne, Darwin Waterfront, and others. This expertise predates the platform and is the primary source of the substantive content.
+
+**3. Methodology authorship**
+The structure of the platform, including the choice of 6 journey groups, the breakdown into 43 modules, the question types and answer options, the compliance tagging system, the DIAP generation logic, the recommendation engine, and the pricing model and tier differentiation, was designed by the author based on consulting experience. It is not derived from any existing checklist, assessment tool, or third-party publication.
+
+**4. Editorial control**
+Every question, help text, tip, action text, and graded solution in the platform has been read, edited, or approved by the author. No content is auto-generated and published unreviewed.
+
+**5. AI as tool, not author**
+AI assistance was used in the production of this platform (see Section 4.5 for full disclosure). It functioned as a drafting and implementation tool under detailed human direction, comparable to commissioning a junior writer or developer to produce drafts against a brief. The selection, arrangement, refinement, and validation of all content is the work of the author. The author treats AI output as draft material that requires human professional judgement to verify, edit, and approve before incorporation. Under Australian copyright law, this human direction and editorial input constitutes the originality required for authorship to vest in the author and Flare Access.
+
+**6. Source acknowledgment**
+Australian Standards (including AS 1428 and AS 4685), legislation (including the Disability Discrimination Act 1992), and frameworks (including WCAG, Everyone Can Play, and the UN Convention on the Rights of Persons with Disabilities) inform the content but do not constitute it. No standard or legislative text has been reproduced. The original contribution is the translation of those frameworks into self-guided, plain-language assessment questions and tailored action planning suitable for non-expert business owners.
+
+**7. Verification**
+A complete git history from 17 December 2025 provides date-stamped, immutable evidence of every content addition and edit. Session logs document the rationale behind major content decisions. AI-assisted development records (conversation transcripts and prompts) are retained and can be produced if required to demonstrate the human direction applied to drafting work.
+
+**8. Declaration**
+The author declares that the content of Access Compass is original work, authored by the founder of Flare Access with the use of AI as a drafting and implementation tool, and that copyright in the content vests in Flare Access. This declaration is made in good faith based on the author's understanding of Australian copyright law as at the date below.
+
+Signed (digital): Sarah O'Mara, Founder, Flare Access
+Date: 28 April 2026
+
+---
+
+*This document should be updated whenever significant new content is added to the platform, when the AI tooling or process changes materially, or when the author's understanding of relevant law is updated by professional advice.*
