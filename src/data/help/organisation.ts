@@ -454,7 +454,7 @@ export const organisationHelp: HelpContent[] = [
   moduleGroup: 'organisational-commitment',
   diapCategory: 'people-culture',
   title: 'Disability awareness training program',
-  coveredQuestionIds: ['5.3-F-2', '5.3-D-1', '5.3-D-2', '5.3-D-7', '5.3-D-11'],
+  coveredQuestionIds: ['5.3-F-2', '5.3-D-1', '5.3-D-7', '5.3-D-11'],
   summary: 'All staff who interact with customers should complete disability awareness training covering types of disability, communication techniques, the social model of disability, and your venue\'s specific accessibility features. Training should be part of induction and refreshed annually.',
   lastUpdated: '2026-02-26',
   whyItMatters: {

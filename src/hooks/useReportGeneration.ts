@@ -3906,11 +3906,6 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     reasoning: 'Practical scenarios build muscle memory and confidence. Staff who have practised responding to realistic situations are far more likely to respond well under real conditions than those with only theoretical knowledge.',
     resources: [],
   },
-  '5.3-D-2': {
-    actions: ['Engage disability awareness trainers with lived experience through organisations such as Disability Awareness Training Australia or state disability peak bodies.', 'Pay lived experience trainers at professional consulting rates, not token honorariums.', 'Include a mix of disability perspectives (physical, sensory, cognitive, psychosocial, neurological) across your training program.', 'Supplement formal training with staff exposure to customer stories and feedback from people with disability.', 'Evaluate the impact of lived-experience-led training through staff feedback and observable behaviour change.'],
-    reasoning: 'Training delivered by people with lived experience is consistently rated as more impactful and authentic than trainer-only delivery. It challenges assumptions and builds genuine empathy.',
-    resources: [],
-  },
   '5.3-D-3': {
     actions: ['Create a centralised accessibility resource hub on your staff intranet with guides, videos, and quick-reference cards.', 'Include links to key external resources: JobAccess, Australian Human Rights Commission, People with Disability Australia.', 'Provide equipment-specific guides, floor plans showing accessibility features, and escalation contacts.', 'Update resources when new equipment is installed, services change, or feedback identifies knowledge gaps.', 'Make resources available in accessible formats and promote them regularly through internal communications.'],
     reasoning: 'Ongoing access to resources ensures staff can look up information between training sessions, handle unfamiliar situations, and continuously deepen their understanding.',

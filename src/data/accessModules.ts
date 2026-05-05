@@ -24547,7 +24547,7 @@ export const accessModules: AccessModule[] = [
       {
         id: '5.3-F-3',
         text: 'Do staff know how to use accessibility features and equipment?',
-        helpText: 'Staff should be familiar with accessibility features at your venue, such as:\n\n• Hearing loops and how to activate them\n• Portable ramps and where they are stored\n• Accessible toilet features (Changing Places, hoists)\n• Assistive listening devices\n• Wheelchair-accessible routes',
+        helpText: 'Staff need to know how to use the accessibility features at your venue, like hearing loops, portable ramps, accessible toilet hoists and assistive listening devices.',
         type: 'single-select',
         category: 'training',
         impactLevel: 'high',
@@ -24615,37 +24615,6 @@ export const accessModules: AccessModule[] = [
           yes: 'Regular training refreshers keep accessibility knowledge current and front-of-mind.',
           no: 'Schedule regular disability training refreshers, at minimum annually. Accessibility standards, technology, and best practice evolve. Refresher training also reinforces the importance of inclusion and addresses staff turnover.',
           partially: 'Some refresher training occurs but may not be consistent. Establish a formal schedule (at least annual) for all staff, track completion rates, and update content to reflect current best practice and any changes to your services.',
-        },
-      },
-      {
-        id: '5.3-D-2',
-        text: 'Have staff received training from people with lived experience of disability?',
-        helpText: 'Training delivered by people with disability provides authentic insights and builds genuine understanding. This might include:\n\n• Guest speakers with disability\n• Training organisations led by people with disability\n• Customer panels sharing their experiences\n• Disability consultants',
-        type: 'yes-no-unsure',
-        category: 'training',
-        impactLevel: 'medium',
-        reviewMode: 'deep-dive',
-        partialPlaceholder: "E.g., 'Once but not ongoing' or 'Some staff but not all'",
-        helpContent: {
-          summary: 'Training delivered by people with lived experience of disability provides authentic insights that build genuine understanding. Whether through guest speakers with disability, training organisations led by people with disability, customer panels sharing their experiences, or disability consultants, hearing directly from people with disability is far more impactful than theoretical instruction alone.',
-          understanding: [
-            'Answer "Yes" if staff have received training delivered or co-delivered by people with lived experience of disability, such as guest speakers, disability-led training organisations, or customer panels',
-            'Answer "Partially" if some staff have had this experience but not all, or if it happened once but is not an ongoing practice',
-            'Answer "No" if training has not included perspectives from people with lived experience of disability',
-          ],
-          tips: [
-            'Disability-led training organisations exist in most regions and can deliver tailored sessions for your team',
-            'Customer panels are powerful - invite customers with disability to share their experiences with your staff',
-            'Always compensate people for their time and expertise - lived experience is valuable professional knowledge',
-            'One session can shift perspectives dramatically, so even starting small has real impact',
-            'Look for trainers who can share practical, positive approaches rather than just raising awareness of challenges',
-          ],
-        },
-        complianceLevel: 'best-practice',
-        actionText: {
-          yes: 'Training from people with lived experience provides authentic insight that builds genuine understanding.',
-          no: 'Engage people with lived experience of disability to deliver or co-deliver training. Lived-experience training is consistently rated as more impactful and memorable. Contact disability organisations or consultancies led by people with disability.',
-          partially: 'Some lived-experience input has been incorporated. Make this a standard component of all disability training, ensuring diverse disability perspectives are represented (physical, sensory, cognitive, psychosocial).',
         },
       },
       {
