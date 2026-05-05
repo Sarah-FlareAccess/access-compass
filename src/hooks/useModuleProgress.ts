@@ -209,10 +209,20 @@ function saveLocalProgress(progress: Record<string, ModuleProgress>) {
       try {
         localStorage.setItem(MODULE_PROGRESS_KEY, JSON.stringify(reducedProgress));
         console.warn('Saved progress without evidence data due to storage limits.');
-        alert('Storage limit reached. Your answers are saved but uploaded files could not be stored locally. Consider completing your session to sync data.');
+        window.dispatchEvent(new CustomEvent('access-compass:storage-warning', {
+          detail: {
+            level: 'warning',
+            message: 'Your answers are saved, but large files (like photos) couldn\'t be stored on this device. They\'ll sync to the cloud when you finish or sign in.',
+          },
+        }));
       } catch (retryError) {
         console.error('Failed to save even reduced progress:', retryError);
-        alert('Unable to save progress. Please try refreshing the page or clearing browser data.');
+        window.dispatchEvent(new CustomEvent('access-compass:storage-warning', {
+          detail: {
+            level: 'error',
+            message: 'We couldn\'t save your latest changes on this device. Try refreshing the page, or signing in so your work syncs to the cloud.',
+          },
+        }));
       }
     } else {
       console.error('Error saving to localStorage:', error);

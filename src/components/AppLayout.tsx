@@ -17,6 +17,7 @@ import { BottomTabBar } from './BottomTabBar';
 import { BackToTop } from './BackToTop';
 import { TabBlockedOverlay } from './TabBlockedOverlay';
 import { OrgPresenceBanner } from './OrgPresenceBanner';
+import { StorageWarningBanner } from './StorageWarningBanner';
 import { useTabLock } from '../hooks/useTabLock';
 import { useAuth } from '../contexts/AuthContext';
 import { useCloudSync } from '../hooks/useCloudSync';
@@ -108,6 +109,8 @@ export default function AppLayout() {
       {activeMembers.length > 0 && showNav && (
         <OrgPresenceBanner members={activeMembers} />
       )}
+
+      <StorageWarningBanner />
 
       {showNav && <NavBar />}
       {showSidebar ? (
