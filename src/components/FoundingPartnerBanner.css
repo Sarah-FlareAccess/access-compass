@@ -67,7 +67,10 @@
 }
 
 .founding-partner-banner-toggle {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
   margin: 0 auto;
   background: transparent;
   border: 1.5px solid #490E67;
@@ -78,6 +81,14 @@
   border-radius: 999px;
   cursor: pointer;
   transition: background-color 120ms ease, color 120ms ease;
+}
+
+.founding-partner-banner-toggle-chevron {
+  transition: transform 180ms ease;
+}
+
+.founding-partner-banner-toggle[aria-expanded="true"] .founding-partner-banner-toggle-chevron {
+  transform: rotate(180deg);
 }
 
 .founding-partner-banner-toggle:hover {

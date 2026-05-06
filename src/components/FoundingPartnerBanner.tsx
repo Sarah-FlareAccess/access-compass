@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ChevronDown } from 'lucide-react';
 import './FoundingPartnerBanner.css';
 
 const BENEFITS = [
@@ -55,7 +55,8 @@ export function FoundingPartnerBanner() {
           aria-controls={`${headingId}-benefits`}
           onClick={() => setShowBenefits((prev) => !prev)}
         >
-          {showBenefits ? 'Hide Founding Partner benefits' : 'See Founding Partner benefits'}
+          <span>{showBenefits ? 'Hide Founding Partner benefits' : 'See Founding Partner benefits'}</span>
+          <ChevronDown size={16} className="founding-partner-banner-toggle-chevron" aria-hidden="true" />
         </button>
 
         {showBenefits && (
