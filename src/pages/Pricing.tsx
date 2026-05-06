@@ -69,6 +69,7 @@ type Tier = {
   whoFor?: string;
   highlight: boolean;
   perSite?: string;
+  note?: string;
   features: TierFeatures;
 };
 
@@ -1156,6 +1157,7 @@ const businessGroupsTiers: Tier[] = [
     whoFor: 'Run several accessibility programs in parallel across your network.',
     highlight: false,
     perSite: '+ from $499 per business',
+    note: 'Higher business counts available, talk to us.',
     features: {
       assessment: 'Deep Dive (scoped modules)',
       businessAccess: 'Up to 100 businesses',
@@ -1426,6 +1428,16 @@ export default function Pricing() {
                     {tier.perSite}
                   </div>
                 )}
+                {tier.note && (
+                  <div style={{
+                    marginTop: '0.375rem',
+                    fontSize: '0.75rem',
+                    fontStyle: 'italic',
+                    color: tier.highlight ? '#E0D4E5' : colors.subtleText,
+                  }}>
+                    {tier.note}
+                  </div>
+                )}
                 {tier.whoFor && (
                   <div className="pricing-card-whofor" style={{
                     marginTop: '0.5rem',
@@ -1632,6 +1644,16 @@ export default function Pricing() {
                     {tier.perSite && (
                       <div className="pricing-card-persite" style={{ color: tier.highlight ? colors.sunriseBright : colors.sunrise }}>
                         {tier.perSite}
+                      </div>
+                    )}
+                    {tier.note && (
+                      <div style={{
+                        marginTop: '0.375rem',
+                        fontSize: '0.75rem',
+                        fontStyle: 'italic',
+                        color: tier.highlight ? '#E0D4E5' : colors.subtleText,
+                      }}>
+                        {tier.note}
                       </div>
                     )}
                     {tier.whoFor && (
