@@ -5,18 +5,8 @@ import './FoundingPartnerBanner.css';
 const BENEFITS = [
   {
     icon: '🔒',
-    title: 'Price lock for life of subscription',
-    body: 'Your Founding Partner rate stays your renewal rate forever, on the tier you signed up for. Outgrow into a higher tier and the new tier moves to current rates.',
-  },
-  {
-    icon: '🎙️',
-    title: 'Roadmap voice',
-    body: 'Quarterly Founding Partner call. Hear what\'s coming, tell us what to build next, and shape new modules before they ship.',
-  },
-  {
-    icon: '👋',
-    title: 'Lead consultant access',
-    body: 'Support comes from our lead access consultant, not a ticket queue. Direct line for questions, escalations and onboarding help.',
+    title: 'Price lock for 2 years',
+    body: 'Your Founding Partner rate is locked for the first 2 years from sign-up. After that, renewals move to the current rate for your tier. Outgrow into a higher tier and the new tier is billed at current rates.',
   },
   {
     icon: '🏅',
