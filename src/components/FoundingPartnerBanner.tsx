@@ -16,7 +16,7 @@ const BENEFITS = [
   {
     icon: '✨',
     title: 'First refusal on new offerings',
-    body: 'When we launch new add-ons (training certifications, cohort programs, SCORM export), Founding Partners get first access at locked-in rates.',
+    body: 'When we launch new add-ons (training certifications, cohort programs, SCORM export), Founding Partners get first access.',
   },
   {
     icon: '📅',
