@@ -285,7 +285,7 @@ const assessmentInfo: Record<string, { title: string; description: string; recom
   'pulse': {
     title: 'Pulse Check',
     description: 'A focused overview of each accessibility area. Key questions that identify your biggest gaps quickly.',
-    recommended: 'Recommended if you want a quick baseline, are new to accessibility or need to prioritise where to start.',
+    recommended: 'Recommended if you want to know where you stand without a full Deep Dive yet. Good fit for: a regional council scoping next year DIAP focus area; a small hospitality group baselining three properties; a single-site venue deciding where to start.',
     includes: [
       'Key questions per module (not exhaustive)',
       'High-level gap identification',
@@ -296,13 +296,184 @@ const assessmentInfo: Record<string, { title: string; description: string; recom
   'deep': {
     title: 'Deep Dive',
     description: 'A thorough, detailed review of every accessibility area. Covers best practices and nuanced scenarios across each module.',
-    recommended: 'Recommended if you want a comprehensive understanding, are working toward a DIAP or need detailed evidence for stakeholders.',
+    recommended: 'Recommended if you are committing to action and need detailed evidence. Good fit for: an authority preparing a public DIAP across departments; a flagship venue gathering board-ready evidence; a single-site business publishing a renewable DIAP.',
     includes: [
       'All questions per module (comprehensive)',
       'Best-practice coverage across each area',
       'Detailed PDF + interactive in-app report',
       'Priority ratings with timeframes',
       'Evidence and notes capture',
+    ],
+  },
+};
+
+const tierDetailContent: Record<string, { title: string; situation: string; audience: string; examples: string[] }> = {
+  'Free': {
+    title: 'Free',
+    situation: 'You know accessibility matters and want to see what an assessment actually looks like before you spend anything.',
+    audience: 'Best for sole traders, micro-businesses or community groups testing the waters at no cost.',
+    examples: [
+      'A corner cafe getting curious after a customer comment',
+      'A sole-trader photographer or service provider',
+      'A community hall committee just starting to think about access',
+      'A single artisan retail shop',
+    ],
+  },
+  'Starter': {
+    title: 'Starter',
+    situation: 'You understand why accessibility matters but have no clear picture of where your venue actually stands today.',
+    audience: 'Best for single-venue businesses that want a Pulse Check across every relevant area, so they know where to focus next.',
+    examples: [
+      'A boutique hotel building an accessibility position',
+      'An independent restaurant or cafe wanting a structured first look',
+      'A single-site clinic or wellness studio',
+      'A community arts venue starting their accessibility journey',
+    ],
+  },
+  'Committed': {
+    title: 'Committed',
+    situation: 'You want accessibility to live in your business, not sit in a folder. You need a DIAP you can publish, share with your board or grant funders, and renew year on year.',
+    audience: 'Best for single-venue operators making accessibility part of how they run, with a full Deep Dive and a living DIAP.',
+    examples: [
+      'A community theatre publishing a public DIAP',
+      'A regional gallery preparing for a board accessibility review',
+      'A single-site member-services club',
+      'An owner-operator boutique hotel that markets on inclusion',
+    ],
+  },
+  'Multi-Site Pulse': {
+    title: 'Multi-Site Pulse',
+    situation: 'You run a few venues and want to know how each one is doing on accessibility. You need a starting point across the group before you decide where to invest.',
+    audience: 'Best for small groups with two or three venues that want a Pulse Check on every site in one program.',
+    examples: [
+      'A three-property boutique hotel group',
+      'A two-clinic allied health practice',
+      'A small fitness chain across two or three studios',
+      'A hospitality group with a handful of venues',
+    ],
+  },
+  'Multi-Site Deep': {
+    title: 'Multi-Site Deep',
+    situation: 'You have a few venues and you are ready to act, not just baseline. You need a full Deep Dive and DIAP for each site, but coordinated as one program rather than three separate projects.',
+    audience: 'Best for small groups with two or three venues running coordinated DIAPs across their sites.',
+    examples: [
+      'A boutique hotel group activating DIAPs across three properties',
+      'A multi-clinic health network coordinating accessibility across sites',
+      'A small hospitality group post-grant or post-incident',
+      'A regional gym group rolling out one program across studios',
+    ],
+  },
+  'Multi-Site Plus': {
+    title: 'Multi-Site Plus',
+    situation: 'You operate a real chain across multiple sites and need one accessibility program that covers them all, with team allocation, evidence and a full DIAP.',
+    audience: 'Best for mid-size chains with up to six commercial venues running accessibility as a coordinated group operation.',
+    examples: [
+      'A hotel chain with four to six properties',
+      'A regional retail group across multiple stores',
+      'A multi-studio fitness brand',
+      'A multi-clinic health network across a state',
+    ],
+  },
+  'Premier Venue': {
+    title: 'Premier Venue',
+    situation: 'You are one venue, but the venue IS the operation. Your accessibility is a public statement and you answer to a board, sponsors and a community of stakeholders.',
+    audience: 'Best for mid-size destination venues that need civic-grade accessibility on a single complex with up to ten zones.',
+    examples: [
+      'A regional stadium or sports precinct',
+      'A mid-size convention or exhibition centre',
+      'A major regional theatre',
+      'A significant museum or gallery',
+      'An integrated hotel and conference complex',
+    ],
+  },
+  'Major Venue': {
+    title: 'Major Venue',
+    situation: 'Your brand is on the line every day. You need governance-grade accessibility evidence, board-ready reporting, and a program that can survive a public-incident inquiry.',
+    audience: 'Best for flagship venues where one accessibility incident becomes news, with unlimited zones, department-level DIAP and named consultant support.',
+    examples: [
+      'Flagship stadiums (MCG, Marvel, Optus)',
+      'Major convention and exhibition centres (MCEC, ICC)',
+      'Integrated resort or precinct complexes (Crown, The Star)',
+      'Major state galleries and museums',
+      'Airport precincts and major transport hubs',
+    ],
+  },
+  'Core': {
+    title: 'Core',
+    situation: 'You are responsible for delivering on DIAP commitments at a regional or smaller-authority scale, on a modest budget and without a big consultancy on the books.',
+    audience: 'Best for regional councils and smaller authorities running a focused DIAP program, scoping one focus area per financial year.',
+    examples: [
+      'A regional or rural council',
+      'A smaller statutory authority',
+      'A single-campus TAFE',
+      'An arts organisation with a public DIAP',
+    ],
+  },
+  'Professional': {
+    title: 'Professional',
+    situation: 'Your DIAP spans multiple teams and venues, and you need it coordinated across departments rather than living in one office.',
+    audience: 'Best for mid-size metropolitan authorities coordinating accessibility across departments and sites, with department-level DIAP sections and a board-ready report.',
+    examples: [
+      'A mid-size metro council',
+      'A public hospital or local health district',
+      'A multi-team state authority',
+      'A university disability services unit',
+    ],
+  },
+  'Enterprise': {
+    title: 'Enterprise',
+    situation: 'You manage accessibility at portfolio scale, across many sites, many teams and often multiple DIAPs. You need this to work for a strategic policy roll-out, not a single team.',
+    audience: 'Best for large metropolitan, state and federal bodies running accessibility across teams, sites and DIAPs at portfolio scale.',
+    examples: [
+      'A large metropolitan council',
+      'A state or federal department',
+      'A multi-campus university',
+      'A health network or hospital group',
+      'A school system or education authority',
+    ],
+  },
+  'Essentials': {
+    title: 'Essentials',
+    situation: 'You want to run a structured accessibility uplift for the businesses in your area, with reporting you can take back to your board, members or funder.',
+    audience: 'Best for councils, chambers and tourism boards running a short, time-boxed program with up to twenty local businesses.',
+    examples: [
+      'A council economic development team running a small-business uplift',
+      'A chamber of commerce delivering a member program',
+      'A regional tourism board piloting an inclusive-tourism cohort',
+      'A grant-funded local business support initiative',
+    ],
+  },
+  'Standard': {
+    title: 'Standard',
+    situation: 'You have tenants, suppliers or members who need to meet a shared accessibility standard, and you need a structured way to verify and track that with an audit trail.',
+    audience: 'Best for venue operators, property groups and councils running a structured supplier or tenant program with up to fifty businesses.',
+    examples: [
+      'A venue operator running an accessibility program for tenants',
+      'A property group setting standards across retail tenants',
+      'A council enrolling food-precinct or main-street operators',
+      'A large festival or precinct coordinating concessionaires',
+    ],
+  },
+  'Pro': {
+    title: 'Pro',
+    situation: 'You have proven the cohort model and now need to run several programs in parallel across a region or network, with cross-group reporting.',
+    audience: 'Best for large councils, property groups and authorities running multiple accessibility programs concurrently, up to one hundred businesses across up to five active groups.',
+    examples: [
+      'A large council running parallel programs in multiple precincts',
+      'A property group rolling out programs across multiple centres',
+      'A regional authority covering several LGAs',
+      'A major festival or precinct programming multiple business cohorts',
+    ],
+  },
+  'Enterprise & Partnerships': {
+    title: 'Enterprise & Partnerships',
+    situation: 'You are setting a sector-wide or national accessibility standard, often as part of an accreditation or certification program for your industry or network.',
+    audience: 'Best for state and federal bodies, franchise networks and industry peak bodies delivering accessibility as part of a sector-wide accreditation or certification.',
+    examples: [
+      'A state or federal industry body',
+      'A franchise network setting accreditation standards',
+      'An industry peak body offering certification',
+      'A national tourism or hospitality association',
     ],
   },
 };
@@ -530,6 +701,105 @@ function AssessmentInfoButton({ type, onHighlight = false }: { type: 'pulse' | '
   );
 }
 
+function TierDetailButton({ tierName, onHighlight = false }: { tierName: string; onHighlight?: boolean }) {
+  const [open, setOpen] = useState(false);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const detail = tierDetailContent[tierName];
+
+  const close = useCallback(() => {
+    setOpen(false);
+    triggerRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const focusTimer = window.setTimeout(() => closeBtnRef.current?.focus(), 0);
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+        return;
+      }
+      if (e.key === 'Tab' && popupRef.current) {
+        const focusables = popupRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    const handleClick = (e: MouseEvent) => {
+      if (popupRef.current && !popupRef.current.contains(e.target as Node) &&
+          triggerRef.current && !triggerRef.current.contains(e.target as Node)) {
+        close();
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    document.addEventListener('mousedown', handleClick);
+    return () => {
+      window.clearTimeout(focusTimer);
+      document.removeEventListener('keydown', handleKey);
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, [open, close]);
+
+  if (!detail) return null;
+
+  const dialogId = `tier-detail-${tierName.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
+
+  return (
+    <>
+      <button
+        ref={triggerRef}
+        onClick={() => setOpen(!open)}
+        aria-label={`More about who ${detail.title} is for`}
+        aria-expanded={open}
+        aria-controls={open ? dialogId : undefined}
+        className={`assessment-info-btn${onHighlight ? ' on-highlight' : ''}`}
+      >
+        ?
+      </button>
+      {open && createPortal(
+        <>
+          <div className="assessment-popup-overlay" onClick={close} />
+          <div
+            ref={popupRef}
+            id={dialogId}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`${dialogId}-title`}
+            className="assessment-popup"
+          >
+            <div className="assessment-popup-header">
+              <h4 id={`${dialogId}-title`}>{detail.title}: who this is for</h4>
+              <button ref={closeBtnRef} onClick={close} aria-label="Close dialog" className="assessment-popup-close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
+              </button>
+            </div>
+            <p className="assessment-popup-desc">{detail.situation}</p>
+            <p className="assessment-popup-recommended">{detail.audience}</p>
+            <p className="assessment-popup-list-label">Typical examples:</p>
+            <ul className="assessment-popup-list">
+              {detail.examples.map((item, i) => <li key={i}>{item}</li>)}
+            </ul>
+          </div>
+        </>,
+        document.body
+      )}
+    </>
+  );
+}
+
 // --- TIER DATA ---
 
 const individualTiers: Tier[] = [
@@ -538,7 +808,7 @@ const individualTiers: Tier[] = [
     price: '$0',
     period: '',
     description: 'See where you stand',
-    whoFor: 'Small single-site businesses, cafes or venues starting out on accessibility.',
+    whoFor: 'A free first look. Start small, no commitment.',
     highlight: false,
     features: {
       assessment: '3 modules (Deep Dive)',
@@ -559,7 +829,7 @@ const individualTiers: Tier[] = [
     price: '$399',
     period: '6 months',
     description: 'Understand your baseline across all areas',
-    whoFor: 'Single-site businesses committing to improvement with a structured baseline.',
+    whoFor: 'Know where you stand, so you know where to focus next.',
     highlight: false,
     features: {
       assessment: 'Pulse Check (all relevant modules)',
@@ -580,7 +850,7 @@ const individualTiers: Tier[] = [
     price: '$899',
     period: '12 months',
     description: 'Comprehensive review with action planning',
-    whoFor: 'Single-site businesses with ongoing DIAP needs, renewable year-on-year.',
+    whoFor: 'Your living DIAP for one venue, renewed every year.',
     highlight: true,
     features: {
       assessment: 'Deep Dive (all relevant modules)',
@@ -604,7 +874,7 @@ const multisiteTiers: Tier[] = [
     price: '$999',
     period: '6 months',
     description: 'Baseline across locations',
-    whoFor: 'Chains or groups with 2-3 venues wanting a quick first pass.',
+    whoFor: 'Know where each venue stands, so you know where to focus first.',
     highlight: false,
     perSite: '$333/site',
     features: {
@@ -626,7 +896,7 @@ const multisiteTiers: Tier[] = [
     price: '$1,999',
     period: '12 months',
     description: 'Detailed multi-site review',
-    whoFor: 'Chains or groups (up to 3 venues) doing a full Deep Dive with DIAP.',
+    whoFor: 'Coordinated DIAPs across two or three venues, one program.',
     highlight: true,
     perSite: '$666/site',
     features: {
@@ -648,7 +918,7 @@ const multisiteTiers: Tier[] = [
     price: '$3,499',
     period: '12 months',
     description: 'Growing chains and groups',
-    whoFor: 'Hotel, gym, restaurant or retail chains with up to 6 commercial venues.',
+    whoFor: 'One program across every venue in your group, up to six sites.',
     highlight: false,
     perSite: '$583/site',
     features: {
@@ -675,7 +945,7 @@ const majorVenueTiers: Tier[] = [
     price: '$7,900',
     period: '12 months',
     description: 'Mid-size single complex with zone-based assessment',
-    whoFor: 'Regional stadiums, mid-size convention centres, major theatres, significant museums, integrated hotel-conference complexes.',
+    whoFor: 'When one site is the whole operation.',
     highlight: false,
     features: {
       assessment: 'Deep Dive (all relevant modules)',
@@ -706,7 +976,7 @@ const majorVenueTiers: Tier[] = [
     price: '$14,900',
     period: '12 months',
     description: 'Flagship single complex with full board reporting and supplier group',
-    whoFor: 'Flagship stadiums, major convention and exhibition centres, integrated resort complexes, major state galleries and museums, airport precincts.',
+    whoFor: 'Governance-grade accessibility for flagship venues.',
     highlight: true,
     features: {
       assessment: 'Deep Dive (all relevant modules)',
@@ -740,7 +1010,7 @@ const orgAccessibilityTiers: Tier[] = [
     price: '$4,900',
     period: '12 months',
     description: 'Move your DIAP from document to living system: import, assign, track, report.',
-    whoFor: 'Regional councils, small statutory authorities, single-campus TAFEs, arts orgs with public DIAP. Scope to one focus area per financial year.',
+    whoFor: 'For regional councils and smaller authorities running their DIAP.',
     highlight: false,
     features: {
       diap: 'Full (import, assign, track, export)',
@@ -767,7 +1037,7 @@ const orgAccessibilityTiers: Tier[] = [
     price: '$8,900',
     period: '12 months',
     description: 'Multi-department DIAP management with department-level sections',
-    whoFor: 'Mid-size metro councils, public hospitals, multi-team state authorities, university disability services.',
+    whoFor: 'For mid-size authorities coordinating across departments and venues.',
     highlight: true,
     features: {
       diap: 'Full (import, assign, track, export)',
@@ -794,7 +1064,7 @@ const orgAccessibilityTiers: Tier[] = [
     price: 'from $15,000',
     period: '12 months',
     description: 'For large councils, state and federal departments, universities, health networks and school systems.',
-    whoFor: 'Large metros, state/federal departments, multi-campus universities, health networks, school systems.',
+    whoFor: 'For large authorities running accessibility at portfolio scale.',
     highlight: false,
     features: {
       diap: 'Full (import, assign, track, export)',
@@ -824,7 +1094,7 @@ const businessGroupsTiers: Tier[] = [
     price: '$4,900',
     period: '12 months',
     description: 'Quick baseline across your LGA or network',
-    whoFor: 'Councils, chambers or regional tourism boards running a short capacity-building program.',
+    whoFor: 'Run a cohort accessibility program for your local businesses.',
     highlight: false,
     perSite: '+ from $149 per business',
     features: {
@@ -847,7 +1117,7 @@ const businessGroupsTiers: Tier[] = [
     price: '$7,900',
     period: '12 months',
     description: 'Comprehensive assessment with action planning for your businesses',
-    whoFor: 'Councils, venue operators or property groups running a structured supplier or tenant group.',
+    whoFor: 'Hold your tenants or suppliers to a shared accessibility standard.',
     highlight: true,
     perSite: '+ from $349 per business',
     features: {
@@ -870,7 +1140,7 @@ const businessGroupsTiers: Tier[] = [
     price: '$14,900',
     period: '12 months',
     description: 'Full-service with ongoing improvement tracking',
-    whoFor: 'Large councils, property groups and authorities running multiple groups across a region or network.',
+    whoFor: 'Run several accessibility programs in parallel across your network.',
     highlight: false,
     perSite: '+ from $499 per business',
     features: {
@@ -893,7 +1163,7 @@ const businessGroupsTiers: Tier[] = [
     price: 'Contact us',
     period: '',
     description: 'For state bodies, franchise networks, industry associations and tourism boards',
-    whoFor: 'State/federal bodies, franchise networks, industry peak bodies with accreditation schemes.',
+    whoFor: 'Set a sector-wide accessibility standard for your industry or network.',
     highlight: false,
     features: {
       assessment: 'Configurable per group',
@@ -1312,7 +1582,10 @@ export default function Pricing() {
                     backgroundColor: tier.highlight ? 'rgba(255,255,255,0.14)' : colors.ivory,
                     color: tier.highlight ? '#FFFFFF' : colors.textOnWhite,
                   }}>
-                    <strong style={{ color: tier.highlight ? colors.sunriseBright : colors.amethyst, fontWeight: 800, display: 'block', marginBottom: '0.25rem', fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Who this is for</strong>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.25rem' }}>
+                      <strong style={{ color: tier.highlight ? colors.sunriseBright : colors.amethyst, fontWeight: 800, fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Who this is for</strong>
+                      <TierDetailButton tierName={tier.name} onHighlight={tier.highlight} />
+                    </div>
                     {tier.whoFor}
                   </div>
                 )}
@@ -1517,7 +1790,10 @@ export default function Pricing() {
                         backgroundColor: tier.highlight ? 'rgba(255,255,255,0.14)' : colors.ivory,
                         color: tier.highlight ? '#FFFFFF' : colors.textOnWhite,
                       }}>
-                        <strong style={{ color: tier.highlight ? colors.sunriseBright : colors.amethyst, fontWeight: 800, display: 'block', marginBottom: '0.25rem', fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Who this is for</strong>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.25rem' }}>
+                          <strong style={{ color: tier.highlight ? colors.sunriseBright : colors.amethyst, fontWeight: 800, fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Who this is for</strong>
+                          <TierDetailButton tierName={tier.name} onHighlight={tier.highlight} />
+                        </div>
                         {tier.whoFor}
                       </div>
                     )}
