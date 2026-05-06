@@ -100,8 +100,8 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     description: 'Export professional PDF reports showing your DIAP progress for council meetings, board papers or funding acquittals.',
   },
   businessGroupIncluded: {
-    title: 'Business Group Included',
-    description: 'Create a group of businesses (e.g. suppliers, grant recipients, regional venues), select which modules they complete and track their progress from your dashboard.',
+    title: 'Network Program Included',
+    description: 'Includes a small Network Program (a group of businesses, e.g. suppliers, grant recipients, regional venues). Select which modules they complete and track their progress from your dashboard.',
     examples: [
       'Grant recipients completing 3 modules as part of funding acquittal',
       'Regional venues completing a full accessibility assessment',
@@ -203,7 +203,7 @@ const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; i
   { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
-  { key: 'businessGroupIncluded', label: 'Business Group Included', infoKey: 'businessGroupIncluded' },
+  { key: 'businessGroupIncluded', label: 'Network Program Included', infoKey: 'businessGroupIncluded' },
   { key: 'seatExpansion', label: 'Seat Expansion (Mid-Cycle)', infoKey: 'seatExpansion' },
   { key: 'siteExpansion', label: 'Site Expansion (Mid-Cycle)', infoKey: 'siteExpansion' },
   { key: 'training', label: 'Consultation', infoKey: 'training' },
@@ -223,27 +223,13 @@ const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey
   { key: 'diapDepartments', label: 'Department-Level DIAP Sections', infoKey: 'diapDepartments' },
   { key: 'stakeholderReporting', label: 'Stakeholder / Board Reporting (PDF)', infoKey: 'stakeholderReporting' },
   { key: 'coBrandedSummary', label: 'Co-Branded Public Summary', infoKey: 'coBrandedSummary' },
-  { key: 'businessGroupIncluded', label: 'Business Group Included', infoKey: 'businessGroupIncluded' },
+  { key: 'businessGroupIncluded', label: 'Network Program Included', infoKey: 'businessGroupIncluded' },
   { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
   { key: 'consultantTime', label: 'Consultant Check-Ins', infoKey: 'consultantTime' },
   { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'seatExpansion', label: 'Seat Expansion (Mid-Cycle)', infoKey: 'seatExpansion' },
   { key: 'training', label: 'Additional Consultation', infoKey: 'training' },
   { key: 'support', label: 'Support' },
-];
-
-const featureLabelsBusinessGroups: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
-  { key: 'assessment', label: 'Business Assessment Type' },
-  { key: 'businessAccess', label: 'Business Access', infoKey: 'businessAccess' },
-  { key: 'groups', label: 'Groups (Grants, Events, Supply Chain)', infoKey: 'groups' },
-  { key: 'users', label: 'Authority Portal Users' },
-  { key: 'aggregateDashboard', label: 'Network Dashboard', infoKey: 'aggregateDashboard' },
-  { key: 'report', label: 'Reporting' },
-  { key: 'resourceHub', label: 'Resource Hub for Businesses' },
-  { key: 'diap', label: 'DIAP for Businesses', infoKey: 'diapForBusinesses' },
-  { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
-  { key: 'training', label: 'Consultation (per business)', infoKey: 'training' },
-  { key: 'support', label: 'Your Support (Authority / Council)' },
 ];
 
 function renderFeatureValue(value: boolean | string | undefined, onHighlight = false) {
@@ -849,7 +835,7 @@ const individualTiers: Tier[] = [
       assessment: 'Pulse Check (all relevant modules)',
       sites: '1 site / venue',
       assessments: '1',
-      users: '1',
+      users: '2',
       departments: false,
       report: 'PDF report',
       resourceHub: '6 months',
@@ -870,7 +856,7 @@ const individualTiers: Tier[] = [
       assessment: 'Deep Dive (all relevant modules)',
       sites: '1 site / venue',
       assessments: '1',
-      users: '1',
+      users: '3',
       departments: false,
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
@@ -895,7 +881,7 @@ const multisiteTiers: Tier[] = [
       assessment: 'Pulse Check (all relevant modules)',
       sites: 'Up to 3 sites / venues',
       assessments: '1 per site',
-      users: '3',
+      users: '6',
       departments: false,
       report: 'PDF report',
       resourceHub: '6 months',
@@ -917,7 +903,7 @@ const multisiteTiers: Tier[] = [
       assessment: 'Deep Dive (all relevant modules)',
       sites: 'Up to 3 sites / venues',
       assessments: '1 per site',
-      users: '3',
+      users: '6',
       departments: false,
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
@@ -939,7 +925,7 @@ const multisiteTiers: Tier[] = [
       assessment: 'Deep Dive (all relevant modules)',
       sites: 'Up to 6 sites / venues',
       assessments: '1 per site',
-      users: '6',
+      users: '12',
       departments: false,
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
@@ -965,7 +951,7 @@ const majorVenueTiers: Tier[] = [
       assessment: 'Deep Dive (all relevant modules)',
       sites: '1 complex',
       zones: 'Up to 10 zones',
-      users: '6',
+      users: '10',
       diap: 'Full (assign, track, export)',
       diapImport: true,
       teamAllocation: true,
@@ -980,7 +966,7 @@ const majorVenueTiers: Tier[] = [
       consultantTime: '2 check-ins per year',
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
-      seatExpansion: '$500/seat',
+      seatExpansion: '$300/seat',
       training: 'Add-on: from $300',
       support: 'Priority email + onboarding'
     }
@@ -996,7 +982,7 @@ const majorVenueTiers: Tier[] = [
       assessment: 'Deep Dive (all relevant modules)',
       sites: '1 complex',
       zones: 'Unlimited zones',
-      users: '12',
+      users: '20',
       diap: 'Full (assign, track, export)',
       diapImport: true,
       teamAllocation: true,
@@ -1011,7 +997,7 @@ const majorVenueTiers: Tier[] = [
       consultantTime: 'Quarterly + 4 hours consultation',
       report: 'PDF + interactive + cross-zone summary',
       resourceHub: '12 months',
-      seatExpansion: '$400/seat',
+      seatExpansion: '$500/seat',
       training: 'Add-on: from $300',
       support: 'Named consultant + priority onboarding'
     }
@@ -1034,13 +1020,13 @@ const orgAccessibilityTiers: Tier[] = [
       stakeholderReporting: 'Tailored report (select assessment, sections)',
       assessment: 'All modules (Pulse + Deep Dive)',
       sites: '6 sites / venues',
-      users: '3',
+      users: '6',
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
       evidenceLibrary: true,
       comparison: '1 re-assessment',
       businessGroupIncluded: false,
-      seatExpansion: '$400/seat',
+      seatExpansion: '$300/seat',
       siteExpansion: '$400/site',
       training: 'Add-on: from $300',
       support: 'Email + guided onboarding'
@@ -1061,7 +1047,7 @@ const orgAccessibilityTiers: Tier[] = [
       stakeholderReporting: 'Tailored report (select assessment, department, sections)',
       assessment: 'All modules (Pulse + Deep Dive)',
       sites: '12 sites / venues',
-      users: '8',
+      users: '15',
       report: 'PDF + interactive + department summary',
       resourceHub: '12 months',
       evidenceLibrary: true,
@@ -1102,105 +1088,10 @@ const orgAccessibilityTiers: Tier[] = [
   }
 ];
 
-const businessGroupsTiers: Tier[] = [
-  {
-    name: 'Essentials',
-    price: '$4,900',
-    period: '12 months',
-    description: 'Quick baseline across your LGA or network',
-    whoFor: 'Run a cohort accessibility program for your local businesses.',
-    highlight: false,
-    perSite: '+ from $149 per business',
-    features: {
-      assessment: 'Pulse Check (scoped modules)',
-      businessAccess: 'Up to 20 businesses',
-      groups: '1 active group',
-      users: '3',
-      aggregateDashboard: 'Completion tracking',
-      report: 'Completion summary export',
-      resourceHub: '30 days per business',
-      diap: false,
-      comparison: false,
-      training: 'Add-on: from $300',
-      support: 'Email + onboarding call',
-      sites: 'Up to 20 businesses',
-    }
-  },
-  {
-    name: 'Standard',
-    price: '$7,900',
-    period: '12 months',
-    description: 'Comprehensive assessment with action planning for your businesses',
-    whoFor: 'Hold your tenants or suppliers to a shared accessibility standard.',
-    highlight: true,
-    perSite: '+ from $349 per business',
-    features: {
-      assessment: 'Deep Dive (scoped modules)',
-      businessAccess: 'Up to 50 businesses',
-      groups: 'Up to 2 active groups',
-      users: '5',
-      aggregateDashboard: 'Completion tracking',
-      report: 'Aggregate + per-group reporting',
-      resourceHub: '6 months per business',
-      diap: 'Included for businesses',
-      comparison: false,
-      training: 'Add-on: from $300',
-      support: 'Email + onboarding call',
-      sites: 'Up to 50 businesses',
-    }
-  },
-  {
-    name: 'Pro',
-    price: '$14,900',
-    period: '12 months',
-    description: 'Full-service with ongoing improvement tracking',
-    whoFor: 'Run several accessibility programs in parallel across your network.',
-    highlight: false,
-    perSite: '+ from $499 per business',
-    note: 'Higher business counts available, talk to us.',
-    features: {
-      assessment: 'Deep Dive (scoped modules)',
-      businessAccess: 'Up to 100 businesses',
-      groups: 'Up to 5 active groups',
-      users: '10',
-      aggregateDashboard: 'Full aggregate with trends',
-      report: 'Aggregate + per-business + group reports',
-      resourceHub: '12 months per business',
-      diap: 'Included for businesses',
-      comparison: '1 re-assessment per business',
-      training: 'Add-on: from $300',
-      support: 'Priority email + quarterly review',
-      sites: 'Up to 100 businesses',
-    }
-  },
-  {
-    name: 'Enterprise & Partnerships',
-    price: 'Contact us',
-    period: '',
-    description: 'For state bodies, franchise networks, industry associations and tourism boards',
-    whoFor: 'Set a sector-wide accessibility standard for your industry or network.',
-    highlight: false,
-    features: {
-      assessment: 'Configurable per group',
-      businessAccess: 'Negotiated',
-      groups: 'Unlimited',
-      users: 'Negotiated',
-      aggregateDashboard: 'Custom reporting + API access',
-      report: 'Full suite + exportable + co-branded reports',
-      resourceHub: 'Included for businesses',
-      diap: 'Included for businesses',
-      comparison: 'Unlimited',
-      training: 'Add-on: from $300',
-      support: 'Dedicated partnership manager + SSO',
-      sites: 'Negotiated',
-    }
-  }
-];
-
 export default function Pricing() {
   usePageTitle('Pricing');
   const navigate = useNavigate();
-  const [view, setView] = useState<'individual' | 'multisite' | 'majorvenue' | 'authority'>('individual');
+  const [view, setView] = useState<'individual' | 'multisite' | 'majorvenue' | 'authority' | 'networkprograms'>('individual');
   const [showGroupPrompt, setShowGroupPrompt] = useState<string | null>(null);
 
   const session = getSession();
@@ -1239,9 +1130,10 @@ export default function Pricing() {
     multisite: 'Multi-Site Chains & Groups',
     majorvenue: 'Major Venue (Single Complex)',
     authority: 'Councils & Authorities',
+    networkprograms: 'Network Programs',
   };
 
-  // Keyboard / focus management for Business Groups prompt dialog
+  // Keyboard / focus management for Network Programs prompt dialog
   const promptDialogRef = useRef<HTMLDivElement>(null);
   const promptPrimaryRef = useRef<HTMLButtonElement>(null);
   const promptTriggerRef = useRef<HTMLElement | null>(null);
@@ -1360,6 +1252,17 @@ export default function Pricing() {
             >
               Authorities
             </button>
+            <button
+              onClick={() => setView('networkprograms')}
+              className="pricing-toggle-btn"
+              style={{
+                backgroundColor: view === 'networkprograms' ? '#ea0b3f' : 'transparent',
+                color: view === 'networkprograms' ? '#FFFFFF' : colors.walnut
+              }}
+              aria-pressed={view === 'networkprograms'}
+            >
+              Network Programs
+            </button>
           </div>
         </div>
 
@@ -1389,7 +1292,8 @@ export default function Pricing() {
           </div>
         )}
 
-        {/* Pricing Cards */}
+        {/* Pricing Cards (hidden on Network Programs view) */}
+        {view !== 'networkprograms' && (<>
         <div className="pricing-cards">
           <div className="pricing-cards-grid">
             {currentTiers.map((tier, i) => (
@@ -1581,266 +1485,440 @@ export default function Pricing() {
             ))}
           </div>
         </div>
+        </>)}
 
-        {/* ============ + Business Groups (all views) ============ */}
-        {(
+        {/* ============ Cross-reference to Network Programs (non-NP tabs) ============ */}
+        {view !== 'networkprograms' && (
+          <div className="pricing-addons pricing-addons-wide" style={{ marginTop: '1rem' }}>
+            <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}`, padding: '1.25rem 1.5rem' }}>
+              <p style={{ color: colors.walnut, fontSize: '0.9375rem', margin: 0, lineHeight: 1.55 }}>
+                <strong>Need to assess businesses in your network too?</strong> Run an accessibility program for tenants, suppliers, grant recipients or sector members.{' '}
+                <button onClick={() => setView('networkprograms')} style={{ background: 'none', border: 'none', color: colors.amethyst, fontWeight: 700, textDecoration: 'underline', cursor: 'pointer', padding: 0, font: 'inherit' }}>See Network Programs &rarr;</button>
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ============ Network Programs tab content ============ */}
+        {view === 'networkprograms' && (
           <>
-            {/* Extend to your network divider */}
-            <div className="pricing-extend-divider" id="extend-network">
-              <div className="pricing-extend-line" />
-              <span className="pricing-extend-label">+ Extend to your network</span>
-              <div className="pricing-extend-line" />
-            </div>
-
-            {/* Business Groups intro */}
+            {/* Hero */}
             <div className="pricing-addons pricing-addons-wide">
-              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}`, padding: '1.25rem 1.5rem' }}>
-                <h3 style={{ color: colors.walnut, marginBottom: '0.375rem' }}>Business Groups</h3>
-                <p style={{ color: colors.subtleText, fontSize: '0.875rem', marginBottom: '0.75rem' }}>
-                  {view !== 'authority'
-                    ? <>Require suppliers, procurement partners, tenants or contractors to complete accessibility assessments. Create groups (e.g. approved supplier review, event vendor compliance, tenant accessibility), select the relevant modules and track their progress from your dashboard. <InfoBubble infoKey="groups" /></>
-                    : <>Create groups of businesses across your region or network (e.g. grant recipients, capacity-building initiatives, regional supplier groups), assign assessment modules and track their progress from your dashboard. <InfoBubble infoKey="groups" /></>
-                  }
+              <div style={{
+                backgroundColor: colors.white,
+                borderRadius: '0.75rem',
+                border: `1px solid ${colors.ivoryDark}`,
+                borderTop: `5px solid ${colors.amethyst}`,
+                padding: '2.25rem 2rem 2rem',
+                boxShadow: '0 4px 16px rgba(62, 43, 47, 0.08)',
+              }}>
+                <div style={{
+                  display: 'inline-block',
+                  padding: '0.3125rem 0.75rem',
+                  borderRadius: '999px',
+                  backgroundColor: '#FFF4E6',
+                  color: colors.sunrise,
+                  fontSize: '0.6875rem',
+                  fontWeight: 800,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  marginBottom: '1rem',
+                  border: `1px solid ${colors.sunriseBright}`,
+                }}>
+                  For organisations that lift others
+                </div>
+                <h2 style={{
+                  color: colors.amethyst,
+                  fontSize: '2.25rem',
+                  fontWeight: 800,
+                  marginTop: 0,
+                  marginBottom: '0.625rem',
+                  lineHeight: 1.1,
+                }}>
+                  Network Programs
+                </h2>
+                <p style={{
+                  color: colors.textOnWhite,
+                  fontSize: '1.0625rem',
+                  lineHeight: 1.55,
+                  marginTop: 0,
+                  marginBottom: '1.5rem',
+                  maxWidth: '54rem',
+                }}>
+                  <strong style={{ color: colors.amethyst, fontSize: '1.1875rem' }}>Move your whole network on accessibility, not one business at a time.</strong> Run coordinated programs across every business in your community, supply chain or sector. One dashboard, real progress, every business held to your standard.
                 </p>
-                <p style={{ color: colors.walnut, fontSize: '0.8125rem', marginTop: '0.75rem', marginBottom: '0.5rem', padding: '0.625rem 0.75rem', backgroundColor: colors.ivory, borderLeft: `3px solid ${colors.sunriseBright}`, borderRadius: '0.25rem' }}>
-                  <strong>Eligibility:</strong> Business Groups are for Micro, Small and Medium businesses (under 200 FTE). Large venues (stadiums, convention centres, major cultural institutions) see the{' '}
-                  <button onClick={() => setView('majorvenue')} style={{ background: 'none', border: 'none', color: colors.amethyst, fontWeight: 700, textDecoration: 'underline', cursor: 'pointer', padding: 0, font: 'inherit' }}>Major Venue</button> tab.
-                </p>
-                <p style={{ color: colors.subtleText, fontSize: '0.8125rem', marginTop: 0, marginBottom: 0, lineHeight: 1.55 }}>
-                  Business Groups covers the businesses you manage. To assess your own venues, add a Single Site, Multi-Site, Major Venue or Authorities plan alongside.
-                </p>
-              </div>
-            </div>
-
-            {/* Business Groups tier cards */}
-            <div className="pricing-cards pricing-cards-wide">
-              <div className="pricing-cards-grid pricing-cards-grid-4col">
-                {businessGroupsTiers.map((tier, i) => (
-                  <div
-                    key={i}
-                    className={`pricing-card${tier.highlight ? ' highlighted' : ''}`}
-                    style={{
-                      backgroundColor: tier.highlight ? colors.amethyst : colors.white,
-                      border: tier.highlight ? `3px solid ${colors.sunriseBright}` : `2px solid ${colors.ivoryDark}`,
-                      boxShadow: tier.highlight ? '0 16px 32px rgba(73, 14, 103, 0.3)' : '0 2px 8px rgba(62, 43, 47, 0.1)'
-                    }}
-                  >
-                    {tier.highlight && (
-                      <div className="pricing-card-badge" style={{ backgroundColor: colors.sunriseBright, color: '#1A0F11' }}>
-                        Most Popular
-                      </div>
-                    )}
-                    <h2 style={{ color: tier.highlight ? colors.white : colors.walnut, fontSize: '1.125rem', fontWeight: 700, marginBottom: '0.25rem' }}>
-                      {tier.name}
-                    </h2>
-                    <p className="pricing-card-desc" style={{ color: tier.highlight ? '#E0D4E5' : colors.subtleText }}>
-                      {tier.description}
-                    </p>
-                    <div className="pricing-card-price">
-                      <span style={{ color: tier.highlight ? colors.white : colors.amethyst }}>
-                        {tier.price}
-                      </span>
-                    </div>
-                    {tier.perSite && (
-                      <div className="pricing-card-persite" style={{ color: tier.highlight ? colors.sunriseBright : colors.sunrise }}>
-                        {tier.perSite}
-                      </div>
-                    )}
-                    {tier.note && (
-                      <div style={{
-                        marginTop: '0.375rem',
-                        fontSize: '0.75rem',
-                        fontStyle: 'italic',
-                        color: tier.highlight ? '#E0D4E5' : colors.subtleText,
-                      }}>
-                        {tier.note}
-                      </div>
-                    )}
-                    {tier.whoFor && (
-                      <div className="pricing-card-whofor" style={{
-                        marginTop: '0.5rem',
-                        padding: '0.5rem 0.625rem',
-                        borderRadius: '0.375rem',
-                        fontSize: '0.8125rem',
-                        lineHeight: 1.55,
-                        fontWeight: 500,
-                        backgroundColor: tier.highlight ? 'rgba(255,255,255,0.14)' : colors.ivory,
-                        color: tier.highlight ? '#FFFFFF' : colors.textOnWhite,
-                      }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.25rem' }}>
-                          <strong style={{ color: tier.highlight ? colors.sunriseBright : colors.amethyst, fontWeight: 800, fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Who this is for</strong>
-                          <TierDetailButton tierName={tier.name} onHighlight={tier.highlight} />
-                        </div>
-                        {tier.whoFor}
-                      </div>
-                    )}
-                    <div
-                      className="pricing-card-assessment"
-                      style={{
-                        borderTop: tier.highlight ? '2px solid rgba(255,255,255,0.3)' : `2px solid ${colors.ivoryDark}`,
-                        color: tier.highlight ? '#E0D4E5' : colors.subtleText
-                      }}
-                    >
-                      {tier.features.assessment}
-                      {tier.features.assessment.includes('Pulse') && tier.features.assessment.includes('Deep Dive')
-                        ? <AssessmentInfoButton type="both" onHighlight={tier.highlight} />
-                        : tier.features.assessment.includes('Deep Dive')
-                          ? <AssessmentInfoButton type="deep" onHighlight={tier.highlight} />
-                          : tier.features.assessment.includes('Pulse') && <AssessmentInfoButton type="pulse" onHighlight={tier.highlight} />
-                      }
-                    </div>
-                    <details className="pricing-card-details">
-                      <summary style={{ color: tier.highlight ? '#E0D4E5' : colors.amethyst }}>
-                        What's included
-                      </summary>
-                      <div className="pricing-card-features" style={{ borderTop: tier.highlight ? '1px solid rgba(255,255,255,0.2)' : `1px solid ${colors.ivoryDark}` }}>
-                        {featureLabelsBusinessGroups.map(({ key, label, infoKey }) => (
-                          <div key={key} className="pricing-card-feature-row">
-                            <span className="pricing-card-feature-label" style={{ color: tier.highlight ? '#C9B8D0' : colors.subtleText }}>
-                              {label}
-                              {infoKey && <InfoBubble infoKey={infoKey} onHighlight={tier.highlight} />}
-                            </span>
-                            <span style={{ color: tier.highlight ? colors.white : colors.textOnWhite }}>
-                              {renderFeatureValue(tier.features[key], tier.highlight)}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </details>
-                    <a
-                      className="pricing-card-select-btn"
-                      href={`mailto:hello@accesscompass.com.au?subject=${encodeURIComponent(`Business Groups enquiry: ${tier.name}`)}`}
-                      style={{
-                        marginTop: '1.25rem', width: '100%', padding: '0.9375rem 1.5rem',
-                        borderRadius: '0.5rem',
-                        border: tier.highlight ? `2px solid ${colors.sunriseBright}` : `2px solid ${colors.amethyst}`,
-                        backgroundColor: tier.highlight ? colors.sunriseBright : colors.amethyst,
-                        color: tier.highlight ? '#1A0F11' : '#FFFFFF',
-                        fontWeight: 700, fontSize: '0.9375rem', cursor: 'pointer',
-                        display: 'block', textAlign: 'center', textDecoration: 'none', boxSizing: 'border-box',
-                        boxShadow: tier.highlight ? '0 4px 12px rgba(255, 144, 21, 0.35)' : '0 3px 8px rgba(73, 14, 103, 0.25)',
-                        transition: 'transform 0.15s ease, box-shadow 0.15s ease',
-                      }}
-                    >
-                      Talk to us
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Business Groups comparison table */}
-            <div className="pricing-comparison pricing-comparison-wide" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>
-              <div className="pricing-comparison-header" style={{ backgroundColor: colors.amethyst }}>
-                <h3 style={{ color: colors.white, fontSize: '1.125rem', fontWeight: 700 }}>Feature Comparison: Business Groups</h3>
-              </div>
-              <table>
-                <thead>
-                  <tr style={{ backgroundColor: colors.walnut }}>
-                    <th scope="col" style={{ color: colors.white }}>Feature</th>
-                    {businessGroupsTiers.map((tier, i) => (
-                      <th key={i} scope="col" style={{ color: colors.white }}>{tier.name}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {featureLabelsBusinessGroups.map(({ key, label, infoKey }, idx) => (
-                    <tr key={key} style={{ backgroundColor: idx % 2 === 1 ? colors.ivory : colors.white }}>
-                      <td style={{ color: colors.textOnWhite, position: 'relative' }}>
-                        {label}
-                        {(key as string) === 'ownAssessment' && <AssessmentInfoButton type="site" />}
-                        {infoKey && <InfoBubble infoKey={infoKey} />}
-                      </td>
-                      {businessGroupsTiers.map((tier, i) => (
-                        <td key={i} style={{ color: colors.textOnWhite }}>
-                          {renderFeatureValue(tier.features[key])}
-                        </td>
-                      ))}
-                    </tr>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.75rem' }}>
+                  {['Grants', 'Supplier compliance', 'Sector capacity', 'Flagship programs'].map((tag, i) => (
+                    <span key={i} style={{
+                      padding: '0.4375rem 0.875rem',
+                      borderRadius: '0.375rem',
+                      backgroundColor: colors.ivory,
+                      color: colors.amethyst,
+                      fontSize: '0.8125rem',
+                      fontWeight: 600,
+                      border: `1px solid ${colors.ivoryDark}`,
+                    }}>
+                      {tag}
+                    </span>
                   ))}
-                </tbody>
-              </table>
-              <div className="pricing-comparison-mobile">
-                {businessGroupsTiers.map((tier, i) => (
-                  <div key={i} className="pricing-mobile-tier">
-                    <h4 style={{ color: colors.amethyst }}>{tier.name} <span style={{ color: colors.subtleText, fontWeight: 400, fontSize: '0.875rem' }}>{tier.price}</span></h4>
-                    {featureLabelsBusinessGroups.map(({ key, label, infoKey }) => (
-                      <div key={key} className="pricing-mobile-row">
-                        <span className="pricing-mobile-label" style={{ color: colors.textOnWhite, position: 'relative' }}>
-                          {label}
-                          {(key as string) === 'ownAssessment' && <AssessmentInfoButton type="site" />}
-                          {infoKey && <InfoBubble infoKey={infoKey} />}
-                        </span>
-                        <span style={{ color: colors.textOnWhite }}>
-                          {renderFeatureValue(tier.features[key])}
-                        </span>
+                </div>
+                <a
+                  href={`mailto:hello@accesscompass.com.au?subject=${encodeURIComponent('Network Programs enquiry')}`}
+                  className="btn btn-primary"
+                >
+                  Talk to us about Network Programs
+                </a>
+              </div>
+            </div>
+
+            {/* Why run a Network Program */}
+            <div className="pricing-addons pricing-addons-wide">
+              <div className="pricing-addons-inner" style={{
+                backgroundColor: '#F5EFF7',
+                border: `1px solid #D6C5DD`,
+                borderLeft: `6px solid ${colors.amethyst}`,
+                borderRadius: '0.5rem',
+                padding: '2.5rem 2rem 2.25rem',
+              }}>
+                <div style={{ marginBottom: '2rem', maxWidth: '60rem' }}>
+                  <p style={{ color: colors.amethyst, fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.15em', marginTop: 0, marginBottom: '0.5rem' }}>Why run one</p>
+                  <h3 style={{ color: colors.amethyst, fontSize: '2.25rem', fontWeight: 800, margin: '0 0 0.75rem', lineHeight: 1.1 }}>
+                    What a Network Program gives you
+                  </h3>
+                  <div aria-hidden="true" style={{ width: '4rem', height: '4px', backgroundColor: colors.sunriseBright, marginBottom: '1rem', borderRadius: '2px' }} />
+                  <p style={{ color: colors.walnut, fontSize: '1.0625rem', margin: 0, lineHeight: 1.55 }}>
+                    Inclusion at scale, with data your stakeholders trust. One program lifts your whole network, not one business at a time.
+                  </p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+                  {[
+                    { title: 'Sector-wide reach', desc: 'Reach the 5.5 million Australians with disability through every business in your network, not one assessment at a time.' },
+                    { title: 'Aggregate data, not anecdotes', desc: 'See progress across your whole network in one dashboard. Report to ministers, boards, members and funders with numbers, not stories.' },
+                    { title: 'Equip your network to meet your standard', desc: 'Set the bar for accessibility, then give every business in your network the assessment, structure and accountability to reach it, including the ones that would not act on their own.' },
+                    { title: 'Inclusion that shows up at the counter', desc: 'Programs make the experience consistent across every business in your network. Real change happens at the moment of service, not on the policy page.' },
+                  ].map((o, i) => (
+                    <div key={i} style={{
+                      padding: '1.25rem 1.5rem',
+                      backgroundColor: colors.white,
+                      borderRadius: '0.5rem',
+                      border: `1px solid ${colors.ivoryDark}`,
+                      boxShadow: '0 4px 12px rgba(73, 14, 103, 0.08)',
+                      display: 'flex',
+                      gap: '1.25rem',
+                      alignItems: 'flex-start',
+                    }}>
+                      <div aria-hidden="true" style={{
+                        width: '2.5rem',
+                        height: '2.5rem',
+                        borderRadius: '50%',
+                        backgroundColor: colors.sunriseBright,
+                        color: '#1A0F11',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: 800,
+                        fontSize: '0.9375rem',
+                        flexShrink: 0,
+                        boxShadow: '0 3px 6px rgba(255, 144, 21, 0.35)',
+                        letterSpacing: '0.02em',
+                      }}>
+                        {String(i + 1).padStart(2, '0')}
                       </div>
-                    ))}
-                  </div>
-                ))}
+                      <div style={{ flex: 1 }}>
+                        <p style={{ color: colors.amethyst, fontWeight: 800, fontSize: '1.125rem', marginTop: '0.25rem', marginBottom: '0.5rem', lineHeight: 1.25 }}>
+                          {o.title}
+                        </p>
+                        <p style={{ color: colors.textOnWhite, fontSize: '0.9375rem', lineHeight: 1.6, margin: 0, maxWidth: '60rem' }}>
+                          {o.desc}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Who this is for */}
+            <div className="pricing-addons pricing-addons-wide">
+              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}`, padding: '2rem 1.75rem' }}>
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <p style={{ color: colors.amethyst, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', marginTop: 0, marginBottom: '0.375rem' }}>Who this is for</p>
+                  <h3 style={{ color: colors.walnut, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1.2 }}>
+                    Built for organisations that lift the businesses around them
+                  </h3>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.875rem' }}>
+                  {[
+                    { tag: 'Local government', title: 'Councils', desc: 'Run grant acquittal, supplier compliance or sector capacity-building programs across your LGA.', accent: colors.amethyst, accentText: colors.amethyst },
+                    { tag: 'Peak bodies', title: 'Industry associations', desc: 'Set a sector-wide accessibility standard. Offer member-benefit access.', accent: colors.sunriseBright, accentText: colors.sunrise },
+                    { tag: 'Compliance', title: 'Large venues with suppliers', desc: 'Require suppliers, contractors and event vendors to demonstrate accessibility.', accent: colors.amethyst, accentText: colors.amethyst },
+                    { tag: 'Events', title: 'Major events, Games and expos', desc: 'Set a shared accessibility standard for organisers, vendors, contractors and host venues across mega-events, Games and expos.', accent: colors.sunriseBright, accentText: colors.sunrise },
+                    { tag: 'Sport', title: 'Sporting bodies and leagues', desc: 'Lift accessibility across affiliated clubs, grounds and competition venues.', accent: colors.amethyst, accentText: colors.amethyst },
+                    { tag: 'Arts', title: 'Arts boards and presenter networks', desc: 'Hold artists, presenters and grant-funded venues to a shared accessibility standard.', accent: colors.sunriseBright, accentText: colors.sunrise },
+                    { tag: 'Tourism', title: 'Tourism boards and destinations', desc: 'Lift accessibility readiness across your tourism operators.', accent: colors.amethyst, accentText: colors.amethyst },
+                    { tag: 'Networks', title: 'Procurement and franchise networks', desc: 'Hold tenants, franchisees or distribution partners to a shared standard.', accent: colors.sunriseBright, accentText: colors.sunrise },
+                  ].map((p, i) => (
+                    <div key={i} style={{
+                      padding: '1rem 1.125rem',
+                      backgroundColor: colors.white,
+                      borderRadius: '0.5rem',
+                      border: `1px solid ${colors.ivoryDark}`,
+                      borderTop: `3px solid ${p.accent}`,
+                      boxShadow: '0 2px 4px rgba(62, 43, 47, 0.06)',
+                    }}>
+                      <p style={{ color: p.accentText, fontSize: '0.625rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 0, marginBottom: '0.5rem' }}>
+                        {p.tag}
+                      </p>
+                      <p style={{ color: colors.walnut, fontWeight: 700, fontSize: '0.9375rem', marginTop: 0, marginBottom: '0.375rem', lineHeight: 1.3 }}>
+                        {p.title}
+                      </p>
+                      <p style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.55, margin: 0 }}>
+                        {p.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Common program types */}
+            <div className="pricing-addons pricing-addons-wide">
+              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}`, padding: '2rem 1.75rem' }}>
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <p style={{ color: colors.amethyst, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', marginTop: 0, marginBottom: '0.375rem' }}>What you can run</p>
+                  <h3 style={{ color: colors.walnut, fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.5rem', lineHeight: 1.2 }}>
+                    Common program types
+                  </h3>
+                  <p style={{ color: colors.subtleText, fontSize: '0.9375rem', margin: 0, lineHeight: 1.55, maxWidth: '52rem' }}>
+                    Programs scale to fit your goal. Pick a starting point. We'll size and quote based on scope.
+                  </p>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+                  {[
+                    { intensity: 1, label: 'Light', title: 'Grant acquittal', scope: 'Pulse Check, 3 to 5 modules', timeline: '~3 months', detail: '15 to 20 grant recipients show their funded work meets your accessibility expectations.' },
+                    { intensity: 2, label: 'Standard', title: 'Vendors and delivery partners', scope: 'Pulse Check (minimum baseline)', timeline: '3 to 6 months', detail: '20 to 50 suppliers, contractors, event vendors and delivery partners meet a minimum accessibility baseline.' },
+                    { intensity: 3, label: 'In-depth', title: 'Sector capacity', scope: 'Scoped Deep Dive', timeline: '6 to 12 months', detail: '30+ businesses lift readiness across a sector (tourism, hospitality, retail).' },
+                    { intensity: 4, label: 'Comprehensive', title: 'Flagship initiative', scope: 'Full Deep Dive plus action plan', timeline: '12 to 18 months', detail: '50 anchor businesses run a comprehensive assessment with action plans.' },
+                  ].map((p, i) => {
+                    const isFlagship = p.intensity === 4;
+                    return (
+                      <div key={i} style={{
+                        padding: '1.125rem 1.125rem 1.25rem',
+                        backgroundColor: isFlagship ? colors.amethyst : colors.white,
+                        borderRadius: '0.5rem',
+                        border: isFlagship ? `2px solid ${colors.sunriseBright}` : `1px solid ${colors.ivoryDark}`,
+                        boxShadow: isFlagship ? '0 8px 16px rgba(73, 14, 103, 0.25)' : '0 2px 4px rgba(62, 43, 47, 0.06)',
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.625rem' }}>
+                          <span style={{
+                            fontSize: '0.625rem',
+                            fontWeight: 800,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.1em',
+                            color: isFlagship ? colors.sunriseBright : colors.amethyst,
+                          }}>
+                            {p.label}
+                          </span>
+                          <div style={{ display: 'flex', gap: '0.1875rem' }} aria-hidden="true">
+                            {[1, 2, 3, 4].map((dot) => (
+                              <div key={dot} style={{
+                                width: '0.4375rem',
+                                height: '0.4375rem',
+                                borderRadius: '50%',
+                                backgroundColor: dot <= p.intensity
+                                  ? (isFlagship ? colors.sunriseBright : colors.amethyst)
+                                  : (isFlagship ? 'rgba(255,255,255,0.3)' : colors.ivoryDark),
+                              }} />
+                            ))}
+                          </div>
+                        </div>
+                        <p style={{ color: isFlagship ? '#FFFFFF' : colors.walnut, fontWeight: 800, fontSize: '1.0625rem', marginTop: 0, marginBottom: '0.375rem', lineHeight: 1.25 }}>
+                          {p.title}
+                        </p>
+                        <p style={{ color: isFlagship ? colors.sunriseBright : colors.amethyst, fontSize: '0.75rem', fontWeight: 700, marginTop: 0, marginBottom: '0.5rem' }}>
+                          {p.scope}
+                        </p>
+                        <p style={{ color: isFlagship ? '#E0D4E5' : colors.textOnWhite, fontSize: '0.8125rem', lineHeight: 1.55, margin: '0 0 0.625rem' }}>
+                          {p.detail}
+                        </p>
+                        <p style={{
+                          color: isFlagship ? '#E0D4E5' : colors.subtleText,
+                          fontSize: '0.6875rem',
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.08em',
+                          marginTop: 0,
+                          marginBottom: 0,
+                        }}>
+                          Typical timeline: {p.timeline}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
             {/* How it works */}
             <div className="pricing-addons pricing-addons-wide">
-              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}` }}>
-                <h3 style={{ color: colors.walnut }}>How Business Groups work</h3>
-                <div style={{ fontSize: '0.875rem', color: colors.subtleText, lineHeight: 1.7 }}>
-                  <p style={{ marginBottom: '0.5rem' }}>
-                    <strong style={{ color: colors.textOnWhite }}>1. Create groups</strong> for grants, events, supply chain reviews or capacity building initiatives. <InfoBubble infoKey="groups" />
-                  </p>
-                  <p style={{ marginBottom: '0.5rem' }}>
-                    <strong style={{ color: colors.textOnWhite }}>2. Businesses complete their assessment.</strong> You choose who pays: authority-funded, business-funded or co-funded. <InfoBubble infoKey="businessAccess" />
-                  </p>
-                  <p style={{ marginBottom: '0.5rem' }}>
-                    <strong style={{ color: colors.textOnWhite }}>3. Track progress</strong> via your network dashboard. <InfoBubble infoKey="aggregateDashboard" />
-                  </p>
-                  <p style={{ marginBottom: '0' }}>
-                    <strong style={{ color: colors.textOnWhite }}>4. Privacy by design.</strong> You see completion status and score bands. Individual answers remain private to each business.
+              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}`, padding: '2rem 1.75rem' }}>
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <p style={{ color: colors.amethyst, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', marginTop: 0, marginBottom: '0.375rem' }}>How it works</p>
+                  <h3 style={{ color: colors.walnut, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1.2 }}>
+                    Four steps from setup to insight
+                  </h3>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+                  {[
+                    { title: 'Create groups', desc: 'For grants, events, supply chain reviews or capacity building initiatives.', outcome: 'Your program structure goes live, scoped to your goal.' },
+                    { title: 'Businesses complete their assessment', desc: 'You choose who pays: authority-funded, business-funded or co-funded.', outcome: 'Honest accessibility data from each business, not survey guesswork.' },
+                    { title: 'Track progress', desc: 'Aggregate completion, scoring and trends via your network dashboard.', outcome: 'A live readiness picture across your whole network.' },
+                    { title: 'Report and act', desc: 'Export findings for your board, members or funders. Use the data in your next funding round, action plan cycle or sector strategy.', outcome: 'A defensible accessibility story your stakeholders can act on.' },
+                  ].map((s, i) => (
+                    <div key={i} style={{
+                      padding: '1.25rem 1.125rem',
+                      backgroundColor: colors.white,
+                      border: `1px solid ${colors.ivoryDark}`,
+                      borderRadius: '0.5rem',
+                      boxShadow: '0 2px 4px rgba(62, 43, 47, 0.06)',
+                      position: 'relative',
+                    }}>
+                      <div style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+                        <div style={{
+                          width: '2.5rem',
+                          height: '2.5rem',
+                          borderRadius: '50%',
+                          backgroundColor: colors.amethyst,
+                          color: '#FFFFFF',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontWeight: 800,
+                          fontSize: '1.125rem',
+                          flexShrink: 0,
+                          boxShadow: '0 3px 8px rgba(73, 14, 103, 0.25)',
+                        }} aria-hidden="true">
+                          {i + 1}
+                        </div>
+                        <p style={{ color: colors.walnut, fontWeight: 700, fontSize: '0.9375rem', marginTop: '0.4375rem', marginBottom: 0, lineHeight: 1.3 }}>
+                          <span className="visually-hidden" style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', border: 0 }}>Step {i + 1}: </span>
+                          {s.title}
+                        </p>
+                      </div>
+                      <p style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.55, margin: '0 0 0.75rem' }}>
+                        {s.desc}
+                      </p>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '0.5rem',
+                        padding: '0.625rem 0.75rem',
+                        backgroundColor: colors.ivory,
+                        borderRadius: '0.375rem',
+                        borderLeft: `3px solid ${colors.sunriseBright}`,
+                      }}>
+                        <span aria-hidden="true" style={{ color: colors.sunrise, fontWeight: 800, fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.08em', flexShrink: 0, paddingTop: '0.0625rem' }}>You get</span>
+                        <span style={{ color: colors.textOnWhite, fontSize: '0.8125rem', lineHeight: 1.55 }}>{s.outcome}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p style={{ color: colors.subtleText, fontSize: '0.8125rem', fontStyle: 'italic', marginTop: '1.25rem', marginBottom: 0, lineHeight: 1.55 }}>
+                  Privacy by design: you see completion status and score bands. Individual business answers stay private to each business.
+                </p>
+              </div>
+            </div>
+
+            {/* Pricing */}
+            <div className="pricing-addons pricing-addons-wide">
+              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}`, padding: '2rem 1.75rem' }}>
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <p style={{ color: colors.amethyst, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', marginTop: 0, marginBottom: '0.375rem' }}>Pricing</p>
+                  <h3 style={{ color: colors.walnut, fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.625rem', lineHeight: 1.2 }}>
+                    From $4,900/yr platform plus $149 per business
+                  </h3>
+                  <p style={{ color: colors.subtleText, fontSize: '0.875rem', margin: 0, lineHeight: 1.55, fontStyle: 'italic' }}>
+                    One consultant assesses 5 venues over 6 months. One Network Program assesses 50 in the same window, at a fraction of the per-business cost.
                   </p>
                 </div>
-              </div>
-            </div>
 
-            {/* Multi-Brand Enterprise footer CTA */}
-            <div className="pricing-addons pricing-addons-wide">
-              <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}`, textAlign: 'center', padding: '2rem' }}>
-                <h3 style={{ color: colors.walnut, marginBottom: '0.5rem' }}>Managing multiple brands, regions or portfolios?</h3>
-                <p style={{ color: colors.subtleText, fontSize: '0.875rem', marginBottom: '0.75rem', maxWidth: '36rem', marginLeft: 'auto', marginRight: 'auto' }}>
-                  Multi-Brand Enterprise is a negotiated arrangement for property groups, franchise networks, state and federal bodies, universities, health networks and organisations needing staff training, grant tracking, event permitting, supplier assessments or state-framework reporting.
+                <div style={{
+                  padding: '1.25rem 1.5rem',
+                  borderRadius: '0.5rem',
+                  backgroundColor: colors.ivory,
+                  border: `1px solid ${colors.ivoryDark}`,
+                  borderLeft: `4px solid ${colors.amethyst}`,
+                  marginBottom: '1.5rem',
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                  gap: '1.25rem',
+                }}>
+                  <div>
+                    <p style={{ color: colors.sunrise, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 0, marginBottom: '0.375rem' }}>Platform fee</p>
+                    <p style={{ color: colors.amethyst, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1 }}>From $4,900</p>
+                    <p style={{ color: colors.subtleText, fontSize: '0.75rem', margin: '0.25rem 0 0' }}>per year</p>
+                  </div>
+                  <div>
+                    <p style={{ color: colors.sunrise, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 0, marginBottom: '0.375rem' }}>Per business</p>
+                    <p style={{ color: colors.amethyst, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1 }}>From $149</p>
+                    <p style={{ color: colors.subtleText, fontSize: '0.75rem', margin: '0.25rem 0 0' }}>5-module bundle</p>
+                  </div>
+                  <div>
+                    <p style={{ color: colors.sunrise, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 0, marginBottom: '0.375rem' }}>Up to</p>
+                    <p style={{ color: colors.amethyst, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1 }}>50 businesses</p>
+                    <p style={{ color: colors.subtleText, fontSize: '0.75rem', margin: '0.25rem 0 0' }}>more on request</p>
+                  </div>
+                </div>
+
+                <p style={{ color: colors.walnut, fontSize: '0.875rem', fontWeight: 700, marginTop: 0, marginBottom: '0.625rem' }}>
+                  What we'll size with you:
                 </p>
-                <p style={{ color: colors.amethyst, fontWeight: 700, fontSize: '0.9375rem', marginBottom: '1rem' }}>From $18,000/yr</p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.5rem 1.25rem', marginBottom: '1.5rem' }}>
+                  {[
+                    'Program type (grants, supplier compliance, sector capacity, flagship initiative).',
+                    'Number of businesses and groups.',
+                    'Assessment depth (Pulse Check or Deep Dive) and module count.',
+                    'Timeline and reporting needs.',
+                    'Funding model: authority-funded, business-funded or co-funded.',
+                  ].map((item, i) => (
+                    <div key={i} style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                      <span aria-hidden="true" style={{ color: colors.sunriseBright, fontWeight: 800, fontSize: '1rem', lineHeight: 1.4, flexShrink: 0 }}>+</span>
+                      <span style={{ color: colors.textOnWhite, fontSize: '0.875rem', lineHeight: 1.5 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+
                 <a
-                  href="mailto:hello@accesscompass.com.au?subject=Multi-Brand%20Enterprise%20enquiry"
+                  href={`mailto:hello@accesscompass.com.au?subject=${encodeURIComponent('Network Programs enquiry')}`}
                   className="btn btn-primary"
-                  style={{ display: 'inline-block' }}
                 >
-                  Talk to us about Enterprise
+                  Talk to us about Network Programs
                 </a>
-              </div>
-            </div>
-
-            {/* Deflection footer */}
-            <div className="pricing-addons pricing-addons-wide">
-              <div className="pricing-addons-inner" style={{ backgroundColor: colors.ivory, border: `1px solid ${colors.ivoryDark}`, padding: '1.5rem 1.75rem' }}>
-                <h3 style={{ color: colors.walnut, marginBottom: '0.5rem', fontSize: '1rem' }}>Not quite the right fit? You may belong elsewhere.</h3>
-                <ul style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.65, paddingLeft: '1.125rem', margin: 0 }}>
-                  <li><strong style={{ color: colors.textOnWhite }}>Peak body or industry association members</strong> &mdash; ask your association about member-discount access.</li>
-                  <li><strong style={{ color: colors.textOnWhite }}>Chambers of commerce</strong> &mdash; Business Groups or partner program, depending on scale.</li>
-                  <li><strong style={{ color: colors.textOnWhite }}>Consultants running accessibility work for clients</strong> &mdash; partner / reseller program.</li>
-                  <li><strong style={{ color: colors.textOnWhite }}>Insurers offering accessibility support to insureds</strong> &mdash; distribution partner.</li>
-                  <li><strong style={{ color: colors.textOnWhite }}>Peak bodies or industry associations yourselves</strong> &mdash; referral / member-benefit model, not Authority tiers.</li>
-                </ul>
-                <p style={{ color: colors.walnut, fontSize: '0.8125rem', marginTop: '0.75rem', marginBottom: 0 }}>
-                  <a href="mailto:hello@accesscompass.com.au?subject=Partner%20or%20alternative%20fit%20enquiry" style={{ color: colors.amethyst, fontWeight: 700 }}>Talk to us about any of these</a>.
-                </p>
               </div>
             </div>
           </>
         )}
 
-        {/* Individual Modules (hidden on authority view) */}
-        {view !== 'authority' && view !== 'majorvenue' && (
+        {/* ============ Deflection footer (all views) ============ */}
+        <div className="pricing-addons pricing-addons-wide">
+          <div className="pricing-addons-inner" style={{ backgroundColor: colors.ivory, border: `1px solid ${colors.ivoryDark}`, padding: '1.5rem 1.75rem' }}>
+            <h3 style={{ color: colors.walnut, marginBottom: '0.5rem', fontSize: '1rem' }}>Not quite the right fit? You may belong elsewhere.</h3>
+            <ul style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.65, paddingLeft: '1.125rem', margin: 0 }}>
+              <li><strong style={{ color: colors.textOnWhite }}>Multi-brand groups, franchise networks, state and federal bodies, universities, health networks</strong>: Multi-Brand Enterprise (negotiated, from $18,000/yr).</li>
+              <li><strong style={{ color: colors.textOnWhite }}>Peak body or industry association members</strong>: ask your association about member-discount access.</li>
+              <li><strong style={{ color: colors.textOnWhite }}>Chambers of commerce</strong>: Network Programs or partner program, depending on scale.</li>
+              <li><strong style={{ color: colors.textOnWhite }}>Consultants running accessibility work for clients</strong>: partner or reseller program.</li>
+              <li><strong style={{ color: colors.textOnWhite }}>Insurers offering accessibility support to insureds</strong>: distribution partner.</li>
+              <li><strong style={{ color: colors.textOnWhite }}>Peak bodies or industry associations yourselves</strong>: referral or member-benefit model, not Authority tiers.</li>
+            </ul>
+            <p style={{ color: colors.walnut, fontSize: '0.8125rem', marginTop: '0.75rem', marginBottom: 0 }}>
+              <a href="mailto:hello@accesscompass.com.au?subject=Partner%20or%20alternative%20fit%20enquiry" style={{ color: colors.amethyst, fontWeight: 700 }}>Talk to us about any of these</a>.
+            </p>
+          </div>
+        </div>
+
+        {/* Individual Modules (hidden on authority, major venue and network programs views) */}
+        {view !== 'authority' && view !== 'majorvenue' && view !== 'networkprograms' && (
           <div className="pricing-addons">
             <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>
               <h3 style={{ color: colors.walnut }}>
@@ -1871,8 +1949,8 @@ export default function Pricing() {
           </div>
         )}
 
-        {/* Upgrade Paths (hidden on authority view) */}
-        {view !== 'authority' && view !== 'majorvenue' && (
+        {/* Upgrade Paths (hidden on authority, major venue and network programs views) */}
+        {view !== 'authority' && view !== 'majorvenue' && view !== 'networkprograms' && (
           <div className="pricing-upgrades" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}` }}>
             <h3 style={{ color: colors.amethyst }}>Upgrade Paths: Full credit applied</h3>
             <div className="pricing-upgrades-list">
@@ -1893,7 +1971,7 @@ export default function Pricing() {
         )}
 
         {/* CTA */}
-        {view !== 'authority' && view !== 'majorvenue' && (
+        {view !== 'authority' && view !== 'majorvenue' && view !== 'networkprograms' && (
           <div className="pricing-cta">
             <p style={{ color: colors.subtleText, fontSize: '0.9375rem' }}>
               Select a plan above to get started
@@ -1901,7 +1979,7 @@ export default function Pricing() {
           </div>
         )}
 
-        {/* Business Groups prompt dialog */}
+        {/* Network Programs prompt dialog */}
         {showGroupPrompt && (
           <>
             <div className="pricing-prompt-overlay" onClick={() => setShowGroupPrompt(null)} />
@@ -1924,7 +2002,7 @@ export default function Pricing() {
                 Before you continue...
               </h3>
               <p id="prompt-dialog-desc" style={{ color: colors.subtleText, fontSize: '0.9375rem', margin: '0 0 1rem', lineHeight: 1.6 }}>
-                Do you also manage suppliers, partners or businesses that need to demonstrate accessibility? With <strong>Business Groups</strong>, you can assign assessment modules and track their progress from your dashboard.
+                Do you also manage suppliers, partners or businesses that need to demonstrate accessibility? With <strong>Network Programs</strong>, you can assign assessment modules and track their progress from your dashboard.
               </p>
               <div className="pricing-prompt-actions">
                 <button
@@ -1935,7 +2013,7 @@ export default function Pricing() {
                   No, continue with {showGroupPrompt}
                 </button>
                 <a
-                  href={`mailto:hello@accesscompass.com.au?subject=${encodeURIComponent(`${showGroupPrompt} + Business Groups enquiry`)}`}
+                  href={`mailto:hello@accesscompass.com.au?subject=${encodeURIComponent(`${showGroupPrompt} + Network Programs enquiry`)}`}
                   className="pricing-prompt-btn-primary"
                   onClick={() => setShowGroupPrompt(null)}
                 >
