@@ -313,10 +313,10 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     situation: 'You know accessibility matters and want to see what an assessment actually looks like before you spend anything.',
     audience: 'Best for sole traders, micro-businesses or community groups testing the waters at no cost.',
     examples: [
-      'A corner cafe getting curious after a customer comment',
-      'A sole-trader photographer or service provider',
-      'A community hall committee just starting to think about access',
+      'A corner cafe just starting out',
       'A single artisan retail shop',
+      'A community hall committee just starting to think about access',
+      'A sole-trader tour guide or experience operator',
     ],
   },
   'Starter': {
@@ -324,21 +324,23 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     situation: 'You understand why accessibility matters but have no clear picture of where your venue actually stands today.',
     audience: 'Best for single-venue businesses that want a Pulse Check across every relevant area, so they know where to focus next.',
     examples: [
-      'A boutique hotel building an accessibility position',
       'An independent restaurant or cafe wanting a structured first look',
+      'A single-shop retailer wanting to know where they stand',
+      'A boutique hotel building an accessibility position',
+      'A small tour operator or community arts venue starting their journey',
       'A single-site clinic or wellness studio',
-      'A community arts venue starting their accessibility journey',
     ],
   },
   'Committed': {
     title: 'Committed',
-    situation: 'You want accessibility to live in your business, not sit in a folder. You need a DIAP you can publish, share with your board or grant funders, and renew year on year.',
-    audience: 'Best for single-venue operators making accessibility part of how they run, with a full Deep Dive and a living DIAP.',
+    situation: 'You want accessibility to live in your business, not sit in a folder. You need an action plan you can publish, share with your board or grant funders, and renew year on year.',
+    audience: 'Best for single-venue operators making accessibility part of how they run, with a full Deep Dive and a living action plan.',
     examples: [
-      'A community theatre publishing a public DIAP',
-      'A regional gallery preparing for a board accessibility review',
-      'A single-site member-services club',
+      'A walking tour or boat dining experience formalising accessibility year on year',
+      'A community theatre publishing a public action plan',
+      'A single-location retail destination making accessibility part of how they trade',
       'An owner-operator boutique hotel that markets on inclusion',
+      'A regional gallery preparing for a board accessibility review',
     ],
   },
   'Multi-Site Pulse': {
@@ -347,30 +349,33 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     audience: 'Best for small groups with two or three venues that want a Pulse Check on every site in one program.',
     examples: [
       'A three-property boutique hotel group',
+      'A small retail chain across two or three stores',
+      'A regional tour operator with a few branded experiences',
       'A two-clinic allied health practice',
-      'A small fitness chain across two or three studios',
-      'A hospitality group with a handful of venues',
+      'A small hospitality group with a handful of venues',
     ],
   },
   'Multi-Site Deep': {
     title: 'Multi-Site Deep',
-    situation: 'You have a few venues and you are ready to act, not just baseline. You need a full Deep Dive and DIAP for each site, but coordinated as one program rather than three separate projects.',
-    audience: 'Best for small groups with two or three venues running coordinated DIAPs across their sites.',
+    situation: 'You have a few venues and you are ready to act, not just baseline. You need a full Deep Dive and action plan for each site, but coordinated as one program rather than three separate projects.',
+    audience: 'Best for small groups with two or three venues running coordinated action plans across their sites.',
     examples: [
-      'A boutique hotel group activating DIAPs across three properties',
+      'A boutique hotel group activating action plans across three properties',
+      'A small retail group rolling out one accessibility program across stores',
+      'A multi-experience tourism operator coordinating tours and trails as one program',
       'A multi-clinic health network coordinating accessibility across sites',
       'A small hospitality group post-grant or post-incident',
-      'A regional gym group rolling out one program across studios',
     ],
   },
   'Multi-Site Plus': {
     title: 'Multi-Site Plus',
-    situation: 'You operate a real chain across multiple sites and need one accessibility program that covers them all, with team allocation, evidence and a full DIAP.',
+    situation: 'You operate a real chain across multiple sites and need one accessibility program that covers them all, with team allocation, evidence and a full action plan.',
     audience: 'Best for mid-size chains with up to six commercial venues running accessibility as a coordinated group operation.',
     examples: [
       'A hotel chain with four to six properties',
-      'A regional retail group across multiple stores',
+      'A regional retail chain across multiple stores',
       'A multi-studio fitness brand',
+      'A regional tourism operator running multiple experiences across a state',
       'A multi-clinic health network across a state',
     ],
   },
@@ -384,6 +389,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
       'A major regional theatre',
       'A significant museum or gallery',
       'An integrated hotel and conference complex',
+      'A premium retail or tourism precinct',
     ],
   },
   'Major Venue': {
@@ -391,11 +397,12 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     situation: 'Your brand is on the line every day. You need governance-grade accessibility evidence, board-ready reporting, and a program that can survive a public-incident inquiry.',
     audience: 'Best for flagship venues where one accessibility incident becomes news, with unlimited zones, department-level DIAP and named consultant support.',
     examples: [
-      'Flagship stadiums (MCG, Marvel, Optus)',
-      'Major convention and exhibition centres (MCEC, ICC)',
-      'Integrated resort or precinct complexes (Crown, The Star)',
-      'Major state galleries and museums',
-      'Airport precincts and major transport hubs',
+      'A flagship national or state stadium',
+      'A major convention and exhibition centre',
+      'An integrated resort or precinct complex',
+      'A major state gallery or museum',
+      'A flagship retail destination or shopping precinct',
+      'A major airport precinct or transport hub',
     ],
   },
   'Core': {
@@ -404,6 +411,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     audience: 'Best for regional councils and smaller authorities running a focused DIAP program, scoping one focus area per financial year.',
     examples: [
       'A regional or rural council',
+      'A regional tourism board or destination authority',
       'A smaller statutory authority',
       'A single-campus TAFE',
       'An arts organisation with a public DIAP',
@@ -415,6 +423,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     audience: 'Best for mid-size metropolitan authorities coordinating accessibility across departments and sites, with department-level DIAP sections and a board-ready report.',
     examples: [
       'A mid-size metro council',
+      'A regional tourism authority covering multiple LGAs',
       'A public hospital or local health district',
       'A multi-team state authority',
       'A university disability services unit',
@@ -426,6 +435,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     audience: 'Best for large metropolitan, state and federal bodies running accessibility across teams, sites and DIAPs at portfolio scale.',
     examples: [
       'A large metropolitan council',
+      'A state tourism body or major destination authority',
       'A state or federal department',
       'A multi-campus university',
       'A health network or hospital group',
@@ -439,7 +449,8 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     examples: [
       'A council economic development team running a small-business uplift',
       'A chamber of commerce delivering a member program',
-      'A regional tourism board piloting an inclusive-tourism cohort',
+      'A regional tourism board piloting an inclusive cohort',
+      'A retail precinct association running a main-street program',
       'A grant-funded local business support initiative',
     ],
   },
@@ -451,7 +462,8 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
       'A venue operator running an accessibility program for tenants',
       'A property group setting standards across retail tenants',
       'A council enrolling food-precinct or main-street operators',
-      'A large festival or precinct coordinating concessionaires',
+      'A tourism precinct coordinating accommodation, retail and experience providers',
+      'A large festival coordinating concessionaires',
     ],
   },
   'Pro': {
@@ -459,9 +471,9 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     situation: 'You have proven the cohort model and now need to run several programs in parallel across a region or network, with cross-group reporting.',
     audience: 'Best for large councils, property groups and authorities running multiple accessibility programs concurrently, up to one hundred businesses across up to five active groups.',
     examples: [
-      'A large council running parallel programs in multiple precincts',
-      'A property group rolling out programs across multiple centres',
-      'A regional authority covering several LGAs',
+      'A large council running parallel programs across precincts (retail, food, tourism)',
+      'A property group rolling out programs across multiple retail centres',
+      'A regional tourism authority covering several LGAs and operator types',
       'A major festival or precinct programming multiple business cohorts',
     ],
   },
@@ -470,10 +482,11 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
     situation: 'You are setting a sector-wide or national accessibility standard, often as part of an accreditation or certification program for your industry or network.',
     audience: 'Best for state and federal bodies, franchise networks and industry peak bodies delivering accessibility as part of a sector-wide accreditation or certification.',
     examples: [
+      'A national tourism body setting industry-wide standards',
+      'A retail or franchise network setting accreditation across stores',
       'A state or federal industry body',
-      'A franchise network setting accreditation standards',
       'An industry peak body offering certification',
-      'A national tourism or hospitality association',
+      'A national hospitality, tourism or retail association',
     ],
   },
 };
@@ -850,7 +863,7 @@ const individualTiers: Tier[] = [
     price: '$899',
     period: '12 months',
     description: 'Comprehensive review with action planning',
-    whoFor: 'Your living DIAP for one venue, renewed every year.',
+    whoFor: 'Your living action plan for one venue, renewed every year.',
     highlight: true,
     features: {
       assessment: 'Deep Dive (all relevant modules)',
@@ -896,7 +909,7 @@ const multisiteTiers: Tier[] = [
     price: '$1,999',
     period: '12 months',
     description: 'Detailed multi-site review',
-    whoFor: 'Coordinated DIAPs across two or three venues, one program.',
+    whoFor: 'Coordinated action plans across two or three venues, one program.',
     highlight: true,
     perSite: '$666/site',
     features: {
@@ -1009,8 +1022,8 @@ const orgAccessibilityTiers: Tier[] = [
     name: 'Core',
     price: '$4,900',
     period: '12 months',
-    description: 'Move your DIAP from document to living system: import, assign, track, report.',
-    whoFor: 'For regional councils and smaller authorities running their DIAP.',
+    description: 'Move your action plan from document to living system: import, assign, track, report.',
+    whoFor: 'For regional councils and smaller authorities running their accessibility action plan.',
     highlight: false,
     features: {
       diap: 'Full (import, assign, track, export)',
@@ -1036,7 +1049,7 @@ const orgAccessibilityTiers: Tier[] = [
     name: 'Professional',
     price: '$8,900',
     period: '12 months',
-    description: 'Multi-department DIAP management with department-level sections',
+    description: 'Multi-department action plan management with department-level sections',
     whoFor: 'For mid-size authorities coordinating across departments and venues.',
     highlight: true,
     features: {
@@ -1187,7 +1200,6 @@ export default function Pricing() {
   const navigate = useNavigate();
   const [view, setView] = useState<'individual' | 'multisite' | 'majorvenue' | 'authority'>('individual');
   const [showGroupPrompt, setShowGroupPrompt] = useState<string | null>(null);
-  const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
   const session = getSession();
   const discovery = getDiscoveryData();
@@ -1301,163 +1313,6 @@ export default function Pricing() {
 
         {/* View Toggle */}
         <div className="pricing-toggle" role="group" aria-label="Pricing view selector">
-          <div className="pricing-toggle-row">
-            <span className="pricing-toggle-label">Choose your pricing view</span>
-            <details className="pricing-persona-finder pricing-persona-finder-inline">
-              <summary>
-                <span className="pricing-persona-finder-icon" aria-hidden="true">🧭</span>
-                Find your tier
-              </summary>
-              <div className="pricing-persona-finder-grid">
-                {([
-                  {
-                    id: 'single',
-                    icon: '🏪',
-                    label: 'Single business or venue',
-                    sub: 'One location, independent operator',
-                    detail: [
-                      'One physical location or address',
-                      'Up to ~200 staff',
-                      'You manage your own day-to-day operations and customer experience',
-                      'Not part of a chain, franchise or multi-site group',
-                      'Want a structured way to assess accessibility across visitor journey, staff and policies',
-                      'Most modules take 1–3 hours to work through',
-                    ],
-                    ctaLabel: 'View Single Site tiers',
-                    view: 'individual' as const,
-                  },
-                  {
-                    id: 'chain',
-                    icon: '🏬',
-                    label: 'Chain or multi-site group',
-                    sub: '2–6 venues under one operator',
-                    detail: [
-                      '2–6 venues across one portfolio under common ownership or operation',
-                      'Similar operational model across sites',
-                      'Want consistent assessment criteria across every site',
-                      'Need cross-site benchmarking to see who\'s leading and where to focus support',
-                      'Centralised team coordinating accessibility for the group',
-                      'Multi-site dashboard to track progress in one view',
-                    ],
-                    ctaLabel: 'View Multi-Site tiers',
-                    view: 'multisite' as const,
-                  },
-                  {
-                    id: 'event',
-                    icon: '🎪',
-                    label: 'Event organiser',
-                    sub: 'One-off, recurring, touring or flagship',
-                    detail: [
-                      'You produce events with attendees, programs and on-the-day operations',
-                      'Could be one-off, recurring annual, touring across cities, or a major flagship festival',
-                      'May own the venue, hire venues, or activate a precinct of venues',
-                      'Need to assess planning, communications, on-the-day ops, sensory access, performer/talent access, attendee experience and volunteer briefings',
-                      'Right tier depends on scale: small one-off events fit Single Site Starter; recurring annual events fit Single Site Committed; touring/multi-city fit Multi-Site; major festivals fit Premier or Major Venue',
-                      'Want to demonstrate accessibility commitment to attendees, sponsors, councils and funders',
-                    ],
-                    ctaLabel: 'View Major Venue & Premier tiers',
-                    view: 'majorvenue' as const,
-                  },
-                  {
-                    id: 'majorvenue',
-                    icon: '🏟️',
-                    label: 'Major venue',
-                    sub: 'Permanent flagship facility',
-                    detail: [
-                      'Permanent flagship facility hosting tens of thousands of visitors annually',
-                      'Multiple operational zones (back-of-house, front-of-house, food and beverage, retail, performance, public realm)',
-                      'Hosts your own programming plus third-party hires and events',
-                      'Public or political accountability for accessibility outcomes',
-                      'Needs ongoing assessment year-on-year, not a one-off audit',
-                      'Coordinates accessibility across hundreds of staff, volunteers and contractors',
-                    ],
-                    ctaLabel: 'View Major Venue tiers',
-                    view: 'majorvenue' as const,
-                  },
-                  {
-                    id: 'authority',
-                    icon: '🏛️',
-                    label: 'Council or public authority',
-                    sub: 'Public body with DIAP obligations',
-                    detail: [
-                      'Public sector body with public-facing facilities or services',
-                      'Often has a legislative obligation to publish a Disability Inclusion Action Plan or equivalent',
-                      'Includes councils, universities, public hospitals, state and federal departments, statutory authorities, school networks',
-                      'Coordinating accessibility across multiple departments, sites or service streams',
-                      'Need stakeholder reporting (council meetings, ministers, boards)',
-                      'Aggregate dashboard across the organisation; may also run programs for businesses or grantees in your area',
-                    ],
-                    ctaLabel: 'View Authorities tiers',
-                    view: 'authority' as const,
-                  },
-                  {
-                    id: 'group',
-                    icon: '🤝',
-                    label: 'Bringing your suppliers, tenants or grantees on the journey',
-                    sub: 'They self-assess in your shared workspace',
-                    detail: [
-                      'You\'re the host, funder or coordinator of a program where multiple businesses self-assess',
-                      'Use cases: supplier accessibility programs, tenant accessibility (property managers, shopping centres, precincts), grant acquittals, member benefit programs, mentoring or capability development, procurement requirements, event-vendor cohorts',
-                      'The businesses do their own assessments using Access Compass',
-                      'You see aggregate progress across the cohort in a shared dashboard',
-                      'Sized by cohort size: small (~10 businesses) up to large (50+)',
-                      'Each business gets their own report and action plan they can use independently',
-                    ],
-                    ctaLabel: 'View Business Groups',
-                    view: 'individual' as const,
-                    anchor: '#extend-network',
-                  },
-                ] as const).map((p) => {
-                  const isExpanded = expandedPersona === p.id;
-                  return (
-                    <div key={p.id} className={`pricing-persona-item ${isExpanded ? 'is-expanded' : ''}`}>
-                      <button
-                        type="button"
-                        className="pricing-persona-row"
-                        aria-expanded={isExpanded}
-                        aria-controls={`persona-detail-${p.id}`}
-                        onClick={() => setExpandedPersona(isExpanded ? null : p.id)}
-                      >
-                        <span className="pricing-persona-icon" aria-hidden="true">{p.icon}</span>
-                        <span className="pricing-persona-text">
-                          <span className="pricing-persona-label">{p.label}</span>
-                          <span className="pricing-persona-sub">{p.sub}</span>
-                        </span>
-                        <span className="pricing-persona-chevron" aria-hidden="true">{isExpanded ? '▾' : '▸'}</span>
-                      </button>
-                      {isExpanded && (
-                        <div id={`persona-detail-${p.id}`} className="pricing-persona-detail">
-                          <p className="pricing-persona-detail-intro">This fits you if:</p>
-                          <ul className="pricing-persona-detail-list">
-                            {p.detail.map((bullet, i) => (
-                              <li key={i}>{bullet}</li>
-                            ))}
-                          </ul>
-                          <button
-                            type="button"
-                            className="pricing-persona-detail-cta"
-                            onClick={(e) => {
-                              setView(p.view);
-                              setExpandedPersona(null);
-                              const details = e.currentTarget.closest('details');
-                              if (details) details.removeAttribute('open');
-                              if ('anchor' in p && p.anchor) {
-                                setTimeout(() => {
-                                  document.querySelector(p.anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                }, 50);
-                              }
-                            }}
-                          >
-                            {p.ctaLabel} →
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </details>
-          </div>
           <div className="pricing-toggle-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}` }}>
             <button
               onClick={() => setView('individual')}
