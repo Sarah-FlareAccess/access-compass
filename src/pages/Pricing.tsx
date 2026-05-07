@@ -59,6 +59,12 @@ type TierFeatures = {
   crossZoneTrends?: boolean | string;
   coBrandedSummary?: boolean | string;
   consultantTime?: string;
+  sso?: boolean | string;
+  multiDiap?: boolean | string;
+  dataResidency?: boolean | string;
+  dataExport?: boolean | string;
+  sla?: boolean | string;
+  procurement?: boolean | string;
 };
 
 type Tier = {
@@ -100,11 +106,11 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     description: 'Export professional PDF reports showing your DIAP progress for council meetings, board papers or funding acquittals.',
   },
   businessGroupIncluded: {
-    title: 'Network Program Included',
-    description: 'Includes a small Network Program (a group of businesses, e.g. suppliers, grant recipients, regional venues). Select which modules they complete and track their progress from your dashboard.',
+    title: 'Network Program Included (Lite)',
+    description: 'Pro and Enterprise tiers include Lite Network Program(s). Each Lite program covers: up to 10 businesses, 10 Pulse Check modules of your choice (out of 40+), aggregate progress dashboard, 12-month duration. Deep Dive depth, question guidance notes and per-program PDF reports are full Network Program features. Upgrade to a full Network Program for unlimited businesses, all modules at Deep Dive depth, guidance notes and per-program reports.',
     examples: [
       'Grant recipients completing 3 modules as part of funding acquittal',
-      'Regional venues completing a full accessibility assessment',
+      'Regional venues completing a Pulse Check across priority areas',
       'Suppliers completing a pre-qualification accessibility review',
     ],
   },
@@ -172,11 +178,23 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     title: 'Consultant Check-Ins and Time',
     description: 'Scheduled sessions with an Access Compass accessibility specialist, included in your plan. Use for strategic guidance, progress reviews or working through complex areas with your team.',
   },
+  multiDiap: {
+    title: 'Multi-DIAP Support',
+    description: 'Run more than one Disability Inclusion Action Plan side by side: one per directorate, one per year, or one per program. Compare prior and current DIAPs to evidence year-on-year progress for board and community reporting.',
+  },
+  dataResidency: {
+    title: 'Australian Data Residency',
+    description: 'All data hosted in Sydney. Meets sovereignty requirements for state and federal procurement, health networks and education systems.',
+  },
+  procurement: {
+    title: 'Procurement-Ready Pack',
+    description: 'Master Services Agreement, pre-filled security questionnaire, Privacy Act 1988 schedule, and current insurance certificates (public liability, professional indemnity, cyber liability) supplied with your contract, so council legal and IT can sign off in days, not months.',
+  },
 };
 
 const featureLabelsStandard: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
   { key: 'assessment', label: 'Accessibility Self-Assessment' },
-  { key: 'sites', label: 'Sites / Venues' },
+  { key: 'sites', label: 'Sites / Venues / Events' },
   { key: 'assessments', label: 'Assessments' },
   { key: 'users', label: 'Users / Assessors' },
   { key: 'departments', label: 'Department Breakdown' },
@@ -195,11 +213,11 @@ const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; i
   { key: 'diapImport', label: 'DIAP Import (Guided Flow + Undo)', infoKey: 'diapImport' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
   { key: 'diapDepartments', label: 'Department-Level DIAP Sections', infoKey: 'diapDepartments' },
-  { key: 'stakeholderReporting', label: 'Stakeholder / Board Reporting (PDF)', infoKey: 'stakeholderReporting' },
+  { key: 'multiDiap', label: 'Multi-DIAP Support', infoKey: 'multiDiap' },
   { key: 'assessment', label: 'Self-Assessment Modules' },
-  { key: 'sites', label: 'Own Sites / Venues' },
+  { key: 'sites', label: 'Own Sites / Venues / Events' },
   { key: 'users', label: 'User Seats' },
-  { key: 'report', label: 'Accessibility Report' },
+  { key: 'report', label: 'Board / Stakeholder Report (PDF)', infoKey: 'stakeholderReporting' },
   { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
@@ -208,6 +226,7 @@ const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; i
   { key: 'siteExpansion', label: 'Site Expansion (Mid-Cycle)', infoKey: 'siteExpansion' },
   { key: 'training', label: 'Consultation', infoKey: 'training' },
   { key: 'support', label: 'Support' },
+  { key: 'procurement', label: 'Procurement-Ready Pack', infoKey: 'procurement' },
 ];
 
 const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
@@ -394,8 +413,8 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   },
   'Core': {
     title: 'Core',
-    situation: 'You are responsible for delivering on DIAP commitments at a regional or smaller-authority scale, on a modest budget and without a big consultancy on the books.',
-    audience: 'Best for regional councils and smaller authorities running a focused DIAP program, scoping one focus area per financial year.',
+    situation: 'Your DIAP currently lives in a Word document and a folder of evidence. You are responsible for delivering on it at a regional or smaller-authority scale, on a modest budget and without a big consultancy on retainer.',
+    audience: 'Best for regional councils and smaller authorities running a focused DIAP program. Import your existing DIAP, assign actions to your team, attach evidence, and produce a board-ready report without consultant fees on top.',
     examples: [
       'A regional or rural council',
       'A regional tourism board or destination authority',
@@ -406,7 +425,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   },
   'Professional': {
     title: 'Professional',
-    situation: 'Your DIAP spans multiple teams and venues, and you need it coordinated across departments rather than living in one office.',
+    situation: 'Your DIAP spans multiple teams and venues, and you also work with suppliers, tenants or grant recipients you want to bring along. You need DIAP coordination across departments and a way to run an accessibility program for the businesses you fund or contract with, in one place.',
     audience: 'Best for mid-size metropolitan authorities coordinating accessibility across departments and sites, with department-level DIAP sections and a board-ready report.',
     examples: [
       'A mid-size metro council',
@@ -418,8 +437,8 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   },
   'Enterprise': {
     title: 'Enterprise',
-    situation: 'You manage accessibility at portfolio scale, across many sites, many teams and often multiple DIAPs. You need this to work for a strategic policy roll-out, not a single team.',
-    audience: 'Best for large metropolitan, state and federal bodies running accessibility across teams, sites and DIAPs at portfolio scale.',
+    situation: 'You manage accessibility at portfolio scale, across many sites, many teams and often multiple concurrent DIAPs. Your procurement team requires a security questionnaire and your legal team requires a real Master Services Agreement. You need this to work for a strategic policy roll-out, not a single team.',
+    audience: 'Best for large metropolitan, state and federal bodies running accessibility across teams, sites and DIAPs at portfolio scale, with multi-DIAP support, custom integrations on request, and a procurement-ready contract.',
     examples: [
       'A large metropolitan council',
       'A state tourism body or major destination authority',
@@ -812,7 +831,7 @@ const individualTiers: Tier[] = [
     highlight: false,
     features: {
       assessment: '3 modules (Deep Dive)',
-      sites: '1 site / venue',
+      sites: '1 site / venue / event',
       assessments: '1',
       users: '1',
       departments: false,
@@ -833,7 +852,7 @@ const individualTiers: Tier[] = [
     highlight: false,
     features: {
       assessment: 'Pulse Check (all relevant modules)',
-      sites: '1 site / venue',
+      sites: '1 site / venue / event',
       assessments: '1',
       users: '2',
       departments: false,
@@ -854,7 +873,7 @@ const individualTiers: Tier[] = [
     highlight: true,
     features: {
       assessment: 'Deep Dive (all relevant modules)',
-      sites: '1 site / venue',
+      sites: '1 site / venue / event',
       assessments: '1',
       users: '3',
       departments: false,
@@ -879,7 +898,7 @@ const multisiteTiers: Tier[] = [
     perSite: '$333/site',
     features: {
       assessment: 'Pulse Check (all relevant modules)',
-      sites: 'Up to 3 sites / venues',
+      sites: 'Up to 3 sites / venues / events',
       assessments: '1 per site',
       users: '6',
       departments: false,
@@ -901,7 +920,7 @@ const multisiteTiers: Tier[] = [
     perSite: '$666/site',
     features: {
       assessment: 'Deep Dive (all relevant modules)',
-      sites: 'Up to 3 sites / venues',
+      sites: 'Up to 3 sites / venues / events',
       assessments: '1 per site',
       users: '6',
       departments: false,
@@ -923,7 +942,7 @@ const multisiteTiers: Tier[] = [
     perSite: '$583/site',
     features: {
       assessment: 'Deep Dive (all relevant modules)',
-      sites: 'Up to 6 sites / venues',
+      sites: 'Up to 6 sites / venues / events',
       assessments: '1 per site',
       users: '12',
       departments: false,
@@ -1017,73 +1036,76 @@ const orgAccessibilityTiers: Tier[] = [
       diapImport: true,
       teamAllocation: true,
       diapDepartments: false,
-      stakeholderReporting: 'Tailored report (select assessment, sections)',
+      multiDiap: false,
       assessment: 'All modules (Pulse + Deep Dive)',
-      sites: '6 sites / venues',
+      sites: '6 sites / venues / events',
       users: '6',
-      report: 'PDF + interactive in-app report',
+      report: 'PDF + in-app dashboard. Filter by section + site / venue / event.',
       resourceHub: '12 months',
       evidenceLibrary: true,
-      comparison: '1 re-assessment',
+      comparison: false,
       businessGroupIncluded: false,
       seatExpansion: '$300/seat',
-      siteExpansion: '$400/site',
-      training: 'Add-on: from $300',
-      support: 'Email + guided onboarding'
+      siteExpansion: '$550/site',
+      training: '1 × 60-min included; add-ons from $300',
+      support: 'Email + guided onboarding',
+      procurement: false,
     }
   },
   {
     name: 'Professional',
     price: '$8,900',
     period: '12 months',
-    description: 'Multi-department action plan management with department-level sections',
-    whoFor: 'For mid-size authorities coordinating across departments and venues.',
+    description: 'Coordinate your DIAP across departments. Includes a Network Program for the suppliers, tenants or businesses you work with.',
+    whoFor: 'For mid-size authorities coordinating accessibility across departments, with a small Network Program for suppliers, tenants or grant recipients.',
     highlight: true,
     features: {
       diap: 'Full (import, assign, track, export)',
       diapImport: true,
       teamAllocation: true,
       diapDepartments: true,
-      stakeholderReporting: 'Tailored report (select assessment, department, sections)',
+      multiDiap: false,
       assessment: 'All modules (Pulse + Deep Dive)',
-      sites: '12 sites / venues',
-      users: '15',
-      report: 'PDF + interactive + department summary',
+      sites: '12 sites / venues / events',
+      users: '12',
+      report: 'PDF + in-app dashboard + per-department summary. Filter by section + site / venue / event + department.',
       resourceHub: '12 months',
       evidenceLibrary: true,
-      comparison: 'Unlimited',
+      comparison: '1 re-assessment',
       businessGroupIncluded: '1 Lite group (up to 10 businesses)',
       seatExpansion: '$300/seat',
-      siteExpansion: '$300/site',
-      training: 'Add-on: from $300',
-      support: 'Priority email + onboarding + quarterly check-in'
+      siteExpansion: '$525/site',
+      training: '1 × 60-min included; add-ons from $300',
+      support: 'Priority email + onboarding + 6-monthly check-in',
+      procurement: false,
     }
   },
   {
     name: 'Enterprise',
     price: 'from $15,000',
     period: '12 months',
-    description: 'For large councils, state and federal departments, universities, health networks and school systems.',
-    whoFor: 'For large authorities running accessibility at portfolio scale.',
+    description: 'Portfolio-scale accessibility with multi-DIAP support, custom integrations on request, and a procurement-ready contract.',
+    whoFor: 'For large councils, state and federal departments, universities, health networks and school systems running accessibility at portfolio scale.',
     highlight: false,
     features: {
       diap: 'Full (import, assign, track, export)',
       diapImport: true,
       teamAllocation: true,
       diapDepartments: true,
-      stakeholderReporting: 'Tailored report + branding on request',
+      multiDiap: 'Concurrent + historical comparison',
       assessment: 'All modules (Pulse + Deep Dive)',
-      sites: 'Negotiated',
-      users: 'Negotiated',
-      report: 'Custom + co-branded',
+      sites: 'from 20 sites / venues / events',
+      users: 'from 20',
+      report: 'PDF (your branding) + in-app dashboard + multi-DIAP comparison. Filter by section + site / venue / event + department + DIAP.',
       resourceHub: '12 months',
       evidenceLibrary: true,
       comparison: 'Unlimited',
-      businessGroupIncluded: 'Negotiated',
-      seatExpansion: 'Negotiated',
-      siteExpansion: 'Negotiated',
-      training: 'Add-on: from $300',
-      support: 'Dedicated support + consultant access'
+      businessGroupIncluded: '2 Lite Network Programs (up to 10 businesses each)',
+      seatExpansion: 'from $250/seat',
+      siteExpansion: '$500/site',
+      training: '2 × 60-min included; add-ons from $300',
+      support: 'Dedicated support + consultant access',
+      procurement: 'MSA, security questionnaire, insurance certs',
     }
   }
 ];
@@ -1904,7 +1926,7 @@ export default function Pricing() {
           <div className="pricing-addons-inner" style={{ backgroundColor: colors.ivory, border: `1px solid ${colors.ivoryDark}`, padding: '1.5rem 1.75rem' }}>
             <h3 style={{ color: colors.walnut, marginBottom: '0.5rem', fontSize: '1rem' }}>Not quite the right fit? You may belong elsewhere.</h3>
             <ul style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.65, paddingLeft: '1.125rem', margin: 0 }}>
-              <li><strong style={{ color: colors.textOnWhite }}>Multi-brand groups, franchise networks, state and federal bodies, universities, health networks</strong>: Multi-Brand Enterprise (negotiated, from $18,000/yr).</li>
+              <li><strong style={{ color: colors.textOnWhite }}>Multi-brand groups, franchise networks, state and federal bodies, universities, health networks</strong>: Multi-Brand Enterprise. <a href="mailto:hello@accesscompass.com.au?subject=Multi-Brand%20Enterprise%20enquiry" style={{ color: colors.amethyst, fontWeight: 600 }}>Contact us</a> to scope.</li>
               <li><strong style={{ color: colors.textOnWhite }}>Peak body or industry association members</strong>: ask your association about member-discount access.</li>
               <li><strong style={{ color: colors.textOnWhite }}>Chambers of commerce</strong>: Network Programs or partner program, depending on scale.</li>
               <li><strong style={{ color: colors.textOnWhite }}>Consultants running accessibility work for clients</strong>: partner or reseller program.</li>

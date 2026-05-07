@@ -196,101 +196,100 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
 // AUTHORITY TIERS
 // ============================================
 
-export type AuthorityTier = 'essentials' | 'standard' | 'pro' | 'enterprise';
+export type AuthorityTier = 'core' | 'professional' | 'enterprise';
 
 interface AuthorityTierConfig {
   name: string;
-  platformFeeCents: number;
-  perBusinessCents: number;
+  priceAmountCents: number;
+  priceLabel: string;
   period: string;
   accessLevel: AccessLevel;
-  maxBusinesses: number | null;
-  maxPrograms: number | null;
-  maxAdmins: number | null;
+  sites: string;
+  users: string;
+  reAssessments: number | null;
+  networkProgramsIncluded: string | null;
+  diapDepartments: boolean;
+  multiDiap: boolean;
+  procurementPack: boolean;
   isPurchasable: boolean;
   inclusions: string[];
 }
 
 const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
-  essentials: {
-    name: 'Essentials',
-    platformFeeCents: 490000,
-    perBusinessCents: 28900,
-    period: '1 year',
-    accessLevel: 'pulse',
-    maxBusinesses: 20,
-    maxPrograms: 1,
-    maxAdmins: 3,
+  core: {
+    name: 'Core',
+    priceAmountCents: 490000,
+    priceLabel: '$4,900',
+    period: '12 months',
+    accessLevel: 'deep_dive',
+    sites: '6 sites / venues / events',
+    users: '6',
+    reAssessments: 0,
+    networkProgramsIncluded: null,
+    diapDepartments: false,
+    multiDiap: false,
+    procurementPack: false,
     isPurchasable: true,
     inclusions: [
-      'Up to 20 business licenses',
-      '1 active program (scoped modules)',
-      '3 admin users',
-      'Completion tracking dashboard',
-      'Aggregate PDF + per-business summary',
-      '30-day Resource Hub per business',
-      'Email support + onboarding call',
+      'Full DIAP management (import, assign, track, export)',
+      '6 sites / events, 6 user seats',
+      'All modules (Pulse + Deep Dive)',
+      '12-month Resource Hub access',
+      'Evidence library',
+      'Stakeholder / board PDF report',
+      'Australian data residency (Sydney)',
+      '1 × 60-min consultation included',
+      'Email + guided onboarding',
     ],
   },
-  standard: {
-    name: 'Standard',
-    platformFeeCents: 790000,
-    perBusinessCents: 49900,
-    period: '1 year',
+  professional: {
+    name: 'Professional',
+    priceAmountCents: 890000,
+    priceLabel: '$8,900',
+    period: '12 months',
     accessLevel: 'deep_dive',
-    maxBusinesses: 50,
-    maxPrograms: 2,
-    maxAdmins: 5,
+    sites: '12 sites / venues / events',
+    users: '12',
+    reAssessments: 1,
+    networkProgramsIncluded: '1 Lite group (up to 10 businesses)',
+    diapDepartments: true,
+    multiDiap: false,
+    procurementPack: false,
     isPurchasable: true,
     inclusions: [
-      'Up to 50 business licenses',
-      '2 active programs (scoped modules)',
-      '5 admin users',
-      'Completion tracking dashboard',
-      'Aggregate reporting',
-      '6-month Resource Hub per business',
-      'DIAP workspace for businesses',
-      'Email support + onboarding call',
-    ],
-  },
-  pro: {
-    name: 'Pro',
-    platformFeeCents: 1490000,
-    perBusinessCents: 64900,
-    period: '1 year',
-    accessLevel: 'deep_dive',
-    maxBusinesses: 100,
-    maxPrograms: 5,
-    maxAdmins: 10,
-    isPurchasable: true,
-    inclusions: [
-      'Up to 100 business licenses',
-      '5 active programs (scoped modules)',
-      '10 admin users',
-      'Full aggregate dashboard with trends',
-      'Question guidance notes',
-      '12-month Resource Hub per business',
-      'DIAP workspace for businesses',
-      '1 re-assessment per business',
-      'Priority email + quarterly review',
+      'Everything in Core',
+      'Department-level DIAP sections',
+      '12 sites / events, 12 user seats',
+      '1 Lite Network Program included (10 businesses, 10 Pulse Check modules of your choice, aggregate dashboard, 12 months)',
+      '1 re-assessment',
+      '1 × 60-min consultation included',
+      'Priority email + 6-monthly check-in',
     ],
   },
   enterprise: {
-    name: 'Enterprise & Partnerships',
-    platformFeeCents: 0,
-    perBusinessCents: 0,
-    period: '',
+    name: 'Enterprise',
+    priceAmountCents: 1500000,
+    priceLabel: 'from $15,000',
+    period: '12 months',
     accessLevel: 'deep_dive',
-    maxBusinesses: null,
-    maxPrograms: null,
-    maxAdmins: null,
+    sites: 'from 20 sites / venues / events',
+    users: 'from 20',
+    reAssessments: null,
+    networkProgramsIncluded: '2 Lite Network Programs (up to 10 businesses each)',
+    diapDepartments: true,
+    multiDiap: true,
+    procurementPack: true,
     isPurchasable: false,
     inclusions: [
-      'Unlimited businesses, programs, and admin users',
-      'Co-branded reports and custom branding options',
-      'SSO + integrations + API access',
-      'Dedicated partnership manager',
-      'Custom reporting and data export',
+      'Everything in Professional',
+      'From 20 sites / events, from 20 user seats',
+      '2 Lite Network Programs (10 businesses each, 10 Pulse Check modules of your choice per program, aggregate dashboard, 12 months)',
+      'Multi-DIAP support (concurrent + historical comparison)',
+      'Custom integrations on request',
+      'Procurement-ready pack (MSA, security questionnaire, insurance certs)',
+      'Unlimited re-assessments',
+      '2 × 60-min consultations included',
+      'Dedicated support + consultant access',
     ],
   },
 };
@@ -525,23 +524,17 @@ export function getAuthorityTier(tier: AuthorityTier): AuthorityTierConfig {
   return AUTHORITY_TIERS[tier];
 }
 
-export function calculateAuthorityTotal(tier: AuthorityTier, businessCount: number): {
-  platformFeeCents: number;
-  licenseTotalCents: number;
+export function calculateAuthorityTotal(tier: AuthorityTier): {
   totalCents: number;
   label: string;
 } {
   const config = AUTHORITY_TIERS[tier];
   if (!config.isPurchasable) {
-    return { platformFeeCents: 0, licenseTotalCents: 0, totalCents: 0, label: 'Contact for pricing' };
+    return { totalCents: 0, label: config.priceLabel };
   }
-  const licenseTotalCents = config.perBusinessCents * businessCount;
-  const totalCents = config.platformFeeCents + licenseTotalCents;
   return {
-    platformFeeCents: config.platformFeeCents,
-    licenseTotalCents,
-    totalCents,
-    label: `${formatPrice(config.platformFeeCents)} + ${formatPrice(licenseTotalCents)} (${businessCount} businesses)`,
+    totalCents: config.priceAmountCents,
+    label: config.priceLabel,
   };
 }
 
