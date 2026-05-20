@@ -377,7 +377,7 @@ export const INDUSTRY_DEFAULT_MODULES: Record<string, string[]> = {
   'retail': ['2.1', '2.3', '4.2', '1.3', '3.10'],
   'local-government': ['1.2', '1.1', '4.3', '4.2'],
   'health-wellness': ['4.2', '2.1', '3.2', '4.3', '3.8'],
-  'education-training': ['1.1', '4.2', '2.3', '1.2'],
+  'education-training': ['1.1', '1.2', '2.1', '2.3', '3.1', '3.5', '4.1', '4.2', '5.1'],
   'tourism': ['2.1', '4.2', '1.1', '2.3', '3.8'],
   'accommodation': ['3.9', '1.3', '3.2', '2.1', '4.2'],
   'corporate': ['1.2', '1.1', '4.2', '2.3'],
