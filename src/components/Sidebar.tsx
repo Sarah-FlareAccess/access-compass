@@ -33,6 +33,7 @@ export function Sidebar() {
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [showAlerts, setShowAlerts] = useState(false);
   const [showSitePicker, setShowSitePicker] = useState(false);
+  const [siteFilter, setSiteFilter] = useState('');
   const alertsRef = useRef<HTMLDivElement>(null);
   const sitePickerRef = useRef<HTMLDivElement>(null);
 
@@ -141,32 +142,47 @@ export function Sidebar() {
             </svg>
           </button>
           {showSitePicker && (
-            <ul className="sidebar-site-picker-menu" role="listbox">
-              <li>
-                <button
-                  type="button"
-                  className={`sidebar-site-picker-option ${activeSiteId === null ? 'selected' : ''}`}
-                  onClick={() => { setActiveSiteIdLocal(null); setShowSitePicker(false); }}
-                  role="option"
-                  aria-selected={activeSiteId === null}
-                >
-                  Organisation-wide
-                </button>
-              </li>
-              {sites.map(site => (
-                <li key={site.id}>
+            <div className="sidebar-site-picker-menu" role="listbox">
+              {sites.length > 10 && (
+                <input
+                  type="search"
+                  className="sidebar-site-picker-filter"
+                  placeholder={`Filter ${sites.length} sites...`}
+                  value={siteFilter}
+                  onChange={(e) => setSiteFilter(e.target.value)}
+                  aria-label="Filter sites"
+                  autoFocus
+                />
+              )}
+              <ul className="sidebar-site-picker-list">
+                <li>
                   <button
                     type="button"
-                    className={`sidebar-site-picker-option ${activeSiteId === site.id ? 'selected' : ''}`}
-                    onClick={() => { setActiveSiteIdLocal(site.id); setShowSitePicker(false); }}
+                    className={`sidebar-site-picker-option ${activeSiteId === null ? 'selected' : ''}`}
+                    onClick={() => { setActiveSiteIdLocal(null); setShowSitePicker(false); setSiteFilter(''); }}
                     role="option"
-                    aria-selected={activeSiteId === site.id}
+                    aria-selected={activeSiteId === null}
                   >
-                    {site.name}
+                    Organisation-wide
                   </button>
                 </li>
-              ))}
-            </ul>
+                {sites
+                  .filter(s => !siteFilter || s.name.toLowerCase().includes(siteFilter.toLowerCase()))
+                  .map(site => (
+                  <li key={site.id}>
+                    <button
+                      type="button"
+                      className={`sidebar-site-picker-option ${activeSiteId === site.id ? 'selected' : ''}`}
+                      onClick={() => { setActiveSiteIdLocal(site.id); setShowSitePicker(false); setSiteFilter(''); }}
+                      role="option"
+                      aria-selected={activeSiteId === site.id}
+                    >
+                      {site.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       )}
