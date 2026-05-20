@@ -10,6 +10,7 @@ import { getSession, updateSession, getDiscoveryData, updateDiscoveryData, clear
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { MODULES } from '../lib/recommendationEngine';
+import { getModuleById } from '../data/accessModules';
 import { useAuth } from '../contexts/AuthContext';
 import type { JourneyPhase } from '../types';
 import { PageFooter } from '../components/PageFooter';
@@ -130,6 +131,27 @@ export default function DiscoverySummary() {
   const formatMinutes = (mins: number): string => {
     if (mins <= 0) return '—';
     return `${mins} min`;
+  };
+
+  // Resolve the customer's review mode (Pulse Check vs Deep Dive). Prefer the
+  // entitlement on accessState; fall back to whatever was saved during
+  // discovery; default to pulse so we never overstate the duration.
+  const reviewMode: 'pulse' | 'deep-dive' = (() => {
+    if (accessState.accessLevel === 'deep_dive') return 'deep-dive';
+    if (accessState.accessLevel === 'pulse') return 'pulse';
+    if (storedDiscovery?.review_mode === 'deep-dive') return 'deep-dive';
+    return 'pulse';
+  })();
+  const reviewModeLabel = reviewMode === 'deep-dive' ? 'Deep Dive' : 'Pulse Check';
+
+  // Get the time for a module based on the customer's mode.
+  const getModuleTime = (moduleId: string): number => {
+    const recModule = getModule(moduleId);
+    if (reviewMode === 'pulse') {
+      return recModule?.estimatedTime ?? 0;
+    }
+    const fullModule = getModuleById(moduleId);
+    return fullModule?.estimatedTimeDeepDive ?? (recModule?.estimatedTime ?? 0) * 3;
   };
 
   const orgName = session?.business_snapshot?.organisation_name
@@ -541,7 +563,7 @@ export default function DiscoverySummary() {
               {modulesByPhase.length > 0 ? (
                 <>
                   <p className="modules-total-strip">
-                    {selectedModules.length} {selectedModules.length === 1 ? 'module' : 'modules'} selected
+                    {selectedModules.length} {selectedModules.length === 1 ? 'module' : 'modules'} selected · times shown for {reviewModeLabel}
                   </p>
                   <div className="modules-by-phase">
                     {modulesByPhase.map(({ phase, label, modules }) => (
@@ -556,7 +578,7 @@ export default function DiscoverySummary() {
                               aria-label={`View details for ${module.name}`}
                             >
                               <span className="summary-module-name">{module.name}</span>
-                              <span className="summary-module-time">{formatMinutes(module.estimatedTime)}</span>
+                              <span className="summary-module-time">{formatMinutes(getModuleTime(module.id))}</span>
                               <span className="summary-module-arrow">→</span>
                             </div>
                           ))}
