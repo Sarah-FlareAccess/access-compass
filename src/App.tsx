@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { SessionManager } from './components/SessionManager';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import AppLayout from './components/AppLayout';
 import { RouteGuard } from './components/guards/RouteGuard';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -78,6 +79,7 @@ const ProgramEnrol = lazyWithRetry(() => import('./pages/ProgramEnrol'));
 
 function App() {
   return (
+    <ErrorBoundary>
     <AuthProvider>
       <SessionManager>
         <Router>
@@ -263,6 +265,7 @@ function App() {
         </Router>
       </SessionManager>
     </AuthProvider>
+    </ErrorBoundary>
   );
 }
 
