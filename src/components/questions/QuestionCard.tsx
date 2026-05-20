@@ -421,6 +421,23 @@ export function QuestionCard({
     }
   }, [currentResponse, onSaveEvidence]);
 
+  // Debounced autosave for the notes textarea: persists the user's
+  // observations 1.5s after they stop typing, only if an answer is
+  // already recorded for this question. Prevents data loss if the
+  // user closes the browser before clicking Save/Next.
+  useEffect(() => {
+    if (!currentResponse?.answer || !onSaveEvidence) return;
+    if ((currentResponse.notes || '') === notes) return;
+    const timer = setTimeout(() => {
+      onSaveEvidence({
+        ...currentResponse,
+        notes: notes || undefined,
+        timestamp: new Date().toISOString(),
+      });
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [notes, currentResponse, onSaveEvidence]);
+
   const renderImpactBadge = () => {
     if (!question.impactLevel) return null;
     const colors = {
