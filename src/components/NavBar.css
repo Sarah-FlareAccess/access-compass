@@ -64,6 +64,19 @@
   gap: var(--spacing-sm);
 }
 
+.nav-signed-in-as {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .nav-signed-in-as { display: none; }
+}
+
 .nav-link {
   padding: 8px 16px;
   font-size: 0.9rem;

@@ -7,7 +7,7 @@ import './NavBar.css';
 export default function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, signOut } = useAuth();
+  const { isAuthenticated, signOut, user, accessState } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Check if user is logged in via Supabase localStorage (fallback for timeout scenarios)
@@ -74,21 +74,28 @@ export default function NavBar() {
 
           <div className="nav-auth">
             {effectivelyAuthenticated ? (
-              <button
-                onClick={() => {
-                  Object.keys(localStorage).forEach(key => {
-                    if (key.startsWith('sb-') || key.includes('supabase')) {
-                      localStorage.removeItem(key);
-                    }
-                  });
-                  sessionStorage.clear();
-                  signOut();
-                  navigate('/');
-                }}
-                className="nav-link logout-btn"
-              >
-                Sign out
-              </button>
+              <>
+                {(accessState.organisation?.name || user?.email) && (
+                  <span className="nav-signed-in-as" title={user?.email || ''}>
+                    {accessState.organisation?.name || user?.email}
+                  </span>
+                )}
+                <button
+                  onClick={() => {
+                    Object.keys(localStorage).forEach(key => {
+                      if (key.startsWith('sb-') || key.includes('supabase')) {
+                        localStorage.removeItem(key);
+                      }
+                    });
+                    sessionStorage.clear();
+                    signOut();
+                    navigate('/');
+                  }}
+                  className="nav-link logout-btn"
+                >
+                  Sign out
+                </button>
+              </>
             ) : (
               <Link to="/disclaimer" className="nav-link sign-in">
                 Sign in
