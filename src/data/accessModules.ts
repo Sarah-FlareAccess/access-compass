@@ -20495,6 +20495,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-tested', label: 'Yes - tested for accessibility' },
@@ -20536,6 +20537,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-integrated', label: 'Yes - integrated into booking form' },
@@ -20733,6 +20735,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-online', label: 'Yes - bookable online' },
@@ -21742,6 +21745,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'General contact form but not specific to accessibility' or 'Can provide feedback in person but no formal process'",
@@ -26773,6 +26777,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes-detailed', label: 'Yes - detailed accessibility information on event page/materials' },
@@ -26997,6 +27002,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'venue-access', label: 'Venue physical accessibility (entrances, lifts, toilets)' },
@@ -27041,6 +27047,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'accessible-website', label: 'Accessible website (WCAG compliant)' },
@@ -27826,6 +27833,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'online-booking', label: 'Accessible seating bookable online from ticket release' },
@@ -27866,6 +27874,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'raised-platform', label: 'Yes - raised accessible viewing platform' },
@@ -28063,6 +28072,8 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        safetyRelated: true,
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-comprehensive', label: 'Yes - comprehensive wet weather accessibility plan' },
@@ -28146,6 +28157,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-multiple', label: 'Yes - multiple platforms at different locations' },
@@ -28584,6 +28596,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-throughout', label: 'Yes - QR codes on most signage' },
@@ -28622,6 +28635,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'tgsi', label: 'Tactile ground surface indicators (TGSIs) on key routes' },
@@ -28777,6 +28791,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'communication-boards', label: 'Communication boards with common phrases/symbols' },
@@ -30444,6 +30459,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'comprehensive', label: 'Yes - security staff trained and accessible procedures in place' },
@@ -30900,6 +30916,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-event', label: 'Yes, event-provided accessible transport between venues' },
@@ -30936,6 +30953,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, mapped and confirmed at every venue' },
@@ -31629,6 +31647,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-certified', label: 'Yes, certified human providers for both AD and captioning' },
@@ -32387,6 +32406,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-multi', label: 'Yes, multiple accessible payment methods' },
@@ -35288,6 +35308,8 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'high',
+        safetyRelated: true,
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-pitch', label: 'Yes, electricity at every accessible pitch' },
@@ -35323,6 +35345,8 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'high',
+        safetyRelated: true,
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-multiple', label: 'Yes, multiple medicine fridges across accessible camping' },
@@ -35467,6 +35491,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-comprehensive', label: 'Yes, accessible wayfinding (lighting, signage, paths, audio cues)' },
@@ -35541,6 +35566,8 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'medium',
+        safetyRelated: true,
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-comprehensive', label: 'Yes, continuous accessible night lighting on key paths' },
@@ -35723,7 +35750,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'policy',
         impactLevel: 'high',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -35797,7 +35824,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'digital',
         impactLevel: 'high',
-        complianceLevel: 'wcag-aa',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -35944,7 +35971,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'digital',
         impactLevel: 'medium',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -36907,7 +36934,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'digital',
         impactLevel: 'high',
-        complianceLevel: 'wcag-aa',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -36981,7 +37008,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'policy',
         impactLevel: 'medium',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -37091,7 +37118,8 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'safety',
         impactLevel: 'high',
-        complianceLevel: 'dda-compliant',
+        complianceLevel: 'mandatory',
+        safetyRelated: true,
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
