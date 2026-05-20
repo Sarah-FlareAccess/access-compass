@@ -100,6 +100,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Some info on our website but not comprehensive' or 'We mention parking but not entrances or toilets'",
@@ -323,6 +324,7 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Where customers can find your accessibility information affects whether they find it at all. Multiple locations can be good for reaching customers where they search, but ensure consistency across platforms.',
@@ -393,6 +395,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Findability is one of the most common accessibility failures. You might have excellent information, but it has no value if customers can\'t locate it when they need it. Many people give up if they can\'t find answers quickly. Test this yourself by opening your website homepage and counting the clicks needed to reach your accessibility information.',
@@ -564,6 +567,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'We mention some limitations but not all' or 'Only on certain pages'",
         showWhen: { questionId: '1.1-F-1', answers: ['yes', 'partially'] },
@@ -797,6 +801,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'tested-confident', label: 'Yes - we\'ve tested them and are confident they work well' },
@@ -1824,6 +1829,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-regular', label: 'Yes, we test regularly' },
@@ -2080,6 +2086,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'There is a general notes field but nothing specifically for accessibility' or 'Only available when booking certain ticket types'",
@@ -2239,6 +2246,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Requests are stored but we don\'t always follow up' or 'Depends on who is rostered that day'",
         helpContent: {
@@ -2438,6 +2446,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Wheelchair spaces can be booked online but companion tickets require calling' or 'Accessible options only available for some events'",
         helpContent: {
@@ -2733,6 +2742,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Works but buttons are small' or 'Date picker difficult on mobile'",
         helpContent: {
@@ -3387,6 +3397,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Sometimes but not consistently' or 'We don't post images on social media'",
         helpContent: {
@@ -3656,6 +3667,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.4-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         options: [
@@ -4201,6 +4213,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'We have an accessibility page but it\'s hard to find' or 'Info is scattered across different pages'",
         helpContent: {
@@ -4693,6 +4706,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.5-PC-8', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Some images have alt text but not all' or 'Videos have auto-captions only'",
@@ -12728,6 +12742,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes-both', label: 'Yes, Easy Read and Plain English available' },
@@ -12806,6 +12821,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '3.6-1-3', answers: ['yes', 'partially'] },
         options: [
@@ -13028,6 +13044,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, all videos are captioned' },
@@ -13068,6 +13085,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, audio description available for all videos' },
@@ -18481,6 +18499,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Email available but phone is promoted as primary contact' or 'Live chat during limited hours'",
@@ -19159,6 +19178,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'digital',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '4.1-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         options: [
@@ -22263,6 +22283,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         options: [
@@ -22516,6 +22537,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, consistently across all platforms' },
@@ -22752,6 +22774,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'digital',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-both', label: 'Yes, captions and audio description on all videos' },
@@ -22827,6 +22850,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'digital',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Some info on the contact page but no dedicated accessibility page' or 'Access info exists but is outdated'",
         helpContent: {
@@ -22928,6 +22952,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Good contrast and fonts but no plain text option' or 'Marketing emails accessible but not transactional'",
         helpContent: {
@@ -22960,6 +22985,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some documents are tagged but not all' or 'Not sure how to create accessible PDFs'",
         helpContent: {
@@ -29183,6 +29209,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '6.4-PC-1', answers: ['live-captioning'] },
         options: [
