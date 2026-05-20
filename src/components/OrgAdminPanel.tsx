@@ -1327,7 +1327,7 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
               <div className="data-action">
                 <div className="setting-info">
                   <h4>Export Your Data</h4>
-                  <p>Download a copy of your organisation's data in JSON format. Includes module responses, DIAP items, sites, members and activity log. Evidence files are not included.</p>
+                  <p>Download a JSON archive of your organisation's data: membership, sessions, audit log, sites, module progress, module responses, DIAP items + documents, and evidence file metadata. Evidence file binaries are not in the JSON — download them individually from the Evidence Library.</p>
                 </div>
                 <button
                   className="btn-export"
