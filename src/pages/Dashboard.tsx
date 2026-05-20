@@ -27,6 +27,7 @@ import type { ModuleOwnership, ModuleRunContext, RunComparison } from '../hooks/
 import { ModuleRunSelector } from '../components/ModuleRunSelector';
 import { RunComparisonView } from '../components/RunComparisonView';
 import { OrgAdminPanel } from '../components/OrgAdminPanel';
+import { PageFooter } from '../components/PageFooter';
 import { ReportProblem } from '../components/ReportProblem';
 import { ResourceInfoRequest } from '../components/ResourceInfoRequest';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -1451,9 +1452,7 @@ Thanks!`;
             </div>
           )}
         </div>
-        <div className="dashboard-footer-link">
-          <Link to="/accessibility">Accessibility Statement</Link>
-        </div>
+        <PageFooter />
       </main>
 
       {/* Assignment Modal */}
