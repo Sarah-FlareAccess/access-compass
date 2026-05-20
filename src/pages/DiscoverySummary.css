@@ -84,6 +84,171 @@
   border-radius: 0 4px 4px 0;
 }
 
+/* ============================================
+   SNAPSHOT CARD (top of page summary)
+   ============================================ */
+
+.summary-snapshot {
+  padding: var(--spacing-lg);
+}
+
+.snapshot-headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid rgba(73, 14, 103, 0.1);
+  margin-bottom: var(--spacing-md);
+}
+
+.snapshot-name-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.snapshot-org-name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+  letter-spacing: -0.01em;
+}
+
+.snapshot-plan-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, var(--amethyst-diamond), rgba(73, 14, 103, 0.85));
+  color: white;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.snapshot-totals {
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.snapshot-total-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.snapshot-total-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+  line-height: 1.1;
+}
+
+.snapshot-total-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.snapshot-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
+  margin: 0;
+}
+
+.snapshot-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.snapshot-fact dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.snapshot-fact dd {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .snapshot-headline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .snapshot-totals {
+    justify-content: flex-start;
+  }
+}
+
+/* ============================================
+   TOUCHPOINT CHIPS
+   ============================================ */
+
+.touchpoint-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.touchpoint-chip {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(73, 14, 103, 0.06);
+  border: 1px solid rgba(73, 14, 103, 0.12);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+/* ============================================
+   MODULES TOTAL STRIP + PER-MODULE TIME
+   ============================================ */
+
+.modules-total-strip {
+  margin: 0 0 var(--spacing-md) 0;
+  padding: 8px 14px;
+  background: rgba(73, 14, 103, 0.05);
+  border-left: 3px solid var(--amethyst-diamond);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.summary-module-time {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 12px;
+  padding: 2px 8px;
+  background: rgba(73, 14, 103, 0.06);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
 /* Hero section - primary focal point */
 .summary-section.summary-hero {
   background: linear-gradient(135deg, rgba(73, 14, 103, 0.03) 0%, rgba(250, 248, 245, 0.95) 50%, #ffffff 100%);

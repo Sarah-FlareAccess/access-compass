@@ -10,6 +10,7 @@ import { getSession, updateSession, getDiscoveryData, updateDiscoveryData, clear
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { JOURNEY_PHASES } from '../data/touchpoints';
 import { MODULES } from '../lib/recommendationEngine';
+import { useAuth } from '../contexts/AuthContext';
 import type { JourneyPhase } from '../types';
 import { PageFooter } from '../components/PageFooter';
 import { ModuleDetailModal } from '../components/discovery/ModuleDetailModal';
@@ -36,8 +37,9 @@ interface BusinessContext {
 }
 
 export default function DiscoverySummary() {
-  usePageTitle('Discovery Summary');
+  usePageTitle('Business profile');
   const navigate = useNavigate();
+  const { accessState } = useAuth();
   const session = getSession();
   const storedDiscovery = getDiscoveryData();
 
@@ -124,6 +126,39 @@ export default function DiscoverySummary() {
         .filter(m => m && m.journeyTheme === phase) as typeof MODULES,
     })).filter(group => group.modules.length > 0);
   }, [selectedModules]);
+
+  // Total estimated time across selected modules (Pulse Check minutes).
+  const totalEstimatedMinutes = useMemo(() => {
+    return selectedModules.reduce((sum, id) => {
+      const m = getModule(id);
+      return sum + (m?.estimatedTime ?? 0);
+    }, 0);
+  }, [selectedModules]);
+
+  const formatMinutes = (mins: number): string => {
+    if (mins <= 0) return '—';
+    if (mins < 60) return `${mins} min`;
+    const hours = Math.floor(mins / 60);
+    const remaining = mins % 60;
+    return remaining > 0 ? `${hours} hr ${remaining} min` : `${hours} hr`;
+  };
+
+  const orgName = session?.business_snapshot?.organisation_name
+    || accessState.organisation?.name
+    || null;
+  const businessTypes = session?.business_snapshot?.business_types ?? [];
+  const orgSize = session?.business_snapshot?.organisation_size;
+  const userRole = session?.business_snapshot?.user_role;
+  const pricingTier = accessState.organisation?.pricing_tier;
+
+  const assessmentTypeLabel = (() => {
+    switch (businessContext.assessmentType) {
+      case 'event': return 'Standalone event';
+      case 'both': return 'Business operations + event';
+      case 'business':
+      default: return 'Ongoing business operations';
+    }
+  })();
 
   // Toggle module
   const toggleModule = (id: string) => {
@@ -221,8 +256,54 @@ export default function DiscoverySummary() {
       <div className="summary-container">
         {/* Header */}
         <div className="summary-header">
-          <h1>Your Discovery Summary</h1>
-          <p>Review and update your accessibility focus areas</p>
+          <h1>Business profile</h1>
+          <p>Your business setup, customer journey, and accessibility focus areas</p>
+        </div>
+
+        {/* Snapshot card */}
+        <div className="summary-section summary-snapshot">
+          <div className="snapshot-headline">
+            <div className="snapshot-name-block">
+              <h2 className="snapshot-org-name">{orgName || 'Your organisation'}</h2>
+              {pricingTier && (
+                <span className="snapshot-plan-badge">{pricingTier} plan</span>
+              )}
+            </div>
+            <div className="snapshot-totals">
+              <div className="snapshot-total-item">
+                <span className="snapshot-total-number">{selectedModules.length}</span>
+                <span className="snapshot-total-label">{selectedModules.length === 1 ? 'module' : 'modules'}</span>
+              </div>
+              <div className="snapshot-total-item">
+                <span className="snapshot-total-number">{formatMinutes(totalEstimatedMinutes)}</span>
+                <span className="snapshot-total-label">to complete</span>
+              </div>
+            </div>
+          </div>
+          <dl className="snapshot-facts">
+            <div className="snapshot-fact">
+              <dt>Assessment type</dt>
+              <dd>{assessmentTypeLabel}</dd>
+            </div>
+            {businessTypes.length > 0 && (
+              <div className="snapshot-fact">
+                <dt>Business type</dt>
+                <dd>{businessTypes.join(', ')}</dd>
+              </div>
+            )}
+            {orgSize && (
+              <div className="snapshot-fact">
+                <dt>Size</dt>
+                <dd>{orgSize.charAt(0).toUpperCase() + orgSize.slice(1)}</dd>
+              </div>
+            )}
+            {userRole && (
+              <div className="snapshot-fact">
+                <dt>Your role</dt>
+                <dd>{userRole.charAt(0).toUpperCase() + userRole.slice(1)}</dd>
+              </div>
+            )}
+          </dl>
         </div>
 
         {/* Warning for incomplete discovery */}
@@ -380,9 +461,11 @@ export default function DiscoverySummary() {
               touchpointsByPhase.map(({ phase, selected }) => (
                 <div key={phase.id} className="touchpoint-group">
                   <h3 className="group-label">{phase.label}</h3>
-                  <p className="touchpoint-list">
-                    {selected.map(tpId => getTouchpointLabel(tpId)).join(' · ')}
-                  </p>
+                  <ul className="touchpoint-chips" role="list">
+                    {selected.map(tpId => (
+                      <li key={tpId} className="touchpoint-chip">{getTouchpointLabel(tpId)}</li>
+                    ))}
+                  </ul>
                 </div>
               ))
             ) : (
@@ -471,26 +554,32 @@ export default function DiscoverySummary() {
           {!isEditingModules ? (
             <div className="modules-display">
               {modulesByPhase.length > 0 ? (
-                <div className="modules-by-phase">
-                  {modulesByPhase.map(({ phase, label, modules }) => (
-                    <div key={phase} className="module-phase-group">
-                      <h3 className="group-label">{label}</h3>
-                      <div className="summary-module-grid" role="list">
-                        {modules.map(module => (
-                          <div key={module.id} className="summary-module-row" role="listitem"
-                            onClick={() => setModuleDetailId(module.id)}
-                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setModuleDetailId(module.id); } }}
-                            tabIndex={0}
-                            aria-label={`View details for ${module.name}`}
-                          >
-                            <span className="summary-module-name">{module.name}</span>
-                            <span className="summary-module-arrow">→</span>
-                          </div>
-                        ))}
+                <>
+                  <p className="modules-total-strip">
+                    {selectedModules.length} {selectedModules.length === 1 ? 'module' : 'modules'} selected · {formatMinutes(totalEstimatedMinutes)} estimated time
+                  </p>
+                  <div className="modules-by-phase">
+                    {modulesByPhase.map(({ phase, label, modules }) => (
+                      <div key={phase} className="module-phase-group">
+                        <h3 className="group-label">{label}</h3>
+                        <div className="summary-module-grid" role="list">
+                          {modules.map(module => (
+                            <div key={module.id} className="summary-module-row" role="listitem"
+                              onClick={() => setModuleDetailId(module.id)}
+                              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setModuleDetailId(module.id); } }}
+                              tabIndex={0}
+                              aria-label={`View details for ${module.name}`}
+                            >
+                              <span className="summary-module-name">{module.name}</span>
+                              <span className="summary-module-time">{formatMinutes(module.estimatedTime)}</span>
+                              <span className="summary-module-arrow">→</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                </>
               ) : (
                 <p className="empty-message">No modules selected</p>
               )}
