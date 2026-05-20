@@ -9,7 +9,6 @@ import { supabase } from '../utils/supabase';
 import type {
   OrganisationMembership,
   InviteCode,
-  AuditLog,
   OrgSecuritySettings,
   OrgRole,
 } from '../types/access';
@@ -62,12 +61,6 @@ interface UseOrgAdminResult {
   getAllowedEmails: (orgId: string) => Promise<AllowedEmail[]>;
   addAllowedEmails: (orgId: string, emails: string[]) => Promise<{ addedCount: number; skippedCount: number }>;
   removeAllowedEmail: (orgId: string, emailId: string) => Promise<boolean>;
-
-  // Audit logs
-  getAuditLogs: (
-    orgId: string,
-    options?: { days?: number; limit?: number }
-  ) => Promise<AuditLog[]>;
 
   // Security settings
   getSecuritySettings: (orgId: string) => Promise<OrgSecuritySettings | null>;
@@ -636,43 +629,6 @@ export function useOrgAdmin(): UseOrgAdminResult {
   }, []);
 
   // ============================================
-  // AUDIT LOGS
-  // ============================================
-
-  const getAuditLogs = useCallback(
-    async (
-      orgId: string,
-      options?: { days?: number; limit?: number }
-    ): Promise<AuditLog[]> => {
-      if (!supabase) return [];
-
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const { data, error: fetchError } = await supabase.rpc('get_audit_log_summary', {
-          p_org_id: orgId,
-          p_days: options?.days ?? 30,
-          p_limit: options?.limit ?? 100,
-        });
-
-        if (fetchError) {
-          setError(fetchError.message);
-          return [];
-        }
-
-        return data as AuditLog[];
-      } catch (err) {
-        setError('Failed to fetch audit logs');
-        return [];
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    []
-  );
-
-  // ============================================
   // SECURITY SETTINGS
   // ============================================
 
@@ -834,7 +790,6 @@ export function useOrgAdmin(): UseOrgAdminResult {
     getAllowedEmails,
     addAllowedEmails,
     removeAllowedEmail,
-    getAuditLogs,
     getSecuritySettings,
     updateSecuritySettings,
     exportUserData,

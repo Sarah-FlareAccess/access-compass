@@ -12,14 +12,13 @@ import { useOrgAdmin } from '../hooks/useOrgAdmin';
 import type {
   OrganisationMembership,
   InviteCode,
-  AuditLog,
   OrgSecuritySettings,
   OrgRole,
 } from '../types/access';
 import type { AllowedEmail } from '../hooks/useOrgAdmin';
 import '../styles/admin-panel.css';
 
-type AdminTab = 'members' | 'invites' | 'security' | 'audit';
+type AdminTab = 'members' | 'invites' | 'security';
 
 interface OrgAdminPanelProps {
   isOpen: boolean;
@@ -54,7 +53,6 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
   const [members, setMembers] = useState<OrganisationMembership[]>([]);
   const [pendingMembers, setPendingMembers] = useState<OrganisationMembership[]>([]);
   const [inviteCodes, setInviteCodes] = useState<InviteCode[]>([]);
-  const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [securitySettings, setSecuritySettings] = useState<OrgSecuritySettings | null>(null);
   const [allowedEmails, setAllowedEmails] = useState<AllowedEmail[]>([]);
 
@@ -118,11 +116,6 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
       case 'security':
         const settings = await admin.getSecuritySettings(orgId);
         setSecuritySettings(settings);
-        break;
-
-      case 'audit':
-        const logs = await admin.getAuditLogs(orgId, { days: 30, limit: 100 });
-        setAuditLogs(logs);
         break;
     }
   }, [orgId, activeTab]);
@@ -367,24 +360,6 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
     });
   };
 
-  const getActionLabel = (action: string): string => {
-    const labels: Record<string, string> = {
-      member_joined: 'Member joined',
-      member_approved: 'Member approved',
-      member_rejected: 'Member rejected',
-      member_suspended: 'Member suspended',
-      member_reactivated: 'Member reactivated',
-      member_removed: 'Member removed',
-      member_role_changed: 'Role changed',
-      invite_created: 'Invite created',
-      invite_used: 'Invite used',
-      invite_revoked: 'Invite revoked',
-      org_settings_changed: 'Settings changed',
-      data_exported: 'Data exported',
-    };
-    return labels[action] || action.replace(/_/g, ' ');
-  };
-
   return createPortal(
     <div className="admin-panel-overlay" onClick={onClose}>
       <div ref={adminPanelRef} className="admin-panel" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="admin-panel-title">
@@ -423,14 +398,6 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
             aria-selected={activeTab === 'security'}
           >
             Security
-          </button>
-          <button
-            className={`admin-tab ${activeTab === 'audit' ? 'active' : ''}`}
-            onClick={() => setActiveTab('audit')}
-            role="tab"
-            aria-selected={activeTab === 'audit'}
-          >
-            Activity Log
           </button>
         </div>
 
@@ -996,35 +963,6 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
             </div>
           )}
 
-          {/* AUDIT TAB */}
-          {activeTab === 'audit' && (
-            <div className="admin-audit">
-              <h3>Activity Log (Last 30 Days)</h3>
-
-              {auditLogs.length === 0 ? (
-                <p className="no-logs">No activity recorded yet.</p>
-              ) : (
-                <div className="audit-list">
-                  {auditLogs.map((log) => (
-                    <div key={log.id} className="audit-entry">
-                      <div className="audit-icon">
-                        {log.action.includes('member') && '👤'}
-                        {log.action.includes('invite') && '✉️'}
-                        {log.action.includes('security') && '🔒'}
-                        {log.action.includes('data') && '📁'}
-                        {log.action.includes('org') && '🏢'}
-                      </div>
-                      <div className="audit-info">
-                        <span className="audit-action">{getActionLabel(log.action)}</span>
-                        <span className="audit-user">{log.user_email || 'System'}</span>
-                      </div>
-                      <span className="audit-time">{formatDate(log.created_at)}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
         </div>
 
         {orgAdmin.error && <div className="admin-error">{orgAdmin.error}</div>}
