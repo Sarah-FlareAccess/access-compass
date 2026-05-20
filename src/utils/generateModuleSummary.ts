@@ -50,7 +50,15 @@ function categorizeResponseSentiment(
         return 'negative';
       }
       if (hasPositive) {
-        return 'positive';
+        // Only treat as fully positive when every positive option is selected.
+        // Selecting 2 of 7 "things you do" is a partial gap, not a success.
+        const allPositiveOptions = question.options?.filter(opt => opt.sentiment === 'positive') ?? [];
+        const selectedPositiveIds = new Set(
+          selectedOptions.filter(opt => opt.sentiment === 'positive').map(opt => opt.id),
+        );
+        const allPositiveSelected = allPositiveOptions.length > 0
+          && allPositiveOptions.every(opt => selectedPositiveIds.has(opt.id));
+        return allPositiveSelected ? 'positive' : 'neutral';
       }
     }
 
@@ -84,10 +92,6 @@ function categorizeResponseSentiment(
     }
 
     if (positiveKeywords.some(keyword => lowerLabels.includes(keyword))) {
-      return 'positive';
-    }
-
-    if (selectedOptionIds.length > 1) {
       return 'positive';
     }
   }
@@ -356,12 +360,6 @@ export function generateModuleSummary(
       const statement = convertQuestionToStatement(question.text);
       const partialDescription = response.notes?.trim();
 
-      if (partialDescription) {
-        doingWell.push(`${statement} (partially in place): ${partialDescription}`);
-      } else {
-        doingWell.push(`${statement} (partially in place)`);
-      }
-
       const partialPriority = calculateQuestionPriority({
         complianceLevel: question.complianceLevel,
         safetyRelated: question.safetyRelated,
@@ -417,33 +415,67 @@ export function generateModuleSummary(
         });
       }
     } else if (response.multiSelectValues || response.linkValue || response.urlAnalysis) {
-      if (sentiment === 'positive') {
-        const statement = convertQuestionToStatement(question.text);
-        const details = getResponseDetails(response, question);
-        doingWell.push(details ? `${statement} (${details})` : statement);
-      } else if (sentiment === 'negative') {
-        const priority = calculateQuestionPriority({
-          complianceLevel: question.complianceLevel,
-          safetyRelated: question.safetyRelated,
-          impactLevel: question.impactLevel,
-          answer: 'no',
-        });
+      // Detect partial coverage of positive-sentiment options. When the user
+      // has selected some but not all positive options, push one action item
+      // naming the unselected ones so they know specifically what's missing.
+      let partialPositiveHandled = false;
+      if (response.multiSelectValues && question.options) {
+        const positiveOptions = question.options.filter(opt => opt.sentiment === 'positive');
+        const selectedIds = new Set(response.multiSelectValues);
+        const unselectedPositive = positiveOptions.filter(opt => !selectedIds.has(opt.id));
+        const selectedAnyPositive = positiveOptions.some(opt => selectedIds.has(opt.id));
 
-        priorityActions.push({
-          questionId: question.id,
-          questionText: question.text,
-          action: question.actionText?.no || generateActionText(question.text),
-          priority,
-          timeframe: '',
-          impactStatement: generateImpactStatement(question),
-          complianceLevel: question.complianceLevel,
-        });
-      } else if (sentiment === 'neutral') {
-        areasToExplore.push({
-          questionId: question.id,
-          questionText: question.text,
-          action: question.actionText?.unsure || convertQuestionToExploreStatement(question.text),
-        });
+        if (positiveOptions.length > 0 && selectedAnyPositive && unselectedPositive.length > 0) {
+          const labels = unselectedPositive.map(opt => opt.label).join(', ');
+          const partialPriority = calculateQuestionPriority({
+            complianceLevel: question.complianceLevel,
+            safetyRelated: question.safetyRelated,
+            impactLevel: question.impactLevel,
+            answer: 'partially',
+          });
+          priorityActions.push({
+            questionId: question.id,
+            questionText: question.text,
+            action: `Consider also adding: ${labels}.`,
+            priority: partialPriority,
+            timeframe: '',
+            impactStatement: 'Broader coverage reaches more customers with different access needs.',
+            complianceLevel: question.complianceLevel,
+            safetyRelated: question.safetyRelated,
+          });
+          partialPositiveHandled = true;
+        }
+      }
+
+      if (!partialPositiveHandled) {
+        if (sentiment === 'positive') {
+          const statement = convertQuestionToStatement(question.text);
+          const details = getResponseDetails(response, question);
+          doingWell.push(details ? `${statement} (${details})` : statement);
+        } else if (sentiment === 'negative') {
+          const priority = calculateQuestionPriority({
+            complianceLevel: question.complianceLevel,
+            safetyRelated: question.safetyRelated,
+            impactLevel: question.impactLevel,
+            answer: 'no',
+          });
+
+          priorityActions.push({
+            questionId: question.id,
+            questionText: question.text,
+            action: question.actionText?.no || generateActionText(question.text),
+            priority,
+            timeframe: '',
+            impactStatement: generateImpactStatement(question),
+            complianceLevel: question.complianceLevel,
+          });
+        } else if (sentiment === 'neutral') {
+          areasToExplore.push({
+            questionId: question.id,
+            questionText: question.text,
+            action: question.actionText?.unsure || convertQuestionToExploreStatement(question.text),
+          });
+        }
       }
 
       if (response.multiSelectValues && question.options) {
