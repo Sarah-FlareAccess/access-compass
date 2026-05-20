@@ -104,7 +104,6 @@ export default function BusinessSnapshotPage() {
       discoveryData?.recommended_modules &&
       discoveryData.recommended_modules.length > 0
     ) {
-      console.log('[BusinessSnapshot] Returning user with progress, redirecting to dashboard');
       navigate('/dashboard');
       return;
     }
@@ -117,7 +116,6 @@ export default function BusinessSnapshotPage() {
       && accessState.membership?.role !== 'owner'
       && !existingSession?.business_snapshot?.organisation_name;
     if (joinedExistingOrg) {
-      console.log('[BusinessSnapshot] User joined existing org, skipping snapshot form');
       navigate('/discovery');
       return;
     }
