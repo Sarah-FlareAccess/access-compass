@@ -52,6 +52,10 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
   const orgAdmin = useOrgAdmin();
   const { sites, isLoading: sitesLoading, error: sitesError, createSite, deleteSite, reload: reloadSites } = useSites();
   const [activeSiteId, setActiveSiteIdLocal] = useActiveSiteId();
+  // Site structure is org-config. Non-admin members can switch the active
+  // site but shouldn't add or delete sites — that's the org owner/admin's call.
+  const myRole = accessState.membership?.role;
+  const canManageSites = myRole === 'owner' || myRole === 'admin';
   const [newSiteName, setNewSiteName] = useState('');
   const [newSiteDescription, setNewSiteDescription] = useState('');
   const [creatingSite, setCreatingSite] = useState(false);
@@ -1080,27 +1084,35 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                             Set active
                           </button>
                         )}
-                        <button
-                          type="button"
-                          className="admin-site-delete"
-                          aria-label={`Delete site ${site.name}`}
-                          onClick={async () => {
-                            if (!window.confirm(`Delete the site "${site.name}"? Existing answers tagged to this site stay in the database but lose their site tag.`)) return;
-                            const ok = await deleteSite(site.id);
-                            if (ok && activeSiteId === site.id) {
-                              setActiveSiteIdLocal(null);
-                            }
-                          }}
-                        >
-                          Delete
-                        </button>
+                        {canManageSites && (
+                          <button
+                            type="button"
+                            className="admin-site-delete"
+                            aria-label={`Delete site ${site.name}`}
+                            onClick={async () => {
+                              if (!window.confirm(`Delete the site "${site.name}"? Existing answers tagged to this site stay in the database but lose their site tag.`)) return;
+                              const ok = await deleteSite(site.id);
+                              if (ok && activeSiteId === site.id) {
+                                setActiveSiteIdLocal(null);
+                              }
+                            }}
+                          >
+                            Delete
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))
                 )}
               </div>
 
-              <form
+              {!canManageSites && (
+                <p className="admin-sites-readonly-note">
+                  Only org owners or admins can add or remove sites. Ask an admin if you need a new location added.
+                </p>
+              )}
+
+              {canManageSites && <form
                 className="admin-site-create"
                 onSubmit={async (e) => {
                   e.preventDefault();
@@ -1141,7 +1153,7 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                 >
                   {creatingSite ? 'Adding...' : 'Add site'}
                 </button>
-              </form>
+              </form>}
 
               {activeSiteId !== null && (
                 <div className="admin-site-clear">

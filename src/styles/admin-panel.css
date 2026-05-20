@@ -743,6 +743,16 @@
   line-height: 1.5;
 }
 
+.admin-sites-readonly-note {
+  margin: var(--spacing-md) 0 0;
+  padding: 10px 12px;
+  background: rgba(73, 14, 103, 0.06);
+  border-left: 3px solid var(--amethyst-diamond, #490E67);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
 .admin-sites-empty {
   padding: var(--spacing-lg);
   text-align: center;
