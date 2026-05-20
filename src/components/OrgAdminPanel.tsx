@@ -352,18 +352,21 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
     setActionLoading(null);
   };
 
-  // Request data deletion. Owner-only. Requires typed confirmation
-  // matching the org name to guard against accidental clicks.
+  // Leave this organisation and scrub personal info from audit logs.
+  // The RPC deletes only the caller's own membership and removes their
+  // email/name from audit_logs for this org. The org itself and other
+  // members' data are untouched. Available to any member, not just owners.
   const handleRequestDataDeletion = async () => {
     if (!orgId || !accessState.organisation?.name) return;
     const orgName = accessState.organisation.name;
     const confirmation = window.prompt(
-      `This will request deletion of all data for "${orgName}".\n\n` +
+      `You're about to leave "${orgName}" and scrub your personal info from its audit log.\n\n` +
+      `You will no longer have access. Other members and the org's data are not affected.\n\n` +
       `Type the org name exactly to confirm:`
     );
     if (confirmation !== orgName) {
       if (confirmation !== null) {
-        window.alert('Org name did not match. Nothing was deleted.');
+        window.alert('Org name did not match. Nothing happened.');
       }
       return;
     }
@@ -372,7 +375,7 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
     setActionLoading(null);
     if (ok) {
       window.alert(
-        'Data-deletion request submitted. You will receive a confirmation email and our team will action this within 7 days.'
+        'Done. You have left the organisation and your personal info has been scrubbed from its audit log. Sign out to fully clear your local session.'
       );
     }
   };
@@ -1335,21 +1338,19 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                 </button>
               </div>
 
-              {myRole === 'owner' && (
-                <div className="data-action data-action-danger">
-                  <div className="setting-info">
-                    <h4>Request Data Deletion</h4>
-                    <p>Submit a request to permanently delete all data for this organisation. Owners only. Our team will action within 7 days. This cannot be undone.</p>
-                  </div>
-                  <button
-                    className="btn-danger"
-                    onClick={handleRequestDataDeletion}
-                    disabled={actionLoading === 'delete'}
-                  >
-                    {actionLoading === 'delete' ? 'Submitting...' : 'Request deletion'}
-                  </button>
+              <div className="data-action data-action-danger">
+                <div className="setting-info">
+                  <h4>Leave this organisation and erase my data</h4>
+                  <p>Removes your membership from this organisation and scrubs your personal info (name, email) from its audit logs. The organisation and other members' data are not affected. This cannot be undone.</p>
                 </div>
-              )}
+                <button
+                  className="btn-danger"
+                  onClick={handleRequestDataDeletion}
+                  disabled={actionLoading === 'delete'}
+                >
+                  {actionLoading === 'delete' ? 'Processing...' : 'Leave and erase'}
+                </button>
+              </div>
             </div>
           )}
 
