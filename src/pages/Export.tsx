@@ -391,14 +391,6 @@ export default function Export() {
                 This self-review is designed to support learning and planning. Seeking professional
                 advice doesn't mean you've failed. It's a normal next step for many organisations.
               </p>
-              <div style={{ marginTop: '20px' }}>
-                <a href="#" style={{ color: '#7c3aed', fontWeight: 600, textDecoration: 'none' }}>
-                  Learn about professional support →
-                </a>
-                <span style={{ color: 'var(--text-muted)', marginLeft: '12px', fontSize: '14px' }}>
-                  (Coming soon)
-                </span>
-              </div>
             </div>
           )}
 

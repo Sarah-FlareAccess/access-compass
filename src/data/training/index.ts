@@ -5,9 +5,11 @@ import type {
   TrainingCategoryConfig,
   TrainingAccessTier,
 } from './types';
-import { aiAccessibleResourcesCourse } from './courses/ai-accessible-resources';
 import { aiAccessibleCommsCourse } from './courses/ai-accessible-comms';
 import { standaloneResources } from './resources/index';
+// aiAccessibleResourcesCourse is intentionally not imported here. Its lesson
+// videos are placeholder Vimeo IDs (000000001-7) and would 404 if shown to a
+// customer. Re-add the import + array entry once real videos exist.
 
 export const TRAINING_CATEGORIES: TrainingCategoryConfig[] = [
   {
@@ -56,7 +58,6 @@ export const TRAINING_CATEGORIES: TrainingCategoryConfig[] = [
 
 export const allCourses: TrainingCourse[] = [
   aiAccessibleCommsCourse,
-  aiAccessibleResourcesCourse,
 ];
 
 export const allResources: TrainingResource[] = [

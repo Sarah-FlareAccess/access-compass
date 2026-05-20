@@ -1,35 +1,9 @@
 import type { TrainingResource } from '../types';
 
+// 'resource-intro-disability-inclusion' and 'resource-wcag-overview' were
+// removed here because their body was still "Coming soon" placeholder text.
+// Re-add once real article content is written.
 export const standaloneResources: TrainingResource[] = [
-  {
-    id: 'resource-intro-disability-inclusion',
-    slug: 'intro-disability-inclusion',
-    title: 'Introduction to Disability Inclusion',
-    description: 'A short overview of the social model of disability, key terminology, and why inclusion matters for every organisation.',
-    category: 'disability-inclusion',
-    contentType: 'article',
-    accessTier: 'free',
-    body: '<p>Coming soon. This resource will cover the social model of disability, person-first and identity-first language, the Disability Discrimination Act 1992, and practical steps for building an inclusive culture.</p>',
-    author: 'Flare Access',
-    publishedDate: '2026-02-27',
-    estimatedMinutes: 10,
-    featured: true,
-    keywords: ['disability inclusion', 'social model', 'DDA', 'terminology'],
-  },
-  {
-    id: 'resource-wcag-overview',
-    slug: 'wcag-overview',
-    title: 'WCAG 2.2 Overview for Non-Technical Teams',
-    description: 'A plain-language summary of the Web Content Accessibility Guidelines, what they mean for your website and digital content.',
-    category: 'digital-accessibility',
-    contentType: 'article',
-    accessTier: 'free',
-    body: '<p>Coming soon. This resource will provide a non-technical explanation of WCAG 2.2 Levels A and AA, with practical examples for content authors, designers, and managers.</p>',
-    author: 'Flare Access',
-    publishedDate: '2026-02-27',
-    estimatedMinutes: 15,
-    keywords: ['WCAG', 'web accessibility', 'digital', 'guidelines'],
-  },
   {
     id: 'resource-accessible-events-checklist',
     slug: 'accessible-events-checklist',
