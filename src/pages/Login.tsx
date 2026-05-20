@@ -123,7 +123,7 @@ export default function Login() {
         if (error) {
           setError(error.message || 'Unable to send reset email. Please check that the email address is correct.');
         } else {
-          setSuccessMessage('Check your email for password reset instructions.');
+          setSuccessMessage(`If an account exists for ${email}, password-reset instructions are on the way. Check your inbox and spam folder.`);
           setMode('signin');
         }
       }
