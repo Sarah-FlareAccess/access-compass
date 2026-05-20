@@ -540,8 +540,15 @@ export function generateRecommendations(
     if (recommended.length < 3) {
       const defaults = INDUSTRY_DEFAULT_MODULES[industryId] || INDUSTRY_DEFAULT_MODULES['other'];
       const existingIds = new Set(recommended.map(r => r.moduleId));
+      // Online-only customers shouldn't be padded with physical-venue modules
+      // (Group 2.x Getting In, Group 3.x During Visit). Felix the inclusive
+      // online retailer was getting "Parking" recommended despite saying he
+      // has no physical venue.
+      const skipPhysicalGroups = ctx?.hasPhysicalVenue === false;
+      const isPhysicalGroupModule = (id: string) => id.startsWith('2.') || id.startsWith('3.');
 
       for (const moduleId of defaults) {
+        if (skipPhysicalGroups && isPhysicalGroupModule(moduleId)) continue;
         if (!existingIds.has(moduleId) && recommended.length < 3) {
           recommended.push({
             moduleId,
