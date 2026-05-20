@@ -355,9 +355,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         password,
       });
 
+      // "Failed to fetch" indicates a network-level block (firewall, proxy,
+      // offline). Surface that instead of a generic credentials error so the
+      // user knows to check their network rather than their password.
+      if (error && /failed to fetch|network|load failed/i.test(error.message || '')) {
+        return { error: { message: "Can't reach our servers. Your network may block this site. Try a different network (mobile hotspot) or ask your IT team to allow supabase.co." } as AuthError };
+      }
+
       return { error };
     } catch (err) {
       console.error('[AuthContext.signIn] Exception:', err);
+      const msg = err instanceof Error ? err.message : '';
+      if (/failed to fetch|network|load failed/i.test(msg)) {
+        return { error: { message: "Can't reach our servers. Your network may block this site. Try a different network (mobile hotspot) or ask your IT team to allow supabase.co." } as AuthError };
+      }
       return { error: { message: 'Failed to sign in' } as AuthError };
     }
   }, []);
