@@ -5,7 +5,7 @@
 // ============================================
 
 import { useState, useCallback } from 'react';
-import { supabase } from '../utils/supabase';
+import { supabase, supabaseRest } from '../utils/supabase';
 import type {
   OrganisationMembership,
   InviteCode,
@@ -42,6 +42,9 @@ interface UseOrgAdminResult {
   leaveOrganisation: (orgId: string) => Promise<{ success: boolean; message: string }>;
   getOrgOwner: (orgId: string) => Promise<{ userId: string; email: string } | null>;
   isOrgOwner: (orgId: string) => Promise<boolean>;
+
+  // Seat usage
+  getSeatUsage: (orgId: string) => Promise<{ used: number; max: number } | null>;
 
   // Invite code management
   getInviteCodes: (orgId: string) => Promise<InviteCode[]>;
@@ -449,6 +452,32 @@ export function useOrgAdmin(): UseOrgAdminResult {
     }
   }, []);
 
+  // Resolve current seat usage for an org. Counts every membership row
+  // that isn't 'rejected' (active + pending + suspended all hold a seat).
+  // Returns null when Supabase is offline or the org lookup fails.
+  const getSeatUsage = useCallback(
+    async (orgId: string): Promise<{ used: number; max: number } | null> => {
+      if (!supabase) return null;
+
+      const [orgRes, countRes] = await Promise.all([
+        supabaseRest.query('organisations', 'max_members', { id: orgId }),
+        supabase
+          .from('organisation_memberships')
+          .select('*', { count: 'exact', head: true })
+          .eq('organisation_id', orgId)
+          .neq('status', 'rejected'),
+      ]);
+
+      const orgRow = Array.isArray(orgRes.data) ? orgRes.data[0] as { max_members?: number } : null;
+      const max = typeof orgRow?.max_members === 'number' ? orgRow.max_members : 0;
+      const used = typeof countRes.count === 'number' ? countRes.count : 0;
+
+      if (orgRes.error || countRes.error) return null;
+      return { used, max };
+    },
+    []
+  );
+
   const createInviteCode = useCallback(
     async (
       orgId: string,
@@ -466,6 +495,15 @@ export function useOrgAdmin(): UseOrgAdminResult {
       setError(null);
 
       try {
+        // Pre-check seat cap so admins get a clear message instead of a
+        // silent invite that fails at acceptance time.
+        const usage = await getSeatUsage(orgId);
+        if (usage && usage.used >= usage.max) {
+          setError(`Member seat limit reached (${usage.used} of ${usage.max} used). Contact support@accesscompass.com.au to add more seats.`);
+          setIsLoading(false);
+          return null;
+        }
+
         const { data, error: createError } = await supabase.rpc('create_invite_code', {
           p_org_id: orgId,
           p_expires_in_days: options?.expiresInDays ?? 30,
@@ -495,7 +533,7 @@ export function useOrgAdmin(): UseOrgAdminResult {
         setIsLoading(false);
       }
     },
-    []
+    [getSeatUsage]
   );
 
   const revokeInviteCode = useCallback(async (code: string): Promise<boolean> => {
@@ -576,6 +614,22 @@ export function useOrgAdmin(): UseOrgAdminResult {
           return { addedCount: 0, skippedCount: 0 };
         }
 
+        // Pre-check seat capacity. Allowed emails reserve a seat at signup,
+        // so adding more emails than remaining seats would let people join
+        // past the cap.
+        const usage = await getSeatUsage(orgId);
+        if (usage) {
+          const remaining = usage.max - usage.used;
+          if (remaining <= 0) {
+            setError(`Member seat limit reached (${usage.used} of ${usage.max} used). Contact support@accesscompass.com.au to add more seats.`);
+            return { addedCount: 0, skippedCount: 0 };
+          }
+          if (emails.length > remaining) {
+            setError(`Adding ${emails.length} emails would exceed your seat limit (${usage.used} of ${usage.max} used, ${remaining} remaining). Reduce the list or contact support@accesscompass.com.au to add more seats.`);
+            return { addedCount: 0, skippedCount: 0 };
+          }
+        }
+
         const { data, error: addError } = await supabase.rpc('add_allowed_emails', {
           p_org_id: orgId,
           p_emails: emails,
@@ -599,7 +653,7 @@ export function useOrgAdmin(): UseOrgAdminResult {
         setIsLoading(false);
       }
     },
-    []
+    [getSeatUsage]
   );
 
   const removeAllowedEmail = useCallback(async (orgId: string, emailId: string): Promise<boolean> => {
@@ -784,6 +838,7 @@ export function useOrgAdmin(): UseOrgAdminResult {
     leaveOrganisation,
     getOrgOwner,
     isOrgOwner,
+    getSeatUsage,
     getInviteCodes,
     createInviteCode,
     revokeInviteCode,

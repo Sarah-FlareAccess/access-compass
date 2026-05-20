@@ -693,6 +693,42 @@
 }
 
 /* ============================================
+   SEAT USAGE BANNER (Members + Invites tabs)
+   ============================================ */
+
+.admin-seat-usage {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  background: rgba(73, 14, 103, 0.04);
+  border-left: 3px solid var(--rich-amethyst, #490e67);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.admin-seat-usage.at-limit {
+  background: rgba(230, 119, 0, 0.08);
+  border-left-color: var(--warm-orange, #e67700);
+}
+
+.admin-seat-usage-count {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.admin-seat-usage-hint {
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.admin-seat-usage-hint a {
+  color: var(--rich-amethyst, #490e67);
+  font-weight: 600;
+}
+
+/* ============================================
    OVERVIEW TAB
    ============================================ */
 

@@ -55,6 +55,7 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
   const [inviteCodes, setInviteCodes] = useState<InviteCode[]>([]);
   const [securitySettings, setSecuritySettings] = useState<OrgSecuritySettings | null>(null);
   const [allowedEmails, setAllowedEmails] = useState<AllowedEmail[]>([]);
+  const [seatUsage, setSeatUsage] = useState<{ used: number; max: number } | null>(null);
 
   // UI state
   const [showCreateInvite, setShowCreateInvite] = useState(false);
@@ -96,21 +97,25 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
 
     switch (activeTab) {
       case 'members':
-        const [allMembers, pending] = await Promise.all([
+        const [allMembers, pending, usage] = await Promise.all([
           admin.getMembers(orgId),
           admin.getPendingMembers(orgId),
+          admin.getSeatUsage(orgId),
         ]);
         setMembers(allMembers);
         setPendingMembers(pending);
+        setSeatUsage(usage);
         break;
 
       case 'invites':
-        const [codes, emails] = await Promise.all([
+        const [codes, emails, inviteUsage] = await Promise.all([
           admin.getInviteCodes(orgId),
           admin.getAllowedEmails(orgId),
+          admin.getSeatUsage(orgId),
         ]);
         setInviteCodes(codes);
         setAllowedEmails(emails);
+        setSeatUsage(inviteUsage);
         break;
 
       case 'security':
@@ -478,6 +483,22 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
           {/* MEMBERS TAB */}
           {activeTab === 'members' && (
             <div className="admin-members">
+              {seatUsage && (
+                <div
+                  className={`admin-seat-usage ${seatUsage.used >= seatUsage.max ? 'at-limit' : ''}`}
+                  role="status"
+                >
+                  <span className="admin-seat-usage-count">
+                    {seatUsage.used} of {seatUsage.max} member seats used
+                  </span>
+                  {seatUsage.used >= seatUsage.max && (
+                    <span className="admin-seat-usage-hint">
+                      You have reached your seat limit. <a href="mailto:support@accesscompass.com.au?subject=Add%20member%20seats">Contact support</a> to add more seats.
+                    </span>
+                  )}
+                </div>
+              )}
+
               {/* Pending Approvals */}
               {pendingMembers.length > 0 && (
                 <div className="pending-section">
@@ -705,11 +726,27 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
           {/* INVITES TAB */}
           {activeTab === 'invites' && (
             <div className="admin-invites">
+              {seatUsage && (
+                <div
+                  className={`admin-seat-usage ${seatUsage.used >= seatUsage.max ? 'at-limit' : ''}`}
+                  role="status"
+                >
+                  <span className="admin-seat-usage-count">
+                    {seatUsage.used} of {seatUsage.max} member seats used
+                  </span>
+                  {seatUsage.used >= seatUsage.max && (
+                    <span className="admin-seat-usage-hint">
+                      Seat limit reached. <a href="mailto:support@accesscompass.com.au?subject=Add%20member%20seats">Contact support</a> to add more seats before issuing new invites.
+                    </span>
+                  )}
+                </div>
+              )}
               <div className="invites-header">
                 <h3>Invite Codes</h3>
                 <button
                   className="btn-create-invite"
                   onClick={() => setShowCreateInvite(true)}
+                  disabled={!!seatUsage && seatUsage.used >= seatUsage.max}
                 >
                   + Create Invite
                 </button>
