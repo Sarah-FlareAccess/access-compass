@@ -581,6 +581,17 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     9
   );
 
+  addSectionTitle('Methodology', COLORS.amethystLight);
+
+  addParagraph(
+    'This report reflects a structured self-review completed by the organisation through the Access Compass platform. Each module presents a sequence of questions with embedded guidance, examples and links to applicable standards. Respondents select from response options that map to compliance status (compliant, partial, gap) and to whether a response represents minimum compliance or best practice.',
+    9
+  );
+  addParagraph(
+    'Findings represent the organisation\'s view of its current accessibility at the time of completion. Access Compass does not independently verify responses. For statutory certification or formal compliance audit, independent professional review is recommended. Recommendations in this report are generated from the response pattern and a curated library of accessibility actions; prioritisation reflects both legal exposure and impact on people with disability.',
+    9
+  );
+
   // ============================================
   // GROUP 2: ASSESSMENT EVIDENCE
   // ============================================
