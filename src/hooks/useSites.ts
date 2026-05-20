@@ -10,6 +10,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
+import { logActivityStandalone } from './useActivityLog';
 
 export interface Site {
   id: string;
@@ -100,6 +101,7 @@ export function useSites(): UseSitesResult {
         }
         const newSite = data as Site;
         setSites(prev => [...prev, newSite].sort((a, b) => a.name.localeCompare(b.name)));
+        logActivityStandalone('site-created', { siteName: newSite.name }, userId);
         return newSite;
       } catch (err) {
         setError(String(err));
@@ -148,6 +150,7 @@ export function useSites(): UseSitesResult {
         // diap_items are protected by ON DELETE SET NULL on the foreign key,
         // so deleting a site doesn't drop the data — the rows just go back
         // to org-wide (site_id becomes NULL).
+        const target = sites.find(s => s.id === id);
         const { error: deleteError } = await supabase
           .from('sites')
           .delete()
@@ -158,13 +161,16 @@ export function useSites(): UseSitesResult {
           return false;
         }
         setSites(prev => prev.filter(s => s.id !== id));
+        if (target) {
+          logActivityStandalone('site-deleted', { siteName: target.name }, userId);
+        }
         return true;
       } catch (err) {
         setError(String(err));
         return false;
       }
     },
-    [orgId],
+    [orgId, sites, userId],
   );
 
   return { sites, isLoading, error, reload, createSite, updateSite, deleteSite };

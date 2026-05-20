@@ -93,6 +93,7 @@ function getCategoryLabel(cat: ActivityCategory): string {
     case 'module': return 'Modules';
     case 'diap': return 'DIAP';
     case 'report': return 'Reports';
+    case 'site': return 'Sites';
     default: return 'All';
   }
 }
@@ -126,7 +127,7 @@ export function ActivityFeed({ activities, maxInitial = 20, trimmedByRetention, 
   const [showCount, setShowCount] = useState(maxInitial);
 
   const countByCategory = useMemo(() => {
-    const counts: Record<ActivityCategory, number> = { all: activities.length, module: 0, diap: 0, report: 0 };
+    const counts: Record<ActivityCategory, number> = { all: activities.length, module: 0, diap: 0, report: 0, site: 0 };
     for (const a of activities) {
       const cat = getActivityCategory(a.type);
       counts[cat]++;
@@ -155,7 +156,7 @@ export function ActivityFeed({ activities, maxInitial = 20, trimmedByRetention, 
     <div className="activity-log">
       {/* Filter tabs */}
       <div className="activity-filters" role="tablist" aria-label="Filter by category">
-        {(['all', 'module', 'diap', 'report'] as const).map(cat => (
+        {(['all', 'module', 'diap', 'report', 'site'] as const).map(cat => (
           <button
             key={cat}
             role="tab"

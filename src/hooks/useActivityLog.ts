@@ -135,6 +135,10 @@ export function getActivityDescriptionText(entry: ActivityEntry): string {
     }
     case 'report-generated':
       return 'generated a report';
+    case 'site-created':
+      return `added a site: ${entry.siteName || 'unnamed site'}`;
+    case 'site-deleted':
+      return `removed site: ${entry.siteName || 'unnamed site'}`;
     default:
       return 'performed an action';
   }
@@ -146,7 +150,7 @@ export function exportActivitiesAsCSV(activities: ActivityEntry[]): string {
     const date = new Date(a.timestamp);
     const category = getActivityCategory(a.type);
     const description = getActivityDescriptionText(a);
-    const details = [a.moduleName, a.diapItemObjective, a.commentText].filter(Boolean).join(' | ');
+    const details = [a.moduleName, a.diapItemObjective, a.commentText, a.siteName].filter(Boolean).join(' | ');
     return [
       date.toLocaleDateString('en-AU'),
       date.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' }),
@@ -343,6 +347,7 @@ export function logActivityStandalone(
         newValue: entry.newValue,
         assigneeName: entry.assigneeName,
         commentText: entry.commentText,
+        siteName: entry.siteName,
       },
       created_at: entry.timestamp,
     }, userId, undefined).catch(() => {});

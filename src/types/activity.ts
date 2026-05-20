@@ -7,7 +7,9 @@ export type ActivityType =
   | 'diap-assigned'
   | 'diap-comment-added'
   | 'diap-item-updated'
-  | 'report-generated';
+  | 'report-generated'
+  | 'site-created'
+  | 'site-deleted';
 
 export interface ActivityEntry {
   id: string;
@@ -26,14 +28,16 @@ export interface ActivityEntry {
   commentText?: string;
   changedFields?: string[];
   attachmentName?: string;
+  siteName?: string;
 }
 
-export type ActivityCategory = 'module' | 'diap' | 'report' | 'all';
+export type ActivityCategory = 'module' | 'diap' | 'report' | 'site' | 'all';
 
 export function getActivityCategory(type: ActivityType): ActivityCategory {
   if (type.startsWith('module-')) return 'module';
   if (type.startsWith('diap-')) return 'diap';
   if (type === 'report-generated') return 'report';
+  if (type.startsWith('site-')) return 'site';
   return 'module';
 }
 
