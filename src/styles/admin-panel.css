@@ -729,6 +729,176 @@
 }
 
 /* ============================================
+   SITES TAB
+   ============================================ */
+
+.admin-sites {
+  max-width: 720px;
+}
+
+.admin-sites-intro {
+  margin: 0 0 var(--spacing-md);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.admin-sites-empty {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--text-secondary);
+  background: rgba(73, 14, 103, 0.03);
+  border-radius: 8px;
+  margin: 0 0 var(--spacing-md);
+}
+
+.admin-sites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.admin-site-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: 12px 14px;
+  background: white;
+  border: 1px solid rgba(62, 43, 47, 0.1);
+  border-radius: 8px;
+  transition: border-color 0.15s ease;
+}
+
+.admin-site-row-active {
+  border-color: var(--amethyst-diamond, #490E67);
+  background: rgba(73, 14, 103, 0.04);
+}
+
+.admin-site-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-site-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.admin-site-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.admin-site-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.admin-site-active-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--amethyst-diamond, #490E67);
+  color: white;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-site-set-active {
+  background: none;
+  border: 1px solid rgba(73, 14, 103, 0.3);
+  color: var(--amethyst-diamond, #490E67);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-site-set-active:hover {
+  background: rgba(73, 14, 103, 0.06);
+}
+
+.admin-site-delete {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.admin-site-delete:hover {
+  color: #b91c1c;
+}
+
+.admin-site-create {
+  background: rgba(73, 14, 103, 0.03);
+  border: 1px solid rgba(73, 14, 103, 0.08);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-site-create h4 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.admin-site-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-site-field span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.admin-site-field input {
+  padding: 8px 12px;
+  border: 1px solid rgba(62, 43, 47, 0.15);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.admin-site-create-btn {
+  align-self: flex-start;
+  background: var(--amethyst-diamond, #490E67);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-site-create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-site-clear {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(62, 43, 47, 0.08);
+}
+
+/* ============================================
    OVERVIEW TAB
    ============================================ */
 

@@ -214,11 +214,13 @@ export async function syncOrgRecord(
   data: Record<string, unknown>,
   orgId: string | undefined,
   userId: string | undefined,
+  siteId?: string | null,
 ): Promise<boolean> {
   if (!isSupabaseEnabled() || !supabase || !orgId || !userId) {
     addToSyncQueue(table, 'upsert', {
       ...data,
       organisation_id: orgId ?? null,
+      site_id: siteId ?? null,
       user_id: userId ?? null,
       last_modified_by_user_id: userId ?? null,
     });
@@ -229,6 +231,7 @@ export async function syncOrgRecord(
     const record: Record<string, unknown> = {
       ...data,
       organisation_id: orgId,
+      site_id: siteId ?? null,
       // Keep user_id for compatibility with existing column on the row.
       // Treat as "created_by_user_id" semantically; once row exists,
       // last_modified_by_user_id is the source of truth for attribution.
@@ -238,16 +241,20 @@ export async function syncOrgRecord(
     };
 
     // Org-scoped onConflict keys aligned with migration 023's partial
-    // unique indexes when site_id IS NULL. Multi-site rows (site_id NOT
-    // NULL) need a different onConflict shape that we add when site
-    // picker UX ships. Tables without an explicit entry here upsert by
-    // their primary key (id) which works for diap_items, diap_documents,
-    // evidence_files.
-    const conflictMap: Record<string, string> = {
+    // unique indexes. When siteId is set, target the per-site index.
+    // When siteId is NULL, target the org-wide canonical index.
+    // Tables without an explicit entry here upsert by primary key (id),
+    // which works for diap_items, diap_documents, evidence_files.
+    const conflictMapNoSite: Record<string, string> = {
       module_progress: 'organisation_id,module_id',
       module_responses: 'organisation_id,module_id,question_id',
     };
+    const conflictMapWithSite: Record<string, string> = {
+      module_progress: 'organisation_id,site_id,module_id',
+      module_responses: 'organisation_id,site_id,module_id,question_id',
+    };
 
+    const conflictMap = siteId ? conflictMapWithSite : conflictMapNoSite;
     const onConflict = conflictMap[table];
     const { error } = onConflict
       ? await supabase.from(table).upsert(record, { onConflict })
@@ -263,6 +270,7 @@ export async function syncOrgRecord(
     addToSyncQueue(table, 'upsert', {
       ...data,
       organisation_id: orgId,
+      site_id: siteId ?? null,
       user_id: userId,
       last_modified_by_user_id: userId,
     });
@@ -271,12 +279,16 @@ export async function syncOrgRecord(
 }
 
 /**
- * Fetch all records for an organisation. Filters by organisation_id.
+ * Fetch records scoped to an organisation, optionally filtered to a
+ * specific site. When `siteId` is undefined, returns rows with site_id
+ * IS NULL (the canonical org-wide view). When `siteId` is a UUID,
+ * returns rows for that site only.
  */
 export async function fetchOrgRecords<T = Record<string, unknown>>(
   table: string,
   orgId: string,
   filters?: Record<string, unknown>,
+  siteId?: string | null,
 ): Promise<{ data: T[] | null; error: string | null }> {
   if (!isSupabaseEnabled() || !supabase) {
     return { data: null, error: 'Supabase not configured' };
@@ -284,6 +296,11 @@ export async function fetchOrgRecords<T = Record<string, unknown>>(
 
   try {
     let query = supabase.from(table).select('*').eq('organisation_id', orgId);
+    if (siteId) {
+      query = query.eq('site_id', siteId);
+    } else if (tableSupportsSite(table)) {
+      query = query.is('site_id', null);
+    }
     if (filters) {
       for (const [key, value] of Object.entries(filters)) {
         query = query.eq(key, value as string);
@@ -298,12 +315,13 @@ export async function fetchOrgRecords<T = Record<string, unknown>>(
 }
 
 /**
- * Fetch a single record for an organisation. Filters by organisation_id.
+ * Fetch a single record scoped to an organisation, optionally a site.
  */
 export async function fetchOrgRecord<T = Record<string, unknown>>(
   table: string,
   orgId: string,
   filters: Record<string, unknown>,
+  siteId?: string | null,
 ): Promise<{ data: T | null; error: string | null }> {
   if (!isSupabaseEnabled() || !supabase) {
     return { data: null, error: 'Supabase not configured' };
@@ -311,6 +329,11 @@ export async function fetchOrgRecord<T = Record<string, unknown>>(
 
   try {
     let query = supabase.from(table).select('*').eq('organisation_id', orgId);
+    if (siteId) {
+      query = query.eq('site_id', siteId);
+    } else if (tableSupportsSite(table)) {
+      query = query.is('site_id', null);
+    }
     for (const [key, value] of Object.entries(filters)) {
       query = query.eq(key, value as string);
     }
@@ -320,6 +343,15 @@ export async function fetchOrgRecord<T = Record<string, unknown>>(
   } catch (err) {
     return { data: null, error: String(err) };
   }
+}
+
+// Tables with the site_id column added in migration 023. Other tables
+// (e.g. activity_log) are org-scoped but not site-scoped.
+function tableSupportsSite(table: string): boolean {
+  return table === 'module_responses'
+    || table === 'module_progress'
+    || table === 'sessions'
+    || table === 'diap_items';
 }
 
 /**

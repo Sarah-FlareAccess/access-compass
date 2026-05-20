@@ -12,6 +12,7 @@ import { getSession } from '../utils/session';
 import { useInstallPrompt } from '../hooks/useInstallPrompt';
 import { useAlerts } from '../hooks/useAlerts';
 import { useOrgPresence } from '../hooks/useOrgPresence';
+import { useSites, useActiveSiteId } from '../hooks/useSites';
 import { OrgAdminPanel } from './OrgAdminPanel';
 import { ReportProblem, ReportProblemTrigger } from './ReportProblem';
 import { ResourceInfoRequest, ResourceInfoTrigger } from './ResourceInfoRequest';
@@ -24,12 +25,30 @@ export function Sidebar() {
   const { activeMembers } = useOrgPresence(user?.id, accessState.organisation?.id);
   const { canInstall, triggerInstall } = useInstallPrompt();
   const { alerts, unreadCount, markAsRead, markAllAsRead } = useAlerts();
+  const { sites } = useSites();
+  const [activeSiteId, setActiveSiteIdLocal] = useActiveSiteId();
   const [session, setSession] = useState<any>(null);
   const [showReportProblem, setShowReportProblem] = useState(false);
   const [showInfoRequest, setShowInfoRequest] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [showAlerts, setShowAlerts] = useState(false);
+  const [showSitePicker, setShowSitePicker] = useState(false);
   const alertsRef = useRef<HTMLDivElement>(null);
+  const sitePickerRef = useRef<HTMLDivElement>(null);
+
+  const activeSite = sites.find(s => s.id === activeSiteId);
+
+  // Close site picker on click outside
+  useEffect(() => {
+    if (!showSitePicker) return;
+    const handleClick = (e: MouseEvent) => {
+      if (sitePickerRef.current && !sitePickerRef.current.contains(e.target as Node)) {
+        setShowSitePicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [showSitePicker]);
 
   useEffect(() => {
     const sessionData = getSession();
@@ -100,6 +119,55 @@ export function Sidebar() {
               </span>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Site picker — only shown when the org has at least one site */}
+      {sites.length > 0 && (
+        <div className="sidebar-site-picker" ref={sitePickerRef}>
+          <button
+            type="button"
+            className="sidebar-site-picker-trigger"
+            onClick={() => setShowSitePicker(!showSitePicker)}
+            aria-haspopup="listbox"
+            aria-expanded={showSitePicker}
+          >
+            <span className="sidebar-site-picker-label">Working in:</span>
+            <span className="sidebar-site-picker-value">
+              {activeSite ? activeSite.name : 'Organisation-wide'}
+            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          {showSitePicker && (
+            <ul className="sidebar-site-picker-menu" role="listbox">
+              <li>
+                <button
+                  type="button"
+                  className={`sidebar-site-picker-option ${activeSiteId === null ? 'selected' : ''}`}
+                  onClick={() => { setActiveSiteIdLocal(null); setShowSitePicker(false); }}
+                  role="option"
+                  aria-selected={activeSiteId === null}
+                >
+                  Organisation-wide
+                </button>
+              </li>
+              {sites.map(site => (
+                <li key={site.id}>
+                  <button
+                    type="button"
+                    className={`sidebar-site-picker-option ${activeSiteId === site.id ? 'selected' : ''}`}
+                    onClick={() => { setActiveSiteIdLocal(site.id); setShowSitePicker(false); }}
+                    role="option"
+                    aria-selected={activeSiteId === site.id}
+                  >
+                    {site.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
 

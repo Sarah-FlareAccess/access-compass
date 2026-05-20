@@ -11,6 +11,7 @@ import { getSession } from '../utils/session';
 import { syncRecord, fetchRecords, fetchOrgRecords, syncOrgRecord, resolveByTimestamp } from '../utils/cloudSync';
 import { migrateEvidenceToStorage } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
+import { useActiveSiteId } from './useSites';
 import { logActivityStandalone } from './useActivityLog';
 import { getModuleById } from '../data/accessModules';
 import type { ResponseOption } from '../constants/responseOptions';
@@ -276,14 +277,17 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
   const [progress, setProgress] = useState<Record<string, ModuleProgress>>({});
   const [isLoading, setIsLoading] = useState(true);
   const { userId, organisationId } = useAuthSafe();
+  const [activeSiteId] = useActiveSiteId();
   const userIdRef = useRef(userId);
   const orgIdRef = useRef(organisationId);
+  const siteIdRef = useRef<string | null>(activeSiteId);
 
-  // Keep refs current so callbacks don't need userId/orgId in deps
+  // Keep refs current so callbacks don't need userId/orgId/siteId in deps
   useEffect(() => {
     userIdRef.current = userId;
     orgIdRef.current = organisationId;
-  }, [userId, organisationId]);
+    siteIdRef.current = activeSiteId;
+  }, [userId, organisationId, activeSiteId]);
 
   // Background sync a single module's progress to Supabase.
   // Org-scoped per migration 023: writes one canonical row per (org, module)
@@ -307,7 +311,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       assigned_to: moduleData.ownership?.assignedTo || null,
       assigned_to_email: moduleData.ownership?.assignedToEmail || null,
       target_completion_date: moduleData.ownership?.targetCompletionDate || null,
-    }, orgIdRef.current, userIdRef.current).catch(() => {
+    }, orgIdRef.current, userIdRef.current, siteIdRef.current).catch(() => {
       // Queued for retry automatically
     });
   }, []);
@@ -326,7 +330,8 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
           const { data: cloudRows, error: fetchError } = await fetchOrgRecords(
             'module_progress',
             organisationId,
-            undefined
+            undefined,
+            activeSiteId,
           );
 
           if (fetchError) {
@@ -375,7 +380,8 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
             const { data: responseRows } = await fetchOrgRecords(
               'module_responses',
               organisationId,
-              undefined
+              undefined,
+              activeSiteId,
             );
 
             if (responseRows && (responseRows as Record<string, unknown>[]).length > 0) {
@@ -419,7 +425,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     };
 
     loadProgress();
-  }, [userId, organisationId]);
+  }, [userId, organisationId, activeSiteId]);
 
   // Start a module
   const startModule = useCallback((moduleId: string, moduleCode: string) => {
@@ -582,7 +588,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
           measurement_value: response.measurement?.value ?? null,
           measurement_unit: response.measurement?.unit || null,
           measurement_confidence: response.measurement?.confidence || null,
-        }, orgIdRef.current, userIdRef.current).catch(() => {});
+        }, orgIdRef.current, userIdRef.current, siteIdRef.current).catch(() => {});
 
         // Background: migrate evidence files from base64 to Supabase Storage
         if (response.evidence && response.evidence.length > 0) {
@@ -655,6 +661,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
 
     const orgId = orgIdRef.current;
     const userIdValue = userIdRef.current;
+    const siteIdValue = siteIdRef.current;
 
     const progressEntries = Object.values(progress);
     const results = await Promise.allSettled(
@@ -673,7 +680,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
           assigned_to: entry.ownership?.assignedTo || null,
           assigned_to_email: entry.ownership?.assignedToEmail || null,
           target_completion_date: entry.ownership?.targetCompletionDate || null,
-        }, orgId, userIdValue)
+        }, orgId, userIdValue, siteIdValue)
       )
     );
 

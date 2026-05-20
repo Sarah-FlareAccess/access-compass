@@ -159,6 +159,86 @@
   transition: all 0.2s ease;
 }
 
+/* Site Picker (sidebar) */
+.sidebar-site-picker {
+  position: relative;
+  margin: 0 0.5rem 0.5rem;
+}
+
+.sidebar-site-picker-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.375rem;
+  color: inherit;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar-site-picker-trigger:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sidebar-site-picker-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.sidebar-site-picker-value {
+  flex: 1;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-site-picker-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid rgba(62, 43, 47, 0.15);
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 24px rgba(62, 43, 47, 0.15);
+  z-index: 100;
+}
+
+.sidebar-site-picker-option {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-site-picker-option:hover {
+  background: rgba(73, 14, 103, 0.06);
+}
+
+.sidebar-site-picker-option.selected {
+  background: rgba(73, 14, 103, 0.1);
+  font-weight: 600;
+  color: var(--amethyst-diamond, #490E67);
+}
+
 /* Team Presence Widget */
 .sidebar-team-presence {
   padding: 0.625rem 0.75rem;

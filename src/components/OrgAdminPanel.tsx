@@ -9,6 +9,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useOrgAdmin } from '../hooks/useOrgAdmin';
+import { useSites, useActiveSiteId } from '../hooks/useSites';
 import type {
   OrganisationMembership,
   InviteCode,
@@ -18,7 +19,7 @@ import type {
 import type { AllowedEmail } from '../hooks/useOrgAdmin';
 import '../styles/admin-panel.css';
 
-type AdminTab = 'overview' | 'members' | 'invites' | 'security';
+type AdminTab = 'overview' | 'members' | 'invites' | 'sites' | 'security';
 
 interface OrgAdminPanelProps {
   isOpen: boolean;
@@ -48,6 +49,11 @@ void _ROLE_DESCRIPTIONS; // Suppress unused warning
 export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
   const { accessState, user } = useAuth();
   const orgAdmin = useOrgAdmin();
+  const { sites, isLoading: sitesLoading, error: sitesError, createSite, deleteSite, reload: reloadSites } = useSites();
+  const [activeSiteId, setActiveSiteIdLocal] = useActiveSiteId();
+  const [newSiteName, setNewSiteName] = useState('');
+  const [newSiteDescription, setNewSiteDescription] = useState('');
+  const [creatingSite, setCreatingSite] = useState(false);
 
   const [activeTab, setActiveTab] = useState<AdminTab>('overview');
   const [members, setMembers] = useState<OrganisationMembership[]>([]);
@@ -403,6 +409,17 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
             aria-selected={activeTab === 'invites'}
           >
             Invites
+          </button>
+          <button
+            className={`admin-tab ${activeTab === 'sites' ? 'active' : ''}`}
+            onClick={() => { setActiveTab('sites'); reloadSites(); }}
+            role="tab"
+            aria-selected={activeTab === 'sites'}
+          >
+            Sites
+            {sites.length > 0 && (
+              <span className="tab-badge">{sites.length}</span>
+            )}
           </button>
           <button
             className={`admin-tab ${activeTab === 'security' ? 'active' : ''}`}
@@ -1014,6 +1031,124 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
                   )}
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* SITES TAB */}
+          {activeTab === 'sites' && (
+            <div className="admin-sites">
+              <h3>Sites</h3>
+              <p className="admin-sites-intro">
+                For multi-site organisations: add each location (venue, clinic,
+                site, office, event) so coordinators can record accessibility
+                answers per location. Single-site organisations can leave this
+                empty.
+              </p>
+
+              {sitesError && (
+                <div className="admin-error" role="alert">{sitesError}</div>
+              )}
+
+              <div className="admin-sites-list">
+                {sitesLoading && sites.length === 0 ? (
+                  <p className="admin-sites-empty">Loading sites...</p>
+                ) : sites.length === 0 ? (
+                  <p className="admin-sites-empty">No sites yet. Add one below.</p>
+                ) : (
+                  sites.map(site => (
+                    <div key={site.id} className={`admin-site-row ${activeSiteId === site.id ? 'admin-site-row-active' : ''}`}>
+                      <div className="admin-site-info">
+                        <span className="admin-site-name">{site.name}</span>
+                        {site.description && (
+                          <span className="admin-site-description">{site.description}</span>
+                        )}
+                      </div>
+                      <div className="admin-site-actions">
+                        {activeSiteId === site.id ? (
+                          <span className="admin-site-active-badge">Active</span>
+                        ) : (
+                          <button
+                            type="button"
+                            className="admin-site-set-active"
+                            onClick={() => setActiveSiteIdLocal(site.id)}
+                          >
+                            Set active
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          className="admin-site-delete"
+                          aria-label={`Delete site ${site.name}`}
+                          onClick={async () => {
+                            if (!window.confirm(`Delete the site "${site.name}"? Existing answers tagged to this site stay in the database but lose their site tag.`)) return;
+                            const ok = await deleteSite(site.id);
+                            if (ok && activeSiteId === site.id) {
+                              setActiveSiteIdLocal(null);
+                            }
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              <form
+                className="admin-site-create"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (creatingSite) return;
+                  setCreatingSite(true);
+                  const created = await createSite(newSiteName, newSiteDescription || undefined);
+                  if (created) {
+                    setNewSiteName('');
+                    setNewSiteDescription('');
+                  }
+                  setCreatingSite(false);
+                }}
+              >
+                <h4>Add a site</h4>
+                <label className="admin-site-field">
+                  <span>Site name</span>
+                  <input
+                    type="text"
+                    value={newSiteName}
+                    onChange={(e) => setNewSiteName(e.target.value)}
+                    placeholder="e.g. Clinic Adelaide North"
+                    required
+                  />
+                </label>
+                <label className="admin-site-field">
+                  <span>Description (optional)</span>
+                  <input
+                    type="text"
+                    value={newSiteDescription}
+                    onChange={(e) => setNewSiteDescription(e.target.value)}
+                    placeholder="e.g. 12 Hindley Street, Adelaide"
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="admin-site-create-btn"
+                  disabled={creatingSite || !newSiteName.trim()}
+                >
+                  {creatingSite ? 'Adding...' : 'Add site'}
+                </button>
+              </form>
+
+              {activeSiteId !== null && (
+                <div className="admin-site-clear">
+                  <button
+                    type="button"
+                    className="btn-cancel"
+                    onClick={() => setActiveSiteIdLocal(null)}
+                  >
+                    Clear active site (show organisation-wide view)
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
