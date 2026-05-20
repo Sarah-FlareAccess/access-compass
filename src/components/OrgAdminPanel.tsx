@@ -942,20 +942,31 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                             Uses: {invite.times_used}
                             {invite.max_uses ? `/${invite.max_uses}` : ' (unlimited)'}
                           </span>
-                          {invite.expires_at && (
-                            <span>Expires: {formatDate(invite.expires_at)}</span>
-                          )}
+                          {invite.expires_at && (() => {
+                            const isExpired = new Date(invite.expires_at) < new Date();
+                            return (
+                              <span className={isExpired ? 'invite-expired' : ''}>
+                                {isExpired ? 'Expired: ' : 'Expires: '}{formatDate(invite.expires_at)}
+                              </span>
+                            );
+                          })()}
                         </div>
                       </div>
-                      {invite.is_active && (
-                        <button
-                          className="btn-revoke"
-                          onClick={() => handleRevokeInvite(invite.code)}
-                          disabled={actionLoading === invite.code}
-                        >
-                          Revoke
-                        </button>
-                      )}
+                      {invite.is_active && (() => {
+                        const isExpired = invite.expires_at && new Date(invite.expires_at) < new Date();
+                        if (isExpired) {
+                          return <span className="inactive-badge">Expired</span>;
+                        }
+                        return (
+                          <button
+                            className="btn-revoke"
+                            onClick={() => handleRevokeInvite(invite.code)}
+                            disabled={actionLoading === invite.code}
+                          >
+                            Revoke
+                          </button>
+                        );
+                      })()}
                       {!invite.is_active && (
                         <span className="inactive-badge">Inactive</span>
                       )}
