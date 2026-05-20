@@ -372,7 +372,7 @@ export { PHYSICAL_VENUE_TOUCHPOINTS };
 export const INDUSTRY_DEFAULT_MODULES: Record<string, string[]> = {
   'attractions': ['2.1', '2.3', '4.2', '3.3', '3.5', '3.8', '3.10'],
   'leisure-recreation': ['2.1', '2.3', '4.2', '3.3', '3.8'],
-  'hospitality': ['4.2', '3.1', '3.3', '2.1'],
+  'hospitality': ['1.1', '1.2', '1.3', '2.1', '3.1', '3.3', '3.6', '4.1', '4.2'],
   'events-venues': ['2.1', '2.3', '4.2', '3.3', '3.8', '6.1', '6.2', '6.5', '7.3'],
   'retail': ['2.1', '2.3', '4.2', '1.3', '3.10'],
   'local-government': ['1.2', '1.1', '4.3', '4.2'],

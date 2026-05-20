@@ -109,6 +109,19 @@ export default function BusinessSnapshotPage() {
       return;
     }
 
+    // Users who joined an existing org via invite code or pre-registered email
+    // should not be asked to fill the org's business snapshot — that's the
+    // owner's job and is already saved on the org row. Skip to discovery so
+    // they can answer touchpoints for their own scope of work.
+    const joinedExistingOrg = !!accessState.organisation
+      && accessState.membership?.role !== 'owner'
+      && !existingSession?.business_snapshot?.organisation_name;
+    if (joinedExistingOrg) {
+      console.log('[BusinessSnapshot] User joined existing org, skipping snapshot form');
+      navigate('/discovery');
+      return;
+    }
+
     // Initialize session if needed
     const session = initializeSession();
 
@@ -122,7 +135,7 @@ export default function BusinessSnapshotPage() {
         organisation_name: accessState.organisation!.name,
       }));
     }
-  }, [navigate, accessState.organisation]);
+  }, [navigate, accessState.organisation, accessState.membership]);
 
   const toggleBusinessType = (type: BusinessType) => {
     setFormData((prev) => ({
