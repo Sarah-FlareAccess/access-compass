@@ -759,6 +759,10 @@ function generateNextSteps(
     return count + (module.summary?.priorityActions.filter(a => a.priority === 'high').length || 0);
   }, 0);
 
+  const mediumPriorityCount = completedModules.reduce((count, module) => {
+    return count + (module.summary?.priorityActions.filter(a => a.priority === 'medium').length || 0);
+  }, 0);
+
   const lowPriorityCount = completedModules.reduce((count, module) => {
     return count + (module.summary?.priorityActions.filter(a => a.priority === 'low').length || 0);
   }, 0);
@@ -769,31 +773,35 @@ function generateNextSteps(
 
   const incompleteModuleCount = selectedModuleIds.length - completedModules.length;
 
-  // --- Things to explore now ---
+  // --- Things to explore now (ordered by priority) ---
 
-  if (lowPriorityCount > 0) {
-    exploreNow.push(`Review the ${lowPriorityCount} low-priority items for quick wins. Many of these are small changes (signage, wording, staff awareness) that can be done without budget approval.`);
+  if (highPriorityCount > 0) {
+    exploreNow.push(`Start with the ${highPriorityCount} high-priority item${highPriorityCount === 1 ? '' : 's'} relating to mandatory compliance and safety. Some may need budget, building works, or specialist input, so begin scoping them now to give yourself time to plan.`);
+  }
+
+  if (mediumPriorityCount > 0) {
+    exploreNow.push(`Address the ${mediumPriorityCount} medium-priority item${mediumPriorityCount === 1 ? '' : 's'}. These are high-impact improvements that significantly affect the experience of people with disability, even where they sit outside mandatory compliance.`);
+  }
+
+  if (partiallyCount > 3) {
+    exploreNow.push(`Close the ${partiallyCount} items marked "partially in place". The foundation is already there, so these are often the quickest to bring up to full compliance.`);
   }
 
   if (toConfirmCount > 0) {
     exploreNow.push(`Follow up on the ${toConfirmCount} item${toConfirmCount === 1 ? '' : 's'} marked "Unable to check". Walk the site with a colleague, or contact your building manager to verify these.`);
   }
 
-  if (partiallyCount > 3) {
-    exploreNow.push(`Look at the ${partiallyCount} items marked "partially in place". These are often the easiest to bring up to full compliance since the foundation is already there.`);
+  if (lowPriorityCount > 0) {
+    exploreNow.push(`Tackle the ${lowPriorityCount} low-priority quick win${lowPriorityCount === 1 ? '' : 's'} in parallel. Many are small changes (signage, wording, staff awareness) that can be done without budget approval and build early momentum.`);
   }
 
   if (areasToExplore.length > 0) {
-    exploreNow.push('Use the in-app report to view detailed action guides and resource links for each item. Start with the areas you feel most confident tackling.');
+    exploreNow.push('Use the in-app report to view detailed action guides and resource links for each item.');
   }
 
   exploreNow.push('Share this report with relevant stakeholders so they understand the current state and can contribute to planning improvements.');
 
   // --- Things to plan for later ---
-
-  if (highPriorityCount > 0) {
-    planForLater.push(`Address the ${highPriorityCount} high-priority item${highPriorityCount === 1 ? '' : 's'} relating to mandatory compliance requirements. These may need budget allocation, building works, or specialist input.`);
-  }
 
   if (incompleteModuleCount > 0) {
     planForLater.push(`Complete the remaining ${incompleteModuleCount} module${incompleteModuleCount === 1 ? '' : 's'} you haven't reviewed yet to get a full picture of your accessibility position.`);
