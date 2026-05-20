@@ -9,7 +9,7 @@ type Step = 'disclaimer' | 'auth' | 'organisation' | 'complete';
 type OrgOption = 'none' | 'invite' | 'create';
 
 export default function Disclaimer() {
-  usePageTitle('Terms and Conditions');
+  usePageTitle('Before you begin');
   const navigate = useNavigate();
   const {
     signIn,
