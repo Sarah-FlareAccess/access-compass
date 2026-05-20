@@ -8,7 +8,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
-import { syncRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
+import { syncRecord, fetchRecords, fetchOrgRecords, syncOrgRecord, resolveByTimestamp } from '../utils/cloudSync';
 import { migrateEvidenceToStorage } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
 import { logActivityStandalone } from './useActivityLog';
@@ -285,12 +285,15 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     orgIdRef.current = organisationId;
   }, [userId, organisationId]);
 
-  // Background sync a single module's progress to Supabase
+  // Background sync a single module's progress to Supabase.
+  // Org-scoped per migration 023: writes one canonical row per (org, module)
+  // and records last_modified_by_user_id for audit. Anonymous users (no org)
+  // remain localStorage-only.
   const syncModuleToCloud = useCallback((_moduleId: string, moduleData: ModuleProgress) => {
     const session = getSession();
-    if (!session?.session_id || !userIdRef.current) return;
+    if (!session?.session_id || !userIdRef.current || !orgIdRef.current) return;
 
-    syncRecord('module_progress', {
+    syncOrgRecord('module_progress', {
       session_id: session.session_id,
       module_id: moduleData.moduleId,
       module_code: moduleData.moduleCode,
@@ -304,7 +307,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       assigned_to: moduleData.ownership?.assignedTo || null,
       assigned_to_email: moduleData.ownership?.assignedToEmail || null,
       target_completion_date: moduleData.ownership?.targetCompletionDate || null,
-    }, userIdRef.current, orgIdRef.current).catch(() => {
+    }, orgIdRef.current, userIdRef.current).catch(() => {
       // Queued for retry automatically
     });
   }, []);
@@ -317,11 +320,12 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
         const localProgress = getLocalProgress();
         setProgress(localProgress);
 
-        // If Supabase is enabled and user authenticated, merge cloud data
-        if (isSupabaseEnabled() && userId) {
-          const { data: cloudRows, error: fetchError } = await fetchRecords(
+        // If Supabase is enabled and user is in an org, fetch org-scoped data.
+        // Anonymous / no-org users stay on localStorage only.
+        if (isSupabaseEnabled() && userId && organisationId) {
+          const { data: cloudRows, error: fetchError } = await fetchOrgRecords(
             'module_progress',
-            userId,
+            organisationId,
             undefined
           );
 
@@ -368,9 +372,9 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
             .filter(m => m.status !== 'not-started' && (!m.responses || m.responses.length === 0));
 
           if (modulesNeedingRecovery.length > 0) {
-            const { data: responseRows } = await fetchRecords(
+            const { data: responseRows } = await fetchOrgRecords(
               'module_responses',
-              userId,
+              organisationId,
               undefined
             );
 
@@ -415,7 +419,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     };
 
     loadProgress();
-  }, [userId]);
+  }, [userId, organisationId]);
 
   // Start a module
   const startModule = useCallback((moduleId: string, moduleCode: string) => {
@@ -559,13 +563,13 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       const updated = { ...prev, [moduleId]: moduleData };
       saveLocalProgress(updated);
 
-      // Sync individual response to module_responses table
+      // Sync individual response to module_responses table.
+      // Org-scoped: one canonical row per (org, module, question). The user
+      // who most recently edited is captured in last_modified_by_user_id.
       const session = getSession();
-      if (session?.session_id && userIdRef.current) {
-        syncRecord('module_responses', {
+      if (session?.session_id && userIdRef.current && orgIdRef.current) {
+        syncOrgRecord('module_responses', {
           session_id: session.session_id,
-          user_id: userIdRef.current,
-          organisation_id: orgIdRef.current || null,
           module_id: moduleId,
           question_id: response.questionId,
           answer: response.answer,
@@ -578,7 +582,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
           measurement_value: response.measurement?.value ?? null,
           measurement_unit: response.measurement?.unit || null,
           measurement_confidence: response.measurement?.confidence || null,
-        }, userIdRef.current, orgIdRef.current).catch(() => {});
+        }, orgIdRef.current, userIdRef.current).catch(() => {});
 
         // Background: migrate evidence files from base64 to Supabase Storage
         if (response.evidence && response.evidence.length > 0) {
@@ -640,17 +644,22 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     return { completed, total, percentage };
   }, [progress, selectedModules]);
 
-  // Sync all progress to cloud (full push)
+  // Sync all progress to cloud (full push).
+  // Org-scoped per migration 023. Anonymous users without an org are
+  // localStorage-only.
   const syncToCloud = useCallback(async () => {
-    if (!isSupabaseEnabled() || !userIdRef.current) return;
+    if (!isSupabaseEnabled() || !userIdRef.current || !orgIdRef.current) return;
 
     const session = getSession();
     if (!session?.session_id) return;
 
+    const orgId = orgIdRef.current;
+    const userIdValue = userIdRef.current;
+
     const progressEntries = Object.values(progress);
     const results = await Promise.allSettled(
       progressEntries.map(entry =>
-        syncRecord('module_progress', {
+        syncOrgRecord('module_progress', {
           session_id: session.session_id,
           module_id: entry.moduleId,
           module_code: entry.moduleCode,
@@ -664,7 +673,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
           assigned_to: entry.ownership?.assignedTo || null,
           assigned_to_email: entry.ownership?.assignedToEmail || null,
           target_completion_date: entry.ownership?.targetCompletionDate || null,
-        }, userIdRef.current!, orgIdRef.current)
+        }, orgId, userIdValue)
       )
     );
 

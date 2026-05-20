@@ -202,6 +202,127 @@ export async function syncRecord(
 }
 
 /**
+ * Upsert a record using org-scoped semantics. Writes organisation_id and
+ * sets last_modified_by_user_id for audit. Used for assessment data tables
+ * that have shifted to per-org canonical state (module_responses,
+ * module_progress, sessions, discovery_data, evidence_files, diap_items).
+ *
+ * See data-architecture-org-scoped-responses.md for the design rationale.
+ */
+export async function syncOrgRecord(
+  table: string,
+  data: Record<string, unknown>,
+  orgId: string | undefined,
+  userId: string | undefined,
+): Promise<boolean> {
+  if (!isSupabaseEnabled() || !supabase || !orgId || !userId) {
+    addToSyncQueue(table, 'upsert', {
+      ...data,
+      organisation_id: orgId ?? null,
+      user_id: userId ?? null,
+      last_modified_by_user_id: userId ?? null,
+    });
+    return false;
+  }
+
+  try {
+    const record: Record<string, unknown> = {
+      ...data,
+      organisation_id: orgId,
+      // Keep user_id for compatibility with existing column on the row.
+      // Treat as "created_by_user_id" semantically; once row exists,
+      // last_modified_by_user_id is the source of truth for attribution.
+      user_id: userId,
+      last_modified_by_user_id: userId,
+      updated_at: new Date().toISOString(),
+    };
+
+    // Org-scoped onConflict keys aligned with migration 023's partial
+    // unique indexes when site_id IS NULL. Multi-site rows (site_id NOT
+    // NULL) need a different onConflict shape that we add when site
+    // picker UX ships. Tables without an explicit entry here upsert by
+    // their primary key (id) which works for diap_items, diap_documents,
+    // evidence_files.
+    const conflictMap: Record<string, string> = {
+      module_progress: 'organisation_id,module_id',
+      module_responses: 'organisation_id,module_id,question_id',
+    };
+
+    const onConflict = conflictMap[table];
+    const { error } = onConflict
+      ? await supabase.from(table).upsert(record, { onConflict })
+      : await supabase.from(table).upsert(record);
+
+    if (error) {
+      addToSyncQueue(table, 'upsert', record);
+      return false;
+    }
+
+    return true;
+  } catch {
+    addToSyncQueue(table, 'upsert', {
+      ...data,
+      organisation_id: orgId,
+      user_id: userId,
+      last_modified_by_user_id: userId,
+    });
+    return false;
+  }
+}
+
+/**
+ * Fetch all records for an organisation. Filters by organisation_id.
+ */
+export async function fetchOrgRecords<T = Record<string, unknown>>(
+  table: string,
+  orgId: string,
+  filters?: Record<string, unknown>,
+): Promise<{ data: T[] | null; error: string | null }> {
+  if (!isSupabaseEnabled() || !supabase) {
+    return { data: null, error: 'Supabase not configured' };
+  }
+
+  try {
+    let query = supabase.from(table).select('*').eq('organisation_id', orgId);
+    if (filters) {
+      for (const [key, value] of Object.entries(filters)) {
+        query = query.eq(key, value as string);
+      }
+    }
+    const { data, error } = await query;
+    if (error) return { data: null, error: error.message };
+    return { data: data as T[], error: null };
+  } catch (err) {
+    return { data: null, error: String(err) };
+  }
+}
+
+/**
+ * Fetch a single record for an organisation. Filters by organisation_id.
+ */
+export async function fetchOrgRecord<T = Record<string, unknown>>(
+  table: string,
+  orgId: string,
+  filters: Record<string, unknown>,
+): Promise<{ data: T | null; error: string | null }> {
+  if (!isSupabaseEnabled() || !supabase) {
+    return { data: null, error: 'Supabase not configured' };
+  }
+
+  try {
+    let query = supabase.from(table).select('*').eq('organisation_id', orgId);
+    for (const [key, value] of Object.entries(filters)) {
+      query = query.eq(key, value as string);
+    }
+    const { data, error } = await query.maybeSingle();
+    if (error) return { data: null, error: error.message };
+    return { data: data as T | null, error: null };
+  } catch (err) {
+    return { data: null, error: String(err) };
+  }
+}
+
+/**
  * Delete a record from Supabase.
  */
 export async function deleteRecord(
@@ -500,14 +621,33 @@ export async function restoreFromCloud(userId: string): Promise<boolean> {
     } catch { /* continue with restore */ }
   }
 
+  // Look up the user's active org so we can fetch org-scoped session and
+  // discovery data per migration 023. Falls back to user-scoped query for
+  // legacy rows that haven't been re-saved under the org yet (e.g. rows
+  // created before the migration was applied).
+  let orgId: string | null = null;
+  try {
+    const { data: memberships } = await supabase
+      .from('organisation_memberships')
+      .select('organisation_id')
+      .eq('user_id', userId)
+      .eq('status', 'active')
+      .limit(1);
+    if (memberships && memberships.length > 0) {
+      orgId = (memberships[0] as Record<string, unknown>).organisation_id as string;
+    }
+  } catch { /* continue without orgId */ }
+
   let restored = false;
 
   try {
-    // 1. Restore session (business snapshot, selected modules)
-    const { data: sessions, error: sessErr } = await supabase
-      .from('sessions')
-      .select('*')
-      .eq('user_id', userId)
+    // 1. Restore session (business snapshot, selected modules). Prefer
+    // org-scoped; fall back to user-scoped for legacy rows.
+    let sessQuery = supabase.from('sessions').select('*');
+    sessQuery = orgId
+      ? sessQuery.eq('organisation_id', orgId)
+      : sessQuery.eq('user_id', userId);
+    const { data: sessions, error: sessErr } = await sessQuery
       .order('updated_at', { ascending: false })
       .limit(1);
 
@@ -528,10 +668,11 @@ export async function restoreFromCloud(userId: string): Promise<boolean> {
     }
 
     // 2. Restore discovery data (touchpoints, review mode, recommendations)
-    const { data: discovery, error: discErr } = await supabase
-      .from('discovery_data')
-      .select('*')
-      .eq('user_id', userId)
+    let discQuery = supabase.from('discovery_data').select('*');
+    discQuery = orgId
+      ? discQuery.eq('organisation_id', orgId)
+      : discQuery.eq('user_id', userId);
+    const { data: discovery, error: discErr } = await discQuery
       .order('updated_at', { ascending: false })
       .limit(1);
 

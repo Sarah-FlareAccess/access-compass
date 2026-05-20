@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
-import { syncRecord, deleteRecord, fetchRecords, resolveByTimestamp } from '../utils/cloudSync';
+import { syncRecord, deleteRecord, fetchRecords, fetchOrgRecords, syncOrgRecord, resolveByTimestamp } from '../utils/cloudSync';
 import { computeFileHash, findEvidenceByHash, linkExistingEvidence, promoteToEvidenceFile, type ExistingEvidenceMatch } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
@@ -446,10 +446,13 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     itemsRef.current = items;
   }, [items]);
 
-  // Background sync a single DIAP item to Supabase
+  // Background sync a single DIAP item to Supabase.
+  // Org-scoped per migration 023: DIAP items are visible to all org members
+  // and last_modified_by_user_id captures who most recently edited.
+  // Anonymous users (no org) stay localStorage-only.
   const syncItemToCloud = useCallback((item: DIAPItem) => {
-    if (!userIdRef.current) return;
-    syncRecord('diap_items', {
+    if (!userIdRef.current || !orgIdRef.current) return;
+    syncOrgRecord('diap_items', {
       id: item.id,
       session_id: item.sessionId,
       objective: item.objective,
@@ -474,7 +477,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       created_at: item.createdAt,
       updated_at: item.updatedAt,
       completed_at: item.completedAt || null,
-    }, userIdRef.current, orgIdRef.current).catch(() => {});
+    }, orgIdRef.current, userIdRef.current).catch(() => {});
   }, []);
 
   // Sync multiple items (batch after bulk operations)
@@ -494,10 +497,11 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         setItems(localItems);
         setDocuments(localDocs);
 
-        // If authenticated, try to merge cloud data
-        if (isSupabaseEnabled() && userId) {
-          const { data: cloudItems, error: itemsError } = await fetchRecords(
-            'diap_items', userId
+        // If user is in an org, fetch org-scoped DIAP items.
+        // Anonymous users / no-org users stay localStorage-only.
+        if (isSupabaseEnabled() && userId && organisationId) {
+          const { data: cloudItems, error: itemsError } = await fetchOrgRecords(
+            'diap_items', organisationId
           );
 
           if (itemsError) {
@@ -590,13 +594,15 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             }
           }
 
-          // Fetch evidence_files for DIAP items so attachments persist across devices
+          // Fetch evidence_files for DIAP items so attachments persist across
+          // devices. Org-scoped per migration 023: any active member of the
+          // org can see all DIAP-linked evidence.
           if (supabase) {
             try {
               const { data: evRows } = await supabase
                 .from('evidence_files')
                 .select('id, diap_item_id, linked_diap_item_ids, file_name, file_type, file_size, storage_path, bucket_name, created_at')
-                .eq('user_id', userId);
+                .eq('organisation_id', organisationId);
               if (evRows && evRows.length > 0) {
                 const byItem = new Map<string, DIAPAttachment[]>();
                 for (const row of evRows as Record<string, unknown>[]) {
@@ -635,8 +641,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             }
           }
 
-          // Also fetch cloud documents
-          const { data: cloudDocs } = await fetchRecords('diap_documents', userId);
+          // Also fetch cloud documents (org-scoped)
+          const { data: cloudDocs } = await fetchOrgRecords('diap_documents', organisationId);
           if (cloudDocs && cloudDocs.length > 0) {
             const localDocMap = new Map(localDocs.map(d => [d.id, d]));
             let docsChanged = false;
@@ -897,8 +903,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         return updated;
       });
 
-      if (userIdRef.current) {
-        syncRecord('diap_documents', {
+      if (userIdRef.current && orgIdRef.current) {
+        syncOrgRecord('diap_documents', {
           id: doc.id,
           session_id: doc.sessionId,
           filename: doc.filename,
@@ -908,7 +914,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
           linked_item_ids: doc.linkedItemIds,
           description: doc.description || null,
           uploaded_at: doc.uploadedAt,
-        }, userIdRef.current, orgIdRef.current).catch(() => {});
+        }, orgIdRef.current, userIdRef.current).catch(() => {});
       }
 
       return doc;
@@ -1708,16 +1714,18 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     return [headers.join(','), example.join(',')].join('\n');
   }, []);
 
-  // Sync to cloud
+  // Sync to cloud (org-scoped per migration 023)
   const syncToCloud = useCallback(async () => {
-    if (!isSupabaseEnabled() || !userIdRef.current) return;
+    if (!isSupabaseEnabled() || !userIdRef.current || !orgIdRef.current) return;
 
     // Sync all items
     syncItemsBatchToCloud(items);
 
     // Sync all documents
+    const orgId = orgIdRef.current;
+    const userIdValue = userIdRef.current;
     for (const doc of documents) {
-      syncRecord('diap_documents', {
+      syncOrgRecord('diap_documents', {
         id: doc.id,
         session_id: doc.sessionId,
         filename: doc.filename,
@@ -1727,7 +1735,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         linked_item_ids: doc.linkedItemIds,
         description: doc.description || null,
         uploaded_at: doc.uploadedAt,
-      }, userIdRef.current!, orgIdRef.current).catch(() => {});
+      }, orgId, userIdValue).catch(() => {});
     }
   }, [items, documents, syncItemsBatchToCloud]);
 
