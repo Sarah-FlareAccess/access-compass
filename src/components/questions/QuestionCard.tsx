@@ -672,6 +672,7 @@ export function QuestionCard({
               <span className="field-hint">Enter measurement</span>
               <input
                 type="number"
+                inputMode="decimal"
                 id="measurement-value"
                 value={measurementValue}
                 onChange={(e) => setMeasurementValue(e.target.value)}
