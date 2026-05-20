@@ -2512,6 +2512,18 @@ details[open] > .evidence-module-heading::before {
   line-height: 1.4;
 }
 
+.completion-stale {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #F59E0B;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 /* Module actions row */
 .module-actions {
   display: flex;

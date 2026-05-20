@@ -998,6 +998,17 @@ Thanks!`;
                                     {formatDate(completedAt)}
                                   </span>
                                 )}
+                                {completedAt && (() => {
+                                  const days = Math.floor((Date.now() - new Date(completedAt).getTime()) / 86400000);
+                                  if (days >= 180) {
+                                    return (
+                                      <span className="completion-stale" title={`Completed ${days} days ago`}>
+                                        Time to reassess
+                                      </span>
+                                    );
+                                  }
+                                  return null;
+                                })()}
                               </div>
                             )}
 
