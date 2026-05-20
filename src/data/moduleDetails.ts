@@ -1056,7 +1056,10 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Deaf and blind attendees relying on specialised rovers',
     ],
   },
-  '7.7': {
+  // HIDDEN 2026-05-20: 7.7 Ability Camping detail entry kept here but unreferenced
+  // because the module is currently commented out in accessModules.ts. Restore the
+  // module first, then this entry will surface automatically.
+  '7.7-hidden': {
     id: '7.7',
     overview: 'This module covers overnight accommodation accessibility at camping festivals and multi-day events, including accessible pitches, amenities at scale, transport from camping to event, power and refrigeration for medical equipment, accessible cooking, and night lighting.',
     topics: [

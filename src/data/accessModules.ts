@@ -65,12 +65,7 @@ export const moduleGroups = [
   {
     id: 'events',
     label: 'Events',
-    description: 'Standalone accessibility assessment for festivals, conferences, and one-off events',
-  },
-  {
-    id: 'major-events',
-    label: 'Major events',
-    description: 'Multi-venue, programmed, large-scale events: festivals, fashion weeks, precinct activations, major sporting events',
+    description: 'Accessibility for events of all sizes: from local community events and conferences through to multi-venue festivals and major programmed activations',
   },
 ];
 
@@ -30609,7 +30604,7 @@ export const accessModules: AccessModule[] = [
     name: 'Precinct and multi-venue coordination',
     description: 'Coordinated accessibility across all venues, stages, zones, and HUB-to-satellite locations in a major event or festival',
     complianceNote: 'This module covers precinct-scale coordination beyond a single venue. For detailed venue-by-venue auditing and access consultancy, contact Flare Access.',
-    group: 'major-events',
+    group: 'events',
     estimatedTime: 12,
     estimatedTimeDeepDive: 35,
     icon: '🗺️',
@@ -31308,7 +31303,7 @@ export const accessModules: AccessModule[] = [
     name: 'Accessibility programming curation',
     description: 'Curating an accessibility-focused programming track (relaxed, audio-described, captioned, sensory-friendly), supporting artists to design inclusive performances, and partnering with disability-led arts',
     complianceNote: 'This module covers programming and artist-facing practice for major events. For deeper guidance on sector-specific programming standards, contact Flare Access or partner with a disability-led arts organisation.',
-    group: 'major-events',
+    group: 'events',
     estimatedTime: 12,
     estimatedTimeDeepDive: 35,
     icon: '🎭',
@@ -31991,7 +31986,7 @@ export const accessModules: AccessModule[] = [
     name: 'Ticketing and box office accessibility',
     description: 'End-to-end accessible ticketing flow: companion ticketing, accessible online booking, multiple-format delivery, trained box office staff, accessible pricing structures',
     complianceNote: 'This module covers ticketing-system accessibility. For deeper guidance on specific platform compliance and procurement, contact Flare Access.',
-    group: 'major-events',
+    group: 'events',
     estimatedTime: 12,
     estimatedTimeDeepDive: 35,
     icon: '🎟️',
@@ -32606,7 +32601,7 @@ export const accessModules: AccessModule[] = [
     name: 'Attendee experience operations',
     description: 'Day-of audience-facing service practices: sensory regulation rooms, queue avoidance, coloured zoning, QR-code info network, familiarisation opportunities, service animals, rovers, rest seating',
     complianceNote: 'This module covers attendee-facing operations at major-event scale. For deeper guidance on specific implementations (sensory room design, AAC support), contact Flare Access or partner with disability-led service providers.',
-    group: 'major-events',
+    group: 'events',
     estimatedTime: 12,
     estimatedTimeDeepDive: 35,
     icon: '🎫',
@@ -33651,7 +33646,7 @@ export const accessModules: AccessModule[] = [
     name: 'Volunteer and staff accessibility at scale',
     description: 'Volunteer and staff briefing systems at major-event scale, identifying clothing and roles, access champion network, inclusive evacuation, Auslan and caption rovers, and cohort planning for VIP, sponsor, and press accessibility',
     complianceNote: 'This module covers staff/volunteer operations at major-event scale, plus special audience cohort planning. Covers WHS evacuation obligations and DDA service obligations.',
-    group: 'major-events',
+    group: 'events',
     estimatedTime: 12,
     estimatedTimeDeepDive: 35,
     icon: '👥',
@@ -34326,7 +34321,7 @@ export const accessModules: AccessModule[] = [
     name: 'Performer, artist and talent accessibility',
     description: 'Backstage and performer-side accessibility: accessible stages, dressing rooms, green rooms, talent welfare, performer briefings, paid disabled-artist consultancy, mic and lighting accessibility, tour rider provisions, performer evacuation processes, accessible interview spaces',
     complianceNote: 'This module covers performer-side accessibility - the work that lets disabled artists perform with the same support as non-disabled artists. Pairs with 7.2 (audience-facing programming).',
-    group: 'major-events',
+    group: 'events',
     estimatedTime: 12,
     estimatedTimeDeepDive: 35,
     icon: '🎤',
@@ -34986,6 +34981,9 @@ export const accessModules: AccessModule[] = [
     ],
   },
 
+  /* HIDDEN 2026-05-20: 7.7 Ability Camping (Overnight Accommodation Accessibility)
+     not yet ready for public release. Content preserved here so it can be restored
+     by removing this block comment.
   // 7.7: Ability Camping (Overnight Accommodation Accessibility)
   {
     id: '7.7',
@@ -34993,7 +34991,7 @@ export const accessModules: AccessModule[] = [
     name: 'Ability Camping (overnight accommodation accessibility)',
     description: 'Overnight accommodation accessibility for camping festivals and multi-day events: accessible pitches, amenities at scale, transport from camping to event, charging and refrigeration at camp, accessible cooking, sensory camping zones, accessible night lighting, buddy/check-in systems, support worker accommodation',
     complianceNote: 'This module covers overnight accommodation accessibility specific to camping events. Pairs with 7.6 (attendee experience operations) for the full attendee-side experience.',
-    group: 'major-events',
+    group: 'events',
     estimatedTime: 12,
     estimatedTimeDeepDive: 35,
     icon: '⛺',
@@ -35655,6 +35653,8 @@ export const accessModules: AccessModule[] = [
       },
     ],
   },
+
+  */
 
   // 5.7: Inclusive Job Design & Advertising
   // Positioning: Integrates recruitment with whole-of-org accessibility across all sectors.
