@@ -5203,7 +5203,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         reviewMode: 'pulse-check',
-        complianceLevel: 'best-practice',
+        complianceLevel: 'mandatory',
         showWhen: { questionId: '2.1-F-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Close to an entrance but not the main one' or 'Closer spaces exist but are not designated accessible'",
         helpContent: {
@@ -6033,6 +6033,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -8690,6 +8691,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Usually manageable but major events cause congestion' or 'Main paths stay clear but secondary routes get blocked'",
         helpContent: {
@@ -9241,6 +9243,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-lowered', label: 'Yes, lowered counter section available' },
@@ -10212,6 +10215,7 @@ export const accessModules: AccessModule[] = [
         category: 'physical',
         impactLevel: 'high',
         safetyRelated: true,
+        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '3.2-1-1', answers: ['not-sure'] },
         options: [
