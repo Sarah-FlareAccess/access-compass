@@ -53,6 +53,11 @@ interface PDFGeneratorOptions {
   report: Report;
   includeCoverPage?: boolean;
   includeTableOfContents?: boolean;
+  /** If true, render a 1-2 page executive summary only:
+   *  cover + stat boxes + top 3 priorities + top 3 strengths.
+   *  Skips Methodology, full module evidence and detailed action list.
+   *  For board/exec audiences who need the headline, not the workpaper. */
+  summaryOnly?: boolean;
 }
 
 // Module group ordering and labels for the findings section
@@ -69,7 +74,7 @@ const GROUP_ORDER: { id: string; label: string }[] = [
  * Generate a professional PDF report
  */
 export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
-  const { report, includeCoverPage = true, includeTableOfContents = true } = options;
+  const { report, includeCoverPage = true, includeTableOfContents = true, summaryOnly = false } = options;
   const doc = new jsPDF('p', 'mm', 'a4');
 
   let currentPage = 1;
@@ -551,6 +556,60 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   );
 
   yPosition += 38;
+
+  // ============================================
+  // SUMMARY-ONLY EARLY-EXIT: top priorities + top strengths
+  // For board/exec audiences. Skips the rest of the report.
+  // ============================================
+  if (summaryOnly) {
+    const topActions = (report.sections.priorityActions.categorised || []).slice(0, 3);
+    const topStrengths = (report.sections.strengths.categorised || []).slice(0, 3);
+
+    if (topActions.length > 0) {
+      addSectionTitle('Top Priorities');
+      for (const item of topActions) {
+        const label = item.action || item.objective || '';
+        if (!label) continue;
+        addParagraph(`• ${label}`, 10);
+      }
+      yPosition += 4;
+    }
+
+    if (topStrengths.length > 0) {
+      addSectionTitle('What\'s Going Well', COLORS.green);
+      for (const item of topStrengths) {
+        const label = item.objective || item.action || '';
+        if (!label) continue;
+        addParagraph(`• ${label}`, 10);
+      }
+    }
+
+    // Skip table of contents + all detail sections. Run the
+    // page-numbering second pass so the footer is correct.
+    const totalPages = doc.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      const fy = PAGE.height - 12;
+      doc.setFillColor(250, 248, 245);
+      doc.rect(0, fy - 6, PAGE.width, 18, 'F');
+      doc.setFillColor(73, 14, 103);
+      doc.rect(PAGE.marginLeft, fy - 6, 40, 1, 'F');
+      doc.setFontSize(7);
+      doc.setTextColor(107, 114, 128);
+      doc.text('Access Compass — Executive Summary', PAGE.marginLeft, fy);
+      doc.setTextColor(73, 14, 103);
+      doc.text(
+        new Date(report.generatedAt).toLocaleDateString('en-AU', {
+          day: 'numeric', month: 'long', year: 'numeric',
+        }),
+        PAGE.width / 2, fy, { align: 'center' },
+      );
+      doc.setTextColor(107, 114, 128);
+      doc.text(`Page ${i} of ${totalPages}`, PAGE.width - PAGE.marginRight, fy, { align: 'right' });
+    }
+
+    return doc;
+  }
 
   // ============================================
   // INTRODUCTION
@@ -1282,6 +1341,18 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 export function downloadPDFReport(report: Report): void {
   const doc = generatePDFReport({ report });
   const fileName = `${report.organisation.replace(/[^a-z0-9]/gi, '-')}-accessibility-report-${
+    new Date().toISOString().split('T')[0]
+  }.pdf`;
+  doc.save(fileName);
+}
+
+/**
+ * Download a one-page executive summary. For board-level audiences who
+ * want the headline, not the workpaper.
+ */
+export function downloadExecutiveSummaryPDF(report: Report): void {
+  const doc = generatePDFReport({ report, summaryOnly: true, includeTableOfContents: false });
+  const fileName = `${report.organisation.replace(/[^a-z0-9]/gi, '-')}-executive-summary-${
     new Date().toISOString().split('T')[0]
   }.pdf`;
   doc.save(fileName);

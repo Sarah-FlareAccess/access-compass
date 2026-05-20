@@ -6,7 +6,7 @@ import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useReportGeneration } from '../hooks/useReportGeneration';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { ReportConfigSelector, type ReportConfig } from '../components/ReportConfigSelector';
-import { downloadPDFReport } from '../utils/pdfGenerator';
+import { downloadPDFReport, downloadExecutiveSummaryPDF } from '../utils/pdfGenerator';
 import { getHelpByQuestionId } from '../data/help';
 import { getResourceLink } from '../utils/resourceLinks';
 import { PRIORITY_LEGEND, PRIORITY_LABELS, PRIORITY_BADGE_ABBR, PRIORITY_ENCOURAGEMENT } from '../utils/priorityCalculation';
@@ -469,6 +469,11 @@ export default function ReportPage() {
     downloadPDFReport(report);
   }, [report]);
 
+  const handleDownloadExecSummary = useCallback(() => {
+    if (!report) return;
+    downloadExecutiveSummaryPDF(report);
+  }, [report]);
+
   const moduleFindings = useMemo(() => {
     if (!report) return [];
     return buildModuleFindings(report);
@@ -558,6 +563,10 @@ export default function ReportPage() {
             <button className="btn-export" onClick={handleDownloadPDF}>
               <Download size={16} aria-hidden="true" />
               Download PDF
+            </button>
+            <button className="btn-export" onClick={handleDownloadExecSummary} title="One-page board / exec summary">
+              <Download size={16} aria-hidden="true" />
+              Exec summary
             </button>
           </div>
         </div>
