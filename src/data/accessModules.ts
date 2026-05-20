@@ -208,7 +208,7 @@ export const accessModules: AccessModule[] = [
         helpText: 'Select all that apply. This might include physical access details, sensory environment, what to expect during a visit, transport and parking, or information about equipment and resources available such as sensory kits, sensory maps, wheelchair hire, or quiet spaces and off peak/ quiet visitation hours.',
         type: 'multi-select',
         category: 'information',
-        impactLevel: 'medium',
+        impactLevel: 'high',
         reviewMode: 'pulse-check',
         options: [
           { id: 'physical-access', label: 'Physical access (parking, entrances, toilets, seating)', sentiment: 'positive' },
