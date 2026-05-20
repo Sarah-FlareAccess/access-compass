@@ -17,8 +17,8 @@
     radial-gradient(ellipse 120% 100% at 50% 50%, transparent 30%, rgba(30, 5, 50, 0.4) 100%),
     linear-gradient(165deg, #3a0a55 0%, #490E67 25%, #521475 50%, #490E67 75%, #3a0a55 100%);
   border-radius: 0 0 var(--radius-xl, 20px) var(--radius-xl, 20px);
-  padding: 56px 48px 52px;
-  margin: 0 -24px 32px;
+  padding: 60px 56px 64px;
+  margin: 0 -24px 24px;
   position: relative;
   overflow: hidden;
 }
@@ -61,10 +61,10 @@
 }
 
 .training-hero-subtitle {
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0 0 28px;
-  line-height: 1.65;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 32px;
+  line-height: 1.6;
   max-width: 540px;
   position: relative;
   z-index: 1;
@@ -86,16 +86,16 @@
 
 .training-hero-search .training-search-icon {
   position: absolute;
-  left: 16px;
+  left: 14px;
   color: rgba(255, 255, 255, 0.8);
   pointer-events: none;
 }
 
 .training-hero-search .training-search-input {
   width: 100%;
-  padding: 14px 42px 14px 46px;
+  padding: 12px 40px 12px 44px;
   font-size: 0.95rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-md, 10px);
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
@@ -116,15 +116,25 @@
 .training-hero-search .training-search-clear {
   position: absolute;
   right: 12px;
-  padding: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
   border: none;
-  background: none;
-  color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0;
 }
 
 .training-hero-search .training-search-clear:hover {
+  background: rgba(255, 255, 255, 0.3);
   color: #fff;
 }
 
@@ -145,7 +155,7 @@
 
 .training-hero-stats div {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 
 .training-hero-stats dd {
@@ -160,9 +170,9 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: rgba(255, 255, 255, 0.85);
-  margin-top: 4px;
+  margin: 0;
 }
 
 /* ============================================
@@ -319,10 +329,10 @@
 }
 
 .training-chip {
-  padding: 6px 14px;
-  font-size: 0.85rem;
+  padding: 8px 16px;
+  font-size: 0.9rem;
   font-weight: 600;
-  border: 1px solid rgba(62, 43, 47, 0.12);
+  border: 2px solid rgba(62, 43, 47, 0.1);
   border-radius: 20px;
   background: #fff;
   color: var(--text-secondary);
@@ -381,7 +391,7 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 20px 0;
+  margin: 0 0 24px 0;
 }
 
 .training-grid {
