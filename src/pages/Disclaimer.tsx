@@ -101,6 +101,22 @@ export default function Disclaimer() {
     }
   }, [user?.email, contactEmail]);
 
+  // Pre-fill contact name from the email local-part so solo / sole-trader
+  // customers don't have to retype it. They can override before submitting.
+  useEffect(() => {
+    if (user?.email && !contactName) {
+      const localPart = user.email.split('@')[0] ?? '';
+      const guess = localPart
+        .replace(/[._-]+/g, ' ')
+        .trim()
+        .split(' ')
+        .filter(Boolean)
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' ');
+      if (guess) setContactName(guess);
+    }
+  }, [user?.email, contactName]);
+
   const handleContinue = () => {
     sessionStorage.setItem('disclaimer_accepted', 'true');
     navigate('/start');

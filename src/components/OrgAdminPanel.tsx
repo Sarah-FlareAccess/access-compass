@@ -483,21 +483,37 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
           {/* MEMBERS TAB */}
           {activeTab === 'members' && (
             <div className="admin-members">
-              {seatUsage && (
-                <div
-                  className={`admin-seat-usage ${seatUsage.used >= seatUsage.max ? 'at-limit' : ''}`}
-                  role="status"
-                >
-                  <span className="admin-seat-usage-count">
-                    {seatUsage.used} of {seatUsage.max} member seats used
-                  </span>
-                  {seatUsage.used >= seatUsage.max && (
-                    <span className="admin-seat-usage-hint">
-                      You have reached your seat limit. <a href="mailto:support@accesscompass.com.au?subject=Add%20member%20seats">Contact support</a> to add more seats.
+              {seatUsage && (() => {
+                // For solo plans (1-seat tiers), an "at limit" warning on the
+                // Members tab the moment the owner signs up is hostile and
+                // misleading. Show a plan-aware message instead.
+                const isSoloPlan = seatUsage.max <= 1;
+                const atLimit = seatUsage.used >= seatUsage.max;
+                if (isSoloPlan) {
+                  return (
+                    <div className="admin-seat-usage" role="status">
+                      <span className="admin-seat-usage-count">
+                        This plan includes 1 member seat (just you).
+                      </span>
+                      <span className="admin-seat-usage-hint">
+                        To invite teammates, upgrade your plan. <a href="/pricing">View plans</a>.
+                      </span>
+                    </div>
+                  );
+                }
+                return (
+                  <div className={`admin-seat-usage ${atLimit ? 'at-limit' : ''}`} role="status">
+                    <span className="admin-seat-usage-count">
+                      {seatUsage.used} of {seatUsage.max} member seats used
                     </span>
-                  )}
-                </div>
-              )}
+                    {atLimit && (
+                      <span className="admin-seat-usage-hint">
+                        You have reached your seat limit. <a href="mailto:support@accesscompass.com.au?subject=Add%20member%20seats">Contact support</a> to add more seats.
+                      </span>
+                    )}
+                  </div>
+                );
+              })()}
 
               {/* Pending Approvals */}
               {pendingMembers.length > 0 && (
@@ -726,21 +742,31 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
           {/* INVITES TAB */}
           {activeTab === 'invites' && (
             <div className="admin-invites">
-              {seatUsage && (
-                <div
-                  className={`admin-seat-usage ${seatUsage.used >= seatUsage.max ? 'at-limit' : ''}`}
-                  role="status"
-                >
-                  <span className="admin-seat-usage-count">
-                    {seatUsage.used} of {seatUsage.max} member seats used
-                  </span>
-                  {seatUsage.used >= seatUsage.max && (
-                    <span className="admin-seat-usage-hint">
-                      Seat limit reached. <a href="mailto:support@accesscompass.com.au?subject=Add%20member%20seats">Contact support</a> to add more seats before issuing new invites.
+              {seatUsage && (() => {
+                const isSoloPlan = seatUsage.max <= 1;
+                const atLimit = seatUsage.used >= seatUsage.max;
+                if (isSoloPlan) {
+                  return (
+                    <div className="admin-seat-usage" role="status">
+                      <span className="admin-seat-usage-count">
+                        This plan is for one user. <a href="/pricing">Upgrade</a> to invite teammates.
+                      </span>
+                    </div>
+                  );
+                }
+                return (
+                  <div className={`admin-seat-usage ${atLimit ? 'at-limit' : ''}`} role="status">
+                    <span className="admin-seat-usage-count">
+                      {seatUsage.used} of {seatUsage.max} member seats used
                     </span>
-                  )}
-                </div>
-              )}
+                    {atLimit && (
+                      <span className="admin-seat-usage-hint">
+                        Seat limit reached. <a href="mailto:support@accesscompass.com.au?subject=Add%20member%20seats">Contact support</a> to add more seats before issuing new invites.
+                      </span>
+                    )}
+                  </div>
+                );
+              })()}
               <div className="invites-header">
                 <h3>Invite Codes</h3>
                 <button

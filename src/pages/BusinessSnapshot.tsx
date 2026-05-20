@@ -65,7 +65,7 @@ const businessTypeOptions: BusinessTypeOption[] = [
 ];
 
 const organisationSizeOptions: { value: OrganisationSize; label: string; description: string }[] = [
-  { value: 'micro', label: 'Micro', description: '0-4 staff' },
+  { value: 'micro', label: 'Micro', description: 'Just me or 1-4 staff' },
   { value: 'small', label: 'Small', description: '5-19 staff' },
   { value: 'medium', label: 'Medium', description: '20-199 staff' },
   { value: 'large', label: 'Large', description: '200+ staff' },
@@ -152,8 +152,12 @@ export default function BusinessSnapshotPage() {
     // Save to session
     updateBusinessSnapshot(formData);
 
-    // Show pricing before discovery so users know the cost upfront
-    navigate('/pricing');
+    // Customers who arrived here through the signup flow already chose a
+    // pricing tier on /pricing before signup. Routing back to /pricing
+    // makes them pick the same tier twice. Go straight to discovery.
+    // Returning users with no discovery yet also benefit from skipping
+    // the duplicate tier prompt.
+    navigate('/discovery');
   };
 
   return (

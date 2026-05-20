@@ -1122,7 +1122,14 @@ export default function Pricing() {
     !discovery?.discovery_data?.selectedTouchpoints?.length;
 
   const handleSelectTier = (tierName: string, _tierView: string) => {
-    // Show the business groups prompt before proceeding
+    // The Business Groups prompt asks whether the customer is part of a
+    // network program. It is only relevant to multi-site, major venue and
+    // authority customers; solo individual-tier customers do not run network
+    // programs, so skip the modal for them and proceed straight to signup.
+    if (view === 'individual') {
+      proceedWithTier(tierName);
+      return;
+    }
     setShowGroupPrompt(tierName);
   };
 
