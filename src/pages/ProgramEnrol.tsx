@@ -3,7 +3,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
-import { supabaseRest } from '../utils/supabase';
+import { supabase, supabaseRest } from '../utils/supabase';
 import { accessModules } from '../data/accessModules';
 import '../styles/authority.css';
 
@@ -131,14 +131,31 @@ export default function ProgramEnrol() {
     }
     const newOrg = (orgData as { id: string }[])[0];
 
-    // Create membership linking the user to the new org
-    if (user?.id) {
+    // Create membership linking the user to the new org.
+    // After signUp/signIn the React state hasn't yet updated, so the `user`
+    // closure can still be null even though the auth session is fresh.
+    // Pull the live user from supabase.auth.getUser() to avoid orphaning
+    // the just-created org with no membership.
+    let actorUserId: string | undefined = user?.id;
+    if (!actorUserId && supabase) {
+      const { data: liveUser } = await supabase.auth.getUser();
+      actorUserId = liveUser?.user?.id;
+    }
+    if (actorUserId) {
       await supabaseRest.insert('organisation_memberships', {
         organisation_id: newOrg.id,
-        user_id: user.id,
+        user_id: actorUserId,
         role: 'owner',
         status: 'active',
       });
+    } else {
+      // No user id means signUp/signIn succeeded but the session didn't
+      // propagate. Surface this rather than silently leaving the org
+      // orphaned — the user couldn't access their own assessment.
+      setError('Account created but we could not link it to your business. Please sign in and try the enrol link again.');
+      setEnrolling(false);
+      setStep('info');
+      return;
     }
 
     // Create program enrolment
@@ -157,6 +174,15 @@ export default function ProgramEnrol() {
 
     setNewOrgId(newOrg.id);
     setEnrolling(false);
+
+    // Carryover only makes sense for returning users — a brand-new signup
+    // has no prior assessment by definition. Reading localStorage for a
+    // fresh signup risks offering the previous device-user's modules as
+    // "carry forward" candidates (the cross-user-leak vector). Skip.
+    if (!isAuthenticated && !isReturningUser) {
+      setStep('done');
+      return;
+    }
 
     // Check for completed modules that overlap with this program
     const MODULE_PROGRESS_KEY = 'access_compass_module_progress';
