@@ -17,6 +17,7 @@ import {
 import type { User, Session, AuthError } from '@supabase/supabase-js';
 import { supabase, isSupabaseEnabled, supabaseRest } from '../utils/supabase';
 import { restoreFromCloud } from '../utils/cloudSync';
+import { maxMembersForSize, maxMembersForTier, getSelectedTier } from '../utils/selectedTier';
 import type {
   UserAccessState,
   Organisation,
@@ -52,6 +53,7 @@ interface AuthContextValue {
     contactName: string;
     allowedEmails?: string[];
     orgType?: string;
+    pricingTier?: string;
   }) => Promise<{
     error: string | null;
     organisation?: Organisation;
@@ -410,6 +412,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       contactName: string;
       allowedEmails?: string[];
       orgType?: string;
+      pricingTier?: string;
     }): Promise<{ error: string | null; organisation?: Organisation; inviteCode?: string; emailsAdded?: number }> => {
       if (!supabase || !user) {
         return { error: 'Not authenticated' };
@@ -440,15 +443,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         console.log('[createOrganisation] Using org_type:', orgType);
 
-        // Step 1: Insert organisation via REST
+        // Step 1: Insert organisation via REST.
+        // Seat cap (max_members) is taken from the selected pricing tier's
+        // advertised seat count where possible; falls back to the size-based
+        // default when no tier is known. We are inserting directly rather
+        // than going through create_organisation_with_admin, so the SQL
+        // function's seat mapping does not run.
+        const tierForSeats = data.pricingTier ? getSelectedTier() : null;
+        const tierSeatCount = tierForSeats?.tier === data.pricingTier
+          ? maxMembersForTier(tierForSeats)
+          : null;
+        const seatCap = tierSeatCount ?? maxMembersForSize(data.size);
+
         const { data: orgData, error: orgError } = await supabaseRest.insert('organisations', {
           name: data.name,
           slug,
           size: data.size,
+          max_members: seatCap,
           org_type: orgType,
           contact_email: data.contactEmail,
           contact_name: data.contactName,
           invite_code: inviteCode,
+          pricing_tier: data.pricingTier ?? null,
         });
 
         if (orgError) {

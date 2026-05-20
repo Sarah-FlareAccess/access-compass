@@ -18,7 +18,7 @@ import type {
 import type { AllowedEmail } from '../hooks/useOrgAdmin';
 import '../styles/admin-panel.css';
 
-type AdminTab = 'members' | 'invites' | 'security';
+type AdminTab = 'overview' | 'members' | 'invites' | 'security';
 
 interface OrgAdminPanelProps {
   isOpen: boolean;
@@ -49,7 +49,7 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
   const { accessState, user } = useAuth();
   const orgAdmin = useOrgAdmin();
 
-  const [activeTab, setActiveTab] = useState<AdminTab>('members');
+  const [activeTab, setActiveTab] = useState<AdminTab>('overview');
   const [members, setMembers] = useState<OrganisationMembership[]>([]);
   const [pendingMembers, setPendingMembers] = useState<OrganisationMembership[]>([]);
   const [inviteCodes, setInviteCodes] = useState<InviteCode[]>([]);
@@ -373,6 +373,14 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
 
         <div className="admin-tabs" role="tablist" aria-label="Organisation settings">
           <button
+            className={`admin-tab ${activeTab === 'overview' ? 'active' : ''}`}
+            onClick={() => setActiveTab('overview')}
+            role="tab"
+            aria-selected={activeTab === 'overview'}
+          >
+            Overview
+          </button>
+          <button
             className={`admin-tab ${activeTab === 'members' ? 'active' : ''}`}
             onClick={() => setActiveTab('members')}
             role="tab"
@@ -402,6 +410,71 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
         </div>
 
         <div className="admin-content">
+          {/* OVERVIEW TAB */}
+          {activeTab === 'overview' && (
+            <div className="admin-overview">
+              <h3>Organisation details</h3>
+              <dl className="admin-overview-list">
+                <div className="admin-overview-row">
+                  <dt>Name</dt>
+                  <dd>{accessState.organisation?.name || '—'}</dd>
+                </div>
+                {accessState.organisation?.org_type === 'authority' && (
+                  <div className="admin-overview-row">
+                    <dt>Type</dt>
+                    <dd>Authority (manages other organisations)</dd>
+                  </div>
+                )}
+                {accessState.organisation?.pricing_tier && (
+                  <div className="admin-overview-row">
+                    <dt>Plan</dt>
+                    <dd>{accessState.organisation.pricing_tier}</dd>
+                  </div>
+                )}
+                {accessState.organisation?.contact_name && (
+                  <div className="admin-overview-row">
+                    <dt>Contact name</dt>
+                    <dd>{accessState.organisation.contact_name}</dd>
+                  </div>
+                )}
+                {accessState.organisation?.contact_email && (
+                  <div className="admin-overview-row">
+                    <dt>Contact email</dt>
+                    <dd>{accessState.organisation.contact_email}</dd>
+                  </div>
+                )}
+                {accessState.organisation?.max_members != null && (
+                  <div className="admin-overview-row">
+                    <dt>Member seat limit</dt>
+                    <dd>{accessState.organisation.max_members}</dd>
+                  </div>
+                )}
+                {accessState.organisation?.created_at && (
+                  <div className="admin-overview-row">
+                    <dt>Created</dt>
+                    <dd>{formatDate(accessState.organisation.created_at)}</dd>
+                  </div>
+                )}
+                {accessState.organisation?.allowed_email_domains
+                  && accessState.organisation.allowed_email_domains.length > 0 && (
+                  <div className="admin-overview-row">
+                    <dt>Auto-join domains</dt>
+                    <dd>{accessState.organisation.allowed_email_domains.join(', ')}</dd>
+                  </div>
+                )}
+                {accessState.organisation?.notes && (
+                  <div className="admin-overview-row">
+                    <dt>Notes</dt>
+                    <dd>{accessState.organisation.notes}</dd>
+                  </div>
+                )}
+              </dl>
+              <p className="admin-overview-hint">
+                Use the tabs above to manage members, invites, and security settings.
+              </p>
+            </div>
+          )}
+
           {/* MEMBERS TAB */}
           {activeTab === 'members' && (
             <div className="admin-members">

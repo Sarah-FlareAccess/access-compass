@@ -53,6 +53,7 @@ export interface Organisation {
   contact_email?: string;
   contact_name?: string;
   notes?: string;
+  pricing_tier?: string;
   created_at: string;
   updated_at: string;
 

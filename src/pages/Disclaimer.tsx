@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
-import { getSelectedTier } from '../utils/selectedTier';
+import { getSelectedTier, tierToOrgSize } from '../utils/selectedTier';
 import '../styles/disclaimer.css';
 
 type Step = 'disclaimer' | 'auth' | 'organisation' | 'complete';
@@ -40,7 +40,6 @@ export default function Disclaimer() {
   const [orgOption, setOrgOption] = useState<OrgOption>('none');
   const [inviteCode, setInviteCode] = useState('');
   const [orgName, setOrgName] = useState('');
-  const [orgSize] = useState<'small' | 'medium' | 'large' | 'enterprise'>('small');
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
 
@@ -182,10 +181,11 @@ export default function Disclaimer() {
       const tier = getSelectedTier();
       const { error, organisation } = await createOrganisation({
         name: orgName,
-        size: orgSize,
+        size: tierToOrgSize(tier),
         contactEmail,
         contactName,
         orgType: tier?.category === 'authority' ? 'authority' : 'standard',
+        pricingTier: tier?.tier,
       });
       if (error) {
         const isRawError = error.startsWith('{') || error.includes('violates') || error.includes('constraint');
