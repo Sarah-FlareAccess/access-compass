@@ -4,28 +4,25 @@ For use against `sa-councils-outreach-list.csv`. SA councils use **DAIP** (Disab
 
 Sent from sarah@flareaccess.com.
 
+**Tone rule (do not break):** Lead with the council's own commitment or specific work. Never open by telling them what they already know about their statutory obligations, the State Plan timeline, or what "every council is now doing". You are a stranger to them. See `feedback-outreach-email-style.md` in memory for the full rule.
+
 ---
 
-## Master template (paste, swap the [bracketed] hooks)
+## Master template (paste, swap the [bracketed] blocks)
 
-**Subject:** Operationalising your DAIP 2026 to 2030, after the consultation
+**Subject:** Supporting [Council]'s commitment under the State Plan
 
-Hi [First name or "Community Inclusion team"],
+Hi [First name / Community Inclusion team],
 
-Following the launch of SA's State Disability Inclusion Plan 2025 to 2029 ("No-one left behind"), every council is now refreshing its DAIP and reporting annually to the Minister for Human Services. The consultation phase is the visible bit. The harder bit is what comes next: 100+ actions threaded across community services, infrastructure, customer experience, libraries, parks, events, planning, economic development, procurement, and HR, all reporting against five state-plan domains and seven priority groups.
+[OPENER, pick from opener bank below, acknowledges what THIS council has actually done]
 
-I'm Sarah, founder of Access Compass. We're an Australian platform built specifically to help councils run that operational layer.
+I'd like to introduce Access Compass, an Australian platform built specifically to help councils carry their DAIP from page to practice. It supports your team to:
 
-What it does:
-- 50 self-assessment modules covering pre-arrival, getting in, during visit, service and support, organisational practice, events, and major events
-- DAIP-aligned action plan workspace (your draft actions live here, owners assigned, evidence attached)
-- Evidence storage tied to each action, so the audit trail builds itself
-- Annual reporting export, mapped to State Plan domains
-- Authority Portal layer for whole-of-council oversight: assessment status by department, facility, or partner business in one view
+- Track every commitment across community services, infrastructure, libraries, parks, events, planning, customer service, and procurement, with owners and evidence in one place
+- Generate annual progress reports mapped to State Plan domains and priority groups
+- Run the same assessment lens across council facilities and (optionally, through our Authority Portal) the businesses operating in your community
 
-[CONTEXTUAL HOOK: see hook bank below]
-
-Worth a 20-minute screen-share? Happy to walk through how Mornington Peninsula Shire (our council founding partner in Victoria) has it set up if that helps.
+I'd love to share more about how we can support [Council]'s next four years of delivery. Would a 20-minute screen-share suit, or is there a better person on your Inclusion or Community Wellbeing team I should be reaching?
 
 Best,
 Sarah Hopper
@@ -35,37 +32,46 @@ accesscompass.com.au
 
 ---
 
-## Contextual hook bank (pick one based on tier)
+## Opener bank (pick one based on this council's actual situation)
 
-### Tier 1A: live consultation right now
-> I noticed your draft DAIP is currently out for community feedback (closes [DATE]). Most councils we work with engage us after the consultation phase, when the action list is locked and the question becomes "how do we actually run this for four years across the whole organisation".
+### A, Just adopted DAIP 2025–2029 / 2026–2030
+> I recently came across [Council]'s DAIP 2025–2029, adopted [in February / earlier this year], and wanted to reach out.
 
-Use for: Riverland 3 (27 May), Port Pirie, Mid Murray, Coorong, Kangaroo Island, Light Regional.
+(Brief, observational, no congratulations, no rationalising why now. Tone is respectful-professional, not warm-peer. See feedback-outreach-email-style.md refinement 2026-05-14.)
 
-### Tier 1B: just adopted, now operationalising
-> I noticed [council] adopted its DAIP 2025 to 2029 in [Jan / Feb / March 2026]. Congratulations on getting it across the line. The four-year operational phase is where most councils tell us they hit friction: tracking actions across teams, gathering evidence for annual reporting, keeping community confidence visible.
+Use for: Mount Barker, Campbelltown, Mount Gambier, Playford, Victor Harbor (in adoption).
 
-Use for: Campbelltown, Mount Gambier, Mount Barker, Charles Sturt, Marion, Onkaparinga, Victor Harbor, Burnside, Playford, District Council of Grant.
+### B, Currently consulting / draft out for feedback
+> I recently came across [Council]'s draft DAIP, currently out for community feedback [closes DATE], and wanted to reach out.
 
-### Tier 1C: joint / regional alliance
-> I noticed [council] is part of the [Riverland / Yorke Peninsula / Barossa] joint DAIP. Multi-council programs are exactly where the Authority Portal earns its keep, one view across all participating councils with each council's own data and reporting separated. Happy to show how that's structured.
+Use for: Riverland 3, Port Pirie, Tea Tree Gully, Coorong, Light Regional, Adelaide Hills, Kangaroo Island.
 
-Use for: Riverland 3, Yorke Peninsula Alliance councils.
+### C, In adoption phase post-consultation
+> I recently came across [Council]'s DAIP 2026–2030, in adoption following community consultation earlier this year, and wanted to reach out.
 
-### Tier 2: DAIP cycle due
-> Your previous DAIP covered 2020 to 2024 and will need a refresh under the new State Plan. Worth a conversation now (before you commission consultation) about how Access Compass can scaffold both the new DAIP development and its operational rollout.
+Use for: Charles Sturt, Onkaparinga, Marion, Grant, Burnside, Mid Murray.
 
-Use for: Whyalla, Mt Remarkable, Southern Mallee, Gawler, Barossa, Adelaide Plains, all metro Tier 2.
+### D, Joint / regional alliance
+> I recently came across the joint [Riverland / Yorke Peninsula / Barossa] DAIP work underway across [Council A], [Council B] and [Council C], and thought it was a really interesting regional approach to accessibility planning and implementation.
+
+(Observation is allowed for joint/regional work since multi-council DAIPs are genuinely uncommon. But still no congratulations, no editorialising on quality.)
+
+Use for: Riverland 3 (combine with B), Yorke Peninsula Alliance councils.
+
+### E, Cycle-due / older DAIP, no current consultation visible
+> I'm reaching out as [Council] approaches its next DAIP cycle.
+
+Use for: Tier 2 cycle-due metro and regional councils.
 
 ---
 
 ## Subject line variants (A/B test)
 
-1. Operationalising your DAIP 2026 to 2030, after the consultation
-2. After the DAIP consultation, what next? (for SA councils)
-3. SA's new State Plan and your council's DAIP, an Australian platform that helps
-4. [Council name]'s DAIP, the four-year operational layer
-5. Founding council partner spots for SA councils refreshing DAIPs
+1. Supporting [Council]'s commitment under the State Plan
+2. An introduction, Access Compass for [Council]
+3. Following [Council]'s [adoption / consultation], a short introduction
+4. [Council]'s DAIP delivery, a tool worth knowing about
+5. A short note for [Council]'s Community Inclusion team
 
 ---
 
@@ -73,27 +79,24 @@ Use for: Whyalla, Mt Remarkable, Southern Mallee, Gawler, Barossa, Adelaide Plai
 
 - [ ] Council name spelled correctly (Mount, not Mt; Council, not Shire in SA)
 - [ ] First name only if confirmed on website. Default to "Community Inclusion team"
-- [ ] Contextual hook matches the tier
+- [ ] Opener block matches what THIS council has actually done (pick A/B/C/D/E)
+- [ ] No lecture about state mandates, reporting cycles, or "every council is now..."
 - [ ] DAIP spelled as "DAIP" (not DIAP) throughout. SA local terminology
-- [ ] Both products named (Access Compass + Authority Portal)
-- [ ] Concrete department list mentioned, not abstract "facility assessments"
-- [ ] Mornington reference removed if council asks about competing peer (use generic "Victorian council founding partner")
-- [ ] Sent from sarah@flareaccess.com, signature has direct phone if appropriate
+- [ ] Both products named where relevant (Access Compass + Authority Portal)
+- [ ] Concrete department list, not abstract "facility assessments"
+- [ ] Sent from sarah@flareaccess.com
 
 ---
 
 ## Follow-up template (7 days, no reply)
 
-**Subject:** Re: Operationalising your DAIP 2026 to 2030
+**Subject:** Re: Supporting [Council]'s commitment under the State Plan
 
 Hi [First name],
 
-Following up on this. Two quick reasons it's worth 20 minutes now rather than after your DAIP launches:
+Just following up briefly. If a 20-minute walk-through doesn't suit, I'm happy to send a short one-pager you can keep on file for when DAIP delivery tooling comes up internally.
 
-1. We can pre-populate your tenant with the actions in your draft / adopted DAIP, so when your team logs in on day one they see their own plan, not a blank platform.
-2. Founding partner pricing for SA councils refreshing under the new State Plan is locked for 2 years from signup, then moves to current rate at renewal.
-
-If now is the wrong time, who's the right person on the Community Wellbeing or Inclusion side to copy in?
+Is there a better person on your Community Wellbeing or Inclusion team I should be reaching?
 
 Best,
 Sarah
@@ -102,13 +105,11 @@ Sarah
 
 ## Second follow-up (14 days, no reply)
 
-**Subject:** Closing the loop, SA councils and Access Compass
+**Subject:** Closing the loop
 
 Hi [First name],
 
-Closing the loop on this thread. If DAIP operational tooling isn't a near-term priority, I'll mark you to re-approach next financial year.
-
-If you'd rather have something on file in case the question comes up internally, I'm happy to send a one-pager: 50 modules, Authority Portal, annual reporting export, SA State Plan domain mapping. Just reply "send it" and I'll pop it through.
+Closing the loop on this thread. I'll mark [Council] for a re-approach next financial year unless you'd like a one-pager sent through now, just reply "send it" and I'll pop it across.
 
 Best,
 Sarah
@@ -119,7 +120,7 @@ Sarah
 
 - Stagger across Tue / Wed / Thu mornings, SA time (AEST minus 30 min)
 - Don't BCC. Send individually with personalisation
-- Track replies + opens in a simple sheet; tag tier, council, hook variant
+- Track replies in `sa-councils-outreach-list.csv` (Status / DateSent / NextActionDate columns)
 - Hit Riverland 3 + Port Pirie THIS WEEK (live consultation, deadline 27 May for Riverland)
-- For councils with named contacts (Mount Barker, Campbelltown, Mount Gambier, Victor Harbor), send named version first
-- Avoid sending during SA school holidays or LGA SA conference weeks; check calendar before batch
+- For councils with named contacts, address directly. For "team only" councils, use "Hi Community Inclusion team"
+- Avoid SA school holidays + LGA SA conference weeks; check before each batch
