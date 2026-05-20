@@ -18,6 +18,7 @@ import { BackToTop } from './BackToTop';
 import { TabBlockedOverlay } from './TabBlockedOverlay';
 import { OrgPresenceBanner } from './OrgPresenceBanner';
 import { StorageWarningBanner } from './StorageWarningBanner';
+import { OfflineBanner } from './OfflineBanner';
 import { useTabLock } from '../hooks/useTabLock';
 import { useAuth } from '../contexts/AuthContext';
 import { useCloudSync } from '../hooks/useCloudSync';
@@ -110,6 +111,7 @@ export default function AppLayout() {
         <OrgPresenceBanner members={activeMembers} />
       )}
 
+      <OfflineBanner />
       <StorageWarningBanner />
 
       {showNav && <NavBar />}
