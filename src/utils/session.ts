@@ -235,7 +235,14 @@ export interface DiscoveryProgress {
 export const getDiscoveryProgress = (): DiscoveryProgress | null => {
   const data = localStorage.getItem(DISCOVERY_PROGRESS_KEY);
   if (!data) return null;
-  return JSON.parse(data);
+  try {
+    return JSON.parse(data);
+  } catch {
+    // Corrupted discovery state. Drop it and let the user start fresh
+    // rather than wedging the Discovery page on every refresh.
+    localStorage.removeItem(DISCOVERY_PROGRESS_KEY);
+    return null;
+  }
 };
 
 // Save in-progress discovery data
