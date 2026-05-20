@@ -470,6 +470,23 @@ a[class*="btn-"]:hover {
 }
 
 /* ----------------------------------------
+   GLOBAL FOCUS FALLBACK (WCAG 2.4.7)
+   Catches any interactive element that doesn't get a more specific
+   :focus-visible rule. .btn, .card-interactive, inputs etc. all
+   have higher-specificity rules above and override this.
+   ---------------------------------------- */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible,
+[role="menuitem"]:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------
    DISABLED STATE - All button types
    ---------------------------------------- */
 .btn:disabled {
