@@ -24,6 +24,7 @@ type AdminTab = 'overview' | 'members' | 'invites' | 'sites' | 'security';
 interface OrgAdminPanelProps {
   isOpen: boolean;
   onClose: () => void;
+  initialTab?: AdminTab;
 }
 
 const ROLE_LABELS: Record<OrgRole, string> = {
@@ -46,7 +47,7 @@ const _ROLE_DESCRIPTIONS: Record<OrgRole, string> = {
 };
 void _ROLE_DESCRIPTIONS; // Suppress unused warning
 
-export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
+export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgAdminPanelProps) {
   const { accessState, user } = useAuth();
   const orgAdmin = useOrgAdmin();
   const { sites, isLoading: sitesLoading, error: sitesError, createSite, deleteSite, reload: reloadSites } = useSites();
@@ -55,7 +56,11 @@ export function OrgAdminPanel({ isOpen, onClose }: OrgAdminPanelProps) {
   const [newSiteDescription, setNewSiteDescription] = useState('');
   const [creatingSite, setCreatingSite] = useState(false);
 
-  const [activeTab, setActiveTab] = useState<AdminTab>('overview');
+  const [activeTab, setActiveTab] = useState<AdminTab>(initialTab);
+  // When the parent opens the panel pointing at a specific tab, honour that.
+  useEffect(() => {
+    if (isOpen) setActiveTab(initialTab);
+  }, [isOpen, initialTab]);
   const [members, setMembers] = useState<OrganisationMembership[]>([]);
   const [pendingMembers, setPendingMembers] = useState<OrganisationMembership[]>([]);
   const [inviteCodes, setInviteCodes] = useState<InviteCode[]>([]);

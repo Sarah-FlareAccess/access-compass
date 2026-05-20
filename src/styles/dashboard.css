@@ -737,6 +737,88 @@
   transition: width 0.5s ease;
 }
 
+/* Multi-site setup nudge — shown on Dashboard for multi-location tiers
+   when the org has no sites yet. Dismissible (persists in localStorage). */
+.site-setup-nudge {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  background: #FFF8E8;
+  border: 1px solid #F5C46B;
+  border-radius: 10px;
+}
+
+.site-setup-nudge-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1 1 320px;
+}
+
+.site-setup-nudge-icon {
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+.site-setup-nudge-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.site-setup-nudge-title {
+  font-weight: 700;
+  color: var(--text-primary, #3E2B2F);
+}
+
+.site-setup-nudge-message {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #5F4A4D);
+  line-height: 1.4;
+}
+
+.site-setup-nudge-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.site-setup-nudge-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  background: var(--amethyst-diamond, #490E67);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.site-setup-nudge-cta:hover {
+  background: #3B0B54;
+}
+
+.site-setup-nudge-dismiss {
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--text-secondary, #5F4A4D);
+  border: 1px solid rgba(62, 43, 47, 0.2);
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.site-setup-nudge-dismiss:hover {
+  background: rgba(62, 43, 47, 0.04);
+}
+
 /* ============================================
    PRIMARY ACTION HERO - Compact & Clickable
    ============================================ */

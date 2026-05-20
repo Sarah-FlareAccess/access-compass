@@ -18,6 +18,7 @@ import { getSignedUrl } from '../utils/signedUrlCache';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
+import { useSites } from '../hooks/useSites';
 import { useAuth } from '../contexts/AuthContext';
 import { useProgramEnrolment } from '../hooks/useProgramEnrolment';
 import { accessModules, moduleGroups, getModuleById } from '../data/accessModules';
@@ -92,6 +93,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
   const [evidenceSourceFilter, setEvidenceSourceFilter] = useState<'assessment' | 'diap'>('assessment');
   const { activities, trimmedByRetention } = useActivityLog();
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [adminPanelInitialTab, setAdminPanelInitialTab] = useState<'overview' | 'members' | 'invites' | 'sites' | 'security'>('overview');
   const [showReportProblem, setShowReportProblem] = useState(false);
   const [showInfoRequest, setShowInfoRequest] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
@@ -251,6 +253,20 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
 
   // DIAP management hook
   const { getStats: getDIAPStats, items: diapItems, documents: diapDocuments } = useDIAPManagement();
+
+  // Sites — used to nudge multi-site customers who haven't set up locations yet.
+  const { sites } = useSites();
+  const pricingTier = accessState.organisation?.pricing_tier ?? '';
+  const isMultiLocationTier = /multi.?site|premier venue|major venue/i.test(pricingTier);
+  const SITE_NUDGE_DISMISS_KEY = 'access_compass_site_nudge_dismissed';
+  const [siteNudgeDismissed, setSiteNudgeDismissed] = useState(() => {
+    try { return localStorage.getItem(SITE_NUDGE_DISMISS_KEY) === '1'; } catch { return false; }
+  });
+  const showSiteNudge = isMultiLocationTier && sites.length === 0 && !siteNudgeDismissed;
+  const dismissSiteNudge = useCallback(() => {
+    try { localStorage.setItem(SITE_NUDGE_DISMISS_KEY, '1'); } catch { /* noop */ }
+    setSiteNudgeDismissed(true);
+  }, []);
 
   // Load session and discovery data
   useEffect(() => {
@@ -569,6 +585,34 @@ Thanks!`;
           <h1 className="sr-only">Accessibility Dashboard</h1>
           <div className="dashboard-container">
             <InstallPrompt />
+            {showSiteNudge && (
+              <div className="site-setup-nudge" role="region" aria-label="Set up your locations">
+                <div className="site-setup-nudge-body">
+                  <span className="site-setup-nudge-icon" aria-hidden="true">📍</span>
+                  <div className="site-setup-nudge-text">
+                    <span className="site-setup-nudge-title">Set up your locations</span>
+                    <span className="site-setup-nudge-message">
+                      You're on a multi-location plan. Add each site so answers, evidence and the DIAP can be tracked per location. You can also assess organisation-wide policies in parallel.
+                    </span>
+                  </div>
+                </div>
+                <div className="site-setup-nudge-actions">
+                  <button
+                    type="button"
+                    className="site-setup-nudge-cta"
+                    onClick={() => {
+                      setAdminPanelInitialTab('sites');
+                      setShowAdminPanel(true);
+                    }}
+                  >
+                    Add a site
+                  </button>
+                  <button type="button" className="site-setup-nudge-dismiss" onClick={dismissSiteNudge} aria-label="Dismiss locations nudge">
+                    Not now
+                  </button>
+                </div>
+              </div>
+            )}
             <PageGuide pageId="dashboard" features={DASHBOARD_FEATURES} />
             {/* Primary Action Hero - Clickable */}
             {overallStats.modulesInProgress > 0 ? (
@@ -1578,7 +1622,11 @@ Thanks!`;
       {/* Organisation Admin Panel */}
       <OrgAdminPanel
         isOpen={showAdminPanel}
-        onClose={() => setShowAdminPanel(false)}
+        onClose={() => {
+          setShowAdminPanel(false);
+          setAdminPanelInitialTab('overview');
+        }}
+        initialTab={adminPanelInitialTab}
       />
 
       {/* Report Problem Modal */}
