@@ -182,8 +182,14 @@ const MODULE_PROGRESS_KEY = 'access_compass_module_progress';
 
 // Local storage functions
 function getLocalProgress(): Record<string, ModuleProgress> {
-  const data = localStorage.getItem(MODULE_PROGRESS_KEY);
-  return data ? JSON.parse(data) : {};
+  try {
+    const data = localStorage.getItem(MODULE_PROGRESS_KEY);
+    return data ? JSON.parse(data) : {};
+  } catch {
+    // Corrupted blob (truncated by quota, manual tampering). Fall back to
+    // empty rather than crash app init; cloud restore rehydrates on signin.
+    return {};
+  }
 }
 
 function saveLocalProgress(progress: Record<string, ModuleProgress>) {

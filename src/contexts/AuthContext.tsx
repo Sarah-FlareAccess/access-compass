@@ -87,6 +87,40 @@ const defaultAccessState: UserAccessState = {
 };
 
 const ACCESS_STATE_CACHE_KEY = 'access_compass_access_state';
+const LAST_USER_KEY = 'access_compass_last_user_id';
+
+// Keys that survive every cleanup: device identity, the UI install-dismissed
+// flag, and the last-user marker we read to detect future user switches.
+const ALWAYS_PRESERVE_KEYS = new Set<string>([
+  LAST_USER_KEY,
+  'access_compass_device_id',
+  'access_compass_install_dismissed',
+]);
+
+// Keys that hold pre-signup onboarding state. When lastUserId is null we're
+// on a fresh install completing first-ever signup with anonymous discovery
+// in flight, so we keep these so the new user doesn't lose work they just
+// did. On any signed-in user switch they get cleared like everything else.
+const SIGNUP_PRESERVE_KEYS = new Set<string>([
+  'access_compass_session',
+  'access_compass_discovery',
+  'access_compass_discovery_progress',
+  'access_compass_selected_tier',
+]);
+
+function clearUserScopedStorage(preserveOnboarding: boolean): void {
+  const keysToRemove: string[] = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (!key) continue;
+    if (ALWAYS_PRESERVE_KEYS.has(key)) continue;
+    if (preserveOnboarding && SIGNUP_PRESERVE_KEYS.has(key)) continue;
+    if (key.startsWith('access_compass_') || key.startsWith('diap_')) {
+      keysToRemove.push(key);
+    }
+  }
+  keysToRemove.forEach((key) => localStorage.removeItem(key));
+}
 
 function getCachedAccessState(): UserAccessState {
   try {
@@ -221,28 +255,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(newSession?.user ?? null);
 
       if (newSession?.user) {
-        // Check if a different user signed in - clear old user's localStorage data
-        const LAST_USER_KEY = 'access_compass_last_user_id';
         const lastUserId = localStorage.getItem(LAST_USER_KEY);
-        if (lastUserId && lastUserId !== newSession.user.id) {
-          const keysToPreserve = [
-            LAST_USER_KEY,
-            'sb-rokauhxngcwlpabcmwnh-auth-token',
-            'access_compass_device_id',
-            'access_compass_selected_tier',
-            'access_compass_user_display_name',
-          ];
-          const keysToRemove: string[] = [];
-          for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && key.startsWith('access_compass_') && !keysToPreserve.includes(key)) {
-              keysToRemove.push(key);
-            }
-            if (key && (key.startsWith('diap_') || key === 'access_compass_sync_queue')) {
-              keysToRemove.push(key);
-            }
-          }
-          keysToRemove.forEach(key => localStorage.removeItem(key));
+        if (lastUserId !== newSession.user.id) {
+          // No previous user id ⇒ either first-ever signin on this device or a
+          // legacy install pre-LAST_USER_KEY. Preserve onboarding-flow keys so
+          // anonymous discovery from this signup flow survives.
+          clearUserScopedStorage(!lastUserId);
         }
         localStorage.setItem(LAST_USER_KEY, newSession.user.id);
 
@@ -344,7 +362,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = useCallback(async () => {
     if (!supabase) return;
-    localStorage.removeItem(ACCESS_STATE_CACHE_KEY);
+    clearUserScopedStorage(false);
     await supabase.auth.signOut();
   }, []);
 
