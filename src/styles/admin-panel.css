@@ -743,6 +743,48 @@
   line-height: 1.5;
 }
 
+.admin-site-bulk {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: rgba(73, 14, 103, 0.03);
+  border: 1px solid rgba(73, 14, 103, 0.1);
+  border-radius: 8px;
+}
+
+.admin-site-bulk > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--amethyst-diamond, #490E67);
+}
+
+.admin-site-bulk-hint {
+  margin: 0.75rem 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.admin-site-bulk-textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(62, 43, 47, 0.2);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.admin-site-bulk-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-site-bulk-result {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
 .admin-sites-readonly-note {
   margin: var(--spacing-md) 0 0;
   padding: 10px 12px;

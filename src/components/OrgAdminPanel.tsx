@@ -59,6 +59,9 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
   const [newSiteName, setNewSiteName] = useState('');
   const [newSiteDescription, setNewSiteDescription] = useState('');
   const [creatingSite, setCreatingSite] = useState(false);
+  const [bulkSiteNames, setBulkSiteNames] = useState('');
+  const [bulkAdding, setBulkAdding] = useState(false);
+  const [bulkResult, setBulkResult] = useState<{ added: number; failed: number } | null>(null);
 
   const [activeTab, setActiveTab] = useState<AdminTab>(initialTab);
   // When the parent opens the panel pointing at a specific tab, honour that.
@@ -1179,6 +1182,53 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                   {creatingSite ? 'Adding...' : 'Add site'}
                 </button>
               </form>}
+
+              {canManageSites && (
+                <details className="admin-site-bulk">
+                  <summary>Add many at once</summary>
+                  <p className="admin-site-bulk-hint">
+                    Paste one site name per line (no descriptions). Useful for chains, franchise networks and authority sub-orgs.
+                  </p>
+                  <textarea
+                    className="admin-site-bulk-textarea"
+                    value={bulkSiteNames}
+                    onChange={(e) => { setBulkSiteNames(e.target.value); setBulkResult(null); }}
+                    placeholder={'Bondi Junction\nParramatta\nChatswood'}
+                    rows={6}
+                  />
+                  <div className="admin-site-bulk-actions">
+                    <button
+                      type="button"
+                      className="admin-site-create-btn"
+                      disabled={bulkAdding || !bulkSiteNames.trim()}
+                      onClick={async () => {
+                        setBulkAdding(true);
+                        setBulkResult(null);
+                        const names = bulkSiteNames
+                          .split(/\r?\n/)
+                          .map(n => n.trim())
+                          .filter(Boolean);
+                        let added = 0;
+                        let failed = 0;
+                        for (const name of names) {
+                          const created = await createSite(name);
+                          if (created) added++; else failed++;
+                        }
+                        setBulkAdding(false);
+                        setBulkResult({ added, failed });
+                        if (failed === 0) setBulkSiteNames('');
+                      }}
+                    >
+                      {bulkAdding ? 'Adding...' : 'Add all'}
+                    </button>
+                    {bulkResult && (
+                      <span className="admin-site-bulk-result" role="status">
+                        {bulkResult.added} added{bulkResult.failed > 0 ? `, ${bulkResult.failed} failed` : ''}
+                      </span>
+                    )}
+                  </div>
+                </details>
+              )}
 
               {activeSiteId !== null && (
                 <div className="admin-site-clear">
