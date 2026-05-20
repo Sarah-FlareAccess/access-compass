@@ -6,6 +6,7 @@ import type {
   TrainingAccessTier,
 } from './types';
 import { aiAccessibleResourcesCourse } from './courses/ai-accessible-resources';
+import { aiAccessibleCommsCourse } from './courses/ai-accessible-comms';
 import { standaloneResources } from './resources/index';
 
 export const TRAINING_CATEGORIES: TrainingCategoryConfig[] = [
@@ -54,6 +55,7 @@ export const TRAINING_CATEGORIES: TrainingCategoryConfig[] = [
 ];
 
 export const allCourses: TrainingCourse[] = [
+  aiAccessibleCommsCourse,
   aiAccessibleResourcesCourse,
 ];
 
