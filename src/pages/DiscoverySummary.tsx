@@ -127,20 +127,9 @@ export default function DiscoverySummary() {
     })).filter(group => group.modules.length > 0);
   }, [selectedModules]);
 
-  // Total estimated time across selected modules (Pulse Check minutes).
-  const totalEstimatedMinutes = useMemo(() => {
-    return selectedModules.reduce((sum, id) => {
-      const m = getModule(id);
-      return sum + (m?.estimatedTime ?? 0);
-    }, 0);
-  }, [selectedModules]);
-
   const formatMinutes = (mins: number): string => {
     if (mins <= 0) return '—';
-    if (mins < 60) return `${mins} min`;
-    const hours = Math.floor(mins / 60);
-    const remaining = mins % 60;
-    return remaining > 0 ? `${hours} hr ${remaining} min` : `${hours} hr`;
+    return `${mins} min`;
   };
 
   const orgName = session?.business_snapshot?.organisation_name
@@ -273,10 +262,6 @@ export default function DiscoverySummary() {
               <div className="snapshot-total-item">
                 <span className="snapshot-total-number">{selectedModules.length}</span>
                 <span className="snapshot-total-label">{selectedModules.length === 1 ? 'module' : 'modules'}</span>
-              </div>
-              <div className="snapshot-total-item">
-                <span className="snapshot-total-number">{formatMinutes(totalEstimatedMinutes)}</span>
-                <span className="snapshot-total-label">to complete</span>
               </div>
             </div>
           </div>
@@ -556,7 +541,7 @@ export default function DiscoverySummary() {
               {modulesByPhase.length > 0 ? (
                 <>
                   <p className="modules-total-strip">
-                    {selectedModules.length} {selectedModules.length === 1 ? 'module' : 'modules'} selected · {formatMinutes(totalEstimatedMinutes)} estimated time
+                    {selectedModules.length} {selectedModules.length === 1 ? 'module' : 'modules'} selected
                   </p>
                   <div className="modules-by-phase">
                     {modulesByPhase.map(({ phase, label, modules }) => (
