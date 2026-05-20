@@ -349,6 +349,31 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
     setActionLoading(null);
   };
 
+  // Request data deletion. Owner-only. Requires typed confirmation
+  // matching the org name to guard against accidental clicks.
+  const handleRequestDataDeletion = async () => {
+    if (!orgId || !accessState.organisation?.name) return;
+    const orgName = accessState.organisation.name;
+    const confirmation = window.prompt(
+      `This will request deletion of all data for "${orgName}".\n\n` +
+      `Type the org name exactly to confirm:`
+    );
+    if (confirmation !== orgName) {
+      if (confirmation !== null) {
+        window.alert('Org name did not match. Nothing was deleted.');
+      }
+      return;
+    }
+    setActionLoading('delete');
+    const ok = await orgAdmin.requestDataDeletion(orgId);
+    setActionLoading(null);
+    if (ok) {
+      window.alert(
+        'Data-deletion request submitted. You will receive a confirmation email and our team will action this within 7 days.'
+      );
+    }
+  };
+
   // Export data
   const handleExportData = async () => {
     if (!orgId) return;
@@ -1238,7 +1263,7 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
               <div className="data-action">
                 <div className="setting-info">
                   <h4>Export Your Data</h4>
-                  <p>Download a copy of your organisation's data in JSON format.</p>
+                  <p>Download a copy of your organisation's data in JSON format. Includes module responses, DIAP items, sites, members and activity log. Evidence files are not included.</p>
                 </div>
                 <button
                   className="btn-export"
@@ -1248,6 +1273,22 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                   {actionLoading === 'export' ? 'Exporting...' : 'Export Data'}
                 </button>
               </div>
+
+              {myRole === 'owner' && (
+                <div className="data-action data-action-danger">
+                  <div className="setting-info">
+                    <h4>Request Data Deletion</h4>
+                    <p>Submit a request to permanently delete all data for this organisation. Owners only. Our team will action within 7 days. This cannot be undone.</p>
+                  </div>
+                  <button
+                    className="btn-danger"
+                    onClick={handleRequestDataDeletion}
+                    disabled={actionLoading === 'delete'}
+                  >
+                    {actionLoading === 'delete' ? 'Submitting...' : 'Request deletion'}
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
