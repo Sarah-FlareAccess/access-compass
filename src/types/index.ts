@@ -76,10 +76,16 @@ export interface BusinessSnapshot {
   organisation_size: OrganisationSize;
   business_types: BusinessType[];
   user_role: UserRole;
+  // True when customers attend physical locations (owned venue, partner sites,
+  // public spaces, tour meeting points). Wider than "do you own a building".
   has_physical_venue: boolean;
   has_online_presence: boolean;
   serves_public_customers: boolean;
   has_online_services: boolean;
+  // True when the business runs tours, classes, activities, guided experiences
+  // or services where customers attend a space they don't own. Ensures tour
+  // operators / mobile services / pop-ups still see during-visit touchpoints.
+  offers_experiences?: boolean;
   contact_name?: string;
   // Legacy support
   business_type?: BusinessType;

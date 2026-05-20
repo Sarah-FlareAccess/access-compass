@@ -34,6 +34,7 @@ interface BusinessContext {
   hasOnlinePresence: boolean | null;
   servesPublicCustomers: boolean | null;
   hasOnlineServices: boolean | null;
+  offersExperiences: boolean | null;
   assessmentType: AssessmentType;
 }
 
@@ -71,6 +72,7 @@ export default function DiscoverySummary() {
       hasOnlinePresence: session?.business_snapshot?.has_online_presence ?? null,
       servesPublicCustomers: session?.business_snapshot?.serves_public_customers ?? null,
       hasOnlineServices: session?.business_snapshot?.has_online_services ?? null,
+      offersExperiences: session?.business_snapshot?.offers_experiences ?? null,
       assessmentType,
     };
   });
@@ -193,6 +195,7 @@ export default function DiscoverySummary() {
         has_online_presence: businessContext.hasOnlinePresence ?? false,
         serves_public_customers: businessContext.servesPublicCustomers ?? false,
         has_online_services: businessContext.hasOnlineServices ?? false,
+        offers_experiences: businessContext.offersExperiences ?? false,
       },
     });
 
@@ -228,6 +231,7 @@ export default function DiscoverySummary() {
           hasOnlinePresence: businessContext.hasOnlinePresence ?? false,
           servesPublicCustomers: businessContext.servesPublicCustomers ?? false,
           hasOnlineServices: businessContext.hasOnlineServices ?? false,
+          offersExperiences: businessContext.offersExperiences ?? false,
           assessmentType: businessContext.assessmentType,
         },
       },
@@ -310,6 +314,12 @@ export default function DiscoverySummary() {
                 <dd>{userRole.charAt(0).toUpperCase() + userRole.slice(1)}</dd>
               </div>
             )}
+            {businessContext.offersExperiences && (
+              <div className="snapshot-fact">
+                <dt>Offers experiences</dt>
+                <dd>Tours, classes or guided activities</dd>
+              </div>
+            )}
           </dl>
         </div>
 
@@ -352,7 +362,7 @@ export default function DiscoverySummary() {
                 </span>
               </div>
               <div className="context-item">
-                <span className="context-label">Physical venue:</span>
+                <span className="context-label">Customers attend physical locations:</span>
                 <span className={`context-value ${businessContext.hasPhysicalVenue ? 'yes' : 'no'}`}>
                   {businessContext.hasPhysicalVenue ? 'Yes' : 'No'}
                 </span>
@@ -363,8 +373,12 @@ export default function DiscoverySummary() {
                   {businessContext.hasOnlinePresence ? 'Yes' : 'No'}
                 </span>
               </div>
-
-
+              <div className="context-item">
+                <span className="context-label">Offers tours, classes or experiences:</span>
+                <span className={`context-value ${businessContext.offersExperiences ? 'yes' : 'no'}`}>
+                  {businessContext.offersExperiences ? 'Yes' : 'No'}
+                </span>
+              </div>
             </div>
           ) : (
             <div className="context-edit">
@@ -423,8 +437,9 @@ export default function DiscoverySummary() {
 
               {/* Business Context Questions */}
               {[
-                { key: 'hasPhysicalVenue', label: 'Do you have a physical venue?' },
+                { key: 'hasPhysicalVenue', label: 'Do customers attend physical locations with you? (your own venue, partner sites, public spaces, or tour meeting points)' },
                 { key: 'hasOnlinePresence', label: 'Do you have an online presence?' },
+                { key: 'offersExperiences', label: 'Do you offer tours, classes, activities or guided experiences?' },
               ].map(({ key, label }) => (
                 <div key={key} className="context-edit-item">
                   <span className="context-label">{label}</span>

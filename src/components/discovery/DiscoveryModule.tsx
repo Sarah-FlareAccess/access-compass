@@ -86,6 +86,12 @@ export function DiscoveryModule({
   const [hasOnlinePresence, setHasOnlinePresence] = useState<boolean | null>(
     existingData?.businessContext?.hasOnlinePresence ?? savedProgress?.businessContext?.hasOnlinePresence ?? null
   );
+  // Captures tour operators / mobile services / pop-ups that say "no" to the
+  // venue question but still need during-visit accessibility coverage for the
+  // sites they use.
+  const [offersExperiences, setOffersExperiences] = useState<boolean | null>(
+    existingData?.businessContext?.offersExperiences ?? savedProgress?.businessContext?.offersExperiences ?? null
+  );
   // Assessment type - 'business' for ongoing operations, 'event' for standalone events, 'both' for both
   type AssessmentType = 'business' | 'event' | 'both';
   const [assessmentType, setAssessmentType] = useState<AssessmentType>(() => {
@@ -129,7 +135,7 @@ export function DiscoveryModule({
         hasOnlinePresence,
         servesPublicCustomers: null,
         hasOnlineServices: null,
-        offersExperiences: null,
+        offersExperiences,
         offersAccommodation: null,
         assessmentType,
       },
@@ -143,6 +149,7 @@ export function DiscoveryModule({
     currentStep,
     hasPhysicalVenue,
     hasOnlinePresence,
+    offersExperiences,
     assessmentType,
     existingData,
   ]);
@@ -224,9 +231,15 @@ export function DiscoveryModule({
       return JOURNEY_PHASES;
     }
 
+    // The during-visit phase is relevant whenever customers attend a physical
+    // space, even one the business doesn't own. Tour operators, mobile
+    // services, and pop-ups that say no to "your own venue" still need to
+    // think about the spaces they use, so treat offersExperiences as an
+    // equivalent trigger.
+    const customersAttendPhysical = !!hasPhysicalVenue || !!offersExperiences;
+
     return JOURNEY_PHASES.filter(phase => {
-      // "When they're here" phase is only relevant for physical venues
-      if (phase.id === 'when-here' && !hasPhysicalVenue) {
+      if (phase.id === 'when-here' && !customersAttendPhysical) {
         return false;
       }
 
@@ -285,7 +298,7 @@ export function DiscoveryModule({
 
       return phase;
     }).filter(phase => phase.touchpoints.length > 0);
-  }, [hasPhysicalVenue, hasOnlinePresence]);
+  }, [hasPhysicalVenue, hasOnlinePresence, offersExperiences]);
 
   // Check if a phase has been reviewed (has selections OR marked as N/A)
   const isPhaseReviewed = (phaseId: string): boolean => {
@@ -310,7 +323,7 @@ export function DiscoveryModule({
       businessContext: {
         hasPhysicalVenue: hasPhysicalVenue ?? undefined,
         hasOnlinePresence: hasOnlinePresence ?? undefined,
-        offersExperiences: selectedTouchpoints.includes('experiences-activities') || undefined,
+        offersExperiences: offersExperiences ?? selectedTouchpoints.includes('experiences-activities') ?? undefined,
         offersAccommodation: selectedTouchpoints.includes('accommodation-rooms') || undefined,
         assessmentType,
       },
@@ -322,7 +335,7 @@ export function DiscoveryModule({
     });
 
     return generateRecommendations(discoveryData, industryId, serviceType);
-  }, [selectedTouchpoints, selectedSubTouchpoints, notApplicablePhases, filteredJourneyPhases, industryId, serviceType, hasPhysicalVenue, hasOnlinePresence, assessmentType]);
+  }, [selectedTouchpoints, selectedSubTouchpoints, notApplicablePhases, filteredJourneyPhases, industryId, serviceType, hasPhysicalVenue, hasOnlinePresence, offersExperiences, assessmentType]);
 
   // Calculate depth recommendation
   const depthRecommendation = useMemo(() => {
@@ -396,7 +409,7 @@ export function DiscoveryModule({
           hasOnlinePresence: hasOnlinePresence ?? false,
           servesPublicCustomers: true,
           hasOnlineServices: (hasOnlinePresence ?? false),
-          offersExperiences: selectedTouchpoints.includes('experiences-activities'),
+          offersExperiences: offersExperiences ?? selectedTouchpoints.includes('experiences-activities'),
           offersAccommodation: selectedTouchpoints.includes('accommodation-rooms'),
           assessmentType,
         },
@@ -510,9 +523,9 @@ export function DiscoveryModule({
 
                 <fieldset className="context-question">
                   <legend>
-                    Do you have a physical venue customers visit? <span className="required">*</span>
+                    Do customers attend physical locations with you? <span className="required">*</span>
                   </legend>
-                  <p className="field-helper">e.g. shop, office, facility, or site</p>
+                  <p className="field-helper">your own venue, partner sites, public spaces, or tour meeting points</p>
                   <div className="radio-group">
                     <label className="radio-label">
                       <input
@@ -537,8 +550,37 @@ export function DiscoveryModule({
                   </div>
                   <p className="field-tip">
                     <span className="tip-icon">💡</span>
-                    Select "Yes" even for small spaces like a pop-up stall, market booth, or shared office where customers come to you.
+                    Say "Yes" even if you don't own the space. Pop-up stalls, market booths, shared offices, hired venues, partner sites, public parks, and tour meeting points all count. Accessibility of those spaces still affects your customers.
                   </p>
+                </fieldset>
+
+                <fieldset className="context-question">
+                  <legend>
+                    Do you offer tours, classes, activities or guided experiences? <span className="required">*</span>
+                  </legend>
+                  <p className="field-helper">e.g. walking tours, workshops, fitness classes, guided activities, mobile services</p>
+                  <div className="radio-group">
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="offers_experiences"
+                        checked={offersExperiences === true}
+                        onChange={() => setOffersExperiences(true)}
+                        required
+                      />
+                      <span>Yes</span>
+                    </label>
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="offers_experiences"
+                        checked={offersExperiences === false}
+                        onChange={() => setOffersExperiences(false)}
+                        required
+                      />
+                      <span>No</span>
+                    </label>
+                  </div>
                 </fieldset>
 
                 <fieldset className="context-question">
