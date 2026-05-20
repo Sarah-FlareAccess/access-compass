@@ -145,7 +145,7 @@ export default function Disclaimer() {
         if (error) {
           setError(error.message || 'Failed to create account.');
         } else {
-          setSuccessMessage('Check your email for a confirmation link, then sign in below.');
+          setSuccessMessage(`Check ${email} for a confirmation link, then sign in below. Used the wrong email? Sign up again with the correct one.`);
           setIsSignUp(false);
           setPassword('');
           setConfirmPassword('');
