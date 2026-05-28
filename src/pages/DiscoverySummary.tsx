@@ -620,26 +620,27 @@ export default function DiscoverySummary() {
                         {phaseModules.map(module => {
                           const isSelected = selectedModules.includes(module.id);
                           return (
-                            <label
+                            <div
                               key={module.id}
                               className={`module-edit-row ${isSelected ? 'selected' : ''}`}
                             >
-                              <input
-                                type="checkbox"
-                                checked={isSelected}
-                                onChange={() => toggleModule(module.id)}
-                                aria-label={`Select ${module.name}`}
-                              />
-                              <span className="module-edit-name">{module.name}</span>
+                              <label className="module-edit-checkbox" aria-label={`Select ${module.name}`}>
+                                <input
+                                  type="checkbox"
+                                  checked={isSelected}
+                                  onChange={() => toggleModule(module.id)}
+                                />
+                              </label>
                               <button
                                 type="button"
-                                className="module-edit-info-btn"
-                                onClick={(e) => { e.preventDefault(); setModuleDetailId(module.id); }}
+                                className="module-edit-name-btn"
+                                onClick={() => setModuleDetailId(module.id)}
                                 aria-label={`View details for ${module.name}`}
                               >
-                                <span className="module-edit-arrow">→</span>
+                                <span className="module-edit-name">{module.name}</span>
+                                <span className="module-edit-arrow" aria-hidden="true">→</span>
                               </button>
-                            </label>
+                            </div>
                           );
                         })}
                       </div>
