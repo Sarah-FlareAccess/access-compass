@@ -6028,7 +6028,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -8706,7 +8705,6 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
-        complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 3.3, APS D3.3',
         actionText: {
           yes: 'Maintaining accessible pathways during busy periods ensures customers with disability are not excluded at peak times.',
@@ -9264,7 +9262,6 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
-        complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 8.1',
         actionText: {
           yes: 'Lowered service counter or alternative service point is available.',
@@ -10236,7 +10233,6 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for specialist advice',
           ],
         },
-        complianceLevel: 'mandatory',
         complianceRef: 'AS 1428.1 Cl. 15.3',
         actionText: {
           yes: 'Grab rails are present on both sides of the toilet.',
@@ -12745,7 +12741,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes-both', label: 'Yes, Easy Read and Plain English available' },
@@ -12849,7 +12844,6 @@ export const accessModules: AccessModule[] = [
             'Include QR code instructions for those unfamiliar with using them',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'QR codes link to accessible content.',
           no: 'Ensure all QR code destinations are WCAG 2.2 AA compliant: proper heading structure, alt text for images, sufficient colour contrast, keyboard navigable, and compatible with screen readers. Test with VoiceOver and TalkBack.',
@@ -13074,7 +13068,6 @@ export const accessModules: AccessModule[] = [
             'For live events, consider using live captioning (CART) for presentations or performances',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Videos and multimedia content are captioned.',
           no: 'Add accurate captions (not auto-generated) to all video and multimedia content. Captions must include dialogue, speaker identification, and relevant sound effects per WCAG 2.2 Success Criterion 1.2.2.',
@@ -13114,7 +13107,6 @@ export const accessModules: AccessModule[] = [
             'For content-heavy visuals, extended audio description pauses the video to allow a fuller description of what is happening',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Videos include audio description for visual content.',
           no: 'Add audio description to videos that contain important visual information not conveyed by the soundtrack. Describe key visual elements during natural pauses in dialogue per WCAG 2.2 Success Criterion 1.2.5.',
@@ -18522,7 +18514,6 @@ export const accessModules: AccessModule[] = [
             'Online chat can be excellent for quick queries if staffed appropriately',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Offering alternatives to phone calls ensures customers with hearing, speech, or cognitive disabilities can contact you.',
           no: 'Provide at least two non-phone contact options (e.g., email, live chat, SMS, online form). Under the DDA 1992, services must be accessible to people who cannot use voice telephone.',
@@ -19206,7 +19197,6 @@ export const accessModules: AccessModule[] = [
             'Test with a free screen reader such as NVDA (Windows) or VoiceOver (Mac) to check for issues',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Your contact page is accessible to people using keyboards, screen readers, and assistive technology.',
           no: 'Audit your website contact page for WCAG 2.2 AA compliance. Ensure it is keyboard navigable, screen reader compatible, avoids inaccessible CAPTCHAs, and has properly labelled form fields with clear error messages.',
@@ -20518,7 +20508,6 @@ export const accessModules: AccessModule[] = [
             'If you use a third-party system, consider asking your provider about accessibility or testing it yourself',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. An accessible booking system ensures customers with disabilities can independently make reservations.',
           no: 'Audit your online booking system against WCAG 2.2 AA. Ensure it is keyboard navigable, screen reader compatible, has clear labels and error messages, and works with browser zoom up to 200%. Provide a phone or email alternative.',
@@ -20532,7 +20521,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-integrated', label: 'Yes - integrated into booking form' },
@@ -20756,7 +20744,6 @@ export const accessModules: AccessModule[] = [
             'Provide a way for customers to discuss specific needs if the standard options do not cover them',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Pre-booking accessible spaces and equipment lets customers plan with confidence.',
           no: 'Enable customers to book accessible spaces, seating, or equipment (e.g., wheelchair spaces, hearing loop seats, accessible rooms) in advance through your standard booking system, not only by phone.',
@@ -21740,7 +21727,6 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'General contact form but not specific to accessibility' or 'Can provide feedback in person but no formal process'",
@@ -22318,7 +22304,6 @@ export const accessModules: AccessModule[] = [
             'Most email platforms have preview tools for accessibility, so it\'s worth testing before you send',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Accessible emails and newsletters reach customers who use screen readers, magnification, or other assistive technology.',
           no: 'Audit your marketing emails and newsletters for accessibility: use semantic HTML (proper headings, lists), include alt text on all images, ensure sufficient colour contrast, use a single-column layout, and test with a screen reader before sending.',
@@ -22571,7 +22556,6 @@ export const accessModules: AccessModule[] = [
             'For video content, consider describing what is happening visually so everyone can follow along',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Accessible social media posts reach a wider audience and demonstrate inclusive practice.',
           no: 'Make your social media posts accessible: add alt text to all images, caption all videos, use camelCase hashtags (e.g., #AccessibleDesign), avoid conveying information through colour alone, and write in plain language. Avoid flashing or rapidly moving content.',
@@ -22807,7 +22791,6 @@ export const accessModules: AccessModule[] = [
             'Captions should include speaker identification and describe relevant sounds, not just speech',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Captioned and audio-described video content is accessible to Deaf, hard of hearing, and blind customers.',
           no: 'Caption all video content (open or closed captions meeting WCAG 2.2 AA accuracy standards) and provide audio description for videos that convey important visual information. This applies to website, social media, and in-venue video content.',
@@ -22857,7 +22840,6 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'digital',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Some info on the contact page but no dedicated accessibility page' or 'Access info exists but is outdated'",
         helpContent: {
@@ -22978,7 +22960,6 @@ export const accessModules: AccessModule[] = [
             'Many email platforms have accessibility checkers - use them',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Accessible emails ensure your messages reach customers who use screen readers, magnification, or have images disabled.',
           no: 'Design emails for accessibility: use semantic HTML headings, include alt text on all images, ensure content is readable with images disabled, provide a plain text version, use sufficient colour contrast, and include meaningful link text (not "click here").',
@@ -23013,7 +22994,6 @@ export const accessModules: AccessModule[] = [
           learnMoreUrl: 'https://www.visionaustralia.org/services/digital-access/creating-accessible-documents',
           learnMoreText: 'Creating accessible documents guide',
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Accessible PDFs ensure customers using screen readers and other assistive technology can read your documents.',
           no: 'Create PDF documents accessibly: use tagged PDF structure, proper heading hierarchy, alt text on images, meaningful link text, specified document language, and logical reading order. Use the PDF/UA standard as your benchmark. Never distribute scanned image-only PDFs.',
@@ -26772,7 +26752,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes-detailed', label: 'Yes - detailed accessibility information on event page/materials' },
@@ -26997,7 +26976,6 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'information',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'venue-access', label: 'Venue physical accessibility (entrances, lifts, toilets)' },
@@ -27070,7 +27048,6 @@ export const accessModules: AccessModule[] = [
             'Offering large print on request and using readable fonts at minimum 12pt makes printed materials more accessible',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good practice. Accessible promotional materials ensure your event reaches the widest possible audience.',
           no: 'Produce promotional materials in accessible formats: digital documents meeting WCAG 2.2 AA, captioned video, audio-described visual content, Easy Read versions for key information, and large print options. Ensure images include alt text in digital channels.',
@@ -27828,7 +27805,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'online-booking', label: 'Accessible seating bookable online from ticket release' },
@@ -27897,7 +27873,6 @@ export const accessModules: AccessModule[] = [
             'Front of stage barrier areas can work, but keep in mind they may expose users to crowd pressure',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good provision. Elevated or designated viewing areas ensure wheelchair users and people of short stature have equitable sightlines at standing events.',
           no: 'Provide designated accessible viewing areas at standing events. These should offer clear sightlines to the stage, be on level firm ground, include companion spaces, and be protected from crowd crush. Position them where the atmosphere is still part of the event experience.',
@@ -28068,7 +28043,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         safetyRelated: true,
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-comprehensive', label: 'Yes - comprehensive wet weather accessibility plan' },
@@ -28181,7 +28155,6 @@ export const accessModules: AccessModule[] = [
             'Having staff available to manage platform access helps things run smoothly',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Excellent. Elevated platforms provide equitable viewing for wheelchair users and people of short stature at events where others stand.',
           no: 'Provide elevated viewing platforms for wheelchair users and people of short stature. Platforms should have ramp access, guardrails, companion spaces, and sightlines equivalent to a standing adult. Position them to provide a genuine event experience, not an afterthought.',
@@ -28616,7 +28589,6 @@ export const accessModules: AccessModule[] = [
             'Testing that all codes work before the event prevents frustration on the day',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good use of technology. QR codes linking to digital accessible content bridge physical and digital information needs.',
           no: 'Add QR codes to key signage that link to accessible digital versions of event information. This benefits people using screen readers, those who need content in different languages, and anyone who prefers digital formats. Ensure linked pages meet WCAG 2.2 AA.',
@@ -28656,7 +28628,6 @@ export const accessModules: AccessModule[] = [
             'Adding braille to room signs, toilet signs, and key information points supports independent navigation',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Tactile wayfinding elements support independent navigation for people with vision impairments.',
           no: 'Provide tactile wayfinding elements such as tactile ground surface indicators (TGSIs) at key decision points, tactile signage with raised lettering and Braille at room entries, and tactile maps at information points. TGSIs should comply with AS 1428.4.1.',
@@ -28786,7 +28757,6 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'communication-boards', label: 'Communication boards with common phrases/symbols' },
@@ -29227,7 +29197,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '6.4-PC-1', answers: ['live-captioning'] },
         options: [
@@ -30481,7 +30450,6 @@ export const accessModules: AccessModule[] = [
             'Including accessible screening information in your pre-event communications helps people know what to expect',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Good. Accessible security screening maintains safety without creating additional barriers for people with disability.',
           no: 'Review security screening procedures for accessibility. Provide a private screening option for people who need to explain medical devices or prosthetics, allow wheelchair users to remain seated during screening, ensure deaf attendees receive visual instructions, and train security staff to interact respectfully with people with disability.',
@@ -30911,7 +30879,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-event', label: 'Yes, event-provided accessible transport between venues' },
@@ -30948,7 +30915,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, mapped and confirmed at every venue' },
@@ -31665,7 +31631,6 @@ export const accessModules: AccessModule[] = [
             'Always have human review of any auto-generated content before public release.',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Certified providers ensure AD and captioning meet the quality standard audiences expect.',
           no: 'Engage certified human AD and captioning providers. Quality matters — auto-generated alternatives damage trust.',
@@ -32424,7 +32389,6 @@ export const accessModules: AccessModule[] = [
             'Train staff to offer to assist with payment without taking the card.',
           ],
         },
-        complianceLevel: 'best-practice',
         actionText: {
           yes: 'Multiple accessible payment methods accommodate diverse needs.',
           no: 'Procure EFTPOS terminals with tactile keypad and contactless. Touchscreen-only EFTPOS excludes vision-impaired users.',
