@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
-import { syncRecord, deleteRecord, fetchRecords, fetchOrgRecords, syncOrgRecord, resolveByTimestamp } from '../utils/cloudSync';
+import { deleteRecord, fetchOrgRecords, syncOrgRecord, resolveByTimestamp } from '../utils/cloudSync';
 import { computeFileHash, findEvidenceByHash, linkExistingEvidence, promoteToEvidenceFile, type ExistingEvidenceMatch } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';

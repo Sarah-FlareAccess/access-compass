@@ -544,7 +544,7 @@ export function generateRecommendations(
       // (Group 2.x Getting In, Group 3.x During Visit). Felix the inclusive
       // online retailer was getting "Parking" recommended despite saying he
       // has no physical venue.
-      const skipPhysicalGroups = ctx?.hasPhysicalVenue === false;
+      const skipPhysicalGroups = discoveryData?.businessContext?.hasPhysicalVenue === false;
       const isPhysicalGroupModule = (id: string) => id.startsWith('2.') || id.startsWith('3.');
 
       for (const moduleId of defaults) {

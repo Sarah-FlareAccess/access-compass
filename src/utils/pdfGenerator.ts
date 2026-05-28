@@ -568,7 +568,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     if (topActions.length > 0) {
       addSectionTitle('Top Priorities');
       for (const item of topActions) {
-        const label = item.action || item.objective || '';
+        const label = item.text || '';
         if (!label) continue;
         addParagraph(`• ${label}`, 10);
       }
@@ -578,7 +578,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     if (topStrengths.length > 0) {
       addSectionTitle('What\'s Going Well', COLORS.green);
       for (const item of topStrengths) {
-        const label = item.objective || item.action || '';
+        const label = item.text || '';
         if (!label) continue;
         addParagraph(`• ${label}`, 10);
       }

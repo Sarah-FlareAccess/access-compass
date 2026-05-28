@@ -8,7 +8,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
-import { syncRecord, fetchRecords, fetchOrgRecords, syncOrgRecord, resolveByTimestamp } from '../utils/cloudSync';
+import { fetchOrgRecords, syncOrgRecord, resolveByTimestamp } from '../utils/cloudSync';
 import { migrateEvidenceToStorage } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
 import { useActiveSiteId } from './useSites';
