@@ -4,6 +4,36 @@
   padding: 24px 24px 64px;
 }
 
+/* Keyboard skip link: hidden until focused, then surfaces as a button-style
+   target above the breadcrumb so screen-reader and keyboard users can jump
+   straight to lesson content. */
+.lesson-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  z-index: 100;
+}
+
+.lesson-skip-link:focus {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  padding: 10px 16px;
+  background: #490E67;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(73, 14, 103, 0.32);
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
+}
+
+#lesson-content:focus {
+  outline: none;
+}
+
 .lesson-not-found {
   text-align: center;
   padding: 48px 24px;

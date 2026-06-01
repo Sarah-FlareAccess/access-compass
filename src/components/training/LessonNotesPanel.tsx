@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLessonNotes } from '../../hooks/useLessonNotes';
 import './LessonNotesPanel.css';
 
@@ -10,6 +10,8 @@ interface Props {
 export function LessonNotesPanel({ courseId, courseTitle }: Props) {
   const [open, setOpen] = useState(false);
   const { notes, setNotes, clearNotes } = useLessonNotes(courseId);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -17,7 +19,16 @@ export function LessonNotesPanel({ courseId, courseTitle }: Props) {
       if (e.key === 'Escape') setOpen(false);
     };
     window.addEventListener('keydown', onKey);
+    // Move focus into the panel when it opens
+    window.setTimeout(() => closeRef.current?.focus(), 0);
     return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  useEffect(() => {
+    // Return focus to the trigger when the panel closes
+    if (!open) {
+      triggerRef.current?.focus();
+    }
   }, [open]);
 
   const handleDownload = () => {
@@ -45,6 +56,7 @@ export function LessonNotesPanel({ courseId, courseTitle }: Props) {
   if (!open) {
     return (
       <button
+        ref={triggerRef}
         type="button"
         className="lesson-notes-trigger"
         onClick={() => setOpen(true)}
@@ -66,6 +78,7 @@ export function LessonNotesPanel({ courseId, courseTitle }: Props) {
       <div className="lesson-notes-header">
         <h2 className="lesson-notes-title">My notes</h2>
         <button
+          ref={closeRef}
           type="button"
           className="lesson-notes-close"
           onClick={() => setOpen(false)}

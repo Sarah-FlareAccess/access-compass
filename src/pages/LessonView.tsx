@@ -102,6 +102,7 @@ export default function LessonView() {
 
   return (
     <div className="lesson-view">
+      <a href="#lesson-content" className="lesson-skip-link">Skip to lesson content</a>
       {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="lesson-breadcrumb">
         <ol>
@@ -132,12 +133,14 @@ export default function LessonView() {
       {/* Content blocks. Key forces a remount on lesson change so step
           progress and other lesson-scoped state re-initialise from the
           new lesson's storage instead of carrying over from the prior. */}
-      <LessonContentRenderer
-        key={lesson.id}
-        blocks={lesson.contentBlocks}
-        courseId={course.id}
-        lessonId={lesson.id}
-      />
+      <div id="lesson-content" tabIndex={-1}>
+        <LessonContentRenderer
+          key={lesson.id}
+          blocks={lesson.contentBlocks}
+          courseId={course.id}
+          lessonId={lesson.id}
+        />
+      </div>
 
       {/* Mark complete */}
       <div className="lesson-complete-section">
