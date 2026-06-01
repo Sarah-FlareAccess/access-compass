@@ -157,32 +157,41 @@
 .lesson-nav-link {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
+  gap: 10px;
+  padding: 12px 18px;
   text-decoration: none;
-  border: 1px solid #e5e7eb;
   border-radius: 10px;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
   max-width: 48%;
-}
-
-.lesson-nav-link:hover {
-  border-color: #c4b5fd;
-  background: rgba(124, 58, 237, 0.02);
-}
-
-.lesson-nav-link:focus-visible {
-  outline: 3px solid var(--aussie-sunrise, #FF9015);
-  outline-offset: 2px;
 }
 
 .lesson-nav-prev {
   margin-right: auto;
+  border: 1px solid #e5e7eb;
+}
+
+.lesson-nav-prev:hover {
+  border-color: #c4b5fd;
+  background: rgba(124, 58, 237, 0.04);
 }
 
 .lesson-nav-next {
   margin-left: auto;
   text-align: right;
+  background: #4f46e5;
+  border: 1px solid #4338ca;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.lesson-nav-next:hover {
+  background: #4338ca;
+  border-color: #3730a3;
+}
+
+.lesson-nav-link:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
 }
 
 .lesson-nav-text {
@@ -192,22 +201,41 @@
 }
 
 .lesson-nav-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #6b7280;
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+}
+
+.lesson-nav-prev .lesson-nav-label {
+  color: #6b7280;
+}
+
+.lesson-nav-next .lesson-nav-label {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .lesson-nav-title {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.lesson-nav-prev .lesson-nav-title {
   color: #374151;
 }
 
-.lesson-nav-link svg {
+.lesson-nav-next .lesson-nav-title {
+  color: #ffffff;
+}
+
+.lesson-nav-prev svg {
   flex-shrink: 0;
   color: #6b7280;
+}
+
+.lesson-nav-next svg {
+  flex-shrink: 0;
+  color: #ffffff;
 }
 
 /* Locked overlay */

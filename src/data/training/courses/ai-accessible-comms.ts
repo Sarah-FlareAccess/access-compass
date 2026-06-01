@@ -653,7 +653,12 @@ Before drafting:
 <li>Iterate 2 times using the iteration prompts below (28 min)</li>
 <li>Save your work in progress (2 min)</li>
 </ol>
-<p>Your build prompt is shown expanded below, based on the format you picked in Lesson 2. The other 5 are collapsed. Open any if you want to compare or try a different format later. Copy your build prompt and paste it into ChatGPT.</p>
+`,
+        },
+        {
+          type: 'text',
+          heading: 'Step 1: Send your build prompt (10 min)',
+          body: `<p>Your build prompt is shown expanded below, based on the format you picked in Lesson 2. The other 5 are collapsed. Open any if you want to compare or try a different format later. Copy your build prompt and paste it into ChatGPT.</p>
 <p>If you have not picked a format yet, all 6 will be collapsed. Open the one that matches your plan.</p>`,
         },
         {
@@ -844,7 +849,7 @@ Here is the content:
         },
         {
           type: 'text',
-          heading: 'After the first draft: read once, do not fix yet (3 min)',
+          heading: 'Step 2: Read your first draft, do not fix yet (3 min)',
           body: `<p>Read your first draft top to bottom. Resist the urge to start editing. Ask yourself:</p>
 <ul>
 <li>Does this sound like my business?</li>
@@ -856,7 +861,7 @@ Here is the content:
         },
         {
           type: 'text',
-          heading: 'Iterate (28 min)',
+          heading: 'Step 3: Iterate (28 min)',
           body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. Pick the iteration prompts below that match what you want changed. (A 3rd round is rare when the first build prompt has done its job. Only run it if a real issue is unresolved.)</p>
 <p><strong>Make it clearer:</strong></p>
 <pre><code>Rewrite section [X] using shorter sentences and simpler words. Aim for a reading age of 12 or below.</code></pre>
@@ -880,7 +885,7 @@ Here is the content:
         },
         {
           type: 'text',
-          heading: 'Save your work in progress (2 min)',
+          heading: 'Step 4: Save your work in progress (2 min)',
           body: `<p>Copy your current draft into a Word doc, Google Doc or wherever you normally work. Save it.</p>
 <p>Do not close ChatGPT. You will keep using this conversation in Lesson 4.</p>
 <p>Lesson 3 complete. You have a working draft.</p>`,
