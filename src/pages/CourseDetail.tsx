@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import JSZip from 'jszip';
 import { getCourseBySlug } from '../data/training/index';
 import { LessonCard } from '../components/training/LessonCard';
 import { TrainingProgressBar } from '../components/training/TrainingProgressBar';
@@ -10,6 +11,80 @@ import { useAuth } from '../contexts/AuthContext';
 import { canAccessTraining } from '../utils/trainingAccess';
 import { PageFooter } from '../components/PageFooter';
 import './CourseDetail.css';
+
+function DownloadAllButton({
+  downloads,
+  slug,
+}: {
+  downloads: Array<{ title: string; fileUrl: string; fileName: string }>;
+  slug: string;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+
+  const handleClick = async () => {
+    setBusy(true);
+    try {
+      const zip = new JSZip();
+      const folder = zip.folder('accessible-comms-workshop');
+      await Promise.all(
+        downloads.map(async (d) => {
+          const res = await fetch(d.fileUrl);
+          if (!res.ok) throw new Error(`Failed to fetch ${d.fileName}`);
+          const blob = await res.blob();
+          folder?.file(d.fileName, blob);
+        })
+      );
+      const date = new Date().toISOString().split('T')[0];
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${slug}-all-materials-${date}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      setDone(true);
+      window.setTimeout(() => setDone(false), 2500);
+    } catch (e) {
+      console.error('Download all failed', e);
+      window.alert('Sorry, the download all bundle could not be assembled. Try downloading each file individually.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      className={`course-download-all-btn${done ? ' is-done' : ''}`}
+      onClick={handleClick}
+      disabled={busy}
+      aria-label="Download all course materials as a zip file"
+    >
+      {busy ? (
+        'Building zip…'
+      ) : done ? (
+        <>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Downloaded
+        </>
+      ) : (
+        <>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download all (.zip)
+        </>
+      )}
+    </button>
+  );
+}
 
 export default function CourseDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -167,7 +242,10 @@ export default function CourseDetail() {
       {/* Course downloads */}
       {course.courseDownloads && course.courseDownloads.length > 0 && (
         <section className="course-downloads">
-          <h2 className="course-section-heading">Course Materials</h2>
+          <div className="course-downloads-header">
+            <h2 className="course-section-heading">Course Materials</h2>
+            <DownloadAllButton downloads={course.courseDownloads} slug={course.slug} />
+          </div>
           <div className="course-downloads-list">
             {course.courseDownloads.map((dl, i) => (
               <DownloadBlock key={i} download={dl} />
