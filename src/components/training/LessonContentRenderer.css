@@ -640,6 +640,65 @@
   border-top: 1px solid #e5e7eb;
 }
 
+/* Build prompt collapsible: shows a slim title-only chip when the
+   exercise's formatKey does not match the user's chosen format.
+   The matching one renders unwrapped (no <details>) for full visibility. */
+.build-prompt-detail {
+  margin: 8px 0;
+}
+
+.build-prompt-detail summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #0c4a6e;
+  list-style: none;
+}
+
+.build-prompt-detail[open] summary {
+  margin-bottom: 8px;
+  background: #e0f2fe;
+}
+
+.build-prompt-detail summary::-webkit-details-marker {
+  display: none;
+}
+
+.build-prompt-detail summary::before {
+  content: '+';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #bae6fd;
+  color: #0c4a6e;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.build-prompt-detail[open] summary::before {
+  content: '\2212';
+  background: #7dd3fc;
+}
+
+.build-prompt-detail summary:hover {
+  background: #e0f2fe;
+}
+
+.build-prompt-detail summary:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
+}
+
 /* Take-home panel: anchors the download habit at the end of a lesson */
 .take-home-panel {
   background: #fff7ed;

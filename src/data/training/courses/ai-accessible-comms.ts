@@ -653,12 +653,14 @@ Before drafting:
 <li>Iterate 2 times using the iteration prompts below (28 min)</li>
 <li>Save your work in progress (2 min)</li>
 </ol>
-<p>The next 6 blocks are the build prompts, one per format. Find yours, copy it and paste it into ChatGPT.</p>`,
+<p>Your build prompt is shown expanded below, based on the format you picked in Lesson 2. The other 5 are collapsed. Open any if you want to compare or try a different format later. Copy your build prompt and paste it into ChatGPT.</p>
+<p>If you have not picked a format yet, all 6 will be collapsed. Open the one that matches your plan.</p>`,
         },
         {
           type: 'exercise',
           exercise: {
             title: 'Build prompt: Easy Read',
+            formatKey: 'Easy Read',
             instructions: 'For Easy Read content following Inclusion Australia and CID guidelines. Copy the prompt below and paste it into your ChatGPT conversation (which already has your business context from Lesson 2).',
             promptTemplate: `Please draft this in Easy Read format following Inclusion Australia and CID guidelines.
 
@@ -685,6 +687,7 @@ After the draft, list:
           type: 'exercise',
           exercise: {
             title: 'Build prompt: Plain Language',
+            formatKey: 'Plain Language',
             instructions: 'For Plain Language content following the Australian Government Style Manual.',
             promptTemplate: `Please draft this in Plain Language following the Australian Government Style Manual.
 
@@ -709,6 +712,7 @@ After the draft, give me:
           type: 'exercise',
           exercise: {
             title: 'Build prompt: Social Story / Visual Narrative',
+            formatKey: 'Social Story / Visual Narrative',
             instructions: 'For a first-person walkthrough of an experience using photos and short sentences.',
             promptTemplate: `Please draft this as a Social Story / Visual Narrative.
 
@@ -740,6 +744,7 @@ After the draft, list:
           type: 'exercise',
           exercise: {
             title: 'Build prompt: Accessibility Guide',
+            formatKey: 'Accessibility Guide',
             instructions: 'For structured info about the access features of a venue, event or service.',
             promptTemplate: `Please draft an Accessibility Guide for my venue or event.
 
@@ -769,6 +774,7 @@ After the draft, give me:
           type: 'exercise',
           exercise: {
             title: 'Build prompt: Accessible Digital Document (Word/PDF)',
+            formatKey: 'Accessible Digital Document (Word/PDF)',
             instructions: 'For making an existing Word document or PDF accessible to screen readers and meeting WCAG 2.2 AA. Built on NSW Digital Toolkit and Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings and similar.',
             promptTemplate: `I have a digital document I want to make accessible. I want to publish it as an accessible Word document and export a tagged PDF version. I will paste the content below.
 
@@ -822,6 +828,7 @@ Here is the content:
           type: 'exercise',
           exercise: {
             title: 'Build prompt: Large Print',
+            formatKey: 'Large Print',
             instructions: 'For reformatting short content for low-vision readers, following Vision Australia clear print guidance.',
             promptTemplate: `I have content I want to provide in Large Print. I will paste it below.
 

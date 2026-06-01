@@ -59,6 +59,7 @@ export interface LessonContentBlock {
     expectedOutcome?: string;
     tips?: string[];
     exampleOutput?: string;
+    formatKey?: string;
   };
   download?: TrainingDownload;
   checklist?: {

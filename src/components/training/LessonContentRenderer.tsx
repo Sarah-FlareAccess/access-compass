@@ -488,7 +488,7 @@ function CalloutBlock({ variant, text }: { variant: string; text: string }) {
 function renderBlock(
   block: LessonContentBlock,
   key: React.Key,
-  ctx: { courseId: string; substitutions: Record<string, string> }
+  ctx: { courseId: string; substitutions: Record<string, string>; selectedFormat: string }
 ): React.ReactNode {
   switch (block.type) {
     case 'text':
@@ -517,20 +517,30 @@ function renderBlock(
         </div>
       );
 
-    case 'exercise':
+    case 'exercise': {
       if (!block.exercise) return null;
-      return (
+      const ex = block.exercise;
+      const exerciseInner = (
         <ExerciseBlock
-          key={key}
-          title={block.exercise.title}
-          instructions={block.exercise.instructions}
-          promptTemplate={block.exercise.promptTemplate}
-          expectedOutcome={block.exercise.expectedOutcome}
-          tips={block.exercise.tips}
-          exampleOutput={block.exercise.exampleOutput}
+          title={ex.title}
+          instructions={ex.instructions}
+          promptTemplate={ex.promptTemplate}
+          expectedOutcome={ex.expectedOutcome}
+          tips={ex.tips}
+          exampleOutput={ex.exampleOutput}
           substitutions={ctx.substitutions}
         />
       );
+      if (ex.formatKey && ex.formatKey !== ctx.selectedFormat) {
+        return (
+          <details key={key} className="build-prompt-detail">
+            <summary>{ex.title}</summary>
+            {exerciseInner}
+          </details>
+        );
+      }
+      return <div key={key}>{exerciseInner}</div>;
+    }
 
     case 'format-choice':
       if (!block.formatChoice) return null;
@@ -646,7 +656,7 @@ export function LessonContentRenderer({ blocks, courseId, lessonId }: LessonCont
     AUDIENCE: choice.audience,
     ...choice.contextFields,
   };
-  const ctx = { courseId, substitutions };
+  const ctx = { courseId, substitutions, selectedFormat: choice.format };
 
   return (
     <div className="lesson-content-blocks">
