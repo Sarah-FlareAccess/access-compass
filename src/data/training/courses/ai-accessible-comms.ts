@@ -196,7 +196,9 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <li>Click the <strong>+</strong> on the <strong>Instructions</strong> card. A "Set project instructions" modal opens.</li>
 <li>Paste the system prompt from Step 3 below into the text box.</li>
 <li>Click <strong>Save Instructions</strong>.</li>
-<li><em>Optional:</em> on the <strong>Files</strong> card, click <strong>+</strong> to upload reference docs (brand guidelines, accessibility policies, sample accessible content from your business). Claude will consult them in every chat in this project.</li>
+<li><em>Optional:</em> on the <strong>Files</strong> card, click <strong>+</strong> to upload reference docs (brand guidelines, accessibility policies, sample accessible content from your business). Claude will consult them in every chat in this project.
+<div class="upload-warning"><strong>Before you upload:</strong> do not upload anything containing personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>
+</li>
 <li>Start a new chat from inside the project to test it.</li>
 </ol>
 <figure class="setup-screenshot">
@@ -462,7 +464,8 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 </tbody>
 </table>
 <p>Open a blank document or note. Copy in whatever you have. If you have nothing, that is fine. The AI will prompt you in the next step.</p>
-<p><strong>Alternative if you have a long source (e.g. a multi-page policy or brand guide):</strong> on Plus or Pro tiers you can upload the file directly to your project's Files area instead of pasting. In the next step, reference it with a line like "See the source document I have uploaded to this project." Free tiers paste directly into the chat.</p>`,
+<p><strong>Alternative if you have a long source (e.g. a multi-page policy or brand guide):</strong> on Plus or Pro tiers you can upload the file directly to your project's Files area instead of pasting. In the next step, reference it with a line like "See the source document I have uploaded to this project." Free tiers paste directly into the chat.</p>
+<div class="upload-warning"><strong>Before you upload:</strong> do not upload anything containing personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>`,
         },
         {
           type: 'callout',
