@@ -130,8 +130,11 @@ export default function LessonView() {
         </div>
       </div>
 
-      {/* Content blocks */}
+      {/* Content blocks. Key forces a remount on lesson change so step
+          progress and other lesson-scoped state re-initialise from the
+          new lesson's storage instead of carrying over from the prior. */}
       <LessonContentRenderer
+        key={lesson.id}
         blocks={lesson.contentBlocks}
         courseId={course.id}
         lessonId={lesson.id}
