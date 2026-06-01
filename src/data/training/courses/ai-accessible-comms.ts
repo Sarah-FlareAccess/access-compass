@@ -190,14 +190,19 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <summary><strong>Claude Pro</strong>: every click</summary>
 <ol>
 <li>In the left sidebar, click <strong>Projects</strong>.</li>
-<li>Click <strong>+ Create project</strong>.</li>
+<li>Click <strong>+ Create project</strong> (or the "+" tile if you already have projects).</li>
 <li>Give the project a name like "Accessible Comms" and click <strong>Create project</strong>.</li>
-<li>You are now inside the new project. Scroll down to the section labelled <strong>"Set project custom instructions"</strong> (or click the option if it appears as a button).</li>
-<li>Paste the system prompt from Step 3 below into the instructions box.</li>
-<li>Click <strong>Save instructions</strong>.</li>
+<li>You land on the project page. You will see two cards: <strong>Instructions</strong> and <strong>Files</strong>.</li>
+<li>Click the <strong>+</strong> on the <strong>Instructions</strong> card. A "Set project instructions" modal opens.</li>
+<li>Paste the system prompt from Step 3 below into the text box.</li>
+<li>Click <strong>Save Instructions</strong>.</li>
+<li><em>Optional:</em> on the <strong>Files</strong> card, click <strong>+</strong> to upload reference docs (brand guidelines, accessibility policies, sample accessible content from your business). Claude will consult them in every chat in this project.</li>
 <li>Start a new chat from inside the project to test it.</li>
 </ol>
-<p class="screenshot-placeholder">[Screenshot placeholder: Claude Pro project page with custom instructions panel]</p>
+<figure class="setup-screenshot">
+<img src="/training/screenshots/claude-pro-set-project-instructions.png" alt="Claude Pro project page titled 'Using AI to Create Accessible and Inclusive Communications' with the Set project instructions modal open over it. The modal has a large text box for project instructions and Cancel / Save Instructions buttons." loading="lazy" />
+<figcaption>The Set project instructions modal opens after you click the + on the Instructions card. Paste the system prompt here, then click Save Instructions.</figcaption>
+</figure>
 </details>
 <details class="setup-detail">
 <summary><strong>Claude free, Microsoft Copilot or Google Gemini free</strong>: every chat</summary>
@@ -456,7 +461,8 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 </tr>
 </tbody>
 </table>
-<p>Open a blank document or note. Copy in whatever you have. If you have nothing, that is fine. The AI will prompt you in the next step.</p>`,
+<p>Open a blank document or note. Copy in whatever you have. If you have nothing, that is fine. The AI will prompt you in the next step.</p>
+<p><strong>Alternative if you have a long source (e.g. a multi-page policy or brand guide):</strong> on Plus or Pro tiers you can upload the file directly to your project's Files area instead of pasting. In the next step, reference it with a line like "See the source document I have uploaded to this project." Free tiers paste directly into the chat.</p>`,
         },
         {
           type: 'callout',
