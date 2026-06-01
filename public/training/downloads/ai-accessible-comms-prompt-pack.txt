@@ -226,7 +226,7 @@ Apply these rules:
 After the draft, give me:
 - A list of every "needs answer" item I still need to fill in
 - Photos I should take to go with the guide
-- Anything that would benefit from a person with lived experience to verify
+- Anything that would benefit from a human to verify
 
 ============================================================
 4e. BUILD PROMPT: LARGE PRINT

@@ -1121,7 +1121,7 @@ Please produce a structured version with the accessibility scaffolding marked up
 
 2. IMAGES
 - For each image in the draft (or that I describe), suggest alt text (one sentence, message-focused, not just visual description).
-- Mark purely decorative images as "decorative — no alt text required."
+- Mark purely decorative images as "decorative, no alt text required."
 - Flag any colour-only meaning and suggest a non-colour fix.
 
 3. LINKS
