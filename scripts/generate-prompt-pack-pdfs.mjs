@@ -10,6 +10,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 const downloadsDir = path.join(projectRoot, 'public', 'training', 'downloads');
+const logoPath = path.join(projectRoot, 'public', 'training', 'branding', 'flare-access-logo.png');
+const logoDataUrl = fs.existsSync(logoPath)
+  ? `data:image/png;base64,${fs.readFileSync(logoPath).toString('base64')}`
+  : null;
 
 // Flare Access brand
 const BRAND = {
@@ -36,7 +40,7 @@ const docs = [
   {
     slug: 'ai-assistant-system-prompt',
     title: 'AI Assistant System Prompt',
-    subtitle: 'For ChatGPT, Copilot, Gemini or your drafting tool',
+    subtitle: 'For ChatGPT, Copilot, Gemini or your drafting tool · From the workshop "Using AI to Create Accessible & Inclusive Communications"',
     intro:
       'This is the persistent system prompt that turns any general-purpose AI tool into your Accessible Communications Assistant. Set it up once. The AI then knows what good accessible content looks like and how to ask you for the right context before drafting.',
     howToUse: [
@@ -57,7 +61,7 @@ const docs = [
   {
     slug: 'claude-reviewer-and-markup-prompts',
     title: 'Claude Reviewer & Markup Plan Prompts',
-    subtitle: 'For Claude as your reviewer and accessibility planner',
+    subtitle: 'For Claude as your reviewer and accessibility planner · From the workshop "Using AI to Create Accessible & Inclusive Communications"',
     intro:
       'Two Claude prompts that pair with the drafting setup. The first turns Claude into a focused reviewer for any draft you produce. The second turns a reviewed draft into a structured accessibility markup plan you apply in Word, then export as a tagged PDF.',
     howToUse: [
@@ -84,7 +88,7 @@ const docs = [
   {
     slug: 'human-review-checklist',
     title: 'Human Review Checklist',
-    subtitle: 'Before you publish, work through this list',
+    subtitle: 'Before you publish, work through this list · From the workshop "Using AI to Create Accessible & Inclusive Communications"',
     intro:
       'AI drafts well. AI does not walk your venue, verify facts about your business, or speak to your real audience. That work is yours. Use this checklist before every accessible piece you publish. The second half is the publishing checklist for tagged Word and PDF documents.',
     howToUse: [
@@ -115,8 +119,8 @@ const docs = [
   },
   {
     slug: 'ai-accessible-comms-prompt-pack',
-    title: 'Accessible Comms Prompt Pack',
-    subtitle: 'The full Flare Access workshop in one printable document',
+    title: 'Using AI to Create Accessible & Inclusive Communications',
+    subtitle: 'Workshop Prompt Pack — every prompt from the workshop in one printable document',
     intro:
       'Everything you set up across the four-lesson workshop, bundled into one document you can print, file or paste from. Take this home and reuse it for every future piece of accessible content. The structure mirrors the workshop, so you can run yourself through it again in 30 to 60 minutes once you know the moves.',
     howToUse: [
@@ -289,22 +293,26 @@ function drawCover(doc, doc_config, state) {
   doc.setFillColor(...BRAND.sunrise);
   doc.rect(0, 8, PAGE.width, 2, 'F');
 
-  // Brand line
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
-  doc.setTextColor(...BRAND.amethyst);
-  doc.text('FLARE ACCESS', MARGIN.left, MARGIN.top + 30);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(...BRAND.mutedText);
-  doc.text('Accessible Comms Workshop', MARGIN.left, MARGIN.top + 46);
+  // Brand mark: logo if available, otherwise text wordmark
+  let logoHeight = 0;
+  if (logoDataUrl) {
+    const props = doc.getImageProperties(logoDataUrl);
+    const targetWidth = 110;
+    logoHeight = (props.height / props.width) * targetWidth;
+    doc.addImage(logoDataUrl, 'PNG', MARGIN.left, MARGIN.top + 10, targetWidth, logoHeight);
+  } else {
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(...BRAND.amethyst);
+    doc.text('FLARE ACCESS', MARGIN.left, MARGIN.top + 30);
+  }
 
-  // Title block
+  // Title block - pushed down to clear the logo
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(30);
+  doc.setFontSize(28);
   doc.setTextColor(...BRAND.amethyst);
   const titleLines = doc.splitTextToSize(doc_config.title, CONTENT_WIDTH);
-  let titleY = MARGIN.top + 200;
+  let titleY = MARGIN.top + (logoDataUrl ? Math.max(logoHeight + 60, 200) : 200);
   for (const line of titleLines) {
     doc.text(line, MARGIN.left, titleY);
     titleY += 34;

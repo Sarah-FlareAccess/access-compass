@@ -53,27 +53,31 @@ function ensureSpace(state: State, neededHeight: number) {
   }
 }
 
-function drawCover(state: State, input: PromptPackPdfInput) {
+function drawCover(state: State, input: PromptPackPdfInput, logoDataUrl: string | null) {
   const { doc } = state;
   doc.setFillColor(...BRAND.amethyst);
   doc.rect(0, 0, PAGE.width, 8, 'F');
   doc.setFillColor(...BRAND.sunrise);
   doc.rect(0, 8, PAGE.width, 2, 'F');
 
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
-  doc.setTextColor(...BRAND.amethyst);
-  doc.text('FLARE ACCESS', MARGIN.left, MARGIN.top + 30);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(...BRAND.mutedText);
-  doc.text('Accessible Comms Workshop', MARGIN.left, MARGIN.top + 46);
+  let logoHeight = 0;
+  if (logoDataUrl) {
+    const props = doc.getImageProperties(logoDataUrl);
+    const targetWidth = 110;
+    logoHeight = (props.height / props.width) * targetWidth;
+    doc.addImage(logoDataUrl, 'PNG', MARGIN.left, MARGIN.top + 10, targetWidth, logoHeight);
+  } else {
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(...BRAND.amethyst);
+    doc.text('FLARE ACCESS', MARGIN.left, MARGIN.top + 30);
+  }
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(28);
   doc.setTextColor(...BRAND.amethyst);
   const titleLines = doc.splitTextToSize(input.title, CONTENT_WIDTH);
-  let titleY = MARGIN.top + 200;
+  let titleY = MARGIN.top + (logoDataUrl ? Math.max(logoHeight + 60, 200) : 200);
   for (const line of titleLines) {
     doc.text(line, MARGIN.left, titleY);
     titleY += 32;
@@ -271,11 +275,28 @@ function drawTableOfContents(state: State, sections: Array<{ title: string }>) {
   state.y += 8;
 }
 
-export function generatePromptPackPdf(input: PromptPackPdfInput): Blob {
+async function loadLogoDataUrl(): Promise<string | null> {
+  try {
+    const res = await fetch('/training/branding/flare-access-logo.png');
+    if (!res.ok) return null;
+    const blob = await res.blob();
+    return await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = () => reject(new Error('Logo read failed'));
+      reader.readAsDataURL(blob);
+    });
+  } catch {
+    return null;
+  }
+}
+
+export async function generatePromptPackPdf(input: PromptPackPdfInput): Promise<Blob> {
+  const logoDataUrl = await loadLogoDataUrl();
   const doc = new jsPDF({ unit: 'pt', format: 'a4', compress: true });
   const state: State = { doc, page: 1, y: MARGIN.top };
 
-  drawCover(state, input);
+  drawCover(state, input, logoDataUrl);
 
   drawHeading(state, 'How to use this pack', 1);
   drawParagraph(state, input.intro);

@@ -409,10 +409,10 @@ function TakeHomeBlock({
     URL.revokeObjectURL(url);
   };
 
-  const handleDownloadPromptPackPdf = () => {
+  const handleDownloadPromptPackPdf = async () => {
     if (!promptPack) return;
     const date = new Date().toISOString().split('T')[0];
-    const blob = generatePromptPackPdf({
+    const blob = await generatePromptPackPdf({
       title: promptPack.label,
       subtitle: briefSubtitleLine(),
       intro:
