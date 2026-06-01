@@ -6,10 +6,10 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   title: 'Using AI to Create Accessible & Inclusive Communications',
   subtitle: 'A practical 2-hour workshop. Walk in with content. Walk out with a draft.',
   description: 'Use free AI tools to draft accessible content for your business in under 2 hours. Choose your format, bring your source material, and leave with a real first draft you can refine and publish.',
-  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, and sense-check the output against accessibility standards. Formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Accessible Word documents, Large Print, and Visual Communication (symbol-supported). The full prompt pack travels home with you so you can keep going on more content after the session.',
+  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and document producer) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards, and use Claude to convert the reviewed draft into an accessible Word document or tagged PDF. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print, and Accessible Digital Document (Word/PDF, following NSW Digital Toolkit and Vic Government guidance, WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session.',
   category: 'ai-tools',
   accessTier: 'premium',
-  totalEstimatedMinutes: 118,
+  totalEstimatedMinutes: 120,
   skillLevel: 'beginner',
   featured: true,
   author: 'Flare Access',
@@ -18,22 +18,25 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   keywords: [
     'AI', 'accessible communications', 'Easy Read', 'Plain Language',
     'social story', 'visual narrative', 'accessibility guide', 'large print',
-    'visual communication', 'ChatGPT', 'Claude', 'Copilot', 'Gemini',
+    'accessible Word', 'accessible PDF', 'tagged PDF', 'WCAG 2.2 AA',
+    'NSW Digital Toolkit', 'Vic Government accessibility',
+    'ChatGPT', 'Claude', 'Copilot', 'Gemini',
     'prompt engineering', 'workshop', 'cohort', 'pilot',
   ],
   learningOutcomes: [
     'Set up a reusable AI assistant configured for accessible content drafting',
     'Brief an AI on your business, your audience, and your source material',
     'Draft a first version of accessible content in your chosen format',
-    'Use a second AI tool to sense-check your draft against accessibility standards',
+    'Use Claude to sense-check your draft against accessibility standards',
+    'Use Claude to produce an accessible Word document or tagged PDF aligned to NSW Digital Toolkit, Vic Government guidance, and WCAG 2.2 AA',
     'Apply a human review checklist before publishing',
-    'Take home a reusable prompt pack covering all alternative formats',
+    'Take home a reusable prompt pack covering six alternative formats',
   ],
   prerequisites: [
     'A free ChatGPT account (chat.openai.com)',
     'A free Claude account (claude.ai). Microsoft Copilot or Google Gemini are also fine as drafting alternatives.',
     'A laptop. Phone screens are too small for this work.',
-    'Optional but useful: 200 to 400 words of source material from your business (a webpage, FAQ, brochure paragraph, menu, signage copy, or even bullet-point notes).',
+    'At least 400 words of real source material from your business. Workable options: a webpage section, an FAQ, a policy excerpt, a brochure section, a menu page, signage copy, or detailed bullet-point notes. Below 400 words the AI starts inventing access details, which is high-risk for content you intend to publish.',
   ],
   courseDownloads: [
     {
@@ -53,10 +56,10 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileSize: 'TBC',
     },
     {
-      title: 'Reviewer Prompt',
-      description: 'The Claude reviewer prompt as a plain text file.',
-      fileName: 'reviewer-prompt.txt',
-      fileUrl: '/training/downloads/reviewer-prompt.txt',
+      title: 'Claude Reviewer and Document Producer Prompts',
+      description: 'The Claude prompts for sense-checking your draft and producing the final accessible Word/PDF document. Plain text, ready to paste.',
+      fileName: 'claude-reviewer-and-doc-prompts.txt',
+      fileUrl: '/training/downloads/claude-reviewer-and-doc-prompts.txt',
       fileType: 'TXT',
       fileSize: 'TBC',
     },
@@ -280,7 +283,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
       subtitle: 'Pick what to create, gather your source, and give the AI everything it needs',
       description: 'Choose your alternative format, identify or assemble your source material, and brief your AI assistant so it has full context before drafting.',
       order: 2,
-      estimatedMinutes: 25,
+      estimatedMinutes: 22,
       accessTier: 'premium',
       keywords: ['format selection', 'briefing', 'source material', 'clarifying questions'],
       contentBlocks: [
@@ -324,19 +327,14 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 <td>Medium-High</td>
 </tr>
 <tr>
-<td><strong>Accessible Word Document</strong></td>
-<td>Making an existing Word doc work with screen readers</td>
-<td>Low</td>
+<td><strong>Accessible Digital Document (Word/PDF)</strong></td>
+<td>Existing Word docs or PDFs (policies, info sheets, fact sheets, menus) that need to work with screen readers and meet WCAG 2.2 AA</td>
+<td>Low-Medium</td>
 </tr>
 <tr>
 <td><strong>Large Print</strong></td>
 <td>Reformatting short content (menus, programs) for low-vision readers</td>
 <td>Low</td>
-</tr>
-<tr>
-<td><strong>Visual Communication / Symbol-Supported</strong></td>
-<td>High-frequency interactions for people with complex communication needs</td>
-<td>High (plus symbol sourcing)</td>
 </tr>
 </tbody>
 </table>
@@ -377,19 +375,14 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 <td>The AI will run you through an access information checklist</td>
 </tr>
 <tr>
-<td>Accessible Word Doc</td>
-<td>An existing Word doc (you need one to make accessible)</td>
-<td>n/a</td>
+<td>Accessible Digital Document (Word/PDF)</td>
+<td>An existing Word doc or PDF you want to make accessible (paste the text content; if PDF, you may need to copy text out first)</td>
+<td>n/a — you need an existing document</td>
 </tr>
 <tr>
 <td>Large Print</td>
 <td>Any short piece of text</td>
 <td>The AI will help you reformat what you have</td>
-</tr>
-<tr>
-<td>Visual Communication</td>
-<td>Any short instructional text (e.g., "how to order at the bar")</td>
-<td>The AI scripts the text. You source symbols from ARASAAC (free).</td>
 </tr>
 </tbody>
 </table>
@@ -433,12 +426,10 @@ Before drafting:
         },
         {
           type: 'text',
-          heading: 'Step 5: Confirm the AI is ready (2 min)',
-          body: `<p>Once you have answered the AI's clarifying questions, type this into ChatGPT:</p>
-<pre><code>Please summarise what you know so far. List anything I haven't told you that you'd want before drafting.</code></pre>
-<p>Read the summary. If there are still gaps, fill them in now. If the summary is good, type:</p>
-<pre><code>Great. Please proceed to drafting in the next message.</code></pre>
-<p>Lesson 2 complete. Your AI assistant now has enough context to draft.</p>`,
+          heading: 'Step 4: Confirm and proceed (1 min)',
+          body: `<p>Once you have answered the AI's clarifying questions, type this:</p>
+<pre><code>Summarise what you know. Flag any gap. If none, proceed to drafting in the next message.</code></pre>
+<p>Read the reply. Fill any gaps the AI surfaces. Lesson 2 complete.</p>`,
         },
         {
           type: 'callout',
@@ -456,7 +447,7 @@ Before drafting:
       subtitle: 'Use a format-specific build prompt, then iterate',
       description: 'Send the build prompt for your chosen format, read the first draft, and iterate 2 to 3 times to produce a working draft you are happy with.',
       order: 3,
-      estimatedMinutes: 50,
+      estimatedMinutes: 43,
       accessTier: 'premium',
       keywords: ['drafting', 'iteration', 'build prompts', 'format-specific'],
       contentBlocks: [
@@ -468,10 +459,10 @@ Before drafting:
 <ol>
 <li>Send the format-specific build prompt for your chosen format (10 min)</li>
 <li>Read the first draft. Do not fix yet. (3 min)</li>
-<li>Iterate 2 to 3 times using the iteration prompts below (35 min)</li>
+<li>Iterate 2 times using the iteration prompts below (28 min)</li>
 <li>Save your work in progress (2 min)</li>
 </ol>
-<p>The next 7 blocks are the build prompts, one per format. Find yours, copy it, and paste it into ChatGPT.</p>`,
+<p>The next 6 blocks are the build prompts, one per format. Find yours, copy it, and paste it into ChatGPT.</p>`,
         },
         {
           type: 'exercise',
@@ -586,23 +577,54 @@ After the draft, give me:
         {
           type: 'exercise',
           exercise: {
-            title: 'Build prompt: Accessible Word Document',
-            instructions: 'For making an existing Word document accessible to screen readers and other assistive tech.',
-            promptTemplate: `I have a Word document I want to make accessible. I will paste the content below.
+            title: 'Build prompt: Accessible Digital Document (Word/PDF)',
+            instructions: 'For making an existing Word document or PDF accessible to screen readers and meeting WCAG 2.2 AA. Built on NSW Digital Toolkit and Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings, and similar.',
+            promptTemplate: `I have a digital document I want to make accessible. I want to publish it as an accessible Word document and export a tagged PDF version. I will paste the content below.
 
-Please:
-1. Suggest the heading hierarchy (which lines should be H1, H2, H3, etc.)
-2. Rewrite any link text that says "click here" or "read more" to be descriptive
-3. Flag any images that need alt text and suggest alt text for each (I'll confirm)
-4. Suggest where bullet lists should replace dense paragraphs
-5. Identify any tables that need accessible structure (header rows, no merged cells)
-6. Flag any colour-only meaning (e.g., "items in red are urgent") and suggest a fix
+Please apply this structure (based on NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA):
 
-After the suggestions, give me a numbered checklist of changes to make in Word.
+1. STRUCTURE
+- Suggest a heading hierarchy. Mark each line as H1 / H2 / H3 etc. Do not skip levels.
+- Set a logical reading order top-to-bottom. Flag any content that may float (text boxes, sidebars).
+- Replace manual dashes or asterisks with proper bulleted or numbered lists.
+
+2. PLAIN LANGUAGE PASS
+- Estimate reading level. Flag any sentence over 20 words or any jargon a general audience would miss.
+- Rewrite the top 5 hardest sentences in plainer language.
+
+3. IMAGES
+- For every image in the source, suggest alt text (one sentence, describing the message not the visual).
+- If an image is purely decorative, mark it "decorative — no alt text required."
+- Flag any place where colour alone conveys meaning (e.g., "red items are urgent") and suggest a non-colour fix.
+
+4. LINKS
+- Rewrite any "click here", "read more", "this page" link text so it makes sense out of context.
+- For printed copies, suggest a footnote with the full URL.
+
+5. TABLES
+- Mark which row is the header.
+- Flag any merged or split cells. Suggest a flat alternative.
+- Add a one-sentence caption above each table describing its purpose.
+
+6. DOCUMENT PROPERTIES (to set in Word File > Info > Properties before export)
+- Suggest a document title (different from the file name).
+- Document language: English (Australia).
+- Author: my business name.
+- Subject and keywords: suggest 3 to 5 from the content.
+
+7. EXPORT NOTES
+- Save in Word with "Document structure tags for accessibility" enabled when saving as PDF.
+- Note: NSW and Vic Government both recommend an HTML equivalent for any PDF published online (PDFs are not mobile-friendly and slower to load). Suggest if a webpage version of this content should also exist.
+- If using Adobe Acrobat Pro after export: run Tools > Prepare for Accessibility > Accessibility Check.
+
+After your analysis, give me:
+- A numbered checklist of every change to make in Word, in order
+- A short list of items I need to verify or supply (alt text confirmation, missing source info)
+- One paragraph I can paste into the document footer noting it follows WCAG 2.2 AA and how readers can request the content in another format
 
 Here is the content:
 [paste content]`,
-            expectedOutcome: 'A numbered checklist of changes you can apply in Word: heading suggestions, link text rewrites, alt text drafts, list conversions, and colour-only fixes.',
+            expectedOutcome: 'A numbered Word-application checklist (heading suggestions, link rewrites, alt text drafts, list conversions, colour-only fixes, table structure notes, document properties, export settings), a list of items to verify, and a footer paragraph noting WCAG 2.2 AA conformance.',
           },
         },
         {
@@ -623,23 +645,6 @@ Here is the content:
           },
         },
         {
-          type: 'exercise',
-          exercise: {
-            title: 'Build prompt: Visual Communication / Symbol-Supported',
-            instructions: 'For symbol-supported content for high-frequency interactions. AI plans and writes the text. You source symbols from ARASAAC (free, Creative Commons).',
-            promptTemplate: `I want to create symbol-supported content for [INTERACTION, e.g., ordering at the bar, asking for help, finding the toilet].
-
-Please:
-1. Write the text in short, action-focused phrases (3 to 6 words each)
-2. For each phrase, suggest a clear concept name that I can search in the ARASAAC symbol library
-3. Suggest a layout (e.g., grid of 6 boxes, sequence of arrows, single page with key actions)
-4. Note any accessibility considerations for the visual design (contrast, symbol size, white space)
-
-Reminder for me: I will source the symbols from ARASAAC (free) and pair them with the text myself. AI cannot reliably generate the final symbol-paired document.`,
-            expectedOutcome: 'A set of short action phrases, each paired with an ARASAAC search term, plus a layout suggestion and accessibility notes for the visual design.',
-          },
-        },
-        {
           type: 'text',
           heading: 'After the first draft: read once, do not fix yet (3 min)',
           body: `<p>Read your first draft top to bottom. Resist the urge to start editing. Ask yourself:</p>
@@ -653,8 +658,8 @@ Reminder for me: I will source the symbols from ARASAAC (free) and pair them wit
         },
         {
           type: 'text',
-          heading: 'Iterate (35 min)',
-          body: `<p>Run 2 to 3 iteration rounds. One change per round works better than asking for everything at once. Pick the iteration prompts below that match what you want changed.</p>
+          heading: 'Iterate (28 min)',
+          body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. Pick the iteration prompts below that match what you want changed. (A 3rd round is rare when the first build prompt has done its job — only run it if a real issue is unresolved.)</p>
 <p><strong>Make it clearer:</strong></p>
 <pre><code>Rewrite section [X] using shorter sentences and simpler words. Aim for a reading age of 12 or below.</code></pre>
 <p><strong>Make it shorter:</strong></p>
@@ -698,14 +703,23 @@ Reminder for me: I will source the symbols from ARASAAC (free) and pair them wit
       subtitle: 'Cross-check with Claude, apply changes, save your prompt pack',
       description: 'Send your draft to Claude for an accessibility sense-check, apply the most important changes back in ChatGPT, run the human review checklist, and save your reusable prompt pack.',
       order: 4,
-      estimatedMinutes: 30,
+      estimatedMinutes: 42,
       accessTier: 'premium',
       keywords: ['sense-check', 'cross-LLM', 'human review', 'prompt pack', 'maintenance'],
       contentBlocks: [
         {
           type: 'text',
           heading: 'What you will achieve in this lesson',
-          body: `<p>By the end of this lesson, you will have a reviewed draft, a list of human review checks to do later, and your prompts saved for next time.</p>`,
+          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has produced an accessibility-tagged version of the content for you to drop into Word and export as a tagged PDF, you have run the human review checklist, and your prompts are saved for next time.</p>
+<p><strong>How the lesson runs:</strong></p>
+<ol>
+<li>Send your draft to Claude for sense-check (10 min)</li>
+<li>Decide what to action (5 min)</li>
+<li>Apply changes in ChatGPT (10 min)</li>
+<li>Use Claude to produce the accessible Word/PDF (12 min)</li>
+<li>Final human review checklist (3 min)</li>
+<li>Save your prompt pack (2 min)</li>
+</ol>`,
         },
         {
           type: 'exercise',
@@ -747,9 +761,64 @@ Please update the draft to address these. Show the full updated draft.`,
           },
         },
         {
+          type: 'exercise',
+          exercise: {
+            title: 'Step 4: Use Claude to produce the accessible Word/PDF (12 min)',
+            instructions: 'Claude is stronger than ChatGPT at producing structured, accessibility-tagged documents. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom. Claude will return a marked-up version with heading levels, alt text suggestions, link rewrites, table structure, document properties, and a numbered checklist of what to apply in Word.',
+            promptTemplate: `I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
+
+Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA.
+
+1. STRUCTURE
+- Mark each line or section with its heading level (H1, H2, H3 etc.). Do not skip levels.
+- Set a logical reading order top-to-bottom.
+- Replace manual dashes or asterisks with proper bulleted or numbered lists.
+
+2. IMAGES
+- For each image in the draft (or that I describe), suggest alt text (one sentence, message-focused, not just visual description).
+- Mark purely decorative images as "decorative — no alt text required."
+- Flag any colour-only meaning and suggest a non-colour fix.
+
+3. LINKS
+- Rewrite any "click here", "read more", "this page" so the link text makes sense out of context.
+- Suggest footnote-style full URLs for printed copies.
+
+4. TABLES
+- Mark which row is the header.
+- Flag merged or split cells and suggest a flat alternative.
+- Add a one-sentence caption above each table.
+
+5. DOCUMENT PROPERTIES (to set in Word File > Info > Properties before export)
+- Suggest a document title (different from the file name).
+- Document language: English (Australia).
+- Author: my business name.
+- 3 to 5 keywords from the content.
+
+6. EXPORT NOTES
+- In Word, save as PDF with "Document structure tags for accessibility" enabled.
+- NSW and Vic Government both recommend an HTML equivalent for any PDF published online (PDFs are not mobile-friendly and slower to load). Note if a webpage version of this content should also exist.
+- If using Adobe Acrobat Pro after export: Tools > Prepare for Accessibility > Accessibility Check.
+
+After your marked-up draft, give me:
+- A numbered checklist of every change to apply in Word, in order
+- A short list of items I need to verify or supply (alt text confirmation, missing source info, photos to add)
+- One paragraph I can paste into the document footer noting it follows WCAG 2.2 AA and how readers can request the content in another format
+
+Here is my reviewed draft:
+[paste reviewed draft]`,
+            expectedOutcome: 'Claude returns the draft with heading levels marked, alt text suggestions, descriptive link text, table notes, document property suggestions, a Word-application checklist, a verification list, and a footer paragraph about WCAG 2.2 AA conformance and alternative-format requests.',
+            tips: [
+              'For long source PDFs, paste the text content rather than uploading. Claude cannot see the visual layout of a PDF reliably from a file upload.',
+              'After applying changes in Word, run Word\'s built-in Accessibility Checker: Review > Check Accessibility. Fix any remaining errors before exporting.',
+              'When you export, choose "Best for electronic distribution and accessibility (PDF/A)" in the Save dialog to preserve the structure tags.',
+              'If Claude\'s daily message limit hits before you finish, the same prompt works in ChatGPT, Copilot or Gemini. Output quality drops slightly but the structure is preserved.',
+            ],
+          },
+        },
+        {
           type: 'checklist',
           checklist: {
-            title: 'Step 4: Final human review checklist (3 min)',
+            title: 'Step 5: Final human review checklist (3 min)',
             items: [
               'Is everything factually correct about your business and venue?',
               'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
@@ -763,12 +832,13 @@ Please update the draft to address these. Show the full updated draft.`,
         },
         {
           type: 'text',
-          heading: 'Step 5: Save your prompt pack (2 min)',
-          body: `<p>Open a fresh document. Save these three things for next time:</p>
+          heading: 'Step 6: Save your prompt pack (2 min)',
+          body: `<p>Open a fresh document. Save these four things for next time:</p>
 <ol>
 <li>The <strong>AI assistant system prompt</strong> (so you can re-start ChatGPT later)</li>
 <li>The <strong>build prompt</strong> for your chosen format</li>
 <li>The <strong>briefing prompt</strong> with your business details filled in</li>
+<li>The <strong>Claude document-producer prompt</strong> from Step 4 (for next time you need an accessible Word/PDF)</li>
 </ol>
 <p>You can also download the complete Prompt Pack from this course (see Course Downloads at the top of the page).</p>
 <p>You now have a reusable kit for the next piece of content. Coming back to do another format will take half the time.</p>
