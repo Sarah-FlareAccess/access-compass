@@ -1,10 +1,11 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getCourseBySlug } from '../data/training/index';
 import { LessonContentRenderer } from '../components/training/LessonContentRenderer';
 import { LessonNotesPanel } from '../components/training/LessonNotesPanel';
 import { CourseProgressTracker } from '../components/training/CourseProgressTracker';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
+import { useCourseProgress } from '../hooks/useCourseProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuth } from '../contexts/AuthContext';
 import { canAccessTraining } from '../utils/trainingAccess';
@@ -69,6 +70,21 @@ export default function LessonView() {
       completeCourse(course.id);
     }
   };
+
+  // Auto-mark the lesson complete when every step in it has been ticked.
+  // Keeps the course-detail lesson card in sync with the step tracker.
+  // Undoing a step does not un-complete the lesson.
+  const courseProgress = useCourseProgress(course);
+  const lessonStepInfo = courseProgress.lessons.find((l) => l.lessonId === lesson.id);
+  const allStepsDone = !!lessonStepInfo
+    && lessonStepInfo.totalSteps > 0
+    && lessonStepInfo.completedSteps >= lessonStepInfo.totalSteps;
+  useEffect(() => {
+    if (allStepsDone && !isLessonCompleted(course.id, lesson.id)) {
+      handleMarkComplete();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allStepsDone]);
 
   // Locked lesson view
   if (!canAccess) {
