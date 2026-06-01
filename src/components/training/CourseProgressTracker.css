@@ -1,0 +1,128 @@
+.course-progress-tracker {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+}
+
+.course-progress-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-bottom: 10px;
+}
+
+.course-progress-summary-headline {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #4338ca;
+}
+
+.course-progress-summary-counts {
+  font-size: 0.88rem;
+  color: #374151;
+}
+
+.course-progress-summary-counts strong {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.course-progress-segments {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 8px;
+}
+
+.course-progress-segment a {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.course-progress-segment a:hover {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+.course-progress-segment a:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
+}
+
+.course-progress-segment.is-current a {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.segment-bar {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.segment-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #4f46e5;
+  border-radius: 999px;
+  transition: width 0.2s ease;
+}
+
+.course-progress-segment.is-done .segment-fill {
+  background: #15803d;
+}
+
+.course-progress-segment.is-current .segment-fill {
+  background: #4f46e5;
+}
+
+.segment-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.78rem;
+}
+
+.segment-label {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.course-progress-segment.is-current .segment-label {
+  color: #3730a3;
+}
+
+.course-progress-segment.is-done .segment-label {
+  color: #166534;
+}
+
+.segment-progress {
+  color: #6b7280;
+  font-variant-numeric: tabular-nums;
+}
+
+.course-progress-segment.is-done .segment-progress {
+  color: #166534;
+}

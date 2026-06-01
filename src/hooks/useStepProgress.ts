@@ -22,6 +22,7 @@ export function useStepProgress(courseId: string, lessonId: string) {
   useEffect(() => {
     try {
       localStorage.setItem(storageKey(courseId, lessonId), JSON.stringify(completed));
+      window.dispatchEvent(new CustomEvent('ac:step-progress-changed', { detail: { courseId, lessonId } }));
     } catch {
       /* ignore quota */
     }

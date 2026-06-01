@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getCourseBySlug } from '../data/training/index';
 import { LessonContentRenderer } from '../components/training/LessonContentRenderer';
 import { LessonNotesPanel } from '../components/training/LessonNotesPanel';
+import { CourseProgressTracker } from '../components/training/CourseProgressTracker';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuth } from '../contexts/AuthContext';
@@ -110,10 +111,8 @@ export default function LessonView() {
         </ol>
       </nav>
 
-      {/* Progress indicator */}
-      <div className="lesson-progress-indicator">
-        Lesson {lesson.order} of {course.lessons.length}
-      </div>
+      {/* Course progress tracker - carries across all lessons */}
+      <CourseProgressTracker course={course} currentLessonId={lesson.id} />
 
       {/* Lesson header */}
       <div className="lesson-header">
