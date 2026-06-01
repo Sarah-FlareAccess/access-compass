@@ -795,32 +795,51 @@
   line-height: 1.55;
 }
 
-/* Take-home panel: anchors the download habit at the end of a lesson */
+/* Take-home panel: wrap-up at the end of a lesson, branded with Flare
+   Access amethyst over a cream background. Grouping logic breaks the
+   step group when it hits a take-home so the panel reads as standalone. */
 .take-home-panel {
-  background: #fff7ed;
-  border: 1px solid #fed7aa;
-  border-left: 4px solid #c2410c;
-  border-radius: 12px;
-  padding: 18px 20px;
-  margin: 16px 0 8px 0;
+  position: relative;
+  background: #FAF8F5;
+  border: 1px solid #ddd6fe;
+  border-left: 6px solid #490E67;
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin: 24px 0 16px 0;
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.04);
+}
+
+.take-home-panel::before {
+  content: 'TAKE HOME';
+  position: absolute;
+  top: -10px;
+  left: 22px;
+  background: #FF9015;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .take-home-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #7c2d12;
-  margin: 0 0 8px 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #490E67;
+  margin: 0 0 10px 0;
 }
 
 .take-home-intro {
-  color: #7c2d12;
+  color: #3E2B2F;
   font-size: 0.95rem;
-  line-height: 1.55;
-  margin-bottom: 14px;
+  line-height: 1.6;
+  margin-bottom: 18px;
 }
 
 .take-home-intro p {
-  margin: 0 0 8px 0;
+  margin: 0 0 10px 0;
 }
 
 .take-home-intro p:last-child {
@@ -829,50 +848,55 @@
 
 .take-home-action {
   background: #ffffff;
-  border: 1px solid #fed7aa;
+  border: 1px solid #ddd6fe;
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 14px 16px;
+  margin-top: 14px;
+}
+
+.take-home-action:first-of-type {
+  margin-top: 0;
 }
 
 .take-home-action-label {
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.72rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #7c2d12;
-  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  color: #490E67;
+  margin-bottom: 8px;
 }
 
 .take-home-action-summary {
   font-size: 0.95rem;
-  color: #1f2937;
-  margin: 0 0 10px 0;
+  color: #2d2420;
+  margin: 0 0 12px 0;
 }
 
 .take-home-action-summary strong {
-  color: #312e81;
+  color: #490E67;
 }
 
 .take-home-action-note {
   font-size: 0.85rem;
   color: #7c2d12;
-  background: #ffedd5;
-  border: 1px solid #fed7aa;
+  background: #fef9c3;
+  border: 1px solid #fde68a;
   border-radius: 6px;
-  padding: 8px 10px;
-  margin: 0 0 10px 0;
-  line-height: 1.45;
+  padding: 10px 12px;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
 }
 
 .take-home-action-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .take-home-action-empty {
-  font-size: 0.88rem;
-  color: #92400e;
+  font-size: 0.9rem;
+  color: #6a4c93;
   font-style: italic;
   margin: 0;
 }
@@ -1160,28 +1184,35 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 6px 14px;
-  font-size: 0.85rem;
+  padding: 8px 16px;
+  font-size: 0.88rem;
   font-weight: 700;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 1px 2px rgba(73, 14, 103, 0.18);
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.format-choice-copy-brief:active,
+.format-choice-download-brief:active {
+  transform: translateY(1px);
 }
 
 .format-choice-copy-brief {
-  border: 1px solid #075985;
-  background: #0369a1;
-  color: #ffffff;
+  border: 1px solid #6b2d8a;
+  background: #ffffff;
+  color: #490E67;
 }
 
 .format-choice-copy-brief:hover {
-  background: #075985;
+  background: #f5f0fa;
+  border-color: #490E67;
 }
 
 .format-choice-copy-brief.is-copied {
   background: #15803d;
   border-color: #14532d;
+  color: #ffffff;
 }
 
 .format-choice-copy-brief.is-copied:hover {
@@ -1189,14 +1220,14 @@
 }
 
 .format-choice-download-brief {
-  border: 1px solid #4f46e5;
-  background: #4f46e5;
+  border: 1px solid #350a4d;
+  background: #490E67;
   color: #ffffff;
 }
 
 .format-choice-download-brief:hover {
-  background: #4338ca;
-  border-color: #4338ca;
+  background: #350a4d;
+  border-color: #350a4d;
 }
 
 .format-choice-copy-brief:focus-visible,

@@ -810,6 +810,12 @@ function groupBlocks(blocks: LessonContentBlock[]): StepGroup[] {
       groups.push({ stepNum, items: [{ block, index }] });
       return;
     }
+    // take-home blocks always break out of the preceding step group so they
+    // render as a standalone wrap-up panel, not nested inside a step card.
+    if (block.type === 'take-home') {
+      groups.push({ stepNum: null, items: [{ block, index }] });
+      return;
+    }
     const last = groups[groups.length - 1];
     if (last) {
       last.items.push({ block, index });
