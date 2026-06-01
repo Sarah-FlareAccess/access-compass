@@ -45,7 +45,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileName: 'ai-accessible-comms-prompt-pack.pdf',
       fileUrl: '/training/downloads/ai-accessible-comms-prompt-pack.pdf',
       fileType: 'PDF',
-      fileSize: '49 KB',
+      fileSize: '23 KB',
     },
     {
       title: 'Accessible Comms Prompt Pack (TXT)',
@@ -61,7 +61,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileName: 'ai-assistant-system-prompt.pdf',
       fileUrl: '/training/downloads/ai-assistant-system-prompt.pdf',
       fileType: 'PDF',
-      fileSize: '11 KB',
+      fileSize: '7 KB',
     },
     {
       title: 'AI Assistant System Prompt (TXT)',
@@ -77,7 +77,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileName: 'claude-reviewer-and-markup-prompts.pdf',
       fileUrl: '/training/downloads/claude-reviewer-and-markup-prompts.pdf',
       fileType: 'PDF',
-      fileSize: '15 KB',
+      fileSize: '9 KB',
     },
     {
       title: 'Claude Reviewer and Markup Plan Prompts (TXT)',
@@ -93,7 +93,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileName: 'human-review-checklist.pdf',
       fileUrl: '/training/downloads/human-review-checklist.pdf',
       fileType: 'PDF',
-      fileSize: '9 KB',
+      fileSize: '7 KB',
     },
     {
       title: 'Human Review Checklist (TXT)',
