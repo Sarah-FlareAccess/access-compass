@@ -1199,7 +1199,7 @@ Here is my reviewed draft:
         {
           type: 'text',
           heading: 'Step 6: Grab your prompt pack (2 min)',
-          body: `<p>Scroll to the orange take-home panel below. The <strong>Download prompt pack</strong> button there bundles your full session into a single text file. Inside you will find:</p>
+          body: `<p>Scroll to the <strong>Take everything home</strong> panel below (marked with the orange TAKE HOME pill). The <strong>Download prompt pack</strong> buttons there bundle your full session into a single file, in either PDF or text. Inside you will find:</p>
 <ol>
 <li>The <strong>AI assistant system prompt</strong> (so you can re-start ChatGPT later)</li>
 <li>The <strong>Claude reviewer prompt</strong></li>
