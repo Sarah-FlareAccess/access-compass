@@ -40,7 +40,11 @@ function drawFooter(doc: jsPDF, pageNum: number) {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(...BRAND.mutedText);
-  doc.text('Flare Access  ·  Accessible Comms Workshop', MARGIN.left, y);
+  doc.text(
+    'Flare Access  ·  Using AI to Create Accessible & Inclusive Communications',
+    MARGIN.left,
+    y
+  );
   doc.text(`Page ${pageNum}`, PAGE.width - MARGIN.right, y, { align: 'right' });
 }
 
