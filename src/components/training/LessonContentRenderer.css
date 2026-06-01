@@ -750,8 +750,8 @@
 .lesson-block-body .action-cards {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin: 10px 0;
+  gap: 16px;
+  margin: 16px 0 8px 0;
 }
 
 .lesson-block-body .action-card {
@@ -1432,12 +1432,28 @@
   color: #166534;
 }
 
+.lesson-step-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
 .lesson-step-card-body > *:first-child {
   margin-top: 0;
 }
 
 .lesson-step-card-body > *:last-child {
   margin-bottom: 0;
+}
+
+/* Inside a step card, text blocks with their own heading (e.g. the
+   "Where to from here" sub-section that follows the main Step content)
+   get a visible top divider so they read as a distinct section. */
+.lesson-step-card-body .lesson-text-block + .lesson-text-block .lesson-block-heading,
+.lesson-step-card-body > .lesson-text-block:not(:first-child) .lesson-block-heading {
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 4px;
 }
 
 .lesson-step-card-footer {

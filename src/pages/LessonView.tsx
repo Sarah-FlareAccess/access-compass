@@ -177,6 +177,7 @@ export default function LessonView() {
           <Link
             to={`/training/course/${course.slug}/lesson/${nextLesson.id}`}
             className="lesson-nav-link lesson-nav-next"
+            onClick={() => { if (!isCompleted) handleMarkComplete(); }}
           >
             <span className="lesson-nav-text">
               <span className="lesson-nav-label">Next</span>
@@ -190,6 +191,7 @@ export default function LessonView() {
           <Link
             to={`/training/course/${course.slug}`}
             className="lesson-nav-link lesson-nav-next"
+            onClick={() => { if (!isCompleted) handleMarkComplete(); }}
           >
             <span className="lesson-nav-text">
               <span className="lesson-nav-label">Finished</span>
