@@ -118,7 +118,7 @@
   font-size: 0.95rem;
   font-weight: 700;
   color: #fff;
-  background: #22c55e;
+  background: #15803d;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -126,7 +126,7 @@
 }
 
 .lesson-complete-btn:hover {
-  background: #16a34a;
+  background: #14532d;
   color: #fff;
 }
 
@@ -141,7 +141,7 @@
   gap: 8px;
   font-size: 0.95rem;
   font-weight: 700;
-  color: #22c55e;
+  color: #15803d;
 }
 
 /* Prev/Next navigation */

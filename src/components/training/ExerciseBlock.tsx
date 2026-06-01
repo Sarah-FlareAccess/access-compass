@@ -50,7 +50,7 @@ export function ExerciseBlock({
           <line x1="16" y1="13" x2="8" y2="13"/>
           <line x1="16" y1="17" x2="8" y2="17"/>
         </svg>
-        <h4 className="exercise-title">{title}</h4>
+        <h3 className="exercise-title">{title}</h3>
       </div>
 
       <div className="exercise-instructions">{instructions}</div>
@@ -92,7 +92,14 @@ export function ExerciseBlock({
 
       {tips && tips.length > 0 && (
         <div className="exercise-tips">
-          <strong>Tips:</strong>
+          <div className="exercise-tips-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 18h6"/>
+              <path d="M10 22h4"/>
+              <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>
+            </svg>
+            <span>Tips</span>
+          </div>
           <ul>
             {tips.map((tip, i) => (
               <li key={i}>{tip}</li>

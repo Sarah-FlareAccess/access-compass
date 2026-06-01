@@ -130,13 +130,17 @@ export default function LessonView() {
       </div>
 
       {/* Content blocks */}
-      <LessonContentRenderer blocks={lesson.contentBlocks} />
+      <LessonContentRenderer
+        blocks={lesson.contentBlocks}
+        courseId={course.id}
+        lessonId={lesson.id}
+      />
 
       {/* Mark complete */}
       <div className="lesson-complete-section">
         {isCompleted ? (
           <div className="lesson-completed-badge">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
             Lesson completed

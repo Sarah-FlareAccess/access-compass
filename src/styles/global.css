@@ -24,6 +24,9 @@
   /* Accent for Secondary Buttons (darker orange for contrast) */
   --aussie-dark: #CC7700;
 
+  /* Focus ring - WCAG 2.4.13 compliant (3.38:1 against white, vs 2.27:1 for #FF9015) */
+  --focus-ring: #CC7700;
+
   /* Typography */
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
@@ -1126,4 +1129,10 @@ label {
   main[role="main"] {
     padding-bottom: calc(72px + env(safe-area-inset-bottom, 16px)) !important;
   }
+}
+
+/* WCAG 2.4.13 Focus Appearance: enforce 3.38:1 contrast on white surfaces.
+   Overrides outline-color only, preserving each component's width / style / offset. */
+*:focus-visible {
+  outline-color: var(--focus-ring, #CC7700) !important;
 }

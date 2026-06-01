@@ -28,7 +28,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
     'Brief an AI on your business, your audience, and your source material',
     'Draft a first version of accessible content in your chosen format',
     'Use Claude to sense-check your draft against accessibility standards',
-    'Use Claude to produce an accessible Word document or tagged PDF aligned to NSW Digital Toolkit, Vic Government guidance, and WCAG 2.2 AA',
+    'Use Claude to produce an accessible Word document or tagged PDF aligned to NSW Digital Toolkit, Vic Government guidance and WCAG 2.2 AA',
     'Apply a human review checklist before publishing',
     'Take home a reusable prompt pack covering six alternative formats',
   ],
@@ -122,49 +122,96 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <thead>
 <tr>
 <th scope="col">Your tool</th>
-<th scope="col">Where to paste the system prompt</th>
-<th scope="col">Persists across chats?</th>
+<th scope="col">Where to paste</th>
+<th scope="col">Persists?</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>ChatGPT Plus</td>
-<td>Click your profile, then My GPTs / Projects, then New Project, then Edit project instructions</td>
-<td>Yes, across all chats in the project</td>
+<td>Profile &rarr; Projects &rarr; New Project &rarr; Edit instructions</td>
+<td>Yes (project)</td>
 </tr>
 <tr>
 <td>ChatGPT free</td>
-<td>Settings, then Personalisation, then Custom Instructions, then "What traits should ChatGPT have?"</td>
-<td>Yes, across all chats</td>
+<td>Settings &rarr; Personalisation &rarr; Custom Instructions</td>
+<td>Yes (all chats)</td>
 </tr>
 <tr>
 <td>Claude Pro</td>
-<td>Create a Project, then Custom instructions</td>
-<td>Yes, within the project</td>
+<td>Create a Project &rarr; Custom instructions</td>
+<td>Yes (project)</td>
 </tr>
 <tr>
-<td>Claude free</td>
-<td>Paste at the top of each new chat</td>
-<td>No, re-paste for each new chat</td>
-</tr>
-<tr>
-<td>Microsoft Copilot</td>
+<td>Claude free, Copilot, Gemini free</td>
 <td>Paste at the top of each new chat</td>
 <td>No</td>
 </tr>
-<tr>
-<td>Google Gemini free</td>
-<td>Paste at the top of each new chat</td>
-<td>No, Gems are paid</td>
-</tr>
 </tbody>
-</table>`,
+</table>
+<div class="setup-group">
+<h3 class="setup-group-heading">New to these tools?</h3>
+<p class="setup-group-intro">Open the path for yours below to see every click. The table above is the short version; this is the every-button-by-name version.</p>
+<details class="setup-detail">
+<summary><strong>ChatGPT Plus</strong>: every click</summary>
+<ol>
+<li>In the left sidebar, click <strong>+ New project</strong>. (If you do not see Projects in the sidebar, click your profile name in the bottom-left first, then choose <strong>Projects</strong>.)</li>
+<li>Give the project a name like "Accessible Comms" and click <strong>Create</strong>.</li>
+<li>Click into the project from the sidebar to open it.</li>
+<li>At the top of the project, click the three-dot menu <strong>(...)</strong> next to the project name.</li>
+<li>Choose <strong>Project settings</strong> (sometimes labelled "Manage project").</li>
+<li>Find the <strong>Instructions</strong> section and click into it.</li>
+<li>Paste the system prompt from Step 3 below.</li>
+<li>Click <strong>Save</strong>. Close the settings panel.</li>
+<li>Start a new chat from inside the project to test it.</li>
+</ol>
+<p class="screenshot-placeholder">[Screenshot placeholder: ChatGPT Plus project page with the three-dot menu open]</p>
+</details>
+<details class="setup-detail">
+<summary><strong>ChatGPT free</strong>: every click</summary>
+<ol>
+<li>Click your name or initials in the <strong>bottom-left</strong> of the screen.</li>
+<li>Choose <strong>Settings</strong> from the menu that appears.</li>
+<li>In the Settings panel, click <strong>Personalisation</strong> on the left.</li>
+<li>Click <strong>Custom instructions</strong>.</li>
+<li>If you see a toggle, switch <strong>Custom instructions</strong> on.</li>
+<li>Scroll to the box labelled <strong>"What traits should ChatGPT have?"</strong> Paste the system prompt from Step 3 below into this box.</li>
+<li>Click <strong>Save</strong>.</li>
+<li>Close Settings. Start a new chat to test it.</li>
+</ol>
+<p class="screenshot-placeholder">[Screenshot placeholder: ChatGPT free Settings &gt; Personalisation &gt; Custom instructions panel]</p>
+</details>
+<details class="setup-detail">
+<summary><strong>Claude Pro</strong>: every click</summary>
+<ol>
+<li>In the left sidebar, click <strong>Projects</strong>.</li>
+<li>Click <strong>+ Create project</strong>.</li>
+<li>Give the project a name like "Accessible Comms" and click <strong>Create project</strong>.</li>
+<li>You are now inside the new project. Scroll down to the section labelled <strong>"Set project custom instructions"</strong> (or click the option if it appears as a button).</li>
+<li>Paste the system prompt from Step 3 below into the instructions box.</li>
+<li>Click <strong>Save instructions</strong>.</li>
+<li>Start a new chat from inside the project to test it.</li>
+</ol>
+<p class="screenshot-placeholder">[Screenshot placeholder: Claude Pro project page with custom instructions panel]</p>
+</details>
+<details class="setup-detail">
+<summary><strong>Claude free, Microsoft Copilot, or Google Gemini free</strong>: every chat</summary>
+<ol>
+<li>Open the tool and start a <strong>new chat</strong>.</li>
+<li>Paste the system prompt from Step 3 below as the <strong>first message</strong> in that chat.</li>
+<li>Wait for the AI to confirm it understands the role before you send your real instructions.</li>
+<li>Important: if you start another new chat later, you must paste the system prompt again at the top. Free tiers do not remember instructions between chats.</li>
+<li>Tip: keep the system prompt open in a separate note or document so you can copy and paste it quickly.</li>
+</ol>
+<p class="screenshot-placeholder">[Screenshot placeholder: any of the three tools showing the first-message paste, optional]</p>
+</details>
+</div>`,
         },
         {
           type: 'exercise',
           exercise: {
             title: 'Step 3: Paste the AI assistant system prompt (5 min)',
-            instructions: 'Copy the system prompt below. Paste it into the location for your tool from Step 2 (or into a new chat if your tool does not support persistent instructions). After pasting, send a quick test message: "Ready to start. Please confirm you understand your role." You will know it is working when the AI replies with a short, structured confirmation.',
+            instructions: 'Copy the system prompt below. Paste it into your AI tool, following the path you set up in Step 2 above. (If your tool does not have persistent instructions, paste it at the top of a new chat.)',
             promptTemplate: `ROLE & PURPOSE
 You are my Accessible Communications Assistant.
 
@@ -182,13 +229,13 @@ You will help by:
 - producing draft content in the requested format
 - explaining your formatting choices when asked
 - suggesting how to test the draft with the audience
-- flagging anything that needs a human reviewer with lived experience
+- flagging anything that needs a human reviewer
 
 FORMATTING RULES
 - Use clear headings, short paragraphs, and bullet points
 - Avoid walls of text
 - When producing Easy Read or Plain Language drafts, follow the published standards for each format
-- Always finish any draft with: "This draft was AI-generated. Please review with a person from the audience before publishing."
+- Always finish any draft with: "This draft was AI-generated. Please review before publishing."
 
 BEHAVIOUR RULES
 - Ask clarifying questions when you don't have enough context
@@ -211,7 +258,7 @@ Your first reply must include:
 1. A one or two sentence summary of what you understand the task to be
 2. 3 to 5 clarifying questions if needed to fill any gaps
 3. Explain any assumptions you would have to make if I cannot answer those questions`,
-            expectedOutcome: 'A short, structured confirmation reply from ChatGPT acknowledging the role. The AI assistant is now ready for any task you give it in this conversation (or any conversation in the same Project / under the same Custom Instructions).',
+            expectedOutcome: 'A short, structured confirmation reply once you send the test message below. That tells you the AI assistant is ready for any task in this conversation (or any conversation in the same Project / under the same Custom Instructions).',
             tips: [
               'On Plus or Pro tiers, set up the persistent instructions once and they apply forever. Worth the 2 extra minutes.',
               'On free tiers without persistent instructions, copy the system prompt into a note you can paste at the top of any new chat.',
@@ -220,10 +267,19 @@ Your first reply must include:
           },
         },
         {
+          type: 'text',
+          body: `<div class="do-now">
+<div class="do-now-label">Do this next</div>
+<p>Once you have pasted and saved the system prompt, send this message to the AI:</p>
+<pre><code>Ready to start. Please confirm you understand your role.</code></pre>
+<p>You will know it is working when the AI replies with a short structured confirmation.</p>
+</div>`,
+        },
+        {
           type: 'exercise',
           exercise: {
             title: 'Step 4: Set up Claude as your Reviewer (2 min)',
-            instructions: 'Switch to your Claude tab. Start a new conversation. Paste the prompt below and press Enter. Send a quick test: "Ready to review. Please confirm you understand your role." You will know it is working when Claude replies with a short, structured confirmation.',
+            instructions: 'Switch to your Claude tab. Start a new conversation. Paste the prompt below and press Enter.',
             promptTemplate: `You are my Accessible Communications Reviewer.
 
 Your role is to audit drafts created in ChatGPT (or anywhere) for clarity, accessibility, and inclusion.
@@ -256,16 +312,25 @@ For each draft I paste, reply with:
 1. A one-sentence diagnosis
 2. The top 3 to 5 issues to fix, in priority order
 3. Suggested re-wordings for the top 2 or 3 issues
-4. Anything that must be checked by a human reviewer with lived experience
+4. Anything that must be checked by a human reviewer
 5. One or two questions that would strengthen the next iteration
 
 Be direct. If something is weak, say so. If something is excellent, say why.`,
-            expectedOutcome: 'A short confirmation from Claude that it understands its reviewer role. You will return to this conversation in Lesson 4 with your draft.',
+            expectedOutcome: 'A short, structured confirmation from Claude once you send the test message below. You will return to this conversation in Lesson 4 with your draft.',
             tips: [
               'Claude free has no persistent instructions feature, so this prompt only applies to this conversation. Keep the tab open until Lesson 4.',
               'If you accidentally close the Claude tab, just open a new one and re-paste the prompt.',
             ],
           },
+        },
+        {
+          type: 'text',
+          body: `<div class="do-now">
+<div class="do-now-label">Do this next</div>
+<p>Send this message to Claude:</p>
+<pre><code>Ready to review. Please confirm you understand your role.</code></pre>
+<p>A short structured confirmation reply means Claude is set up correctly.</p>
+</div>`,
         },
         {
           type: 'callout',
@@ -377,7 +442,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 <tr>
 <td>Accessible Digital Document (Word/PDF)</td>
 <td>An existing Word doc or PDF you want to make accessible (paste the text content; if PDF, you may need to copy text out first)</td>
-<td>n/a — you need an existing document</td>
+<td>n/a (you need an existing document)</td>
 </tr>
 <tr>
 <td>Large Print</td>
@@ -399,7 +464,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
           type: 'exercise',
           exercise: {
             title: 'Step 3: Brief your AI assistant (10 min)',
-            instructions: 'Copy the briefing prompt below into ChatGPT. Fill in the brackets with your format, audience, source material, and any "must get right" details. After ChatGPT replies with clarifying questions, answer them honestly. If you do not know an answer, say so. It is fine to answer in fragments and bullet points.',
+            instructions: 'Copy the briefing prompt below into ChatGPT. Fill in the brackets with your format, audience, source material, and any "must get right" details.',
             promptTemplate: `I want to create a [FORMAT NAME] for [AUDIENCE].
 
 This will be used by [WHO USES IT] to [PURPOSE].
@@ -416,13 +481,20 @@ Before drafting:
 1. Confirm in 2 to 3 sentences what you understand.
 2. Ask me 3 to 5 clarifying questions to fill any gaps.
 3. List any assumptions you would have to make if I cannot answer.`,
-            expectedOutcome: 'ChatGPT replies with a short summary of what it understands, plus 3 to 5 clarifying questions. You answer the questions. The AI now has full context.',
+            expectedOutcome: 'ChatGPT replies with a short summary of what it understands, plus 3 to 5 clarifying questions. The AI now has full context once you have answered them.',
             tips: [
               'Examples of good answers: "Wheelchair access: yes, level entry through the side gate, contact reception."',
               'Examples of good answers: "Tone: friendly but professional, similar to our website homepage."',
               'If you do not know something, say "Don\'t know, please flag this as needing a human to confirm."',
             ],
           },
+        },
+        {
+          type: 'text',
+          body: `<div class="do-now">
+<div class="do-now-label">Do this next</div>
+<p>When ChatGPT replies with its clarifying questions, answer them honestly. If you do not know an answer, say so. It is fine to answer in fragments and bullet points.</p>
+</div>`,
         },
         {
           type: 'text',
@@ -487,7 +559,7 @@ After the draft, list:
 - Any words you used that may still be too hard
 - Any sections that would benefit from an example
 - Anything I should verify with a human reviewer`,
-            expectedOutcome: 'A draft in Easy Read format with one idea per line, image suggestions for each section, and a list of words or sections that need extra attention.',
+            expectedOutcome: 'A draft in Easy Read format with one idea per line, image suggestions for each section and a list of words or sections that need extra attention.',
           },
         },
         {
@@ -511,7 +583,7 @@ After the draft, give me:
 - An estimate of the reading level
 - A list of any words I should consider replacing
 - One sentence on what the reader should walk away knowing`,
-            expectedOutcome: 'A Plain Language draft at year 7-8 reading level, with an estimated reading level, a list of replacement word suggestions, and a one-sentence summary of the key takeaway.',
+            expectedOutcome: 'A Plain Language draft at year 7 to 8 reading level, with an estimated reading level, a list of replacement word suggestions and a one-sentence summary of the key takeaway.',
           },
         },
         {
@@ -570,7 +642,7 @@ Apply these rules:
 After the draft, give me:
 - A list of every "needs answer" item I still need to fill in
 - Photos I should take to go with the guide
-- Anything that would benefit from a person with lived experience to verify`,
+- Anything that would benefit from a human to verify`,
             expectedOutcome: 'An Accessibility Guide structured under 7 standard headings, with specific facts where you have provided them and "needs answer" flags where you have not.',
           },
         },
@@ -578,7 +650,7 @@ After the draft, give me:
           type: 'exercise',
           exercise: {
             title: 'Build prompt: Accessible Digital Document (Word/PDF)',
-            instructions: 'For making an existing Word document or PDF accessible to screen readers and meeting WCAG 2.2 AA. Built on NSW Digital Toolkit and Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings, and similar.',
+            instructions: 'For making an existing Word document or PDF accessible to screen readers and meeting WCAG 2.2 AA. Built on NSW Digital Toolkit and Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings and similar.',
             promptTemplate: `I have a digital document I want to make accessible. I want to publish it as an accessible Word document and export a tagged PDF version. I will paste the content below.
 
 Please apply this structure (based on NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA):
@@ -594,7 +666,7 @@ Please apply this structure (based on NSW Digital Toolkit PDF accessibility guid
 
 3. IMAGES
 - For every image in the source, suggest alt text (one sentence, describing the message not the visual).
-- If an image is purely decorative, mark it "decorative — no alt text required."
+- If an image is purely decorative, mark it "decorative, no alt text required."
 - Flag any place where colour alone conveys meaning (e.g., "red items are urgent") and suggest a non-colour fix.
 
 4. LINKS
@@ -624,7 +696,7 @@ After your analysis, give me:
 
 Here is the content:
 [paste content]`,
-            expectedOutcome: 'A numbered Word-application checklist (heading suggestions, link rewrites, alt text drafts, list conversions, colour-only fixes, table structure notes, document properties, export settings), a list of items to verify, and a footer paragraph noting WCAG 2.2 AA conformance.',
+            expectedOutcome: 'A numbered Word-application checklist (heading suggestions, link rewrites, alt text drafts, list conversions, colour-only fixes, table structure notes, document properties, export settings), a list of items to verify and a footer paragraph noting WCAG 2.2 AA conformance.',
           },
         },
         {
@@ -659,7 +731,7 @@ Here is the content:
         {
           type: 'text',
           heading: 'Iterate (28 min)',
-          body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. Pick the iteration prompts below that match what you want changed. (A 3rd round is rare when the first build prompt has done its job — only run it if a real issue is unresolved.)</p>
+          body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. Pick the iteration prompts below that match what you want changed. (A 3rd round is rare when the first build prompt has done its job. Only run it if a real issue is unresolved.)</p>
 <p><strong>Make it clearer:</strong></p>
 <pre><code>Rewrite section [X] using shorter sentences and simpler words. Aim for a reading age of 12 or below.</code></pre>
 <p><strong>Make it shorter:</strong></p>
@@ -710,7 +782,7 @@ Here is the content:
         {
           type: 'text',
           heading: 'What you will achieve in this lesson',
-          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has produced an accessibility-tagged version of the content for you to drop into Word and export as a tagged PDF, you have run the human review checklist, and your prompts are saved for next time.</p>
+          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has produced an accessibility-tagged version of the content for you to drop into Word and export as a tagged PDF, you have run the human review checklist and your prompts are saved for next time.</p>
 <p><strong>How the lesson runs:</strong></p>
 <ol>
 <li>Send your draft to Claude for sense-check (10 min)</li>
@@ -731,7 +803,7 @@ Here is the content:
 Please sense-check it using the framework you've been set up with.
 
 [paste draft]`,
-            expectedOutcome: 'Claude returns a one-sentence diagnosis, the top 3 to 5 issues, suggested re-wordings for the top 2 or 3, items needing human verification, and 1 to 2 questions for the next iteration.',
+            expectedOutcome: 'Claude returns a one-sentence diagnosis, the top 3 to 5 issues, suggested re-wordings for the top 2 or 3, items needing human verification and 1 to 2 questions for the next iteration.',
           },
         },
         {
@@ -764,7 +836,7 @@ Please update the draft to address these. Show the full updated draft.`,
           type: 'exercise',
           exercise: {
             title: 'Step 4: Use Claude to produce the accessible Word/PDF (12 min)',
-            instructions: 'Claude is stronger than ChatGPT at producing structured, accessibility-tagged documents. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom. Claude will return a marked-up version with heading levels, alt text suggestions, link rewrites, table structure, document properties, and a numbered checklist of what to apply in Word.',
+            instructions: 'Claude produces stronger accessibility-tagged documents than ChatGPT. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
             promptTemplate: `I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
 
 Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA.
@@ -806,7 +878,7 @@ After your marked-up draft, give me:
 
 Here is my reviewed draft:
 [paste reviewed draft]`,
-            expectedOutcome: 'Claude returns the draft with heading levels marked, alt text suggestions, descriptive link text, table notes, document property suggestions, a Word-application checklist, a verification list, and a footer paragraph about WCAG 2.2 AA conformance and alternative-format requests.',
+            expectedOutcome: 'Claude returns the draft with heading levels marked, alt text suggestions, descriptive link text, table notes, document property suggestions, a Word-application checklist, a verification list and a footer paragraph about WCAG 2.2 AA conformance and alternative-format requests.',
             tips: [
               'For long source PDFs, paste the text content rather than uploading. Claude cannot see the visual layout of a PDF reliably from a file upload.',
               'After applying changes in Word, run Word\'s built-in Accessibility Checker: Review > Check Accessibility. Fix any remaining errors before exporting.',

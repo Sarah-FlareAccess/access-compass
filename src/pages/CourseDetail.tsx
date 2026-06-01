@@ -142,7 +142,7 @@ export default function CourseDetail() {
           <ul className="course-outcomes-list">
             {course.learningOutcomes.map((outcome, i) => (
               <li key={i} className="course-outcome-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 {outcome}

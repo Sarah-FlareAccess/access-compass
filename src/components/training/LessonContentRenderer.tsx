@@ -1,10 +1,49 @@
 import type { LessonContentBlock } from '../../data/training/types';
 import { ExerciseBlock } from './ExerciseBlock';
 import { DownloadBlock } from './DownloadBlock';
+import { useStepProgress } from '../../hooks/useStepProgress';
 import './LessonContentRenderer.css';
 
 interface LessonContentRendererProps {
   blocks: LessonContentBlock[];
+  courseId: string;
+  lessonId: string;
+}
+
+const STEP_RE = /^Step\s+(\d+)\s*[:.\s]/i;
+const STEP_STRIP_RE = /^Step\s+\d+\s*[:.\s]\s*/i;
+
+function getStepNumber(block: LessonContentBlock): number | null {
+  let heading: string | undefined;
+  if (block.type === 'text') heading = block.heading;
+  else if (block.type === 'exercise') heading = block.exercise?.title;
+  else if (block.type === 'checklist') heading = block.checklist?.title;
+  if (!heading) return null;
+  const m = heading.match(STEP_RE);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function stripStepPrefix(text: string): string {
+  return text.replace(STEP_STRIP_RE, '');
+}
+
+function withStrippedHeading(block: LessonContentBlock): LessonContentBlock {
+  if (block.type === 'text' && block.heading) {
+    return { ...block, heading: stripStepPrefix(block.heading) };
+  }
+  if (block.type === 'exercise' && block.exercise) {
+    return {
+      ...block,
+      exercise: { ...block.exercise, title: stripStepPrefix(block.exercise.title) },
+    };
+  }
+  if (block.type === 'checklist' && block.checklist) {
+    return {
+      ...block,
+      checklist: { ...block.checklist, title: stripStepPrefix(block.checklist.title) },
+    };
+  }
+  return block;
 }
 
 function CalloutBlock({ variant, text }: { variant: string; text: string }) {
@@ -46,112 +85,195 @@ function CalloutBlock({ variant, text }: { variant: string; text: string }) {
   );
 }
 
-export function LessonContentRenderer({ blocks }: LessonContentRendererProps) {
+function renderBlock(block: LessonContentBlock, key: React.Key): React.ReactNode {
+  switch (block.type) {
+    case 'text':
+      return (
+        <div key={key} className="lesson-text-block">
+          {block.heading && <h2 className="lesson-block-heading">{block.heading}</h2>}
+          {block.body && (
+            <div
+              className="lesson-block-body"
+              dangerouslySetInnerHTML={{ __html: block.body }}
+            />
+          )}
+        </div>
+      );
+
+    case 'video':
+      if (!block.video) return null;
+      return (
+        <div key={key} className="lesson-video-block">
+          <div className="lesson-video-wrapper">
+            <iframe
+              src={`https://player.vimeo.com/video/${block.video.vimeoId}?dnt=1`}
+              title={block.video.title}
+              allow="fullscreen; picture-in-picture"
+              allowFullScreen
+              className="lesson-video-iframe"
+            />
+          </div>
+          <div className="lesson-video-info">
+            <span className="lesson-video-title">{block.video.title}</span>
+            <span className="lesson-video-duration">{block.video.duration}</span>
+            {block.video.hasCaptions && (
+              <span className="lesson-video-badge">CC</span>
+            )}
+          </div>
+        </div>
+      );
+
+    case 'exercise':
+      if (!block.exercise) return null;
+      return (
+        <ExerciseBlock
+          key={key}
+          title={block.exercise.title}
+          instructions={block.exercise.instructions}
+          promptTemplate={block.exercise.promptTemplate}
+          expectedOutcome={block.exercise.expectedOutcome}
+          tips={block.exercise.tips}
+          exampleOutput={block.exercise.exampleOutput}
+        />
+      );
+
+    case 'download':
+      if (!block.download) return null;
+      return <DownloadBlock key={key} download={block.download} />;
+
+    case 'checklist':
+      if (!block.checklist) return null;
+      return (
+        <div key={key} className="lesson-checklist-block">
+          <h3 className="lesson-checklist-title">{block.checklist.title}</h3>
+          <ul className="lesson-checklist-items">
+            {block.checklist.items.map((item, i) => (
+              <li key={i} className="lesson-checklist-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+
+    case 'callout':
+      if (!block.callout) return null;
+      return (
+        <CalloutBlock
+          key={key}
+          variant={block.callout.variant}
+          text={block.callout.text}
+        />
+      );
+
+    case 'image':
+      if (!block.image) return null;
+      return (
+        <figure key={key} className="lesson-image-block">
+          <img
+            src={block.image.src}
+            alt={block.image.alt}
+            className="lesson-image"
+            loading="lazy"
+          />
+          {block.image.caption && (
+            <figcaption className="lesson-image-caption">{block.image.caption}</figcaption>
+          )}
+        </figure>
+      );
+
+    default:
+      return null;
+  }
+}
+
+type StepGroup = {
+  stepNum: number | null;
+  items: Array<{ block: LessonContentBlock; index: number }>;
+};
+
+function groupBlocks(blocks: LessonContentBlock[]): StepGroup[] {
+  const groups: StepGroup[] = [];
+  blocks.forEach((block, index) => {
+    const stepNum = getStepNumber(block);
+    if (stepNum !== null) {
+      groups.push({ stepNum, items: [{ block, index }] });
+      return;
+    }
+    const last = groups[groups.length - 1];
+    if (last) {
+      last.items.push({ block, index });
+    } else {
+      groups.push({ stepNum: null, items: [{ block, index }] });
+    }
+  });
+  return groups;
+}
+
+export function LessonContentRenderer({ blocks, courseId, lessonId }: LessonContentRendererProps) {
+  const { toggleStep, isStepDone } = useStepProgress(courseId, lessonId);
+  const groups = groupBlocks(blocks);
+
   return (
     <div className="lesson-content-blocks">
-      {blocks.map((block, index) => {
-        switch (block.type) {
-          case 'text':
-            return (
-              <div key={index} className="lesson-text-block">
-                {block.heading && <h3 className="lesson-block-heading">{block.heading}</h3>}
-                {block.body && (
-                  <div
-                    className="lesson-block-body"
-                    dangerouslySetInnerHTML={{ __html: block.body }}
-                  />
-                )}
-              </div>
-            );
-
-          case 'video':
-            if (!block.video) return null;
-            return (
-              <div key={index} className="lesson-video-block">
-                <div className="lesson-video-wrapper">
-                  <iframe
-                    src={`https://player.vimeo.com/video/${block.video.vimeoId}?dnt=1`}
-                    title={block.video.title}
-                    allow="fullscreen; picture-in-picture"
-                    allowFullScreen
-                    className="lesson-video-iframe"
-                  />
-                </div>
-                <div className="lesson-video-info">
-                  <span className="lesson-video-title">{block.video.title}</span>
-                  <span className="lesson-video-duration">{block.video.duration}</span>
-                  {block.video.hasCaptions && (
-                    <span className="lesson-video-badge">CC</span>
-                  )}
-                </div>
-              </div>
-            );
-
-          case 'exercise':
-            if (!block.exercise) return null;
-            return (
-              <ExerciseBlock
-                key={index}
-                title={block.exercise.title}
-                instructions={block.exercise.instructions}
-                promptTemplate={block.exercise.promptTemplate}
-                expectedOutcome={block.exercise.expectedOutcome}
-                tips={block.exercise.tips}
-                exampleOutput={block.exercise.exampleOutput}
-              />
-            );
-
-          case 'download':
-            if (!block.download) return null;
-            return <DownloadBlock key={index} download={block.download} />;
-
-          case 'checklist':
-            if (!block.checklist) return null;
-            return (
-              <div key={index} className="lesson-checklist-block">
-                <h4 className="lesson-checklist-title">{block.checklist.title}</h4>
-                <ul className="lesson-checklist-items">
-                  {block.checklist.items.map((item, i) => (
-                    <li key={i} className="lesson-checklist-item">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <polyline points="20 6 9 17 4 12"/>
-                      </svg>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-
-          case 'callout':
-            if (!block.callout) return null;
-            return (
-              <CalloutBlock
-                key={index}
-                variant={block.callout.variant}
-                text={block.callout.text}
-              />
-            );
-
-          case 'image':
-            if (!block.image) return null;
-            return (
-              <figure key={index} className="lesson-image-block">
-                <img
-                  src={block.image.src}
-                  alt={block.image.alt}
-                  className="lesson-image"
-                  loading="lazy"
-                />
-                {block.image.caption && (
-                  <figcaption className="lesson-image-caption">{block.image.caption}</figcaption>
-                )}
-              </figure>
-            );
-
-          default:
-            return null;
+      {groups.map((group, gIndex) => {
+        if (group.stepNum === null) {
+          return (
+            <div key={`g-${gIndex}`} className="lesson-prologue-group">
+              {group.items.map(({ block, index }) => renderBlock(block, index))}
+            </div>
+          );
         }
+        const stepNum = group.stepNum;
+        const done = isStepDone(stepNum);
+        return (
+          <section
+            key={`step-${gIndex}`}
+            className={`lesson-step-card${done ? ' is-complete' : ''}`}
+            aria-label={`Step ${stepNum}`}
+          >
+            <div className="lesson-step-card-header">
+              <span className="lesson-step-badge" aria-hidden="true">
+                {done ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                ) : (
+                  stepNum
+                )}
+              </span>
+              <span className="lesson-step-label">Step {stepNum}</span>
+            </div>
+            <div className="lesson-step-card-body">
+              {group.items.map(({ block, index }, i) => {
+                const toRender = i === 0 ? withStrippedHeading(block) : block;
+                return renderBlock(toRender, index);
+              })}
+            </div>
+            <div className="lesson-step-card-footer">
+              <button
+                type="button"
+                className={`lesson-step-complete-btn${done ? ' is-complete' : ''}`}
+                onClick={() => toggleStep(stepNum)}
+                aria-pressed={done}
+              >
+                {done ? (
+                  <>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Step {stepNum} complete
+                  </>
+                ) : (
+                  <>Mark Step {stepNum} done</>
+                )}
+              </button>
+            </div>
+          </section>
+        );
       })}
     </div>
   );
