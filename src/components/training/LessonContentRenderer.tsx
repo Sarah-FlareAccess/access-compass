@@ -4,6 +4,7 @@ import { ExerciseBlock } from './ExerciseBlock';
 import { DownloadBlock } from './DownloadBlock';
 import { useStepProgress } from '../../hooks/useStepProgress';
 import { useFormatChoice } from '../../hooks/useFormatChoice';
+import { useChecklistProgress } from '../../hooks/useChecklistProgress';
 import './LessonContentRenderer.css';
 
 function FormatChoiceBlock({
@@ -229,6 +230,52 @@ function FormatChoiceBlock({
         </div>
       )}
     </fieldset>
+  );
+}
+
+function InteractiveChecklistBlock({
+  title,
+  items,
+  courseId,
+  lessonId,
+}: {
+  title: string;
+  items: string[];
+  courseId: string;
+  lessonId: string;
+}) {
+  const { isChecked, toggle } = useChecklistProgress(courseId, lessonId);
+  const checkedCount = items.reduce((sum, _, i) => sum + (isChecked(title, i) ? 1 : 0), 0);
+
+  return (
+    <div className="lesson-checklist-block">
+      <div className="lesson-checklist-header">
+        <h3 className="lesson-checklist-title">{title}</h3>
+        <span className="lesson-checklist-count" aria-live="polite">
+          {checkedCount} of {items.length}
+        </span>
+      </div>
+      <ul className="lesson-checklist-items">
+        {items.map((item, i) => {
+          const checked = isChecked(title, i);
+          return (
+            <li
+              key={i}
+              className={`lesson-checklist-item${checked ? ' is-checked' : ''}`}
+            >
+              <label>
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => toggle(title, i)}
+                />
+                <span>{item}</span>
+              </label>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 
@@ -488,7 +535,7 @@ function CalloutBlock({ variant, text }: { variant: string; text: string }) {
 function renderBlock(
   block: LessonContentBlock,
   key: React.Key,
-  ctx: { courseId: string; substitutions: Record<string, string>; selectedFormat: string }
+  ctx: { courseId: string; lessonId: string; substitutions: Record<string, string>; selectedFormat: string }
 ): React.ReactNode {
   switch (block.type) {
     case 'text':
@@ -578,19 +625,13 @@ function renderBlock(
     case 'checklist':
       if (!block.checklist) return null;
       return (
-        <div key={key} className="lesson-checklist-block">
-          <h3 className="lesson-checklist-title">{block.checklist.title}</h3>
-          <ul className="lesson-checklist-items">
-            {block.checklist.items.map((item, i) => (
-              <li key={i} className="lesson-checklist-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <InteractiveChecklistBlock
+          key={key}
+          title={block.checklist.title}
+          items={block.checklist.items}
+          courseId={ctx.courseId}
+          lessonId={ctx.lessonId}
+        />
       );
 
     case 'callout':
@@ -656,7 +697,7 @@ export function LessonContentRenderer({ blocks, courseId, lessonId }: LessonCont
     AUDIENCE: choice.audience,
     ...choice.contextFields,
   };
-  const ctx = { courseId, substitutions, selectedFormat: choice.format };
+  const ctx = { courseId, lessonId, substitutions, selectedFormat: choice.format };
 
   return (
     <div className="lesson-content-blocks">

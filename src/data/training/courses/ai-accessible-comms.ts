@@ -6,7 +6,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   title: 'Using AI to Create Accessible & Inclusive Communications',
   subtitle: 'A practical 2-hour workshop. Walk in with content. Walk out with a draft.',
   description: 'Use free AI tools to draft accessible content for your business in under 2 hours. Choose your format, bring your source material and leave with a real first draft you can refine and publish.',
-  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and document producer) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to convert the reviewed draft into an accessible Word document or tagged PDF. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Digital Document (Word/PDF, following NSW Digital Toolkit and Vic Government guidance, WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session.',
+  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and accessibility markup planner) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to generate an accessibility markup plan you can apply in Word and export as a tagged PDF. The AI does not produce the tagged file directly; it gives you a structured plan (heading levels, alt text suggestions, link rewrites, table notes, document properties) and a checklist of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Digital Document (Word/PDF, following NSW Digital Toolkit and Vic Government guidance, WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session.',
   category: 'ai-tools',
   accessTier: 'premium',
   totalEstimatedMinutes: 120,
@@ -28,7 +28,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
     'Brief an AI on your business, your audience and your source material',
     'Draft a first version of accessible content in your chosen format',
     'Use Claude to sense-check your draft against accessibility standards',
-    'Use Claude to produce an accessible Word document or tagged PDF aligned to NSW Digital Toolkit, Vic Government guidance and WCAG 2.2 AA',
+    'Use Claude to generate an accessibility markup plan aligned to NSW Digital Toolkit, Vic Government guidance and WCAG 2.2 AA, then apply it in Word and export as a tagged PDF',
     'Apply a human review checklist before publishing',
     'Take home a reusable prompt pack covering six alternative formats',
   ],
@@ -56,10 +56,10 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileSize: 'TBC',
     },
     {
-      title: 'Claude Reviewer and Document Producer Prompts',
-      description: 'The Claude prompts for sense-checking your draft and producing the final accessible Word/PDF document. Plain text, ready to paste.',
-      fileName: 'claude-reviewer-and-doc-prompts.txt',
-      fileUrl: '/training/downloads/claude-reviewer-and-doc-prompts.txt',
+      title: 'Claude Reviewer and Markup Plan Prompts',
+      description: 'The Claude prompts for sense-checking your draft and generating the accessibility markup plan you apply in Word. Plain text, ready to paste.',
+      fileName: 'claude-reviewer-and-markup-prompts.txt',
+      fileUrl: '/training/downloads/claude-reviewer-and-markup-prompts.txt',
       fileType: 'TXT',
       fileSize: 'TBC',
     },
@@ -440,7 +440,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
           type: 'format-choice',
           formatChoice: {
             legend: 'Build your brief',
-            helpText: 'Fill these in once. Your brief saves locally to your browser and pre-fills the briefing prompt in Step 3, the sense-check prompt in Lesson 4 and the document producer prompt in Lesson 4. You can change it anytime. Use the Copy your brief button to take a plain-text version into other tools or save in your notes.',
+            helpText: 'Fill these in once. Your brief saves locally to your browser and pre-fills the briefing prompt in Step 3, the sense-check prompt in Lesson 4 and the markup plan prompt in Lesson 4. You can change it anytime. Use the Copy your brief button to take a plain-text version into other tools or save in your notes.',
             formats: [
               { value: 'Easy Read', label: 'Easy Read' },
               { value: 'Plain Language', label: 'Plain Language' },
@@ -913,13 +913,13 @@ Here is the content:
         {
           type: 'text',
           heading: 'What you will achieve in this lesson',
-          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has produced an accessibility-tagged version of the content for you to drop into Word and export as a tagged PDF, you have run the human review checklist and your prompts are saved for next time.</p>
+          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has generated an accessibility markup plan for you to apply in Word and export as a tagged PDF, you have run the human review checklist and your prompts are saved for next time.</p>
 <p><strong>How the lesson runs:</strong></p>
 <ol>
 <li>Send your draft to Claude for sense-check (10 min)</li>
 <li>Decide what to action (5 min)</li>
 <li>Apply changes in ChatGPT (10 min)</li>
-<li>Use Claude to produce the accessible Word/PDF (12 min)</li>
+<li>Use Claude to build your accessibility markup plan (12 min)</li>
 <li>Final human review checklist (3 min)</li>
 <li>Save your prompt pack (2 min)</li>
 </ol>`,
@@ -966,8 +966,8 @@ Please update the draft to address these. Show the full updated draft.`,
         {
           type: 'exercise',
           exercise: {
-            title: 'Step 4: Use Claude to produce the accessible Word/PDF (12 min)',
-            instructions: 'Claude produces stronger accessibility-tagged documents than ChatGPT. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
+            title: 'Step 4: Use Claude to build your accessibility markup plan (12 min)',
+            instructions: 'Claude does not produce a tagged PDF or accessible Word file directly. What it produces is a structured markup plan: heading levels (H1, H2 etc.), alt text suggestions, link rewrites, table notes, document property suggestions and a numbered checklist of what to apply in Word. You apply that plan in Word and export with structure tags enabled to produce the actual tagged PDF. Claude is stronger than ChatGPT at producing this kind of structured longer output, which is why we use it here. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
             promptTemplate: `I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
 
 Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA.
@@ -1041,7 +1041,7 @@ Here is my reviewed draft:
 <li>The <strong>AI assistant system prompt</strong> (so you can re-start ChatGPT later)</li>
 <li>The <strong>build prompt</strong> for your chosen format</li>
 <li>The <strong>briefing prompt</strong> with your business details filled in</li>
-<li>The <strong>Claude document-producer prompt</strong> from Step 4 (for next time you need an accessible Word/PDF)</li>
+<li>The <strong>Claude markup plan prompt</strong> from Step 4 (for next time you need to make a Word doc or PDF accessible)</li>
 </ol>
 <p>You can also download the complete Prompt Pack from this course (see Course Downloads at the top of the page).</p>
 <p>You now have a reusable kit for the next piece of content. Coming back to do another format will take half the time.</p>
