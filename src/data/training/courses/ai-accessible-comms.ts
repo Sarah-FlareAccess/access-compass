@@ -165,7 +165,10 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <li>Click <strong>Save</strong>. Close the settings panel.</li>
 <li>Start a new chat from inside the project to test it.</li>
 </ol>
-<p class="screenshot-placeholder">[Screenshot placeholder: ChatGPT Plus project page with the three-dot menu open]</p>
+<figure class="setup-screenshot">
+<img src="/training/screenshots/chatgpt-plus-project-settings.png" alt="ChatGPT Plus Project settings dialog showing the Project name, Instructions text box, Memory field, and Cancel / Save buttons. The Instructions box is where you paste the system prompt." loading="lazy" />
+<figcaption>The Project settings dialog. Paste the system prompt into the Instructions box.</figcaption>
+</figure>
 </details>
 <details class="setup-detail">
 <summary><strong>ChatGPT free</strong>: every click</summary>

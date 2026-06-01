@@ -443,12 +443,12 @@
   text-align: center;
 }
 
-/* "Do this next" action panel - visually distinct from prose so participants
-   recognise it as the next action to take. Indigo accent matches step card. */
+/* "Do this next" action panel reads as the continuation of the preceding
+   exercise (paste, then test), so it uses the same sky-blue family. */
 .lesson-block-body .do-now {
-  background: #eef2ff;
-  border: 1px solid #c7d2fe;
-  border-left: 4px solid #4f46e5;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-left: 4px solid #0369a1;
   border-radius: 10px;
   padding: 14px 16px;
   margin: 14px 0;
@@ -462,7 +462,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #3730a3;
+  color: #0c4a6e;
   margin-bottom: 8px;
 }
 
@@ -477,7 +477,7 @@
 
 .lesson-block-body .do-now pre {
   background: #ffffff;
-  border: 1px solid #c7d2fe;
+  border: 1px solid #bae6fd;
   border-radius: 6px;
   padding: 10px 12px;
   font-size: 0.9rem;
@@ -615,6 +615,28 @@
 .lesson-block-body details.setup-detail ol li {
   margin-bottom: 8px;
   line-height: 1.55;
+}
+
+.lesson-block-body figure.setup-screenshot {
+  margin: 12px 16px 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.lesson-block-body figure.setup-screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lesson-block-body figure.setup-screenshot figcaption {
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  color: #374151;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
 }
 
 .lesson-block-body p.screenshot-placeholder {
