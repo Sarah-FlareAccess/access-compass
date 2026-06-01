@@ -9,9 +9,9 @@
   align-items: center;
   gap: 4px;
   padding: 12px 8px;
-  background: #4f46e5;
+  background: #6b2d8a;
   color: #ffffff;
-  border: 1px solid #4338ca;
+  border: 1px solid #490E67;
   border-right: none;
   border-radius: 10px 0 0 10px;
   cursor: pointer;
@@ -24,7 +24,7 @@
 }
 
 .lesson-notes-trigger:hover {
-  background: #4338ca;
+  background: #490E67;
   transform: translateY(-50%) translateX(-2px);
 }
 
@@ -111,7 +111,7 @@
 .lesson-notes-textarea:focus-visible {
   outline: 3px solid var(--focus-ring, #CC7700);
   outline-offset: 2px;
-  border-color: #4f46e5;
+  border-color: #6b2d8a;
 }
 
 .lesson-notes-footer {
@@ -123,9 +123,9 @@
 .lesson-notes-download {
   flex: 1;
   padding: 9px 12px;
-  background: #4f46e5;
+  background: #6b2d8a;
   color: #ffffff;
-  border: 1px solid #4338ca;
+  border: 1px solid #490E67;
   border-radius: 6px;
   font-size: 0.88rem;
   font-weight: 700;
@@ -133,7 +133,7 @@
 }
 
 .lesson-notes-download:hover {
-  background: #4338ca;
+  background: #490E67;
 }
 
 .lesson-notes-download:focus-visible {

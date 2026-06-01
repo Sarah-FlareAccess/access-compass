@@ -208,15 +208,15 @@
 .lesson-nav-next {
   margin-left: auto;
   text-align: right;
-  background: #4f46e5;
-  border: 1px solid #4338ca;
+  background: #6b2d8a;
+  border: 1px solid #490E67;
   color: #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .lesson-nav-next:hover {
-  background: #4338ca;
-  border-color: #3730a3;
+  background: #490E67;
+  border-color: #350a4d;
 }
 
 .lesson-nav-link:focus-visible {

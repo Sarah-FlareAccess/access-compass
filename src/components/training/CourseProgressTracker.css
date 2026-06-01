@@ -20,7 +20,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #4338ca;
+  color: #490E67;
 }
 
 .course-progress-summary-counts {
@@ -65,8 +65,8 @@
 }
 
 .course-progress-segment.is-current a {
-  background: #eef2ff;
-  border-color: #c7d2fe;
+  background: #faf5ff;
+  border-color: #e9d5ff;
 }
 
 .segment-bar {
@@ -84,7 +84,7 @@
   left: 0;
   top: 0;
   bottom: 0;
-  background: #4f46e5;
+  background: #6b2d8a;
   border-radius: 999px;
   transition: width 0.2s ease;
 }
@@ -94,7 +94,7 @@
 }
 
 .course-progress-segment.is-current .segment-fill {
-  background: #4f46e5;
+  background: #6b2d8a;
 }
 
 .segment-meta {
@@ -111,7 +111,7 @@
 }
 
 .course-progress-segment.is-current .segment-label {
-  color: #3730a3;
+  color: #350a4d;
 }
 
 .course-progress-segment.is-done .segment-label {

@@ -278,7 +278,7 @@
 }
 
 .download-block:hover {
-  border-color: #a5b4fc;
+  border-color: #d8b4fe;
   box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
 }
 
@@ -294,9 +294,9 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: #eef2ff;
+  background: #faf5ff;
   border-radius: 8px;
-  color: #6366f1;
+  color: #6b2d8a;
 }
 
 .download-info {
@@ -330,7 +330,7 @@
 }
 
 .download-block:hover .download-action {
-  color: #6366f1;
+  color: #6b2d8a;
 }
 
 /* Checklist blocks - interactive, persist to localStorage */
@@ -453,8 +453,8 @@
 .callout-warning .callout-icon { color: #f59e0b; }
 
 .callout-info {
-  background: #f5f3ff;
-  border: 1px solid #ddd6fe;
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
   color: #5b21b6;
 }
 
@@ -570,8 +570,8 @@
 .lesson-block-body .setup-group {
   margin-top: 20px;
   padding: 16px 18px;
-  background: #f5f3ff;
-  border: 1px solid #ddd6fe;
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
   border-radius: 10px;
 }
 
@@ -607,7 +607,7 @@
 
 .lesson-block-body details.setup-detail[open] {
   background: #ffffff;
-  border-color: #c7d2fe;
+  border-color: #e9d5ff;
 }
 
 .lesson-block-body details.setup-detail summary {
@@ -633,8 +633,8 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #eef2ff;
-  color: #4338ca;
+  background: #faf5ff;
+  color: #490E67;
   font-weight: 700;
   flex-shrink: 0;
   transition: transform 0.15s ease;
@@ -642,7 +642,7 @@
 
 .lesson-block-body details.setup-detail[open] summary::before {
   content: '\2212'; /* minus sign */
-  background: #c7d2fe;
+  background: #e9d5ff;
 }
 
 .lesson-block-body details.setup-detail summary:hover {
@@ -759,8 +759,8 @@
   gap: 14px;
   padding: 14px 16px;
   background: #ffffff;
-  border: 1px solid #c7d2fe;
-  border-left: 4px solid #4f46e5;
+  border: 1px solid #e9d5ff;
+  border-left: 4px solid #6b2d8a;
   border-radius: 10px;
 }
 
@@ -772,7 +772,7 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #4f46e5;
+  background: #6b2d8a;
   color: #ffffff;
   font-weight: 700;
   font-size: 1.05rem;
@@ -801,7 +801,7 @@
 .take-home-panel {
   position: relative;
   background: #FAF8F5;
-  border: 1px solid #ddd6fe;
+  border: 1px solid #e9d5ff;
   border-left: 6px solid #490E67;
   border-radius: 14px;
   padding: 22px 24px;
@@ -848,7 +848,7 @@
 
 .take-home-action {
   background: #ffffff;
-  border: 1px solid #ddd6fe;
+  border: 1px solid #e9d5ff;
   border-radius: 10px;
   padding: 14px 16px;
   margin-top: 14px;
@@ -950,10 +950,10 @@
 /* Format choice picker, saves to localStorage and pre-fills exercise
    prompt templates via the bracket substitutions ([FORMAT NAME], [AUDIENCE]). */
 .format-choice-block {
-  border: 1px solid #c7d2fe;
-  border-left: 4px solid #4f46e5;
+  border: 1px solid #e9d5ff;
+  border-left: 4px solid #6b2d8a;
   border-radius: 10px;
-  background: #f5f3ff;
+  background: #faf5ff;
   padding: 14px 16px;
   margin: 12px 0;
 }
@@ -963,14 +963,14 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #3730a3;
+  color: #350a4d;
   padding: 0 6px;
   margin-left: -6px;
 }
 
 .format-choice-help {
   font-size: 0.88rem;
-  color: #4338ca;
+  color: #490E67;
   margin: 4px 0 12px 0;
   line-height: 1.5;
 }
@@ -984,13 +984,13 @@
 
 .format-choice-scaffold {
   background: #ffffff;
-  border: 1px solid #c7d2fe;
+  border: 1px solid #e9d5ff;
   border-radius: 8px;
   overflow: hidden;
 }
 
 .format-choice-scaffold[open] {
-  border-color: #a5b4fc;
+  border-color: #d8b4fe;
 }
 
 .format-choice-scaffold summary {
@@ -998,7 +998,7 @@
   padding: 10px 14px;
   font-size: 0.92rem;
   font-weight: 600;
-  color: #3730a3;
+  color: #350a4d;
   list-style: none;
   display: flex;
   align-items: center;
@@ -1017,19 +1017,19 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #eef2ff;
-  color: #4338ca;
+  background: #faf5ff;
+  color: #490E67;
   font-weight: 700;
   flex-shrink: 0;
 }
 
 .format-choice-scaffold[open] summary::before {
   content: '\2212';
-  background: #c7d2fe;
+  background: #e9d5ff;
 }
 
 .format-choice-scaffold summary:hover {
-  background: #f5f3ff;
+  background: #faf5ff;
 }
 
 .format-choice-scaffold summary:focus-visible {
@@ -1129,7 +1129,7 @@
   gap: 6px;
   padding: 8px 12px;
   background: #ffffff;
-  border: 1px solid #c7d2fe;
+  border: 1px solid #e9d5ff;
   border-radius: 8px;
   font-size: 0.9rem;
   color: #1f2937;
@@ -1138,19 +1138,19 @@
 }
 
 .format-choice-option:hover {
-  background: #eef2ff;
-  border-color: #a5b4fc;
+  background: #faf5ff;
+  border-color: #d8b4fe;
 }
 
 .format-choice-option.is-selected {
-  background: #4f46e5;
-  border-color: #4338ca;
+  background: #6b2d8a;
+  border-color: #490E67;
   color: #ffffff;
   font-weight: 600;
 }
 
 .format-choice-option input[type="radio"] {
-  accent-color: #4f46e5;
+  accent-color: #6b2d8a;
   margin: 0;
 }
 
@@ -1172,12 +1172,12 @@
 .format-choice-audience label {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #3730a3;
+  color: #350a4d;
 }
 
 .format-choice-audience-example {
   font-size: 0.82rem;
-  color: #4338ca;
+  color: #490E67;
   margin: 0 0 4px 0;
   line-height: 1.45;
 }
@@ -1185,7 +1185,7 @@
 .format-choice-audience input {
   padding: 8px 10px;
   font-size: 0.95rem;
-  border: 1px solid #c7d2fe;
+  border: 1px solid #e9d5ff;
   border-radius: 6px;
   background: #ffffff;
   color: #1f2937;
@@ -1194,7 +1194,7 @@
 .format-choice-audience input:focus-visible {
   outline: 3px solid var(--focus-ring, #CC7700);
   outline-offset: 2px;
-  border-color: #4f46e5;
+  border-color: #6b2d8a;
 }
 
 .format-choice-summary-wrapper {
@@ -1204,7 +1204,7 @@
   margin-top: 12px;
   padding: 12px 14px;
   background: #ffffff;
-  border: 1px solid #c7d2fe;
+  border: 1px solid #e9d5ff;
   border-radius: 8px;
 }
 
@@ -1287,7 +1287,7 @@
   font-size: 0.95rem;
   font-family: inherit;
   line-height: 1.45;
-  border: 1px solid #c7d2fe;
+  border: 1px solid #e9d5ff;
   border-radius: 6px;
   background: #ffffff;
   color: #1f2937;
@@ -1297,7 +1297,7 @@
 .format-choice-audience textarea:focus-visible {
   outline: 3px solid var(--focus-ring, #CC7700);
   outline-offset: 2px;
-  border-color: #4f46e5;
+  border-color: #6b2d8a;
 }
 
 /* Default styling for every <pre> in lesson body so it reads as a code
@@ -1469,7 +1469,7 @@
   position: relative;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-left: 4px solid #4f46e5;
+  border-left: 4px solid #6b2d8a;
   border-radius: 12px;
   padding: 18px 20px 14px 20px;
   display: flex;
@@ -1498,7 +1498,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: #4f46e5;
+  background: #6b2d8a;
   color: #ffffff;
   font-weight: 700;
   font-size: 0.95rem;
@@ -1513,7 +1513,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #4338ca;
+  color: #490E67;
 }
 
 .lesson-step-card.is-complete .lesson-step-label {
@@ -1563,15 +1563,15 @@
   font-size: 0.85rem;
   font-weight: 600;
   border-radius: 8px;
-  border: 1px solid #4f46e5;
+  border: 1px solid #6b2d8a;
   background: #ffffff;
-  color: #4338ca;
+  color: #490E67;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .lesson-step-complete-btn:hover {
-  background: #eef2ff;
+  background: #faf5ff;
 }
 
 .lesson-step-complete-btn:focus-visible {
