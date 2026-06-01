@@ -157,20 +157,21 @@
 .exercise-copy-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  border: 1px solid #bae6fd;
+  gap: 5px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid #075985;
   border-radius: 6px;
-  background: #fff;
-  color: #0369a1;
+  background: #0369a1;
+  color: #ffffff;
   cursor: pointer;
-  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .exercise-copy-btn:hover {
-  background: #e0f2fe;
+  background: #075985;
 }
 
 .exercise-copy-btn:focus-visible {
