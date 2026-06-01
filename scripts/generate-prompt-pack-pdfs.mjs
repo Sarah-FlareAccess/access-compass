@@ -297,7 +297,7 @@ function drawCover(doc, doc_config, state) {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
   doc.setTextColor(...BRAND.mutedText);
-  doc.text('Accessible Communications Workshop', MARGIN.left, MARGIN.top + 46);
+  doc.text('Accessible Comms Workshop', MARGIN.left, MARGIN.top + 46);
 
   // Title block
   doc.setFont('helvetica', 'bold');
@@ -399,9 +399,8 @@ function drawBulletList(state, items, opts = {}) {
     for (const line of itemLines) {
       ensureSpace(state, lineHeight);
       if (first) {
-        state.doc.setTextColor(...BRAND.sunriseDark);
-        state.doc.text('▸', MARGIN.left, state.y);
-        state.doc.setTextColor(...BRAND.bodyText);
+        state.doc.setFillColor(...BRAND.sunriseDark);
+        state.doc.circle(MARGIN.left + 3, state.y - 3, 1.8, 'F');
         first = false;
       }
       state.doc.text(line, MARGIN.left + bulletIndent, state.y);
