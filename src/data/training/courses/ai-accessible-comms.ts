@@ -450,7 +450,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
               { value: 'Accessible Digital Document (Word/PDF)', label: 'Accessible Digital Document (Word/PDF)' },
             ],
             audienceLabel: 'For audience',
-            audiencePlaceholder: 'e.g. parents of children visiting our museum',
+            audienceExample: 'parents of children visiting our museum, or first-time wheelchair users visiting our cafe, or staff onboarding into accessibility procedures',
           },
         },
         {
@@ -507,7 +507,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
           type: 'callout',
           callout: {
             variant: 'tip',
-            text: 'If you have nothing prepared, the Accessibility Guide path is the most forgiving. The AI walks you through a checklist of questions about your venue, and the answers become the guide.',
+            text: 'Got nothing prepared? You can still pick any format. The AI will prompt you for what it needs. Plain Language and Easy Read work well from bullet-point notes. Social Story works from a walkthrough description. Accessibility Guide is the most structured if you are unsure where to start, since the AI walks you through a checklist of venue questions and the answers become the guide.',
           },
         },
         {

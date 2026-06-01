@@ -78,7 +78,7 @@ export interface LessonContentBlock {
     helpText?: string;
     formats: Array<{ value: string; label: string }>;
     audienceLabel: string;
-    audiencePlaceholder?: string;
+    audienceExample?: string;
   };
 }
 

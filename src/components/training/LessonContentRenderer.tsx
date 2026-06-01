@@ -11,18 +11,20 @@ function FormatChoiceBlock({
   helpText,
   formats,
   audienceLabel,
-  audiencePlaceholder,
+  audienceExample,
   courseId,
 }: {
   legend: string;
   helpText?: string;
   formats: Array<{ value: string; label: string }>;
   audienceLabel: string;
-  audiencePlaceholder?: string;
+  audienceExample?: string;
   courseId: string;
 }) {
   const { choice, setFormat, setAudience } = useFormatChoice(courseId);
   const hasBoth = choice.format && choice.audience.trim();
+  const audienceId = `format-choice-audience-${courseId}`;
+  const audienceExampleId = audienceExample ? `${audienceId}-example` : undefined;
 
   return (
     <fieldset className="format-choice-block">
@@ -43,14 +45,19 @@ function FormatChoiceBlock({
         ))}
       </div>
       <div className="format-choice-audience">
-        <label htmlFor={`format-choice-audience-${courseId}`}>{audienceLabel}</label>
+        <label htmlFor={audienceId}>{audienceLabel}</label>
+        {audienceExample && (
+          <p className="format-choice-audience-example" id={audienceExampleId}>
+            For example: {audienceExample}
+          </p>
+        )}
         <input
-          id={`format-choice-audience-${courseId}`}
+          id={audienceId}
           type="text"
           value={choice.audience}
           onChange={(e) => setAudience(e.target.value)}
-          placeholder={audiencePlaceholder ?? ''}
           autoComplete="off"
+          aria-describedby={audienceExampleId}
         />
       </div>
       {hasBoth && (
@@ -83,7 +90,9 @@ function TextBlock({ heading, body }: { heading?: string; body?: string }) {
       const wrapper = document.createElement('div');
       wrapper.className = 'copyable-pre-wrapper';
       pre.parentNode?.insertBefore(wrapper, pre);
-      wrapper.appendChild(pre);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'copyable-pre-toolbar';
 
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -117,7 +126,9 @@ function TextBlock({ heading, body }: { heading?: string; body?: string }) {
       };
 
       btn.addEventListener('click', handleClick);
-      wrapper.appendChild(btn);
+      toolbar.appendChild(btn);
+      wrapper.appendChild(toolbar);
+      wrapper.appendChild(pre);
 
       cleanupFns.push(() => {
         btn.removeEventListener('click', handleClick);
@@ -279,7 +290,7 @@ function renderBlock(
           helpText={block.formatChoice.helpText}
           formats={block.formatChoice.formats}
           audienceLabel={block.formatChoice.audienceLabel}
-          audiencePlaceholder={block.formatChoice.audiencePlaceholder}
+          audienceExample={block.formatChoice.audienceExample}
           courseId={ctx.courseId}
         />
       );

@@ -726,6 +726,13 @@
   color: #3730a3;
 }
 
+.format-choice-audience-example {
+  font-size: 0.82rem;
+  color: #4338ca;
+  margin: 0 0 4px 0;
+  line-height: 1.45;
+}
+
 .format-choice-audience input {
   padding: 8px 10px;
   font-size: 0.95rem;
@@ -756,27 +763,28 @@
   color: #312e81;
 }
 
-/* Copy button injected next to every <pre> block in lesson body HTML.
-   High-specificity rules ensure the padding-right reserves space across
-   every callout context (.version-note, .do-now, etc.). */
+/* Copy button injected above every <pre> block in lesson body HTML.
+   Toolbar row above pre (instead of absolute overlay) is reliable across
+   every callout context (.version-note, .do-now) regardless of their pre styling. */
 .lesson-block-body .copyable-pre-wrapper {
-  position: relative;
   margin: 8px 0;
+}
+
+.lesson-block-body .copyable-pre-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 4px;
 }
 
 .lesson-block-body .copyable-pre-wrapper > pre {
   margin: 0;
-  padding-right: 84px;
 }
 
 .lesson-block-body .copyable-pre-btn {
-  position: absolute;
-  top: 6px;
-  right: 6px;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 5px 10px;
+  gap: 5px;
+  padding: 5px 12px;
   font-size: 0.78rem;
   font-weight: 700;
   border: 1px solid #075985;

@@ -24,12 +24,12 @@ export function LessonNotesPanel({ courseId, courseTitle }: Props) {
     const now = new Date();
     const date = now.toISOString().split('T')[0];
     const stamp = now.toLocaleString('en-AU');
-    const content = `# Notes from ${courseTitle}\n\nCaptured ${stamp}\n\n---\n\n${notes.trim() || '(no notes yet)'}\n`;
-    const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
+    const content = `Notes from ${courseTitle}\nCaptured ${stamp}\n\n${'-'.repeat(60)}\n\n${notes.trim() || '(no notes yet)'}\n`;
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `accessible-comms-notes-${date}.md`;
+    a.download = `accessible-comms-notes-${date}.txt`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -77,7 +77,7 @@ export function LessonNotesPanel({ courseId, courseTitle }: Props) {
           </svg>
         </button>
       </div>
-      <p className="lesson-notes-help">Anything you jot down saves locally to your browser as you type. Download as a Markdown file before closing the session so you have a copy.</p>
+      <p className="lesson-notes-help">Anything you jot down saves locally to your browser as you type. Download as a text file before closing the session so you have a copy you can open in any app.</p>
       <textarea
         className="lesson-notes-textarea"
         value={notes}
@@ -87,7 +87,7 @@ export function LessonNotesPanel({ courseId, courseTitle }: Props) {
       />
       <div className="lesson-notes-footer">
         <button type="button" className="lesson-notes-download" onClick={handleDownload}>
-          Download .md
+          Download notes
         </button>
         <button type="button" className="lesson-notes-clear" onClick={handleClear}>
           Clear
