@@ -152,6 +152,10 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <div class="setup-group">
 <h3 class="setup-group-heading">New to these tools?</h3>
 <p class="setup-group-intro">Open the path for yours below to see every click. The table above is the short version; this is the every-button-by-name version.</p>
+<div class="version-note">
+<strong>Captured June 2026.</strong> AI tools change their menus often. If a button name or menu has moved since you opened this lesson, paste this prompt into your AI tool and ask it for current instructions:
+<pre><code>I need to set up persistent custom instructions in [your tool, e.g. ChatGPT Plus, ChatGPT free, Claude Pro, Microsoft Copilot, Google Gemini]. Walk me through every click I need to make in the current UI, naming the buttons and menus exactly as they appear today.</code></pre>
+</div>
 <details class="setup-detail">
 <summary><strong>ChatGPT Plus</strong>: every click</summary>
 <ol>

@@ -639,6 +639,35 @@
   border-top: 1px solid #e5e7eb;
 }
 
+/* Version note for date-sensitive UI instructions */
+.lesson-block-body .version-note {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid #2563eb;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 0 0 14px 0;
+  font-size: 0.88rem;
+  color: #1e3a8a;
+  line-height: 1.5;
+}
+
+.lesson-block-body .version-note strong {
+  color: #1e3a8a;
+}
+
+.lesson-block-body .version-note pre {
+  background: #ffffff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 8px 0 0 0;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #1e3a8a;
+}
+
 /* Caution panel for upload steps - red accent so it reads as "stop and check" */
 .lesson-block-body .upload-warning {
   background: #fef2f2;
