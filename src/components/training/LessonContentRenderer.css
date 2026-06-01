@@ -848,6 +848,40 @@
   color: #1e3a8a;
 }
 
+/* Path card - clearly delineates parallel paths (free tier vs Plus/Pro)
+   so users see at-a-glance which set of actions applies to them. */
+.lesson-block-body .path-card {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #15803d;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+}
+
+.lesson-block-body .path-card-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #14532d;
+  margin-bottom: 6px;
+}
+
+.lesson-block-body .path-card p {
+  color: #14532d;
+  margin: 0 0 8px 0;
+}
+
+.lesson-block-body .path-card p:last-child {
+  margin-bottom: 0;
+}
+
+.lesson-block-body .path-card strong {
+  color: #052e16;
+}
+
 /* Caution panel for upload steps - red accent so it reads as "stop and check" */
 .lesson-block-body .upload-warning {
   background: #fef2f2;

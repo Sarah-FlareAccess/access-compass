@@ -499,9 +499,17 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 </tr>
 </tbody>
 </table>
-<p>Open a blank document or note. Copy in whatever you have. If you have nothing, that is fine. The AI will prompt you in the next step.</p>
-<p><strong>Alternative if you have a long source (e.g. a multi-page policy or brand guide):</strong> on Plus or Pro tiers you can upload the file directly to your project's Files area instead of pasting. In the next step, reference it with a line like "See the source document I have uploaded to this project." Free tiers paste directly into the chat.</p>
-<div class="upload-warning"><strong>Before you upload:</strong> do not upload anything containing personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>`,
+<p>If you have nothing prepared, you can still pick any format. The AI will prompt you for what it needs in Step 3.</p>
+<div class="path-card">
+<div class="path-card-label">Free tier path (Claude free, ChatGPT free, Copilot, Gemini)</div>
+<p><strong>Have your source ready in a note app, browser tab or Word doc.</strong> You will copy and paste it directly into the chat in Step 3.</p>
+</div>
+<div class="path-card">
+<div class="path-card-label">Plus or Pro tier path (ChatGPT Plus, Claude Pro)</div>
+<p>For long sources (multi-page policies, brand guides, detailed staff manuals), <strong>upload the file to your project's Files area now</strong>. In Step 3, you will reference it with this line:</p>
+<pre><code>See the source document I have uploaded to this project.</code></pre>
+<div class="upload-warning"><strong>Before you upload:</strong> do not upload anything containing personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>
+</div>`,
         },
         {
           type: 'callout',

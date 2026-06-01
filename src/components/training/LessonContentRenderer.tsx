@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import type { LessonContentBlock } from '../../data/training/types';
 import { ExerciseBlock } from './ExerciseBlock';
 import { DownloadBlock } from './DownloadBlock';
@@ -71,82 +70,62 @@ function FormatChoiceBlock({
 
 const COPY_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 const CHECK_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+const COPY_BTN_INNER = COPY_ICON_SVG + '<span>Copy</span>';
+const COPIED_BTN_INNER = CHECK_ICON_SVG + '<span>Copied</span>';
+
+function addCopyButtonsToHtml(html: string): string {
+  // Wrap every <pre>...</pre> with a wrapper + toolbar + copy button so the
+  // button is part of the React-rendered HTML (survives re-renders, no race
+  // with dangerouslySetInnerHTML).
+  return html.replace(/<pre>([\s\S]*?)<\/pre>/g, (_match, inner) => {
+    return `<div class="copyable-pre-wrapper"><div class="copyable-pre-toolbar"><button type="button" class="copyable-pre-btn" aria-label="Copy to clipboard">${COPY_BTN_INNER}</button></div><pre>${inner}</pre></div>`;
+  });
+}
 
 function TextBlock({ heading, body }: { heading?: string; body?: string }) {
-  const bodyRef = useRef<HTMLDivElement>(null);
+  const transformed = body ? addCopyButtonsToHtml(body) : undefined;
 
-  useEffect(() => {
-    const root = bodyRef.current;
-    if (!root || !body) return;
+  const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest<HTMLButtonElement>('.copyable-pre-btn');
+    if (!btn) return;
+    const wrapper = btn.closest('.copyable-pre-wrapper');
+    const pre = wrapper?.querySelector('pre');
+    if (!pre) return;
+    const text = (pre.querySelector('code')?.textContent ?? pre.textContent ?? '').trim();
+    if (!text) return;
 
-    const pres = Array.from(root.querySelectorAll('pre'));
-    const cleanupFns: Array<() => void> = [];
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
 
-    pres.forEach((pre) => {
-      if (pre.parentElement?.classList.contains('copyable-pre-wrapper')) return;
-      const text = (pre.querySelector('code')?.textContent ?? pre.textContent ?? '').trim();
-      if (!text) return;
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'copyable-pre-wrapper';
-      pre.parentNode?.insertBefore(wrapper, pre);
-
-      const toolbar = document.createElement('div');
-      toolbar.className = 'copyable-pre-toolbar';
-
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'copyable-pre-btn';
+    btn.classList.add('is-copied');
+    btn.innerHTML = COPIED_BTN_INNER;
+    btn.setAttribute('aria-label', 'Copied to clipboard');
+    window.setTimeout(() => {
+      btn.classList.remove('is-copied');
+      btn.innerHTML = COPY_BTN_INNER;
       btn.setAttribute('aria-label', 'Copy to clipboard');
-      btn.innerHTML = COPY_ICON_SVG + '<span>Copy</span>';
-
-      let resetTimer: number | null = null;
-      const handleClick = async () => {
-        try {
-          await navigator.clipboard.writeText(text);
-        } catch {
-          const textarea = document.createElement('textarea');
-          textarea.value = text;
-          textarea.style.position = 'fixed';
-          textarea.style.opacity = '0';
-          document.body.appendChild(textarea);
-          textarea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textarea);
-        }
-        btn.classList.add('is-copied');
-        btn.innerHTML = CHECK_ICON_SVG + '<span>Copied</span>';
-        btn.setAttribute('aria-label', 'Copied to clipboard');
-        if (resetTimer) window.clearTimeout(resetTimer);
-        resetTimer = window.setTimeout(() => {
-          btn.classList.remove('is-copied');
-          btn.innerHTML = COPY_ICON_SVG + '<span>Copy</span>';
-          btn.setAttribute('aria-label', 'Copy to clipboard');
-        }, 2000);
-      };
-
-      btn.addEventListener('click', handleClick);
-      toolbar.appendChild(btn);
-      wrapper.appendChild(toolbar);
-      wrapper.appendChild(pre);
-
-      cleanupFns.push(() => {
-        btn.removeEventListener('click', handleClick);
-        if (resetTimer) window.clearTimeout(resetTimer);
-      });
-    });
-
-    return () => cleanupFns.forEach((fn) => fn());
-  }, [body]);
+    }, 2000);
+  };
 
   return (
     <div className="lesson-text-block">
       {heading && <h2 className="lesson-block-heading">{heading}</h2>}
-      {body && (
+      {transformed && (
         <div
-          ref={bodyRef}
           className="lesson-block-body"
-          dangerouslySetInnerHTML={{ __html: body }}
+          onClick={handleClick}
+          dangerouslySetInnerHTML={{ __html: transformed }}
         />
       )}
     </div>
