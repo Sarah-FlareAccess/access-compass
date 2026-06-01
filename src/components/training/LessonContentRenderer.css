@@ -639,6 +639,123 @@
   border-top: 1px solid #e5e7eb;
 }
 
+/* Format choice picker, saves to localStorage and pre-fills exercise
+   prompt templates via the bracket substitutions ([FORMAT NAME], [AUDIENCE]). */
+.format-choice-block {
+  border: 1px solid #c7d2fe;
+  border-left: 4px solid #4f46e5;
+  border-radius: 10px;
+  background: #f5f3ff;
+  padding: 14px 16px;
+  margin: 12px 0;
+}
+
+.format-choice-legend {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #3730a3;
+  padding: 0 6px;
+  margin-left: -6px;
+}
+
+.format-choice-help {
+  font-size: 0.88rem;
+  color: #4338ca;
+  margin: 4px 0 12px 0;
+  line-height: 1.5;
+}
+
+.format-choice-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.format-choice-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #1f2937;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.format-choice-option:hover {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+}
+
+.format-choice-option.is-selected {
+  background: #4f46e5;
+  border-color: #4338ca;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.format-choice-option input[type="radio"] {
+  accent-color: #4f46e5;
+  margin: 0;
+}
+
+.format-choice-option.is-selected input[type="radio"] {
+  accent-color: #ffffff;
+}
+
+.format-choice-option:focus-within {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
+}
+
+.format-choice-audience {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.format-choice-audience label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #3730a3;
+}
+
+.format-choice-audience input {
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  border: 1px solid #c7d2fe;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1f2937;
+}
+
+.format-choice-audience input:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
+  border-color: #4f46e5;
+}
+
+.format-choice-summary {
+  margin: 12px 0 0 0;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: #1e1b4b;
+  line-height: 1.5;
+}
+
+.format-choice-summary strong {
+  color: #312e81;
+}
+
 /* Copy button injected next to every <pre> block in lesson body HTML.
    High-specificity rules ensure the padding-right reserves space across
    every callout context (.version-note, .do-now, etc.). */

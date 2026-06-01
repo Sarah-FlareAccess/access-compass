@@ -434,7 +434,24 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 </tr>
 </tbody>
 </table>
-<p>Write your choice down: "I am creating ___ for ___."</p>`,
+`,
+        },
+        {
+          type: 'format-choice',
+          formatChoice: {
+            legend: 'Lock your choice in',
+            helpText: 'Picking here saves your choice locally and pre-fills the briefing prompt in Step 3 and the sense-check prompt in Lesson 4. You can change it anytime.',
+            formats: [
+              { value: 'Easy Read', label: 'Easy Read' },
+              { value: 'Plain Language', label: 'Plain Language' },
+              { value: 'Social Story / Visual Narrative', label: 'Social Story / Visual Narrative' },
+              { value: 'Accessibility Guide', label: 'Accessibility Guide' },
+              { value: 'Large Print', label: 'Large Print' },
+              { value: 'Accessible Digital Document (Word/PDF)', label: 'Accessible Digital Document (Word/PDF)' },
+            ],
+            audienceLabel: 'For audience',
+            audiencePlaceholder: 'e.g. parents of children visiting our museum',
+          },
         },
         {
           type: 'text',

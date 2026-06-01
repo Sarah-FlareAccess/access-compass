@@ -3,7 +3,64 @@ import type { LessonContentBlock } from '../../data/training/types';
 import { ExerciseBlock } from './ExerciseBlock';
 import { DownloadBlock } from './DownloadBlock';
 import { useStepProgress } from '../../hooks/useStepProgress';
+import { useFormatChoice } from '../../hooks/useFormatChoice';
 import './LessonContentRenderer.css';
+
+function FormatChoiceBlock({
+  legend,
+  helpText,
+  formats,
+  audienceLabel,
+  audiencePlaceholder,
+  courseId,
+}: {
+  legend: string;
+  helpText?: string;
+  formats: Array<{ value: string; label: string }>;
+  audienceLabel: string;
+  audiencePlaceholder?: string;
+  courseId: string;
+}) {
+  const { choice, setFormat, setAudience } = useFormatChoice(courseId);
+  const hasBoth = choice.format && choice.audience.trim();
+
+  return (
+    <fieldset className="format-choice-block">
+      <legend className="format-choice-legend">{legend}</legend>
+      {helpText && <p className="format-choice-help">{helpText}</p>}
+      <div className="format-choice-options" role="radiogroup" aria-label="Format">
+        {formats.map((f) => (
+          <label key={f.value} className={`format-choice-option${choice.format === f.value ? ' is-selected' : ''}`}>
+            <input
+              type="radio"
+              name={`format-choice-${courseId}`}
+              value={f.value}
+              checked={choice.format === f.value}
+              onChange={() => setFormat(f.value)}
+            />
+            <span>{f.label}</span>
+          </label>
+        ))}
+      </div>
+      <div className="format-choice-audience">
+        <label htmlFor={`format-choice-audience-${courseId}`}>{audienceLabel}</label>
+        <input
+          id={`format-choice-audience-${courseId}`}
+          type="text"
+          value={choice.audience}
+          onChange={(e) => setAudience(e.target.value)}
+          placeholder={audiencePlaceholder ?? ''}
+          autoComplete="off"
+        />
+      </div>
+      {hasBoth && (
+        <p className="format-choice-summary" aria-live="polite">
+          You are creating <strong>{choice.format}</strong> for <strong>{choice.audience}</strong>. This will pre-fill the briefing prompt in Step 3 and the sense-check prompt in Lesson 4.
+        </p>
+      )}
+    </fieldset>
+  );
+}
 
 const COPY_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 const CHECK_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -166,7 +223,11 @@ function CalloutBlock({ variant, text }: { variant: string; text: string }) {
   );
 }
 
-function renderBlock(block: LessonContentBlock, key: React.Key): React.ReactNode {
+function renderBlock(
+  block: LessonContentBlock,
+  key: React.Key,
+  ctx: { courseId: string; substitutions: Record<string, string> }
+): React.ReactNode {
   switch (block.type) {
     case 'text':
       return <TextBlock key={key} heading={block.heading} body={block.body} />;
@@ -205,6 +266,21 @@ function renderBlock(block: LessonContentBlock, key: React.Key): React.ReactNode
           expectedOutcome={block.exercise.expectedOutcome}
           tips={block.exercise.tips}
           exampleOutput={block.exercise.exampleOutput}
+          substitutions={ctx.substitutions}
+        />
+      );
+
+    case 'format-choice':
+      if (!block.formatChoice) return null;
+      return (
+        <FormatChoiceBlock
+          key={key}
+          legend={block.formatChoice.legend}
+          helpText={block.formatChoice.helpText}
+          formats={block.formatChoice.formats}
+          audienceLabel={block.formatChoice.audienceLabel}
+          audiencePlaceholder={block.formatChoice.audiencePlaceholder}
+          courseId={ctx.courseId}
         />
       );
 
@@ -286,7 +362,13 @@ function groupBlocks(blocks: LessonContentBlock[]): StepGroup[] {
 
 export function LessonContentRenderer({ blocks, courseId, lessonId }: LessonContentRendererProps) {
   const { toggleStep, isStepDone } = useStepProgress(courseId, lessonId);
+  const { choice } = useFormatChoice(courseId);
   const groups = groupBlocks(blocks);
+  const substitutions: Record<string, string> = {
+    'FORMAT NAME': choice.format,
+    AUDIENCE: choice.audience,
+  };
+  const ctx = { courseId, substitutions };
 
   return (
     <div className="lesson-content-blocks">
@@ -294,7 +376,7 @@ export function LessonContentRenderer({ blocks, courseId, lessonId }: LessonCont
         if (group.stepNum === null) {
           return (
             <div key={`g-${gIndex}`} className="lesson-prologue-group">
-              {group.items.map(({ block, index }) => renderBlock(block, index))}
+              {group.items.map(({ block, index }) => renderBlock(block, index, ctx))}
             </div>
           );
         }
@@ -321,7 +403,7 @@ export function LessonContentRenderer({ blocks, courseId, lessonId }: LessonCont
             <div className="lesson-step-card-body">
               {group.items.map(({ block, index }, i) => {
                 const toRender = i === 0 ? withStrippedHeading(block) : block;
-                return renderBlock(toRender, index);
+                return renderBlock(toRender, index, ctx);
               })}
             </div>
             <div className="lesson-step-card-footer">

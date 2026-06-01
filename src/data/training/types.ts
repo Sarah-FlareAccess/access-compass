@@ -17,7 +17,8 @@ export type ContentBlockType =
   | 'download'
   | 'checklist'
   | 'callout'
-  | 'image';
+  | 'image'
+  | 'format-choice';
 
 export interface TrainingCategoryConfig {
   id: TrainingCategory;
@@ -71,6 +72,13 @@ export interface LessonContentBlock {
     src: string;
     alt: string;
     caption?: string;
+  };
+  formatChoice?: {
+    legend: string;
+    helpText?: string;
+    formats: Array<{ value: string; label: string }>;
+    audienceLabel: string;
+    audiencePlaceholder?: string;
   };
 }
 

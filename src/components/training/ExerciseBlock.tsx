@@ -7,6 +7,20 @@ interface ExerciseBlockProps {
   expectedOutcome?: string;
   tips?: string[];
   exampleOutput?: string;
+  substitutions?: Record<string, string>;
+}
+
+function applySubstitutions(text: string, subs?: Record<string, string>): string {
+  if (!subs) return text;
+  let result = text;
+  for (const [key, value] of Object.entries(subs)) {
+    if (!value) continue;
+    const placeholder = `[${key}]`;
+    while (result.includes(placeholder)) {
+      result = result.replace(placeholder, value);
+    }
+  }
+  return result;
 }
 
 export function ExerciseBlock({
@@ -16,20 +30,28 @@ export function ExerciseBlock({
   expectedOutcome,
   tips,
   exampleOutput,
+  substitutions,
 }: ExerciseBlockProps) {
   const [copied, setCopied] = useState(false);
   const statusRef = useRef<HTMLSpanElement>(null);
 
+  const resolvedInstructions = applySubstitutions(instructions, substitutions);
+  const resolvedPromptTemplate = promptTemplate
+    ? applySubstitutions(promptTemplate, substitutions)
+    : undefined;
+  const resolvedExpectedOutcome = expectedOutcome
+    ? applySubstitutions(expectedOutcome, substitutions)
+    : undefined;
+
   const handleCopy = async () => {
-    if (!promptTemplate) return;
+    if (!resolvedPromptTemplate) return;
     try {
-      await navigator.clipboard.writeText(promptTemplate);
+      await navigator.clipboard.writeText(resolvedPromptTemplate);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback for older browsers
       const textarea = document.createElement('textarea');
-      textarea.value = promptTemplate;
+      textarea.value = resolvedPromptTemplate;
       textarea.style.position = 'fixed';
       textarea.style.opacity = '0';
       document.body.appendChild(textarea);
@@ -53,9 +75,9 @@ export function ExerciseBlock({
         <h3 className="exercise-title">{title}</h3>
       </div>
 
-      <div className="exercise-instructions">{instructions}</div>
+      <div className="exercise-instructions">{resolvedInstructions}</div>
 
-      {promptTemplate && (
+      {resolvedPromptTemplate && (
         <div className="exercise-prompt-section">
           <div className="exercise-prompt-header">
             <span className="exercise-prompt-label">Prompt template</span>
@@ -77,16 +99,16 @@ export function ExerciseBlock({
               {copied ? 'Copied' : 'Copy'}
             </button>
           </div>
-          <pre className="exercise-prompt-template">{promptTemplate}</pre>
+          <pre className="exercise-prompt-template">{resolvedPromptTemplate}</pre>
           <span ref={statusRef} className="sr-only" aria-live="polite">
             {copied ? 'Prompt template copied to clipboard' : ''}
           </span>
         </div>
       )}
 
-      {expectedOutcome && (
+      {resolvedExpectedOutcome && (
         <div className="exercise-expected">
-          <strong>Expected outcome:</strong> {expectedOutcome}
+          <strong>Expected outcome:</strong> {resolvedExpectedOutcome}
         </div>
       )}
 
