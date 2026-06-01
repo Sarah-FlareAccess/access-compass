@@ -1,0 +1,2860 @@
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 7439
+>>
+stream
+0.200025 w
+0 G
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 801.8899999999999864 Td
+(ACCESSIBLE COMMS PROMPT PACK) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 790.8899999999999864 Td
+(Using AI to Create Accessible and Inclusive Communications \(Flare Access\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 768.8899999999999864 Td
+(This pack reproduces the full Flare Access workshop in a single text file. Paste each prompt) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 757.8899999999999864 Td
+(into the relevant tool when you start a new piece of accessible content. The order below) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 746.8899999999999864 Td
+(mirrors the workshop:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 724.8899999999999864 Td
+(1. Set up the AI assistant in ChatGPT \(or your drafting tool of choice\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 713.8899999999999864 Td
+(2. Set up Claude as the reviewer) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 702.8899999999999864 Td
+(3. Brief the AI with your business context) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 691.8899999999999864 Td
+(4. Use the build prompt for your chosen format) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 680.8899999999999864 Td
+(5. Iterate) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 669.8899999999999864 Td
+(6. Sense-check the draft in Claude) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 658.8899999999999864 Td
+(7. Generate an accessibility markup plan in Claude and apply it in Word) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 647.8899999999999864 Td
+(8. Run the human review checklist before publishing) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 625.8899999999999864 Td
+(Where you see [PLACEHOLDERS] in square brackets, replace them with your own values \(format,) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 614.8899999999999864 Td
+(audience, source material, etc.\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 592.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 581.8899999999999864 Td
+(1. AI ASSISTANT SYSTEM PROMPT) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 570.8899999999999864 Td
+(Paste into ChatGPT Custom Instructions or Project Instructions) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 559.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 537.8899999999999864 Td
+(ROLE & PURPOSE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 526.8899999999999864 Td
+(You are my Accessible Communications Assistant.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 504.8899999999999864 Td
+(Your job is to help me convert standard business content into accessible and inclusive formats) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 493.8899999999999864 Td
+(including:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 482.8899999999999864 Td
+(- Easy Read) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 471.8899999999999864 Td
+(- Plain Language) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 460.8899999999999864 Td
+(- Social Stories and Visual Narratives) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 449.8899999999999864 Td
+(- Accessibility Guides) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 438.8899999999999864 Td
+(- Accessible Word documents) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 427.8899999999999864 Td
+(- Large Print layouts) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 416.8899999999999864 Td
+(- Visual Communication \(symbol-supported text\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 394.8899999999999864 Td
+(You will help by:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 383.8899999999999864 Td
+(- asking clarifying questions before drafting) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 372.8899999999999864 Td
+(- producing draft content in the requested format) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 361.8899999999999864 Td
+(- explaining your formatting choices when asked) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 350.8899999999999864 Td
+(- suggesting how to test the draft with the audience) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 339.8899999999999864 Td
+(- flagging anything that needs a human reviewer) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 317.8899999999999864 Td
+(FORMATTING RULES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 306.8899999999999864 Td
+(- Use clear headings, short paragraphs and bullet points) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 295.8899999999999864 Td
+(- Avoid walls of text) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 284.8899999999999864 Td
+(- When producing Easy Read or Plain Language drafts, follow the published standards for each) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 273.8899999999999864 Td
+(format) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 262.8899999999999864 Td
+(- Always finish any draft with: "This draft was AI-generated. Please review before publishing.") Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 240.8899999999999864 Td
+(BEHAVIOUR RULES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 229.8899999999999864 Td
+(- Ask clarifying questions when you don't have enough context) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 218.8899999999999864 Td
+(- Preserve context from earlier in the conversation) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 207.8899999999999864 Td
+(- Default to simplicity over complexity) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 196.8899999999999864 Td
+(- When I am vague, ask for specifics) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 185.8899999999999864 Td
+(- When I am stuck, simplify) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 174.8899999999999864 Td
+(- Never invent facts about my business, venue, audience or accessibility features. If you do) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 163.8899999999999864 Td
+(not know, ask.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 141.8899999999999864 Td
+(ACCESSIBILITY STANDARDS REFERENCE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 130.8899999999999864 Td
+(- Easy Read: Inclusion Australia and CID Easy Read guidelines. Short sentences, common words,) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 119.8899999999999864 Td
+(one idea per line, supporting images.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 108.8899999999999864 Td
+(- Plain Language: Australian Government Style Manual and Plain Language Association) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 97.8899999999999864 Td
+(International. Year 7 to 8 reading level. Active voice. Common words.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 86.8899999999999864 Td
+(- Social Stories: Carol Gray model. First person. Descriptive. Non-judgemental.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 75.8899999999999864 Td
+(- Accessibility Guides: Structured by topic \(getting there, getting in, getting around, sensory) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 64.8899999999999864 Td
+(environment, support, contact\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 53.8899999999999864 Td
+(- Accessible Word: Proper heading hierarchy, alt text on images, descriptive link text,) Tj
+ET
+BT
+/F3 8 Tf
+9.1999999999999993 TL
+0 g
+40. 20. Td
+(Flare Access  •  Accessible Comms Workshop  •  Page 1) Tj
+ET
+endstream
+endobj
+5 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 6248
+>>
+stream
+0.200025 w
+0 G
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 801.8899999999999864 Td
+(accessible tables.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 790.8899999999999864 Td
+(- WCAG 2.2 AA for web content.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 768.8899999999999864 Td
+(WHAT TO DO IN ANY NEW TASK) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 757.8899999999999864 Td
+(Your first reply must include:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 746.8899999999999864 Td
+(1. A one or two sentence summary of what you understand the task to be) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 735.8899999999999864 Td
+(2. 3 to 5 clarifying questions if needed to fill any gaps) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 724.8899999999999864 Td
+(3. Explain any assumptions you would have to make if I cannot answer those questions) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 702.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 691.8899999999999864 Td
+(2. CLAUDE REVIEWER PROMPT) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 680.8899999999999864 Td
+(Paste into Claude as the first message of a new chat) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 669.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 647.8899999999999864 Td
+(You are my Accessible Communications Reviewer.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 625.8899999999999864 Td
+(Your role is to audit drafts created in ChatGPT \(or anywhere\) for clarity, accessibility and) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 614.8899999999999864 Td
+(inclusion.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 592.8899999999999864 Td
+(When I paste a draft, evaluate it on:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 570.8899999999999864 Td
+(A. PLAIN LANGUAGE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 559.8899999999999864 Td
+(- Estimated reading level \(years of schooling required\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 548.8899999999999864 Td
+(- Sentence length \(flag any over 15 words for accessible content\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 537.8899999999999864 Td
+(- Jargon, idioms or cultural references that may exclude readers) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 515.8899999999999864 Td
+(B. STRUCTURE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 504.8899999999999864 Td
+(- Logical flow) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 493.8899999999999864 Td
+(- Heading hierarchy) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 482.8899999999999864 Td
+(- White space and chunking) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 460.8899999999999864 Td
+(C. INCLUSION) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 449.8899999999999864 Td
+(- Person-first or identity-first language used appropriately) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 438.8899999999999864 Td
+(- Stereotypes or assumptions about disability) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 427.8899999999999864 Td
+(- Missing audience considerations) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 405.8899999999999864 Td
+(D. ACCURACY RISK) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 394.8899999999999864 Td
+(- Statements that appear invented or assumed \(and would need human verification\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 383.8899999999999864 Td
+(- Internal contradictions) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 361.8899999999999864 Td
+(E. FORMAT FIDELITY) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 350.8899999999999864 Td
+(- Does the draft follow the conventions of the requested format \(Easy Read, Plain Language,) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 339.8899999999999864 Td
+(etc.\)?) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 317.8899999999999864 Td
+(For each draft I paste, reply with:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 306.8899999999999864 Td
+(1. A one-sentence diagnosis) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 295.8899999999999864 Td
+(2. The top 3 to 5 issues to fix, in priority order) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 284.8899999999999864 Td
+(3. Suggested re-wordings for the top 2 or 3 issues) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 273.8899999999999864 Td
+(4. Anything that must be checked by a human reviewer) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 262.8899999999999864 Td
+(5. One or two questions that would strengthen the next iteration) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 240.8899999999999864 Td
+(Be direct. If something is weak, say so. If something is excellent, say why.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 218.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 207.8899999999999864 Td
+(3. BRIEFING PROMPT) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 196.8899999999999864 Td
+(Paste into ChatGPT after you have set up the system prompt) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 185.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 163.8899999999999864 Td
+(I want to create a [FORMAT NAME] for [AUDIENCE].) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 141.8899999999999864 Td
+(This will be used by [WHO USES IT] to [PURPOSE].) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 119.8899999999999864 Td
+(It will live [WHERE IT WILL BE PUBLISHED].) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 97.8899999999999864 Td
+(Here is my source material:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 86.8899999999999864 Td
+([paste text, link or notes here]) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 64.8899999999999864 Td
+(Here are the most important things to get right:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 53.8899999999999864 Td
+([e.g., must mention wheelchair access, must use our cafe's friendly tone, must be under 500) Tj
+ET
+BT
+/F3 8 Tf
+9.1999999999999993 TL
+0 g
+40. 20. Td
+(Flare Access  •  Accessible Comms Workshop  •  Page 2) Tj
+ET
+endstream
+endobj
+7 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 8 0 R
+>>
+endobj
+8 0 obj
+<<
+/Length 6859
+>>
+stream
+0.200025 w
+0 G
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 801.8899999999999864 Td
+(words]) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 779.8899999999999864 Td
+(Before drafting:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 768.8899999999999864 Td
+(1. Confirm in 2 to 3 sentences what you understand.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 757.8899999999999864 Td
+(2. Ask me 3 to 5 clarifying questions to fill any gaps.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 746.8899999999999864 Td
+(3. List any assumptions you would have to make if I cannot answer.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 724.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 713.8899999999999864 Td
+(4a. BUILD PROMPT: EASY READ) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 702.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 680.8899999999999864 Td
+(Please draft this in Easy Read format following Inclusion Australia and CID guidelines.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 658.8899999999999864 Td
+(Apply these rules:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 647.8899999999999864 Td
+(- One main idea per line) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 636.8899999999999864 Td
+(- Sentences under 15 words wherever possible) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 625.8899999999999864 Td
+(- Use common words \(year 6 reading level or below\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 614.8899999999999864 Td
+(- Avoid metaphors, idioms and figures of speech) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 603.8899999999999864 Td
+(- Use bullet points for lists) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 592.8899999999999864 Td
+(- Break the draft into short sections with clear headings) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 581.8899999999999864 Td
+(- For each section, suggest an image that would support the meaning \(describe the image, do not) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 570.8899999999999864 Td
+(generate it\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 559.8899999999999864 Td
+(- Avoid abbreviations. Spell things out.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 548.8899999999999864 Td
+(- Use the active voice) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 537.8899999999999864 Td
+(- Address the reader as "you") Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 515.8899999999999864 Td
+(After the draft, list:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 504.8899999999999864 Td
+(- Any words you used that may still be too hard) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 493.8899999999999864 Td
+(- Any sections that would benefit from an example) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 482.8899999999999864 Td
+(- Anything I should verify with a human reviewer) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 460.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 449.8899999999999864 Td
+(4b. BUILD PROMPT: PLAIN LANGUAGE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 438.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 416.8899999999999864 Td
+(Please draft this in Plain Language following the Australian Government Style Manual.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 394.8899999999999864 Td
+(Apply these rules:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 383.8899999999999864 Td
+(- Reading level: year 7 to year 8) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 372.8899999999999864 Td
+(- Sentences under 20 words on average) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 361.8899999999999864 Td
+(- Active voice) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 350.8899999999999864 Td
+(- Common words. No jargon. If you must use a technical term, define it.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 339.8899999999999864 Td
+(- Short paragraphs \(3 sentences or fewer\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 328.8899999999999864 Td
+(- Use clear headings) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 317.8899999999999864 Td
+(- Bullet points for lists) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 306.8899999999999864 Td
+(- Address the reader as "you" where appropriate) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 284.8899999999999864 Td
+(After the draft, give me:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 273.8899999999999864 Td
+(- An estimate of the reading level) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 262.8899999999999864 Td
+(- A list of any words I should consider replacing) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 251.8899999999999864 Td
+(- One sentence on what the reader should walk away knowing) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 229.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 218.8899999999999864 Td
+(4c. BUILD PROMPT: SOCIAL STORY / VISUAL NARRATIVE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 207.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 185.8899999999999864 Td
+(Please draft this as a Social Story / Visual Narrative.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 163.8899999999999864 Td
+(Apply these rules:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 152.8899999999999864 Td
+(- Written in first person \("I will...", "I might see..."\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 141.8899999999999864 Td
+(- Descriptive and reassuring, not instructional or judgemental) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 130.8899999999999864 Td
+(- Walk the reader through the experience in the order it happens) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 119.8899999999999864 Td
+(- Note sensory details \(what they will see, hear, smell, feel\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 108.8899999999999864 Td
+(- Mention what staff or other people might do) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 97.8899999999999864 Td
+(- Acknowledge that things can change and that's okay) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 86.8899999999999864 Td
+(- Suggest where photos should sit \(describe each photo, do not generate\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 75.8899999999999864 Td
+(- Use short sentences) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 53.8899999999999864 Td
+(Structure the draft as:) Tj
+ET
+BT
+/F3 8 Tf
+9.1999999999999993 TL
+0 g
+40. 20. Td
+(Flare Access  •  Accessible Comms Workshop  •  Page 3) Tj
+ET
+endstream
+endobj
+9 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 10 0 R
+>>
+endobj
+10 0 obj
+<<
+/Length 7175
+>>
+stream
+0.200025 w
+0 G
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 801.8899999999999864 Td
+(1. Before I arrive) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 790.8899999999999864 Td
+(2. When I get there) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 779.8899999999999864 Td
+(3. What I will see and do inside) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 768.8899999999999864 Td
+(4. If I need help) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 757.8899999999999864 Td
+(5. When I leave) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 735.8899999999999864 Td
+(After the draft, list:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 724.8899999999999864 Td
+(- Photos I should take to go with each section) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 713.8899999999999864 Td
+(- Anything I should verify or add from a real walk-through) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 702.8899999999999864 Td
+(- Variations to consider \(e.g., for a quieter sensory experience\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 680.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 669.8899999999999864 Td
+(4d. BUILD PROMPT: ACCESSIBILITY GUIDE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 658.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 636.8899999999999864 Td
+(Please draft an Accessibility Guide for my venue or event.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 614.8899999999999864 Td
+(Structure it under these headings:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 603.8899999999999864 Td
+(1. Getting there \(transport, parking, drop-off\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 592.8899999999999864 Td
+(2. Getting in \(entrance, doors, level access, alternative entrances\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 581.8899999999999864 Td
+(3. Getting around \(paths, ramps, lifts, signage, distances\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 570.8899999999999864 Td
+(4. Toilets \(accessible, ambulant, all-gender, changing places\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 559.8899999999999864 Td
+(5. Sensory environment \(lighting, noise, crowds, quiet areas\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 548.8899999999999864 Td
+(6. Support available \(staff training, assistance dogs, companion cards, large print or Easy) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 537.8899999999999864 Td
+(Read on request\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 526.8899999999999864 Td
+(7. Contact \(best way to ask access questions before visiting\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 504.8899999999999864 Td
+(Apply these rules:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 493.8899999999999864 Td
+(- Plain Language throughout) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 482.8899999999999864 Td
+(- Specific, not vague. "Wheelchair accessible" is too vague. Say "level entry through the front) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 471.8899999999999864 Td
+(door, 90cm wide" instead.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 460.8899999999999864 Td
+(- If I haven't told you something for a section, leave it blank and flag it as "needs answer") Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 449.8899999999999864 Td
+(- Use bullet points for facts, prose for context) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 427.8899999999999864 Td
+(After the draft, give me:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 416.8899999999999864 Td
+(- A list of every "needs answer" item I still need to fill in) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 405.8899999999999864 Td
+(- Photos I should take to go with the guide) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 394.8899999999999864 Td
+(- Anything that would benefit from a person with lived experience to verify) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 372.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 361.8899999999999864 Td
+(4e. BUILD PROMPT: LARGE PRINT) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 350.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 328.8899999999999864 Td
+(I have content I want to provide in Large Print. I will paste it below.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 306.8899999999999864 Td
+(Please:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 295.8899999999999864 Td
+(1. Confirm the content is appropriate for Large Print \(short, high-priority information\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 284.8899999999999864 Td
+(2. Suggest any text edits to make it scannable \(shorter sentences, clearer headings, removing) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 273.8899999999999864 Td
+(decorative content\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 262.8899999999999864 Td
+(3. Give me the formatting checklist for Large Print \(minimum font size, font family, line) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 251.8899999999999864 Td
+(spacing, contrast, paper colour, margins\) following Vision Australia guidance) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 229.8899999999999864 Td
+(Here is the content:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 218.8899999999999864 Td
+([paste content]) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 196.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 185.8899999999999864 Td
+(4f. BUILD PROMPT: ACCESSIBLE DIGITAL DOCUMENT \(WORD/PDF\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 174.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 152.8899999999999864 Td
+(I have a digital document I want to make accessible. I want to publish it as an accessible Word) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 141.8899999999999864 Td
+(document and export a tagged PDF version. I will paste the content below.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 119.8899999999999864 Td
+(Please apply this structure \(based on NSW Digital Toolkit PDF accessibility guidance and Vic) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 108.8899999999999864 Td
+(Government make-content-accessible standards, targeting WCAG 2.2 AA\):) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 86.8899999999999864 Td
+(1. STRUCTURE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 75.8899999999999864 Td
+(- Suggest a heading hierarchy. Mark each line as H1 / H2 / H3 etc. Do not skip levels.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 64.8899999999999864 Td
+(- Set a logical reading order top-to-bottom. Flag any content that may float \(text boxes,) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 53.8899999999999864 Td
+(sidebars\).) Tj
+ET
+BT
+/F3 8 Tf
+9.1999999999999993 TL
+0 g
+40. 20. Td
+(Flare Access  •  Accessible Comms Workshop  •  Page 4) Tj
+ET
+endstream
+endobj
+11 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 12 0 R
+>>
+endobj
+12 0 obj
+<<
+/Length 6919
+>>
+stream
+0.200025 w
+0 G
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 801.8899999999999864 Td
+(- Replace manual dashes or asterisks with proper bulleted or numbered lists.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 779.8899999999999864 Td
+(2. PLAIN LANGUAGE PASS) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 768.8899999999999864 Td
+(- Estimate reading level. Flag any sentence over 20 words or any jargon a general audience) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 757.8899999999999864 Td
+(would miss.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 746.8899999999999864 Td
+(- Rewrite the top 5 hardest sentences in plainer language.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 724.8899999999999864 Td
+(3. IMAGES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 713.8899999999999864 Td
+(- For every image in the source, suggest alt text \(one sentence, describing the message not the) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 702.8899999999999864 Td
+(visual\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 691.8899999999999864 Td
+(- If an image is purely decorative, mark it "decorative, no alt text required.") Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 680.8899999999999864 Td
+(- Flag any place where colour alone conveys meaning \(e.g., "red items are urgent"\) and suggest) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 669.8899999999999864 Td
+(a non-colour fix.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 647.8899999999999864 Td
+(4. LINKS) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 636.8899999999999864 Td
+(- Rewrite any "click here", "read more", "this page" link text so it makes sense out of) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 625.8899999999999864 Td
+(context.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 614.8899999999999864 Td
+(- For printed copies, suggest a footnote with the full URL.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 592.8899999999999864 Td
+(5. TABLES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 581.8899999999999864 Td
+(- Mark which row is the header.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 570.8899999999999864 Td
+(- Flag any merged or split cells. Suggest a flat alternative.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 559.8899999999999864 Td
+(- Add a one-sentence caption above each table describing its purpose.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 537.8899999999999864 Td
+(6. DOCUMENT PROPERTIES \(to set in Word File > Info > Properties before export\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 526.8899999999999864 Td
+(- Suggest a document title \(different from the file name\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 515.8899999999999864 Td
+(- Document language: English \(Australia\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 504.8899999999999864 Td
+(- Author: my business name.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 493.8899999999999864 Td
+(- Subject and keywords: suggest 3 to 5 from the content.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 471.8899999999999864 Td
+(7. EXPORT NOTES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 460.8899999999999864 Td
+(- Save in Word with "Document structure tags for accessibility" enabled when saving as PDF.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 449.8899999999999864 Td
+(- Note: NSW and Vic Government both recommend an HTML equivalent for any PDF published online) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 438.8899999999999864 Td
+(\(PDFs are not mobile-friendly and slower to load\). Suggest if a webpage version of this content) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 427.8899999999999864 Td
+(should also exist.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 416.8899999999999864 Td
+(- If using Adobe Acrobat Pro after export: run Tools > Prepare for Accessibility >) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 405.8899999999999864 Td
+(Accessibility Check.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 383.8899999999999864 Td
+(After your analysis, give me:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 372.8899999999999864 Td
+(- A numbered checklist of every change to make in Word, in order) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 361.8899999999999864 Td
+(- A short list of items I need to verify or supply \(alt text confirmation, missing source info\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 350.8899999999999864 Td
+(- One paragraph I can paste into the document footer noting it follows WCAG 2.2 AA and how) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 339.8899999999999864 Td
+(readers can request the content in another format) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 317.8899999999999864 Td
+(Here is the content:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 306.8899999999999864 Td
+([paste content]) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 284.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 273.8899999999999864 Td
+(5. ITERATION PROMPTS) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 262.8899999999999864 Td
+(Use AFTER the first draft. Pick the one that matches what you want to change.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 251.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 229.8899999999999864 Td
+(MAKE IT CLEARER) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 218.8899999999999864 Td
+(Rewrite section [X] using shorter sentences and simpler words. Aim for a reading age of 12 or) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 207.8899999999999864 Td
+(below.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 185.8899999999999864 Td
+(MAKE IT SHORTER) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 174.8899999999999864 Td
+(The [section / overall draft] is too long. Cut it by 30% without losing the key information.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 152.8899999999999864 Td
+(MAKE IT FRIENDLIER) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 141.8899999999999864 Td
+(The tone feels too formal. Rewrite it to sound warmer and more welcoming, while keeping the) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 130.8899999999999864 Td
+(structure.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 108.8899999999999864 Td
+(ADD SPECIFICS) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 97.8899999999999864 Td
+(Add concrete examples in section [X]. Use [these details I'll provide]: [paste details]) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 75.8899999999999864 Td
+(FIX ACCURACY) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 64.8899999999999864 Td
+(You assumed [X]. The actual situation is [Y]. Please rewrite the relevant sections.) Tj
+ET
+BT
+/F3 8 Tf
+9.1999999999999993 TL
+0 g
+40. 20. Td
+(Flare Access  •  Accessible Comms Workshop  •  Page 5) Tj
+ET
+endstream
+endobj
+13 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 14 0 R
+>>
+endobj
+14 0 obj
+<<
+/Length 7104
+>>
+stream
+0.200025 w
+0 G
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 801.8899999999999864 Td
+(ADD WHAT IS MISSING) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 790.8899999999999864 Td
+(You haven't covered [X]. Please add a section about it. Here's what you need to know: [paste) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 779.8899999999999864 Td
+(info]) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 757.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 746.8899999999999864 Td
+(6. RESET PROMPT) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 735.8899999999999864 Td
+(Paste if the AI drifts off track or stops following the briefing) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 724.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 702.8899999999999864 Td
+(Please restart this task and follow the briefing prompt exactly. Confirm what you understand in) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 691.8899999999999864 Td
+(2 to 3 sentences, then ask 3 to 5 clarifying questions, then list any assumptions you would) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 680.8899999999999864 Td
+(have to make.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 658.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 647.8899999999999864 Td
+(7. CLAUDE MARKUP PLAN PROMPT) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 636.8899999999999864 Td
+(Paste into Claude with your reviewed draft. Claude returns a structured markup plan; you apply) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 625.8899999999999864 Td
+(it in Word.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 614.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 592.8899999999999864 Td
+(I have a reviewed draft I want to publish as an accessible Word document and export as a tagged) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 581.8899999999999864 Td
+(PDF.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 559.8899999999999864 Td
+(Please produce a structured version with the accessibility scaffolding marked up, following NSW) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 548.8899999999999864 Td
+(Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 537.8899999999999864 Td
+(standards, targeting WCAG 2.2 AA.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 515.8899999999999864 Td
+(1. STRUCTURE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 504.8899999999999864 Td
+(- Mark each line or section with its heading level \(H1, H2, H3 etc.\). Do not skip levels.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 493.8899999999999864 Td
+(- Set a logical reading order top-to-bottom.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 482.8899999999999864 Td
+(- Replace manual dashes or asterisks with proper bulleted or numbered lists.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 460.8899999999999864 Td
+(2. IMAGES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 449.8899999999999864 Td
+(- For each image in the draft \(or that I describe\), suggest alt text \(one sentence,) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 438.8899999999999864 Td
+(message-focused, not just visual description\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 427.8899999999999864 Td
+(- Mark purely decorative images as "decorative, no alt text required.") Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 416.8899999999999864 Td
+(- Flag any colour-only meaning and suggest a non-colour fix.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 394.8899999999999864 Td
+(3. LINKS) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 383.8899999999999864 Td
+(- Rewrite any "click here", "read more", "this page" so the link text makes sense out of) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 372.8899999999999864 Td
+(context.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 361.8899999999999864 Td
+(- Suggest footnote-style full URLs for printed copies.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 339.8899999999999864 Td
+(4. TABLES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 328.8899999999999864 Td
+(- Mark which row is the header.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 317.8899999999999864 Td
+(- Flag merged or split cells and suggest a flat alternative.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 306.8899999999999864 Td
+(- Add a one-sentence caption above each table.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 284.8899999999999864 Td
+(5. DOCUMENT PROPERTIES \(to set in Word File > Info > Properties before export\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 273.8899999999999864 Td
+(- Suggest a document title \(different from the file name\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 262.8899999999999864 Td
+(- Document language: English \(Australia\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 251.8899999999999864 Td
+(- Author: my business name.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 240.8899999999999864 Td
+(- 3 to 5 keywords from the content.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 218.8899999999999864 Td
+(6. EXPORT NOTES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 207.8899999999999864 Td
+(- In Word, save as PDF with "Document structure tags for accessibility" enabled.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 196.8899999999999864 Td
+(- NSW and Vic Government both recommend an HTML equivalent for any PDF published online.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 185.8899999999999864 Td
+(- If using Adobe Acrobat Pro after export: Tools > Prepare for Accessibility > Accessibility) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 174.8899999999999864 Td
+(Check.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 152.8899999999999864 Td
+(After your marked-up draft, give me:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 141.8899999999999864 Td
+(- A numbered checklist of every change to apply in Word, in order) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 130.8899999999999864 Td
+(- A short list of items I need to verify or supply) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 119.8899999999999864 Td
+(- One paragraph I can paste into the document footer noting it follows WCAG 2.2 AA and how) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 108.8899999999999864 Td
+(readers can request the content in another format) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 86.8899999999999864 Td
+(Here is my reviewed draft:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 75.8899999999999864 Td
+([paste reviewed draft]) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 53.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F3 8 Tf
+9.1999999999999993 TL
+0 g
+40. 20. Td
+(Flare Access  •  Accessible Comms Workshop  •  Page 6) Tj
+ET
+endstream
+endobj
+15 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 16 0 R
+>>
+endobj
+16 0 obj
+<<
+/Length 3096
+>>
+stream
+0.200025 w
+0 G
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 801.8899999999999864 Td
+(8. HUMAN REVIEW CHECKLIST) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 790.8899999999999864 Td
+(Tick off before publishing. AI cannot do these for you.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 779.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 757.8899999999999864 Td
+([ ] Is everything factually correct about your business and venue?) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 746.8899999999999864 Td
+([ ] Have you tested it with at least one person from the target audience? If not, plan to) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 735.8899999999999864 Td
+(before publishing.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 724.8899999999999864 Td
+([ ] Have any photos or images been described accurately?) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 713.8899999999999864 Td
+([ ] For Easy Read or Visual Communication: have you sourced images or symbols?) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 702.8899999999999864 Td
+([ ] For Accessibility Guides: has someone walked the route and verified the details?) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 691.8899999999999864 Td
+([ ] Have you removed any AI-added claims that you cannot verify?) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 680.8899999999999864 Td
+([ ] Have you added the publishing date and a way for readers to give feedback?) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 658.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 647.8899999999999864 Td
+(YOUR WORK BELONGS TO YOU) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 636.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 614.8899999999999864 Td
+(Anything you create using these prompts, including drafts and any variations you save, belongs) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 603.8899999999999864 Td
+(to you. Flare Access does not claim any rights to your content.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 581.8899999999999864 Td
+(If a piece of accessible content helps someone in your community, that is the whole point of) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 570.8899999999999864 Td
+(this workshop. Keep going. One piece a week. Within a year your customer-facing communications) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 559.8899999999999864 Td
+(are transformed.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 537.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 526.8899999999999864 Td
+(END) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 515.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F3 8 Tf
+9.1999999999999993 TL
+0 g
+40. 20. Td
+(Flare Access  •  Accessible Comms Workshop  •  Page 7) Tj
+ET
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R ]
+/Count 7
+>>
+endobj
+17 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+18 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+19 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+20 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+21 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+22 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+23 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+24 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+25 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+26 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+27 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+28 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+29 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+30 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 17 0 R
+/F2 18 0 R
+/F3 19 0 R
+/F4 20 0 R
+/F5 21 0 R
+/F6 22 0 R
+/F7 23 0 R
+/F8 24 0 R
+/F9 25 0 R
+/F10 26 0 R
+/F11 27 0 R
+/F12 28 0 R
+/F13 29 0 R
+/F14 30 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+31 0 obj
+<<
+/Producer (jsPDF 3.0.4)
+/CreationDate (D:20260601180709+10'00')
+>>
+endobj
+32 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 33
+0000000000 65535 f 
+0000046189 00000 n 
+0000048050 00000 n 
+0000000015 00000 n 
+0000000152 00000 n 
+0000007643 00000 n 
+0000007780 00000 n 
+0000014080 00000 n 
+0000014217 00000 n 
+0000021128 00000 n 
+0000021266 00000 n 
+0000028494 00000 n 
+0000028633 00000 n 
+0000035605 00000 n 
+0000035744 00000 n 
+0000042901 00000 n 
+0000043040 00000 n 
+0000046285 00000 n 
+0000046411 00000 n 
+0000046542 00000 n 
+0000046676 00000 n 
+0000046814 00000 n 
+0000046938 00000 n 
+0000047067 00000 n 
+0000047199 00000 n 
+0000047335 00000 n 
+0000047463 00000 n 
+0000047590 00000 n 
+0000047719 00000 n 
+0000047852 00000 n 
+0000047954 00000 n 
+0000048303 00000 n 
+0000048389 00000 n 
+trailer
+<<
+/Size 33
+/Root 32 0 R
+/Info 31 0 R
+/ID [ <348C2B1D94E9B16DFAB58984B74499C1> <348C2B1D94E9B16DFAB58984B74499C1> ]
+>>
+startxref
+48493
+%%EOF

@@ -1,0 +1,882 @@
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 6748
+>>
+stream
+0.200025 w
+0 G
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 801.8899999999999864 Td
+(CLAUDE REVIEWER AND MARKUP PLAN PROMPTS) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 790.8899999999999864 Td
+(Using AI to Create Accessible and Inclusive Communications \(Flare Access\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 768.8899999999999864 Td
+(How to use this file: paste the Reviewer prompt into Claude \(claude.ai\) as the first message of) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 757.8899999999999864 Td
+(a new chat, or into a Claude Pro Project's instructions. Paste the Markup Plan prompt into) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 746.8899999999999864 Td
+(Claude when you are ready to convert your reviewed draft into an accessible Word or PDF) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 735.8899999999999864 Td
+(document. Full set-up steps are in Lessons 1 and 4 of the workshop.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 713.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 702.8899999999999864 Td
+(1. REVIEWER PROMPT) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 691.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 669.8899999999999864 Td
+(You are my Accessible Communications Reviewer.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 647.8899999999999864 Td
+(Your role is to audit drafts created in ChatGPT \(or anywhere\) for clarity, accessibility and) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 636.8899999999999864 Td
+(inclusion.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 614.8899999999999864 Td
+(When I paste a draft, evaluate it on:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 592.8899999999999864 Td
+(A. PLAIN LANGUAGE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 581.8899999999999864 Td
+(- Estimated reading level \(years of schooling required\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 570.8899999999999864 Td
+(- Sentence length \(flag any over 15 words for accessible content\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 559.8899999999999864 Td
+(- Jargon, idioms or cultural references that may exclude readers) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 537.8899999999999864 Td
+(B. STRUCTURE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 526.8899999999999864 Td
+(- Logical flow) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 515.8899999999999864 Td
+(- Heading hierarchy) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 504.8899999999999864 Td
+(- White space and chunking) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 482.8899999999999864 Td
+(C. INCLUSION) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 471.8899999999999864 Td
+(- Person-first or identity-first language used appropriately) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 460.8899999999999864 Td
+(- Stereotypes or assumptions about disability) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 449.8899999999999864 Td
+(- Missing audience considerations) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 427.8899999999999864 Td
+(D. ACCURACY RISK) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 416.8899999999999864 Td
+(- Statements that appear invented or assumed \(and would need human verification\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 405.8899999999999864 Td
+(- Internal contradictions) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 383.8899999999999864 Td
+(E. FORMAT FIDELITY) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 372.8899999999999864 Td
+(- Does the draft follow the conventions of the requested format \(Easy Read, Plain Language,) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 361.8899999999999864 Td
+(etc.\)?) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 339.8899999999999864 Td
+(For each draft I paste, reply with:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 328.8899999999999864 Td
+(1. A one-sentence diagnosis) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 317.8899999999999864 Td
+(2. The top 3 to 5 issues to fix, in priority order) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 306.8899999999999864 Td
+(3. Suggested re-wordings for the top 2 or 3 issues) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 295.8899999999999864 Td
+(4. Anything that must be checked by a human reviewer) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 284.8899999999999864 Td
+(5. One or two questions that would strengthen the next iteration) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 262.8899999999999864 Td
+(Be direct. If something is weak, say so. If something is excellent, say why.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 240.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 229.8899999999999864 Td
+(2. MARKUP PLAN PROMPT) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 218.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 196.8899999999999864 Td
+(Paste this AFTER you have a reviewed draft. Claude will return the draft with accessibility) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 185.8899999999999864 Td
+(scaffolding marked up so you can apply it in Word, then export as a tagged PDF. Claude does not) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 174.8899999999999864 Td
+(produce the tagged file directly. You do that step in Word.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 152.8899999999999864 Td
+(I have a reviewed draft I want to publish as an accessible Word document and export as a tagged) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 141.8899999999999864 Td
+(PDF.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 119.8899999999999864 Td
+(Please produce a structured version with the accessibility scaffolding marked up, following NSW) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 108.8899999999999864 Td
+(Digital Toolkit and Vic Government accessibility standards, WCAG 2.2 AA.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 86.8899999999999864 Td
+(1. STRUCTURE) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 75.8899999999999864 Td
+(- Mark each line or section with its heading level \(H1, H2, H3 etc.\). Do not skip levels.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 64.8899999999999864 Td
+(- Set a logical reading order top-to-bottom.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 53.8899999999999864 Td
+(- Replace manual dashes or asterisks with proper bulleted or numbered lists.) Tj
+ET
+BT
+/F3 8 Tf
+9.1999999999999993 TL
+0 g
+40. 20. Td
+(Flare Access  •  Accessible Comms Workshop  •  Page 1) Tj
+ET
+endstream
+endobj
+5 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 4596
+>>
+stream
+0.200025 w
+0 G
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 790.8899999999999864 Td
+(2. IMAGES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 779.8899999999999864 Td
+(- For each image in the draft \(or that I describe\), suggest alt text \(one sentence,) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 768.8899999999999864 Td
+(message-focused, not just visual description\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 757.8899999999999864 Td
+(- Mark purely decorative images as "decorative, no alt text required.") Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 746.8899999999999864 Td
+(- Flag any colour-only meaning and suggest a non-colour fix.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 724.8899999999999864 Td
+(3. LINKS) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 713.8899999999999864 Td
+(- Rewrite any "click here", "read more", "this page" so the link text makes sense out of) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 702.8899999999999864 Td
+(context.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 691.8899999999999864 Td
+(- Suggest footnote-style full URLs for printed copies.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 669.8899999999999864 Td
+(4. TABLES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 658.8899999999999864 Td
+(- Mark which row is the header.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 647.8899999999999864 Td
+(- Flag merged or split cells and suggest a flat alternative.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 636.8899999999999864 Td
+(- Add a one-sentence caption above each table.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 614.8899999999999864 Td
+(5. DOCUMENT PROPERTIES \(to set in Word File > Info > Properties before export\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 603.8899999999999864 Td
+(- Suggest a document title \(different from the file name\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 592.8899999999999864 Td
+(- Document language: English \(Australia\).) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 581.8899999999999864 Td
+(- Author: my business name.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 570.8899999999999864 Td
+(- 3 to 5 keywords from the content.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 548.8899999999999864 Td
+(6. EXPORT NOTES) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 537.8899999999999864 Td
+(- In Word, save as PDF with "Document structure tags for accessibility" enabled.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 526.8899999999999864 Td
+(- NSW and Vic Government both recommend an HTML equivalent for any PDF published online \(PDFs) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 515.8899999999999864 Td
+(are not mobile-friendly and slower to load\). Note if a webpage version of this content should) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 504.8899999999999864 Td
+(also exist.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 493.8899999999999864 Td
+(- If using Adobe Acrobat Pro after export: Tools > Prepare for Accessibility > Accessibility) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 482.8899999999999864 Td
+(Check.) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 460.8899999999999864 Td
+(After your marked-up draft, give me:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 449.8899999999999864 Td
+(- A numbered checklist of every change to apply in Word, in order) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 438.8899999999999864 Td
+(- A short list of items I need to verify or supply \(alt text confirmation, missing source info,) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 427.8899999999999864 Td
+(photos to add\)) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 416.8899999999999864 Td
+(- One paragraph I can paste into the document footer noting it follows WCAG 2.2 AA and how) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 405.8899999999999864 Td
+(readers can request the content in another format) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 383.8899999999999864 Td
+(Here is my reviewed draft:) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 372.8899999999999864 Td
+([paste reviewed draft]) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 350.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 339.8899999999999864 Td
+(END) Tj
+ET
+BT
+/F5 9 Tf
+10.3499999999999996 TL
+0 g
+40. 328.8899999999999864 Td
+(============================================================) Tj
+ET
+BT
+/F3 8 Tf
+9.1999999999999993 TL
+0 g
+40. 20. Td
+(Flare Access  •  Accessible Comms Workshop  •  Page 2) Tj
+ET
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R 5 0 R ]
+/Count 2
+>>
+endobj
+7 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+8 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+9 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+10 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+11 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+12 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+13 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+14 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+15 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+16 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+17 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+18 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+19 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+20 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 7 0 R
+/F2 8 0 R
+/F3 9 0 R
+/F4 10 0 R
+/F5 11 0 R
+/F6 12 0 R
+/F7 13 0 R
+/F8 14 0 R
+/F9 15 0 R
+/F10 16 0 R
+/F11 17 0 R
+/F12 18 0 R
+/F13 19 0 R
+/F14 20 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+21 0 obj
+<<
+/Producer (jsPDF 3.0.4)
+/CreationDate (D:20260601180709+10'00')
+>>
+endobj
+22 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 23
+0000000000 65535 f 
+0000011737 00000 n 
+0000013562 00000 n 
+0000000015 00000 n 
+0000000152 00000 n 
+0000006952 00000 n 
+0000007089 00000 n 
+0000011800 00000 n 
+0000011925 00000 n 
+0000012055 00000 n 
+0000012188 00000 n 
+0000012326 00000 n 
+0000012450 00000 n 
+0000012579 00000 n 
+0000012711 00000 n 
+0000012847 00000 n 
+0000012975 00000 n 
+0000013102 00000 n 
+0000013231 00000 n 
+0000013364 00000 n 
+0000013466 00000 n 
+0000013812 00000 n 
+0000013898 00000 n 
+trailer
+<<
+/Size 23
+/Root 22 0 R
+/Info 21 0 R
+/ID [ <06A7EF5E6F835E6F1665347E52C2A617> <06A7EF5E6F835E6F1665347E52C2A617> ]
+>>
+startxref
+14002
+%%EOF
