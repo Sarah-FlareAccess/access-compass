@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getCourseBySlug } from '../data/training/index';
 import { LessonContentRenderer } from '../components/training/LessonContentRenderer';
+import { LessonNotesPanel } from '../components/training/LessonNotesPanel';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuth } from '../contexts/AuthContext';
@@ -200,6 +201,7 @@ export default function LessonView() {
       </nav>
 
       <PageFooter />
+      <LessonNotesPanel courseId={course.id} courseTitle={course.title} />
     </div>
   );
 }
