@@ -771,30 +771,34 @@
   color: #312e81;
 }
 
-.format-choice-copy-brief {
-  align-self: flex-start;
+.format-choice-brief-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.format-choice-copy-brief,
+.format-choice-download-brief {
   display: inline-flex;
   align-items: center;
   gap: 5px;
   padding: 6px 14px;
   font-size: 0.85rem;
   font-weight: 700;
-  border: 1px solid #075985;
   border-radius: 6px;
-  background: #0369a1;
-  color: #ffffff;
   cursor: pointer;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
   transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.format-choice-copy-brief:hover {
-  background: #075985;
+.format-choice-copy-brief {
+  border: 1px solid #075985;
+  background: #0369a1;
+  color: #ffffff;
 }
 
-.format-choice-copy-brief:focus-visible {
-  outline: 3px solid var(--focus-ring, #CC7700);
-  outline-offset: 2px;
+.format-choice-copy-brief:hover {
+  background: #075985;
 }
 
 .format-choice-copy-brief.is-copied {
@@ -804,6 +808,23 @@
 
 .format-choice-copy-brief.is-copied:hover {
   background: #14532d;
+}
+
+.format-choice-download-brief {
+  border: 1px solid #4f46e5;
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+.format-choice-download-brief:hover {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+
+.format-choice-copy-brief:focus-visible,
+.format-choice-download-brief:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
 }
 
 .format-choice-audience textarea {

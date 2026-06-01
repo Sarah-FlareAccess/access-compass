@@ -29,7 +29,7 @@ function FormatChoiceBlock({
   const audienceId = `format-choice-audience-${courseId}`;
   const audienceExampleId = audienceExample ? `${audienceId}-example` : undefined;
 
-  const handleCopyBrief = async () => {
+  const buildBriefText = () => {
     const lines = [
       'My brief',
       '',
@@ -42,7 +42,11 @@ function FormatChoiceBlock({
         lines.push(`${f.label}: ${v || '(not set)'}`);
       });
     }
-    const text = lines.join('\n');
+    return lines.join('\n');
+  };
+
+  const handleCopyBrief = async () => {
+    const text = buildBriefText();
     try {
       await navigator.clipboard.writeText(text);
     } catch {
@@ -57,6 +61,22 @@ function FormatChoiceBlock({
     }
     setCopied(true);
     window.setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownloadBrief = () => {
+    const now = new Date();
+    const date = now.toISOString().split('T')[0];
+    const stamp = now.toLocaleString('en-AU');
+    const content = `${buildBriefText()}\n\nCaptured ${stamp}\n`;
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `accessible-comms-brief-${date}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -131,14 +151,24 @@ function FormatChoiceBlock({
           <p className="format-choice-summary" aria-live="polite">
             Your brief is saved. It will pre-fill the briefing prompt in Step 3 and the sense-check prompt in Lesson 4. You can change it anytime.
           </p>
-          <button
-            type="button"
-            className={`format-choice-copy-brief${copied ? ' is-copied' : ''}`}
-            onClick={handleCopyBrief}
-            aria-label={copied ? 'Brief copied to clipboard' : 'Copy your brief to clipboard'}
-          >
-            {copied ? 'Brief copied' : 'Copy your brief'}
-          </button>
+          <div className="format-choice-brief-actions">
+            <button
+              type="button"
+              className={`format-choice-copy-brief${copied ? ' is-copied' : ''}`}
+              onClick={handleCopyBrief}
+              aria-label={copied ? 'Brief copied to clipboard' : 'Copy your brief to clipboard'}
+            >
+              {copied ? 'Brief copied' : 'Copy your brief'}
+            </button>
+            <button
+              type="button"
+              className="format-choice-download-brief"
+              onClick={handleDownloadBrief}
+              aria-label="Download your brief as a text file"
+            >
+              Download your brief
+            </button>
+          </div>
         </div>
       )}
     </fieldset>
