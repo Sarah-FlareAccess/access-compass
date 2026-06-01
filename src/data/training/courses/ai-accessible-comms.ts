@@ -1230,6 +1230,11 @@ Here is my reviewed draft:
             introHtml: `<p>You have a brief, a reviewed draft and a set of prompts that worked for your business. Grab them all now so you can pick up the next piece of content without redoing this workshop.</p>
 <p>The brief saves your business context. The prompt pack saves every prompt you used (with your brief already substituted into the briefing prompt). Together they are your reusable kit.</p>`,
             includeBrief: true,
+            browseAllLink: {
+              label: 'Browse all Course Materials',
+              description: 'Need other files? The Course Materials section at the top of this course has every prompt and the human review checklist as standalone PDF or text downloads, plus a Download all button for the whole set.',
+              href: '/training/course/ai-accessible-comms',
+            },
             promptPack: {
               label: 'Full session prompt pack',
               filename: 'accessible-comms-prompt-pack',

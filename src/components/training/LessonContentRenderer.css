@@ -901,6 +901,52 @@
   margin: 0;
 }
 
+.take-home-browse-all {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed #c4b5fd;
+}
+
+.take-home-browse-all-desc {
+  font-size: 0.9rem;
+  color: #3E2B2F;
+  line-height: 1.55;
+  margin: 0 0 10px 0;
+}
+
+.take-home-browse-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #490E67;
+  text-decoration: none;
+  padding: 4px 8px;
+  margin-left: -8px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.take-home-browse-all-link:hover {
+  background: #f5f0fa;
+  color: #350a4d;
+}
+
+.take-home-browse-all-link:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
+}
+
+.take-home-browse-all-link svg {
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.take-home-browse-all-link:hover svg {
+  transform: translateX(2px);
+}
+
 /* Format choice picker, saves to localStorage and pre-fills exercise
    prompt templates via the bracket substitutions ([FORMAT NAME], [AUDIENCE]). */
 .format-choice-block {

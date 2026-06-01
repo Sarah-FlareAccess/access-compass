@@ -100,6 +100,11 @@ export interface LessonContentBlock {
       headerNote?: string;
       sections: Array<{ heading: string; content: string }>;
     };
+    browseAllLink?: {
+      label: string;
+      description?: string;
+      href: string;
+    };
   };
 }
 

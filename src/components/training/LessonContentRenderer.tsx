@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import type { LessonContentBlock } from '../../data/training/types';
 import { ExerciseBlock } from './ExerciseBlock';
 import { DownloadBlock } from './DownloadBlock';
@@ -297,6 +298,7 @@ function TakeHomeBlock({
   introHtml,
   includeBrief,
   promptPack,
+  browseAllLink,
   courseId,
 }: {
   title: string;
@@ -308,6 +310,7 @@ function TakeHomeBlock({
     headerNote?: string;
     sections: Array<{ heading: string; content: string }>;
   };
+  browseAllLink?: { label: string; description?: string; href: string };
   courseId: string;
 }) {
   const { choice } = useFormatChoice(courseId);
@@ -512,6 +515,19 @@ function TakeHomeBlock({
               Download prompt pack (TXT)
             </button>
           </div>
+        </div>
+      )}
+      {browseAllLink && (
+        <div className="take-home-browse-all">
+          {browseAllLink.description && (
+            <p className="take-home-browse-all-desc">{browseAllLink.description}</p>
+          )}
+          <Link to={browseAllLink.href} className="take-home-browse-all-link">
+            {browseAllLink.label}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </Link>
         </div>
       )}
     </section>
@@ -746,6 +762,7 @@ function renderBlock(
           introHtml={block.takeHome.introHtml}
           includeBrief={block.takeHome.includeBrief}
           promptPack={block.takeHome.promptPack}
+          browseAllLink={block.takeHome.browseAllLink}
           courseId={ctx.courseId}
         />
       );
