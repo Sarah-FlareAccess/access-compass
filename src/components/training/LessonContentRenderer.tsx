@@ -492,7 +492,10 @@ function TakeHomeBlock({
         <div className="take-home-action">
           <div className="take-home-action-label">{promptPack.label}</div>
           <p className="take-home-action-summary">
-            {promptPack.sections.length} prompt{promptPack.sections.length === 1 ? '' : 's'} bundled into one file, with your brief substituted into the placeholders.
+            {promptPack.sections.length} prompt{promptPack.sections.length === 1 ? '' : 's'} bundled into one file
+            {hasBrief
+              ? ', with your brief already substituted into the placeholders.'
+              : '. Your brief is empty so the placeholders stay as [FORMAT NAME], [AUDIENCE] etc., ready for you to fill in.'}
           </p>
           <p className="take-home-action-note">
             Grab both formats. The PDF is for printing, filing or sharing with a colleague. The TXT is what you paste into AI tools next time.
