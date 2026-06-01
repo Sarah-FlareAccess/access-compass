@@ -13,6 +13,8 @@ function FormatChoiceBlock({
   audienceLabel,
   audienceExample,
   contextFields,
+  briefGuidance,
+  briefHelpPrompt,
   courseId,
 }: {
   legend: string;
@@ -21,6 +23,8 @@ function FormatChoiceBlock({
   audienceLabel: string;
   audienceExample?: string;
   contextFields?: Array<{ key: string; label: string; example?: string; multiline?: boolean }>;
+  briefGuidance?: { title: string; bodyHtml: string };
+  briefHelpPrompt?: { title: string; introHtml?: string; prompt: string };
   courseId: string;
 }) {
   const { choice, setFormat, setAudience, setContextField } = useFormatChoice(courseId);
@@ -79,10 +83,63 @@ function FormatChoiceBlock({
     URL.revokeObjectURL(url);
   };
 
+  const [helpCopied, setHelpCopied] = useState(false);
+  const handleCopyHelpPrompt = async () => {
+    if (!briefHelpPrompt) return;
+    try {
+      await navigator.clipboard.writeText(briefHelpPrompt.prompt);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = briefHelpPrompt.prompt;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    setHelpCopied(true);
+    window.setTimeout(() => setHelpCopied(false), 2000);
+  };
+
   return (
     <fieldset className="format-choice-block">
       <legend className="format-choice-legend">{legend}</legend>
       {helpText && <p className="format-choice-help">{helpText}</p>}
+      {(briefGuidance || briefHelpPrompt) && (
+        <div className="format-choice-scaffolds">
+          {briefGuidance && (
+            <details className="format-choice-scaffold">
+              <summary>{briefGuidance.title}</summary>
+              <div
+                className="format-choice-scaffold-body"
+                dangerouslySetInnerHTML={{ __html: briefGuidance.bodyHtml }}
+              />
+            </details>
+          )}
+          {briefHelpPrompt && (
+            <details className="format-choice-scaffold">
+              <summary>{briefHelpPrompt.title}</summary>
+              <div className="format-choice-scaffold-body">
+                {briefHelpPrompt.introHtml && (
+                  <div dangerouslySetInnerHTML={{ __html: briefHelpPrompt.introHtml }} />
+                )}
+                <div className="format-choice-help-prompt-wrapper">
+                  <button
+                    type="button"
+                    className={`format-choice-help-prompt-btn${helpCopied ? ' is-copied' : ''}`}
+                    onClick={handleCopyHelpPrompt}
+                    aria-label={helpCopied ? 'Prompt copied to clipboard' : 'Copy this prompt to clipboard'}
+                  >
+                    {helpCopied ? 'Copied' : 'Copy this prompt'}
+                  </button>
+                  <pre className="format-choice-help-prompt-text">{briefHelpPrompt.prompt}</pre>
+                </div>
+              </div>
+            </details>
+          )}
+        </div>
+      )}
       <div className="format-choice-options" role="radiogroup" aria-label="Format">
         {formats.map((f) => (
           <label key={f.value} className={`format-choice-option${choice.format === f.value ? ' is-selected' : ''}`}>
@@ -172,6 +229,114 @@ function FormatChoiceBlock({
         </div>
       )}
     </fieldset>
+  );
+}
+
+function TakeHomeBlock({
+  title,
+  introHtml,
+  includeBrief,
+  courseId,
+}: {
+  title: string;
+  introHtml?: string;
+  includeBrief?: boolean;
+  courseId: string;
+}) {
+  const { choice } = useFormatChoice(courseId);
+  const [copied, setCopied] = useState(false);
+
+  const buildBriefText = () => {
+    const lines = [
+      'My brief',
+      '',
+      `Format: ${choice.format || '(not set)'}`,
+      `Audience: ${choice.audience || '(not set)'}`,
+    ];
+    Object.entries(choice.contextFields).forEach(([k, v]) => {
+      lines.push(`${k}: ${v || '(not set)'}`);
+    });
+    return lines.join('\n');
+  };
+
+  const handleCopy = async () => {
+    const text = buildBriefText();
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = () => {
+    const now = new Date();
+    const date = now.toISOString().split('T')[0];
+    const stamp = now.toLocaleString('en-AU');
+    const content = `${buildBriefText()}\n\nCaptured ${stamp}\n`;
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `accessible-comms-brief-${date}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const hasBrief = choice.format && choice.audience.trim();
+
+  return (
+    <section className="take-home-panel" aria-labelledby={`take-home-${courseId}`}>
+      <h2 id={`take-home-${courseId}`} className="take-home-title">{title}</h2>
+      {introHtml && (
+        <div
+          className="take-home-intro"
+          dangerouslySetInnerHTML={{ __html: introHtml }}
+        />
+      )}
+      {includeBrief && (
+        <div className="take-home-action">
+          <div className="take-home-action-label">Your brief</div>
+          {hasBrief ? (
+            <>
+              <p className="take-home-action-summary">
+                <strong>{choice.format}</strong> for <strong>{choice.audience}</strong>
+              </p>
+              <div className="take-home-action-buttons">
+                <button
+                  type="button"
+                  className={`format-choice-copy-brief${copied ? ' is-copied' : ''}`}
+                  onClick={handleCopy}
+                  aria-label={copied ? 'Brief copied to clipboard' : 'Copy your brief to clipboard'}
+                >
+                  {copied ? 'Brief copied' : 'Copy your brief'}
+                </button>
+                <button
+                  type="button"
+                  className="format-choice-download-brief"
+                  onClick={handleDownload}
+                  aria-label="Download your brief as a text file"
+                >
+                  Download your brief
+                </button>
+              </div>
+            </>
+          ) : (
+            <p className="take-home-action-empty">Your brief is empty. Scroll back to Step 1 to fill it in, then come back to grab it.</p>
+          )}
+        </div>
+      )}
+    </section>
   );
 }
 
@@ -378,6 +543,20 @@ function renderBlock(
           audienceLabel={block.formatChoice.audienceLabel}
           audienceExample={block.formatChoice.audienceExample}
           contextFields={block.formatChoice.contextFields}
+          briefGuidance={block.formatChoice.briefGuidance}
+          briefHelpPrompt={block.formatChoice.briefHelpPrompt}
+          courseId={ctx.courseId}
+        />
+      );
+
+    case 'take-home':
+      if (!block.takeHome) return null;
+      return (
+        <TakeHomeBlock
+          key={key}
+          title={block.takeHome.title}
+          introHtml={block.takeHome.introHtml}
+          includeBrief={block.takeHome.includeBrief}
           courseId={ctx.courseId}
         />
       );

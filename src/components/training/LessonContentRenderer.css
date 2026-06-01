@@ -640,6 +640,77 @@
   border-top: 1px solid #e5e7eb;
 }
 
+/* Take-home panel: anchors the download habit at the end of a lesson */
+.take-home-panel {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-left: 4px solid #c2410c;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 16px 0 8px 0;
+}
+
+.take-home-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #7c2d12;
+  margin: 0 0 8px 0;
+}
+
+.take-home-intro {
+  color: #7c2d12;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+.take-home-intro p {
+  margin: 0 0 8px 0;
+}
+
+.take-home-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.take-home-action {
+  background: #ffffff;
+  border: 1px solid #fed7aa;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.take-home-action-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #7c2d12;
+  margin-bottom: 6px;
+}
+
+.take-home-action-summary {
+  font-size: 0.95rem;
+  color: #1f2937;
+  margin: 0 0 10px 0;
+}
+
+.take-home-action-summary strong {
+  color: #312e81;
+}
+
+.take-home-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.take-home-action-empty {
+  font-size: 0.88rem;
+  color: #92400e;
+  font-style: italic;
+  margin: 0;
+}
+
 /* Format choice picker, saves to localStorage and pre-fills exercise
    prompt templates via the bracket substitutions ([FORMAT NAME], [AUDIENCE]). */
 .format-choice-block {
@@ -666,6 +737,147 @@
   color: #4338ca;
   margin: 4px 0 12px 0;
   line-height: 1.5;
+}
+
+.format-choice-scaffolds {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.format-choice-scaffold {
+  background: #ffffff;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.format-choice-scaffold[open] {
+  border-color: #a5b4fc;
+}
+
+.format-choice-scaffold summary {
+  cursor: pointer;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #3730a3;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.format-choice-scaffold summary::-webkit-details-marker {
+  display: none;
+}
+
+.format-choice-scaffold summary::before {
+  content: '+';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #eef2ff;
+  color: #4338ca;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.format-choice-scaffold[open] summary::before {
+  content: '\2212';
+  background: #c7d2fe;
+}
+
+.format-choice-scaffold summary:hover {
+  background: #f5f3ff;
+}
+
+.format-choice-scaffold summary:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: -3px;
+}
+
+.format-choice-scaffold-body {
+  padding: 4px 14px 14px 14px;
+  color: #1f2937;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.format-choice-scaffold-body p {
+  margin: 0 0 8px 0;
+}
+
+.format-choice-scaffold-body p:last-child {
+  margin-bottom: 0;
+}
+
+.format-choice-scaffold-body ul {
+  margin: 4px 0 8px 0;
+  padding-left: 20px;
+}
+
+.format-choice-scaffold-body li {
+  margin-bottom: 4px;
+}
+
+.format-choice-scaffold-body strong {
+  color: #1f2937;
+}
+
+.format-choice-help-prompt-wrapper {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.format-choice-help-prompt-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid #075985;
+  border-radius: 6px;
+  background: #0369a1;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.15s ease;
+}
+
+.format-choice-help-prompt-btn:hover {
+  background: #075985;
+}
+
+.format-choice-help-prompt-btn:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
+}
+
+.format-choice-help-prompt-btn.is-copied {
+  background: #15803d;
+  border-color: #14532d;
+}
+
+.format-choice-help-prompt-text {
+  margin: 0;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #1f2937;
 }
 
 .format-choice-options {

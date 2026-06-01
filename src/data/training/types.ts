@@ -18,7 +18,8 @@ export type ContentBlockType =
   | 'checklist'
   | 'callout'
   | 'image'
-  | 'format-choice';
+  | 'format-choice'
+  | 'take-home';
 
 export interface TrainingCategoryConfig {
   id: TrainingCategory;
@@ -85,6 +86,13 @@ export interface LessonContentBlock {
       example?: string;
       multiline?: boolean;
     }>;
+    briefGuidance?: { title: string; bodyHtml: string };
+    briefHelpPrompt?: { title: string; introHtml?: string; prompt: string };
+  };
+  takeHome?: {
+    title: string;
+    introHtml?: string;
+    includeBrief?: boolean;
   };
 }
 

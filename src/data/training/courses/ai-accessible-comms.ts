@@ -468,6 +468,41 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
                 example: 'our website accessibility page, our booking confirmation email, a printed handout at reception',
               },
             ],
+            briefGuidance: {
+              title: 'What makes a good brief?',
+              bodyHtml: `<p>A brief is the small set of facts the AI needs before it can draft anything useful. The shorter and more specific, the better the draft.</p>
+<p><strong>Each field, what it does:</strong></p>
+<ul>
+<li><strong>Format</strong> tells the AI which set of writing rules to apply. Easy Read is short sentences with images. Plain Language is year 7 to 8 reading level. Accessibility Guide has a structured 7-section layout.</li>
+<li><strong>Audience</strong> shapes vocabulary, tone and what to leave out. The more specific, the better. "Members of the public" is too vague. "People booking online who use a screen reader" lets the AI pick the right voice.</li>
+<li><strong>Who uses it</strong> separates the person reading from the person being talked about. Sometimes the same, sometimes not. "Parents booking on behalf of their autistic teenager" tells the AI to address parents while still respecting the teenager's experience.</li>
+<li><strong>What it helps them do</strong> is the outcome. "Plan a visit", "know what to expect at the entrance", "decide whether to come at all". Tells the AI what to lead with.</li>
+<li><strong>Where it will live</strong> sets length and tone. A booking confirmation email is 3 short paragraphs. A website page can be longer with headings. Knowing this stops the AI writing a 1,500-word essay when you need a sign.</li>
+</ul>
+<p><strong>Bad vs good answers:</strong></p>
+<ul>
+<li>Audience: "everyone" (bad) versus "first-time wheelchair users visiting on a Saturday" (good)</li>
+<li>Purpose: "be accessible" (bad) versus "let parents work out whether the sensory environment will suit their child" (good)</li>
+<li>Where: "the website" (bad) versus "the Plan Your Visit page, between Getting Here and Tickets" (good)</li>
+</ul>
+<p>If you only fill two fields well (audience and purpose), you will still get a usable draft. Specificity beats completeness.</p>`,
+            },
+            briefHelpPrompt: {
+              title: 'Not sure what to put in your brief? Get the AI to walk you through it',
+              introHtml: `<p>Copy the prompt below and paste it into ChatGPT, Claude or Copilot in a new chat. The AI will ask you one question at a time, then summarise your brief at the end so you can fill in the fields above. No need to write it all yourself.</p>`,
+              prompt: `You are helping me build a project brief for accessible content I want to make for my business. Ask me one question at a time and wait for my answer before asking the next.
+
+Cover these in order:
+1. What kind of business are you (in one or two sentences)?
+2. What format do you want to make (Easy Read, Plain Language, Social Story, Accessibility Guide, Large Print or Accessible Digital Document)? If unsure, ask me about my situation and recommend one.
+3. Who is your audience (be specific: think about access needs, age, familiarity with your business, language)?
+4. Who will actually USE the content (sometimes different from the audience, e.g. parents using it on behalf of children)?
+5. What does the content help them do (the practical outcome)?
+6. Where will it live (specific website page, booking confirmation email, printed handout, etc.)?
+7. What MUST the content get right (any tone, fact or detail that is non-negotiable)?
+
+After my last answer, summarise my brief as five short bullet points labelled Format, Audience, Who uses it, Purpose, Where it lives. Stop there. Do not draft the content yet.`,
+            },
           },
         },
         {
@@ -583,6 +618,15 @@ Before drafting:
           callout: {
             variant: 'warning',
             text: 'Anything the AI tells you it "knows" about your business that you did not tell it is a guess. Treat it as a prompt to verify, not a fact.',
+          },
+        },
+        {
+          type: 'take-home',
+          takeHome: {
+            title: 'Take your brief home',
+            introHtml: `<p>Your brief is the slowest part of this workshop to recreate. Grab a copy now so you can reuse it next time without retyping every field. Use Download to save a file to your computer, or Copy to paste it into your own notes app, email or another AI tool.</p>
+<p>The brief will still be saved in the app on this device the next time you open the lesson. Downloading is your insurance for when that device changes, the browser clears its storage or you want to share the brief with a colleague.</p>`,
+            includeBrief: true,
           },
         },
       ],
