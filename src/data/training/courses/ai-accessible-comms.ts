@@ -5,8 +5,8 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   slug: 'ai-accessible-comms',
   title: 'Using AI to Create Accessible & Inclusive Communications',
   subtitle: 'A practical 2-hour workshop. Walk in with content. Walk out with a draft.',
-  description: 'Use free AI tools to draft accessible content for your business in under 2 hours. Choose your format, bring your source material, and leave with a real first draft you can refine and publish.',
-  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and document producer) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards, and use Claude to convert the reviewed draft into an accessible Word document or tagged PDF. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print, and Accessible Digital Document (Word/PDF, following NSW Digital Toolkit and Vic Government guidance, WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session.',
+  description: 'Use free AI tools to draft accessible content for your business in under 2 hours. Choose your format, bring your source material and leave with a real first draft you can refine and publish.',
+  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and document producer) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to convert the reviewed draft into an accessible Word document or tagged PDF. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Digital Document (Word/PDF, following NSW Digital Toolkit and Vic Government guidance, WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session.',
   category: 'ai-tools',
   accessTier: 'premium',
   totalEstimatedMinutes: 120,
@@ -25,7 +25,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   ],
   learningOutcomes: [
     'Set up a reusable AI assistant configured for accessible content drafting',
-    'Brief an AI on your business, your audience, and your source material',
+    'Brief an AI on your business, your audience and your source material',
     'Draft a first version of accessible content in your chosen format',
     'Use Claude to sense-check your draft against accessibility standards',
     'Use Claude to produce an accessible Word document or tagged PDF aligned to NSW Digital Toolkit, Vic Government guidance and WCAG 2.2 AA',
@@ -36,7 +36,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
     'A free ChatGPT account (chat.openai.com)',
     'A free Claude account (claude.ai). Microsoft Copilot or Google Gemini are also fine as drafting alternatives.',
     'A laptop. Phone screens are too small for this work.',
-    'At least 400 words of real source material from your business. Workable options: a webpage section, an FAQ, a policy excerpt, a brochure section, a menu page, signage copy, or detailed bullet-point notes. Below 400 words the AI starts inventing access details, which is high-risk for content you intend to publish.',
+    'At least 400 words of real source material from your business. Workable options: a webpage section, an FAQ, a policy excerpt, a brochure section, a menu page, signage copy or detailed bullet-point notes. Below 400 words the AI starts inventing access details, which is high-risk for content you intend to publish.',
   ],
   courseDownloads: [
     {
@@ -77,8 +77,8 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       id: 'lesson-1-get-set-up',
       courseId: 'course-ai-accessible-comms',
       title: 'Get Set Up',
-      subtitle: 'Tools, accounts, and persistent AI instructions',
-      description: 'Open your AI tools, set up a project or custom instructions, and paste in the AI assistant and Reviewer prompts so both are ready when you start drafting.',
+      subtitle: 'Tools, accounts and persistent AI instructions',
+      description: 'Open your AI tools, set up a project or custom instructions and paste in the AI assistant and Reviewer prompts so both are ready when you start drafting.',
       order: 1,
       estimatedMinutes: 13,
       accessTier: 'free',
@@ -88,7 +88,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
         {
           type: 'text',
           heading: 'What you will achieve in this lesson',
-          body: `<p>By the end of this lesson, your ChatGPT and Claude accounts are ready, your AI assistant has its instructions, and you have sent a successful test message to both tools.</p>
+          body: `<p>By the end of this lesson, your ChatGPT and Claude accounts are ready, your AI assistant has its instructions and you have sent a successful test message to both tools.</p>
 <p><strong>What you need:</strong></p>
 <ul>
 <li>A laptop with a working internet connection</li>
@@ -166,7 +166,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <li>Start a new chat from inside the project to test it.</li>
 </ol>
 <figure class="setup-screenshot">
-<img src="/training/screenshots/chatgpt-plus-project-settings.png" alt="ChatGPT Plus Project settings dialog showing the Project name, Instructions text box, Memory field, and Cancel / Save buttons. The Instructions box is where you paste the system prompt." loading="lazy" />
+<img src="/training/screenshots/chatgpt-plus-project-settings.png" alt="ChatGPT Plus Project settings dialog showing the Project name, Instructions text box, Memory field and Cancel / Save buttons. The Instructions box is where you paste the system prompt." loading="lazy" />
 <figcaption>The Project settings dialog. Paste the system prompt into the Instructions box.</figcaption>
 </figure>
 </details>
@@ -174,15 +174,17 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <summary><strong>ChatGPT free</strong>: every click</summary>
 <ol>
 <li>Click your name or initials in the <strong>bottom-left</strong> of the screen.</li>
-<li>Choose <strong>Settings</strong> from the menu that appears.</li>
-<li>In the Settings panel, click <strong>Personalisation</strong> on the left.</li>
-<li>Click <strong>Custom instructions</strong>.</li>
-<li>If you see a toggle, switch <strong>Custom instructions</strong> on.</li>
-<li>Scroll to the box labelled <strong>"What traits should ChatGPT have?"</strong> Paste the system prompt from Step 3 below into this box.</li>
-<li>Click <strong>Save</strong>.</li>
-<li>Close Settings. Start a new chat to test it.</li>
+<li>Choose <strong>Settings</strong> from the menu.</li>
+<li>In the Settings panel, click <strong>Personalization</strong> on the left (ChatGPT uses American spelling for this menu).</li>
+<li>Scroll down to the <strong>Custom instructions</strong> section. It sits below Base style and tone, Characteristics and Fast answers.</li>
+<li>Paste the system prompt from Step 3 below into the Custom instructions text box.</li>
+<li>Settings auto-save. Close the panel.</li>
+<li>Start a new chat to test it.</li>
 </ol>
-<p class="screenshot-placeholder">[Screenshot placeholder: ChatGPT free Settings &gt; Personalisation &gt; Custom instructions panel]</p>
+<figure class="setup-screenshot">
+<img src="/training/screenshots/chatgpt-free-personalization.png" alt="ChatGPT Personalization settings panel with the left navigation showing General, Notifications, Personalization (selected), Apps, Billing and other items. The right side shows Base style and tone, Characteristics, Fast answers and the Custom instructions text box where you paste the system prompt." loading="lazy" />
+<figcaption>The Personalization panel. Paste the system prompt into the Custom instructions box.</figcaption>
+</figure>
 </details>
 <details class="setup-detail">
 <summary><strong>Claude Pro</strong>: every click</summary>
@@ -198,7 +200,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <p class="screenshot-placeholder">[Screenshot placeholder: Claude Pro project page with custom instructions panel]</p>
 </details>
 <details class="setup-detail">
-<summary><strong>Claude free, Microsoft Copilot, or Google Gemini free</strong>: every chat</summary>
+<summary><strong>Claude free, Microsoft Copilot or Google Gemini free</strong>: every chat</summary>
 <ol>
 <li>Open the tool and start a <strong>new chat</strong>.</li>
 <li>Paste the system prompt from Step 3 below as the <strong>first message</strong> in that chat.</li>
@@ -235,7 +237,7 @@ You will help by:
 - flagging anything that needs a human reviewer
 
 FORMATTING RULES
-- Use clear headings, short paragraphs, and bullet points
+- Use clear headings, short paragraphs and bullet points
 - Avoid walls of text
 - When producing Easy Read or Plain Language drafts, follow the published standards for each format
 - Always finish any draft with: "This draft was AI-generated. Please review before publishing."
@@ -246,7 +248,7 @@ BEHAVIOUR RULES
 - Default to simplicity over complexity
 - When I am vague, ask for specifics
 - When I am stuck, simplify
-- Never invent facts about my business, venue, audience, or accessibility features. If you do not know, ask.
+- Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
 
 ACCESSIBILITY STANDARDS REFERENCE
 - Easy Read: Inclusion Australia and CID Easy Read guidelines. Short sentences, common words, one idea per line, supporting images.
@@ -285,14 +287,14 @@ Your first reply must include:
             instructions: 'Switch to your Claude tab. Start a new conversation. Paste the prompt below and press Enter.',
             promptTemplate: `You are my Accessible Communications Reviewer.
 
-Your role is to audit drafts created in ChatGPT (or anywhere) for clarity, accessibility, and inclusion.
+Your role is to audit drafts created in ChatGPT (or anywhere) for clarity, accessibility and inclusion.
 
 When I paste a draft, evaluate it on:
 
 A. PLAIN LANGUAGE
 - Estimated reading level (years of schooling required)
 - Sentence length (flag any over 15 words for accessible content)
-- Jargon, idioms, or cultural references that may exclude readers
+- Jargon, idioms or cultural references that may exclude readers
 
 B. STRUCTURE
 - Logical flow
@@ -348,8 +350,8 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
       id: 'lesson-2-choose-format-and-brief',
       courseId: 'course-ai-accessible-comms',
       title: 'Choose Your Format and Brief the AI',
-      subtitle: 'Pick what to create, gather your source, and give the AI everything it needs',
-      description: 'Choose your alternative format, identify or assemble your source material, and brief your AI assistant so it has full context before drafting.',
+      subtitle: 'Pick what to create, gather your source and give the AI everything it needs',
+      description: 'Choose your alternative format, identify or assemble your source material and brief your AI assistant so it has full context before drafting.',
       order: 2,
       estimatedMinutes: 22,
       accessTier: 'premium',
@@ -358,7 +360,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
         {
           type: 'text',
           heading: 'What you will achieve in this lesson',
-          body: `<p>By the end of this lesson, your AI assistant knows your format, your audience, your source material, and any constraints. It is ready to draft.</p>`,
+          body: `<p>By the end of this lesson, your AI assistant knows your format, your audience, your source material and any constraints. It is ready to draft.</p>`,
         },
         {
           type: 'text',
@@ -376,7 +378,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 <tbody>
 <tr>
 <td><strong>Easy Read</strong></td>
-<td>Important info for readers with intellectual disability, low literacy, or English as an additional language</td>
+<td>Important info for readers with intellectual disability, low literacy or English as an additional language</td>
 <td>Medium</td>
 </tr>
 <tr>
@@ -424,7 +426,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 <tbody>
 <tr>
 <td>Easy Read</td>
-<td>An existing webpage, FAQ, brochure, policy doc, or bullet-point notes</td>
+<td>An existing webpage, FAQ, brochure, policy doc or bullet-point notes</td>
 <td>Paste a short description of the topic. The AI will ask you the questions it needs answered.</td>
 </tr>
 <tr>
@@ -434,12 +436,12 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 </tr>
 <tr>
 <td>Social Story / Visual Narrative</td>
-<td>A webpage link to your venue info, photos with short captions, or walkthrough notes</td>
+<td>A webpage link to your venue info, photos with short captions or walkthrough notes</td>
 <td>Walk through the experience out loud, paste your description, let the AI prompt you for the rest</td>
 </tr>
 <tr>
 <td>Accessibility Guide</td>
-<td>An existing access statement, floor plan, photos of entrances/bathrooms/parking, walkthrough notes, or a website link</td>
+<td>An existing access statement, floor plan, photos of entrances/bathrooms/parking, walkthrough notes or a website link</td>
 <td>The AI will run you through an access information checklist</td>
 </tr>
 <tr>
@@ -467,7 +469,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
           type: 'exercise',
           exercise: {
             title: 'Step 3: Brief your AI assistant (10 min)',
-            instructions: 'Copy the briefing prompt below into ChatGPT. Fill in the brackets with your format, audience, source material, and any "must get right" details.',
+            instructions: 'Copy the briefing prompt below into ChatGPT. Fill in the brackets with your format, audience, source material and any "must get right" details.',
             promptTemplate: `I want to create a [FORMAT NAME] for [AUDIENCE].
 
 This will be used by [WHO USES IT] to [PURPOSE].
@@ -475,7 +477,7 @@ This will be used by [WHO USES IT] to [PURPOSE].
 It will live [WHERE IT WILL BE PUBLISHED, e.g., on our website, in a printed handout, in our booking confirmation email].
 
 Here is my source material:
-[paste text, link, or notes here]
+[paste text, link or notes here]
 
 Here are the most important things to get right:
 [e.g., must mention wheelchair access, must use our cafe's friendly tone, must be under 500 words]
@@ -520,7 +522,7 @@ Before drafting:
       courseId: 'course-ai-accessible-comms',
       title: 'Build Your Draft',
       subtitle: 'Use a format-specific build prompt, then iterate',
-      description: 'Send the build prompt for your chosen format, read the first draft, and iterate 2 to 3 times to produce a working draft you are happy with.',
+      description: 'Send the build prompt for your chosen format, read the first draft and iterate 2 to 3 times to produce a working draft you are happy with.',
       order: 3,
       estimatedMinutes: 43,
       accessTier: 'premium',
@@ -537,7 +539,7 @@ Before drafting:
 <li>Iterate 2 times using the iteration prompts below (28 min)</li>
 <li>Save your work in progress (2 min)</li>
 </ol>
-<p>The next 6 blocks are the build prompts, one per format. Find yours, copy it, and paste it into ChatGPT.</p>`,
+<p>The next 6 blocks are the build prompts, one per format. Find yours, copy it and paste it into ChatGPT.</p>`,
         },
         {
           type: 'exercise',
@@ -550,7 +552,7 @@ Apply these rules:
 - One main idea per line
 - Sentences under 15 words wherever possible
 - Use common words (year 6 reading level or below)
-- Avoid metaphors, idioms, and figures of speech
+- Avoid metaphors, idioms and figures of speech
 - Use bullet points for lists
 - Break the draft into short sections with clear headings
 - For each section, suggest an image that would support the meaning (describe the image, do not generate it)
@@ -624,7 +626,7 @@ After the draft, list:
           type: 'exercise',
           exercise: {
             title: 'Build prompt: Accessibility Guide',
-            instructions: 'For structured info about the access features of a venue, event, or service.',
+            instructions: 'For structured info about the access features of a venue, event or service.',
             promptTemplate: `Please draft an Accessibility Guide for my venue or event.
 
 Structure it under these headings:
@@ -758,7 +760,7 @@ Here is the content:
         {
           type: 'text',
           heading: 'Save your work in progress (2 min)',
-          body: `<p>Copy your current draft into a Word doc, Google Doc, or wherever you normally work. Save it.</p>
+          body: `<p>Copy your current draft into a Word doc, Google Doc or wherever you normally work. Save it.</p>
 <p>Do not close ChatGPT. You will keep using this conversation in Lesson 4.</p>
 <p>Lesson 3 complete. You have a working draft.</p>`,
         },
@@ -776,7 +778,7 @@ Here is the content:
       courseId: 'course-ai-accessible-comms',
       title: 'Sense-Check and Save',
       subtitle: 'Cross-check with Claude, apply changes, save your prompt pack',
-      description: 'Send your draft to Claude for an accessibility sense-check, apply the most important changes back in ChatGPT, run the human review checklist, and save your reusable prompt pack.',
+      description: 'Send your draft to Claude for an accessibility sense-check, apply the most important changes back in ChatGPT, run the human review checklist and save your reusable prompt pack.',
       order: 4,
       estimatedMinutes: 42,
       accessTier: 'premium',
