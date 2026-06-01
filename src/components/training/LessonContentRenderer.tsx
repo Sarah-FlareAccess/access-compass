@@ -545,9 +545,10 @@ const COPIED_BTN_INNER = CHECK_ICON_SVG + '<span>Copied</span>';
 function addCopyButtonsToHtml(html: string): string {
   // Wrap every <pre>...</pre> with a wrapper + toolbar + copy button so the
   // button is part of the React-rendered HTML (survives re-renders, no race
-  // with dangerouslySetInnerHTML).
+  // with dangerouslySetInnerHTML). A sr-only live region inside each wrapper
+  // announces "Copied to clipboard" to screen readers on click.
   return html.replace(/<pre>([\s\S]*?)<\/pre>/g, (_match, inner) => {
-    return `<div class="copyable-pre-wrapper"><div class="copyable-pre-toolbar"><button type="button" class="copyable-pre-btn" aria-label="Copy to clipboard">${COPY_BTN_INNER}</button></div><pre>${inner}</pre></div>`;
+    return `<div class="copyable-pre-wrapper"><div class="copyable-pre-toolbar"><button type="button" class="copyable-pre-btn" aria-label="Copy to clipboard">${COPY_BTN_INNER}</button></div><pre>${inner}</pre><span class="sr-only copyable-pre-status" aria-live="polite"></span></div>`;
   });
 }
 
@@ -589,10 +590,13 @@ function TextBlock({
     btn.classList.add('is-copied');
     btn.innerHTML = COPIED_BTN_INNER;
     btn.setAttribute('aria-label', 'Copied to clipboard');
+    const liveRegion = wrapper?.querySelector<HTMLSpanElement>('.copyable-pre-status');
+    if (liveRegion) liveRegion.textContent = 'Copied to clipboard';
     window.setTimeout(() => {
       btn.classList.remove('is-copied');
       btn.innerHTML = COPY_BTN_INNER;
       btn.setAttribute('aria-label', 'Copy to clipboard');
+      if (liveRegion) liveRegion.textContent = '';
     }, 2000);
   };
 

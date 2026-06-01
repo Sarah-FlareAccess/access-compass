@@ -12,7 +12,14 @@ export function useChecklistProgress(courseId: string, lessonId: string) {
       if (raw) {
         const parsed = JSON.parse(raw);
         if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
-          return parsed;
+          // Filter to known-good shape: { [checklistKey]: number[] }
+          const clean: ChecklistState = {};
+          for (const [key, value] of Object.entries(parsed)) {
+            if (Array.isArray(value)) {
+              clean[key] = value.filter((n): n is number => typeof n === 'number');
+            }
+          }
+          return clean;
         }
       }
     } catch {

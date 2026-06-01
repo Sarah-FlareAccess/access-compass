@@ -238,6 +238,58 @@
   color: #ffffff;
 }
 
+/* Print: strip interactive chrome so participants can print a lesson
+   as a clean reference. Hides nav, notes trigger, progress tracker,
+   step Mark done buttons and prev/next nav. */
+@media print {
+  .lesson-view {
+    max-width: 100%;
+    padding: 0;
+  }
+  .lesson-breadcrumb,
+  .lesson-nav,
+  .lesson-complete-section,
+  .course-progress-tracker,
+  .lesson-step-card-footer,
+  .lesson-notes-trigger,
+  .lesson-notes-panel,
+  .copyable-pre-toolbar,
+  .exercise-copy-btn,
+  .take-home-action-buttons,
+  .take-home-browse-all-link,
+  details.build-prompt-detail summary::before,
+  details.setup-detail summary::before {
+    display: none !important;
+  }
+  details:not([open]) > *:not(summary) {
+    display: block !important;
+  }
+  details > summary {
+    cursor: default;
+    list-style: none;
+  }
+  .lesson-step-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .lesson-checklist-item input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid #333;
+    border-radius: 2px;
+    background: #fff;
+  }
+  .lesson-checklist-item.is-checked input[type='checkbox'] {
+    background: #333;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+}
+
 /* Locked overlay */
 .lesson-locked-overlay {
   display: flex;
