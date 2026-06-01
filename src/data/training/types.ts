@@ -94,6 +94,12 @@ export interface LessonContentBlock {
     title: string;
     introHtml?: string;
     includeBrief?: boolean;
+    promptPack?: {
+      label: string;
+      filename: string;
+      headerNote?: string;
+      sections: Array<{ heading: string; content: string }>;
+    };
   };
 }
 

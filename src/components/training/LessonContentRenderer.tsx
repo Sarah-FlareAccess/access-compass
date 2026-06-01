@@ -279,19 +279,44 @@ function InteractiveChecklistBlock({
   );
 }
 
+function applyPackSubstitutions(text: string, subs: Record<string, string>): string {
+  let result = text;
+  for (const [key, value] of Object.entries(subs)) {
+    if (!value) continue;
+    const placeholder = `[${key}]`;
+    while (result.includes(placeholder)) {
+      result = result.replace(placeholder, value);
+    }
+  }
+  return result;
+}
+
 function TakeHomeBlock({
   title,
   introHtml,
   includeBrief,
+  promptPack,
   courseId,
 }: {
   title: string;
   introHtml?: string;
   includeBrief?: boolean;
+  promptPack?: {
+    label: string;
+    filename: string;
+    headerNote?: string;
+    sections: Array<{ heading: string; content: string }>;
+  };
   courseId: string;
 }) {
   const { choice } = useFormatChoice(courseId);
   const [copied, setCopied] = useState(false);
+
+  const subs: Record<string, string> = {
+    'FORMAT NAME': choice.format,
+    AUDIENCE: choice.audience,
+    ...choice.contextFields,
+  };
 
   const buildBriefText = () => {
     const lines = [
@@ -306,7 +331,7 @@ function TakeHomeBlock({
     return lines.join('\n');
   };
 
-  const handleCopy = async () => {
+  const handleCopyBrief = async () => {
     const text = buildBriefText();
     try {
       await navigator.clipboard.writeText(text);
@@ -324,7 +349,7 @@ function TakeHomeBlock({
     window.setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleDownload = () => {
+  const handleDownloadBrief = () => {
     const now = new Date();
     const date = now.toISOString().split('T')[0];
     const stamp = now.toLocaleString('en-AU');
@@ -334,6 +359,42 @@ function TakeHomeBlock({
     const a = document.createElement('a');
     a.href = url;
     a.download = `accessible-comms-brief-${date}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadPromptPack = () => {
+    if (!promptPack) return;
+    const now = new Date();
+    const date = now.toISOString().split('T')[0];
+    const stamp = now.toLocaleString('en-AU');
+    const briefSummary = `Format: ${choice.format || '(not set)'}\nAudience: ${choice.audience || '(not set)'}` +
+      (Object.keys(choice.contextFields).length
+        ? '\n' + Object.entries(choice.contextFields).map(([k, v]) => `${k}: ${v || '(not set)'}`).join('\n')
+        : '');
+    const headerLines = [
+      promptPack.label,
+      `Captured ${stamp}`,
+      '',
+      'Your brief:',
+      briefSummary,
+    ];
+    if (promptPack.headerNote) {
+      headerLines.push('', promptPack.headerNote);
+    }
+    const sectionTexts = promptPack.sections.map((s, i) => {
+      const divider = '='.repeat(60);
+      const body = applyPackSubstitutions(s.content, subs);
+      return `${divider}\n${i + 1}. ${s.heading}\n${divider}\n\n${body}`;
+    });
+    const content = headerLines.join('\n') + '\n\n' + sectionTexts.join('\n\n') + '\n';
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${promptPack.filename}-${date}.txt`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -363,7 +424,7 @@ function TakeHomeBlock({
                 <button
                   type="button"
                   className={`format-choice-copy-brief${copied ? ' is-copied' : ''}`}
-                  onClick={handleCopy}
+                  onClick={handleCopyBrief}
                   aria-label={copied ? 'Brief copied to clipboard' : 'Copy your brief to clipboard'}
                 >
                   {copied ? 'Brief copied' : 'Copy your brief'}
@@ -371,7 +432,7 @@ function TakeHomeBlock({
                 <button
                   type="button"
                   className="format-choice-download-brief"
-                  onClick={handleDownload}
+                  onClick={handleDownloadBrief}
                   aria-label="Download your brief as a text file"
                 >
                   Download your brief
@@ -379,8 +440,26 @@ function TakeHomeBlock({
               </div>
             </>
           ) : (
-            <p className="take-home-action-empty">Your brief is empty. Scroll back to Step 1 to fill it in, then come back to grab it.</p>
+            <p className="take-home-action-empty">Your brief is empty. Scroll back to Step 1 of Lesson 2 to fill it in, then come back to grab it.</p>
           )}
+        </div>
+      )}
+      {promptPack && (
+        <div className="take-home-action">
+          <div className="take-home-action-label">{promptPack.label}</div>
+          <p className="take-home-action-summary">
+            {promptPack.sections.length} prompt{promptPack.sections.length === 1 ? '' : 's'} bundled as one text file, with your brief substituted into the placeholders.
+          </p>
+          <div className="take-home-action-buttons">
+            <button
+              type="button"
+              className="format-choice-download-brief"
+              onClick={handleDownloadPromptPack}
+              aria-label={`Download ${promptPack.label} as a text file`}
+            >
+              Download prompt pack
+            </button>
+          </div>
         </div>
       )}
     </section>

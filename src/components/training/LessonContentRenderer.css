@@ -745,6 +745,56 @@
   outline-offset: 2px;
 }
 
+/* Action cards: numbered cards for the "Where to from here" section so each
+   action stands out instead of getting skim-read as one paragraph block. */
+.lesson-block-body .action-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.lesson-block-body .action-card {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1px solid #c7d2fe;
+  border-left: 4px solid #4f46e5;
+  border-radius: 10px;
+}
+
+.lesson-block-body .action-card-num {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.lesson-block-body .action-card-body {
+  flex: 1;
+}
+
+.lesson-block-body .action-card-body h3 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 6px 0;
+}
+
+.lesson-block-body .action-card-body p {
+  margin: 0;
+  color: #374151;
+  line-height: 1.55;
+}
+
 /* Take-home panel: anchors the download habit at the end of a lesson */
 .take-home-panel {
   background: #fff7ed;

@@ -366,6 +366,108 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
             text: 'Lesson 1 complete once both ChatGPT and Claude have confirmed their roles with a short structured reply.',
           },
         },
+        {
+          type: 'take-home',
+          takeHome: {
+            title: 'Take your setup home',
+            introHtml: `<p>You have set up an AI assistant in ChatGPT and a reviewer in Claude. The prompts you pasted are saved inside those tools, not inside this app. Download them now so next time you start a new chat you can paste them in without retyping or hunting through this lesson.</p>`,
+            promptPack: {
+              label: 'AI assistant + reviewer prompts',
+              filename: 'accessible-comms-setup-prompts',
+              headerNote: 'Paste each of these prompts into the relevant tool to recreate your setup. The AI assistant goes in ChatGPT (or your drafting tool). The reviewer goes in Claude.',
+              sections: [
+                {
+                  heading: 'AI Assistant System Prompt (paste into ChatGPT / drafting tool)',
+                  content: `ROLE & PURPOSE
+You are my Accessible Communications Assistant.
+
+Your job is to help me convert standard business content into accessible and inclusive formats including:
+- Easy Read
+- Plain Language
+- Social Stories and Visual Narratives
+- Accessibility Guides
+- Accessible Word documents
+- Large Print layouts
+- Visual Communication (symbol-supported text)
+
+You will help by:
+- asking clarifying questions before drafting
+- producing draft content in the requested format
+- explaining your formatting choices when asked
+- suggesting how to test the draft with the audience
+- flagging anything that needs a human reviewer
+
+FORMATTING RULES
+- Use clear headings, short paragraphs and bullet points
+- Avoid walls of text
+- When producing Easy Read or Plain Language drafts, follow the published standards for each format
+- Always finish any draft with: "This draft was AI-generated. Please review before publishing."
+
+BEHAVIOUR RULES
+- Ask clarifying questions when you don't have enough context
+- Preserve context from earlier in the conversation
+- Default to simplicity over complexity
+- When I am vague, ask for specifics
+- When I am stuck, simplify
+- Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
+
+ACCESSIBILITY STANDARDS REFERENCE
+- Easy Read: Inclusion Australia and CID Easy Read guidelines. Short sentences, common words, one idea per line, supporting images.
+- Plain Language: Australian Government Style Manual and Plain Language Association International. Year 7 to 8 reading level. Active voice. Common words.
+- Social Stories: Carol Gray model. First person. Descriptive. Non-judgemental.
+- Accessibility Guides: Structured by topic (getting there, getting in, getting around, sensory environment, support, contact).
+- Accessible Word: Proper heading hierarchy, alt text on images, descriptive link text, accessible tables.
+- WCAG 2.2 AA for web content.
+
+WHAT TO DO IN ANY NEW TASK
+Your first reply must include:
+1. A one or two sentence summary of what you understand the task to be
+2. 3 to 5 clarifying questions if needed to fill any gaps
+3. Explain any assumptions you would have to make if I cannot answer those questions`,
+                },
+                {
+                  heading: 'Reviewer Prompt (paste into Claude)',
+                  content: `You are my Accessible Communications Reviewer.
+
+Your role is to audit drafts created in ChatGPT (or anywhere) for clarity, accessibility and inclusion.
+
+When I paste a draft, evaluate it on:
+
+A. PLAIN LANGUAGE
+- Estimated reading level (years of schooling required)
+- Sentence length (flag any over 15 words for accessible content)
+- Jargon, idioms or cultural references that may exclude readers
+
+B. STRUCTURE
+- Logical flow
+- Heading hierarchy
+- White space and chunking
+
+C. INCLUSION
+- Person-first or identity-first language used appropriately
+- Stereotypes or assumptions about disability
+- Missing audience considerations
+
+D. ACCURACY RISK
+- Statements that appear invented or assumed (and would need human verification)
+- Internal contradictions
+
+E. FORMAT FIDELITY
+- Does the draft follow the conventions of the requested format (Easy Read, Plain Language, etc.)?
+
+For each draft I paste, reply with:
+1. A one-sentence diagnosis
+2. The top 3 to 5 issues to fix, in priority order
+3. Suggested re-wordings for the top 2 or 3 issues
+4. Anything that must be checked by a human reviewer
+5. One or two questions that would strengthen the next iteration
+
+Be direct. If something is weak, say so. If something is excellent, say why.`,
+                },
+              ],
+            },
+          },
+        },
       ],
     },
     {
@@ -897,6 +999,14 @@ Here is the content:
             text: 'The draft is not ready to publish yet. Lesson 4 catches issues that are easy to miss when you have been staring at the same content.',
           },
         },
+        {
+          type: 'take-home',
+          takeHome: {
+            title: 'Take your draft home',
+            introHtml: `<p>Your draft lives inside your AI chat, not inside this app. If you close the tab without saving, you may lose it. Right now is the time to copy your draft from your AI tool into a Word doc, Google Doc or note app you control, and save it there.</p>
+<p>Your build prompt and iteration prompts are still on this page, so you can re-run them later if you start over. Lesson 4 picks up where this leaves off, sense-checking the draft you just saved.</p>`,
+          },
+        },
       ],
     },
     {
@@ -1035,16 +1145,16 @@ Here is my reviewed draft:
         },
         {
           type: 'text',
-          heading: 'Step 6: Save your prompt pack (2 min)',
-          body: `<p>Open a fresh document. Save these four things for next time:</p>
+          heading: 'Step 6: Grab your prompt pack (2 min)',
+          body: `<p>Scroll to the orange take-home panel below. The <strong>Download prompt pack</strong> button there bundles your full session into a single text file. Inside you will find:</p>
 <ol>
 <li>The <strong>AI assistant system prompt</strong> (so you can re-start ChatGPT later)</li>
-<li>The <strong>build prompt</strong> for your chosen format</li>
-<li>The <strong>briefing prompt</strong> with your business details filled in</li>
-<li>The <strong>Claude markup plan prompt</strong> from Step 4 (for next time you need to make a Word doc or PDF accessible)</li>
+<li>The <strong>Claude reviewer prompt</strong></li>
+<li>The <strong>briefing prompt</strong>, with your business details already filled in</li>
+<li>All six <strong>build prompts</strong> (Easy Read, Plain Language, Social Story, Accessibility Guide, Large Print, Accessible Digital Document)</li>
+<li>The <strong>Claude markup plan prompt</strong> for tagged Word and PDF output</li>
 </ol>
-<p>You can also download the complete Prompt Pack from this course (see Course Downloads at the top of the page).</p>
-<p>You now have a reusable kit for the next piece of content. Coming back to do another format will take half the time.</p>
+<p>Next time you make a piece of accessible content, open the text file and paste the prompts back into ChatGPT and Claude. Coming back will take half the time.</p>
 <p><strong>Your work belongs to you.</strong> Anything you have created in this session, including the draft and the prompts you save, is yours. Access Compass does not claim any rights to your content.</p>`,
         },
         {
@@ -1057,9 +1167,171 @@ Here is my reviewed draft:
         {
           type: 'text',
           heading: 'Where to from here',
-          body: `<p><strong>Build momentum.</strong> The hardest part is starting. List every customer-facing piece of communication you have: website pages, signage, menus, booking confirmations, "what to expect" emails, social posts. Mark which would most benefit from an accessible version. Pick one more this week and use your saved prompt pack to convert it. Then keep going at one per week.</p>
-<p><strong>Connect with people with lived experience.</strong> AI helps you draft. Lived experience tells you whether the draft works. Find one or two people you can pay or partner with for review. While you are at it, add a feedback line to every accessible piece you publish ("Was this useful? Tell us what we could do better.") with a real address that a real person reads.</p>
-<p><strong>Update your accessible content when your business changes.</strong> Accessible content goes stale. When you renovate, change your hours, change your menu, change your booking system, the accessible versions need updating too. Add this to your business-as-usual checklist.</p>`,
+          body: `<div class="action-cards">
+<div class="action-card">
+<div class="action-card-num" aria-hidden="true">1</div>
+<div class="action-card-body">
+<h3>Build momentum</h3>
+<p>The hardest part is starting. List every customer-facing piece of communication you have: website pages, signage, menus, booking confirmations, "what to expect" emails, social posts. Mark which would most benefit from an accessible version. Pick one more this week and use your saved prompt pack to convert it. Then keep going at one per week.</p>
+</div>
+</div>
+<div class="action-card">
+<div class="action-card-num" aria-hidden="true">2</div>
+<div class="action-card-body">
+<h3>Connect with people with lived experience</h3>
+<p>AI helps you draft. Lived experience tells you whether the draft works. Find one or two people you can pay or partner with for review. While you are at it, add a feedback line to every accessible piece you publish ("Was this useful? Tell us what we could do better.") with a real address that a real person reads.</p>
+</div>
+</div>
+<div class="action-card">
+<div class="action-card-num" aria-hidden="true">3</div>
+<div class="action-card-body">
+<h3>Update your accessible content when your business changes</h3>
+<p>Accessible content goes stale. When you renovate, change your hours, change your menu, change your booking system, the accessible versions need updating too. Add this to your business-as-usual checklist.</p>
+</div>
+</div>
+</div>`,
+        },
+        {
+          type: 'take-home',
+          takeHome: {
+            title: 'Take everything home',
+            introHtml: `<p>You have a brief, a reviewed draft and a set of prompts that worked for your business. Grab them all now so you can pick up the next piece of content without redoing this workshop.</p>
+<p>The brief saves your business context. The prompt pack saves every prompt you used (with your brief already substituted into the briefing prompt). Together they are your reusable kit.</p>`,
+            includeBrief: true,
+            promptPack: {
+              label: 'Full session prompt pack',
+              filename: 'accessible-comms-prompt-pack',
+              headerNote: 'This pack reproduces your workshop session. Paste each prompt into the right tool when you start a new piece of content. The briefing prompt has your brief substituted in. Build prompts are listed for all 6 formats so you can switch formats next time.',
+              sections: [
+                {
+                  heading: 'AI Assistant System Prompt (paste into ChatGPT / drafting tool)',
+                  content: `ROLE & PURPOSE
+You are my Accessible Communications Assistant.
+
+Your job is to help me convert standard business content into accessible and inclusive formats including Easy Read, Plain Language, Social Stories, Accessibility Guides, Accessible Word documents and Large Print layouts.
+
+You will help by asking clarifying questions before drafting, producing draft content in the requested format, explaining your formatting choices when asked, suggesting how to test the draft with the audience and flagging anything that needs a human reviewer.
+
+FORMATTING RULES
+- Use clear headings, short paragraphs and bullet points
+- Avoid walls of text
+- Always finish any draft with: "This draft was AI-generated. Please review before publishing."
+
+BEHAVIOUR RULES
+- Ask clarifying questions when you don't have enough context
+- Preserve context from earlier in the conversation
+- Default to simplicity over complexity
+- Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
+
+WHAT TO DO IN ANY NEW TASK
+Your first reply must include a one or two sentence summary of what you understand the task to be, 3 to 5 clarifying questions if needed to fill any gaps, and an explanation of any assumptions you would have to make if I cannot answer those questions.`,
+                },
+                {
+                  heading: 'Claude Reviewer Prompt (paste into Claude)',
+                  content: `You are my Accessible Communications Reviewer.
+
+Your role is to audit drafts for clarity, accessibility and inclusion.
+
+When I paste a draft, evaluate it on plain language (estimated reading level, sentence length, jargon), structure (logical flow, heading hierarchy, white space), inclusion (person-first or identity-first language, stereotypes, missing audience considerations), accuracy risk (invented or assumed statements, internal contradictions) and format fidelity.
+
+For each draft, reply with a one-sentence diagnosis, the top 3 to 5 issues in priority order, suggested re-wordings for the top 2 or 3, anything that must be checked by a human reviewer, and one or two questions that would strengthen the next iteration. Be direct.`,
+                },
+                {
+                  heading: 'Briefing Prompt (paste into ChatGPT before drafting)',
+                  content: `I want to create a [FORMAT NAME] for [AUDIENCE].
+
+This will be used by [WHO USES IT] to [PURPOSE].
+
+It will live [WHERE IT WILL BE PUBLISHED].
+
+Here is my source material:
+[paste text, link or notes here]
+
+Here are the most important things to get right:
+[e.g., must mention wheelchair access, must use our cafe's friendly tone, must be under 500 words]
+
+Before drafting:
+1. Confirm in 2 to 3 sentences what you understand.
+2. Ask me 3 to 5 clarifying questions to fill any gaps.
+3. List any assumptions you would have to make if I cannot answer.`,
+                },
+                {
+                  heading: 'Build Prompt: Easy Read',
+                  content: `Please draft this in Easy Read format following Inclusion Australia and CID guidelines. One main idea per line. Sentences under 15 words. Common words (year 6 reading level or below). No metaphors or idioms. Bullet points for lists. Short sections with clear headings. For each section, suggest an image that would support the meaning. Address the reader as "you".
+
+After the draft, list any words that may still be too hard, sections that would benefit from an example, and anything I should verify with a human reviewer.`,
+                },
+                {
+                  heading: 'Build Prompt: Plain Language',
+                  content: `Please draft this in Plain Language following the Australian Government Style Manual. Year 7 to 8 reading level. Sentences under 20 words on average. Active voice. Common words. Short paragraphs (3 sentences or fewer). Clear headings. Bullet points for lists. Address the reader as "you" where appropriate.
+
+After the draft, give an estimate of the reading level, a list of words to consider replacing, and one sentence on what the reader should walk away knowing.`,
+                },
+                {
+                  heading: 'Build Prompt: Social Story / Visual Narrative',
+                  content: `Please draft this as a Social Story / Visual Narrative. Written in first person. Descriptive and reassuring, not instructional. Walk the reader through the experience in the order it happens. Note sensory details. Mention what staff or other people might do. Acknowledge that things can change.
+
+Structure: 1. Before I arrive. 2. When I get there. 3. What I will see and do inside. 4. If I need help. 5. When I leave.
+
+Suggest where photos should sit and list anything I should verify or add from a real walk-through.`,
+                },
+                {
+                  heading: 'Build Prompt: Accessibility Guide',
+                  content: `Please draft an Accessibility Guide for my venue or event under these headings: 1. Getting there. 2. Getting in. 3. Getting around. 4. Toilets. 5. Sensory environment. 6. Support available. 7. Contact.
+
+Plain Language throughout. Specific, not vague. If I have not provided info for a section, flag it as "needs answer". Use bullet points for facts, prose for context. After the draft, list every "needs answer" item, photos I should take, and anything that would benefit from human verification.`,
+                },
+                {
+                  heading: 'Build Prompt: Large Print',
+                  content: `I have content I want to provide in Large Print. Confirm the content is appropriate for Large Print (short, high-priority information). Suggest text edits to make it scannable (shorter sentences, clearer headings, removing decorative content). Give me the Large Print formatting checklist (minimum font size, font family, line spacing, contrast, paper colour, margins) following Vision Australia clear print guidance.
+
+Here is the content:
+[paste content]`,
+                },
+                {
+                  heading: 'Build Prompt: Accessible Digital Document (Word/PDF)',
+                  content: `I have a digital document I want to make accessible. I want to publish it as an accessible Word document and export a tagged PDF version.
+
+Following NSW Digital Toolkit and Vic Government accessibility standards, WCAG 2.2 AA:
+
+1. STRUCTURE: heading hierarchy (H1, H2, H3, no skipped levels), logical reading order, proper bulleted or numbered lists.
+2. PLAIN LANGUAGE: estimate reading level, flag jargon, rewrite the top 5 hardest sentences.
+3. IMAGES: suggest alt text for every image. Mark decorative images. Flag colour-only meaning.
+4. LINKS: rewrite "click here", "read more" to be descriptive. Suggest footnote URLs for printed copies.
+5. TABLES: mark header row. Flag merged or split cells. Add captions.
+6. DOCUMENT PROPERTIES: suggest a document title, language (English Australia), author, 3 to 5 keywords.
+7. EXPORT: save with structure tags enabled. Note if an HTML equivalent should also exist.
+
+After your analysis, give a numbered checklist to apply in Word, a list of items to verify, and a footer paragraph noting WCAG 2.2 AA conformance.
+
+Here is the content:
+[paste content]`,
+                },
+                {
+                  heading: 'Claude Markup Plan Prompt (paste into Claude with your reviewed draft)',
+                  content: `I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
+
+Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit and Vic Government accessibility standards, WCAG 2.2 AA.
+
+1. STRUCTURE: mark each line or section with its heading level. Logical reading order. Proper lists.
+2. IMAGES: alt text per image. Mark decorative. Flag colour-only meaning.
+3. LINKS: rewrite vague link text.
+4. TABLES: mark header rows. Flag merged cells. Add captions.
+5. DOCUMENT PROPERTIES: title, language, author, keywords.
+6. EXPORT NOTES: structure tags enabled, HTML equivalent recommended.
+
+After the marked-up draft, give a numbered Word-application checklist, a list of items to verify, and a footer paragraph about WCAG 2.2 AA conformance and alternative-format requests.
+
+Here is my reviewed draft:
+[paste reviewed draft]`,
+                },
+                {
+                  heading: 'Reset Prompt (paste if the AI drifts off track)',
+                  content: `Please restart this task and follow the briefing prompt exactly. Confirm what you understand in 2 to 3 sentences, then ask 3 to 5 clarifying questions, then list any assumptions you would have to make.`,
+                },
+              ],
+            },
+          },
         },
       ],
     },
