@@ -1601,3 +1601,28 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+/* Honour OS-level reduced motion: disable the small hover/transition flourishes
+   added across the lesson renderer so participants who avoid motion get a still
+   interface. Critical transitions (focus rings, button state colour swaps) are
+   already instantaneous; the ones disabled below are decorative. */
+@media (prefers-reduced-motion: reduce) {
+  .lesson-step-card,
+  .lesson-step-complete-btn,
+  .format-choice-option,
+  .format-choice-copy-brief,
+  .format-choice-download-brief,
+  .format-choice-help-prompt-btn,
+  .format-choice-copy-brief:active,
+  .format-choice-download-brief:active,
+  .copyable-pre-btn,
+  .lesson-block-body details.setup-detail summary,
+  .lesson-block-body details.setup-detail summary::before,
+  .build-prompt-detail summary,
+  .take-home-browse-all-link,
+  .take-home-browse-all-link svg,
+  .exercise-copy-btn {
+    transition: none !important;
+    transform: none !important;
+  }
+}

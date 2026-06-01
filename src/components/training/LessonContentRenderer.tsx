@@ -315,6 +315,7 @@ function TakeHomeBlock({
 }) {
   const { choice } = useFormatChoice(courseId);
   const [copied, setCopied] = useState(false);
+  const [pdfBusy, setPdfBusy] = useState(false);
 
   const subs: Record<string, string> = {
     'FORMAT NAME': choice.format,
@@ -413,7 +414,9 @@ function TakeHomeBlock({
   };
 
   const handleDownloadPromptPackPdf = async () => {
-    if (!promptPack) return;
+    if (!promptPack || pdfBusy) return;
+    setPdfBusy(true);
+    try {
     const date = new Date().toISOString().split('T')[0];
     const blob = await generatePromptPackPdf({
       title: promptPack.label,
@@ -443,6 +446,9 @@ function TakeHomeBlock({
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
+    } finally {
+      setPdfBusy(false);
+    }
   };
 
   const hasBrief = choice.format && choice.audience.trim();
@@ -505,9 +511,10 @@ function TakeHomeBlock({
               type="button"
               className="format-choice-download-brief"
               onClick={handleDownloadPromptPackPdf}
-              aria-label={`Download ${promptPack.label} as a PDF`}
+              disabled={pdfBusy}
+              aria-label={pdfBusy ? 'Building PDF, please wait' : `Download ${promptPack.label} as a PDF`}
             >
-              Download prompt pack (PDF)
+              {pdfBusy ? 'Building PDF…' : 'Download prompt pack (PDF)'}
             </button>
             <button
               type="button"
