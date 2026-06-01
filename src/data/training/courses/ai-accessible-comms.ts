@@ -40,7 +40,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   ],
   courseDownloads: [
     {
-      title: 'Accessible Comms Prompt Pack (PDF)',
+      title: 'Using AI to Create Accessible & Inclusive Communications — Workshop Prompt Pack (PDF)',
       description: 'The full workshop in one printable PDF: system prompt, reviewer prompt, briefing template, all 6 build prompts, iteration prompts, reset prompt, markup plan prompt and human review checklist.',
       fileName: 'ai-accessible-comms-prompt-pack.pdf',
       fileUrl: '/training/downloads/ai-accessible-comms-prompt-pack.pdf',
@@ -48,7 +48,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileSize: '23 KB',
     },
     {
-      title: 'Accessible Comms Prompt Pack (TXT)',
+      title: 'Using AI to Create Accessible & Inclusive Communications — Workshop Prompt Pack (TXT)',
       description: 'The same full prompt pack as plain text, easier for copying individual prompts into AI tools.',
       fileName: 'ai-accessible-comms-prompt-pack.txt',
       fileUrl: '/training/downloads/ai-accessible-comms-prompt-pack.txt',
@@ -701,17 +701,24 @@ Please interview me to gather the source material you need. Ask one question at 
 5. What could go wrong if I get this wrong?
 
 Ask 5 to 8 questions total. After my last answer, summarise what you learned in a short bullet list, then proceed to the build prompt for [FORMAT NAME].</code></pre>
-<p><strong>Heads up:</strong> two formats really do need existing source content. Large Print is for reformatting short content you already have. Accessible Digital Document (Word/PDF) is for making an existing document accessible. If you have neither, pick Plain Language, Easy Read, Social Story or Accessibility Guide instead. You can come back to Large Print or Accessible Digital Document once you have a finished draft.</p>
 </details>
-<div class="path-card">
-<div class="path-card-label">Free tier path (Claude free, ChatGPT free, Copilot, Gemini)</div>
-<p><strong>Have your source ready in a note app, browser tab or Word doc.</strong> You will copy and paste it directly into the chat in Step 3.</p>
+<div class="heads-up-note">
+<div class="heads-up-label">Heads up</div>
+<p>Two formats really do need existing source content: <strong>Large Print</strong> (reformats short content you already have) and <strong>Accessible Digital Document (Word/PDF)</strong> (makes an existing document accessible). If you have neither, pick Plain Language, Easy Read, Social Story or Accessibility Guide. You can come back to Large Print or Accessible Digital Document once you have a finished draft.</p>
 </div>
-<div class="path-card">
-<div class="path-card-label">Plus or Pro tier path (ChatGPT Plus, Claude Pro)</div>
-<p>For long sources (multi-page policies, brand guides, detailed staff manuals), <strong>upload the file to your project's Files area now</strong>. In Step 3, you will reference it with this line:</p>
+<h3 class="path-section-heading">Choose your path</h3>
+<div class="path-card path-card-free">
+<div class="path-card-label">Free tier (Claude free, ChatGPT free, Copilot, Gemini)</div>
+<p><strong>Have your source handy in a note app, browser tab or Word doc.</strong> You will copy and paste it into the chat in Step 3.</p>
+</div>
+<div class="path-card path-card-pro">
+<div class="path-card-label">Plus or Pro tier (ChatGPT Plus, Claude Pro)</div>
+<p>For long sources (multi-page policies, brand guides, detailed staff manuals), <strong>upload the file to your project's Files area now</strong>. In Step 3 you will reference it with this line:</p>
 <pre><code>See the source document I have uploaded to this project.</code></pre>
-<div class="upload-warning"><strong>Before you upload:</strong> do not upload anything containing personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>
+<details class="upload-warning-details">
+<summary>Before you upload, check this list (tap to expand)</summary>
+<div class="upload-warning"><strong>Do not upload anything containing:</strong> personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to, or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>
+</details>
 </div>`,
         },
         {

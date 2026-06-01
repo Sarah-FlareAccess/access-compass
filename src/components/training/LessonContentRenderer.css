@@ -1402,6 +1402,117 @@
   color: #1e3a8a;
 }
 
+/* Heads-up note: a compact amber callout for "wait, read this before you pick"
+   guidance, distinct from path cards and from upload warnings. */
+.lesson-block-body .heads-up-note {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-left: 4px solid #d97706;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 18px 0 22px 0;
+}
+
+.lesson-block-body .heads-up-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #92400e;
+  margin-bottom: 4px;
+}
+
+.lesson-block-body .heads-up-note p {
+  margin: 0;
+  color: #78350f;
+  line-height: 1.55;
+}
+
+.lesson-block-body .heads-up-note strong {
+  color: #422006;
+}
+
+/* Section heading sitting above pair of path cards */
+.lesson-block-body .path-section-heading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 28px 0 12px 0;
+}
+
+/* Free-tier path card: cooler colour so it differs from the warmer Pro card */
+.lesson-block-body .path-card-free {
+  background: #f0fdfa;
+  border-color: #99f6e4;
+  border-left-color: #0d9488;
+}
+
+.lesson-block-body .path-card-free .path-card-label {
+  color: #134e4a;
+}
+
+.lesson-block-body .path-card-free p {
+  color: #134e4a;
+}
+
+.lesson-block-body .path-card-free strong {
+  color: #042f2e;
+}
+
+.lesson-block-body .path-card-pro {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  border-left-color: #15803d;
+}
+
+/* Upload warning details: collapsed by default so the red wall does not
+   dominate the Pro path card on first glance. */
+.lesson-block-body details.upload-warning-details {
+  margin-top: 10px;
+}
+
+.lesson-block-body details.upload-warning-details > summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #7c2d12;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 6px 10px;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lesson-block-body details.upload-warning-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.lesson-block-body details.upload-warning-details > summary::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #b91c1c;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.72rem;
+}
+
+.lesson-block-body details.upload-warning-details > summary:hover {
+  background: #fee2e2;
+}
+
+.lesson-block-body details.upload-warning-details[open] > summary {
+  margin-bottom: 8px;
+}
+
 /* Path card - clearly delineates parallel paths (free tier vs Plus/Pro)
    so users see at-a-glance which set of actions applies to them. */
 .lesson-block-body .path-card {
@@ -1410,7 +1521,7 @@
   border-left: 4px solid #15803d;
   border-radius: 10px;
   padding: 14px 16px;
-  margin: 12px 0;
+  margin: 14px 0;
 }
 
 .lesson-block-body .path-card-label {
