@@ -1,8 +1,89 @@
+import { useEffect, useRef } from 'react';
 import type { LessonContentBlock } from '../../data/training/types';
 import { ExerciseBlock } from './ExerciseBlock';
 import { DownloadBlock } from './DownloadBlock';
 import { useStepProgress } from '../../hooks/useStepProgress';
 import './LessonContentRenderer.css';
+
+const COPY_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+const CHECK_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+
+function TextBlock({ heading, body }: { heading?: string; body?: string }) {
+  const bodyRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = bodyRef.current;
+    if (!root || !body) return;
+
+    const pres = Array.from(root.querySelectorAll('pre'));
+    const cleanupFns: Array<() => void> = [];
+
+    pres.forEach((pre) => {
+      if (pre.parentElement?.classList.contains('copyable-pre-wrapper')) return;
+      const text = (pre.querySelector('code')?.textContent ?? pre.textContent ?? '').trim();
+      if (!text) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'copyable-pre-wrapper';
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copyable-pre-btn';
+      btn.setAttribute('aria-label', 'Copy to clipboard');
+      btn.innerHTML = COPY_ICON_SVG + '<span>Copy</span>';
+
+      let resetTimer: number | null = null;
+      const handleClick = async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        }
+        btn.classList.add('is-copied');
+        btn.innerHTML = CHECK_ICON_SVG + '<span>Copied</span>';
+        btn.setAttribute('aria-label', 'Copied to clipboard');
+        if (resetTimer) window.clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(() => {
+          btn.classList.remove('is-copied');
+          btn.innerHTML = COPY_ICON_SVG + '<span>Copy</span>';
+          btn.setAttribute('aria-label', 'Copy to clipboard');
+        }, 2000);
+      };
+
+      btn.addEventListener('click', handleClick);
+      wrapper.appendChild(btn);
+
+      cleanupFns.push(() => {
+        btn.removeEventListener('click', handleClick);
+        if (resetTimer) window.clearTimeout(resetTimer);
+      });
+    });
+
+    return () => cleanupFns.forEach((fn) => fn());
+  }, [body]);
+
+  return (
+    <div className="lesson-text-block">
+      {heading && <h2 className="lesson-block-heading">{heading}</h2>}
+      {body && (
+        <div
+          ref={bodyRef}
+          className="lesson-block-body"
+          dangerouslySetInnerHTML={{ __html: body }}
+        />
+      )}
+    </div>
+  );
+}
 
 interface LessonContentRendererProps {
   blocks: LessonContentBlock[];
@@ -88,17 +169,7 @@ function CalloutBlock({ variant, text }: { variant: string; text: string }) {
 function renderBlock(block: LessonContentBlock, key: React.Key): React.ReactNode {
   switch (block.type) {
     case 'text':
-      return (
-        <div key={key} className="lesson-text-block">
-          {block.heading && <h2 className="lesson-block-heading">{block.heading}</h2>}
-          {block.body && (
-            <div
-              className="lesson-block-body"
-              dangerouslySetInnerHTML={{ __html: block.body }}
-            />
-          )}
-        </div>
-      );
+      return <TextBlock key={key} heading={block.heading} body={block.body} />;
 
     case 'video':
       if (!block.video) return null;
