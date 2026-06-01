@@ -1,0 +1,55 @@
+HUMAN REVIEW CHECKLIST
+Using AI to Create Accessible and Inclusive Communications (Flare Access)
+
+Use this checklist before you publish any draft you produced with help from AI. AI can draft well. It cannot verify facts about your business, walk your venue, or speak to your real audience. That is your job. Tick off each item before you publish.
+
+============================================================
+CHECKLIST
+============================================================
+
+[ ] Is everything factually correct about your business and venue?
+
+[ ] Have you tested it with at least one person from the target audience? If not, plan to before publishing.
+
+[ ] Have any photos or images been described accurately?
+
+[ ] For Easy Read or Visual Communication: have you sourced images or symbols?
+
+[ ] For Accessibility Guides: has someone walked the route and verified the details?
+
+[ ] Have you removed any AI-added claims that you cannot verify?
+
+[ ] Have you added the publishing date and a way for readers to give feedback?
+
+============================================================
+FEEDBACK PARAGRAPH TEMPLATE
+============================================================
+
+Use a real address that a real person reads. Add a version like this to every accessible piece you publish.
+
+"Was this useful? We'd love to know if anything could be clearer, better translated, or missing. Email accessibility@[yourbusiness].com.au or tell us in person at reception. We update this content when we hear from you."
+
+============================================================
+PUBLISHING CHECKLIST FOR TAGGED PDFs
+============================================================
+
+Before exporting to PDF from Word:
+
+[ ] All headings use Word's built-in Heading 1, Heading 2 etc. styles (not just bold text)
+[ ] Every image has alt text set via Picture Format > Alt Text
+[ ] Decorative images are marked as decorative
+[ ] Links use descriptive text (not "click here")
+[ ] Tables have a header row set and no merged cells
+[ ] Document title, language and author are set in File > Info > Properties
+[ ] Run Word's built-in Accessibility Checker (Review > Check Accessibility)
+[ ] Export as PDF with "Document structure tags for accessibility" enabled
+
+After export, if you have Adobe Acrobat Pro:
+
+[ ] Run Tools > Prepare for Accessibility > Accessibility Check
+[ ] Fix any flagged issues (missing tags, reading order, etc.)
+[ ] Re-run the check
+
+============================================================
+END
+============================================================

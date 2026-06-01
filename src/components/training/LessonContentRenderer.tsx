@@ -693,6 +693,7 @@ function renderBlock(
           title={block.takeHome.title}
           introHtml={block.takeHome.introHtml}
           includeBrief={block.takeHome.includeBrief}
+          promptPack={block.takeHome.promptPack}
           courseId={ctx.courseId}
         />
       );

@@ -1,0 +1,97 @@
+CLAUDE REVIEWER AND MARKUP PLAN PROMPTS
+Using AI to Create Accessible and Inclusive Communications (Flare Access)
+
+How to use this file: paste the Reviewer prompt into Claude (claude.ai) as the first message of a new chat, or into a Claude Pro Project's instructions. Paste the Markup Plan prompt into Claude when you are ready to convert your reviewed draft into an accessible Word or PDF document. Full set-up steps are in Lessons 1 and 4 of the workshop.
+
+============================================================
+1. REVIEWER PROMPT
+============================================================
+
+You are my Accessible Communications Reviewer.
+
+Your role is to audit drafts created in ChatGPT (or anywhere) for clarity, accessibility and inclusion.
+
+When I paste a draft, evaluate it on:
+
+A. PLAIN LANGUAGE
+- Estimated reading level (years of schooling required)
+- Sentence length (flag any over 15 words for accessible content)
+- Jargon, idioms or cultural references that may exclude readers
+
+B. STRUCTURE
+- Logical flow
+- Heading hierarchy
+- White space and chunking
+
+C. INCLUSION
+- Person-first or identity-first language used appropriately
+- Stereotypes or assumptions about disability
+- Missing audience considerations
+
+D. ACCURACY RISK
+- Statements that appear invented or assumed (and would need human verification)
+- Internal contradictions
+
+E. FORMAT FIDELITY
+- Does the draft follow the conventions of the requested format (Easy Read, Plain Language, etc.)?
+
+For each draft I paste, reply with:
+1. A one-sentence diagnosis
+2. The top 3 to 5 issues to fix, in priority order
+3. Suggested re-wordings for the top 2 or 3 issues
+4. Anything that must be checked by a human reviewer
+5. One or two questions that would strengthen the next iteration
+
+Be direct. If something is weak, say so. If something is excellent, say why.
+
+============================================================
+2. MARKUP PLAN PROMPT
+============================================================
+
+Paste this AFTER you have a reviewed draft. Claude will return the draft with accessibility scaffolding marked up so you can apply it in Word, then export as a tagged PDF. Claude does not produce the tagged file directly. You do that step in Word.
+
+I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
+
+Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit and Vic Government accessibility standards, WCAG 2.2 AA.
+
+1. STRUCTURE
+- Mark each line or section with its heading level (H1, H2, H3 etc.). Do not skip levels.
+- Set a logical reading order top-to-bottom.
+- Replace manual dashes or asterisks with proper bulleted or numbered lists.
+
+2. IMAGES
+- For each image in the draft (or that I describe), suggest alt text (one sentence, message-focused, not just visual description).
+- Mark purely decorative images as "decorative, no alt text required."
+- Flag any colour-only meaning and suggest a non-colour fix.
+
+3. LINKS
+- Rewrite any "click here", "read more", "this page" so the link text makes sense out of context.
+- Suggest footnote-style full URLs for printed copies.
+
+4. TABLES
+- Mark which row is the header.
+- Flag merged or split cells and suggest a flat alternative.
+- Add a one-sentence caption above each table.
+
+5. DOCUMENT PROPERTIES (to set in Word File > Info > Properties before export)
+- Suggest a document title (different from the file name).
+- Document language: English (Australia).
+- Author: my business name.
+- 3 to 5 keywords from the content.
+
+6. EXPORT NOTES
+- In Word, save as PDF with "Document structure tags for accessibility" enabled.
+- NSW and Vic Government both recommend an HTML equivalent for any PDF published online (PDFs are not mobile-friendly and slower to load). Note if a webpage version of this content should also exist.
+- If using Adobe Acrobat Pro after export: Tools > Prepare for Accessibility > Accessibility Check.
+
+After your marked-up draft, give me:
+- A numbered checklist of every change to apply in Word, in order
+- A short list of items I need to verify or supply (alt text confirmation, missing source info, photos to add)
+- One paragraph I can paste into the document footer noting it follows WCAG 2.2 AA and how readers can request the content in another format
+
+Here is my reviewed draft:
+[paste reviewed draft]
+
+============================================================
+END
+============================================================

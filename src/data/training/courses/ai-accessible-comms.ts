@@ -41,11 +41,11 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   courseDownloads: [
     {
       title: 'Accessible Comms Prompt Pack',
-      description: 'All system prompts and format-specific build prompts in one document. Take home and reuse for future content.',
-      fileName: 'ai-accessible-comms-prompt-pack.pdf',
-      fileUrl: '/training/downloads/ai-accessible-comms-prompt-pack.pdf',
-      fileType: 'PDF',
-      fileSize: 'TBC',
+      description: 'The full workshop in one text file: system prompt, reviewer prompt, briefing template, all 6 build prompts, iteration prompts, reset prompt, markup plan prompt and human review checklist. Take home and reuse for every future piece.',
+      fileName: 'ai-accessible-comms-prompt-pack.txt',
+      fileUrl: '/training/downloads/ai-accessible-comms-prompt-pack.txt',
+      fileType: 'TXT',
+      fileSize: '18 KB',
     },
     {
       title: 'AI Assistant System Prompt',
@@ -53,7 +53,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileName: 'ai-assistant-system-prompt.txt',
       fileUrl: '/training/downloads/ai-assistant-system-prompt.txt',
       fileType: 'TXT',
-      fileSize: 'TBC',
+      fileSize: '3 KB',
     },
     {
       title: 'Claude Reviewer and Markup Plan Prompts',
@@ -61,15 +61,15 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileName: 'claude-reviewer-and-markup-prompts.txt',
       fileUrl: '/training/downloads/claude-reviewer-and-markup-prompts.txt',
       fileType: 'TXT',
-      fileSize: 'TBC',
+      fileSize: '5 KB',
     },
     {
       title: 'Human Review Checklist',
-      description: 'Printable checklist for the final human review pass before publishing AI-drafted accessible content.',
-      fileName: 'human-review-checklist.pdf',
-      fileUrl: '/training/downloads/human-review-checklist.pdf',
-      fileType: 'PDF',
-      fileSize: 'TBC',
+      description: 'Checklist for the final human review pass before publishing AI-drafted accessible content. Includes the publishing checklist for tagged PDFs.',
+      fileName: 'human-review-checklist.txt',
+      fileUrl: '/training/downloads/human-review-checklist.txt',
+      fileType: 'TXT',
+      fileSize: '3 KB',
     },
   ],
   lessons: [
