@@ -215,7 +215,10 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <li>Important: if you start another new chat later, you must paste the system prompt again at the top. Free tiers do not remember instructions between chats.</li>
 <li>Tip: keep the system prompt open in a separate note or document so you can copy and paste it quickly.</li>
 </ol>
-<p class="screenshot-placeholder">[Screenshot placeholder: any of the three tools showing the first-message paste, optional]</p>
+<figure class="setup-screenshot">
+<img src="/training/screenshots/copilot-paste-at-top.png" alt="Microsoft Copilot home screen with the system prompt pasted into the chat input box as a first message. The 'Smart' model selector and the send arrow are visible at the bottom of the input." loading="lazy" />
+<figcaption>Microsoft Copilot example. Same pattern works in Claude free and Gemini free: paste the system prompt as the first message in a new chat.</figcaption>
+</figure>
 </details>
 </div>`,
         },
@@ -333,6 +336,14 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
               'Claude free has no persistent instructions feature, so this prompt only applies to this conversation. Keep the tab open until Lesson 4.',
               'If you accidentally close the Claude tab, just open a new one and re-paste the prompt.',
             ],
+          },
+        },
+        {
+          type: 'image',
+          image: {
+            src: '/training/screenshots/claude-reviewer-paste.png',
+            alt: 'Claude free chat with the reviewer prompt pasted into the input box. The greeting "Welcome, Flare Access! I\'m Claude." sits above and the Sonnet 4.6 model selector and send arrow are at the bottom of the input.',
+            caption: 'Reviewer prompt pasted into a fresh Claude chat, ready to send.',
           },
         },
         {
