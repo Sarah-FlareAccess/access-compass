@@ -685,7 +685,24 @@ After my last answer, summarise my brief as five short bullet points labelled Fo
 </tr>
 </tbody>
 </table>
-<p>If you have nothing prepared, you can still pick any format. The AI will prompt you for what it needs in Step 3.</p>
+<p>If you have nothing prepared, you can still pick most formats. The AI can interview you for the facts it needs. Open the "I have no source material yet" panel below for the prompt that turns the AI into your interviewer.</p>
+<details class="setup-detail">
+<summary><strong>I have no source material yet</strong>: get the AI to interview you</summary>
+<p>Paste this prompt into the same AI chat where you set up the system prompt (Lesson 1) and the briefing prompt (Step 3 below). The AI will ask you one question at a time and use your answers as the source for the draft.</p>
+<pre><code>I do not have source material prepared. I want to create [FORMAT NAME] for [AUDIENCE].
+
+The topic is: [one sentence on what your content is about].
+
+Please interview me to gather the source material you need. Ask one question at a time, in this order:
+1. What is the single most important thing my audience needs to know?
+2. What specific facts, processes or details should the content include?
+3. What tone fits my business (formal, friendly, technical)?
+4. Are there any specific things I do not want to leave out?
+5. What could go wrong if I get this wrong?
+
+Ask 5 to 8 questions total. After my last answer, summarise what you learned in a short bullet list, then proceed to the build prompt for [FORMAT NAME].</code></pre>
+<p><strong>Heads up:</strong> two formats really do need existing source content. Large Print is for reformatting short content you already have. Accessible Digital Document (Word/PDF) is for making an existing document accessible. If you have neither, pick Plain Language, Easy Read, Social Story or Accessibility Guide instead. You can come back to Large Print or Accessible Digital Document once you have a finished draft.</p>
+</details>
 <div class="path-card">
 <div class="path-card-label">Free tier path (Claude free, ChatGPT free, Copilot, Gemini)</div>
 <p><strong>Have your source ready in a note app, browser tab or Word doc.</strong> You will copy and paste it directly into the chat in Step 3.</p>
@@ -914,7 +931,7 @@ After the draft, give me:
           exercise: {
             title: 'Build prompt: Accessible Digital Document (Word/PDF)',
             formatKey: 'Accessible Digital Document (Word/PDF)',
-            instructions: 'For making an existing Word document or PDF accessible to screen readers and meeting WCAG 2.2 AA. Built on NSW Digital Toolkit and Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings and similar.',
+            instructions: 'For making an existing Word document or PDF accessible to screen readers and meeting WCAG 2.2 AA. Built on NSW Digital Toolkit and Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings and similar. This format needs an existing document to make accessible. If you have nothing yet, pick a different format (Plain Language, Easy Read, Social Story or Accessibility Guide) to create the content first, then come back here to make the finished version a tagged PDF.',
             promptTemplate: `I have a digital document I want to make accessible. I want to publish it as an accessible Word document and export a tagged PDF version. I will paste the content below.
 
 Please apply this structure (based on NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA):
@@ -968,7 +985,7 @@ Here is the content:
           exercise: {
             title: 'Build prompt: Large Print',
             formatKey: 'Large Print',
-            instructions: 'For reformatting short content for low-vision readers, following Vision Australia clear print guidance.',
+            instructions: 'For reformatting short content for low-vision readers, following Vision Australia clear print guidance. This format needs existing short content to reformat (a menu page, a flyer, an announcement, a one-page summary). If you have no source content yet, use Plain Language or Easy Read first, then come back to Large Print to reformat the result.',
             promptTemplate: `I have content I want to provide in Large Print. I will paste it below.
 
 Please:
@@ -1077,6 +1094,10 @@ Please sense-check it using the framework you've been set up with.
 
 [paste draft]`,
             expectedOutcome: 'Claude returns a one-sentence diagnosis, the top 3 to 5 issues, suggested re-wordings for the top 2 or 3, items needing human verification and 1 to 2 questions for the next iteration.',
+            tips: [
+              'If Claude\'s free tier limit hits before you finish, paste the Reviewer prompt and this draft into ChatGPT, Copilot or Gemini instead. The framework is portable.',
+              'If Claude\'s reply skips one of the five framework sections, ask it to redo the missing section. Do not let it drop categories silently.',
+            ],
           },
         },
         {

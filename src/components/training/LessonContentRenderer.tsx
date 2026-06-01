@@ -551,8 +551,17 @@ function addCopyButtonsToHtml(html: string): string {
   });
 }
 
-function TextBlock({ heading, body }: { heading?: string; body?: string }) {
-  const transformed = body ? addCopyButtonsToHtml(body) : undefined;
+function TextBlock({
+  heading,
+  body,
+  substitutions,
+}: {
+  heading?: string;
+  body?: string;
+  substitutions?: Record<string, string>;
+}) {
+  const subbedBody = body ? applyPackSubstitutions(body, substitutions ?? {}) : undefined;
+  const transformed = subbedBody ? addCopyButtonsToHtml(subbedBody) : undefined;
 
   const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
@@ -689,7 +698,14 @@ function renderBlock(
 ): React.ReactNode {
   switch (block.type) {
     case 'text':
-      return <TextBlock key={key} heading={block.heading} body={block.body} />;
+      return (
+        <TextBlock
+          key={key}
+          heading={block.heading}
+          body={block.body}
+          substitutions={ctx.substitutions}
+        />
+      );
 
     case 'video':
       if (!block.video) return null;
