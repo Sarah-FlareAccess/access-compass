@@ -1057,6 +1057,23 @@
   border-color: #4f46e5;
 }
 
+/* Default styling for every <pre> in lesson body so it reads as a code
+   block. Special contexts (.version-note, .do-now) override via higher
+   specificity to keep their tinted backgrounds. */
+.lesson-block-body pre {
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #1f2937;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace;
+}
+
 /* Copy button injected above every <pre> block in lesson body HTML.
    Toolbar row above pre (instead of absolute overlay) is reliable across
    every callout context (.version-note, .do-now) regardless of their pre styling. */
