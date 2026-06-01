@@ -79,6 +79,12 @@ export interface LessonContentBlock {
     formats: Array<{ value: string; label: string }>;
     audienceLabel: string;
     audienceExample?: string;
+    contextFields?: Array<{
+      key: string;
+      label: string;
+      example?: string;
+      multiline?: boolean;
+    }>;
   };
 }
 

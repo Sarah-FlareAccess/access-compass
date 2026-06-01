@@ -5,7 +5,10 @@ const storageKey = (courseId: string) => `ac:format-choice:${courseId}`;
 export interface FormatChoice {
   format: string;
   audience: string;
+  contextFields: Record<string, string>;
 }
+
+const EMPTY_CHOICE: FormatChoice = { format: '', audience: '', contextFields: {} };
 
 export function useFormatChoice(courseId: string) {
   const [choice, setChoice] = useState<FormatChoice>(() => {
@@ -18,13 +21,20 @@ export function useFormatChoice(courseId: string) {
           typeof parsed.format === 'string' &&
           typeof parsed.audience === 'string'
         ) {
-          return parsed;
+          return {
+            format: parsed.format,
+            audience: parsed.audience,
+            contextFields:
+              parsed.contextFields && typeof parsed.contextFields === 'object'
+                ? parsed.contextFields
+                : {},
+          };
         }
       }
     } catch {
       /* ignore */
     }
-    return { format: '', audience: '' };
+    return EMPTY_CHOICE;
   });
 
   useEffect(() => {
@@ -43,5 +53,12 @@ export function useFormatChoice(courseId: string) {
     setChoice((prev) => ({ ...prev, audience }));
   }, []);
 
-  return { choice, setFormat, setAudience };
+  const setContextField = useCallback((key: string, value: string) => {
+    setChoice((prev) => ({
+      ...prev,
+      contextFields: { ...prev.contextFields, [key]: value },
+    }));
+  }, []);
+
+  return { choice, setFormat, setAudience, setContextField };
 }

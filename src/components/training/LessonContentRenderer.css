@@ -749,12 +749,19 @@
   border-color: #4f46e5;
 }
 
-.format-choice-summary {
-  margin: 12px 0 0 0;
-  padding: 10px 12px;
+.format-choice-summary-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px 14px;
   background: #ffffff;
   border: 1px solid #c7d2fe;
   border-radius: 8px;
+}
+
+.format-choice-summary {
+  margin: 0;
   font-size: 0.88rem;
   color: #1e1b4b;
   line-height: 1.5;
@@ -762,6 +769,59 @@
 
 .format-choice-summary strong {
   color: #312e81;
+}
+
+.format-choice-copy-brief {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid #075985;
+  border-radius: 6px;
+  background: #0369a1;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.format-choice-copy-brief:hover {
+  background: #075985;
+}
+
+.format-choice-copy-brief:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
+}
+
+.format-choice-copy-brief.is-copied {
+  background: #15803d;
+  border-color: #14532d;
+}
+
+.format-choice-copy-brief.is-copied:hover {
+  background: #14532d;
+}
+
+.format-choice-audience textarea {
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  line-height: 1.45;
+  border: 1px solid #c7d2fe;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1f2937;
+  resize: vertical;
+}
+
+.format-choice-audience textarea:focus-visible {
+  outline: 3px solid var(--focus-ring, #CC7700);
+  outline-offset: 2px;
+  border-color: #4f46e5;
 }
 
 /* Copy button injected above every <pre> block in lesson body HTML.

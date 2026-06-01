@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { LessonContentBlock } from '../../data/training/types';
 import { ExerciseBlock } from './ExerciseBlock';
 import { DownloadBlock } from './DownloadBlock';
@@ -11,6 +12,7 @@ function FormatChoiceBlock({
   formats,
   audienceLabel,
   audienceExample,
+  contextFields,
   courseId,
 }: {
   legend: string;
@@ -18,12 +20,44 @@ function FormatChoiceBlock({
   formats: Array<{ value: string; label: string }>;
   audienceLabel: string;
   audienceExample?: string;
+  contextFields?: Array<{ key: string; label: string; example?: string; multiline?: boolean }>;
   courseId: string;
 }) {
-  const { choice, setFormat, setAudience } = useFormatChoice(courseId);
+  const { choice, setFormat, setAudience, setContextField } = useFormatChoice(courseId);
+  const [copied, setCopied] = useState(false);
   const hasBoth = choice.format && choice.audience.trim();
   const audienceId = `format-choice-audience-${courseId}`;
   const audienceExampleId = audienceExample ? `${audienceId}-example` : undefined;
+
+  const handleCopyBrief = async () => {
+    const lines = [
+      'My brief',
+      '',
+      `Format: ${choice.format || '(not set)'}`,
+      `Audience: ${choice.audience || '(not set)'}`,
+    ];
+    if (contextFields) {
+      contextFields.forEach((f) => {
+        const v = choice.contextFields[f.key] ?? '';
+        lines.push(`${f.label}: ${v || '(not set)'}`);
+      });
+    }
+    const text = lines.join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <fieldset className="format-choice-block">
@@ -59,10 +93,53 @@ function FormatChoiceBlock({
           aria-describedby={audienceExampleId}
         />
       </div>
+      {contextFields?.map((field) => {
+        const inputId = `format-choice-${field.key.toLowerCase().replace(/\s+/g, '-')}-${courseId}`;
+        const exampleId = field.example ? `${inputId}-example` : undefined;
+        const value = choice.contextFields[field.key] ?? '';
+        return (
+          <div key={field.key} className="format-choice-audience">
+            <label htmlFor={inputId}>{field.label}</label>
+            {field.example && (
+              <p className="format-choice-audience-example" id={exampleId}>
+                For example: {field.example}
+              </p>
+            )}
+            {field.multiline ? (
+              <textarea
+                id={inputId}
+                value={value}
+                onChange={(e) => setContextField(field.key, e.target.value)}
+                rows={3}
+                aria-describedby={exampleId}
+              />
+            ) : (
+              <input
+                id={inputId}
+                type="text"
+                value={value}
+                onChange={(e) => setContextField(field.key, e.target.value)}
+                autoComplete="off"
+                aria-describedby={exampleId}
+              />
+            )}
+          </div>
+        );
+      })}
       {hasBoth && (
-        <p className="format-choice-summary" aria-live="polite">
-          You are creating <strong>{choice.format}</strong> for <strong>{choice.audience}</strong>. This will pre-fill the briefing prompt in Step 3 and the sense-check prompt in Lesson 4.
-        </p>
+        <div className="format-choice-summary-wrapper">
+          <p className="format-choice-summary" aria-live="polite">
+            Your brief is saved. It will pre-fill the briefing prompt in Step 3 and the sense-check prompt in Lesson 4. You can change it anytime.
+          </p>
+          <button
+            type="button"
+            className={`format-choice-copy-brief${copied ? ' is-copied' : ''}`}
+            onClick={handleCopyBrief}
+            aria-label={copied ? 'Brief copied to clipboard' : 'Copy your brief to clipboard'}
+          >
+            {copied ? 'Brief copied' : 'Copy your brief'}
+          </button>
+        </div>
       )}
     </fieldset>
   );
@@ -270,6 +347,7 @@ function renderBlock(
           formats={block.formatChoice.formats}
           audienceLabel={block.formatChoice.audienceLabel}
           audienceExample={block.formatChoice.audienceExample}
+          contextFields={block.formatChoice.contextFields}
           courseId={ctx.courseId}
         />
       );
@@ -357,6 +435,7 @@ export function LessonContentRenderer({ blocks, courseId, lessonId }: LessonCont
   const substitutions: Record<string, string> = {
     'FORMAT NAME': choice.format,
     AUDIENCE: choice.audience,
+    ...choice.contextFields,
   };
   const ctx = { courseId, substitutions };
 

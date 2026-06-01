@@ -439,8 +439,8 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
         {
           type: 'format-choice',
           formatChoice: {
-            legend: 'Lock your choice in',
-            helpText: 'Picking here saves your choice locally and pre-fills the briefing prompt in Step 3 and the sense-check prompt in Lesson 4. You can change it anytime.',
+            legend: 'Build your brief',
+            helpText: 'Fill these in once. Your brief saves locally to your browser and pre-fills the briefing prompt in Step 3, the sense-check prompt in Lesson 4 and the document producer prompt in Lesson 4. You can change it anytime. Use the Copy your brief button to take a plain-text version into other tools or save in your notes.',
             formats: [
               { value: 'Easy Read', label: 'Easy Read' },
               { value: 'Plain Language', label: 'Plain Language' },
@@ -451,6 +451,23 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
             ],
             audienceLabel: 'For audience',
             audienceExample: 'parents of children visiting our museum, or first-time wheelchair users visiting our cafe, or staff onboarding into accessibility procedures',
+            contextFields: [
+              {
+                key: 'WHO USES IT',
+                label: 'Who will use this content',
+                example: 'first-time visitors planning a trip, parents booking online, staff at our welcome desk',
+              },
+              {
+                key: 'PURPOSE',
+                label: 'What it helps them do',
+                example: 'prepare for their visit, know what to expect at the entrance, find their way to accessible toilets',
+              },
+              {
+                key: 'WHERE IT WILL BE PUBLISHED',
+                label: 'Where it will live',
+                example: 'our website accessibility page, our booking confirmation email, a printed handout at reception',
+              },
+            ],
           },
         },
         {
@@ -527,7 +544,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 
 This will be used by [WHO USES IT] to [PURPOSE].
 
-It will live [WHERE IT WILL BE PUBLISHED, e.g., on our website, in a printed handout, in our booking confirmation email].
+It will live [WHERE IT WILL BE PUBLISHED].
 
 Here is my source material:
 [paste text, link or notes here]
