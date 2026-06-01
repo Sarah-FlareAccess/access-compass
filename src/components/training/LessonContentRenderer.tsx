@@ -5,6 +5,7 @@ import { DownloadBlock } from './DownloadBlock';
 import { useStepProgress } from '../../hooks/useStepProgress';
 import { useFormatChoice } from '../../hooks/useFormatChoice';
 import { useChecklistProgress } from '../../hooks/useChecklistProgress';
+import { generatePromptPackPdf } from '../../utils/promptPackPdf';
 import './LessonContentRenderer.css';
 
 function FormatChoiceBlock({
@@ -365,7 +366,14 @@ function TakeHomeBlock({
     URL.revokeObjectURL(url);
   };
 
-  const handleDownloadPromptPack = () => {
+  const briefSubtitleLine = () => {
+    if (choice.format && choice.audience.trim()) {
+      return `${choice.format} for ${choice.audience}`;
+    }
+    return 'Your reusable workshop kit';
+  };
+
+  const handleDownloadPromptPackTxt = () => {
     if (!promptPack) return;
     const now = new Date();
     const date = now.toISOString().split('T')[0];
@@ -395,6 +403,39 @@ function TakeHomeBlock({
     const a = document.createElement('a');
     a.href = url;
     a.download = `${promptPack.filename}-${date}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadPromptPackPdf = () => {
+    if (!promptPack) return;
+    const date = new Date().toISOString().split('T')[0];
+    const blob = generatePromptPackPdf({
+      title: promptPack.label,
+      subtitle: briefSubtitleLine(),
+      intro:
+        promptPack.headerNote ??
+        'Your reusable workshop kit. Paste each prompt into the right tool when you start a new piece of accessible content.',
+      howToUse: [
+        'Section 1 sets up the AI assistant in ChatGPT (or your drafting tool).',
+        'Section 2 sets up Claude as your reviewer.',
+        'Section 3 is the briefing prompt, already filled in with your brief.',
+        'Sections 4 a to f are the six build prompts, one per format.',
+        'Section 5 is the iteration prompts you reach for between drafts.',
+        'Section 6 is the reset prompt if the AI drifts.',
+        'Section 7 is the Claude markup plan prompt for accessible Word and PDF output.',
+      ],
+      sections: promptPack.sections.map((s) => ({
+        title: s.heading,
+        prompt: applyPackSubstitutions(s.content, subs),
+      })),
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${promptPack.filename}-${date}.pdf`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -448,16 +489,27 @@ function TakeHomeBlock({
         <div className="take-home-action">
           <div className="take-home-action-label">{promptPack.label}</div>
           <p className="take-home-action-summary">
-            {promptPack.sections.length} prompt{promptPack.sections.length === 1 ? '' : 's'} bundled as one text file, with your brief substituted into the placeholders.
+            {promptPack.sections.length} prompt{promptPack.sections.length === 1 ? '' : 's'} bundled into one file, with your brief substituted into the placeholders.
+          </p>
+          <p className="take-home-action-note">
+            Grab both formats. The PDF is for printing, filing or sharing with a colleague. The TXT is what you paste into AI tools next time.
           </p>
           <div className="take-home-action-buttons">
             <button
               type="button"
               className="format-choice-download-brief"
-              onClick={handleDownloadPromptPack}
+              onClick={handleDownloadPromptPackPdf}
+              aria-label={`Download ${promptPack.label} as a PDF`}
+            >
+              Download prompt pack (PDF)
+            </button>
+            <button
+              type="button"
+              className="format-choice-copy-brief"
+              onClick={handleDownloadPromptPackTxt}
               aria-label={`Download ${promptPack.label} as a text file`}
             >
-              Download prompt pack
+              Download prompt pack (TXT)
             </button>
           </div>
         </div>

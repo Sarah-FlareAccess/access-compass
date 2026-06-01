@@ -853,6 +853,17 @@
   color: #312e81;
 }
 
+.take-home-action-note {
+  font-size: 0.85rem;
+  color: #7c2d12;
+  background: #ffedd5;
+  border: 1px solid #fed7aa;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 0 0 10px 0;
+  line-height: 1.45;
+}
+
 .take-home-action-buttons {
   display: flex;
   flex-wrap: wrap;
