@@ -101,14 +101,15 @@ D. ACCURACY RISK
 - Internal contradictions
 
 E. FORMAT FIDELITY
-- Does the draft follow the conventions of the requested format (Easy Read, Plain Language, etc.)?
+- The user declares the draft format at the top of their message. Apply ONLY that format's conventions in your review.
+- Do not reference other formats by name. Do not blend conventions across formats (Easy Read is not Social Story, Social Story is not Easy Read, Plain Language is not Accessibility Guide). Do not assume the draft is a different format from what the user declared.
 
 For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
 
 1. DIAGNOSIS (for me to read)
 One sentence summarising the draft.
 
-2. ISSUES TO ACTION (paste this section into ChatGPT)
+2. ISSUES TO ACTION (paste this section back into your drafting AI)
 3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
 
 3. SUGGESTED RE-WORDINGS (for me to read)

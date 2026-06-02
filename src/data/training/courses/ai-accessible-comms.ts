@@ -388,14 +388,15 @@ D. ACCURACY RISK
 - Internal contradictions
 
 E. FORMAT FIDELITY
-- Does the draft follow the conventions of the requested format (Easy Read, Plain Language, etc.)?
+- The user declares the draft format at the top of their message. Apply ONLY that format's conventions in your review.
+- Do not reference other formats by name. Do not blend conventions across formats (Easy Read is not Social Story, Social Story is not Easy Read, Plain Language is not Accessibility Guide). Do not assume the draft is a different format from what the user declared.
 
 For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
 
 1. DIAGNOSIS (for me to read)
 One sentence summarising the draft.
 
-2. ISSUES TO ACTION (paste this section into ChatGPT)
+2. ISSUES TO ACTION (paste this section back into your drafting AI)
 3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
 
 3. SUGGESTED RE-WORDINGS (for me to read)
@@ -531,14 +532,15 @@ D. ACCURACY RISK
 - Internal contradictions
 
 E. FORMAT FIDELITY
-- Does the draft follow the conventions of the requested format (Easy Read, Plain Language, etc.)?
+- The user declares the draft format at the top of their message. Apply ONLY that format's conventions in your review.
+- Do not reference other formats by name. Do not blend conventions across formats (Easy Read is not Social Story, Social Story is not Easy Read, Plain Language is not Accessibility Guide). Do not assume the draft is a different format from what the user declared.
 
 For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
 
 1. DIAGNOSIS (for me to read)
 One sentence summarising the draft.
 
-2. ISSUES TO ACTION (paste this section into ChatGPT)
+2. ISSUES TO ACTION (paste this section back into your drafting AI)
 3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
 
 3. SUGGESTED RE-WORDINGS (for me to read)
@@ -1181,13 +1183,9 @@ Please sense-check it using the framework you've been set up with.
         {
           type: 'text',
           heading: 'Step 2: Decide what to action (5 min)',
-          body: `<p>Read Claude's reply. The Reviewer prompt is set up so Claude labels the section you need: <strong>"2. ISSUES TO ACTION (paste this section into ChatGPT)"</strong>. That is the only part you feed back.</p>
+          body: `<p>Read Claude's reply. The Reviewer prompt is set up so Claude labels the section you need: <strong>"2. ISSUES TO ACTION (paste this section back into your drafting AI)"</strong>. That is the only part you feed back.</p>
 <p>Within that section, pick the top 1 to 3 issues worth making now. Skip anything that is nice-to-have or needs info you do not have.</p>
-<p><strong>You do not edit the draft yourself.</strong> ChatGPT rewrites the full draft from those issues in Step 3. Your job here is just to choose which ones to action.</p>
-<div class="heads-up-note">
-<div class="heads-up-label">Heads up</div>
-<p>If your Claude chat was set up before this prompt was updated, the reply may use the old format (one-sentence diagnosis, top issues, re-wordings, etc.) with no "ISSUES TO ACTION" heading. The issues are still in the same place in priority order. To switch to the new format for future drafts, copy the Reviewer prompt from Course Materials and paste it into a fresh Claude chat.</p>
-</div>`,
+<p><strong>You do not edit the draft yourself.</strong> ChatGPT rewrites the full draft from those issues in Step 3. Your job here is just to choose which ones to action.</p>`,
         },
         {
           type: 'callout',
@@ -1200,7 +1198,7 @@ Please sense-check it using the framework you've been set up with.
           type: 'exercise',
           exercise: {
             title: 'Step 3: Apply the changes in ChatGPT (10 min)',
-            instructions: 'Switch back to ChatGPT (same conversation as Lesson 3). Paste the message below and replace each [issue] line with one of the issues you picked from Claude\'s "ISSUES TO ACTION" section. The issues are already written as single short sentences, so you can copy them word-for-word. ChatGPT rewrites the full draft for you, you do not edit anything by hand.',
+            instructions: 'Switch back to your drafting AI (same conversation as Lesson 3). Paste the message below and replace each [issue] line with one of the issues you picked from Claude\'s "ISSUES TO ACTION" section. The issues are already written as single short sentences, so you can copy them word-for-word. Your drafting AI rewrites the full draft for you, you do not edit anything by hand.',
             promptTemplate: `A sense-check has flagged these issues with our latest draft:
 1. [issue]
 2. [issue]
