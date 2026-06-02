@@ -411,8 +411,9 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
         {
           type: 'take-home',
           takeHome: {
-            title: 'Take your setup home',
-            introHtml: `<p>You have set up an AI assistant in ChatGPT and a reviewer in Claude. The prompts you pasted are saved inside those tools, not inside this app. Download them now so next time you start a new chat you can paste them in without retyping or hunting through this lesson.</p>`,
+            title: 'Save 1 of 4: your setup prompts',
+            introHtml: `<p><strong>This save: your AI assistant prompt and Reviewer prompt.</strong> These are the persistent setup pieces. Reuse them every time you start a new session.</p>
+<p>You have already pasted them into ChatGPT and Claude. The prompts live inside those tools, not inside this app. Downloading now means you can paste them straight back in next time without retyping or hunting through this lesson.</p>`,
             promptPack: {
               label: 'AI assistant + reviewer prompts',
               filename: 'accessible-comms-setup-prompts',
@@ -815,8 +816,9 @@ Before drafting:
         {
           type: 'take-home',
           takeHome: {
-            title: 'Take your brief home',
-            introHtml: `<p>Your brief is the slowest part of this workshop to recreate. Grab a copy now so you can reuse it next time without retyping every field. Use Download to save a file to your computer, or Copy to paste it into your own notes app, email or another AI tool.</p>
+            title: 'Save 2 of 4: your brief',
+            introHtml: `<p><strong>This save: your filled-in brief.</strong> Format, audience, who uses it, purpose, where it lives. This is the only save in the workshop that is personalised to your business, so it is the slowest to recreate from scratch.</p>
+<p>Use Download to save a file to your computer, or Copy to paste it into your own notes app, email or another AI tool.</p>
 <p>The brief will still be saved in the app on this device the next time you open the lesson. Downloading is your insurance for when that device changes, the browser clears its storage or you want to share the brief with a colleague.</p>`,
             includeBrief: true,
           },
@@ -1092,8 +1094,9 @@ Here is the content:
         {
           type: 'take-home',
           takeHome: {
-            title: 'Take your draft home',
-            introHtml: `<p>Your draft lives inside your AI chat, not inside this app. If you close the tab without saving, you may lose it. Right now is the time to copy your draft from your AI tool into a Word doc, Google Doc or note app you control, and save it there.</p>
+            title: 'Save 3 of 4: your draft',
+            introHtml: `<p><strong>This save: the draft you just made.</strong> Different from the earlier saves. Saves 1 and 2 were infrastructure (prompts and brief). This one is the content itself.</p>
+<p>Your draft lives inside your AI chat, not inside this app. If you close the tab without saving, you may lose it. Right now is the time to copy your draft from your AI tool into a Word doc, Google Doc or note app you control, and save it there.</p>
 <p>Your build prompt and iteration prompts are still on this page, so you can re-run them later if you start over. Lesson 4 picks up where this leaves off, sense-checking the draft you just saved.</p>`,
           },
         },
@@ -1298,9 +1301,9 @@ Here is my reviewed draft:
         {
           type: 'take-home',
           takeHome: {
-            title: 'Take everything home',
-            introHtml: `<p>You have a brief, a reviewed draft and a set of prompts that worked for your business. Grab them all now so you can pick up the next piece of content without redoing this workshop.</p>
-<p>The brief saves your business context. The prompt pack saves every prompt you used (with your brief already substituted into the briefing prompt). Together they are your reusable kit.</p>`,
+            title: 'Save 4 of 4: the full kit for next time',
+            introHtml: `<p><strong>This save: everything consolidated.</strong> Brief plus the full prompt pack, with your brief already substituted into the briefing prompt, plus every build prompt for all 6 formats so you can switch formats next time.</p>
+<p>If you grabbed Saves 1, 2 and 3, you have most of this already. This one is the consolidated version: one file instead of three, with extras (build prompts for all 6 formats, not just the one you used today). Use this when you start a new piece of content.</p>`,
             includeBrief: true,
             browseAllLink: {
               label: 'Browse all Course Materials',
