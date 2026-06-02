@@ -130,7 +130,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 </ul>
 <p><strong>The course does NOT replace:</strong></p>
 <ul>
-<li>Lived-experience review or co-design with the disability community. We know not every business has the resourcing to commission these. Where you do, use them. Where you do not, at minimum get one or two readers from your target audience to react to the draft before publishing.</li>
+<li>Lived-experience review or co-design with the disability community. Where you have the resourcing for these, use them. Where you do not, at minimum get one or two readers from your target audience to react to the draft before publishing.</li>
 <li>Hiring someone who specialises in making your format. For high-stakes content (NDIS plans, health information, legal terms, behaviour support, crisis content), commission a provider instead of publishing an AI draft.</li>
 <li>Your DIAP, DAIP or AAP consultation process</li>
 <li>Any statutory consultation requirements that may apply to your organisation</li>
@@ -898,7 +898,7 @@ LAYOUT (this is the part most AI drafts get wrong for Easy Read)
 - Output each chunk as a row in a 2-column table: image-suggestion on the LEFT, text on the RIGHT.
 - Never put an image above or below its text. The pairing is always side-by-side.
 - For section headings, use a heading row that spans both columns.
-- Image column format: "[Image: short description of what the picture shows]" on one line, then "Alt text: ..." on the next line. Do not generate the image, just describe it.
+- Image column format: "[Image: short description of what the picture should show]" on one line. Do NOT write alt text — you have not seen the actual photo. The user will write alt text after sourcing the real image. Do not generate the image either, just describe what should go there.
 
 TYPOGRAPHY GUIDANCE FOR WHEN I PUT THIS IN WORD (include as a checklist at the end)
 - Minimum 14pt body, larger for headings
@@ -1031,7 +1031,8 @@ Please apply this structure (based on NSW Digital Toolkit PDF accessibility guid
 - Rewrite the top 5 hardest sentences in plainer language.
 
 3. IMAGES
-- For every image in the source, suggest alt text (one sentence, describing the message not the visual).
+- For each image the user has described to you in detail in the source material, draft alt text as a starting point: one sentence, factual visual description, message-focused. Tell the user to verify against the actual image before saving.
+- For images you have not seen and the user has not described in detail, DO NOT generate fictional alt text. Tell the user to upload each real image to a vision-capable AI (Claude, ChatGPT Plus, Microsoft Copilot or Google Gemini) and ask for alt text describing the actual image.
 - If an image is purely decorative, mark it "decorative, no alt text required."
 - Flag any place where colour alone conveys meaning (e.g., "red items are urgent") and suggest a non-colour fix.
 
@@ -1232,7 +1233,7 @@ FORMAT CONTEXT
 - My draft format is: [FORMAT NAME]
 - If the format is Easy Read, preserve the 2-column image-left / text-right layout from the build prompt. Do NOT flatten it to a single column. Mark each layout table with role="presentation" so screen readers skip it. Apply Style Manual typography (minimum 14pt body, 1.5 line spacing, wide margins, bold for headings only).
 - If the format is Plain Language, the structure is a clean single-column document. Left-aligned text (never justified). Keep line length under 70 characters wide for readability. Generic structure / images / links / tables guidance below applies as-is.
-- If the format is Social Story / Visual Narrative, preserve the photo-per-chunk pairing AND the 2 to 4 sentences-per-photo rule from the build prompt. Do not strip, batch or reorder images. Do not merge multiple photo + text pairs into longer chunks. One main idea per photo, do not stack concepts (e.g. tour length and sensory kits should not share a photo). Reading order must follow the chronological journey, do NOT add a table of contents. Alt text should match the first-person voice ("I will see automatic glass doors", not just "automatic glass doors"). Captions belong directly under each photo, not in a separate list.
+- If the format is Social Story / Visual Narrative, preserve the photo-per-chunk pairing AND the 2 to 4 sentences-per-photo rule from the build prompt. Do not strip, batch or reorder images. Do not merge multiple photo + text pairs into longer chunks. One main idea per photo, do not stack concepts (e.g. tour length and sensory kits should not share a photo). Reading order must follow the chronological journey, do NOT add a table of contents. Captions belong directly under each photo, not in a separate list. Do NOT generate alt text for photos that do not yet exist. Instead, instruct the user to upload each real photo to a vision-capable AI (Claude, ChatGPT Plus, Microsoft Copilot or Google Gemini) once sourced and ask it to suggest alt text describing the actual image.
 - If the format is Accessibility Guide, preserve the 7-section order from the build prompt (Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact) so readers can compare across venues. Each section is an H2 under one H1. If this will be published as a webpage, add anchor links for each H2 and a jump menu at the top.
 - If the format is Large Print, typography is the format. Apply Vision Australia clear print (minimum 16pt body) or RNIB large print (minimum 18pt). Sans-serif font family (Arial, Verdana, Calibri or APHont). No italics. No underlines except on links. No decorative fonts. Strong contrast (black on white, cream or yellow), never image-of-text. Single column. Headings 1.5x body size minimum. Line spacing minimum 1.5. Keep PDF text selectable and re-flowable, never flat-scan.
 
@@ -1242,7 +1243,8 @@ FORMAT CONTEXT
 - Replace manual dashes or asterisks with proper bulleted or numbered lists.
 
 2. IMAGES
-- For each image in the draft (or that I describe), suggest alt text (one sentence, message-focused, not just visual description).
+- For images that the user has described to you in detail (with specific visual content, e.g. an existing photo described in the source material), draft alt text as a starting point: one sentence, factual visual description, message-focused. State clearly that the user must verify against the actual image before saving.
+- For placeholder photos that do not yet exist (e.g. an Easy Read draft or Social Story scaffold where photos will be sourced later), DO NOT draft fictional alt text. Instead, instruct the user to upload each real photo to a vision-capable AI (Claude, ChatGPT Plus, Microsoft Copilot or Google Gemini) once sourced and ask for an alt text suggestion describing the actual image.
 - Mark purely decorative images as "decorative, no alt text required."
 - Flag any colour-only meaning and suggest a non-colour fix.
 
@@ -1298,7 +1300,7 @@ Here is my reviewed draft:
                 'Set line spacing to 1.5 on body text (Home > Line and Paragraph Spacing > 1.5).',
                 'Set page margins to at least 2.5cm on every side (Layout > Margins > Custom Margins).',
                 'Replace each "IMAGE" placeholder cell with an actual picture (Insert > Pictures > This Device).',
-                'Right-click each inserted picture > View Alt Text. Confirm or edit Claude\'s suggested alt text.',
+                'For each inserted picture, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask "Suggest alt text for this image." Then add the result via right-click > View Alt Text. Verify it matches the picture before saving. Do not use Claude\'s drafted alt text from Lesson 4 for placeholder photos — Claude could not see them.',
                 'Left-align all body text (never justify).',
                 'Bold only used for headings and difficult words. Remove decorative bolding.',
                 'Set table borders to none if Claude did not (Table Design > Borders > No Border) so the layout is invisible to sighted readers.',
@@ -1313,13 +1315,13 @@ Here is my reviewed draft:
                 'Confirm the reading level estimate Claude returned is year 7 to 8 or lower.',
                 'Set page margins to at least 2.5cm on every side.',
                 'Set document properties (File > Info > Properties): title, language English (Australia), author, 3-5 keywords.',
-                'Add alt text to any images (right-click image > View Alt Text).',
+                'For each image in the document, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text describing what the picture shows. Add via right-click image > View Alt Text. Verify before saving.',
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
                 'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
               ],
               'Social Story / Visual Narrative': [
                 'Insert real photos in chronological order matching the build prompt sections (Before, When I get there, Inside, If I need help, When I leave).',
-                'Add alt text to each photo in first-person voice ("I will see the automatic glass doors", not just "automatic glass doors").',
+                'For each inserted photo, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask "Suggest alt text for this image." The alt text should describe what the picture shows (e.g. "Wide view of the market interior with food stalls and shoppers"), NOT the social story narrative. Add via right-click image > View Alt Text. Verify before saving.',
                 'Place each caption directly under its photo, not in a separate list at the end.',
                 'Remove any table of contents Claude may have added. A social story is linear, a TOC breaks the journey.',
                 'Confirm reading order is strictly chronological top to bottom.',
@@ -1332,7 +1334,7 @@ Here is my reviewed draft:
               'Accessibility Guide': [
                 'Confirm the 7 standard headings appear in order: Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact.',
                 'Each section is a Heading 2 under one Heading 1.',
-                'Insert venue photos and add alt text to each (right-click > View Alt Text).',
+                'Insert venue photos. For each, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text describing what the photo shows. Add via right-click > View Alt Text. Verify before saving.',
                 'Confirm every fact is specific, not vague (e.g. "level entry, 90cm wide door" not "wheelchair accessible").',
                 'Address any "needs answer" flags Claude left in the draft.',
                 'Add a publishing date and a contact for access questions.',
@@ -1356,7 +1358,7 @@ Here is my reviewed draft:
               'Accessible Digital Document (Word/PDF)': [
                 'Apply heading styles in order (H1, H2, H3 etc.), do not skip levels.',
                 'Replace manual dashes or asterisks with proper bulleted or numbered lists.',
-                'Add alt text to every image (right-click image > View Alt Text). Use Claude\'s suggested alt text as a starting point.',
+                'For each image, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. If Claude already drafted alt text from a detailed source description, you can use it as a starting point and verify against the actual image. Add via right-click image > View Alt Text. Verify before saving.',
                 'Mark decorative images as decorative (right-click image > View Alt Text > tick "Mark as decorative").',
                 'Rewrite any "click here" or "read more" links to be descriptive out of context.',
                 'For each data table: mark the header row, add a caption above, flag any merged cells.',
@@ -1394,7 +1396,7 @@ Here is my reviewed draft:
 <li>Where resourcing allows: lived-experience review or co-design with the disability community. This is strongly encouraged, particularly for council, authority, NDIS and public-facing content.</li>
 <li>Where the content is high-stakes (NDIS plans, health information, legal terms, behaviour support, crisis content): hire an organisation that specialises in making your format. The AI draft can still serve as a brief for them.</li>
 </ol>
-<p>This course does not replace lived-experience review or co-design. We know not every business has the resourcing to commission a specialist or run a co-design session. Where you do, use it. Where you do not, at minimum get one or two readers from your target audience to react to the draft before publishing.</p>`,
+<p>This course does not replace lived-experience review or co-design. Where you have the resourcing for these, use them. Where you do not, at minimum get one or two readers from your target audience to react to the draft before publishing.</p>`,
         },
         {
           type: 'text',
