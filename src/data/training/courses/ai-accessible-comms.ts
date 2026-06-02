@@ -6,7 +6,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   title: 'Using AI to Create Accessible & Inclusive Communications',
   subtitle: 'A practical 2-hour workshop. Walk in with content. Walk out with a draft.',
   description: 'Use free AI tools to draft accessible content for your business in under 2 hours. Choose your format, bring your source material and leave with a real first draft you can refine and publish.',
-  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and accessibility markup planner) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to generate an accessibility markup plan you can apply in Word and export as a tagged PDF. The AI does not produce the tagged file directly; it gives you a structured plan (heading levels, alt text suggestions, link rewrites, table notes, document properties) and a checklist of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Digital Document (Word/PDF, following NSW Digital Toolkit and Vic Government guidance, WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist Easy Read producers for high-stakes content remain essential.',
+  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and accessibility markup planner) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to generate an accessibility markup plan you can apply in Word and export as a tagged PDF. The AI does not produce the tagged file directly; it gives you a structured plan (heading levels, alt text suggestions, link rewrites, table notes, document properties) and a checklist of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Digital Document (Word/PDF, following NSW Digital Toolkit and Vic Government guidance, WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist producers for high-stakes content (every format has its own producer ecosystem) remain essential.',
   category: 'ai-tools',
   accessTier: 'premium',
   totalEstimatedMinutes: 120,
@@ -131,7 +131,19 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 <p><strong>The course does NOT replace:</strong></p>
 <ul>
 <li>Lived-experience review or co-design with the disability community. We know not every business has the resourcing to commission these. Where you do, use them. Where you do not, at minimum get one or two readers from your target audience to react to the draft before publishing.</li>
-<li>Specialist Easy Read producers (Inclusion Australia, Scope, AT Assist, Down Syndrome Australia) for high-stakes content</li>
+<li>Specialist producers for high-stakes content in your chosen format. Producer ecosystems exist for every format the workshop covers.
+<details class="setup-detail">
+<summary>Australian producer suggestions by format</summary>
+<ul>
+<li><strong>Easy Read</strong>: Inclusion Australia, Scope, AT Assist, Down Syndrome Australia, Council for Intellectual Disability</li>
+<li><strong>Plain Language</strong>: Plain English Foundation</li>
+<li><strong>Social Story or autistic-audience content</strong>: Amaze (Vic), Autism Awareness Australia, Aspect (NSW)</li>
+<li><strong>Accessibility Guide</strong>: an accredited access consultant via the Association of Consultants in Access Australia (ACAA)</li>
+<li><strong>Large Print</strong>: Vision Australia</li>
+<li><strong>Accessible Digital Document (Word/PDF)</strong>: any of the above for content-level work; for technical accessibility (PDF tagging, PDF/UA conformance), an accredited document accessibility specialist</li>
+</ul>
+</details>
+</li>
 <li>Your DIAP, DAIP or AAP consultation process</li>
 <li>Any statutory consultation requirements that may apply to your organisation</li>
 </ul>
@@ -1403,7 +1415,19 @@ Here is my reviewed draft:
 <li>Your internal review of facts, tone and accuracy</li>
 <li>Claude sense-check (Step 1 of this lesson)</li>
 <li>Where resourcing allows: lived-experience review or co-design with the disability community. This is strongly encouraged, particularly for council, authority, NDIS and public-facing content.</li>
-<li>Where the content is high-stakes (NDIS plans, health information, legal terms, behaviour support, crisis content): commission a specialist Easy Read producer. Australian options include Inclusion Australia, Scope, AT Assist and Down Syndrome Australia.</li>
+<li>Where the content is high-stakes (NDIS plans, health information, legal terms, behaviour support, crisis content): commission a specialist producer for your chosen format. Every format has a producer ecosystem in Australia.
+<details class="setup-detail">
+<summary>Australian producer suggestions by format</summary>
+<ul>
+<li><strong>Easy Read</strong>: Inclusion Australia, Scope, AT Assist, Down Syndrome Australia, Council for Intellectual Disability</li>
+<li><strong>Plain Language</strong>: Plain English Foundation</li>
+<li><strong>Social Story or autistic-audience content</strong>: Amaze (Vic), Autism Awareness Australia, Aspect (NSW)</li>
+<li><strong>Accessibility Guide</strong>: an accredited access consultant via the Association of Consultants in Access Australia (ACAA)</li>
+<li><strong>Large Print</strong>: Vision Australia</li>
+<li><strong>Accessible Digital Document (Word/PDF)</strong>: any of the above for content-level work; for technical accessibility (PDF tagging, PDF/UA conformance), an accredited document accessibility specialist</li>
+</ul>
+</details>
+</li>
 </ol>
 <p>This course does not replace lived-experience review or co-design. We know not every business has the resourcing to commission a specialist or run a co-design session. Where you do, use it. Where you do not, at minimum get one or two readers from your target audience to react to the draft before publishing.</p>`,
         },
