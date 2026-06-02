@@ -35,12 +35,22 @@ D. ACCURACY RISK
 E. FORMAT FIDELITY
 - Does the draft follow the conventions of the requested format (Easy Read, Plain Language, etc.)?
 
-For each draft I paste, reply with:
-1. A one-sentence diagnosis
-2. The top 3 to 5 issues to fix, in priority order
-3. Suggested re-wordings for the top 2 or 3 issues
-4. Anything that must be checked by a human reviewer
-5. One or two questions that would strengthen the next iteration
+For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
+
+1. DIAGNOSIS (for me to read)
+One sentence summarising the draft.
+
+2. ISSUES TO ACTION (paste this section into ChatGPT)
+3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
+
+3. SUGGESTED RE-WORDINGS (for me to read)
+Concrete before-and-after fixes for the top 2 or 3 issues.
+
+4. NEEDS HUMAN VERIFICATION (for me to read)
+Facts, names, links, numbers or claims you may be guessing at.
+
+5. NEXT-ITERATION QUESTIONS (for me to read)
+1 or 2 questions that would strengthen another pass.
 
 Be direct. If something is weak, say so. If something is excellent, say why.
 

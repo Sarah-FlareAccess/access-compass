@@ -359,12 +359,22 @@ D. ACCURACY RISK
 E. FORMAT FIDELITY
 - Does the draft follow the conventions of the requested format (Easy Read, Plain Language, etc.)?
 
-For each draft I paste, reply with:
-1. A one-sentence diagnosis
-2. The top 3 to 5 issues to fix, in priority order
-3. Suggested re-wordings for the top 2 or 3 issues
-4. Anything that must be checked by a human reviewer
-5. One or two questions that would strengthen the next iteration
+For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
+
+1. DIAGNOSIS (for me to read)
+One sentence summarising the draft.
+
+2. ISSUES TO ACTION (paste this section into ChatGPT)
+3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
+
+3. SUGGESTED RE-WORDINGS (for me to read)
+Concrete before-and-after fixes for the top 2 or 3 issues.
+
+4. NEEDS HUMAN VERIFICATION (for me to read)
+Facts, names, links, numbers or claims you may be guessing at.
+
+5. NEXT-ITERATION QUESTIONS (for me to read)
+1 or 2 questions that would strengthen another pass.
 
 Be direct. If something is weak, say so. If something is excellent, say why.`,
             expectedOutcome: 'A short, structured confirmation from Claude once you send the test message below. You will return to this conversation in Lesson 4 with your draft.',
@@ -487,12 +497,22 @@ D. ACCURACY RISK
 E. FORMAT FIDELITY
 - Does the draft follow the conventions of the requested format (Easy Read, Plain Language, etc.)?
 
-For each draft I paste, reply with:
-1. A one-sentence diagnosis
-2. The top 3 to 5 issues to fix, in priority order
-3. Suggested re-wordings for the top 2 or 3 issues
-4. Anything that must be checked by a human reviewer
-5. One or two questions that would strengthen the next iteration
+For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
+
+1. DIAGNOSIS (for me to read)
+One sentence summarising the draft.
+
+2. ISSUES TO ACTION (paste this section into ChatGPT)
+3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
+
+3. SUGGESTED RE-WORDINGS (for me to read)
+Concrete before-and-after fixes for the top 2 or 3 issues.
+
+4. NEEDS HUMAN VERIFICATION (for me to read)
+Facts, names, links, numbers or claims you may be guessing at.
+
+5. NEXT-ITERATION QUESTIONS (for me to read)
+1 or 2 questions that would strengthen another pass.
 
 Be direct. If something is weak, say so. If something is excellent, say why.`,
                 },
@@ -1124,7 +1144,13 @@ Please sense-check it using the framework you've been set up with.
         {
           type: 'text',
           heading: 'Step 2: Decide what to action (5 min)',
-          body: `<p>Read Claude's sense-check. Make a short list of the top 1 to 3 changes worth making now. Skip anything that is nice-to-have or needs info you do not have.</p>`,
+          body: `<p>Read Claude's reply. The Reviewer prompt is set up so Claude labels the section you need: <strong>"2. ISSUES TO ACTION (paste this section into ChatGPT)"</strong>. That is the only part you feed back.</p>
+<p>Within that section, pick the top 1 to 3 issues worth making now. Skip anything that is nice-to-have or needs info you do not have.</p>
+<p><strong>You do not edit the draft yourself.</strong> ChatGPT rewrites the full draft from those issues in Step 3. Your job here is just to choose which ones to action.</p>
+<div class="heads-up-note">
+<div class="heads-up-label">Heads up</div>
+<p>If your Claude chat was set up before this prompt was updated, the reply may use the old format (one-sentence diagnosis, top issues, re-wordings, etc.) with no "ISSUES TO ACTION" heading. The issues are still in the same place in priority order. To switch to the new format for future drafts, copy the Reviewer prompt from Course Materials and paste it into a fresh Claude chat.</p>
+</div>`,
         },
         {
           type: 'callout',
@@ -1137,7 +1163,7 @@ Please sense-check it using the framework you've been set up with.
           type: 'exercise',
           exercise: {
             title: 'Step 3: Apply the changes in ChatGPT (10 min)',
-            instructions: 'Switch back to ChatGPT (same conversation as Lesson 3). Paste the message below with the top issues filled in.',
+            instructions: 'Switch back to ChatGPT (same conversation as Lesson 3). Paste the message below and replace each [issue] line with one of the issues you picked from Claude\'s "ISSUES TO ACTION" section. The issues are already written as single short sentences, so you can copy them word-for-word. ChatGPT rewrites the full draft for you, you do not edit anything by hand.',
             promptTemplate: `A sense-check has flagged these issues with our latest draft:
 1. [issue]
 2. [issue]
@@ -1145,6 +1171,10 @@ Please sense-check it using the framework you've been set up with.
 
 Please update the draft to address these. Show the full updated draft.`,
             expectedOutcome: 'ChatGPT returns an updated draft with the issues addressed. Save it.',
+            tips: [
+              'Only fill in the issue lines you actually have. If Claude only surfaced one issue worth acting on, delete lines 2 and 3 before sending.',
+              'If you are uncertain how to phrase an issue, paste Claude\'s exact wording for it. ChatGPT will interpret it correctly in this context.',
+            ],
           },
         },
         {
