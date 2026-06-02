@@ -65,6 +65,8 @@ export interface LessonContentBlock {
   checklist?: {
     title: string;
     items: string[];
+    byFormat?: Record<string, string[]>;
+    introHtml?: string;
   };
   callout?: {
     variant: 'tip' | 'warning' | 'info' | 'example';

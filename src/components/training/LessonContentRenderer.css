@@ -275,6 +275,22 @@
   white-space: pre-wrap;
 }
 
+/* Intro paragraph rendered inside a checklist block, between header and items. */
+.lesson-checklist-intro {
+  margin: 0 0 12px 0;
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.lesson-checklist-intro p {
+  margin: 0 0 8px 0;
+}
+
+.lesson-checklist-intro p:last-child {
+  margin-bottom: 0;
+}
+
 /* Checklist blocks - interactive, persist to localStorage */
 .lesson-checklist-block {
   background: #f0fdf4;

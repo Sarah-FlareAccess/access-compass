@@ -286,6 +286,8 @@ FORMATTING RULES
 - Use clear headings, short paragraphs and bullet points
 - Avoid walls of text
 - When producing Easy Read or Plain Language drafts, follow the published standards for each format
+- If you can generate a Word file or attachment directly (Artifacts, downloads etc.), APPLY all format-specific layout and typography settings to the file itself, do not just list them as instructions. State what you applied in your reply.
+- If you can only return text in chat, append a numbered "Word-application checklist" at the end so I can apply each setting manually.
 - Always finish any draft with: "This draft was AI-generated. Please review before publishing."
 
 BEHAVIOUR RULES
@@ -444,6 +446,8 @@ FORMATTING RULES
 - Use clear headings, short paragraphs and bullet points
 - Avoid walls of text
 - When producing Easy Read or Plain Language drafts, follow the published standards for each format
+- If you can generate a Word file or attachment directly (Artifacts, downloads etc.), APPLY all format-specific layout and typography settings to the file itself, do not just list them as instructions. State what you applied in your reply.
+- If you can only return text in chat, append a numbered "Word-application checklist" at the end so I can apply each setting manually.
 - Always finish any draft with: "This draft was AI-generated. Please review before publishing."
 
 BEHAVIOUR RULES
@@ -1141,6 +1145,7 @@ Here is the content:
 <li>Decide what to action (5 min)</li>
 <li>Apply changes in ChatGPT (10 min)</li>
 <li>Use Claude to build your accessibility markup plan (12 min)</li>
+<li>Apply your format's settings in Word (8 min)</li>
 <li>Final human review checklist (3 min)</li>
 <li>Save your prompt pack (2 min)</li>
 </ol>`,
@@ -1263,7 +1268,93 @@ Here is my reviewed draft:
         {
           type: 'checklist',
           checklist: {
-            title: 'Step 5: Final human review checklist (3 min)',
+            title: 'Step 5: Apply your format\'s settings in Word (8 min)',
+            introHtml: `<p>Claude\'s markup plan lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it in Word. Your progress saves to this device.</p>
+<p><strong>If Claude generated the Word file directly</strong> (via Artifacts or a download), use this checklist to verify each setting is present. If Claude only returned text, use it as your apply-in-Word list.</p>`,
+            items: [
+              'Pick a format in Lesson 2 to load the right checklist for your draft.',
+            ],
+            byFormat: {
+              'Easy Read': [
+                'Mark each 2-column layout table as decorative (right-click table > Table Properties > Alt Text > tick "Mark table as decorative"). Repeat for every section.',
+                'Set body text to 14pt minimum (Style Manual). 16pt is recommended.',
+                'Set line spacing to 1.5 on body text (Home > Line and Paragraph Spacing > 1.5).',
+                'Set page margins to at least 2.5cm on every side (Layout > Margins > Custom Margins).',
+                'Replace each "IMAGE" placeholder cell with an actual picture (Insert > Pictures > This Device).',
+                'Right-click each inserted picture > View Alt Text. Confirm or edit Claude\'s suggested alt text.',
+                'Left-align all body text (never justify).',
+                'Bold only used for headings and difficult words. Remove decorative bolding.',
+                'Set table borders to none if Claude did not (Table Design > Borders > No Border) so the layout is invisible to sighted readers.',
+                'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
+              ],
+              'Plain Language': [
+                'Apply heading styles in order (Heading 1 for the title, Heading 2 for sections, Heading 3 for sub-sections). Do not skip levels.',
+                'Left-align all text (never justify).',
+                'Use a sans-serif font (Calibri, Arial or similar).',
+                'Set line spacing to 1.5 on body text.',
+                'Keep line length under 70 characters wide (adjust margins or column width).',
+                'Confirm the reading level estimate Claude returned is year 7 to 8 or lower.',
+                'Set page margins to at least 2.5cm on every side.',
+                'Set document properties (File > Info > Properties): title, language English (Australia), author, 3-5 keywords.',
+                'Add alt text to any images (right-click image > View Alt Text).',
+                'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
+                'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
+              ],
+              'Social Story / Visual Narrative': [
+                'Insert real photos in chronological order matching the build prompt sections (Before, When I get there, Inside, If I need help, When I leave).',
+                'Add alt text to each photo in first-person voice ("I will see the automatic glass doors", not just "automatic glass doors").',
+                'Place each caption directly under its photo, not in a separate list at the end.',
+                'Remove any table of contents Claude may have added. A social story is linear, a TOC breaks the journey.',
+                'Confirm reading order is strictly chronological top to bottom.',
+                'Set body text to 14pt minimum.',
+                'Set line spacing to 1.5.',
+                'Set page margins to 2.5cm or wider.',
+                'Set document properties (title, language English (Australia), author).',
+                'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
+              ],
+              'Accessibility Guide': [
+                'Confirm the 7 standard headings appear in order: Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact.',
+                'Each section is a Heading 2 under one Heading 1.',
+                'Insert venue photos and add alt text to each (right-click > View Alt Text).',
+                'Confirm every fact is specific, not vague (e.g. "level entry, 90cm wide door" not "wheelchair accessible").',
+                'Address any "needs answer" flags Claude left in the draft.',
+                'Add a publishing date and a contact for access questions.',
+                'If publishing as a webpage: add anchor link IDs to each H2 (e.g. id="getting-in") and a jump menu at the top.',
+                'Set document properties (title, language English (Australia), author, keywords).',
+                'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
+                'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
+              ],
+              'Large Print': [
+                'Set body text to 16pt minimum (Vision Australia clear print) or 18pt (RNIB large print).',
+                'Set all headings to at least 1.5x the body size.',
+                'Use a sans-serif font: Arial, Verdana, Calibri or APHont.',
+                'Remove all italics.',
+                'Remove all underlines except on hyperlinks.',
+                'Apply strong contrast: black text on white, cream or yellow background. Never image-of-text.',
+                'Set to single column layout.',
+                'Set line spacing to 1.5 minimum.',
+                'Confirm any PDF version keeps text selectable and re-flowable (never flat-scan).',
+                'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
+              ],
+              'Accessible Digital Document (Word/PDF)': [
+                'Apply heading styles in order (H1, H2, H3 etc.), do not skip levels.',
+                'Replace manual dashes or asterisks with proper bulleted or numbered lists.',
+                'Add alt text to every image (right-click image > View Alt Text). Use Claude\'s suggested alt text as a starting point.',
+                'Mark decorative images as decorative (right-click image > View Alt Text > tick "Mark as decorative").',
+                'Rewrite any "click here" or "read more" links to be descriptive out of context.',
+                'For each data table: mark the header row, add a caption above, flag any merged cells.',
+                'Set document properties (File > Info > Properties): title (different from filename), language English (Australia), author, 3-5 keywords.',
+                'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix every error.',
+                'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
+                'If using Adobe Acrobat Pro after export: run Tools > Prepare for Accessibility > Accessibility Check.',
+              ],
+            },
+          },
+        },
+        {
+          type: 'checklist',
+          checklist: {
+            title: 'Step 6: Final human review checklist (3 min)',
             items: [
               'Is everything factually correct about your business and venue?',
               'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
@@ -1277,7 +1368,7 @@ Here is my reviewed draft:
         },
         {
           type: 'text',
-          heading: 'Step 6: Grab your prompt pack (2 min)',
+          heading: 'Step 7: Grab your prompt pack (2 min)',
           body: `<p>Scroll to the <strong>Take everything home</strong> panel below (marked with the orange TAKE HOME pill). The <strong>Download prompt pack</strong> buttons there bundle your full session into a single file, in either PDF or text. Inside you will find:</p>
 <ol>
 <li>The <strong>AI assistant system prompt</strong> (so you can re-start ChatGPT later)</li>

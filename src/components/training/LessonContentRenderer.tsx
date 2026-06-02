@@ -238,16 +238,23 @@ function FormatChoiceBlock({
 function InteractiveChecklistBlock({
   title,
   items,
+  introHtml,
   courseId,
   lessonId,
+  selectedFormat,
 }: {
   title: string;
   items: string[];
+  introHtml?: string;
   courseId: string;
   lessonId: string;
+  selectedFormat?: string;
 }) {
   const { isChecked, toggle } = useChecklistProgress(courseId, lessonId);
-  const checkedCount = items.reduce((sum, _, i) => sum + (isChecked(title, i) ? 1 : 0), 0);
+  // Use a checklist key that varies with the selected format so different
+  // format checklists do not stomp on each other in localStorage.
+  const checklistKey = selectedFormat ? `${title} :: ${selectedFormat}` : title;
+  const checkedCount = items.reduce((sum, _, i) => sum + (isChecked(checklistKey, i) ? 1 : 0), 0);
 
   return (
     <div className="lesson-checklist-block">
@@ -257,9 +264,15 @@ function InteractiveChecklistBlock({
           {checkedCount} of {items.length}
         </span>
       </div>
+      {introHtml && (
+        <div
+          className="lesson-checklist-intro"
+          dangerouslySetInnerHTML={{ __html: introHtml }}
+        />
+      )}
       <ul className="lesson-checklist-items">
         {items.map((item, i) => {
-          const checked = isChecked(title, i);
+          const checked = isChecked(checklistKey, i);
           return (
             <li
               key={i}
@@ -269,7 +282,7 @@ function InteractiveChecklistBlock({
                 <input
                   type="checkbox"
                   checked={checked}
-                  onChange={() => toggle(title, i)}
+                  onChange={() => toggle(checklistKey, i)}
                 />
                 <span>{item}</span>
               </label>
@@ -811,17 +824,22 @@ function renderBlock(
       if (!block.download) return null;
       return <DownloadBlock key={key} download={block.download} />;
 
-    case 'checklist':
+    case 'checklist': {
       if (!block.checklist) return null;
+      const formatItems = block.checklist.byFormat?.[ctx.selectedFormat];
+      const itemsToShow = formatItems ?? block.checklist.items;
       return (
         <InteractiveChecklistBlock
           key={key}
           title={block.checklist.title}
-          items={block.checklist.items}
+          items={itemsToShow}
+          introHtml={block.checklist.introHtml}
           courseId={ctx.courseId}
           lessonId={ctx.lessonId}
+          selectedFormat={formatItems ? ctx.selectedFormat : undefined}
         />
       );
+    }
 
     case 'callout':
       if (!block.callout) return null;
