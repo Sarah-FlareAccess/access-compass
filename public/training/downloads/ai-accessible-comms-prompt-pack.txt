@@ -360,7 +360,7 @@ I have a reviewed draft I want to publish as an accessible Word document and exp
 Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance, Vic Government make-content-accessible standards and the Australian Government Style Manual content-types (stylemanual.gov.au/content-types) for format-specific structure and typography, targeting WCAG 2.2 AA.
 
 FORMAT CONTEXT
-- My draft format is: [Easy Read / Plain Language / Social Story / Accessibility Guide / Large Print / Accessible Digital Document]
+- My draft format is: [FORMAT NAME]
 - If the format is Easy Read, preserve the 2-column image-left / text-right layout from the build prompt. Do NOT flatten it to a single column. Mark each layout table with role="presentation" so screen readers skip it. Apply Style Manual typography (minimum 14pt body, 1.5 line spacing, wide margins, bold for headings only).
 
 1. STRUCTURE
