@@ -1,4 +1,26 @@
 import { useState, useRef } from 'react';
+import type { ReactNode } from 'react';
+
+function renderWithPlaceholderHighlights(text: string): ReactNode {
+  const parts: ReactNode[] = [];
+  const regex = /\[([^\[\]\n]{1,80})\]/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let key = 0;
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    parts.push(
+      <mark className="prompt-placeholder" key={`ph-${key++}`}>{match[0]}</mark>
+    );
+    lastIndex = regex.lastIndex;
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+  return parts.length > 0 ? parts : text;
+}
 
 interface ExerciseBlockProps {
   title: string;
@@ -99,7 +121,7 @@ export function ExerciseBlock({
               {copied ? 'Copied' : 'Copy'}
             </button>
           </div>
-          <pre className="exercise-prompt-template">{resolvedPromptTemplate}</pre>
+          <pre className="exercise-prompt-template">{renderWithPlaceholderHighlights(resolvedPromptTemplate)}</pre>
           <span ref={statusRef} className="sr-only" aria-live="polite">
             {copied ? 'Prompt template copied to clipboard' : ''}
           </span>

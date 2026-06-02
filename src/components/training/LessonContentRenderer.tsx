@@ -549,13 +549,23 @@ const CHECK_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="no
 const COPY_BTN_INNER = COPY_ICON_SVG + '<span>Copy</span>';
 const COPIED_BTN_INNER = CHECK_ICON_SVG + '<span>Copied</span>';
 
+function highlightBracketPlaceholders(preInner: string): string {
+  // Wrap any remaining [placeholder] in a <mark> so they stand out visually.
+  // textContent strips the tag on copy, so brackets travel unchanged into the AI tool.
+  return preInner.replace(
+    /\[([^\[\]\n<>]{1,80})\]/g,
+    '<mark class="prompt-placeholder">[$1]</mark>'
+  );
+}
+
 function addCopyButtonsToHtml(html: string): string {
   // Wrap every <pre>...</pre> with a wrapper + toolbar + copy button so the
   // button is part of the React-rendered HTML (survives re-renders, no race
   // with dangerouslySetInnerHTML). A sr-only live region inside each wrapper
   // announces "Copied to clipboard" to screen readers on click.
   return html.replace(/<pre>([\s\S]*?)<\/pre>/g, (_match, inner) => {
-    return `<div class="copyable-pre-wrapper"><div class="copyable-pre-toolbar"><button type="button" class="copyable-pre-btn" aria-label="Copy to clipboard">${COPY_BTN_INNER}</button></div><pre>${inner}</pre><span class="sr-only copyable-pre-status" aria-live="polite"></span></div>`;
+    const highlighted = highlightBracketPlaceholders(inner);
+    return `<div class="copyable-pre-wrapper"><div class="copyable-pre-toolbar"><button type="button" class="copyable-pre-btn" aria-label="Copy to clipboard">${COPY_BTN_INNER}</button></div><pre>${highlighted}</pre><span class="sr-only copyable-pre-status" aria-live="polite"></span></div>`;
   });
 }
 

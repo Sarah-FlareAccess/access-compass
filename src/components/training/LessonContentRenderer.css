@@ -4,6 +4,18 @@
   gap: 24px;
 }
 
+/* Highlight unsubstituted [placeholders] inside prompt blocks so the user can
+   see at a glance what needs to be filled in or pasted. The <mark> tag is
+   stripped on copy (textContent only), so brackets travel unchanged into the AI tool. */
+.prompt-placeholder {
+  background: #FFE9CC;
+  color: #5a3a00;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 600;
+  border: 1px dashed #FF9015;
+}
+
 .lesson-prologue-group {
   display: flex;
   flex-direction: column;
