@@ -1,4 +1,5 @@
 import type { TrainingDownload } from '../../data/training/types';
+import './DownloadBlock.css';
 
 interface DownloadBlockProps {
   download: TrainingDownload;
