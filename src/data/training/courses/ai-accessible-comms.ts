@@ -777,7 +777,7 @@ Ask 5 to 8 questions total. After my last answer, summarise what you learned in 
           type: 'exercise',
           exercise: {
             title: 'Step 3: Brief your AI assistant (10 min)',
-            instructions: 'Copy the briefing prompt below into ChatGPT. Fill in the brackets with your format, audience, source material and any "must get right" details.',
+            instructions: 'Copy the briefing prompt below into ChatGPT. Fill in the brackets with your format, audience and source material.',
             promptTemplate: `I want to create a [FORMAT NAME] for [AUDIENCE].
 
 It will help them to [PURPOSE].
@@ -787,34 +787,16 @@ It will live [WHERE IT WILL BE PUBLISHED].
 Here is my source material:
 [paste text, link or notes here]
 
-Here are the most important things to get right:
-[e.g., must mention wheelchair access, must use our cafe's friendly tone, must be under 500 words]
-
 Before drafting:
 1. Confirm in 2 to 3 sentences what you understand.
 2. Ask me 3 to 5 clarifying questions to fill any gaps.
 3. List any assumptions you would have to make if I cannot answer.`,
             expectedOutcome: 'ChatGPT replies with a short summary of what it understands, plus 3 to 5 clarifying questions. The AI now has full context once you have answered them.',
             tips: [
-              'Examples of good answers: "Wheelchair access: yes, level entry through the side gate, contact reception."',
-              'Examples of good answers: "Tone: friendly but professional, similar to our website homepage."',
-              'If you do not know something, say "Don\'t know, please flag this as needing a human to confirm."',
+              'Got something the draft MUST get right (a tone, a fact, a length limit)? Add it as a line just before "Before drafting:" or mention it when ChatGPT asks its clarifying questions. Examples: "Must mention wheelchair access", "Stay under 500 words", "Use our friendly tone, similar to our website homepage".',
+              'If you do not know the answer to a clarifying question, say "Don\'t know, please flag this as needing a human to confirm."',
             ],
           },
-        },
-        {
-          type: 'text',
-          body: `<details class="setup-detail">
-<summary><strong>Not sure what is most important to get right?</strong></summary>
-<p>The "Here are the most important things to get right" line is optional. You have three choices if you do not know what to put.</p>
-<ol>
-<li><strong>Skip it.</strong> Delete the bracketed example and that line entirely. The AI will surface anything important in its clarifying questions.</li>
-<li><strong>Ask the AI to suggest them.</strong> Paste this prompt into the same chat and let the AI propose the top three based on your brief and source material.</li>
-<li><strong>Write what you do know.</strong> One thing is enough. "Must use our friendly tone" or "Must mention the level entry" is plenty to anchor the draft.</li>
-</ol>
-<pre><code>Based on the brief and source material I have just given you, suggest the top 3 things I should treat as non-negotiable in the draft. For each one, explain in one sentence why it matters for my audience. Wait for me to confirm before drafting.</code></pre>
-<p>Whichever path you pick, do not leave the example brackets in. The AI will read them as real instructions.</p>
-</details>`,
         },
         {
           type: 'text',
@@ -1508,9 +1490,6 @@ It will live [WHERE IT WILL BE PUBLISHED].
 
 Here is my source material:
 [paste text, link or notes here]
-
-Here are the most important things to get right:
-[e.g., must mention wheelchair access, must use our cafe's friendly tone, must be under 500 words]
 
 Before drafting:
 1. Confirm in 2 to 3 sentences what you understand.
