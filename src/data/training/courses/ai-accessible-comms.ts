@@ -200,8 +200,9 @@ FORMATTING RULES
 - Use clear headings, short paragraphs and bullet points
 - Avoid walls of text
 - When producing Easy Read or Plain Language drafts, follow the published standards for each format
-- If you can generate a Word file or attachment directly (Artifacts, downloads etc.), APPLY all format-specific layout and typography settings to the file itself, do not just list them as instructions. State what you applied in your reply.
-- If you can only return text in chat, append a numbered "Word-application checklist" at the end so I can apply each setting manually.
+- If you can generate a Word file or attachment directly (Artifacts, downloads, Python sandbox etc.), do so proactively without waiting for me to ask. APPLY all format-specific layout and typography settings to the file itself. ALSO provide the same content as text in chat so I can verify and edit. Never make me ask twice for a file when you can produce one.
+- If you cannot generate a file (no Artifacts, no sandbox, no attachment capability), return the content as text in chat AND append a numbered "Word-application checklist" so I can apply each setting manually.
+- Either way, state in your reply which mode you used (file + text, or text + checklist) so I know what I am working with.
 - Always finish any draft with: "This draft was AI-generated. Please review before publishing."
 
 BEHAVIOUR RULES
@@ -476,8 +477,9 @@ FORMATTING RULES
 - Use clear headings, short paragraphs and bullet points
 - Avoid walls of text
 - When producing Easy Read or Plain Language drafts, follow the published standards for each format
-- If you can generate a Word file or attachment directly (Artifacts, downloads etc.), APPLY all format-specific layout and typography settings to the file itself, do not just list them as instructions. State what you applied in your reply.
-- If you can only return text in chat, append a numbered "Word-application checklist" at the end so I can apply each setting manually.
+- If you can generate a Word file or attachment directly (Artifacts, downloads, Python sandbox etc.), do so proactively without waiting for me to ask. APPLY all format-specific layout and typography settings to the file itself. ALSO provide the same content as text in chat so I can verify and edit. Never make me ask twice for a file when you can produce one.
+- If you cannot generate a file (no Artifacts, no sandbox, no attachment capability), return the content as text in chat AND append a numbered "Word-application checklist" so I can apply each setting manually.
+- Either way, state in your reply which mode you used (file + text, or text + checklist) so I know what I am working with.
 - Always finish any draft with: "This draft was AI-generated. Please review before publishing."
 
 BEHAVIOUR RULES
@@ -1281,6 +1283,7 @@ Here is my reviewed draft:
               'After applying changes in Word, run Word\'s built-in Accessibility Checker: Review > Check Accessibility. Fix any remaining errors before exporting.',
               'When you export, choose "Best for electronic distribution and accessibility (PDF/A)" in the Save dialog to preserve the structure tags.',
               'If Claude\'s daily message limit hits before you finish, the same prompt works in ChatGPT, Copilot or Gemini. Output quality drops slightly but the structure is preserved.',
+              'AI file-generation capability is inconsistent across tools. You may get marked-up text, a downloadable Word file, or both. All three paths are valid. Whichever you get, run the Step 5 Word-application checklist below to verify accessibility. Never publish a file straight from the AI without that check. If the AI returns text only and you have to ask twice for a file, that is also normal — the file capability varies by account state and session, not just by tool.',
             ],
           },
         },
@@ -1289,7 +1292,7 @@ Here is my reviewed draft:
           checklist: {
             title: 'Step 5: Apply your format\'s settings in Word (8 min)',
             introHtml: `<p>Claude\'s markup plan lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it. Your progress saves to this device.</p>
-<p><strong>If Claude generated the Word file directly</strong> (via Artifacts or a download), use this checklist to verify each setting is present. If Claude only returned text, use it as your apply-in-Word list.</p>
+<p><strong>Run this checklist whether the AI generated a file or only returned text.</strong> AI-generated docx files routinely miss decorative-table marking, true semantic heading styles, document properties and tagged-PDF export settings — they look right but fail an accessibility check. Treat any AI-generated file as a draft scaffold, not a final document. The checklist is the verification step that turns it into something publishable.</p>
 <p><strong>Using Google Docs instead of Word?</strong> Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Two real limitations to know about: Google Docs cannot mark tables as decorative (screen readers will announce layout tables as data tables) and Google Docs PDF export does not reliably preserve structure tags. For tagged PDF output, finish the document in Word or LibreOffice. Google Docs is fine for drafting, problematic for final accessible-document production.</p>`,
             items: [
               'Pick a format in Lesson 2 to load the right checklist for your draft.',
