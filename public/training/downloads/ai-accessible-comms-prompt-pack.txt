@@ -53,7 +53,7 @@ BEHAVIOUR RULES
 - Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
 
 ACCESSIBILITY STANDARDS REFERENCE
-- Easy Read: Inclusion Australia and CID Easy Read guidelines. Short sentences, common words, one idea per line, supporting images.
+- Easy Read: Inclusion Australia and CID guidelines for content (short sentences, common words, one idea per line, no metaphors). Australian Government Style Manual for layout (image LEFT and text RIGHT in a 2-column presentation table, never image above or below text, minimum 1.5 line spacing, wide margins, minimum 14pt body with larger headings, bold for headings and difficult words only).
 - Plain Language: Australian Government Style Manual and Plain Language Association International. Year 7 to 8 reading level. Active voice. Common words.
 - Social Stories: Carol Gray model. First person. Descriptive. Non-judgemental.
 - Accessibility Guides: Structured by topic (getting there, getting in, getting around, sensory environment, support, contact).
@@ -144,24 +144,42 @@ Before drafting:
 4a. BUILD PROMPT: EASY READ
 ============================================================
 
-Please draft this in Easy Read format following Inclusion Australia and CID guidelines.
+Please draft this in Easy Read format following Inclusion Australia and CID guidelines for content, and the Australian Government Style Manual for layout.
 
-Apply these rules:
+CONTENT RULES
 - One main idea per line
 - Sentences under 15 words wherever possible
-- Use common words (year 6 reading level or below)
-- Avoid metaphors, idioms and figures of speech
-- Use bullet points for lists
-- Break the draft into short sections with clear headings
-- For each section, suggest an image that would support the meaning (describe the image, do not generate it)
-- Avoid abbreviations. Spell things out.
-- Use the active voice
+- Common words (year 6 reading level or below)
+- No metaphors, idioms or figures of speech
+- No abbreviations, spell things out
+- Active voice
 - Address the reader as "you"
+- Bullet points for lists
+
+STRUCTURE
+- Break the draft into short sections, each with a clear heading.
+- For each chunk of meaning, pair ONE image suggestion with ONE short piece of text.
+
+LAYOUT (this is the part most AI drafts get wrong for Easy Read)
+- Output each chunk as a row in a 2-column table: image-suggestion on the LEFT, text on the RIGHT.
+- Never put an image above or below its text. The pairing is always side-by-side.
+- For section headings, use a heading row that spans both columns.
+- Image column format: "[Image: short description of what the picture shows]" on one line, then "Alt text: ..." on the next line. Do not generate the image, just describe it.
+
+TYPOGRAPHY GUIDANCE FOR WHEN I PUT THIS IN WORD (include as a checklist at the end)
+- Minimum 14pt body, larger for headings
+- Minimum 1.5 line spacing
+- Bold only for headings and difficult words
+- Left-aligned text
+- Wide margins (at least 2.5cm on each side)
+- Use colour and contrast for emphasis but never as the only signal of meaning
+- When I put the 2-column rows into Word as tables, set role="presentation" on each so screen readers do not announce them as data tables
 
 After the draft, list:
 - Any words you used that may still be too hard
 - Any sections that would benefit from an example
 - Anything I should verify with a human reviewer
+- One line on why the 2-column image-left / text-right layout matters for this audience, so I can defend the design choice if asked
 
 ============================================================
 4b. BUILD PROMPT: PLAIN LANGUAGE
@@ -341,6 +359,10 @@ I have a reviewed draft I want to publish as an accessible Word document and exp
 
 Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA.
 
+FORMAT CONTEXT
+- My draft format is: [Easy Read / Plain Language / Social Story / Accessibility Guide / Large Print / Accessible Digital Document]
+- If the format is Easy Read, preserve the 2-column image-left / text-right layout from the build prompt. Do NOT flatten it to a single column. Mark each layout table with role="presentation" so screen readers skip it. Apply Style Manual typography (minimum 14pt body, 1.5 line spacing, wide margins, bold for headings only).
+
 1. STRUCTURE
 - Mark each line or section with its heading level (H1, H2, H3 etc.). Do not skip levels.
 - Set a logical reading order top-to-bottom.
@@ -356,9 +378,8 @@ Please produce a structured version with the accessibility scaffolding marked up
 - Suggest footnote-style full URLs for printed copies.
 
 4. TABLES
-- Mark which row is the header.
-- Flag merged or split cells and suggest a flat alternative.
-- Add a one-sentence caption above each table.
+- For DATA tables: mark which row is the header, flag merged or split cells and suggest a flat alternative, add a one-sentence caption above each.
+- For LAYOUT tables (Easy Read 2-column image-left / text-right): preserve them, do NOT add a header row or caption and do NOT suggest flattening. Mark each with role="presentation". They are decorative scaffolding for screen readers.
 
 5. DOCUMENT PROPERTIES (to set in Word File > Info > Properties before export)
 - Suggest a document title (different from the file name).
