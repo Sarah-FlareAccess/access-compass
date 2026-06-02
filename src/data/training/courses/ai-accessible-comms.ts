@@ -639,11 +639,6 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
             audienceExample: 'parents of children visiting our museum, or first-time wheelchair users visiting our cafe, or staff onboarding into accessibility procedures',
             contextFields: [
               {
-                key: 'WHO USES IT',
-                label: 'Who will use this content',
-                example: 'first-time visitors planning a trip, parents booking online, staff at our welcome desk',
-              },
-              {
                 key: 'PURPOSE',
                 label: 'What it helps them do',
                 example: 'prepare for their visit, know what to expect at the entrance, find their way to accessible toilets',
@@ -660,8 +655,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 <p><strong>Each field, what it does:</strong></p>
 <ul>
 <li><strong>Format</strong> tells the AI which set of writing rules to apply. Easy Read is short sentences with images. Plain Language is year 7 to 8 reading level. Accessibility Guide has a structured 7-section layout.</li>
-<li><strong>Audience</strong> shapes vocabulary, tone and what to leave out. The more specific, the better. "Members of the public" is too vague. "People booking online who use a screen reader" lets the AI pick the right voice.</li>
-<li><strong>Who uses it</strong> separates the person reading from the person being talked about. Sometimes the same, sometimes not. "Parents booking on behalf of their autistic teenager" tells the AI to address parents while still respecting the teenager's experience.</li>
+<li><strong>Audience</strong> shapes vocabulary, tone and what to leave out. The more specific, the better. "Members of the public" is too vague. "People booking online who use a screen reader" lets the AI pick the right voice. If the actual reader is different from the subject (parent reading on behalf of an autistic teenager, support worker reading aloud), name both: "parents booking on behalf of their autistic teenager".</li>
 <li><strong>What it helps them do</strong> is the outcome. "Plan a visit", "know what to expect at the entrance", "decide whether to come at all". Tells the AI what to lead with.</li>
 <li><strong>Where it will live</strong> sets length and tone. A booking confirmation email is 3 short paragraphs. A website page can be longer with headings. Knowing this stops the AI writing a 1,500-word essay when you need a sign.</li>
 </ul>
@@ -681,13 +675,12 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 Cover these in order:
 1. What kind of business are you (in one or two sentences)?
 2. What format do you want to make (Easy Read, Plain Language, Social Story, Accessibility Guide, Large Print or Accessible Digital Document)? If unsure, ask me about my situation and recommend one.
-3. Who is your audience (be specific: think about access needs, age, familiarity with your business, language)?
-4. Who will actually USE the content (sometimes different from the audience, e.g. parents using it on behalf of children)?
-5. What does the content help them do (the practical outcome)?
-6. Where will it live (specific website page, booking confirmation email, printed handout, etc.)?
-7. What MUST the content get right (any tone, fact or detail that is non-negotiable)?
+3. Who is your audience (be specific: think about access needs, age, familiarity with your business, language)? If the actual reader is different from the subject (parent reading on behalf of a child, support worker reading aloud), name both.
+4. What does the content help them do (the practical outcome)?
+5. Where will it live (specific website page, booking confirmation email, printed handout, etc.)?
+6. What MUST the content get right (any tone, fact or detail that is non-negotiable)?
 
-After my last answer, summarise my brief as five short bullet points labelled Format, Audience, Who uses it, Purpose, Where it lives. Stop there. Do not draft the content yet.`,
+After my last answer, summarise my brief as four short bullet points labelled Format, Audience, Purpose, Where it lives. Stop there. Do not draft the content yet.`,
             },
           },
         },
@@ -787,7 +780,7 @@ Ask 5 to 8 questions total. After my last answer, summarise what you learned in 
             instructions: 'Copy the briefing prompt below into ChatGPT. Fill in the brackets with your format, audience, source material and any "must get right" details.',
             promptTemplate: `I want to create a [FORMAT NAME] for [AUDIENCE].
 
-This will be used by [WHO USES IT] to [PURPOSE].
+It will help them to [PURPOSE].
 
 It will live [WHERE IT WILL BE PUBLISHED].
 
@@ -848,7 +841,7 @@ Before drafting:
           type: 'take-home',
           takeHome: {
             title: 'Save 2 of 4: your brief',
-            introHtml: `<p><strong>This save: your filled-in brief.</strong> Format, audience, who uses it, purpose, where it lives. This is the only save in the workshop that is personalised to your business, so it is the slowest to recreate from scratch.</p>
+            introHtml: `<p><strong>This save: your filled-in brief.</strong> Format, audience, purpose, where it lives. This is the only save in the workshop that is personalised to your business, so it is the slowest to recreate from scratch.</p>
 <p>Use Download to save a file to your computer, or Copy to paste it into your own notes app, email or another AI tool.</p>
 <p>The brief will still be saved in the app on this device the next time you open the lesson. Downloading is your insurance for when that device changes, the browser clears its storage or you want to share the brief with a colleague.</p>`,
             includeBrief: true,
@@ -1509,7 +1502,7 @@ For each draft, reply with a one-sentence diagnosis, the top 3 to 5 issues in pr
                   heading: 'Briefing Prompt (paste into ChatGPT before drafting)',
                   content: `I want to create a [FORMAT NAME] for [AUDIENCE].
 
-This will be used by [WHO USES IT] to [PURPOSE].
+It will help them to [PURPOSE].
 
 It will live [WHERE IT WILL BE PUBLISHED].
 

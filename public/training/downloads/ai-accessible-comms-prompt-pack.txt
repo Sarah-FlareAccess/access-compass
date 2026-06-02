@@ -127,7 +127,7 @@ Paste into ChatGPT after you have set up the system prompt
 
 I want to create a [FORMAT NAME] for [AUDIENCE].
 
-This will be used by [WHO USES IT] to [PURPOSE].
+It will help them to [PURPOSE].
 
 It will live [WHERE IT WILL BE PUBLISHED].
 
