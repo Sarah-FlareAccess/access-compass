@@ -811,8 +811,14 @@ Before drafting:
           type: 'text',
           heading: 'Step 4: Confirm and proceed (1 min)',
           body: `<p>Once you have answered the AI's clarifying questions, type this:</p>
-<pre><code>Summarise what you know. Flag any gap. If none, proceed to drafting in the next message.</code></pre>
-<p>Read the reply. Fill any gaps the AI surfaces. Lesson 2 complete.</p>`,
+<pre><code>Summarise what you know. List any remaining gaps as direct questions for me to answer. Wait for my answers before drafting. Only proceed to drafting if you have no gaps left or I tell you to proceed.</code></pre>
+<p>Read the reply.</p>
+<ul>
+<li>If the AI surfaces gaps as questions, answer them in your next message. The AI will then proceed to drafting.</li>
+<li>If the AI surfaces gaps you do not know the answer to, reply with "I do not know, please flag this in the draft as needing a human to confirm" and then "Proceed to drafting."</li>
+<li>If there were no gaps, your next message can be "Proceed to drafting."</li>
+</ul>
+<p>Lesson 2 complete.</p>`,
         },
         {
           type: 'callout',
