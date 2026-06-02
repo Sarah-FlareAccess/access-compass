@@ -357,7 +357,7 @@ Paste into Claude with your reviewed draft. Claude returns a structured markup p
 
 I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
 
-Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA.
+Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance, Vic Government make-content-accessible standards and the Australian Government Style Manual content-types (stylemanual.gov.au/content-types) for format-specific structure and typography, targeting WCAG 2.2 AA.
 
 FORMAT CONTEXT
 - My draft format is: [Easy Read / Plain Language / Social Story / Accessibility Guide / Large Print / Accessible Digital Document]

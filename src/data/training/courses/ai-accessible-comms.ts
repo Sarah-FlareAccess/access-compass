@@ -1205,7 +1205,7 @@ Please update the draft to address these. Show the full updated draft.`,
             instructions: 'Claude does not produce a tagged PDF or accessible Word file directly. What it produces is a structured markup plan: heading levels (H1, H2 etc.), alt text suggestions, link rewrites, table notes, document property suggestions and a numbered checklist of what to apply in Word. You apply that plan in Word and export with structure tags enabled to produce the actual tagged PDF. Claude is stronger than ChatGPT at producing this kind of structured longer output, which is why we use it here. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
             promptTemplate: `I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
 
-Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA.
+Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance, Vic Government make-content-accessible standards and the Australian Government Style Manual content-types (stylemanual.gov.au/content-types) for format-specific structure and typography, targeting WCAG 2.2 AA.
 
 FORMAT CONTEXT
 - My draft format is: [Easy Read / Plain Language / Social Story / Accessibility Guide / Large Print / Accessible Digital Document]

@@ -62,7 +62,7 @@ Paste this AFTER you have a reviewed draft. Claude will return the draft with ac
 
 I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
 
-Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit and Vic Government accessibility standards, WCAG 2.2 AA.
+Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance, Vic Government make-content-accessible standards and the Australian Government Style Manual content-types (stylemanual.gov.au/content-types) for format-specific structure and typography, targeting WCAG 2.2 AA.
 
 FORMAT CONTEXT
 - My draft format is: [Easy Read / Plain Language / Social Story / Accessibility Guide / Large Print / Accessible Digital Document]
