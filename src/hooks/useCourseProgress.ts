@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { LessonContentBlock, TrainingCourse } from '../data/training/types';
+import { useAuthSafe } from '../contexts/AuthContext';
 
 const STEP_RE = /^Step\s+(\d+)\s*[:.\s]/i;
 
@@ -19,9 +20,9 @@ function countSteps(blocks: LessonContentBlock[]): number {
   return count;
 }
 
-function readCompletedSteps(courseId: string, lessonId: string): number {
+function readCompletedSteps(userKey: string, courseId: string, lessonId: string): number {
   try {
-    const raw = localStorage.getItem(`ac:step-progress:${courseId}:${lessonId}`);
+    const raw = localStorage.getItem(`ac:step-progress:${userKey}:${courseId}:${lessonId}`);
     if (!raw) return 0;
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) return parsed.filter((n) => typeof n === 'number').length;
@@ -45,13 +46,13 @@ export interface CourseProgress {
   completedSteps: number;
 }
 
-function calculateProgress(course: TrainingCourse): CourseProgress {
+function calculateProgress(course: TrainingCourse, userKey: string): CourseProgress {
   const lessons = course.lessons.map((lesson) => ({
     lessonId: lesson.id,
     order: lesson.order,
     title: lesson.title,
     totalSteps: countSteps(lesson.contentBlocks),
-    completedSteps: readCompletedSteps(course.id, lesson.id),
+    completedSteps: readCompletedSteps(userKey, course.id, lesson.id),
   }));
 
   const totalSteps = lessons.reduce((sum, l) => sum + l.totalSteps, 0);
@@ -61,11 +62,13 @@ function calculateProgress(course: TrainingCourse): CourseProgress {
 }
 
 export function useCourseProgress(course: TrainingCourse): CourseProgress {
-  const [progress, setProgress] = useState(() => calculateProgress(course));
+  const { userId } = useAuthSafe();
+  const userKey = userId ?? 'anonymous';
+  const [progress, setProgress] = useState(() => calculateProgress(course, userKey));
 
   const recalc = useCallback(() => {
-    setProgress(calculateProgress(course));
-  }, [course]);
+    setProgress(calculateProgress(course, userKey));
+  }, [course, userKey]);
 
   useEffect(() => {
     recalc();
