@@ -7,8 +7,6 @@ import { TrainingProgressBar } from '../components/training/TrainingProgressBar'
 import { DownloadBlock } from '../components/training/DownloadBlock';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
-import { useAuth } from '../contexts/AuthContext';
-import { canAccessTraining } from '../utils/trainingAccess';
 import { PageFooter } from '../components/PageFooter';
 import './CourseDetail.css';
 
@@ -89,8 +87,6 @@ function DownloadAllButton({
 export default function CourseDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { accessState } = useAuth();
-
   const course = useMemo(() => getCourseBySlug(slug ?? ''), [slug]);
   usePageTitle(course?.title ?? 'Course');
 
@@ -116,7 +112,8 @@ export default function CourseDetail() {
   const progress = getCourseProgress(course.id);
   const completionPct = getCourseCompletionPercentage(course.id, course.lessons.length);
   const lastLessonId = getLastLesson(course.id);
-  const canAccess = canAccessTraining(course.accessTier, accessState.accessLevel);
+  // Training-tier gate disabled. Access is managed manually for now.
+  const canAccess = true;
 
   const getCtaLabel = () => {
     if (!progress || progress.status === 'not-started') return 'Start Course';

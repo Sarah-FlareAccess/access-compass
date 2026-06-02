@@ -7,14 +7,11 @@ import { CourseProgressTracker } from '../components/training/CourseProgressTrac
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { useCourseProgress } from '../hooks/useCourseProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
-import { useAuth } from '../contexts/AuthContext';
-import { canAccessTraining } from '../utils/trainingAccess';
 import { PageFooter } from '../components/PageFooter';
 import './LessonView.css';
 
 export default function LessonView() {
   const { slug, lessonId } = useParams<{ slug: string; lessonId: string }>();
-  const { accessState } = useAuth();
 
   const course = useMemo(() => getCourseBySlug(slug ?? ''), [slug]);
   const lesson = useMemo(
@@ -43,10 +40,8 @@ export default function LessonView() {
     );
   }
 
-  const canAccess =
-    lesson.isPreview ||
-    lesson.accessTier === 'free' ||
-    canAccessTraining(lesson.accessTier, accessState.accessLevel);
+  // Training-tier gate disabled. Access is managed manually for now.
+  const canAccess = true;
 
   const lessonIndex = course.lessons.findIndex((l) => l.id === lesson.id);
   const prevLesson = lessonIndex > 0 ? course.lessons[lessonIndex - 1] : null;

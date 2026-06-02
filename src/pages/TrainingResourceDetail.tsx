@@ -4,14 +4,11 @@ import { getResourceBySlug, getCategoryConfig } from '../data/training/index';
 import { DownloadBlock } from '../components/training/DownloadBlock';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
-import { useAuth } from '../contexts/AuthContext';
-import { canAccessTraining } from '../utils/trainingAccess';
 import { PageFooter } from '../components/PageFooter';
 import './TrainingResourceDetail.css';
 
 export default function TrainingResourceDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { accessState } = useAuth();
 
   const resource = useMemo(() => getResourceBySlug(slug ?? ''), [slug]);
   usePageTitle(resource?.title ?? 'Resource');
@@ -29,7 +26,8 @@ export default function TrainingResourceDetail() {
     );
   }
 
-  const canAccess = canAccessTraining(resource.accessTier, accessState.accessLevel);
+  // Training-tier gate disabled. Access is managed manually for now.
+  const canAccess = true;
   const categoryConfig = getCategoryConfig(resource.category);
   const viewed = isResourceViewed(resource.id);
 
