@@ -1293,7 +1293,13 @@ Here is my reviewed draft:
             title: 'Step 5: Apply your format\'s settings in Word (8 min)',
             introHtml: `<p>Claude\'s markup plan lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it. Your progress saves to this device.</p>
 <p><strong>Run this checklist whether the AI generated a file or only returned text.</strong> AI-generated docx files routinely miss decorative-table marking, true semantic heading styles, document properties and tagged-PDF export settings — they look right but fail an accessibility check. Treat any AI-generated file as a draft scaffold, not a final document. The checklist is the verification step that turns it into something publishable.</p>
-<p><strong>Using Google Docs instead of Word?</strong> Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Two real limitations to know about: Google Docs cannot mark tables as decorative (screen readers will announce layout tables as data tables) and Google Docs PDF export does not reliably preserve structure tags. For tagged PDF output, finish the document in Word or LibreOffice. Google Docs is fine for drafting, problematic for final accessible-document production.</p>`,
+<p><strong>Using Google Docs instead of Word?</strong> Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Three real limitations to know about:</p>
+<ol>
+<li><strong>Decorative tables:</strong> Google Docs cannot mark tables as decorative. Screen readers will announce layout tables as data tables.</li>
+<li><strong>Heading hierarchy can break in .docx export.</strong> Only headings applied via Format &gt; Paragraph styles &gt; Heading 1/2/3 survive reliably. Headings manually formatted (bold + larger text) export as direct formatting, not semantic H1/H2/H3. Google Docs "Title" style does NOT map to Word's Heading 1. After exporting .docx, open in Word and verify each heading shows the correct style in the Styles pane (Home &gt; Styles).</li>
+<li><strong>PDF export does not reliably preserve structure tags.</strong> For tagged PDF, export .docx from Google Docs, verify heading styles in Word, then export the PDF from Word with "Document structure tags for accessibility" enabled.</li>
+</ol>
+<p>Google Docs is fine for drafting. For final accessible-document production, finish in Word or LibreOffice.</p>`,
             items: [
               'Pick a format in Lesson 2 to load the right checklist for your draft.',
             ],
