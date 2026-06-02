@@ -759,9 +759,23 @@ Before drafting:
         },
         {
           type: 'text',
+          body: `<details class="setup-detail">
+<summary><strong>Not sure what is most important to get right?</strong></summary>
+<p>The "Here are the most important things to get right" line is optional. You have three choices if you do not know what to put.</p>
+<ol>
+<li><strong>Skip it.</strong> Delete the bracketed example and that line entirely. The AI will surface anything important in its clarifying questions.</li>
+<li><strong>Ask the AI to suggest them.</strong> Paste this prompt into the same chat and let the AI propose the top three based on your brief and source material.</li>
+<li><strong>Write what you do know.</strong> One thing is enough. "Must use our friendly tone" or "Must mention the level entry" is plenty to anchor the draft.</li>
+</ol>
+<pre><code>Based on the brief and source material I have just given you, suggest the top 3 things I should treat as non-negotiable in the draft. For each one, explain in one sentence why it matters for my audience. Wait for me to confirm before drafting.</code></pre>
+<p>Whichever path you pick, do not leave the example brackets in. The AI will read them as real instructions.</p>
+</details>`,
+        },
+        {
+          type: 'text',
           body: `<div class="do-now">
 <div class="do-now-label">Do this next</div>
-<p>When ChatGPT replies with its clarifying questions, answer them honestly. If you do not know an answer, say so. It is fine to answer in fragments and bullet points.</p>
+<p>When ChatGPT replies with its clarifying questions, answer them honestly. If you do not know an answer, say so. You can also ask ChatGPT to suggest one based on your brief and source material, then accept, edit or reject its suggestion. It is fine to answer in fragments and bullet points.</p>
 </div>`,
         },
         {
