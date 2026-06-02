@@ -948,7 +948,7 @@ After the draft, give me:
             title: 'Build prompt: Social Story / Visual Narrative',
             formatKey: 'Social Story / Visual Narrative',
             instructions: 'For a first-person walkthrough of an experience using photos and short sentences.',
-            promptTemplate: `Please draft this as a Social Story / Visual Narrative.
+            promptTemplate: `Please draft this as a Social Story / Visual Narrative following Carol Gray Social Story convention.
 
 Apply these rules:
 - Written in first person ("I will...", "I might see...")
@@ -957,8 +957,13 @@ Apply these rules:
 - Note sensory details (what they will see, hear, smell, feel)
 - Mention what staff or other people might do
 - Acknowledge that things can change and that's okay
-- Suggest where photos should sit (describe each photo, do not generate)
 - Use short sentences
+
+LAYOUT RULES (this is the part most AI drafts get wrong for Social Stories)
+- One main idea per photo. If you find yourself introducing a new concept (tour length, then sensory kits, then arrival logistics), insert a new photo placeholder for each concept rather than stacking them all under one photo.
+- 2 to 4 short sentences per photo MAXIMUM. If a chunk needs more text, split it into multiple photo + text pairs.
+- Suggest where each photo should sit (describe each photo, do not generate). Place the photo placeholder ABOVE its text block.
+- Cognitive load per page stays low. A reader scans the image first, then reads 2 to 4 short lines, then moves on.
 
 Structure the draft as:
 1. Before I arrive
@@ -967,11 +972,13 @@ Structure the draft as:
 4. If I need help
 5. When I leave
 
+Each section may contain multiple photo + text pairs (not just one). Use as many pairs as needed to keep each photo paired with one focused idea and 2 to 4 sentences.
+
 After the draft, list:
-- Photos I should take to go with each section
+- Photos I should take to go with each section, in order
 - Anything I should verify or add from a real walk-through
 - Variations to consider (e.g., for a quieter sensory experience)`,
-            expectedOutcome: 'A first-person social story or visual narrative in 5 chronological sections, with photo suggestions and notes on what to verify in a real walk-through.',
+            expectedOutcome: 'A first-person social story or visual narrative in 5 chronological sections, with multiple photo + text pairs per section (2 to 4 short sentences under each photo), photo suggestions and notes on what to verify in a real walk-through.',
           },
         },
         {
