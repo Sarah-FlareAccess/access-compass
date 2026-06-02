@@ -4,6 +4,14 @@
   gap: 24px;
 }
 
+/* Bold the FORMAT CONTEXT line that matches the user's selected format so the
+   user's eye lands on the relevant rule. Other conditions stay visible as
+   context. The <strong> tag is stripped on copy, so the prompt travels unchanged. */
+.format-context-match {
+  font-weight: 700;
+  color: #350a4d;
+}
+
 /* Highlight unsubstituted [placeholders] inside prompt blocks so the user can
    see at a glance what needs to be filled in or pasted. The <mark> tag is
    stripped on copy (textContent only), so brackets travel unchanged into the AI tool. */

@@ -22,6 +22,39 @@ function renderWithPlaceholderHighlights(text: string): ReactNode {
   return parts.length > 0 ? parts : text;
 }
 
+// Bold the FORMAT CONTEXT condition line that matches the user's selected format,
+// so the user's eye lands on the relevant rule. Other conditions stay visible as
+// context. Bracket placeholders inside the matched line are still highlighted.
+function renderPromptTemplate(text: string, selectedFormat?: string): ReactNode {
+  if (!selectedFormat) {
+    return renderWithPlaceholderHighlights(text);
+  }
+  const formatPattern = /^(- If the format is )([^,]+)(,.*)$/gm;
+  let matchedStart = -1;
+  let matchedEnd = -1;
+  let m: RegExpExecArray | null;
+  while ((m = formatPattern.exec(text)) !== null) {
+    if (m[2].trim() === selectedFormat.trim()) {
+      matchedStart = m.index;
+      matchedEnd = m.index + m[0].length;
+      break;
+    }
+  }
+  if (matchedStart < 0) {
+    return renderWithPlaceholderHighlights(text);
+  }
+  const before = text.slice(0, matchedStart);
+  const matched = text.slice(matchedStart, matchedEnd);
+  const after = text.slice(matchedEnd);
+  return (
+    <>
+      {renderWithPlaceholderHighlights(before)}
+      <strong className="format-context-match">{renderWithPlaceholderHighlights(matched)}</strong>
+      {renderWithPlaceholderHighlights(after)}
+    </>
+  );
+}
+
 interface ExerciseBlockProps {
   title: string;
   instructions: string;
@@ -121,7 +154,7 @@ export function ExerciseBlock({
               {copied ? 'Copied' : 'Copy'}
             </button>
           </div>
-          <pre className="exercise-prompt-template">{renderWithPlaceholderHighlights(resolvedPromptTemplate)}</pre>
+          <pre className="exercise-prompt-template">{renderPromptTemplate(resolvedPromptTemplate, substitutions?.['FORMAT NAME'])}</pre>
           <span ref={statusRef} className="sr-only" aria-live="polite">
             {copied ? 'Prompt template copied to clipboard' : ''}
           </span>
