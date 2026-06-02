@@ -45,10 +45,27 @@ export function useFormatChoice(courseId: string) {
     setChoice(loadChoice(key));
   }, [key]);
 
+  // Cross-instance sync: when the brief panel writes a change, the
+  // LessonContentRenderer's separate useFormatChoice instance needs to
+  // re-read so [AUDIENCE], [PURPOSE] etc. substitute live without a refresh.
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (!detail || detail.key === key) {
+        setChoice(loadChoice(key));
+      }
+    };
+    window.addEventListener('ac:format-choice-changed', handler);
+    return () => window.removeEventListener('ac:format-choice-changed', handler);
+  }, [key]);
+
   const persist = useCallback(
     (next: FormatChoice) => {
       try {
         localStorage.setItem(key, JSON.stringify(next));
+        window.dispatchEvent(
+          new CustomEvent('ac:format-choice-changed', { detail: { key } })
+        );
       } catch {
         /* ignore quota */
       }
