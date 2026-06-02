@@ -576,7 +576,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
         },
         {
           type: 'text',
-          heading: 'Step 1: Choose your format (3 min)',
+          heading: 'Step 1: Pick your format and build your brief (5 min)',
           body: `<p>Pick one format to create in this session. You can come back for the others later using the prompt pack.</p>
 <table>
 <caption class="sr-only">Alternative format options with audience fit and difficulty rating</caption>
