@@ -914,7 +914,7 @@ After the draft, list:
 - Any sections that would benefit from an example
 - Anything I should verify with a human reviewer
 - One line on why the 2-column image-left / text-right layout matters for this audience, so I can defend the design choice if asked`,
-            expectedOutcome: 'A draft laid out as 2-column rows (image-suggestion left, text right) with alt text per chunk, plus a layout and typography checklist for applying it in Word and a list of words or sections that need extra attention.',
+            expectedOutcome: 'A draft laid out as 2-column rows (image-suggestion left, text right), plus a layout and typography checklist for applying it in Word and a list of words or sections that need extra attention. Alt text is not drafted in this step — you write alt text after sourcing real photos by uploading them to a vision-capable AI.',
           },
         },
         {
@@ -962,6 +962,7 @@ Apply these rules:
 LAYOUT RULES (this is the part most AI drafts get wrong for Social Stories)
 - One main idea per photo. If you find yourself introducing a new concept (tour length, then sensory kits, then arrival logistics), insert a new photo placeholder for each concept rather than stacking them all under one photo.
 - 2 to 4 short sentences per photo MAXIMUM. If a chunk needs more text, split it into multiple photo + text pairs.
+- One page per photo + text pair (Carol Gray Social Story booklet convention). Insert a clear page break instruction between each chunk so the user can add Word page breaks. Mark this in the draft as "[PAGE BREAK]" on its own line between each photo + text pair.
 - Suggest where each photo should sit (describe each photo, do not generate). Place the photo placeholder ABOVE its text block.
 - Cognitive load per page stays low. A reader scans the image first, then reads 2 to 4 short lines, then moves on.
 
@@ -1233,7 +1234,7 @@ FORMAT CONTEXT
 - My draft format is: [FORMAT NAME]
 - If the format is Easy Read, preserve the 2-column image-left / text-right layout from the build prompt. Do NOT flatten it to a single column. Mark each layout table with role="presentation" so screen readers skip it. Apply Style Manual typography (minimum 14pt body, 1.5 line spacing, wide margins, bold for headings only).
 - If the format is Plain Language, the structure is a clean single-column document. Left-aligned text (never justified). Keep line length under 70 characters wide for readability. Generic structure / images / links / tables guidance below applies as-is.
-- If the format is Social Story / Visual Narrative, preserve the photo-per-chunk pairing AND the 2 to 4 sentences-per-photo rule from the build prompt. Do not strip, batch or reorder images. Do not merge multiple photo + text pairs into longer chunks. One main idea per photo, do not stack concepts (e.g. tour length and sensory kits should not share a photo). Reading order must follow the chronological journey, do NOT add a table of contents. Captions belong directly under each photo, not in a separate list. Do NOT generate alt text for photos that do not yet exist. Instead, instruct the user to upload each real photo to a vision-capable AI (Claude, ChatGPT Plus, Microsoft Copilot or Google Gemini) once sourced and ask it to suggest alt text describing the actual image.
+- If the format is Social Story / Visual Narrative, preserve the photo-per-chunk pairing AND the 2 to 4 sentences-per-photo rule from the build prompt. Do not strip, batch or reorder images. Do not merge multiple photo + text pairs into longer chunks. One main idea per photo, do not stack concepts (e.g. tour length and sensory kits should not share a photo). Preserve any [PAGE BREAK] markers from the build draft — these signal one page per photo + text pair (Carol Gray Social Story booklet convention). The user will insert Word page breaks at each marker. Reading order must follow the chronological journey, do NOT add a table of contents. Captions belong directly under each photo, not in a separate list. Do NOT generate alt text for photos that do not yet exist. Instead, instruct the user to upload each real photo to a vision-capable AI (Claude, ChatGPT Plus, Microsoft Copilot or Google Gemini) once sourced and ask it to suggest alt text describing the actual image.
 - If the format is Accessibility Guide, preserve the 7-section order from the build prompt (Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact) so readers can compare across venues. Each section is an H2 under one H1. If this will be published as a webpage, add anchor links for each H2 and a jump menu at the top.
 - If the format is Large Print, typography is the format. Apply Vision Australia clear print (minimum 16pt body) or RNIB large print (minimum 18pt). Sans-serif font family (Arial, Verdana, Calibri or APHont). No italics. No underlines except on links. No decorative fonts. Strong contrast (black on white, cream or yellow), never image-of-text. Single column. Headings 1.5x body size minimum. Line spacing minimum 1.5. Keep PDF text selectable and re-flowable, never flat-scan.
 
@@ -1322,6 +1323,7 @@ Here is my reviewed draft:
               'Social Story / Visual Narrative': [
                 'Insert real photos in chronological order matching the build prompt sections (Before, When I get there, Inside, If I need help, When I leave).',
                 'For each inserted photo, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask "Suggest alt text for this image." The alt text should describe what the picture shows (e.g. "Wide view of the market interior with food stalls and shoppers"), NOT the social story narrative. Add via right-click image > View Alt Text. Verify before saving.',
+                'Insert a Word page break after each photo + text chunk (Insert > Page Break, or Ctrl+Enter on Windows / Cmd+Enter on Mac) so each photo and its 2 to 4 sentences sit on their own page. This matches the published Social Story booklet convention.',
                 'Place each caption directly under its photo, not in a separate list at the end.',
                 'Remove any table of contents Claude may have added. A social story is linear, a TOC breaks the journey.',
                 'Confirm reading order is strictly chronological top to bottom.',
@@ -1554,7 +1556,7 @@ Following NSW Digital Toolkit and Vic Government accessibility standards, WCAG 2
 
 1. STRUCTURE: heading hierarchy (H1, H2, H3, no skipped levels), logical reading order, proper bulleted or numbered lists.
 2. PLAIN LANGUAGE: estimate reading level, flag jargon, rewrite the top 5 hardest sentences.
-3. IMAGES: suggest alt text for every image. Mark decorative images. Flag colour-only meaning.
+3. IMAGES: for images the user has described in detail, draft alt text as a starting point (user verifies against the real image). For images not described, instruct the user to upload each real image to a vision-capable AI (Claude, ChatGPT Plus, Microsoft Copilot or Google Gemini) for alt text. Mark decorative images. Flag colour-only meaning.
 4. LINKS: rewrite "click here", "read more" to be descriptive. Suggest footnote URLs for printed copies.
 5. TABLES: mark header row. Flag merged or split cells. Add captions.
 6. DOCUMENT PROPERTIES: suggest a document title, language (English Australia), author, 3 to 5 keywords.
@@ -1572,7 +1574,7 @@ Here is the content:
 Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit and Vic Government accessibility standards, WCAG 2.2 AA.
 
 1. STRUCTURE: mark each line or section with its heading level. Logical reading order. Proper lists.
-2. IMAGES: alt text per image. Mark decorative. Flag colour-only meaning.
+2. IMAGES: draft alt text only for images the user has described in detail (user verifies). For placeholder photos not yet sourced, instruct the user to upload each real photo to a vision-capable AI for alt text. Mark decorative. Flag colour-only meaning.
 3. LINKS: rewrite vague link text.
 4. TABLES: mark header rows. Flag merged cells. Add captions.
 5. DOCUMENT PROPERTIES: title, language, author, keywords.
