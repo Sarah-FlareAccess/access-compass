@@ -212,6 +212,7 @@ BEHAVIOUR RULES
 - When I am vague, ask for specifics
 - When I am stuck, simplify
 - Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
+- When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, return the COMPLETE updated draft, not a summary of changes, a list of suggestions or examples of what would change. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
 
 ACCESSIBILITY STANDARDS REFERENCE
 - Easy Read: Inclusion Australia and CID guidelines for content (short sentences, common words, one idea per line, no metaphors). Australian Government Style Manual for layout (image LEFT and text RIGHT in a 2-column presentation table, never image above or below text, minimum 1.5 line spacing, wide margins, minimum 14pt body with larger headings, bold for headings and difficult words only).
@@ -486,6 +487,7 @@ BEHAVIOUR RULES
 - When I am vague, ask for specifics
 - When I am stuck, simplify
 - Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
+- When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, return the COMPLETE updated draft, not a summary of changes, a list of suggestions or examples of what would change. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
 
 ACCESSIBILITY STANDARDS REFERENCE
 - Easy Read: Inclusion Australia and CID guidelines for content (short sentences, common words, one idea per line, no metaphors). Australian Government Style Manual for layout (image LEFT and text RIGHT in a 2-column presentation table, never image above or below text, minimum 1.5 line spacing, wide margins, minimum 14pt body with larger headings, bold for headings and difficult words only).
@@ -817,8 +819,7 @@ Before drafting:
 <li>If the AI surfaces gaps as questions, answer them in your next message. The AI will then proceed to drafting.</li>
 <li>If the AI surfaces gaps you do not know the answer to, reply with "I do not know, please flag this in the draft as needing a human to confirm" and then "Proceed to drafting."</li>
 <li>If there were no gaps, your next message can be "Proceed to drafting."</li>
-</ul>
-<p>Lesson 2 complete.</p>`,
+</ul>`,
         },
         {
           type: 'callout',
@@ -1088,19 +1089,19 @@ Here is the content:
         {
           type: 'text',
           heading: 'Step 3: Iterate (28 min)',
-          body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. Pick the iteration prompts below that match what you want changed. (A 3rd round is rare when the first build prompt has done its job. Only run it if a real issue is unresolved.)</p>
+          body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. The prompts below are <strong>examples</strong> for the most common requests, not a fixed list. Pick one that fits, or write your own iteration prompt in plain words. Every prompt ends with "Show the full updated draft" so the AI returns the complete revised version, not a summary of what would change. If you write your own, finish it the same way. (A 3rd round is rare when the first build prompt has done its job. Only run it if a real issue is unresolved.)</p>
 <p><strong>Make it clearer:</strong></p>
-<pre><code>Rewrite section [X] using shorter sentences and simpler words. Aim for a reading age of 12 or below.</code></pre>
+<pre><code>Rewrite section [X] using shorter sentences and simpler words. Aim for a reading age of 12 or below. Show the full updated draft.</code></pre>
 <p><strong>Make it shorter:</strong></p>
-<pre><code>The [section / overall draft] is too long. Cut it by 30% without losing the key information.</code></pre>
+<pre><code>The [section / overall draft] is too long. Cut it by 30% without losing the key information. Show the full updated draft.</code></pre>
 <p><strong>Make it friendlier:</strong></p>
-<pre><code>The tone feels too formal. Rewrite it to sound warmer and more welcoming, while keeping the structure.</code></pre>
+<pre><code>The tone feels too formal. Rewrite it to sound warmer and more welcoming, while keeping the structure. Show the full updated draft.</code></pre>
 <p><strong>Add specifics:</strong></p>
-<pre><code>Add concrete examples in section [X]. Use [these details I'll provide]: [paste details]</code></pre>
+<pre><code>Add concrete examples in section [X]. Use [these details I'll provide]: [paste details]. Show the full updated draft.</code></pre>
 <p><strong>Fix accuracy:</strong></p>
-<pre><code>You assumed [X]. The actual situation is [Y]. Please rewrite the relevant sections.</code></pre>
+<pre><code>You assumed [X]. The actual situation is [Y]. Please rewrite the relevant sections. Show the full updated draft.</code></pre>
 <p><strong>Add what is missing:</strong></p>
-<pre><code>You haven't covered [X]. Please add a section about it. Here's what you need to know: [paste info]</code></pre>`,
+<pre><code>You haven't covered [X]. Please add a section about it. Here's what you need to know: [paste info]. Show the full updated draft.</code></pre>`,
         },
         {
           type: 'callout',
@@ -1474,6 +1475,7 @@ BEHAVIOUR RULES
 - Preserve context from earlier in the conversation
 - Default to simplicity over complexity
 - Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
+- When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, return the COMPLETE updated draft, not a summary of changes, a list of suggestions or examples of what would change. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
 
 WHAT TO DO IN ANY NEW TASK
 Your first reply must include a one or two sentence summary of what you understand the task to be, 3 to 5 clarifying questions if needed to fill any gaps, and an explanation of any assumptions you would have to make if I cannot answer those questions.`,
