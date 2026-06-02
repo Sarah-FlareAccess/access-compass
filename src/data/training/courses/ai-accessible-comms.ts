@@ -1114,7 +1114,9 @@ Here is the content:
 <p><strong>Fix accuracy:</strong></p>
 <pre><code>You assumed [X]. The actual situation is [Y]. Please rewrite the relevant sections. Show the full updated draft.</code></pre>
 <p><strong>Add what is missing:</strong></p>
-<pre><code>You haven't covered [X]. Please add a section about it. Here's what you need to know: [paste info]. Show the full updated draft.</code></pre>`,
+<pre><code>You haven't covered [X]. Please add a section about it. Here's what you need to know: [paste info]. Show the full updated draft.</code></pre>
+<p><strong>Merge chunks (Social Story, Easy Read, Visual Narrative):</strong></p>
+<pre><code>This [FORMAT NAME] has too many photo + text chunks. Merge similar or thematically connected chunks (e.g. busy/quiet pairs, related sensory descriptions, sparse 2-sentence chunks) into combined chunks of 3 to 4 sentences. Target roughly [N] photo chunks total. Preserve one main idea per chunk and the 2 to 4 sentence rule. Show the full updated draft.</code></pre>`,
         },
         {
           type: 'callout',
