@@ -6,7 +6,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   title: 'Using AI to Create Accessible & Inclusive Communications',
   subtitle: 'A practical 2-hour workshop. Walk in with content. Walk out with a draft.',
   description: 'Use free AI tools to draft accessible content for your business in under 2 hours. Choose your format, bring your source material and leave with a real first draft you can refine and publish.',
-  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and accessibility markup planner) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to generate an accessibility markup plan you can apply in Word and export as a tagged PDF. The AI does not produce the tagged file directly; it gives you a structured plan (heading levels, alt text suggestions, link rewrites, table notes, document properties) and a checklist of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Digital Document (Word/PDF, following NSW Digital Toolkit and Vic Government guidance, WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session.',
+  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and accessibility markup planner) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to generate an accessibility markup plan you can apply in Word and export as a tagged PDF. The AI does not produce the tagged file directly; it gives you a structured plan (heading levels, alt text suggestions, link rewrites, table notes, document properties) and a checklist of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Digital Document (Word/PDF, following NSW Digital Toolkit and Vic Government guidance, WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist Easy Read producers for high-stakes content remain essential.',
   category: 'ai-tools',
   accessTier: 'premium',
   totalEstimatedMinutes: 120,
@@ -117,6 +117,33 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       isPreview: true,
       keywords: ['setup', 'ChatGPT', 'Claude', 'system prompt', 'custom instructions'],
       contentBlocks: [
+        {
+          type: 'text',
+          heading: 'Before you start: what this course is for',
+          body: `<p><strong>This course is for first drafts.</strong> AI-assisted drafting is fast and produces a usable starting point, but a draft is not finished content. Treat what comes out of this workshop as the beginning of a process, not the end of it.</p>
+<p><strong>The course works well for:</strong></p>
+<ul>
+<li>SMEs and small venues drafting their first accessible content</li>
+<li>Councils and authorities producing internal staff briefings or first-pass public content</li>
+<li>Multi-site organisations building reusable templates</li>
+<li>Anyone moving from "we have no accessible content" to "we have a working draft to refine"</li>
+</ul>
+<p><strong>The course does NOT replace:</strong></p>
+<ul>
+<li>Lived-experience review or co-design with the disability community. We know not every business has the resourcing to commission these. Where you do, use them. Where you do not, at minimum get one or two readers from your target audience to react to the draft before publishing.</li>
+<li>Specialist Easy Read producers (Inclusion Australia, Scope, AT Assist, Down Syndrome Australia) for high-stakes content</li>
+<li>Your DIAP, DAIP or AAP consultation process</li>
+<li>Any statutory consultation requirements that may apply to your organisation</li>
+</ul>
+<p>This workshop sits upstream of those processes, never as a substitute for them.</p>`,
+        },
+        {
+          type: 'callout',
+          callout: {
+            variant: 'warning',
+            text: 'Do not use this workshop to draft these content types: behaviour support documentation, crisis information (mental health helplines, emergency procedures, family violence resources), content for very young children, content about Aboriginal and Torres Strait Islander communities, NDIS plan documents, legal terms or contracts, diagnostic or clinical information. For these, commission a specialist producer or work with the relevant community directly.',
+          },
+        },
         {
           type: 'text',
           heading: 'What you will achieve in this lesson',
@@ -1269,8 +1296,9 @@ Here is my reviewed draft:
           type: 'checklist',
           checklist: {
             title: 'Step 5: Apply your format\'s settings in Word (8 min)',
-            introHtml: `<p>Claude\'s markup plan lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it in Word. Your progress saves to this device.</p>
-<p><strong>If Claude generated the Word file directly</strong> (via Artifacts or a download), use this checklist to verify each setting is present. If Claude only returned text, use it as your apply-in-Word list.</p>`,
+            introHtml: `<p>Claude\'s markup plan lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it. Your progress saves to this device.</p>
+<p><strong>If Claude generated the Word file directly</strong> (via Artifacts or a download), use this checklist to verify each setting is present. If Claude only returned text, use it as your apply-in-Word list.</p>
+<p><strong>Using Google Docs instead of Word?</strong> Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Two real limitations to know about: Google Docs cannot mark tables as decorative (screen readers will announce layout tables as data tables) and Google Docs PDF export does not reliably preserve structure tags. For tagged PDF output, finish the document in Word or LibreOffice. Google Docs is fine for drafting, problematic for final accessible-document production.</p>`,
             items: [
               'Pick a format in Lesson 2 to load the right checklist for your draft.',
             ],
@@ -1365,6 +1393,19 @@ Here is my reviewed draft:
               'Have you added the publishing date and a way for readers to give feedback?',
             ],
           },
+        },
+        {
+          type: 'text',
+          heading: 'Layer your review before publishing',
+          body: `<p>This workshop is one layer in a larger review process. The full picture, in order:</p>
+<ol>
+<li>AI draft (this workshop)</li>
+<li>Your internal review of facts, tone and accuracy</li>
+<li>Claude sense-check (Step 1 of this lesson)</li>
+<li>Where resourcing allows: lived-experience review or co-design with the disability community. This is strongly encouraged, particularly for council, authority, NDIS and public-facing content.</li>
+<li>Where the content is high-stakes (NDIS plans, health information, legal terms, behaviour support, crisis content): commission a specialist Easy Read producer. Australian options include Inclusion Australia, Scope, AT Assist and Down Syndrome Australia.</li>
+</ol>
+<p>This course does not replace lived-experience review or co-design. We know not every business has the resourcing to commission a specialist or run a co-design session. Where you do, use it. Where you do not, at minimum get one or two readers from your target audience to react to the draft before publishing.</p>`,
         },
         {
           type: 'text',
