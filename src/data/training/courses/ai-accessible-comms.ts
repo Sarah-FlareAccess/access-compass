@@ -217,6 +217,7 @@ BEHAVIOUR RULES
 - When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, ALWAYS return the COMPLETE updated draft from heading to sign-off line. The full document, every section, all the changes applied. NEVER show only the changed sections. NEVER show a recommendation list or evaluation marks (✅, ⚠️, ❌). NEVER explain your reasoning above or alongside the draft. If you disagree with a change I asked for, still produce the full updated draft applying the changes you accept, then raise the disagreement in ONE short sentence below the draft. Never block or replace the draft with discussion. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
 - When I answer the verification items, clarifying questions or assumption flags you raised, that is your signal to return the COMPLETE updated draft incorporating my answers. Do not ask further questions. Do not propose additional changes. Do not recommend new content (photos, extra sections, structural reordering, related documents). Stop after the updated draft.
 - Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
+- When my iteration request includes a numbered list of issues, after the full updated draft return a numbered confirmation list saying what you changed for each issue. For structural changes (moving content between sections, merging or splitting sections), name the section you moved. For wording changes, quote the before/after. If you could not action an issue, say so and explain why. Structural changes are easy to skip silently, so they must be called out explicitly.
 - Never produce a draft directly after I answer your clarifying questions. After my answers, confirm what you now know, name any remaining gaps as specific questions, and wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting requires BOTH my answers AND an explicit go-ahead. If an assumption you raised was not addressed in my answers, do not bake it into the draft as fact. Re-raise it as a question or leave a [TO CONFIRM] placeholder in the draft.
 
 ACCESSIBILITY STANDARDS REFERENCE
@@ -498,6 +499,7 @@ BEHAVIOUR RULES
 - When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, ALWAYS return the COMPLETE updated draft from heading to sign-off line. The full document, every section, all the changes applied. NEVER show only the changed sections. NEVER show a recommendation list or evaluation marks (✅, ⚠️, ❌). NEVER explain your reasoning above or alongside the draft. If you disagree with a change I asked for, still produce the full updated draft applying the changes you accept, then raise the disagreement in ONE short sentence below the draft. Never block or replace the draft with discussion. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
 - When I answer the verification items, clarifying questions or assumption flags you raised, that is your signal to return the COMPLETE updated draft incorporating my answers. Do not ask further questions. Do not propose additional changes. Do not recommend new content (photos, extra sections, structural reordering, related documents). Stop after the updated draft.
 - Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
+- When my iteration request includes a numbered list of issues, after the full updated draft return a numbered confirmation list saying what you changed for each issue. For structural changes (moving content between sections, merging or splitting sections), name the section you moved. For wording changes, quote the before/after. If you could not action an issue, say so and explain why. Structural changes are easy to skip silently, so they must be called out explicitly.
 - Never produce a draft directly after I answer your clarifying questions. After my answers, confirm what you now know, name any remaining gaps as specific questions, and wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting requires BOTH my answers AND an explicit go-ahead. If an assumption you raised was not addressed in my answers, do not bake it into the draft as fact. Re-raise it as a question or leave a [TO CONFIRM] placeholder in the draft.
 
 ACCESSIBILITY STANDARDS REFERENCE
@@ -1258,7 +1260,13 @@ Please sense-check it using the framework you've been set up with.
 2. [issue]
 3. [issue]
 
-Please update the draft to address these. Show the full updated draft.`,
+Please update the draft to address each issue.
+
+Then return:
+A. The COMPLETE updated draft from heading to sign-off line.
+B. A numbered confirmation list saying what you changed for each issue (1, 2, 3...). For structural changes name the section you moved or merged. For wording changes quote the before/after. If you could not action an issue, say so and explain why.
+
+Do not skip Part B. It is how I verify nothing was silently missed. Structural changes (moving content between sections, merging sections) are easy to skip by accident, so call those out explicitly.`,
             expectedOutcome: 'ChatGPT returns an updated draft with the issues addressed. Save it.',
             tips: [
               'Only fill in the issue lines you actually have. If Claude only surfaced one issue worth acting on, delete lines 2 and 3 before sending. If you want to action more than 3, add lines 4 and 5.',
@@ -1364,7 +1372,7 @@ Here is my reviewed draft:
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
               ],
               'Plain Language': [
-                'Apply heading styles in order (Heading 1 for the title, Heading 2 for sections, Heading 3 for sub-sections). Do not skip levels.',
+                'Apply heading styles in order (Heading 1 for the title, Heading 2 for sections, Heading 3 for sub-sections). Do not skip levels. Verify visually via View > Navigation Pane (Ctrl+F on Windows): the Headings tab shows your document outline so you can confirm every section is at the right level.',
                 'Left-align all text (never justify).',
                 'Use a sans-serif font (Calibri, Arial or similar).',
                 'Set line spacing to 1.5 on body text.',
@@ -1390,8 +1398,7 @@ Here is my reviewed draft:
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
               ],
               'Accessibility Guide': [
-                'Confirm the 7 standard headings appear in order: Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact.',
-                'Each section is a Heading 2 under one Heading 1.',
+                'Confirm the 7 standard headings appear in order: Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact. Each section is a Heading 2 under one Heading 1. Verify visually via View > Navigation Pane (Ctrl+F on Windows): the Headings tab shows your document outline so you can confirm the 7 sections appear as Heading 2 under one Heading 1, in order.',
                 'Insert venue photos. For each, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text describing what the photo shows. Add via right-click > View Alt Text. Verify before saving.',
                 'Confirm every fact is specific, not vague (e.g. "level entry, 90cm wide door" not "wheelchair accessible").',
                 'Address any "needs answer" flags Claude left in the draft.',
@@ -1414,7 +1421,7 @@ Here is my reviewed draft:
                 'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
               ],
               'Accessible Digital Document (Word/PDF)': [
-                'Apply heading styles in order (H1, H2, H3 etc.), do not skip levels.',
+                'Apply heading styles in order (H1, H2, H3 etc.), do not skip levels. Verify visually via View > Navigation Pane (Ctrl+F on Windows): the Headings tab shows your document outline so you can confirm every section is at the right level.',
                 'Replace manual dashes or asterisks with proper bulleted or numbered lists.',
                 'For each image, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. If Claude already drafted alt text from a detailed source description, you can use it as a starting point and verify against the actual image. Add via right-click image > View Alt Text. Verify before saving.',
                 'Mark decorative images as decorative (right-click image > View Alt Text > tick "Mark as decorative").',
@@ -1587,6 +1594,7 @@ BEHAVIOUR RULES
 - When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, ALWAYS return the COMPLETE updated draft from heading to sign-off line. The full document, every section, all the changes applied. NEVER show only the changed sections. NEVER show a recommendation list or evaluation marks (✅, ⚠️, ❌). NEVER explain your reasoning above or alongside the draft. If you disagree with a change I asked for, still produce the full updated draft applying the changes you accept, then raise the disagreement in ONE short sentence below the draft. Never block or replace the draft with discussion. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
 - When I answer the verification items, clarifying questions or assumption flags you raised, that is your signal to return the COMPLETE updated draft incorporating my answers. Do not ask further questions. Do not propose additional changes. Do not recommend new content (photos, extra sections, structural reordering, related documents). Stop after the updated draft.
 - Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
+- When my iteration request includes a numbered list of issues, after the full updated draft return a numbered confirmation list saying what you changed for each issue. For structural changes (moving content between sections, merging or splitting sections), name the section you moved. For wording changes, quote the before/after. If you could not action an issue, say so and explain why. Structural changes are easy to skip silently, so they must be called out explicitly.
 - Never produce a draft directly after I answer your clarifying questions. After my answers, confirm what you now know, name any remaining gaps as specific questions, and wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting requires BOTH my answers AND an explicit go-ahead. If an assumption you raised was not addressed in my answers, do not bake it into the draft as fact. Re-raise it as a question or leave a [TO CONFIRM] placeholder in the draft.
 
 WHAT TO DO IN ANY NEW TASK
