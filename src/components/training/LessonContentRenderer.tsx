@@ -776,6 +776,7 @@ function renderBlock(
           tips={ex.tips}
           exampleOutput={ex.exampleOutput}
           substitutions={ctx.substitutions}
+          targetTool={ex.targetTool}
         />
       );
       if (ex.formatKey && ex.formatKey !== ctx.selectedFormat) {

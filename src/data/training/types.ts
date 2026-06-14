@@ -60,6 +60,7 @@ export interface LessonContentBlock {
     tips?: string[];
     exampleOutput?: string;
     formatKey?: string;
+    targetTool?: 'drafting' | 'reviewer';
   };
   download?: TrainingDownload;
   checklist?: {

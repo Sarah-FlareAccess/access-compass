@@ -63,6 +63,7 @@ interface ExerciseBlockProps {
   tips?: string[];
   exampleOutput?: string;
   substitutions?: Record<string, string>;
+  targetTool?: 'drafting' | 'reviewer';
 }
 
 function applySubstitutions(text: string, subs?: Record<string, string>): string {
@@ -86,6 +87,7 @@ export function ExerciseBlock({
   tips,
   exampleOutput,
   substitutions,
+  targetTool,
 }: ExerciseBlockProps) {
   const [copied, setCopied] = useState(false);
   const statusRef = useRef<HTMLSpanElement>(null);
@@ -134,6 +136,12 @@ export function ExerciseBlock({
 
       {resolvedPromptTemplate && (
         <div className="exercise-prompt-section">
+          {targetTool && (
+            <div className={`exercise-tool-badge exercise-tool-badge--${targetTool}`} role="note">
+              <span className="exercise-tool-badge-label">Paste this into:</span>
+              <strong>{targetTool === 'drafting' ? 'Your drafting AI (ChatGPT, Copilot or Gemini)' : 'Claude (your reviewer AI)'}</strong>
+            </div>
+          )}
           <div className="exercise-prompt-header">
             <span className="exercise-prompt-label">Prompt template</span>
             <button
