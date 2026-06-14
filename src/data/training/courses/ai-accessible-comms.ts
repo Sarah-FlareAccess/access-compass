@@ -587,6 +587,13 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
           type: 'text',
           heading: 'What you will achieve in this lesson',
           body: `<p>By the end of this lesson, your AI assistant knows your format, your audience, your source material and any constraints. It is ready to draft.</p>
+<details class="setup-detail">
+<summary><strong>Key terms in this lesson</strong> (tap to expand)</summary>
+<ul>
+<li><strong>Screen reader</strong>: software that reads digital content aloud for people who are blind or have low vision.</li>
+<li><strong>WCAG 2.2 AA</strong>: the international web accessibility standard. AA is the level most government and large business sites aim for.</li>
+</ul>
+</details>
 <div class="version-note">
 <strong>Captured June 2026.</strong> AI responses can vary as models update. If the AI's reply differs from what is described here (different question wording, slightly different format, extra or missing sections), proceed anyway. The briefing pattern is robust enough to still produce a usable draft. If something feels off, paste this prompt to reset it:
 <pre><code>Please restart this task and follow the briefing prompt exactly. Confirm what you understand in 2 to 3 sentences, then ask 3 to 5 clarifying questions, then list any assumptions you would have to make.</code></pre>
@@ -628,7 +635,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 </tr>
 <tr>
 <td><strong>Accessible Word Document</strong></td>
-<td>Existing Word docs (policies, info sheets, fact sheets, menus) you want to make more accessible to screen readers (software that reads digital content aloud for blind or low-vision users) and move toward WCAG 2.2 AA conformance (the international web accessibility standard). Note: this workshop covers Word documents, not full PDF accessibility, which needs paid external tools such as Adobe Acrobat Pro or Grackle.</td>
+<td>Existing Word docs (policies, info sheets, fact sheets, menus) you want to make more accessible to screen readers and move toward WCAG 2.2 AA conformance</td>
 <td>Low-Medium</td>
 </tr>
 <tr>
@@ -744,7 +751,7 @@ After Step 5, summarise my brief as four short bullet points labelled Format, Au
 </tr>
 <tr>
 <td>Accessible Word Document</td>
-<td>An existing Word doc or PDF you want to make accessible (paste the text content; if PDF, you may need to copy text out first)</td>
+<td>An existing Word doc (paste the text content). If you only have a PDF, copy the text out first. The output is always a Word doc.</td>
 <td>n/a (you need an existing document)</td>
 </tr>
 <tr>
@@ -754,7 +761,11 @@ After Step 5, summarise my brief as four short bullet points labelled Format, Au
 </tr>
 </tbody>
 </table>
-<p>If you have nothing prepared, you can still pick most formats. The AI can interview you for the facts it needs. Open the "I have no source material yet" panel below for the prompt that turns the AI into your interviewer.</p>
+<div class="heads-up-note">
+<div class="heads-up-label">Heads up</div>
+<p>Two formats really do need existing source content: <strong>Large Print</strong> (reformats short content you already have) and <strong>Accessible Word Document</strong> (makes an existing document accessible). If you have neither, pick Plain Language, Easy Read, Social Story or Accessibility Guide. You can come back to Large Print or Accessible Word Document once you have a finished draft.</p>
+</div>
+<p>If you picked one of the other 4 formats and have nothing prepared, you can still proceed. The AI can interview you for the facts it needs. Open the "I have no source material yet" panel below for the prompt that turns the AI into your interviewer.</p>
 <details class="setup-detail">
 <summary><strong>I have no source material yet</strong>: get the AI to interview you</summary>
 <p>Paste this prompt into the same AI chat where you set up the system prompt (Lesson 1) and the briefing prompt (Step 3 below). The AI will ask you one question at a time and use your answers as the source for the draft.</p>
@@ -771,10 +782,6 @@ Please interview me to gather the source material you need. Ask one question at 
 
 Ask 5 to 8 questions total. After my last answer, summarise what you learned in a short bullet list, then proceed to the build prompt for [FORMAT NAME].</code></pre>
 </details>
-<div class="heads-up-note">
-<div class="heads-up-label">Heads up</div>
-<p>Two formats really do need existing source content: <strong>Large Print</strong> (reformats short content you already have) and <strong>Accessible Word Document</strong> (makes an existing document accessible). If you have neither, pick Plain Language, Easy Read, Social Story or Accessibility Guide. You can come back to Large Print or Accessible Word Document once you have a finished draft.</p>
-</div>
 <div class="heads-up-note">
 <div class="heads-up-label">Source under 400 words?</div>
 <p>Below 400 words the AI starts inventing detail to fill gaps, which is risky for content you will publish. Try these in order before drafting:</p>
@@ -795,7 +802,7 @@ Ask 5 to 8 questions total. After my last answer, summarise what you learned in 
 <pre><code>See the source document I have uploaded to this project.</code></pre>
 <details class="upload-warning-details">
 <summary>Before you upload, check this list (tap to expand)</summary>
-<div class="upload-warning"><strong>Do not upload anything containing:</strong> personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to, or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>
+<div class="upload-warning"><strong>Do not upload anything containing:</strong> personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>
 </details>
 </div>`,
         },
