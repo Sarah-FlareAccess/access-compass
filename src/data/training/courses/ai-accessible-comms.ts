@@ -6,7 +6,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   title: 'Using AI to Create Accessible & Inclusive Communications',
   subtitle: 'A practical 2-hour workshop. Walk in with content. Walk out with a draft.',
   description: 'Use free AI tools to draft accessible content for your business in under 2 hours. Choose your format, bring your source material and leave with a real first draft you can refine and publish.',
-  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and accessibility markup planner) to produce one piece of accessible content in a single session. You will set up persistent AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to generate an accessibility markup plan you can apply in Word and export as a tagged PDF. The AI does not produce the tagged file directly; it gives you a structured plan (heading levels, alt text suggestions, link rewrites, table notes, document properties) and a checklist of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Digital Document (Word/PDF, following the Australian Government Style Manual, equivalent state-government guidance and WCAG 2.2 AA). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist producers for high-stakes content (every format has its own producer ecosystem) remain essential.',
+  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and accessibility markup planner) to produce one piece of accessible content in a single session. You will set up saved AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to generate an accessibility markup plan you can apply in Word. The AI gives you a structured plan (heading levels, alt text suggestions, link rewrites, table notes, document properties) and a checklist of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Word Document (following the Australian Government Style Manual, equivalent state-government guidance, moving toward WCAG 2.2 AA conformance). PDF accessibility verification is out of scope (it needs paid external tools such as Adobe Acrobat Pro or Grackle Docs). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist producers for high-stakes content (every format has its own producer ecosystem) remain essential.',
   category: 'ai-tools',
   accessTier: 'premium',
   totalEstimatedMinutes: 120,
@@ -18,7 +18,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   keywords: [
     'AI', 'accessible communications', 'Easy Read', 'Plain Language',
     'social story', 'visual narrative', 'accessibility guide', 'large print',
-    'accessible Word', 'accessible PDF', 'tagged PDF', 'WCAG 2.2 AA',
+    'accessible Word', 'WCAG 2.2 AA',
     'Australian Government Style Manual',
     'ChatGPT', 'Claude', 'Copilot', 'Gemini',
     'prompt engineering', 'workshop', 'cohort', 'pilot',
@@ -28,7 +28,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
     'Brief an AI on your business, your audience and your source material',
     'Draft a first version of accessible content in your chosen format',
     'Use Claude to sense-check your draft against accessibility standards',
-    'Use Claude to generate an accessibility markup plan aligned to the Australian Government Style Manual, equivalent state-government guidance and WCAG 2.2 AA, then apply it in Word and export as a tagged PDF',
+    'Use Claude to generate an accessibility markup plan aligned to the Australian Government Style Manual, equivalent state-government guidance and WCAG 2.2 AA, then apply it in Word',
     'Apply a human review checklist before publishing',
     'Take home a reusable prompt pack covering six alternative formats',
   ],
@@ -89,7 +89,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
     },
     {
       title: 'Human Review Checklist (PDF)',
-      description: 'Printable checklist for the final human review pass before publishing. Includes the publishing checklist for tagged PDFs.',
+      description: 'Printable checklist for the final human review pass before publishing.',
       fileName: 'human-review-checklist.pdf',
       fileUrl: '/training/downloads/human-review-checklist.pdf',
       fileType: 'PDF',
@@ -627,8 +627,8 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 <td>Medium-High</td>
 </tr>
 <tr>
-<td><strong>Accessible Digital Document (Word/PDF)</strong></td>
-<td>Existing Word docs or PDFs (policies, info sheets, fact sheets, menus) that need to work with screen readers (software that reads digital content aloud for blind or low-vision users) and meet WCAG 2.2 AA (the international web accessibility standard)</td>
+<td><strong>Accessible Word Document</strong></td>
+<td>Existing Word docs (policies, info sheets, fact sheets, menus) you want to make more accessible to screen readers (software that reads digital content aloud for blind or low-vision users) and move toward WCAG 2.2 AA conformance (the international web accessibility standard). Note: this workshop covers Word documents, not full PDF accessibility, which needs paid external tools such as Adobe Acrobat Pro or Grackle.</td>
 <td>Low-Medium</td>
 </tr>
 <tr>
@@ -651,7 +651,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
               { value: 'Social Story / Visual Narrative', label: 'Social Story / Visual Narrative' },
               { value: 'Accessibility Guide', label: 'Accessibility Guide' },
               { value: 'Large Print', label: 'Large Print' },
-              { value: 'Accessible Digital Document (Word/PDF)', label: 'Accessible Digital Document (Word/PDF)' },
+              { value: 'Accessible Word Document', label: 'Accessible Word Document' },
             ],
             audienceLabel: 'For audience',
             audienceExample: 'parents of children visiting our museum, or first-time wheelchair users visiting our cafe, or staff onboarding into accessibility procedures',
@@ -690,7 +690,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
               introHtml: `<p>Copy the prompt below and paste it into ChatGPT, Claude or Copilot in a new chat. The AI will ask about your business and format, then <strong>propose audiences and purposes for you to pick from</strong>. You do not need to invent them. If none of the suggestions feel right, give the AI more detail about your business or your customers and it will propose new options.</p>`,
               prompt: `You are helping me build a project brief for accessible content I want to make for my business. Your job is to PROPOSE options I can pick from, not ask me to invent them. Most small business owners do not know which audiences most need accessible content or what specific purpose to write to. You do.
 
-Step 1: Ask me what kind of business I run (one or two sentences) and what format I am making (Easy Read, Plain Language, Social Story, Accessibility Guide, Large Print or Accessible Digital Document). If I am unsure about format, recommend one based on my situation.
+Step 1: Ask me what kind of business I run (one or two sentences) and what format I am making (Easy Read, Plain Language, Social Story, Accessibility Guide, Large Print or Accessible Word Document). If I am unsure about format, recommend one based on my situation.
 
 Step 2: Based on my business and format, propose 4 likely AUDIENCES who would benefit most. Be specific (access needs, language, age, familiarity with my business, whether the reader is the subject or someone reading on behalf). Label them A, B, C, D so I can pick one or more.
 
@@ -743,7 +743,7 @@ After Step 5, summarise my brief as four short bullet points labelled Format, Au
 <td>The AI will run you through an access information checklist</td>
 </tr>
 <tr>
-<td>Accessible Digital Document (Word/PDF)</td>
+<td>Accessible Word Document</td>
 <td>An existing Word doc or PDF you want to make accessible (paste the text content; if PDF, you may need to copy text out first)</td>
 <td>n/a (you need an existing document)</td>
 </tr>
@@ -773,7 +773,7 @@ Ask 5 to 8 questions total. After my last answer, summarise what you learned in 
 </details>
 <div class="heads-up-note">
 <div class="heads-up-label">Heads up</div>
-<p>Two formats really do need existing source content: <strong>Large Print</strong> (reformats short content you already have) and <strong>Accessible Digital Document (Word/PDF)</strong> (makes an existing document accessible). If you have neither, pick Plain Language, Easy Read, Social Story or Accessibility Guide. You can come back to Large Print or Accessible Digital Document once you have a finished draft.</p>
+<p>Two formats really do need existing source content: <strong>Large Print</strong> (reformats short content you already have) and <strong>Accessible Word Document</strong> (makes an existing document accessible). If you have neither, pick Plain Language, Easy Read, Social Story or Accessibility Guide. You can come back to Large Print or Accessible Word Document once you have a finished draft.</p>
 </div>
 <div class="heads-up-note">
 <div class="heads-up-label">Source under 400 words?</div>
@@ -1042,13 +1042,13 @@ After the draft, give me:
         {
           type: 'exercise',
           exercise: {
-            title: 'Build prompt: Accessible Digital Document (Word/PDF)',
+            title: 'Build prompt: Accessible Word Document',
             targetTool: 'drafting',
-            formatKey: 'Accessible Digital Document (Word/PDF)',
-            instructions: 'For making an existing Word document or PDF accessible to screen readers and meeting WCAG 2.2 AA. Built on NSW Digital Toolkit and Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings and similar. This format needs an existing document to make accessible. If you have nothing yet, pick a different format (Plain Language, Easy Read, Social Story or Accessibility Guide) to create the content first, then come back here to make the finished version a tagged PDF.',
-            promptTemplate: `I have a digital document I want to make accessible. I want to publish it as an accessible Word document and export a tagged PDF version. I will paste the content below.
+            formatKey: 'Accessible Word Document',
+            instructions: 'For making an existing Word document more accessible to screen readers and moving it toward WCAG 2.2 AA conformance. Built on Australian Government Style Manual and NSW / Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings and similar. This format needs an existing Word document. If you have nothing yet, pick a different format (Plain Language, Easy Read, Social Story or Accessibility Guide) to create the content first, then come back here. PDF accessibility verification (Adobe Acrobat Pro, Grackle Docs) sits outside this workshop. Word\'s built-in PDF export with structure tags enabled is a basic starting point but not full PDF compliance.',
+            promptTemplate: `I have a Word document I want to make more accessible. I will paste the content below.
 
-Please apply this structure (based on NSW Digital Toolkit PDF accessibility guidance and Vic Government make-content-accessible standards, targeting WCAG 2.2 AA):
+Please apply this structure (based on Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document):
 
 1. STRUCTURE
 - Suggest a heading hierarchy. Mark each line as H1 / H2 / H3 etc. Do not skip levels.
@@ -1081,18 +1081,18 @@ Please apply this structure (based on NSW Digital Toolkit PDF accessibility guid
 - Subject and keywords: suggest 3 to 5 from the content.
 
 7. EXPORT NOTES
-- Save in Word with "Document structure tags for accessibility" enabled when saving as PDF.
-- Note: NSW and Vic Government both recommend an HTML equivalent for any PDF published online (PDFs are not mobile-friendly and slower to load). Suggest if a webpage version of this content should also exist.
-- If using Adobe Acrobat Pro after export: run Tools > Prepare for Accessibility > Accessibility Check.
+- This workshop produces an accessible Word document. PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
+- If the user wants a PDF copy, note that Word's built-in PDF export with "Document structure tags for accessibility" enabled is a basic starting point only, not full PDF accessibility.
+- For web content, NSW and Vic Government recommend an HTML version over a PDF. Suggest if a webpage version of this content should also exist.
 
 After your analysis, give me:
 - A numbered checklist of every change to make in Word, in order
 - A short list of items I need to verify or supply (alt text confirmation, missing source info)
-- One paragraph I can paste into the document footer noting it follows WCAG 2.2 AA and how readers can request the content in another format
+- One paragraph I can paste into the document footer noting it moves toward WCAG 2.2 AA conformance and how readers can request the content in another format
 
 Here is the content:
 [paste content]`,
-            expectedOutcome: 'A numbered Word-application checklist (heading suggestions, link rewrites, alt text drafts, list conversions, colour-only fixes, table structure notes, document properties, export settings), a list of items to verify and a footer paragraph noting WCAG 2.2 AA conformance.',
+            expectedOutcome: 'A numbered Word-application checklist (heading suggestions, link rewrites, alt text drafts, list conversions, colour-only fixes, table structure notes, document properties), a list of items to verify and a footer paragraph noting the document moves toward WCAG 2.2 AA conformance.',
           },
         },
         {
@@ -1191,18 +1191,20 @@ Here is the content:
         {
           type: 'text',
           heading: 'What you will achieve in this lesson',
-          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has generated an accessibility markup plan for you to apply in Word and export as a tagged PDF, you have run the human review checklist and your prompts are saved for next time.</p>
+          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has generated an accessibility markup plan for you to apply in Word, you have run the human review checklist and your prompts are saved for next time.</p>
 <details class="setup-detail">
 <summary><strong>Key terms in this lesson</strong> (tap to expand)</summary>
 <ul>
 <li><strong>Alt text</strong>: a short written description of an image, so people using screen readers know what the picture shows.</li>
 <li><strong>Screen reader</strong>: software that reads digital content aloud for people who are blind or have low vision.</li>
 <li><strong>Heading hierarchy</strong>: the order of Heading 1, Heading 2 and Heading 3 styles in your document. Screen readers use this to let users skim and navigate the structure.</li>
-<li><strong>Tagged PDF</strong>: a PDF that includes invisible structure (headings, lists, reading order) so screen readers can navigate it. A regular PDF does not have this and is harder to use with assistive tech.</li>
-<li><strong>Structure tags</strong>: the invisible structure inside a tagged PDF. You turn these on when exporting from Word.</li>
 <li><strong>WCAG 2.2 AA</strong>: the international web accessibility standard. AA is the level most government and large business sites aim for.</li>
 </ul>
 </details>
+<div class="heads-up-note">
+<div class="heads-up-label">A note on PDFs</div>
+<p>This workshop produces accessible <strong>Word documents</strong>. If you need a PDF version, Word can export one with basic structure tags turned on, but full PDF accessibility verification requires paid external tools (Adobe Acrobat Pro or Grackle Docs) and sits outside this workshop. Treat any PDF you export from Word as a starting point, not certified PDF accessibility.</p>
+</div>
 <p><strong>How the lesson runs:</strong></p>
 <ol>
 <li>Send your draft to Claude for sense-check (10 min)</li>
@@ -1280,12 +1282,12 @@ Do not skip Part B. It is how I verify nothing was silently missed. Structural c
           exercise: {
             title: 'Step 3: Use Claude to build your accessibility markup plan (12 min)',
             targetTool: 'reviewer',
-            instructions: 'Sometimes Claude can give you a Word file to download. Other times it gives you the same content as text in chat. Either way, this step does something more useful: it gives you a markup plan you can apply and check yourself in Word. The plan covers heading levels (like Heading 1 and Heading 2), alt text for images, link wording, table notes, document properties and a checklist of what to apply. If Claude also gives you a Word file, treat it as a starting point and still work through the checklist. You apply the plan in Word and export it as an accessible PDF with structure tags turned on. Claude is stronger than ChatGPT at this kind of structured longer output, which is why we use it here. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
-            promptTemplate: `I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
+            instructions: 'Sometimes Claude can give you a Word file to download. Other times it gives you the same content as text in chat. Either way, this step does something more useful: it gives you a markup plan you can apply and check yourself in Word. The plan covers heading levels (like Heading 1 and Heading 2), alt text for images, link wording, table notes, document properties and a checklist of what to apply. If Claude also gives you a Word file, treat it as a starting point and still work through the checklist. You apply the plan in Word to produce an accessible Word document. Claude is stronger than ChatGPT at this kind of structured longer output, which is why we use it here. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
+            promptTemplate: `I have a reviewed draft I want to publish as an accessible Word document.
 
 If you can generate the final accessible Word document directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the marked-up structure (heading styles, bulleted or numbered lists, document properties) inside the file itself. Also provide the marked-up plan as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
 
-Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit PDF accessibility guidance, Vic Government make-content-accessible standards and the Australian Government Style Manual content-types (stylemanual.gov.au/content-types) for format-specific structure and typography, targeting WCAG 2.2 AA.
+Please produce a structured version with the accessibility scaffolding marked up, following the Australian Government Style Manual content-types (stylemanual.gov.au/content-types) for format-specific structure and typography, moving toward WCAG 2.2 AA conformance in the Word document.
 
 FORMAT CONTEXT
 - My draft format is: [FORMAT NAME]
@@ -1293,7 +1295,7 @@ FORMAT CONTEXT
 - If the format is Plain Language, the structure is a clean single-column document. Left-aligned text (never justified). Keep line length under 70 characters wide for readability. Generic structure / images / links / tables guidance below applies as-is.
 - If the format is Social Story / Visual Narrative, preserve the photo-per-chunk pairing AND the 2 to 4 sentences-per-photo rule from the build prompt. Do not strip, batch or reorder images. Do not merge multiple photo + text pairs into longer chunks. One main idea per photo, do not stack concepts (e.g. tour length and sensory kits should not share a photo). Preserve any [PAGE BREAK] markers from the build draft — these signal one page per photo + text pair (Carol Gray Social Story booklet convention). The user will insert Word page breaks at each marker. Reading order must follow the chronological journey, do NOT add a table of contents. Captions belong directly under each photo, not in a separate list. Do NOT generate alt text for photos that do not yet exist. Instead, instruct the user to upload each real photo to an AI that can look at images (Claude, ChatGPT Plus, Microsoft Copilot or Google Gemini) once sourced and ask it to suggest alt text describing the actual image.
 - If the format is Accessibility Guide, preserve the 7-section order from the build prompt (Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact) so readers can compare across venues. Each section is an H2 under one H1. If this will be published as a webpage, add anchor links for each H2 and a jump menu at the top.
-- If the format is Large Print, typography is the format. Apply Vision Australia clear print (minimum 16pt body) or RNIB large print (minimum 18pt). Sans-serif font family (Arial, Verdana, Calibri or APHont). No italics. No underlines except on links. No decorative fonts. Strong contrast (black on white, cream or yellow), never image-of-text. Single column. Headings 1.5x body size minimum. Line spacing minimum 1.5. Keep PDF text selectable and re-flowable, never flat-scan.
+- If the format is Large Print, typography is the format. Apply Vision Australia clear print (minimum 16pt body) or RNIB large print (minimum 18pt). Sans-serif font family (Arial, Verdana, Calibri or APHont). No italics. No underlines except on links. No decorative fonts. Strong contrast (black on white, cream or yellow), never image-of-text. Single column. Headings 1.5x body size minimum. Line spacing minimum 1.5.
 
 1. STRUCTURE
 - Mark each line or section with its heading level (H1, H2, H3 etc.). Do not skip levels.
@@ -1321,9 +1323,9 @@ FORMAT CONTEXT
 - 3 to 5 keywords from the content.
 
 6. EXPORT NOTES
-- In Word, save as PDF with "Document structure tags for accessibility" enabled.
-- NSW and Vic Government both recommend an HTML equivalent for any PDF published online (PDFs are not mobile-friendly and slower to load). Note if a webpage version of this content should also exist.
-- If using Adobe Acrobat Pro after export: Tools > Prepare for Accessibility > Accessibility Check.
+- This workshop produces an accessible Word document. PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
+- If the user wants a PDF copy, note that Word's built-in PDF export with "Document structure tags for accessibility" enabled is a basic starting point only, not full PDF accessibility.
+- For web content, NSW and Vic Government recommend an HTML version over a PDF. Note if a webpage version of this content should also exist.
 
 After your marked-up draft, give me:
 - A numbered checklist of every change to apply in Word, in order
@@ -1336,7 +1338,6 @@ Here is my reviewed draft:
             tips: [
               'For long source PDFs, paste the text content rather than uploading. Claude cannot see the visual layout of a PDF reliably from a file upload.',
               'After applying changes in Word, run Word\'s built-in Accessibility Checker: Review > Check Accessibility. Fix any remaining errors before exporting.',
-              'When you export, choose "Best for electronic distribution and accessibility (PDF/A)" in the Save dialog to preserve the structure tags.',
               'If Claude\'s daily message limit hits before you finish, the same prompt works in ChatGPT, Copilot or Gemini. Output quality drops slightly but the structure is preserved.',
               'AI file-generation capability is inconsistent across tools. You may get marked-up text, a downloadable Word file, or both. All three paths are valid. Whichever you get, run the Step 4 Word-application checklist below to verify accessibility. Never publish a file straight from the AI without that check. If the AI returns text only and you have to ask twice for a file, that is also normal: the file capability varies by account state and session, not just by tool.',
             ],
@@ -1347,12 +1348,12 @@ Here is my reviewed draft:
           checklist: {
             title: 'Step 4: Apply your format\'s settings in Word (8 min)',
             introHtml: `<p>Claude\'s markup plan lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it. Your progress saves to this device.</p>
-<p><strong>Run this checklist whether the AI generated a file or only returned text.</strong> AI-generated docx files routinely miss decorative-table marking, true semantic heading styles, document properties and tagged-PDF export settings — they look right but fail an accessibility check. Treat any AI-generated file as a draft scaffold, not a final document. The checklist is the verification step that turns it into something publishable.</p>
+<p><strong>Run this checklist whether the AI generated a file or only returned text.</strong> AI-generated docx files routinely miss decorative-table marking, true semantic heading styles and document properties: they look right but fail an accessibility check. Treat any AI-generated file as a draft scaffold, not a final document. The checklist is the verification step that turns it into something publishable.</p>
 <p><strong>Using Google Docs instead of Word?</strong> Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Three real limitations to know about:</p>
 <ol>
 <li><strong>Decorative tables:</strong> Google Docs cannot mark tables as decorative. Screen readers will announce layout tables as data tables.</li>
 <li><strong>Heading hierarchy can break in .docx export.</strong> Only headings applied via Format &gt; Paragraph styles &gt; Heading 1/2/3 survive reliably. Headings manually formatted (bold + larger text) export as direct formatting, not semantic H1/H2/H3. Google Docs "Title" style does NOT map to Word's Heading 1. After exporting .docx, open in Word and verify each heading shows the correct style in the Styles pane (Home &gt; Styles).</li>
-<li><strong>PDF export does not reliably preserve structure tags.</strong> For tagged PDF, export .docx from Google Docs, verify heading styles in Word, then export the PDF from Word with "Document structure tags for accessibility" enabled.</li>
+<li><strong>PDF export from Google Docs is limited.</strong> If you want a PDF copy, export .docx from Google Docs, verify heading styles in Word, then save as PDF from Word with "Document structure tags for accessibility" enabled. This produces a basic tagged PDF only. Full PDF accessibility verification requires Adobe Acrobat Pro or Grackle Docs, which sit outside this workshop.</li>
 </ol>
 <p>Google Docs is fine for drafting. For final accessible-document production, finish in Word or LibreOffice.</p>`,
             items: [
@@ -1382,7 +1383,6 @@ Here is my reviewed draft:
                 'Set document properties (File > Info > Properties): title, language English (Australia), author, 3-5 keywords.',
                 'For each image in the document, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text describing what the picture shows. Add via right-click image > View Alt Text. Verify before saving.',
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
-                'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
               ],
               'Social Story / Visual Narrative': [
                 'Insert real photos in chronological order matching the build prompt sections (Before, When I get there, Inside, If I need help, When I leave).',
@@ -1406,7 +1406,6 @@ Here is my reviewed draft:
                 'If publishing as a webpage: add anchor link IDs to each H2 (e.g. id="getting-in") and a jump menu at the top.',
                 'Set document properties (title, language English (Australia), author, keywords).',
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
-                'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
               ],
               'Large Print': [
                 'Set body text to 16pt minimum (Vision Australia clear print) or 18pt (RNIB large print).',
@@ -1418,9 +1417,8 @@ Here is my reviewed draft:
                 'Set to single column layout.',
                 'Set line spacing to 1.5 minimum.',
                 'Confirm any PDF version keeps text selectable and re-flowable (never flat-scan).',
-                'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
               ],
-              'Accessible Digital Document (Word/PDF)': [
+              'Accessible Word Document': [
                 'Apply heading styles in order (H1, H2, H3 etc.), do not skip levels. Verify visually via View > Navigation Pane (Ctrl+F on Windows): the Headings tab shows your document outline so you can confirm every section is at the right level.',
                 'Replace manual dashes or asterisks with proper bulleted or numbered lists.',
                 'For each image, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. If Claude already drafted alt text from a detailed source description, you can use it as a starting point and verify against the actual image. Add via right-click image > View Alt Text. Verify before saving.',
@@ -1429,8 +1427,6 @@ Here is my reviewed draft:
                 'For each data table: mark the header row, add a caption above, flag any merged cells.',
                 'Set document properties (File > Info > Properties): title (different from filename), language English (Australia), author, 3-5 keywords.',
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix every error.',
-                'When exporting PDF, tick "Document structure tags for accessibility" in the Save dialog.',
-                'If using Adobe Acrobat Pro after export: run Tools > Prepare for Accessibility > Accessibility Check.',
               ],
             },
           },
@@ -1484,7 +1480,7 @@ Here is my reviewed draft:
                 'Have you removed any AI-added claims that you cannot verify?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
-              'Accessible Digital Document (Word/PDF)': [
+              'Accessible Word Document': [
                 'Is everything factually correct about your business and venue?',
                 'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
                 'Have any photos or images been described accurately in the alt text?',
@@ -1515,8 +1511,8 @@ Here is my reviewed draft:
 <li>The <strong>AI assistant system prompt</strong> (so you can re-start ChatGPT later)</li>
 <li>The <strong>Claude reviewer prompt</strong></li>
 <li>The <strong>briefing prompt</strong>, with your business details already filled in</li>
-<li>All six <strong>build prompts</strong> (Easy Read, Plain Language, Social Story, Accessibility Guide, Large Print, Accessible Digital Document)</li>
-<li>The <strong>Claude markup plan prompt</strong> for tagged Word and PDF output</li>
+<li>All six <strong>build prompts</strong> (Easy Read, Plain Language, Social Story, Accessibility Guide, Large Print, Accessible Word Document)</li>
+<li>The <strong>Claude markup plan prompt</strong> for accessible Word output</li>
 </ol>
 <p>Next time you make a piece of accessible content, open the text file and paste the prompts back into ChatGPT and Claude. Coming back will take half the time.</p>
 <p><strong>Your work belongs to you.</strong> Anything you have created in this session, including the draft and the prompts you save, is yours. Access Compass does not claim any rights to your content.</p>`,
@@ -1661,10 +1657,10 @@ Here is the content:
 [paste content]`,
                 },
                 {
-                  heading: 'Build Prompt: Accessible Digital Document (Word/PDF)',
-                  content: `I have a digital document I want to make accessible. I want to publish it as an accessible Word document and export a tagged PDF version.
+                  heading: 'Build Prompt: Accessible Word Document',
+                  content: `I have a Word document I want to make more accessible.
 
-Following NSW Digital Toolkit and Vic Government accessibility standards, WCAG 2.2 AA:
+Following Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document (PDF accessibility is out of scope, that needs Adobe Acrobat Pro or Grackle):
 
 1. STRUCTURE: heading hierarchy (H1, H2, H3, no skipped levels), logical reading order, proper bulleted or numbered lists.
 2. PLAIN LANGUAGE: estimate reading level, flag jargon, rewrite the top 5 hardest sentences.
@@ -1672,29 +1668,29 @@ Following NSW Digital Toolkit and Vic Government accessibility standards, WCAG 2
 4. LINKS: rewrite "click here", "read more" to be descriptive. Suggest footnote URLs for printed copies.
 5. TABLES: mark header row. Flag merged or split cells. Add captions.
 6. DOCUMENT PROPERTIES: suggest a document title, language (English Australia), author, 3 to 5 keywords.
-7. EXPORT: save with structure tags enabled. Note if an HTML equivalent should also exist.
+7. EXPORT: note that Word's PDF export with structure tags enabled is a basic starting point only, not full PDF accessibility. Suggest if an HTML equivalent should also exist.
 
-After your analysis, give a numbered checklist to apply in Word, a list of items to verify, and a footer paragraph noting WCAG 2.2 AA conformance.
+After your analysis, give a numbered checklist to apply in Word, a list of items to verify, and a footer paragraph noting the document moves toward WCAG 2.2 AA conformance.
 
 Here is the content:
 [paste content]`,
                 },
                 {
                   heading: 'Claude Markup Plan Prompt (paste into Claude with your reviewed draft)',
-                  content: `I have a reviewed draft I want to publish as an accessible Word document and export as a tagged PDF.
+                  content: `I have a reviewed draft I want to publish as an accessible Word document.
 
 If you can generate the final accessible Word document directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the marked-up structure (heading styles, bulleted or numbered lists, document properties) inside the file itself. Also provide the marked-up plan as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
 
-Please produce a structured version with the accessibility scaffolding marked up, following NSW Digital Toolkit and Vic Government accessibility standards, WCAG 2.2 AA.
+Please produce a structured version with the accessibility scaffolding marked up, following Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document.
 
 1. STRUCTURE: mark each line or section with its heading level. Logical reading order. Proper lists.
 2. IMAGES: draft alt text only for images the user has described in detail (user verifies). For placeholder photos not yet sourced, instruct the user to upload each real photo to an AI that can look at images for alt text. Mark decorative. Flag colour-only meaning.
 3. LINKS: rewrite vague link text.
 4. TABLES: mark header rows. Flag merged cells. Add captions.
 5. DOCUMENT PROPERTIES: title, language, author, keywords.
-6. EXPORT NOTES: structure tags enabled, HTML equivalent recommended.
+6. EXPORT NOTES: PDF accessibility is out of scope (needs Adobe Acrobat Pro or Grackle). Word's PDF export with structure tags is a basic starting point only. Note if an HTML equivalent is recommended.
 
-After the marked-up draft, give a numbered Word-application checklist, a list of items to verify, and a footer paragraph about WCAG 2.2 AA conformance and alternative-format requests.
+After the marked-up draft, give a numbered Word-application checklist, a list of items to verify, and a footer paragraph about moving toward WCAG 2.2 AA conformance and alternative-format requests.
 
 Here is my reviewed draft:
 [paste reviewed draft]`,
