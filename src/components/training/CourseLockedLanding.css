@@ -135,8 +135,8 @@
 }
 
 .locked-checklist-label input[type="checkbox"]:focus-visible {
-  outline: 3px solid #FF9015;
-  outline-offset: 3px;
+  box-shadow: 0 0 0 3px #FF9015;
+  border-radius: 2px;
 }
 
 .locked-checklist-content {
@@ -146,12 +146,13 @@
 }
 
 .locked-checklist-title {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.0625rem;
   color: #3E2B2F;
 }
 
 .locked-checklist-detail {
+  font-weight: 400;
   font-size: 0.95rem;
   color: #4a5568;
   line-height: 1.55;
@@ -178,13 +179,25 @@
 }
 
 .locked-contact a {
-  color: #FF9015;
-  font-weight: 600;
+  color: #490E67;
+  font-weight: 700;
   text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  padding: 2px 4px;
+  margin: 0 -4px;
+  border-radius: 3px;
+  transition: background 0.15s ease, text-decoration-thickness 0.15s ease;
+}
+
+.locked-contact a:hover {
+  background: rgba(73, 14, 103, 0.12);
+  text-decoration-thickness: 2px;
 }
 
 .locked-contact a:focus-visible {
   outline: 3px solid #FF9015;
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: 3px;
+  background: rgba(73, 14, 103, 0.12);
 }

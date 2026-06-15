@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { useLocation } from 'react-router-dom';
+import { supabase, isSupabaseEnabled } from '../utils/supabase';
+import { useAuth } from '../contexts/AuthContext';
 import './ResourceInfoRequest.css';
 
 type InfoCategory = 'need-more-detail' | 'too-complex' | 'not-relevant' | 'missing-info' | 'other';
@@ -18,6 +21,8 @@ interface ResourceInfoRequestProps {
 }
 
 export function ResourceInfoRequest({ isOpen, onClose }: ResourceInfoRequestProps) {
+  const location = useLocation();
+  const { user, accessState } = useAuth();
   const [category, setCategory] = useState<InfoCategory | null>(null);
   const [details, setDetails] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -58,15 +63,26 @@ export function ResourceInfoRequest({ isOpen, onClose }: ResourceInfoRequestProp
 
     setIsSubmitting(true);
 
-    const data = {
-      category,
-      details: details.trim() || null,
-      pageUrl: window.location.href,
-      timestamp: new Date().toISOString(),
-    };
-
-    console.log('Resource info request submitted:', data);
-    await new Promise(resolve => setTimeout(resolve, 800));
+    if (isSupabaseEnabled() && supabase) {
+      const { error } = await supabase.from('feedback_submissions').insert({
+        submission_type: 'resource_request',
+        category,
+        details: details.trim() || null,
+        page_url: window.location.href,
+        page_pathname: location.pathname,
+        user_agent: navigator.userAgent,
+        has_screenshot: false,
+        user_id: user?.id ?? null,
+        user_email: user?.email ?? null,
+        organisation_id: accessState.organisation?.id ?? null,
+        organisation_name: accessState.organisation?.name ?? null,
+      });
+      if (error) {
+        console.error('[ResourceInfoRequest] Failed to submit:', error);
+      }
+    } else {
+      console.warn('[ResourceInfoRequest] Supabase not configured, submission discarded.');
+    }
 
     setIsSubmitting(false);
     setIsSubmitted(true);

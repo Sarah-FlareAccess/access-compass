@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
+import { supabase, isSupabaseEnabled } from '../utils/supabase';
+import { useAuth } from '../contexts/AuthContext';
 import './ReportProblem.css';
 
 interface ReportProblemProps {
@@ -12,6 +14,7 @@ type IssueType = 'bug' | 'suggestion' | 'question' | 'other';
 
 export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
   const location = useLocation();
+  const { user, accessState } = useAuth();
   const [issueType, setIssueType] = useState<IssueType | null>(null);
   const [description, setDescription] = useState('');
   const [screenshot, setScreenshot] = useState<File | null>(null);
@@ -46,27 +49,26 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
 
     setIsSubmitting(true);
 
-    // Simulate submission - in production this would send to your backend
-    // You could integrate with services like:
-    // - Email API (SendGrid, Resend)
-    // - Issue trackers (GitHub Issues API, Jira)
-    // - Feedback tools (Canny, UserVoice)
-    // - Your own backend endpoint
-
-    const reportData = {
-      type: issueType,
-      description: description.trim(),
-      pageUrl: window.location.href,
-      pathname: location.pathname,
-      timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-      hasScreenshot: !!screenshot,
-    };
-
-    console.log('Problem report submitted:', reportData);
-
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    if (isSupabaseEnabled() && supabase) {
+      const { error } = await supabase.from('feedback_submissions').insert({
+        submission_type: 'problem',
+        category: issueType,
+        details: description.trim(),
+        page_url: window.location.href,
+        page_pathname: location.pathname,
+        user_agent: navigator.userAgent,
+        has_screenshot: !!screenshot,
+        user_id: user?.id ?? null,
+        user_email: user?.email ?? null,
+        organisation_id: accessState.organisation?.id ?? null,
+        organisation_name: accessState.organisation?.name ?? null,
+      });
+      if (error) {
+        console.error('[ReportProblem] Failed to submit:', error);
+      }
+    } else {
+      console.warn('[ReportProblem] Supabase not configured, submission discarded.');
+    }
 
     setIsSubmitting(false);
     setIsSubmitted(true);
