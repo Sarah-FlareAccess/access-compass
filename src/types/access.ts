@@ -72,6 +72,10 @@ export interface Organisation {
 
   // Access scope: when true, members can only access the AI Comms course
   training_hub_only?: boolean;
+
+  // When false alongside training_hub_only, the course shows a locked
+  // pre-flight landing instead of lesson content. Flip true on workshop day.
+  course_unlocked?: boolean;
 }
 
 /** Organisation membership - links a user to an organisation */

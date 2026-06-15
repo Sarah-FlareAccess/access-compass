@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { getCourseBySlug } from '../data/training/index';
 import { LessonContentRenderer } from '../components/training/LessonContentRenderer';
 import { LessonNotesPanel } from '../components/training/LessonNotesPanel';
@@ -7,11 +7,18 @@ import { CourseProgressTracker } from '../components/training/CourseProgressTrac
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { useCourseProgress } from '../hooks/useCourseProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { useAuth } from '../contexts/AuthContext';
 import { PageFooter } from '../components/PageFooter';
 import './LessonView.css';
 
 export default function LessonView() {
   const { slug, lessonId } = useParams<{ slug: string; lessonId: string }>();
+  const { accessState } = useAuth();
+  const isTrainingHubOnly = accessState.organisation?.training_hub_only === true;
+  const courseUnlocked = accessState.organisation?.course_unlocked === true;
+  if (isTrainingHubOnly && !courseUnlocked && slug === 'ai-accessible-comms') {
+    return <Navigate to={`/training/course/${slug}`} replace />;
+  }
 
   const course = useMemo(() => getCourseBySlug(slug ?? ''), [slug]);
   const lesson = useMemo(

@@ -8,10 +8,7 @@ interface LessonCardProps {
   onClick: () => void;
 }
 
-function LessonAccessBadge({ tier, isPreview, isLocked }: { tier: TrainingAccessTier; isPreview?: boolean; isLocked: boolean }) {
-  if (isPreview) {
-    return <span className="training-access-badge badge-free">Free Preview</span>;
-  }
+function LessonAccessBadge({ tier, isLocked }: { tier: TrainingAccessTier; isLocked: boolean }) {
   if (isLocked && tier === 'premium') {
     return (
       <span className="lesson-lock-icon" aria-label="Locked: requires premium access">
@@ -56,7 +53,7 @@ export function LessonCard({ lesson, isCompleted, isLocked, isCurrent, onClick }
         </div>
 
         <div className="lesson-card-actions">
-          <LessonAccessBadge tier={lesson.accessTier} isPreview={lesson.isPreview} isLocked={isLocked} />
+          <LessonAccessBadge tier={lesson.accessTier} isLocked={isLocked} />
         </div>
       </button>
     </li>

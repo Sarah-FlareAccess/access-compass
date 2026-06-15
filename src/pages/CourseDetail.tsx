@@ -5,8 +5,10 @@ import { getCourseBySlug } from '../data/training/index';
 import { LessonCard } from '../components/training/LessonCard';
 import { TrainingProgressBar } from '../components/training/TrainingProgressBar';
 import { DownloadBlock } from '../components/training/DownloadBlock';
+import { CourseLockedLanding } from '../components/training/CourseLockedLanding';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { useAuth } from '../contexts/AuthContext';
 import { PageFooter } from '../components/PageFooter';
 import './CourseDetail.css';
 
@@ -89,6 +91,10 @@ export default function CourseDetail() {
   const navigate = useNavigate();
   const course = useMemo(() => getCourseBySlug(slug ?? ''), [slug]);
   usePageTitle(course?.title ?? 'Course');
+  const { accessState } = useAuth();
+  const isTrainingHubOnly = accessState.organisation?.training_hub_only === true;
+  const courseUnlocked = accessState.organisation?.course_unlocked === true;
+  const showLockedLanding = isTrainingHubOnly && !courseUnlocked && slug === 'ai-accessible-comms';
 
   const {
     getCourseProgress,
@@ -97,6 +103,10 @@ export default function CourseDetail() {
     isLessonCompleted,
     startCourse,
   } = useTrainingProgress();
+
+  if (showLockedLanding) {
+    return <CourseLockedLanding />;
+  }
 
   if (!course) {
     return (

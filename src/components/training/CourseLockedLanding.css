@@ -1,0 +1,190 @@
+.course-locked-landing {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  color: #3E2B2F;
+}
+
+.locked-header {
+  margin-bottom: 32px;
+}
+
+.locked-badge {
+  display: inline-block;
+  background: #490E67;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+
+.locked-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: #3E2B2F;
+  line-height: 1.2;
+}
+
+.locked-subtitle {
+  font-size: 1.0625rem;
+  color: #374151;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.locked-before-you-start {
+  margin-bottom: 36px;
+  padding: 22px 24px;
+  background: #ECE9E6;
+  border-left: 4px solid #490E67;
+  border-radius: 8px;
+}
+
+.locked-before-you-start h2 {
+  font-size: 1.25rem;
+  margin: 0 0 12px;
+  color: #490E67;
+}
+
+.locked-before-you-start p {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  margin: 0 0 12px;
+  color: #3E2B2F;
+}
+
+.locked-before-you-start ul {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+
+.locked-before-you-start ul li {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  margin-bottom: 6px;
+  color: #3E2B2F;
+}
+
+.locked-warning {
+  background: rgba(234, 11, 63, 0.08);
+  border-left: 4px solid #ea0b3f;
+  padding: 14px 18px;
+  border-radius: 4px;
+  margin: 16px 0 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #3E2B2F;
+}
+
+.locked-checklist-section {
+  margin-bottom: 36px;
+}
+
+.locked-checklist-section h2 {
+  font-size: 1.25rem;
+  margin: 0 0 8px;
+  color: #490E67;
+}
+
+.locked-checklist-progress {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin: 0 0 18px;
+  font-weight: 600;
+}
+
+.locked-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.locked-checklist-item {
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  background: #fff;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.locked-checklist-item.is-checked {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.locked-checklist-label {
+  display: flex;
+  gap: 14px;
+  cursor: pointer;
+  align-items: flex-start;
+}
+
+.locked-checklist-label input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: #490E67;
+}
+
+.locked-checklist-label input[type="checkbox"]:focus-visible {
+  outline: 3px solid #FF9015;
+  outline-offset: 3px;
+}
+
+.locked-checklist-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.locked-checklist-title {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: #3E2B2F;
+}
+
+.locked-checklist-detail {
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.55;
+}
+
+.locked-contact {
+  margin-bottom: 24px;
+  padding: 20px 22px;
+  background: #ECE9E6;
+  border-radius: 8px;
+}
+
+.locked-contact h2 {
+  font-size: 1.15rem;
+  margin: 0 0 8px;
+  color: #490E67;
+}
+
+.locked-contact p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #3E2B2F;
+}
+
+.locked-contact a {
+  color: #FF9015;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.locked-contact a:focus-visible {
+  outline: 3px solid #FF9015;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
