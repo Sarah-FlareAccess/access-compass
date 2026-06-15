@@ -329,6 +329,7 @@ BEHAVIOUR RULES
 - When I am vague, ask for specifics
 - When I am stuck, simplify
 - Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
+- When my source material or brief contains [NEEDS ANSWER: question] markers, preserve them verbatim in the draft. Do not replace them with guesses or filler. After the draft, list every [NEEDS ANSWER] marker in a separate section at the end so I can see what still needs research before publishing.
 - When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, ALWAYS return the COMPLETE updated draft from heading to sign-off line. The full document, every section, all the changes applied. NEVER show only the changed sections. NEVER show a recommendation list or evaluation marks (✅, ⚠️, ❌). NEVER explain your reasoning above or alongside the draft. If you disagree with a change I asked for, still produce the full updated draft applying the changes you accept, then raise the disagreement in ONE short sentence below the draft. Never block or replace the draft with discussion. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
 - When I answer the verification items, clarifying questions or assumption flags you raised, that is your signal to return the COMPLETE updated draft incorporating my answers. Do not ask further questions. Do not propose additional changes. Do not recommend new content (photos, extra sections, structural reordering, related documents). Stop after the updated draft.
 - Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
@@ -400,6 +401,10 @@ E. FORMAT FIDELITY
 - The user declares the draft format at the top of their message. Apply ONLY that format's conventions in your review.
 - Do not reference other formats by name. Do not blend conventions across formats (Easy Read is not Social Story, Social Story is not Easy Read, Plain Language is not Accessibility Guide). Do not assume the draft is a different format from what the user declared.
 
+F. SOURCE COVERAGE
+- If the user pasted source material along with the draft, compare the two: list facts in the source that did not make it into the draft, and facts in the draft that do not appear in the source (likely AI invention).
+- If no source was provided, skip this check and say so.
+
 For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
 
 1. DIAGNOSIS (for me to read)
@@ -416,6 +421,12 @@ Facts, names, links, numbers or claims you may be guessing at.
 
 5. NEXT-ITERATION QUESTIONS (for me to read)
 1 or 2 questions that would strengthen another pass.
+
+6. SOURCE COVERAGE (for me to read)
+If the user provided source material with the draft, list any facts in the source that did not make it into the draft, and any facts in the draft that were not in the source. If no source was provided, write "No source provided for comparison" and stop.
+
+LANGUAGE
+Write all your feedback in plain language. The user is a beginner. Avoid reviewer jargon like "demote", "gloss", "scaffolding", "elide" or "remit". Examples: instead of "demote unverified facts to scaffolding", say "Change facts you have not confirmed into 'Needs answer' notes". Instead of "gloss the term in plain words at first use", say "Explain what the word means the first time you use it". Aim for year 7 to 8 reading level in your own feedback, the same level the course teaches.
 
 Be direct. If something is weak, say so. If something is excellent, say why.`,
             expectedOutcome: 'A short, structured confirmation from Claude once you send the test message below. You will return to this conversation in Lesson 4 with your draft.',
@@ -497,6 +508,7 @@ BEHAVIOUR RULES
 - When I am vague, ask for specifics
 - When I am stuck, simplify
 - Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
+- When my source material or brief contains [NEEDS ANSWER: question] markers, preserve them verbatim in the draft. Do not replace them with guesses or filler. After the draft, list every [NEEDS ANSWER] marker in a separate section at the end so I can see what still needs research before publishing.
 - When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, ALWAYS return the COMPLETE updated draft from heading to sign-off line. The full document, every section, all the changes applied. NEVER show only the changed sections. NEVER show a recommendation list or evaluation marks (✅, ⚠️, ❌). NEVER explain your reasoning above or alongside the draft. If you disagree with a change I asked for, still produce the full updated draft applying the changes you accept, then raise the disagreement in ONE short sentence below the draft. Never block or replace the draft with discussion. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
 - When I answer the verification items, clarifying questions or assumption flags you raised, that is your signal to return the COMPLETE updated draft incorporating my answers. Do not ask further questions. Do not propose additional changes. Do not recommend new content (photos, extra sections, structural reordering, related documents). Stop after the updated draft.
 - Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
@@ -548,6 +560,10 @@ E. FORMAT FIDELITY
 - The user declares the draft format at the top of their message. Apply ONLY that format's conventions in your review.
 - Do not reference other formats by name. Do not blend conventions across formats (Easy Read is not Social Story, Social Story is not Easy Read, Plain Language is not Accessibility Guide). Do not assume the draft is a different format from what the user declared.
 
+F. SOURCE COVERAGE
+- If the user pasted source material along with the draft, compare the two: list facts in the source that did not make it into the draft, and facts in the draft that do not appear in the source (likely AI invention).
+- If no source was provided, skip this check and say so.
+
 For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
 
 1. DIAGNOSIS (for me to read)
@@ -564,6 +580,12 @@ Facts, names, links, numbers or claims you may be guessing at.
 
 5. NEXT-ITERATION QUESTIONS (for me to read)
 1 or 2 questions that would strengthen another pass.
+
+6. SOURCE COVERAGE (for me to read)
+If the user provided source material with the draft, list any facts in the source that did not make it into the draft, and any facts in the draft that were not in the source. If no source was provided, write "No source provided for comparison" and stop.
+
+LANGUAGE
+Write all your feedback in plain language. The user is a beginner. Avoid reviewer jargon like "demote", "gloss", "scaffolding", "elide" or "remit". Examples: instead of "demote unverified facts to scaffolding", say "Change facts you have not confirmed into 'Needs answer' notes". Instead of "gloss the term in plain words at first use", say "Explain what the word means the first time you use it". Aim for year 7 to 8 reading level in your own feedback, the same level the course teaches.
 
 Be direct. If something is weak, say so. If something is excellent, say why.`,
                 },
@@ -1294,16 +1316,29 @@ Here is the content:
 </ol>`,
         },
         {
+          type: 'callout',
+          callout: {
+            variant: 'warning',
+            text: 'Always paste BOTH your source material AND your draft into the sense-check, in that order. Without source, Claude cannot tell your real facts apart from AI guesses and will over-correct, suggesting you demote your own confirmed facts (parking spaces, distances, door details) to "Needs answer". With source provided, Claude keeps your real facts in the draft and only flags actual AI inventions. Use the structured summary from your interview if you used one, otherwise use the source you pasted in Lesson 2.',
+          },
+        },
+        {
           type: 'exercise',
           exercise: {
             title: 'Step 1: Send your draft to Claude for sense-check (10 min)',
             targetTool: 'reviewer',
-            instructions: 'Copy your current draft from ChatGPT. Switch to your Claude tab (which already has the Reviewer prompt set up from Lesson 1). Paste the message below and fill in the brackets.',
+            instructions: 'Copy your current draft from ChatGPT. Switch to your Claude tab (which already has the Reviewer prompt set up from Lesson 1). Paste the message below, fill in the brackets, paste your source material under SOURCE and your draft under DRAFT.',
             promptTemplate: `Here is a draft I have created for [FORMAT NAME] aimed at [AUDIENCE].
 
-Please sense-check it using the framework you've been set up with.
+SOURCE (the material I gave the drafting AI to work from):
 
-[paste draft]`,
+[paste source]
+
+DRAFT (the version to sense-check):
+
+[paste draft]
+
+Please sense-check the draft using the framework you've been set up with, including the SOURCE COVERAGE check.`,
             expectedOutcome: 'Claude returns a one-sentence diagnosis, the top 3 to 5 issues, suggested re-wordings for the top 2 or 3, items needing human verification and 1 to 2 questions for the next iteration.',
             tips: [
               'If Claude\'s free tier limit hits before you finish, paste the Reviewer prompt and this draft into ChatGPT, Copilot or Gemini instead. The framework is portable.',
@@ -1517,6 +1552,7 @@ Here is my reviewed draft:
               'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
               'Have any photos or images been described accurately?',
               'Have you removed any AI-added claims that you cannot verify?',
+                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
               'Have you added the publishing date and a way for readers to give feedback?',
             ],
             byFormat: {
@@ -1526,12 +1562,14 @@ Here is my reviewed draft:
                 'Have you sourced an image for every text chunk?',
                 'Have the images been described accurately in the alt text?',
                 'Have you removed any AI-added claims that you cannot verify?',
+                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Plain Language': [
                 'Is everything factually correct about your business and venue?',
                 'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
                 'Have you removed any AI-added claims that you cannot verify?',
+                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Social Story / Visual Narrative': [
@@ -1541,6 +1579,7 @@ Here is my reviewed draft:
                 'Have the photos been described accurately in the alt text?',
                 'Does the photo + text order follow the actual chronological journey?',
                 'Have you removed any AI-added claims that you cannot verify?',
+                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Accessibility Guide': [
@@ -1549,12 +1588,14 @@ Here is my reviewed draft:
                 'Has someone walked the route and verified the details (entrances, paths, toilets, sensory environment)?',
                 'Have any photos or images been described accurately?',
                 'Have you removed any AI-added claims that you cannot verify?',
+                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Large Print': [
                 'Is everything factually correct about your business and venue?',
                 'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
                 'Have you removed any AI-added claims that you cannot verify?',
+                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Accessible Word Document': [
@@ -1562,6 +1603,7 @@ Here is my reviewed draft:
                 'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
                 'Have any photos or images been described accurately in the alt text?',
                 'Have you removed any AI-added claims that you cannot verify?',
+                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
             },
@@ -1664,6 +1706,7 @@ BEHAVIOUR RULES
 - Preserve context from earlier in the conversation
 - Default to simplicity over complexity
 - Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
+- When my source material or brief contains [NEEDS ANSWER: question] markers, preserve them verbatim in the draft. Do not replace them with guesses or filler. After the draft, list every [NEEDS ANSWER] marker in a separate section at the end so I can see what still needs research before publishing.
 - When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, ALWAYS return the COMPLETE updated draft from heading to sign-off line. The full document, every section, all the changes applied. NEVER show only the changed sections. NEVER show a recommendation list or evaluation marks (✅, ⚠️, ❌). NEVER explain your reasoning above or alongside the draft. If you disagree with a change I asked for, still produce the full updated draft applying the changes you accept, then raise the disagreement in ONE short sentence below the draft. Never block or replace the draft with discussion. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
 - When I answer the verification items, clarifying questions or assumption flags you raised, that is your signal to return the COMPLETE updated draft incorporating my answers. Do not ask further questions. Do not propose additional changes. Do not recommend new content (photos, extra sections, structural reordering, related documents). Stop after the updated draft.
 - Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
@@ -1679,9 +1722,9 @@ Your first reply must include a one or two sentence summary of what you understa
 
 Your role is to audit drafts for clarity, accessibility and inclusion.
 
-When I paste a draft, evaluate it on plain language (estimated reading level, sentence length, jargon), structure (logical flow, heading hierarchy, white space), inclusion (person-first or identity-first language, stereotypes, missing audience considerations), accuracy risk (invented or assumed statements, internal contradictions) and format fidelity.
+When I paste a draft, evaluate it on plain language (estimated reading level, sentence length, jargon), structure (logical flow, heading hierarchy, white space), inclusion (person-first or identity-first language, stereotypes, missing audience considerations), accuracy risk (invented or assumed statements, internal contradictions), format fidelity and source coverage (facts in the source that did not make it into the draft, facts in the draft not in the source, if source was provided alongside the draft).
 
-For each draft, reply with a one-sentence diagnosis, the top 3 to 5 issues in priority order, suggested re-wordings for the top 2 or 3, anything that must be checked by a human reviewer, and one or two questions that would strengthen the next iteration. Be direct.`,
+For each draft, reply with a one-sentence diagnosis, the top 3 to 5 issues in priority order, suggested re-wordings for the top 2 or 3, anything that must be checked by a human reviewer, one or two questions that would strengthen the next iteration and a source coverage check (or "no source provided"). Write all your feedback in plain language at year 7 to 8 reading level. Avoid reviewer jargon like "demote" or "gloss"; say "change unverified facts to Needs answer notes" and "explain what the word means" instead. Be direct.`,
                 },
                 {
                   heading: 'Briefing Prompt (paste into ChatGPT before drafting)',
