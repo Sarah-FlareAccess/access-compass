@@ -781,19 +781,49 @@ After Step 5, summarise my brief as four short bullet points labelled Format, Au
 </div>
 <details class="setup-detail">
 <summary><strong>I have no source material yet</strong>: get the AI to interview you</summary>
-<p>Paste this prompt into the same AI chat where you set up the AI assistant in Lesson 1. The AI will ask you one question at a time and use your answers as the source for the draft. If you use this interview, you can skip the briefing in Step 3 below: the interview gathers what the briefing would have asked for.</p>
+<p>Paste this prompt into the same AI chat where you set up the AI assistant in Lesson 1. The AI will ask you one question at a time, then return a structured summary of your answers. The summary is your source material for the rest of the workshop.</p>
+<p>When the interview ends, copy the structured summary into your notes app or workshop documents for safekeeping. Then continue with <strong>Step 3 (Brief your AI assistant)</strong> below as normal. You will paste the structured summary as your source material in that step.</p>
 <pre><code>I do not have source material prepared. I want to create [FORMAT NAME] for [AUDIENCE].
 
 The topic is: [one sentence on what your content is about].
 
-Please interview me to gather the source material you need. Ask one question at a time, in this order:
-1. What is the single most important thing my audience needs to know?
-2. What specific facts, processes or details should the content include?
-3. What tone fits my business (formal, friendly, technical)?
-4. Are there any specific things I do not want to leave out?
-5. What could go wrong if I get this wrong?
+Please interview me to gather the source material. Follow these rules.
 
-Ask 5 to 8 questions total. After my last answer, summarise what you learned in a short bullet list, then proceed to the build prompt for [FORMAT NAME].</code></pre>
+ROLE
+You already know what [FORMAT NAME] needs to be useful. Do not ask me what should be included. Ask me for the specific facts that fill the standard structure.
+
+QUESTIONING STYLE
+- Ask one question at a time. Wait for my answer before moving on.
+- Each question must include 2 to 4 concrete examples of what a good answer looks like, so I can match the level of specificity you need.
+- If my answer is vague ("all", "everyone", "we are flexible", "yes"), follow up with one targeted question asking for a specific example, a number or a unit (cm, minutes, count of).
+- If I do not know an answer, accept it and move on. Note the gap.
+- Number each question so I can track progress.
+
+FORMAT-SPECIFIC DEPTH
+Walk me through the standard sections [FORMAT NAME] is built from. For each section, ask for the specific, measurable facts that section needs.
+
+- Accessibility Guide: cover the 7 sections (Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact). Ask for door widths in cm, number of steps, ramp gradients, parking distances, hearing loop locations, quiet hours, who handles access enquiries and any known barriers.
+- Easy Read: ask for the single decision or action the reader should take, who the reader concretely is (not "everyone"), what photos are available and the hard words I currently use that need replacing.
+- Plain Language: ask for the audience's likely reading level, the action they should take after reading, the jargon to avoid and the one fact that must not be misunderstood.
+- Social Story / Visual Narrative: ask for the chronological journey beat by beat (what happens first, then next, then next), the sensory details at each beat, who else the reader will meet and what might happen unexpectedly.
+- Large Print: ask me to paste the actual short text I want enlarged. Then ask about line break preferences, must-keep emphasis and contrast preferences.
+- Accessible Word Document: ask me to paste or summarise the existing document. Then ask about heading hierarchy, current alt text status, table use and the document's intended audience.
+
+NUMBER OF QUESTIONS
+8 to 12 questions for most formats. Stop when you have enough to draft. Do not ask filler questions.
+
+AFTER THE INTERVIEW
+1. Produce a STRUCTURED summary of what I told you. Use [FORMAT NAME]'s standard sections as headings. Under each heading, list the specific facts I gave you in plain bullet points.
+2. Wherever I did not give you a fact, write [NEEDS ANSWER: specific question] under the relevant heading. Be precise about what you need.
+3. Do NOT draft the actual [FORMAT NAME] now. Stop after the structured summary. Drafting happens later in the workshop.
+4. Tell me to copy the structured summary into my notes app or workshop documents for safekeeping. This is now my source material.
+5. End by telling me to return to the workshop and continue with Step 3 (Brief your AI assistant). I will paste the structured summary as my source material when Step 3 asks for it.
+
+DO NOT
+- Do not ask me what should be included. You know the format. Ask me for the facts that fit the structure.
+- Do not draft the actual [FORMAT NAME]. Drafting happens later in the workshop, not in this interview.
+- Do not end with a "now provide all this information" checklist. End with a structured summary that captures what I told you, with [NEEDS ANSWER] markers for the gaps.
+- Do not invent specific measurements, distances, gradients, names of accessibility features or staff procedures. If you do not have the fact, write [NEEDS ANSWER].</code></pre>
 </details>
 <h3 class="path-section-heading">How to give the AI your source</h3>
 <div class="path-card path-card-free">
