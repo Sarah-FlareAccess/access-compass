@@ -92,20 +92,29 @@ export function Sidebar() {
   return (
     <aside className="dashboard-sidebar" role="complementary" aria-label="Sidebar navigation">
       {/* Organisation Identity */}
-      <button
-        type="button"
-        className="sidebar-org-identity"
-        onClick={() => setShowAdminPanel(true)}
-        aria-label="Open organisation settings"
-      >
-        <div className="sidebar-org-info">
-          <div className="sidebar-org-name">{orgName}</div>
-          {hasOrgMembership && <span className="sidebar-user-role">{userRole}</span>}
+      {isTrainingHubOnly ? (
+        <div className="sidebar-org-identity sidebar-org-identity-static">
+          <div className="sidebar-org-info">
+            <div className="sidebar-org-name">{orgName}</div>
+            {hasOrgMembership && <span className="sidebar-user-role">{userRole}</span>}
+          </div>
         </div>
-        <svg className="sidebar-org-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <polyline points="9 18 15 12 9 6"/>
-        </svg>
-      </button>
+      ) : (
+        <button
+          type="button"
+          className="sidebar-org-identity"
+          onClick={() => setShowAdminPanel(true)}
+          aria-label="Open organisation settings"
+        >
+          <div className="sidebar-org-info">
+            <div className="sidebar-org-name">{orgName}</div>
+            {hasOrgMembership && <span className="sidebar-user-role">{userRole}</span>}
+          </div>
+          <svg className="sidebar-org-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      )}
 
       {activeMembers.length > 0 && (
         <div className="sidebar-team-presence" role="status" aria-label="Active team members">
