@@ -474,7 +474,7 @@
 }
 
 .hero-subheading {
-  font-size: 1.1rem;
+  font-size: 1.35rem;
   margin-bottom: var(--spacing-xl);
   color: rgba(255, 255, 255, 0.88);
   max-width: 500px;
@@ -569,8 +569,8 @@
 .problem-statement {
   max-width: 740px;
   margin: 0 auto;
-  font-size: 1.25rem;
-  line-height: 1.65;
+  font-size: 1.4rem;
+  line-height: 1.6;
   color: var(--text-primary);
   font-weight: 500;
 }
@@ -670,14 +670,14 @@
 }
 
 .benefit-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #490E67;
   margin: 0 0 var(--spacing-xs);
 }
 
 .benefit-card p {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: var(--text-secondary);
   line-height: 1.6;
   margin: 0;
@@ -937,14 +937,14 @@
 }
 
 .step-content h3 {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #490E67;
   margin-bottom: 4px;
   font-weight: 600;
 }
 
 .step-content p {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   color: var(--text-secondary);
   line-height: 1.6;
   margin: 0;
@@ -1112,14 +1112,14 @@
 }
 
 .persona-card h3 {
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: #490E67;
   margin: 0 0 0.5rem;
 }
 
 .persona-card p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--text-secondary, #5C4A4E);
   line-height: 1.6;
   margin: 0;
@@ -1201,13 +1201,13 @@
 }
 
 .platform-item strong {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #490E67;
 }
 
 .platform-item span {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   color: var(--text-secondary, #5C4A4E);
   line-height: 1.55;
 }
