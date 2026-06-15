@@ -37,6 +37,7 @@ CREATE INDEX IF NOT EXISTS idx_feedback_submissions_type ON feedback_submissions
 -- service_role / dashboard only.
 ALTER TABLE feedback_submissions ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Anyone can submit feedback" ON feedback_submissions;
 CREATE POLICY "Anyone can submit feedback"
   ON feedback_submissions
   FOR INSERT
