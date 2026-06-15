@@ -44,7 +44,7 @@
 
 .lesson-block-body {
   color: #374151;
-  font-size: 0.95rem;
+  font-size: 1.0625rem;
 }
 
 .lesson-block-body p {
@@ -144,7 +144,7 @@
 
 .exercise-instructions {
   color: #1e3a5f;
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 16px;
 }

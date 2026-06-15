@@ -280,8 +280,11 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
 </figure>
 </details>
 <div class="version-note">
-<strong>Captured June 2026.</strong> AI tools change their menus often. If a button name or menu in your tool does not match what is shown above, paste this prompt into your AI tool and ask it for current instructions:
+<strong>Captured June 2026.</strong> AI tools change their menus often. If a button name or menu in your tool does not match what is shown above, expand the helper prompt below and paste it into your AI tool.
+<details>
+<summary><strong>Helper prompt</strong> (only if your menus do not match)</summary>
 <pre><code>I need to set up persistent custom instructions in [your tool, e.g. ChatGPT Plus, ChatGPT free, Claude Pro, Microsoft Copilot, Google Gemini]. Walk me through every click I need to make in the current UI, naming the buttons and menus exactly as they appear today.</code></pre>
+</details>
 </div>
 </div>`,
         },
@@ -301,7 +304,6 @@ Your job is to help me convert standard business content into accessible and inc
 - Accessibility Guides
 - Accessible Word documents
 - Large Print layouts
-- Visual Communication (symbol-supported text)
 
 You will help by:
 - asking clarifying questions before drafting
@@ -470,7 +472,6 @@ Your job is to help me convert standard business content into accessible and inc
 - Accessibility Guides
 - Accessible Word documents
 - Large Print layouts
-- Visual Communication (symbol-supported text)
 
 You will help by:
 - asking clarifying questions before drafting
@@ -595,14 +596,17 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 </ul>
 </details>
 <div class="version-note">
-<strong>Captured June 2026.</strong> AI responses can vary as models update. If the AI's reply differs from what is described here (different question wording, slightly different format, extra or missing sections), proceed anyway. The briefing pattern is robust enough to still produce a usable draft. If something feels off, paste this prompt to reset it:
+<strong>Captured June 2026.</strong> AI responses can vary as models update. If the AI's reply differs from what is described here (different question wording, slightly different format, extra or missing sections), proceed anyway. The briefing pattern is robust enough to still produce a usable draft. If something feels off, expand the reset prompt below and paste it into the AI.
+<details>
+<summary><strong>Reset prompt</strong> (only if the AI goes off track)</summary>
 <pre><code>Please restart this task and follow the briefing prompt exactly. Confirm what you understand in 2 to 3 sentences, then ask 3 to 5 clarifying questions, then list any assumptions you would have to make.</code></pre>
+</details>
 </div>`,
         },
         {
           type: 'text',
           heading: 'Step 1: Pick your format and build your brief (5 min)',
-          body: `<p>Pick one format to create in this session. You can come back for the others later using the prompt pack.</p>
+          body: `<p>Compare the six options in the table below. You will make your choice in the brief-builder panel that follows the table, not in the table itself. You can come back to the other formats later using the prompt pack.</p>
 <table>
 <caption class="sr-only">Alternative format options with audience fit and difficulty rating</caption>
 <thead>
@@ -731,12 +735,12 @@ After Step 5, summarise my brief as four short bullet points labelled Format, Au
 <tbody>
 <tr>
 <td>Easy Read</td>
-<td>An existing webpage, FAQ, brochure, policy doc or bullet-point notes</td>
+<td>An existing webpage, FAQ, brochure, policy doc or bullet-point notes about the topic you want the Easy Read to cover</td>
 <td>Paste a short description of the topic. The AI will ask you the questions it needs answered.</td>
 </tr>
 <tr>
 <td>Plain Language</td>
-<td>Any text document, letter, email, policy, set of instructions, webpage copy or FAQs</td>
+<td>Any text document, letter, email, policy, set of instructions, webpage copy or FAQs about the topic you want the Plain Language version to cover</td>
 <td>Paste your raw notes</td>
 </tr>
 <tr>
@@ -756,7 +760,7 @@ After Step 5, summarise my brief as four short bullet points labelled Format, Au
 </tr>
 <tr>
 <td>Large Print</td>
-<td>Any short piece of text</td>
+<td>The actual short piece of text you want to reformat for Large Print</td>
 <td>The AI will help you reformat what you have</td>
 </tr>
 </tbody>
@@ -765,10 +769,19 @@ After Step 5, summarise my brief as four short bullet points labelled Format, Au
 <div class="heads-up-label">Heads up</div>
 <p>Two formats really do need existing source content: <strong>Large Print</strong> (reformats short content you already have) and <strong>Accessible Word Document</strong> (makes an existing document accessible). If you have neither, pick Plain Language, Easy Read, Social Story or Accessibility Guide. You can come back to Large Print or Accessible Word Document once you have a finished draft.</p>
 </div>
-<p>If you picked one of the other 4 formats and have nothing prepared, you can still proceed. The AI can interview you for the facts it needs. Open the "I have no source material yet" panel below for the prompt that turns the AI into your interviewer.</p>
+<p>If you picked one of the other 4 formats and have nothing prepared, you can still proceed. The AI can interview you for the facts it needs. The "I have no source material yet" panel further down has the prompt that turns the AI into your interviewer.</p>
+<div class="heads-up-note">
+<div class="heads-up-label">Source under 400 words?</div>
+<p>Below 400 words the AI starts inventing detail to fill gaps, which is risky for content you will publish. Try these in order before drafting:</p>
+<ol>
+<li><strong>Add more from the same business.</strong> Paste in your FAQs, accessibility page, terms, booking confirmation copy or a relevant blog post. Same voice, same facts, no risk of fabrication.</li>
+<li><strong>Switch to a richer doc.</strong> Better to leave with a confident draft of a different document than a shaky draft of this one.</li>
+<li><strong>Last resort: have the AI interview you.</strong> Open the "I have no source material yet" panel below. The AI asks questions and you answer from your knowledge, so nothing is invented. Slower than the other two, but works.</li>
+</ol>
+</div>
 <details class="setup-detail">
 <summary><strong>I have no source material yet</strong>: get the AI to interview you</summary>
-<p>Paste this prompt into the same AI chat where you set up the system prompt (Lesson 1) and the briefing prompt (Step 3 below). The AI will ask you one question at a time and use your answers as the source for the draft.</p>
+<p>Paste this prompt into the same AI chat where you set up the AI assistant in Lesson 1. The AI will ask you one question at a time and use your answers as the source for the draft. If you use this interview, you can skip the briefing in Step 3 below: the interview gathers what the briefing would have asked for.</p>
 <pre><code>I do not have source material prepared. I want to create [FORMAT NAME] for [AUDIENCE].
 
 The topic is: [one sentence on what your content is about].
@@ -782,16 +795,7 @@ Please interview me to gather the source material you need. Ask one question at 
 
 Ask 5 to 8 questions total. After my last answer, summarise what you learned in a short bullet list, then proceed to the build prompt for [FORMAT NAME].</code></pre>
 </details>
-<div class="heads-up-note">
-<div class="heads-up-label">Source under 400 words?</div>
-<p>Below 400 words the AI starts inventing detail to fill gaps, which is risky for content you will publish. Try these in order before drafting:</p>
-<ol>
-<li><strong>Add more from the same business.</strong> Paste in your FAQs, accessibility page, terms, booking confirmation copy or a relevant blog post. Same voice, same facts, no risk of fabrication.</li>
-<li><strong>Switch to a richer doc.</strong> Better to leave with a confident draft of a different document than a shaky draft of this one.</li>
-<li><strong>Last resort: have the AI interview you.</strong> Open the "I have no source material yet" panel above. The AI asks questions and you answer from your knowledge, so nothing is invented. Slower than the other two, but works.</li>
-</ol>
-</div>
-<h3 class="path-section-heading">Choose your path</h3>
+<h3 class="path-section-heading">How to give the AI your source</h3>
 <div class="path-card path-card-free">
 <div class="path-card-label">Free tier (Claude free, ChatGPT free, Copilot, Gemini)</div>
 <p><strong>Have your source handy in a note app, browser tab or Word doc.</strong> You will copy and paste it into the chat in Step 3.</p>
@@ -805,13 +809,6 @@ Ask 5 to 8 questions total. After my last answer, summarise what you learned in 
 <div class="upload-warning"><strong>Do not upload anything containing:</strong> personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>
 </details>
 </div>`,
-        },
-        {
-          type: 'callout',
-          callout: {
-            variant: 'tip',
-            text: 'Got nothing prepared? You can still pick any format. The AI will prompt you for what it needs. Plain Language and Easy Read work well from bullet-point notes. Social Story works from a walkthrough description. Accessibility Guide is the most structured if you are unsure where to start, since the AI walks you through a checklist of venue questions and the answers become the guide.',
-          },
         },
         {
           type: 'exercise',
