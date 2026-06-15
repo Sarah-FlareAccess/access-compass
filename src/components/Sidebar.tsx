@@ -16,6 +16,7 @@ import { useSites, useActiveSiteId } from '../hooks/useSites';
 import { OrgAdminPanel } from './OrgAdminPanel';
 import { ReportProblem, ReportProblemTrigger } from './ReportProblem';
 import { ResourceInfoRequest, ResourceInfoTrigger } from './ResourceInfoRequest';
+import { ChangePasswordModal } from './ChangePasswordModal';
 import '../styles/dashboard.css';
 
 export function Sidebar() {
@@ -31,6 +32,7 @@ export function Sidebar() {
   const [showReportProblem, setShowReportProblem] = useState(false);
   const [showInfoRequest, setShowInfoRequest] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
   const [showAlerts, setShowAlerts] = useState(false);
   const [showSitePicker, setShowSitePicker] = useState(false);
   const [siteFilter, setSiteFilter] = useState('');
@@ -423,6 +425,17 @@ export function Sidebar() {
         <p className="sidebar-hint">Questions about accessibility auditing or using Access Compass?</p>
         <ReportProblemTrigger variant="sidebar" onClick={() => setShowReportProblem(true)} />
         <ResourceInfoTrigger onClick={() => setShowInfoRequest(true)} />
+        <button
+          onClick={() => setShowChangePassword(true)}
+          className="sidebar-help-link"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, font: 'inherit', textAlign: 'left' }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ marginRight: '6px', verticalAlign: '-2px' }}>
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          Change password
+        </button>
         <a href="mailto:support@accesscompass.com.au" className="sidebar-help-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ marginRight: '6px', verticalAlign: '-2px' }}>
             <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -462,6 +475,11 @@ export function Sidebar() {
       <ResourceInfoRequest
         isOpen={showInfoRequest}
         onClose={() => setShowInfoRequest(false)}
+      />
+
+      <ChangePasswordModal
+        isOpen={showChangePassword}
+        onClose={() => setShowChangePassword(false)}
       />
     </aside>
   );
