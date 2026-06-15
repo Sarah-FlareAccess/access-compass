@@ -1007,14 +1007,11 @@
    ============================================ */
 
 .journey-section {
-  background:
-    /* Warm gradient for depth */
-    linear-gradient(
-      180deg,
-      var(--ivory-warm) 0%,
-      #f5f0eb 50%,
-      #f0ebe5 100%
-    );
+  background: linear-gradient(
+    180deg,
+    #490E67 0%,
+    #3a0a52 100%
+  );
   padding: var(--spacing-xxl) var(--spacing-md) var(--spacing-xxl);
   text-align: center;
   position: relative;
@@ -1023,23 +1020,16 @@
 .journey-section .value-statement {
   max-width: 680px;
   margin: 0 auto var(--spacing-xl);
-  font-size: 1.2rem;
-  line-height: 1.7;
-  color: var(--text-primary);
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #fdfcfa 100%
-  );
+  font-size: 1.3rem;
+  line-height: 1.65;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
   padding: var(--spacing-lg) var(--spacing-xl);
   border-radius: var(--radius-lg);
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.04),
-    0 8px 24px rgba(73, 14, 103, 0.08),
-    0 16px 48px rgba(73, 14, 103, 0.04);
-  border-left: 4px solid #490E67;
+  border-left: 4px solid #FF9015;
   text-align: left;
   position: relative;
+  backdrop-filter: blur(4px);
 }
 
 .journey-section .value-statement::before {
@@ -1052,12 +1042,16 @@
 }
 
 .journey-section .value-statement strong {
-  color: #490E67;
-  font-weight: 600;
+  color: #FF9015;
+  font-weight: 700;
 }
 
 .landing-page .journey-section .features-cta {
   margin-top: 0;
+}
+
+.landing-page .journey-section .cta-subtext {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Final CTA - matches hero CTA exactly */
@@ -1151,13 +1145,12 @@
    ============================================ */
 
 .platform-section {
-  background:
-    linear-gradient(
-      180deg,
-      #f7f4f1 0%,
-      var(--ivory-tusk) 50%,
-      #f7f4f1 100%
-    );
+  background: linear-gradient(
+    180deg,
+    #ede2f0 0%,
+    #e8daee 50%,
+    #ede2f0 100%
+  );
   padding: var(--spacing-xxl) var(--spacing-md);
 }
 
