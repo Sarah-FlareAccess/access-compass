@@ -173,11 +173,124 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
           },
         },
         {
+          type: 'text',
+          heading: 'Step 2: Set up where to paste it in your tool (3 min)',
+          body: `<p>The system prompt works best as <strong>saved instructions</strong> that apply to every conversation. Pasting it into one chat works too, but the AI can drift over a long session. Pick the path that matches your drafting tool:</p>
+<table>
+<caption class="sr-only">Where to paste system prompts by AI tool, and whether instructions persist across chats</caption>
+<thead>
+<tr>
+<th scope="col">Your tool</th>
+<th scope="col">Where to paste</th>
+<th scope="col">Persists?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ChatGPT Plus</td>
+<td>Profile &rarr; Projects &rarr; New Project &rarr; Edit instructions</td>
+<td>Yes (project)</td>
+</tr>
+<tr>
+<td>ChatGPT free</td>
+<td>Settings &rarr; Personalisation &rarr; Custom Instructions</td>
+<td>Yes (all chats)</td>
+</tr>
+<tr>
+<td>Claude Pro</td>
+<td>Create a Project &rarr; Custom instructions</td>
+<td>Yes (project)</td>
+</tr>
+<tr>
+<td>Claude free, Copilot, Gemini free</td>
+<td>Paste at the top of each new chat</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<div class="setup-group">
+<h3 class="setup-group-heading">New to these tools?</h3>
+<p class="setup-group-intro">Open the path for yours below to see every click. The table above is the short version; this is the every-button-by-name version.</p>
+<details class="setup-detail">
+<summary><strong>ChatGPT Plus</strong>: every click</summary>
+<ol>
+<li>In the left sidebar, click <strong>+ New project</strong>. (If you do not see Projects in the sidebar, click your profile name in the bottom-left first, then choose <strong>Projects</strong>.)</li>
+<li>Give the project a name like "Accessible Comms" and click <strong>Create</strong>.</li>
+<li>Click into the project from the sidebar to open it.</li>
+<li>At the top of the project, click the three-dot menu <strong>(...)</strong> next to the project name.</li>
+<li>Choose <strong>Project settings</strong> (sometimes labelled "Manage project").</li>
+<li>Find the <strong>Instructions</strong> section and click into it.</li>
+<li>Paste the system prompt from Step 3 below.</li>
+<li>Click <strong>Save</strong>. Close the settings panel.</li>
+<li>Start a new chat from inside the project to test it.</li>
+</ol>
+<figure class="setup-screenshot">
+<img src="/training/screenshots/chatgpt-plus-project-settings.png" alt="ChatGPT Plus Project settings dialog showing the Project name, Instructions text box, Memory field and Cancel / Save buttons. The Instructions box is where you paste the system prompt." loading="lazy" />
+<figcaption>The Project settings dialog. Paste the system prompt into the Instructions box.</figcaption>
+</figure>
+</details>
+<details class="setup-detail">
+<summary><strong>ChatGPT free</strong>: every click</summary>
+<ol>
+<li>Click your name or initials in the <strong>bottom-left</strong> of the screen.</li>
+<li>Choose <strong>Settings</strong> from the menu.</li>
+<li>In the Settings panel, click <strong>Personalization</strong> on the left (ChatGPT uses American spelling for this menu).</li>
+<li>Scroll down to the <strong>Custom instructions</strong> section. It sits below Base style and tone, Characteristics and Fast answers.</li>
+<li>Paste the system prompt from Step 3 below into the Custom instructions text box.</li>
+<li>Settings auto-save. Close the panel.</li>
+<li>Start a new chat to test it.</li>
+</ol>
+<figure class="setup-screenshot">
+<img src="/training/screenshots/chatgpt-free-personalization.png" alt="ChatGPT Personalization settings panel with the left navigation showing General, Notifications, Personalization (selected), Apps, Billing and other items. The right side shows Base style and tone, Characteristics, Fast answers and the Custom instructions text box where you paste the system prompt." loading="lazy" />
+<figcaption>The Personalization panel. Paste the system prompt into the Custom instructions box.</figcaption>
+</figure>
+</details>
+<details class="setup-detail">
+<summary><strong>Claude Pro</strong>: every click</summary>
+<ol>
+<li>In the left sidebar, click <strong>Projects</strong>.</li>
+<li>Click <strong>+ Create project</strong> (or the "+" tile if you already have projects).</li>
+<li>Give the project a name like "Accessible Comms" and click <strong>Create project</strong>.</li>
+<li>You land on the project page. You will see two cards: <strong>Instructions</strong> and <strong>Files</strong>.</li>
+<li>Click the <strong>+</strong> on the <strong>Instructions</strong> card. A "Set project instructions" modal opens.</li>
+<li>Paste the system prompt from Step 3 below into the text box.</li>
+<li>Click <strong>Save Instructions</strong>.</li>
+<li><em>Optional:</em> on the <strong>Files</strong> card, click <strong>+</strong> to upload reference docs (brand guidelines, accessibility policies, sample accessible content from your business). Claude will consult them in every chat in this project.
+<div class="upload-warning"><strong>Before you upload:</strong> do not upload anything containing personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>
+</li>
+<li>Start a new chat from inside the project to test it.</li>
+</ol>
+<figure class="setup-screenshot">
+<img src="/training/screenshots/claude-pro-set-project-instructions.png" alt="Claude Pro project page titled 'Using AI to Create Accessible and Inclusive Communications' with the Set project instructions modal open over it. The modal has a large text box for project instructions and Cancel / Save Instructions buttons." loading="lazy" />
+<figcaption>The Set project instructions modal opens after you click the + on the Instructions card. Paste the system prompt here, then click Save Instructions.</figcaption>
+</figure>
+</details>
+<details class="setup-detail">
+<summary><strong>Claude free, Microsoft Copilot or Google Gemini free</strong>: every chat</summary>
+<ol>
+<li>Open the tool and start a <strong>new chat</strong>.</li>
+<li>Paste the system prompt from Step 3 below as the <strong>first message</strong> in that chat.</li>
+<li>Wait for the AI to confirm it understands the role before you send your real instructions.</li>
+<li>Important: if you start another new chat later, you must paste the system prompt again at the top. Free tiers do not remember instructions between chats.</li>
+<li>Tip: keep the system prompt open in a separate note or document so you can copy and paste it quickly.</li>
+</ol>
+<figure class="setup-screenshot">
+<img src="/training/screenshots/copilot-paste-at-top.png" alt="Microsoft Copilot home screen with the system prompt pasted into the chat input box as a first message. The 'Smart' model selector and the send arrow are visible at the bottom of the input." loading="lazy" />
+<figcaption>Microsoft Copilot example. Same pattern works in Claude free and Gemini free: paste the system prompt as the first message in a new chat.</figcaption>
+</figure>
+</details>
+<div class="version-note">
+<strong>Captured June 2026.</strong> AI tools change their menus often. If a button name or menu in your tool does not match what is shown above, paste this prompt into your AI tool and ask it for current instructions:
+<pre><code>I need to set up persistent custom instructions in [your tool, e.g. ChatGPT Plus, ChatGPT free, Claude Pro, Microsoft Copilot, Google Gemini]. Walk me through every click I need to make in the current UI, naming the buttons and menus exactly as they appear today.</code></pre>
+</div>
+</div>`,
+        },
+        {
           type: 'exercise',
           exercise: {
-            title: 'Step 2: Paste the AI assistant system prompt (5 min)',
+            title: 'Step 3: Paste the AI assistant system prompt (5 min)',
             targetTool: 'drafting',
-            instructions: 'Copy the system prompt below. Paste it into your AI tool, following the path described in Step 3 below. (If your tool does not have saved instructions, paste it at the top of a new chat.) The prompt contains some technical terms (Artifacts, sandbox, attachments) that are file-creation features in different AI tools. The AI knows what to do with them. You do not need to understand them.',
+            instructions: 'Copy the system prompt below. Paste it into your AI tool, following the path described in Step 2 above. (If your tool does not have saved instructions, paste it at the top of a new chat.) The prompt contains some technical terms (Artifacts, sandbox, attachments) that are file-creation features in different AI tools. The AI knows what to do with them. You do not need to understand them.',
             promptTemplate: `ROLE & PURPOSE
 You are my Accessible Communications Assistant.
 
@@ -240,119 +353,6 @@ Your first reply must include:
               'If the AI starts going off-piste later in the conversation, paste the system prompt again to reset its context.',
             ],
           },
-        },
-        {
-          type: 'text',
-          heading: 'Step 3: Set up where to paste it in your tool (3 min)',
-          body: `<p>The system prompt works best as <strong>saved instructions</strong> that apply to every conversation. Pasting it into one chat works too, but the AI can drift over a long session. Pick the path that matches your drafting tool:</p>
-<table>
-<caption class="sr-only">Where to paste system prompts by AI tool, and whether instructions persist across chats</caption>
-<thead>
-<tr>
-<th scope="col">Your tool</th>
-<th scope="col">Where to paste</th>
-<th scope="col">Persists?</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ChatGPT Plus</td>
-<td>Profile &rarr; Projects &rarr; New Project &rarr; Edit instructions</td>
-<td>Yes (project)</td>
-</tr>
-<tr>
-<td>ChatGPT free</td>
-<td>Settings &rarr; Personalisation &rarr; Custom Instructions</td>
-<td>Yes (all chats)</td>
-</tr>
-<tr>
-<td>Claude Pro</td>
-<td>Create a Project &rarr; Custom instructions</td>
-<td>Yes (project)</td>
-</tr>
-<tr>
-<td>Claude free, Copilot, Gemini free</td>
-<td>Paste at the top of each new chat</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<div class="setup-group">
-<h3 class="setup-group-heading">New to these tools?</h3>
-<p class="setup-group-intro">Open the path for yours below to see every click. The table above is the short version; this is the every-button-by-name version.</p>
-<details class="setup-detail">
-<summary><strong>ChatGPT Plus</strong>: every click</summary>
-<ol>
-<li>In the left sidebar, click <strong>+ New project</strong>. (If you do not see Projects in the sidebar, click your profile name in the bottom-left first, then choose <strong>Projects</strong>.)</li>
-<li>Give the project a name like "Accessible Comms" and click <strong>Create</strong>.</li>
-<li>Click into the project from the sidebar to open it.</li>
-<li>At the top of the project, click the three-dot menu <strong>(...)</strong> next to the project name.</li>
-<li>Choose <strong>Project settings</strong> (sometimes labelled "Manage project").</li>
-<li>Find the <strong>Instructions</strong> section and click into it.</li>
-<li>Paste the system prompt from Step 2 above.</li>
-<li>Click <strong>Save</strong>. Close the settings panel.</li>
-<li>Start a new chat from inside the project to test it.</li>
-</ol>
-<figure class="setup-screenshot">
-<img src="/training/screenshots/chatgpt-plus-project-settings.png" alt="ChatGPT Plus Project settings dialog showing the Project name, Instructions text box, Memory field and Cancel / Save buttons. The Instructions box is where you paste the system prompt." loading="lazy" />
-<figcaption>The Project settings dialog. Paste the system prompt into the Instructions box.</figcaption>
-</figure>
-</details>
-<details class="setup-detail">
-<summary><strong>ChatGPT free</strong>: every click</summary>
-<ol>
-<li>Click your name or initials in the <strong>bottom-left</strong> of the screen.</li>
-<li>Choose <strong>Settings</strong> from the menu.</li>
-<li>In the Settings panel, click <strong>Personalization</strong> on the left (ChatGPT uses American spelling for this menu).</li>
-<li>Scroll down to the <strong>Custom instructions</strong> section. It sits below Base style and tone, Characteristics and Fast answers.</li>
-<li>Paste the system prompt from Step 2 above into the Custom instructions text box.</li>
-<li>Settings auto-save. Close the panel.</li>
-<li>Start a new chat to test it.</li>
-</ol>
-<figure class="setup-screenshot">
-<img src="/training/screenshots/chatgpt-free-personalization.png" alt="ChatGPT Personalization settings panel with the left navigation showing General, Notifications, Personalization (selected), Apps, Billing and other items. The right side shows Base style and tone, Characteristics, Fast answers and the Custom instructions text box where you paste the system prompt." loading="lazy" />
-<figcaption>The Personalization panel. Paste the system prompt into the Custom instructions box.</figcaption>
-</figure>
-</details>
-<details class="setup-detail">
-<summary><strong>Claude Pro</strong>: every click</summary>
-<ol>
-<li>In the left sidebar, click <strong>Projects</strong>.</li>
-<li>Click <strong>+ Create project</strong> (or the "+" tile if you already have projects).</li>
-<li>Give the project a name like "Accessible Comms" and click <strong>Create project</strong>.</li>
-<li>You land on the project page. You will see two cards: <strong>Instructions</strong> and <strong>Files</strong>.</li>
-<li>Click the <strong>+</strong> on the <strong>Instructions</strong> card. A "Set project instructions" modal opens.</li>
-<li>Paste the system prompt from Step 2 above into the text box.</li>
-<li>Click <strong>Save Instructions</strong>.</li>
-<li><em>Optional:</em> on the <strong>Files</strong> card, click <strong>+</strong> to upload reference docs (brand guidelines, accessibility policies, sample accessible content from your business). Claude will consult them in every chat in this project.
-<div class="upload-warning"><strong>Before you upload:</strong> do not upload anything containing personal information about staff or customers, your business's confidential intellectual property, client data, commercial-in-confidence material, paid research you do not own the rights to or anything covered by an NDA. Use redacted or public-facing versions if you are unsure.</div>
-</li>
-<li>Start a new chat from inside the project to test it.</li>
-</ol>
-<figure class="setup-screenshot">
-<img src="/training/screenshots/claude-pro-set-project-instructions.png" alt="Claude Pro project page titled 'Using AI to Create Accessible and Inclusive Communications' with the Set project instructions modal open over it. The modal has a large text box for project instructions and Cancel / Save Instructions buttons." loading="lazy" />
-<figcaption>The Set project instructions modal opens after you click the + on the Instructions card. Paste the system prompt here, then click Save Instructions.</figcaption>
-</figure>
-</details>
-<details class="setup-detail">
-<summary><strong>Claude free, Microsoft Copilot or Google Gemini free</strong>: every chat</summary>
-<ol>
-<li>Open the tool and start a <strong>new chat</strong>.</li>
-<li>Paste the system prompt from Step 2 above as the <strong>first message</strong> in that chat.</li>
-<li>Wait for the AI to confirm it understands the role before you send your real instructions.</li>
-<li>Important: if you start another new chat later, you must paste the system prompt again at the top. Free tiers do not remember instructions between chats.</li>
-<li>Tip: keep the system prompt open in a separate note or document so you can copy and paste it quickly.</li>
-</ol>
-<figure class="setup-screenshot">
-<img src="/training/screenshots/copilot-paste-at-top.png" alt="Microsoft Copilot home screen with the system prompt pasted into the chat input box as a first message. The 'Smart' model selector and the send arrow are visible at the bottom of the input." loading="lazy" />
-<figcaption>Microsoft Copilot example. Same pattern works in Claude free and Gemini free: paste the system prompt as the first message in a new chat.</figcaption>
-</figure>
-</details>
-<div class="version-note">
-<strong>Captured June 2026.</strong> AI tools change their menus often. If a button name or menu in your tool does not match what is shown above, paste this prompt into your AI tool and ask it for current instructions:
-<pre><code>I need to set up persistent custom instructions in [your tool, e.g. ChatGPT Plus, ChatGPT free, Claude Pro, Microsoft Copilot, Google Gemini]. Walk me through every click I need to make in the current UI, naming the buttons and menus exactly as they appear today.</code></pre>
-</div>
-</div>`,
         },
         {
           type: 'text',
