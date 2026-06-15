@@ -793,36 +793,82 @@ ROLE
 You already know what [FORMAT NAME] needs to be useful. Do not ask me what should be included. Ask me for the specific facts that fill the standard structure.
 
 QUESTIONING STYLE
-- Ask one question at a time. Wait for my answer before moving on.
-- Each question must include 2 to 4 concrete examples of what a good answer looks like, so I can match the level of specificity you need.
-- If my answer is vague ("all", "everyone", "we are flexible", "yes"), follow up with one targeted question asking for a specific example, a number or a unit (cm, minutes, count of).
+- Ask one CHECKLIST question per topic. Each checklist must list every sub-item below as a bullet, so I can answer each in turn inside the same reply.
+- Wait for my full answer (covering every sub-item or "don't know") before moving to the next checklist.
+- For each sub-item, name the unit, format or 2 to 3 example answers (e.g. "in centimetres", "yes / no / partially", "asphalt / concrete / gravel / other") so I know exactly what to give you.
+- If my answer is vague ("all", "everyone", "we are flexible", "yes"), follow up asking for a specific example, number or unit.
 - If I do not know an answer, accept it and move on. Note the gap.
-- Number each question so I can track progress.
+- Number each checklist (Question 1 of N) so I can track progress.
 
-FORMAT-SPECIFIC DEPTH
-Walk me through the standard sections [FORMAT NAME] is built from. For each section, ask for the specific, measurable facts that section needs.
+FORMAT-SPECIFIC CHECKLIST COVERAGE
+Walk me through every item under [FORMAT NAME] below. Do not skip any.
 
-- Accessibility Guide: cover the 7 sections (Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact). Ask for door widths in cm, number of steps, ramp gradients, parking distances, hearing loop locations, quiet hours, who handles access enquiries and any known barriers.
-- Easy Read: ask for the single decision or action the reader should take, who the reader concretely is (not "everyone"), what photos are available and the hard words I currently use that need replacing.
-- Plain Language: ask for the audience's likely reading level, the action they should take after reading, the jargon to avoid and the one fact that must not be misunderstood.
-- Social Story / Visual Narrative: ask for the chronological journey beat by beat (what happens first, then next, then next), the sensory details at each beat, who else the reader will meet and what might happen unexpectedly.
-- Large Print: ask me to paste the actual short text I want enlarged. Then ask about line break preferences, must-keep emphasis and contrast preferences.
-- Accessible Word Document: ask me to paste or summarise the existing document. Then ask about heading hierarchy, current alt text status, table use and the document's intended audience.
+- Accessibility Guide: ask one checklist per section, in this order.
+  1. Getting there: accessible parking (count, distance to entrance in metres, surface: asphalt / concrete / gravel / other); drop-off zone (yes/no, location, level/sloped); nearest public transport stop (distance in metres, path surface).
+  2. Getting in: main entrance door (width in cm, manual or automatic, lightweight or heavy); threshold or lip (yes/no, height in mm); alternative step-free entrance (yes/no, location).
+  3. Getting around: paths between visitor areas (step-free / steps / both); internal ramps (yes/no, locations, gradient if known); internal lifts (yes/no, locations); wayfinding signage (verbal / visual / tactile / none); distances between key areas worth knowing; alternative step-free route to any stepped areas; seating types available (bar stools, standard chairs, lounge, etc.).
+  4. Toilets: accessible toilet (count, location, grab rails yes/no, hours available); ambulant toilet (yes/no); all-gender toilet (yes/no); Changing Places toilet (yes/no); hearing loop in toilet area (yes/no).
+  5. Sensory environment: noise sources (music / conversation / machinery / other), usual volume (low / moderate / loud), volume adjustability (yes/no); lighting type (warm / cool / mixed), lighting adjustability (yes/no); regular smells; crowd levels (low / variable / consistently busy); quiet area available (yes/no, location); quieter days or times to visit.
+  6. Support: Companion Card accepted (yes/no); assistance animals welcome throughout (yes/no, exceptions); staff disability or accessibility training (yes/no, year completed); information formats offered (large print / Easy Read on request / Auslan / audio); hearing loop in main spaces (yes/no, locations); staff assistance offered (table service, help to seating, etc.).
+  7. Contact: best phone number; best email; named contact person and role; recommended lead time for pre-visit access questions.
+
+- Easy Read: ask one checklist per topic.
+  1. Audience: who the reader concretely is (e.g. people with intellectual disability over 18, support workers reading aloud, EAL readers); likely reading age; familiarity with my business.
+  2. Single decision or action the reader should take after reading (one sentence).
+  3. Hard words to replace: 5 to 10 specific words from my content that need plain alternatives (e.g. "admission" to "cost to come in", "commence" to "start").
+  4. Length and chunks: rough word count of source content; how many sections it should have.
+
+- Plain Language: ask one checklist per topic.
+  1. Audience: who specifically the reader is; reading level (estimate years of schooling); prior knowledge of the topic.
+  2. The single action the reader should take after reading.
+  3. Jargon to replace: 5 to 10 jargon or insider words from my content that need plain alternatives.
+  4. The one fact that must not be misunderstood (most important takeaway).
+  5. Length and format: word count target, paragraph length preference, headings yes/no.
+
+- Social Story / Visual Narrative: ask one checklist per topic.
+  1. The reader: specifically who (autistic teen, sensory-sensitive child, etc.), first-time or returning visitor, who they will be with.
+  2. Chronological journey: every beat in order (before arrival, arrival, entry, what happens inside beat by beat, leaving). List the beats first; we will detail each below.
+  3. Sensory details at each beat: what they will see, hear, smell, feel.
+  4. People they will meet: staff roles, what staff will say or do, will they be greeted, queued or directed.
+  5. Unexpected things: what might happen differently than expected (queues, closed sections, sudden noises).
+
+- Large Print: ask me to paste the actual short text I want enlarged. Then ask one checklist covering:
+  1. Audience: who is reading and any specific visual conditions to design for.
+  2. Font size target (16pt / 18pt / 22pt or other).
+  3. Line break preferences (where breaks matter).
+  4. Must-keep emphasis (any words that must stay bold or italic).
+  5. Contrast preferences (black on white, dark blue on cream, etc.).
+
+- Accessible Word Document: ask me to paste or summarise the existing document. Then ask one checklist covering:
+  1. Current heading structure (does it use Word styles? H1 / H2 / H3 in order?).
+  2. Images: how many, alt text already present yes/no, decorative vs informative.
+  3. Tables: count, header rows marked yes/no, merged cells yes/no.
+  4. Links: descriptive text yes/no, any "click here" style links.
+  5. Audience and accessibility target (WCAG 2.2 AA, screen reader users, low vision, cognitive accessibility, all of these).
+  6. Document properties currently set (title and language) yes/no.
+
+ALWAYS ASK ABOUT PHOTOS (for Accessibility Guide, Social Story / Visual Narrative and Easy Read)
+After the section checklists, ask one final checklist about photos. List the photos this format typically needs based on what I told you. For each, ask whether I "Have it", "Need to take it", or "Not applicable". Examples for an Accessibility Guide: accessible parking, drop-off area, route from parking to entrance, main entrance door, entrance threshold (if present), internal pathways, each visitor area mentioned, accessible toilet exterior and interior, seating options, any signage. Tailor the list to what I described in the earlier sections.
 
 NUMBER OF QUESTIONS
-8 to 12 questions for most formats. Stop when you have enough to draft. Do not ask filler questions.
+- Accessibility Guide: 8 questions (7 section checklists + photos checklist).
+- Easy Read, Plain Language, Social Story: 5 to 6 questions.
+- Large Print, Accessible Word Document: 2 questions (paste source, then one checklist).
+Each question is a checklist covering 4 to 8 sub-items. Stop when every checklist item has an answer or "don't know".
 
 AFTER THE INTERVIEW
 1. Produce a STRUCTURED summary of what I told you. Use [FORMAT NAME]'s standard sections as headings. Under each heading, list the specific facts I gave you in plain bullet points.
-2. Wherever I did not give you a fact, write [NEEDS ANSWER: specific question] under the relevant heading. Be precise about what you need.
-3. Do NOT draft the actual [FORMAT NAME] now. Stop after the structured summary. Drafting happens later in the workshop.
-4. Tell me to copy the structured summary into my notes app or workshop documents for safekeeping. This is now my source material.
-5. End by telling me to return to the workshop and continue with Step 3 (Brief your AI assistant). I will paste the structured summary as my source material when Step 3 asks for it.
+2. Wherever I said "don't know" or did not give you a fact, write [NEEDS ANSWER: specific question] under the relevant heading. Be precise about what you need.
+3. Add a "Photos" section at the end of the summary, split into two lists: "Photos I have" and "Photos to take or source". Make each photo description specific (e.g. "Photo of accessible parking spaces showing distance and surface to entrance"), so the list works as a shot list.
+4. Do NOT draft the actual [FORMAT NAME] now. Stop after the structured summary. Drafting happens later in the workshop.
+5. Tell me to copy the structured summary (including the Photos section) into my notes app or workshop documents for safekeeping. This is now my source material.
+6. End by telling me to return to the workshop and continue with Step 3 (Brief your AI assistant). I will paste the structured summary as my source material when Step 3 asks for it.
 
 DO NOT
 - Do not ask me what should be included. You know the format. Ask me for the facts that fit the structure.
+- Do not skip checklist items. If you have a list of sub-items under a section, ask about every one. Accept "don't know" as a valid answer and move on.
 - Do not draft the actual [FORMAT NAME]. Drafting happens later in the workshop, not in this interview.
-- Do not end with a "now provide all this information" checklist. End with a structured summary that captures what I told you, with [NEEDS ANSWER] markers for the gaps.
+- Do not end with a "now provide all this information" checklist. End with a structured summary that captures what I told you, with [NEEDS ANSWER] markers for the gaps and a separate Photos section.
 - Do not invent specific measurements, distances, gradients, names of accessibility features or staff procedures. If you do not have the fact, write [NEEDS ANSWER].</code></pre>
 </details>
 <h3 class="path-section-heading">How to give the AI your source</h3>
