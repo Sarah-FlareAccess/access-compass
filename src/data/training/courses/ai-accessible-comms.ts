@@ -5,11 +5,11 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   slug: 'ai-accessible-comms',
   title: 'Using AI to Create Accessible & Inclusive Communications',
   subtitle: 'A practical 2-hour workshop. Walk in with content. Walk out with a draft.',
-  description: 'Use free AI tools to draft accessible content for your business in under 2 hours. Choose your format, bring your source material and leave with a real first draft you can refine and publish.',
-  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and accessibility markup planner) to produce one piece of accessible content in a single session. You will set up saved AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to generate an accessibility markup plan you can apply in Word. The AI gives you a structured plan (heading levels, alt text suggestions, link rewrites, table notes, document properties) and a checklist of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Word Document (following the Australian Government Style Manual, equivalent state-government guidance, moving toward WCAG 2.2 AA conformance). PDF accessibility verification is out of scope (it needs paid external tools such as Adobe Acrobat Pro or Grackle Docs). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist producers for high-stakes content (every format has its own producer ecosystem) remain essential.',
+  description: 'Use free AI tools to draft accessible content for your business in around 2 hours. Choose your format, bring your source material and leave with a real first draft you can refine and publish.',
+  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and formatting checklist builder) to produce one piece of accessible content in a single session. You will set up saved AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to build a Word formatting checklist you can apply. The AI gives you a structured checklist (heading levels, alt text suggestions, link rewrites, table notes, document properties) of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Word Document (following the Australian Government Style Manual, equivalent state-government guidance, moving toward WCAG 2.2 AA conformance). PDF accessibility verification is out of scope (it needs paid external tools such as Adobe Acrobat Pro or Grackle Docs). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist producers for high-stakes content (every format has its own producer ecosystem) remain essential.',
   category: 'ai-tools',
   accessTier: 'premium',
-  totalEstimatedMinutes: 120,
+  totalEstimatedMinutes: 128,
   skillLevel: 'beginner',
   featured: true,
   author: 'Flare Access',
@@ -28,7 +28,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
     'Brief an AI on your business, your audience and your source material',
     'Draft a first version of accessible content in your chosen format',
     'Use Claude to sense-check your draft against accessibility standards',
-    'Use Claude to generate an accessibility markup plan aligned to the Australian Government Style Manual, equivalent state-government guidance and WCAG 2.2 AA, then apply it in Word',
+    'Use Claude to build a Word formatting checklist aligned to the Australian Government Style Manual, equivalent state-government guidance and WCAG 2.2 AA, then apply it in Word',
     'Apply a human review checklist before publishing',
     'Take home a reusable prompt pack covering six alternative formats',
   ],
@@ -41,7 +41,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   courseDownloads: [
     {
       title: 'Using AI to Create Accessible & Inclusive Communications — Workshop Prompt Pack (PDF)',
-      description: 'The full workshop in one printable PDF: system prompt, reviewer prompt, briefing template, all 6 build prompts, iteration prompts, reset prompt, markup plan prompt and human review checklist.',
+      description: 'The full workshop in one printable PDF: system prompt, reviewer prompt, briefing template, all 6 build prompts, iteration prompts, reset prompt, Word formatting checklist prompt and human review checklist.',
       fileName: 'ai-accessible-comms-prompt-pack.pdf',
       fileUrl: '/training/downloads/ai-accessible-comms-prompt-pack.pdf',
       fileType: 'PDF',
@@ -72,17 +72,17 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileSize: '3 KB',
     },
     {
-      title: 'Claude Reviewer and Markup Plan Prompts (PDF)',
+      title: 'Claude Reviewer and Word Formatting Checklist Prompts (PDF)',
       description: 'The two Claude prompts formatted for printing.',
-      fileName: 'claude-reviewer-and-markup-prompts.pdf',
+      fileName: 'claude-reviewer-and-checklist-prompts.pdf',
       fileUrl: '/training/downloads/claude-reviewer-and-markup-prompts.pdf',
       fileType: 'PDF',
       fileSize: '9 KB',
     },
     {
-      title: 'Claude Reviewer and Markup Plan Prompts (TXT)',
-      description: 'The Claude prompts for sense-checking your draft and generating the accessibility markup plan you apply in Word. Plain text, ready to paste.',
-      fileName: 'claude-reviewer-and-markup-prompts.txt',
+      title: 'Claude Reviewer and Word Formatting Checklist Prompts (TXT)',
+      description: 'The Claude prompts for sense-checking your draft and generating the Word formatting checklist you apply in Word. Plain text, ready to paste.',
+      fileName: 'claude-reviewer-and-checklist-prompts.txt',
       fileUrl: '/training/downloads/claude-reviewer-and-markup-prompts.txt',
       fileType: 'TXT',
       fileSize: '5 KB',
@@ -651,7 +651,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
           type: 'format-choice',
           formatChoice: {
             legend: 'Build your brief',
-            helpText: 'Fill these in once. Your brief saves locally to your browser and pre-fills the briefing prompt in Step 3, the sense-check prompt in Lesson 4 and the markup plan prompt in Lesson 4. You can change it anytime. Use the Copy your brief button to take a plain-text version into other tools or save in your notes.',
+            helpText: 'Fill these in once. Your brief saves locally to your browser and pre-fills the briefing prompt in Step 3, the sense-check prompt in Lesson 4 and the Word formatting checklist prompt in Lesson 4. You can change it anytime. Use the Copy your brief button to take a plain-text version into other tools or save in your notes.',
             formats: [
               { value: 'Easy Read', label: 'Easy Read' },
               { value: 'Plain Language', label: 'Plain Language' },
@@ -1021,7 +1021,7 @@ After the draft, list:
             title: 'Build prompt: Accessibility Guide',
             targetTool: 'drafting',
             formatKey: 'Accessibility Guide',
-            instructions: 'For structured info about the access features of a venue, event or service.',
+            instructions: 'For structured info about the access features of a venue, event or service. Best published as a webpage on your own site so search engines can index it and screen readers can navigate it directly. The AI will produce the text with a clean H1 / H2 hierarchy you can paste into your CMS (or hand to a developer in a Word doc). Also keep a designed Word or PDF copy as your on-request fallback for when a recipient can only accept an email attachment.',
             promptTemplate: `Please draft an Accessibility Guide for my venue or event.
 
 Structure it under these headings:
@@ -1084,8 +1084,6 @@ Please apply this structure (based on Australian Government Style Manual content
 6. DOCUMENT PROPERTIES (to set in Word File > Info > Properties before export)
 - Suggest a document title (different from the file name).
 - Document language: English (Australia).
-- Author: my business name.
-- Subject and keywords: suggest 3 to 5 from the content.
 
 7. EXPORT NOTES
 - This workshop produces an accessible Word document. PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
@@ -1191,14 +1189,14 @@ Here is the content:
       subtitle: 'Cross-check with Claude, apply changes, save your prompt pack',
       description: 'Send your draft to Claude for an accessibility sense-check, apply the most important changes back in ChatGPT, run the human review checklist and save your reusable prompt pack.',
       order: 4,
-      estimatedMinutes: 42,
+      estimatedMinutes: 50,
       accessTier: 'premium',
       keywords: ['sense-check', 'cross-LLM', 'human review', 'prompt pack', 'maintenance'],
       contentBlocks: [
         {
           type: 'text',
           heading: 'What you will achieve in this lesson',
-          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has generated an accessibility markup plan for you to apply in Word, you have run the human review checklist and your prompts are saved for next time.</p>
+          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has generated a Word formatting checklist for you to apply, you have run the human review checklist and your prompts are saved for next time.</p>
 <details class="setup-detail">
 <summary><strong>Key terms in this lesson</strong> (tap to expand)</summary>
 <ul>
@@ -1216,7 +1214,7 @@ Here is the content:
 <ol>
 <li>Send your draft to Claude for sense-check (10 min)</li>
 <li>Pick the issues and apply them in ChatGPT (15 min)</li>
-<li>Use Claude to build your accessibility markup plan (12 min)</li>
+<li>Use Claude to build your Word formatting checklist (12 min)</li>
 <li>Apply your format's settings in Word (8 min)</li>
 <li>Final human review checklist (3 min)</li>
 <li>Save your prompt pack (2 min)</li>
@@ -1287,12 +1285,12 @@ Do not skip Part B. It is how I verify nothing was silently missed. Structural c
         {
           type: 'exercise',
           exercise: {
-            title: 'Step 3: Use Claude to build your accessibility markup plan (12 min)',
+            title: 'Step 3: Use Claude to build your Word formatting checklist (12 min)',
             targetTool: 'reviewer',
-            instructions: 'Sometimes Claude can give you a Word file to download. Other times it gives you the same content as text in chat. Either way, this step does something more useful: it gives you a markup plan you can apply and check yourself in Word. The plan covers heading levels (like Heading 1 and Heading 2), alt text for images, link wording, table notes, document properties and a checklist of what to apply. If Claude also gives you a Word file, treat it as a starting point and still work through the checklist. You apply the plan in Word to produce an accessible Word document. Claude is stronger than ChatGPT at this kind of structured longer output, which is why we use it here. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
+            instructions: 'Sometimes Claude can give you a Word file to download. Other times it gives you the same content as text in chat. Either way, this step does something more useful: it gives you a Word formatting checklist you can apply and check yourself in Word. The checklist covers heading levels (like Heading 1 and Heading 2), alt text for images, link wording, table notes, document properties and the structural items to apply. If Claude also gives you a Word file, treat it as a starting point and still work through the checklist. You apply the checklist in Word to produce an accessible Word document. Claude is stronger than ChatGPT at this kind of structured longer output, which is why we use it here. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
             promptTemplate: `I have a reviewed draft I want to publish as an accessible Word document.
 
-If you can generate the final accessible Word document directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the marked-up structure (heading styles, bulleted or numbered lists, document properties) inside the file itself. Also provide the marked-up plan as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
+If you can generate the final accessible Word document directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the formatting structure (heading styles, bulleted or numbered lists, document properties) inside the file itself. Also provide the formatting checklist as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
 
 Please produce a structured version with the accessibility scaffolding marked up, following the Australian Government Style Manual content-types (stylemanual.gov.au/content-types) for format-specific structure and typography, moving toward WCAG 2.2 AA conformance in the Word document.
 
@@ -1326,8 +1324,6 @@ FORMAT CONTEXT
 5. DOCUMENT PROPERTIES (to set in Word File > Info > Properties before export)
 - Suggest a document title (different from the file name).
 - Document language: English (Australia).
-- Author: my business name.
-- 3 to 5 keywords from the content.
 
 6. EXPORT NOTES
 - This workshop produces an accessible Word document. PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
@@ -1354,7 +1350,7 @@ Here is my reviewed draft:
           type: 'checklist',
           checklist: {
             title: 'Step 4: Apply your format\'s settings in Word (8 min)',
-            introHtml: `<p>Claude\'s markup plan lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it. Your progress saves to this device.</p>
+            introHtml: `<p>Claude\'s Word formatting checklist lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it. Your progress saves to this device.</p>
 <p><strong>Run this checklist whether the AI generated a file or only returned text.</strong> AI-generated docx files routinely miss decorative-table marking, true semantic heading styles and document properties: they look right but fail an accessibility check. Treat any AI-generated file as a draft scaffold, not a final document. The checklist is the verification step that turns it into something publishable.</p>
 <p><strong>Using Google Docs instead of Word?</strong> Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Three real limitations to know about:</p>
 <ol>
@@ -1387,7 +1383,7 @@ Here is my reviewed draft:
                 'Keep line length under 70 characters wide (adjust margins or column width).',
                 'Confirm the reading level estimate Claude returned is year 7 to 8 or lower.',
                 'Set page margins to at least 2.5cm on every side.',
-                'Set document properties (File > Info > Properties): title, language English (Australia), author, 3-5 keywords.',
+                'Set document properties (File > Info > Properties): title and language English (Australia).',
                 'For each image in the document, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text describing what the picture shows. Add via right-click image > View Alt Text. Verify before saving.',
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
               ],
@@ -1401,7 +1397,7 @@ Here is my reviewed draft:
                 'Set body text to 14pt minimum.',
                 'Set line spacing to 1.5.',
                 'Set page margins to 2.5cm or wider.',
-                'Set document properties (title, language English (Australia), author).',
+                'Set document properties: title and language English (Australia).',
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
               ],
               'Accessibility Guide': [
@@ -1410,8 +1406,9 @@ Here is my reviewed draft:
                 'Confirm every fact is specific, not vague (e.g. "level entry, 90cm wide door" not "wheelchair accessible").',
                 'Address any "needs answer" flags Claude left in the draft.',
                 'Add a publishing date and a contact for access questions.',
-                'If publishing as a webpage: add anchor link IDs to each H2 (e.g. id="getting-in") and a jump menu at the top.',
-                'Set document properties (title, language English (Australia), author, keywords).',
+                'Plan two outputs. Primary: webpage embed on your own site so search engines and screen readers can reach the content directly. Paste the AI text into your CMS keeping the H1 / H2 hierarchy, then add anchor link IDs to each H2 (e.g. id="getting-in") and a jump menu at the top.',
+                'Secondary: a designed Word or PDF copy you can send on request when a recipient can only accept an email attachment. Keep heading styles, alt text and document properties intact in the Word version so a screen reader can still navigate it.',
+                'Set document properties: title and language English (Australia).',
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors.',
               ],
               'Large Print': [
@@ -1432,7 +1429,7 @@ Here is my reviewed draft:
                 'Mark decorative images as decorative (right-click image > View Alt Text > tick "Mark as decorative").',
                 'Rewrite any "click here" or "read more" links to be descriptive out of context.',
                 'For each data table: mark the header row, add a caption above, flag any merged cells.',
-                'Set document properties (File > Info > Properties): title (different from filename), language English (Australia), author, 3-5 keywords.',
+                'Set document properties (File > Info > Properties): title (different from filename) and language English (Australia).',
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix every error.',
               ],
             },
@@ -1519,7 +1516,7 @@ Here is my reviewed draft:
 <li>The <strong>Claude reviewer prompt</strong></li>
 <li>The <strong>briefing prompt</strong>, with your business details already filled in</li>
 <li>All six <strong>build prompts</strong> (Easy Read, Plain Language, Social Story, Accessibility Guide, Large Print, Accessible Word Document)</li>
-<li>The <strong>Claude markup plan prompt</strong> for accessible Word output</li>
+<li>The <strong>Claude Word formatting checklist prompt</strong> for accessible Word output</li>
 </ol>
 <p>Next time you make a piece of accessible content, open the text file and paste the prompts back into ChatGPT and Claude. Coming back will take half the time.</p>
 <p><strong>Your work belongs to you.</strong> Anything you have created in this session, including the draft and the prompts you save, is yours. Access Compass does not claim any rights to your content.</p>`,
@@ -1654,7 +1651,9 @@ Suggest where photos should sit and list anything I should verify or add from a 
                   heading: 'Build Prompt: Accessibility Guide',
                   content: `Please draft an Accessibility Guide for my venue or event under these headings: 1. Getting there. 2. Getting in. 3. Getting around. 4. Toilets. 5. Sensory environment. 6. Support available. 7. Contact.
 
-Plain Language throughout. Specific, not vague. If I have not provided info for a section, flag it as "needs answer". Use bullet points for facts, prose for context. After the draft, list every "needs answer" item, photos I should take, and anything that would benefit from human verification.`,
+Plain Language throughout. Specific, not vague. If I have not provided info for a section, flag it as "needs answer". Use bullet points for facts, prose for context. After the draft, list every "needs answer" item, photos I should take, and anything that would benefit from human verification.
+
+Publishing note: best published as a webpage on your own site so search engines and screen readers can reach it directly. Paste the AI text into your CMS keeping the H1 / H2 hierarchy and add anchor link IDs to each H2 plus a jump menu at the top. Keep a designed Word or PDF copy as your on-request fallback for when a recipient can only accept an email attachment.`,
                 },
                 {
                   heading: 'Build Prompt: Large Print',
@@ -1674,7 +1673,7 @@ Following Australian Government Style Manual content-types and NSW / Vic Governm
 3. IMAGES: for images the user has described in detail, draft alt text as a starting point (user verifies against the real image). For images not described, instruct the user to upload each real image to an AI that can look at images (Claude, ChatGPT Plus, Microsoft Copilot or Google Gemini) for alt text. Mark decorative images. Flag colour-only meaning.
 4. LINKS: rewrite "click here", "read more" to be descriptive. Suggest footnote URLs for printed copies.
 5. TABLES: mark header row. Flag merged or split cells. Add captions.
-6. DOCUMENT PROPERTIES: suggest a document title, language (English Australia), author, 3 to 5 keywords.
+6. DOCUMENT PROPERTIES: suggest a document title (different from the file name) and language (English Australia).
 7. EXPORT: note that Word's PDF export with structure tags enabled is a basic starting point only, not full PDF accessibility. Suggest if an HTML equivalent should also exist.
 
 After your analysis, give a numbered checklist to apply in Word, a list of items to verify, and a footer paragraph noting the document moves toward WCAG 2.2 AA conformance.
@@ -1683,10 +1682,10 @@ Here is the content:
 [paste content]`,
                 },
                 {
-                  heading: 'Claude Markup Plan Prompt (paste into Claude with your reviewed draft)',
+                  heading: 'Claude Word Formatting Checklist Prompt (paste into Claude with your reviewed draft)',
                   content: `I have a reviewed draft I want to publish as an accessible Word document.
 
-If you can generate the final accessible Word document directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the marked-up structure (heading styles, bulleted or numbered lists, document properties) inside the file itself. Also provide the marked-up plan as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
+If you can generate the final accessible Word document directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the formatting structure (heading styles, bulleted or numbered lists, document properties) inside the file itself. Also provide the formatting checklist as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
 
 Please produce a structured version with the accessibility scaffolding marked up, following Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document.
 
@@ -1694,7 +1693,7 @@ Please produce a structured version with the accessibility scaffolding marked up
 2. IMAGES: draft alt text only for images the user has described in detail (user verifies). For placeholder photos not yet sourced, instruct the user to upload each real photo to an AI that can look at images for alt text. Mark decorative. Flag colour-only meaning.
 3. LINKS: rewrite vague link text.
 4. TABLES: mark header rows. Flag merged cells. Add captions.
-5. DOCUMENT PROPERTIES: title, language, author, keywords.
+5. DOCUMENT PROPERTIES: title and language (English Australia).
 6. EXPORT NOTES: PDF accessibility is out of scope (needs Adobe Acrobat Pro or Grackle). Word's PDF export with structure tags is a basic starting point only. Note if an HTML equivalent is recommended.
 
 After the marked-up draft, give a numbered Word-application checklist, a list of items to verify, and a footer paragraph about moving toward WCAG 2.2 AA conformance and alternative-format requests.

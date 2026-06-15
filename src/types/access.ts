@@ -69,6 +69,9 @@ export interface Organisation {
   require_mfa?: boolean;
   session_timeout_minutes?: number;
   allowed_ip_ranges?: string[];
+
+  // Access scope: when true, members can only access the AI Comms course
+  training_hub_only?: boolean;
 }
 
 /** Organisation membership - links a user to an organisation */

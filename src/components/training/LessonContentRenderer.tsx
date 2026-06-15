@@ -444,7 +444,7 @@ function TakeHomeBlock({
         'Sections 4 a to f are the six build prompts, one per format.',
         'Section 5 is the iteration prompts you reach for between drafts.',
         'Section 6 is the reset prompt if the AI drifts.',
-        'Section 7 is the Claude markup plan prompt for accessible Word and PDF output.',
+        'Section 7 is the Claude Word formatting checklist prompt for accessible Word output.',
       ],
       sections: promptPack.sections.map((s) => ({
         title: s.heading,

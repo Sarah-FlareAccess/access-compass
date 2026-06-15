@@ -10,7 +10,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import { Sidebar } from './Sidebar';
 import { BottomTabBar } from './BottomTabBar';
@@ -48,6 +48,7 @@ const PAGES_WITH_SIDEBAR = [
 
 export default function AppLayout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [routeAnnouncement, setRouteAnnouncement] = useState('');
   const showNav = !PAGES_WITHOUT_NAV.includes(location.pathname);
   const { user, accessState } = useAuth();
@@ -55,6 +56,20 @@ export default function AppLayout() {
   // Re-enabled cloud sync (2026-04-15) after fixing sync_metadata 409 via onConflict option
   useCloudSync(user?.id, accessState.organisation?.id);
   const activeMembers: { userId: string; email: string; deviceLabel: string; lastSeenAt: string }[] = [];
+
+  // Workshop participants (training_hub_only): redirect any non-allowed route to the AI Comms course.
+  // Auth and landing routes stay open so they can sign in and sign out.
+  useEffect(() => {
+    const isTrainingHubOnly = accessState.organisation?.training_hub_only === true;
+    if (!isTrainingHubOnly) return;
+    const allowedPrefixes = ['/training/course/ai-accessible-comms', '/training/resource'];
+    const openPaths = ['/', '/disclaimer', '/login', '/pricing', '/accessibility'];
+    const isOnAllowed = allowedPrefixes.some(p => location.pathname.startsWith(p));
+    const isOnOpen = openPaths.includes(location.pathname);
+    if (!isOnAllowed && !isOnOpen) {
+      navigate('/training/course/ai-accessible-comms', { replace: true });
+    }
+  }, [accessState.organisation?.training_hub_only, location.pathname, navigate]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

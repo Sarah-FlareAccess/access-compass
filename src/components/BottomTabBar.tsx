@@ -96,6 +96,7 @@ export function BottomTabBar() {
   const [helpSheetOpen, setHelpSheetOpen] = useState(false);
 
   const isAuthorityOrg = accessState.organisation?.org_type === 'authority';
+  const isTrainingHubOnly = accessState.organisation?.training_hub_only === true;
 
   useEffect(() => {
     const session = getSession();
@@ -114,7 +115,14 @@ export function BottomTabBar() {
   }
 
   // Define tabs based on user state and access level
-  const tabsWithModules: TabItem[] = [
+  const tabsWithModules: TabItem[] = isTrainingHubOnly ? [
+    {
+      path: '/training/course/ai-accessible-comms',
+      label: 'Course',
+      icon: <TrainingIcon />,
+      matchPaths: ['/training'],
+    },
+  ] : [
     {
       path: '/dashboard',
       label: 'Dashboard',
@@ -182,8 +190,9 @@ export function BottomTabBar() {
     return null;
   }
 
-  // For first-time users, only show tab bar if they have modules
-  if (!hasModules) {
+  // For first-time users, only show tab bar if they have modules.
+  // Training-hub-only users get the bar so they have a home button to the course.
+  if (!hasModules && !isTrainingHubOnly) {
     return null;
   }
 

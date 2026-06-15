@@ -11,12 +11,19 @@ import { TrainingCard } from '../components/training/TrainingCard';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { PageFooter } from '../components/PageFooter';
+import { useAuth } from '../contexts/AuthContext';
 import './TrainingHub.css';
 
 export default function TrainingHub() {
   usePageTitle('Training Hub');
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { accessState } = useAuth();
+  const isTrainingHubOnly = accessState.organisation?.training_hub_only === true;
+  const visibleCourses = isTrainingHubOnly
+    ? allCourses.filter((c) => c.slug === 'ai-accessible-comms')
+    : allCourses;
+  const visibleResources = isTrainingHubOnly ? [] : allResources;
 
   const activeCategory = searchParams.get('category') as TrainingCategory | null;
   const searchQuery = searchParams.get('q') ?? '';
@@ -28,7 +35,12 @@ export default function TrainingHub() {
   const filtered = useMemo(() => {
     let { courses, resources } = searchQuery
       ? searchTraining(searchQuery)
-      : { courses: allCourses, resources: allResources };
+      : { courses: visibleCourses, resources: visibleResources };
+
+    if (isTrainingHubOnly) {
+      courses = courses.filter((c) => c.slug === 'ai-accessible-comms');
+      resources = [];
+    }
 
     if (activeCategory) {
       courses = courses.filter((c) => c.category === activeCategory);
@@ -39,9 +51,9 @@ export default function TrainingHub() {
     if (contentType === 'resource') courses = [];
 
     return { courses, resources };
-  }, [searchQuery, activeCategory, contentType]);
+  }, [searchQuery, activeCategory, contentType, isTrainingHubOnly, visibleCourses, visibleResources]);
 
-  const featuredCourse = allCourses.find((c) => c.featured);
+  const featuredCourse = visibleCourses.find((c) => c.featured);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,11 +88,20 @@ export default function TrainingHub() {
       {/* Hero header */}
       <section className="training-hero">
         <span className="training-eyebrow">Training Hub</span>
-        <h1 className="training-hero-title">Build your team's <em>accessibility skills</em></h1>
+        <h1 className="training-hero-title">
+          {isTrainingHubOnly ? (
+            <>Your <em>AI Comms course</em></>
+          ) : (
+            <>Build your team's <em>accessibility skills</em></>
+          )}
+        </h1>
         <p className="training-hero-subtitle">
-          Courses, webinars, and practical resources to grow confidence in disability inclusion.
+          {isTrainingHubOnly
+            ? 'Use free AI tools to draft accessible content. Work through the lessons at your own pace.'
+            : 'Courses, webinars, and practical resources to grow confidence in disability inclusion.'}
         </p>
 
+        {!isTrainingHubOnly && (
         <div className="training-hero-search">
           <form className="training-search-form" onSubmit={handleSearch} role="search">
             <label htmlFor="training-search" className="sr-only">Search training</label>
@@ -118,12 +139,15 @@ export default function TrainingHub() {
             </div>
           </form>
         </div>
+        )}
 
+        {!isTrainingHubOnly && (
         <dl className="training-hero-stats">
           <div><dd>{allCourses.length}</dd><dt>Courses</dt></div>
           <div><dd>{allResources.length}</dd><dt>Resources</dt></div>
           <div><dd>{TRAINING_CATEGORIES.length}</dd><dt>Topics</dt></div>
         </dl>
+        )}
       </section>
 
       {/* Featured course banner */}
@@ -145,6 +169,7 @@ export default function TrainingHub() {
       )}
 
       {/* Category filter chips */}
+      {!isTrainingHubOnly && (
       <div className="training-filters">
         <div className="training-category-chips" role="group" aria-label="Filter by category">
           {TRAINING_CATEGORIES.map((cat) => (
@@ -166,6 +191,7 @@ export default function TrainingHub() {
           </button>
         )}
       </div>
+      )}
 
       {/* Courses section */}
       {filtered.courses.length > 0 && (
