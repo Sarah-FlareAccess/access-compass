@@ -517,7 +517,7 @@ You've been assigned to complete the "${moduleName}" accessibility self-review m
 This is part of our accessibility improvement initiative using Access Compass. The module will ask you questions about ${moduleName.toLowerCase()} and help identify what we're doing well and where we can improve.
 
 ${targetDateFormatted ? `Target completion date: ${targetDateFormatted}\n` : ''}
-To get started, click here:
+To get started, open your assessment:
 ${moduleUrl}
 
 The review should take about 10-15 minutes. Your insights will help us create a more inclusive experience for all our customers.
@@ -1203,13 +1203,38 @@ Thanks!`;
                       </div>
                     </div>
 
-                    <div className="dashboard-tabs" role="tablist" aria-label="Evidence source">
+                    <div
+                      className="dashboard-tabs"
+                      role="tablist"
+                      aria-label="Evidence source"
+                      onKeyDown={(e) => {
+                        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Home' && e.key !== 'End') return;
+                        e.preventDefault();
+                        const order: Array<'assessment' | 'diap'> = ['assessment', 'diap'];
+                        const idx = order.indexOf(evidenceSourceFilter as 'assessment' | 'diap');
+                        let nextIdx = idx;
+                        if (e.key === 'ArrowLeft') nextIdx = (idx - 1 + order.length) % order.length;
+                        if (e.key === 'ArrowRight') nextIdx = (idx + 1) % order.length;
+                        if (e.key === 'Home') nextIdx = 0;
+                        if (e.key === 'End') nextIdx = order.length - 1;
+                        const next = order[nextIdx];
+                        setEvidenceSourceFilter(next);
+                        // Move focus to the newly selected tab
+                        requestAnimationFrame(() => {
+                          const btn = document.querySelector<HTMLButtonElement>(`[data-evidence-source-tab="${next}"]`);
+                          btn?.focus();
+                        });
+                      }}
+                    >
                       <button
                         type="button"
                         className={`tab-btn ${evidenceSourceFilter === 'assessment' ? 'active' : ''}`}
                         onClick={() => setEvidenceSourceFilter('assessment')}
                         role="tab"
                         aria-selected={evidenceSourceFilter === 'assessment'}
+                        aria-controls="tab-panel-evidence"
+                        tabIndex={evidenceSourceFilter === 'assessment' ? 0 : -1}
+                        data-evidence-source-tab="assessment"
                       >
                         Accessibility Review
                       </button>
@@ -1219,6 +1244,9 @@ Thanks!`;
                         onClick={() => setEvidenceSourceFilter('diap')}
                         role="tab"
                         aria-selected={evidenceSourceFilter === 'diap'}
+                        aria-controls="tab-panel-evidence"
+                        tabIndex={evidenceSourceFilter === 'diap' ? 0 : -1}
+                        data-evidence-source-tab="diap"
                       >
                         DIAP
                       </button>
@@ -1268,13 +1296,11 @@ Thanks!`;
                                 }
                               };
                               return (
-                                <div
+                                <button
                                   key={item.file.id}
+                                  type="button"
                                   className="evidence-item-card"
                                   onClick={handleClick}
-                                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); } }}
-                                  tabIndex={0}
-                                  role="button"
                                   aria-label={`Open ${item.file.name}`}
                                 >
                                   <div className="evidence-item-icon" aria-hidden="true">
@@ -1290,11 +1316,11 @@ Thanks!`;
                                   {(item.file.url || item.file.dataUrl) && item.file.type === 'photo' && (
                                     <img
                                       src={item.file.url || item.file.dataUrl}
-                                      alt={item.file.name}
+                                      alt=""
                                       className="evidence-item-thumbnail"
                                     />
                                   )}
-                                </div>
+                                </button>
                               );
                             })}
                           </div>

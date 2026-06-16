@@ -73,18 +73,37 @@ export function ModuleDetailModal({
     };
   }, [moduleId, onClose]);
 
-  // Handle escape key and focus trap
+  // Handle escape key and focus trap (Tab / Shift+Tab cycle within modal)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         handleClose();
+        return;
+      }
+
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+
+        if (e.shiftKey && (active === first || !modalRef.current.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
 
-    // Focus the modal
+    // Focus the modal container so screen readers announce the dialog
     modalRef.current?.focus();
 
     return () => {

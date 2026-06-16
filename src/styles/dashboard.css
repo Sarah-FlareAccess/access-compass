@@ -285,7 +285,12 @@
   height: 6px;
   border-radius: 50%;
   background: #22c55e;
-  animation: team-pulse 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sidebar-team-dot {
+    animation: team-pulse 2s ease-in-out infinite;
+  }
 }
 
 @keyframes team-pulse {
@@ -2428,6 +2433,12 @@ details[open] > .evidence-module-heading::before {
   border: 1px solid #d1ccc9;
   cursor: pointer;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  /* Button reset (was a div until 2026-06-16) */
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-align: left;
+  width: 100%;
 }
 
 .evidence-item-card:hover {

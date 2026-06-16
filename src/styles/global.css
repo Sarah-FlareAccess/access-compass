@@ -15,11 +15,11 @@
   --ivory-warm: #FAF8F5;
   --walnut-soft: #5a4347;
 
-  /* WCAG AA Compliant Text Colors */
+  /* WCAG AA Compliant Text Colors (all clear 4.5:1 on white AND on ivory #ECE9E6) */
   --text-primary: #2d2420;
   --text-secondary: #4a4340;
-  --text-muted: #6b6360;
-  --text-helper: #7a7370;
+  --text-muted: #595959;
+  --text-helper: #6a6a6a;
 
   /* Accent for Secondary Buttons (darker orange for contrast) */
   --aussie-dark: #CC7700;
@@ -172,6 +172,25 @@ a {
 
 a:hover {
   color: var(--amethyst-diamond);
+}
+
+/* Content links (inside body text, lists, tables) get underline so colour-blind users can still tell them apart from regular text — WCAG 1.4.1 Use of Colour.
+   Navigation, button-like links and other UI affordances stay un-underlined by inheriting the bare `a` rule above. */
+p a,
+li a,
+td a,
+dd a,
+blockquote a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+p a:hover,
+li a:hover,
+td a:hover,
+dd a:hover,
+blockquote a:hover {
+  text-decoration-thickness: 2px;
 }
 
 /* Typography Hierarchy - Enhanced contrast between levels */
@@ -615,7 +634,7 @@ select {
 
 input::placeholder,
 textarea::placeholder {
-  color: #757575; /* WCAG AA compliant */
+  color: #595959; /* WCAG AA, ~7:1 on white for safety margin */
 }
 
 input:focus,
@@ -1084,6 +1103,11 @@ label {
 
 #main-content:focus {
   outline: none;
+}
+
+#main-content:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--aussie-sunrise, #FF9015);
 }
 
 /* ============================================

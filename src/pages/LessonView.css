@@ -34,6 +34,11 @@
   outline: none;
 }
 
+#lesson-content:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--aussie-sunrise, #FF9015);
+}
+
 .lesson-not-found {
   text-align: center;
   padding: 48px 24px;
