@@ -607,6 +607,23 @@ function buildDoc(doc_config) {
 
   // Sections
   for (const section of doc_config.sections) {
+    // Estimate the height of heading + intro + first ~6 lines of prompt block.
+    // If that does not fit in the remaining page space, page-break first so the
+    // heading and its content stay together instead of stranding the heading
+    // (and an empty paragraph) at the bottom of the previous page.
+    const headingHeight = 14 + 24 + 10 + 6; // size + before + after + first-line padding
+    const introLines = section.intro
+      ? state.doc.splitTextToSize(section.intro, CONTENT_WIDTH).length
+      : 0;
+    const introHeight = introLines * 14 + (section.intro ? 4 : 0);
+    const promptFirstChunkHeight = 6 * 11.5 + 12 * 2; // 6 lines + box padding
+    const sectionMinHeight = headingHeight + introHeight + promptFirstChunkHeight;
+    if (state.y + sectionMinHeight > PAGE.height - MARGIN.bottom) {
+      drawFooter(state.doc, state.page);
+      state.doc.addPage();
+      state.page += 1;
+      state.y = MARGIN.top;
+    }
     drawHeading(state, section.title, 2);
     if (section.intro) drawParagraph(state, section.intro);
     drawPromptBlock(state, section.prompt);
