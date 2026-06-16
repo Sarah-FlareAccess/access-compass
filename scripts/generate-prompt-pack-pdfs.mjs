@@ -35,56 +35,124 @@ const PAGE = { width: 595.28, height: 841.89 }; // A4 pt
 const MARGIN = { left: 56, right: 56, top: 56, bottom: 70 };
 const CONTENT_WIDTH = PAGE.width - MARGIN.left - MARGIN.right;
 
-// Document configurations
+// Per-format booklet configs — title, intro and the formatKey we use to
+// pull the right build prompt out of the booklet TXT (already pre-built by
+// scripts/build-format-booklets.ts).
+const formatBooklets = [
+  {
+    slug: 'prompt-booklet-easy-read',
+    title: 'Prompt Booklet: Easy Read',
+    intro:
+      'Easy Read uses short sentences, common words and image-supported chunks. Best for readers with intellectual disability, low literacy or English as an additional language. This booklet contains every prompt you need for an Easy Read piece in one file.',
+  },
+  {
+    slug: 'prompt-booklet-plain-language',
+    title: 'Prompt Booklet: Plain Language',
+    intro:
+      'Plain Language targets year 7 to 8 reading level, active voice and common words. Best for general public communications, policies, forms and customer-facing content where you want broad comprehension. This booklet contains every prompt you need for a Plain Language piece in one file.',
+  },
+  {
+    slug: 'prompt-booklet-social-story-visual-narrative',
+    title: 'Prompt Booklet: Social Story / Visual Narrative',
+    intro:
+      'Social Stories walk a reader through an experience in first person, with sensory detail, in chronological order. Best for autistic visitors, sensory-sensitive children or anyone who benefits from knowing what to expect. This booklet contains every prompt you need for a Social Story / Visual Narrative piece in one file.',
+  },
+  {
+    slug: 'prompt-booklet-accessibility-guide',
+    title: 'Prompt Booklet: Accessibility Guide',
+    intro:
+      'Accessibility Guides use a fixed 7-section order so readers can compare across venues. Best published as a webpage on your own site with anchor links, kept as a Word or PDF copy for on-request distribution. This booklet contains every prompt you need for an Accessibility Guide in one file.',
+  },
+  {
+    slug: 'prompt-booklet-accessible-word-document',
+    title: 'Prompt Booklet: Accessible Word Document',
+    intro:
+      'Make an existing Word document more accessible AND more inclusive. Covers heading hierarchy, alt text, plain language, link text, table structure, document properties and brand-colour contrast. Best when you are open to suggested copy improvements. If your copy is locked, use the locked-copy override in the build prompt.',
+  },
+  {
+    slug: 'prompt-booklet-large-print',
+    title: 'Prompt Booklet: Large Print',
+    intro:
+      'Reformat short content (menus, programs, flyers, one-page summaries) for low-vision readers, following Vision Australia clear print guidance. The AI confirms fit, suggests scannability improvements where they help at large type sizes, and supplies the typography checklist.',
+  },
+];
+
+const HOW_TO_USE_BOOKLET = [
+  'Run the prompts in order the first time, then reuse the booklet whenever you create a new piece in this format.',
+  'Sections 1 and 2 set up ChatGPT and Claude. Section 3 collects your business context. Section 4 generates the first draft.',
+  'Section 5 has iteration prompts split into copy iterations (refining new content) and accessibility iterations (refining scaffolding without rewriting copy).',
+  'Sections 6 and 7 are Claude\'s sense-check and the accessibility formatting checklist you apply in Word (or your design tool for Large Print).',
+  'Section 8 is the reset prompt if the AI drifts off task. Pair this booklet with the standalone Human Review Checklist before publishing.',
+];
+
+function bookletSections(slug) {
+  const text = readTxt(slug);
+  const grab = (start, end) => extractBetween(text, start, end);
+  // Section heading is the format-specific build prompt label — find it
+  // dynamically since each booklet has a different format name in section 4.
+  const buildMatch = text.match(/4\. BUILD PROMPT: ([A-Z /]+)/);
+  const buildLabel = buildMatch ? `4. BUILD PROMPT: ${buildMatch[1]}` : '4. BUILD PROMPT';
+  return [
+    {
+      title: '1. AI assistant system prompt',
+      intro:
+        'Paste into ChatGPT Custom Instructions, a Project Instructions field, or as the first message in a fresh chat. Sets up the AI with the role, formatting rules and accessibility standards reference it needs.',
+      prompt: grab('1. AI ASSISTANT SYSTEM PROMPT', '2. CLAUDE REVIEWER PROMPT'),
+    },
+    {
+      title: '2. Claude reviewer prompt',
+      intro:
+        'Paste into a fresh Claude chat. Once Claude confirms its role, paste any draft you want sense-checked.',
+      prompt: grab('2. CLAUDE REVIEWER PROMPT', '3. BRIEFING PROMPT'),
+    },
+    {
+      title: '3. Briefing prompt',
+      intro:
+        'Paste into ChatGPT after the system prompt is set up. Fill in the [PLACEHOLDERS] with your format, audience, purpose, where it lives and source material.',
+      prompt: grab('3. BRIEFING PROMPT', buildLabel),
+    },
+    {
+      title: buildLabel.replace(/^4\. BUILD PROMPT: /, '4. Build prompt: '),
+      intro: 'After the AI has confirmed the brief, paste this to generate the first draft.',
+      prompt: grab(buildLabel, '5. ITERATION PROMPTS'),
+    },
+    {
+      title: '5. Iteration prompts',
+      intro:
+        'Copy iterations refine new content; accessibility iterations refine the scaffolding without rewriting copy. One change per round works better than asking for everything at once.',
+      prompt: grab('5. ITERATION PROMPTS', '6. SENSE-CHECK PROMPT'),
+    },
+    {
+      title: '6. Sense-check prompt',
+      intro:
+        'Paste into Claude with your source material and current draft. Claude returns a structured review across six sections.',
+      prompt: grab('6. SENSE-CHECK PROMPT (Lesson 4 Step 1)', '7. ACCESSIBILITY FORMATTING CHECKLIST PROMPT'),
+    },
+    {
+      title: '7. Accessibility formatting checklist prompt',
+      intro:
+        'Paste into Claude with your reviewed draft at the bottom. Claude returns the draft with accessibility scaffolding marked up plus a numbered application checklist.',
+      prompt: grab('7. ACCESSIBILITY FORMATTING CHECKLIST PROMPT (Lesson 4 Step 3)', '8. RESET PROMPT'),
+    },
+    {
+      title: '8. Reset prompt',
+      intro: 'If the AI drifts off task, paste this to re-anchor it.',
+      prompt: grab('8. RESET PROMPT', 'HUMAN REVIEW BEFORE PUBLISHING'),
+    },
+  ];
+}
+
+// Document configurations — six per-format booklets plus the standalone
+// Human Review Checklist.
 const docs = [
-  {
-    slug: 'ai-assistant-system-prompt',
-    title: 'AI Assistant System Prompt',
-    subtitle: 'For ChatGPT, Copilot, Gemini or your drafting tool · From the workshop "Using AI to Create Accessible & Inclusive Communications"',
-    intro:
-      'This is the persistent system prompt that turns any general-purpose AI tool into your Accessible Communications Assistant. Set it up once. The AI then knows what good accessible content looks like and how to ask you for the right context before drafting.',
-    howToUse: [
-      'In ChatGPT Plus, paste it into a Project\'s Instructions field.',
-      'In ChatGPT free, paste it into Settings > Personalization > Custom Instructions.',
-      'In Claude Pro, paste it into a Project\'s custom instructions.',
-      'In Claude free, Copilot or Gemini, paste it as the first message in every new chat.',
-    ],
-    sections: [
-      {
-        title: 'The system prompt',
-        intro:
-          'Copy everything between the dividers and paste it into your AI tool. The prompt assumes you will follow up with your own briefing prompt and source material when you are ready to draft a specific piece of content.',
-        prompt: getSection('ai-assistant-system-prompt'),
-      },
-    ],
-  },
-  {
-    slug: 'claude-reviewer-and-markup-prompts',
-    title: 'Claude Reviewer & Markup Plan Prompts',
-    subtitle: 'For Claude as your reviewer and accessibility planner · From the workshop "Using AI to Create Accessible & Inclusive Communications"',
-    intro:
-      'Two Claude prompts that pair with the drafting setup. The first turns Claude into a focused reviewer for any draft you produce. The second turns a reviewed draft into a structured accessibility markup plan you apply in Word, then export as a tagged PDF.',
-    howToUse: [
-      'Set up the Reviewer prompt in Lesson 1 of the workshop and keep that Claude chat open.',
-      'After you have a reviewed draft, paste the Markup Plan prompt with the draft at the bottom.',
-      'Claude returns a structured plan: heading levels, alt text, link rewrites, table notes, document properties and a Word-application checklist.',
-      'You apply that plan in Word, then export with structure tags enabled to produce the actual tagged PDF. Claude does not produce the tagged file directly.',
-    ],
-    sections: [
-      {
-        title: '1. Reviewer prompt',
-        intro:
-          'Paste this as the first message in a fresh Claude chat. Once Claude confirms its role, paste any draft you want sense-checked. Claude returns a short diagnosis, the top issues to fix, suggested re-wordings and questions for the next iteration.',
-        prompt: getSection('claude-reviewer-and-markup-prompts', 'reviewer'),
-      },
-      {
-        title: '2. Markup plan prompt',
-        intro:
-          'Paste this after you have a reviewed draft that needs to be published as an accessible Word document or tagged PDF. Claude returns the draft with the accessibility scaffolding marked up so you can apply it in Word.',
-        prompt: getSection('claude-reviewer-and-markup-prompts', 'markup'),
-      },
-    ],
-  },
+  ...formatBooklets.map((b) => ({
+    slug: b.slug,
+    title: b.title,
+    subtitle: `From the workshop "Using AI to Create Accessible & Inclusive Communications"`,
+    intro: b.intro,
+    howToUse: HOW_TO_USE_BOOKLET,
+    sections: bookletSections(b.slug),
+  })),
   {
     slug: 'human-review-checklist',
     title: 'Human Review Checklist',
@@ -116,25 +184,6 @@ const docs = [
         prompt: getSection('human-review-checklist', 'feedback'),
       },
     ],
-  },
-  {
-    slug: 'ai-accessible-comms-prompt-pack',
-    title: 'Using AI to Create Accessible & Inclusive Communications',
-    subtitle: 'Workshop Prompt Pack — every prompt from the workshop in one printable document',
-    intro:
-      'Everything you set up across the four-lesson workshop, bundled into one document you can print, file or paste from. Take this home and reuse it for every future piece of accessible content. The structure mirrors the workshop, so you can run yourself through it again in 30 to 60 minutes once you know the moves.',
-    howToUse: [
-      'Open this pack the next time you start a new piece of accessible content.',
-      'Section 1 sets up ChatGPT (or your drafting tool of choice).',
-      'Section 2 sets up Claude as your reviewer.',
-      'Section 3 is your briefing template, with [PLACEHOLDERS] you replace with your business context.',
-      'Section 4 has the six build prompts, one per format. Pick the one that matches your audience.',
-      'Section 5 has the iteration prompts you reach for during drafting.',
-      'Section 6 is a reset prompt if the AI drifts.',
-      'Section 7 is the Claude markup plan prompt for converting a reviewed draft into an accessible Word document.',
-      'Section 8 is the human review checklist to run before you publish.',
-    ],
-    sections: getFullPackSections(),
   },
 ];
 

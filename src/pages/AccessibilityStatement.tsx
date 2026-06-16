@@ -36,16 +36,18 @@ export default function AccessibilityStatement() {
         <section>
           <h2>What we have done</h2>
           <ul>
-            <li>Keyboard navigation support across all interactive elements</li>
-            <li>Visible focus indicators for keyboard users</li>
-            <li>Semantic HTML with appropriate ARIA attributes</li>
-            <li>Colour contrast meeting WCAG AA ratios (minimum 4.5:1 for text, 3:1 for UI components)</li>
-            <li>Skip-to-content link for screen reader users</li>
+            <li>Keyboard navigation support across all interactive elements, including focus trapping in dialogs and roving tabindex on tab groups</li>
+            <li>Visible focus indicators for keyboard users (orange outline on focus-visible, with replacement border-and-shadow styling on form inputs)</li>
+            <li>Semantic HTML with appropriate ARIA attributes (landmarks, dialog roles, tab / tablist / tabpanel, live regions for status updates)</li>
+            <li>Colour contrast meeting WCAG AA ratios (minimum 4.5:1 for text, 3:1 for UI components and large text), with safety margin on muted and helper text colours</li>
+            <li>Skip-to-content link for screen reader users, with visible landing-area focus indicator</li>
             <li>Form inputs with visible labels, clear error messages, and descriptive hints</li>
             <li>Responsive design that works across devices and screen sizes</li>
-            <li>No content that relies solely on colour to convey meaning</li>
-            <li>Alt text on all meaningful images</li>
+            <li>No content that relies solely on colour to convey meaning. In-content links are underlined so colour-blind users can distinguish them from regular text</li>
+            <li>Alt text on all meaningful images; decorative images marked as such</li>
             <li>Logical heading hierarchy on all pages</li>
+            <li>Text sized in relative units (rem) so users can scale the entire interface via their browser font-size preference</li>
+            <li>Auto-playing animations respect the user's <code>prefers-reduced-motion</code> setting</li>
           </ul>
         </section>
 
@@ -55,7 +57,6 @@ export default function AccessibilityStatement() {
             We are continually improving. Some areas we are actively working on:
           </p>
           <ul>
-            <li>Converting remaining pixel-based font sizes to relative units (rem) for better text scaling</li>
             <li>Improving reflow behaviour at very narrow viewport widths (320px)</li>
             <li>Adding captions to training videos (placeholder videos are currently in use)</li>
             <li>Screen reader testing across additional browser and assistive technology combinations</li>
@@ -109,8 +110,9 @@ export default function AccessibilityStatement() {
         <section>
           <h2>Review</h2>
           <p>
-            This statement was last reviewed on 29 March 2026. We review and update this statement
-            at least every 12 months, or whenever significant changes are made to the platform.
+            This statement was last reviewed on 16 June 2026, following a full WCAG 2.2 AA audit
+            and remediation pass. We review and update this statement at least every 12 months,
+            or whenever significant changes are made to the platform.
           </p>
         </section>
       </main>
