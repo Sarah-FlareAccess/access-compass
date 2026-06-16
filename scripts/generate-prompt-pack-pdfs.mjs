@@ -79,7 +79,7 @@ const formatBooklets = [
 
 const HOW_TO_USE_BOOKLET = [
   'Run the prompts in order the first time, then reuse the booklet whenever you create a new piece in this format.',
-  'Sections 1 and 2 set up ChatGPT and Claude. Section 3 collects your business context. Section 4 generates the first draft.',
+  'Sections 1 and 2 set up your drafting AI (ChatGPT, Copilot, Gemini or similar) and Claude. Section 3 collects your business context. Section 4 generates the first draft.',
   'Section 5 has iteration prompts split into copy iterations (refining new content) and accessibility iterations (refining scaffolding without rewriting copy).',
   'Sections 6 and 7 are Claude\'s sense-check and the accessibility formatting checklist you apply in Word (or your design tool for Large Print).',
   'Section 8 is the reset prompt if the AI drifts off task. Pair this booklet with the standalone Human Review Checklist before publishing.',
@@ -96,7 +96,7 @@ function bookletSections(slug) {
     {
       title: '1. AI assistant system prompt',
       intro:
-        'Paste into ChatGPT Custom Instructions, a Project Instructions field, or as the first message in a fresh chat. Sets up the AI with the role, formatting rules and accessibility standards reference it needs.',
+        'Paste into your drafting AI (ChatGPT, Copilot, Gemini or your tool of choice). For tools that support saved instructions, paste it into Custom Instructions or a Project\'s Instructions field. For tools without saved instructions, paste it as the first message in every fresh chat. Sets up the AI with the role, formatting rules and accessibility standards reference it needs.',
       prompt: grab('1. AI ASSISTANT SYSTEM PROMPT', '2. CLAUDE REVIEWER PROMPT'),
     },
     {
@@ -108,7 +108,7 @@ function bookletSections(slug) {
     {
       title: '3. Briefing prompt',
       intro:
-        'Paste into ChatGPT after the system prompt is set up. Fill in the [PLACEHOLDERS] with your format, audience, purpose, where it lives and source material.',
+        'Paste into your drafting AI after the system prompt is set up. Fill in the [PLACEHOLDERS] with your format, audience, purpose, where it lives and source material.',
       prompt: grab('3. BRIEFING PROMPT', buildLabel),
     },
     {

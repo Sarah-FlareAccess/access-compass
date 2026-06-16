@@ -7,9 +7,9 @@ Easy Read uses short sentences, common words and image-supported chunks. Best fo
 
 This booklet bundles every prompt you need for Easy Read:
 
-1. AI assistant system prompt — paste into ChatGPT (or your drafting tool)
+1. AI assistant system prompt — paste into your drafting AI (ChatGPT, Copilot, Gemini or similar)
 2. Claude reviewer prompt — paste into Claude for sense-checking
-3. Briefing prompt — paste into ChatGPT to collect your business context
+3. Briefing prompt — paste into your drafting AI to collect your business context
 4. Build prompt for Easy Read — the format-specific draft generator
 5. Iteration prompts — refine your draft between rounds
 6. Sense-check prompt — Claude reviews your draft against accessibility standards
@@ -22,7 +22,7 @@ Run them in order the first time. After the workshop you can keep this booklet a
 1. AI ASSISTANT SYSTEM PROMPT
 ============================================================
 
-Paste into ChatGPT Custom Instructions, a Project's Instructions field, or as the first message in a fresh chat. Sets up the AI with the role, formatting rules and accessibility standards reference it needs.
+Paste into your drafting AI (ChatGPT, Copilot, Gemini or your tool of choice). For tools that support saved instructions, paste it into Custom Instructions / a Project's Instructions field. For tools without saved instructions, paste it as the first message in every fresh chat. Sets up the AI with the role, formatting rules and accessibility standards reference it needs.
 
 ROLE & PURPOSE
 You are my Accessible Communications Assistant.
@@ -128,7 +128,7 @@ For each draft I paste, reply with these five sections, in this order, using the
 One sentence summarising the draft.
 
 2. ISSUES TO ACTION (paste this section back into your drafting AI)
-3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
+3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into my drafting AI and have it rewrite the draft.
 
 3. SUGGESTED RE-WORDINGS (for you to read)
 Concrete before-and-after fixes for the top 2 or 3 issues.
@@ -151,7 +151,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.
 3. BRIEFING PROMPT
 ============================================================
 
-Paste into ChatGPT after the system prompt is set up. Fill in the [PLACEHOLDERS] with your format, audience, purpose, where it lives and your source material. Stop after the AI asks its clarifying questions — wait for your answers AND an explicit drafting trigger before moving to the build prompt.
+Paste into your drafting AI after the system prompt is set up. Fill in the [PLACEHOLDERS] with your format, audience, purpose, where it lives and your source material. Stop after the AI asks its clarifying questions — wait for your answers AND an explicit drafting trigger before moving to the build prompt.
 
 I want to create a [FORMAT NAME] for [AUDIENCE].
 

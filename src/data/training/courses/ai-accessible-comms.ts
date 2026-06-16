@@ -462,7 +462,7 @@ For each draft I paste, reply with these five sections, in this order, using the
 One sentence summarising the draft.
 
 2. ISSUES TO ACTION (paste this section back into your drafting AI)
-3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
+3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into my drafting AI and have it rewrite the draft.
 
 3. SUGGESTED RE-WORDINGS (for you to read)
 Concrete before-and-after fixes for the top 2 or 3 issues.
