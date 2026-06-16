@@ -222,15 +222,15 @@
 }
 
 .status-check {
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 .status-progress {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .status-pending {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .module-info {

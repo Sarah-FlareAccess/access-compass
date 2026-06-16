@@ -140,13 +140,13 @@
 }
 
 .summary-warning .warning-icon {
-  font-size: 20px;
+  font-size: 1.25rem;
   flex-shrink: 0;
 }
 
 .summary-warning p {
   margin: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #92400e;
   line-height: 1.5;
 }
@@ -221,7 +221,7 @@
   }
 
   .summary-header h1 {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .summary-section {
@@ -303,7 +303,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 1.5rem;
   box-shadow:
     0 2px 8px rgba(62, 43, 47, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -338,7 +338,7 @@
 
 /* Selection count in journey phase headers */
 .phase-actions .selection-count {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #490E67;
   padding: 4px 10px;
@@ -402,7 +402,7 @@
 }
 
 .na-label-text {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #6b7280;
   font-weight: 500;
 }
@@ -412,7 +412,7 @@
   padding: 10px 14px;
   background: rgba(156, 163, 175, 0.08);
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #6b7280;
   font-style: italic;
 }
@@ -420,7 +420,7 @@
 .phase-chevron {
   color: var(--text-secondary);
   transition: transform 0.2s ease;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .phase-chevron.rotated {
@@ -433,7 +433,7 @@
 }
 
 .phase-description {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-secondary);
   margin: 0 0 12px 0;
 }
@@ -451,13 +451,13 @@
 }
 
 .phase-tip .tip-icon {
-  font-size: 16px;
+  font-size: 1rem;
   flex-shrink: 0;
   line-height: 1.4;
 }
 
 .phase-tip .tip-text {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #4a4340;
   line-height: 1.5;
   margin: 0;
@@ -546,19 +546,19 @@
 }
 
 .touchpoint-label {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--text-primary);
 }
 
 .touchpoint-description {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin-top: 4px;
 }
 
 .touchpoint-example {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #777;
   margin-top: 6px;
   font-style: italic;
@@ -581,7 +581,7 @@
 
 .chevron {
   display: inline-block;
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--text-muted);
   transition: transform 0.2s ease;
 }
@@ -601,7 +601,7 @@
 }
 
 .sub-touchpoints-hint {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #757575;
   margin: 0;
 }
@@ -627,7 +627,7 @@
 }
 
 .sub-touchpoint-label {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #333;
 }
 
@@ -674,21 +674,21 @@
 }
 
 .discovery-title {
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 700;
   color: var(--amethyst-diamond);
   margin: 0 0 12px 0;
 }
 
 .discovery-subtitle {
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--text-secondary);
   margin: 0 0 12px 0;
   line-height: 1.6;
 }
 
 .discovery-note {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   font-style: italic;
   margin: 8px 0 0 0;
@@ -701,7 +701,7 @@
   justify-content: center;
   gap: 8px;
   margin-top: 20px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #757575;
 }
 
@@ -753,7 +753,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-secondary);
 }
 
@@ -780,7 +780,7 @@
   background: transparent;
   border: 2px solid var(--amethyst-diamond);
   border-radius: 12px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--amethyst-diamond);
   cursor: pointer;
@@ -805,7 +805,7 @@
   background: var(--amethyst-diamond);
   border: none;
   border-radius: 12px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: white;
   cursor: pointer;
@@ -837,7 +837,7 @@
 .discovery-skip-link button {
   background: none;
   border: none;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #757575;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -856,7 +856,7 @@
 }
 
 .discovery-skip-link p {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #aaa;
   margin: 4px 0 0 0;
 }
@@ -914,7 +914,7 @@
 }
 
 .header-icon {
-  font-size: 22px;
+  font-size: 1.375rem;
   filter: grayscale(1) brightness(10);
 }
 
@@ -968,12 +968,12 @@
 }
 
 .warning-icon {
-  font-size: 20px;
+  font-size: 1.25rem;
   flex-shrink: 0;
 }
 
 .warning-message {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #92400e;
   margin: 0;
 }
@@ -984,7 +984,7 @@
 }
 
 .journey-group-label {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   color: var(--amethyst-diamond);
   letter-spacing: 0.02em;
@@ -1020,14 +1020,14 @@
 }
 
 .module-card-title {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
 }
 
 .module-code-badge {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   color: var(--amethyst-diamond);
   background: rgba(124, 58, 237, 0.1);
@@ -1036,7 +1036,7 @@
 }
 
 .module-card-time {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #757575;
   margin: 4px 0 0 0;
 }
@@ -1048,14 +1048,14 @@
 }
 
 .why-suggested-label {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   color: #757575;
   margin: 0 0 4px 0;
 }
 
 .why-suggested-text {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin: 0;
 }
@@ -1109,14 +1109,14 @@
 }
 
 .tile-name {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.3;
 }
 
 .tile-code {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   color: var(--amethyst-diamond);
   background: rgba(124, 58, 237, 0.1);
@@ -1126,7 +1126,7 @@
 }
 
 .tile-time {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #757575;
   display: block;
   margin-bottom: 10px;
@@ -1139,14 +1139,14 @@
 
 .tile-why .why-label {
   display: block;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   color: #757575;
   margin-bottom: 4px;
 }
 
 .tile-why .why-text {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-muted);
   line-height: 1.4;
 }
@@ -1285,14 +1285,14 @@
 }
 
 .pathway-name {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 4px 0;
 }
 
 .pathway-tagline {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0;
   font-weight: 500;
@@ -1305,7 +1305,7 @@
 }
 
 .pathway-intro {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #4a4340;
   margin: 0 0 12px 0;
 }
@@ -1319,7 +1319,7 @@
 .pathway-benefits li {
   position: relative;
   padding-left: 20px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #444;
   line-height: 1.5;
   margin-bottom: 8px;
@@ -1341,7 +1341,7 @@
 }
 
 .outcomes-label {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: var(--amethyst-diamond);
   margin: 0 0 10px 0;
@@ -1356,7 +1356,7 @@
 .outcomes-list li {
   position: relative;
   padding-left: 20px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #4c1d6e;
   line-height: 1.5;
   margin-bottom: 6px;
@@ -1381,7 +1381,7 @@
 }
 
 .best-for-label {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #757575;
   display: block;
@@ -1389,7 +1389,7 @@
 }
 
 .best-for-text {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   line-height: 1.4;
 }
@@ -1413,13 +1413,13 @@
 }
 
 .comparison-name {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .comparison-text {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-secondary);
   font-style: italic;
 }
@@ -1434,7 +1434,7 @@
 }
 
 .pathway-reassurance p {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0;
   line-height: 1.6;
@@ -1447,7 +1447,7 @@
   border-radius: 10px;
   padding: 14px 18px;
   margin: 16px 0 0 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--amethyst-diamond);
   font-weight: 500;
   line-height: 1.5;
@@ -1471,7 +1471,7 @@
   display: inline-block;
   background: rgba(124, 58, 237, 0.1);
   color: var(--amethyst-diamond);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   padding: 4px 12px;
   border-radius: 12px;
@@ -1487,7 +1487,7 @@
 }
 
 .optional-question-title {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 20px 0;
@@ -1535,18 +1535,18 @@
 }
 
 .optional-option-label {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--text-primary);
 }
 
 .optional-option-desc {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
 }
 
 .optional-note {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #757575;
   font-style: italic;
   margin: 16px 0 0 0;
@@ -1565,7 +1565,7 @@
 }
 
 .calibration-title {
-  font-size: 26px;
+  font-size: 1.625rem;
   font-weight: 700;
   color: var(--amethyst-diamond);
   margin: 0 0 12px 0;
@@ -1573,7 +1573,7 @@
 }
 
 .calibration-subtitle {
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--text-secondary);
   margin: 0;
   line-height: 1.5;
@@ -1596,7 +1596,7 @@
 }
 
 .calibration-question-text {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 20px 0;
@@ -1655,7 +1655,7 @@
 }
 
 .calibration-option-label {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--text-primary);
 }
@@ -1766,7 +1766,7 @@
   .phase-icon {
     width: 40px;
     height: 40px;
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .phase-label {
@@ -1817,7 +1817,7 @@
   .category-icon {
     width: 40px;
     height: 40px;
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   /* Responsive: Header value points */
@@ -1836,7 +1836,7 @@
   }
 
   .header-icon {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .recommendation-header .discovery-title {
@@ -2038,7 +2038,7 @@ fieldset.context-question {
 }
 
 .context-question .field-helper {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-secondary);
   margin: 0 0 16px 0;
   line-height: 1.5;
@@ -2085,7 +2085,7 @@ fieldset.context-question {
 }
 
 .context-question .radio-label span {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -2113,13 +2113,13 @@ fieldset.context-question {
 }
 
 .field-tip .tip-icon {
-  font-size: 14px;
+  font-size: 0.875rem;
   flex-shrink: 0;
   line-height: 1.5;
 }
 
 .field-tip {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #4a4340;
   line-height: 1.5;
   margin: 0;
@@ -2141,14 +2141,14 @@ fieldset.context-question {
 }
 
 .context-message .context-icon {
-  font-size: 20px;
+  font-size: 1.25rem;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
 .context-message p {
   margin: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #1e40af;
   line-height: 1.5;
 }
@@ -2352,7 +2352,7 @@ fieldset.context-question {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 1.375rem;
   flex-shrink: 0;
 }
 
@@ -2497,14 +2497,14 @@ fieldset.context-question {
 .module-tile.selectable .tile-name {
   font-weight: 600;
   color: var(--text-primary);
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.3;
   flex: 1;
 }
 
 .module-tile.selectable .tile-code {
   flex-shrink: 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-muted);
   background: #f0f0f0;
   padding: 2px 8px;
@@ -2692,7 +2692,7 @@ fieldset.context-question {
   .phase-icon {
     width: 36px;
     height: 36px;
-    font-size: 18px;
+    font-size: 1.125rem;
     border-radius: 10px;
   }
 
@@ -2764,7 +2764,7 @@ fieldset.context-question {
   }
 
   .header-icon {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   /* Compact selection summary */
@@ -2818,7 +2818,7 @@ fieldset.context-question {
   .category-icon {
     width: 32px;
     height: 32px;
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   .category-label {
@@ -3064,7 +3064,7 @@ fieldset.context-question {
 }
 
 .event-mode-message .context-icon {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .event-mode-message p {
@@ -3083,7 +3083,7 @@ fieldset.context-question {
 }
 
 .both-mode-message .context-icon {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .both-mode-message p {
@@ -3119,6 +3119,6 @@ fieldset.context-question {
   }
 
   .event-mode-message .context-icon {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 }

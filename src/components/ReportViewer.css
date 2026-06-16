@@ -39,7 +39,7 @@
 
 .report-viewer-header h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -61,7 +61,7 @@
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -79,7 +79,7 @@
   background: white;
   border: 1px solid #d1d5db;
   border-radius: 6px;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: #6b7280;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -108,28 +108,28 @@
 }
 
 .report-title {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 8px 0;
 }
 
 .report-subtitle {
-  font-size: 18px;
+  font-size: 1.125rem;
   color: var(--amethyst-diamond);
   font-weight: 600;
   margin-bottom: 24px;
 }
 
 .report-org-name {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #374151;
   margin-bottom: 8px;
 }
 
 .report-date {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #6b7280;
 }
 
@@ -140,7 +140,7 @@
 }
 
 .report-section h2 {
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 16px 0;
@@ -157,21 +157,21 @@
 }
 
 .report-section h3 {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #374151;
   margin: 16px 0 12px 0;
 }
 
 .report-section h4 {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: #1f2937;
   margin: 0 0 8px 0;
 }
 
 .section-intro {
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: #4b5563;
   margin: 0 0 16px 0;
   line-height: 1.6;
@@ -209,7 +209,7 @@
 }
 
 .stat-number {
-  font-size: 36px;
+  font-size: 2.25rem;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1;
@@ -217,7 +217,7 @@
 }
 
 .stat-label {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #6b7280;
   /* text-transform removed for accessibility */
@@ -231,7 +231,7 @@
 }
 
 .progress-label {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #374151;
   margin-bottom: 8px;
@@ -280,7 +280,7 @@
 }
 
 .module-evidence-name .module-code {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   padding: 4px 8px;
   background: var(--amethyst-diamond);
@@ -290,7 +290,7 @@
 }
 
 .module-evidence-name .module-name {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: #1f2937;
 }
@@ -298,7 +298,7 @@
 .module-evidence-card .confidence-badge {
   padding: 4px 10px;
   border-radius: 12px;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 700;
   /* text-transform removed for accessibility */
   letter-spacing: 0.5px;
@@ -333,7 +333,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 
 .module-evidence-meta .evidence-label {
@@ -349,7 +349,7 @@
 .module-evidence-stats {
   display: flex;
   gap: 16px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
 }
 
@@ -373,7 +373,7 @@
   margin-bottom: 8px;
   border-radius: 6px;
   line-height: 1.5;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .report-list-positive li {
@@ -390,7 +390,7 @@
   padding: 8px 12px;
   margin-bottom: 4px;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 0.875rem;
   background: rgba(239, 68, 68, 0.08);
   border-left: 4px solid #ef4444;
   color: #991b1b;
@@ -424,7 +424,7 @@
   width: 24px;
   height: 24px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   line-height: 1;
   margin-top: 1px;
@@ -460,7 +460,7 @@
   gap: 6px;
   padding: 4px 0;
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
@@ -560,7 +560,7 @@
 
 .quick-win-header h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: #1f2937;
   flex: 1;
@@ -573,7 +573,7 @@
 }
 
 .quick-win-badges span {
-  font-size: 11px;
+  font-size: 0.6875rem;
   padding: 3px 8px;
   border-radius: 12px;
   font-weight: 600;
@@ -604,7 +604,7 @@
 
 .quick-win-card p {
   margin: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #4b5563;
   line-height: 1.5;
 }
@@ -619,7 +619,7 @@
 
 .finding-module h3 {
   margin: 0 0 16px 0;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
   color: #1f2937;
 }
@@ -677,7 +677,7 @@
 .priority-badge {
   padding: 4px 10px;
   border-radius: 12px;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 700;
   /* text-transform removed for accessibility */
   letter-spacing: 0.5px;
@@ -753,7 +753,7 @@
 .compliance-badge {
   padding: 4px 10px;
   border-radius: 12px;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.3px;
   white-space: nowrap;
@@ -775,7 +775,7 @@
 .issue-actions,
 .issue-resources {
   margin-bottom: 12px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
@@ -819,7 +819,7 @@
 
 .resource-link::after {
   content: '→';
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .issue-resource-link {
@@ -834,7 +834,7 @@
 }
 
 .next-steps-column h3 {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
   color: #1f2937;
   margin: 0 0 12px 0;
@@ -852,7 +852,7 @@
   background: #f9fafb;
   border-radius: 6px;
   position: relative;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: #374151;
 }
@@ -862,7 +862,7 @@
   position: absolute;
   left: 14px;
   color: var(--amethyst-diamond);
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
 }
 
@@ -879,7 +879,7 @@
   background: #f9fafb;
   border-left: 4px solid var(--amethyst-diamond);
   border-radius: 6px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.5;
   color: #374151;
 }
@@ -899,7 +899,7 @@
 
 .support-recommendation p {
   margin: 0;
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--amethyst-diamond);
 }
 
@@ -907,7 +907,7 @@
   padding: 16px;
   background: #f9fafb;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: #4b5563;
 }
@@ -939,7 +939,7 @@
 }
 
 .report-disclaimer p {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: #4b5563;
   margin: 0 0 12px 0;
@@ -957,7 +957,7 @@
   padding: 20px 0;
   margin-top: 32px;
   border-top: 2px solid #e5e7eb;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #6b7280;
 }
 
@@ -994,7 +994,7 @@
 }
 
 .report-group-title {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -1032,7 +1032,7 @@
 
 .report-jump-nav-btn {
   padding: 6px 12px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: #6b7280;
   background: transparent;
@@ -1085,7 +1085,7 @@
 }
 
 .categorised-module-code {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   padding: 3px 8px;
   background: var(--amethyst-diamond);
@@ -1096,7 +1096,7 @@
 }
 
 .categorised-module-name {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 700;
   color: #1f2937;
 }
@@ -1107,7 +1107,7 @@
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -1139,7 +1139,7 @@
   width: 100%;
   padding: 10px 16px;
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--amethyst-diamond);
   background: rgba(73, 14, 103, 0.04);
@@ -1272,7 +1272,7 @@
 }
 
 .url-analysis-header .url-link {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--amethyst-diamond);
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -1294,7 +1294,7 @@
 .url-analysis-score .score-badge {
   padding: 6px 12px;
   border-radius: 16px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -1319,13 +1319,13 @@
 }
 
 .url-analysis-score .score-status {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: #4b5563;
 }
 
 .url-analysis-summary {
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.6;
   color: #374151;
   margin: 0 0 16px 0;
@@ -1347,13 +1347,13 @@
 
 .url-analysis-strengths h4 {
   color: #166534;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 0 0 8px 0;
 }
 
 .url-analysis-improvements h4 {
   color: #92400e;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 0 0 8px 0;
 }
 
@@ -1364,14 +1364,14 @@
 }
 
 .url-analysis-strengths li {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: #166534;
   margin-bottom: 4px;
 }
 
 .url-analysis-improvements li {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: #92400e;
   margin-bottom: 4px;
@@ -1412,7 +1412,7 @@
   background: var(--amethyst-diamond);
   color: white;
   border-radius: 12px;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   /* text-transform removed for accessibility */
   letter-spacing: 0.5px;
@@ -1420,13 +1420,13 @@
 }
 
 .analysis-filename {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #374151;
   font-weight: 500;
 }
 
 .analysis-url {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--amethyst-diamond);
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -1447,7 +1447,7 @@
 .media-analysis-score .score-badge {
   padding: 6px 12px;
   border-radius: 16px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -1477,7 +1477,7 @@
 }
 
 .media-analysis-score .score-status {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: #4b5563;
 }
@@ -1497,7 +1497,7 @@
 }
 
 .media-analysis-summary {
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.6;
   color: #374151;
   margin: 0 0 16px 0;
@@ -1516,7 +1516,7 @@
 }
 
 .media-analysis-standards .standards-label {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #6b7280;
   font-weight: 500;
 }
@@ -1525,7 +1525,7 @@
   padding: 4px 10px;
   background: rgba(124, 58, 237, 0.1);
   border-radius: 12px;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   color: var(--amethyst-diamond);
 }
@@ -1544,19 +1544,19 @@
 
 .media-analysis-strengths h4 {
   color: #166534;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 0 0 8px 0;
 }
 
 .media-analysis-quickwins h4 {
   color: #1e3a8a;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 0 0 8px 0;
 }
 
 .media-analysis-improvements h4 {
   color: #92400e;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 0 0 8px 0;
 }
 
@@ -1568,21 +1568,21 @@
 }
 
 .media-analysis-strengths li {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: #166534;
   margin-bottom: 4px;
 }
 
 .media-analysis-quickwins li {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: #1e3a8a;
   margin-bottom: 4px;
 }
 
 .media-analysis-improvements li {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: #92400e;
   margin-bottom: 4px;
@@ -1598,14 +1598,14 @@
 
 .media-analysis-professional strong {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--amethyst-diamond);
   margin-bottom: 4px;
 }
 
 .media-analysis-professional p {
   margin: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #6b7280;
   line-height: 1.5;
 }
@@ -1633,7 +1633,7 @@
 }
 
 .note-module {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--amethyst-diamond);
   /* text-transform removed for accessibility */
@@ -1641,7 +1641,7 @@
 }
 
 .note-answer {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 600;
   padding: 3px 8px;
   border-radius: 12px;
@@ -1669,14 +1669,14 @@
 }
 
 .note-question {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #374151;
   margin-bottom: 8px;
 }
 
 .note-content {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: #4b5563;
   padding: 12px;
@@ -1708,7 +1708,7 @@
 }
 
 .evidence-type-badge {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   padding: 4px 10px;
   background: rgba(124, 58, 237, 0.1);
@@ -1721,7 +1721,7 @@
 }
 
 .evidence-module {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   color: #6b7280;
   /* text-transform removed for accessibility */
@@ -1744,7 +1744,7 @@
 }
 
 .evidence-filename {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #1f2937;
   margin-bottom: 4px;
@@ -1752,13 +1752,13 @@
 }
 
 .evidence-question {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #6b7280;
   line-height: 1.4;
 }
 
 .evidence-description {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #4b5563;
   margin-top: 8px;
   padding: 8px;
@@ -1787,7 +1787,7 @@
   }
 
   .report-title {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .summary-stats {
@@ -1819,7 +1819,7 @@
 
   .report-jump-nav-btn {
     padding: 5px 8px;
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .report-group-header {
@@ -1827,7 +1827,7 @@
   }
 
   .report-group-title {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .categorised-module-heading {
@@ -1842,7 +1842,7 @@
   background: #eff6ff;
   border: 1px solid #bfdbfe;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #1e40af;
   display: flex;
   align-items: center;

@@ -583,7 +583,7 @@
   color: white;
   padding: 6px 16px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(73, 14, 103, 0.3);
@@ -766,7 +766,7 @@
 }
 
 .edit-icon {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 /* Title row with inline edit */
@@ -880,7 +880,7 @@
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1;
 }
 
@@ -926,14 +926,14 @@
 }
 
 .item-title {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 8px 0;
 }
 
 .item-description {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-secondary);
   margin: 0 0 16px 0;
   line-height: 1.6;
@@ -968,7 +968,7 @@
   border: 1px solid #918a8e;
   border-radius: 6px;
   background: white;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   cursor: pointer;
   display: flex;
@@ -1035,7 +1035,7 @@
   padding: 10px 16px;
   border: none;
   background: none;
-  font-size: 13px;
+  font-size: 0.8125rem;
   text-align: left;
   cursor: pointer;
   transition: background 0.2s ease;
@@ -1053,13 +1053,13 @@
 .item-meta {
   display: flex;
   gap: 16px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #636363;
 }
 
 .item-source {
   margin-top: 12px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #636363;
   font-style: italic;
 }
@@ -1097,7 +1097,7 @@
 }
 
 .diap-item-form h3 {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 20px 0;
@@ -1116,7 +1116,7 @@
 .form-row label,
 .form-row .form-field label {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-primary);
   margin-bottom: 6px;
@@ -1133,7 +1133,7 @@
   padding: 12px 14px;
   border: 1px solid #918a8e;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   transition: border-color 0.2s ease;
 }
 
@@ -1166,7 +1166,7 @@
   background: #ffffff;
   border: 2px solid #5a3c82;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
   cursor: pointer;
@@ -1188,7 +1188,7 @@
   background: var(--amethyst-diamond);
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: white;
   cursor: pointer;
@@ -1238,14 +1238,14 @@
 }
 
 .documents-section h2 {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
 }
 
 .chevron {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   transition: transform 0.2s ease;
 }
@@ -1284,11 +1284,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .upload-hint {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #636363;
   margin: 8px 0 0 0;
 }
@@ -1309,7 +1309,7 @@
 }
 
 .document-icon {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .document-info {
@@ -1319,7 +1319,7 @@
 
 .document-name {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-primary);
   white-space: nowrap;
@@ -1328,7 +1328,7 @@
 }
 
 .document-meta {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #636363;
 }
 
@@ -1342,7 +1342,7 @@
   background: white;
   border: 1px solid #918a8e;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   text-decoration: none;
   cursor: pointer;
@@ -1374,7 +1374,7 @@
 }
 
 .evidence-subsection-title {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 8px 0;
@@ -1395,7 +1395,7 @@
 }
 
 .evidence-subsection-desc {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin: 0 0 16px 0;
 }
@@ -1439,7 +1439,7 @@
 }
 
 .evidence-thumbnail .doc-icon {
-  font-size: 32px;
+  font-size: 2rem;
 }
 
 .evidence-item-info {
@@ -1448,7 +1448,7 @@
 
 .evidence-item-name {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--text-primary);
   white-space: nowrap;
@@ -1458,7 +1458,7 @@
 
 .evidence-item-source {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #636363;
   white-space: nowrap;
   overflow: hidden;
@@ -1480,7 +1480,7 @@
 .diap-actions .btn {
   padding: 14px 28px;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -1514,7 +1514,7 @@
   border-radius: 16px;
   padding: 60px;
   text-align: center;
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--text-muted);
 }
 
@@ -1618,7 +1618,7 @@ button.evidence-layer-header {
 }
 
 .evidence-layer-header h2 {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--amethyst-diamond);
   margin: 0;
@@ -1629,7 +1629,7 @@ button.evidence-layer-header {
 }
 
 .evidence-intro {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0 0 20px 0;
   line-height: 1.5;
@@ -1663,7 +1663,7 @@ button.evidence-layer-header {
 }
 
 .evidence-module-name {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.3;
@@ -1698,7 +1698,7 @@ button.evidence-layer-header {
 
 .evidence-diap-section {
   display: inline-block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--amethyst-diamond);
   background: rgba(124, 58, 237, 0.08);
   padding: 4px 10px;
@@ -1712,7 +1712,7 @@ button.evidence-layer-header {
 }
 
 .evidence-stat {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   padding: 3px 8px;
   border-radius: 6px;
@@ -1738,7 +1738,7 @@ button.evidence-layer-header {
 
 .evidence-completed-by,
 .evidence-completed-date {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
 }
 
@@ -1763,14 +1763,14 @@ button.evidence-layer-header {
 }
 
 .diap-section-header h3 {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--amethyst-diamond);
   margin: 0 0 4px 0;
 }
 
 .diap-section-header p {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin: 0;
 }
@@ -1782,7 +1782,7 @@ button.evidence-layer-header {
 .diap-section-empty {
   text-align: center;
   padding: 24px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #636363;
 }
 
@@ -1866,7 +1866,7 @@ button.evidence-layer-header {
 }
 
 .modal-header h2 {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
@@ -1878,7 +1878,7 @@ button.evidence-layer-header {
   border: none;
   background: #f3f4f6;
   border-radius: 8px;
-  font-size: 24px;
+  font-size: 1.5rem;
   line-height: 1;
   color: var(--text-muted);
   cursor: pointer;
@@ -1901,7 +1901,7 @@ button.evidence-layer-header {
 
 /* Import Modal Specific */
 .import-intro {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0 0 24px 0;
   line-height: 1.5;
@@ -1949,19 +1949,19 @@ button.evidence-layer-header {
 }
 
 .import-option-icon {
-  font-size: 32px;
+  font-size: 2rem;
   margin-bottom: 12px;
 }
 
 .import-option h3 {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 8px 0;
 }
 
 .import-option > p {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0 0 16px 0;
   line-height: 1.5;
@@ -1976,7 +1976,7 @@ button.evidence-layer-header {
 .import-option .btn {
   padding: 10px 20px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -2010,7 +2010,7 @@ button.evidence-layer-header {
 }
 
 .import-note {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #636363;
   margin: 12px 0 0 0;
   font-style: italic;
@@ -2037,20 +2037,20 @@ button.evidence-layer-header {
   background: #16a34a;
   color: white;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 12px;
 }
 
 .import-success h3 {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #14532d;
   margin: 0 0 8px 0;
 }
 
 .import-success p {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0;
 }
@@ -2071,13 +2071,13 @@ button.evidence-layer-header {
   background: #dc2626;
   color: white;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 12px;
 }
 
 .import-error h3 {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #dc2626;
   margin: 0 0 8px 0;
@@ -2087,7 +2087,7 @@ button.evidence-layer-header {
   margin: 0;
   padding: 0 0 0 20px;
   text-align: left;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
 }
 
@@ -2100,7 +2100,7 @@ button.evidence-layer-header {
 }
 
 .import-warnings h4 {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #9a3412;
   margin: 0 0 8px 0;
@@ -2109,7 +2109,7 @@ button.evidence-layer-header {
 .import-warnings ul {
   margin: 0;
   padding: 0 0 0 20px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
 }
 
@@ -2123,7 +2123,7 @@ button.evidence-layer-header {
 .import-result-actions .btn {
   padding: 12px 24px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   border: none;
@@ -2165,7 +2165,7 @@ button.evidence-layer-header {
 }
 
 .priority-fieldset legend {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-primary);
   margin-bottom: 6px;
@@ -2183,7 +2183,7 @@ button.evidence-layer-header {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: white;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -2256,7 +2256,7 @@ button.evidence-layer-header {
 }
 
 .generate-banner p {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0;
   line-height: 1.5;
@@ -2267,7 +2267,7 @@ button.evidence-layer-header {
   background: var(--amethyst-diamond);
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: white;
   cursor: pointer;
@@ -2347,19 +2347,19 @@ button.evidence-layer-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 1.25rem;
   flex-shrink: 0;
 }
 
 .generation-notification-content h4 {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: #14532d;
   margin: 0 0 4px 0;
 }
 
 .generation-notification-content p {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin: 0;
 }
@@ -2373,7 +2373,7 @@ button.evidence-layer-header {
   border: none;
   background: transparent;
   color: #636363;
-  font-size: 18px;
+  font-size: 1.125rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -2530,7 +2530,7 @@ button.evidence-layer-header {
 }
 
 .category-count {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--amethyst-diamond);
   background: rgba(124, 58, 237, 0.1);
@@ -2540,7 +2540,7 @@ button.evidence-layer-header {
 }
 
 .category-chevron {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   transition: transform 0.2s ease;
   flex-shrink: 0;
@@ -2584,13 +2584,13 @@ button.evidence-layer-header {
 }
 
 .section-name {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--amethyst-diamond);
 }
 
 .section-count {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: #636363;
   background: #f3f4f6;
@@ -2599,7 +2599,7 @@ button.evidence-layer-header {
 }
 
 .section-empty {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #636363;
   text-align: center;
   padding: 20px;
@@ -2813,11 +2813,11 @@ button.evidence-layer-header {
 }
 
 .diap-category-view .item-title {
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .diap-category-view .item-description {
-  font-size: 13px;
+  font-size: 0.8125rem;
   margin-bottom: 12px;
 }
 
@@ -2829,15 +2829,15 @@ button.evidence-layer-header {
   }
 
   .category-icon {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .category-name {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .category-description {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 
   .category-content {
@@ -2895,19 +2895,19 @@ button.evidence-layer-header {
 }
 
 .folder-icon {
-  font-size: 20px;
+  font-size: 1.25rem;
   flex-shrink: 0;
 }
 
 .folder-name {
   flex: 1;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .folder-count {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--amethyst-diamond);
   background: rgba(124, 58, 237, 0.1);
@@ -2916,7 +2916,7 @@ button.evidence-layer-header {
 }
 
 .folder-chevron {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   transition: transform 0.2s ease;
 }
@@ -2982,7 +2982,7 @@ button.evidence-layer-header {
 }
 
 .folder-evidence-thumb .doc-icon {
-  font-size: 28px;
+  font-size: 1.75rem;
 }
 
 .folder-evidence-info {
@@ -2991,7 +2991,7 @@ button.evidence-layer-header {
 
 .folder-evidence-name {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--text-primary);
   white-space: nowrap;
@@ -3001,7 +3001,7 @@ button.evidence-layer-header {
 
 .folder-evidence-source {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #636363;
   white-space: nowrap;
   overflow: hidden;
@@ -3014,7 +3014,7 @@ button.evidence-layer-header {
   text-align: center;
   padding: 20px;
   color: #636363;
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 
 /* Responsive folders */
@@ -3188,7 +3188,7 @@ button.evidence-layer-header {
 /* Reorder buttons */
 .action-btn.reorder {
   padding: 4px 8px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1;
   color: var(--amethyst-light, #6b21a8);
   min-width: 28px;
@@ -3266,7 +3266,7 @@ button.evidence-layer-header {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1;
   color: #4b5563;
   padding: 0 4px;

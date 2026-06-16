@@ -925,11 +925,11 @@
   /* Password field - prevent placeholder overlap with toggle */
   .password-input-wrapper input {
     padding-right: 65px;
-    font-size: 16px; /* Prevent iOS zoom */
+    font-size: 1rem; /* Prevent iOS zoom */
   }
 
   .password-input-wrapper input::placeholder {
-    font-size: 14px;
+    font-size: 0.875rem;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -943,7 +943,7 @@
   /* Prevent iOS zoom on text inputs */
   .auth-form input[type="text"],
   .auth-form input[type="email"] {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   /* Organisation section responsive */

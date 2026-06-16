@@ -12,7 +12,7 @@
   border: 2px dashed rgba(255, 255, 255, 0.3);
   border-radius: 10px;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -208,7 +208,7 @@
   align-items: center;
   gap: 8px;
   margin: 0;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: white;
 }
@@ -223,7 +223,7 @@
   background: #7c3aed;
   color: #ffffff;
   border-radius: 10px;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
@@ -233,7 +233,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 13px;
+  font-size: 0.8125rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -245,7 +245,7 @@
 
 .evidence-hint {
   margin: 0 0 12px 0;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: rgba(255, 255, 255, 0.6);
   font-style: italic;
 }
@@ -305,7 +305,7 @@
 
 .evidence-item-name {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: white;
   white-space: nowrap;
   overflow: hidden;
@@ -323,7 +323,7 @@ a.evidence-item-name:hover {
 
 .evidence-item-size {
   display: block;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.65);
   margin-top: 2px;
 }
@@ -353,7 +353,7 @@ a.evidence-item-name:hover {
   padding: 10px 12px;
   background: rgba(239, 68, 68, 0.15);
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #fca5a5;
 }
 
@@ -392,7 +392,7 @@ a.evidence-item-name:hover {
   border: 1px dashed rgba(124, 58, 237, 0.5);
   border-radius: 8px;
   color: #a78bfa;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -425,7 +425,7 @@ a.evidence-item-name:hover {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   color: white;
-  font-size: 14px;
+  font-size: 0.875rem;
   transition: all 0.2s ease;
 }
 
@@ -448,7 +448,7 @@ a.evidence-item-name:hover {
 }
 
 .evidence-link-description {
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 
 .evidence-add-link-btn {
@@ -457,7 +457,7 @@ a.evidence-item-name:hover {
   border: none;
   border-radius: 8px;
   color: white;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -477,7 +477,7 @@ a.evidence-item-name:hover {
 /* Note */
 .evidence-note {
   margin: 12px 0 0 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
 }
 

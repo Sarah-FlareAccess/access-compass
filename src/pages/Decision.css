@@ -673,7 +673,7 @@
 }
 
 .recommendation-icon {
-  font-size: 24px;
+  font-size: 1.5rem;
   flex-shrink: 0;
 }
 
@@ -1185,7 +1185,7 @@
 }
 
 .recommendation-icon-wrap .recommendation-icon {
-  font-size: 22px;
+  font-size: 1.375rem;
 }
 
 .recommendation-content {
@@ -1329,7 +1329,7 @@
 }
 
 .pathway-icon-circle span {
-  font-size: 26px;
+  font-size: 1.625rem;
 }
 
 .pathway-icon-circle.pulse {
@@ -1513,7 +1513,7 @@
 }
 
 .reassurance-icon {
-  font-size: 24px;
+  font-size: 1.5rem;
   flex-shrink: 0;
 }
 

@@ -481,13 +481,13 @@
 }
 
 .context-label {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-secondary);
 }
 
 .context-value {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 0.875rem;
   padding: 5px 14px;
   border-radius: 20px;
   transition: transform var(--transition-fast);
@@ -538,7 +538,7 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.875rem;
   padding: 6px 12px;
   border-radius: 8px;
   transition: all 0.2s ease;
@@ -573,7 +573,7 @@
 }
 
 .group-label {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   color: var(--amethyst-diamond);
   margin: 0 0 6px 0;
@@ -620,7 +620,7 @@
   border: 1px solid rgba(62, 43, 47, 0.06);
   cursor: pointer;
   transition: all 0.25s ease;
-  font-size: 14px;
+  font-size: 0.875rem;
   box-shadow: 0 1px 3px rgba(62, 43, 47, 0.03);
 }
 
@@ -844,7 +844,7 @@
   color: var(--amethyst-diamond);
   padding: 3px 10px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   min-width: 50px;
   text-align: center;
@@ -856,7 +856,7 @@
 
 .module-checkbox .module-time {
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 
 /* Empty Message */

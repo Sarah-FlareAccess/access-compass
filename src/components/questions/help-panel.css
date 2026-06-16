@@ -54,7 +54,7 @@
 
 .help-panel-header h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #1a1a2e;
 }
@@ -91,7 +91,7 @@
 }
 
 .help-section h4 {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   color: var(--amethyst-diamond);
   /* text-transform removed for accessibility */
@@ -101,7 +101,7 @@
 
 /* Summary */
 .help-summary p {
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.6;
   color: #333;
   margin: 0;
@@ -122,7 +122,7 @@
 }
 
 .help-understanding li {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: #333;
   padding: 6px 0;
@@ -158,7 +158,7 @@
 }
 
 .help-video .video-caption {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin: 8px 0 0 0;
   text-align: center;
@@ -211,7 +211,7 @@
   left: 8px;
   padding: 4px 10px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
@@ -235,14 +235,14 @@
 }
 
 .example-caption {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #333;
   margin: 0 0 4px 0;
 }
 
 .example-details {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin: 0;
   line-height: 1.4;
@@ -258,7 +258,7 @@
 .help-tips li {
   position: relative;
   padding: 10px 0 10px 28px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #333;
   border-bottom: 1px solid #eee;
 }
@@ -280,7 +280,7 @@
   align-items: center;
   gap: 8px;
   color: #7c3aed;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   text-decoration: none;
   padding: 10px 16px;
@@ -294,7 +294,7 @@
 }
 
 .learn-more-note {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin: 12px 0 0 0;
   padding: 12px;
@@ -317,7 +317,7 @@
   color: white;
   border: none;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -407,7 +407,7 @@
   }
 
   .help-panel-header h3 {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   /* Adjust content */
@@ -438,7 +438,7 @@
   }
 
   .help-panel-header h3 {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .help-panel-close {
@@ -456,12 +456,12 @@
   }
 
   .help-section h4 {
-    font-size: 13px;
+    font-size: 0.8125rem;
     margin-bottom: 8px;
   }
 
   .help-summary p {
-    font-size: 13px;
+    font-size: 0.8125rem;
     line-height: 1.4;
   }
 
@@ -473,7 +473,7 @@
 
   .btn-got-it {
     padding: 12px 16px;
-    font-size: 14px;
+    font-size: 0.875rem;
     min-height: 44px;
   }
 
@@ -499,7 +499,7 @@
   color: #1a1a1a;
   padding: 10px 18px;
   border-radius: 24px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -528,6 +528,6 @@
   background: #7c3aed;
   color: white;
   border-radius: 50%;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
 }

@@ -21,7 +21,7 @@
 }
 
 .question-flow-empty h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   color: #1a1a2e;
   margin: 0 0 12px 0;
 }
@@ -61,7 +61,7 @@
   color: white;
   padding: 8px 16px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -71,7 +71,7 @@
 }
 
 .flow-progress-text {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -109,7 +109,7 @@
 }
 
 .module-banner-title {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #ffffff;
   margin: 0;
@@ -131,7 +131,7 @@
 }
 
 .question-progress {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #757575;
 }
 
@@ -142,7 +142,7 @@
 
 .impact-badge,
 .safety-badge {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   padding: 4px 8px;
   border-radius: 4px;
@@ -156,7 +156,7 @@
 
 /* Question Text */
 .question-card .question-text {
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 600;
   color: #1a1a2e;
   margin: 0 0 16px 0;
@@ -168,7 +168,7 @@
 }
 
 .question-card .question-help-text {
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--text-muted);
   margin: 0 0 16px 0;
   line-height: 1.5;
@@ -179,7 +179,7 @@
   border-radius: 10px;
   padding: 14px 18px;
   margin-bottom: 24px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   border: 1px solid rgba(62, 43, 47, 0.06);
   box-shadow: inset 0 1px 2px rgba(62, 43, 47, 0.03);
@@ -203,7 +203,7 @@
   padding: 18px 22px;
   border: 2px solid rgba(62, 43, 47, 0.08);
   border-radius: 14px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   color: #1a1a2e;
   cursor: pointer;
@@ -279,7 +279,7 @@
 .answer-btn-secondary {
   width: 100%;
   padding: 12px 18px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 /* Not applicable - neutral styling */
@@ -327,7 +327,7 @@
 
 .partial-description-section label {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #92400e;
   margin-bottom: 10px;
@@ -338,7 +338,7 @@
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-family: inherit;
   resize: vertical;
   min-height: 80px;
@@ -351,7 +351,7 @@
 }
 
 .partial-report-hint {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #6b7280;
   margin: 6px 0 0 0;
   font-style: italic;
@@ -369,7 +369,7 @@
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-muted);
   cursor: pointer;
@@ -386,7 +386,7 @@
   background: #f59e0b;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: white;
   cursor: pointer;
@@ -418,7 +418,7 @@
 }
 
 .notes-header label {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #495057;
   margin: 0;
@@ -444,7 +444,7 @@
 
 .notes-info-btn .info-icon {
   color: white;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 700;
   font-style: italic;
   font-family: Georgia, serif;
@@ -460,7 +460,7 @@
 }
 
 .notes-info-tooltip p {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #084298;
   margin: 0 0 8px 0;
   line-height: 1.5;
@@ -475,7 +475,7 @@
   padding: 12px;
   border: 1px solid #dee2e6;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-family: inherit;
   resize: vertical;
   min-height: 60px;
@@ -518,7 +518,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #4b5563;
 }
@@ -528,7 +528,7 @@
 }
 
 .evidence-section-optional-badge {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #374151;
   background: #e5e7eb;
@@ -537,7 +537,7 @@
 }
 
 .evidence-section-hint {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #6b7280;
   margin: 0 0 12px 0;
 }
@@ -559,7 +559,7 @@
   color: white;
   border: none;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -598,7 +598,7 @@
   padding: 14px 16px;
   border: 2px solid #eee;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 500;
   transition: border-color 0.2s ease;
 }
@@ -609,7 +609,7 @@
 }
 
 .measurement-unit {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--text-muted);
   min-width: 40px;
@@ -623,13 +623,13 @@
 }
 
 .guidance-text {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #166534;
   margin: 0 0 4px 0;
 }
 
 .guidance-ideal {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #16a34a;
   font-weight: 500;
   margin: 0;
@@ -642,7 +642,7 @@
 
 .confidence-selector label {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin-bottom: 8px;
 }
@@ -657,7 +657,7 @@
   padding: 10px 12px;
   border: 1px solid #eee;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   background: white;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -710,7 +710,7 @@
 }
 
 .option-label {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   color: #1a1a2e;
 }
@@ -732,7 +732,7 @@
   background: linear-gradient(135deg, #ffffff 0%, rgba(250, 248, 245, 0.5) 100%);
   border: 2px solid rgba(62, 43, 47, 0.08);
   border-radius: 14px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   color: #1a1a2e;
   text-align: left;
@@ -774,7 +774,7 @@
 
 .describe-input-highlight label {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #92400e;
   margin-bottom: 8px;
@@ -792,7 +792,7 @@
 }
 
 .describe-hint {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #92400e;
   margin-top: 8px;
   margin-bottom: 0;
@@ -811,7 +811,7 @@
 
 .other-description-input label {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-muted);
   margin-bottom: 8px;
@@ -822,7 +822,7 @@
   padding: 12px 14px;
   border: 2px solid #eee;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   transition: border-color 0.2s ease;
 }
 
@@ -848,7 +848,7 @@
   padding: 14px 16px;
   border: 2px solid #eee;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   margin-bottom: 12px;
   transition: border-color 0.2s ease;
 }
@@ -871,7 +871,7 @@
 }
 
 .text-input-section .notes-header label {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #495057;
   margin: 0;
@@ -886,7 +886,7 @@
 }
 
 .text-input-section .notes-info-tooltip p {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #084298;
   margin: 0 0 8px 0;
   line-height: 1.5;
@@ -901,7 +901,7 @@
   padding: 14px 16px;
   border: 2px solid #eee;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-family: inherit;
   resize: vertical;
   margin-bottom: 0;
@@ -920,7 +920,7 @@
   background: var(--amethyst-diamond);
   border: none;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: white;
   cursor: pointer;
@@ -946,7 +946,7 @@
 
 .notes-section label {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-muted);
   margin-bottom: 8px;
@@ -957,7 +957,7 @@
   padding: 12px 14px;
   border: 1px solid #eee;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   transition: border-color 0.2s ease;
 }
 
@@ -978,7 +978,7 @@
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 14px;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: color 0.2s ease;
 }
@@ -1016,18 +1016,18 @@
 
 .summary-icon span {
   color: white;
-  font-size: 32px;
+  font-size: 2rem;
 }
 
 .summary-title {
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 700;
   color: #1a1a2e;
   margin: 0 0 8px 0;
 }
 
 .summary-module-name {
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--text-secondary);
   margin: 0 0 8px 0;
   display: flex;
@@ -1036,7 +1036,7 @@
 }
 
 .summary-stats-brief {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #757575;
   margin: 0;
 }
@@ -1075,7 +1075,7 @@
 
 .overview-number {
   display: block;
-  font-size: 36px;
+  font-size: 2.25rem;
   font-weight: 700;
   color: #1a1a2e;
   line-height: 1;
@@ -1084,7 +1084,7 @@
 
 .overview-label {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--text-muted);
 }
@@ -1112,7 +1112,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
 }
 
@@ -1137,7 +1137,7 @@
 }
 
 .section-title {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: #1a1a2e;
   margin: 0;
@@ -1145,7 +1145,7 @@
 }
 
 .section-count {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: #757575;
   background: #f3f4f6;
@@ -1159,7 +1159,7 @@
 }
 
 .priority-badge {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 600;
   padding: 4px 8px;
   border-radius: 4px;
@@ -1243,7 +1243,7 @@
 .summary-item {
   padding: 12px 0;
   border-bottom: 1px solid #f3f4f6;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #333;
 }
 
@@ -1253,7 +1253,7 @@
 
 .summary-more {
   padding: 12px 0;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #7c3aed;
   font-weight: 500;
 }
@@ -1262,7 +1262,7 @@
   background: none;
   border: none;
   color: #7c3aed;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   cursor: pointer;
   padding: 4px 8px;
@@ -1345,20 +1345,20 @@
 }
 
 .action-text {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #1a1a2e;
   flex: 1;
 }
 
 .action-timeframe {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #757575;
   white-space: nowrap;
 }
 
 .action-impact {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin: 8px 0 0 0;
 }
@@ -1366,7 +1366,7 @@
 /* Explore/Professional descriptions */
 .explore-description,
 .professional-description {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0 0 12px 0;
 }
@@ -1398,7 +1398,7 @@
   background: #ffffff;
   border: 2px solid #5a3c82;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: #1a1a2e;
   cursor: pointer;
@@ -1421,7 +1421,7 @@
   background: #22c55e;
   border: none;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: #052e16;
   cursor: pointer;
@@ -1450,14 +1450,14 @@
 }
 
 .completion-form-title {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-primary, #1a1a2e);
   margin: 0 0 8px 0;
 }
 
 .completion-form-desc {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--text-secondary, #4a4340);
   margin: 0 0 20px 0;
 }
@@ -1468,7 +1468,7 @@
 
 .completion-field label {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary, #1a1a2e);
   margin-bottom: 6px;
@@ -1484,7 +1484,7 @@
   background: #fff;
   border: 2px solid #d1ccc9;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--text-primary, #1a1a2e);
   transition: all 0.2s ease;
 }
@@ -1501,7 +1501,7 @@
 }
 
 .completion-form-note {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-secondary, #4a4340);
   margin-bottom: 20px;
   font-style: italic;
@@ -1518,7 +1518,7 @@
   background: #f0ece9;
   border: 1px solid #d1ccc9;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-primary, #1a1a2e);
   cursor: pointer;
@@ -1535,7 +1535,7 @@
   background: #22c55e;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #052e16;
   cursor: pointer;
@@ -1654,11 +1654,11 @@
   }
 
   .question-card .question-text {
-    font-size: 22px;
+    font-size: 1.375rem;
   }
 
   .help-text {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .flow-navigation-header {
@@ -1693,16 +1693,16 @@
   }
 
   .module-banner-title {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .question-card .question-text {
-    font-size: 20px;
+    font-size: 1.25rem;
     line-height: 1.4;
   }
 
   .help-text {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 
   .answer-options {
@@ -1712,7 +1712,7 @@
 
   .answer-btn {
     padding: 16px 18px;
-    font-size: 15px;
+    font-size: 0.9375rem;
     min-height: 54px; /* Touch-friendly target */
   }
 
@@ -1742,7 +1742,7 @@
 
   .partial-textarea {
     min-height: 100px;
-    font-size: 16px; /* Prevents iOS zoom on focus */
+    font-size: 1rem; /* Prevents iOS zoom on focus */
   }
 
   .flow-back-btn {
@@ -1751,23 +1751,23 @@
   }
 
   .flow-progress-text {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 
   /* Notes section accessibility improvements */
   .notes-header label {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary, #1a1a2e);
   }
 
   .notes-info-tooltip p {
-    font-size: 15px;
+    font-size: 0.9375rem;
     color: #0a58ca;
   }
 
   .notes-section-enhanced textarea {
-    font-size: 16px; /* Prevents iOS zoom */
+    font-size: 1rem; /* Prevents iOS zoom */
     color: var(--text-primary, #1a1a2e);
   }
 
@@ -1776,22 +1776,22 @@
   }
 
   .notes-section label {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary, #1a1a2e);
   }
 
   .notes-section input {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .evidence-section-label {
-    font-size: 15px;
+    font-size: 0.9375rem;
     color: var(--text-secondary, #4b5563);
   }
 
   .partial-description-section label {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary, #1a1a2e);
   }
@@ -1815,13 +1815,13 @@
   }
 
   .question-card .question-text {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   /* Larger touch targets for one-handed use */
   .answer-btn {
     padding: 16px;
-    font-size: 15px;
+    font-size: 0.9375rem;
     min-height: 52px;
   }
 
@@ -1867,13 +1867,13 @@
   }
 
   .question-card .question-text {
-    font-size: 16px;
+    font-size: 1rem;
     word-wrap: break-word;
   }
 
   .answer-btn {
     padding: 12px 8px;
-    font-size: 13px;
+    font-size: 0.8125rem;
     word-wrap: break-word;
     white-space: normal;
     hyphens: auto;
@@ -1888,7 +1888,7 @@
   }
 
   .module-banner-title {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .notes-section-enhanced,
@@ -1897,13 +1897,13 @@
   }
 
   .notes-header label {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .btn-continue,
   .btn-back {
     min-height: 48px;
-    font-size: 14px;
+    font-size: 0.875rem;
     padding: 12px 16px;
   }
 }
