@@ -1018,18 +1018,20 @@ After the draft, give me:
             targetTool: 'drafting',
             formatKey: 'Accessible Word Document',
             instructions: 'For making an existing Word document more accessible to screen readers and moving it toward WCAG 2.2 AA conformance. Built on Australian Government Style Manual and NSW / Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings and similar. This format needs an existing Word document. If you have nothing yet, pick a different format (Plain Language, Easy Read, Social Story or Accessibility Guide) to create the content first, then come back here. PDF accessibility verification (Adobe Acrobat Pro, Grackle Docs) sits outside this workshop. Word\'s built-in PDF export with structure tags enabled is a basic starting point but not full PDF compliance.',
-            promptTemplate: `I have a Word document I want to make more accessible. I will paste the content below.
+            promptTemplate: `I have a Word document I want to make more accessible. My copy is finalised — I am not asking you to rewrite the wording, only to add the accessibility scaffolding around it.
+
+CRITICAL RULE: DO NOT REWRITE MY COPY. Keep every sentence exactly as I wrote it unless I explicitly ask you to change a specific sentence. Your job is structural and accessibility work, not editorial.
 
 Please apply this structure (based on Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document):
 
 1. STRUCTURE
 - Suggest a heading hierarchy. Mark each line as H1 / H2 / H3 etc. Do not skip levels.
 - Set a logical reading order top-to-bottom. Flag any content that may float (text boxes, sidebars).
-- Replace manual dashes or asterisks with proper bulleted or numbered lists.
+- Replace manual dashes or asterisks with proper bulleted or numbered lists. (This is structural, not wording.)
 
-2. PLAIN LANGUAGE PASS
-- Estimate reading level. Flag any sentence over 20 words or any jargon a general audience would miss.
-- Rewrite the top 5 hardest sentences in plainer language.
+2. PLAIN LANGUAGE NOTE (suggestion only, do not rewrite)
+- Note any sentence over 20 words or any jargon a general audience would miss.
+- For the top 5 hardest, list each one and suggest a plainer alternative I CAN CHOOSE to apply. Leave my original sentences in the draft unchanged. I will tell you which (if any) to apply.
 
 3. IMAGES
 - For each image the user has described to you in detail in the source material, draft alt text as a starting point: one sentence, factual visual description, message-focused. Tell the user to verify against the actual image before saving.
@@ -1038,7 +1040,7 @@ Please apply this structure (based on Australian Government Style Manual content
 - Flag any place where colour alone conveys meaning (e.g., "red items are urgent") and suggest a non-colour fix.
 
 4. LINKS
-- Rewrite any "click here", "read more", "this page" link text so it makes sense out of context.
+- Rewrite any "click here", "read more", "this page" link text so it makes sense out of context. (Link text is accessibility scaffolding, not editorial copy — rewriting it is OK.)
 - For printed copies, suggest a footnote with the full URL.
 
 5. TABLES
@@ -1058,10 +1060,12 @@ Please apply this structure (based on Australian Government Style Manual content
 After your analysis, give me:
 - A numbered checklist of every change to make in Word, in order
 - A short list of items I need to verify or supply (alt text confirmation, missing source info)
+- The Plain Language suggestions from step 2 (each as a separate line: original sentence + suggested rewrite + a label "OPTIONAL — apply only if I confirm")
 - One paragraph I can paste into the document footer noting it moves toward WCAG 2.2 AA conformance and how readers can request the content in another format
 
-Here is the content:
-[paste content]`,
+Source content: if I have already pasted the document earlier in this chat (e.g. in the briefing step), tell me "I will use the content you shared above" and proceed — do not ask me to re-paste. Otherwise paste it below:
+
+[paste content if not already shared]`,
             expectedOutcome: 'A numbered Word-application checklist (heading suggestions, link rewrites, alt text drafts, list conversions, colour-only fixes, table structure notes, document properties), a list of items to verify and a footer paragraph noting the document moves toward WCAG 2.2 AA conformance.',
           },
         },
@@ -1072,15 +1076,18 @@ Here is the content:
             targetTool: 'drafting',
             formatKey: 'Large Print',
             instructions: 'For reformatting short content for low-vision readers, following Vision Australia clear print guidance. This format needs existing short content to reformat (a menu page, a flyer, an announcement, a one-page summary). If you have no source content yet, use Plain Language or Easy Read first, then come back to Large Print to reformat the result.',
-            promptTemplate: `I have content I want to provide in Large Print. I will paste it below.
+            promptTemplate: `I have content I want to provide in Large Print. My copy is finalised — I am not asking you to rewrite the wording, only to confirm fit and produce the formatting checklist.
+
+CRITICAL RULE: DO NOT REWRITE MY COPY. Keep every sentence exactly as I wrote it unless I explicitly ask you to change a specific sentence. Your job is to assess fit and supply the typography / layout checklist, not to edit my words.
 
 Please:
-1. Confirm the content is appropriate for Large Print (short, high-priority information)
-2. Suggest any text edits to make it scannable (shorter sentences, clearer headings, removing decorative content)
-3. Give me the formatting checklist for Large Print (minimum font size, font family, line spacing, contrast, paper colour, margins) following Vision Australia guidance
+1. Confirm the content is appropriate for Large Print (short, high-priority information). If it is too long for Large Print as a format, say so and stop — do not condense the copy yourself.
+2. Note any sections that may be hard to scan at large type sizes (long sentences, dense paragraphs, decorative wording). List them as observations only — do NOT rewrite. I will decide what (if anything) to edit. The default is to keep my wording exactly as is.
+3. Give me the formatting checklist for Large Print (minimum font size, font family, line spacing, contrast, paper colour, margins) following Vision Australia guidance.
 
-Here is the content:
-[paste content]`,
+Source content: if I have already pasted the content earlier in this chat (e.g. in the briefing step), tell me "I will use the content you shared above" and proceed — do not ask me to re-paste. Otherwise paste it below:
+
+[paste content if not already shared]`,
             expectedOutcome: 'A scannable text version of your content plus a formatting checklist (font size, family, spacing, contrast, paper, margins) you can apply in Word or your design tool.',
           },
         },
@@ -1100,7 +1107,7 @@ Here is the content:
           type: 'callout',
           callout: {
             variant: 'tip',
-            text: 'If your copy is already finalised (typically Accessible Word Document or Large Print, where you pasted in existing content), skip Section A "copy iterations" below and go straight to Section B "accessibility iterations". You do not want the AI rewriting wording you are happy with.',
+            text: 'If your copy is already finalised (typically Accessible Word Document or Large Print, where you pasted in existing content), you can skip Step 3 entirely. The sense-check in Lesson 4 catches accessibility issues more systematically than running iterations here. Section A "copy iterations" below should always be skipped — you do not want the AI rewriting wording you are happy with. Section B "accessibility iterations" is a sidecar option for any obvious issue you spotted in Step 2 (a wrong alt text, a heading at the wrong level) that you want fixed before Lesson 4. Otherwise, save your draft and go.',
           },
         },
         {
