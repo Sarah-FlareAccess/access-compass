@@ -410,22 +410,22 @@ F. SOURCE COVERAGE
 
 For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
 
-1. DIAGNOSIS (for me to read)
+1. DIAGNOSIS (for you to read)
 One sentence summarising the draft.
 
 2. ISSUES TO ACTION (paste this section back into your drafting AI)
 3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
 
-3. SUGGESTED RE-WORDINGS (for me to read)
+3. SUGGESTED RE-WORDINGS (for you to read)
 Concrete before-and-after fixes for the top 2 or 3 issues.
 
-4. NEEDS HUMAN VERIFICATION (for me to read)
+4. NEEDS HUMAN VERIFICATION (for you to read)
 Facts, names, links, numbers or claims you may be guessing at.
 
-5. NEXT-ITERATION QUESTIONS (for me to read)
+5. NEXT-ITERATION QUESTIONS (for you to read)
 1 or 2 questions that would strengthen another pass.
 
-6. SOURCE COVERAGE (for me to read)
+6. SOURCE COVERAGE (for you to read)
 If the user provided source material with the draft, list any facts in the source that did not make it into the draft, and any facts in the draft that were not in the source. If no source was provided, write "No source provided for comparison" and stop.
 
 LANGUAGE
@@ -734,7 +734,7 @@ Walk me through every item under [FORMAT NAME] below. Do not skip any.
   2. Font size target (16pt / 18pt / 22pt or other).
   3. Line break preferences (where breaks matter).
   4. Must-keep emphasis (any words that must stay bold or italic).
-  5. Contrast preferences (black on white, dark blue on cream, etc.).
+  5. Contrast and brand colours: background colour preference (white, cream, yellow, dark with light text). Brand colours the user wants to keep — list each as a name and hex code (e.g. "Flare amethyst #490E67") so I can flag any that fail WCAG AA contrast at large type sizes.
 
 - Accessible Word Document: ask me to paste or summarise the existing document. Then ask one checklist covering:
   1. Current heading structure (does it use Word styles? H1 / H2 / H3 in order?).
@@ -743,6 +743,7 @@ Walk me through every item under [FORMAT NAME] below. Do not skip any.
   4. Links: descriptive text yes/no, any "click here" style links.
   5. Audience and accessibility target (WCAG 2.2 AA, screen reader users, low vision, cognitive accessibility, all of these).
   6. Document properties currently set (title and language) yes/no.
+  7. Brand colours: list any brand colours used in the document — colour name and hex code if known (e.g. "Flare amethyst #490E67", "sunrise #FF9015"). I will flag any that fail WCAG AA contrast against the page background and suggest accessible alternatives where needed.
 
 ALWAYS ASK ABOUT PHOTOS (for Accessibility Guide, Social Story / Visual Narrative and Easy Read)
 After the section checklists, ask one final checklist about photos. List the photos this format typically needs based on what I told you. For each, ask whether I "Have it", "Need to take it", or "Not applicable". Examples for an Accessibility Guide: accessible parking, drop-off area, route from parking to entrance, main entrance door, entrance threshold (if present), internal pathways, each visitor area mentioned, accessible toilet exterior and interior, seating options, any signage. Tailor the list to what I described in the earlier sections.
@@ -796,7 +797,7 @@ It will help them to [PURPOSE].
 It will live [WHERE IT WILL BE PUBLISHED].
 
 Here is my source material:
-[paste text, link or notes here]
+[paste the actual content as text — copy and paste from the webpage, PDF or doc. AI tools cannot reliably extract content from URLs; pasting the text is the only path that works]
 
 Before drafting:
 1. Confirm in 2 to 3 sentences what you understand.
@@ -1049,11 +1050,17 @@ Please work through this (based on Australian Government Style Manual content-ty
 - Flag any merged or split cells. Suggest a flat alternative.
 - Add a one-sentence caption above each table describing its purpose.
 
-6. DOCUMENT PROPERTIES (to set in Word File > Info > Properties before export)
+6. BRAND COLOURS (if listed in the briefing)
+- For each brand colour the user listed, calculate the contrast ratio against the page background (white unless they said otherwise).
+- Flag any that fail WCAG 2.2 AA: 4.5:1 for body text under 18pt, 3:1 for large text (18pt+ or 14pt bold).
+- For failing colours, suggest either a darkened/lightened variant that meets contrast OR a use restriction (e.g. "restrict #ABC123 to large headings only, do not use for body text").
+- Do not change brand colours in the draft itself. List as suggestions the user can choose to apply in Word.
+
+7. DOCUMENT PROPERTIES (to set in Word File > Info > Properties before export)
 - Suggest a document title (different from the file name).
 - Document language: English (Australia).
 
-7. EXPORT NOTES
+8. EXPORT NOTES
 - This workshop produces an accessible Word document. PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
 - If the user wants a PDF copy, note that Word's built-in PDF export with "Document structure tags for accessibility" enabled is a basic starting point only, not full PDF accessibility.
 - For web content, NSW and Vic Government recommend an HTML version over a PDF. Suggest if a webpage version of this content should also exist.
@@ -1085,6 +1092,7 @@ Please:
 1. Confirm the content is appropriate for Large Print (short, high-priority information). If it is too long for Large Print as a format, say so — do not condense the copy yourself, but tell me what would need to come out and let me decide.
 2. Suggest scannability improvements where they help at large type sizes (shorter sentences for very long ones, clearer headings, removing decorative wording). Format each suggestion as: original line + suggested change + the label "SUGGESTED — apply if you want better scannability, skip if your copy is locked". Leave my original sentences in the draft; I will tell you which suggestions to apply.
 3. Give me the formatting checklist for Large Print (minimum font size, font family, line spacing, contrast, paper colour, margins) following Vision Australia guidance.
+4. If I listed brand colours in the briefing, calculate the contrast ratio of each against the background colour I specified (or white by default). Flag any that fail WCAG 2.2 AA at large type sizes (3:1 minimum for 18pt+ text). For failing brand colours, suggest either a darkened/lightened variant that meets contrast OR a use restriction (e.g. "use only for accent elements, not body text"). Do not change brand colours unless I ask — list as suggestions.
 
 Source content: if I have already pasted the content earlier in this chat (e.g. in the briefing step), tell me "I will use the content you shared above" and proceed — do not ask me to re-paste. Otherwise paste it below:
 
@@ -1272,11 +1280,18 @@ Do not skip Part B. It is how I verify nothing was silently missed. Structural c
           },
         },
         {
+          type: 'text',
+          heading: 'Step 3: Use Claude to build your accessibility formatting checklist (12 min)',
+          body: `<p><strong>What this step does.</strong> Claude returns a formatting checklist you can apply and verify yourself. The checklist covers heading levels, alt text, link wording, table notes, document properties and typography.</p>
+<p><strong>Word or design tool.</strong> Most formats are built in Word. Large Print can also be laid out in Canva, InDesign or Affinity — the same checklist works there. Heading sizes, font family, line spacing, contrast and margins all translate across.</p>
+<p><strong>Why Claude, not ChatGPT.</strong> Claude is stronger at structured longer output. If Claude also produces a downloadable file, treat the file as a starting point and still work through the checklist below.</p>`,
+        },
+        {
           type: 'exercise',
           exercise: {
-            title: 'Step 3: Use Claude to build your accessibility formatting checklist (12 min)',
+            title: 'Send the checklist prompt',
             targetTool: 'reviewer',
-            instructions: 'Sometimes Claude can give you a file to download. Other times it gives you the same content as text in chat. Either way, this step does something more useful: it gives you a formatting checklist you can apply and check yourself. The checklist covers heading levels (like Heading 1 and Heading 2), alt text for images, link wording, table notes, document properties, typography and the structural items to apply. Most formats are built in Word. Large Print is often built in Word but can also be laid out in your design tool (Canva, InDesign, Affinity), and the same checklist works there: heading sizes, font family, line spacing, contrast and margins translate across. If Claude also gives you a file, treat it as a starting point and still work through the checklist. Claude is stronger than ChatGPT at this kind of structured longer output, which is why we use it here. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
+            instructions: 'Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
             promptTemplate: `I have a reviewed draft I want to publish in an accessible format.
 
 If you can generate the final accessible file directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the formatting structure (heading styles, bulleted or numbered lists, document properties, typography) inside the file itself. Also provide the formatting checklist as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
