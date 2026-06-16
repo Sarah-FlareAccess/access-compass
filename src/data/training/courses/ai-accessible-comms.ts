@@ -1097,9 +1097,18 @@ Here is the content:
 <p>Make a short list (3 to 5 items max) of what you want changed.</p>`,
         },
         {
+          type: 'callout',
+          callout: {
+            variant: 'tip',
+            text: 'If your copy is already finalised (typically Accessible Word Document or Large Print, where you pasted in existing content), skip Section A "copy iterations" below and go straight to Section B "accessibility iterations". You do not want the AI rewriting wording you are happy with.',
+          },
+        },
+        {
           type: 'text',
           heading: 'Step 3: Iterate (28 min)',
-          body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. The prompts below are <strong>examples</strong> for the most common requests, not a fixed list. Pick one that fits, or write your own iteration prompt in plain words. Every prompt ends with "Show the full updated draft" so the AI returns the complete revised version, not a summary of what would change. If you write your own, finish it the same way. (A 3rd round is rare when the first build prompt has done its job. Only run it if a real issue is unresolved.)</p>
+          body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. The prompts below are <strong>examples</strong> for the most common requests, split into two groups. Pick one that fits, or write your own iteration prompt in plain words. Every prompt ends with "Show the full updated draft" so the AI returns the complete revised version, not a summary of what would change. If you write your own, finish it the same way. (A 3rd round is rare when the first build prompt has done its job. Only run it if a real issue is unresolved.)</p>
+<h3>A. Copy iterations</h3>
+<p><strong>Use when:</strong> you are drafting new content from raw source (Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide). <strong>Skip if:</strong> your copy is already finalised.</p>
 <p><strong>Make it clearer:</strong></p>
 <pre><code>Rewrite section [X] using shorter sentences and simpler words. Aim for a reading age of 12 or below. Show the full updated draft.</code></pre>
 <p><strong>Make it shorter:</strong></p>
@@ -1113,7 +1122,21 @@ Here is the content:
 <p><strong>Add what is missing:</strong></p>
 <pre><code>You haven't covered [X]. Please add a section about it. Here's what you need to know: [paste info]. Show the full updated draft.</code></pre>
 <p><strong>Merge chunks (Social Story, Easy Read, Visual Narrative):</strong></p>
-<pre><code>This [FORMAT NAME] has too many photo + text chunks. Merge similar or thematically connected chunks (e.g. busy/quiet pairs, related sensory descriptions, sparse 2-sentence chunks) into combined chunks of 3 to 4 sentences. Target roughly [N] photo chunks total. Preserve one main idea per chunk and the 2 to 4 sentence rule. Show the full updated draft.</code></pre>`,
+<pre><code>This [FORMAT NAME] has too many photo + text chunks. Merge similar or thematically connected chunks (e.g. busy/quiet pairs, related sensory descriptions, sparse 2-sentence chunks) into combined chunks of 3 to 4 sentences. Target roughly [N] photo chunks total. Preserve one main idea per chunk and the 2 to 4 sentence rule. Show the full updated draft.</code></pre>
+<h3>B. Accessibility iterations</h3>
+<p><strong>Use when:</strong> your copy is set and you only need to refine the accessibility scaffolding around it (Accessible Word Document and Large Print most often, but useful for any format where the draft text is final). These do not rewrite your wording.</p>
+<p><strong>Redo alt text:</strong></p>
+<pre><code>The alt text you drafted for [image X / section Y] is wrong. Here is what the image actually shows: [describe the image]. Rewrite the alt text in one factual sentence. Show the full updated draft.</code></pre>
+<p><strong>Promote or demote a heading:</strong></p>
+<pre><code>Section [X] is currently Heading [N] but it should be Heading [M]. Promote / demote it. Adjust the surrounding heading hierarchy so nothing skips a level. Show the full updated draft.</code></pre>
+<p><strong>Rewrite link text:</strong></p>
+<pre><code>The link text "[click here / read more / this page]" in section [X] is not descriptive out of context. Rewrite each instance so a screen reader reading the link in isolation knows where it goes. Show the full updated draft.</code></pre>
+<p><strong>Fix table structure:</strong></p>
+<pre><code>The table in section [X] has no caption and no header row marked. Add a one-sentence caption above describing what the table shows, mark the first row as the header, and flag any merged cells. Show the full updated draft.</code></pre>
+<p><strong>Mark an image as decorative:</strong></p>
+<pre><code>The image at [location] is purely decorative — it adds visual interest but no information. Mark it as decorative with no alt text required. Show the full updated draft.</code></pre>
+<p><strong>Fix colour-only meaning:</strong></p>
+<pre><code>Section [X] uses colour alone to convey meaning (e.g. red text for urgent, green for available). Add a non-colour cue (text label, icon, bold weight) alongside the colour so the meaning works for everyone. Show the full updated draft.</code></pre>`,
         },
         {
           type: 'callout',
@@ -1181,6 +1204,13 @@ Here is the content:
           callout: {
             variant: 'warning',
             text: 'Always paste BOTH your source material AND your draft into the sense-check, in that order. Without source, Claude cannot tell your real facts apart from AI guesses and will over-correct, suggesting you demote your own confirmed facts (parking spaces, distances, door details) to "Needs answer". With source provided, Claude keeps your real facts in the draft and only flags actual AI inventions. Use the structured summary from your interview if you used one, otherwise use the source you pasted in Lesson 2.',
+          },
+        },
+        {
+          type: 'callout',
+          callout: {
+            variant: 'tip',
+            text: 'If your copy is finalised (typically Accessible Word Document or Large Print), ignore any items in Claude\'s reply that flag reading level, sentence length, jargon or "make it shorter / clearer" — your wording is set. Focus on the accessibility items: alt text completeness, heading hierarchy, link descriptiveness, table structure, anything Claude wants verified by a human.',
           },
         },
         {
