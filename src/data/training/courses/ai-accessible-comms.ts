@@ -1192,10 +1192,6 @@ Source content: if I have already pasted the content earlier in this chat (e.g. 
 <li><strong>WCAG 2.2 AA</strong>: the international web accessibility standard. AA is the level most government and large business sites aim for.</li>
 </ul>
 </details>
-<div class="heads-up-note">
-<div class="heads-up-label">A note on PDFs</div>
-<p>This workshop produces accessible <strong>Word documents</strong> (and Large Print laid out in Word or your design tool). If you need a PDF version, Word can export one with basic structure tags turned on, but full PDF accessibility verification requires paid external tools (Adobe Acrobat Pro or Grackle Docs) and sits outside this workshop. Treat any PDF you export as a starting point, not certified PDF accessibility.</p>
-</div>
 <p><strong>How the lesson runs:</strong></p>
 <ol>
 <li>Send your draft to Claude for sense-check (10 min)</li>
