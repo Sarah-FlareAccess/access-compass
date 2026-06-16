@@ -415,15 +415,21 @@ function drawHeading(state, text, level = 1) {
   const colors = { 1: BRAND.amethyst, 2: BRAND.amethyst, 3: BRAND.amethystLight };
   const before = { 1: 6, 2: 24, 3: 14 };
   const after = { 1: 12, 2: 10, 3: 6 };
-
-  ensureSpace(state, sizes[level] + before[level] + after[level]);
+  // Reserve room for at least N body lines (~14pt each) after the heading so
+  // we never orphan a heading at the bottom of a page. Level 1 and 2 headings
+  // get more lookahead because they introduce a substantial chunk; level 3
+  // headings can sit closer to their content.
+  const minFollowingLines = { 1: 5, 2: 4, 3: 3 };
+  const bodyLineHeight = 14;
+  const wrappedLines = state.doc.splitTextToSize(text, CONTENT_WIDTH);
+  const headingHeight = before[level] + wrappedLines.length * (sizes[level] + 2) + after[level];
+  const followingReserve = minFollowingLines[level] * bodyLineHeight;
+  ensureSpace(state, headingHeight + followingReserve);
   state.y += before[level];
   state.doc.setFont('helvetica', 'bold');
   state.doc.setFontSize(sizes[level]);
   state.doc.setTextColor(...colors[level]);
-  const lines = state.doc.splitTextToSize(text, CONTENT_WIDTH);
-  for (const line of lines) {
-    ensureSpace(state, sizes[level] + 2);
+  for (const line of wrappedLines) {
     state.doc.text(line, MARGIN.left, state.y);
     state.y += sizes[level] + 2;
   }
