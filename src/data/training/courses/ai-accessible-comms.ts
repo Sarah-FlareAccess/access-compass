@@ -6,7 +6,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   title: 'Using AI to Create Accessible & Inclusive Communications',
   subtitle: 'A practical 2-hour workshop. Walk in with content. Walk out with a draft.',
   description: 'Use free AI tools to draft accessible content for your business in around 2 hours. Choose your format, bring your source material and leave with a real first draft you can refine and publish.',
-  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and formatting checklist builder) to produce one piece of accessible content in a single session. You will set up saved AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to build a Word formatting checklist you can apply. The AI gives you a structured checklist (heading levels, alt text suggestions, link rewrites, table notes, document properties) of what to apply in Word. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Word Document (following the Australian Government Style Manual, equivalent state-government guidance, moving toward WCAG 2.2 AA conformance). PDF accessibility verification is out of scope (it needs paid external tools such as Adobe Acrobat Pro or Grackle Docs). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist producers for high-stakes content (every format has its own producer ecosystem) remain essential.',
+  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and formatting checklist builder) to produce one piece of accessible content in a single session. You will set up saved AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to build an accessibility formatting checklist you can apply. The AI gives you a structured checklist (heading levels, alt text suggestions, link rewrites, table notes, document properties, typography) of what to apply in Word — or, for Large Print, in your design tool if that\'s where the layout lives. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Word Document (following the Australian Government Style Manual, equivalent state-government guidance, moving toward WCAG 2.2 AA conformance). PDF accessibility verification is out of scope (it needs paid external tools such as Adobe Acrobat Pro or Grackle Docs). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist producers for high-stakes content (every format has its own producer ecosystem) remain essential.',
   category: 'ai-tools',
   accessTier: 'premium',
   totalEstimatedMinutes: 128,
@@ -28,7 +28,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
     'Brief an AI on your business, your audience and your source material',
     'Draft a first version of accessible content in your chosen format',
     'Use Claude to sense-check your draft against accessibility standards',
-    'Use Claude to build a Word formatting checklist aligned to the Australian Government Style Manual, equivalent state-government guidance and WCAG 2.2 AA, then apply it in Word',
+    'Use Claude to build an accessibility formatting checklist aligned to the Australian Government Style Manual, equivalent state-government guidance and WCAG 2.2 AA, then apply it in Word or your design tool',
     'Apply a human review checklist before publishing',
     'Take home a reusable prompt pack covering six alternative formats',
   ],
@@ -41,7 +41,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   courseDownloads: [
     {
       title: 'Using AI to Create Accessible & Inclusive Communications — Workshop Prompt Pack (PDF)',
-      description: 'The full workshop in one printable PDF: system prompt, reviewer prompt, briefing template, all 6 build prompts, iteration prompts, reset prompt, Word formatting checklist prompt and human review checklist.',
+      description: 'The full workshop in one printable PDF: system prompt, reviewer prompt, briefing template, all 6 build prompts, iteration prompts, reset prompt, accessibility formatting checklist prompt and human review checklist.',
       fileName: 'ai-accessible-comms-prompt-pack.pdf',
       fileUrl: '/training/downloads/ai-accessible-comms-prompt-pack.pdf',
       fileType: 'PDF',
@@ -72,7 +72,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileSize: '3 KB',
     },
     {
-      title: 'Claude Reviewer and Word Formatting Checklist Prompts (PDF)',
+      title: 'Claude Reviewer and Accessibility Formatting Checklist Prompts (PDF)',
       description: 'The two Claude prompts formatted for printing.',
       fileName: 'claude-reviewer-and-checklist-prompts.pdf',
       fileUrl: '/training/downloads/claude-reviewer-and-markup-prompts.pdf',
@@ -80,8 +80,8 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
       fileSize: '9 KB',
     },
     {
-      title: 'Claude Reviewer and Word Formatting Checklist Prompts (TXT)',
-      description: 'The Claude prompts for sense-checking your draft and generating the Word formatting checklist you apply in Word. Plain text, ready to paste.',
+      title: 'Claude Reviewer and Accessibility Formatting Checklist Prompts (TXT)',
+      description: 'The Claude prompts for sense-checking your draft and generating the accessibility formatting checklist you apply in Word or your design tool. Plain text, ready to paste.',
       fileName: 'claude-reviewer-and-checklist-prompts.txt',
       fileUrl: '/training/downloads/claude-reviewer-and-markup-prompts.txt',
       fileType: 'TXT',
@@ -317,7 +317,7 @@ FORMATTING RULES
 - Avoid walls of text
 - When producing Easy Read or Plain Language drafts, follow the published standards for each format
 - If you can generate a Word file or attachment directly (Artifacts, downloads, Python sandbox etc.), do so proactively without waiting for me to ask. APPLY all format-specific layout and typography settings to the file itself. ALSO provide the same content as text in chat so I can verify and edit. Never make me ask twice for a file when you can produce one.
-- If you cannot generate a file (no Artifacts, no sandbox, no attachment capability), return the content as text in chat AND append a numbered "Word-application checklist" so I can apply each setting manually.
+- If you cannot generate a file (no Artifacts, no sandbox, no attachment capability), return the content as text in chat AND append a numbered "application checklist" so I can apply each setting manually in Word or my design tool.
 - Either way, state in your reply which mode you used (file + text, or text + checklist) so I know what I am working with.
 - Always finish any draft with: "This draft was AI-generated. Please review before publishing."
 
@@ -344,11 +344,14 @@ ACCESSIBILITY STANDARDS REFERENCE
 - Accessible Word: Proper heading hierarchy, alt text on images, descriptive link text, accessible tables.
 - WCAG 2.2 AA for web content.
 
-WHAT TO DO IN ANY NEW TASK
-Your first reply must include:
+INITIAL SETUP RESPONSE (this message)
+When I paste these instructions with no task attached, just acknowledge in 1 to 2 sentences ("Set up. Ready for your first task.") and wait. Do NOT preview questions about hypothetical future tasks, defaults or file-generation behaviour. Defaults are: Australian English, formats follow the standards reference above, file generation when the platform allows it. We will handle real choices when a real task arrives.
+
+WHAT TO DO ON A NEW TASK
+When I bring you actual content to work on (source material plus a format request, or a briefing prompt), your first reply on that task must include:
 1. A one or two sentence summary of what you understand the task to be
 2. 3 to 5 clarifying questions if needed to fill any gaps
-3. Explain any assumptions you would have to make if I cannot answer those questions`,
+3. Any assumptions you would have to make if I cannot answer those questions`,
             expectedOutcome: 'A short, structured confirmation reply once you send the test message below. That tells you the AI assistant is ready for any task in this conversation (or any conversation in the same Project / under the same Custom Instructions).',
             tips: [
               'On Plus or Pro tiers, save the instructions once and they apply forever. Worth the 2 extra minutes.',
@@ -461,137 +464,9 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
           },
         },
         {
-          type: 'take-home',
-          takeHome: {
-            title: 'Save 1 of 4: your setup prompts',
-            introHtml: `<p><strong>This save: your AI assistant prompt and Reviewer prompt.</strong> These are the persistent setup pieces. Reuse them every time you start a new session.</p>
-<p>You have already pasted them into ChatGPT and Claude. The prompts live inside those tools, not inside this app. Downloading now means you can paste them straight back in next time without retyping or hunting through this lesson.</p>`,
-            promptPack: {
-              label: 'AI assistant + reviewer prompts',
-              filename: 'accessible-comms-setup-prompts',
-              headerNote: 'Paste each of these prompts into the relevant tool to recreate your setup. The AI assistant goes in ChatGPT (or your drafting tool). The reviewer goes in Claude.',
-              sections: [
-                {
-                  heading: 'AI Assistant System Prompt (paste into ChatGPT / drafting tool)',
-                  content: `ROLE & PURPOSE
-You are my Accessible Communications Assistant.
-
-Your job is to help me convert standard business content into accessible and inclusive formats including:
-- Easy Read
-- Plain Language
-- Social Stories and Visual Narratives
-- Accessibility Guides
-- Accessible Word documents
-- Large Print layouts
-
-You will help by:
-- asking clarifying questions before drafting
-- producing draft content in the requested format
-- explaining your formatting choices when asked
-- suggesting how to test the draft with the audience
-- flagging anything that needs a human reviewer
-
-FORMATTING RULES
-- Use clear headings, short paragraphs and bullet points
-- Avoid walls of text
-- When producing Easy Read or Plain Language drafts, follow the published standards for each format
-- If you can generate a Word file or attachment directly (Artifacts, downloads, Python sandbox etc.), do so proactively without waiting for me to ask. APPLY all format-specific layout and typography settings to the file itself. ALSO provide the same content as text in chat so I can verify and edit. Never make me ask twice for a file when you can produce one.
-- If you cannot generate a file (no Artifacts, no sandbox, no attachment capability), return the content as text in chat AND append a numbered "Word-application checklist" so I can apply each setting manually.
-- Either way, state in your reply which mode you used (file + text, or text + checklist) so I know what I am working with.
-- Always finish any draft with: "This draft was AI-generated. Please review before publishing."
-
-BEHAVIOUR RULES
-- Ask clarifying questions when you don't have enough context
-- Never ask clarifying questions about choices that the requested format already dictates by convention. Apply the convention and move on. Examples: Social Stories are always first person ("I will…"), Easy Read uses short sentences with image suggestions, Plain Language targets year 7 to 8 reading level, Accessibility Guides follow the standard 7-section structure. The standards reference below tells you which conventions apply per format.
-- Preserve context from earlier in the conversation
-- Default to simplicity over complexity
-- When I am vague, ask for specifics
-- When I am stuck, simplify
-- Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
-- When my source material or brief contains [NEEDS ANSWER: question] markers, preserve them verbatim in the draft. Do not replace them with guesses or filler. After the draft, list every [NEEDS ANSWER] marker in a separate section at the end so I can see what still needs research before publishing.
-- When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, ALWAYS return the COMPLETE updated draft from heading to sign-off line. The full document, every section, all the changes applied. NEVER show only the changed sections. NEVER show a recommendation list or evaluation marks (✅, ⚠️, ❌). NEVER explain your reasoning above or alongside the draft. If you disagree with a change I asked for, still produce the full updated draft applying the changes you accept, then raise the disagreement in ONE short sentence below the draft. Never block or replace the draft with discussion. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
-- When I answer the verification items, clarifying questions or assumption flags you raised, that is your signal to return the COMPLETE updated draft incorporating my answers. Do not ask further questions. Do not propose additional changes. Do not recommend new content (photos, extra sections, structural reordering, related documents). Stop after the updated draft.
-- Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
-- When my iteration request includes a numbered list of issues, after the full updated draft return a numbered confirmation list saying what you changed for each issue. For structural changes (moving content between sections, merging or splitting sections), name the section you moved. For wording changes, quote the before/after. If you could not action an issue, say so and explain why. Structural changes are easy to skip silently, so they must be called out explicitly.
-- Never produce a draft directly after I answer your clarifying questions. After my answers, confirm what you now know, name any remaining gaps as specific questions, and wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting requires BOTH my answers AND an explicit go-ahead. If an assumption you raised was not addressed in my answers, do not bake it into the draft as fact. Re-raise it as a question or leave a [TO CONFIRM] placeholder in the draft.
-
-ACCESSIBILITY STANDARDS REFERENCE
-- Easy Read: Inclusion Australia and CID guidelines for content (short sentences, common words, one idea per line, no metaphors). Australian Government Style Manual for layout (image LEFT and text RIGHT in a 2-column presentation table, never image above or below text, minimum 1.5 line spacing, wide margins, minimum 14pt body with larger headings, bold for headings and difficult words only).
-- Plain Language: Australian Government Style Manual and Plain Language Association International. Year 7 to 8 reading level. Active voice. Common words.
-- Social Stories: Carol Gray model. First person. Descriptive. Non-judgemental.
-- Accessibility Guides: Structured by topic (getting there, getting in, getting around, sensory environment, support, contact).
-- Accessible Word: Proper heading hierarchy, alt text on images, descriptive link text, accessible tables.
-- WCAG 2.2 AA for web content.
-
-WHAT TO DO IN ANY NEW TASK
-Your first reply must include:
-1. A one or two sentence summary of what you understand the task to be
-2. 3 to 5 clarifying questions if needed to fill any gaps
-3. Explain any assumptions you would have to make if I cannot answer those questions`,
-                },
-                {
-                  heading: 'Reviewer Prompt (paste into Claude)',
-                  content: `You are my Accessible Communications Reviewer.
-
-Your role is to audit drafts created in ChatGPT (or anywhere) for clarity, accessibility and inclusion.
-
-When I paste a draft, evaluate it on:
-
-A. PLAIN LANGUAGE
-- Estimated reading level (years of schooling required)
-- Sentence length (flag any over 15 words for accessible content)
-- Jargon, idioms or cultural references that may exclude readers
-
-B. STRUCTURE
-- Logical flow
-- Heading hierarchy
-- White space and chunking
-
-C. INCLUSION
-- Person-first or identity-first language used appropriately
-- Stereotypes or assumptions about disability
-- Missing audience considerations
-
-D. ACCURACY RISK
-- Statements that appear invented or assumed (and would need human verification)
-- Internal contradictions
-
-E. FORMAT FIDELITY
-- The user declares the draft format at the top of their message. Apply ONLY that format's conventions in your review.
-- Do not reference other formats by name. Do not blend conventions across formats (Easy Read is not Social Story, Social Story is not Easy Read, Plain Language is not Accessibility Guide). Do not assume the draft is a different format from what the user declared.
-
-F. SOURCE COVERAGE
-- If the user pasted source material along with the draft, compare the two: list facts in the source that did not make it into the draft, and facts in the draft that do not appear in the source (likely AI invention).
-- If no source was provided, skip this check and say so.
-
-For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
-
-1. DIAGNOSIS (for me to read)
-One sentence summarising the draft.
-
-2. ISSUES TO ACTION (paste this section back into your drafting AI)
-3 to 5 numbered issues in priority order. Each issue is ONE short sentence naming the problem (not the fix). No commentary between items. This block must be paste-ready so I can copy it straight into ChatGPT and have it rewrite the draft.
-
-3. SUGGESTED RE-WORDINGS (for me to read)
-Concrete before-and-after fixes for the top 2 or 3 issues.
-
-4. NEEDS HUMAN VERIFICATION (for me to read)
-Facts, names, links, numbers or claims you may be guessing at.
-
-5. NEXT-ITERATION QUESTIONS (for me to read)
-1 or 2 questions that would strengthen another pass.
-
-6. SOURCE COVERAGE (for me to read)
-If the user provided source material with the draft, list any facts in the source that did not make it into the draft, and any facts in the draft that were not in the source. If no source was provided, write "No source provided for comparison" and stop.
-
-LANGUAGE
-Write all your feedback in plain language. The user is a beginner. Avoid reviewer jargon like "demote", "gloss", "scaffolding", "elide" or "remit". Examples: instead of "demote unverified facts to scaffolding", say "Change facts you have not confirmed into 'Needs answer' notes". Instead of "gloss the term in plain words at first use", say "Explain what the word means the first time you use it". Aim for year 7 to 8 reading level in your own feedback, the same level the course teaches.
-
-Be direct. If something is weak, say so. If something is excellent, say why.`,
-                },
-              ],
-            },
-          },
+          type: 'text',
+          heading: 'Setup prompts are saved',
+          body: `<p>Your AI assistant and Reviewer prompts are now pasted into ChatGPT and Claude. They will stay there. If you need to start a new chat later or paste them somewhere else, both prompts are downloadable any time from <strong>Course Materials</strong> at the top of this course (PDF or text). No need to retype.</p>`,
         },
       ],
     },
@@ -677,7 +552,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
           type: 'format-choice',
           formatChoice: {
             legend: 'Build your brief',
-            helpText: 'Fill these in once. Your brief saves locally to your browser and pre-fills the briefing prompt in Step 3, the sense-check prompt in Lesson 4 and the Word formatting checklist prompt in Lesson 4. You can change it anytime. Use the Copy your brief button to take a plain-text version into other tools or save in your notes.',
+            helpText: 'Fill these in once. Your brief saves locally to your browser and pre-fills the briefing prompt in Step 3, the sense-check prompt in Lesson 4 and the accessibility formatting checklist prompt in Lesson 4. You can change it anytime. Use the Copy your brief button to take a plain-text version into other tools or save in your notes.',
             formats: [
               { value: 'Easy Read', label: 'Easy Read' },
               { value: 'Plain Language', label: 'Plain Language' },
@@ -956,14 +831,9 @@ Before drafting:
           },
         },
         {
-          type: 'take-home',
-          takeHome: {
-            title: 'Save 2 of 4: your brief',
-            introHtml: `<p><strong>This save: your filled-in brief.</strong> Format, audience, purpose, where it lives. This is the only save in the workshop that is personalised to your business, so it is the slowest to recreate from scratch.</p>
-<p>Use Download to save a file to your computer, or Copy to paste it into your own notes app, email or another AI tool.</p>
-<p>The brief will still be saved in the app on this device the next time you open the lesson. Downloading is your insurance for when that device changes, the browser clears its storage or you want to share the brief with a colleague.</p>`,
-            includeBrief: true,
-          },
+          type: 'text',
+          heading: 'Your brief is saved',
+          body: `<p>Your brief is saved on this device and pre-fills the prompts in Lessons 3 and 4. You will get one downloadable session record at the end of Lesson 4 — brief, follow-up notes and a pointer to your reusable prompts, all in one place.</p>`,
         },
       ],
     },
@@ -1266,23 +1136,14 @@ Here is the content:
             text: 'The draft is not ready to publish yet. Lesson 4 catches issues that are easy to miss when you have been staring at the same content.',
           },
         },
-        {
-          type: 'take-home',
-          takeHome: {
-            title: 'Save 3 of 4: your draft',
-            introHtml: `<p><strong>This save: the draft you just made.</strong> Different from the earlier saves. Saves 1 and 2 were infrastructure (prompts and brief). This one is the content itself.</p>
-<p>Your draft lives inside your AI chat, not inside this app. If you close the tab without saving, you may lose it. Right now is the time to copy your draft from your AI tool into a Word doc, Google Doc or note app you control, and save it there.</p>
-<p>Your build prompt and iteration prompts are still on this page, so you can re-run them later if you start over. Lesson 4 picks up where this leaves off, sense-checking the draft you just saved.</p>`,
-          },
-        },
       ],
     },
     {
       id: 'lesson-4-sense-check-and-save',
       courseId: 'course-ai-accessible-comms',
       title: 'Sense-Check and Save',
-      subtitle: 'Cross-check with Claude, apply changes, save your prompt pack',
-      description: 'Send your draft to Claude for an accessibility sense-check, apply the most important changes back in ChatGPT, run the human review checklist and save your reusable prompt pack.',
+      subtitle: 'Cross-check with Claude, apply changes, save your session record',
+      description: 'Send your draft to Claude for an accessibility sense-check, apply the most important changes back in ChatGPT, run the human review checklist and save your personalised session record. Reusable prompts stay in Course Materials at the top of the course.',
       order: 4,
       estimatedMinutes: 50,
       accessTier: 'premium',
@@ -1291,7 +1152,7 @@ Here is the content:
         {
           type: 'text',
           heading: 'What you will achieve in this lesson',
-          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has generated a Word formatting checklist for you to apply, you have run the human review checklist and your prompts are saved for next time.</p>
+          body: `<p>By the end of this lesson, Claude has sense-checked your draft, you have applied the most important changes back in ChatGPT, Claude has generated an accessibility formatting checklist for you to apply (in Word or your design tool, depending on your format), you have run the human review checklist and you have saved a personalised session record.</p>
 <details class="setup-detail">
 <summary><strong>Key terms in this lesson</strong> (tap to expand)</summary>
 <ul>
@@ -1303,16 +1164,16 @@ Here is the content:
 </details>
 <div class="heads-up-note">
 <div class="heads-up-label">A note on PDFs</div>
-<p>This workshop produces accessible <strong>Word documents</strong>. If you need a PDF version, Word can export one with basic structure tags turned on, but full PDF accessibility verification requires paid external tools (Adobe Acrobat Pro or Grackle Docs) and sits outside this workshop. Treat any PDF you export from Word as a starting point, not certified PDF accessibility.</p>
+<p>This workshop produces accessible <strong>Word documents</strong> (and Large Print laid out in Word or your design tool). If you need a PDF version, Word can export one with basic structure tags turned on, but full PDF accessibility verification requires paid external tools (Adobe Acrobat Pro or Grackle Docs) and sits outside this workshop. Treat any PDF you export as a starting point, not certified PDF accessibility.</p>
 </div>
 <p><strong>How the lesson runs:</strong></p>
 <ol>
 <li>Send your draft to Claude for sense-check (10 min)</li>
 <li>Pick the issues and apply them in ChatGPT (15 min)</li>
-<li>Use Claude to build your Word formatting checklist (12 min)</li>
-<li>Apply your format's settings in Word (8 min)</li>
+<li>Use Claude to build your accessibility formatting checklist (12 min)</li>
+<li>Apply your format's settings in Word or your design tool (8 min)</li>
 <li>Final human review checklist (3 min)</li>
-<li>Save your prompt pack (2 min)</li>
+<li>Save your session record (2 min)</li>
 </ol>`,
         },
         {
@@ -1393,14 +1254,14 @@ Do not skip Part B. It is how I verify nothing was silently missed. Structural c
         {
           type: 'exercise',
           exercise: {
-            title: 'Step 3: Use Claude to build your Word formatting checklist (12 min)',
+            title: 'Step 3: Use Claude to build your accessibility formatting checklist (12 min)',
             targetTool: 'reviewer',
-            instructions: 'Sometimes Claude can give you a Word file to download. Other times it gives you the same content as text in chat. Either way, this step does something more useful: it gives you a Word formatting checklist you can apply and check yourself in Word. The checklist covers heading levels (like Heading 1 and Heading 2), alt text for images, link wording, table notes, document properties and the structural items to apply. If Claude also gives you a Word file, treat it as a starting point and still work through the checklist. You apply the checklist in Word to produce an accessible Word document. Claude is stronger than ChatGPT at this kind of structured longer output, which is why we use it here. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
-            promptTemplate: `I have a reviewed draft I want to publish as an accessible Word document.
+            instructions: 'Sometimes Claude can give you a file to download. Other times it gives you the same content as text in chat. Either way, this step does something more useful: it gives you a formatting checklist you can apply and check yourself. The checklist covers heading levels (like Heading 1 and Heading 2), alt text for images, link wording, table notes, document properties, typography and the structural items to apply. Most formats are built in Word. Large Print is often built in Word but can also be laid out in your design tool (Canva, InDesign, Affinity), and the same checklist works there: heading sizes, font family, line spacing, contrast and margins translate across. If Claude also gives you a file, treat it as a starting point and still work through the checklist. Claude is stronger than ChatGPT at this kind of structured longer output, which is why we use it here. Copy your updated draft from ChatGPT. Switch to your Claude tab (the Reviewer conversation from Lesson 1 is fine to reuse). Paste the prompt below with your reviewed draft at the bottom.',
+            promptTemplate: `I have a reviewed draft I want to publish in an accessible format.
 
-If you can generate the final accessible Word document directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the formatting structure (heading styles, bulleted or numbered lists, document properties) inside the file itself. Also provide the formatting checklist as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
+If you can generate the final accessible file directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the formatting structure (heading styles, bulleted or numbered lists, document properties, typography) inside the file itself. Also provide the formatting checklist as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
 
-Please produce a structured version with the accessibility scaffolding marked up, following the Australian Government Style Manual content-types (stylemanual.gov.au/content-types) for format-specific structure and typography, moving toward WCAG 2.2 AA conformance in the Word document.
+Please produce a structured version with the accessibility scaffolding marked up, following the Australian Government Style Manual content-types (stylemanual.gov.au/content-types) for format-specific structure and typography, moving toward WCAG 2.2 AA conformance.
 
 FORMAT CONTEXT
 - My draft format is: [FORMAT NAME]
@@ -1429,37 +1290,38 @@ FORMAT CONTEXT
 - For DATA tables: mark which row is the header, flag merged or split cells and suggest a flat alternative, add a one-sentence caption above each.
 - For LAYOUT tables (Easy Read 2-column image-left / text-right): preserve them, do NOT add a header row or caption and do NOT suggest flattening. Mark each with role="presentation". They are decorative scaffolding for screen readers.
 
-5. DOCUMENT PROPERTIES (to set in Word File > Info > Properties before export)
+5. DOCUMENT PROPERTIES (set these in Word: File > Info > Properties before export. In Google Docs: File > Document details. In design tools: in document or export settings.)
 - Suggest a document title (different from the file name).
 - Document language: English (Australia).
 
 6. EXPORT NOTES
-- This workshop produces an accessible Word document. PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
+- This workshop produces an accessible Word document (or, for Large Print, a Word doc or a layout produced in a design tool). PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
 - If the user wants a PDF copy, note that Word's built-in PDF export with "Document structure tags for accessibility" enabled is a basic starting point only, not full PDF accessibility.
 - For web content, NSW and Vic Government recommend an HTML version over a PDF. Note if a webpage version of this content should also exist.
 
 After your marked-up draft, give me:
-- A numbered checklist of every change to apply in Word, in order
+- A numbered checklist of every change to apply (in Word or my design tool), in order
 - A short list of items I need to verify or supply (alt text confirmation, missing source info, photos to add)
 - One paragraph I can paste into the document footer noting it follows WCAG 2.2 AA and how readers can request the content in another format
 
 Here is my reviewed draft:
 [paste reviewed draft]`,
-            expectedOutcome: 'Claude returns the draft with heading levels marked, alt text suggestions, descriptive link text, table notes, document property suggestions, a Word-application checklist, a verification list and a footer paragraph about WCAG 2.2 AA conformance and alternative-format requests.',
+            expectedOutcome: 'Claude returns the draft with heading levels marked, alt text suggestions, descriptive link text, table notes, document property suggestions, a numbered application checklist, a verification list and a footer paragraph about WCAG 2.2 AA conformance and alternative-format requests.',
             tips: [
               'For long source PDFs, paste the text content rather than uploading. Claude cannot see the visual layout of a PDF reliably from a file upload.',
-              'After applying changes in Word, run Word\'s built-in Accessibility Checker: Review > Check Accessibility. Fix any remaining errors before exporting.',
+              'If you finished in Word, run Word\'s built-in Accessibility Checker before exporting: Review > Check Accessibility. Fix any remaining errors. (For Large Print laid out in a design tool, the checker won\'t apply — work through the human review checklist instead.)',
               'If Claude\'s daily message limit hits before you finish, the same prompt works in ChatGPT, Copilot or Gemini. Output quality drops slightly but the structure is preserved.',
-              'AI file-generation capability is inconsistent across tools. You may get marked-up text, a downloadable Word file, or both. All three paths are valid. Whichever you get, run the Step 4 Word-application checklist below to verify accessibility. Never publish a file straight from the AI without that check. If the AI returns text only and you have to ask twice for a file, that is also normal: the file capability varies by account state and session, not just by tool.',
+              'AI file-generation capability is inconsistent across tools. You may get marked-up text, a downloadable file, or both. All three paths are valid. Whichever you get, run the Step 4 checklist below to verify accessibility. Never publish a file straight from the AI without that check. If the AI returns text only and you have to ask twice for a file, that is also normal: the file capability varies by account state and session, not just by tool.',
             ],
           },
         },
         {
           type: 'checklist',
           checklist: {
-            title: 'Step 4: Apply your format\'s settings in Word (8 min)',
-            introHtml: `<p>Claude\'s Word formatting checklist lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it. Your progress saves to this device.</p>
+            title: 'Step 4: Apply your format\'s settings in Word or your design tool (8 min)',
+            introHtml: `<p>Claude\'s accessibility formatting checklist lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it. Your progress saves to this device.</p>
 <p><strong>Run this checklist whether the AI generated a file or only returned text.</strong> AI-generated docx files routinely miss decorative-table marking, true semantic heading styles and document properties: they look right but fail an accessibility check. Treat any AI-generated file as a draft scaffold, not a final document. The checklist is the verification step that turns it into something publishable.</p>
+<p><strong>Laying out Large Print in a design tool (Canva, InDesign, Affinity Publisher)?</strong> Most of the checklist still applies: font size, font family, line spacing, contrast, margins and single-column layout all translate. The only items that need a Word document are the Word Accessibility Checker step and Word\'s built-in semantic heading styles — skip those if your final file is design-tool output, and rely on the final human review checklist instead.</p>
 <p><strong>Using Google Docs instead of Word?</strong> Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Three real limitations to know about:</p>
 <ol>
 <li><strong>Decorative tables:</strong> Google Docs cannot mark tables as decorative. Screen readers will announce layout tables as data tables.</li>
@@ -1528,10 +1390,19 @@ Here is my reviewed draft:
                 'Apply strong contrast: black text on white, cream or yellow background. Never image-of-text.',
                 'Set to single column layout.',
                 'Set line spacing to 1.5 minimum.',
-                'Confirm any PDF version keeps text selectable and re-flowable (never flat-scan).',
+                'Set page margins to at least 2.5cm on every side.',
+                'If you are working in Word: apply heading styles in order (Heading 1, Heading 2, Heading 3) for each heading, do not skip levels. Verify via View > Navigation Pane. (If you are laying out in a design tool like Canva or InDesign, semantic heading styles do not apply — sizing alone is your structure cue.)',
+                'For any image, logo or photo in the document, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. In Word, add via right-click image > View Alt Text. In a design tool, set alt text in the image properties panel (Canva: Image > Accessibility > Alt text; InDesign: Object Export Options > Alt Text). Mark any purely decorative image as decorative.',
+                'Set document properties: title (different from filename) and language English (Australia). Word: File > Info > Properties. Google Docs: File > Document details.',
+                'If you are working in Word, save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors. (Design-tool layouts do not have this — rely on the final human review checklist instead.)',
+                'If you intend to export to PDF: full PDF accessibility verification is out of scope for this workshop (it needs Adobe Acrobat Pro or Grackle Docs). Use Word\'s "Document structure tags for accessibility" option on export as a starting point only. Never publish a flat-scan or image-of-text PDF.',
               ],
               'Accessible Word Document': [
                 'Apply heading styles in order (H1, H2, H3 etc.), do not skip levels. Verify visually via View > Navigation Pane (Ctrl+F on Windows): the Headings tab shows your document outline so you can confirm every section is at the right level.',
+                'Set body text to 12pt minimum. Use a sans-serif font (Calibri, Arial, Verdana).',
+                'Set line spacing to 1.15 minimum on body text (1.5 is recommended for longer documents). Home > Line and Paragraph Spacing.',
+                'Set page margins to at least 2.5cm on every side (Layout > Margins > Custom Margins).',
+                'Left-align body text (never justify).',
                 'Replace manual dashes or asterisks with proper bulleted or numbered lists.',
                 'For each image, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. If Claude already drafted alt text from a detailed source description, you can use it as a starting point and verify against the actual image. Add via right-click image > View Alt Text. Verify before saving.',
                 'Mark decorative images as decorative (right-click image > View Alt Text > tick "Mark as decorative").',
@@ -1594,8 +1465,12 @@ Here is my reviewed draft:
               'Large Print': [
                 'Is everything factually correct about your business and venue?',
                 'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
+                'Have you printed a copy and read it at the distance the reader is likely to use? Letters should remain crisp, no pixelation, no crowding.',
+                'Have you confirmed the body font size meets the audience\'s stated minimum (16pt Vision Australia clear print, 18pt RNIB)?',
+                'Have you checked contrast meets WCAG 2.2 AA (at minimum 4.5:1 for body text)? Black on white, cream or yellow works. Avoid grey-on-white.',
                 'Have you removed any AI-added claims that you cannot verify?',
                 'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
+                'Have you offered an alternative format on request (electronic copy, audio, Braille via specialist provider)?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Accessible Word Document': [
@@ -1624,17 +1499,14 @@ Here is my reviewed draft:
         },
         {
           type: 'text',
-          heading: 'Step 6: Grab your prompt pack (2 min)',
-          body: `<p>Scroll to the <strong>Take everything home</strong> panel below (marked with the orange TAKE HOME pill). The <strong>Download prompt pack</strong> buttons there bundle your full session into a single file, in either PDF or text. Inside you will find:</p>
+          heading: 'Step 6: Save your session record (2 min)',
+          body: `<p>Scroll to the <strong>Your session record</strong> panel below (marked with the orange TAKE HOME pill). It has two jobs:</p>
 <ol>
-<li>The <strong>AI assistant system prompt</strong> (so you can re-start ChatGPT later)</li>
-<li>The <strong>Claude reviewer prompt</strong></li>
-<li>The <strong>briefing prompt</strong>, with your business details already filled in</li>
-<li>All six <strong>build prompts</strong> (Easy Read, Plain Language, Social Story, Accessibility Guide, Large Print, Accessible Word Document)</li>
-<li>The <strong>Claude Word formatting checklist prompt</strong> for accessible Word output</li>
+<li><strong>Download your brief</strong> — format, audience, purpose and where it will live. The only personalised artefact from today.</li>
+<li><strong>Note your follow-ups before you leave</strong> — open <code>[NEEDS ANSWER]</code> markers, items Claude flagged for human verification and any assumptions you have not confirmed. Save them next to your draft so you can chase them before publishing.</li>
 </ol>
-<p>Next time you make a piece of accessible content, open the text file and paste the prompts back into ChatGPT and Claude. Coming back will take half the time.</p>
-<p><strong>Your work belongs to you.</strong> Anything you have created in this session, including the draft and the prompts you save, is yours. Access Compass does not claim any rights to your content.</p>`,
+<p>The reusable prompts you used today (system, reviewer, briefing template, all 6 build prompts, iteration, reset, accessibility formatting checklist, human review checklist) live in <strong>Course Materials</strong> at the top of this course. Browse-all link is in the panel below. Re-use them with a new brief next time — half the time, fresh content.</p>
+<p><strong>Your work belongs to you.</strong> Anything you have created in this session, including the draft and the brief, is yours. Access Compass does not claim any rights to your content.</p>`,
         },
         {
           type: 'callout',
@@ -1673,155 +1545,19 @@ Here is my reviewed draft:
         {
           type: 'take-home',
           takeHome: {
-            title: 'Save 4 of 4: the full kit for next time',
-            introHtml: `<p><strong>This save: everything consolidated.</strong> Brief plus the full prompt pack, with your brief already substituted into the briefing prompt, plus every build prompt for all 6 formats so you can switch formats next time.</p>
-<p>If you grabbed Saves 1, 2 and 3, you have most of this already. This one is the consolidated version: one file instead of three, with extras (build prompts for all 6 formats, not just the one you used today). Use this when you start a new piece of content.</p>`,
+            title: 'Your session record',
+            introHtml: `<p><strong>The only personalised takeaway from today.</strong> Your brief baked in, plus a checklist of what to do before you leave. The reusable prompts live in <strong>Course Materials</strong> at the top of this course — same place, always current. Re-use them with a new brief next time.</p>
+<p><strong>Before you finish, do these two things:</strong></p>
+<ol>
+<li><strong>Copy your draft out of ChatGPT.</strong> If your draft is still only in your ChatGPT tab, paste it into Word, Google Docs or a note app now. Close the tab and the draft is gone.</li>
+<li><strong>Note your follow-ups.</strong> Open <code>[NEEDS ANSWER]</code> markers in the draft, items Claude's sense-check flagged for human verification, anything you assumed and have not confirmed. Save those next to your draft so you can chase them before publishing.</li>
+</ol>
+<p><strong>Why the prompts are not bundled in here:</strong> next time you create accessible content, your brief will be different (different audience, different purpose, possibly different format). The generic prompts apply to every session — grab them fresh from Course Materials. Your personalised brief is specific to this session and worth saving as a record of what you used today.</p>`,
             includeBrief: true,
             browseAllLink: {
               label: 'Browse all Course Materials',
-              description: 'Need other files? The Course Materials section at the top of this course has every prompt and the human review checklist as standalone PDF or text downloads, plus a Download all button for the whole set.',
+              description: 'Every prompt you used today, plus the human review checklist, is downloadable there as PDF or text. Re-use them with a new brief whenever you start a new piece of content.',
               href: '/training/course/ai-accessible-comms',
-            },
-            promptPack: {
-              label: 'Full session prompt pack',
-              filename: 'accessible-comms-prompt-pack',
-              headerNote: 'This pack reproduces your workshop session. Paste each prompt into the right tool when you start a new piece of content. The briefing prompt has your brief substituted in. Build prompts are listed for all 6 formats so you can switch formats next time.',
-              sections: [
-                {
-                  heading: 'AI Assistant System Prompt (paste into ChatGPT / drafting tool)',
-                  content: `ROLE & PURPOSE
-You are my Accessible Communications Assistant.
-
-Your job is to help me convert standard business content into accessible and inclusive formats including Easy Read, Plain Language, Social Stories, Accessibility Guides, Accessible Word documents and Large Print layouts.
-
-You will help by asking clarifying questions before drafting, producing draft content in the requested format, explaining your formatting choices when asked, suggesting how to test the draft with the audience and flagging anything that needs a human reviewer.
-
-FORMATTING RULES
-- Use clear headings, short paragraphs and bullet points
-- Avoid walls of text
-- Always finish any draft with: "This draft was AI-generated. Please review before publishing."
-
-BEHAVIOUR RULES
-- Ask clarifying questions when you don't have enough context
-- Preserve context from earlier in the conversation
-- Default to simplicity over complexity
-- Never invent facts about my business, venue, audience or accessibility features. If you do not know, ask.
-- When my source material or brief contains [NEEDS ANSWER: question] markers, preserve them verbatim in the draft. Do not replace them with guesses or filler. After the draft, list every [NEEDS ANSWER] marker in a separate section at the end so I can see what still needs research before publishing.
-- When I ask you to iterate, edit, rewrite, shorten, lengthen, adjust tone, fix accuracy or add anything to a draft, ALWAYS return the COMPLETE updated draft from heading to sign-off line. The full document, every section, all the changes applied. NEVER show only the changed sections. NEVER show a recommendation list or evaluation marks (✅, ⚠️, ❌). NEVER explain your reasoning above or alongside the draft. If you disagree with a change I asked for, still produce the full updated draft applying the changes you accept, then raise the disagreement in ONE short sentence below the draft. Never block or replace the draft with discussion. The user re-reads the whole draft after each iteration and needs the actual updated content to do that.
-- When I answer the verification items, clarifying questions or assumption flags you raised, that is your signal to return the COMPLETE updated draft incorporating my answers. Do not ask further questions. Do not propose additional changes. Do not recommend new content (photos, extra sections, structural reordering, related documents). Stop after the updated draft.
-- Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
-- When my iteration request includes a numbered list of issues, after the full updated draft return a numbered confirmation list saying what you changed for each issue. For structural changes (moving content between sections, merging or splitting sections), name the section you moved. For wording changes, quote the before/after. If you could not action an issue, say so and explain why. Structural changes are easy to skip silently, so they must be called out explicitly.
-- Never produce a draft directly after I answer your clarifying questions. After my answers, confirm what you now know, name any remaining gaps as specific questions, and wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting requires BOTH my answers AND an explicit go-ahead. If an assumption you raised was not addressed in my answers, do not bake it into the draft as fact. Re-raise it as a question or leave a [TO CONFIRM] placeholder in the draft.
-
-WHAT TO DO IN ANY NEW TASK
-Your first reply must include a one or two sentence summary of what you understand the task to be, 3 to 5 clarifying questions if needed to fill any gaps, and an explanation of any assumptions you would have to make if I cannot answer those questions.`,
-                },
-                {
-                  heading: 'Claude Reviewer Prompt (paste into Claude)',
-                  content: `You are my Accessible Communications Reviewer.
-
-Your role is to audit drafts for clarity, accessibility and inclusion.
-
-When I paste a draft, evaluate it on plain language (estimated reading level, sentence length, jargon), structure (logical flow, heading hierarchy, white space), inclusion (person-first or identity-first language, stereotypes, missing audience considerations), accuracy risk (invented or assumed statements, internal contradictions), format fidelity and source coverage (facts in the source that did not make it into the draft, facts in the draft not in the source, if source was provided alongside the draft).
-
-For each draft, reply with a one-sentence diagnosis, the top 3 to 5 issues in priority order, suggested re-wordings for the top 2 or 3, anything that must be checked by a human reviewer, one or two questions that would strengthen the next iteration and a source coverage check (or "no source provided"). Write all your feedback in plain language at year 7 to 8 reading level. Avoid reviewer jargon like "demote" or "gloss"; say "change unverified facts to Needs answer notes" and "explain what the word means" instead. Be direct.`,
-                },
-                {
-                  heading: 'Briefing Prompt (paste into ChatGPT before drafting)',
-                  content: `I want to create a [FORMAT NAME] for [AUDIENCE].
-
-It will help them to [PURPOSE].
-
-It will live [WHERE IT WILL BE PUBLISHED].
-
-Here is my source material:
-[paste text, link or notes here]
-
-Before drafting:
-1. Confirm in 2 to 3 sentences what you understand.
-2. Ask me 3 to 5 clarifying questions to fill any gaps.
-3. List any assumptions you would have to make if I cannot answer.
-4. STOP HERE. Wait for my answers. Do NOT produce a draft yet. After I answer your clarifying questions, confirm what you now know, restate any remaining gaps as specific questions, then wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting only happens AFTER both my answers AND an explicit go-ahead.`,
-                },
-                {
-                  heading: 'Build Prompt: Easy Read',
-                  content: `Please draft this in Easy Read format following Inclusion Australia and CID guidelines. One main idea per line. Sentences under 15 words. Common words (year 6 reading level or below). No metaphors or idioms. Bullet points for lists. Short sections with clear headings. For each section, suggest an image that would support the meaning. Address the reader as "you".
-
-After the draft, list any words that may still be too hard, sections that would benefit from an example, and anything I should verify with a human reviewer.`,
-                },
-                {
-                  heading: 'Build Prompt: Plain Language',
-                  content: `Please draft this in Plain Language following the Australian Government Style Manual. Year 7 to 8 reading level. Sentences under 20 words on average. Active voice. Common words. Short paragraphs (3 sentences or fewer). Clear headings. Bullet points for lists. Address the reader as "you" where appropriate.
-
-After the draft, give an estimate of the reading level, a list of words to consider replacing, and one sentence on what the reader should walk away knowing.`,
-                },
-                {
-                  heading: 'Build Prompt: Social Story / Visual Narrative',
-                  content: `Please draft this as a Social Story / Visual Narrative. Written in first person. Descriptive and reassuring, not instructional. Walk the reader through the experience in the order it happens. Note sensory details. Mention what staff or other people might do. Acknowledge that things can change.
-
-Structure: 1. Before I arrive. 2. When I get there. 3. What I will see and do inside. 4. If I need help. 5. When I leave.
-
-Suggest where photos should sit and list anything I should verify or add from a real walk-through.`,
-                },
-                {
-                  heading: 'Build Prompt: Accessibility Guide',
-                  content: `Please draft an Accessibility Guide for my venue or event under these headings: 1. Getting there. 2. Getting in. 3. Getting around. 4. Toilets. 5. Sensory environment. 6. Support available. 7. Contact.
-
-Plain Language throughout. Specific, not vague. If I have not provided info for a section, flag it as "needs answer". Use bullet points for facts, prose for context. After the draft, list every "needs answer" item, photos I should take, and anything that would benefit from human verification.
-
-Publishing note: best published as a webpage on your own site so search engines and screen readers can reach it directly. Paste the AI text into your CMS keeping the H1 / H2 hierarchy and add anchor link IDs to each H2 plus a jump menu at the top. Keep a designed Word or PDF copy as your on-request fallback for when a recipient can only accept an email attachment.`,
-                },
-                {
-                  heading: 'Build Prompt: Large Print',
-                  content: `I have content I want to provide in Large Print. Confirm the content is appropriate for Large Print (short, high-priority information). Suggest text edits to make it scannable (shorter sentences, clearer headings, removing decorative content). Give me the Large Print formatting checklist (minimum font size, font family, line spacing, contrast, paper colour, margins) following Vision Australia clear print guidance.
-
-Here is the content:
-[paste content]`,
-                },
-                {
-                  heading: 'Build Prompt: Accessible Word Document',
-                  content: `I have a Word document I want to make more accessible.
-
-Following Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document (PDF accessibility is out of scope, that needs Adobe Acrobat Pro or Grackle):
-
-1. STRUCTURE: heading hierarchy (H1, H2, H3, no skipped levels), logical reading order, proper bulleted or numbered lists.
-2. PLAIN LANGUAGE: estimate reading level, flag jargon, rewrite the top 5 hardest sentences.
-3. IMAGES: for images the user has described in detail, draft alt text as a starting point (user verifies against the real image). For images not described, instruct the user to upload each real image to an AI that can look at images (Claude, ChatGPT Plus, Microsoft Copilot or Google Gemini) for alt text. Mark decorative images. Flag colour-only meaning.
-4. LINKS: rewrite "click here", "read more" to be descriptive. Suggest footnote URLs for printed copies.
-5. TABLES: mark header row. Flag merged or split cells. Add captions.
-6. DOCUMENT PROPERTIES: suggest a document title (different from the file name) and language (English Australia).
-7. EXPORT: note that Word's PDF export with structure tags enabled is a basic starting point only, not full PDF accessibility. Suggest if an HTML equivalent should also exist.
-
-After your analysis, give a numbered checklist to apply in Word, a list of items to verify, and a footer paragraph noting the document moves toward WCAG 2.2 AA conformance.
-
-Here is the content:
-[paste content]`,
-                },
-                {
-                  heading: 'Claude Word Formatting Checklist Prompt (paste into Claude with your reviewed draft)',
-                  content: `I have a reviewed draft I want to publish as an accessible Word document.
-
-If you can generate the final accessible Word document directly (via Artifacts, downloads or attachment), do so PROACTIVELY in this same reply without waiting for me to confirm. Apply the formatting structure (heading styles, bulleted or numbered lists, document properties) inside the file itself. Also provide the formatting checklist as text below so I can verify and adjust. Do NOT ask me whether I want the file. Produce it if you can.
-
-Please produce a structured version with the accessibility scaffolding marked up, following Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document.
-
-1. STRUCTURE: mark each line or section with its heading level. Logical reading order. Proper lists.
-2. IMAGES: draft alt text only for images the user has described in detail (user verifies). For placeholder photos not yet sourced, instruct the user to upload each real photo to an AI that can look at images for alt text. Mark decorative. Flag colour-only meaning.
-3. LINKS: rewrite vague link text.
-4. TABLES: mark header rows. Flag merged cells. Add captions.
-5. DOCUMENT PROPERTIES: title and language (English Australia).
-6. EXPORT NOTES: PDF accessibility is out of scope (needs Adobe Acrobat Pro or Grackle). Word's PDF export with structure tags is a basic starting point only. Note if an HTML equivalent is recommended.
-
-After the marked-up draft, give a numbered Word-application checklist, a list of items to verify, and a footer paragraph about moving toward WCAG 2.2 AA conformance and alternative-format requests.
-
-Here is my reviewed draft:
-[paste reviewed draft]`,
-                },
-                {
-                  heading: 'Reset Prompt (paste if the AI drifts off track)',
-                  content: `Please restart this task and follow the briefing prompt exactly. Confirm what you understand in 2 to 3 sentences, then ask 3 to 5 clarifying questions, then list any assumptions you would have to make.`,
-                },
-              ],
             },
           },
         },
