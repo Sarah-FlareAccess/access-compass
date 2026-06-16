@@ -25,7 +25,7 @@ const BRAND = {
   walnut: [62, 43, 47], // #3E2B2F
   ivory: [236, 233, 230], // #ECE9E6
   cream: [250, 248, 245], // #FAF8F5
-  bodyText: [45, 36, 32], // #2d2420
+  bodyText: [28, 20, 16], // #1c1410 (darkened from #2d2420 for punchier prompt-block text on cream bg)
   mutedText: [106, 99, 96], // #6a6360
   promptBg: [248, 247, 246],
   promptBorder: [220, 215, 210],
