@@ -1107,7 +1107,7 @@ Source content: if I have already pasted the content earlier in this chat (e.g. 
           type: 'callout',
           callout: {
             variant: 'tip',
-            text: 'If your copy is already finalised (typically Accessible Word Document or Large Print, where you pasted in existing content), you can skip Step 3 entirely. The sense-check in Lesson 4 catches accessibility issues more systematically than running iterations here. Section A "copy iterations" below should always be skipped — you do not want the AI rewriting wording you are happy with. Section B "accessibility iterations" is a sidecar option for any obvious issue you spotted in Step 2 (a wrong alt text, a heading at the wrong level) that you want fixed before Lesson 4. Otherwise, save your draft and go.',
+            text: 'Accessible Word Document and Large Print: skip this step. Go straight to Step 4 (save your work) and continue to Lesson 4 — the sense-check there catches accessibility issues more systematically. Only stop in Step 3 if Step 2 surfaced one specific issue you want fixed first (e.g. a wrong alt text, a heading at the wrong level): if so, use ONE prompt from Section B below, then move on. Never use Section A — those rewrite copy.',
           },
         },
         {
@@ -1217,7 +1217,7 @@ Source content: if I have already pasted the content earlier in this chat (e.g. 
           type: 'callout',
           callout: {
             variant: 'tip',
-            text: 'If your copy is finalised (typically Accessible Word Document or Large Print), ignore any items in Claude\'s reply that flag reading level, sentence length, jargon or "make it shorter / clearer" — your wording is set. Focus on the accessibility items: alt text completeness, heading hierarchy, link descriptiveness, table structure, anything Claude wants verified by a human.',
+            text: 'Accessible Word Document and Large Print: ignore items in Claude\'s reply that flag reading level, sentence length, jargon or "make it shorter / clearer". Your wording is set. Action only the accessibility items (alt text, heading hierarchy, link text, table structure, anything flagged for human verification).',
           },
         },
         {
@@ -1242,6 +1242,13 @@ Please sense-check the draft using the framework you've been set up with, includ
               'If Claude\'s free tier limit hits before you finish, paste the Reviewer prompt and this draft into ChatGPT, Copilot or Gemini instead. The framework is portable.',
               'If Claude\'s reply skips one of the five framework sections, ask it to redo the missing section. Do not let it drop categories silently.',
             ],
+          },
+        },
+        {
+          type: 'callout',
+          callout: {
+            variant: 'tip',
+            text: 'Accessible Word Document and Large Print: you may have 0 to 2 issues to action here. That is normal — your copy is set, so most of Claude\'s items are skipped per the previous note. If nothing is left to action, skip to Step 3 (build your formatting checklist).',
           },
         },
         {
