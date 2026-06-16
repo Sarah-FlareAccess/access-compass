@@ -7,6 +7,7 @@ import { TrainingProgressBar } from '../components/training/TrainingProgressBar'
 import { DownloadBlock } from '../components/training/DownloadBlock';
 import { CourseLockedLanding } from '../components/training/CourseLockedLanding';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
+import { useActivityLog } from '../hooks/useActivityLog';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuth } from '../contexts/AuthContext';
 import { PageFooter } from '../components/PageFooter';
@@ -103,6 +104,7 @@ export default function CourseDetail() {
     isLessonCompleted,
     startCourse,
   } = useTrainingProgress();
+  const { logActivity } = useActivityLog();
 
   if (showLockedLanding) {
     return <CourseLockedLanding />;
@@ -255,7 +257,16 @@ export default function CourseDetail() {
           </div>
           <div className="course-downloads-list">
             {course.courseDownloads.map((dl, i) => (
-              <DownloadBlock key={i} download={dl} />
+              <DownloadBlock
+                key={i}
+                download={dl}
+                onDownload={(d) => logActivity('training-resource-downloaded', {
+                  courseId: course.id,
+                  courseName: course.title,
+                  resourceName: d.title,
+                  resourceFormat: d.fileType,
+                })}
+              />
             ))}
           </div>
         </section>

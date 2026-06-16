@@ -3,6 +3,7 @@ import './DownloadBlock.css';
 
 interface DownloadBlockProps {
   download: TrainingDownload;
+  onDownload?: (download: TrainingDownload) => void;
 }
 
 function getFileIcon(fileType: string) {
@@ -23,12 +24,13 @@ function getFileIcon(fileType: string) {
   );
 }
 
-export function DownloadBlock({ download }: DownloadBlockProps) {
+export function DownloadBlock({ download, onDownload }: DownloadBlockProps) {
   return (
     <a
       href={download.fileUrl}
       className="download-block"
       download={download.fileName}
+      onClick={() => onDownload?.(download)}
     >
       <span className="download-icon" aria-hidden="true">{getFileIcon(download.fileType)}</span>
       <span className="download-info">

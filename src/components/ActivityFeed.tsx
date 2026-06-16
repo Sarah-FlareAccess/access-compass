@@ -22,6 +22,10 @@ function getActivityIcon(type: ActivityEntry['type']): string {
     case 'diap-comment-added': return '\uD83D\uDCAC';
     case 'diap-item-updated': return '\u270F\uFE0F';
     case 'report-generated': return '\uD83D\uDCC4';
+    case 'training-course-started': return '\uD83C\uDF93';
+    case 'training-course-completed': return '\uD83C\uDFC6';
+    case 'training-lesson-completed': return '\u2705';
+    case 'training-resource-downloaded': return '\u2B07\uFE0F';
     default: return '\uD83D\uDCCC';
   }
 }
@@ -59,6 +63,14 @@ export function getActivityDescription(entry: ActivityEntry): string {
     }
     case 'report-generated':
       return 'generated a report';
+    case 'training-course-started':
+      return `started the "${entry.courseName || 'training course'}"`;
+    case 'training-course-completed':
+      return `completed the "${entry.courseName || 'training course'}"`;
+    case 'training-lesson-completed':
+      return `completed "${entry.lessonName || 'a lesson'}" in ${entry.courseName || 'a course'}`;
+    case 'training-resource-downloaded':
+      return `downloaded "${entry.resourceName || 'a resource'}" (${entry.resourceFormat || 'file'})`;
     default:
       return 'performed an action';
   }
@@ -94,6 +106,7 @@ function getCategoryLabel(cat: ActivityCategory): string {
     case 'diap': return 'DIAP';
     case 'report': return 'Reports';
     case 'site': return 'Sites';
+    case 'training': return 'Training';
     default: return 'All';
   }
 }
@@ -127,7 +140,7 @@ export function ActivityFeed({ activities, maxInitial = 20, trimmedByRetention, 
   const [showCount, setShowCount] = useState(maxInitial);
 
   const countByCategory = useMemo(() => {
-    const counts: Record<ActivityCategory, number> = { all: activities.length, module: 0, diap: 0, report: 0, site: 0 };
+    const counts: Record<ActivityCategory, number> = { all: activities.length, module: 0, diap: 0, report: 0, site: 0, training: 0 };
     for (const a of activities) {
       const cat = getActivityCategory(a.type);
       counts[cat]++;

@@ -6,6 +6,7 @@ import { LessonNotesPanel } from '../components/training/LessonNotesPanel';
 import { CourseProgressTracker } from '../components/training/CourseProgressTracker';
 import { useTrainingProgress } from '../hooks/useTrainingProgress';
 import { useCourseProgress } from '../hooks/useCourseProgress';
+import { useActivityLog } from '../hooks/useActivityLog';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuth } from '../contexts/AuthContext';
 import { PageFooter } from '../components/PageFooter';
@@ -35,6 +36,7 @@ export default function LessonView() {
     startCourse,
     getCourseProgress,
   } = useTrainingProgress();
+  const { logActivity } = useActivityLog();
 
   if (!course || !lesson) {
     return (
@@ -57,10 +59,25 @@ export default function LessonView() {
   const progress = getCourseProgress(course.id);
 
   const handleMarkComplete = () => {
-    if (!progress || progress.status === 'not-started') {
+    const courseAlreadyStarted = progress && progress.status !== 'not-started';
+    if (!courseAlreadyStarted) {
       startCourse(course.id);
+      logActivity('training-course-started', {
+        courseId: course.id,
+        courseName: course.title,
+      });
     }
+
+    const wasAlreadyComplete = isLessonCompleted(course.id, lesson.id);
     completeLesson(course.id, lesson.id);
+    if (!wasAlreadyComplete) {
+      logActivity('training-lesson-completed', {
+        courseId: course.id,
+        courseName: course.title,
+        lessonId: lesson.id,
+        lessonName: lesson.title,
+      });
+    }
 
     // Auto-complete course if all lessons done
     const completedAfterThis = [
@@ -68,8 +85,15 @@ export default function LessonView() {
       lesson.id,
     ];
     const uniqueCompleted = [...new Set(completedAfterThis)];
+    const wasCourseComplete = progress?.status === 'completed';
     if (uniqueCompleted.length >= course.lessons.length) {
       completeCourse(course.id);
+      if (!wasCourseComplete) {
+        logActivity('training-course-completed', {
+          courseId: course.id,
+          courseName: course.title,
+        });
+      }
     }
   };
 
