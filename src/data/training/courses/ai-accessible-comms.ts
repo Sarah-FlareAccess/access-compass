@@ -536,12 +536,12 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 </tr>
 <tr>
 <td><strong>Accessible Word Document</strong></td>
-<td>Existing Word docs (policies, info sheets, fact sheets, menus) you want to make more accessible to screen readers and move toward WCAG 2.2 AA conformance</td>
+<td>Existing Word docs (policies, info sheets, fact sheets, menus) you want to make more accessible AND more inclusive: heading hierarchy, alt text, plain language, link text, table structure, document properties. Best when you are open to suggested copy improvements alongside the structural work. If your copy is locked (board-approved, legal), see the locked-copy note in the build prompt.</td>
 <td>Low-Medium</td>
 </tr>
 <tr>
 <td><strong>Large Print</strong></td>
-<td>Reformatting short content (menus, programs) for low-vision readers</td>
+<td>Reformatting short content (menus, programs, flyers) for low-vision readers. The AI confirms fit, suggests scannability improvements (shorter sentences, clearer headings) and supplies the typography checklist. Best when you are open to copy adjustments that help readability at large type sizes.</td>
 <td>Low</td>
 </tr>
 </tbody>
@@ -1017,21 +1017,22 @@ After the draft, give me:
             title: 'Build prompt: Accessible Word Document',
             targetTool: 'drafting',
             formatKey: 'Accessible Word Document',
-            instructions: 'For making an existing Word document more accessible to screen readers and moving it toward WCAG 2.2 AA conformance. Built on Australian Government Style Manual and NSW / Vic Government accessibility guidance. Works for policies, info sheets, fact sheets, menus, staff briefings and similar. This format needs an existing Word document. If you have nothing yet, pick a different format (Plain Language, Easy Read, Social Story or Accessibility Guide) to create the content first, then come back here. PDF accessibility verification (Adobe Acrobat Pro, Grackle Docs) sits outside this workshop. Word\'s built-in PDF export with structure tags enabled is a basic starting point but not full PDF compliance.',
-            promptTemplate: `I have a Word document I want to make more accessible. My copy is finalised — I am not asking you to rewrite the wording, only to add the accessibility scaffolding around it.
+            instructions: 'For making an existing Word document more accessible AND more inclusive — heading hierarchy, alt text, plain language, link text, table structure, document properties. Built on Australian Government Style Manual and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA. Works for policies, info sheets, fact sheets, menus, staff briefings and similar. Best when you are open to suggested copy improvements alongside the structural work. If you have no existing doc yet, pick a different format (Plain Language, Easy Read, Social Story or Accessibility Guide) to create the content first, then come back here. PDF accessibility verification (Adobe Acrobat Pro, Grackle Docs) sits outside this workshop.',
+            promptTemplate: `I have a Word document I want to make more accessible AND more inclusive — accessibility scaffolding (heading hierarchy, alt text, links, tables, document properties) PLUS suggestions to improve plain language and structure where they help readers.
 
-CRITICAL RULE: DO NOT REWRITE MY COPY. Keep every sentence exactly as I wrote it unless I explicitly ask you to change a specific sentence. Your job is structural and accessibility work, not editorial.
+LOCKED COPY OVERRIDE: if my copy is board-approved, legally signed off or otherwise unchangeable, I will tell you "flag suggestions only, do not rewrite" before I start. Otherwise treat your suggestions as opportunities I can choose to apply.
 
-Please apply this structure (based on Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document):
+Please work through this (based on Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document):
 
 1. STRUCTURE
 - Suggest a heading hierarchy. Mark each line as H1 / H2 / H3 etc. Do not skip levels.
 - Set a logical reading order top-to-bottom. Flag any content that may float (text boxes, sidebars).
-- Replace manual dashes or asterisks with proper bulleted or numbered lists. (This is structural, not wording.)
+- Replace manual dashes or asterisks with proper bulleted or numbered lists.
 
-2. PLAIN LANGUAGE NOTE (suggestion only, do not rewrite)
+2. PLAIN LANGUAGE PASS
+- Estimate the document's reading level.
 - Note any sentence over 20 words or any jargon a general audience would miss.
-- For the top 5 hardest, list each one and suggest a plainer alternative I CAN CHOOSE to apply. Leave my original sentences in the draft unchanged. I will tell you which (if any) to apply.
+- For the top 5 hardest, list each one with the original sentence and a suggested plainer alternative. Format each as: original + suggested rewrite + the label "SUGGESTED — apply if you want plainer wording, skip if your copy is locked". Leave the original sentences in my draft untouched; I will tell you which suggestions to apply.
 
 3. IMAGES
 - For each image the user has described to you in detail in the source material, draft alt text as a starting point: one sentence, factual visual description, message-focused. Tell the user to verify against the actual image before saving.
@@ -1040,7 +1041,7 @@ Please apply this structure (based on Australian Government Style Manual content
 - Flag any place where colour alone conveys meaning (e.g., "red items are urgent") and suggest a non-colour fix.
 
 4. LINKS
-- Rewrite any "click here", "read more", "this page" link text so it makes sense out of context. (Link text is accessibility scaffolding, not editorial copy — rewriting it is OK.)
+- Rewrite any "click here", "read more", "this page" link text so it makes sense out of context.
 - For printed copies, suggest a footnote with the full URL.
 
 5. TABLES
@@ -1060,7 +1061,7 @@ Please apply this structure (based on Australian Government Style Manual content
 After your analysis, give me:
 - A numbered checklist of every change to make in Word, in order
 - A short list of items I need to verify or supply (alt text confirmation, missing source info)
-- The Plain Language suggestions from step 2 (each as a separate line: original sentence + suggested rewrite + a label "OPTIONAL — apply only if I confirm")
+- The Plain Language suggestions from step 2 (each as: original sentence + suggested rewrite + the "SUGGESTED" label)
 - One paragraph I can paste into the document footer noting it moves toward WCAG 2.2 AA conformance and how readers can request the content in another format
 
 Source content: if I have already pasted the document earlier in this chat (e.g. in the briefing step), tell me "I will use the content you shared above" and proceed — do not ask me to re-paste. Otherwise paste it below:
@@ -1075,14 +1076,14 @@ Source content: if I have already pasted the document earlier in this chat (e.g.
             title: 'Build prompt: Large Print',
             targetTool: 'drafting',
             formatKey: 'Large Print',
-            instructions: 'For reformatting short content for low-vision readers, following Vision Australia clear print guidance. This format needs existing short content to reformat (a menu page, a flyer, an announcement, a one-page summary). If you have no source content yet, use Plain Language or Easy Read first, then come back to Large Print to reformat the result.',
-            promptTemplate: `I have content I want to provide in Large Print. My copy is finalised — I am not asking you to rewrite the wording, only to confirm fit and produce the formatting checklist.
+            instructions: 'For reformatting short content for low-vision readers, following Vision Australia clear print guidance. Works for a menu page, a flyer, an announcement, a one-page summary. Best when you are open to copy adjustments that help readability at large type sizes (shorter sentences, clearer headings). If you have no source content yet, use Plain Language or Easy Read first, then come back to Large Print to reformat the result.',
+            promptTemplate: `I have content I want to provide in Large Print. Please confirm the content suits the format, suggest scannability improvements where they would help readers at large type sizes, and supply the typography checklist.
 
-CRITICAL RULE: DO NOT REWRITE MY COPY. Keep every sentence exactly as I wrote it unless I explicitly ask you to change a specific sentence. Your job is to assess fit and supply the typography / layout checklist, not to edit my words.
+LOCKED COPY OVERRIDE: if my copy is board-approved, legally signed off or otherwise unchangeable, I will tell you "flag suggestions only, do not rewrite" before I start. Otherwise treat your suggestions as opportunities I can choose to apply.
 
 Please:
-1. Confirm the content is appropriate for Large Print (short, high-priority information). If it is too long for Large Print as a format, say so and stop — do not condense the copy yourself.
-2. Note any sections that may be hard to scan at large type sizes (long sentences, dense paragraphs, decorative wording). List them as observations only — do NOT rewrite. I will decide what (if anything) to edit. The default is to keep my wording exactly as is.
+1. Confirm the content is appropriate for Large Print (short, high-priority information). If it is too long for Large Print as a format, say so — do not condense the copy yourself, but tell me what would need to come out and let me decide.
+2. Suggest scannability improvements where they help at large type sizes (shorter sentences for very long ones, clearer headings, removing decorative wording). Format each suggestion as: original line + suggested change + the label "SUGGESTED — apply if you want better scannability, skip if your copy is locked". Leave my original sentences in the draft; I will tell you which suggestions to apply.
 3. Give me the formatting checklist for Large Print (minimum font size, font family, line spacing, contrast, paper colour, margins) following Vision Australia guidance.
 
 Source content: if I have already pasted the content earlier in this chat (e.g. in the briefing step), tell me "I will use the content you shared above" and proceed — do not ask me to re-paste. Otherwise paste it below:
@@ -1102,13 +1103,6 @@ Source content: if I have already pasted the content earlier in this chat (e.g. 
 <li>Where would a reader get confused or stuck?</li>
 </ul>
 <p>Make a short list (3 to 5 items max) of what you want changed.</p>`,
-        },
-        {
-          type: 'callout',
-          callout: {
-            variant: 'tip',
-            text: 'Accessible Word Document and Large Print: skip this step. Go straight to Step 4 (save your work) and continue to Lesson 4 — the sense-check there catches accessibility issues more systematically. Only stop in Step 3 if Step 2 surfaced one specific issue you want fixed first (e.g. a wrong alt text, a heading at the wrong level): if so, use ONE prompt from Section B below, then move on. Never use Section A — those rewrite copy.',
-          },
         },
         {
           type: 'text',
@@ -1210,13 +1204,6 @@ Source content: if I have already pasted the content earlier in this chat (e.g. 
           },
         },
         {
-          type: 'callout',
-          callout: {
-            variant: 'tip',
-            text: 'Accessible Word Document and Large Print: ignore items in Claude\'s reply that flag reading level, sentence length, jargon or "make it shorter / clearer". Your wording is set. Action only the accessibility items (alt text, heading hierarchy, link text, table structure, anything flagged for human verification).',
-          },
-        },
-        {
           type: 'exercise',
           exercise: {
             title: 'Step 1: Send your draft to Claude for sense-check (10 min)',
@@ -1238,13 +1225,6 @@ Please sense-check the draft using the framework you've been set up with, includ
               'If Claude\'s free tier limit hits before you finish, paste the Reviewer prompt and this draft into ChatGPT, Copilot or Gemini instead. The framework is portable.',
               'If Claude\'s reply skips one of the five framework sections, ask it to redo the missing section. Do not let it drop categories silently.',
             ],
-          },
-        },
-        {
-          type: 'callout',
-          callout: {
-            variant: 'tip',
-            text: 'Accessible Word Document and Large Print: you may have 0 to 2 issues to action here. That is normal — your copy is set, so most of Claude\'s items are skipped per the previous note. If nothing is left to action, skip to Step 3 (build your formatting checklist).',
           },
         },
         {
@@ -1359,16 +1339,18 @@ Here is my reviewed draft:
           type: 'checklist',
           checklist: {
             title: 'Step 4: Apply your format\'s settings in Word or your design tool (8 min)',
-            introHtml: `<p>Claude\'s accessibility formatting checklist lists what to apply. This checklist tracks it. The items are <strong>specific to your chosen format</strong> and load automatically based on the brief you filled in Lesson 2. Tick each item as you apply it. Your progress saves to this device.</p>
-<p><strong>Run this checklist whether the AI generated a file or only returned text.</strong> AI-generated docx files routinely miss decorative-table marking, true semantic heading styles and document properties: they look right but fail an accessibility check. Treat any AI-generated file as a draft scaffold, not a final document. The checklist is the verification step that turns it into something publishable.</p>
-<p><strong>Laying out Large Print in a design tool (Canva, InDesign, Affinity Publisher)?</strong> Most of the checklist still applies: font size, font family, line spacing, contrast, margins and single-column layout all translate. The only items that need a Word document are the Word Accessibility Checker step and Word\'s built-in semantic heading styles — skip those if your final file is design-tool output, and rely on the final human review checklist instead.</p>
-<p><strong>Using Google Docs instead of Word?</strong> Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Three real limitations to know about:</p>
+            introHtml: `<p>Items below are <strong>specific to your chosen format</strong> (loaded from your Lesson 2 brief). Tick each as you apply it — progress saves to this device.</p>
+<p><strong>Run this whether the AI returned a file or only text.</strong> AI-generated docx files routinely miss semantic heading styles, decorative-table marking and document properties. They look right but fail an accessibility check, so treat any AI file as a scaffold, not a final document.</p>
+<details class="setup-detail">
+<summary><strong>Using Google Docs instead of Word?</strong> (tap to expand)</summary>
+<p>Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Three real limitations to know about:</p>
 <ol>
 <li><strong>Decorative tables:</strong> Google Docs cannot mark tables as decorative. Screen readers will announce layout tables as data tables.</li>
 <li><strong>Heading hierarchy can break in .docx export.</strong> Only headings applied via Format &gt; Paragraph styles &gt; Heading 1/2/3 survive reliably. Headings manually formatted (bold + larger text) export as direct formatting, not semantic H1/H2/H3. Google Docs "Title" style does NOT map to Word's Heading 1. After exporting .docx, open in Word and verify each heading shows the correct style in the Styles pane (Home &gt; Styles).</li>
 <li><strong>PDF export from Google Docs is limited.</strong> If you want a PDF copy, export .docx from Google Docs, verify heading styles in Word, then save as PDF from Word with "Document structure tags for accessibility" enabled. This produces a basic tagged PDF only. Full PDF accessibility verification requires Adobe Acrobat Pro or Grackle Docs, which sit outside this workshop.</li>
 </ol>
-<p>Google Docs is fine for drafting. For final accessible-document production, finish in Word or LibreOffice.</p>`,
+<p>Google Docs is fine for drafting. For final accessible-document production, finish in Word or LibreOffice.</p>
+</details>`,
             items: [
               'Pick a format in Lesson 2 to load the right checklist for your draft.',
             ],
