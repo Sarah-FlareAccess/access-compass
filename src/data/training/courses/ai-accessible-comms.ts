@@ -383,6 +383,8 @@ BEHAVIOUR RULES
 - Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
 - When my iteration request includes a numbered list of issues, after the full updated draft return a numbered confirmation list saying what you changed for each issue. For structural changes (moving content between sections, merging or splitting sections), name the section you moved. For wording changes, quote the before/after. If you could not action an issue, say so and explain why. Structural changes are easy to skip silently, so they must be called out explicitly.
 - Never produce a draft directly after I answer your clarifying questions. After my answers, confirm what you now know, name any remaining gaps as specific questions, and wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting requires BOTH my answers AND an explicit go-ahead. If an assumption you raised was not addressed in my answers, do not bake it into the draft as fact. Re-raise it as a question or leave a [TO CONFIRM] placeholder in the draft.
+- BRANDING: when my briefing includes BRANDING fields (voice, always-use words, never-use words, colours, background, fonts, logo and style notes), treat them as binding for every draft and revision in this conversation. Apply voice and word lists to every sentence. Apply colour, font, background and logo rules to every formatting checklist and any file you produce. For every brand colour I give you with a hex code, calculate WCAG 2.2 AA contrast against the background colour I specified (or white by default) and flag any failures with a suggested fix. Never silently change a brand colour. If any branding field is blank, apply accessible defaults for that aspect (sans-serif, black on white, no colour-only meaning) without prompting me.
+- INCLUSIVE LANGUAGE BASELINE (always-on, regardless of branding fields): never use ableist or deficit-framed language in any draft. Avoid "suffers from", "afflicted with", "wheelchair-bound", "confined to a wheelchair", "special needs", "differently abled", "handicapped", "able-bodied" (use "non-disabled" only where contrast is needed), "the disabled", "victim of", "normal" as the opposite of disabled, or any euphemism that distances disability. Use person-first or identity-first language per Australian Federation of Disability Organisations and People with Disability Australia guidance, defaulting to identity-first for the autistic and Deaf communities and person-first elsewhere unless the brief tells you otherwise. The user does not need to list these in BRAND WORDS AVOID — they are off by default.
 
 ACCESSIBILITY STANDARDS REFERENCE
 - Easy Read: Inclusion Australia and CID guidelines for content (short sentences, common words, one idea per line, no metaphors). Australian Government Style Manual for layout (image LEFT and text RIGHT in a 2-column presentation table, never image above or below text, minimum 1.5 line spacing, wide margins, minimum 14pt body with larger headings, bold for headings and difficult words only).
@@ -622,6 +624,44 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
                 label: 'Where it will live',
                 example: 'our website accessibility page, our booking confirmation email, a printed handout at reception',
               },
+              {
+                key: 'BRAND VOICE',
+                label: 'Brand voice and tone (optional)',
+                example: 'warm and direct, plainspoken, written in second person ("you"). Or paste a paragraph from your About page or homepage and the AI will match that voice.',
+                multiline: true,
+              },
+              {
+                key: 'BRAND WORDS USE',
+                label: 'Words we always use (optional)',
+                example: 'visitor (not guest), member, our team, accessible (not disabled access). Business-specific terms only — the AI already uses inclusive language by default.',
+              },
+              {
+                key: 'BRAND WORDS AVOID',
+                label: 'Words we never use (optional)',
+                example: 'guest, customer, patron, or any internal jargon. You do not need to list ableist terms — the AI already avoids those.',
+              },
+              {
+                key: 'BRAND COLOURS',
+                label: 'Brand colours with hex codes (optional)',
+                example: 'navy #0A2540 (primary), coral #FF6B6B (accent), sand #F5F1E8 (background)',
+                multiline: true,
+              },
+              {
+                key: 'BRAND BACKGROUND',
+                label: 'Page or background colour preference (optional)',
+                example: 'white, cream, yellow, dark with light text',
+              },
+              {
+                key: 'BRAND FONTS',
+                label: 'Brand fonts, heading and body (optional)',
+                example: 'Atkinson Hyperlegible for headings and body, or Calibri for both',
+              },
+              {
+                key: 'BRAND OTHER',
+                label: 'Logo rules and other style notes (optional)',
+                example: 'logo top-left, never stretched, leave clear space, always include date stamp at footer',
+                multiline: true,
+              },
             ],
             briefGuidance: {
               title: 'What makes a good brief?',
@@ -632,6 +672,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
 <li><strong>Audience</strong> shapes vocabulary, tone and what to leave out. The more specific, the better. "Members of the public" is too vague. "People booking online who use a screen reader" lets the AI pick the right voice. If the actual reader is different from the subject (parent reading on behalf of an autistic teenager, support worker reading aloud), name both: "parents booking on behalf of their autistic teenager".</li>
 <li><strong>What it helps them do</strong> is the outcome. "Plan a visit", "know what to expect at the entrance", "decide whether to come at all". Tells the AI what to lead with.</li>
 <li><strong>Where it will live</strong> sets length and tone. A booking confirmation email is 3 short paragraphs. A website page can be longer with headings. Knowing this stops the AI writing a 1,500-word essay when you need a sign.</li>
+<li><strong>Branding fields (all optional)</strong> let the draft reflect your business. Voice, words to use, words to avoid, brand colours with hex codes, background, fonts, logo rules. Any field you leave blank falls back to an accessible default (sans-serif, black on white, no colour-only meaning). Brand colours with hex codes are auto-checked against WCAG 2.2 AA contrast and flagged if they fail.</li>
 </ul>
 <p><strong>Bad vs good answers:</strong></p>
 <ul>
@@ -837,7 +878,7 @@ DO NOT
           exercise: {
             title: 'Step 3: Brief your AI assistant (10 min)',
             targetTool: 'drafting',
-            instructions: 'Copy the briefing prompt below into ChatGPT. Fill in the brackets with your format, audience and source material.',
+            instructions: 'Copy the briefing prompt below into ChatGPT. Your format, audience, purpose, where it will live and any branding fields you filled in are auto-injected from the brief above. Paste your source material into the marked spot. Any branding fields you left blank will fall back to accessible defaults.',
             promptTemplate: `I want to create a [FORMAT NAME] for [AUDIENCE].
 
 It will help them to [PURPOSE].
@@ -847,14 +888,30 @@ It will live [WHERE IT WILL BE PUBLISHED].
 Here is my source material:
 [paste the actual content as text — copy and paste from the webpage, PDF or doc. AI tools cannot reliably extract content from URLs; pasting the text is the only path that works]
 
+BRANDING (any field left blank means no constraint, use accessible defaults)
+- Brand voice and tone: [BRAND VOICE]
+- Words we always use: [BRAND WORDS USE]
+- Words we never use: [BRAND WORDS AVOID]
+- Brand colours with hex codes: [BRAND COLOURS]
+- Page or background colour preference: [BRAND BACKGROUND]
+- Brand fonts (heading and body): [BRAND FONTS]
+- Logo rules and other style notes: [BRAND OTHER]
+
+How you must use the branding fields
+- Apply voice and word lists to every sentence you draft.
+- Apply font, colour, background and logo rules to any formatting checklist or file you produce.
+- For every brand colour I gave you with a hex code, calculate WCAG 2.2 AA contrast against the background and flag any that fail (4.5:1 for body under 18pt, 3:1 for large text 18pt+ or 14pt bold). Suggest a darkened or lightened variant, or restrict the failing colour to large headings only. Never silently change a brand colour.
+- If a branding field is blank, apply accessible defaults for that aspect (sans-serif, black on white, no colour-only meaning) without prompting me.
+
 Before drafting:
-1. Confirm in 2 to 3 sentences what you understand.
-2. Ask me 3 to 5 clarifying questions to fill any gaps.
+1. Confirm in 2 to 3 sentences what you understand about my business, audience, purpose and where this will live.
+2. Audit my source material against the structural requirements of [FORMAT NAME]. You know what this format needs to be useful (e.g. Social Story needs chronological beats, sensory details at each beat, what staff will do and what unexpected things might happen; Easy Read needs one decision or action the reader should take and hard words to replace; Accessibility Guide needs facts for all seven sections). For every required element my source does NOT cover, ask me a specific question to fill the gap. There is no fixed limit — ask as many as the format needs, but each question should be answerable in one short sentence. Group related gaps into a single numbered checklist where it helps.
 3. List any assumptions you would have to make if I cannot answer.
 4. STOP HERE. Wait for my answers. Do NOT produce a draft yet. After I answer your clarifying questions, confirm what you now know, restate any remaining gaps as specific questions, then wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting only happens AFTER both my answers AND an explicit go-ahead.`,
-            expectedOutcome: 'ChatGPT replies with a short summary of what it understands, plus 3 to 5 clarifying questions. The AI now has full context once you have answered them.',
+            expectedOutcome: 'ChatGPT replies with a short summary of what it understands plus a list of format-specific clarifying questions. The number of questions depends on how much your source already covers for your chosen format. Social Story and Accessibility Guide typically need more questions than Plain Language. Answer each one and the AI has full context.',
             tips: [
               'Got something the draft MUST get right (a tone, a fact, a length limit)? Add it as a line just before "Before drafting:" or mention it when ChatGPT asks its clarifying questions. Examples: "Must mention wheelchair access", "Stay under 500 words", "Use our friendly tone, similar to our website homepage".',
+              'Branding fields above are all optional. Fill in any you have, leave any blank. Hex codes are ideal for colours but "navy blue" works too. Any field left blank falls back to an accessible default.',
               'If you do not know the answer to a clarifying question, say "Don\'t know, please flag this as needing a human to confirm."',
             ],
           },
@@ -925,6 +982,9 @@ Before drafting:
             instructions: 'For Easy Read content following Inclusion Australia and CID guidelines for content, and the Australian Government Style Manual for layout. Copy the prompt below and paste it into your ChatGPT conversation (which already has your business context from Lesson 2).',
             promptTemplate: `Please draft this in Easy Read format following Inclusion Australia and CID guidelines for content, and the Australian Government Style Manual for layout.
 
+BRANDING
+Honour the BRANDING fields from my brief (voice, person, always-use words, never-use words, colours, fonts, background, logo rules). Apply voice and word lists to every sentence. Apply colour, font and background rules to the typography checklist at the end. Flag any brand colour that fails WCAG 2.2 AA contrast against the background. If the branding block was empty, note that no branding was provided and use accessible defaults.
+
 CONTENT RULES
 - One main idea per line
 - Sentences under 15 words wherever possible
@@ -971,6 +1031,9 @@ After the draft, list:
             instructions: 'For Plain Language content following the Australian Government Style Manual.',
             promptTemplate: `Please draft this in Plain Language following the Australian Government Style Manual.
 
+BRANDING
+Honour the BRANDING fields from my brief (voice, person, always-use words, never-use words, colours, fonts, background). Apply voice and word lists to every sentence. Apply font, colour and background rules to any formatting checklist you produce. Flag any brand colour that fails WCAG 2.2 AA contrast against the background. If the branding block was empty, note that no branding was provided and use accessible defaults.
+
 Apply these rules:
 - Reading level: year 7 to year 8
 - Sentences under 20 words on average
@@ -996,6 +1059,11 @@ After the draft, give me:
             formatKey: 'Social Story / Visual Narrative',
             instructions: 'For a first-person walkthrough of an experience using photos and short sentences.',
             promptTemplate: `Please draft this as a Social Story / Visual Narrative following Carol Gray Social Story convention.
+
+BRANDING
+Honour the BRANDING fields from my brief (voice, always-use words, never-use words, colours, fonts, background, logo rules). For Social Story, voice and word lists shape every sentence. Colour, font and logo rules go into the typography checklist at the end so I can apply them when I lay the story out in Word or a design tool. Flag any brand colour that fails WCAG 2.2 AA contrast against the background. If the branding block was empty, note that no branding was provided and use accessible defaults.
+
+Note on Social Story voice: Carol Gray convention uses first person ("I will see..."). If my brand voice asks for second or third person elsewhere, keep first person for the story body itself and apply my brand voice to any wrapping headings, captions or supporting copy. Flag this in one sentence at the end of the draft.
 
 Apply these rules:
 - Written in first person ("I will...", "I might see...")
@@ -1038,6 +1106,9 @@ After the draft, list:
             instructions: 'For structured info about the access features of a venue, event or service. Best published as a webpage on your own site so search engines can index it and screen readers can navigate it directly. The AI will produce the text with a clean H1 / H2 hierarchy you can paste into your CMS (or hand to a developer in a Word doc). Also keep a designed Word or PDF copy as your on-request fallback for when a recipient can only accept an email attachment.',
             promptTemplate: `Please draft an Accessibility Guide for my venue or event.
 
+BRANDING
+Honour the BRANDING fields from my brief (voice, person, always-use words, never-use words, colours, fonts, background, logo rules). Apply voice and word lists to every section. Apply colour, font, background and logo rules to the typography and webpage-styling checklist at the end so I can apply them when I publish. Flag any brand colour that fails WCAG 2.2 AA contrast against the background. If the branding block was empty, note that no branding was provided and use accessible defaults.
+
 Structure it under these headings:
 1. Getting there (transport, parking, drop-off)
 2. Getting in (entrance, doors, level access, alternative entrances)
@@ -1070,6 +1141,9 @@ After the draft, give me:
             promptTemplate: `I have a Word document I want to make more accessible AND more inclusive — accessibility scaffolding (heading hierarchy, alt text, links, tables, document properties) PLUS suggestions to improve plain language and structure where they help readers.
 
 LOCKED COPY OVERRIDE: if my copy is board-approved, legally signed off or otherwise unchangeable, I will tell you "flag suggestions only, do not rewrite" before I start. Otherwise treat your suggestions as opportunities I can choose to apply.
+
+BRANDING
+Honour the BRANDING fields from my brief (voice, person, always-use words, never-use words, colours, fonts, background, logo rules). Apply voice and word lists to every rewrite suggestion. Apply font, colour, background and logo rules inside the Word formatting checklist. Section 6 below contains the brand-colour contrast check. If the branding block was empty, note that no branding was provided and use accessible defaults.
 
 Please work through this (based on Australian Government Style Manual content-types and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA conformance in the Word document):
 
@@ -1135,6 +1209,9 @@ Source content: if I have already pasted the document earlier in this chat (e.g.
             promptTemplate: `I have content I want to provide in Large Print. Please confirm the content suits the format, suggest scannability improvements where they would help readers at large type sizes, and supply the typography checklist.
 
 LOCKED COPY OVERRIDE: if my copy is board-approved, legally signed off or otherwise unchangeable, I will tell you "flag suggestions only, do not rewrite" before I start. Otherwise treat your suggestions as opportunities I can choose to apply.
+
+BRANDING
+Honour the BRANDING fields from my brief (voice, person, always-use words, never-use words, colours, fonts, background, logo rules). Apply voice and word lists to any scannability rewrites you suggest. Apply font, colour, background and logo rules to the typography checklist. Step 4 below contains the brand-colour contrast check at large type sizes. If the branding block was empty, note that no branding was provided and use accessible defaults.
 
 Please:
 1. Confirm the content is appropriate for Large Print (short, high-priority information). If it is too long for Large Print as a format, say so — do not condense the copy yourself, but tell me what would need to come out and let me decide.
