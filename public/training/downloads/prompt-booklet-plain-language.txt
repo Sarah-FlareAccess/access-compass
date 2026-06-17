@@ -3,7 +3,7 @@ Plain Language
 
 A single-format prompt booklet from the Flare Access workshop "Using AI to Create Accessible & Inclusive Communications".
 
-Plain Language targets a year 7 to 8 reading level using active voice and common words. Best for general public communications, policies, forms and customer-facing content where you want broad comprehension. Built on the Australian Government Style Manual and Plain Language Association International.
+Plain Language targets a year 7 to 8 reading level using active voice and common words. Best for general public communications, policies, forms and customer-facing content where you want broad comprehension. Built on the Australian Government Style Manual and Plain Language Association International, and informed by ISO 24495-1:2023, the international plain language standard (content readers can find, understand and use).
 
 This booklet bundles every prompt you need for Plain Language:
 
@@ -68,7 +68,7 @@ BEHAVIOUR RULES
 
 ACCESSIBILITY STANDARDS REFERENCE
 - Easy Read: Inclusion Australia and CID guidelines for content (short sentences, common words, one idea per line, no metaphors). Australian Government Style Manual for layout (image LEFT and text RIGHT in a 2-column presentation table, never image above or below text, minimum 1.5 line spacing, wide margins, minimum 14pt body with larger headings, bold for headings and difficult words only).
-- Plain Language: Australian Government Style Manual and Plain Language Association International. Year 7 to 8 reading level. Active voice. Common words.
+- Plain Language: Australian Government Style Manual and Plain Language Association International, informed by ISO 24495-1:2023 (the international plain language standard: content readers can find, understand and use). Year 7 to 8 reading level. Active voice. Common words.
 - Social Stories: Carol Gray model. First person. Descriptive. Non-judgemental.
 - Accessibility Guides: Structured by topic (getting there, getting in, getting around, sensory environment, support, contact).
 - Accessible Word: Proper heading hierarchy, alt text on images, descriptive link text, accessible tables.
@@ -190,6 +190,8 @@ After the draft, give me:
 - An estimate of the reading level
 - A list of any words I should consider replacing
 - One sentence on what the reader should walk away knowing
+
+Before publishing, test the draft with two or three intended readers and fix anything they stumble on. This is the "usable" check from ISO 24495-1:2023: the content only works if real readers can find, understand and act on it.
 
 ============================================================
 5. ITERATION PROMPTS

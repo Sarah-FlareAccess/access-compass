@@ -388,7 +388,7 @@ BEHAVIOUR RULES
 
 ACCESSIBILITY STANDARDS REFERENCE
 - Easy Read: Inclusion Australia and CID guidelines for content (short sentences, common words, one idea per line, no metaphors). Australian Government Style Manual for layout (image LEFT and text RIGHT in a 2-column presentation table, never image above or below text, minimum 1.5 line spacing, wide margins, minimum 14pt body with larger headings, bold for headings and difficult words only).
-- Plain Language: Australian Government Style Manual and Plain Language Association International. Year 7 to 8 reading level. Active voice. Common words.
+- Plain Language: Australian Government Style Manual and Plain Language Association International, informed by ISO 24495-1:2023 (the international plain language standard: content readers can find, understand and use). Year 7 to 8 reading level. Active voice. Common words.
 - Social Stories: Carol Gray model. First person. Descriptive. Non-judgemental.
 - Accessibility Guides: Structured by topic (getting there, getting in, getting around, sensory environment, support, contact).
 - Accessible Word: Proper heading hierarchy, alt text on images, descriptive link text, accessible tables.
@@ -1054,7 +1054,9 @@ Apply these rules:
 After the draft, give me:
 - An estimate of the reading level
 - A list of any words I should consider replacing
-- One sentence on what the reader should walk away knowing`,
+- One sentence on what the reader should walk away knowing
+
+Before publishing, test the draft with two or three intended readers and fix anything they stumble on. This is the "usable" check from ISO 24495-1:2023: the content only works if real readers can find, understand and act on it.`,
             expectedOutcome: 'A Plain Language draft at year 7 to 8 reading level, with an estimated reading level, a list of replacement word suggestions and a one-sentence summary of the key takeaway.',
           },
         },
