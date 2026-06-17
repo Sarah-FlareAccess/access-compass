@@ -886,7 +886,7 @@ It will help them to [PURPOSE].
 It will live [WHERE IT WILL BE PUBLISHED].
 
 Here is my source material:
-[paste the actual content as text — copy and paste from the webpage, PDF or doc. AI tools cannot reliably extract content from URLs; pasting the text is the only path that works]
+[paste the actual content as text. Copy and paste from the webpage, PDF or doc. AI tools cannot reliably extract content from URLs; pasting the text is the only path that works]
 
 BRANDING (any field left blank means no constraint, use accessible defaults)
 - Brand voice and tone: [BRAND VOICE]
@@ -970,7 +970,8 @@ Before drafting:
         {
           type: 'text',
           heading: 'Step 1: Send your build prompt (10 min)',
-          body: `<p>Your build prompt is shown expanded below, based on the format you picked in Lesson 2. The other 5 are collapsed. Open any if you want to compare or try a different format later. Copy your build prompt and paste it into ChatGPT.</p>
+          body: `<p>Your build prompt is shown expanded below, based on the format you picked in Lesson 2. The other 5 are collapsed. Open any if you want to compare or try a different format later. Copy your build prompt and paste it into the <strong>same ChatGPT conversation you used in Lesson 2</strong>. That conversation already holds your brief, your source material and your clarifying answers, so the build prompt draws on all of it.</p>
+<p><strong>Started a new chat?</strong> Paste your Lesson 2 briefing prompt in again first. Without it the AI has no brief to work from and will draft from scratch.</p>
 <p>If you have not picked a format yet, all 6 will be collapsed. Open the one that matches your plan.</p>`,
         },
         {
@@ -1005,14 +1006,20 @@ LAYOUT (this is the part most AI drafts get wrong for Easy Read)
 - For section headings, use a heading row that spans both columns.
 - Image column format: "[Image: short description of what the picture should show]" on one line. Do NOT write alt text — you have not seen the actual photo. The user will write alt text after sourcing the real image. Do not generate the image either, just describe what should go there.
 
-TYPOGRAPHY GUIDANCE FOR WHEN I PUT THIS IN WORD (include as a checklist at the end)
-- Minimum 14pt body, larger for headings
-- Minimum 1.5 line spacing
-- Bold only for headings and difficult words
-- Left-aligned text
-- Wide margins (at least 2.5cm on each side)
-- Use colour and contrast for emphasis but never as the only signal of meaning
-- When I put the 2-column rows into Word as tables, set role="presentation" on each so screen readers do not announce them as data tables
+WHITE SPACE AND TYPOGRAPHY (Easy Read needs generous white space, do NOT condense)
+If you generate a Word file, apply all of these IN the file itself, not just as a checklist. Easy Read drafts fail most often by being too cramped, so always err on the side of more white space.
+- Line spacing at least 1.5 everywhere, including inside table cells. Never tighter than 1.5.
+- Clear space between every image and text row, so each chunk has room to breathe. Add space after each paragraph and after each row.
+- Generous padding inside every table cell. Text must not touch the cell edges.
+- Body text at least 14pt, headings larger. Never below 14pt.
+- Wide page margins, at least 2.5cm on each side.
+- Bold only for headings and difficult words.
+- Left-aligned text, never justified.
+- Use colour and contrast for emphasis but never as the only signal of meaning.
+- One idea per line with space around it. Never compress the layout to fit more on a page.
+- Mark each 2-column layout table with role="presentation" so screen readers do not announce it as a data table.
+
+Then repeat these as a short checklist at the end, so I can verify them when I open the file in Word.
 
 After the draft, list:
 - Any words you used that may still be too hard
@@ -1206,7 +1213,7 @@ Source content: if I have already pasted the document earlier in this chat (e.g.
             targetTool: 'drafting',
             formatKey: 'Large Print',
             instructions: 'For reformatting short content for low-vision readers, following Vision Australia clear print guidance. Works for a menu page, a flyer, an announcement, a one-page summary. Best when you are open to copy adjustments that help readability at large type sizes (shorter sentences, clearer headings). If you have no source content yet, use Plain Language or Easy Read first, then come back to Large Print to reformat the result.',
-            promptTemplate: `I have content I want to provide in Large Print. Please confirm the content suits the format, suggest scannability improvements where they would help readers at large type sizes, and supply the typography checklist.
+            promptTemplate: `I have content I want to provide in Large Print. Please confirm the content suits the format, suggest scannability improvements where they would help readers at large type sizes, and apply the Large Print typography to any Word file you generate as well as giving me the checklist.
 
 LOCKED COPY OVERRIDE: if my copy is board-approved, legally signed off or otherwise unchangeable, I will tell you "flag suggestions only, do not rewrite" before I start. Otherwise treat your suggestions as opportunities I can choose to apply.
 
@@ -1216,7 +1223,15 @@ Honour the BRANDING fields from my brief (voice, person, always-use words, never
 Please:
 1. Confirm the content is appropriate for Large Print (short, high-priority information). If it is too long for Large Print as a format, say so — do not condense the copy yourself, but tell me what would need to come out and let me decide.
 2. Suggest scannability improvements where they help at large type sizes (shorter sentences for very long ones, clearer headings, removing decorative wording). Format each suggestion as: original line + suggested change + the label "SUGGESTED — apply if you want better scannability, skip if your copy is locked". Leave my original sentences in the draft; I will tell you which suggestions to apply.
-3. Give me the formatting checklist for Large Print (minimum font size, font family, line spacing, contrast, paper colour, margins) following Vision Australia guidance.
+3. WHITE SPACE AND TYPOGRAPHY (for Large Print the typography IS the deliverable, so never compress it). If you generate a Word file, apply all of these IN the file itself, not just as a checklist, and always err on the side of more white space:
+- Body text at least 16pt (Vision Australia clear print), or 18pt if I asked for RNIB large print. Never below 16pt.
+- Headings at least 1.5 times the body size.
+- Sans-serif font only (Arial, Verdana, Calibri or APHont). No italics. No decorative fonts. No underlines except on links.
+- Line spacing at least 1.5 everywhere. Never tighter than 1.5.
+- Generous space after every paragraph and heading. Wide page margins, at least 2.5cm on each side.
+- Single column. Left-aligned, never justified.
+- Strong contrast (black on white, cream or yellow). Never use an image of text.
+Then repeat these as a short checklist at the end, following Vision Australia guidance and including paper colour, so I can verify them when I open the file in Word.
 4. If I listed brand colours in the briefing, calculate the contrast ratio of each against the background colour I specified (or white by default). Flag any that fail WCAG 2.2 AA at large type sizes (3:1 minimum for 18pt+ text). For failing brand colours, suggest either a darkened/lightened variant that meets contrast OR a use restriction (e.g. "use only for accent elements, not body text"). Do not change brand colours unless I ask — list as suggestions.
 
 Source content: if I have already pasted the content earlier in this chat (e.g. in the briefing step), tell me "I will use the content you shared above" and proceed — do not ask me to re-paste. Otherwise paste it below:
