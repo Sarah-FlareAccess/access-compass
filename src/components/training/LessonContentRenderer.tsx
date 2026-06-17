@@ -566,7 +566,7 @@ function highlightBracketPlaceholders(preInner: string): string {
   // Wrap any remaining [placeholder] in a <mark> so they stand out visually.
   // textContent strips the tag on copy, so brackets travel unchanged into the AI tool.
   return preInner.replace(
-    /\[([^\[\]\n<>]{1,80})\]/g,
+    /\[([^\[\]\n<>]+)\]/g,
     '<mark class="prompt-placeholder">[$1]</mark>'
   );
 }

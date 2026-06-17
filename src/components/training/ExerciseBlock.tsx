@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 function renderWithPlaceholderHighlights(text: string): ReactNode {
   const parts: ReactNode[] = [];
-  const regex = /\[([^\[\]\n]{1,80})\]/g;
+  const regex = /\[([^\[\]\n]+)\]/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
   let key = 0;
