@@ -206,6 +206,8 @@ After the draft, list:
 - Anything I should verify or add from a real walk-through
 - Variations to consider (e.g., for a quieter sensory experience)
 
+Before publishing, test the draft with two or three people from your intended audience and fix anything they stumble on. Real readers are the only reliable test of whether the content works for them.
+
 ============================================================
 5. ITERATION PROMPTS
 ============================================================

@@ -188,6 +188,8 @@ Source content: if I have already pasted the content earlier in this chat (e.g. 
 
 [paste content if not already shared]
 
+Before publishing, test the draft with two or three people from your intended audience and fix anything they stumble on. Real readers are the only reliable test of whether the content works for them.
+
 ============================================================
 5. ITERATION PROMPTS
 ============================================================

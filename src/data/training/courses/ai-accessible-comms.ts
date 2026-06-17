@@ -1025,7 +1025,9 @@ After the draft, list:
 - Any words you used that may still be too hard
 - Any sections that would benefit from an example
 - Anything I should verify with a human reviewer
-- One line on why the 2-column image-left / text-right layout matters for this audience, so I can defend the design choice if asked`,
+- One line on why the 2-column image-left / text-right layout matters for this audience, so I can defend the design choice if asked
+
+Before publishing, test the draft with two or three people from your intended audience and fix anything they stumble on. Real readers are the only reliable test of whether the content works for them.`,
             expectedOutcome: 'A draft laid out as 2-column rows (image-suggestion left, text right), plus a layout and typography checklist for applying it in Word and a list of words or sections that need extra attention. Alt text is not drafted in this step — you write alt text after sourcing real photos by uploading them to an AI that can look at images.',
           },
         },
@@ -1102,7 +1104,9 @@ Each section may contain multiple photo + text pairs (not just one). Use as many
 After the draft, list:
 - Photos I should take to go with each section, in order
 - Anything I should verify or add from a real walk-through
-- Variations to consider (e.g., for a quieter sensory experience)`,
+- Variations to consider (e.g., for a quieter sensory experience)
+
+Before publishing, test the draft with two or three people from your intended audience and fix anything they stumble on. Real readers are the only reliable test of whether the content works for them.`,
             expectedOutcome: 'A first-person social story or visual narrative in 5 chronological sections, with multiple photo + text pairs per section (2 to 4 short sentences under each photo), photo suggestions and notes on what to verify in a real walk-through.',
           },
         },
@@ -1136,7 +1140,9 @@ Apply these rules:
 After the draft, give me:
 - A list of every "needs answer" item I still need to fill in
 - Photos I should take to go with the guide
-- Anything that would benefit from a human to verify`,
+- Anything that would benefit from a human to verify
+
+Before publishing, test the draft with two or three people from your intended audience and fix anything they stumble on. Real readers are the only reliable test of whether the content works for them.`,
             expectedOutcome: 'An Accessibility Guide structured under 7 standard headings, with specific facts where you have provided them and "needs answer" flags where you have not.',
           },
         },
@@ -1204,7 +1210,9 @@ After your analysis, give me:
 
 Source content: if I have already pasted the document earlier in this chat (e.g. in the briefing step), tell me "I will use the content you shared above" and proceed — do not ask me to re-paste. Otherwise paste it below:
 
-[paste content if not already shared]`,
+[paste content if not already shared]
+
+Before publishing, test the draft with two or three people from your intended audience and fix anything they stumble on. Real readers are the only reliable test of whether the content works for them.`,
             expectedOutcome: 'A numbered Word-application checklist (heading suggestions, link rewrites, alt text drafts, list conversions, colour-only fixes, table structure notes, document properties), a list of items to verify and a footer paragraph noting the document moves toward WCAG 2.2 AA conformance.',
           },
         },
@@ -1238,7 +1246,9 @@ Then repeat these as a short checklist at the end, following Vision Australia gu
 
 Source content: if I have already pasted the content earlier in this chat (e.g. in the briefing step), tell me "I will use the content you shared above" and proceed — do not ask me to re-paste. Otherwise paste it below:
 
-[paste content if not already shared]`,
+[paste content if not already shared]
+
+Before publishing, test the draft with two or three people from your intended audience and fix anything they stumble on. Real readers are the only reliable test of whether the content works for them.`,
             expectedOutcome: 'A scannable text version of your content plus a formatting checklist (font size, family, spacing, contrast, paper, margins) you can apply in Word or your design tool.',
           },
         },

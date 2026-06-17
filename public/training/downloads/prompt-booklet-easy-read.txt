@@ -211,6 +211,8 @@ After the draft, list:
 - Anything I should verify with a human reviewer
 - One line on why the 2-column image-left / text-right layout matters for this audience, so I can defend the design choice if asked
 
+Before publishing, test the draft with two or three people from your intended audience and fix anything they stumble on. Real readers are the only reliable test of whether the content works for them.
+
 ============================================================
 5. ITERATION PROMPTS
 ============================================================
