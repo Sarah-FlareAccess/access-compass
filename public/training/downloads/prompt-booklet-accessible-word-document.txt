@@ -351,6 +351,42 @@ If the AI drifts off task or stops following the briefing, paste this to re-anch
 Please restart this task and follow the briefing prompt exactly. Confirm what you understand in 2 to 3 sentences, then ask 3 to 5 clarifying questions, then list any assumptions you would have to make.
 
 ============================================================
+9. APPLY YOUR SETTINGS: WORD AND GOOGLE DOCS
+============================================================
+
+After your draft is reviewed, apply these settings in your tool. Use the Microsoft Word list if you are finishing in Microsoft Word, or the Google Docs list if you are finishing in Google Docs. Tick each as you go.
+
+MICROSOFT WORD
+
+[ ] Apply heading styles in order (H1, H2, H3 etc.), do not skip levels. Verify visually via View > Navigation Pane (Ctrl+F on Windows): the Headings tab shows your document outline so you can confirm every section is at the right level.
+[ ] Set body text to 12pt minimum. Use a sans-serif font (Calibri, Arial, Verdana).
+[ ] Set line spacing to 1.15 minimum on body text (1.5 is recommended for longer documents). Home > Line and Paragraph Spacing.
+[ ] Set page margins to at least 2.5cm on every side (Layout > Margins > Custom Margins).
+[ ] Left-align body text (never justify).
+[ ] Replace manual dashes or asterisks with proper bulleted or numbered lists.
+[ ] For each image, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. If Claude already drafted alt text from a detailed source description, you can use it as a starting point and verify against the actual image. Add via right-click image > View Alt Text. Verify before saving.
+[ ] Mark decorative images as decorative (right-click image > View Alt Text > tick "Mark as decorative").
+[ ] Rewrite any "click here" or "read more" links to be descriptive out of context.
+[ ] For each data table: mark the header row, add a caption above, flag any merged cells.
+[ ] Set document properties (File > Info > Properties): title (different from filename) and language English (Australia).
+[ ] Save and run Word's Accessibility Checker (Review > Check Accessibility). Fix every error.
+
+GOOGLE DOCS
+
+[ ] Apply heading styles in order via Format > Paragraph styles (Heading 1, Heading 2, Heading 3), do not skip levels. Verify visually via View > Show outline.
+[ ] Set body text to 12pt minimum. Use a sans-serif font (Arial, Verdana).
+[ ] Set line spacing to 1.15 minimum (1.5 recommended for longer documents) via Format > Line & paragraph spacing.
+[ ] Set page margins to at least 2.5cm on every side (File > Page setup).
+[ ] Left-align body text (never justify).
+[ ] Replace manual dashes or asterisks with proper bulleted or numbered lists (toolbar list buttons).
+[ ] For each image, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. If Claude already drafted alt text from a detailed source description, use it as a starting point and verify against the actual image. Add via right-click image > Alt text. Verify before saving.
+[ ] Google Docs cannot mark images as decorative. If an image is purely decorative, remove it, since a screen reader will still announce it.
+[ ] Rewrite any "click here" or "read more" links to be descriptive out of context (select the text > Insert > Link).
+[ ] For data tables: keep one header row and avoid merged cells. Google Docs cannot tag a semantic header row, so keep tables simple. You can repeat the header row visually via right-click > Pin header row.
+[ ] Set the document title and language to English (Australia) via File > Document details.
+[ ] Google Docs has no built-in accessibility checker. Work through the final human review checklist (Step 5) carefully before publishing.
+
+============================================================
 HUMAN REVIEW BEFORE PUBLISHING
 ============================================================
 

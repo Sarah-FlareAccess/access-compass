@@ -332,6 +332,38 @@ If the AI drifts off task or stops following the briefing, paste this to re-anch
 Please restart this task and follow the briefing prompt exactly. Confirm what you understand in 2 to 3 sentences, then ask 3 to 5 clarifying questions, then list any assumptions you would have to make.
 
 ============================================================
+9. APPLY YOUR SETTINGS: WORD AND GOOGLE DOCS
+============================================================
+
+After your draft is reviewed, apply these settings in your tool. Use the Microsoft Word list if you are finishing in Microsoft Word, or the Google Docs list if you are finishing in Google Docs. Tick each as you go.
+
+MICROSOFT WORD
+
+[ ] Mark each 2-column layout table as decorative (right-click table > Table Properties > Alt Text > tick "Mark table as decorative"). Repeat for every section.
+[ ] Set body text to 14pt minimum (Style Manual). 16pt is recommended.
+[ ] Set line spacing to 1.5 on body text (Home > Line and Paragraph Spacing > 1.5).
+[ ] Set page margins to at least 2.5cm on every side (Layout > Margins > Custom Margins).
+[ ] Replace each "IMAGE" placeholder cell with an actual picture (Insert > Pictures > This Device).
+[ ] For each inserted picture, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask "Suggest alt text for this image." Then add the result via right-click > View Alt Text. Verify it matches the picture before saving. Do not use Claude's drafted alt text from Lesson 4 for placeholder photos — Claude could not see them.
+[ ] Left-align all body text (never justify).
+[ ] Bold only used for headings and difficult words. Remove decorative bolding.
+[ ] Set table borders to none if Claude did not (Table Design > Borders > No Border) so the layout is invisible to sighted readers.
+[ ] Save and run Word's Accessibility Checker (Review > Check Accessibility). Fix any errors.
+
+GOOGLE DOCS
+
+[ ] Build each chunk as a row in a 2-column table (image on the LEFT, text on the RIGHT) via Insert > Table > 2x1.
+[ ] Google Docs cannot mark a layout table as decorative, so a screen reader announces it as a data table. Set the table border to 0pt (select the table > Format > Table > Table border > 0pt) so the layout is invisible to sighted readers, and keep every row to one image and its text. If screen reader users are a key audience for this piece, produce the final file in Word, which can mark layout tables as decorative.
+[ ] Set body text to 14pt minimum (16pt recommended) using the font size box in the toolbar.
+[ ] Set line spacing to 1.5 on body text (Format > Line & paragraph spacing > 1.5).
+[ ] Set page margins to at least 2.5cm on every side (File > Page setup > Margins).
+[ ] Replace each "IMAGE" placeholder cell with a real picture (Insert > Image > Upload from computer).
+[ ] For each inserted picture, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask "Suggest alt text for this image." Then add the result via right-click image > Alt text. Verify it matches the picture before saving. Do not use Claude's drafted alt text from Lesson 4 for placeholder photos, Claude could not see them.
+[ ] Left-align all body text (never justify).
+[ ] Use bold only for headings and difficult words. Remove decorative bolding.
+[ ] Google Docs has no built-in accessibility checker. Work through the final human review checklist (Step 5) carefully before publishing.
+
+============================================================
 HUMAN REVIEW BEFORE PUBLISHING
 ============================================================
 

@@ -309,6 +309,45 @@ If the AI drifts off task or stops following the briefing, paste this to re-anch
 Please restart this task and follow the briefing prompt exactly. Confirm what you understand in 2 to 3 sentences, then ask 3 to 5 clarifying questions, then list any assumptions you would have to make.
 
 ============================================================
+9. APPLY YOUR SETTINGS: WORD AND GOOGLE DOCS
+============================================================
+
+After your draft is reviewed, apply these settings in your tool. Use the Microsoft Word list if you are finishing in Microsoft Word, or the Google Docs list if you are finishing in Google Docs. Tick each as you go.
+
+MICROSOFT WORD
+
+[ ] Set body text to 16pt minimum (Vision Australia clear print) or 18pt (RNIB large print).
+[ ] Set all headings to at least 1.5x the body size.
+[ ] Use a sans-serif font: Arial, Verdana, Calibri or APHont.
+[ ] Remove all italics.
+[ ] Remove all underlines except on hyperlinks.
+[ ] Apply strong contrast: black text on white, cream or yellow background. Never image-of-text.
+[ ] Set to single column layout.
+[ ] Set line spacing to 1.5 minimum.
+[ ] Set page margins to at least 2.5cm on every side.
+[ ] If you are working in Word: apply heading styles in order (Heading 1, Heading 2, Heading 3) for each heading, do not skip levels. Verify via View > Navigation Pane. (If you are laying out in a design tool like Canva or InDesign, semantic heading styles do not apply — sizing alone is your structure cue.)
+[ ] For any image, logo or photo in the document, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. In Word, add via right-click image > View Alt Text. In a design tool, set alt text in the image properties panel (Canva: Image > Accessibility > Alt text; InDesign: Object Export Options > Alt Text). Mark any purely decorative image as decorative.
+[ ] Set document properties: title (different from filename) and language English (Australia). Word: File > Info > Properties. Google Docs: File > Document details.
+[ ] If you are working in Word, save and run Word's Accessibility Checker (Review > Check Accessibility). Fix any errors. (Design-tool layouts do not have this — rely on the final human review checklist instead.)
+[ ] If you intend to export to PDF: full PDF accessibility verification is out of scope for this workshop (it needs Adobe Acrobat Pro). Use Word's "Document structure tags for accessibility" option on export as a starting point only. Never publish a flat-scan or image-of-text PDF.
+
+GOOGLE DOCS
+
+[ ] Set body text to 16pt minimum (Vision Australia clear print) or 18pt (RNIB large print) using the font size box.
+[ ] Set all headings to at least 1.5x the body size.
+[ ] Use a sans-serif font: Arial, Verdana or similar. (Google Docs does not include APHont.)
+[ ] Remove all italics.
+[ ] Remove all underlines except on hyperlinks.
+[ ] Apply strong contrast: black text on white, cream or yellow background. Never image-of-text.
+[ ] Set to single column layout.
+[ ] Set line spacing to 1.5 minimum (Format > Line & paragraph spacing).
+[ ] Set page margins to at least 2.5cm on every side (File > Page setup).
+[ ] Apply heading styles in order via Format > Paragraph styles (Heading 1, Heading 2, Heading 3), do not skip levels. Verify via View > Show outline.
+[ ] For any image, logo or photo, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. Add via right-click image > Alt text. Google Docs cannot mark an image as decorative, so if an image carries no information, remove it rather than leaving it for a screen reader to announce.
+[ ] Set the document title and language to English (Australia) via File > Document details.
+[ ] Google Docs has no built-in accessibility checker. Work through the final human review checklist (Step 5) carefully before publishing.
+
+============================================================
 HUMAN REVIEW BEFORE PUBLISHING
 ============================================================
 

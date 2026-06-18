@@ -82,7 +82,7 @@ const HOW_TO_USE_BOOKLET = [
   'Sections 1 and 2 set up your drafting AI (ChatGPT, Copilot, Gemini or similar) and Claude. Section 3 collects your business context. Section 4 generates the first draft.',
   'Section 5 has iteration prompts split into copy iterations (refining new content) and accessibility iterations (refining scaffolding without rewriting copy).',
   'Sections 6 and 7 are Claude\'s sense-check and the accessibility formatting checklist you apply in Word (or your design tool for Large Print).',
-  'Section 8 is the reset prompt if the AI drifts off task. Pair this booklet with the standalone Human Review Checklist before publishing.',
+  'Section 8 is the reset prompt if the AI drifts off task. Section 9 is the apply-your-settings checklist for Microsoft Word and Google Docs. Pair this booklet with the standalone Human Review Checklist before publishing.',
 ];
 
 function bookletSections(slug) {
@@ -137,7 +137,12 @@ function bookletSections(slug) {
     {
       title: '8. Reset prompt',
       intro: 'If the AI drifts off task, paste this to re-anchor it.',
-      prompt: grab('8. RESET PROMPT', 'HUMAN REVIEW BEFORE PUBLISHING'),
+      prompt: grab('8. RESET PROMPT', '9. APPLY YOUR SETTINGS'),
+    },
+    {
+      title: '9. Apply your settings: Word and Google Docs',
+      intro: '',
+      prompt: grab('9. APPLY YOUR SETTINGS: WORD AND GOOGLE DOCS', 'HUMAN REVIEW BEFORE PUBLISHING'),
     },
   ];
 }
