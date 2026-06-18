@@ -305,19 +305,31 @@ function InteractiveChecklistBlock({
         />
       )}
       {hasTools && (
-        <div className="lesson-checklist-tool">
-          <label htmlFor={selectId}>Show steps for</label>
-          <select
-            id={selectId}
-            value={tool}
-            onChange={(e) => selectTool(e.target.value)}
-          >
+        <div
+          className="lesson-checklist-toolbar"
+          role="radiogroup"
+          aria-label="Choose the tool you are working in"
+        >
+          <span className="lesson-checklist-toolbar-label">Show steps for</span>
+          <div className="lesson-checklist-toolbar-options">
             {toolOptions!.map((t) => (
-              <option key={t.value} value={t.value}>
-                {t.label}
-              </option>
+              <label
+                key={t.value}
+                className={`lesson-checklist-tool-option${
+                  tool === t.value ? ' is-active' : ''
+                }`}
+              >
+                <input
+                  type="radio"
+                  name={selectId}
+                  value={t.value}
+                  checked={tool === t.value}
+                  onChange={() => selectTool(t.value)}
+                />
+                <span>{t.label}</span>
+              </label>
             ))}
-          </select>
+          </div>
         </div>
       )}
       <ul className="lesson-checklist-items">
