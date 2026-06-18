@@ -1490,7 +1490,7 @@ export const accessModules: AccessModule[] = [
             'Be careful with text over images - it often fails contrast requirements',
             'Commonly missed areas to check: footer text, placeholder text in forms, navigation links, button text, error messages, and captions',
             'Also check: text on coloured backgrounds, links within paragraphs, and any "subtle" or "muted" design elements',
-            'Free contrast checking tools include WebAIM Contrast Checker (webaim.org/resources/contrastchecker), WAVE (wave.webaim.org), and Grackle Docs for Google Workspace',
+            'Free contrast checking tools include WebAIM Contrast Checker (webaim.org/resources/contrastchecker) and WAVE (wave.webaim.org)',
           ],
           learnMoreUrl: 'https://webaim.org/resources/contrastchecker/',
           learnMoreText: 'Try a contrast checker tool',

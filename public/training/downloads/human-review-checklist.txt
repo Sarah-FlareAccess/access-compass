@@ -51,5 +51,25 @@ After export, if you have Adobe Acrobat Pro:
 [ ] Re-run the check
 
 ============================================================
+PUBLISHING CHECKLIST FOR GOOGLE DOCS
+============================================================
+
+Before publishing or exporting from Google Docs:
+
+[ ] All headings use Format > Paragraph styles (Heading 1, Heading 2 etc.), not just bold or larger text. The "Title" style is not a heading.
+[ ] Heading order does not skip levels (check via View > Show outline)
+[ ] Every image has alt text set via right-click image > Alt text
+[ ] Links use descriptive text (not "click here"), set via Insert > Link
+[ ] Tables use a single header row and no merged cells (Google Docs cannot tag a semantic header row, so keep tables simple)
+[ ] Document title and language are set via File > Document details
+[ ] Reading order is correct top to bottom
+
+Known limits to work around:
+
+[ ] Google Docs cannot mark images or tables as decorative. Remove any purely decorative image, or a screen reader will still announce it.
+[ ] Google Docs has no built-in accessibility checker. Work through the content checklist above carefully before you publish.
+[ ] For a tagged PDF, export to .docx and finish in Microsoft Word (verify heading styles, then export with "Document structure tags for accessibility" enabled). Google Docs PDF export does not reliably produce a tagged PDF.
+
+============================================================
 END
 ============================================================

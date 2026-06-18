@@ -311,7 +311,7 @@ FORMAT CONTEXT
 - Document language: English (Australia).
 
 6. EXPORT NOTES
-- This workshop produces an accessible Word document (or, for Large Print, a Word doc or a layout produced in a design tool). PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
+- This workshop produces an accessible Word document (or, for Large Print, a Word doc or a layout produced in a design tool). PDF accessibility verification is out of scope (requires Adobe Acrobat Pro).
 - If the user wants a PDF copy, note that Word's built-in PDF export with "Document structure tags for accessibility" enabled is a basic starting point only, not full PDF accessibility.
 - For web content, NSW and Vic Government recommend an HTML version over a PDF. Note if a webpage version of this content should also exist.
 

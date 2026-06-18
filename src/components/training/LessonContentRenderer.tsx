@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { LessonContentBlock } from '../../data/training/types';
 import { ExerciseBlock } from './ExerciseBlock';
@@ -242,6 +242,8 @@ function InteractiveChecklistBlock({
   courseId,
   lessonId,
   selectedFormat,
+  toolOptions,
+  itemsByTool,
 }: {
   title: string;
   items: string[];
@@ -249,19 +251,51 @@ function InteractiveChecklistBlock({
   courseId: string;
   lessonId: string;
   selectedFormat?: string;
+  toolOptions?: Array<{ value: string; label: string }>;
+  itemsByTool?: Record<string, string[]>;
 }) {
   const { isChecked, toggle } = useChecklistProgress(courseId, lessonId);
-  // Use a checklist key that varies with the selected format so different
-  // format checklists do not stomp on each other in localStorage.
-  const checklistKey = selectedFormat ? `${title} :: ${selectedFormat}` : title;
-  const checkedCount = items.reduce((sum, _, i) => sum + (isChecked(checklistKey, i) ? 1 : 0), 0);
+  const selectId = useId();
+  const hasTools = !!(toolOptions && toolOptions.length > 1 && itemsByTool);
+  const toolStorageKey = `ac:checklist-tool:${courseId}:${lessonId}:${title}`;
+
+  const [tool, setTool] = useState<string | undefined>(() => {
+    if (!hasTools) return undefined;
+    try {
+      const saved = localStorage.getItem(toolStorageKey);
+      if (saved && itemsByTool![saved]) return saved;
+    } catch {
+      /* ignore */
+    }
+    return toolOptions![0].value;
+  });
+
+  const selectTool = (value: string) => {
+    setTool(value);
+    try {
+      localStorage.setItem(toolStorageKey, value);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const activeItems = hasTools && tool && itemsByTool![tool] ? itemsByTool![tool] : items;
+  // Key ticks by format and tool so different formats, and the Word vs Google
+  // Docs lists, do not stomp on each other in localStorage.
+  const checklistKey = [title, selectedFormat, hasTools ? tool : undefined]
+    .filter(Boolean)
+    .join(' :: ');
+  const checkedCount = activeItems.reduce(
+    (sum, _, i) => sum + (isChecked(checklistKey, i) ? 1 : 0),
+    0
+  );
 
   return (
     <div className="lesson-checklist-block">
       <div className="lesson-checklist-header">
         <h3 className="lesson-checklist-title">{title}</h3>
         <span className="lesson-checklist-count" aria-live="polite">
-          {checkedCount} of {items.length}
+          {checkedCount} of {activeItems.length}
         </span>
       </div>
       {introHtml && (
@@ -270,8 +304,24 @@ function InteractiveChecklistBlock({
           dangerouslySetInnerHTML={{ __html: introHtml }}
         />
       )}
+      {hasTools && (
+        <div className="lesson-checklist-tool">
+          <label htmlFor={selectId}>Show steps for</label>
+          <select
+            id={selectId}
+            value={tool}
+            onChange={(e) => selectTool(e.target.value)}
+          >
+            {toolOptions!.map((t) => (
+              <option key={t.value} value={t.value}>
+                {t.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
       <ul className="lesson-checklist-items">
-        {items.map((item, i) => {
+        {activeItems.map((item, i) => {
           const checked = isChecked(checklistKey, i);
           return (
             <li
@@ -827,17 +877,43 @@ function renderBlock(
 
     case 'checklist': {
       if (!block.checklist) return null;
-      const formatItems = block.checklist.byFormat?.[ctx.selectedFormat];
-      const itemsToShow = formatItems ?? block.checklist.items;
+      const cl = block.checklist;
+      const fmt = ctx.selectedFormat;
+      // If this checklist defines tool variants (e.g. Word vs Google Docs),
+      // build the per-tool item map for the selected format.
+      let itemsByTool: Record<string, string[]> | undefined;
+      let toolOptions = cl.toolOptions;
+      if (cl.byFormatByTool && toolOptions) {
+        const map: Record<string, string[]> = {};
+        for (const t of toolOptions) {
+          const list = cl.byFormatByTool[t.value]?.[fmt];
+          if (list) map[t.value] = list;
+        }
+        if (Object.keys(map).length > 0) {
+          itemsByTool = map;
+          toolOptions = toolOptions.filter((t) => map[t.value]);
+        } else {
+          toolOptions = undefined;
+        }
+      } else {
+        toolOptions = undefined;
+      }
+      const formatItems = cl.byFormat?.[fmt];
+      const baseItems = itemsByTool
+        ? itemsByTool[toolOptions![0].value]
+        : formatItems ?? cl.items;
+      const hasFormat = !!(itemsByTool || formatItems);
       return (
         <InteractiveChecklistBlock
           key={key}
-          title={block.checklist.title}
-          items={itemsToShow}
-          introHtml={block.checklist.introHtml}
+          title={cl.title}
+          items={baseItems}
+          introHtml={cl.introHtml}
           courseId={ctx.courseId}
           lessonId={ctx.lessonId}
-          selectedFormat={formatItems ? ctx.selectedFormat : undefined}
+          selectedFormat={hasFormat ? fmt : undefined}
+          toolOptions={toolOptions}
+          itemsByTool={itemsByTool}
         />
       );
     }

@@ -172,9 +172,9 @@ const docs = [
         prompt: getSection('human-review-checklist', 'review'),
       },
       {
-        title: '2. Tagged PDF publishing checklist',
+        title: '2. Publishing checklist: Word and Google Docs',
         intro:
-          'Use this when the format you are producing is an Accessible Word document or tagged PDF. Step through in Word, then export with structure tags enabled. If you have Adobe Acrobat Pro, run its Accessibility Check after export.',
+          'Two checklists below. Use the Microsoft Word list if you are finishing your document in Word, or the Google Docs list if you are finishing in Google Docs. Work through every item for your tool before you publish or export.',
         prompt: getSection('human-review-checklist', 'publishing'),
       },
       {

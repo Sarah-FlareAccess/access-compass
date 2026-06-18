@@ -67,6 +67,11 @@ export interface LessonContentBlock {
     title: string;
     items: string[];
     byFormat?: Record<string, string[]>;
+    // Optional tool selector: byFormatByTool[toolValue][format] -> items.
+    // When present with toolOptions, the renderer shows a Word / Google Docs
+    // dropdown and swaps the checklist (and its saved ticks) per tool.
+    byFormatByTool?: Record<string, Record<string, string[]>>;
+    toolOptions?: Array<{ value: string; label: string }>;
     introHtml?: string;
   };
   callout?: {

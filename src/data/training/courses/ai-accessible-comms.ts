@@ -6,7 +6,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
   title: 'Using AI to Create Accessible & Inclusive Communications',
   subtitle: 'A practical 2-hour workshop. Walk in with content. Walk out with a draft.',
   description: 'Use free AI tools to draft accessible content for your business in around 2 hours. Choose your format, bring your source material and leave with a real first draft you can refine and publish.',
-  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and formatting checklist builder) to produce one piece of accessible content in a single session. You will set up saved AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to build an accessibility formatting checklist you can apply. The AI gives you a structured checklist (heading levels, alt text suggestions, link rewrites, table notes, document properties, typography) of what to apply in Word — or, for Large Print, in your design tool if that\'s where the layout lives. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Word Document (following the Australian Government Style Manual, equivalent state-government guidance, moving toward WCAG 2.2 AA conformance). PDF accessibility verification is out of scope (it needs paid external tools such as Adobe Acrobat Pro or Grackle Docs). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist producers for high-stakes content (every format has its own producer ecosystem) remain essential.',
+  longDescription: 'This 4-lesson workshop pairs ChatGPT (as your drafting assistant) with Claude (as your reviewer and formatting checklist builder) to produce one piece of accessible content in a single session. You will set up saved AI instructions, brief the AI on your business and audience, draft your content in your chosen format, sense-check the output against accessibility standards and use Claude to build an accessibility formatting checklist you can apply. The AI gives you a structured checklist (heading levels, alt text suggestions, link rewrites, table notes, document properties, typography) of what to apply in Word — or, for Large Print, in your design tool if that\'s where the layout lives. Six formats covered: Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide, Large Print and Accessible Word Document (following the Australian Government Style Manual, equivalent state-government guidance, moving toward WCAG 2.2 AA conformance). PDF accessibility verification is out of scope (it needs a paid external tool such as Adobe Acrobat Pro). The full prompt pack travels home with you so you can keep going on more content after the session. This workshop is positioned upstream of consultation, never as a substitute. Lived-experience review, co-design with the disability community, your DIAP / DAIP process and specialist producers for high-stakes content (every format has its own producer ecosystem) remain essential.',
   category: 'ai-tools',
   accessTier: 'premium',
   totalEstimatedMinutes: 128,
@@ -1152,7 +1152,7 @@ Before publishing, test the draft with two or three people from your intended au
             title: 'Build prompt: Accessible Word Document',
             targetTool: 'drafting',
             formatKey: 'Accessible Word Document',
-            instructions: 'For making an existing Word document more accessible AND more inclusive — heading hierarchy, alt text, plain language, link text, table structure, document properties. Built on Australian Government Style Manual and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA. Works for policies, info sheets, fact sheets, menus, staff briefings and similar. Best when you are open to suggested copy improvements alongside the structural work. If you have no existing doc yet, pick a different format (Plain Language, Easy Read, Social Story or Accessibility Guide) to create the content first, then come back here. PDF accessibility verification (Adobe Acrobat Pro, Grackle Docs) sits outside this workshop.',
+            instructions: 'For making an existing Word document more accessible AND more inclusive — heading hierarchy, alt text, plain language, link text, table structure, document properties. Built on Australian Government Style Manual and NSW / Vic Government accessibility guidance, moving toward WCAG 2.2 AA. Works for policies, info sheets, fact sheets, menus, staff briefings and similar. Best when you are open to suggested copy improvements alongside the structural work. If you have no existing doc yet, pick a different format (Plain Language, Easy Read, Social Story or Accessibility Guide) to create the content first, then come back here. PDF accessibility verification (Adobe Acrobat Pro) sits outside this workshop.',
             promptTemplate: `I have a Word document I want to make more accessible AND more inclusive — accessibility scaffolding (heading hierarchy, alt text, links, tables, document properties) PLUS suggestions to improve plain language and structure where they help readers.
 
 LOCKED COPY OVERRIDE: if my copy is board-approved, legally signed off or otherwise unchangeable, I will tell you "flag suggestions only, do not rewrite" before I start. Otherwise treat your suggestions as opportunities I can choose to apply.
@@ -1198,7 +1198,7 @@ Please work through this (based on Australian Government Style Manual content-ty
 - Document language: English (Australia).
 
 8. EXPORT NOTES
-- This workshop produces an accessible Word document. PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
+- This workshop produces an accessible Word document. PDF accessibility verification is out of scope (requires Adobe Acrobat Pro).
 - If the user wants a PDF copy, note that Word's built-in PDF export with "Document structure tags for accessibility" enabled is a basic starting point only, not full PDF accessibility.
 - For web content, NSW and Vic Government recommend an HTML version over a PDF. Suggest if a webpage version of this content should also exist.
 
@@ -1482,7 +1482,7 @@ FORMAT CONTEXT
 - Document language: English (Australia).
 
 6. EXPORT NOTES
-- This workshop produces an accessible Word document (or, for Large Print, a Word doc or a layout produced in a design tool). PDF accessibility verification is out of scope (requires Adobe Acrobat Pro or Grackle Docs).
+- This workshop produces an accessible Word document (or, for Large Print, a Word doc or a layout produced in a design tool). PDF accessibility verification is out of scope (requires Adobe Acrobat Pro).
 - If the user wants a PDF copy, note that Word's built-in PDF export with "Document structure tags for accessibility" enabled is a basic starting point only, not full PDF accessibility.
 - For web content, NSW and Vic Government recommend an HTML version over a PDF. Note if a webpage version of this content should also exist.
 
@@ -1506,22 +1506,17 @@ Here is my reviewed draft:
           type: 'checklist',
           checklist: {
             title: 'Step 4: Apply your format\'s settings in Word or your design tool (8 min)',
-            introHtml: `<p>Items below are <strong>specific to your chosen format</strong> (loaded from your Lesson 2 brief). Tick each as you apply it — progress saves to this device.</p>
-<p><strong>Run this whether the AI returned a file or only text.</strong> AI-generated docx files routinely miss semantic heading styles, decorative-table marking and document properties. They look right but fail an accessibility check, so treat any AI file as a scaffold, not a final document.</p>
-<details class="setup-detail">
-<summary><strong>Using Google Docs instead of Word?</strong> (tap to expand)</summary>
-<p>Most items have a Google Docs equivalent: headings via Format &gt; Paragraph styles, alt text via right-click image &gt; Alt text, line spacing via Format &gt; Line and paragraph spacing, margins via File &gt; Page setup. Three real limitations to know about:</p>
-<ol>
-<li><strong>Decorative tables:</strong> Google Docs cannot mark tables as decorative. Screen readers will announce layout tables as data tables.</li>
-<li><strong>Heading hierarchy can break in .docx export.</strong> Only headings applied via Format &gt; Paragraph styles &gt; Heading 1/2/3 survive reliably. Headings manually formatted (bold + larger text) export as direct formatting, not semantic H1/H2/H3. Google Docs "Title" style does NOT map to Word's Heading 1. After exporting .docx, open in Word and verify each heading shows the correct style in the Styles pane (Home &gt; Styles).</li>
-<li><strong>PDF export from Google Docs is limited.</strong> If you want a PDF copy, export .docx from Google Docs, verify heading styles in Word, then save as PDF from Word with "Document structure tags for accessibility" enabled. This produces a basic tagged PDF only. Full PDF accessibility verification requires Adobe Acrobat Pro or Grackle Docs, which sit outside this workshop.</li>
-</ol>
-<p>Google Docs is fine for drafting. For final accessible-document production, finish in Word or LibreOffice.</p>
-</details>`,
+            introHtml: `<p>Items below are <strong>specific to your chosen format</strong> (loaded from your Lesson 2 brief) and to the tool you choose below. Switch between <strong>Microsoft Word</strong> and <strong>Google Docs</strong> with the selector, your ticks for each are saved separately. Progress saves to this device.</p>
+<p><strong>Run this whether the AI returned a file or only text.</strong> AI-generated files routinely miss semantic heading styles, decorative-table marking and document properties. They look right but fail an accessibility check, so treat any AI file as a scaffold, not a final document.</p>`,
             items: [
               'Pick a format in Lesson 2 to load the right checklist for your draft.',
             ],
-            byFormat: {
+            toolOptions: [
+              { value: 'word', label: 'Microsoft Word' },
+              { value: 'google', label: 'Google Docs' },
+            ],
+            byFormatByTool: {
+              word: {
               'Easy Read': [
                 'Mark each 2-column layout table as decorative (right-click table > Table Properties > Alt Text > tick "Mark table as decorative"). Repeat for every section.',
                 'Set body text to 14pt minimum (Style Manual). 16pt is recommended.',
@@ -1584,7 +1579,7 @@ Here is my reviewed draft:
                 'For any image, logo or photo in the document, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. In Word, add via right-click image > View Alt Text. In a design tool, set alt text in the image properties panel (Canva: Image > Accessibility > Alt text; InDesign: Object Export Options > Alt Text). Mark any purely decorative image as decorative.',
                 'Set document properties: title (different from filename) and language English (Australia). Word: File > Info > Properties. Google Docs: File > Document details.',
                 'If you are working in Word, save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix any errors. (Design-tool layouts do not have this — rely on the final human review checklist instead.)',
-                'If you intend to export to PDF: full PDF accessibility verification is out of scope for this workshop (it needs Adobe Acrobat Pro or Grackle Docs). Use Word\'s "Document structure tags for accessibility" option on export as a starting point only. Never publish a flat-scan or image-of-text PDF.',
+                'If you intend to export to PDF: full PDF accessibility verification is out of scope for this workshop (it needs Adobe Acrobat Pro). Use Word\'s "Document structure tags for accessibility" option on export as a starting point only. Never publish a flat-scan or image-of-text PDF.',
               ],
               'Accessible Word Document': [
                 'Apply heading styles in order (H1, H2, H3 etc.), do not skip levels. Verify visually via View > Navigation Pane (Ctrl+F on Windows): the Headings tab shows your document outline so you can confirm every section is at the right level.',
@@ -1600,6 +1595,86 @@ Here is my reviewed draft:
                 'Set document properties (File > Info > Properties): title (different from filename) and language English (Australia).',
                 'Save and run Word\'s Accessibility Checker (Review > Check Accessibility). Fix every error.',
               ],
+              },
+              google: {
+                'Easy Read': [
+                  'Build each chunk as a row in a 2-column table (image on the LEFT, text on the RIGHT) via Insert > Table > 2x1.',
+                  'Google Docs cannot mark a layout table as decorative, so a screen reader announces it as a data table. Set the table border to 0pt (select the table > Format > Table > Table border > 0pt) so the layout is invisible to sighted readers, and keep every row to one image and its text. If screen reader users are a key audience for this piece, produce the final file in Word, which can mark layout tables as decorative.',
+                  'Set body text to 14pt minimum (16pt recommended) using the font size box in the toolbar.',
+                  'Set line spacing to 1.5 on body text (Format > Line & paragraph spacing > 1.5).',
+                  'Set page margins to at least 2.5cm on every side (File > Page setup > Margins).',
+                  'Replace each "IMAGE" placeholder cell with a real picture (Insert > Image > Upload from computer).',
+                  'For each inserted picture, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask "Suggest alt text for this image." Then add the result via right-click image > Alt text. Verify it matches the picture before saving. Do not use Claude\'s drafted alt text from Lesson 4 for placeholder photos, Claude could not see them.',
+                  'Left-align all body text (never justify).',
+                  'Use bold only for headings and difficult words. Remove decorative bolding.',
+                  'Google Docs has no built-in accessibility checker. Work through the final human review checklist (Step 5) carefully before publishing.',
+                ],
+                'Plain Language': [
+                  'Apply heading styles in order via Format > Paragraph styles (Heading 1 for the title, Heading 2 for sections, Heading 3 for sub-sections). Do not skip levels. Do not use the "Title" style as a heading. Verify visually via View > Show outline: the outline panel shows your document structure so you can confirm every section is at the right level.',
+                  'Left-align all text (never justify).',
+                  'Use a sans-serif font (Arial or similar) from the font menu.',
+                  'Set line spacing to 1.5 on body text (Format > Line & paragraph spacing > 1.5).',
+                  'Keep line length readable (adjust the margins via File > Page setup).',
+                  'Confirm the reading level estimate Claude returned is year 7 to 8 or lower.',
+                  'Set page margins to at least 2.5cm on every side (File > Page setup > Margins).',
+                  'Set the document title and language to English (Australia) via File > Document details.',
+                  'For each image in the document, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text describing what the picture shows. Add via right-click image > Alt text. Verify before saving.',
+                  'Google Docs has no built-in accessibility checker. Work through the final human review checklist (Step 5) carefully before publishing.',
+                ],
+                'Social Story / Visual Narrative': [
+                  'Insert real photos in chronological order matching the build prompt sections (Before, When I get there, Inside, If I need help, When I leave) via Insert > Image > Upload from computer.',
+                  'For each inserted photo, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask "Suggest alt text for this image." The alt text should describe what the picture shows (e.g. "Wide view of the market interior with food stalls and shoppers"), NOT the social story narrative. Add via right-click image > Alt text. Verify before saving.',
+                  'Insert a page break after each photo + text chunk (Insert > Break > Page break, or Ctrl+Enter on Windows / Cmd+Enter on Mac) so each photo and its 2 to 4 sentences sit on their own page. This matches the published Social Story booklet convention.',
+                  'Place each caption directly under its photo, not in a separate list at the end.',
+                  'Remove any table of contents Claude may have added. A social story is linear, a TOC breaks the journey.',
+                  'Confirm reading order is strictly chronological top to bottom.',
+                  'Set body text to 14pt minimum.',
+                  'Set line spacing to 1.5 (Format > Line & paragraph spacing).',
+                  'Set page margins to 2.5cm or wider (File > Page setup).',
+                  'Set the document title and language to English (Australia) via File > Document details.',
+                  'Google Docs has no built-in accessibility checker. Work through the final human review checklist (Step 5) carefully before publishing.',
+                ],
+                'Accessibility Guide': [
+                  'Confirm the 7 standard headings appear in order: Getting there, Getting in, Getting around, Toilets, Sensory environment, Support, Contact. Apply each as Heading 2 via Format > Paragraph styles, under one Heading 1. Verify visually via View > Show outline.',
+                  'Insert venue photos (Insert > Image). For each, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text describing what the photo shows. Add via right-click image > Alt text. Verify before saving.',
+                  'Confirm every fact is specific, not vague (e.g. "level entry, 90cm wide door" not "wheelchair accessible").',
+                  'Address any "needs answer" flags Claude left in the draft.',
+                  'Add a publishing date and a contact for access questions.',
+                  'Plan two outputs. Primary: a webpage embed on your own site so search engines and screen readers can reach the content directly. Paste the AI text into your CMS keeping the H1 / H2 hierarchy, then add anchor link IDs to each H2 (e.g. id="getting-in") and a jump menu at the top.',
+                  'Secondary: a copy you can send on request when a recipient can only accept an email attachment. Keep heading styles, alt text and the document title intact so a screen reader can still navigate it.',
+                  'Set the document title and language to English (Australia) via File > Document details.',
+                  'Google Docs has no built-in accessibility checker. Work through the final human review checklist (Step 5) carefully before publishing.',
+                ],
+                'Large Print': [
+                  'Set body text to 16pt minimum (Vision Australia clear print) or 18pt (RNIB large print) using the font size box.',
+                  'Set all headings to at least 1.5x the body size.',
+                  'Use a sans-serif font: Arial, Verdana or similar. (Google Docs does not include APHont.)',
+                  'Remove all italics.',
+                  'Remove all underlines except on hyperlinks.',
+                  'Apply strong contrast: black text on white, cream or yellow background. Never image-of-text.',
+                  'Set to single column layout.',
+                  'Set line spacing to 1.5 minimum (Format > Line & paragraph spacing).',
+                  'Set page margins to at least 2.5cm on every side (File > Page setup).',
+                  'Apply heading styles in order via Format > Paragraph styles (Heading 1, Heading 2, Heading 3), do not skip levels. Verify via View > Show outline.',
+                  'For any image, logo or photo, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. Add via right-click image > Alt text. Google Docs cannot mark an image as decorative, so if an image carries no information, remove it rather than leaving it for a screen reader to announce.',
+                  'Set the document title and language to English (Australia) via File > Document details.',
+                  'Google Docs has no built-in accessibility checker. Work through the final human review checklist (Step 5) carefully before publishing.',
+                ],
+                'Accessible Word Document': [
+                  'Apply heading styles in order via Format > Paragraph styles (Heading 1, Heading 2, Heading 3), do not skip levels. Verify visually via View > Show outline.',
+                  'Set body text to 12pt minimum. Use a sans-serif font (Arial, Verdana).',
+                  'Set line spacing to 1.15 minimum (1.5 recommended for longer documents) via Format > Line & paragraph spacing.',
+                  'Set page margins to at least 2.5cm on every side (File > Page setup).',
+                  'Left-align body text (never justify).',
+                  'Replace manual dashes or asterisks with proper bulleted or numbered lists (toolbar list buttons).',
+                  'For each image, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask for alt text. If Claude already drafted alt text from a detailed source description, use it as a starting point and verify against the actual image. Add via right-click image > Alt text. Verify before saving.',
+                  'Google Docs cannot mark images as decorative. If an image is purely decorative, remove it, since a screen reader will still announce it.',
+                  'Rewrite any "click here" or "read more" links to be descriptive out of context (select the text > Insert > Link).',
+                  'For data tables: keep one header row and avoid merged cells. Google Docs cannot tag a semantic header row, so keep tables simple. You can repeat the header row visually via right-click > Pin header row.',
+                  'Set the document title and language to English (Australia) via File > Document details.',
+                  'Google Docs has no built-in accessibility checker. Work through the final human review checklist (Step 5) carefully before publishing.',
+                ],
+              },
             },
           },
         },
