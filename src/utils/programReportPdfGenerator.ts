@@ -393,13 +393,12 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     }
     yPos += barH + 3;
 
-    const confTotal = (agg?.confidence_strong ?? 0) + (agg?.confidence_mixed ?? 0) + (agg?.confidence_needs_work ?? 0);
     if (confTotal > 0) {
       doc.setFontSize(8);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
       doc.text(
-        `Strong ${agg?.confidence_strong ?? 0}  -  Mixed ${agg?.confidence_mixed ?? 0}  -  Needs work ${agg?.confidence_needs_work ?? 0}`,
+        `Strong ${confStrong}  -  Mixed ${confMixed}  -  Needs work ${confNeeds}`,
         PAGE.marginX,
         yPos,
       );
