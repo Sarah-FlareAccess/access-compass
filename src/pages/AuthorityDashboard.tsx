@@ -37,6 +37,7 @@ export default function AuthorityDashboard() {
   const [programs, setPrograms] = useState<AuthorityProgram[]>([]);
   const [childSummaries, setChildSummaries] = useState<ChildOrgSummary[]>([]);
   const [latestSnapshots, setLatestSnapshots] = useState<ProgramReportRow[]>([]);
+  const [filterProgramId, setFilterProgramId] = useState<string>('all');
 
   useEffect(() => {
     if (!effectiveOrgId) return;
@@ -70,10 +71,16 @@ export default function AuthorityDashboard() {
       });
   }, [effectiveOrgId]);
 
-  // Cohort-wide confidence band totals from latest snapshots
+  // Snapshots filtered by the dropdown selection
+  const filteredSnapshots = useMemo(() => {
+    if (filterProgramId === 'all') return latestSnapshots;
+    return latestSnapshots.filter(s => s.program_id === filterProgramId);
+  }, [latestSnapshots, filterProgramId]);
+
+  // Cohort-wide confidence band totals from filtered snapshots
   const cohortMaturity = useMemo(() => {
     let strong = 0, mixed = 0, needsWork = 0;
-    latestSnapshots.forEach(s => {
+    filteredSnapshots.forEach(s => {
       s.snapshot_data.moduleAggregates.forEach(m => {
         strong += m.confidence_strong;
         mixed += m.confidence_mixed;
@@ -81,12 +88,12 @@ export default function AuthorityDashboard() {
       });
     });
     return { strong, mixed, needsWork, total: strong + mixed + needsWork };
-  }, [latestSnapshots]);
+  }, [filteredSnapshots]);
 
-  // Aggregate top priorities across the cohort
+  // Aggregate top priorities across filtered snapshots
   const cohortTopPriorities = useMemo(() => {
     const map = new Map<string, { action: string; count: number; priority?: string; programIds: string[] }>();
-    latestSnapshots.forEach(s => {
+    filteredSnapshots.forEach(s => {
       s.snapshot_data.topPriorityActions.forEach(pa => {
         const key = pa.action.toLowerCase().trim();
         const existing = map.get(key);
@@ -99,12 +106,12 @@ export default function AuthorityDashboard() {
       });
     });
     return Array.from(map.values()).sort((a, b) => b.count - a.count).slice(0, 5);
-  }, [latestSnapshots]);
+  }, [filteredSnapshots]);
 
-  // Aggregate top strengths across the cohort
+  // Aggregate top strengths across filtered snapshots
   const cohortTopStrengths = useMemo(() => {
     const map = new Map<string, { text: string; count: number }>();
-    latestSnapshots.forEach(s => {
+    filteredSnapshots.forEach(s => {
       s.snapshot_data.topStrengths.forEach(st => {
         const key = st.text.toLowerCase().trim();
         const existing = map.get(key);
@@ -116,7 +123,53 @@ export default function AuthorityDashboard() {
       });
     });
     return Array.from(map.values()).sort((a, b) => b.count - a.count).slice(0, 5);
-  }, [latestSnapshots]);
+  }, [filteredSnapshots]);
+
+  // Aggregate top areas to explore across filtered snapshots
+  const cohortAreasToExplore = useMemo(() => {
+    const map = new Map<string, { text: string; count: number }>();
+    filteredSnapshots.forEach(s => {
+      (s.snapshot_data.topAreasToExplore || []).forEach(a => {
+        const key = a.text.toLowerCase().trim();
+        const existing = map.get(key);
+        if (existing) {
+          existing.count += a.count;
+        } else {
+          map.set(key, { text: a.text, count: a.count });
+        }
+      });
+    });
+    return Array.from(map.values()).sort((a, b) => b.count - a.count).slice(0, 5);
+  }, [filteredSnapshots]);
+
+  // Per-module aggregates for the heatmap (merge same module across programs
+  // when "All" is selected).
+  const moduleHeatmap = useMemo(() => {
+    const map = new Map<string, { strong: number; mixed: number; needsWork: number; total: number }>();
+    filteredSnapshots.forEach(s => {
+      s.snapshot_data.moduleAggregates.forEach(m => {
+        const existing = map.get(m.module_id);
+        if (existing) {
+          existing.strong += m.confidence_strong;
+          existing.mixed += m.confidence_mixed;
+          existing.needsWork += m.confidence_needs_work;
+          existing.total = existing.strong + existing.mixed + existing.needsWork;
+        } else {
+          const total = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
+          map.set(m.module_id, {
+            strong: m.confidence_strong,
+            mixed: m.confidence_mixed,
+            needsWork: m.confidence_needs_work,
+            total,
+          });
+        }
+      });
+    });
+    return Array.from(map.entries())
+      .map(([moduleId, counts]) => ({ moduleId, ...counts }))
+      .filter(m => m.total > 0)
+      .sort((a, b) => a.moduleId.localeCompare(b.moduleId, undefined, { numeric: true }));
+  }, [filteredSnapshots]);
 
   // Last 7 days enrolment activity (for the activity pulse card)
   const recentActivity = useMemo(() => {
@@ -228,8 +281,13 @@ export default function AuthorityDashboard() {
         maturity={cohortMaturity}
         topPriorities={cohortTopPriorities}
         topStrengths={cohortTopStrengths}
+        topAreasToExplore={cohortAreasToExplore}
+        moduleHeatmap={moduleHeatmap}
         recentActivity={recentActivity}
         hasReports={latestSnapshots.length > 0}
+        programs={programs}
+        filterProgramId={filterProgramId}
+        setFilterProgramId={setFilterProgramId}
         programCount={programs.length}
       />
 
@@ -347,12 +405,17 @@ interface CohortSnapshotProps {
   maturity: { strong: number; mixed: number; needsWork: number; total: number };
   topPriorities: Array<{ action: string; count: number; priority?: string; programIds: string[] }>;
   topStrengths: Array<{ text: string; count: number }>;
+  topAreasToExplore: Array<{ text: string; count: number }>;
+  moduleHeatmap: Array<{ moduleId: string; strong: number; mixed: number; needsWork: number; total: number }>;
   recentActivity: { sevenDays: number; priorSeven: number; delta: number };
   hasReports: boolean;
+  programs: AuthorityProgram[];
+  filterProgramId: string;
+  setFilterProgramId: (id: string) => void;
   programCount: number;
 }
 
-function CohortSnapshot({ maturity, topPriorities, topStrengths, recentActivity, hasReports, programCount }: CohortSnapshotProps) {
+function CohortSnapshot({ maturity, topPriorities, topStrengths, topAreasToExplore, moduleHeatmap, recentActivity, hasReports, programs, filterProgramId, setFilterProgramId, programCount }: CohortSnapshotProps) {
   if (programCount === 0) return null;
 
   if (!hasReports) {
@@ -376,14 +439,42 @@ function CohortSnapshot({ maturity, topPriorities, topStrengths, recentActivity,
       ? `${recentActivity.delta} vs prior week`
       : 'same as prior week';
 
+  const selectedProgram = programs.find(p => p.id === filterProgramId);
+
   return (
     <section className="cohort-snapshot">
-      <h2>Cohort snapshot</h2>
-      <p className="cohort-snapshot__intro">
-        At-a-glance view of how the businesses you've enrolled are actually doing, drawn from the
-        latest report for each program. More than completion: this captures the quality of what's
-        been assessed.
-      </p>
+      <div className="cohort-snapshot__head">
+        <div>
+          <h2>Cohort snapshot</h2>
+          <p className="cohort-snapshot__intro">
+            At-a-glance view of how the businesses you've enrolled are actually doing, drawn from the
+            latest report for each program. More than completion: this captures the quality of what's
+            been assessed.
+          </p>
+        </div>
+        <div className="cohort-snapshot__controls">
+          <label htmlFor="cohort-program-filter" className="cohort-snapshot__filter-label">View</label>
+          <select
+            id="cohort-program-filter"
+            className="cohort-snapshot__filter"
+            value={filterProgramId}
+            onChange={(e) => setFilterProgramId(e.target.value)}
+          >
+            <option value="all">All programs ({programs.length})</option>
+            {programs.map(p => (
+              <option key={p.id} value={p.id}>{p.name}</option>
+            ))}
+          </select>
+          {selectedProgram && (
+            <Link
+              to={`/authority/programs/${selectedProgram.id}/report`}
+              className="btn btn-outline btn-small"
+            >
+              Full report
+            </Link>
+          )}
+        </div>
+      </div>
 
       <div className="cohort-snapshot__grid">
         {/* Maturity donut */}
@@ -462,8 +553,97 @@ function CohortSnapshot({ maturity, topPriorities, topStrengths, recentActivity,
             <p className="cohort-card__empty">No strengths captured yet.</p>
           )}
         </div>
+
+        {/* Per-module heatmap */}
+        {moduleHeatmap.length > 0 && (
+          <div className="cohort-card cohort-card--span2">
+            <div className="cohort-card__header">
+              <h3>Module maturity heatmap</h3>
+              <span className="cohort-card__subtitle">
+                Confidence distribution per module. Wider green = cohort is genuinely doing well.
+                Wider red = needs collective attention.
+              </span>
+            </div>
+            <ModuleHeatmap rows={moduleHeatmap} />
+          </div>
+        )}
+
+        {/* Top areas to explore */}
+        {topAreasToExplore.length > 0 && (
+          <div className="cohort-card cohort-card--span2">
+            <div className="cohort-card__header">
+              <h3>Areas to explore</h3>
+              <span className="cohort-card__subtitle">
+                Topics businesses flagged as "unable to check" or "unsure". Often signal the
+                cohort needs clearer guidance, training, or sector-wide support.
+              </span>
+            </div>
+            <ol className="cohort-list cohort-list--explore">
+              {topAreasToExplore.map((a, i) => (
+                <li key={i}>
+                  <span className="cohort-list__rank cohort-list__rank--amber">{i + 1}</span>
+                  <span className="cohort-list__text">{a.text}</span>
+                  <span className="cohort-list__count">{a.count}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
       </div>
     </section>
+  );
+}
+
+function ModuleHeatmap({ rows }: { rows: Array<{ moduleId: string; strong: number; mixed: number; needsWork: number; total: number }> }) {
+  return (
+    <div className="cohort-heatmap" role="table" aria-label="Per-module confidence heatmap">
+      {rows.map(r => {
+        const strongPct = r.total > 0 ? (r.strong / r.total) * 100 : 0;
+        const mixedPct = r.total > 0 ? (r.mixed / r.total) * 100 : 0;
+        const needsWorkPct = r.total > 0 ? (r.needsWork / r.total) * 100 : 0;
+        return (
+          <div key={r.moduleId} className="cohort-heatmap__row" role="row">
+            <div className="cohort-heatmap__label" role="rowheader">
+              {r.moduleId}
+            </div>
+            <div
+              className="cohort-heatmap__bar"
+              role="cell"
+              aria-label={`Strong ${r.strong}, Mixed ${r.mixed}, Needs work ${r.needsWork}`}
+            >
+              {strongPct > 0 && (
+                <div
+                  className="cohort-heatmap__seg cohort-heatmap__seg--strong"
+                  style={{ width: `${strongPct}%` }}
+                  title={`Strong: ${r.strong}`}
+                >
+                  {strongPct >= 12 && <span>{r.strong}</span>}
+                </div>
+              )}
+              {mixedPct > 0 && (
+                <div
+                  className="cohort-heatmap__seg cohort-heatmap__seg--mixed"
+                  style={{ width: `${mixedPct}%` }}
+                  title={`Mixed: ${r.mixed}`}
+                >
+                  {mixedPct >= 12 && <span>{r.mixed}</span>}
+                </div>
+              )}
+              {needsWorkPct > 0 && (
+                <div
+                  className="cohort-heatmap__seg cohort-heatmap__seg--needs"
+                  style={{ width: `${needsWorkPct}%` }}
+                  title={`Needs work: ${r.needsWork}`}
+                >
+                  {needsWorkPct >= 12 && <span>{r.needsWork}</span>}
+                </div>
+              )}
+            </div>
+            <div className="cohort-heatmap__count">{r.total}</div>
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
