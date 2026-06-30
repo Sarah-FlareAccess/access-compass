@@ -27,7 +27,6 @@ function formatEnrolmentStatus(status: string | null | undefined): string {
     case 'in-progress':
       return 'In progress';
     case 'submitted':
-      return 'Submitted';
     case 'completed':
       return 'Completed';
     case 'withdrawn':
@@ -223,11 +222,7 @@ export default function AuthorityProgramDetail() {
           <div className="authority-stat-label">Enrolled</div>
         </div>
         <div className="authority-stat-card">
-          <div className="authority-stat-value">{submitted.length}</div>
-          <div className="authority-stat-label">Submitted</div>
-        </div>
-        <div className="authority-stat-card">
-          <div className="authority-stat-value">{completed.length}</div>
+          <div className="authority-stat-value">{completed.length + submitted.length}</div>
           <div className="authority-stat-label">Completed</div>
         </div>
       </div>

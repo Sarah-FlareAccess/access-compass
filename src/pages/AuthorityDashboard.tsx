@@ -267,11 +267,7 @@ export default function AuthorityDashboard() {
           <div className="authority-stat-label">Businesses</div>
         </div>
         <div className="authority-stat-card">
-          <div className="authority-stat-value">{submittedEnrolments}</div>
-          <div className="authority-stat-label">Submitted</div>
-        </div>
-        <div className="authority-stat-card">
-          <div className="authority-stat-value">{completedEnrolments}</div>
+          <div className="authority-stat-value">{completedEnrolments + submittedEnrolments}</div>
           <div className="authority-stat-label">Completed</div>
         </div>
       </div>

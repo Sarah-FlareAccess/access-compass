@@ -458,9 +458,9 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.roundedRect(PAGE.marginX + 10, coverStatsY, PAGE.contentWidth - 20, 28, 4, 4, 'F');
   const coverStats = [
     { val: String(enrolment.total), label: 'Businesses' },
-    { val: String(enrolment.completed), label: 'Completed' },
+    { val: String(enrolment.completed + enrolment.submitted), label: 'Completed' },
     { val: String(program.moduleIds.length), label: 'Modules' },
-    { val: `${pct(enrolment.completed, enrolment.total)}%`, label: 'Completion' },
+    { val: `${pct(enrolment.completed + enrolment.submitted, enrolment.total)}%`, label: 'Completion' },
   ];
   const coverStatW = (PAGE.contentWidth - 20) / 4;
   coverStats.forEach((s, idx) => {
@@ -498,13 +498,14 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
 
   addSectionHeader('Executive summary');
 
-  // Stat row
+  // Stat row (submitted merged into completed - no review workflow yet)
+  const completedDisplay = enrolment.completed + enrolment.submitted;
   const statBoxW = (PAGE.contentWidth - 9) / 4;
   ensureSpace(30);
   addStatBox(PAGE.marginX, yPos, statBoxW, String(enrolment.total), 'Enrolled', COLORS.amethystDiamond);
-  addStatBox(PAGE.marginX + statBoxW + 3, yPos, statBoxW, String(enrolment.completed), 'Completed', COLORS.strongText);
-  addStatBox(PAGE.marginX + 2 * (statBoxW + 3), yPos, statBoxW, String(enrolment.submitted), 'Submitted', COLORS.mixedText);
-  addStatBox(PAGE.marginX + 3 * (statBoxW + 3), yPos, statBoxW, String(enrolment.in_progress), 'In progress', COLORS.amethystDiamond);
+  addStatBox(PAGE.marginX + statBoxW + 3, yPos, statBoxW, String(completedDisplay), 'Completed', COLORS.strongText);
+  addStatBox(PAGE.marginX + 2 * (statBoxW + 3), yPos, statBoxW, String(enrolment.in_progress), 'In progress', COLORS.mixedText);
+  addStatBox(PAGE.marginX + 3 * (statBoxW + 3), yPos, statBoxW, String(enrolment.enrolled), 'Not started', COLORS.textMuted);
   yPos += 32;
 
   // Cohort maturity calc for the donut + insights
@@ -515,7 +516,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   };
   const confTotal = confidence.strong + confidence.mixed + confidence.needs;
   const strongPct = confTotal > 0 ? Math.round((confidence.strong / confTotal) * 100) : 0;
-  const completedPct = pct(enrolment.completed, enrolment.total);
+  const completedPct = pct(completedDisplay, enrolment.total);
 
   // Maturity donut + legend (left) + interpretation (right)
   ensureSpace(60);

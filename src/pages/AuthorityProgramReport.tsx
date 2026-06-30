@@ -245,7 +245,9 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
   }, [moduleAggregates]);
 
   const strongPct = confidence.total > 0 ? Math.round((confidence.strong / confidence.total) * 100) : 0;
-  const completionPct = pct(enrolment.completed, enrolment.total);
+  // Merge submitted into completed for display (no review workflow exists yet)
+  const completedDisplay = enrolment.completed + enrolment.submitted;
+  const completionPct = pct(completedDisplay, enrolment.total);
 
   // Generate key insights
   const keyInsights = useMemo(() => {
@@ -317,8 +319,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
           <div className="report-donut-wrap">
             <Donut
               segments={[
-                { value: enrolment.completed, color: '#86EFAC' },
-                { value: enrolment.submitted, color: '#FCD34D' },
+                { value: completedDisplay, color: '#86EFAC' },
                 { value: enrolment.in_progress, color: '#C4B5FD' },
                 { value: enrolment.enrolled, color: 'rgba(62, 43, 47, 0.18)' },
               ]}
@@ -329,8 +330,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
             </div>
           </div>
           <div className="report-donut-legend">
-            <span><span className="dot dot--green" />Completed {enrolment.completed}</span>
-            <span><span className="dot dot--amber" />Submitted {enrolment.submitted}</span>
+            <span><span className="dot dot--green" />Completed {completedDisplay}</span>
             <span><span className="dot dot--purple" />In progress {enrolment.in_progress}</span>
             <span><span className="dot dot--grey" />Not started {enrolment.enrolled}</span>
           </div>
@@ -340,7 +340,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
           <h3>At a glance</h3>
           <p className="report-hero__subtitle">{program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'} program</p>
           <div className="report-stat-row"><span className="report-stat-num">{enrolment.total}</span><span>businesses enrolled</span></div>
-          <div className="report-stat-row"><span className="report-stat-num">{enrolment.completed}</span><span>finished assessments</span></div>
+          <div className="report-stat-row"><span className="report-stat-num">{completedDisplay}</span><span>finished assessments</span></div>
           <div className="report-stat-row"><span className="report-stat-num">{program.moduleIds.length}</span><span>modules in scope</span></div>
           <div className="report-stat-row"><span className="report-stat-num">{confidence.total}</span><span>assessments captured</span></div>
         </div>
