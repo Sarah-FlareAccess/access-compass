@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuthorityAdmin } from '../hooks/useAuthorityAdmin';
+import { supabase, isSupabaseEnabled } from '../utils/supabase';
+import type { ProgramReportRow } from '../hooks/useProgramReport';
 import '../styles/authority.css';
 
 import type { AuthorityProgram, ChildOrgSummary } from '../types/access';
@@ -34,6 +36,7 @@ export default function AuthorityDashboard() {
 
   const [programs, setPrograms] = useState<AuthorityProgram[]>([]);
   const [childSummaries, setChildSummaries] = useState<ChildOrgSummary[]>([]);
+  const [latestSnapshots, setLatestSnapshots] = useState<ProgramReportRow[]>([]);
 
   useEffect(() => {
     if (!effectiveOrgId) return;
@@ -45,6 +48,92 @@ export default function AuthorityDashboard() {
       if (summaries.length > 0) setChildSummaries(summaries);
     });
   }, [effectiveOrgId]);
+
+  // Load the most-recent program_report per program so the dashboard
+  // can surface cohort-wide maturity, priorities and strengths.
+  useEffect(() => {
+    if (!effectiveOrgId || !isSupabaseEnabled() || !supabase) return;
+    supabase
+      .from('program_reports')
+      .select('*')
+      .eq('organisation_id', effectiveOrgId)
+      .order('generated_at', { ascending: false })
+      .then(({ data, error: snapErr }) => {
+        if (snapErr || !data) return;
+        const seen = new Set<string>();
+        const latest = (data as ProgramReportRow[]).filter(r => {
+          if (seen.has(r.program_id)) return false;
+          seen.add(r.program_id);
+          return true;
+        });
+        setLatestSnapshots(latest);
+      });
+  }, [effectiveOrgId]);
+
+  // Cohort-wide confidence band totals from latest snapshots
+  const cohortMaturity = useMemo(() => {
+    let strong = 0, mixed = 0, needsWork = 0;
+    latestSnapshots.forEach(s => {
+      s.snapshot_data.moduleAggregates.forEach(m => {
+        strong += m.confidence_strong;
+        mixed += m.confidence_mixed;
+        needsWork += m.confidence_needs_work;
+      });
+    });
+    return { strong, mixed, needsWork, total: strong + mixed + needsWork };
+  }, [latestSnapshots]);
+
+  // Aggregate top priorities across the cohort
+  const cohortTopPriorities = useMemo(() => {
+    const map = new Map<string, { action: string; count: number; priority?: string; programIds: string[] }>();
+    latestSnapshots.forEach(s => {
+      s.snapshot_data.topPriorityActions.forEach(pa => {
+        const key = pa.action.toLowerCase().trim();
+        const existing = map.get(key);
+        if (existing) {
+          existing.count += pa.count;
+          if (!existing.programIds.includes(s.program_id)) existing.programIds.push(s.program_id);
+        } else {
+          map.set(key, { action: pa.action, count: pa.count, priority: pa.priority, programIds: [s.program_id] });
+        }
+      });
+    });
+    return Array.from(map.values()).sort((a, b) => b.count - a.count).slice(0, 5);
+  }, [latestSnapshots]);
+
+  // Aggregate top strengths across the cohort
+  const cohortTopStrengths = useMemo(() => {
+    const map = new Map<string, { text: string; count: number }>();
+    latestSnapshots.forEach(s => {
+      s.snapshot_data.topStrengths.forEach(st => {
+        const key = st.text.toLowerCase().trim();
+        const existing = map.get(key);
+        if (existing) {
+          existing.count += st.count;
+        } else {
+          map.set(key, { text: st.text, count: st.count });
+        }
+      });
+    });
+    return Array.from(map.values()).sort((a, b) => b.count - a.count).slice(0, 5);
+  }, [latestSnapshots]);
+
+  // Last 7 days enrolment activity (for the activity pulse card)
+  const recentActivity = useMemo(() => {
+    const now = Date.now();
+    const dayMs = 24 * 60 * 60 * 1000;
+    const sevenDays = childSummaries.filter(s => {
+      if (!s.enrolled_at) return false;
+      return now - new Date(s.enrolled_at).getTime() < 7 * dayMs;
+    }).length;
+    const priorSeven = childSummaries.filter(s => {
+      if (!s.enrolled_at) return false;
+      const d = now - new Date(s.enrolled_at).getTime();
+      return d >= 7 * dayMs && d < 14 * dayMs;
+    }).length;
+    const delta = sevenDays - priorSeven;
+    return { sevenDays, priorSeven, delta };
+  }, [childSummaries]);
 
   const totalBusinesses = new Set(childSummaries.map(s => s.child_org_id)).size;
   const completedEnrolments = childSummaries.filter(s => s.enrolment_status === 'completed').length;
@@ -133,6 +222,17 @@ export default function AuthorityDashboard() {
           <div className="authority-stat-label">Completed</div>
         </div>
       </div>
+
+      {/* Cohort snapshot - rich visuals from latest program reports */}
+      <CohortSnapshot
+        maturity={cohortMaturity}
+        topPriorities={cohortTopPriorities}
+        topStrengths={cohortTopStrengths}
+        recentActivity={recentActivity}
+        hasReports={latestSnapshots.length > 0}
+        programCount={programs.length}
+      />
+
 
       {/* Charts section */}
       {childSummaries.length > 0 && (
@@ -237,5 +337,196 @@ export default function AuthorityDashboard() {
         </div>
       )}
     </div>
+  );
+}
+
+// =====================================================
+// Cohort Snapshot section
+// =====================================================
+interface CohortSnapshotProps {
+  maturity: { strong: number; mixed: number; needsWork: number; total: number };
+  topPriorities: Array<{ action: string; count: number; priority?: string; programIds: string[] }>;
+  topStrengths: Array<{ text: string; count: number }>;
+  recentActivity: { sevenDays: number; priorSeven: number; delta: number };
+  hasReports: boolean;
+  programCount: number;
+}
+
+function CohortSnapshot({ maturity, topPriorities, topStrengths, recentActivity, hasReports, programCount }: CohortSnapshotProps) {
+  if (programCount === 0) return null;
+
+  if (!hasReports) {
+    return (
+      <section className="cohort-snapshot cohort-snapshot--empty">
+        <h2>Cohort snapshot</h2>
+        <p className="cohort-snapshot__empty-text">
+          Generate a report for each active program to populate this section. Once you have
+          reports saved, this snapshot surfaces cohort-wide maturity, the top priority actions
+          showing up across businesses, and the strengths worth celebrating.
+        </p>
+        <Link to="/authority/programs" className="btn btn-outline">Go to programs</Link>
+      </section>
+    );
+  }
+
+  const strongPct = maturity.total > 0 ? Math.round((maturity.strong / maturity.total) * 100) : 0;
+  const deltaText = recentActivity.delta > 0
+    ? `+${recentActivity.delta} vs prior week`
+    : recentActivity.delta < 0
+      ? `${recentActivity.delta} vs prior week`
+      : 'same as prior week';
+
+  return (
+    <section className="cohort-snapshot">
+      <h2>Cohort snapshot</h2>
+      <p className="cohort-snapshot__intro">
+        At-a-glance view of how the businesses you've enrolled are actually doing, drawn from the
+        latest report for each program. More than completion: this captures the quality of what's
+        been assessed.
+      </p>
+
+      <div className="cohort-snapshot__grid">
+        {/* Maturity donut */}
+        <div className="cohort-card">
+          <div className="cohort-card__header">
+            <h3>Cohort maturity</h3>
+            <span className="cohort-card__subtitle">Confidence band across all assessed modules</span>
+          </div>
+          <div className="cohort-donut-wrap">
+            <MaturityDonut strong={maturity.strong} mixed={maturity.mixed} needsWork={maturity.needsWork} />
+            <div className="cohort-donut-center">
+              <div className="cohort-donut-value">{strongPct}%</div>
+              <div className="cohort-donut-label">Strong</div>
+            </div>
+          </div>
+          <div className="cohort-donut-legend">
+            <span><span className="dot dot--green" /> Strong: {maturity.strong}</span>
+            <span><span className="dot dot--amber" /> Mixed: {maturity.mixed}</span>
+            <span><span className="dot dot--red" /> Needs work: {maturity.needsWork}</span>
+          </div>
+        </div>
+
+        {/* Recent activity */}
+        <div className="cohort-card">
+          <div className="cohort-card__header">
+            <h3>This week</h3>
+            <span className="cohort-card__subtitle">Enrolments in the last 7 days</span>
+          </div>
+          <div className="cohort-bignum">
+            <span className="cohort-bignum__value">{recentActivity.sevenDays}</span>
+            <span className="cohort-bignum__label">new business{recentActivity.sevenDays !== 1 ? 'es' : ''}</span>
+          </div>
+          <div className={`cohort-delta cohort-delta--${recentActivity.delta > 0 ? 'up' : recentActivity.delta < 0 ? 'down' : 'flat'}`}>
+            {deltaText}
+          </div>
+        </div>
+
+        {/* Top priorities */}
+        <div className="cohort-card cohort-card--span2">
+          <div className="cohort-card__header">
+            <h3>Top priorities across the cohort</h3>
+            <span className="cohort-card__subtitle">Actions appearing in the most business assessments. Worth tackling as a group.</span>
+          </div>
+          {topPriorities.length > 0 ? (
+            <ol className="cohort-list cohort-list--priority">
+              {topPriorities.map((p, i) => (
+                <li key={i}>
+                  <span className="cohort-list__rank">{i + 1}</span>
+                  <span className="cohort-list__text">{p.action}</span>
+                  <span className="cohort-list__count">{p.count}</span>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="cohort-card__empty">No priority actions captured yet.</p>
+          )}
+        </div>
+
+        {/* Top strengths */}
+        <div className="cohort-card cohort-card--span2">
+          <div className="cohort-card__header">
+            <h3>Strengths worth celebrating</h3>
+            <span className="cohort-card__subtitle">Practices already in place across multiple businesses.</span>
+          </div>
+          {topStrengths.length > 0 ? (
+            <ol className="cohort-list cohort-list--strength">
+              {topStrengths.map((s, i) => (
+                <li key={i}>
+                  <span className="cohort-list__rank cohort-list__rank--green">{i + 1}</span>
+                  <span className="cohort-list__text">{s.text}</span>
+                  <span className="cohort-list__count">{s.count}</span>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="cohort-card__empty">No strengths captured yet.</p>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MaturityDonut({ strong, mixed, needsWork }: { strong: number; mixed: number; needsWork: number }) {
+  const total = strong + mixed + needsWork;
+  const radius = 70;
+  const cx = 100, cy = 100;
+  const strokeWidth = 22;
+  const c = 2 * Math.PI * radius;
+
+  if (total === 0) {
+    return (
+      <svg width="200" height="200" viewBox="0 0 200 200" aria-label="No maturity data yet">
+        <circle cx={cx} cy={cy} r={radius} stroke="#e5e7eb" strokeWidth={strokeWidth} fill="none" />
+      </svg>
+    );
+  }
+
+  const strongPct = strong / total;
+  const mixedPct = mixed / total;
+  const needsWorkPct = needsWork / total;
+  const strongLen = strongPct * c;
+  const mixedLen = mixedPct * c;
+  const needsWorkLen = needsWorkPct * c;
+
+  return (
+    <svg
+      width="200"
+      height="200"
+      viewBox="0 0 200 200"
+      role="img"
+      aria-label={`Cohort maturity. Strong: ${strong}, Mixed: ${mixed}, Needs work: ${needsWork}`}
+    >
+      <circle cx={cx} cy={cy} r={radius} stroke="#f1ecf5" strokeWidth={strokeWidth} fill="none" />
+      <g transform={`rotate(-90 ${cx} ${cy})`}>
+        {strongLen > 0 && (
+          <circle
+            cx={cx} cy={cy} r={radius}
+            stroke="#16A34A" strokeWidth={strokeWidth} fill="none"
+            strokeDasharray={`${strongLen} ${c - strongLen}`}
+            strokeDashoffset={0}
+            strokeLinecap="butt"
+          />
+        )}
+        {mixedLen > 0 && (
+          <circle
+            cx={cx} cy={cy} r={radius}
+            stroke="#F59E0B" strokeWidth={strokeWidth} fill="none"
+            strokeDasharray={`${mixedLen} ${c - mixedLen}`}
+            strokeDashoffset={-strongLen}
+            strokeLinecap="butt"
+          />
+        )}
+        {needsWorkLen > 0 && (
+          <circle
+            cx={cx} cy={cy} r={radius}
+            stroke="#DC2626" strokeWidth={strokeWidth} fill="none"
+            strokeDasharray={`${needsWorkLen} ${c - needsWorkLen}`}
+            strokeDashoffset={-(strongLen + mixedLen)}
+            strokeLinecap="butt"
+          />
+        )}
+      </g>
+    </svg>
   );
 }
