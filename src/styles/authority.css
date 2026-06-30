@@ -763,19 +763,18 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 .authority-page .btn-primary {
   background: var(--amethyst-diamond, #490E67);
   color: #ffffff;
-  box-shadow: 0 2px 4px rgba(73, 14, 103, 0.2);
+  box-shadow: none;
 }
 
 .authority-page .btn-primary:hover:not(:disabled) {
   background: #5E1A82;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(73, 14, 103, 0.25);
+  transform: none;
+  box-shadow: none;
 }
 
 .authority-page .btn-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
 }
 
 .authority-page .btn-outline {
