@@ -235,12 +235,32 @@ export default function AuthorityProgramDetail() {
         </div>
 
         {!editingModules && (
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          <ul
+            style={{
+              listStyle: 'none',
+              padding: 0,
+              margin: 0,
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+              gap: '0.375rem 1.25rem',
+            }}
+          >
             {program.required_module_ids.map(mid => {
               const mod = accessModules.find(m => m.id === mid);
               return (
-                <li key={mid} style={{ padding: '0.25rem 0', fontSize: '0.9375rem' }}>
-                  <strong>{mid}</strong> {mod?.name || '(module not found)'}
+                <li
+                  key={mid}
+                  style={{
+                    padding: '0.25rem 0',
+                    fontSize: '0.9375rem',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                  title={mod?.name || mid}
+                >
+                  <strong style={{ color: 'var(--amethyst-diamond, #490E67)', marginRight: '0.25rem' }}>{mid}</strong>
+                  {mod?.name || '(module not found)'}
                 </li>
               );
             })}
