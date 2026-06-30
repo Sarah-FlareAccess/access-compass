@@ -682,7 +682,7 @@ function MaturityDonut({ strong, mixed, needsWork }: { strong: number; mixed: nu
         {strongLen > 0 && (
           <circle
             cx={cx} cy={cy} r={radius}
-            stroke="#16A34A" strokeWidth={strokeWidth} fill="none"
+            stroke="#86EFAC" strokeWidth={strokeWidth} fill="none"
             strokeDasharray={`${strongLen} ${c - strongLen}`}
             strokeDashoffset={0}
             strokeLinecap="butt"
@@ -691,7 +691,7 @@ function MaturityDonut({ strong, mixed, needsWork }: { strong: number; mixed: nu
         {mixedLen > 0 && (
           <circle
             cx={cx} cy={cy} r={radius}
-            stroke="#F59E0B" strokeWidth={strokeWidth} fill="none"
+            stroke="#FCD34D" strokeWidth={strokeWidth} fill="none"
             strokeDasharray={`${mixedLen} ${c - mixedLen}`}
             strokeDashoffset={-strongLen}
             strokeLinecap="butt"
@@ -700,7 +700,7 @@ function MaturityDonut({ strong, mixed, needsWork }: { strong: number; mixed: nu
         {needsWorkLen > 0 && (
           <circle
             cx={cx} cy={cy} r={radius}
-            stroke="#DC2626" strokeWidth={strokeWidth} fill="none"
+            stroke="#FCA5A5" strokeWidth={strokeWidth} fill="none"
             strokeDasharray={`${needsWorkLen} ${c - needsWorkLen}`}
             strokeDashoffset={-(strongLen + mixedLen)}
             strokeLinecap="butt"

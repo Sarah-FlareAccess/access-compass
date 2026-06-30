@@ -242,9 +242,9 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
           <div className="report-donut-wrap">
             <Donut
               segments={[
-                { value: confidence.strong, color: '#16A34A' },
-                { value: confidence.mixed, color: '#F59E0B' },
-                { value: confidence.needsWork, color: '#DC2626' },
+                { value: confidence.strong, color: '#86EFAC' },
+                { value: confidence.mixed, color: '#FCD34D' },
+                { value: confidence.needsWork, color: '#FCA5A5' },
               ]}
             />
             <div className="report-donut-center">
@@ -265,10 +265,10 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
           <div className="report-donut-wrap">
             <Donut
               segments={[
-                { value: enrolment.completed, color: '#16A34A' },
-                { value: enrolment.submitted, color: '#F59E0B' },
-                { value: enrolment.in_progress, color: '#7C3AED' },
-                { value: enrolment.enrolled, color: 'rgba(62, 43, 47, 0.25)' },
+                { value: enrolment.completed, color: '#86EFAC' },
+                { value: enrolment.submitted, color: '#FCD34D' },
+                { value: enrolment.in_progress, color: '#C4B5FD' },
+                { value: enrolment.enrolled, color: 'rgba(62, 43, 47, 0.18)' },
               ]}
             />
             <div className="report-donut-center">

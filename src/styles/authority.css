@@ -1175,9 +1175,10 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
   vertical-align: middle;
 }
 
-.dot--green { background: #16A34A; }
-.dot--amber { background: #F59E0B; }
-.dot--red { background: #DC2626; }
+/* Cohort maturity dots - matched to heatmap pastels for consistency */
+.dot--green { background: #86EFAC; border: 1px solid #14532D; }
+.dot--amber { background: #FCD34D; border: 1px solid #78350F; }
+.dot--red   { background: #FCA5A5; border: 1px solid #7F1D1D; }
 
 /* Big-number activity card */
 .cohort-bignum {

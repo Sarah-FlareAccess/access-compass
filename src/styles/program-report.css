@@ -100,11 +100,12 @@
   margin-right: 4px;
 }
 
-.dot--green { background: #16A34A; }
-.dot--amber { background: #F59E0B; }
-.dot--red { background: #DC2626; }
-.dot--purple { background: #7C3AED; }
-.dot--grey { background: rgba(62, 43, 47, 0.25); }
+/* Maturity dots use heatmap pastel palette with dark borders for visibility */
+.dot--green { background: #86EFAC; border: 1px solid #14532D; }
+.dot--amber { background: #FCD34D; border: 1px solid #78350F; }
+.dot--red   { background: #FCA5A5; border: 1px solid #7F1D1D; }
+.dot--purple { background: #C4B5FD; border: 1px solid #4C1D95; }
+.dot--grey  { background: rgba(62, 43, 47, 0.18); border: 1px solid rgba(62, 43, 47, 0.5); }
 
 /* Stats card */
 .report-hero__stats .report-stat-row {
