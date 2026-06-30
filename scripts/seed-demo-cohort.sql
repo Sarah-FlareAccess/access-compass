@@ -21,7 +21,7 @@
 -- Programs created:
 --   - Tourism Grant Round 2026                (5 modules, 12 businesses)
 --   - Event Partner Onboarding 2026           (8 modules, 8 businesses)
---   - Better Access Better Business           (10 modules, 15 businesses)
+--   - Amplify Access for Business             (10 modules, 15 businesses)
 --   - Designing Accessible Experiences        (7 modules, 7 businesses)
 -- =====================================================
 
@@ -207,8 +207,8 @@ BEGIN
     RETURNING id INTO v_prog_events;
 
   INSERT INTO authority_programs (organisation_id, name, slug, description, required_module_ids, access_level, allow_self_enrol, is_active, funding_model)
-    VALUES (v_authority, 'Better Access Better Business', 'demo-better-access-better-business',
-      'Capacity-building program for local SMEs across health, retail, food and services to build inclusive practices end-to-end.',
+    VALUES (v_authority, 'Amplify Access for Business', 'demo-amplify-access-for-business',
+      'Capacity-building program for local SMEs across health, retail, food and services to build inclusive customer experiences end-to-end.',
       c_modules_business, 'pulse', true, true, 'authority_funded')
     RETURNING id INTO v_prog_business;
 
