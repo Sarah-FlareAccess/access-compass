@@ -3,8 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuthorityAdmin } from '../hooks/useAuthorityAdmin';
+import { ModuleDetailModal } from '../components/discovery/ModuleDetailModal';
 import { supabaseRest } from '../utils/supabase';
-import { accessModules } from '../data/accessModules';
+import { accessModules, moduleGroups } from '../data/accessModules';
 import '../styles/authority.css';
 
 import type { AuthorityProgram, ProgramEnrolment, ChildOrgSummary } from '../types/access';
@@ -22,7 +23,7 @@ export default function AuthorityProgramDetail() {
   const { id } = useParams<{ id: string }>();
   const { accessState } = useAuth();
   const orgId = accessState.organisation?.id;
-  const { getProgram, getEnrolments, getChildOrgSummaries, enrolBusiness, isLoading } = useAuthorityAdmin();
+  const { getProgram, getEnrolments, getChildOrgSummaries, enrolBusiness, updateProgram, isLoading } = useAuthorityAdmin();
 
   const [program, setProgram] = useState<AuthorityProgram | null>(null);
   const [, setEnrolments] = useState<ProgramEnrolment[]>([]);
@@ -35,6 +36,11 @@ export default function AuthorityProgramDetail() {
   const csvInputRef = useRef<HTMLInputElement>(null);
   const [carryovers, setCarryovers] = useState<CarryoverDeclaration[]>([]);
   const [expandedBusiness, setExpandedBusiness] = useState<string | null>(null);
+  const [editingModules, setEditingModules] = useState(false);
+  const [editedModuleIds, setEditedModuleIds] = useState<string[]>([]);
+  const [savingModules, setSavingModules] = useState(false);
+  const [moduleSaveError, setModuleSaveError] = useState<string | null>(null);
+  const [detailModuleId, setDetailModuleId] = useState<string | null>(null);
 
   usePageTitle(program?.name || 'Program Detail');
 
@@ -56,6 +62,40 @@ export default function AuthorityProgramDetail() {
       if (data) setCarryovers(data as CarryoverDeclaration[]);
     });
   }, [id, orgId]);
+
+  const handleStartEditModules = () => {
+    if (!program) return;
+    setEditedModuleIds([...program.required_module_ids]);
+    setModuleSaveError(null);
+    setEditingModules(true);
+  };
+
+  const handleCancelEditModules = () => {
+    setEditingModules(false);
+    setEditedModuleIds([]);
+    setModuleSaveError(null);
+  };
+
+  const toggleEditModule = (moduleId: string) => {
+    setEditedModuleIds(prev =>
+      prev.includes(moduleId) ? prev.filter(mid => mid !== moduleId) : [...prev, moduleId]
+    );
+  };
+
+  const handleSaveModules = async () => {
+    if (!program || editedModuleIds.length === 0) return;
+    setSavingModules(true);
+    setModuleSaveError(null);
+    const updated = await updateProgram(program.id, { required_module_ids: editedModuleIds });
+    setSavingModules(false);
+    if (updated) {
+      setProgram({ ...program, required_module_ids: editedModuleIds });
+      setEditingModules(false);
+      setEditedModuleIds([]);
+    } else {
+      setModuleSaveError('Could not save module changes. Please try again.');
+    }
+  };
 
   const handleEnrol = async () => {
     if (!id || !inviteOrgName.trim()) return;
@@ -165,10 +205,113 @@ export default function AuthorityProgramDetail() {
 
       <div className="authority-program-meta">
         <span>{program.access_level === 'pulse' ? 'Pulse Check' : 'Deep Dive'}</span>
-        <span>Modules: {program.required_module_ids.join(', ')}</span>
         <span>{program.funding_model === 'authority_funded' ? 'Authority-funded' : program.funding_model === 'business_funded' ? 'Business-funded' : 'Co-funded'}</span>
         {program.license_price_cents != null && program.license_price_cents > 0 && (
           <span>${(program.license_price_cents / 100).toFixed(0)}/business</span>
+        )}
+      </div>
+
+      {/* Modules section with edit */}
+      <div className="authority-form-card">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+          <h2 style={{ margin: 0 }}>Modules ({program.required_module_ids.length})</h2>
+          {!editingModules && (
+            <button
+              type="button"
+              className="btn btn-outline btn-small"
+              onClick={handleStartEditModules}
+            >
+              Edit modules
+            </button>
+          )}
+        </div>
+
+        {!editingModules && (
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            {program.required_module_ids.map(mid => {
+              const mod = accessModules.find(m => m.id === mid);
+              return (
+                <li key={mid} style={{ padding: '0.25rem 0', fontSize: '0.9375rem' }}>
+                  <strong>{mid}</strong> {mod?.name || '(module not found)'}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+
+        {editingModules && (
+          <>
+            {summaries.length > 0 && (
+              <p
+                role="status"
+                style={{
+                  background: 'rgba(251, 191, 36, 0.1)',
+                  border: '1px solid rgba(251, 191, 36, 0.3)',
+                  borderRadius: '4px',
+                  padding: '0.75rem',
+                  fontSize: '0.875rem',
+                  marginBottom: '1rem',
+                  color: '#92400E',
+                }}
+              >
+                This program has {summaries.length} enrolled business{summaries.length !== 1 ? 'es' : ''}. Removing modules will not delete existing responses, but those modules will no longer appear in their assessment.
+              </p>
+            )}
+            <p className="authority-form-hint">
+              {editedModuleIds.length} selected. Update the modules businesses will be assessed on.
+            </p>
+            <div className="authority-module-grid">
+              {moduleGroups.map(group => {
+                const groupModules = accessModules.filter(m => m.group === group.id);
+                return (
+                  <div key={group.id} className="authority-module-group">
+                    <h4>{group.label}</h4>
+                    {groupModules.map(mod => (
+                      <div key={mod.id} className="authority-module-row">
+                        <label className="authority-module-checkbox">
+                          <input
+                            type="checkbox"
+                            checked={editedModuleIds.includes(mod.id)}
+                            onChange={() => toggleEditModule(mod.id)}
+                          />
+                          <span>{mod.id} {mod.name}</span>
+                        </label>
+                        <button
+                          type="button"
+                          className="authority-module-info-btn"
+                          onClick={() => setDetailModuleId(mod.id)}
+                          aria-label={`More info about ${mod.name}`}
+                        >
+                          ?
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+            {moduleSaveError && (
+              <p style={{ color: 'var(--coral-flare, #ea0b3f)', fontSize: '0.875rem', marginTop: '0.75rem' }}>{moduleSaveError}</p>
+            )}
+            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleSaveModules}
+                disabled={savingModules || editedModuleIds.length === 0}
+              >
+                {savingModules ? 'Saving...' : 'Save changes'}
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline"
+                onClick={handleCancelEditModules}
+                disabled={savingModules}
+              >
+                Cancel
+              </button>
+            </div>
+          </>
         )}
       </div>
 
@@ -369,6 +512,17 @@ export default function AuthorityProgramDetail() {
           </div>
         )}
       </div>
+
+      {/* Module detail popup */}
+      {detailModuleId && (
+        <ModuleDetailModal
+          moduleId={detailModuleId}
+          isSelected={editedModuleIds.includes(detailModuleId)}
+          onClose={() => setDetailModuleId(null)}
+          onToggleSelect={toggleEditModule}
+          accessLevel={program.access_level}
+        />
+      )}
     </div>
   );
 }
