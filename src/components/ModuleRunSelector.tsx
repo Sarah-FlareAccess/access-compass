@@ -11,6 +11,7 @@
 import { useState, useEffect, useRef } from 'react';
 import type { ModuleRun, ModuleRunContext } from '../hooks/useModuleProgress';
 import { backupDeletedAssessment } from '../utils/assessmentBackup';
+import { useSites, useActiveSiteId } from '../hooks/useSites';
 import './ModuleRunSelector.css';
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not(:disabled), input:not(:disabled), textarea:not(:disabled), select:not(:disabled), [tabindex]:not([tabindex="-1"])';
@@ -48,9 +49,13 @@ export function ModuleRunSelector({
   onCompareRuns,
   onClose,
 }: ModuleRunSelectorProps) {
+  const { sites } = useSites();
+  const [activeSiteId, setActiveSiteIdLocal] = useActiveSiteId();
+  const hasSites = sites.length > 0;
   const [view, setView] = useState<'list' | 'new' | 'compare'>('list');
+  const [selectedSiteId, setSelectedSiteId] = useState<string>(activeSiteId ?? '');
   const [newRunContext, setNewRunContext] = useState<ModuleRunContext>({
-    type: 'general',
+    type: hasSites ? 'location' : 'general',
     name: '',
     description: '',
   });
@@ -96,13 +101,28 @@ export function ModuleRunSelector({
   }, [onClose]);
 
   const handleStartNewRun = () => {
-    if (!newRunContext.name.trim()) {
-      // Use default name based on type
-      const defaultName = CONTEXT_TYPES.find(t => t.id === newRunContext.type)?.label || 'Assessment';
-      const date = new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
-      newRunContext.name = `${defaultName} - ${date}`;
+    // For multi-site orgs, apply the chosen site as the active site so module
+    // responses get tagged to it.
+    if (hasSites && selectedSiteId) {
+      setActiveSiteIdLocal(selectedSiteId);
     }
-    onStartNewRun(newRunContext);
+
+    let contextToSubmit = newRunContext;
+    if (hasSites && selectedSiteId) {
+      const site = sites.find(s => s.id === selectedSiteId);
+      if (site && !contextToSubmit.name.trim()) {
+        contextToSubmit = { ...contextToSubmit, type: 'location', name: site.name };
+      } else if (site) {
+        contextToSubmit = { ...contextToSubmit, type: 'location' };
+      }
+    }
+
+    if (!contextToSubmit.name.trim()) {
+      const defaultName = CONTEXT_TYPES.find(t => t.id === contextToSubmit.type)?.label || 'Assessment';
+      const date = new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
+      contextToSubmit = { ...contextToSubmit, name: `${defaultName} - ${date}` };
+    }
+    onStartNewRun(contextToSubmit);
     onClose();
   };
 
@@ -462,6 +482,26 @@ export function ModuleRunSelector({
                 or evaluate recurring events.
               </p>
 
+              {hasSites && (
+                <div className="form-group">
+                  <label htmlFor="site-select">Which site does this assessment apply to?</label>
+                  <span className="field-hint">
+                    Pick the site this run anchors to. Responses will be tagged so you can report per site.
+                  </span>
+                  <select
+                    id="site-select"
+                    value={selectedSiteId}
+                    onChange={(e) => setSelectedSiteId(e.target.value)}
+                    required
+                  >
+                    <option value="">Select a site...</option>
+                    {sites.map(site => (
+                      <option key={site.id} value={site.id}>{site.name}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               <div className="form-group">
                 <label htmlFor="context-type">What is this assessment for?</label>
                 <select
@@ -521,7 +561,11 @@ export function ModuleRunSelector({
                 <button className="btn-secondary" onClick={() => setView('list')}>
                   Cancel
                 </button>
-                <button className="btn-primary" onClick={handleStartNewRun}>
+                <button
+                  className="btn-primary"
+                  onClick={handleStartNewRun}
+                  disabled={hasSites && !selectedSiteId}
+                >
                   Start assessment
                 </button>
               </div>

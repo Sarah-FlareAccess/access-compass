@@ -14,6 +14,7 @@ import { QuestionFlow } from '../components/questions';
 import ReminderBanner from '../components/ReminderBanner';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
+import { useSites, useActiveSiteId } from '../hooks/useSites';
 import type { ReviewMode } from '../types';
 import type { QuestionResponse, ModuleSummary, CompletionMetadata } from '../hooks/useModuleProgress';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -34,6 +35,9 @@ export default function DiscoveryQuestions() {
   const [discoveryData, setDiscoveryData] = useState<any>(null);
   const [moduleStates, setModuleStates] = useState<ModuleState[]>([]);
   const [currentModuleIndex, setCurrentModuleIndex] = useState(0);
+  const { sites } = useSites();
+  const [activeSiteId, setActiveSiteIdLocal] = useActiveSiteId();
+  const [pendingSiteId, setPendingSiteId] = useState('');
 
   // Check if a specific module was requested via URL parameter
   const requestedModuleId = searchParams.get('module');
@@ -331,6 +335,54 @@ export default function DiscoveryQuestions() {
   // Show question flow for current module
   if (!currentModule) {
     return null;
+  }
+
+  // Multi-site guard: if the org has sites defined and no active site, require
+  // the user to pick one before answering the first question, so responses are
+  // anchored to a specific site from the start.
+  if (sites.length > 0 && !activeSiteId) {
+    return (
+      <div className="questions-page">
+        <div className="site-select-prompt" style={{ maxWidth: '560px', margin: '3rem auto', padding: '2rem', background: 'var(--surface, #fff)', border: '1px solid var(--border, rgba(62, 43, 47, 0.1))', borderRadius: '8px' }}>
+          <h1 style={{ marginTop: 0 }}>Which site is this assessment for?</h1>
+          <p>
+            You have multiple sites set up. Pick the site this run of <strong>{currentModule.moduleName}</strong> applies to so responses are tagged correctly.
+          </p>
+          <div className="form-group" style={{ marginTop: '1.5rem' }}>
+            <label htmlFor="active-site-select">Site</label>
+            <select
+              id="active-site-select"
+              value={pendingSiteId}
+              onChange={(e) => setPendingSiteId(e.target.value)}
+              style={{ width: '100%', padding: '0.625rem', fontSize: '1rem' }}
+            >
+              <option value="">Select a site...</option>
+              {sites.map(site => (
+                <option key={site.id} value={site.id}>{site.name}</option>
+              ))}
+            </select>
+          </div>
+          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem' }}>
+            <button
+              className="btn-primary"
+              onClick={() => pendingSiteId && setActiveSiteIdLocal(pendingSiteId)}
+              disabled={!pendingSiteId}
+            >
+              Continue
+            </button>
+            <button
+              className="btn-secondary"
+              onClick={handleBackToList}
+            >
+              Back
+            </button>
+          </div>
+          <p style={{ marginTop: '1rem', fontSize: '0.875rem', color: 'var(--text-secondary, #5C4A4E)' }}>
+            You can change the active site any time from the sidebar.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
