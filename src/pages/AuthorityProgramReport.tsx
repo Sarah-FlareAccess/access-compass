@@ -7,12 +7,12 @@ import {
   useProgramReport,
   type ProgramReportRow,
   type ProgramReportPayload,
-  type ModuleAggregate,
 } from '../hooks/useProgramReport';
 import { accessModules } from '../data/accessModules';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
 import type { AuthorityProgram } from '../types/access';
 import '../styles/authority.css';
+import '../styles/program-report.css';
 
 function getModuleName(moduleId: string): string {
   return accessModules.find(m => m.id === moduleId)?.name || moduleId;
@@ -218,180 +218,248 @@ export default function AuthorityProgramReport() {
 function ReportRender({ data }: { data: ProgramReportPayload }) {
   const { program, enrolment, moduleAggregates, topPriorityActions, topStrengths, topAreasToExplore, methodology } = data;
 
+  // Cohort-wide confidence totals for the maturity donut
+  const confidence = useMemo(() => {
+    let strong = 0, mixed = 0, needsWork = 0;
+    moduleAggregates.forEach(m => {
+      strong += m.confidence_strong;
+      mixed += m.confidence_mixed;
+      needsWork += m.confidence_needs_work;
+    });
+    return { strong, mixed, needsWork, total: strong + mixed + needsWork };
+  }, [moduleAggregates]);
+
+  const strongPct = confidence.total > 0 ? Math.round((confidence.strong / confidence.total) * 100) : 0;
+  const completionPct = pct(enrolment.completed, enrolment.total);
+
   return (
     <div className="program-report">
-      {/* Executive summary */}
-      <section className="authority-form-card" style={{ marginBottom: '1.5rem' }}>
-        <h2 style={{ marginTop: 0 }}>Executive summary</h2>
-        <div className="authority-stats" style={{ marginTop: '0.5rem' }}>
-          <div className="authority-stat-card">
-            <div className="authority-stat-value">{enrolment.total}</div>
-            <div className="authority-stat-label">Businesses enrolled</div>
+      {/* At-a-glance hero - 3 column visual layout */}
+      <section className="report-hero">
+        <div className="report-hero__card">
+          <h3>Cohort maturity</h3>
+          <p className="report-hero__subtitle">Confidence across all assessed modules</p>
+          <div className="report-donut-wrap">
+            <Donut
+              segments={[
+                { value: confidence.strong, color: '#16A34A' },
+                { value: confidence.mixed, color: '#F59E0B' },
+                { value: confidence.needsWork, color: '#DC2626' },
+              ]}
+            />
+            <div className="report-donut-center">
+              <div className="report-donut-value">{strongPct}%</div>
+              <div className="report-donut-label">Strong</div>
+            </div>
           </div>
-          <div className="authority-stat-card">
-            <div className="authority-stat-value">{enrolment.completed}</div>
-            <div className="authority-stat-label">Completed</div>
-          </div>
-          <div className="authority-stat-card">
-            <div className="authority-stat-value">{enrolment.submitted}</div>
-            <div className="authority-stat-label">Submitted</div>
-          </div>
-          <div className="authority-stat-card">
-            <div className="authority-stat-value">{enrolment.in_progress}</div>
-            <div className="authority-stat-label">In progress</div>
+          <div className="report-donut-legend">
+            <span><span className="dot dot--green" />Strong {confidence.strong}</span>
+            <span><span className="dot dot--amber" />Mixed {confidence.mixed}</span>
+            <span><span className="dot dot--red" />Needs work {confidence.needsWork}</span>
           </div>
         </div>
-        <p style={{ marginTop: '1rem', fontSize: '0.9375rem' }}>
-          This {program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'} program covers {program.moduleIds.length} module{program.moduleIds.length !== 1 ? 's' : ''}.
-          {' '}{pct(enrolment.completed, enrolment.total)}% of enrolled businesses have completed their assessments,
-          {' '}{pct(enrolment.submitted + enrolment.completed, enrolment.total)}% have submitted at least one module for review.
-        </p>
-      </section>
 
-      {/* Per-module rollup */}
-      <section className="authority-form-card" style={{ marginBottom: '1.5rem' }}>
-        <h2 style={{ marginTop: 0 }}>Module progress</h2>
-        <p style={{ color: 'var(--text-secondary, #5C4A4E)', marginTop: 0 }}>
-          Completion rate and confidence band distribution for each module in the program.
-        </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
-          {moduleAggregates.map(agg => (
-            <ModuleAggregateRow key={agg.module_id} agg={agg} />
-          ))}
+        <div className="report-hero__card">
+          <h3>Enrolment status</h3>
+          <p className="report-hero__subtitle">Where the cohort sits today</p>
+          <div className="report-donut-wrap">
+            <Donut
+              segments={[
+                { value: enrolment.completed, color: '#16A34A' },
+                { value: enrolment.submitted, color: '#F59E0B' },
+                { value: enrolment.in_progress, color: '#7C3AED' },
+                { value: enrolment.enrolled, color: 'rgba(62, 43, 47, 0.25)' },
+              ]}
+            />
+            <div className="report-donut-center">
+              <div className="report-donut-value">{completionPct}%</div>
+              <div className="report-donut-label">Completed</div>
+            </div>
+          </div>
+          <div className="report-donut-legend">
+            <span><span className="dot dot--green" />Completed {enrolment.completed}</span>
+            <span><span className="dot dot--amber" />Submitted {enrolment.submitted}</span>
+            <span><span className="dot dot--purple" />In progress {enrolment.in_progress}</span>
+            <span><span className="dot dot--grey" />Enrolled {enrolment.enrolled}</span>
+          </div>
+        </div>
+
+        <div className="report-hero__card report-hero__stats">
+          <h3>At a glance</h3>
+          <p className="report-hero__subtitle">{program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'} program</p>
+          <div className="report-stat-row"><span className="report-stat-num">{enrolment.total}</span><span>businesses enrolled</span></div>
+          <div className="report-stat-row"><span className="report-stat-num">{enrolment.completed}</span><span>finished assessments</span></div>
+          <div className="report-stat-row"><span className="report-stat-num">{program.moduleIds.length}</span><span>modules in scope</span></div>
+          <div className="report-stat-row"><span className="report-stat-num">{confidence.total}</span><span>assessments captured</span></div>
         </div>
       </section>
 
-      {/* Top priority actions */}
-      {topPriorityActions.length > 0 && (
-        <section className="authority-form-card" style={{ marginBottom: '1.5rem' }}>
-          <h2 style={{ marginTop: 0 }}>Top priority actions across the cohort</h2>
-          <p style={{ color: 'var(--text-secondary, #5C4A4E)', marginTop: 0 }}>
-            Recommended actions appearing most often across business assessments. Useful for
-            sector-wide initiatives, group training, or shared infrastructure investment.
-          </p>
-          <ol style={{ paddingLeft: '1.5rem' }}>
-            {topPriorityActions.map((pa, i) => (
-              <li key={i} style={{ marginBottom: '0.75rem' }}>
-                <div style={{ fontWeight: 500 }}>{pa.action}</div>
-                <div style={{ fontSize: '0.8125rem', color: 'var(--text-secondary, #5C4A4E)' }}>
-                  Appears in {pa.count} business{pa.count !== 1 ? 'es' : ''}
-                  {pa.priority && (
-                    <span style={{ marginLeft: '0.5rem', padding: '1px 6px', borderRadius: '3px', background: 'rgba(124, 58, 237, 0.1)', color: 'var(--deep-plum, #490E67)', fontSize: '0.75rem', fontWeight: 600 }}>
-                      {pa.priority.toUpperCase()}
-                    </span>
-                  )}
-                  {pa.moduleIds.length > 0 && (
-                    <span style={{ marginLeft: '0.5rem' }}>
-                      Modules: {pa.moduleIds.join(', ')}
-                    </span>
-                  )}
+      {/* Module heatmap */}
+      <section className="authority-form-card report-section">
+        <h2>Module maturity heatmap</h2>
+        <p className="report-section__subtitle">
+          Confidence distribution per module. Wider green = cohort is doing well. Wider red = needs collective attention.
+        </p>
+        <div className="report-heatmap">
+          {moduleAggregates.map(m => {
+            const total = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
+            const strongP = total > 0 ? (m.confidence_strong / total) * 100 : 0;
+            const mixedP = total > 0 ? (m.confidence_mixed / total) * 100 : 0;
+            const needsP = total > 0 ? (m.confidence_needs_work / total) * 100 : 0;
+            return (
+              <div key={m.module_id} className="report-heatmap__row">
+                <div className="report-heatmap__label">
+                  <strong>{m.module_id}</strong> {getModuleName(m.module_id)}
                 </div>
-              </li>
-            ))}
-          </ol>
-        </section>
-      )}
+                <div className="report-heatmap__bar" role="img" aria-label={`Strong ${m.confidence_strong}, Mixed ${m.confidence_mixed}, Needs work ${m.confidence_needs_work}`}>
+                  {strongP > 0 && <div className="seg seg--strong" style={{ width: `${strongP}%` }}>{strongP >= 10 && <span>{m.confidence_strong}</span>}</div>}
+                  {mixedP > 0 && <div className="seg seg--mixed" style={{ width: `${mixedP}%` }}>{mixedP >= 10 && <span>{m.confidence_mixed}</span>}</div>}
+                  {needsP > 0 && <div className="seg seg--needs" style={{ width: `${needsP}%` }}>{needsP >= 10 && <span>{m.confidence_needs_work}</span>}</div>}
+                </div>
+                <div className="report-heatmap__count">{m.completed}/{m.total_enrolments}</div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
-      {/* Strengths */}
-      {topStrengths.length > 0 && (
-        <section className="authority-form-card" style={{ marginBottom: '1.5rem' }}>
-          <h2 style={{ marginTop: 0 }}>Strengths across the cohort</h2>
-          <p style={{ color: 'var(--text-secondary, #5C4A4E)', marginTop: 0 }}>
-            Practices already in place across multiple businesses. Worth celebrating publicly and
-            using as case studies for businesses still building these capabilities.
-          </p>
-          <ul style={{ paddingLeft: '1.5rem' }}>
-            {topStrengths.map((s, i) => (
-              <li key={i} style={{ marginBottom: '0.5rem' }}>
-                {s.text}
-                <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary, #5C4A4E)', marginLeft: '0.5rem' }}>
-                  ({s.count} business{s.count !== 1 ? 'es' : ''})
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      {/* Side-by-side priorities and strengths */}
+      <div className="report-two-col">
+        {topPriorityActions.length > 0 && (
+          <ExpandableSection
+            title="Top priorities across the cohort"
+            subtitle="Actions appearing most often across business assessments."
+            items={topPriorityActions.map(pa => ({ key: pa.action, text: pa.action, count: pa.count, priority: pa.priority }))}
+            accent="amber"
+          />
+        )}
+        {topStrengths.length > 0 && (
+          <ExpandableSection
+            title="Strengths worth celebrating"
+            subtitle="Practices already in place across multiple businesses."
+            items={topStrengths.map(s => ({ key: s.text, text: s.text, count: s.count }))}
+            accent="green"
+          />
+        )}
+      </div>
 
-      {/* Areas to explore */}
       {topAreasToExplore.length > 0 && (
-        <section className="authority-form-card" style={{ marginBottom: '1.5rem' }}>
-          <h2 style={{ marginTop: 0 }}>Areas to explore</h2>
-          <p style={{ color: 'var(--text-secondary, #5C4A4E)', marginTop: 0 }}>
-            Topics businesses flagged as "unable to check" or "unsure". These often indicate where
-            the cohort would benefit from clearer guidance, training, or sector-wide support.
-          </p>
-          <ul style={{ paddingLeft: '1.5rem' }}>
-            {topAreasToExplore.map((a, i) => (
-              <li key={i} style={{ marginBottom: '0.5rem' }}>
-                {a.text}
-                <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary, #5C4A4E)', marginLeft: '0.5rem' }}>
-                  ({a.count})
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <ExpandableSection
+          title="Areas to explore"
+          subtitle="Topics businesses flagged as unable to check or unsure. Signal for sector-wide guidance and training."
+          items={topAreasToExplore.map(a => ({ key: a.text, text: a.text, count: a.count }))}
+          accent="purple"
+          wide
+        />
       )}
 
-      {/* Methodology */}
-      <section style={{ padding: '1rem 1.25rem', background: 'rgba(73, 14, 103, 0.04)', borderRadius: '6px', fontSize: '0.875rem', color: 'var(--text-secondary, #5C4A4E)' }}>
+      <section className="report-methodology">
         <strong>Methodology and privacy:</strong> {methodology}
       </section>
     </div>
   );
 }
 
-function ModuleAggregateRow({ agg }: { agg: ModuleAggregate }) {
-  const completedPct = pct(agg.completed, agg.total_enrolments);
-  const inProgressPct = pct(agg.in_progress, agg.total_enrolments);
-  const notStartedPct = pct(agg.not_started, agg.total_enrolments);
-  const confidenceTotal = agg.confidence_strong + agg.confidence_mixed + agg.confidence_needs_work;
+// =====================================================
+// Donut chart (SVG, no chart lib)
+// =====================================================
+function Donut({ segments }: { segments: Array<{ value: number; color: string }> }) {
+  const total = segments.reduce((sum, s) => sum + s.value, 0);
+  const cx = 100, cy = 100, radius = 70, strokeWidth = 22;
+  const c = 2 * Math.PI * radius;
 
+  if (total === 0) {
+    return (
+      <svg width="200" height="200" viewBox="0 0 200 200" aria-label="No data yet">
+        <circle cx={cx} cy={cy} r={radius} stroke="#f1ecf5" strokeWidth={strokeWidth} fill="none" />
+      </svg>
+    );
+  }
+
+  let offset = 0;
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.25rem' }}>
-        <span style={{ fontWeight: 500 }}>
-          {agg.module_id} {getModuleName(agg.module_id)}
-        </span>
-        <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary, #5C4A4E)' }}>
-          {agg.completed}/{agg.total_enrolments} completed
-        </span>
-      </div>
-      {/* Completion bar */}
-      <div
-        role="img"
-        aria-label={`${completedPct}% completed, ${inProgressPct}% in progress, ${notStartedPct}% not started`}
-        style={{
-          display: 'flex',
-          height: '10px',
-          borderRadius: '4px',
-          overflow: 'hidden',
-          background: 'rgba(62, 43, 47, 0.08)',
-          marginBottom: '0.5rem',
-        }}
-      >
-        {completedPct > 0 && <div style={{ width: `${completedPct}%`, background: '#16A34A' }} />}
-        {inProgressPct > 0 && <div style={{ width: `${inProgressPct}%`, background: '#F59E0B' }} />}
-        {notStartedPct > 0 && <div style={{ width: `${notStartedPct}%`, background: 'rgba(62, 43, 47, 0.15)' }} />}
-      </div>
-      {/* Confidence band counts */}
-      {confidenceTotal > 0 && (
-        <div style={{ fontSize: '0.8125rem', color: 'var(--text-secondary, #5C4A4E)', display: 'flex', gap: '0.75rem' }}>
-          <span>
-            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#16A34A', marginRight: '4px' }} aria-hidden="true" />
-            Strong: {agg.confidence_strong}
-          </span>
-          <span>
-            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#F59E0B', marginRight: '4px' }} aria-hidden="true" />
-            Mixed: {agg.confidence_mixed}
-          </span>
-          <span>
-            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#DC2626', marginRight: '4px' }} aria-hidden="true" />
-            Needs work: {agg.confidence_needs_work}
-          </span>
-        </div>
-      )}
-    </div>
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <circle cx={cx} cy={cy} r={radius} stroke="#f1ecf5" strokeWidth={strokeWidth} fill="none" />
+      <g transform={`rotate(-90 ${cx} ${cy})`}>
+        {segments.map((seg, i) => {
+          if (seg.value <= 0) return null;
+          const len = (seg.value / total) * c;
+          const dasharray = `${len} ${c - len}`;
+          const dashoffset = -offset;
+          offset += len;
+          return (
+            <circle
+              key={i}
+              cx={cx}
+              cy={cy}
+              r={radius}
+              stroke={seg.color}
+              strokeWidth={strokeWidth}
+              fill="none"
+              strokeDasharray={dasharray}
+              strokeDashoffset={dashoffset}
+              strokeLinecap="butt"
+            />
+          );
+        })}
+      </g>
+    </svg>
   );
 }
+
+// =====================================================
+// Expandable list section (top-5 + Show all)
+// =====================================================
+interface ExpandableItem {
+  key: string;
+  text: string;
+  count: number;
+  priority?: string;
+}
+
+function ExpandableSection({
+  title,
+  subtitle,
+  items,
+  accent,
+  wide,
+}: {
+  title: string;
+  subtitle: string;
+  items: ExpandableItem[];
+  accent: 'green' | 'amber' | 'purple';
+  wide?: boolean;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const shown = expanded ? items : items.slice(0, 5);
+  const accentClass = `report-list__rank--${accent}`;
+
+  return (
+    <section className={`authority-form-card report-section${wide ? ' report-section--wide' : ''}`}>
+      <h2>{title}</h2>
+      <p className="report-section__subtitle">{subtitle}</p>
+      <ol className="report-list">
+        {shown.map((item, i) => (
+          <li key={item.key + i}>
+            <span className={`report-list__rank ${accentClass}`}>{i + 1}</span>
+            <span className="report-list__text">{item.text}</span>
+            {item.priority && (
+              <span className="report-list__priority">{item.priority.toUpperCase()}</span>
+            )}
+            <span className="report-list__count">{item.count}</span>
+          </li>
+        ))}
+      </ol>
+      {items.length > 5 && (
+        <button
+          type="button"
+          className="report-list__toggle"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? `Show top 5` : `Show all ${items.length}`}
+        </button>
+      )}
+    </section>
+  );
+}
+
