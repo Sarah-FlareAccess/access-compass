@@ -21,7 +21,7 @@
 -- Programs created:
 --   - Tourism Grant Round 2026                (5 modules, 12 businesses)
 --   - Event Partner Onboarding 2026           (8 modules, 8 businesses)
---   - Accessibility in Business 2026          (10 modules, 15 businesses)
+--   - Better Access Better Business           (10 modules, 15 businesses)
 --   - Designing Accessible Experiences        (7 modules, 7 businesses)
 -- =====================================================
 
@@ -57,11 +57,23 @@ DECLARE
     'Sound Garden Acoustic Duo', 'Trinket Market Stall', 'Mountain Honey Co',
     'Roving Stilts Performers', 'Sweetbox Donut Truck'
   ];
+  -- Mixed industries: health, retail, food, services, education, wellbeing
   c_biz_business TEXT[] := ARRAY[
-    'Greenleaf Florist', 'Backstreet Barbers', 'Lighthouse Stationery', 'Goldfields Cycles',
-    'Patchwork Quilting', 'Foreshore Pharmacy', 'Foundry Coworking', 'Yarn Loom Textiles',
-    'Mountain Adventure Tours', 'Lavender Soap Studio', 'Wildflower Florist', 'Tinhouse Records',
-    'Field Notes Bookshop', 'Honest Joe Cafe', 'Anchor Hardware'
+    'Northside General Practice',     -- health
+    'Cornerstone Dental',             -- health
+    'Mountain View Physiotherapy',    -- health
+    'Riverbank Pharmacy',             -- health / retail
+    'Lighthouse Optometry',           -- health
+    'Brookside Veterinary',           -- health-adjacent
+    'Movement Yoga Studio',           -- wellbeing
+    'Bluestone Bakery',               -- food
+    'Honest Joe Cafe',                -- food
+    'Anchor Hardware',                -- retail
+    'Patchwork Boutique',             -- retail (fashion)
+    'Field Notes Bookshop',           -- retail
+    'Highland Music School',          -- education
+    'Foundry Coworking',              -- services
+    'Cornerstone Hair Salon'          -- services
   ];
   c_biz_experiences TEXT[] := ARRAY[
     'Heritage Town Museum', 'Wetlands Discovery Centre', 'Botanical Walk',
@@ -195,8 +207,8 @@ BEGIN
     RETURNING id INTO v_prog_events;
 
   INSERT INTO authority_programs (organisation_id, name, slug, description, required_module_ids, access_level, allow_self_enrol, is_active, funding_model)
-    VALUES (v_authority, 'Accessibility in Business 2026', 'demo-accessibility-in-business-2026',
-      'Capacity-building program for local SMEs to build inclusive practices end-to-end.',
+    VALUES (v_authority, 'Better Access Better Business', 'demo-better-access-better-business',
+      'Capacity-building program for local SMEs across health, retail, food and services to build inclusive practices end-to-end.',
       c_modules_business, 'pulse', true, true, 'authority_funded')
     RETURNING id INTO v_prog_business;
 
@@ -332,14 +344,16 @@ BEGIN
       );
 
     FOREACH v_mod_id IN ARRAY c_modules_business LOOP
+      -- Targets ~28% completed across 15 biz x 10 modules = ~42 completed.
       v_status := CASE
-        WHEN random() < 0.18 THEN 'not-started'
-        WHEN random() < 0.45 THEN 'in-progress'
+        WHEN random() < 0.30 THEN 'not-started'
+        WHEN random() < 0.60 THEN 'in-progress'
         ELSE 'completed'
       END;
+      -- Varied: ~35% strong, ~46% mixed, ~19% needs-work
       v_confidence := CASE
-        WHEN random() < 0.38 THEN 'strong'
-        WHEN random() < 0.76 THEN 'mixed'
+        WHEN random() < 0.35 THEN 'strong'
+        WHEN random() < 0.70 THEN 'mixed'
         ELSE 'needs-work'
       END;
       v_summary := jsonb_build_object(
