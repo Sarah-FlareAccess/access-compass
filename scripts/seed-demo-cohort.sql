@@ -20,7 +20,7 @@
 --
 -- Programs created:
 --   - Tourism Grant Round 2026                (5 modules, 12 businesses)
---   - Event Partner Pre-Qualification 2026    (8 modules, 8 businesses)
+--   - Event Partner Onboarding 2026           (8 modules, 8 businesses)
 --   - Accessibility in Business 2026          (10 modules, 15 businesses)
 --   - Designing Accessible Experiences        (7 modules, 7 businesses)
 -- =====================================================
@@ -189,8 +189,8 @@ BEGIN
     RETURNING id INTO v_prog_grants;
 
   INSERT INTO authority_programs (organisation_id, name, slug, description, required_module_ids, access_level, allow_self_enrol, is_active, funding_model)
-    VALUES (v_authority, 'Event Partner Pre-Qualification 2026', 'demo-event-partner-prequal-2026',
-      'Pre-qualification modules that businesses must complete to participate as a partner (stallholder, vendor, performer, exhibitor) at council-supported events in 2026.',
+    VALUES (v_authority, 'Event Partner Onboarding 2026', 'demo-event-partner-onboarding-2026',
+      'Onboarding modules that businesses must complete to participate as a partner (stallholder, vendor, performer, exhibitor) at council-supported events in 2026.',
       c_modules_events, 'deep_dive', true, true, 'authority_funded')
     RETURNING id INTO v_prog_events;
 
