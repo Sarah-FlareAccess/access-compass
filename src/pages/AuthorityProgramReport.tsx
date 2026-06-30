@@ -332,7 +332,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
             <span><span className="dot dot--green" />Completed {enrolment.completed}</span>
             <span><span className="dot dot--amber" />Submitted {enrolment.submitted}</span>
             <span><span className="dot dot--purple" />In progress {enrolment.in_progress}</span>
-            <span><span className="dot dot--grey" />Enrolled {enrolment.enrolled}</span>
+            <span><span className="dot dot--grey" />Not started {enrolment.enrolled}</span>
           </div>
         </div>
 
