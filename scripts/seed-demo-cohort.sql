@@ -232,24 +232,22 @@ BEGIN
       VALUES (v_biz_name, v_biz_slug, 'standard', v_authority, 10)
       RETURNING id INTO v_biz_id;
 
-    v_enrol_status := c_enrol_statuses[1 + floor(random() * array_length(c_enrol_statuses, 1))::int];
+    -- Tourism Grant: 100% completed cohort
+    v_enrol_status := 'completed';
     INSERT INTO program_enrolments (program_id, organisation_id, status, enrolled_at, submitted_at, completed_at)
       VALUES (
         v_prog_grants, v_biz_id, v_enrol_status,
         v_now - (random() * interval '60 days'),
-        CASE WHEN v_enrol_status IN ('submitted','completed') THEN v_now - (random() * interval '30 days') ELSE NULL END,
-        CASE WHEN v_enrol_status = 'completed' THEN v_now - (random() * interval '14 days') ELSE NULL END
+        v_now - (random() * interval '40 days'),
+        v_now - (random() * interval '14 days')
       );
 
     FOREACH v_mod_id IN ARRAY c_modules_grants LOOP
-      v_status := CASE
-        WHEN random() < 0.20 THEN 'not-started'
-        WHEN random() < 0.50 THEN 'in-progress'
-        ELSE 'completed'
-      END;
+      -- Tourism Grant: 100% completed cohort, more needs-work signal
+      v_status := 'completed';
       v_confidence := CASE
-        WHEN random() < 0.40 THEN 'strong'
-        WHEN random() < 0.78 THEN 'mixed'
+        WHEN random() < 0.30 THEN 'strong'
+        WHEN random() < 0.65 THEN 'mixed'
         ELSE 'needs-work'
       END;
       v_summary := jsonb_build_object(
@@ -298,9 +296,10 @@ BEGIN
         WHEN random() < 0.55 THEN 'in-progress'
         ELSE 'completed'
       END;
+      -- Boosted needs-work: 22% strong / 38% mixed / 40% needs-work
       v_confidence := CASE
-        WHEN random() < 0.30 THEN 'strong'
-        WHEN random() < 0.72 THEN 'mixed'
+        WHEN random() < 0.22 THEN 'strong'
+        WHEN random() < 0.60 THEN 'mixed'
         ELSE 'needs-work'
       END;
       v_summary := jsonb_build_object(
@@ -350,10 +349,10 @@ BEGIN
         WHEN random() < 0.60 THEN 'in-progress'
         ELSE 'completed'
       END;
-      -- Varied: ~35% strong, ~46% mixed, ~19% needs-work
+      -- Boosted needs-work: 25% strong / 40% mixed / 35% needs-work
       v_confidence := CASE
-        WHEN random() < 0.35 THEN 'strong'
-        WHEN random() < 0.70 THEN 'mixed'
+        WHEN random() < 0.25 THEN 'strong'
+        WHEN random() < 0.65 THEN 'mixed'
         ELSE 'needs-work'
       END;
       v_summary := jsonb_build_object(
@@ -387,24 +386,22 @@ BEGIN
       VALUES (v_biz_name, v_biz_slug, 'standard', v_authority, 10)
       RETURNING id INTO v_biz_id;
 
-    v_enrol_status := c_enrol_statuses[1 + floor(random() * array_length(c_enrol_statuses, 1))::int];
+    -- Designing Accessible Experiences: 100% completed cohort
+    v_enrol_status := 'completed';
     INSERT INTO program_enrolments (program_id, organisation_id, status, enrolled_at, submitted_at, completed_at)
       VALUES (
         v_prog_experiences, v_biz_id, v_enrol_status,
         v_now - (random() * interval '120 days'),
-        CASE WHEN v_enrol_status IN ('submitted','completed') THEN v_now - (random() * interval '45 days') ELSE NULL END,
-        CASE WHEN v_enrol_status = 'completed' THEN v_now - (random() * interval '21 days') ELSE NULL END
+        v_now - (random() * interval '60 days'),
+        v_now - (random() * interval '21 days')
       );
 
     FOREACH v_mod_id IN ARRAY c_modules_experiences LOOP
-      v_status := CASE
-        WHEN random() < 0.15 THEN 'not-started'
-        WHEN random() < 0.45 THEN 'in-progress'
-        ELSE 'completed'
-      END;
+      v_status := 'completed';
+      -- Mature cohort but still visible needs-work: 40% strong / 35% mixed / 25% needs-work
       v_confidence := CASE
-        WHEN random() < 0.45 THEN 'strong'
-        WHEN random() < 0.82 THEN 'mixed'
+        WHEN random() < 0.40 THEN 'strong'
+        WHEN random() < 0.75 THEN 'mixed'
         ELSE 'needs-work'
       END;
       v_summary := jsonb_build_object(
