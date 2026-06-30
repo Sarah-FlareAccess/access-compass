@@ -215,6 +215,21 @@ export default function AuthorityProgramReport() {
   );
 }
 
+function describeCohortMaturity(strongPct: number): string {
+  if (strongPct >= 60) return 'a strong cohort overall, with most modules assessed at high confidence. Use the strength patterns below as case studies for the rest of the cohort.';
+  if (strongPct >= 40) return 'a developing cohort with good foundations and visible areas for improvement. Focus shared support on the modules with high needs-work proportions.';
+  if (strongPct >= 20) return 'an emerging cohort with significant collective opportunity. Sector-wide training, shared resources, and group programs will accelerate progress on the top priority actions below.';
+  return 'a cohort at the start of its journey. Capacity-building investment now will pay off in measurable progress within 6 to 12 months.';
+}
+
+function describeCompletion(completedPct: number, total: number): string {
+  if (total === 0) return 'No businesses are currently enrolled. Once enrolment begins this section will populate.';
+  if (completedPct >= 80) return 'Most businesses have finished their assessments, giving this report a high-confidence basis. Findings can be cited in public reporting.';
+  if (completedPct >= 40) return 'A meaningful proportion has finished. Findings are directional but reliable. Follow up with the in-progress cohort to firm up the picture before public reporting.';
+  if (completedPct >= 15) return 'Early-stage program. Findings are indicative only. Consider this a baseline read, then re-run the report in 4 to 8 weeks once more businesses complete.';
+  return 'Very early in the program. Treat the figures below as preliminary signal rather than conclusion.';
+}
+
 function ReportRender({ data }: { data: ProgramReportPayload }) {
   const { program, enrolment, moduleAggregates, topPriorityActions, topStrengths, topAreasToExplore, methodology } = data;
 
@@ -231,6 +246,43 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
 
   const strongPct = confidence.total > 0 ? Math.round((confidence.strong / confidence.total) * 100) : 0;
   const completionPct = pct(enrolment.completed, enrolment.total);
+
+  // Generate key insights
+  const keyInsights = useMemo(() => {
+    const insights: string[] = [];
+    if (strongPct >= 50) {
+      insights.push(`${strongPct}% of assessed modules show STRONG confidence. The cohort is doing well overall.`);
+    } else if (strongPct >= 25) {
+      insights.push(`${strongPct}% STRONG with mixed results elsewhere. Clear opportunities for targeted support.`);
+    } else if (confidence.total > 0) {
+      insights.push(`Cohort maturity is in development. ${strongPct}% STRONG suggests significant collective work ahead.`);
+    }
+
+    const sortedNeeds = [...moduleAggregates]
+      .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) > 0)
+      .sort((a, b) => {
+        const aT = a.confidence_strong + a.confidence_mixed + a.confidence_needs_work;
+        const bT = b.confidence_strong + b.confidence_mixed + b.confidence_needs_work;
+        return (b.confidence_needs_work / bT) - (a.confidence_needs_work / aT);
+      });
+    if (sortedNeeds.length > 0 && sortedNeeds[0].confidence_needs_work > 0) {
+      const m = sortedNeeds[0];
+      const t = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
+      insights.push(`Module ${m.module_id} shows the most NEEDS-WORK signal (${m.confidence_needs_work} of ${t} assessments). Prioritise for cohort-wide support.`);
+    }
+
+    if (topPriorityActions.length > 0) {
+      const top = topPriorityActions[0];
+      insights.push(`The most common recommended action is "${top.action}" (appears in ${top.count} business${top.count !== 1 ? 'es' : ''}). Consider this for a sector-wide initiative.`);
+    }
+
+    if (topStrengths.length > 0) {
+      const top = topStrengths[0];
+      insights.push(`"${top.text}" is already in place across ${top.count} business${top.count !== 1 ? 'es' : ''}. Worth highlighting publicly.`);
+    }
+
+    return insights.slice(0, 4);
+  }, [strongPct, confidence, moduleAggregates, topPriorityActions, topStrengths]);
 
   return (
     <div className="program-report">
@@ -292,6 +344,28 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
           <div className="report-stat-row"><span className="report-stat-num">{program.moduleIds.length}</span><span>modules in scope</span></div>
           <div className="report-stat-row"><span className="report-stat-num">{confidence.total}</span><span>assessments captured</span></div>
         </div>
+      </section>
+
+      {/* Key insights callout */}
+      {keyInsights.length > 0 && (
+        <section className="report-insights">
+          <h3>Key insights</h3>
+          <ul>
+            {keyInsights.map((insight, i) => (
+              <li key={i}>{insight}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Plain-English interpretation */}
+      <section className="report-interpretation">
+        <p>
+          <strong>Cohort maturity:</strong> This is {describeCohortMaturity(strongPct)}
+        </p>
+        <p>
+          <strong>Completion:</strong> {completionPct}% of enrolled businesses have finished. {describeCompletion(completionPct, enrolment.total)}
+        </p>
       </section>
 
       {/* Module heatmap */}

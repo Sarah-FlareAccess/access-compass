@@ -311,6 +311,70 @@
   border-radius: 3px;
 }
 
+/* ===== Key insights callout ===== */
+.report-insights {
+  background: #F5EFFA;
+  border: 1px solid #C8A8DA;
+  border-left: 4px solid var(--amethyst-diamond, #490E67);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.report-insights h3 {
+  margin: 0 0 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--amethyst-diamond, #490E67);
+}
+
+.report-insights ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.report-insights li {
+  position: relative;
+  padding: 0.375rem 0 0.375rem 1.25rem;
+  font-size: 0.9375rem;
+  color: var(--text-primary, #2d2420);
+}
+
+.report-insights li::before {
+  content: '';
+  position: absolute;
+  left: 0.25rem;
+  top: 0.75rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amethyst-diamond, #490E67);
+}
+
+/* ===== Plain-English interpretation block ===== */
+.report-interpretation {
+  background: rgba(73, 14, 103, 0.03);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.report-interpretation p {
+  margin: 0 0 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-primary, #2d2420);
+}
+
+.report-interpretation p:last-child {
+  margin-bottom: 0;
+}
+
+.report-interpretation strong {
+  color: var(--amethyst-diamond, #490E67);
+}
+
 /* ===== Methodology footer ===== */
 .report-methodology {
   padding: 1rem 1.25rem;
