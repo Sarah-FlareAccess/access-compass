@@ -780,15 +780,17 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 .authority-page .btn-outline {
   background: transparent;
   color: var(--amethyst-diamond, #490E67);
-  border: 2px solid var(--amethyst-diamond, #490E67);
+  border: 1.5px solid rgba(73, 14, 103, 0.3);
 }
 
 .authority-page .btn-outline:hover,
 .authority-page .btn-outline:hover:not(:disabled),
 .authority-page a.btn-outline:hover {
-  background: rgba(73, 14, 103, 0.08);
+  background: rgba(73, 14, 103, 0.06);
   color: var(--amethyst-diamond, #490E67);
-  border-color: var(--amethyst-diamond, #490E67);
+  border-color: rgba(73, 14, 103, 0.5);
+  transform: none;
+  box-shadow: none;
 }
 
 .authority-page .btn-small {
