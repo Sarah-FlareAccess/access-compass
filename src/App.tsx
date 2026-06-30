@@ -73,6 +73,7 @@ const TrainingResourceDetail = lazyWithRetry(() => import('./pages/TrainingResou
 const AuthorityDashboard = lazyWithRetry(() => import('./pages/AuthorityDashboard'));
 const AuthorityPrograms = lazyWithRetry(() => import('./pages/AuthorityPrograms'));
 const AuthorityProgramDetail = lazyWithRetry(() => import('./pages/AuthorityProgramDetail'));
+const AuthorityProgramReport = lazyWithRetry(() => import('./pages/AuthorityProgramReport'));
 const AuthorityBusinesses = lazyWithRetry(() => import('./pages/AuthorityBusinesses'));
 const AuthorityGuidance = lazyWithRetry(() => import('./pages/AuthorityGuidance'));
 const ProgramEnrol = lazyWithRetry(() => import('./pages/ProgramEnrol'));
@@ -238,6 +239,14 @@ function App() {
               element={
                 <RouteGuard requireAuth>
                   <Suspense fallback={<PageLoader />}><AuthorityProgramDetail /></Suspense>
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/authority/programs/:id/report"
+              element={
+                <RouteGuard requireAuth>
+                  <Suspense fallback={<PageLoader />}><AuthorityProgramReport /></Suspense>
                 </RouteGuard>
               }
             />

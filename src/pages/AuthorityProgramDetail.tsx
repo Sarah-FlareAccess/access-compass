@@ -178,9 +178,17 @@ export default function AuthorityProgramDetail() {
           <h1>{program.name}</h1>
           {program.description && <p className="authority-subtitle">{program.description}</p>}
         </div>
-        <span className={`authority-program-status ${program.is_active ? 'active' : 'inactive'}`}>
-          {program.is_active ? 'Active' : 'Inactive'}
-        </span>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <Link
+            to={`/authority/programs/${program.id}/report`}
+            className="btn btn-outline"
+          >
+            Reports
+          </Link>
+          <span className={`authority-program-status ${program.is_active ? 'active' : 'inactive'}`}>
+            {program.is_active ? 'Active' : 'Inactive'}
+          </span>
+        </div>
       </div>
 
       {/* Program stats */}
