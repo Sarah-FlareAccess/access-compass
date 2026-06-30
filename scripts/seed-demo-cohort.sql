@@ -19,10 +19,10 @@
 -- (identified by slugs prefixed 'demo-') and re-seeds fresh.
 --
 -- Programs created:
---   - Tourism Grant Round 2026  (5 modules, 12 businesses)
---   - Major Event Permit 2026   (8 modules, 8 businesses)
---   - Accessibility in Business (10 modules, 15 businesses)
---   - Designing Accessible Experiences (7 modules, 7 businesses)
+--   - Tourism Grant Round 2026                (5 modules, 12 businesses)
+--   - Event Partner Pre-Qualification 2026    (8 modules, 8 businesses)
+--   - Accessibility in Business 2026          (10 modules, 15 businesses)
+--   - Designing Accessible Experiences        (7 modules, 7 businesses)
 -- =====================================================
 
 DO $seed$
@@ -51,9 +51,11 @@ DECLARE
     'Northern Plant Nursery', 'Old Mill Brewery', 'Coastal Wines', 'Heritage Tea Rooms',
     'Sunset Souvenirs', 'Village Honey Co', 'Foothills Pottery', 'Harbour Fish Co'
   ];
+  -- Partner businesses (stallholders, vendors, performers attending events)
   c_biz_events TEXT[] := ARRAY[
-    'Riverside Festival Co', 'Harbour Music Series', 'Spring Markets', 'Lantern Night',
-    'Open Studios Trail', 'Sundown Cinema', 'Twilight Choir', 'Beach Carnival'
+    'Wood-Fired Pizza Van', 'Stone Lane Coffee Cart', 'Brushstrokes Face Painting',
+    'Sound Garden Acoustic Duo', 'Trinket Market Stall', 'Mountain Honey Co',
+    'Roving Stilts Performers', 'Sweetbox Donut Truck'
   ];
   c_biz_business TEXT[] := ARRAY[
     'Greenleaf Florist', 'Backstreet Barbers', 'Lighthouse Stationery', 'Goldfields Cycles',
@@ -69,7 +71,9 @@ DECLARE
 
   -- Module sets for each program
   c_modules_grants TEXT[] := ARRAY['1.1','1.5','2.1','4.1','4.5'];
-  c_modules_events TEXT[] := ARRAY['6.1','6.2','6.3','6.4','6.5','7.1','7.2','7.6'];
+  -- Partner-facing: arrival/setup, customer interaction, core event modules.
+  -- Drops organiser-only 7.1 (precinct coord) and 7.2 (programming).
+  c_modules_events TEXT[] := ARRAY['2.1','4.1','6.1','6.2','6.3','6.4','6.5','7.6'];
   c_modules_business TEXT[] := ARRAY['1.1','2.1','3.1','3.3','3.7','4.1','4.5','5.4','5.5','5.7'];
   c_modules_experiences TEXT[] := ARRAY['3.1','3.2','3.3','3.4','3.7','3.9','3.12'];
 
@@ -185,8 +189,8 @@ BEGIN
     RETURNING id INTO v_prog_grants;
 
   INSERT INTO authority_programs (organisation_id, name, slug, description, required_module_ids, access_level, allow_self_enrol, is_active, funding_model)
-    VALUES (v_authority, 'Major Event Permit 2026', 'demo-event-permit-2026',
-      'Accessibility readiness for event organisers applying for a major event permit.',
+    VALUES (v_authority, 'Event Partner Pre-Qualification 2026', 'demo-event-partner-prequal-2026',
+      'Pre-qualification modules that businesses must complete to participate as a partner (stallholder, vendor, performer, exhibitor) at council-supported events in 2026.',
       c_modules_events, 'deep_dive', true, true, 'authority_funded')
     RETURNING id INTO v_prog_events;
 
