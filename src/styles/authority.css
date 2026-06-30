@@ -492,7 +492,8 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 
 .authority-business-header {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  column-gap: 1.5rem;
   padding: 12px var(--spacing-sm, 16px);
   font-size: 0.75rem;
   font-weight: 600;
@@ -505,7 +506,8 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 
 .authority-business-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  column-gap: 1.5rem;
   padding: 12px var(--spacing-sm, 16px);
   font-size: 0.85rem;
   color: var(--text-primary, #2d2420);
@@ -534,16 +536,16 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 }
 
 .authority-enrolment-status.enrolled {
-  background: rgba(73, 14, 103, 0.08);
-  color: var(--amethyst-diamond, #490E67);
-  border: 1px solid rgba(73, 14, 103, 0.15);
+  background: rgba(62, 43, 47, 0.06);
+  color: #5C4A4E;
+  border: 1px solid rgba(62, 43, 47, 0.18);
 }
 
 .authority-enrolment-status.in_progress,
 .authority-enrolment-status.in-progress {
-  background: rgba(73, 14, 103, 0.08);
-  color: var(--amethyst-diamond, #490E67);
-  border: 1px solid rgba(73, 14, 103, 0.15);
+  background: rgba(245, 158, 11, 0.10);
+  color: #78350F;
+  border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
 .authority-enrolment-status.submitted {
@@ -1364,7 +1366,6 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
   font-size: 0.75rem;
   font-weight: 600;
   min-width: 0;
@@ -1373,12 +1374,13 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 }
 
 .cohort-heatmap__seg:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.05);
 }
 
-.cohort-heatmap__seg--strong { background: #16A34A; }
-.cohort-heatmap__seg--mixed  { background: #F59E0B; }
-.cohort-heatmap__seg--needs  { background: #DC2626; }
+/* Softer pastel fills + dark text for WCAG AA contrast. */
+.cohort-heatmap__seg--strong { background: #86EFAC; color: #14532D; }
+.cohort-heatmap__seg--mixed  { background: #FCD34D; color: #78350F; }
+.cohort-heatmap__seg--needs  { background: #FCA5A5; color: #7F1D1D; }
 
 .cohort-heatmap__count {
   font-size: 0.75rem;

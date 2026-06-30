@@ -185,16 +185,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
   font-size: 0.75rem;
   font-weight: 600;
   min-width: 0;
   overflow: hidden;
 }
 
-.report-heatmap__bar .seg--strong { background: #16A34A; }
-.report-heatmap__bar .seg--mixed  { background: #F59E0B; }
-.report-heatmap__bar .seg--needs  { background: #DC2626; }
+/* Softer pastel fills + dark text for WCAG AA contrast.
+   - Strong:    #86EFAC bg / #14532D text  ~ 6.0:1
+   - Mixed:     #FCD34D bg / #78350F text  ~ 5.5:1
+   - Needs work: #FCA5A5 bg / #7F1D1D text  ~ 4.8:1 */
+.report-heatmap__bar .seg--strong { background: #86EFAC; color: #14532D; }
+.report-heatmap__bar .seg--mixed  { background: #FCD34D; color: #78350F; }
+.report-heatmap__bar .seg--needs  { background: #FCA5A5; color: #7F1D1D; }
 
 .report-heatmap__count {
   font-size: 0.8125rem;

@@ -19,6 +19,27 @@ interface CarryoverDeclaration {
   expires_at: string;
 }
 
+// Being in the table means the business is already enrolled, so the
+// 'enrolled' status maps to "Not started" (signed up, hasn't begun).
+function formatEnrolmentStatus(status: string | null | undefined): string {
+  switch (status) {
+    case 'in_progress':
+    case 'in-progress':
+      return 'In progress';
+    case 'submitted':
+      return 'Submitted';
+    case 'completed':
+      return 'Completed';
+    case 'withdrawn':
+      return 'Withdrawn';
+    case 'enrolled':
+    case null:
+    case undefined:
+    default:
+      return 'Not started';
+  }
+}
+
 export default function AuthorityProgramDetail() {
   const { id } = useParams<{ id: string }>();
   const { accessState } = useAuth();
@@ -473,10 +494,10 @@ export default function AuthorityProgramDetail() {
                       )}
                     </span>
                     <span className={`authority-enrolment-status ${summary.enrolment_status || 'enrolled'}`}>
-                      {summary.enrolment_status || 'Enrolled'}
+                      {formatEnrolmentStatus(summary.enrolment_status)}
                     </span>
                     <span>{summary.enrolled_at ? new Date(summary.enrolled_at).toLocaleDateString('en-AU') : '-'}</span>
-                    <span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem' }}>
                       {hasCarryovers ? (
                         <span style={{
                           fontSize: '0.6875rem',
@@ -490,17 +511,43 @@ export default function AuthorityProgramDetail() {
                           {bizCarryovers.length} carried forward
                         </span>
                       ) : (
-                        <span style={{
-                          fontSize: '0.6875rem',
-                          fontWeight: 600,
-                          padding: '3px 8px',
-                          borderRadius: '4px',
-                          background: 'rgba(22, 163, 74, 0.08)',
-                          color: '#14532d',
-                          border: '1px solid rgba(22, 163, 74, 0.15)',
-                        }}>
-                          New assessment
-                        </span>
+                        <>
+                          <span style={{
+                            fontSize: '0.6875rem',
+                            fontWeight: 600,
+                            padding: '3px 8px',
+                            borderRadius: '4px',
+                            background: 'rgba(22, 163, 74, 0.08)',
+                            color: '#14532d',
+                            border: '1px solid rgba(22, 163, 74, 0.15)',
+                          }}>
+                            New assessment
+                          </span>
+                          <button
+                            type="button"
+                            aria-label="What does New assessment mean?"
+                            title="This business is starting fresh. No modules have been carried forward from a previous program cycle (within the last 6 months) so they are answering every module from scratch."
+                            style={{
+                              width: '18px',
+                              height: '18px',
+                              borderRadius: '50%',
+                              border: '1px solid rgba(73, 14, 103, 0.25)',
+                              background: 'transparent',
+                              color: 'var(--amethyst-diamond, #490E67)',
+                              fontSize: '0.7rem',
+                              fontWeight: 700,
+                              lineHeight: 1,
+                              cursor: 'help',
+                              padding: 0,
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            ?
+                          </button>
+                        </>
                       )}
                     </span>
                   </div>
