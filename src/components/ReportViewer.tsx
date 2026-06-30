@@ -1106,7 +1106,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 This report covers key compliance considerations, though not every element will apply
                 to your venue. Even a "Yes" response may still have opportunities for improvement
                 towards full compliance or best practice. For detailed auditing specific to your venue,
-                contact Flare Access to engage an access consultant.
+                contact Flare Access to learn more.
               </p>
             </section>
 
