@@ -12,6 +12,7 @@ import { getSession } from '../utils/session';
 import { deleteRecord, fetchOrgRecords, syncOrgRecord, resolveByTimestamp } from '../utils/cloudSync';
 import { computeFileHash, findEvidenceByHash, linkExistingEvidence, promoteToEvidenceFile, type ExistingEvidenceMatch } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
+import { useActiveSiteId } from './useSites';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
 import { logActivityStandalone } from './useActivityLog';
 import { MODULE_TO_DIAP_MAPPING, DIAP_SECTIONS } from '../data/diapMapping';
@@ -40,6 +41,10 @@ export type DIAPPriority = 'high' | 'medium' | 'low';
 export interface DIAPItem {
   id: string;
   sessionId: string;
+
+  // Site scoping (multi-site orgs). null / undefined = organisation-wide.
+  // Stamped with the active site when the item is created or generated.
+  siteId?: string | null;
 
   // Core fields
   objective: string;
@@ -433,14 +438,17 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { userId, organisationId } = useAuthSafe();
+  const [activeSiteId] = useActiveSiteId();
   const userIdRef = useRef(userId);
   const orgIdRef = useRef(organisationId);
+  const activeSiteIdRef = useRef<string | null>(activeSiteId);
   const itemsRef = useRef<DIAPItem[]>([]);
 
   useEffect(() => {
     userIdRef.current = userId;
     orgIdRef.current = organisationId;
-  }, [userId, organisationId]);
+    activeSiteIdRef.current = activeSiteId;
+  }, [userId, organisationId, activeSiteId]);
 
   useEffect(() => {
     itemsRef.current = items;
@@ -455,6 +463,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     syncOrgRecord('diap_items', {
       id: item.id,
       session_id: item.sessionId,
+      site_id: item.siteId ?? null,
       objective: item.objective,
       action: item.action,
       category: item.category,
@@ -477,7 +486,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       created_at: item.createdAt,
       updated_at: item.updatedAt,
       completed_at: item.completedAt || null,
-    }, orgIdRef.current, userIdRef.current).catch(() => {});
+    }, orgIdRef.current, userIdRef.current, item.siteId ?? null).catch(() => {});
   }, []);
 
   // Sync multiple items (batch after bulk operations)
@@ -523,6 +532,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
                 merged.push({
                   id,
                   sessionId: row.session_id as string,
+                  siteId: (row.site_id as string | null) ?? null,
                   objective: row.objective as string,
                   action: row.action as string,
                   category: (row.category as DIAPCategory) || 'physical-access',
@@ -714,6 +724,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     const now = new Date().toISOString();
 
     const newItem: DIAPItem = {
+      siteId: activeSiteIdRef.current ?? null,
       ...itemData,
       id: uuidv4(),
       sessionId: session?.session_id || '',
@@ -844,6 +855,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       newItems.push(item);
     }
 
+    for (const it of newItems) it.siteId = activeSiteIdRef.current ?? null;
     setItems(prev => {
       const updated = [...prev, ...newItems];
       saveLocalItems(updated);
@@ -1471,11 +1483,15 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
   const generateFromResponses = useCallback((responses: any[], questions: any[], moduleName: string) => {
     const session = getSession();
     const now = new Date().toISOString();
+    const site = activeSiteIdRef.current ?? null;
     const newItems: DIAPItem[] = [];
 
-    // Get existing items to avoid duplicates
+    // Get existing items to avoid duplicates. Scoped to the active site so the
+    // same question assessed at different venues produces separate actions.
     const existingItems = getLocalItems();
-    const existingQuestionSources = new Set(existingItems.map(i => i.questionSource).filter(Boolean));
+    const existingQuestionSources = new Set(
+      existingItems.filter(i => (i.siteId ?? null) === site).map(i => i.questionSource).filter(Boolean)
+    );
 
     responses.forEach(response => {
       // Skip if we already have a DIAP item for this question
@@ -1663,15 +1679,17 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     });
 
     if (newItems.length > 0) {
+      for (const it of newItems) it.siteId = site;
       setItems(prev => {
         const updated = [...prev, ...newItems];
         saveLocalItems(updated);
         return updated;
       });
+      syncItemsBatchToCloud(newItems);
     }
 
     return newItems.length;
-  }, []);
+  }, [syncItemsBatchToCloud]);
 
   // Export to CSV
   const exportToCSV = useCallback((): string => {

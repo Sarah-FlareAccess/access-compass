@@ -19,6 +19,10 @@ import { generateDIAPPdf } from '../utils/diapPdfGenerator';
 import { getSession } from '../utils/session';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
+import { useSites } from '../hooks/useSites';
+
+// Sentinel used in the site filter to represent items with no site (org-wide).
+const ORG_WIDE_SITE = '__org__';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategoryAndObjective, getCustomCategoryNames, setCustomCategoryName, getCategoryDisplayName, getCustomCategories, addCustomCategory, removeCustomCategory, getAllCategories } from '../data/diapMapping';
 import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
@@ -109,6 +113,10 @@ export default function DIAPWorkspace() {
     reorderItem,
   } = useDIAPManagement();
 
+  const { sites } = useSites();
+  // Site filter for the action plan. Empty = all (org-wide + every site).
+  // Entries are site ids, or ORG_WIDE_SITE for items with no site.
+  const [filterSites, setFilterSites] = useState<Set<string>>(new Set());
   const [filterStatuses, setFilterStatuses] = useState<Set<DIAPStatus>>(new Set());
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingItem, setEditingItem] = useState<DIAPItem | null>(null);
@@ -440,6 +448,11 @@ export default function DIAPWorkspace() {
   const filteredItems = useMemo(() => {
     let filtered = [...items];
 
+    // Filter by site (multi-select). Empty = all sites + org-wide.
+    if (filterSites.size > 0) {
+      filtered = filtered.filter(i => filterSites.has(i.siteId ?? ORG_WIDE_SITE));
+    }
+
     // Filter by status (multi-select)
     if (filterStatuses.size > 0) {
       filtered = filtered.filter(i => filterStatuses.has(i.status));
@@ -492,7 +505,7 @@ export default function DIAPWorkspace() {
     }
 
     return filtered;
-  }, [items, filterStatuses, filterCategories, filterPriorities, filterResponsible, filterDueDate, getDueBucket, customDateFrom, customDateTo]);
+  }, [items, filterSites, filterStatuses, filterCategories, filterPriorities, filterResponsible, filterDueDate, getDueBucket, customDateFrom, customDateTo]);
 
   // Group filtered items by category, then by objective within each category
   const itemsByCategory = useMemo(() => {
@@ -939,13 +952,38 @@ export default function DIAPWorkspace() {
         <details ref={filtersRef} className="diap-controls-collapsible">
           <summary className="diap-controls-summary" title="Expand or collapse filter options">
             Filters
-            {(filterStatuses.size > 0 || filterPriorities.size > 0 || filterCategories.size > 0 || filterResponsible !== 'all' || filterDueDate.size > 0) && (
+            {(filterSites.size > 0 || filterStatuses.size > 0 || filterPriorities.size > 0 || filterCategories.size > 0 || filterResponsible !== 'all' || filterDueDate.size > 0) && (
               <span className="filter-active-count">
-                {filterStatuses.size + filterPriorities.size + filterCategories.size + (filterResponsible !== 'all' ? 1 : 0) + filterDueDate.size} active
+                {filterSites.size + filterStatuses.size + filterPriorities.size + filterCategories.size + (filterResponsible !== 'all' ? 1 : 0) + filterDueDate.size} active
               </span>
             )}
           </summary>
           <div className="diap-filter-panel" role="group" aria-label="Filter DIAP items">
+            {sites.length > 0 && (
+              <div className="filter-group">
+                <span className="filter-group-label">Site</span>
+                <div className="filter-chips" role="group" aria-label="Filter by site">
+                  {([[ORG_WIDE_SITE, 'Organisation-wide'], ...sites.map(s => [s.id, s.name] as [string, string])] as [string, string][]).map(([key, label]) => {
+                    const count = items.filter(i => (i.siteId ?? ORG_WIDE_SITE) === key).length;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        className={`filter-chip category-chip ${filterSites.has(key) ? 'active' : ''}`}
+                        onClick={() => setFilterSites(prev => {
+                          const next = new Set(prev);
+                          next.has(key) ? next.delete(key) : next.add(key);
+                          return next;
+                        })}
+                        aria-pressed={filterSites.has(key)}
+                      >
+                        {label} ({count})
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
             <div className="filter-group">
               <span className="filter-group-label">Status</span>
               <div className="filter-chips" role="group" aria-label="Filter by status">
@@ -1110,6 +1148,7 @@ export default function DIAPWorkspace() {
                 type="button"
                 className="filter-clear-btn"
                 onClick={() => {
+                  setFilterSites(new Set());
                   setFilterStatuses(new Set());
                   setFilterPriorities(new Set());
                   setFilterCategories(new Set());

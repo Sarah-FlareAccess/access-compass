@@ -404,10 +404,12 @@ export async function fetchOrgRecord<T = Record<string, unknown>>(
 // Tables with the site_id column added in migration 023. Other tables
 // (e.g. activity_log) are org-scoped but not site-scoped.
 function tableSupportsSite(table: string): boolean {
+  // diap_items is site-scoped too, but the DIAP workspace loads every site's
+  // items and filters them client-side (org / single / multi-site view), so it
+  // must NOT be auto-filtered to site_id IS NULL here.
   return table === 'module_responses'
     || table === 'module_progress'
-    || table === 'sessions'
-    || table === 'diap_items';
+    || table === 'sessions';
 }
 
 /**
