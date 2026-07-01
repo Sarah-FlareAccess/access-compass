@@ -32,6 +32,7 @@ import { ReportProblem } from '../components/ReportProblem';
 import { ResourceInfoRequest } from '../components/ResourceInfoRequest';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { InstallPrompt } from '../components/InstallPrompt';
+import { SiteContextBar } from '../components/SiteContextBar';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
 import { logActivityStandalone, useActivityLog, exportActivitiesAsCSV, getActivityDescriptionText } from '../hooks/useActivityLog';
 import { ActivityFeed } from '../components/ActivityFeed';
@@ -586,6 +587,7 @@ Thanks!`;
           <h1 className="sr-only">Accessibility Dashboard</h1>
           <div className="dashboard-container">
             <InstallPrompt />
+            <SiteContextBar />
             {showSiteNudge && (
               <div className="site-setup-nudge" role="region" aria-label="Set up your locations">
                 <div className="site-setup-nudge-body">

@@ -145,6 +145,7 @@ export function Sidebar() {
             aria-haspopup="listbox"
             aria-expanded={showSitePicker}
           >
+            <span className="sidebar-site-picker-pin" aria-hidden="true">📍</span>
             <span className="sidebar-site-picker-label">Working in:</span>
             <span className="sidebar-site-picker-value">
               {activeSite ? activeSite.name : 'Organisation-wide'}
