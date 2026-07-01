@@ -4,7 +4,7 @@ do $$
 declare v_org uuid; v_user uuid; v_site uuid;
 begin
   select id into v_org from organisations where name ilike '%redgum%' order by created_at limit 1;
-  if v_org is null then raise exception 'Redgum org not found (name ilike %redgum%)'; end if;
+  if v_org is null then raise exception 'Redgum org not found - no organisation name contains redgum'; end if;
   select user_id into v_user from organisation_memberships where organisation_id = v_org and status = 'active' order by created_at limit 1;
   update organisations set jurisdiction = 'AU-SA' where id = v_org;
 
