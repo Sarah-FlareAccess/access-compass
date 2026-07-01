@@ -274,6 +274,66 @@ export async function syncOrgRecord(
   }
 }
 
+// ============================================
+// REASSESSMENT SNAPSHOTS (module_assessment_snapshots, migration 033)
+// Cloud home for reassessment run history. Keyed by the client-generated
+// run_id so PostgREST on_conflict targets a plain unique index. Fetched
+// org-wide (across all sites) because a module's runs may be site-specific.
+// ============================================
+
+export async function syncSnapshot(
+  record: Record<string, unknown>,
+  orgId: string | undefined,
+  userId: string | undefined,
+): Promise<boolean> {
+  if (!isSupabaseEnabled() || !supabase || !orgId || !userId) return false;
+  try {
+    const row = {
+      ...record,
+      organisation_id: orgId,
+      created_by_user_id: userId,
+      updated_at: new Date().toISOString(),
+    };
+    const { error } = await supabase
+      .from('module_assessment_snapshots')
+      .upsert(row, { onConflict: 'run_id' });
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+export async function fetchSnapshots(
+  orgId: string,
+): Promise<{ data: Record<string, unknown>[] | null; error: string | null }> {
+  if (!isSupabaseEnabled() || !supabase) {
+    return { data: null, error: 'Supabase not configured' };
+  }
+  try {
+    const { data, error } = await supabase
+      .from('module_assessment_snapshots')
+      .select('*')
+      .eq('organisation_id', orgId);
+    if (error) return { data: null, error: error.message };
+    return { data: data as Record<string, unknown>[], error: null };
+  } catch (err) {
+    return { data: null, error: String(err) };
+  }
+}
+
+export async function deleteSnapshot(runId: string): Promise<boolean> {
+  if (!isSupabaseEnabled() || !supabase) return false;
+  try {
+    const { error } = await supabase
+      .from('module_assessment_snapshots')
+      .delete()
+      .eq('run_id', runId);
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Fetch records scoped to an organisation, optionally filtered to a
  * specific site. When `siteId` is undefined, returns rows with site_id

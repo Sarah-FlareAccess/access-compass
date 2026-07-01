@@ -8,7 +8,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { isSupabaseEnabled } from '../utils/supabase';
 import { getSession } from '../utils/session';
-import { fetchOrgRecords, syncOrgRecord, resolveByTimestamp } from '../utils/cloudSync';
+import { fetchOrgRecords, syncOrgRecord, resolveByTimestamp, syncSnapshot, fetchSnapshots, deleteSnapshot } from '../utils/cloudSync';
 import { migrateEvidenceToStorage } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
 import { useActiveSiteId } from './useSites';
@@ -316,6 +316,26 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     });
   }, []);
 
+  // Persist a reassessment run to the cloud snapshot table (migration 033),
+  // so reassessment history survives browser/device changes. Anonymous users
+  // (no org) remain localStorage-only.
+  const syncRunToCloud = useCallback((moduleId: string, moduleCode: string, run: ModuleRun) => {
+    if (!userIdRef.current || !orgIdRef.current) return;
+    syncSnapshot({
+      site_id: siteIdRef.current ?? null,
+      module_id: moduleId,
+      module_code: moduleCode,
+      run_id: run.id,
+      context: run.context ?? null,
+      status: run.status,
+      started_at: run.startedAt,
+      completed_at: run.completedAt ?? null,
+      confidence_snapshot: run.confidenceSnapshot ?? null,
+      summary: run.summary ?? null,
+      responses: run.responses ?? [],
+    }, orgIdRef.current, userIdRef.current).catch(() => {});
+  }, []);
+
   // Load progress on mount
   useEffect(() => {
     const loadProgress = async () => {
@@ -414,6 +434,61 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
                 setProgress(recovered);
                 saveLocalProgress(recovered);
               }
+            }
+          }
+
+          // Hydrate reassessment history from cloud snapshots (migration 033),
+          // so run comparison survives a browser clear or device switch.
+          const { data: snapshotRows } = await fetchSnapshots(organisationId);
+          if (snapshotRows && snapshotRows.length > 0) {
+            const withRuns = getLocalProgress();
+            const byModule = new Map<string, ModuleRun[]>();
+            for (const s of snapshotRows) {
+              const run: ModuleRun = {
+                id: s.run_id as string,
+                context: (s.context as ModuleRunContext) || { type: 'general', name: 'Assessment' },
+                startedAt: (s.started_at as string) || new Date().toISOString(),
+                completedAt: (s.completed_at as string) || undefined,
+                status: (s.status as ModuleRun['status']) || 'completed',
+                responses: (s.responses as QuestionResponse[]) || [],
+                summary: (s.summary as ModuleSummary) || undefined,
+                confidenceSnapshot: (s.confidence_snapshot as ModuleRun['confidenceSnapshot']) || undefined,
+              };
+              const key = s.module_id as string;
+              const arr = byModule.get(key) || [];
+              arr.push(run);
+              byModule.set(key, arr);
+            }
+
+            let changed = false;
+            for (const [moduleId, cloudRuns] of byModule) {
+              const entry = withRuns[moduleId];
+              if (!entry) {
+                // Snapshots exist but no local progress (fresh device): stub the
+                // module so its reassessment history is still visible.
+                const code = snapshotRows.find(s => s.module_id === moduleId)?.module_code as string;
+                withRuns[moduleId] = {
+                  moduleId,
+                  moduleCode: code || moduleId,
+                  status: 'not-started',
+                  responses: [],
+                  runs: cloudRuns,
+                };
+                changed = true;
+                continue;
+              }
+              const existing = entry.runs || [];
+              const existingIds = new Set(existing.map(r => r.id));
+              const fresh = cloudRuns.filter(r => !existingIds.has(r.id));
+              if (fresh.length > 0) {
+                withRuns[moduleId] = { ...entry, runs: [...existing, ...fresh] };
+                changed = true;
+              }
+            }
+
+            if (changed) {
+              setProgress(withRuns);
+              saveLocalProgress(withRuns);
             }
           }
         }
@@ -730,8 +805,10 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       return updated;
     });
 
+    syncRunToCloud(moduleId, existing.moduleCode, newRun);
+
     return runId;
-  }, [progress]);
+  }, [progress, syncRunToCloud]);
 
   // Start a new run with context (team, department, event, etc.)
   const startNewRun = useCallback((moduleId: string, moduleCode: string, context: ModuleRunContext): string => {
@@ -794,8 +871,17 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       return updated;
     });
 
+    // Persist every archived run (everything except the new active one) so the
+    // reassessment history reaches the cloud. Upserts are idempotent by run_id.
+    const saved = getLocalProgress()[moduleId];
+    if (saved?.runs) {
+      for (const r of saved.runs) {
+        if (r.id !== runId) syncRunToCloud(moduleId, moduleCode, r);
+      }
+    }
+
     return runId;
-  }, []);
+  }, [syncRunToCloud]);
 
   // Get all runs for a module
   const getModuleRuns = useCallback((moduleId: string): ModuleRun[] => {
@@ -897,6 +983,10 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
       saveLocalProgress(updated);
       return updated;
     });
+
+    // Remove the archived run from the cloud too (no-op if it was the
+    // unsynced virtual 'current' run).
+    deleteSnapshot(runId).catch(() => {});
   }, []);
 
   // Compare two runs and generate comparison results
