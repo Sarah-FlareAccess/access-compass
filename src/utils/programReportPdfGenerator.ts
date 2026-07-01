@@ -135,7 +135,7 @@ function describeCompletion(completedPct: number, total: number): string {
 
 function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, completedPct: number): string[] {
   const insights: string[] = [];
-  const { enrolment, moduleAggregates, topPriorityActions, topStrengths } = payload;
+  const { moduleAggregates, topPriorityActions, topStrengths } = payload;
 
   // Insight 1: cohort posture
   if (strongPct >= 50) {
