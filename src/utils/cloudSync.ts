@@ -240,21 +240,17 @@ export async function syncOrgRecord(
       updated_at: new Date().toISOString(),
     };
 
-    // Org-scoped onConflict keys aligned with migration 023's partial
-    // unique indexes. When siteId is set, target the per-site index.
-    // When siteId is NULL, target the org-wide canonical index.
+    // Org-scoped onConflict keys target migration 032's non-partial
+    // NULLS NOT DISTINCT unique indexes, which cover both org-wide
+    // (site_id NULL) and per-site rows. Always send the site-inclusive key
+    // so PostgREST can name the arbiter regardless of whether siteId is set.
     // Tables without an explicit entry here upsert by primary key (id),
     // which works for diap_items, diap_documents, evidence_files.
-    const conflictMapNoSite: Record<string, string> = {
-      module_progress: 'organisation_id,module_id',
-      module_responses: 'organisation_id,module_id,question_id',
-    };
-    const conflictMapWithSite: Record<string, string> = {
+    const conflictMap: Record<string, string> = {
       module_progress: 'organisation_id,site_id,module_id',
       module_responses: 'organisation_id,site_id,module_id,question_id',
     };
 
-    const conflictMap = siteId ? conflictMapWithSite : conflictMapNoSite;
     const onConflict = conflictMap[table];
     const { error } = onConflict
       ? await supabase.from(table).upsert(record, { onConflict })
