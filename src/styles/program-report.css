@@ -387,3 +387,55 @@
 .report-methodology strong {
   color: var(--text-primary, #2d2420);
 }
+
+/* ===== Statutory framework Outcomes view ===== */
+.outcome-citation {
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #5C4A4E);
+  font-style: italic;
+  margin: 0 0 1rem;
+}
+
+.outcome-domains {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.outcome-domain {
+  padding: 1rem 1.125rem;
+  border: 1px solid rgba(62, 43, 47, 0.12);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.outcome-domain h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.0625rem;
+  color: var(--amethyst-diamond, #490E67);
+}
+
+.outcome-statement {
+  margin: 0 0 0.625rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+.outcome-modules {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #5C4A4E);
+  line-height: 1.5;
+}
+
+.outcome-modules__label {
+  font-weight: 600;
+  color: var(--text-primary, #2d2420);
+}
+
+.outcome-empty {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary, #5C4A4E);
+  font-style: italic;
+}

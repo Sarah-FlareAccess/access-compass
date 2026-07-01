@@ -7,6 +7,7 @@ import {
   useProgramReport,
   type ProgramReportRow,
   type ProgramReportPayload,
+  type OutcomesSnapshot,
 } from '../hooks/useProgramReport';
 import { accessModules } from '../data/accessModules';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
@@ -368,6 +369,9 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         </p>
       </section>
 
+      {/* Statutory framework outcomes view */}
+      {data.outcomes && <OutcomesView outcomes={data.outcomes} />}
+
       {/* Module heatmap */}
       <section className="authority-form-card report-section">
         <h2>Module maturity heatmap</h2>
@@ -431,6 +435,63 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         <strong>Methodology and privacy:</strong> {methodology}
       </section>
     </div>
+  );
+}
+
+// =====================================================
+// Statutory framework Outcomes view
+// =====================================================
+function OutcomesView({ outcomes }: { outcomes: OutcomesSnapshot }) {
+  return (
+    <section className="authority-form-card report-section" aria-labelledby="outcomes-heading">
+      <h2 id="outcomes-heading">Against the {outcomes.frameworkName}</h2>
+      <p className="report-section__subtitle">
+        How this cohort&rsquo;s findings map to the {outcomes.frameworkShort} outcomes framework.
+        These headings mirror the framework, so they can be pasted straight into your statutory report.
+      </p>
+      <p className="outcome-citation">{outcomes.citation}</p>
+      <div className="outcome-domains">
+        {outcomes.domains.map(d => (
+          <div key={d.domainId} className="outcome-domain">
+            <h3>{d.name}</h3>
+            {d.outcomeStatement && <p className="outcome-statement">{d.outcomeStatement}</p>}
+            {d.total > 0 ? (
+              <>
+                <div
+                  className="report-heatmap__bar"
+                  role="img"
+                  aria-label={`Strong ${d.strong}, Mixed ${d.mixed}, Needs work ${d.needsWork} across ${d.total} assessments`}
+                >
+                  {d.strongPct > 0 && (
+                    <div className="seg seg--strong" style={{ width: `${d.strongPct}%` }}>
+                      {d.strongPct >= 12 && <span>{d.strongPct}%</span>}
+                    </div>
+                  )}
+                  {d.mixedPct > 0 && (
+                    <div className="seg seg--mixed" style={{ width: `${d.mixedPct}%` }}>
+                      {d.mixedPct >= 12 && <span>{d.mixedPct}%</span>}
+                    </div>
+                  )}
+                  {d.needsWorkPct > 0 && (
+                    <div className="seg seg--needs" style={{ width: `${d.needsWorkPct}%` }}>
+                      {d.needsWorkPct >= 12 && <span>{d.needsWorkPct}%</span>}
+                    </div>
+                  )}
+                </div>
+                <p className="outcome-modules">
+                  <span className="outcome-modules__label">Contributing modules:</span>{' '}
+                  {d.moduleIds.map(mId => `${mId} ${getModuleName(mId)}`).join(' · ')}
+                </p>
+              </>
+            ) : (
+              <p className="outcome-empty">
+                No assessed modules map to this domain yet &mdash; a coverage gap for this cohort.
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 

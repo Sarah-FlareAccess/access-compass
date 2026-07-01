@@ -10,6 +10,8 @@ import { createPortal } from 'react-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useOrgAdmin } from '../hooks/useOrgAdmin';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
+import { supabase } from '../utils/supabase';
+import { FRAMEWORKS } from '../data/frameworks';
 import type {
   OrganisationMembership,
   InviteCode,
@@ -93,6 +95,41 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
 
   const adminPanelRef = useRef<HTMLDivElement>(null);
   const orgId = accessState.organisation?.id;
+  const isAuthorityOrg = accessState.organisation?.org_type === 'authority';
+
+  // Statutory reporting jurisdiction (authority orgs). Loaded on open, saved
+  // inline. Drives the Outcomes view in program reports.
+  const [jurisdiction, setJurisdiction] = useState<string>('AU');
+  const [savingJurisdiction, setSavingJurisdiction] = useState(false);
+  const [jurisdictionSaved, setJurisdictionSaved] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen || !orgId || !isAuthorityOrg || !supabase) return;
+    supabase
+      .from('organisations')
+      .select('jurisdiction')
+      .eq('id', orgId)
+      .single()
+      .then(({ data }) => {
+        if (data?.jurisdiction) setJurisdiction(data.jurisdiction as string);
+      });
+  }, [isOpen, orgId, isAuthorityOrg]);
+
+  const saveJurisdiction = async (value: string) => {
+    if (!orgId || !supabase) return;
+    setSavingJurisdiction(true);
+    setJurisdictionSaved(false);
+    const { error } = await supabase
+      .from('organisations')
+      .update({ jurisdiction: value })
+      .eq('id', orgId);
+    setSavingJurisdiction(false);
+    if (!error) {
+      setJurisdiction(value);
+      setJurisdictionSaved(true);
+      setTimeout(() => setJurisdictionSaved(false), 2500);
+    }
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -531,6 +568,52 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                   </div>
                 )}
               </dl>
+
+              {isAuthorityOrg && (
+                <div style={{ marginTop: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(62, 43, 47, 0.1)' }}>
+                  <h3 style={{ marginTop: 0 }}>Statutory reporting framework</h3>
+                  <p className="admin-overview-hint" style={{ marginTop: 0 }}>
+                    The disability inclusion framework your program reports are categorised against.
+                    This drives the Outcomes view. Defaults to the national framework.
+                  </p>
+                  <label
+                    htmlFor="org-jurisdiction"
+                    style={{ display: 'block', fontWeight: 600, fontSize: '0.875rem', marginBottom: '0.25rem' }}
+                  >
+                    Reporting jurisdiction
+                  </label>
+                  <select
+                    id="org-jurisdiction"
+                    value={jurisdiction}
+                    disabled={!canManageSites || savingJurisdiction}
+                    onChange={(e) => saveJurisdiction(e.target.value)}
+                    style={{
+                      padding: '0.5rem 0.625rem',
+                      borderRadius: '8px',
+                      border: '1px solid rgba(62, 43, 47, 0.25)',
+                      minWidth: '280px',
+                      maxWidth: '100%',
+                      fontSize: '0.9375rem',
+                    }}
+                  >
+                    {Object.values(FRAMEWORKS).map((f) => (
+                      <option key={f.key} value={f.key}>{f.name}</option>
+                    ))}
+                  </select>
+                  <span
+                    aria-live="polite"
+                    style={{ marginLeft: '0.625rem', fontSize: '0.8125rem', color: 'var(--text-secondary, #5C4A4E)' }}
+                  >
+                    {savingJurisdiction ? 'Saving…' : jurisdictionSaved ? 'Saved ✓' : ''}
+                  </span>
+                  {!canManageSites && (
+                    <p className="admin-overview-hint" style={{ marginBottom: 0 }}>
+                      Only an owner or admin can change this.
+                    </p>
+                  )}
+                </div>
+              )}
+
               <p className="admin-overview-hint">
                 Use the tabs above to manage members, invites, and security settings.
               </p>

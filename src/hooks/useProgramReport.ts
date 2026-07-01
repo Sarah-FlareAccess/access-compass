@@ -18,6 +18,15 @@ import { useState, useCallback, useEffect } from 'react';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import type { AuthorityProgram, AccessLevel } from '../types/access';
+import { getFramework } from '../data/frameworks';
+import { hasMappings } from '../data/frameworkMappings';
+import {
+  aggregateDomains,
+  normaliseBand,
+  type BusinessModuleConfidence,
+  type DomainAggregate,
+  type DomainOverrides,
+} from '../lib/outcomesAggregation';
 
 // =====================================================
 // Types
@@ -75,6 +84,14 @@ export interface EnrolmentCounts {
   enrolled: number;
 }
 
+export interface OutcomesSnapshot {
+  frameworkKey: string;
+  frameworkName: string;
+  frameworkShort: string;
+  citation: string;
+  domains: DomainAggregate[];
+}
+
 export interface ProgramReportPayload {
   generatedAt: string;
   program: {
@@ -94,6 +111,9 @@ export interface ProgramReportPayload {
   topStrengths: StrengthAggregate[];
   topAreasToExplore: AreaToExploreAggregate[];
   methodology: string;
+  /** Statutory framework domain roll-up. Absent on snapshots generated before
+   *  the Statutory Plan Alignment feature, or when jurisdiction has no mappings. */
+  outcomes?: OutcomesSnapshot;
 }
 
 export interface ProgramReportRow {
@@ -193,6 +213,10 @@ export function useProgramReport(programId: string | null) {
         const { topPriorityActions, topStrengths, topAreasToExplore } =
           aggregateCohortSummaries(cohortSummaries);
 
+        // Statutory framework domain roll-up, baked into the snapshot so it
+        // stays accurate to this point in time (privacy: domain counts only).
+        const outcomes = await computeOutcomes(programId, program.organisation_id, cohortSummaries);
+
         const payload: ProgramReportPayload = {
           generatedAt: new Date().toISOString(),
           program: {
@@ -212,6 +236,7 @@ export function useProgramReport(programId: string | null) {
           topStrengths,
           topAreasToExplore,
           methodology: METHODOLOGY_NOTE,
+          outcomes,
         };
 
         const dateLabel = new Date().toLocaleDateString('en-AU', {
@@ -369,4 +394,55 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
 
 function normaliseText(s: string): string {
   return s.toLowerCase().trim().replace(/\s+/g, ' ').replace(/[.,;:!?]+$/g, '');
+}
+
+/**
+ * Roll cohort confidence up into the authority's framework domains.
+ * Returns undefined when the org's jurisdiction has no module mappings yet
+ * (e.g. AU until Session 2), so the Outcomes view is simply hidden there.
+ */
+async function computeOutcomes(
+  programId: string,
+  orgId: string,
+  cohortSummaries: CohortSummaryRow[],
+): Promise<OutcomesSnapshot | undefined> {
+  if (!supabase) return undefined;
+
+  const { data: orgRow } = await supabase
+    .from('organisations')
+    .select('jurisdiction, domain_overrides')
+    .eq('id', orgId)
+    .single();
+  const jurisdiction = (orgRow?.jurisdiction as string) || 'AU';
+  if (!hasMappings(jurisdiction)) return undefined;
+  const overrides = (orgRow?.domain_overrides as DomainOverrides) ?? {};
+
+  // Per-business sectors for the Layer 2 facility overlay. Tolerate the RPC
+  // being unavailable (migration 031 not yet applied) - fall back to Layer 1.
+  const businessTypesById: Record<string, string[]> = {};
+  try {
+    const secRes = await supabase.rpc('get_program_business_sectors', { p_program_id: programId });
+    if (!secRes.error && Array.isArray(secRes.data)) {
+      for (const s of secRes.data as { child_org_id: string; business_types: string[] }[]) {
+        businessTypesById[s.child_org_id] = s.business_types ?? [];
+      }
+    }
+  } catch {
+    /* Layer 1 only */
+  }
+
+  const rows: BusinessModuleConfidence[] = cohortSummaries.map((r) => ({
+    businessId: r.child_org_id,
+    moduleId: r.module_id,
+    band: normaliseBand(r.confidence_snapshot),
+  }));
+  const domains = aggregateDomains(rows, businessTypesById, jurisdiction, overrides);
+  const fw = getFramework(jurisdiction);
+  return {
+    frameworkKey: fw.key,
+    frameworkName: fw.name,
+    frameworkShort: fw.short,
+    citation: fw.citation,
+    domains,
+  };
 }
