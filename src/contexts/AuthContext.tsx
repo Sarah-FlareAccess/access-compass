@@ -171,7 +171,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         { user_id: userId }
       );
 
-      const membership = Array.isArray(memberships) ? memberships[0] : null;
+      // A user can belong to more than one org (e.g. a leftover test org
+      // alongside the real one). The REST query returns rows in no defined
+      // order, so blindly taking [0] could resolve to a stale org and drop the
+      // user into Discovery on a cold (uncached) login. Prefer an org the user
+      // actively belongs to, and among those the most recently joined; only
+      // fall back to the first row if nothing is active.
+      const membershipList = Array.isArray(memberships) ? memberships : [];
+      const membership =
+        membershipList
+          .filter(m => m.status === 'active')
+          .sort((a, b) => String(b.created_at ?? '').localeCompare(String(a.created_at ?? '')))[0]
+        ?? membershipList[0]
+        ?? null;
 
       // If we have a membership, fetch the organisation separately
       let membershipOrg: Organisation | null = null;
