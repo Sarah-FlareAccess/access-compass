@@ -1735,7 +1735,7 @@ export default function DIAPWorkspace() {
         {/* Board view: your custom sections */}
         {viewMode === 'board' && boardGroupBy === 'sections' && (
           <div className="diap-board" aria-label="Action plan board by section">
-            {[...boardColumns, { id: '__unassigned__', name: 'Unassigned' }].map(col => {
+            {[{ id: '__unassigned__', name: 'Unassigned' }, ...boardColumns].map(col => {
               const isReal = col.id !== '__unassigned__';
               const colItems = filteredItems.filter(i => (i.boardColumn ?? '__unassigned__') === col.id);
               return (
