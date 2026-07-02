@@ -379,7 +379,14 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFontSize(20);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(73, 14, 103); // amethystDiamond
-    doc.text(report.organisation, PAGE.width / 2, PAGE.height * 0.56 + 15, { align: 'center' });
+    doc.text(report.organisation, PAGE.width / 2, PAGE.height * 0.56 + (report.siteName ? 13 : 15), { align: 'center' });
+
+    if (report.siteName) {
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(73, 14, 103);
+      doc.text(report.siteName, PAGE.width / 2, PAGE.height * 0.56 + 22, { align: 'center' });
+    }
 
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
@@ -391,7 +398,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         year: 'numeric',
       })}`,
       PAGE.width / 2,
-      PAGE.height * 0.56 + 26,
+      PAGE.height * 0.56 + (report.siteName ? 30 : 26),
       { align: 'center' }
     );
 
@@ -1340,7 +1347,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
  */
 export function downloadPDFReport(report: Report): void {
   const doc = generatePDFReport({ report });
-  const fileName = `${report.organisation.replace(/[^a-z0-9]/gi, '-')}-accessibility-report-${
+  const scope = report.siteName ? `${report.siteName.replace(/[^a-z0-9]/gi, '-')}-` : '';
+  const fileName = `${report.organisation.replace(/[^a-z0-9]/gi, '-')}-${scope}accessibility-report-${
     new Date().toISOString().split('T')[0]
   }.pdf`;
   doc.save(fileName);
@@ -1352,7 +1360,8 @@ export function downloadPDFReport(report: Report): void {
  */
 export function downloadExecutiveSummaryPDF(report: Report): void {
   const doc = generatePDFReport({ report, summaryOnly: true, includeTableOfContents: false });
-  const fileName = `${report.organisation.replace(/[^a-z0-9]/gi, '-')}-executive-summary-${
+  const scope = report.siteName ? `${report.siteName.replace(/[^a-z0-9]/gi, '-')}-` : '';
+  const fileName = `${report.organisation.replace(/[^a-z0-9]/gi, '-')}-${scope}executive-summary-${
     new Date().toISOString().split('T')[0]
   }.pdf`;
   doc.save(fileName);

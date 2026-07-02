@@ -125,6 +125,9 @@ export interface Report {
   reportType: 'pulse-check' | 'deep-dive';
   generatedAt: string;
   organisation: string;
+  // Active venue this report is scoped to (multi-site orgs). Undefined = the
+  // organisation-wide report.
+  siteName?: string;
 
   // Executive summary
   executiveSummary: {
@@ -228,7 +231,7 @@ export interface Report {
 }
 
 interface UseReportGenerationReturn {
-  generateReport: (reviewMode: ReviewMode, organisationName?: string, reportConfig?: ReportConfig) => Report;
+  generateReport: (reviewMode: ReviewMode, organisationName?: string, reportConfig?: ReportConfig, siteName?: string) => Report;
   isReady: boolean;
   getModuleRuns: (moduleId: string) => ModuleRun[];
 }
@@ -240,7 +243,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
   const isReady = !isLoading && Object.keys(progress).length > 0;
 
   const generateReport = useMemo(() => {
-    return (reviewMode: ReviewMode, organisationName: string = 'Your Organisation', reportConfig?: ReportConfig): Report => {
+    return (reviewMode: ReviewMode, organisationName: string = 'Your Organisation', reportConfig?: ReportConfig, siteName?: string): Report => {
       const now = new Date().toISOString();
 
       // Build module progress list based on report config
@@ -585,6 +588,7 @@ export function useReportGeneration(selectedModuleIds: string[]): UseReportGener
         reportType: reviewMode === 'pulse-check' ? 'pulse-check' : 'deep-dive',
         generatedAt: now,
         organisation: organisationName,
+        siteName,
         executiveSummary,
         moduleEvidence,
         urlAnalysisResults,
