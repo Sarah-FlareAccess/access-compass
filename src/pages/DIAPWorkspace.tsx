@@ -1611,9 +1611,9 @@ export default function DIAPWorkspace() {
                           onClick={() => { dismissHint(); setDetailItemId(item.id); }}
                           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissHint(); setDetailItemId(item.id); } }}
                         >
-                          <span className="diap-board__card-title">{item.objective || item.action}</span>
-                          {firstActionLine(item.action) && item.objective && (
-                            <span className="diap-board__card-sub">{firstActionLine(item.action)}</span>
+                          <span className="diap-board__card-title">{firstActionLine(item.action) || item.objective}</span>
+                          {item.objective && firstActionLine(item.action) && (
+                            <span className="diap-board__card-sub">{item.objective}</span>
                           )}
                           <div className="diap-board__card-meta">
                             {!activeSiteId && item.siteId && (
@@ -1755,12 +1755,9 @@ export default function DIAPWorkspace() {
                                     <span className={`diap-row__status status-${item.status}`} aria-hidden="true" />
                                     <span className="diap-row__main">
                                       <span className="diap-row__title">
-                                        {item.objective || item.action}
+                                        {firstActionLine(item.action) || item.objective}
                                         {changedItems[item.id] && <span className="diap-row__changed" title="Assessment answer changed">updated</span>}
                                       </span>
-                                      {firstActionLine(item.action) && item.objective && (
-                                        <span className="diap-row__subtitle">{firstActionLine(item.action)}</span>
-                                      )}
                                     </span>
                                     {!activeSiteId && item.siteId && (
                                       <span className="diap-row__venue">{sites.find(s => s.id === item.siteId)?.name ?? 'Venue'}</span>
