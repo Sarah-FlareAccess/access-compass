@@ -853,7 +853,8 @@ Thanks!`;
           {/* Dashboard Overview Stats - only on overview */}
           {activeTab === 'overview' && (
             <>
-              {/* Stat Cards */}
+              {/* Stat Cards - assessment findings (distinct from the DIAP
+                  action plan below, which counts tracked action items) */}
               {overallStats.totalAnswered > 0 && (
                 <div className="dashboard-stat-cards">
                   <div className="dash-stat-card">
@@ -866,7 +867,7 @@ Thanks!`;
                   </div>
                   <div className="dash-stat-card dash-stat-actions">
                     <div className="dash-stat-value">{overallStats.totalActions}</div>
-                    <div className="dash-stat-label">Priority actions</div>
+                    <div className="dash-stat-label">Priority findings</div>
                   </div>
                   <div className="dash-stat-card">
                     <div className="dash-stat-value">{overallStats.totalEvidence}</div>
