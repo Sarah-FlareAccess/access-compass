@@ -96,7 +96,6 @@ export default function DIAPWorkspace() {
     items,
     documents,
     isLoading,
-    getStats,
     createItem,
     updateItem,
     deleteItem,
@@ -451,62 +450,63 @@ export default function DIAPWorkspace() {
     return 'later';
   }, []);
 
+  // Per-facet predicates. Each returns true when the item passes that facet's
+  // filter (or the facet is inactive). Kept separate so chip counts can be
+  // computed over every OTHER facet (faceted counting), which is why the counts
+  // now add up to the selected scope instead of the whole plan.
+  const matchesSite = useCallback((i: DIAPItem) =>
+    filterSites.size === 0 || filterSites.has(i.siteId ?? ORG_WIDE_SITE), [filterSites]);
+  const matchesStatus = useCallback((i: DIAPItem) =>
+    filterStatuses.size === 0 || filterStatuses.has(i.status), [filterStatuses]);
+  const matchesCategory = useCallback((i: DIAPItem) =>
+    filterCategories.size === 0 || filterCategories.has(i.category), [filterCategories]);
+  const matchesPriority = useCallback((i: DIAPItem) =>
+    filterPriorities.size === 0 || filterPriorities.has(i.priority), [filterPriorities]);
+  const matchesResponsible = useCallback((i: DIAPItem) =>
+    filterResponsible === 'all' || i.responsibleRole === filterResponsible, [filterResponsible]);
+  const matchesDue = useCallback((i: DIAPItem) => {
+    if (filterDueDate.size === 0) return true;
+    if (filterDueDate.has('custom')) {
+      if (!i.dueDate) return filterDueDate.has('no-date');
+      const due = new Date(i.dueDate);
+      due.setHours(0, 0, 0, 0);
+      const from = customDateFrom ? new Date(customDateFrom) : null;
+      const to = customDateTo ? new Date(customDateTo) : null;
+      if (from) from.setHours(0, 0, 0, 0);
+      if (to) to.setHours(0, 0, 0, 0);
+      if (from && to) return due >= from && due <= to;
+      if (from) return due >= from;
+      if (to) return due <= to;
+      return true;
+    }
+    return filterDueDate.has(getDueBucket(i.dueDate));
+  }, [filterDueDate, customDateFrom, customDateTo, getDueBucket]);
+
+  // For each facet, the item set filtered by all the OTHER active facets. A
+  // facet's chip counts are computed over its own base set, so selecting a
+  // venue narrows the priority/category/due counts to that venue (and so on).
+  const facetBase = useMemo(() => ({
+    site: items.filter(i => matchesStatus(i) && matchesCategory(i) && matchesPriority(i) && matchesResponsible(i) && matchesDue(i)),
+    status: items.filter(i => matchesSite(i) && matchesCategory(i) && matchesPriority(i) && matchesResponsible(i) && matchesDue(i)),
+    priority: items.filter(i => matchesSite(i) && matchesStatus(i) && matchesCategory(i) && matchesResponsible(i) && matchesDue(i)),
+    category: items.filter(i => matchesSite(i) && matchesStatus(i) && matchesPriority(i) && matchesResponsible(i) && matchesDue(i)),
+    due: items.filter(i => matchesSite(i) && matchesStatus(i) && matchesCategory(i) && matchesPriority(i) && matchesResponsible(i)),
+  }), [items, matchesSite, matchesStatus, matchesCategory, matchesPriority, matchesResponsible, matchesDue]);
+
   const dueDateCounts = useMemo(() => {
     const counts: Record<string, number> = { overdue: 0, 'this-week': 0, 'this-month': 0, later: 0, 'no-date': 0 };
-    for (const item of items) {
+    for (const item of facetBase.due) {
       counts[getDueBucket(item.dueDate)]++;
     }
     return counts;
-  }, [items, getDueBucket]);
+  }, [facetBase, getDueBucket]);
 
   // Filter items based on tab and filters
   const filteredItems = useMemo(() => {
-    let filtered = [...items];
-
-    // Filter by site (multi-select). Empty = all sites + org-wide.
-    if (filterSites.size > 0) {
-      filtered = filtered.filter(i => filterSites.has(i.siteId ?? ORG_WIDE_SITE));
-    }
-
-    // Filter by status (multi-select)
-    if (filterStatuses.size > 0) {
-      filtered = filtered.filter(i => filterStatuses.has(i.status));
-    }
-
-    // Filter by category (multi-select)
-    if (filterCategories.size > 0) {
-      filtered = filtered.filter(i => filterCategories.has(i.category));
-    }
-
-    // Filter by priority (multi-select)
-    if (filterPriorities.size > 0) {
-      filtered = filtered.filter(i => filterPriorities.has(i.priority));
-    }
-
-    // Filter by responsible person
-    if (filterResponsible !== 'all') {
-      filtered = filtered.filter(i => i.responsibleRole === filterResponsible);
-    }
-
-    // Filter by due date period
-    if (filterDueDate.size > 0) {
-      filtered = filtered.filter(i => {
-        if (filterDueDate.has('custom')) {
-          if (!i.dueDate) return filterDueDate.has('no-date');
-          const due = new Date(i.dueDate);
-          due.setHours(0, 0, 0, 0);
-          const from = customDateFrom ? new Date(customDateFrom) : null;
-          const to = customDateTo ? new Date(customDateTo) : null;
-          if (from) from.setHours(0, 0, 0, 0);
-          if (to) to.setHours(0, 0, 0, 0);
-          if (from && to) return due >= from && due <= to;
-          if (from) return due >= from;
-          if (to) return due <= to;
-          return true;
-        }
-        return filterDueDate.has(getDueBucket(i.dueDate));
-      });
-    }
+    const filtered = items.filter(i =>
+      matchesSite(i) && matchesStatus(i) && matchesCategory(i)
+      && matchesPriority(i) && matchesResponsible(i) && matchesDue(i),
+    );
 
     // Sort: use manual sortOrder if set, otherwise group by priority
     const hasManualOrder = filtered.some(i => i.sortOrder !== undefined);
@@ -520,15 +520,12 @@ export default function DIAPWorkspace() {
     }
 
     return filtered;
-  }, [items, filterSites, filterStatuses, filterCategories, filterPriorities, filterResponsible, filterDueDate, getDueBucket, customDateFrom, customDateTo]);
+  }, [items, matchesSite, matchesStatus, matchesCategory, matchesPriority, matchesResponsible, matchesDue]);
 
   // Group filtered items by category, then by objective within each category
   const itemsByCategory = useMemo(() => {
     return groupItemsByCategoryAndObjective(filteredItems);
   }, [filteredItems]);
-
-  // Get stats
-  const stats = getStats();
 
   // Items scoped to the active venue (org-wide = the full plan). Drives the
   // summary card and the PDF export so both reflect the venue, independent of
@@ -1110,7 +1107,7 @@ export default function DIAPWorkspace() {
                 <span className="filter-group-label">Site</span>
                 <div className="filter-chips" role="group" aria-label="Filter by site">
                   {([[ORG_WIDE_SITE, 'Organisation-wide'], ...sites.map(s => [s.id, s.name] as [string, string])] as [string, string][]).map(([key, label]) => {
-                    const count = items.filter(i => (i.siteId ?? ORG_WIDE_SITE) === key).length;
+                    const count = facetBase.site.filter(i => (i.siteId ?? ORG_WIDE_SITE) === key).length;
                     return (
                       <button
                         key={key}
@@ -1152,7 +1149,7 @@ export default function DIAPWorkspace() {
                     })}
                     aria-pressed={filterStatuses.has(value)}
                   >
-                    {label} ({stats.byStatus[value]})
+                    {label} ({facetBase.status.filter(i => i.status === value).length})
                   </button>
                 ))}
               </div>
@@ -1177,7 +1174,7 @@ export default function DIAPWorkspace() {
                     })}
                     aria-pressed={filterPriorities.has(value)}
                   >
-                    {label} ({stats.byPriority[value]})
+                    {label} ({facetBase.priority.filter(i => i.priority === value).length})
                   </button>
                 ))}
               </div>
@@ -1187,7 +1184,7 @@ export default function DIAPWorkspace() {
               <span className="filter-group-label">Category</span>
               <div className="filter-chips" role="group" aria-label="Filter by category">
                 {allCategories.map(cat => {
-                  const count = categoryStats.find(c => c.id === cat.id)?.total || 0;
+                  const count = facetBase.category.filter(i => i.category === cat.id).length;
                   return (
                     <button
                       key={cat.id}
