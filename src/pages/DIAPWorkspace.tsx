@@ -2896,7 +2896,15 @@ function RoleComboBox({ value, roles, onChange, onAddRole, onManageRoles, inputI
   };
 
   return (
-    <div className="role-combobox" ref={wrapRef}>
+    <div
+      className="role-combobox"
+      ref={wrapRef}
+      onBlur={(e) => {
+        // Close when focus leaves the combobox entirely (e.g. tabbing off),
+        // but stay open when moving to an option inside it.
+        if (!wrapRef.current?.contains(e.relatedTarget as Node)) { setOpen(false); setSearch(''); }
+      }}
+    >
       <div className="role-combobox-input-row">
         <input
           ref={inputRef}
