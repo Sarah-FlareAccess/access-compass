@@ -21,6 +21,7 @@ import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
 import { useAuth } from '../contexts/AuthContext';
 import { useProgramEnrolment } from '../hooks/useProgramEnrolment';
+import { supabase } from '../utils/supabase';
 import { accessModules, moduleGroups, getModuleById } from '../data/accessModules';
 import type { AccessModule } from '../data/accessModules';
 import type { ModuleOwnership, ModuleRunContext, RunComparison } from '../hooks/useModuleProgress';
@@ -383,6 +384,76 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     }).filter(g => g.modules.length > 0);
   }, [recommendedModuleIds, progress, currentReviewMode]);
 
+  // Cross-venue rollup for the organisation-wide dashboard view. useModuleProgress
+  // only loads the active site, so to show totals across every venue we query all
+  // sites' module_progress once and aggregate (total = venues x modules). Only
+  // runs org-wide on a multi-site org; per-venue views use the site-scoped hook.
+  const orgId = accessState.organisation?.id;
+  const [orgWideRollup, setOrgWideRollup] = useState<{
+    completed: number; inProgress: number; total: number;
+    doingWell: number; actions: number; answered: number; evidence: number;
+    byGroup: Record<string, { completed: number; total: number }>;
+  } | null>(null);
+
+  useEffect(() => {
+    if (activeSiteId || sites.length === 0 || !orgId || !supabase) {
+      setOrgWideRollup(null);
+      return;
+    }
+    const sb = supabase;
+    const oid = orgId;
+    let cancelled = false;
+    (async () => {
+      const recommendedModules = accessModules.filter(
+        m => recommendedModuleIds.includes(m.id) || recommendedModuleIds.includes(m.code),
+      );
+      const moduleGroupById = new Map(recommendedModules.map(m => [m.id, m.group]));
+      const siteCount = sites.length;
+
+      const [mpRes, respRes, evRes] = await Promise.all([
+        sb.from('module_progress').select('module_id, status, summary').eq('organisation_id', oid),
+        sb.from('module_responses').select('id', { count: 'exact', head: true }).eq('organisation_id', oid),
+        sb.from('evidence_files').select('id', { count: 'exact', head: true }).eq('organisation_id', oid),
+      ]);
+      if (cancelled) return;
+
+      const rows = ((mpRes.data as { module_id: string; status: string; summary: unknown }[]) || [])
+        .filter(r => moduleGroupById.has(r.module_id));
+
+      const byGroup: Record<string, { completed: number; total: number }> = {};
+      for (const g of moduleGroups) {
+        const modulesInGroup = recommendedModules.filter(m => m.group === g.id).length;
+        if (modulesInGroup > 0) byGroup[g.id] = { completed: 0, total: modulesInGroup * siteCount };
+      }
+
+      let completed = 0, inProgress = 0, doingWell = 0, actions = 0;
+      for (const r of rows) {
+        if (r.status === 'completed') {
+          completed++;
+          const gid = moduleGroupById.get(r.module_id);
+          if (gid && byGroup[gid]) byGroup[gid].completed++;
+        } else if (r.status === 'in-progress') {
+          inProgress++;
+        }
+        const summary = r.summary as { doingWell?: unknown[]; priorityActions?: unknown[] } | null;
+        doingWell += summary?.doingWell?.length || 0;
+        actions += summary?.priorityActions?.length || 0;
+      }
+
+      setOrgWideRollup({
+        completed,
+        inProgress,
+        total: recommendedModules.length * siteCount,
+        doingWell,
+        actions,
+        answered: respRes.count || 0,
+        evidence: evRes.count || 0,
+        byGroup,
+      });
+    })().catch(() => { if (!cancelled) setOrgWideRollup(null); });
+    return () => { cancelled = true; };
+  }, [activeSiteId, sites.length, orgId, recommendedModuleIds]);
+
   const didYouKnowTip = useMemo(() => {
     const inProgress = groupedModules
       .flatMap(g => g.modules)
@@ -436,6 +507,27 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       }
     }
 
+    // Organisation-wide on a multi-site org: use the cross-venue rollup so the
+    // totals reflect every venue's work (total = venues x modules) rather than
+    // the near-empty org-level scope.
+    if (orgWideRollup) {
+      const { completed, inProgress, total } = orgWideRollup;
+      return {
+        modulesCompleted: completed,
+        modulesInProgress: inProgress,
+        modulesNotStarted: Math.max(0, total - completed - inProgress),
+        modulesTotal: total,
+        progressPercentage: total > 0 ? Math.round((completed / total) * 100) : 0,
+        diapItemCount: diapTotal,
+        diapAchieved: diapAchievedCount,
+        diapCompletedPercentage: diapPct,
+        totalDoingWell: orgWideRollup.doingWell,
+        totalActions: orgWideRollup.actions,
+        totalEvidence: orgWideRollup.evidence,
+        totalAnswered: orgWideRollup.answered,
+      };
+    }
+
     return {
       modulesCompleted: completedModules,
       modulesInProgress: inProgressModules,
@@ -450,7 +542,28 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       totalEvidence,
       totalAnswered,
     };
-  }, [groupedModules, diapItems, activeSiteId, progress]);
+  }, [groupedModules, diapItems, activeSiteId, progress, orgWideRollup]);
+
+  // Progress-by-area rows: cross-venue rollup when organisation-wide, else the
+  // site-scoped group progress.
+  const progressByArea = useMemo(() => {
+    if (orgWideRollup) {
+      return moduleGroups
+        .filter(g => orgWideRollup.byGroup[g.id])
+        .map(g => ({
+          id: g.id,
+          label: g.label,
+          completedCount: orgWideRollup.byGroup[g.id].completed,
+          totalCount: orgWideRollup.byGroup[g.id].total,
+        }));
+    }
+    return groupedModules.map(g => ({
+      id: g.id,
+      label: g.label,
+      completedCount: g.completedCount,
+      totalCount: g.totalCount,
+    }));
+  }, [orgWideRollup, groupedModules]);
 
   // Get action button text and style based on status
   const getActionButton = (status: 'not-started' | 'in-progress' | 'completed') => {
@@ -796,7 +909,7 @@ Thanks!`;
                 <section className="dashboard-snapshot dashboard-progress-area">
                   <h2>Progress by area</h2>
                   <div className="group-progress-list">
-                    {groupedModules.map(group => {
+                    {progressByArea.map(group => {
                       const pct = group.totalCount > 0 ? Math.round((group.completedCount / group.totalCount) * 100) : 0;
                       return (
                         <div key={group.id} className="group-progress-row">
