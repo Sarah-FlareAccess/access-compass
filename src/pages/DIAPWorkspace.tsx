@@ -115,7 +115,6 @@ export default function DIAPWorkspace() {
     attachExistingEvidence,
     removeAttachment,
     addComment,
-    reorderItem,
   } = useDIAPManagement();
 
   const { sites } = useSites();
@@ -138,6 +137,8 @@ export default function DIAPWorkspace() {
   const [filterStatuses, setFilterStatuses] = useState<Set<DIAPStatus>>(new Set());
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingItem, setEditingItem] = useState<DIAPItem | null>(null);
+  // The action currently open in the detail side-panel (compact list -> panel).
+  const [detailItemId, setDetailItemId] = useState<string | null>(null);
   const [filterCategories, setFilterCategories] = useState<Set<DIAPCategory>>(new Set());
   const [filterPriorities, setFilterPriorities] = useState<Set<DIAPPriority>>(new Set());
   const [filterResponsible, setFilterResponsible] = useState<string>('all');
@@ -882,6 +883,16 @@ export default function DIAPWorkspace() {
     })().catch(() => { backfilledRef.current = false; });
   }, [isLoading, sites.length, accessState.organisation?.id, generateFromResponses]);
 
+  // Close the detail panel on Escape.
+  useEffect(() => {
+    if (!detailItemId) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { setDetailItemId(null); setEditingItem(null); }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [detailItemId]);
+
   // Handle file upload
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -900,6 +911,9 @@ export default function DIAPWorkspace() {
       </div>
     );
   }
+
+  const detailItem = detailItemId ? items.find(i => i.id === detailItemId) ?? null : null;
+  const closeDetail = () => { setDetailItemId(null); setEditingItem(null); };
 
   return (
     <div className="diap-page">
@@ -1037,39 +1051,20 @@ export default function DIAPWorkspace() {
             </div>
             <div className="diap-framework__domains">
               {frameworkOutcomes.domains.map(d => (
-                d.total > 0 ? (
-                  <details key={d.id} className="diap-framework__domain">
-                    <summary className="diap-framework__domain-summary">
-                      <div className="diap-framework__domain-head">
-                        <h3>{d.name}</h3>
-                        <span className="diap-framework__domain-count">
-                          {d.total} action{d.total !== 1 ? 's' : ''}
-                        </span>
-                      </div>
-                      {d.outcomeStatement && <p className="diap-framework__statement">{d.outcomeStatement}</p>}
-                      <p className="diap-framework__breakdown">
-                        {d.achieved} achieved · {d.inProgress} in progress · {d.notStarted} not started
-                      </p>
-                    </summary>
-                    <ul className="diap-framework__actions">
-                      {d.items.map(item => (
-                        <li key={item.id} className="diap-framework__action">
-                          <span className={`diap-framework__action-status status-${item.status}`} aria-hidden="true" />
-                          <span className="diap-framework__action-text">{item.objective || item.action}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                ) : (
-                  <div key={d.id} className="diap-framework__domain is-empty">
-                    <div className="diap-framework__domain-head">
-                      <h3>{d.name}</h3>
-                      <span className="diap-framework__domain-count">0 actions</span>
-                    </div>
-                    {d.outcomeStatement && <p className="diap-framework__statement">{d.outcomeStatement}</p>}
-                    <p className="diap-framework__breakdown diap-framework__breakdown--empty">No actions mapped yet</p>
+                <div key={d.id} className={`diap-framework__domain ${d.total === 0 ? 'is-empty' : ''}`}>
+                  <div className="diap-framework__domain-head">
+                    <h3>{d.name}</h3>
+                    <span className="diap-framework__domain-count">{d.total} action{d.total !== 1 ? 's' : ''}</span>
                   </div>
-                )
+                  {d.outcomeStatement && <p className="diap-framework__statement">{d.outcomeStatement}</p>}
+                  {d.total > 0 ? (
+                    <p className="diap-framework__breakdown">
+                      {d.achieved} achieved · {d.inProgress} in progress · {d.notStarted} not started
+                    </p>
+                  ) : (
+                    <p className="diap-framework__breakdown diap-framework__breakdown--empty">No actions mapped yet</p>
+                  )}
+                </div>
               ))}
             </div>
           </section>
@@ -1616,51 +1611,36 @@ export default function DIAPWorkspace() {
                               <span className="objective-group-count">{objItems.length} {objItems.length === 1 ? 'action' : 'actions'}</span>
                             </div>
                             <div className="section-items">
-                              {objItems.map((item, index) => (
-                                editingItem?.id === item.id ? (
-                                  <div key={item.id} className="inline-edit-wrapper">
-                                    <DIAPItemForm
-                                      item={items.find(i => i.id === editingItem.id) || editingItem}
-                                      onSave={(data) => {
-                                        updateItem(editingItem.id, data);
-                                        setEditingItem(null);
-                                      }}
-                                      onCancel={() => {
-                                        setEditingItem(null);
-                                      }}
-                                      onDelete={() => {
-                                        deleteItem(editingItem.id);
-                                        setEditingItem(null);
-                                      }}
-                                      responsiblePeopleList={responsiblePeople}
-                                      onAddRole={addManagedRole}
-                                      onManageRoles={() => setShowManageRoles(true)}
-                                      onAddAttachment={addAttachment}
-                                      onAttachExisting={attachExistingEvidence}
-                                      onRemoveAttachment={removeAttachment}
-                                    />
-                                  </div>
-                                ) : (
-                                  <DIAPItemCard
+                              {objItems.map((item) => {
+                                const overdue = !!item.dueDate && getDueBucket(item.dueDate) === 'overdue' && item.status !== 'achieved';
+                                return (
+                                  <div
                                     key={item.id}
-                                    item={item}
-                                    onStatusChange={handleStatusChange}
-                                    onEdit={() => {
-                                      dismissHint();
-                                      setEditingItem(item);
+                                    className={`diap-row ${detailItemId === item.id ? 'is-active' : ''}`}
+                                    role="button"
+                                    tabIndex={0}
+                                    aria-label={`Open ${item.objective || item.action}`}
+                                    onClick={(e) => { e.stopPropagation(); dismissHint(); setDetailItemId(item.id); }}
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); dismissHint(); setDetailItemId(item.id); }
                                     }}
-                                    onAddAttachment={addAttachment}
-                                    onAttachExisting={attachExistingEvidence}
-                                    onRemoveAttachment={removeAttachment}
-                                    onAddComment={addComment}
-                                    onMoveUp={index > 0 ? () => reorderItem(item.id, objItems[index - 1].id) : undefined}
-                                    onMoveDown={index < objItems.length - 1 ? () => reorderItem(item.id, objItems[index + 1].id) : undefined}
-                                    showEditHint={showEditHint && index === 0 && group.id === 'access'}
-                                    responseChange={changedItems[item.id]}
-                                    onDismissChange={() => dismissChange(item.id)}
-                                  />
-                                )
-                              ))}
+                                  >
+                                    <span className={`diap-row__status status-${item.status}`} aria-hidden="true" />
+                                    <span className="diap-row__title">
+                                      {item.objective || item.action}
+                                      {changedItems[item.id] && <span className="diap-row__changed" title="Assessment answer changed">updated</span>}
+                                    </span>
+                                    <span className={`diap-row__priority prio-${item.priority}`}>{item.priority}</span>
+                                    {item.responsibleRole && <span className="diap-row__owner">{item.responsibleRole}</span>}
+                                    {item.dueDate && (
+                                      <span className={`diap-row__due ${overdue ? 'is-overdue' : ''}`}>
+                                        {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
+                                      </span>
+                                    )}
+                                    <span className="diap-row__chevron" aria-hidden="true">›</span>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
                         ))
@@ -1878,6 +1858,53 @@ export default function DIAPWorkspace() {
 
         <PageFooter />
       </div>
+
+      {/* Detail side-panel: opens when an action row is clicked. Reuses the
+          existing card (view) and form (edit) so all behaviour is preserved. */}
+      {detailItem && (
+        <>
+          <div className="diap-detail-overlay" onClick={closeDetail} aria-hidden="true" />
+          <aside
+            className="diap-detail-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Action: ${detailItem.objective || detailItem.action}`}
+          >
+            <div className="diap-detail-panel__head">
+              <span className="diap-detail-panel__eyebrow">{getCategoryDisplayName(detailItem.category, customCategoryNames)}</span>
+              <button type="button" className="diap-detail-panel__close" onClick={closeDetail} aria-label="Close">×</button>
+            </div>
+            <div className="diap-detail-panel__body">
+              {editingItem?.id === detailItem.id ? (
+                <DIAPItemForm
+                  item={items.find(i => i.id === detailItem.id) || detailItem}
+                  onSave={(data) => { updateItem(detailItem.id, data); setEditingItem(null); }}
+                  onCancel={() => setEditingItem(null)}
+                  onDelete={() => { deleteItem(detailItem.id); closeDetail(); }}
+                  responsiblePeopleList={responsiblePeople}
+                  onAddRole={addManagedRole}
+                  onManageRoles={() => setShowManageRoles(true)}
+                  onAddAttachment={addAttachment}
+                  onAttachExisting={attachExistingEvidence}
+                  onRemoveAttachment={removeAttachment}
+                />
+              ) : (
+                <DIAPItemCard
+                  item={detailItem}
+                  onStatusChange={handleStatusChange}
+                  onEdit={() => setEditingItem(detailItem)}
+                  onAddAttachment={addAttachment}
+                  onAttachExisting={attachExistingEvidence}
+                  onRemoveAttachment={removeAttachment}
+                  onAddComment={addComment}
+                  responseChange={changedItems[detailItem.id]}
+                  onDismissChange={() => dismissChange(detailItem.id)}
+                />
+              )}
+            </div>
+          </aside>
+        </>
+      )}
     </div>
   );
 }

@@ -339,6 +339,175 @@ details[open] .diap-framework__domain-summary::after {
 .diap-framework__action-status.status-on-hold { background: #6b7280; }
 .diap-framework__action-status.status-cancelled { background: #991b1b; }
 
+/* Compact action rows (list) that open the detail side-panel */
+.diap-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: #fff;
+  border: 1px solid rgba(73, 14, 103, 0.08);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.diap-row + .diap-row {
+  margin-top: 6px;
+}
+
+.diap-row:hover {
+  background: #faf7fc;
+  border-color: rgba(73, 14, 103, 0.2);
+}
+
+.diap-row.is-active {
+  border-color: var(--amethyst-diamond);
+  box-shadow: 0 0 0 1px var(--amethyst-diamond);
+}
+
+.diap-row:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
+
+.diap-row__status {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--status-not-started, #6b7280);
+}
+.diap-row__status.status-achieved { background: var(--status-completed, #166534); }
+.diap-row__status.status-in-progress { background: #d97706; }
+.diap-row__status.status-on-hold { background: #6b7280; }
+.diap-row__status.status-cancelled { background: #991b1b; }
+.diap-row__status.status-ongoing { background: #2563eb; }
+
+.diap-row__title {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.9rem;
+  color: var(--text-primary, #1f2937);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diap-row__changed {
+  margin-left: 8px;
+  padding: 1px 6px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #92400e;
+  background: #fef3c7;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.diap-row__priority {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.diap-row__priority.prio-high { color: #991b1b; background: #fee2e2; }
+.diap-row__priority.prio-medium { color: #92400e; background: #fef3c7; }
+.diap-row__priority.prio-low { color: #1e40af; background: #dbeafe; }
+
+.diap-row__owner {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diap-row__due {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.diap-row__due.is-overdue { color: #dc2626; font-weight: 600; }
+
+.diap-row__chevron {
+  flex-shrink: 0;
+  color: var(--amethyst-diamond);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Detail side-panel */
+.diap-detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 60;
+}
+
+.diap-detail-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(560px, 100vw);
+  background: var(--surface-1, #fff);
+  z-index: 61;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  animation: diap-detail-slide-in 0.18s ease;
+}
+
+@keyframes diap-detail-slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.diap-detail-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(73, 14, 103, 0.1);
+  flex-shrink: 0;
+}
+
+.diap-detail-panel__eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond);
+  letter-spacing: 0.02em;
+}
+
+.diap-detail-panel__close {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+.diap-detail-panel__close:hover { color: var(--text-primary, #1f2937); }
+.diap-detail-panel__close:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
+
+.diap-detail-panel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px;
+}
+
 .diap-filter-alert {
   display: flex;
   align-items: center;
