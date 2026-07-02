@@ -626,16 +626,16 @@ export default function DIAPWorkspace() {
     URL.revokeObjectURL(url);
   };
 
-  // Handle export to PDF. Use the authenticated org name (not the stale
-  // onboarding business_snapshot, which can hold a leftover test-org name), and
-  // export exactly what the filter chips show (filteredItems). The title still
-  // names the active venue for context.
+  // Handle export to PDF. Always export the full venue plan (siteScopedItems),
+  // never the filtered on-screen subset, so a screen filter (e.g. "low priority
+  // only") can't produce a DIAP that misrepresents the real state. Uses the
+  // authenticated org name (not the stale onboarding business_snapshot).
   const handleExportPDF = () => {
     const session = getSession();
     const orgName = accessState.organisation?.name
       || session?.business_snapshot?.organisation_name
       || 'Your Organisation';
-    generateDIAPPdf({ items: filteredItems, orgName, siteName: activeSiteName, customCategoryNames });
+    generateDIAPPdf({ items: siteScopedItems, orgName, siteName: activeSiteName, customCategoryNames });
   };
 
   // Handle download CSV template
@@ -919,14 +919,16 @@ export default function DIAPWorkspace() {
         )}
 
         {/* Filter alert: the summary card above counts the whole venue, but the
-            list below and the exported PDF reflect the active filters. */}
+            list below is filtered, but the exported PDF is always the full plan
+            so it can't be made to misrepresent the real state. */}
         {filtersApplied && items.length > 0 && (
           <div className="diap-filter-alert" role="status">
             <span className="diap-filter-alert__icon" aria-hidden="true">⚠️</span>
             <span>
-              Filters are applied. The list below and the exported PDF include only the{' '}
-              {filteredItems.length} matching item{filteredItems.length !== 1 ? 's' : ''}, not the full{' '}
-              {activeSiteName || 'organisation-wide'} plan.
+              Filters are applied. The list below shows only the{' '}
+              {filteredItems.length} matching item{filteredItems.length !== 1 ? 's' : ''}. The exported PDF
+              still includes the full {activeSiteName || 'organisation-wide'} plan{' '}
+              ({siteScopedItems.length} item{siteScopedItems.length !== 1 ? 's' : ''}).
             </span>
             <button type="button" className="diap-filter-alert__clear" onClick={resetFilters}>
               Clear filters
