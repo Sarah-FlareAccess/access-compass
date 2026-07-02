@@ -174,6 +174,25 @@
   color: #dc2626;
 }
 
+.stat-card.medium-priority .stat-value {
+  color: #d97706;
+}
+
+.stat-card.low-priority .stat-value {
+  color: #2563eb;
+}
+
+.diap-summary-interpretation {
+  margin: calc(-1 * var(--spacing-md)) 0 var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary, #374151);
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--amethyst-diamond);
+}
+
 /* Controls (Tabs + Filters) - Surface Level 2 */
 /* Collapsible filter wrapper */
 .diap-controls-collapsible {

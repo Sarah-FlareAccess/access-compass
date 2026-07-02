@@ -530,6 +530,32 @@ export default function DIAPWorkspace() {
   // Get stats
   const stats = getStats();
 
+  // Items scoped to the active venue (org-wide = the full plan). Drives the
+  // summary card and the PDF export so both reflect the venue, independent of
+  // incidental status/category display filters.
+  const siteScopedItems = useMemo(
+    () => (activeSiteId ? items.filter(i => (i.siteId ?? null) === activeSiteId) : items),
+    [items, activeSiteId],
+  );
+
+  // Venue-scoped headline summary + a one-line interpretation.
+  const siteSummary = useMemo(() => {
+    const total = siteScopedItems.length;
+    const high = siteScopedItems.filter(i => i.priority === 'high').length;
+    const medium = siteScopedItems.filter(i => i.priority === 'medium').length;
+    const low = siteScopedItems.filter(i => i.priority === 'low').length;
+    const achieved = siteScopedItems.filter(i => i.status === 'achieved').length;
+    const pct = total > 0 ? Math.round((achieved / total) * 100) : 0;
+    const scope = activeSiteName || 'This organisation-wide plan';
+    const lead = high > 0
+      ? `${high} high-priority ${high === 1 ? 'action needs' : 'actions need'} attention first`
+      : 'No high-priority actions are outstanding';
+    const interpretation = total > 0
+      ? `${scope} has ${total} action ${total === 1 ? 'item' : 'items'}. ${lead}. ${achieved} of ${total} achieved so far (${pct}%).`
+      : '';
+    return { total, high, medium, low, achieved, interpretation };
+  }, [siteScopedItems, activeSiteName]);
+
   // Compute per-category stats for the overview cards
   const categoryStats = useMemo(() => {
     return allCategories.map(cat => {
@@ -586,10 +612,7 @@ export default function DIAPWorkspace() {
     const orgName = accessState.organisation?.name
       || session?.business_snapshot?.organisation_name
       || 'Your Organisation';
-    const exportItems = activeSiteId
-      ? items.filter(i => (i.siteId ?? null) === activeSiteId)
-      : items;
-    generateDIAPPdf({ items: exportItems, orgName, siteName: activeSiteName, customCategoryNames });
+    generateDIAPPdf({ items: siteScopedItems, orgName, siteName: activeSiteName, customCategoryNames });
   };
 
   // Handle download CSV template
@@ -822,6 +845,36 @@ export default function DIAPWorkspace() {
               )}
             </button>
           </div>
+        )}
+
+        {/* Venue-scoped summary + interpretation. Mirrors the report headline
+            so the page itself reads as a plan, not just a list. */}
+        {siteSummary.total > 0 && (
+          <section className="diap-summary" aria-label={`Action plan summary${activeSiteName ? ` for ${activeSiteName}` : ''}`}>
+            <div className="diap-stats-grid">
+              <div className="stat-card total">
+                <span className="stat-value">{siteSummary.total}</span>
+                <span className="stat-label">Total Items</span>
+              </div>
+              <div className="stat-card high-priority">
+                <span className="stat-value">{siteSummary.high}</span>
+                <span className="stat-label">High Priority</span>
+              </div>
+              <div className="stat-card medium-priority">
+                <span className="stat-value">{siteSummary.medium}</span>
+                <span className="stat-label">Medium Priority</span>
+              </div>
+              <div className="stat-card low-priority">
+                <span className="stat-value">{siteSummary.low}</span>
+                <span className="stat-label">Low Priority</span>
+              </div>
+              <div className="stat-card achieved">
+                <span className="stat-value">{siteSummary.achieved}</span>
+                <span className="stat-label">Achieved</span>
+              </div>
+            </div>
+            <p className="diap-summary-interpretation">{siteSummary.interpretation}</p>
+          </section>
         )}
 
         {/* Manage Roles Modal */}
