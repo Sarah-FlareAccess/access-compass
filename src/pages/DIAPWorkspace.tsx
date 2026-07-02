@@ -135,7 +135,7 @@ export default function DIAPWorkspace() {
   const excelInputRef = useRef<HTMLInputElement>(null);
   const pdfInputRef = useRef<HTMLInputElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generationResult, setGenerationResult] = useState<{ count: number; shown: boolean } | null>(null);
+  const [generationResult, setGenerationResult] = useState<{ count: number; hadCompleted: boolean; shown: boolean } | null>(null);
   const [saveCount, setSaveCount] = useState(0);
 
   // One-time edit hint - show only on first visit
@@ -678,7 +678,7 @@ export default function DIAPWorkspace() {
         totalGenerated += count;
       });
 
-      setGenerationResult({ count: totalGenerated, shown: true });
+      setGenerationResult({ count: totalGenerated, hadCompleted: completedModules.length > 0, shown: true });
 
       // Hide the result message after 5 seconds
       setTimeout(() => {
@@ -751,10 +751,15 @@ export default function DIAPWorkspace() {
                   <h4>Items Generated</h4>
                   <p>Added {generationResult.count} action item{generationResult.count !== 1 ? 's' : ''} from your assessment.</p>
                 </>
+              ) : generationResult.hadCompleted ? (
+                <>
+                  <h4>Nothing New to Add</h4>
+                  <p>There aren't any new assessment findings to turn into actions. New items will appear here as you record areas that need work.</p>
+                </>
               ) : (
                 <>
-                  <h4>Already Up to Date</h4>
-                  <p>All assessment findings are already in your DIAP.</p>
+                  <h4>Complete an Assessment First</h4>
+                  <p>Finish a module assessment and we'll turn its findings into action items here.</p>
                 </>
               )}
             </div>
