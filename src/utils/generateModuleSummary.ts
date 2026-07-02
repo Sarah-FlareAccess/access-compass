@@ -14,7 +14,12 @@ import { calculateQuestionPriority } from './priorityCalculation';
 import { generateActionText } from '../components/questions/QuestionFlow';
 
 /**
- * Categorize response sentiment for multi-select and other non-yes/no responses
+ * Categorize response sentiment for multi-select and other non-yes/no responses.
+ *
+ * INVARIANT: for any answered selection (response.multiSelectValues non-empty)
+ * this MUST return a non-null band, so no response is ever silently dropped from
+ * the report or the DIAP. Do not let the multiSelectValues branch fall through to
+ * `return null`. `scripts/checkDiapCapture.mjs` enforces this across every module.
  */
 function categorizeResponseSentiment(
   response: QuestionResponse,
