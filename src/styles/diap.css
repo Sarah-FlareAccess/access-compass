@@ -519,9 +519,17 @@ details[open] .diap-framework__domain-summary::after {
   width: 100%;
 }
 
-.diap-bulk-disabled {
-  opacity: 0.5;
-  pointer-events: none;
+/* Fields stay usable; interacting with one ticks its box. Untouched fields
+   read as muted so it's clear only ticked fields are applied. */
+.diap-bulk-field:not(.is-on) input[type="date"],
+.diap-bulk-field:not(.is-on) select,
+.diap-bulk-field:not(.is-on) .role-combobox {
+  opacity: 0.55;
+}
+
+.diap-bulk-field.is-on input[type="date"],
+.diap-bulk-field.is-on select {
+  border-color: var(--amethyst-diamond);
 }
 
 /* Board (kanban) */

@@ -1316,7 +1316,7 @@ export default function DIAPWorkspace() {
                 Applies to the <strong>{selectedIds.size} selected action{selectedIds.size !== 1 ? 's' : ''}</strong>. Tick a field to change it, leave the rest untouched.
               </p>
 
-              <div className="diap-bulk-field">
+              <div className={`diap-bulk-field ${bulkApplyDue ? 'is-on' : ''}`}>
                 <label className="diap-bulk-toggle">
                   <input type="checkbox" checked={bulkApplyDue} onChange={(e) => setBulkApplyDue(e.target.checked)} />
                   Due date
@@ -1324,39 +1324,36 @@ export default function DIAPWorkspace() {
                 <input
                   type="date"
                   value={bulkDueDate}
-                  disabled={!bulkApplyDue}
-                  onChange={(e) => setBulkDueDate(e.target.value)}
+                  onFocus={() => setBulkApplyDue(true)}
+                  onChange={(e) => { setBulkDueDate(e.target.value); setBulkApplyDue(true); }}
                   aria-label="Due date to apply"
                 />
-                {bulkApplyDue && !bulkDueDate && <span className="field-hint">Leave empty to clear the due date on all shown actions.</span>}
+                {bulkApplyDue && !bulkDueDate && <span className="field-hint">Leave empty to clear the due date on the selected actions.</span>}
               </div>
 
-              <div className="diap-bulk-field">
+              <div className={`diap-bulk-field ${bulkApplyRole ? 'is-on' : ''}`}>
                 <label className="diap-bulk-toggle">
                   <input type="checkbox" checked={bulkApplyRole} onChange={(e) => setBulkApplyRole(e.target.checked)} />
                   Responsible role
                 </label>
-                <div className={bulkApplyRole ? '' : 'diap-bulk-disabled'} aria-disabled={!bulkApplyRole}>
-                  <RoleComboBox
-                    value={bulkRole}
-                    roles={responsiblePeople}
-                    onChange={(val) => setBulkRole(val)}
-                    onAddRole={addManagedRole}
-                    onManageRoles={() => setShowManageRoles(true)}
-                  />
-                </div>
-                {bulkApplyRole && !bulkRole && <span className="field-hint">Leave empty to clear the responsible role on all shown actions.</span>}
+                <RoleComboBox
+                  value={bulkRole}
+                  roles={responsiblePeople}
+                  onChange={(val) => { setBulkRole(val); setBulkApplyRole(true); }}
+                  onAddRole={addManagedRole}
+                  onManageRoles={() => setShowManageRoles(true)}
+                />
+                {bulkApplyRole && !bulkRole && <span className="field-hint">Leave empty to clear the responsible role on the selected actions.</span>}
               </div>
 
-              <div className="diap-bulk-field">
+              <div className={`diap-bulk-field ${bulkApplyStatus ? 'is-on' : ''}`}>
                 <label className="diap-bulk-toggle">
                   <input type="checkbox" checked={bulkApplyStatus} onChange={(e) => setBulkApplyStatus(e.target.checked)} />
                   Status
                 </label>
                 <select
                   value={bulkStatus}
-                  disabled={!bulkApplyStatus}
-                  onChange={(e) => setBulkStatus(e.target.value as DIAPStatus)}
+                  onChange={(e) => { setBulkStatus(e.target.value as DIAPStatus); setBulkApplyStatus(true); }}
                   aria-label="Status to apply"
                 >
                   {Object.entries(STATUS_LABELS).map(([val, label]) => (
