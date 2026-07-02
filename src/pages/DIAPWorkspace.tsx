@@ -19,7 +19,7 @@ import { generateDIAPPdf } from '../utils/diapPdfGenerator';
 import { getSession } from '../utils/session';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
-import { useSites } from '../hooks/useSites';
+import { useSites, useActiveSiteId } from '../hooks/useSites';
 
 // Sentinel used in the site filter to represent items with no site (org-wide).
 const ORG_WIDE_SITE = '__org__';
@@ -114,6 +114,8 @@ export default function DIAPWorkspace() {
   } = useDIAPManagement();
 
   const { sites } = useSites();
+  const [activeSiteId] = useActiveSiteId();
+  const activeSiteName = sites.find(s => s.id === activeSiteId)?.name;
   // Site filter for the action plan. Empty = all (org-wide + every site).
   // Entries are site ids, or ORG_WIDE_SITE for items with no site.
   const [filterSites, setFilterSites] = useState<Set<string>>(new Set());
@@ -772,12 +774,16 @@ export default function DIAPWorkspace() {
           </div>
         )}
 
-        {/* Generate from Assessment Banner - Show when there are completed modules but no/few items */}
-        {completedModulesEvidence.length > 0 && items.length === 0 && (
+        {/* Generate from Assessment Banner. Gated on the ACTIVE venue's item
+            count (not the global count) so it reappears for each venue that has
+            completed modules but no actions yet. completedModulesEvidence is
+            already site-scoped via moduleProgress. */}
+        {completedModulesEvidence.length > 0 &&
+          items.filter(i => (i.siteId ?? null) === (activeSiteId ?? null)).length === 0 && (
           <div className="generate-banner">
             <div className="generate-banner-content">
-              <h2 className="generate-banner-heading">Generate DIAP from Your Assessment</h2>
-              <p>You have {completedModulesEvidence.length} completed module{completedModulesEvidence.length !== 1 ? 's' : ''}. Generate action items based on your assessment findings.</p>
+              <h2 className="generate-banner-heading">Generate {activeSiteName ? `${activeSiteName} ` : ''}Action Plan from Your Assessment</h2>
+              <p>{activeSiteName ? `${activeSiteName} has` : 'You have'} {completedModulesEvidence.length} completed module{completedModulesEvidence.length !== 1 ? 's' : ''}. Generate action items based on {activeSiteName ? 'this venue’s' : 'your'} assessment findings.</p>
             </div>
             <button
               className="btn-generate"
