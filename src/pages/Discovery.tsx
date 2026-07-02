@@ -96,6 +96,8 @@ function Discovery() {
       hasOnlinePresence: boolean;
       servesPublicCustomers: boolean;
       hasOnlineServices: boolean;
+      offersExperiences?: boolean;
+      assessmentType?: 'business' | 'event' | 'both';
     };
   }) => {
     // Save business context to session immediately
@@ -111,6 +113,8 @@ function Discovery() {
         has_online_presence: data.businessContext.hasOnlinePresence,
         serves_public_customers: data.businessContext.servesPublicCustomers,
         has_online_services: data.businessContext.hasOnlineServices,
+        offers_experiences: data.businessContext.offersExperiences,
+        assessment_type: data.businessContext.assessmentType,
       },
     });
 
@@ -327,6 +331,8 @@ function Discovery() {
       hasOnlinePresence: session?.business_snapshot?.has_online_presence,
       servesPublicCustomers: session?.business_snapshot?.serves_public_customers,
       hasOnlineServices: session?.business_snapshot?.has_online_services,
+      offersExperiences: session?.business_snapshot?.offers_experiences,
+      assessmentType: session?.business_snapshot?.assessment_type,
     },
   } : undefined;
 

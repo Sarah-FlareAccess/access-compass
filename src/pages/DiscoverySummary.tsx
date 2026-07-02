@@ -64,8 +64,12 @@ export default function DiscoverySummary() {
 
   // Editable values
   const [businessContext, setBusinessContext] = useState<BusinessContext>(() => {
-    // Get assessmentType from discoveryData or default to 'business'
-    const assessmentType: AssessmentType = discoveryData?.businessContext?.assessmentType || 'business';
+    // Canonical source is business_snapshot.assessment_type; fall back to the
+    // legacy discovery_data location, then default to 'business'.
+    const assessmentType: AssessmentType =
+      session?.business_snapshot?.assessment_type
+      || discoveryData?.businessContext?.assessmentType
+      || 'business';
 
     return {
       hasPhysicalVenue: session?.business_snapshot?.has_physical_venue ?? null,
@@ -196,6 +200,7 @@ export default function DiscoverySummary() {
         serves_public_customers: businessContext.servesPublicCustomers ?? false,
         has_online_services: businessContext.hasOnlineServices ?? false,
         offers_experiences: businessContext.offersExperiences ?? false,
+        assessment_type: businessContext.assessmentType,
       },
     });
 

@@ -86,6 +86,9 @@ export interface BusinessSnapshot {
   // or services where customers attend a space they don't own. Ensures tour
   // operators / mobile services / pop-ups still see during-visit touchpoints.
   offers_experiences?: boolean;
+  // What the assessment covers: ongoing business operations, a standalone
+  // event, or both. Persisted so the discovery/business-profile choice survives.
+  assessment_type?: 'business' | 'event' | 'both';
   contact_name?: string;
   // Legacy support
   business_type?: BusinessType;
