@@ -188,8 +188,11 @@ export default function DIAPWorkspace() {
   // List (grouped by category) vs Board (columns by status or custom sections).
   const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
   const [boardGroupBy, setBoardGroupBy] = useState<'status' | 'sections'>('status');
-  // Custom board columns (Asana-style sections), shared per org.
+  // Custom board columns (Asana-style sections), shared per org. The reserved
+  // "__unassigned__" entry stores the (editable) label of the pinned catch-all
+  // column; the rest are the user's sections in order.
   const [boardColumns, setBoardColumns] = useState<{ id: string; name: string }[]>([]);
+  const [unassignedLabel, setUnassignedLabel] = useState('Unassigned');
   const [editingColumnId, setEditingColumnId] = useState<string | null>(null);
   const [editingColumnName, setEditingColumnName] = useState('');
 
@@ -199,31 +202,41 @@ export default function DIAPWorkspace() {
     let cancelled = false;
     supabase.from('organisations').select('diap_board_columns').eq('id', oid).single()
       .then(({ data }) => {
-        if (!cancelled && Array.isArray(data?.diap_board_columns)) {
-          setBoardColumns(data.diap_board_columns as { id: string; name: string }[]);
-        }
+        if (cancelled) return;
+        const arr = Array.isArray(data?.diap_board_columns)
+          ? (data!.diap_board_columns as { id: string; name: string }[]) : [];
+        const reserved = arr.find(c => c.id === '__unassigned__');
+        if (reserved?.name) setUnassignedLabel(reserved.name);
+        setBoardColumns(arr.filter(c => c.id !== '__unassigned__'));
       });
     return () => { cancelled = true; };
   }, [accessState.organisation?.id]);
 
-  const persistBoardColumns = useCallback((cols: { id: string; name: string }[]) => {
+  const saveBoard = useCallback((cols: { id: string; name: string }[], label: string) => {
     setBoardColumns(cols);
+    setUnassignedLabel(label);
     const oid = accessState.organisation?.id;
     if (oid && supabase) {
-      supabase.from('organisations').update({ diap_board_columns: cols }).eq('id', oid).then(() => {}, () => {});
+      supabase.from('organisations')
+        .update({ diap_board_columns: [...cols, { id: '__unassigned__', name: label }] })
+        .eq('id', oid).then(() => {}, () => {});
     }
   }, [accessState.organisation?.id]);
 
   const addBoardColumn = useCallback(() => {
     const id = `col-${Date.now()}-${Math.round(Math.random() * 1e6)}`;
-    persistBoardColumns([...boardColumns, { id, name: 'New section' }]);
+    saveBoard([...boardColumns, { id, name: 'New section' }], unassignedLabel);
     setEditingColumnId(id);
     setEditingColumnName('New section');
-  }, [boardColumns, persistBoardColumns]);
+  }, [boardColumns, unassignedLabel, saveBoard]);
 
   const renameBoardColumn = useCallback((id: string, name: string) => {
-    persistBoardColumns(boardColumns.map(c => (c.id === id ? { ...c, name } : c)));
-  }, [boardColumns, persistBoardColumns]);
+    if (id === '__unassigned__') {
+      saveBoard(boardColumns, name);
+    } else {
+      saveBoard(boardColumns.map(c => (c.id === id ? { ...c, name } : c)), unassignedLabel);
+    }
+  }, [boardColumns, unassignedLabel, saveBoard]);
 
   const moveBoardColumn = useCallback((id: string, dir: -1 | 1) => {
     const idx = boardColumns.findIndex(c => c.id === id);
@@ -231,13 +244,13 @@ export default function DIAPWorkspace() {
     if (idx < 0 || next < 0 || next >= boardColumns.length) return;
     const cols = [...boardColumns];
     [cols[idx], cols[next]] = [cols[next], cols[idx]];
-    persistBoardColumns(cols);
-  }, [boardColumns, persistBoardColumns]);
+    saveBoard(cols, unassignedLabel);
+  }, [boardColumns, unassignedLabel, saveBoard]);
 
   const deleteBoardColumn = useCallback((id: string) => {
     items.filter(i => i.boardColumn === id).forEach(i => updateItem(i.id, { boardColumn: null }));
-    persistBoardColumns(boardColumns.filter(c => c.id !== id));
-  }, [boardColumns, persistBoardColumns, items, updateItem]);
+    saveBoard(boardColumns.filter(c => c.id !== id), unassignedLabel);
+  }, [boardColumns, unassignedLabel, saveBoard, items, updateItem]);
   const [filterCategories, setFilterCategories] = useState<Set<DIAPCategory>>(new Set());
   const [filterPriorities, setFilterPriorities] = useState<Set<DIAPPriority>>(new Set());
   const [filterResponsible, setFilterResponsible] = useState<string>('all');
@@ -1735,7 +1748,7 @@ export default function DIAPWorkspace() {
         {/* Board view: your custom sections */}
         {viewMode === 'board' && boardGroupBy === 'sections' && (
           <div className="diap-board" aria-label="Action plan board by section">
-            {[{ id: '__unassigned__', name: 'Unassigned' }, ...boardColumns].map(col => {
+            {[{ id: '__unassigned__', name: unassignedLabel }, ...boardColumns].map(col => {
               const isReal = col.id !== '__unassigned__';
               const colItems = filteredItems.filter(i => (i.boardColumn ?? '__unassigned__') === col.id);
               return (
@@ -1767,14 +1780,18 @@ export default function DIAPWorkspace() {
                     )}
                     <span className="diap-board__col-count">{colItems.length}</span>
                   </div>
-                  {isReal && (
-                    <div className="diap-board__col-actions">
-                      <button type="button" onClick={() => moveBoardColumn(col.id, -1)} aria-label="Move section left" title="Move left">◀</button>
-                      <button type="button" onClick={() => moveBoardColumn(col.id, 1)} aria-label="Move section right" title="Move right">▶</button>
-                      <button type="button" onClick={() => { setEditingColumnId(col.id); setEditingColumnName(col.name); }} aria-label="Rename section" title="Rename">✏️</button>
-                      <button type="button" onClick={() => { if (confirm(`Delete section "${col.name}"? Its actions move to Unassigned.`)) deleteBoardColumn(col.id); }} aria-label="Delete section" title="Delete">🗑</button>
-                    </div>
-                  )}
+                  <div className="diap-board__col-actions">
+                    {isReal && (
+                      <>
+                        <button type="button" onClick={() => moveBoardColumn(col.id, -1)} aria-label="Move section left" title="Move left">◀</button>
+                        <button type="button" onClick={() => moveBoardColumn(col.id, 1)} aria-label="Move section right" title="Move right">▶</button>
+                      </>
+                    )}
+                    <button type="button" onClick={() => { setEditingColumnId(col.id); setEditingColumnName(col.name); }} aria-label="Rename column" title="Rename">✏️</button>
+                    {isReal && (
+                      <button type="button" onClick={() => { if (confirm(`Delete section "${col.name}"? Its actions move to ${unassignedLabel}.`)) deleteBoardColumn(col.id); }} aria-label="Delete section" title="Delete">🗑</button>
+                    )}
+                  </div>
                   <div className="diap-board__cards">
                     {colItems.map(renderBoardCard)}
                     {colItems.length === 0 && <p className="diap-board__empty">{isReal ? 'Drop actions here' : 'None'}</p>}
