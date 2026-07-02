@@ -34,7 +34,7 @@ import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModu
 import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { hasHelpContent, getHelpByQuestionId } from '../data/help';
-import { getResourceLink } from '../utils/resourceLinks';
+import { getResourceLink, getDIAPCategoryLink } from '../utils/resourceLinks';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
 import { AutoSaveIndicator } from '../components/AutoSaveIndicator';
 import { DIAPCommentThread } from '../components/DIAPCommentThread';
@@ -51,8 +51,19 @@ async function openAttachment(att: DIAPAttachment) {
     window.open(att.dataUrl, '_blank', 'noopener,noreferrer');
   }
 }
-import { Zap, Upload, Paperclip, Filter, Users as UsersIcon, CalendarDays, Plus } from 'lucide-react';
+import { Zap, Upload, Paperclip, Filter, Users as UsersIcon, CalendarDays, Plus, BookOpen } from 'lucide-react';
 import '../styles/diap.css';
+
+// Best Resource Hub link for an action: the specific guide when the source
+// question has help content, otherwise the hub filtered by the action's
+// category. Always returns a usable link so every action can reach guidance.
+function resourceLinkForItem(item: DIAPItem): { to: string; label: string } {
+  if (item.questionSource && hasHelpContent(item.questionSource)) {
+    const help = getHelpByQuestionId(item.questionSource);
+    return { to: getResourceLink(item.questionSource), label: `View guide: ${help?.title || 'Resource guide'}` };
+  }
+  return { to: getDIAPCategoryLink(item.category), label: 'Browse related resources' };
+}
 
 const DIAP_FEATURES: GuideFeature[] = [
   { icon: Plus, title: 'Add a DIAP item', description: 'Click "Add Item" in the top-right to create a new action item manually.' },
@@ -1638,6 +1649,16 @@ export default function DIAPWorkspace() {
                                         {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
                                       </span>
                                     )}
+                                    <Link
+                                      to={resourceLinkForItem(item).to}
+                                      state={{ from: 'diap' }}
+                                      className="diap-row__guide"
+                                      title={resourceLinkForItem(item).label}
+                                      aria-label={resourceLinkForItem(item).label}
+                                      onClick={(e) => e.stopPropagation()}
+                                    >
+                                      <BookOpen size={15} aria-hidden="true" />
+                                    </Link>
                                     <span className="diap-row__chevron" aria-hidden="true">›</span>
                                   </div>
                                 );
@@ -2214,16 +2235,12 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onAttachE
         )}
       </div>
 
-      {item.questionSource && hasHelpContent(item.questionSource) && (() => {
-        const help = getHelpByQuestionId(item.questionSource!);
+      {(() => {
+        const res = resourceLinkForItem(item);
         return (
           <div className="item-resource-link">
-            <Link
-              to={getResourceLink(item.questionSource!)}
-              state={{ from: 'diap' }}
-              className="resource-guide-link"
-            >
-              View guide: {help?.title || 'Resource guide'}
+            <Link to={res.to} state={{ from: 'diap' }} className="resource-guide-link">
+              {res.label}
             </Link>
           </div>
         );

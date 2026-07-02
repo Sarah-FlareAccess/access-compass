@@ -436,6 +436,20 @@ details[open] .diap-framework__domain-summary::after {
 }
 .diap-row__due.is-overdue { color: #dc2626; font-weight: 600; }
 
+.diap-row__guide {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  color: var(--amethyst-diamond);
+  padding: 2px;
+  border-radius: 4px;
+}
+.diap-row__guide:hover { background: rgba(73, 14, 103, 0.08); }
+.diap-row__guide:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
+
 .diap-row__chevron {
   flex-shrink: 0;
   color: var(--amethyst-diamond);
