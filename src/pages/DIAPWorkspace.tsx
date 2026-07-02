@@ -25,6 +25,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../utils/supabase';
 import { getFramework } from '../data/frameworks';
 import { hasMappings, domainsForModule } from '../data/frameworkMappings';
+import { InfoTooltip } from '../components/InfoTooltip';
 
 // Sentinel used in the site filter to represent items with no site (org-wide).
 const ORG_WIDE_SITE = '__org__';
@@ -1227,7 +1228,10 @@ export default function DIAPWorkspace() {
           <div className="diap-filter-panel" role="group" aria-label="Filter DIAP items">
             {sites.length > 0 && (
               <div className="filter-group">
-                <span className="filter-group-label">Site</span>
+                <span className="filter-group-label">
+                  Site
+                  <InfoTooltip text="Counts show each venue's generated action plan. Plans are created automatically from each venue's completed assessment. A venue reads 0 only if it has no completed assessment yet, not because data is missing." />
+                </span>
                 <div className="filter-chips" role="group" aria-label="Filter by site">
                   {([[ORG_WIDE_SITE, 'Organisation-wide'], ...sites.map(s => [s.id, s.name] as [string, string])] as [string, string][]).map(([key, label]) => {
                     const count = facetBase.site.filter(i => (i.siteId ?? ORG_WIDE_SITE) === key).length;

@@ -34,6 +34,7 @@ import { ResourceInfoRequest } from '../components/ResourceInfoRequest';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { InstallPrompt } from '../components/InstallPrompt';
 import { SiteContextBar } from '../components/SiteContextBar';
+import { InfoTooltip } from '../components/InfoTooltip';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
 import { logActivityStandalone, useActivityLog, exportActivitiesAsCSV, getActivityDescriptionText } from '../hooks/useActivityLog';
 import { ActivityFeed } from '../components/ActivityFeed';
@@ -873,7 +874,10 @@ Thanks!`;
               {/* Action Plan Snapshot */}
               {overallStats.diapItemCount > 0 && (
                 <section className="dashboard-snapshot">
-                  <h2>Action Plan (DIAP)</h2>
+                  <h2>
+                    Action Plan (DIAP)
+                    <InfoTooltip text="Shows the venue you're working in; Organisation-wide totals every venue's actions. Action plans are generated automatically from each venue's completed assessment." />
+                  </h2>
                   <div className="snapshot-row">
                     <div className="snapshot-stat">
                       <span className="snapshot-value">{overallStats.diapItemCount}</span>
