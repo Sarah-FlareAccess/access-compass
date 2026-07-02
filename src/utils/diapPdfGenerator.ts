@@ -72,6 +72,14 @@ interface DIAPPdfOptions {
   siteName?: string;
   generatedDate?: string;
   customCategoryNames?: Record<string, string>;
+  // Optional statutory-framework grouping (e.g. SA SDIP): the plan's actions
+  // grouped under the jurisdiction's outcome domains, printed as its own section
+  // so councils can lift it straight into their statutory report.
+  frameworkGrouping?: {
+    name: string;
+    short: string;
+    domains: { name: string; outcomeStatement?: string; items: DIAPItem[] }[];
+  };
 }
 
 // Filesystem-safe fragment from a display name (spaces to dashes, strip the
@@ -95,7 +103,7 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 export function generateDIAPPdf(options: DIAPPdfOptions): void {
-  const { items, orgName = 'Your Organisation', siteName, generatedDate, customCategoryNames = {} } = options;
+  const { items, orgName = 'Your Organisation', siteName, generatedDate, customCategoryNames = {}, frameworkGrouping } = options;
 
   // Build category labels with custom categories and name overrides
   const categoryLabels: Record<string, string> = { ...CATEGORY_LABELS };
@@ -472,6 +480,50 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.text(String(count), PAGE.marginX + 100, yPos);
     yPos += 6;
   });
+
+  // ========================================
+  // STATUTORY FRAMEWORK ALIGNMENT (optional)
+  // ========================================
+  if (frameworkGrouping && frameworkGrouping.domains.some(d => d.items.length > 0)) {
+    addSectionHeader(`Against the ${frameworkGrouping.short}`, 'accent');
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(107, 114, 128);
+    wrapText(`Your action plan mapped to the ${frameworkGrouping.name} outcome domains, ready for statutory reporting.`, PAGE.contentWidth)
+      .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
+    yPos += 3;
+
+    for (const d of frameworkGrouping.domains) {
+      if (d.items.length === 0) continue;
+      checkNewPage(16);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+      doc.text(`${d.name} (${d.items.length})`, PAGE.marginX, yPos);
+      yPos += 6;
+
+      if (d.outcomeStatement) {
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'italic');
+        doc.setTextColor(107, 114, 128);
+        wrapText(d.outcomeStatement, PAGE.contentWidth)
+          .forEach(l => { checkNewPage(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+        yPos += 1;
+      }
+
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      for (const item of d.items) {
+        const label = item.objective || item.action || '';
+        const lines = wrapText(`- ${label}  [${item.status}]`, PAGE.contentWidth - 4);
+        checkNewPage(lines.length * 5 + 2);
+        lines.forEach((l, idx) => { doc.text(l, PAGE.marginX + (idx === 0 ? 0 : 4), yPos); yPos += 5; });
+      }
+      yPos += 5;
+    }
+  }
 
   addFooter();
 

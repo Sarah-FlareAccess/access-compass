@@ -576,21 +576,28 @@ export default function DIAPWorkspace() {
     if (!jurisdiction || !hasMappings(jurisdiction)) return null;
     const fw = getFramework(jurisdiction);
     const businessTypes = getSession()?.business_snapshot?.business_types ?? [];
-    const buckets = new Map<string, { total: number; achieved: number; inProgress: number; notStarted: number }>();
-    for (const d of fw.domains) buckets.set(d.id, { total: 0, achieved: 0, inProgress: 0, notStarted: 0 });
+    const buckets = new Map<string, DIAPItem[]>();
+    for (const d of fw.domains) buckets.set(d.id, []);
     for (const item of siteScopedItems) {
       const code = item.moduleSource?.match(/(\d+\.\d+)/)?.[1];
       if (!code) continue;
       for (const domainId of domainsForModule(code, jurisdiction, businessTypes)) {
-        const bucket = buckets.get(domainId);
-        if (!bucket) continue;
-        bucket.total++;
-        if (item.status === 'achieved') bucket.achieved++;
-        else if (item.status === 'in-progress') bucket.inProgress++;
-        else bucket.notStarted++;
+        buckets.get(domainId)?.push(item);
       }
     }
-    const domains = fw.domains.map(d => ({ ...d, ...(buckets.get(d.id)!) }));
+    const domains = fw.domains.map(d => {
+      const dItems = buckets.get(d.id) ?? [];
+      const achieved = dItems.filter(i => i.status === 'achieved').length;
+      const inProgress = dItems.filter(i => i.status === 'in-progress').length;
+      return {
+        ...d,
+        items: dItems,
+        total: dItems.length,
+        achieved,
+        inProgress,
+        notStarted: dItems.length - achieved - inProgress,
+      };
+    });
     const mapped = domains.reduce((sum, d) => sum + d.total, 0);
     return { fw, domains, mapped };
   }, [jurisdiction, siteScopedItems]);
@@ -677,7 +684,18 @@ export default function DIAPWorkspace() {
     const orgName = accessState.organisation?.name
       || session?.business_snapshot?.organisation_name
       || 'Your Organisation';
-    generateDIAPPdf({ items: siteScopedItems, orgName, siteName: activeSiteName, customCategoryNames });
+    const frameworkGrouping = frameworkOutcomes
+      ? {
+          name: frameworkOutcomes.fw.name,
+          short: frameworkOutcomes.fw.short,
+          domains: frameworkOutcomes.domains.map(d => ({
+            name: d.name,
+            outcomeStatement: d.outcomeStatement,
+            items: d.items,
+          })),
+        }
+      : undefined;
+    generateDIAPPdf({ items: siteScopedItems, orgName, siteName: activeSiteName, customCategoryNames, frameworkGrouping });
   };
 
   // Handle download CSV template
@@ -1019,22 +1037,39 @@ export default function DIAPWorkspace() {
             </div>
             <div className="diap-framework__domains">
               {frameworkOutcomes.domains.map(d => (
-                <div key={d.id} className={`diap-framework__domain ${d.total === 0 ? 'is-empty' : ''}`}>
-                  <div className="diap-framework__domain-head">
-                    <h3>{d.name}</h3>
-                    <span className="diap-framework__domain-count">
-                      {d.total} action{d.total !== 1 ? 's' : ''}
-                    </span>
-                  </div>
-                  {d.outcomeStatement && <p className="diap-framework__statement">{d.outcomeStatement}</p>}
-                  {d.total > 0 ? (
-                    <p className="diap-framework__breakdown">
-                      {d.achieved} achieved · {d.inProgress} in progress · {d.notStarted} not started
-                    </p>
-                  ) : (
+                d.total > 0 ? (
+                  <details key={d.id} className="diap-framework__domain">
+                    <summary className="diap-framework__domain-summary">
+                      <div className="diap-framework__domain-head">
+                        <h3>{d.name}</h3>
+                        <span className="diap-framework__domain-count">
+                          {d.total} action{d.total !== 1 ? 's' : ''}
+                        </span>
+                      </div>
+                      {d.outcomeStatement && <p className="diap-framework__statement">{d.outcomeStatement}</p>}
+                      <p className="diap-framework__breakdown">
+                        {d.achieved} achieved · {d.inProgress} in progress · {d.notStarted} not started
+                      </p>
+                    </summary>
+                    <ul className="diap-framework__actions">
+                      {d.items.map(item => (
+                        <li key={item.id} className="diap-framework__action">
+                          <span className={`diap-framework__action-status status-${item.status}`} aria-hidden="true" />
+                          <span className="diap-framework__action-text">{item.objective || item.action}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                ) : (
+                  <div key={d.id} className="diap-framework__domain is-empty">
+                    <div className="diap-framework__domain-head">
+                      <h3>{d.name}</h3>
+                      <span className="diap-framework__domain-count">0 actions</span>
+                    </div>
+                    {d.outcomeStatement && <p className="diap-framework__statement">{d.outcomeStatement}</p>}
                     <p className="diap-framework__breakdown diap-framework__breakdown--empty">No actions mapped yet</p>
-                  )}
-                </div>
+                  </div>
+                )
               ))}
             </div>
           </section>

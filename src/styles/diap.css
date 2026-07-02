@@ -274,6 +274,71 @@
   font-style: italic;
 }
 
+details.diap-framework__domain > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+details.diap-framework__domain > summary::-webkit-details-marker {
+  display: none;
+}
+
+.diap-framework__domain-summary {
+  position: relative;
+  padding-right: 18px;
+}
+
+.diap-framework__domain-summary::after {
+  content: '▸';
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--amethyst-diamond);
+  transition: transform 0.15s ease;
+}
+
+details[open] .diap-framework__domain-summary::after {
+  transform: rotate(90deg);
+}
+
+.diap-framework__domain-summary:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
+
+.diap-framework__actions {
+  list-style: none;
+  margin: var(--spacing-sm) 0 0;
+  padding: var(--spacing-sm) 0 0;
+  border-top: 1px solid rgba(73, 14, 103, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.diap-framework__action {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--text-secondary, #374151);
+}
+
+.diap-framework__action-status {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: var(--status-not-started, #6b7280);
+}
+
+.diap-framework__action-status.status-achieved { background: var(--status-completed, #166534); }
+.diap-framework__action-status.status-in-progress { background: #d97706; }
+.diap-framework__action-status.status-on-hold { background: #6b7280; }
+.diap-framework__action-status.status-cancelled { background: #991b1b; }
+
 .diap-filter-alert {
   display: flex;
   align-items: center;
