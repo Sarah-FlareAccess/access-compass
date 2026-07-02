@@ -69,8 +69,20 @@ const STATUS_COLORS: Record<string, string> = {
 interface DIAPPdfOptions {
   items: DIAPItem[];
   orgName?: string;
+  siteName?: string;
   generatedDate?: string;
   customCategoryNames?: Record<string, string>;
+}
+
+// Filesystem-safe fragment from a display name (spaces to dashes, strip the
+// rest) for use in the download filename.
+function slugForFilename(name: string): string {
+  return name
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -83,7 +95,7 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 export function generateDIAPPdf(options: DIAPPdfOptions): void {
-  const { items, orgName = 'Your Organisation', generatedDate, customCategoryNames = {} } = options;
+  const { items, orgName = 'Your Organisation', siteName, generatedDate, customCategoryNames = {} } = options;
 
   // Build category labels with custom categories and name overrides
   const categoryLabels: Record<string, string> = { ...CATEGORY_LABELS };
@@ -279,12 +291,19 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text(orgName, PAGE.width / 2, orgCardY + 15, { align: 'center' });
+  doc.text(orgName, PAGE.width / 2, orgCardY + (siteName ? 13 : 15), { align: 'center' });
+
+  if (siteName) {
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+    doc.text(siteName, PAGE.width / 2, orgCardY + 22, { align: 'center' });
+  }
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(107, 114, 128);
-  doc.text(`Generated: ${formattedDate}`, PAGE.width / 2, orgCardY + 26, { align: 'center' });
+  doc.text(`Generated: ${formattedDate}`, PAGE.width / 2, orgCardY + (siteName ? 30 : 26), { align: 'center' });
 
   // Summary stats on cover
   const coverStatsY = PAGE.height * 0.68;
@@ -776,6 +795,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.text(`Page ${i} of ${totalPages}`, PAGE.width - PAGE.marginX, fy, { align: 'right' });
   }
 
-  // Save
-  doc.save(`DIAP-Report-${fileDate}.pdf`);
+  // Save. Include the venue in the filename when scoped to a site.
+  const fileScope = siteName ? `${slugForFilename(siteName)}-` : '';
+  doc.save(`DIAP-Report-${fileScope}${fileDate}.pdf`);
 }

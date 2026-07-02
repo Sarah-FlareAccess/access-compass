@@ -21,6 +21,7 @@ import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
 import { SiteContextBar } from '../components/SiteContextBar';
+import { useAuth } from '../contexts/AuthContext';
 
 // Sentinel used in the site filter to represent items with no site (org-wide).
 const ORG_WIDE_SITE = '__org__';
@@ -115,6 +116,7 @@ export default function DIAPWorkspace() {
   } = useDIAPManagement();
 
   const { sites } = useSites();
+  const { accessState } = useAuth();
   const [activeSiteId] = useActiveSiteId();
   const activeSiteName = sites.find(s => s.id === activeSiteId)?.name;
   // Site filter for the action plan. Empty = all (org-wide + every site).
@@ -576,11 +578,18 @@ export default function DIAPWorkspace() {
     URL.revokeObjectURL(url);
   };
 
-  // Handle export to PDF
+  // Handle export to PDF. Use the authenticated org name (not the stale
+  // onboarding business_snapshot, which can hold a leftover test-org name), and
+  // when working in a venue, scope the report and title to that venue.
   const handleExportPDF = () => {
     const session = getSession();
-    const orgName = session?.business_snapshot?.organisation_name || 'Your Organisation';
-    generateDIAPPdf({ items, orgName, customCategoryNames });
+    const orgName = accessState.organisation?.name
+      || session?.business_snapshot?.organisation_name
+      || 'Your Organisation';
+    const exportItems = activeSiteId
+      ? items.filter(i => (i.siteId ?? null) === activeSiteId)
+      : items;
+    generateDIAPPdf({ items: exportItems, orgName, siteName: activeSiteName, customCategoryNames });
   };
 
   // Handle download CSV template
