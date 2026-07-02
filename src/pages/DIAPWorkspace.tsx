@@ -198,8 +198,9 @@ export default function DIAPWorkspace() {
   const [editingColumnId, setEditingColumnId] = useState<string | null>(null);
   const [editingColumnName, setEditingColumnName] = useState('');
 
-  // Bulk edit: apply a due date, responsible role and/or status to every action
-  // currently shown (filters and the active venue act as the selection).
+  // Bulk edit: select actions (individually or all), then apply a due date,
+  // responsible role and/or status to the whole selection at once.
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [showBulkEdit, setShowBulkEdit] = useState(false);
   const [bulkApplyDue, setBulkApplyDue] = useState(false);
   const [bulkDueDate, setBulkDueDate] = useState('');
@@ -831,7 +832,27 @@ export default function DIAPWorkspace() {
     updateItem(itemId, { status: newStatus });
   };
 
-  // Apply the selected bulk fields to every action currently shown.
+  // Toggle a single action in/out of the selection.
+  const toggleSelected = (id: string) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  // Select all shown actions, or clear them if all are already selected.
+  const allShownSelected = filteredItems.length > 0 && filteredItems.every(i => selectedIds.has(i.id));
+  const toggleSelectAll = () => {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (allShownSelected) filteredItems.forEach(i => next.delete(i.id));
+      else filteredItems.forEach(i => next.add(i.id));
+      return next;
+    });
+  };
+
+  // Apply the ticked bulk fields to every selected action.
   const applyBulkEdit = () => {
     const updates: Partial<DIAPItem> = {};
     if (bulkApplyDue) updates.dueDate = bulkDueDate || undefined;
@@ -841,8 +862,9 @@ export default function DIAPWorkspace() {
     }
     if (bulkApplyStatus) updates.status = bulkStatus;
     if (Object.keys(updates).length === 0) { setShowBulkEdit(false); return; }
-    filteredItems.forEach(i => updateItem(i.id, updates));
+    selectedIds.forEach(id => updateItem(id, updates));
     setShowBulkEdit(false);
+    setSelectedIds(new Set());
     setBulkApplyDue(false); setBulkApplyRole(false); setBulkApplyStatus(false);
   };
 
@@ -1291,9 +1313,7 @@ export default function DIAPWorkspace() {
             <div className="modal-content diap-bulk-modal" role="dialog" aria-modal="true" aria-labelledby="diap-bulk-title" onClick={(e) => e.stopPropagation()}>
               <h2 id="diap-bulk-title">Bulk edit</h2>
               <p className="diap-bulk-scope">
-                Applies to the <strong>{filteredItems.length} action{filteredItems.length !== 1 ? 's' : ''}</strong> currently shown
-                {activeSiteName ? <> for <strong>{activeSiteName}</strong></> : ' across all venues'}
-                {filtersApplied ? ' (matching your filters)' : ''}. Tick a field to change it, leave the rest untouched.
+                Applies to the <strong>{selectedIds.size} selected action{selectedIds.size !== 1 ? 's' : ''}</strong>. Tick a field to change it, leave the rest untouched.
               </p>
 
               <div className="diap-bulk-field">
@@ -1353,7 +1373,7 @@ export default function DIAPWorkspace() {
                   onClick={applyBulkEdit}
                   disabled={!bulkApplyDue && !bulkApplyRole && !bulkApplyStatus}
                 >
-                  Apply to {filteredItems.length} action{filteredItems.length !== 1 ? 's' : ''}
+                  Apply to {selectedIds.size} action{selectedIds.size !== 1 ? 's' : ''}
                 </button>
               </div>
             </div>
@@ -1800,15 +1820,6 @@ export default function DIAPWorkspace() {
               aria-pressed={viewMode === 'board'}
             >Board</button>
           </div>
-          <button
-            type="button"
-            className="diap-bulk-edit-btn"
-            onClick={() => setShowBulkEdit(true)}
-            disabled={filteredItems.length === 0}
-            title="Set due date, responsible role or status for every action currently shown"
-          >
-            Bulk edit ({filteredItems.length})
-          </button>
           {viewMode === 'board' && (
             <div className="diap-view-toggle" role="group" aria-label="Group the board by">
               <button type="button" className={boardGroupBy === 'category' ? 'is-active' : ''} onClick={() => setBoardGroupBy('category')} aria-pressed={boardGroupBy === 'category'}>Categories</button>
@@ -1898,6 +1909,33 @@ export default function DIAPWorkspace() {
             })}
             {boardGroupBy === 'sections' && (
               <button type="button" className="diap-board__add-col" onClick={addBoardColumn}>+ Add section</button>
+            )}
+          </div>
+        )}
+
+        {/* Selection bar (List view): select all shown, then bulk edit */}
+        {viewMode === 'list' && filteredItems.length > 0 && (
+          <div className="diap-select-bar">
+            <label className="diap-select-all">
+              <input
+                type="checkbox"
+                checked={allShownSelected}
+                ref={(el) => { if (el) el.indeterminate = selectedIds.size > 0 && !allShownSelected; }}
+                onChange={toggleSelectAll}
+              />
+              {selectedIds.size > 0
+                ? `${selectedIds.size} selected`
+                : `Select all (${filteredItems.length})`}
+            </label>
+            {selectedIds.size > 0 && (
+              <>
+                <button type="button" className="diap-select-bar__edit" onClick={() => setShowBulkEdit(true)}>
+                  Bulk edit
+                </button>
+                <button type="button" className="diap-select-bar__clear" onClick={() => setSelectedIds(new Set())}>
+                  Clear
+                </button>
+              </>
             )}
           </div>
         )}
@@ -2007,7 +2045,7 @@ export default function DIAPWorkspace() {
                                 return (
                                   <div
                                     key={item.id}
-                                    className={`diap-row ${detailItemId === item.id ? 'is-active' : ''}`}
+                                    className={`diap-row ${detailItemId === item.id ? 'is-active' : ''} ${selectedIds.has(item.id) ? 'is-selected' : ''}`}
                                     role="button"
                                     tabIndex={0}
                                     aria-label={`Open ${item.objective || item.action}`}
@@ -2016,6 +2054,14 @@ export default function DIAPWorkspace() {
                                       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); dismissHint(); setDetailItemId(item.id); }
                                     }}
                                   >
+                                    <input
+                                      type="checkbox"
+                                      className="diap-row__select"
+                                      checked={selectedIds.has(item.id)}
+                                      onClick={(e) => e.stopPropagation()}
+                                      onChange={() => toggleSelected(item.id)}
+                                      aria-label={`Select ${item.objective || item.action}`}
+                                    />
                                     <span className={`diap-row__status status-${item.status}`} aria-hidden="true" />
                                     <span className="diap-row__main">
                                       <span className="diap-row__title">

@@ -429,31 +429,65 @@ details[open] .diap-framework__domain-summary::after {
   color: var(--text-muted);
 }
 
-/* Bulk edit */
-.diap-bulk-edit-btn {
-  margin-left: auto;
-  padding: 6px 16px;
-  border: 1px solid rgba(73, 14, 103, 0.25);
+/* Selection + bulk edit */
+.diap-select-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  margin-bottom: var(--spacing-sm);
+  background: rgba(73, 14, 103, 0.04);
+  border: 1px solid rgba(73, 14, 103, 0.12);
   border-radius: var(--radius-md);
-  background: #fff;
-  color: var(--amethyst-diamond);
+}
+
+.diap-select-all {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond);
+  cursor: pointer;
+}
+
+.diap-select-bar__edit,
+.diap-select-bar__clear {
+  padding: 5px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
 }
 
-.diap-bulk-edit-btn:hover:not(:disabled) {
-  background: rgba(73, 14, 103, 0.06);
+.diap-select-bar__edit {
+  border: none;
+  background: var(--amethyst-diamond);
+  color: #fff;
 }
 
-.diap-bulk-edit-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.diap-select-bar__clear {
+  border: 1px solid rgba(73, 14, 103, 0.25);
+  background: #fff;
+  color: var(--amethyst-diamond);
 }
 
-.diap-bulk-edit-btn:focus-visible {
+.diap-select-bar__edit:focus-visible,
+.diap-select-bar__clear:focus-visible {
   outline: 2px solid var(--aussie-sunrise, #ff9015);
   outline-offset: 2px;
+}
+
+.diap-row__select {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin: 0 2px 0 0;
+  cursor: pointer;
+}
+
+.diap-row.is-selected {
+  background: rgba(73, 14, 103, 0.06);
 }
 
 .diap-bulk-modal {
