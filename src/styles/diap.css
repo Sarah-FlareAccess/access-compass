@@ -560,11 +560,11 @@ details[open] .diap-framework__domain-summary::after {
   width: 100%;
 }
 
-/* Fields stay usable; interacting with one ticks its box. Untouched fields
-   read as muted so it's clear only ticked fields are applied. */
+/* Fields stay usable; interacting with one ticks its box. Untouched date and
+   status fields read as muted so it's clear only ticked fields apply. The role
+   combobox is left un-dimmed so its open dropdown is not washed out. */
 .diap-bulk-field:not(.is-on) input[type="date"],
-.diap-bulk-field:not(.is-on) select,
-.diap-bulk-field:not(.is-on) .role-combobox {
+.diap-bulk-field:not(.is-on) select {
   opacity: 0.55;
 }
 
