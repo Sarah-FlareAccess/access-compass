@@ -1924,16 +1924,19 @@ export default function DIAPWorkspace() {
                 ? `${selectedIds.size} selected`
                 : `Select all (${filteredItems.length})`}
             </label>
-            {selectedIds.size > 0 && (
-              <>
-                <button type="button" className="diap-select-bar__edit" onClick={() => setShowBulkEdit(true)}>
-                  Bulk edit
-                </button>
-                <button type="button" className="diap-select-bar__clear" onClick={() => setSelectedIds(new Set())}>
-                  Clear
-                </button>
-              </>
-            )}
+          </div>
+        )}
+
+        {/* Floating bulk action bar: stays reachable while scrolling the list */}
+        {viewMode === 'list' && selectedIds.size > 0 && (
+          <div className="diap-bulk-fab" role="region" aria-label="Bulk actions">
+            <span className="diap-bulk-fab__count">{selectedIds.size} selected</span>
+            <button type="button" className="diap-bulk-fab__edit" onClick={() => setShowBulkEdit(true)}>
+              Bulk edit
+            </button>
+            <button type="button" className="diap-bulk-fab__clear" onClick={() => setSelectedIds(new Set())}>
+              Clear
+            </button>
           </div>
         )}
 

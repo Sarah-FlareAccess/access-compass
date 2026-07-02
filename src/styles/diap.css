@@ -451,31 +451,63 @@ details[open] .diap-framework__domain-summary::after {
   cursor: pointer;
 }
 
-.diap-select-bar__edit,
-.diap-select-bar__clear {
-  padding: 5px 14px;
-  border-radius: var(--radius-md);
+/* Floating bulk action bar, fixed near the bottom of the viewport so it
+   stays reachable however far down the list you have scrolled. */
+.diap-bulk-fab {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--amethyst-diamond);
+  color: #fff;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.diap-bulk-fab__count {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.diap-bulk-fab__edit,
+.diap-bulk-fab__clear {
+  padding: 6px 16px;
+  border-radius: 999px;
   font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
 }
 
-.diap-select-bar__edit {
+.diap-bulk-fab__edit {
   border: none;
-  background: var(--amethyst-diamond);
-  color: #fff;
-}
-
-.diap-select-bar__clear {
-  border: 1px solid rgba(73, 14, 103, 0.25);
   background: #fff;
   color: var(--amethyst-diamond);
 }
 
-.diap-select-bar__edit:focus-visible,
-.diap-select-bar__clear:focus-visible {
+.diap-bulk-fab__clear {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  color: #fff;
+}
+
+.diap-bulk-fab__edit:focus-visible,
+.diap-bulk-fab__clear:focus-visible {
   outline: 2px solid var(--aussie-sunrise, #ff9015);
   outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .diap-bulk-fab {
+    left: 12px;
+    right: 12px;
+    transform: none;
+    justify-content: center;
+  }
 }
 
 .diap-row__select {
