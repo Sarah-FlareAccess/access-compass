@@ -38,13 +38,18 @@ const CATEGORY_LABELS: Record<string, string> = {
   'people-culture': 'People & Culture',
 };
 
+// Keep in sync with DIAPStatus in useDIAPManagement. STATUS_ORDER drives the
+// status breakdown so every status is represented and percentages sum to 100.
 const STATUS_LABELS: Record<string, string> = {
   'not-started': 'Not Started',
   'in-progress': 'In Progress',
-  'completed': 'Completed',
+  'achieved': 'Achieved',
+  'ongoing': 'Ongoing',
   'on-hold': 'On Hold',
   'cancelled': 'Cancelled',
 };
+
+const STATUS_ORDER = ['not-started', 'in-progress', 'achieved', 'ongoing', 'on-hold', 'cancelled'];
 
 const PRIORITY_COLORS: Record<string, string> = {
   high: COLORS.statusHigh,
@@ -61,7 +66,8 @@ const PRIORITY_ACCENT: Record<string, string> = {
 const STATUS_COLORS: Record<string, string> = {
   'not-started': '#6b7280',
   'in-progress': '#945a00',
-  'completed': '#166534',
+  'achieved': '#166534',
+  'ongoing': '#1a4fd6',
   'on-hold': '#6b7280',
   'cancelled': '#991b1b',
 };
@@ -261,10 +267,13 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   const medItems = items.filter(i => i.priority === 'medium');
   const lowItems = items.filter(i => i.priority === 'low');
   const completedCount = items.filter(i => i.status === 'achieved').length;
-  const inProgressCount = items.filter(i => i.status === 'in-progress').length;
-  const notStartedCount = items.filter(i => i.status === 'not-started').length;
-  const onHoldCount = items.filter(i => i.status === 'on-hold').length;
   const completionRate = totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0;
+
+  // Any item whose category is not a known label (standard or custom) is
+  // collected here so it is never silently dropped from the plan.
+  const OTHER_CATEGORY_LABEL = 'Other / Uncategorised';
+  const knownCategoryKeys = new Set(Object.keys(categoryLabels));
+  const otherCategoryItems = items.filter(i => !knownCategoryKeys.has(i.category));
 
   // ========================================
   // COVER PAGE
@@ -366,6 +375,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     const count = items.filter(i => i.category === key).length;
     if (count > 0) catTocItems.push(`${label} (${count})`);
   }
+  if (otherCategoryItems.length > 0) catTocItems.push(`${OTHER_CATEGORY_LABEL} (${otherCategoryItems.length})`);
 
   const tocSections: { group: string; items: string[] }[] = [
     {
@@ -428,13 +438,18 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // Status breakdown
   addSectionHeader('Status Breakdown', 'accent');
 
-  const statusRows = [
-    { label: 'Not Started', count: notStartedCount, color: STATUS_COLORS['not-started'] },
-    { label: 'In Progress', count: inProgressCount, color: STATUS_COLORS['in-progress'] },
-    { label: 'Completed', count: completedCount, color: STATUS_COLORS['completed'] },
-    { label: 'On Hold', count: onHoldCount, color: STATUS_COLORS['on-hold'] },
-    { label: 'Cancelled', count: items.filter(i => i.status === 'cancelled').length, color: STATUS_COLORS['cancelled'] },
-  ];
+  // Build a row per known status, then a catch-all so no item is unaccounted
+  // for and the percentages sum to 100.
+  const statusRows = STATUS_ORDER.map(s => ({
+    label: STATUS_LABELS[s],
+    count: items.filter(i => i.status === s).length,
+    color: STATUS_COLORS[s],
+  }));
+  const knownStatuses = new Set(STATUS_ORDER);
+  const otherStatusCount = items.filter(i => !knownStatuses.has(i.status)).length;
+  if (otherStatusCount > 0) {
+    statusRows.push({ label: 'Other', count: otherStatusCount, color: '#6b7280' });
+  }
 
   statusRows.forEach(row => {
     if (row.count === 0) return;
@@ -468,10 +483,13 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // Category breakdown
   addSectionHeader('Items by Category', 'accent');
 
-  Object.entries(categoryLabels).forEach(([key, label]) => {
-    const count = items.filter(i => i.category === key).length;
-    if (count === 0) return;
-
+  const categoryBreakdownRows = Object.entries(categoryLabels)
+    .map(([key, label]) => ({ label, count: items.filter(i => i.category === key).length }))
+    .filter(r => r.count > 0);
+  if (otherCategoryItems.length > 0) {
+    categoryBreakdownRows.push({ label: OTHER_CATEGORY_LABEL, count: otherCategoryItems.length });
+  }
+  categoryBreakdownRows.forEach(({ label, count }) => {
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...hexToRgb(COLORS.text));
@@ -759,10 +777,9 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     yPos += 4;
   };
 
-  // Render by category, then priority within each category
-  for (const [catKey, catLabel] of Object.entries(categoryLabels)) {
-    const catItems = items.filter(i => i.category === catKey);
-    if (catItems.length === 0) continue;
+  // Render one category as a page: purple band header, then priority sub-groups.
+  const renderCategoryBlock = (catLabel: string, catItems: DIAPItem[]) => {
+    if (catItems.length === 0) return;
 
     // Sort by priority within category
     catItems.sort((a, b) => (priorityOrder[a.priority || 'low'] ?? 2) - (priorityOrder[b.priority || 'low'] ?? 2));
@@ -779,6 +796,10 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       { priority: 'medium', label: 'Medium priority', items: catItems.filter(i => i.priority === 'medium') },
       { priority: 'low', label: 'Low priority', items: catItems.filter(i => i.priority === 'low') },
     ];
+    // Any item with a missing/unknown priority still renders under Low.
+    const knownPriorities = new Set(['high', 'medium', 'low']);
+    const otherPriority = catItems.filter(i => !knownPriorities.has(i.priority));
+    if (otherPriority.length > 0) prioritySubs[2].items.push(...otherPriority);
 
     for (const sub of prioritySubs) {
       if (sub.items.length === 0) continue;
@@ -805,7 +826,14 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     }
 
     yPos += 4;
+  };
+
+  // Render by category, then priority within each category
+  for (const [catKey, catLabel] of Object.entries(categoryLabels)) {
+    renderCategoryBlock(catLabel, items.filter(i => i.category === catKey));
   }
+  // Catch-all so items with an unmapped category are never dropped
+  renderCategoryBlock(OTHER_CATEGORY_LABEL, otherCategoryItems);
 
   // Info note (matching report style)
   yPos += 4;
