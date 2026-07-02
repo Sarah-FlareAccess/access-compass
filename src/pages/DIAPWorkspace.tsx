@@ -180,8 +180,59 @@ export default function DIAPWorkspace() {
   const [editingItem, setEditingItem] = useState<DIAPItem | null>(null);
   // The action currently open in the detail side-panel (compact list -> panel).
   const [detailItemId, setDetailItemId] = useState<string | null>(null);
-  // List (grouped by category) vs Board (columns by status).
+  // List (grouped by category) vs Board (columns by status or custom sections).
   const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
+  const [boardGroupBy, setBoardGroupBy] = useState<'status' | 'sections'>('status');
+  // Custom board columns (Asana-style sections), shared per org.
+  const [boardColumns, setBoardColumns] = useState<{ id: string; name: string }[]>([]);
+  const [editingColumnId, setEditingColumnId] = useState<string | null>(null);
+  const [editingColumnName, setEditingColumnName] = useState('');
+
+  useEffect(() => {
+    const oid = accessState.organisation?.id;
+    if (!oid || !supabase) return;
+    let cancelled = false;
+    supabase.from('organisations').select('diap_board_columns').eq('id', oid).single()
+      .then(({ data }) => {
+        if (!cancelled && Array.isArray(data?.diap_board_columns)) {
+          setBoardColumns(data.diap_board_columns as { id: string; name: string }[]);
+        }
+      });
+    return () => { cancelled = true; };
+  }, [accessState.organisation?.id]);
+
+  const persistBoardColumns = useCallback((cols: { id: string; name: string }[]) => {
+    setBoardColumns(cols);
+    const oid = accessState.organisation?.id;
+    if (oid && supabase) {
+      supabase.from('organisations').update({ diap_board_columns: cols }).eq('id', oid).then(() => {}, () => {});
+    }
+  }, [accessState.organisation?.id]);
+
+  const addBoardColumn = useCallback(() => {
+    const id = `col-${Date.now()}-${Math.round(Math.random() * 1e6)}`;
+    persistBoardColumns([...boardColumns, { id, name: 'New section' }]);
+    setEditingColumnId(id);
+    setEditingColumnName('New section');
+  }, [boardColumns, persistBoardColumns]);
+
+  const renameBoardColumn = useCallback((id: string, name: string) => {
+    persistBoardColumns(boardColumns.map(c => (c.id === id ? { ...c, name } : c)));
+  }, [boardColumns, persistBoardColumns]);
+
+  const moveBoardColumn = useCallback((id: string, dir: -1 | 1) => {
+    const idx = boardColumns.findIndex(c => c.id === id);
+    const next = idx + dir;
+    if (idx < 0 || next < 0 || next >= boardColumns.length) return;
+    const cols = [...boardColumns];
+    [cols[idx], cols[next]] = [cols[next], cols[idx]];
+    persistBoardColumns(cols);
+  }, [boardColumns, persistBoardColumns]);
+
+  const deleteBoardColumn = useCallback((id: string) => {
+    items.filter(i => i.boardColumn === id).forEach(i => updateItem(i.id, { boardColumn: null }));
+    persistBoardColumns(boardColumns.filter(c => c.id !== id));
+  }, [boardColumns, persistBoardColumns, items, updateItem]);
   const [filterCategories, setFilterCategories] = useState<Set<DIAPCategory>>(new Set());
   const [filterPriorities, setFilterPriorities] = useState<Set<DIAPPriority>>(new Set());
   const [filterResponsible, setFilterResponsible] = useState<string>('all');
@@ -958,6 +1009,40 @@ export default function DIAPWorkspace() {
   const detailItem = detailItemId ? items.find(i => i.id === detailItemId) ?? null : null;
   const closeDetail = () => { setDetailItemId(null); setEditingItem(null); };
 
+  // Shared board card (used by both the status board and the custom sections
+  // board). Draggable to move between columns; opens the detail panel on click.
+  const renderBoardCard = (item: DIAPItem) => {
+    const overdue = !!item.dueDate && getDueBucket(item.dueDate) === 'overdue' && item.status !== 'achieved';
+    return (
+      <div
+        key={item.id}
+        className={`diap-board__card ${detailItemId === item.id ? 'is-active' : ''}`}
+        role="button"
+        tabIndex={0}
+        draggable
+        aria-label={`Open ${item.objective || item.action}`}
+        onDragStart={(e) => e.dataTransfer.setData('text/plain', item.id)}
+        onClick={() => { dismissHint(); setDetailItemId(item.id); }}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissHint(); setDetailItemId(item.id); } }}
+      >
+        <span className="diap-board__card-title">{questionLabelForItem(item) || firstActionLine(item.action) || item.objective}</span>
+        {item.objective && <span className="diap-board__card-sub">{item.objective}</span>}
+        <div className="diap-board__card-meta">
+          {!activeSiteId && item.siteId && (
+            <span className="diap-row__venue">{sites.find(s => s.id === item.siteId)?.name ?? 'Venue'}</span>
+          )}
+          <span className={`diap-row__priority prio-${item.priority}`}>{item.priority}</span>
+          {item.responsibleRole && <span className="diap-board__card-owner">{item.responsibleRole}</span>}
+          {item.dueDate && (
+            <span className={`diap-row__due ${overdue ? 'is-overdue' : ''}`}>
+              {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
+            </span>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="diap-page">
       <div className="container">
@@ -1556,7 +1641,7 @@ export default function DIAPWorkspace() {
           />
         )}
 
-        {/* View toolbar: List (grouped) vs Board (by status) */}
+        {/* View toolbar: List vs Board, and (on the board) Status vs Sections */}
         <div className="diap-view-toolbar">
           <div className="diap-view-toggle" role="group" aria-label="Choose view">
             <button
@@ -1573,13 +1658,31 @@ export default function DIAPWorkspace() {
             >Board</button>
           </div>
           {viewMode === 'board' && (
-            <span className="diap-view-hint">Drag a card between columns to change its status</span>
+            <div className="diap-view-toggle" role="group" aria-label="Board grouping">
+              <button
+                type="button"
+                className={boardGroupBy === 'status' ? 'is-active' : ''}
+                onClick={() => setBoardGroupBy('status')}
+                aria-pressed={boardGroupBy === 'status'}
+              >By status</button>
+              <button
+                type="button"
+                className={boardGroupBy === 'sections' ? 'is-active' : ''}
+                onClick={() => setBoardGroupBy('sections')}
+                aria-pressed={boardGroupBy === 'sections'}
+              >My sections</button>
+            </div>
+          )}
+          {viewMode === 'board' && (
+            <span className="diap-view-hint">
+              {boardGroupBy === 'status' ? 'Drag a card between columns to change its status' : 'Drag a card into a section; add and rename your own columns'}
+            </span>
           )}
         </div>
 
         {/* Board view: columns by status */}
-        {viewMode === 'board' && (
-          <div className="diap-board" aria-label="Action plan board">
+        {viewMode === 'board' && boardGroupBy === 'status' && (
+          <div className="diap-board" aria-label="Action plan board by status">
             {BOARD_COLUMNS.map(col => {
               const colItems = filteredItems.filter(i => i.status === col.status);
               return (
@@ -1597,44 +1700,66 @@ export default function DIAPWorkspace() {
                     <span className="diap-board__col-count">{colItems.length}</span>
                   </div>
                   <div className="diap-board__cards">
-                    {colItems.map(item => {
-                      const overdue = !!item.dueDate && getDueBucket(item.dueDate) === 'overdue' && item.status !== 'achieved';
-                      return (
-                        <div
-                          key={item.id}
-                          className={`diap-board__card ${detailItemId === item.id ? 'is-active' : ''}`}
-                          role="button"
-                          tabIndex={0}
-                          draggable
-                          aria-label={`Open ${item.objective || item.action}`}
-                          onDragStart={(e) => e.dataTransfer.setData('text/plain', item.id)}
-                          onClick={() => { dismissHint(); setDetailItemId(item.id); }}
-                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissHint(); setDetailItemId(item.id); } }}
-                        >
-                          <span className="diap-board__card-title">{questionLabelForItem(item) || firstActionLine(item.action) || item.objective}</span>
-                          {item.objective && (
-                            <span className="diap-board__card-sub">{item.objective}</span>
-                          )}
-                          <div className="diap-board__card-meta">
-                            {!activeSiteId && item.siteId && (
-                              <span className="diap-row__venue">{sites.find(s => s.id === item.siteId)?.name ?? 'Venue'}</span>
-                            )}
-                            <span className={`diap-row__priority prio-${item.priority}`}>{item.priority}</span>
-                            {item.responsibleRole && <span className="diap-board__card-owner">{item.responsibleRole}</span>}
-                            {item.dueDate && (
-                              <span className={`diap-row__due ${overdue ? 'is-overdue' : ''}`}>
-                                {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
+                    {colItems.map(renderBoardCard)}
                     {colItems.length === 0 && <p className="diap-board__empty">None</p>}
                   </div>
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {/* Board view: your custom sections */}
+        {viewMode === 'board' && boardGroupBy === 'sections' && (
+          <div className="diap-board" aria-label="Action plan board by section">
+            {[...boardColumns, { id: '__unassigned__', name: 'Unassigned' }].map(col => {
+              const isReal = col.id !== '__unassigned__';
+              const colItems = filteredItems.filter(i => (i.boardColumn ?? '__unassigned__') === col.id);
+              return (
+                <div
+                  key={col.id}
+                  className="diap-board__col"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => {
+                    const id = e.dataTransfer.getData('text/plain');
+                    if (id) updateItem(id, { boardColumn: isReal ? col.id : null });
+                  }}
+                >
+                  <div className="diap-board__col-head">
+                    {editingColumnId === col.id ? (
+                      <input
+                        className="diap-board__col-input"
+                        value={editingColumnName}
+                        autoFocus
+                        onChange={(e) => setEditingColumnName(e.target.value)}
+                        onBlur={() => { renameBoardColumn(col.id, editingColumnName.trim() || 'Section'); setEditingColumnId(null); }}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') { renameBoardColumn(col.id, editingColumnName.trim() || 'Section'); setEditingColumnId(null); }
+                          if (e.key === 'Escape') setEditingColumnId(null);
+                        }}
+                        aria-label="Section name"
+                      />
+                    ) : (
+                      <span className="diap-board__col-title">{col.name}</span>
+                    )}
+                    <span className="diap-board__col-count">{colItems.length}</span>
+                  </div>
+                  {isReal && (
+                    <div className="diap-board__col-actions">
+                      <button type="button" onClick={() => moveBoardColumn(col.id, -1)} aria-label="Move section left" title="Move left">◀</button>
+                      <button type="button" onClick={() => moveBoardColumn(col.id, 1)} aria-label="Move section right" title="Move right">▶</button>
+                      <button type="button" onClick={() => { setEditingColumnId(col.id); setEditingColumnName(col.name); }} aria-label="Rename section" title="Rename">✏️</button>
+                      <button type="button" onClick={() => { if (confirm(`Delete section "${col.name}"? Its actions move to Unassigned.`)) deleteBoardColumn(col.id); }} aria-label="Delete section" title="Delete">🗑</button>
+                    </div>
+                  )}
+                  <div className="diap-board__cards">
+                    {colItems.map(renderBoardCard)}
+                    {colItems.length === 0 && <p className="diap-board__empty">{isReal ? 'Drop actions here' : 'None'}</p>}
+                  </div>
+                </div>
+              );
+            })}
+            <button type="button" className="diap-board__add-col" onClick={addBoardColumn}>+ Add section</button>
           </div>
         )}
 

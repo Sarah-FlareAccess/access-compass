@@ -46,6 +46,10 @@ export interface DIAPItem {
   // Stamped with the active site when the item is created or generated.
   siteId?: string | null;
 
+  // Custom board column (Asana-style section) this action sits in. null =
+  // Unassigned. Value is a column id from organisations.diap_board_columns.
+  boardColumn?: string | null;
+
   // Core fields
   objective: string;
   action: string;
@@ -464,6 +468,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       id: item.id,
       session_id: item.sessionId,
       site_id: item.siteId ?? null,
+      board_column: item.boardColumn ?? null,
       objective: item.objective,
       action: item.action,
       category: item.category,
@@ -533,6 +538,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
                   id,
                   sessionId: row.session_id as string,
                   siteId: (row.site_id as string | null) ?? null,
+                  boardColumn: (row.board_column as string | null) ?? null,
                   objective: row.objective as string,
                   action: row.action as string,
                   category: (row.category as DIAPCategory) || 'physical-access',

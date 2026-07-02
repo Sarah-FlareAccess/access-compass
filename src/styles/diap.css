@@ -456,6 +456,59 @@ details[open] .diap-framework__domain-summary::after {
   gap: 8px;
 }
 
+.diap-board__col-input {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+  border: 1px solid var(--amethyst-diamond);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.diap-board__col-actions {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.diap-board__col-actions button {
+  border: none;
+  background: rgba(73, 14, 103, 0.06);
+  color: var(--amethyst-diamond);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.diap-board__col-actions button:hover { background: rgba(73, 14, 103, 0.14); }
+.diap-board__col-actions button:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 1px;
+}
+
+.diap-board__add-col {
+  flex: 0 0 200px;
+  align-self: flex-start;
+  border: 1px dashed rgba(73, 14, 103, 0.3);
+  background: transparent;
+  color: var(--amethyst-diamond);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.diap-board__add-col:hover { background: rgba(73, 14, 103, 0.04); }
+.diap-board__add-col:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
+
 .diap-board__card {
   background: #fff;
   border: 1px solid rgba(73, 14, 103, 0.1);
