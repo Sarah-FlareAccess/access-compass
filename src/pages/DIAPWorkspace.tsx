@@ -979,12 +979,13 @@ export default function DIAPWorkspace() {
           </div>
         )}
 
-        {/* Generate from Assessment Banner. Gated on the ACTIVE venue's item
-            count (not the global count) so it reappears for each venue that has
-            completed modules but no actions yet. completedModulesEvidence is
-            already site-scoped via moduleProgress. */}
+        {/* Generate from Assessment Banner. Shows for a venue (or a single-site
+            org) that has completed modules but no actions yet. Suppressed on the
+            org-wide multi-site view, where the plan is the venues' aggregate and
+            generation happens per venue. */}
         {completedModulesEvidence.length > 0 &&
-          items.filter(i => (i.siteId ?? null) === (activeSiteId ?? null)).length === 0 && (
+          siteScopedItems.length === 0 &&
+          (activeSiteId != null || sites.length === 0) && (
           <div className="generate-banner">
             <div className="generate-banner-content">
               <h2 className="generate-banner-heading">Generate {activeSiteName ? `${activeSiteName} ` : ''}Action Plan from Your Assessment</h2>
