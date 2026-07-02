@@ -1611,8 +1611,8 @@ export default function DIAPWorkspace() {
                           onClick={() => { dismissHint(); setDetailItemId(item.id); }}
                           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissHint(); setDetailItemId(item.id); } }}
                         >
-                          <span className="diap-board__card-title">{firstActionLine(item.action) || item.objective}</span>
-                          {item.objective && firstActionLine(item.action) && (
+                          <span className="diap-board__card-title">{questionLabelForItem(item) || firstActionLine(item.action) || item.objective}</span>
+                          {item.objective && (
                             <span className="diap-board__card-sub">{item.objective}</span>
                           )}
                           <div className="diap-board__card-meta">
@@ -1755,7 +1755,7 @@ export default function DIAPWorkspace() {
                                     <span className={`diap-row__status status-${item.status}`} aria-hidden="true" />
                                     <span className="diap-row__main">
                                       <span className="diap-row__title">
-                                        {firstActionLine(item.action) || item.objective}
+                                        {questionLabelForItem(item) || firstActionLine(item.action) || item.objective}
                                         {changedItems[item.id] && <span className="diap-row__changed" title="Assessment answer changed">updated</span>}
                                       </span>
                                     </span>
@@ -2078,6 +2078,35 @@ function getQuestionContext(questionSource?: string, moduleSource?: string): { q
   const question = questions.find(q => q.id === baseId || q.id === questionSource);
   if (!question) return null;
   return { questionText: question.text, answerLabel: '' };
+}
+
+// Turn an assessment question into a concise statement label for list/board
+// rows, e.g. "Is there at least 2m of overhead clearance along all paths?" ->
+// "At least 2m of overhead clearance along all paths". Strips the leading
+// question stem and the trailing "?", then sentence-cases the remainder.
+const QUESTION_STEMS = [
+  'do you currently have', 'do you currently', 'do you already', 'do you have', 'do you provide',
+  'do you offer', 'do you make sure', 'do you ensure', 'do you know how to', 'do you ',
+  'does your organisation', 'does your', 'does the', 'does ',
+  'is there', 'are there', 'is your', 'is the', 'are your', 'are all', 'are the', 'are ', 'is ',
+  'can you', 'can customers', 'can visitors', 'can people', 'can all', 'can ',
+  'have you', 'has your', 'will you', 'will ', 'when ',
+].sort((a, b) => b.length - a.length);
+
+function questionToLabel(text: string): string {
+  let s = text.trim().replace(/\?+\s*$/, '').trim();
+  const lower = s.toLowerCase();
+  for (const stem of QUESTION_STEMS) {
+    if (lower.startsWith(stem)) { s = s.slice(stem.length).trim(); break; }
+  }
+  if (!s) return text.replace(/\?+\s*$/, '').trim();
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function questionLabelForItem(item: DIAPItem): string | null {
+  const ctx = getQuestionContext(item.questionSource, item.moduleSource);
+  if (!ctx?.questionText) return null;
+  return questionToLabel(ctx.questionText);
 }
 
 function getChangeMessage(oldAnswer: string, newAnswer: string): string {
