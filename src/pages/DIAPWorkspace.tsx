@@ -22,6 +22,9 @@ import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
 import { SiteContextBar } from '../components/SiteContextBar';
 import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../utils/supabase';
+import { getFramework } from '../data/frameworks';
+import { hasMappings, domainsForModule } from '../data/frameworkMappings';
 
 // Sentinel used in the site filter to represent items with no site (org-wide).
 const ORG_WIDE_SITE = '__org__';
@@ -553,6 +556,44 @@ export default function DIAPWorkspace() {
     return { total, high, medium, low, achieved, interpretation };
   }, [siteScopedItems, activeSiteName]);
 
+  // Statutory framework for the org's jurisdiction (SA SDIP, national ADS, etc).
+  // The DIAP is where direct statutory reporting happens, so we map the plan's
+  // actions to the jurisdiction's outcome domains here.
+  const [jurisdiction, setJurisdiction] = useState<string | null>(null);
+  useEffect(() => {
+    const oid = accessState.organisation?.id;
+    if (!oid || !supabase) return;
+    let cancelled = false;
+    supabase.from('organisations').select('jurisdiction').eq('id', oid).single()
+      .then(({ data }) => { if (!cancelled) setJurisdiction((data?.jurisdiction as string) || 'AU'); });
+    return () => { cancelled = true; };
+  }, [accessState.organisation?.id]);
+
+  // Group the (venue-scoped) action items by the jurisdiction framework's
+  // outcome domains, so the plan can be reported against statutory headings.
+  const frameworkOutcomes = useMemo(() => {
+    if (!jurisdiction || !hasMappings(jurisdiction)) return null;
+    const fw = getFramework(jurisdiction);
+    const businessTypes = getSession()?.business_snapshot?.business_types ?? [];
+    const buckets = new Map<string, { total: number; achieved: number; inProgress: number; notStarted: number }>();
+    for (const d of fw.domains) buckets.set(d.id, { total: 0, achieved: 0, inProgress: 0, notStarted: 0 });
+    for (const item of siteScopedItems) {
+      const code = item.moduleSource?.match(/(\d+\.\d+)/)?.[1];
+      if (!code) continue;
+      for (const domainId of domainsForModule(code, jurisdiction, businessTypes)) {
+        const bucket = buckets.get(domainId);
+        if (!bucket) continue;
+        bucket.total++;
+        if (item.status === 'achieved') bucket.achieved++;
+        else if (item.status === 'in-progress') bucket.inProgress++;
+        else bucket.notStarted++;
+      }
+    }
+    const domains = fw.domains.map(d => ({ ...d, ...(buckets.get(d.id)!) }));
+    const mapped = domains.reduce((sum, d) => sum + d.total, 0);
+    return { fw, domains, mapped };
+  }, [jurisdiction, siteScopedItems]);
+
   // Whether any filter beyond the default venue scope is narrowing the view.
   // The site chip follows the active venue by default; anything else (status,
   // priority, category, role, due date, or a manual site override) means the
@@ -915,6 +956,41 @@ export default function DIAPWorkspace() {
               </div>
             </div>
             <p className="diap-summary-interpretation">{siteSummary.interpretation}</p>
+          </section>
+        )}
+
+        {/* Statutory framework alignment. The DIAP's actions grouped by the
+            jurisdiction's outcome domains, so councils can report against the
+            official headings (e.g. SA's SDIP). */}
+        {frameworkOutcomes && frameworkOutcomes.mapped > 0 && (
+          <section className="diap-framework" aria-labelledby="diap-framework-heading">
+            <div className="diap-framework__head">
+              <h2 id="diap-framework-heading">Against the {frameworkOutcomes.fw.name}</h2>
+              <p className="diap-framework__cite">
+                Your action plan mapped to the {frameworkOutcomes.fw.short} outcome domains.
+                These headings mirror the framework, so they can go straight into your statutory report.
+              </p>
+            </div>
+            <div className="diap-framework__domains">
+              {frameworkOutcomes.domains.map(d => (
+                <div key={d.id} className={`diap-framework__domain ${d.total === 0 ? 'is-empty' : ''}`}>
+                  <div className="diap-framework__domain-head">
+                    <h3>{d.name}</h3>
+                    <span className="diap-framework__domain-count">
+                      {d.total} action{d.total !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  {d.outcomeStatement && <p className="diap-framework__statement">{d.outcomeStatement}</p>}
+                  {d.total > 0 ? (
+                    <p className="diap-framework__breakdown">
+                      {d.achieved} achieved · {d.inProgress} in progress · {d.notStarted} not started
+                    </p>
+                  ) : (
+                    <p className="diap-framework__breakdown diap-framework__breakdown--empty">No actions mapped yet</p>
+                  )}
+                </div>
+              ))}
+            </div>
           </section>
         )}
 
