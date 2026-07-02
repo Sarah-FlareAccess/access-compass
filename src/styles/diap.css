@@ -429,6 +429,67 @@ details[open] .diap-framework__domain-summary::after {
   color: var(--text-muted);
 }
 
+/* Bulk edit */
+.diap-bulk-edit-btn {
+  margin-left: auto;
+  padding: 6px 16px;
+  border: 1px solid rgba(73, 14, 103, 0.25);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--amethyst-diamond);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.diap-bulk-edit-btn:hover:not(:disabled) {
+  background: rgba(73, 14, 103, 0.06);
+}
+
+.diap-bulk-edit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.diap-bulk-edit-btn:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
+
+.diap-bulk-modal {
+  max-width: 460px;
+}
+
+.diap-bulk-scope {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+.diap-bulk-field {
+  margin-bottom: var(--spacing-md);
+}
+
+.diap-bulk-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.diap-bulk-field input[type="date"],
+.diap-bulk-field select {
+  width: 100%;
+}
+
+.diap-bulk-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 /* Board (kanban) */
 .diap-board {
   display: flex;

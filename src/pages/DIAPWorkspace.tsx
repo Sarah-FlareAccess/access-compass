@@ -198,6 +198,16 @@ export default function DIAPWorkspace() {
   const [editingColumnId, setEditingColumnId] = useState<string | null>(null);
   const [editingColumnName, setEditingColumnName] = useState('');
 
+  // Bulk edit: apply a due date, responsible role and/or status to every action
+  // currently shown (filters and the active venue act as the selection).
+  const [showBulkEdit, setShowBulkEdit] = useState(false);
+  const [bulkApplyDue, setBulkApplyDue] = useState(false);
+  const [bulkDueDate, setBulkDueDate] = useState('');
+  const [bulkApplyRole, setBulkApplyRole] = useState(false);
+  const [bulkRole, setBulkRole] = useState('');
+  const [bulkApplyStatus, setBulkApplyStatus] = useState(false);
+  const [bulkStatus, setBulkStatus] = useState<DIAPStatus>('not-started');
+
   useEffect(() => {
     const oid = accessState.organisation?.id;
     if (!oid || !supabase) return;
@@ -821,6 +831,21 @@ export default function DIAPWorkspace() {
     updateItem(itemId, { status: newStatus });
   };
 
+  // Apply the selected bulk fields to every action currently shown.
+  const applyBulkEdit = () => {
+    const updates: Partial<DIAPItem> = {};
+    if (bulkApplyDue) updates.dueDate = bulkDueDate || undefined;
+    if (bulkApplyRole) {
+      updates.responsibleRole = bulkRole || undefined;
+      if (bulkRole) addManagedRole(bulkRole);
+    }
+    if (bulkApplyStatus) updates.status = bulkStatus;
+    if (Object.keys(updates).length === 0) { setShowBulkEdit(false); return; }
+    filteredItems.forEach(i => updateItem(i.id, updates));
+    setShowBulkEdit(false);
+    setBulkApplyDue(false); setBulkApplyRole(false); setBulkApplyStatus(false);
+  };
+
   // Handle export to CSV
   const handleExportCSV = () => {
     const csvContent = exportToCSV();
@@ -1257,6 +1282,81 @@ export default function DIAPWorkspace() {
             <button type="button" className="diap-filter-alert__clear" onClick={resetFilters}>
               Clear filters
             </button>
+          </div>
+        )}
+
+        {/* Bulk Edit Modal */}
+        {showBulkEdit && (
+          <div className="modal-overlay" onClick={() => setShowBulkEdit(false)} onKeyDown={(e) => { if (e.key === 'Escape') setShowBulkEdit(false); }}>
+            <div className="modal-content diap-bulk-modal" role="dialog" aria-modal="true" aria-labelledby="diap-bulk-title" onClick={(e) => e.stopPropagation()}>
+              <h2 id="diap-bulk-title">Bulk edit</h2>
+              <p className="diap-bulk-scope">
+                Applies to the <strong>{filteredItems.length} action{filteredItems.length !== 1 ? 's' : ''}</strong> currently shown
+                {activeSiteName ? <> for <strong>{activeSiteName}</strong></> : ' across all venues'}
+                {filtersApplied ? ' (matching your filters)' : ''}. Tick a field to change it, leave the rest untouched.
+              </p>
+
+              <div className="diap-bulk-field">
+                <label className="diap-bulk-toggle">
+                  <input type="checkbox" checked={bulkApplyDue} onChange={(e) => setBulkApplyDue(e.target.checked)} />
+                  Due date
+                </label>
+                <input
+                  type="date"
+                  value={bulkDueDate}
+                  disabled={!bulkApplyDue}
+                  onChange={(e) => setBulkDueDate(e.target.value)}
+                  aria-label="Due date to apply"
+                />
+                {bulkApplyDue && !bulkDueDate && <span className="field-hint">Leave empty to clear the due date on all shown actions.</span>}
+              </div>
+
+              <div className="diap-bulk-field">
+                <label className="diap-bulk-toggle">
+                  <input type="checkbox" checked={bulkApplyRole} onChange={(e) => setBulkApplyRole(e.target.checked)} />
+                  Responsible role
+                </label>
+                <div className={bulkApplyRole ? '' : 'diap-bulk-disabled'} aria-disabled={!bulkApplyRole}>
+                  <RoleComboBox
+                    value={bulkRole}
+                    roles={responsiblePeople}
+                    onChange={(val) => setBulkRole(val)}
+                    onAddRole={addManagedRole}
+                    onManageRoles={() => setShowManageRoles(true)}
+                  />
+                </div>
+                {bulkApplyRole && !bulkRole && <span className="field-hint">Leave empty to clear the responsible role on all shown actions.</span>}
+              </div>
+
+              <div className="diap-bulk-field">
+                <label className="diap-bulk-toggle">
+                  <input type="checkbox" checked={bulkApplyStatus} onChange={(e) => setBulkApplyStatus(e.target.checked)} />
+                  Status
+                </label>
+                <select
+                  value={bulkStatus}
+                  disabled={!bulkApplyStatus}
+                  onChange={(e) => setBulkStatus(e.target.value as DIAPStatus)}
+                  aria-label="Status to apply"
+                >
+                  {Object.entries(STATUS_LABELS).map(([val, label]) => (
+                    <option key={val} value={val}>{label}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="modal-actions">
+                <button type="button" className="btn-secondary" onClick={() => setShowBulkEdit(false)}>Cancel</button>
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={applyBulkEdit}
+                  disabled={!bulkApplyDue && !bulkApplyRole && !bulkApplyStatus}
+                >
+                  Apply to {filteredItems.length} action{filteredItems.length !== 1 ? 's' : ''}
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
@@ -1700,6 +1800,15 @@ export default function DIAPWorkspace() {
               aria-pressed={viewMode === 'board'}
             >Board</button>
           </div>
+          <button
+            type="button"
+            className="diap-bulk-edit-btn"
+            onClick={() => setShowBulkEdit(true)}
+            disabled={filteredItems.length === 0}
+            title="Set due date, responsible role or status for every action currently shown"
+          >
+            Bulk edit ({filteredItems.length})
+          </button>
           {viewMode === 'board' && (
             <div className="diap-view-toggle" role="group" aria-label="Group the board by">
               <button type="button" className={boardGroupBy === 'category' ? 'is-active' : ''} onClick={() => setBoardGroupBy('category')} aria-pressed={boardGroupBy === 'category'}>Categories</button>
