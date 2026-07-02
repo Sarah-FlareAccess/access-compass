@@ -524,6 +524,15 @@ details[open] .diap-framework__domain-summary::after {
 
 .diap-bulk-modal {
   max-width: 460px;
+  padding: 28px;
+}
+
+.diap-bulk-modal h2 {
+  margin: 0 0 8px;
+}
+
+.diap-bulk-modal .modal-actions {
+  margin-top: 20px;
 }
 
 .diap-bulk-scope {

@@ -135,6 +135,42 @@ function saveManagedRoles(roles: string[]) {
   localStorage.setItem(DIAP_ROLES_KEY, JSON.stringify(roles));
 }
 
+// Moves focus into a dialog when it opens, keeps Tab cycling within it, and
+// restores focus to the trigger when it closes. Attach the returned ref to the
+// dialog container (give the container tabIndex={-1} as a focus fallback).
+function useFocusTrap<T extends HTMLElement>(active: boolean) {
+  const ref = useRef<T>(null);
+  useEffect(() => {
+    if (!active) return;
+    const container = ref.current;
+    if (!container) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const getFocusable = () =>
+      Array.from(container.querySelectorAll<HTMLElement>(focusableSelector)).filter(el => el.offsetParent !== null);
+    (getFocusable()[0] ?? container).focus();
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const focusable = getFocusable();
+      if (focusable.length === 0) { e.preventDefault(); container.focus(); return; }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeEl = document.activeElement as HTMLElement;
+      if (e.shiftKey) {
+        if (activeEl === first || !container.contains(activeEl)) { e.preventDefault(); last.focus(); }
+      } else if (activeEl === last || !container.contains(activeEl)) {
+        e.preventDefault(); first.focus();
+      }
+    };
+    container.addEventListener('keydown', onKeyDown);
+    return () => {
+      container.removeEventListener('keydown', onKeyDown);
+      previouslyFocused?.focus?.();
+    };
+  }, [active]);
+  return ref;
+}
+
 export default function DIAPWorkspace() {
   usePageTitle('Action plan');
   const {
@@ -208,6 +244,8 @@ export default function DIAPWorkspace() {
   const [bulkRole, setBulkRole] = useState('');
   const [bulkApplyStatus, setBulkApplyStatus] = useState(false);
   const [bulkStatus, setBulkStatus] = useState<DIAPStatus>('not-started');
+  const bulkModalRef = useFocusTrap<HTMLDivElement>(showBulkEdit);
+  const detailPanelRef = useFocusTrap<HTMLElement>(detailItemId !== null);
 
   useEffect(() => {
     const oid = accessState.organisation?.id;
@@ -1310,7 +1348,7 @@ export default function DIAPWorkspace() {
         {/* Bulk Edit Modal */}
         {showBulkEdit && (
           <div className="modal-overlay" onClick={() => setShowBulkEdit(false)} onKeyDown={(e) => { if (e.key === 'Escape') setShowBulkEdit(false); }}>
-            <div className="modal-content diap-bulk-modal" role="dialog" aria-modal="true" aria-labelledby="diap-bulk-title" onClick={(e) => e.stopPropagation()}>
+            <div ref={bulkModalRef} tabIndex={-1} className="modal-content diap-bulk-modal" role="dialog" aria-modal="true" aria-labelledby="diap-bulk-title" onClick={(e) => e.stopPropagation()}>
               <h2 id="diap-bulk-title">Bulk edit</h2>
               <p className="diap-bulk-scope">
                 Applies to the <strong>{selectedIds.size} selected action{selectedIds.size !== 1 ? 's' : ''}</strong>. Tick a field to change it, leave the rest untouched.
@@ -2319,6 +2357,8 @@ export default function DIAPWorkspace() {
         <>
           <div className="diap-detail-overlay" onClick={closeDetail} aria-hidden="true" />
           <aside
+            ref={detailPanelRef}
+            tabIndex={-1}
             className="diap-detail-panel"
             role="dialog"
             aria-modal="true"
