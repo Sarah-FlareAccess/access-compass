@@ -260,7 +260,6 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
   // Sites — used to nudge multi-site customers who haven't set up locations yet.
   const { sites } = useSites();
   const [activeSiteId] = useActiveSiteId();
-  const activeSiteName = sites.find(s => s.id === activeSiteId)?.name;
   const pricingTier = accessState.organisation?.pricing_tier ?? '';
   const isMultiLocationTier = /multi.?site|premier venue|major venue/i.test(pricingTier);
   const SITE_NUDGE_DISMISS_KEY = 'access_compass_site_nudge_dismissed';
@@ -808,12 +807,7 @@ Thanks!`;
             {activeTab !== 'activity' && <section className="progress-section">
             <div className="progress-card">
               <div className="progress-header">
-                <div>
-                  <h2 className="progress-title">Assessment Progress</h2>
-                  <p className="progress-scope-note">
-                    Module assessments{activeSiteName ? ` for ${activeSiteName}` : sites.length > 0 ? ' across all venues' : ''}
-                  </p>
-                </div>
+                <h2 className="progress-title">Assessment Progress</h2>
                 <span className="progress-count">
                   {overallStats.modulesCompleted} of {overallStats.modulesTotal} modules completed
                 </span>
@@ -879,14 +873,7 @@ Thanks!`;
               {/* Action Plan Snapshot */}
               {overallStats.diapItemCount > 0 && (
                 <section className="dashboard-snapshot">
-                  <div className="snapshot-header">
-                    <div>
-                      <h2>Action Plan (DIAP)</h2>
-                      <p className="snapshot-scope-note">
-                        Actions in your Disability Inclusion Action Plan{activeSiteName ? ` for ${activeSiteName}` : sites.length > 0 ? ' across all venues' : ''}
-                      </p>
-                    </div>
-                  </div>
+                  <h2>Action Plan (DIAP)</h2>
                   <div className="snapshot-row">
                     <div className="snapshot-stat">
                       <span className="snapshot-value">{overallStats.diapItemCount}</span>
@@ -908,12 +895,7 @@ Thanks!`;
               {/* Group Progress Snapshot */}
               {overallStats.modulesCompleted > 0 && (
                 <section className="dashboard-snapshot dashboard-progress-area">
-                  <div className="snapshot-header">
-                    <div>
-                      <h2>Progress by area</h2>
-                      <p className="snapshot-scope-note">Module assessments completed, grouped by area (not the action plan)</p>
-                    </div>
-                  </div>
+                  <h2>Progress by area</h2>
                   <div className="group-progress-list">
                     {progressByArea.map(group => {
                       const pct = group.totalCount > 0 ? Math.round((group.completedCount / group.totalCount) * 100) : 0;
