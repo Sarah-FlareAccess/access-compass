@@ -19,6 +19,7 @@ import { MODULE_TO_DIAP_MAPPING, DIAP_SECTIONS } from '../data/diapMapping';
 import type { DIAPComment } from '../types/activity';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { generateActionText } from '../components/questions/QuestionFlow';
+import { generateModuleSummary } from '../utils/generateModuleSummary';
 
 export type DIAPCategory =
   | 'physical-access'
@@ -1501,190 +1502,56 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       existingItems.filter(i => (i.siteId ?? null) === site).map(i => i.questionSource).filter(Boolean)
     );
 
-    responses.forEach(response => {
-      // Skip if we already have a DIAP item for this question
-      if (existingQuestionSources.has(response.questionId)) {
-        return;
-      }
+    // Reuse the SAME summary logic the report uses (generateModuleSummary), so
+    // EVERY answer type - yes/no, partially, single-select, multi-select, media,
+    // url, measurement - flows into the DIAP. No responses are dropped.
+    const summary = generateModuleSummary(responses as any, questions as any);
+    const moduleCodeForObj = moduleName.match(/(\d+\.\d+)/)?.[1] || '';
+    const added = new Set<string>();
+    const respByQ = new Map<string, any>(responses.map((r: any) => [r.questionId, r]));
 
-      const question = questions.find((q: any) => q.id === response.questionId);
-      if (!question) return;
+    const pushItem = (
+      questionId: string,
+      questionText: string,
+      action: string,
+      priority: DIAPPriority,
+      impactStatement: string | undefined,
+    ) => {
+      if (!questionId || existingQuestionSources.has(questionId) || added.has(questionId)) return;
+      added.add(questionId);
+      const q: any = questions.find((qq: any) => qq.id === questionId) || { text: questionText };
+      const resp: any = respByQ.get(questionId);
+      const sourceAnswer = resp?.answer
+        || (resp?.multiSelectValues?.length ? resp.multiSelectValues.join(',') : undefined);
+      newItems.push({
+        id: uuidv4(),
+        sessionId: session?.session_id || '',
+        objective: generateObjective(q, sourceAnswer || 'no', moduleCodeForObj),
+        action: action || generateDIAPActions(q, 'no'),
+        category: mapModuleToCategory(moduleName),
+        priority,
+        status: 'not-started',
+        timeframe: '',
+        moduleSource: moduleName,
+        questionSource: questionId,
+        sourceAnswer,
+        importSource: 'audit',
+        impactStatement,
+        successIndicators: generateSuccessIndicator(q, moduleCodeForObj),
+        complianceLevel: q.complianceLevel,
+        complianceRef: q.complianceRef,
+        createdAt: now,
+        updatedAt: now,
+      });
+    };
 
-      // Generate items for "no", "not-sure", or "partially" answers
-      if (response.answer === 'no' || response.answer === 'not-sure' || response.answer === 'partially') {
-        const priority: DIAPPriority = calculateQuestionPriority({
-          complianceLevel: question.complianceLevel,
-          safetyRelated: question.safetyRelated,
-          impactLevel: question.impactLevel,
-          answer: response.answer,
-        });
-        let impactStatement: string | undefined;
-
-        if (response.answer === 'partially') {
-          impactStatement = response.notes?.trim()
-            ? `Partial measures in place: ${response.notes.trim()}. Complete implementation for full accessibility.`
-            : 'Partial measures are in place. Complete implementation for full accessibility.';
-        } else if (response.answer === 'not-sure') {
-          impactStatement = 'This area needs further investigation to confirm current status.';
-        } else {
-          impactStatement = question.safetyRelated
-            ? 'This is a safety-related item requiring immediate attention.'
-            : undefined;
-        }
-
-        // Extract module code from moduleName (e.g. "1.4: Social media..." -> "1.4")
-        const moduleCodeForObj = moduleName.match(/(\d+\.\d+)/)?.[1] || '';
-
-        const item: DIAPItem = {
-          id: uuidv4(),
-          sessionId: session?.session_id || '',
-          objective: generateObjective(question, response.answer, moduleCodeForObj),
-          action: generateDIAPActions(question, response.answer),
-          category: mapModuleToCategory(moduleName),
-          priority,
-          status: 'not-started',
-          timeframe: '',
-          moduleSource: moduleName,
-          questionSource: response.questionId,
-          sourceAnswer: response.answer,
-          importSource: 'audit',
-          impactStatement,
-          successIndicators: generateSuccessIndicator(question, moduleCodeForObj),
-          complianceLevel: question.complianceLevel,
-          complianceRef: question.complianceRef,
-          createdAt: now,
-          updatedAt: now,
-        };
-
-        newItems.push(item);
-      }
-
-      // Generate items from multi-select gap analysis
-      // If only some positive options are selected, unselected ones represent gaps
-      if (question.type === 'multi-select' && question.options && response.answer) {
-        const selectedIds = response.answer.split(',').map((s: string) => s.trim()).filter(Boolean);
-
-        // Skip generic/catch-all options
-        const skipIds = new Set(['other', 'not-sure', 'none', 'none-of-these', 'not-applicable', 'na', 'unsure']);
-
-        // Find positive-sentiment options that were NOT selected (these are gaps)
-        const gaps = question.options.filter((opt: any) =>
-          opt.sentiment === 'positive' &&
-          !selectedIds.includes(opt.id) &&
-          !skipIds.has(opt.id)
-        );
-
-        // Only create a DIAP item if there are meaningful gaps AND at least one option was selected
-        // (if nothing was selected, the question likely wasn't answered)
-        if (gaps.length > 0 && selectedIds.length > 0 && !selectedIds.every((id: string) => skipIds.has(id))) {
-          const gapLabels = gaps.map((g: any) => g.label).join(', ');
-          const selectedLabels = question.options
-            .filter((opt: any) => selectedIds.includes(opt.id) && !skipIds.has(opt.id))
-            .map((opt: any) => opt.label)
-            .join(', ');
-
-          const moduleCodeForObj = moduleName.match(/(\d+\.\d+)/)?.[1] || '';
-
-          const gapItem: DIAPItem = {
-            id: uuidv4(),
-            sessionId: session?.session_id || '',
-            objective: generateObjective(question, 'partially', moduleCodeForObj),
-            action: `Currently in place: ${selectedLabels}. Consider adding: ${gapLabels}.`,
-            category: mapModuleToCategory(moduleName),
-            priority: 'low' as DIAPPriority,
-            status: 'not-started',
-            timeframe: '',
-            moduleSource: moduleName,
-            questionSource: response.questionId,
-            sourceAnswer: response.answer,
-            importSource: 'audit',
-            impactStatement: `${selectedIds.length} of ${selectedIds.length + gaps.length} options currently in place. Expanding coverage would improve accessibility.`,
-            successIndicators: generateSuccessIndicator(question, moduleCodeForObj),
-            complianceLevel: question.complianceLevel,
-            complianceRef: question.complianceRef,
-            createdAt: now,
-            updatedAt: now,
-          };
-
-          newItems.push(gapItem);
-        }
-      }
-
-      // Generate items from media analysis improvements
-      if (response.mediaAnalysis && response.mediaAnalysis.improvements?.length > 0) {
-        const analysisType = response.mediaAnalysis.analysisType || 'media';
-        // Use the same priority system as regular questions
-        const priority: DIAPPriority = calculateQuestionPriority({
-          complianceLevel: question?.complianceLevel,
-          safetyRelated: question?.safetyRelated,
-          impactLevel: question?.impactLevel,
-          answer: response.answer || 'no',
-        });
-
-        response.mediaAnalysis.improvements.forEach((improvement: string, idx: number) => {
-          const itemId = `${response.questionId}-media-${idx}`;
-          if (existingQuestionSources.has(itemId)) return;
-
-          const item: DIAPItem = {
-            id: uuidv4(),
-            sessionId: session?.session_id || '',
-            objective: `Improve ${formatAnalysisType(analysisType)} accessibility`,
-            action: improvement,
-            category: mapAnalysisTypeToCategory(analysisType),
-            priority,
-            status: 'not-started',
-            timeframe: '',
-            moduleSource: moduleName,
-            questionSource: itemId,
-            importSource: 'audit',
-            complianceLevel: question?.complianceLevel,
-            complianceRef: question?.complianceRef,
-            notes: `From ${formatAnalysisType(analysisType)} analysis (Score: ${response.mediaAnalysis.overallScore}/100)`,
-            createdAt: now,
-            updatedAt: now,
-          };
-
-          newItems.push(item);
-        });
-      }
-
-      // Generate items from URL/website analysis improvements
-      if (response.urlAnalysis && response.urlAnalysis.improvements?.length > 0) {
-        // Use the same priority system as regular questions
-        const priority: DIAPPriority = calculateQuestionPriority({
-          complianceLevel: question?.complianceLevel,
-          safetyRelated: question?.safetyRelated,
-          impactLevel: question?.impactLevel,
-          answer: response.answer || 'no',
-        });
-
-        response.urlAnalysis.improvements.forEach((improvement: string, idx: number) => {
-          const itemId = `${response.questionId}-url-${idx}`;
-          if (existingQuestionSources.has(itemId)) return;
-
-          const item: DIAPItem = {
-            id: uuidv4(),
-            sessionId: session?.session_id || '',
-            objective: 'Improve website accessibility',
-            action: improvement,
-            category: 'information-communication-marketing',
-            priority,
-            status: 'not-started',
-            timeframe: '',
-            moduleSource: moduleName,
-            questionSource: itemId,
-            importSource: 'audit',
-            complianceLevel: question?.complianceLevel,
-            complianceRef: question?.complianceRef,
-            notes: `From website audit of ${response.urlAnalysis.url} (Score: ${response.urlAnalysis.overallScore}/100)`,
-            createdAt: now,
-            updatedAt: now,
-          };
-
-          newItems.push(item);
-        });
-      }
-    });
+    for (const pa of summary.priorityActions) {
+      pushItem(pa.questionId, pa.questionText, pa.action, (pa.priority as DIAPPriority) || 'medium', pa.impactStatement);
+    }
+    for (const ae of summary.areasToExplore) {
+      if (typeof ae === 'string') continue;
+      pushItem(ae.questionId, ae.questionText, ae.action, 'low', 'This area needs further investigation to confirm current status.');
+    }
 
     if (newItems.length > 0) {
       for (const it of newItems) it.siteId = site;
@@ -2188,52 +2055,6 @@ function stripFillerSteps(action: string): string {
 function extractModuleCode(moduleSource: string): string | undefined {
   const match = moduleSource.match(/(\d+\.\d+)/);
   return match ? match[1] : undefined;
-}
-
-// Helper: Map analysis type to category
-function mapAnalysisTypeToCategory(analysisType: string): DIAPCategory {
-  const typeMap: Record<string, DIAPCategory> = {
-    // Information, Communication & Marketing
-    'menu': 'information-communication-marketing',
-    'brochure': 'information-communication-marketing',
-    'flyer': 'information-communication-marketing',
-    'large-print': 'information-communication-marketing',
-    'signage': 'information-communication-marketing',
-    'social-media-post': 'information-communication-marketing',
-    'social-media-url': 'information-communication-marketing',
-    'website-wave': 'information-communication-marketing',
-    // Physical Access
-    'lighting': 'physical-access',
-    'ground-surface': 'physical-access',
-    'pathway': 'physical-access',
-    'entrance': 'physical-access',
-    'ramp': 'physical-access',
-    'stairs': 'physical-access',
-    'door': 'physical-access',
-  };
-  return typeMap[analysisType] || 'operations-policy-procedure';
-}
-
-// Helper: Format analysis type for display
-function formatAnalysisType(analysisType: string): string {
-  const labels: Record<string, string> = {
-    'menu': 'menu',
-    'brochure': 'brochure',
-    'flyer': 'flyer',
-    'large-print': 'large print document',
-    'signage': 'signage',
-    'lighting': 'lighting',
-    'ground-surface': 'ground surface',
-    'pathway': 'pathway',
-    'entrance': 'entrance',
-    'ramp': 'ramp',
-    'stairs': 'stairs',
-    'door': 'door',
-    'social-media-post': 'social media',
-    'social-media-url': 'social media profile',
-    'website-wave': 'website',
-  };
-  return labels[analysisType] || analysisType;
 }
 
 // Helper: Generate outcome-focused objective from question topic

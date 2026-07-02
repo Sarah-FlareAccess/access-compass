@@ -83,15 +83,24 @@ for (let i = 1; i < raw.length; i++) {
 // modules use single-select questions (option ids), a different response shape,
 // so they are not seeded here. Every venue is populated with the general
 // yes-no-unsure access modules that apply to any site type.
+// Module -> SDIP domain (Layer 1), for reference when choosing coverage:
+//   1.x/2.x/3.x, 4.2, 5.3, 5.5 -> SDIP-1 (inclusive communities)
+//   4.1/4.3/4.5/4.6/4.7, 5.4   -> SDIP-3 (personal & community support)
+//   4.4                        -> SDIP-5 (safety, rights & justice)
+//   5.1                        -> SDIP-1 + SDIP-5 (policy & rights)
+// SDIP-2 (education & employment) and SDIP-4 (health & wellbeing) come from the
+// business-type overlay (facility modules + leisure/health/education types), so
+// they light up once the council's Business Profile lists those types - not from
+// seeding modules (employment modules 5.7-5.10 aren't yes-no-unsure).
 const VENUES = [
-  { name: 'Central Library', maturity: 'high', modules: ['1.1', '1.2', '2.1', '2.2', '3.1', '3.5', '4.1', '4.2', '4.3', '5.3'] },
-  { name: 'Regional Art Gallery', maturity: 'high', modules: ['1.1', '2.1', '2.2', '3.1', '3.3', '3.5', '4.2'] },
-  { name: 'Visitor Information Centre', maturity: 'med', modules: ['1.1', '1.4', '1.5', '2.1', '4.1', '4.2'] },
-  { name: 'Aquatic & Leisure Centre', maturity: 'med', modules: ['2.1', '2.2', '2.3', '3.2', '4.2', '4.4'] },
-  { name: 'Botanic Gardens & Playground', maturity: 'med', modules: ['2.1', '2.3', '3.5', '4.1'] },
-  { name: 'Winter Markets', maturity: 'low', modules: ['1.1', '2.1', '2.4', '3.5', '4.2'] },
-  { name: 'Riverbend Summer Festival', maturity: 'low', modules: ['1.1', '1.4', '2.1', '2.4', '3.6', '4.2', '4.7'] },
-  { name: 'Town Hall & Civic Centre', maturity: 'high', modules: ['1.1', '2.1', '2.2', '3.1', '4.2', '5.1', '5.3', '5.5'] },
+  { name: 'Central Library', maturity: 'high', modules: ['1.1', '1.2', '2.1', '2.2', '3.1', '3.5', '4.1', '4.2', '4.3', '4.5', '4.4', '5.1', '5.3', '5.4'] },
+  { name: 'Regional Art Gallery', maturity: 'high', modules: ['1.1', '2.1', '2.2', '3.1', '3.3', '3.5', '4.2', '4.1', '4.4', '4.6', '5.5'] },
+  { name: 'Visitor Information Centre', maturity: 'med', modules: ['1.1', '1.4', '1.5', '2.1', '4.1', '4.2', '4.4', '4.5', '5.4'] },
+  { name: 'Aquatic & Leisure Centre', maturity: 'med', modules: ['2.1', '2.2', '2.3', '3.2', '4.2', '4.4', '4.1', '4.5', '5.1'] },
+  { name: 'Botanic Gardens & Playground', maturity: 'med', modules: ['2.1', '2.3', '3.5', '4.1', '4.4', '4.6'] },
+  { name: 'Winter Markets', maturity: 'low', modules: ['1.1', '2.1', '2.4', '3.5', '4.2', '4.4', '4.7'] },
+  { name: 'Riverbend Summer Festival', maturity: 'low', modules: ['1.1', '1.4', '2.1', '2.4', '3.6', '4.2', '4.7', '4.4', '4.5'] },
+  { name: 'Town Hall & Civic Centre', maturity: 'high', modules: ['1.1', '2.1', '2.2', '3.1', '4.2', '5.1', '5.3', '5.5', '4.4', '4.5', '4.6', '5.4'] },
 ];
 
 // (venue, module) pairs that get a prior reassessment snapshot (improved since)

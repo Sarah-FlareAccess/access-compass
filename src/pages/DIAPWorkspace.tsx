@@ -1012,20 +1012,27 @@ export default function DIAPWorkspace() {
     (async () => {
       const [mpRes, respRes] = await Promise.all([
         sb.from('module_progress').select('module_id, site_id, status').eq('organisation_id', oid).eq('status', 'completed'),
-        sb.from('module_responses').select('module_id, site_id, question_id, answer, notes, partial_description').eq('organisation_id', oid),
+        sb.from('module_responses').select('module_id, site_id, question_id, answer, notes, partial_description, multi_select_values').eq('organisation_id', oid),
       ]);
       const mpRows = (mpRes.data as Record<string, unknown>[] | null) ?? [];
       const respRows = (respRes.data as Record<string, unknown>[] | null) ?? [];
       if (mpRows.length === 0) return;
 
-      const respByKey = new Map<string, { questionId: string; answer: string; notes?: string }[]>();
+      const respByKey = new Map<string, { questionId: string; answer: string; notes?: string; multiSelectValues?: string[] }[]>();
       for (const r of respRows) {
         const key = `${(r.site_id as string) ?? ''}|${r.module_id as string}`;
         if (!respByKey.has(key)) respByKey.set(key, []);
+        // Single/multi-select answers live in multi_select_values (JSON); parse so
+        // generateModuleSummary can grade them into DIAP items too.
+        let msv: string[] | undefined;
+        const rawMsv = r.multi_select_values;
+        if (Array.isArray(rawMsv)) msv = rawMsv as string[];
+        else if (typeof rawMsv === 'string' && rawMsv) { try { const p = JSON.parse(rawMsv); if (Array.isArray(p)) msv = p; } catch { /* ignore */ } }
         respByKey.get(key)!.push({
           questionId: r.question_id as string,
           answer: r.answer as string,
           notes: (r.notes as string) || (r.partial_description as string) || undefined,
+          multiSelectValues: msv,
         });
       }
 
