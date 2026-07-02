@@ -1776,7 +1776,13 @@ export default function DIAPWorkspace() {
                   )}
                   <div className="diap-board__cards">
                     {col.items.map(renderBoardCard)}
-                    {col.items.length === 0 && <p className="diap-board__empty">{droppable ? 'Drop actions here' : 'None'}</p>}
+                    {col.items.length === 0 && (
+                      <p className="diap-board__empty">
+                        {col.kind === 'domain'
+                          ? 'No actions mapped directly. Covered via your facility modules once business types are set.'
+                          : droppable ? 'Drop actions here' : 'None'}
+                      </p>
+                    )}
                   </div>
                 </div>
               );

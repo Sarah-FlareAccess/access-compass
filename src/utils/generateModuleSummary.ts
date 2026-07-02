@@ -94,6 +94,23 @@ function categorizeResponseSentiment(
     if (positiveKeywords.some(keyword => lowerLabels.includes(keyword))) {
       return 'positive';
     }
+
+    // Positional fallback so no answer is ever silently dropped when an option
+    // has neither a sentiment nor a keyword match. Single-select options are
+    // authored best -> worst: first = doing well, last = a gap, middle = worth
+    // exploring. Anything else with a selection is captured as "explore".
+    const skipRe = /not.?sure|unsure|^na$|not.?applicable|^none$|^other$/i;
+    if (selectedOptionIds.length === 1 && question.options && question.options.length) {
+      const selId = selectedOptionIds[0];
+      const selOpt = question.options.find(opt => opt.id === selId);
+      if (selOpt && skipRe.test(selOpt.id)) return 'neutral';
+      const nonSkip = question.options.filter(opt => !skipRe.test(opt.id));
+      const idx = nonSkip.findIndex(opt => opt.id === selId);
+      if (idx === 0) return 'positive';
+      if (idx >= 0 && idx === nonSkip.length - 1) return 'negative';
+      if (idx > 0) return 'neutral';
+    }
+    return 'neutral';
   }
 
   if (response.urlAnalysis) {
