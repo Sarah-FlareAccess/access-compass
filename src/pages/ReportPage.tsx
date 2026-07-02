@@ -5,8 +5,10 @@ import { getSession, getDiscoveryData } from '../utils/session';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useReportGeneration } from '../hooks/useReportGeneration';
 import { useModuleProgress } from '../hooks/useModuleProgress';
+import type { ModuleProgress, ModuleSummary, QuestionResponse } from '../hooks/useModuleProgress';
 import { useAuth } from '../contexts/AuthContext';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
+import { supabase } from '../utils/supabase';
 import { ReportConfigSelector, type ReportConfig } from '../components/ReportConfigSelector';
 import { downloadPDFReport, downloadExecutiveSummaryPDF } from '../utils/pdfGenerator';
 import { getHelpByQuestionId } from '../data/help';
@@ -446,13 +448,80 @@ export default function ReportPage() {
     || session?.business_snapshot?.organisation_name
     || 'Your Organisation';
 
-  const { generateReport, isReady, getModuleRuns } = useReportGeneration(selectedModuleIds);
+  // Organisation-wide on a multi-site org: aggregate every venue's assessment
+  // into one progress map so the report covers the whole council, not the empty
+  // org-level scope. Per-venue views leave this null and use site-scoped data.
+  const orgId = accessState.organisation?.id;
+  const isOrgWideMultiSite = !activeSiteId && sites.length > 0;
+  const [orgWideProgress, setOrgWideProgress] = useState<Record<string, ModuleProgress> | null>(null);
+
+  useEffect(() => {
+    if (!isOrgWideMultiSite || !orgId || !supabase) { setOrgWideProgress(null); return; }
+    const sb = supabase;
+    const oid = orgId;
+    let cancelled = false;
+    (async () => {
+      const [mpRes, respRes] = await Promise.all([
+        sb.from('module_progress').select('module_id, module_code, status, summary, confidence_snapshot').eq('organisation_id', oid),
+        sb.from('module_responses').select('module_id, question_id, answer, notes, partial_description, other_description, link_value, updated_at').eq('organisation_id', oid),
+      ]);
+      if (cancelled) return;
+      const map: Record<string, ModuleProgress> = {};
+      for (const r of (mpRes.data as Record<string, unknown>[] | null) ?? []) {
+        const id = r.module_id as string;
+        const summary = r.summary as ModuleSummary | null;
+        const existing = map[id];
+        if (!existing) {
+          map[id] = {
+            moduleId: id,
+            moduleCode: (r.module_code as string) || id,
+            status: (r.status as ModuleProgress['status']) || 'not-started',
+            responses: [],
+            summary: summary ? { ...summary } : undefined,
+            confidenceSnapshot: (r.confidence_snapshot as ModuleProgress['confidenceSnapshot']) ?? undefined,
+          };
+        } else {
+          if (r.status === 'completed') existing.status = 'completed';
+          if (summary) {
+            const s = existing.summary ?? { doingWell: [], priorityActions: [], areasToExplore: [], professionalReview: [] };
+            existing.summary = {
+              doingWell: [...(s.doingWell || []), ...(summary.doingWell || [])],
+              priorityActions: [...(s.priorityActions || []), ...(summary.priorityActions || [])],
+              areasToExplore: [...(s.areasToExplore || []), ...(summary.areasToExplore || [])],
+              professionalReview: [...(s.professionalReview || []), ...(summary.professionalReview || [])],
+            };
+          }
+        }
+      }
+      for (const r of (respRes.data as Record<string, unknown>[] | null) ?? []) {
+        const id = r.module_id as string;
+        if (!map[id]) continue;
+        map[id].responses.push({
+          questionId: r.question_id as string,
+          answer: (r.answer as QuestionResponse['answer']) ?? null,
+          notes: (r.notes as string) || undefined,
+          partialDescription: (r.partial_description as string) || undefined,
+          otherDescription: (r.other_description as string) || undefined,
+          linkValue: (r.link_value as string) || undefined,
+          timestamp: (r.updated_at as string) || new Date().toISOString(),
+        });
+      }
+      setOrgWideProgress(map);
+    })().catch(() => { if (!cancelled) setOrgWideProgress(null); });
+    return () => { cancelled = true; };
+  }, [isOrgWideMultiSite, orgId]);
+
+  const { generateReport, isReady, getModuleRuns } = useReportGeneration(
+    selectedModuleIds,
+    isOrgWideMultiSite ? orgWideProgress : null,
+  );
   const { progress } = useModuleProgress(selectedModuleIds);
 
 
   const hasCompletedModules = useMemo(() => {
-    return Object.values(progress).some(p => p.status === 'completed');
-  }, [progress]);
+    const source = isOrgWideMultiSite && orgWideProgress ? orgWideProgress : progress;
+    return Object.values(source).some(p => p.status === 'completed');
+  }, [progress, isOrgWideMultiSite, orgWideProgress]);
 
   const handleGenerateReport = useCallback(() => {
     if (!isReady) return;

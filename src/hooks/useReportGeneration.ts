@@ -236,11 +236,19 @@ interface UseReportGenerationReturn {
   getModuleRuns: (moduleId: string) => ModuleRun[];
 }
 
-export function useReportGeneration(selectedModuleIds: string[]): UseReportGenerationReturn {
-  const { progress, isLoading, getModuleRuns, compareRuns } = useModuleProgress(selectedModuleIds);
+export function useReportGeneration(
+  selectedModuleIds: string[],
+  progressOverride?: Record<string, ModuleProgress> | null,
+): UseReportGenerationReturn {
+  const { progress: siteProgress, isLoading, getModuleRuns, compareRuns } = useModuleProgress(selectedModuleIds);
   const { items: diapItems } = useDIAPManagement();
 
-  const isReady = !isLoading && Object.keys(progress).length > 0;
+  // When an override is supplied (org-wide report aggregated across venues), use
+  // it in place of the site-scoped progress.
+  const hasOverride = !!progressOverride && Object.keys(progressOverride).length > 0;
+  const progress = hasOverride ? (progressOverride as Record<string, ModuleProgress>) : siteProgress;
+
+  const isReady = hasOverride ? true : (!isLoading && Object.keys(progress).length > 0);
 
   const generateReport = useMemo(() => {
     return (reviewMode: ReviewMode, organisationName: string = 'Your Organisation', reportConfig?: ReportConfig, siteName?: string): Report => {
