@@ -339,6 +339,179 @@ details[open] .diap-framework__domain-summary::after {
 .diap-framework__action-status.status-on-hold { background: #6b7280; }
 .diap-framework__action-status.status-cancelled { background: #991b1b; }
 
+/* Read-only detail blocks on the card (success indicators, budget, notes) */
+.item-detail-block {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: rgba(73, 14, 103, 0.03);
+  border-left: 3px solid var(--amethyst-light, #a06cd5);
+  border-radius: 6px;
+}
+
+.item-detail-block__label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--amethyst-diamond);
+  margin-bottom: 4px;
+}
+
+.item-detail-block__body {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-secondary, #374151);
+  white-space: pre-wrap;
+}
+
+/* View toolbar (List / Board toggle) */
+.diap-view-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: var(--spacing-md);
+}
+
+.diap-view-toggle {
+  display: inline-flex;
+  border: 1px solid rgba(73, 14, 103, 0.2);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.diap-view-toggle button {
+  padding: 6px 16px;
+  border: none;
+  background: #fff;
+  color: var(--amethyst-diamond);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.diap-view-toggle button + button {
+  border-left: 1px solid rgba(73, 14, 103, 0.2);
+}
+
+.diap-view-toggle button.is-active {
+  background: var(--amethyst-diamond);
+  color: #fff;
+}
+
+.diap-view-toggle button:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: -2px;
+}
+
+.diap-view-hint {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+/* Board (kanban) */
+.diap-board {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.diap-board__col {
+  flex: 0 0 240px;
+  background: rgba(73, 14, 103, 0.03);
+  border: 1px solid rgba(73, 14, 103, 0.08);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  min-height: 120px;
+}
+
+.diap-board__col-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+
+.diap-board__col-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+}
+
+.diap-board__col-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: #fff;
+  border-radius: 10px;
+  padding: 1px 8px;
+}
+
+.diap-board__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.diap-board__card {
+  background: #fff;
+  border: 1px solid rgba(73, 14, 103, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.diap-board__card:hover {
+  border-color: rgba(73, 14, 103, 0.3);
+  box-shadow: 0 2px 8px rgba(73, 14, 103, 0.1);
+}
+
+.diap-board__card.is-active {
+  border-color: var(--amethyst-diamond);
+  box-shadow: 0 0 0 1px var(--amethyst-diamond);
+}
+
+.diap-board__card:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
+
+.diap-board__card-title {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: var(--text-primary, #1f2937);
+  margin-bottom: 8px;
+}
+
+.diap-board__card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.diap-board__card-owner {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diap-board__empty {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 4px 2px;
+  margin: 0;
+}
+
 /* Compact action rows (list) that open the detail side-panel */
 .diap-row {
   display: flex;

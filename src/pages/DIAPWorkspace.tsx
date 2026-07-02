@@ -54,6 +54,16 @@ async function openAttachment(att: DIAPAttachment) {
 import { Zap, Upload, Paperclip, Filter, Users as UsersIcon, CalendarDays, Plus, BookOpen } from 'lucide-react';
 import '../styles/diap.css';
 
+// Board columns, in workflow order.
+const BOARD_COLUMNS: { status: DIAPStatus; label: string }[] = [
+  { status: 'not-started', label: 'Not Started' },
+  { status: 'in-progress', label: 'In Progress' },
+  { status: 'on-hold', label: 'On Hold' },
+  { status: 'ongoing', label: 'Ongoing' },
+  { status: 'achieved', label: 'Achieved' },
+  { status: 'cancelled', label: 'Cancelled' },
+];
+
 // Best Resource Hub link for an action: the specific guide when the source
 // question has help content, otherwise the hub filtered by the action's
 // category. Always returns a usable link so every action can reach guidance.
@@ -150,6 +160,8 @@ export default function DIAPWorkspace() {
   const [editingItem, setEditingItem] = useState<DIAPItem | null>(null);
   // The action currently open in the detail side-panel (compact list -> panel).
   const [detailItemId, setDetailItemId] = useState<string | null>(null);
+  // List (grouped by category) vs Board (columns by status).
+  const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
   const [filterCategories, setFilterCategories] = useState<Set<DIAPCategory>>(new Set());
   const [filterPriorities, setFilterPriorities] = useState<Set<DIAPPriority>>(new Set());
   const [filterResponsible, setFilterResponsible] = useState<string>('all');
@@ -1524,7 +1536,84 @@ export default function DIAPWorkspace() {
           />
         )}
 
-        {/* DIAP Sections */}
+        {/* View toolbar: List (grouped) vs Board (by status) */}
+        <div className="diap-view-toolbar">
+          <div className="diap-view-toggle" role="group" aria-label="Choose view">
+            <button
+              type="button"
+              className={viewMode === 'list' ? 'is-active' : ''}
+              onClick={() => setViewMode('list')}
+              aria-pressed={viewMode === 'list'}
+            >List</button>
+            <button
+              type="button"
+              className={viewMode === 'board' ? 'is-active' : ''}
+              onClick={() => setViewMode('board')}
+              aria-pressed={viewMode === 'board'}
+            >Board</button>
+          </div>
+          {viewMode === 'board' && (
+            <span className="diap-view-hint">Drag a card between columns to change its status</span>
+          )}
+        </div>
+
+        {/* Board view: columns by status */}
+        {viewMode === 'board' && (
+          <div className="diap-board" aria-label="Action plan board">
+            {BOARD_COLUMNS.map(col => {
+              const colItems = filteredItems.filter(i => i.status === col.status);
+              return (
+                <div
+                  key={col.status}
+                  className="diap-board__col"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => {
+                    const id = e.dataTransfer.getData('text/plain');
+                    if (id) handleStatusChange(id, col.status);
+                  }}
+                >
+                  <div className="diap-board__col-head">
+                    <span className="diap-board__col-title">{col.label}</span>
+                    <span className="diap-board__col-count">{colItems.length}</span>
+                  </div>
+                  <div className="diap-board__cards">
+                    {colItems.map(item => {
+                      const overdue = !!item.dueDate && getDueBucket(item.dueDate) === 'overdue' && item.status !== 'achieved';
+                      return (
+                        <div
+                          key={item.id}
+                          className={`diap-board__card ${detailItemId === item.id ? 'is-active' : ''}`}
+                          role="button"
+                          tabIndex={0}
+                          draggable
+                          aria-label={`Open ${item.objective || item.action}`}
+                          onDragStart={(e) => e.dataTransfer.setData('text/plain', item.id)}
+                          onClick={() => { dismissHint(); setDetailItemId(item.id); }}
+                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissHint(); setDetailItemId(item.id); } }}
+                        >
+                          <span className="diap-board__card-title">{item.objective || item.action}</span>
+                          <div className="diap-board__card-meta">
+                            <span className={`diap-row__priority prio-${item.priority}`}>{item.priority}</span>
+                            {item.responsibleRole && <span className="diap-board__card-owner">{item.responsibleRole}</span>}
+                            {item.dueDate && (
+                              <span className={`diap-row__due ${overdue ? 'is-overdue' : ''}`}>
+                                {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                    {colItems.length === 0 && <p className="diap-board__empty">None</p>}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* DIAP Sections (List view) */}
+        {viewMode === 'list' && (
         <div className="diap-category-view" aria-live="polite">
             {itemsByCategory.map(({ group, objectiveGroups, totalItems }) => {
               if (filterCategories.size > 0 && totalItems === 0) return null;
@@ -1726,6 +1815,7 @@ export default function DIAPWorkspace() {
               </button>
             )}
         </div>
+        )}
 
         {/* Documents Section */}
         <div className="documents-section">
@@ -2164,6 +2254,27 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onAttachE
             .map((line, i) => `${i + 1}. ${line}`)
             .join('\n')
         }</div>
+      )}
+
+      {item.successIndicators && (
+        <div className="item-detail-block">
+          <span className="item-detail-block__label">Success indicators</span>
+          <div className="item-detail-block__body">{item.successIndicators}</div>
+        </div>
+      )}
+
+      {item.budgetEstimate && (
+        <div className="item-detail-block">
+          <span className="item-detail-block__label">Budget estimate</span>
+          <div className="item-detail-block__body">{item.budgetEstimate}</div>
+        </div>
+      )}
+
+      {item.notes && (
+        <div className="item-detail-block">
+          <span className="item-detail-block__label">Notes</span>
+          <div className="item-detail-block__body">{item.notes}</div>
+        </div>
       )}
 
       {/* Key details row - owner and timeline */}
