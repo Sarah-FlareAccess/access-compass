@@ -908,7 +908,12 @@ Thanks!`;
               {/* Group Progress Snapshot */}
               {overallStats.modulesCompleted > 0 && (
                 <section className="dashboard-snapshot dashboard-progress-area">
-                  <h2>Progress by area</h2>
+                  <div className="snapshot-header">
+                    <div>
+                      <h2>Progress by area</h2>
+                      <p className="snapshot-scope-note">Module assessments completed, grouped by area (not the action plan)</p>
+                    </div>
+                  </div>
                   <div className="group-progress-list">
                     {progressByArea.map(group => {
                       const pct = group.totalCount > 0 ? Math.round((group.completedCount / group.totalCount) * 100) : 0;
