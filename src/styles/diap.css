@@ -557,14 +557,59 @@ details[open] .diap-framework__domain-summary::after {
 .diap-row__status.status-cancelled { background: #991b1b; }
 .diap-row__status.status-ongoing { background: #2563eb; }
 
-.diap-row__title {
+.diap-row__main {
   flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.diap-row__title {
   min-width: 0;
   font-size: 0.9rem;
   color: var(--text-primary, #1f2937);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.diap-row__subtitle {
+  min-width: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diap-row__statuspill {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+  background: #f3f4f6;
+  color: #374151;
+}
+.diap-row__statuspill.status-not-started { background: #f3f4f6; color: #4b5563; }
+.diap-row__statuspill.status-in-progress { background: #fef3c7; color: #92400e; }
+.diap-row__statuspill.status-achieved { background: #dcfce7; color: #166534; }
+.diap-row__statuspill.status-ongoing { background: #dbeafe; color: #1e40af; }
+.diap-row__statuspill.status-on-hold { background: #f3f4f6; color: #6b7280; }
+.diap-row__statuspill.status-cancelled { background: #fee2e2; color: #991b1b; }
+
+.diap-board__card-sub {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+  margin: -4px 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .diap-row__changed {

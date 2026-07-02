@@ -54,6 +54,26 @@ async function openAttachment(att: DIAPAttachment) {
 import { Zap, Upload, Paperclip, Filter, Users as UsersIcon, CalendarDays, Plus, BookOpen } from 'lucide-react';
 import '../styles/diap.css';
 
+// First meaningful step of an action, for the compact row subtitle (so items
+// that share an objective are still distinguishable by their specific action).
+function firstActionLine(action?: string): string {
+  if (!action) return '';
+  const line = action
+    .split(/\n+/)
+    .map(l => l.replace(/^\s*\d+\.\s*/, '').trim())
+    .find(l => l.length > 0);
+  return line || '';
+}
+
+const STATUS_LABELS: Record<string, string> = {
+  'not-started': 'Not started',
+  'in-progress': 'In progress',
+  'achieved': 'Achieved',
+  'ongoing': 'Ongoing',
+  'on-hold': 'On hold',
+  'cancelled': 'Cancelled',
+};
+
 // Board columns, in workflow order.
 const BOARD_COLUMNS: { status: DIAPStatus; label: string }[] = [
   { status: 'not-started', label: 'Not Started' },
@@ -1592,6 +1612,9 @@ export default function DIAPWorkspace() {
                           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissHint(); setDetailItemId(item.id); } }}
                         >
                           <span className="diap-board__card-title">{item.objective || item.action}</span>
+                          {firstActionLine(item.action) && item.objective && (
+                            <span className="diap-board__card-sub">{firstActionLine(item.action)}</span>
+                          )}
                           <div className="diap-board__card-meta">
                             {!activeSiteId && item.siteId && (
                               <span className="diap-row__venue">{sites.find(s => s.id === item.siteId)?.name ?? 'Venue'}</span>
@@ -1730,20 +1753,26 @@ export default function DIAPWorkspace() {
                                     }}
                                   >
                                     <span className={`diap-row__status status-${item.status}`} aria-hidden="true" />
-                                    <span className="diap-row__title">
-                                      {item.objective || item.action}
-                                      {changedItems[item.id] && <span className="diap-row__changed" title="Assessment answer changed">updated</span>}
+                                    <span className="diap-row__main">
+                                      <span className="diap-row__title">
+                                        {item.objective || item.action}
+                                        {changedItems[item.id] && <span className="diap-row__changed" title="Assessment answer changed">updated</span>}
+                                      </span>
+                                      {firstActionLine(item.action) && item.objective && (
+                                        <span className="diap-row__subtitle">{firstActionLine(item.action)}</span>
+                                      )}
                                     </span>
                                     {!activeSiteId && item.siteId && (
                                       <span className="diap-row__venue">{sites.find(s => s.id === item.siteId)?.name ?? 'Venue'}</span>
                                     )}
-                                    <span className={`diap-row__priority prio-${item.priority}`}>{item.priority}</span>
                                     {item.responsibleRole && <span className="diap-row__owner">{item.responsibleRole}</span>}
                                     {item.dueDate && (
                                       <span className={`diap-row__due ${overdue ? 'is-overdue' : ''}`}>
                                         {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
                                       </span>
                                     )}
+                                    <span className={`diap-row__priority prio-${item.priority}`}>{item.priority}</span>
+                                    <span className={`diap-row__statuspill status-${item.status}`}>{STATUS_LABELS[item.status] || item.status}</span>
                                     <Link
                                       to={resourceLinkForItem(item).to}
                                       state={{ from: 'diap' }}
