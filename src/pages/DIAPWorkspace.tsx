@@ -20,6 +20,7 @@ import { getSession } from '../utils/session';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
+import { SiteContextBar } from '../components/SiteContextBar';
 
 // Sentinel used in the site filter to represent items with no site (org-wide).
 const ORG_WIDE_SITE = '__org__';
@@ -738,6 +739,8 @@ export default function DIAPWorkspace() {
             </button>
           </div>
         </div>
+
+        <SiteContextBar />
 
         <PageGuide pageId="diap" features={DIAP_FEATURES} />
 
