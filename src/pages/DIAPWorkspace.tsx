@@ -119,7 +119,17 @@ export default function DIAPWorkspace() {
   const activeSiteName = sites.find(s => s.id === activeSiteId)?.name;
   // Site filter for the action plan. Empty = all (org-wide + every site).
   // Entries are site ids, or ORG_WIDE_SITE for items with no site.
-  const [filterSites, setFilterSites] = useState<Set<string>>(new Set());
+  const [filterSites, setFilterSites] = useState<Set<string>>(
+    () => (activeSiteId ? new Set([activeSiteId]) : new Set()),
+  );
+
+  // Keep the action list in step with the "Working in" venue: selecting a
+  // venue scopes the list to that venue's actions, Organisation-wide shows the
+  // full cross-venue plan. Users can still override the chips afterwards; the
+  // next venue switch resets the scope.
+  useEffect(() => {
+    setFilterSites(activeSiteId ? new Set([activeSiteId]) : new Set());
+  }, [activeSiteId]);
   const [filterStatuses, setFilterStatuses] = useState<Set<DIAPStatus>>(new Set());
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingItem, setEditingItem] = useState<DIAPItem | null>(null);
