@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { supabase, supabaseRest } from '../utils/supabase';
 import { accessModules } from '../data/accessModules';
+import { readActiveModuleProgressRaw } from '../utils/moduleProgressStore';
 import '../styles/authority.css';
 
 import type { AuthorityProgram } from '../types/access';
@@ -184,9 +185,9 @@ export default function ProgramEnrol() {
       return;
     }
 
-    // Check for completed modules that overlap with this program
-    const MODULE_PROGRESS_KEY = 'access_compass_module_progress';
-    const progressData = localStorage.getItem(MODULE_PROGRESS_KEY);
+    // Check for completed modules that overlap with this program (active site
+    // scope; single-site business enrolees resolve to the org-wide blob).
+    const progressData = readActiveModuleProgressRaw();
     if (progressData) {
       const allProgress = JSON.parse(progressData) as Record<string, { moduleId: string; status: string; completedAt?: string }>;
       const threeMonthsAgo = new Date();

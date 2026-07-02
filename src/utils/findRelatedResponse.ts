@@ -1,12 +1,11 @@
 import type { QuestionResponse } from '../hooks/useModuleProgress';
+import { readActiveModuleProgressRaw } from './moduleProgressStore';
 
 interface ModuleProgressLite {
   moduleId: string;
   moduleCode?: string;
   responses: QuestionResponse[];
 }
-
-const MODULE_PROGRESS_KEY = 'access_compass_module_progress';
 
 export interface RelatedResponseMatch {
   questionId: string;
@@ -18,12 +17,9 @@ export interface RelatedResponseMatch {
 export function findFirstRelatedResponse(relatedQuestionIds: string[]): RelatedResponseMatch | null {
   if (!relatedQuestionIds || relatedQuestionIds.length === 0) return null;
 
-  let raw: string | null = null;
-  try {
-    raw = localStorage.getItem(MODULE_PROGRESS_KEY);
-  } catch {
-    return null;
-  }
+  // Scoped to the active site so related-response reuse stays within the venue
+  // currently being assessed (multi-site orgs).
+  const raw = readActiveModuleProgressRaw();
   if (!raw) return null;
 
   let progress: Record<string, ModuleProgressLite>;

@@ -11,7 +11,8 @@ import { getSession } from '../utils/session';
 import { fetchOrgRecords, syncOrgRecord, resolveByTimestamp, syncSnapshot, fetchSnapshots, deleteSnapshot } from '../utils/cloudSync';
 import { migrateEvidenceToStorage } from '../utils/evidenceStorage';
 import { useAuthSafe } from '../contexts/AuthContext';
-import { useActiveSiteId } from './useSites';
+import { useActiveSiteId, getActiveSiteId } from './useSites';
+import { moduleProgressKey } from '../utils/moduleProgressStore';
 import { logActivityStandalone } from './useActivityLog';
 import { getModuleById } from '../data/accessModules';
 import type { ResponseOption } from '../constants/responseOptions';
@@ -179,12 +180,12 @@ export interface ActionItem {
   safetyRelated?: boolean;
 }
 
-const MODULE_PROGRESS_KEY = 'access_compass_module_progress';
-
-// Local storage functions
-function getLocalProgress(): Record<string, ModuleProgress> {
+// Local storage functions. Progress is namespaced per active site (see
+// moduleProgressStore): callbacks omit siteId and default to the live active
+// site, while the load effect pins its reads/writes to the site it fetched for.
+function getLocalProgress(siteId: string | null = getActiveSiteId()): Record<string, ModuleProgress> {
   try {
-    const data = localStorage.getItem(MODULE_PROGRESS_KEY);
+    const data = localStorage.getItem(moduleProgressKey(siteId));
     return data ? JSON.parse(data) : {};
   } catch {
     // Corrupted blob (truncated by quota, manual tampering). Fall back to
@@ -193,9 +194,9 @@ function getLocalProgress(): Record<string, ModuleProgress> {
   }
 }
 
-function saveLocalProgress(progress: Record<string, ModuleProgress>) {
+function saveLocalProgress(progress: Record<string, ModuleProgress>, siteId: string | null = getActiveSiteId()) {
   try {
-    localStorage.setItem(MODULE_PROGRESS_KEY, JSON.stringify(progress));
+    localStorage.setItem(moduleProgressKey(siteId), JSON.stringify(progress));
   } catch (error) {
     // Handle quota exceeded error
     if (error instanceof DOMException && error.name === 'QuotaExceededError') {
@@ -214,7 +215,7 @@ function saveLocalProgress(progress: Record<string, ModuleProgress>) {
       }
 
       try {
-        localStorage.setItem(MODULE_PROGRESS_KEY, JSON.stringify(reducedProgress));
+        localStorage.setItem(moduleProgressKey(siteId), JSON.stringify(reducedProgress));
         console.warn('Saved progress without evidence data due to storage limits.');
         window.dispatchEvent(new CustomEvent('access-compass:storage-warning', {
           detail: {
@@ -340,8 +341,11 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
   useEffect(() => {
     const loadProgress = async () => {
       try {
-        // Load from localStorage first (instant)
-        const localProgress = getLocalProgress();
+        // Load from localStorage first (instant). Pin every read/write in this
+        // effect to the site we fetch cloud data for, so an in-flight load that
+        // races a site switch can't write one site's data into another's blob.
+        const loadSiteId = activeSiteId;
+        const localProgress = getLocalProgress(loadSiteId);
         setProgress(localProgress);
 
         // If Supabase is enabled and user is in an org, fetch org-scoped data.
@@ -387,12 +391,12 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
 
             if (hasChanges) {
               setProgress(merged);
-              saveLocalProgress(merged);
+              saveLocalProgress(merged, loadSiteId);
             }
           }
 
           // Recover responses from module_responses for modules with 0 local responses
-          const currentProgress = getLocalProgress();
+          const currentProgress = getLocalProgress(loadSiteId);
           const modulesNeedingRecovery = Object.values(currentProgress)
             .filter(m => m.status !== 'not-started' && (!m.responses || m.responses.length === 0));
 
@@ -432,18 +436,23 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
 
               if (hasRecovery) {
                 setProgress(recovered);
-                saveLocalProgress(recovered);
+                saveLocalProgress(recovered, loadSiteId);
               }
             }
           }
 
           // Hydrate reassessment history from cloud snapshots (migration 033),
           // so run comparison survives a browser clear or device switch.
+          // Snapshots are org-wide; filter to the active site so a venue's
+          // reassessment history doesn't bleed across sites.
           const { data: snapshotRows } = await fetchSnapshots(organisationId);
-          if (snapshotRows && snapshotRows.length > 0) {
-            const withRuns = getLocalProgress();
+          const siteSnapshots = (snapshotRows || []).filter(
+            s => ((s.site_id as string | null) ?? null) === (loadSiteId ?? null)
+          );
+          if (siteSnapshots.length > 0) {
+            const withRuns = getLocalProgress(loadSiteId);
             const byModule = new Map<string, ModuleRun[]>();
-            for (const s of snapshotRows) {
+            for (const s of siteSnapshots) {
               const run: ModuleRun = {
                 id: s.run_id as string,
                 context: (s.context as ModuleRunContext) || { type: 'general', name: 'Assessment' },
@@ -466,7 +475,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
               if (!entry) {
                 // Snapshots exist but no local progress (fresh device): stub the
                 // module so its reassessment history is still visible.
-                const code = snapshotRows.find(s => s.module_id === moduleId)?.module_code as string;
+                const code = siteSnapshots.find(s => s.module_id === moduleId)?.module_code as string;
                 withRuns[moduleId] = {
                   moduleId,
                   moduleCode: code || moduleId,
@@ -488,7 +497,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
 
             if (changed) {
               setProgress(withRuns);
-              saveLocalProgress(withRuns);
+              saveLocalProgress(withRuns, loadSiteId);
             }
           }
         }

@@ -11,6 +11,7 @@
  */
 
 import { supabase, isSupabaseEnabled } from './supabase';
+import { readActiveModuleProgressRaw } from './moduleProgressStore';
 
 const BUCKET_NAME = 'evidence-files';
 
@@ -308,7 +309,7 @@ export async function listEvidenceForUser(
 export function listLocalEvidence(): ExistingEvidenceMatch[] {
   const out: ExistingEvidenceMatch[] = [];
   try {
-    const raw = localStorage.getItem('access_compass_module_progress');
+    const raw = readActiveModuleProgressRaw();
     if (raw) {
       const progress = JSON.parse(raw) as Record<string, { responses?: Array<{ evidence?: Array<{ id: string; name: string; type?: string; mimeType?: string; size?: number; storagePath?: string; bucket?: string; dataUrl?: string; url?: string }> }> }>;
       for (const [moduleKey, moduleData] of Object.entries(progress || {})) {
