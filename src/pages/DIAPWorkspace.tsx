@@ -180,6 +180,11 @@ export default function DIAPWorkspace() {
   const [editingItem, setEditingItem] = useState<DIAPItem | null>(null);
   // The action currently open in the detail side-panel (compact list -> panel).
   const [detailItemId, setDetailItemId] = useState<string | null>(null);
+  // Active statutory-framework domain filter (set by clicking a domain in the
+  // SDIP block). null = no domain filter.
+  const [filterDomain, setFilterDomain] = useState<string | null>(null);
+  // Org jurisdiction (drives the statutory framework). Loaded from the org.
+  const [jurisdiction, setJurisdiction] = useState<string | null>(null);
   // List (grouped by category) vs Board (columns by status or custom sections).
   const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
   const [boardGroupBy, setBoardGroupBy] = useState<'status' | 'sections'>('status');
@@ -581,16 +586,26 @@ export default function DIAPWorkspace() {
     return filterDueDate.has(getDueBucket(i.dueDate));
   }, [filterDueDate, customDateFrom, customDateTo, getDueBucket]);
 
-  // For each facet, the item set filtered by all the OTHER active facets. A
-  // facet's chip counts are computed over its own base set, so selecting a
-  // venue narrows the priority/category/due counts to that venue (and so on).
+  // Statutory-framework domain filter (set by clicking a domain in the SDIP
+  // block). Applied alongside the other facets.
+  const matchesDomain = useCallback((i: DIAPItem) => {
+    if (!filterDomain) return true;
+    const code = i.moduleSource?.match(/(\d+\.\d+)/)?.[1];
+    if (!code || !jurisdiction) return false;
+    const bt = getSession()?.business_snapshot?.business_types ?? [];
+    return domainsForModule(code, jurisdiction, bt).includes(filterDomain);
+  }, [filterDomain, jurisdiction]);
+
+  // For each facet, the item set filtered by all the OTHER active facets (plus
+  // the always-on site + domain filters). A facet's chip counts are computed
+  // over its own base set, so selecting a venue narrows the other counts.
   const facetBase = useMemo(() => ({
-    site: items.filter(i => matchesStatus(i) && matchesCategory(i) && matchesPriority(i) && matchesResponsible(i) && matchesDue(i)),
-    status: items.filter(i => matchesSite(i) && matchesCategory(i) && matchesPriority(i) && matchesResponsible(i) && matchesDue(i)),
-    priority: items.filter(i => matchesSite(i) && matchesStatus(i) && matchesCategory(i) && matchesResponsible(i) && matchesDue(i)),
-    category: items.filter(i => matchesSite(i) && matchesStatus(i) && matchesPriority(i) && matchesResponsible(i) && matchesDue(i)),
-    due: items.filter(i => matchesSite(i) && matchesStatus(i) && matchesCategory(i) && matchesPriority(i) && matchesResponsible(i)),
-  }), [items, matchesSite, matchesStatus, matchesCategory, matchesPriority, matchesResponsible, matchesDue]);
+    site: items.filter(i => matchesStatus(i) && matchesCategory(i) && matchesPriority(i) && matchesResponsible(i) && matchesDue(i) && matchesDomain(i)),
+    status: items.filter(i => matchesSite(i) && matchesCategory(i) && matchesPriority(i) && matchesResponsible(i) && matchesDue(i) && matchesDomain(i)),
+    priority: items.filter(i => matchesSite(i) && matchesStatus(i) && matchesCategory(i) && matchesResponsible(i) && matchesDue(i) && matchesDomain(i)),
+    category: items.filter(i => matchesSite(i) && matchesStatus(i) && matchesPriority(i) && matchesResponsible(i) && matchesDue(i) && matchesDomain(i)),
+    due: items.filter(i => matchesSite(i) && matchesStatus(i) && matchesCategory(i) && matchesPriority(i) && matchesResponsible(i) && matchesDomain(i)),
+  }), [items, matchesSite, matchesStatus, matchesCategory, matchesPriority, matchesResponsible, matchesDue, matchesDomain]);
 
   const dueDateCounts = useMemo(() => {
     const counts: Record<string, number> = { overdue: 0, 'this-week': 0, 'this-month': 0, later: 0, 'no-date': 0 };
@@ -604,7 +619,7 @@ export default function DIAPWorkspace() {
   const filteredItems = useMemo(() => {
     const filtered = items.filter(i =>
       matchesSite(i) && matchesStatus(i) && matchesCategory(i)
-      && matchesPriority(i) && matchesResponsible(i) && matchesDue(i),
+      && matchesPriority(i) && matchesResponsible(i) && matchesDue(i) && matchesDomain(i),
     );
 
     // Sort: use manual sortOrder if set, otherwise group by priority
@@ -619,7 +634,7 @@ export default function DIAPWorkspace() {
     }
 
     return filtered;
-  }, [items, matchesSite, matchesStatus, matchesCategory, matchesPriority, matchesResponsible, matchesDue]);
+  }, [items, matchesSite, matchesStatus, matchesCategory, matchesPriority, matchesResponsible, matchesDue, matchesDomain]);
 
   // Group filtered items by category, then by objective within each category
   const itemsByCategory = useMemo(() => {
@@ -655,7 +670,6 @@ export default function DIAPWorkspace() {
   // Statutory framework for the org's jurisdiction (SA SDIP, national ADS, etc).
   // The DIAP is where direct statutory reporting happens, so we map the plan's
   // actions to the jurisdiction's outcome domains here.
-  const [jurisdiction, setJurisdiction] = useState<string | null>(null);
   useEffect(() => {
     const oid = accessState.organisation?.id;
     if (!oid || !supabase) return;
@@ -707,8 +721,8 @@ export default function DIAPWorkspace() {
     const defaultSite = activeSiteId ? [activeSiteId] : [];
     const siteOverridden = filterSites.size !== defaultSite.length
       || defaultSite.some(s => !filterSites.has(s));
-    return nonSite || siteOverridden;
-  }, [filterStatuses, filterCategories, filterPriorities, filterDueDate, filterResponsible, filterSites, activeSiteId]);
+    return nonSite || siteOverridden || filterDomain !== null;
+  }, [filterStatuses, filterCategories, filterPriorities, filterDueDate, filterResponsible, filterSites, activeSiteId, filterDomain]);
 
   // Reset every filter back to the current venue's default scope.
   const resetFilters = useCallback(() => {
@@ -720,6 +734,7 @@ export default function DIAPWorkspace() {
     setFilterDueDate(new Set());
     setCustomDateFrom('');
     setCustomDateTo('');
+    setFilterDomain(null);
   }, [activeSiteId]);
 
   // Compute per-category stats for the overview cards
@@ -1166,26 +1181,34 @@ export default function DIAPWorkspace() {
           </section>
         )}
 
-        {/* Statutory framework alignment. The DIAP's actions grouped by the
-            jurisdiction's outcome domains, so councils can report against the
-            official headings (e.g. SA's SDIP). */}
+        {/* Statutory framework alignment. Collapsible (collapsed by default so
+            it's out of the way), and each domain is clickable - it filters the
+            plan to that outcome's actions. Its function: report/navigate by the
+            jurisdiction's official outcome domains (e.g. SA's SDIP). */}
         {frameworkOutcomes && frameworkOutcomes.mapped > 0 && (
-          <section className="diap-framework" aria-labelledby="diap-framework-heading">
-            <div className="diap-framework__head">
-              <h2 id="diap-framework-heading">Against the {frameworkOutcomes.fw.name}</h2>
-              <p className="diap-framework__cite">
-                Your action plan mapped to the {frameworkOutcomes.fw.short} outcome domains.
-                These headings mirror the framework, so they can go straight into your statutory report.
-              </p>
-            </div>
+          <details className="diap-framework diap-controls-collapsible">
+            <summary className="diap-controls-summary">
+              Statutory alignment: {frameworkOutcomes.fw.short} outcomes — click a domain to filter the plan
+            </summary>
+            <p className="diap-framework__cite">
+              Your action plan mapped to the {frameworkOutcomes.fw.name} outcome domains. Click any domain to
+              show just its actions; these headings mirror the framework for your statutory report.
+            </p>
             <div className="diap-framework__domains">
               {frameworkOutcomes.domains.map(d => (
-                <div key={d.id} className={`diap-framework__domain ${d.total === 0 ? 'is-empty' : ''}`}>
+                <button
+                  key={d.id}
+                  type="button"
+                  className={`diap-framework__domain ${d.total === 0 ? 'is-empty' : ''} ${filterDomain === d.id ? 'is-active' : ''}`}
+                  disabled={d.total === 0}
+                  aria-pressed={filterDomain === d.id}
+                  onClick={() => setFilterDomain(filterDomain === d.id ? null : d.id)}
+                  title={d.total > 0 ? `Filter the plan to ${d.name}` : undefined}
+                >
                   <div className="diap-framework__domain-head">
                     <h3>{d.name}</h3>
-                    <span className="diap-framework__domain-count">{d.total} action{d.total !== 1 ? 's' : ''}</span>
+                    <span className="diap-framework__domain-count">{d.total}</span>
                   </div>
-                  {d.outcomeStatement && <p className="diap-framework__statement">{d.outcomeStatement}</p>}
                   {d.total > 0 ? (
                     <p className="diap-framework__breakdown">
                       {d.achieved} achieved · {d.inProgress} in progress · {d.notStarted} not started
@@ -1193,10 +1216,10 @@ export default function DIAPWorkspace() {
                   ) : (
                     <p className="diap-framework__breakdown diap-framework__breakdown--empty">No actions mapped yet</p>
                   )}
-                </div>
+                </button>
               ))}
             </div>
-          </section>
+          </details>
         )}
 
         {/* Filter alert: the summary card above counts the whole venue, but the

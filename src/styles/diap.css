@@ -7,7 +7,7 @@
 }
 
 .diap-page .container {
-  max-width: 1000px;
+  max-width: min(1600px, 95vw);
   margin: 0 auto;
 }
 
@@ -222,16 +222,36 @@
 }
 
 .diap-framework__domain {
+  display: block;
+  width: 100%;
+  text-align: left;
   padding: var(--spacing-sm) var(--spacing-md);
   background: rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(73, 14, 103, 0.06);
   border-left: 3px solid var(--amethyst-diamond);
   border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.12s ease, box-shadow 0.12s ease;
+}
+
+.diap-framework__domain:hover:not(.is-empty) {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.diap-framework__domain.is-active {
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--amethyst-diamond);
+}
+
+.diap-framework__domain:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
 }
 
 .diap-framework__domain.is-empty {
   opacity: 0.6;
   border-left-color: var(--text-muted);
+  cursor: default;
 }
 
 .diap-framework__domain-head {
