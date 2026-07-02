@@ -352,7 +352,7 @@ interface UseDIAPManagementReturn {
   importFromCSV: (csvContent: string) => CSVImportResult;
   importFromExcel: (file: File) => Promise<ExcelImportResult>;
   importFromPDF: (file: File) => Promise<PDFImportResult>;
-  generateFromResponses: (responses: any[], questions: any[], moduleName: string) => number;
+  generateFromResponses: (responses: any[], questions: any[], moduleName: string, overrideSiteId?: string | null) => number;
 
   // Document operations
   uploadDocument: (file: File, linkedItemIds?: string[]) => Promise<DIAPDocument | null>;
@@ -1480,10 +1480,12 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
   }, []);
 
   // Generate DIAP items from module responses (including media and URL analysis)
-  const generateFromResponses = useCallback((responses: any[], questions: any[], moduleName: string) => {
+  const generateFromResponses = useCallback((responses: any[], questions: any[], moduleName: string, overrideSiteId?: string | null) => {
     const session = getSession();
     const now = new Date().toISOString();
-    const site = activeSiteIdRef.current ?? null;
+    // overrideSiteId lets the all-venue backfill generate a specific venue's
+    // actions without it being the active site. Undefined = use the active site.
+    const site = overrideSiteId !== undefined ? overrideSiteId : (activeSiteIdRef.current ?? null);
     const newItems: DIAPItem[] = [];
 
     // Get existing items to avoid duplicates. Scoped to the active site so the

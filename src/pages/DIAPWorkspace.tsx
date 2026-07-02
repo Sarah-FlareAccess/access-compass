@@ -818,6 +818,51 @@ export default function DIAPWorkspace() {
     return () => clearTimeout(timer);
   }, [activeSiteId, isLoading, isGenerating, completedModulesEvidence, siteScopedItems, handleGenerateFromAssessment]);
 
+  // All-venue backfill: on load for a multi-site org, generate the action plan
+  // for EVERY venue that has a completed assessment but no actions yet, straight
+  // from the cloud (not just the venue you're viewing). This is what makes the
+  // plans "just work" - org-wide and every venue are populated on first load on
+  // any browser, and the results sync so they persist. Runs once per mount;
+  // generateFromResponses de-dupes per venue, so it's safe/idempotent.
+  const backfilledRef = useRef(false);
+  useEffect(() => {
+    const oid = accessState.organisation?.id;
+    if (isLoading || sites.length === 0 || !oid || !supabase || backfilledRef.current) return;
+    backfilledRef.current = true;
+    const sb = supabase;
+    (async () => {
+      const [mpRes, respRes] = await Promise.all([
+        sb.from('module_progress').select('module_id, site_id, status').eq('organisation_id', oid).eq('status', 'completed'),
+        sb.from('module_responses').select('module_id, site_id, question_id, answer, notes, partial_description').eq('organisation_id', oid),
+      ]);
+      const mpRows = (mpRes.data as Record<string, unknown>[] | null) ?? [];
+      const respRows = (respRes.data as Record<string, unknown>[] | null) ?? [];
+      if (mpRows.length === 0) return;
+
+      const respByKey = new Map<string, { questionId: string; answer: string; notes?: string }[]>();
+      for (const r of respRows) {
+        const key = `${(r.site_id as string) ?? ''}|${r.module_id as string}`;
+        if (!respByKey.has(key)) respByKey.set(key, []);
+        respByKey.get(key)!.push({
+          questionId: r.question_id as string,
+          answer: r.answer as string,
+          notes: (r.notes as string) || (r.partial_description as string) || undefined,
+        });
+      }
+
+      for (const mp of mpRows) {
+        const siteId = (mp.site_id as string) ?? null;
+        const moduleId = mp.module_id as string;
+        const mod = getModuleById(moduleId);
+        if (!mod) continue;
+        const responses = respByKey.get(`${siteId ?? ''}|${moduleId}`);
+        if (!responses || responses.length === 0) continue;
+        const questions = getQuestionsForMode(mod, 'deep-dive');
+        generateFromResponses(responses, questions, `${mod.code}: ${mod.name}`, siteId);
+      }
+    })().catch(() => { backfilledRef.current = false; });
+  }, [isLoading, sites.length, accessState.organisation?.id, generateFromResponses]);
+
   // Handle file upload
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
