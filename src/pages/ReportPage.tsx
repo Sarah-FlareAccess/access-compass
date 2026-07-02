@@ -9,6 +9,7 @@ import type { ModuleProgress, ModuleSummary, QuestionResponse } from '../hooks/u
 import { useAuth } from '../contexts/AuthContext';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
 import { supabase } from '../utils/supabase';
+import { SiteContextBar } from '../components/SiteContextBar';
 import { ReportConfigSelector, type ReportConfig } from '../components/ReportConfigSelector';
 import { downloadPDFReport, downloadExecutiveSummaryPDF } from '../utils/pdfGenerator';
 import { getHelpByQuestionId } from '../data/help';
@@ -617,10 +618,11 @@ export default function ReportPage() {
     return (
       <div className="rp-page">
         <div className="rp-container">
+          <SiteContextBar />
           <div className="rp-empty-state">
             <BarChart3 size={48} />
             <h2>No modules completed yet</h2>
-            <p>Complete at least one module to view your accessibility report.</p>
+            <p>Complete at least one module to view your accessibility report{sites.length > 0 ? ', or switch venue above' : ''}.</p>
             <Link to="/dashboard" className="btn btn-primary">Go to Dashboard</Link>
           </div>
         </div>
@@ -635,6 +637,7 @@ export default function ReportPage() {
   return (
     <div className="rp-page">
       <div className="rp-container">
+        <SiteContextBar />
         {/* Page header */}
         <div className="rp-header">
           <div className="rp-header-text">
