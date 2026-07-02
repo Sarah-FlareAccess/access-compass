@@ -187,7 +187,9 @@ export default function DIAPWorkspace() {
   const [jurisdiction, setJurisdiction] = useState<string | null>(null);
   // List (grouped by category) vs Board (columns by status or custom sections).
   const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
-  const [boardGroupBy, setBoardGroupBy] = useState<'status' | 'sections'>('status');
+  // How the board groups its columns. Categories mirrors the list's grouping;
+  // domains = the jurisdiction framework; sections = custom user columns.
+  const [boardGroupBy, setBoardGroupBy] = useState<'category' | 'domain' | 'sections' | 'status'>('category');
   // Custom board columns (Asana-style sections), shared per org. The reserved
   // "__unassigned__" entry stores the (editable) label of the pinned catch-all
   // column; the rest are the user's sections in order.
@@ -724,6 +726,41 @@ export default function DIAPWorkspace() {
     return { fw, domains, mapped };
   }, [jurisdiction, siteScopedItems]);
 
+  // Columns for the board, derived from the chosen grouping. kind drives the
+  // drop behaviour: status -> change status, category -> change category,
+  // section -> assign to a custom column, domain -> read-only (derived).
+  type BoardCol = { id: string; name: string; kind: 'status' | 'category' | 'section' | 'domain'; system?: boolean; items: DIAPItem[] };
+  const boardView = useMemo<BoardCol[]>(() => {
+    if (boardGroupBy === 'status') {
+      return BOARD_COLUMNS.map(c => ({ id: c.status, name: c.label, kind: 'status', items: filteredItems.filter(i => i.status === c.status) }));
+    }
+    if (boardGroupBy === 'category') {
+      return allCategories.map(c => ({
+        id: c.id, name: getCategoryDisplayName(c.id, customCategoryNames), kind: 'category',
+        items: filteredItems.filter(i => i.category === c.id),
+      }));
+    }
+    if (boardGroupBy === 'domain' && frameworkOutcomes) {
+      const cols: BoardCol[] = frameworkOutcomes.fw.domains.map(d => ({ id: d.id, name: d.name, kind: 'domain', items: [] }));
+      const byId = new Map(cols.map(c => [c.id, c]));
+      const bt = getSession()?.business_snapshot?.business_types ?? [];
+      const unmapped: DIAPItem[] = [];
+      for (const it of filteredItems) {
+        const code = it.moduleSource?.match(/(\d+\.\d+)/)?.[1];
+        const domains = code && jurisdiction ? domainsForModule(code, jurisdiction, bt) : [];
+        if (domains[0] && byId.has(domains[0])) byId.get(domains[0])!.items.push(it);
+        else unmapped.push(it);
+      }
+      if (unmapped.length) cols.push({ id: '__unmapped__', name: 'Not mapped', kind: 'domain', items: unmapped });
+      return cols;
+    }
+    // sections (custom)
+    return [
+      { id: '__unassigned__', name: unassignedLabel, kind: 'section', system: true, items: filteredItems.filter(i => !i.boardColumn || !boardColumns.some(c => c.id === i.boardColumn)) },
+      ...boardColumns.map(c => ({ id: c.id, name: c.name, kind: 'section' as const, items: filteredItems.filter(i => i.boardColumn === c.id) })),
+    ];
+  }, [boardGroupBy, filteredItems, allCategories, customCategoryNames, frameworkOutcomes, jurisdiction, unassignedLabel, boardColumns]);
+
   // Whether any filter beyond the default venue scope is narrowing the view.
   // The site chip follows the active venue by default; anything else (status,
   // priority, category, role, due date, or a manual site override) means the
@@ -1194,46 +1231,9 @@ export default function DIAPWorkspace() {
           </section>
         )}
 
-        {/* Statutory framework alignment. Collapsible (collapsed by default so
-            it's out of the way), and each domain is clickable - it filters the
-            plan to that outcome's actions. Its function: report/navigate by the
-            jurisdiction's official outcome domains (e.g. SA's SDIP). */}
-        {frameworkOutcomes && frameworkOutcomes.mapped > 0 && (
-          <details className="diap-framework diap-controls-collapsible">
-            <summary className="diap-controls-summary">
-              Statutory alignment: {frameworkOutcomes.fw.short} outcomes — click a domain to filter the plan
-            </summary>
-            <p className="diap-framework__cite">
-              Your action plan mapped to the {frameworkOutcomes.fw.name} outcome domains. Click any domain to
-              show just its actions; these headings mirror the framework for your statutory report.
-            </p>
-            <div className="diap-framework__domains">
-              {frameworkOutcomes.domains.map(d => (
-                <button
-                  key={d.id}
-                  type="button"
-                  className={`diap-framework__domain ${d.total === 0 ? 'is-empty' : ''} ${filterDomain === d.id ? 'is-active' : ''}`}
-                  disabled={d.total === 0}
-                  aria-pressed={filterDomain === d.id}
-                  onClick={() => setFilterDomain(filterDomain === d.id ? null : d.id)}
-                  title={d.total > 0 ? `Filter the plan to ${d.name}` : undefined}
-                >
-                  <div className="diap-framework__domain-head">
-                    <h3>{d.name}</h3>
-                    <span className="diap-framework__domain-count">{d.total}</span>
-                  </div>
-                  {d.total > 0 ? (
-                    <p className="diap-framework__breakdown">
-                      {d.achieved} achieved · {d.inProgress} in progress · {d.notStarted} not started
-                    </p>
-                  ) : (
-                    <p className="diap-framework__breakdown diap-framework__breakdown--empty">No actions mapped yet</p>
-                  )}
-                </button>
-              ))}
-            </div>
-          </details>
-        )}
+        {/* The statutory (SDIP) view now lives on the board: Board -> group by
+            "<framework> outcomes". The PDF export still prints the grouped plan
+            for reporting. The standalone filter block was removed as confusing. */}
 
         {/* Filter alert: the summary card above counts the whole venue, but the
             list below is filtered, but the exported PDF is always the full plan
@@ -1694,75 +1694,48 @@ export default function DIAPWorkspace() {
             >Board</button>
           </div>
           {viewMode === 'board' && (
-            <div className="diap-view-toggle" role="group" aria-label="Board grouping">
-              <button
-                type="button"
-                className={boardGroupBy === 'status' ? 'is-active' : ''}
-                onClick={() => setBoardGroupBy('status')}
-                aria-pressed={boardGroupBy === 'status'}
-              >By status</button>
-              <button
-                type="button"
-                className={boardGroupBy === 'sections' ? 'is-active' : ''}
-                onClick={() => setBoardGroupBy('sections')}
-                aria-pressed={boardGroupBy === 'sections'}
-              >My sections</button>
+            <div className="diap-view-toggle" role="group" aria-label="Group the board by">
+              <button type="button" className={boardGroupBy === 'category' ? 'is-active' : ''} onClick={() => setBoardGroupBy('category')} aria-pressed={boardGroupBy === 'category'}>Categories</button>
+              {frameworkOutcomes && (
+                <button type="button" className={boardGroupBy === 'domain' ? 'is-active' : ''} onClick={() => setBoardGroupBy('domain')} aria-pressed={boardGroupBy === 'domain'}>{frameworkOutcomes.fw.short} outcomes</button>
+              )}
+              <button type="button" className={boardGroupBy === 'sections' ? 'is-active' : ''} onClick={() => setBoardGroupBy('sections')} aria-pressed={boardGroupBy === 'sections'}>My sections</button>
+              <button type="button" className={boardGroupBy === 'status' ? 'is-active' : ''} onClick={() => setBoardGroupBy('status')} aria-pressed={boardGroupBy === 'status'}>Status</button>
             </div>
           )}
           {viewMode === 'board' && (
             <span className="diap-view-hint">
-              {boardGroupBy === 'status' ? 'Drag a card between columns to change its status' : 'Drag a card into a section; add and rename your own columns'}
+              {boardGroupBy === 'status' ? 'Drag a card between columns to change its status'
+                : boardGroupBy === 'category' ? 'Drag a card to move it to another category'
+                : boardGroupBy === 'domain' ? `Grouped by ${frameworkOutcomes?.fw.short} outcomes (from the assessment mapping)`
+                : 'Drag a card into a section; add and rename your own columns'}
             </span>
           )}
         </div>
 
-        {/* Board view: columns by status */}
-        {viewMode === 'board' && boardGroupBy === 'status' && (
-          <div className="diap-board" aria-label="Action plan board by status">
-            {BOARD_COLUMNS.map(col => {
-              const colItems = filteredItems.filter(i => i.status === col.status);
-              return (
-                <div
-                  key={col.status}
-                  className="diap-board__col"
-                  onDragOver={(e) => e.preventDefault()}
-                  onDrop={(e) => {
-                    const id = e.dataTransfer.getData('text/plain');
-                    if (id) handleStatusChange(id, col.status);
-                  }}
-                >
-                  <div className="diap-board__col-head">
-                    <span className="diap-board__col-title">{col.label}</span>
-                    <span className="diap-board__col-count">{colItems.length}</span>
-                  </div>
-                  <div className="diap-board__cards">
-                    {colItems.map(renderBoardCard)}
-                    {colItems.length === 0 && <p className="diap-board__empty">None</p>}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Board view: your custom sections */}
-        {viewMode === 'board' && boardGroupBy === 'sections' && (
-          <div className="diap-board" aria-label="Action plan board by section">
-            {[{ id: '__unassigned__', name: unassignedLabel }, ...boardColumns].map(col => {
-              const isReal = col.id !== '__unassigned__';
-              const colItems = filteredItems.filter(i => (i.boardColumn ?? '__unassigned__') === col.id);
+        {/* Board view: one render for all groupings (categories / domains /
+            sections / status). Section columns are editable; category and
+            status columns accept drops to reassign; domain columns are read-only. */}
+        {viewMode === 'board' && (
+          <div className="diap-board" aria-label="Action plan board">
+            {boardView.map(col => {
+              const editable = col.kind === 'section';
+              const droppable = col.kind !== 'domain';
               return (
                 <div
                   key={col.id}
                   className="diap-board__col"
-                  onDragOver={(e) => e.preventDefault()}
-                  onDrop={(e) => {
+                  onDragOver={droppable ? (e) => e.preventDefault() : undefined}
+                  onDrop={droppable ? (e) => {
                     const id = e.dataTransfer.getData('text/plain');
-                    if (id) updateItem(id, { boardColumn: isReal ? col.id : null });
-                  }}
+                    if (!id) return;
+                    if (col.kind === 'status') handleStatusChange(id, col.id as DIAPStatus);
+                    else if (col.kind === 'category') updateItem(id, { category: col.id as DIAPCategory });
+                    else updateItem(id, { boardColumn: col.system ? null : col.id });
+                  } : undefined}
                 >
                   <div className="diap-board__col-head">
-                    {editingColumnId === col.id ? (
+                    {editable && editingColumnId === col.id ? (
                       <input
                         className="diap-board__col-input"
                         value={editingColumnName}
@@ -1773,33 +1746,37 @@ export default function DIAPWorkspace() {
                           if (e.key === 'Enter') { renameBoardColumn(col.id, editingColumnName.trim() || 'Section'); setEditingColumnId(null); }
                           if (e.key === 'Escape') setEditingColumnId(null);
                         }}
-                        aria-label="Section name"
+                        aria-label="Column name"
                       />
                     ) : (
                       <span className="diap-board__col-title">{col.name}</span>
                     )}
-                    <span className="diap-board__col-count">{colItems.length}</span>
+                    <span className="diap-board__col-count">{col.items.length}</span>
                   </div>
-                  <div className="diap-board__col-actions">
-                    {isReal && (
-                      <>
-                        <button type="button" onClick={() => moveBoardColumn(col.id, -1)} aria-label="Move section left" title="Move left">◀</button>
-                        <button type="button" onClick={() => moveBoardColumn(col.id, 1)} aria-label="Move section right" title="Move right">▶</button>
-                      </>
-                    )}
-                    <button type="button" onClick={() => { setEditingColumnId(col.id); setEditingColumnName(col.name); }} aria-label="Rename column" title="Rename">✏️</button>
-                    {isReal && (
-                      <button type="button" onClick={() => { if (confirm(`Delete section "${col.name}"? Its actions move to ${unassignedLabel}.`)) deleteBoardColumn(col.id); }} aria-label="Delete section" title="Delete">🗑</button>
-                    )}
-                  </div>
+                  {editable && (
+                    <div className="diap-board__col-actions">
+                      {!col.system && (
+                        <>
+                          <button type="button" onClick={() => moveBoardColumn(col.id, -1)} aria-label="Move section left" title="Move left">◀</button>
+                          <button type="button" onClick={() => moveBoardColumn(col.id, 1)} aria-label="Move section right" title="Move right">▶</button>
+                        </>
+                      )}
+                      <button type="button" onClick={() => { setEditingColumnId(col.id); setEditingColumnName(col.name); }} aria-label="Rename column" title="Rename">✏️</button>
+                      {!col.system && (
+                        <button type="button" onClick={() => { if (confirm(`Delete section "${col.name}"? Its actions move to ${unassignedLabel}.`)) deleteBoardColumn(col.id); }} aria-label="Delete section" title="Delete">🗑</button>
+                      )}
+                    </div>
+                  )}
                   <div className="diap-board__cards">
-                    {colItems.map(renderBoardCard)}
-                    {colItems.length === 0 && <p className="diap-board__empty">{isReal ? 'Drop actions here' : 'None'}</p>}
+                    {col.items.map(renderBoardCard)}
+                    {col.items.length === 0 && <p className="diap-board__empty">{droppable ? 'Drop actions here' : 'None'}</p>}
                   </div>
                 </div>
               );
             })}
-            <button type="button" className="diap-board__add-col" onClick={addBoardColumn}>+ Add section</button>
+            {boardGroupBy === 'sections' && (
+              <button type="button" className="diap-board__add-col" onClick={addBoardColumn}>+ Add section</button>
+            )}
           </div>
         )}
 
