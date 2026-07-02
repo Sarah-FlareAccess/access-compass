@@ -510,6 +510,62 @@ details[open] .diap-framework__domain-summary::after {
   }
 }
 
+/* Undo toast shown after a bulk edit */
+.diap-undo-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  background: #2b2b2b;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.diap-undo-toast__text {
+  font-size: 0.875rem;
+}
+
+.diap-undo-toast__undo {
+  padding: 4px 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--aussie-sunrise, #ff9015);
+  color: #2b2b2b;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.diap-undo-toast__dismiss {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.diap-undo-toast__undo:focus-visible,
+.diap-undo-toast__dismiss:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .diap-undo-toast {
+    left: 12px;
+    right: 12px;
+    transform: none;
+    justify-content: center;
+  }
+}
+
 .diap-row__select {
   flex: 0 0 auto;
   width: 16px;
@@ -4307,8 +4363,14 @@ button.evidence-layer-header {
   transition: background 0.1s;
 }
 
-.role-combobox-option:hover {
+.role-combobox-option:hover,
+.role-combobox-option:focus-visible {
   background: rgba(73, 14, 103, 0.06);
+}
+
+.role-combobox-option:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: -2px;
 }
 
 .role-combobox-option.selected {

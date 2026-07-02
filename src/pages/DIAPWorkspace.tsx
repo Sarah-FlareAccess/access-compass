@@ -246,6 +246,13 @@ export default function DIAPWorkspace() {
   const [bulkStatus, setBulkStatus] = useState<DIAPStatus>('not-started');
   const bulkModalRef = useFocusTrap<HTMLDivElement>(showBulkEdit);
   const detailPanelRef = useFocusTrap<HTMLElement>(detailItemId !== null);
+  // Snapshot of the fields changed by the last bulk edit, so it can be undone.
+  const [undoSnapshot, setUndoSnapshot] = useState<{ id: string; prev: Partial<DIAPItem> }[] | null>(null);
+  useEffect(() => {
+    if (!undoSnapshot) return;
+    const t = setTimeout(() => setUndoSnapshot(null), 12000);
+    return () => clearTimeout(t);
+  }, [undoSnapshot]);
 
   useEffect(() => {
     const oid = accessState.organisation?.id;
@@ -900,10 +907,28 @@ export default function DIAPWorkspace() {
     }
     if (bulkApplyStatus) updates.status = bulkStatus;
     if (Object.keys(updates).length === 0) { setShowBulkEdit(false); return; }
-    selectedIds.forEach(id => updateItem(id, updates));
+    // Snapshot the prior value of each changed field so the edit can be undone.
+    const snapshot: { id: string; prev: Partial<DIAPItem> }[] = [];
+    selectedIds.forEach(id => {
+      const item = items.find(i => i.id === id);
+      if (!item) return;
+      const prev: Partial<DIAPItem> = {};
+      if (bulkApplyDue) prev.dueDate = item.dueDate;
+      if (bulkApplyRole) prev.responsibleRole = item.responsibleRole;
+      if (bulkApplyStatus) prev.status = item.status;
+      snapshot.push({ id, prev });
+      updateItem(id, updates);
+    });
+    setUndoSnapshot(snapshot.length ? snapshot : null);
     setShowBulkEdit(false);
     setSelectedIds(new Set());
     setBulkApplyDue(false); setBulkApplyRole(false); setBulkApplyStatus(false);
+  };
+
+  // Restore the fields changed by the last bulk edit.
+  const undoBulkEdit = () => {
+    undoSnapshot?.forEach(s => updateItem(s.id, s.prev));
+    setUndoSnapshot(null);
   };
 
   // Handle export to CSV
@@ -1978,6 +2003,17 @@ export default function DIAPWorkspace() {
           </div>
         )}
 
+        {/* Undo toast after a bulk edit */}
+        {undoSnapshot && undoSnapshot.length > 0 && (
+          <div className="diap-undo-toast" role="status">
+            <span className="diap-undo-toast__text">
+              {undoSnapshot.length} action{undoSnapshot.length !== 1 ? 's' : ''} updated.
+            </span>
+            <button type="button" className="diap-undo-toast__undo" onClick={undoBulkEdit}>Undo</button>
+            <button type="button" className="diap-undo-toast__dismiss" onClick={() => setUndoSnapshot(null)} aria-label="Dismiss">×</button>
+          </div>
+        )}
+
         {/* DIAP Sections (List view) */}
         {viewMode === 'list' && (
         <div className="diap-category-view" aria-live="polite">
@@ -2862,6 +2898,12 @@ function RoleComboBox({ value, roles, onChange, onAddRole, onManageRoles, inputI
   const [search, setSearch] = useState('');
   const wrapRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  // Set just before we return focus to the input after a keyboard selection,
+  // so onFocus does not immediately reopen the list.
+  const skipOpenRef = useRef(false);
+
+  // Activate an option via keyboard, then return focus to the input.
+  const activateOption = (fn: () => void) => { skipOpenRef.current = true; fn(); inputRef.current?.focus(); };
 
   const filtered = useMemo(() => {
     if (!search) return roles;
@@ -2913,7 +2955,7 @@ function RoleComboBox({ value, roles, onChange, onAddRole, onManageRoles, inputI
           className="role-combobox-input"
           value={open ? search : value}
           placeholder="Select or type a role..."
-          onFocus={() => { setOpen(true); setSearch(''); }}
+          onFocus={() => { if (skipOpenRef.current) { skipOpenRef.current = false; return; } setOpen(true); setSearch(''); }}
           onChange={(e) => { setSearch(e.target.value); setOpen(true); }}
           onKeyDown={(e) => {
             if (e.key === 'Escape') { setOpen(false); inputRef.current?.blur(); }
@@ -2945,7 +2987,12 @@ function RoleComboBox({ value, roles, onChange, onAddRole, onManageRoles, inputI
             <li
               key={role}
               className={`role-combobox-option ${role === value ? 'selected' : ''}`}
+              tabIndex={0}
               onMouseDown={(e) => { e.preventDefault(); selectRole(role); }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateOption(() => selectRole(role)); }
+                else if (e.key === 'Escape') { setOpen(false); inputRef.current?.focus(); }
+              }}
               role="option"
               aria-selected={role === value}
             >
@@ -2955,7 +3002,12 @@ function RoleComboBox({ value, roles, onChange, onAddRole, onManageRoles, inputI
           {search.trim() && !exactMatch && (
             <li
               className="role-combobox-option create-new"
+              tabIndex={0}
               onMouseDown={(e) => { e.preventDefault(); handleCreate(); }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateOption(handleCreate); }
+                else if (e.key === 'Escape') { setOpen(false); inputRef.current?.focus(); }
+              }}
               role="option"
             >
               + Add "{search.trim()}"
@@ -2969,7 +3021,12 @@ function RoleComboBox({ value, roles, onChange, onAddRole, onManageRoles, inputI
               <li className="role-combobox-divider" role="separator" />
               <li
                 className="role-combobox-option manage-roles-option"
+                tabIndex={0}
                 onMouseDown={(e) => { e.preventDefault(); setOpen(false); onManageRoles(); }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(false); onManageRoles(); }
+                  else if (e.key === 'Escape') { setOpen(false); inputRef.current?.focus(); }
+                }}
                 role="option"
               >
                 Manage Roles...
