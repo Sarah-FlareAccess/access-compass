@@ -1593,6 +1593,9 @@ export default function DIAPWorkspace() {
                         >
                           <span className="diap-board__card-title">{item.objective || item.action}</span>
                           <div className="diap-board__card-meta">
+                            {!activeSiteId && item.siteId && (
+                              <span className="diap-row__venue">{sites.find(s => s.id === item.siteId)?.name ?? 'Venue'}</span>
+                            )}
                             <span className={`diap-row__priority prio-${item.priority}`}>{item.priority}</span>
                             {item.responsibleRole && <span className="diap-board__card-owner">{item.responsibleRole}</span>}
                             {item.dueDate && (
@@ -1731,6 +1734,9 @@ export default function DIAPWorkspace() {
                                       {item.objective || item.action}
                                       {changedItems[item.id] && <span className="diap-row__changed" title="Assessment answer changed">updated</span>}
                                     </span>
+                                    {!activeSiteId && item.siteId && (
+                                      <span className="diap-row__venue">{sites.find(s => s.id === item.siteId)?.name ?? 'Venue'}</span>
+                                    )}
                                     <span className={`diap-row__priority prio-${item.priority}`}>{item.priority}</span>
                                     {item.responsibleRole && <span className="diap-row__owner">{item.responsibleRole}</span>}
                                     {item.dueDate && (
@@ -1983,7 +1989,12 @@ export default function DIAPWorkspace() {
             aria-label={`Action: ${detailItem.objective || detailItem.action}`}
           >
             <div className="diap-detail-panel__head">
-              <span className="diap-detail-panel__eyebrow">{getCategoryDisplayName(detailItem.category, customCategoryNames)}</span>
+              <span className="diap-detail-panel__eyebrow">
+                {getCategoryDisplayName(detailItem.category, customCategoryNames)}
+                {detailItem.siteId && sites.find(s => s.id === detailItem.siteId) && (
+                  <> · {sites.find(s => s.id === detailItem.siteId)?.name}</>
+                )}
+              </span>
               <button type="button" className="diap-detail-panel__close" onClick={closeDetail} aria-label="Close">×</button>
             </div>
             <div className="diap-detail-panel__body">
