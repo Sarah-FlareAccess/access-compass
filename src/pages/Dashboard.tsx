@@ -18,7 +18,7 @@ import { getSignedUrl } from '../utils/signedUrlCache';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
-import { useSites } from '../hooks/useSites';
+import { useSites, useActiveSiteId } from '../hooks/useSites';
 import { useAuth } from '../contexts/AuthContext';
 import { useProgramEnrolment } from '../hooks/useProgramEnrolment';
 import { accessModules, moduleGroups, getModuleById } from '../data/accessModules';
@@ -254,10 +254,12 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
   }, [assignmentModal]);
 
   // DIAP management hook
-  const { getStats: getDIAPStats, items: diapItems, documents: diapDocuments } = useDIAPManagement();
+  const { items: diapItems, documents: diapDocuments } = useDIAPManagement();
 
   // Sites — used to nudge multi-site customers who haven't set up locations yet.
   const { sites } = useSites();
+  const [activeSiteId] = useActiveSiteId();
+  const activeSiteName = sites.find(s => s.id === activeSiteId)?.name;
   const pricingTier = accessState.organisation?.pricing_tier ?? '';
   const isMultiLocationTier = /multi.?site|premier venue|major venue/i.test(pricingTier);
   const SITE_NUDGE_DISMISS_KEY = 'access_compass_site_nudge_dismissed';
@@ -397,7 +399,15 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
 
   // Calculate overall stats
   const overallStats = useMemo(() => {
-    const diapStats = getDIAPStats();
+    // Scope the action-plan snapshot to the active venue so it lines up with
+    // the (site-scoped) assessment numbers. Organisation-wide shows the full
+    // cross-venue rollup.
+    const scopedDiap = activeSiteId
+      ? diapItems.filter(i => (i.siteId ?? null) === activeSiteId)
+      : diapItems;
+    const diapTotal = scopedDiap.length;
+    const diapAchievedCount = scopedDiap.filter(i => i.status === 'achieved').length;
+    const diapPct = diapTotal > 0 ? Math.round((diapAchievedCount / diapTotal) * 100) : 0;
 
     const totalModules = groupedModules.reduce((sum, g) => sum + g.totalCount, 0);
     const completedModules = groupedModules.reduce((sum, g) => sum + g.completedCount, 0);
@@ -432,15 +442,15 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       modulesNotStarted: totalModules - completedModules - inProgressModules,
       modulesTotal: totalModules,
       progressPercentage: totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0,
-      diapItemCount: diapStats.total,
-      diapAchieved: diapStats.byStatus['achieved'] || 0,
-      diapCompletedPercentage: diapStats.completedPercentage,
+      diapItemCount: diapTotal,
+      diapAchieved: diapAchievedCount,
+      diapCompletedPercentage: diapPct,
       totalDoingWell,
       totalActions,
       totalEvidence,
       totalAnswered,
     };
-  }, [groupedModules, getDIAPStats, progress]);
+  }, [groupedModules, diapItems, activeSiteId, progress]);
 
   // Get action button text and style based on status
   const getActionButton = (status: 'not-started' | 'in-progress' | 'completed') => {
@@ -685,7 +695,12 @@ Thanks!`;
             {activeTab !== 'activity' && <section className="progress-section">
             <div className="progress-card">
               <div className="progress-header">
-                <h2 className="progress-title">Overall Progress</h2>
+                <div>
+                  <h2 className="progress-title">Assessment Progress</h2>
+                  <p className="progress-scope-note">
+                    Module assessments{activeSiteName ? ` for ${activeSiteName}` : sites.length > 0 ? ' across all venues' : ''}
+                  </p>
+                </div>
                 <span className="progress-count">
                   {overallStats.modulesCompleted} of {overallStats.modulesTotal} modules completed
                 </span>
@@ -750,7 +765,14 @@ Thanks!`;
               {/* Action Plan Snapshot */}
               {overallStats.diapItemCount > 0 && (
                 <section className="dashboard-snapshot">
-                  <h2>Action Plan</h2>
+                  <div className="snapshot-header">
+                    <div>
+                      <h2>Action Plan (DIAP)</h2>
+                      <p className="snapshot-scope-note">
+                        Actions in your Disability Inclusion Action Plan{activeSiteName ? ` for ${activeSiteName}` : sites.length > 0 ? ' across all venues' : ''}
+                      </p>
+                    </div>
+                  </div>
                   <div className="snapshot-row">
                     <div className="snapshot-stat">
                       <span className="snapshot-value">{overallStats.diapItemCount}</span>
