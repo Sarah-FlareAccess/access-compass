@@ -574,6 +574,16 @@ details[open] .diap-framework__domain-summary::after {
   cursor: pointer;
 }
 
+/* Selection checkboxes need a strong focus ring; the default is faint on
+   white. Applies to row selects, select-all, and the bulk modal toggles. */
+.diap-row__select:focus-visible,
+.diap-select-all input[type="checkbox"]:focus-visible,
+.diap-bulk-toggle input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--aussie-sunrise, #ff9015);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 .diap-row.is-selected {
   background: rgba(73, 14, 103, 0.06);
 }
