@@ -2133,6 +2133,7 @@ export default function DIAPWorkspace() {
                                       className="diap-row__select"
                                       checked={selectedIds.has(item.id)}
                                       onClick={(e) => e.stopPropagation()}
+                                      onKeyDown={(e) => e.stopPropagation()}
                                       onChange={() => toggleSelected(item.id)}
                                       aria-label={`Select ${item.objective || item.action}`}
                                     />
