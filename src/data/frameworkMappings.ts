@@ -199,8 +199,20 @@ export const CATEGORY_FRAMEWORK_OVERRIDES: Record<string, Record<string, string[
 // comes from the generated classification file; hand-authored entries below win.
 export const QUESTION_FRAMEWORK_OVERRIDES: Record<string, Record<string, string[]>> = {
   ...AUTO_QUESTION_FRAMEWORK_OVERRIDES,
+  // Hand-authored overrides win over the generated classification. Kept current
+  // with question wording changes so filing matches the latest text. AU values
+  // are aliased to QLD/TAS by the loop below.
   // "Do you have a process for handling accessibility-related complaints?" (5.1)
   '5.1-D-12': { 'AU-VIC': ['VIC-A'], AU: ['ADS-2'] },
+  // "Is there a pathway for people with disability to progress into leadership
+  // and decision-making positions?" - employment progression into leadership.
+  '5.1-D-16': { 'AU-VIC': ['VIC-B', 'VIC-C'], 'AU-NSW': ['NSW-3'], 'AU-WA': ['WA-7'], 'AU-SA': ['SDIP-2'], AU: ['ADS-1'], 'AU-NT': ['NT-4'], 'AU-ACT': ['ACT-6'] },
+  // "When creating marketing that represents disability, do you draw on
+  // lived-experience expertise?" - lived-experience involvement + representation.
+  '1.6-DD-2a': { 'AU-VIC': ['VIC-C'], 'AU-NSW': ['NSW-1'], 'AU-WA': ['WA-6'], 'AU-SA': ['SDIP-1'], AU: ['ADS-7'], 'AU-NT': ['NT-2'], 'AU-ACT': ['ACT-3'] },
+  // "Do you include Disabled staff in customer-facing decisions where their
+  // expertise is relevant?" - inclusive employment culture (module 5.10).
+  '5.10-DD-11': { 'AU-VIC': ['VIC-B', 'VIC-C'], 'AU-NSW': ['NSW-3'], 'AU-WA': ['WA-7'], 'AU-SA': ['SDIP-2'], AU: ['ADS-1'], 'AU-NT': ['NT-4'], 'AU-ACT': ['ACT-6'] },
 };
 
 // QLD and TAS reuse the national ADS domains, so alias the AU category values.
