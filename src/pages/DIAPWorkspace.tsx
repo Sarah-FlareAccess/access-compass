@@ -3381,21 +3381,34 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
 
       {frameworkDomainOptions.length > 0 && (
         <div className="form-row">
-          <fieldset className="domain-tag-fieldset">
-            <legend>{frameworkShort ? `${frameworkShort} outcomes` : 'Statutory outcomes'}</legend>
-            <span className="field-hint">Tag this action against one or more outcomes. Leave blank to use the assessment default.</span>
-            <div className="domain-tag-options">
-              {frameworkDomainOptions.map(d => {
-                const on = domainTags.includes(d.id);
-                return (
-                  <label key={d.id} className={`domain-tag-chip ${on ? 'is-on' : ''}`} title={d.name}>
-                    <input type="checkbox" checked={on} onChange={() => toggleDomain(d.id)} />
-                    <span>{d.name}</span>
-                  </label>
-                );
-              })}
-            </div>
-          </fieldset>
+          <div className="domain-tag-field">
+            <span className="domain-tag-title">{frameworkShort ? `${frameworkShort} outcomes` : 'Statutory outcomes'}</span>
+            <span className="field-hint">Add one or more tags. You can change them anytime. Leave blank to use the assessment default.</span>
+            <details className="domain-tag-dropdown">
+              <summary aria-label="Select statutory outcomes">
+                {domainTags.length ? (
+                  <span className="domain-tag-summary-chips">
+                    {frameworkDomainOptions.filter(d => domainTags.includes(d.id)).map(d => (
+                      <span key={d.id} className="domain-tag-pill">{d.short}</span>
+                    ))}
+                  </span>
+                ) : (
+                  <span className="domain-tag-placeholder">Select outcomes…</span>
+                )}
+              </summary>
+              <div className="domain-tag-options">
+                {frameworkDomainOptions.map(d => {
+                  const on = domainTags.includes(d.id);
+                  return (
+                    <label key={d.id} className={`domain-tag-chip ${on ? 'is-on' : ''}`} title={d.name}>
+                      <input type="checkbox" checked={on} onChange={() => toggleDomain(d.id)} />
+                      <span>{d.name}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </details>
+          </div>
         </div>
       )}
 
