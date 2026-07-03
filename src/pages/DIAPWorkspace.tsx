@@ -759,6 +759,13 @@ export default function DIAPWorkspace() {
     const buckets = new Map<string, DIAPItem[]>();
     for (const d of fw.domains) buckets.set(d.id, []);
     for (const item of siteScopedItems) {
+      // A per-item override pins the action to exactly one domain (matching the
+      // board); otherwise it counts under every domain the module maps to.
+      const override = item.frameworkDomain && buckets.has(item.frameworkDomain) ? item.frameworkDomain : null;
+      if (override) {
+        buckets.get(override)?.push(item);
+        continue;
+      }
       const code = item.moduleSource?.match(/(\d+\.\d+)/)?.[1];
       if (!code) continue;
       for (const domainId of domainsForModule(code, jurisdiction, businessTypes)) {
@@ -784,7 +791,7 @@ export default function DIAPWorkspace() {
 
   // Columns for the board, derived from the chosen grouping. kind drives the
   // drop behaviour: status -> change status, category -> change category,
-  // section -> assign to a custom column, domain -> read-only (derived).
+  // section -> assign to a custom column, domain -> pin per-item override.
   type BoardCol = { id: string; name: string; kind: 'status' | 'category' | 'section' | 'domain'; system?: boolean; items: DIAPItem[] };
   const boardView = useMemo<BoardCol[]>(() => {
     if (boardGroupBy === 'status') {
@@ -802,9 +809,13 @@ export default function DIAPWorkspace() {
       const bt = getSession()?.business_snapshot?.business_types ?? [];
       const unmapped: DIAPItem[] = [];
       for (const it of filteredItems) {
+        // An explicit per-item override wins; otherwise use the first derived
+        // domain from the module mapping.
+        const override = it.frameworkDomain && byId.has(it.frameworkDomain) ? it.frameworkDomain : null;
         const code = it.moduleSource?.match(/(\d+\.\d+)/)?.[1];
         const domains = code && jurisdiction ? domainsForModule(code, jurisdiction, bt) : [];
-        if (domains[0] && byId.has(domains[0])) byId.get(domains[0])!.items.push(it);
+        const target = override ?? domains[0];
+        if (target && byId.has(target)) byId.get(target)!.items.push(it);
         else unmapped.push(it);
       }
       if (unmapped.length) cols.push({ id: '__unmapped__', name: 'Not mapped', kind: 'domain', items: unmapped });
@@ -1894,7 +1905,7 @@ export default function DIAPWorkspace() {
             <span className="diap-view-hint">
               {boardGroupBy === 'status' ? 'Drag a card between columns to change its status'
                 : boardGroupBy === 'category' ? 'Drag a card to move it to another category'
-                : boardGroupBy === 'domain' ? `Grouped by ${frameworkOutcomes?.fw.short} outcomes (from the assessment mapping)`
+                : boardGroupBy === 'domain' ? `Grouped by ${frameworkOutcomes?.fw.short} outcomes. Drag a card to a different outcome to reassign where it reports`
                 : 'Drag a card into a section; add and rename your own columns'}
             </span>
           )}
@@ -1902,12 +1913,15 @@ export default function DIAPWorkspace() {
 
         {/* Board view: one render for all groupings (categories / domains /
             sections / status). Section columns are editable; category and
-            status columns accept drops to reassign; domain columns are read-only. */}
+            status columns accept drops to reassign; domain columns accept drops
+            to pin an action to a chosen outcome (per-item override). */}
         {viewMode === 'board' && (
           <div className="diap-board" aria-label="Action plan board">
             {boardView.map(col => {
               const editable = col.kind === 'section';
-              const droppable = col.kind !== 'domain';
+              // Domain columns are now droppable too (pin an action to a chosen
+              // outcome domain), except the derived "Not mapped" bucket.
+              const droppable = col.kind !== 'domain' || col.id !== '__unmapped__';
               return (
                 <div
                   key={col.id}
@@ -1918,6 +1932,7 @@ export default function DIAPWorkspace() {
                     if (!id) return;
                     if (col.kind === 'status') handleStatusChange(id, col.id as DIAPStatus);
                     else if (col.kind === 'category') updateItem(id, { category: col.id as DIAPCategory });
+                    else if (col.kind === 'domain') updateItem(id, { frameworkDomain: col.id });
                     else updateItem(id, { boardColumn: col.system ? null : col.id });
                   } : undefined}
                 >

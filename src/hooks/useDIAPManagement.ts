@@ -51,6 +51,12 @@ export interface DIAPItem {
   // Unassigned. Value is a column id from organisations.diap_board_columns.
   boardColumn?: string | null;
 
+  // Per-item statutory-framework domain override. When set (to a domain id of
+  // the org's jurisdiction framework, e.g. 'VIC-D'), this action is pinned to
+  // that outcome domain on the DAP outcomes board and in the framework report,
+  // overriding the derived module->domain mapping. null / undefined = derived.
+  frameworkDomain?: string | null;
+
   // Core fields
   objective: string;
   action: string;
