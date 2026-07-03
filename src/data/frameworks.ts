@@ -233,6 +233,69 @@ export const FRAMEWORKS: Record<string, Framework> = {
       },
     ],
   },
+
+  // Northern Territory - NT Disability Strategy 2022-2032. No statute mandates
+  // council disability plans in the NT; offered as a voluntary alignment aid.
+  // Five outcomes (titles condensed from the Strategy; DRAFT pending review of
+  // the primary PDF, which was fetch-blocked during research).
+  'AU-NT': {
+    key: 'AU-NT',
+    name: 'NT Disability Strategy 2022-2032',
+    short: 'NTDS',
+    citation: 'NT Disability Strategy 2022-2032 (no statutory council plan requirement)',
+    mandate: 'voluntary',
+    generalDomainId: 'NT-3',
+    domains: [
+      { id: 'NT-1', name: 'Rights and choices are protected and respected', short: 'Rights & choices' },
+      { id: 'NT-2', name: 'Inclusion and participation in community life', short: 'Inclusion & participation' },
+      { id: 'NT-3', name: 'Accessible communities: places, information and services', short: 'Accessible communities' },
+      { id: 'NT-4', name: 'Employment and financial security', short: 'Employment' },
+      { id: 'NT-5', name: 'Health and wellbeing', short: 'Health & wellbeing' },
+    ],
+  },
+
+  // Australian Capital Territory - ACT Disability Strategy 2024-2033. The ACT
+  // has no local councils (the Territory performs state + municipal roles), so
+  // there is no council plan mandate; offered as a voluntary alignment aid.
+  // Six focus areas (grouped from the 12 ACT Wellbeing Framework domains).
+  'AU-ACT': {
+    key: 'AU-ACT',
+    name: 'ACT Disability Strategy 2024-2033',
+    short: 'ACTDS',
+    citation: 'ACT Disability Strategy 2024-2033 (no local councils; territory-wide strategy)',
+    mandate: 'voluntary',
+    generalDomainId: 'ACT-4',
+    domains: [
+      { id: 'ACT-1', name: 'Governance and institutions', short: 'Governance' },
+      { id: 'ACT-2', name: 'Safety and health', short: 'Safety & health' },
+      { id: 'ACT-3', name: 'Social connection, identity and belonging', short: 'Connection & belonging' },
+      { id: 'ACT-4', name: 'Access and connectivity, transport and the built environment', short: 'Access & connectivity' },
+      { id: 'ACT-5', name: 'Housing and home', short: 'Housing' },
+      { id: 'ACT-6', name: 'Economy, living standards, education and learning', short: 'Economy & education' },
+    ],
+  },
+};
+
+// Queensland and Tasmania both adopt Australia's Disability Strategy 7 outcome
+// areas verbatim as their own plan structure, and neither statutorily mandates
+// council plans - so they reuse the national ADS domains, badged voluntary.
+FRAMEWORKS['AU-QLD'] = {
+  key: 'AU-QLD',
+  name: "Queensland's Disability Plan 2022-2027",
+  short: 'QDP',
+  citation: "Queensland's Disability Plan 2022-2027 (adopts Australia's Disability Strategy outcomes)",
+  mandate: 'voluntary',
+  generalDomainId: 'ADS-2',
+  domains: FRAMEWORKS.AU.domains,
+};
+FRAMEWORKS['AU-TAS'] = {
+  key: 'AU-TAS',
+  name: "Tasmania's Disability Strategy 2025-2027",
+  short: 'TASDS',
+  citation: "Tasmania's Disability Strategy 2025-2027 (adopts Australia's Disability Strategy outcomes)",
+  mandate: 'voluntary',
+  generalDomainId: 'ADS-2',
+  domains: FRAMEWORKS.AU.domains,
 };
 
 // SA priority groups councils must explicitly address (DAIP Guidelines).
@@ -252,7 +315,9 @@ export const DEFAULT_JURISDICTION = 'AU';
 
 // Jurisdictions with a fully defined framework + module mappings shipped so far.
 // Add keys here as each state's mappings land (Session 2+).
-export const SUPPORTED_JURISDICTIONS: string[] = ['AU', 'AU-SA', 'AU-VIC', 'AU-NSW', 'AU-WA'];
+export const SUPPORTED_JURISDICTIONS: string[] = [
+  'AU', 'AU-SA', 'AU-VIC', 'AU-NSW', 'AU-WA', 'AU-QLD', 'AU-TAS', 'AU-NT', 'AU-ACT',
+];
 
 export function getFramework(key: string | null | undefined): Framework {
   return (key && FRAMEWORKS[key]) || FRAMEWORKS[DEFAULT_JURISDICTION];

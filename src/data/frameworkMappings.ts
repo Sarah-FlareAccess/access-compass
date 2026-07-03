@@ -89,6 +89,40 @@ export const MODULE_FRAMEWORK_MAPPINGS: Record<string, Record<string, string[]>>
   '7.7': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
 };
 
+// Voluntary jurisdictions (no statutory council-plan mandate). QLD and TAS adopt
+// Australia's Disability Strategy outcomes verbatim, so they alias the AU
+// mapping. NT (5 outcomes) and ACT (6 focus areas) have their own outcome sets.
+const NT_MODULE_MAP: Record<string, string[]> = {
+  '1.1': ['NT-3'], '1.2': ['NT-3'], '1.3': ['NT-3'], '1.4': ['NT-3'], '1.5': ['NT-3'], '1.6': ['NT-3'],
+  '2.1': ['NT-3'], '2.2': ['NT-3'], '2.3': ['NT-3'], '2.4': ['NT-3'],
+  '3.1': ['NT-3'], '3.2': ['NT-3'], '3.3': ['NT-3'], '3.4': ['NT-3'], '3.5': ['NT-3'], '3.6': ['NT-3'],
+  '3.7': ['NT-3'], '3.8': ['NT-3'], '3.9': ['NT-3'], '3.10': ['NT-3'], '3.11': ['NT-3'], '3.12': ['NT-3'],
+  '4.1': ['NT-3'], '4.2': ['NT-3'], '4.3': ['NT-3'], '4.4': ['NT-1'], '4.5': ['NT-3'], '4.6': ['NT-3'], '4.7': ['NT-3'],
+  '5.1': ['NT-1'], '5.3': ['NT-2'], '5.4': ['NT-3'], '5.5': ['NT-2'], '5.6': ['NT-3'],
+  '5.7': ['NT-4'], '5.8': ['NT-4'], '5.9': ['NT-4'], '5.10': ['NT-4'],
+  '6.1': ['NT-2'], '6.2': ['NT-2'], '6.3': ['NT-2'], '6.4': ['NT-2'], '6.5': ['NT-2'],
+  '7.1': ['NT-2'], '7.2': ['NT-2'], '7.3': ['NT-2'], '7.4': ['NT-2', 'NT-4'], '7.5': ['NT-2', 'NT-4'], '7.6': ['NT-2'], '7.7': ['NT-2'],
+};
+const ACT_MODULE_MAP: Record<string, string[]> = {
+  '1.1': ['ACT-4'], '1.2': ['ACT-4'], '1.3': ['ACT-4'], '1.4': ['ACT-4'], '1.5': ['ACT-4'], '1.6': ['ACT-4'],
+  '2.1': ['ACT-4'], '2.2': ['ACT-4'], '2.3': ['ACT-4'], '2.4': ['ACT-4'],
+  '3.1': ['ACT-4'], '3.2': ['ACT-4'], '3.3': ['ACT-4'], '3.4': ['ACT-4'], '3.5': ['ACT-4'], '3.6': ['ACT-4'],
+  '3.7': ['ACT-4'], '3.8': ['ACT-4'], '3.9': ['ACT-4'], '3.10': ['ACT-4'], '3.11': ['ACT-4'], '3.12': ['ACT-4'],
+  '4.1': ['ACT-4'], '4.2': ['ACT-4'], '4.3': ['ACT-4'], '4.4': ['ACT-2'], '4.5': ['ACT-4'], '4.6': ['ACT-4'], '4.7': ['ACT-4'],
+  '5.1': ['ACT-1'], '5.3': ['ACT-3'], '5.4': ['ACT-4'], '5.5': ['ACT-1'], '5.6': ['ACT-4'],
+  '5.7': ['ACT-6'], '5.8': ['ACT-6'], '5.9': ['ACT-6'], '5.10': ['ACT-6'],
+  '6.1': ['ACT-3'], '6.2': ['ACT-3'], '6.3': ['ACT-3'], '6.4': ['ACT-3'], '6.5': ['ACT-3'],
+  '7.1': ['ACT-3'], '7.2': ['ACT-3'], '7.3': ['ACT-3'], '7.4': ['ACT-3', 'ACT-6'], '7.5': ['ACT-3', 'ACT-6'], '7.6': ['ACT-3'], '7.7': ['ACT-3'],
+};
+for (const [mod, entry] of Object.entries(MODULE_FRAMEWORK_MAPPINGS)) {
+  if (entry.AU) {
+    entry['AU-QLD'] = entry.AU;
+    entry['AU-TAS'] = entry.AU;
+  }
+  if (NT_MODULE_MAP[mod]) entry['AU-NT'] = NT_MODULE_MAP[mod];
+  if (ACT_MODULE_MAP[mod]) entry['AU-ACT'] = ACT_MODULE_MAP[mod];
+}
+
 // The general "when they're here" on-site experience modules. Only these pick up
 // the facility service-domain overlay (Layer 2). Employment/policy/support/comms
 // modules keep their inherent domains regardless of sector.
@@ -112,6 +146,26 @@ export const INDUSTRY_SERVICE_DOMAINS: Record<string, Record<string, string[]>> 
     'leisure-recreation': ['ADS-6'],
     'health-wellness': ['ADS-6'],
     'education-training': ['ADS-5'],
+  },
+  // QLD and TAS reuse the ADS outcomes, so the same overlay applies.
+  'AU-QLD': {
+    'leisure-recreation': ['ADS-6'],
+    'health-wellness': ['ADS-6'],
+    'education-training': ['ADS-5'],
+  },
+  'AU-TAS': {
+    'leisure-recreation': ['ADS-6'],
+    'health-wellness': ['ADS-6'],
+    'education-training': ['ADS-5'],
+  },
+  'AU-NT': {
+    'leisure-recreation': ['NT-5'],
+    'health-wellness': ['NT-5'],
+  },
+  'AU-ACT': {
+    'leisure-recreation': ['ACT-2'],
+    'health-wellness': ['ACT-2'],
+    'education-training': ['ACT-6'],
   },
   // VIC (s38) and NSW (focus areas) have no health/education outcome domain,
   // so facility sector adds nothing beyond the module's inherent Layer 1 domain.
