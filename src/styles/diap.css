@@ -4991,7 +4991,7 @@ button.evidence-layer-header {
   color: #1a1c20;
   cursor: pointer;
 }
-.domain-tag-options .domain-tag-chip:hover { background: #f0f1f3; }
+.domain-tag-options .domain-tag-chip:hover,
 .domain-tag-options .domain-tag-chip.is-on {
   background: #1a73e8;
   color: #fff;

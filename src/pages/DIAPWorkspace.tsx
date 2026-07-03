@@ -3408,7 +3408,7 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
                 {frameworkDomainOptions.map(d => {
                   const on = domainTags.includes(d.id);
                   return (
-                    <label key={d.id} className={`domain-tag-chip ${on ? 'is-on' : ''}`} title={d.name}>
+                    <label key={d.id} className={`domain-tag-chip ${on ? 'is-on' : ''}`}>
                       <input type="checkbox" checked={on} onChange={() => toggleDomain(d.id)} />
                       <span>{d.name}</span>
                     </label>
