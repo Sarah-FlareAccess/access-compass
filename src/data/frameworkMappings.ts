@@ -11,6 +11,7 @@
 // v1 ships SA (AU-SA) only; other jurisdictions added in Session 2.
 
 import { FRAMEWORKS } from './frameworks';
+import { AUTO_QUESTION_FRAMEWORK_OVERRIDES } from './frameworkQuestionOverrides';
 
 // Layer 1: module -> framework -> domain IDs
 //
@@ -193,9 +194,11 @@ export const CATEGORY_FRAMEWORK_OVERRIDES: Record<string, Record<string, string[
 };
 
 // Layer 1.5b: specific per-question overrides for questions whose OWN category is
-// misleading (e.g. a complaints-process question tagged 'policy'). Keyed by base
-// question id. Highest-precedence auto layer (below only a manual per-item move).
+// misleading, or resolved by the classify+verify pass. Keyed by base question id.
+// Highest-precedence auto layer (below only a manual per-item move). The bulk
+// comes from the generated classification file; hand-authored entries below win.
 export const QUESTION_FRAMEWORK_OVERRIDES: Record<string, Record<string, string[]>> = {
+  ...AUTO_QUESTION_FRAMEWORK_OVERRIDES,
   // "Do you have a process for handling accessibility-related complaints?" (5.1)
   '5.1-D-12': { 'AU-VIC': ['VIC-A'], AU: ['ADS-2'] },
 };
