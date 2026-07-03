@@ -3259,6 +3259,16 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
   const [domainTags, setDomainTags] = useState<string[]>(initialDomains);
   const toggleDomain = (id: string) =>
     setDomainTags(prev => prev.includes(id) ? prev.filter(d => d !== id) : [...prev, id]);
+  // Close the outcomes dropdown when clicking outside it, like a native select.
+  const domainDropdownRef = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const onDocPointer = (e: MouseEvent) => {
+      const el = domainDropdownRef.current;
+      if (el && el.open && !el.contains(e.target as Node)) el.open = false;
+    };
+    document.addEventListener('mousedown', onDocPointer);
+    return () => document.removeEventListener('mousedown', onDocPointer);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -3384,7 +3394,7 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
           <div className="domain-tag-field">
             <span className="domain-tag-title">{frameworkShort ? `${frameworkShort} outcomes` : 'Statutory outcomes'}</span>
             <span className="field-hint">Add one or more tags. You can change them anytime. Leave blank to use the assessment default.</span>
-            <details className="domain-tag-dropdown">
+            <details className="domain-tag-dropdown" ref={domainDropdownRef}>
               <summary aria-label="Select statutory outcomes">
                 {domainTags.length ? (
                   <span className="domain-tag-value">

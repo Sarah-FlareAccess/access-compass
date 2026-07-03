@@ -4922,6 +4922,7 @@ button.evidence-layer-header {
 }
 .domain-tag-dropdown {
   margin-top: 0.4rem;
+  position: relative;
 }
 /* Trigger mirrors the form <select> (Category/Status) exactly */
 .domain-tag-dropdown summary {
@@ -4968,11 +4969,19 @@ button.evidence-layer-header {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  margin-top: 0.35rem;
+  /* Float over the content below, like the native <select> option list. */
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  max-height: 260px;
+  overflow-y: auto;
   padding: 0.5rem;
-  border: 1px solid var(--diap-border, #d7dbe0);
+  border: 1px solid #918a8e;
   border-radius: 8px;
   background: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
 }
 .domain-tag-options .domain-tag-chip {
   display: flex;
