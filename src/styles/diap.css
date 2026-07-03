@@ -4925,19 +4925,20 @@ button.evidence-layer-header {
 }
 .domain-tag-options {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.4rem;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
 }
 .domain-tag-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.6rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 0.5rem 0.65rem;
   border: 1px solid var(--diap-border, #d7dbe0);
-  border-radius: 999px;
+  border-radius: 8px;
   background: #fff;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
+  line-height: 1.35;
   cursor: pointer;
   transition: background 0.12s, border-color 0.12s;
 }
@@ -4952,6 +4953,8 @@ button.evidence-layer-header {
 }
 .domain-tag-chip input {
   margin: 0;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
   accent-color: #0f5c6b;
 }
 /* Board card "spans" indicator chips */
