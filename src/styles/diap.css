@@ -4909,3 +4909,64 @@ button.evidence-layer-header {
   outline-offset: 2px;
 }
 
+
+/* Statutory-outcome pillar tagger (multi-select) in the item form */
+.domain-tag-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.domain-tag-fieldset legend {
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0;
+  margin-bottom: 0.15rem;
+}
+.domain-tag-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+.domain-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--diap-border, #d7dbe0);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.domain-tag-chip:hover {
+  border-color: #9aa3ad;
+}
+.domain-tag-chip.is-on {
+  background: #e5f0f1;
+  border-color: #0f5c6b;
+  color: #0f4650;
+  font-weight: 600;
+}
+.domain-tag-chip input {
+  margin: 0;
+  accent-color: #0f5c6b;
+}
+/* Board card "spans" indicator chips */
+.diap-board__card-spans {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.4rem;
+}
+.diap-board__span-chip {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.12rem 0.4rem;
+  border-radius: 4px;
+  background: #eef1f3;
+  color: #566069;
+  white-space: nowrap;
+}

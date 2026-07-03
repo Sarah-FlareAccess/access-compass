@@ -750,27 +750,34 @@ export default function DIAPWorkspace() {
     return () => { cancelled = true; };
   }, [accessState.organisation?.id]);
 
+  // Resolve the outcome domains an action contributes to. Precedence: the manual
+  // multi-tag (frameworkDomains) wins, then the legacy single frameworkDomain,
+  // then the derived module/question mapping. Always filtered to the framework.
+  const itemDomains = useCallback((it: DIAPItem): string[] => {
+    if (!jurisdiction || !hasMappings(jurisdiction)) return [];
+    const valid = new Set(getFramework(jurisdiction).domains.map(d => d.id));
+    const manual = it.frameworkDomains?.length ? it.frameworkDomains : (it.frameworkDomain ? [it.frameworkDomain] : null);
+    if (manual) return manual.filter(d => valid.has(d));
+    const code = it.moduleSource?.match(/(\d+\.\d+)/)?.[1];
+    if (!code) return [];
+    const bt = getSession()?.business_snapshot?.business_types ?? [];
+    const baseQid = it.questionSource?.replace(/-(media|url)-\d+$/, '');
+    const q = baseQid ? { id: baseQid, category: getQuestionCategory(baseQid) } : undefined;
+    return domainsForModule(code, jurisdiction, bt, undefined, q);
+  }, [jurisdiction]);
+
   // Group the (venue-scoped) action items by the jurisdiction framework's
   // outcome domains, so the plan can be reported against statutory headings.
   const frameworkOutcomes = useMemo(() => {
     if (!jurisdiction || !hasMappings(jurisdiction)) return null;
     const fw = getFramework(jurisdiction);
-    const businessTypes = getSession()?.business_snapshot?.business_types ?? [];
     const buckets = new Map<string, DIAPItem[]>();
     for (const d of fw.domains) buckets.set(d.id, []);
     for (const item of siteScopedItems) {
-      // A per-item override pins the action to exactly one domain (matching the
-      // board); otherwise it counts under every domain the module maps to.
-      const override = item.frameworkDomain && buckets.has(item.frameworkDomain) ? item.frameworkDomain : null;
-      if (override) {
-        buckets.get(override)?.push(item);
-        continue;
-      }
-      const code = item.moduleSource?.match(/(\d+\.\d+)/)?.[1];
-      if (!code) continue;
-      const baseQid = item.questionSource?.replace(/-(media|url)-\d+$/, '');
-      const q = baseQid ? { id: baseQid, category: getQuestionCategory(baseQid) } : undefined;
-      for (const domainId of domainsForModule(code, jurisdiction, businessTypes, undefined, q)) {
+      // Counts under every outcome domain the action is tagged/mapped to, so a
+      // multi-pillar action appears under each. Totals can therefore exceed the
+      // action count (surfaced as a reconciliation note in the report).
+      for (const domainId of itemDomains(item)) {
         buckets.get(domainId)?.push(item);
       }
     }
@@ -789,7 +796,7 @@ export default function DIAPWorkspace() {
     });
     const mapped = domains.reduce((sum, d) => sum + d.total, 0);
     return { fw, domains, mapped };
-  }, [jurisdiction, siteScopedItems]);
+  }, [jurisdiction, siteScopedItems, itemDomains]);
 
   // Columns for the board, derived from the chosen grouping. kind drives the
   // drop behaviour: status -> change status, category -> change category,
@@ -808,17 +815,11 @@ export default function DIAPWorkspace() {
     if (boardGroupBy === 'domain' && frameworkOutcomes) {
       const cols: BoardCol[] = frameworkOutcomes.fw.domains.map(d => ({ id: d.id, name: d.name, kind: 'domain', items: [] }));
       const byId = new Map(cols.map(c => [c.id, c]));
-      const bt = getSession()?.business_snapshot?.business_types ?? [];
       const unmapped: DIAPItem[] = [];
       for (const it of filteredItems) {
-        // An explicit per-item override wins; otherwise use the first derived
-        // domain from the module mapping.
-        const override = it.frameworkDomain && byId.has(it.frameworkDomain) ? it.frameworkDomain : null;
-        const code = it.moduleSource?.match(/(\d+\.\d+)/)?.[1];
-        const baseQid = it.questionSource?.replace(/-(media|url)-\d+$/, '');
-        const q = baseQid ? { id: baseQid, category: getQuestionCategory(baseQid) } : undefined;
-        const domains = code && jurisdiction ? domainsForModule(code, jurisdiction, bt, undefined, q) : [];
-        const target = override ?? domains[0];
+        // A card sits in its first tagged/mapped domain; any others it spans are
+        // shown as chips on the card. Manual tags win via itemDomains().
+        const target = itemDomains(it)[0];
         if (target && byId.has(target)) byId.get(target)!.items.push(it);
         else unmapped.push(it);
       }
@@ -830,7 +831,7 @@ export default function DIAPWorkspace() {
       { id: '__unassigned__', name: unassignedLabel, kind: 'section', system: true, items: filteredItems.filter(i => !i.boardColumn || !boardColumns.some(c => c.id === i.boardColumn)) },
       ...boardColumns.map(c => ({ id: c.id, name: c.name, kind: 'section' as const, items: filteredItems.filter(i => i.boardColumn === c.id) })),
     ];
-  }, [boardGroupBy, filteredItems, allCategories, customCategoryNames, frameworkOutcomes, jurisdiction, unassignedLabel, boardColumns]);
+  }, [boardGroupBy, filteredItems, allCategories, customCategoryNames, frameworkOutcomes, jurisdiction, unassignedLabel, boardColumns, itemDomains]);
 
   // Whether any filter beyond the default venue scope is narrowing the view.
   // The site chip follows the active venue by default; anything else (status,
@@ -1236,6 +1237,16 @@ export default function DIAPWorkspace() {
             </span>
           )}
         </div>
+        {boardGroupBy === 'domain' && (() => {
+          const spans = itemDomains(item);
+          if (spans.length < 2) return null;
+          const shortById = new Map((frameworkOutcomes?.fw.domains ?? []).map(d => [d.id, d.short]));
+          return (
+            <div className="diap-board__card-spans" title="This action contributes to more than one outcome">
+              {spans.map(d => <span key={d} className="diap-board__span-chip">{shortById.get(d) ?? d}</span>)}
+            </div>
+          );
+        })()}
       </div>
     );
   };
@@ -1866,6 +1877,8 @@ export default function DIAPWorkspace() {
         {showAddForm && (
           <DIAPItemForm
             item={null}
+            frameworkDomainOptions={frameworkOutcomes ? frameworkOutcomes.fw.domains.map(d => ({ id: d.id, name: d.name, short: d.short })) : []}
+            frameworkShort={frameworkOutcomes?.fw.short}
             onSave={(data) => {
               createItem(data as Omit<DIAPItem, 'id' | 'sessionId' | 'createdAt' | 'updatedAt'>);
               setShowAddForm(false);
@@ -1936,7 +1949,7 @@ export default function DIAPWorkspace() {
                     if (!id) return;
                     if (col.kind === 'status') handleStatusChange(id, col.id as DIAPStatus);
                     else if (col.kind === 'category') updateItem(id, { category: col.id as DIAPCategory });
-                    else if (col.kind === 'domain') updateItem(id, { frameworkDomain: col.id });
+                    else if (col.kind === 'domain') updateItem(id, { frameworkDomains: [col.id], frameworkDomain: null });
                     else updateItem(id, { boardColumn: col.system ? null : col.id });
                   } : undefined}
                 >
@@ -2433,6 +2446,8 @@ export default function DIAPWorkspace() {
               {editingItem?.id === detailItem.id ? (
                 <DIAPItemForm
                   item={items.find(i => i.id === detailItem.id) || detailItem}
+                  frameworkDomainOptions={frameworkOutcomes ? frameworkOutcomes.fw.domains.map(d => ({ id: d.id, name: d.name, short: d.short })) : []}
+                  frameworkShort={frameworkOutcomes?.fw.short}
                   onSave={(data) => { updateItem(detailItem.id, data); setEditingItem(null); }}
                   onCancel={() => setEditingItem(null)}
                   onDelete={() => { deleteItem(detailItem.id); closeDetail(); }}
@@ -3216,9 +3231,12 @@ interface DIAPItemFormProps {
   onAddAttachment?: (itemId: string, file: File) => void;
   onAttachExisting?: (itemId: string, existing: ExistingEvidenceMatch) => Promise<void>;
   onRemoveAttachment?: (itemId: string, attachmentId: string) => void;
+  /** The org jurisdiction framework's outcome domains, for the pillar tagger. */
+  frameworkDomainOptions?: { id: string; name: string; short: string }[];
+  frameworkShort?: string;
 }
 
-function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList = [], onAddRole, onManageRoles, onAddAttachment, onAttachExisting, onRemoveAttachment }: DIAPItemFormProps) {
+function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList = [], onAddRole, onManageRoles, onAddAttachment, onAttachExisting, onRemoveAttachment, frameworkDomainOptions = [], frameworkShort }: DIAPItemFormProps) {
   const formAttachRef = useRef<HTMLInputElement>(null);
   const [formPickerOpen, setFormPickerOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -3234,12 +3252,23 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
     successIndicators: item?.successIndicators || '',
     budgetEstimate: item?.budgetEstimate || '',
   });
+  // Manual statutory-pillar tags. Empty = fall back to the derived mapping.
+  const initialDomains = item?.frameworkDomains?.length
+    ? item.frameworkDomains
+    : (item?.frameworkDomain ? [item.frameworkDomain] : []);
+  const [domainTags, setDomainTags] = useState<string[]>(initialDomains);
+  const toggleDomain = (id: string) =>
+    setDomainTags(prev => prev.includes(id) ? prev.filter(d => d !== id) : [...prev, id]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.objective.trim()) return;
     onSave({
       ...formData,
+      // Persist the manual pillar tags; clear the legacy single field so the
+      // multi-tag set is authoritative. Empty tags => derived mapping.
+      frameworkDomains: domainTags.length ? domainTags : null,
+      frameworkDomain: null,
       importSource: item?.importSource || 'manual',
     });
   };
@@ -3349,6 +3378,26 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
           </div>
         </fieldset>
       </div>
+
+      {frameworkDomainOptions.length > 0 && (
+        <div className="form-row">
+          <fieldset className="domain-tag-fieldset">
+            <legend>{frameworkShort ? `${frameworkShort} outcomes` : 'Statutory outcomes'}</legend>
+            <span className="field-hint">Tag this action against one or more outcomes. Leave blank to use the assessment default.</span>
+            <div className="domain-tag-options">
+              {frameworkDomainOptions.map(d => {
+                const on = domainTags.includes(d.id);
+                return (
+                  <label key={d.id} className={`domain-tag-chip ${on ? 'is-on' : ''}`} title={d.name}>
+                    <input type="checkbox" checked={on} onChange={() => toggleDomain(d.id)} />
+                    <span>{d.name}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
+        </div>
+      )}
 
       <div className="form-row double">
         <div className="form-field">

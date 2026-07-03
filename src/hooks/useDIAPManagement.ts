@@ -55,7 +55,15 @@ export interface DIAPItem {
   // the org's jurisdiction framework, e.g. 'VIC-D'), this action is pinned to
   // that outcome domain on the DAP outcomes board and in the framework report,
   // overriding the derived module->domain mapping. null / undefined = derived.
+  // Legacy single-value field; superseded by frameworkDomains (kept for reads).
   frameworkDomain?: string | null;
+
+  // Per-item statutory-framework domain tags. An action can be tagged against
+  // multiple outcome domains (pillars) at once, e.g. ['VIC-B','VIC-C']. When
+  // non-empty this overrides both the derived mapping and the legacy single
+  // frameworkDomain, for the board and the framework report. Empty/undefined
+  // = fall back to frameworkDomain, then the derived mapping.
+  frameworkDomains?: string[] | null;
 
   // Core fields
   objective: string;
