@@ -4974,9 +4974,10 @@ button.evidence-layer-header {
   border-radius: 8px;
   background: #fff;
 }
-.domain-tag-chip {
+.domain-tag-options .domain-tag-chip {
   display: flex;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
   gap: 0.55rem;
   padding: 0.4rem 0.5rem;
   border-radius: 6px;
@@ -4985,16 +4986,17 @@ button.evidence-layer-header {
   cursor: pointer;
   transition: background 0.12s;
 }
-.domain-tag-chip:hover { background: #f2f5f6; }
-.domain-tag-chip.is-on {
+.domain-tag-options .domain-tag-chip:hover { background: #f2f5f6; }
+.domain-tag-options .domain-tag-chip.is-on {
   background: #e5f0f1;
   color: #0f4650;
   font-weight: 600;
 }
-.domain-tag-chip input {
+.domain-tag-options .domain-tag-chip input[type="checkbox"] {
   margin: 0;
-  margin-top: 0.15rem;
-  flex-shrink: 0;
+  width: auto;
+  min-width: 0;
+  flex: 0 0 auto;
   accent-color: #0f5c6b;
 }
 /* Board card "spans" indicator chips */
