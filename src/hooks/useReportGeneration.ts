@@ -3797,8 +3797,8 @@ const QUESTION_SPECIFIC_RECOMMENDATIONS: Record<string, {
     resources: [],
   },
   '5.1-D-16': {
-    actions: ['Set targets for representation of people with disability on your Board, senior leadership team, and advisory committees.', 'Actively recruit people with disability to governance roles through disability-specific networks and organisations.', 'Ensure governance processes are accessible (meeting formats, documents, venues, communication methods).', 'Consider establishing a dedicated disability advisory committee with direct input to the Board.', 'Align with Australia Disability Strategy 2021-2031 outcome area on inclusive leadership and civic participation.'],
-    reasoning: 'Representation of people with disability in leadership ensures lived experience informs strategy and decision-making, moving beyond consultation to genuine power-sharing.',
+    actions: ['Build clear progression pathways into leadership and decision-making for people with disability: mentoring, sponsorship, and access to leadership development.', 'Review promotion and selection criteria to remove barriers that screen out people with disability.', 'Set representation targets for your Board, senior leadership team, and advisory committees, and recruit through disability-specific networks.', 'Ensure governance and progression processes are accessible (meeting formats, documents, venues, communication methods).', 'Align with Australia Disability Strategy 2021-2031 outcome area on inclusive leadership and civic participation.'],
+    reasoning: 'A genuine pathway into leadership ensures people with disability can progress into decision-making roles when the fit is right, moving beyond current headcount to sustained opportunity and power-sharing.',
     resources: [],
   },
   '5.1-D-17': {
