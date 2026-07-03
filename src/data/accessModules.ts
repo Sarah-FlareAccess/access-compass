@@ -37956,6 +37956,23 @@ export function getModuleById(id: string): AccessModule | undefined {
   return accessModules.find(m => m.id === id || m.code === id);
 }
 
+// Lazily-built index of question id -> its own topical category (e.g. 'training',
+// 'feedback', 'physical'). Used to categorise a DIAP action by what its source
+// question is actually about, not just which module it belongs to.
+let _questionCategoryIndex: Map<string, string> | null = null;
+export function getQuestionCategory(questionId: string): string | undefined {
+  if (!_questionCategoryIndex) {
+    _questionCategoryIndex = new Map();
+    for (const m of accessModules) {
+      for (const q of m.questions) {
+        const cat = (q as { category?: string }).category;
+        if (cat) _questionCategoryIndex.set(q.id, cat);
+      }
+    }
+  }
+  return _questionCategoryIndex.get(questionId);
+}
+
 // Helper to get modules by group
 export function getModulesByGroup(group: string): AccessModule[] {
   return accessModules.filter(m => m.group === group);

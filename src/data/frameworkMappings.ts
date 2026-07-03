@@ -171,26 +171,82 @@ export const INDUSTRY_SERVICE_DOMAINS: Record<string, Record<string, string[]>> 
   // so facility sector adds nothing beyond the module's inherent Layer 1 domain.
 };
 
+// Layer 1.5a: question-category -> framework domain refinement. A question's own
+// category (from accessModules) reflects what it is actually about, independent
+// of its module, so an action inherits the right domain even when its module is
+// a grab-bag. Only "distinctive" categories that clearly imply a domain are
+// listed; generic buckets (operational, policy, improvement, evidence,
+// measurement) fall back to the module default. DRAFT - VIC + national first;
+// other jurisdictions to follow. QLD/TAS reuse the AU (ADS) values (aliased below).
+export const CATEGORY_FRAMEWORK_OVERRIDES: Record<string, Record<string, string[]>> = {
+  training: { 'AU-VIC': ['VIC-D'], AU: ['ADS-7'] },
+  feedback: { 'AU-VIC': ['VIC-A'], AU: ['ADS-2'] },
+  employment: { 'AU-VIC': ['VIC-B'], AU: ['ADS-1'] },
+  procurement: { 'AU-VIC': ['VIC-A'], AU: ['ADS-4'] },
+  'lived-experience': { 'AU-VIC': ['VIC-C'], AU: ['ADS-2'] },
+  physical: { 'AU-VIC': ['VIC-A'], AU: ['ADS-2'] },
+  information: { 'AU-VIC': ['VIC-A'], AU: ['ADS-2'] },
+  digital: { 'AU-VIC': ['VIC-A'], AU: ['ADS-2'] },
+  communication: { 'AU-VIC': ['VIC-A'], AU: ['ADS-2'] },
+  'sensory-environment': { 'AU-VIC': ['VIC-A'], AU: ['ADS-2'] },
+  safety: { 'AU-VIC': ['VIC-A'], AU: ['ADS-3'] },
+};
+
+// Layer 1.5b: specific per-question overrides for questions whose OWN category is
+// misleading (e.g. a complaints-process question tagged 'policy'). Keyed by base
+// question id. Highest-precedence auto layer (below only a manual per-item move).
+export const QUESTION_FRAMEWORK_OVERRIDES: Record<string, Record<string, string[]>> = {
+  // "Do you have a process for handling accessibility-related complaints?" (5.1)
+  '5.1-D-12': { 'AU-VIC': ['VIC-A'], AU: ['ADS-2'] },
+};
+
+// QLD and TAS reuse the national ADS domains, so alias the AU category values.
+for (const cat of Object.keys(CATEGORY_FRAMEWORK_OVERRIDES)) {
+  const au = CATEGORY_FRAMEWORK_OVERRIDES[cat].AU;
+  if (au) {
+    CATEGORY_FRAMEWORK_OVERRIDES[cat]['AU-QLD'] = au;
+    CATEGORY_FRAMEWORK_OVERRIDES[cat]['AU-TAS'] = au;
+  }
+}
+for (const qid of Object.keys(QUESTION_FRAMEWORK_OVERRIDES)) {
+  const au = QUESTION_FRAMEWORK_OVERRIDES[qid].AU;
+  if (au) {
+    QUESTION_FRAMEWORK_OVERRIDES[qid]['AU-QLD'] = au;
+    QUESTION_FRAMEWORK_OVERRIDES[qid]['AU-TAS'] = au;
+  }
+}
+
 /**
  * Domains a module's findings contribute to, for a given framework and the
- * completing business's ticked types. Combines Layer 1 + (for facility modules)
- * Layer 2. Returns [] when the framework has no mappings yet.
+ * completing business's ticked types. Precedence (highest first):
+ *   1. moduleOverride     - a per-org explicit choice, wins outright.
+ *   2. question.id        - a per-question override (misleading category fix).
+ *   3. question.category  - a distinctive-category refinement.
+ *   4. module default      - the module's inherent domain(s).
+ * Layers 2-4 also pick up the Layer 2 facility service overlay for facility
+ * modules. Returns [] when the framework has no mappings yet.
  */
 export function domainsForModule(
   moduleId: string,
   frameworkKey: string | null | undefined,
   businessTypes: string[] = [],
-  moduleOverride?: string[]
+  moduleOverride?: string[],
+  question?: { id?: string | null; category?: string | null }
 ): string[] {
   if (!frameworkKey || !FRAMEWORKS[frameworkKey]) return [];
+  const valid = new Set(FRAMEWORKS[frameworkKey].domains.map((d) => d.id));
   // A per-org override is the council's explicit choice - it wins outright
   // (no auto layers), so their tuning is respected exactly.
   if (moduleOverride) {
-    const valid = new Set(FRAMEWORKS[frameworkKey].domains.map((d) => d.id));
     return moduleOverride.filter((d) => valid.has(d));
   }
-  const base = MODULE_FRAMEWORK_MAPPINGS[moduleId]?.[frameworkKey] ?? [];
-  const domains = new Set(base);
+  // Question-level then category-level refinement replaces the module default.
+  const qid = question?.id;
+  const qOverride = qid ? QUESTION_FRAMEWORK_OVERRIDES[qid]?.[frameworkKey] : undefined;
+  const cat = question?.category;
+  const cOverride = cat ? CATEGORY_FRAMEWORK_OVERRIDES[cat]?.[frameworkKey] : undefined;
+  const base = qOverride ?? cOverride ?? MODULE_FRAMEWORK_MAPPINGS[moduleId]?.[frameworkKey] ?? [];
+  const domains = new Set(base.filter((d) => valid.has(d)));
   if (FACILITY_CONTEXT_MODULES.has(moduleId)) {
     const overlay = INDUSTRY_SERVICE_DOMAINS[frameworkKey] ?? {};
     for (const type of businessTypes) {

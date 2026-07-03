@@ -29,7 +29,7 @@ import { InfoTooltip } from '../components/InfoTooltip';
 
 // Sentinel used in the site filter to represent items with no site (org-wide).
 const ORG_WIDE_SITE = '__org__';
-import { getModuleById, getQuestionsForMode } from '../data/accessModules';
+import { getModuleById, getQuestionsForMode, getQuestionCategory } from '../data/accessModules';
 import { DIAP_SECTIONS as _DIAP_SECTIONS, DIAP_CATEGORIES, getDIAPSectionForModule, groupItemsByCategoryAndObjective, getCustomCategoryNames, setCustomCategoryName, getCategoryDisplayName, getCustomCategories, addCustomCategory, removeCustomCategory, getAllCategories } from '../data/diapMapping';
 import type { DIAPItem, DIAPStatus, DIAPPriority, DIAPCategory, CSVImportResult, PDFImportResult, ExcelImportResult } from '../hooks/useDIAPManagement';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -768,7 +768,9 @@ export default function DIAPWorkspace() {
       }
       const code = item.moduleSource?.match(/(\d+\.\d+)/)?.[1];
       if (!code) continue;
-      for (const domainId of domainsForModule(code, jurisdiction, businessTypes)) {
+      const baseQid = item.questionSource?.replace(/-(media|url)-\d+$/, '');
+      const q = baseQid ? { id: baseQid, category: getQuestionCategory(baseQid) } : undefined;
+      for (const domainId of domainsForModule(code, jurisdiction, businessTypes, undefined, q)) {
         buckets.get(domainId)?.push(item);
       }
     }
@@ -813,7 +815,9 @@ export default function DIAPWorkspace() {
         // domain from the module mapping.
         const override = it.frameworkDomain && byId.has(it.frameworkDomain) ? it.frameworkDomain : null;
         const code = it.moduleSource?.match(/(\d+\.\d+)/)?.[1];
-        const domains = code && jurisdiction ? domainsForModule(code, jurisdiction, bt) : [];
+        const baseQid = it.questionSource?.replace(/-(media|url)-\d+$/, '');
+        const q = baseQid ? { id: baseQid, category: getQuestionCategory(baseQid) } : undefined;
+        const domains = code && jurisdiction ? domainsForModule(code, jurisdiction, bt, undefined, q) : [];
         const target = override ?? domains[0];
         if (target && byId.has(target)) byId.get(target)!.items.push(it);
         else unmapped.push(it);
