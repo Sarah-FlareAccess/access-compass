@@ -4923,27 +4923,35 @@ button.evidence-layer-header {
 .domain-tag-dropdown {
   margin-top: 0.4rem;
 }
+/* Trigger mirrors the form <select> (Category/Status) exactly */
 .domain-tag-dropdown summary {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  min-height: 2.4rem;
-  padding: 0.4rem 0.7rem;
-  border: 1px solid var(--diap-border, #d7dbe0);
+  padding: 12px 14px;
+  border: 1px solid #918a8e;
   border-radius: 8px;
   background: #fff;
+  font-size: 0.875rem;
   cursor: pointer;
+  transition: border-color 0.2s ease;
 }
 .domain-tag-dropdown summary::-webkit-details-marker { display: none; }
+.domain-tag-dropdown summary:focus-visible {
+  outline: none;
+  border-color: var(--amethyst-diamond, #490E67);
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.15);
+}
 .domain-tag-dropdown summary::after {
   content: '';
   margin-left: auto;
   flex-shrink: 0;
-  width: 0.45rem;
-  height: 0.45rem;
-  border-right: 2px solid #6b7280;
-  border-bottom: 2px solid #6b7280;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid #333;
   transform: translateY(-2px) rotate(45deg);
   transition: transform 0.15s;
 }
@@ -4951,18 +4959,10 @@ button.evidence-layer-header {
   transform: translateY(2px) rotate(-135deg);
 }
 .domain-tag-placeholder { color: #8a929e; }
-.domain-tag-summary-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-}
-.domain-tag-pill {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-  background: #e5f0f1;
-  color: #0f4650;
+.domain-tag-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .domain-tag-options {
   display: flex;
