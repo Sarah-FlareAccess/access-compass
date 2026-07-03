@@ -13,65 +13,80 @@
 import { FRAMEWORKS } from './frameworks';
 
 // Layer 1: module -> framework -> domain IDs
+//
+// AU (national ADS) mappings are a faithful transform of the SA (AU-SA) logic:
+//   SDIP-1 Inclusive environments/communities -> ADS-2 Inclusive homes and communities
+//   SDIP-2 Education and employment           -> ADS-1 Employment and financial security
+//   SDIP-3 Personal and community support     -> ADS-4 Personal and community support
+//   SDIP-5 Safety, rights and justice         -> ADS-3 Safety, rights and justice
+// (ADS-5 Education, ADS-6 Health, ADS-7 Attitudes are reached via the Layer 2
+// service overlay / future work.) DRAFT - pending Sarah sign-off, as with SA.
+//
+// VIC (AU-VIC) = the four Disability Act 2006 (Vic) s38(1) objectives:
+//   VIC-A access to goods/services/facilities | VIC-B employment
+//   VIC-C inclusion & participation | VIC-D attitudes & practices
+// NSW (AU-NSW) = the four Disability Inclusion Act 2014 focus areas:
+//   NSW-1 attitudes & behaviours | NSW-2 liveable communities
+//   NSW-3 employment | NSW-4 access to services via systems & processes
 export const MODULE_FRAMEWORK_MAPPINGS: Record<string, Record<string, string[]>> = {
   // Before arrival - information & communications
-  '1.1': { 'AU-SA': ['SDIP-1'] },
-  '1.2': { 'AU-SA': ['SDIP-1'] },
-  '1.3': { 'AU-SA': ['SDIP-1'] },
-  '1.4': { 'AU-SA': ['SDIP-1'] },
-  '1.5': { 'AU-SA': ['SDIP-1'] },
-  '1.6': { 'AU-SA': ['SDIP-1'] },
+  '1.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '1.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '1.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '1.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '1.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '1.6': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
   // Getting in - built environment
-  '2.1': { 'AU-SA': ['SDIP-1'] },
-  '2.2': { 'AU-SA': ['SDIP-1'] },
-  '2.3': { 'AU-SA': ['SDIP-1'] },
-  '2.4': { 'AU-SA': ['SDIP-1'] },
+  '2.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '2.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '2.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '2.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
   // During visit - on-site environment & participation
-  '3.1': { 'AU-SA': ['SDIP-1'] },
-  '3.2': { 'AU-SA': ['SDIP-1'] },
-  '3.3': { 'AU-SA': ['SDIP-1'] },
-  '3.4': { 'AU-SA': ['SDIP-1'] },
-  '3.5': { 'AU-SA': ['SDIP-1'] },
-  '3.6': { 'AU-SA': ['SDIP-1'] },
-  '3.7': { 'AU-SA': ['SDIP-1'] },
-  '3.8': { 'AU-SA': ['SDIP-1'] },
-  '3.9': { 'AU-SA': ['SDIP-1'] },
-  '3.10': { 'AU-SA': ['SDIP-1'] },
-  '3.11': { 'AU-SA': ['SDIP-1'] },
-  '3.12': { 'AU-SA': ['SDIP-1'] },
+  '3.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.6': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.7': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.8': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.9': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.10': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.11': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.12': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
   // Service & support
-  '4.1': { 'AU-SA': ['SDIP-3'] },
-  '4.2': { 'AU-SA': ['SDIP-1', 'SDIP-3'] }, // customer service = community attitudes + support
-  '4.3': { 'AU-SA': ['SDIP-3'] },
-  '4.4': { 'AU-SA': ['SDIP-5'] }, // safety & emergencies
-  '4.5': { 'AU-SA': ['SDIP-3'] },
-  '4.6': { 'AU-SA': ['SDIP-3'] },
-  '4.7': { 'AU-SA': ['SDIP-3'] },
+  '4.1': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '4.2': { 'AU-SA': ['SDIP-1', 'SDIP-3'], AU: ['ADS-2', 'ADS-4'], 'AU-VIC': ['VIC-A', 'VIC-D'], 'AU-NSW': ['NSW-1', 'NSW-4'] }, // customer service = attitudes + support
+  '4.3': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '4.4': { 'AU-SA': ['SDIP-5'], AU: ['ADS-3'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] }, // safety & emergencies
+  '4.5': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '4.6': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '4.7': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
   // Organisation / policy & operations
-  '5.1': { 'AU-SA': ['SDIP-1', 'SDIP-5'] }, // policy & inclusion = communities + rights
-  '5.3': { 'AU-SA': ['SDIP-1'] },
-  '5.4': { 'AU-SA': ['SDIP-3'] },
-  '5.5': { 'AU-SA': ['SDIP-1'] },
-  '5.6': { 'AU-SA': ['SDIP-3'] },
+  '5.1': { 'AU-SA': ['SDIP-1', 'SDIP-5'], AU: ['ADS-2', 'ADS-3'], 'AU-VIC': ['VIC-C', 'VIC-D'], 'AU-NSW': ['NSW-1', 'NSW-4'] }, // policy & inclusion = culture + rights
+  '5.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-C'], 'AU-NSW': ['NSW-1'] },
+  '5.4': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '5.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-C'], 'AU-NSW': ['NSW-1'] },
+  '5.6': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
   // Employment (inclusive working environments + employment opportunities)
-  '5.7': { 'AU-SA': ['SDIP-2', 'SDIP-1'] },
-  '5.8': { 'AU-SA': ['SDIP-2', 'SDIP-1'] },
-  '5.9': { 'AU-SA': ['SDIP-2', 'SDIP-1'] },
-  '5.10': { 'AU-SA': ['SDIP-2', 'SDIP-1'] },
+  '5.7': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B'], 'AU-NSW': ['NSW-3'] },
+  '5.8': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B'], 'AU-NSW': ['NSW-3'] },
+  '5.9': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B'], 'AU-NSW': ['NSW-3'] },
+  '5.10': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B', 'VIC-D'], 'AU-NSW': ['NSW-3', 'NSW-1'] }, // retention/culture adds attitudes
   // Events
-  '6.1': { 'AU-SA': ['SDIP-1'] },
-  '6.2': { 'AU-SA': ['SDIP-1'] },
-  '6.3': { 'AU-SA': ['SDIP-1'] },
-  '6.4': { 'AU-SA': ['SDIP-1'] },
-  '6.5': { 'AU-SA': ['SDIP-1'] },
+  '6.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '6.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '6.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '6.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '6.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
   // Major events
-  '7.1': { 'AU-SA': ['SDIP-1'] },
-  '7.2': { 'AU-SA': ['SDIP-1'] },
-  '7.3': { 'AU-SA': ['SDIP-1'] },
-  '7.4': { 'AU-SA': ['SDIP-1', 'SDIP-2'] }, // performer access = cultural participation + employment
-  '7.5': { 'AU-SA': ['SDIP-1', 'SDIP-2'] }, // volunteers/staff = participation + workforce
-  '7.6': { 'AU-SA': ['SDIP-1'] },
-  '7.7': { 'AU-SA': ['SDIP-1'] },
+  '7.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '7.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '7.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '7.4': { 'AU-SA': ['SDIP-1', 'SDIP-2'], AU: ['ADS-2', 'ADS-1'], 'AU-VIC': ['VIC-C', 'VIC-B'], 'AU-NSW': ['NSW-2', 'NSW-3'] }, // performer access = participation + employment
+  '7.5': { 'AU-SA': ['SDIP-1', 'SDIP-2'], AU: ['ADS-2', 'ADS-1'], 'AU-VIC': ['VIC-C', 'VIC-B'], 'AU-NSW': ['NSW-2', 'NSW-3'] }, // volunteers/staff = participation + workforce
+  '7.6': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '7.7': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
 };
 
 // The general "when they're here" on-site experience modules. Only these pick up
@@ -93,6 +108,13 @@ export const INDUSTRY_SERVICE_DOMAINS: Record<string, Record<string, string[]>> 
     'health-wellness': ['SDIP-4'],
     'education-training': ['SDIP-2'],
   },
+  AU: {
+    'leisure-recreation': ['ADS-6'],
+    'health-wellness': ['ADS-6'],
+    'education-training': ['ADS-5'],
+  },
+  // VIC (s38) and NSW (focus areas) have no health/education outcome domain,
+  // so facility sector adds nothing beyond the module's inherent Layer 1 domain.
 };
 
 /**

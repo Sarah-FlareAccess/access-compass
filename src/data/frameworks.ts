@@ -97,6 +97,75 @@ export const FRAMEWORKS: Record<string, Framework> = {
       },
     ],
   },
+
+  // Victoria - the statutory framework a council reports against is NOT the
+  // "Inclusive Victoria 2022-2026" state strategy pillars, but the four
+  // objectives set out in Disability Act 2006 (Vic) s38(1). A council must
+  // address these matters in either a Disability Action Plan (s38(4)) or its
+  // Council Plan (s38(5A)). Objectives are verbatim from the authorised Act.
+  // (An optional voluntary "Inclusive Victoria" alignment layer is a later add.)
+  'AU-VIC': {
+    key: 'AU-VIC',
+    name: 'Disability Action Plan objectives (Disability Act 2006)',
+    short: 'DAP',
+    citation: 'Disability Act 2006 (Vic) s 38(1)',
+    generalDomainId: 'VIC-A',
+    domains: [
+      {
+        id: 'VIC-A',
+        name: 'Reducing barriers to accessing goods, services and facilities',
+        short: 'Access to goods & services',
+      },
+      {
+        id: 'VIC-B',
+        name: 'Reducing barriers to obtaining and maintaining employment',
+        short: 'Employment',
+      },
+      {
+        id: 'VIC-C',
+        name: 'Promoting inclusion and participation in the community',
+        short: 'Inclusion & participation',
+      },
+      {
+        id: 'VIC-D',
+        name: 'Achieving tangible changes in attitudes and practices which discriminate',
+        short: 'Attitudes & practices',
+      },
+    ],
+  },
+
+  // New South Wales - Disability Inclusion Act 2014 (NSW) s12 requires every
+  // local council (a "public authority") to have a Disability Inclusion Action
+  // Plan addressing the four focus areas of the NSW Disability Inclusion Plan.
+  'AU-NSW': {
+    key: 'AU-NSW',
+    name: 'Disability Inclusion Action Plan focus areas',
+    short: 'DIAP',
+    citation: 'Disability Inclusion Act 2014 (NSW) s 12',
+    generalDomainId: 'NSW-2',
+    domains: [
+      {
+        id: 'NSW-1',
+        name: 'Developing positive community attitudes and behaviours',
+        short: 'Attitudes & behaviours',
+      },
+      {
+        id: 'NSW-2',
+        name: 'Creating liveable communities',
+        short: 'Liveable communities',
+      },
+      {
+        id: 'NSW-3',
+        name: 'Supporting access to meaningful employment',
+        short: 'Employment',
+      },
+      {
+        id: 'NSW-4',
+        name: 'Improving access to services through better systems and processes',
+        short: 'Systems & processes',
+      },
+    ],
+  },
 };
 
 // SA priority groups councils must explicitly address (DAIP Guidelines).
@@ -116,7 +185,7 @@ export const DEFAULT_JURISDICTION = 'AU';
 
 // Jurisdictions with a fully defined framework + module mappings shipped so far.
 // Add keys here as each state's mappings land (Session 2+).
-export const SUPPORTED_JURISDICTIONS: string[] = ['AU', 'AU-SA'];
+export const SUPPORTED_JURISDICTIONS: string[] = ['AU', 'AU-SA', 'AU-VIC', 'AU-NSW'];
 
 export function getFramework(key: string | null | undefined): Framework {
   return (key && FRAMEWORKS[key]) || FRAMEWORKS[DEFAULT_JURISDICTION];
