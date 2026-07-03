@@ -5028,3 +5028,15 @@ button.evidence-layer-header {
   color: #566069;
   white-space: nowrap;
 }
+
+/* Pin the item form's Save/Cancel to the bottom of the detail panel so they
+   stay visible on long forms instead of being buried below the fields. */
+.diap-detail-panel__body .form-actions {
+  position: sticky;
+  bottom: 0;
+  margin: 24px -18px 0;
+  padding: 14px 18px;
+  background: var(--surface-1, #fff);
+  border-top: 1px solid var(--diap-border, #e4e6ea);
+  z-index: 5;
+}
