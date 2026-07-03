@@ -3397,9 +3397,7 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
             <details className="domain-tag-dropdown" ref={domainDropdownRef}>
               <summary aria-label="Select statutory outcomes">
                 {domainTags.length ? (
-                  <span className="domain-tag-value">
-                    {frameworkDomainOptions.filter(d => domainTags.includes(d.id)).map(d => d.short).join(', ')}
-                  </span>
+                  <span className="domain-tag-value">{domainTags.length} selected</span>
                 ) : (
                   <span className="domain-tag-placeholder">Select outcomes…</span>
                 )}
