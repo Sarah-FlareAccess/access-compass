@@ -2048,13 +2048,11 @@ details[open] .diap-framework__domain-summary::after {
   transition: border-color 0.2s ease;
 }
 
-/* Replace the native OS chevron with a consistent caret so <select>s match the
-   custom dropdowns (Responsible Role, statutory outcomes). */
-.form-row select,
+/* Custom caret for the multi-select outcomes trigger only. Native <select>s
+   (Category/Status) keep their fast native rendering. */
 .domain-tag-dropdown summary {
   -webkit-appearance: none;
   appearance: none;
-  font-family: inherit;
   padding-right: 34px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5l3.5 3.5 3.5-3.5' stroke='%23333333' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -4328,13 +4326,12 @@ button.evidence-layer-header {
 
 .role-combobox-input {
   width: 100%;
-  /* Match the form <select> / outcomes box so all controls are consistent. */
-  padding: 12px 34px 12px 14px;
-  border: 1px solid #918a8e;
-  border-radius: 8px;
+  padding: 10px 32px 10px 12px;
+  border: 1.5px solid rgba(73, 14, 103, 0.15);
+  border-radius: var(--radius-sm);
   font-size: 0.875rem;
   color: var(--text-primary);
-  background: #fff;
+  background: var(--surface-2);
   transition: border-color var(--transition-fast);
 }
 
