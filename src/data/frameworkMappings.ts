@@ -30,63 +30,63 @@ import { FRAMEWORKS } from './frameworks';
 //   NSW-3 employment | NSW-4 access to services via systems & processes
 export const MODULE_FRAMEWORK_MAPPINGS: Record<string, Record<string, string[]>> = {
   // Before arrival - information & communications
-  '1.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '1.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '1.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '1.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '1.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '1.6': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '1.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-3'] },
+  '1.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-3'] },
+  '1.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-3'] },
+  '1.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-3'] },
+  '1.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-3'] },
+  '1.6': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-3'] },
   // Getting in - built environment
-  '2.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '2.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '2.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '2.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '2.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '2.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '2.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '2.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
   // During visit - on-site environment & participation
-  '3.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.6': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.7': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.8': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.9': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.10': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.11': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
-  '3.12': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] },
+  '3.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.6': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.7': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.8': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.9': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.10': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.11': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '3.12': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
   // Service & support
-  '4.1': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '4.2': { 'AU-SA': ['SDIP-1', 'SDIP-3'], AU: ['ADS-2', 'ADS-4'], 'AU-VIC': ['VIC-A', 'VIC-D'], 'AU-NSW': ['NSW-1', 'NSW-4'] }, // customer service = attitudes + support
-  '4.3': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '4.4': { 'AU-SA': ['SDIP-5'], AU: ['ADS-3'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'] }, // safety & emergencies
-  '4.5': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '4.6': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '4.7': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '4.1': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-1'] },
+  '4.2': { 'AU-SA': ['SDIP-1', 'SDIP-3'], AU: ['ADS-2', 'ADS-4'], 'AU-VIC': ['VIC-A', 'VIC-D'], 'AU-NSW': ['NSW-1', 'NSW-4'], 'AU-WA': ['WA-4'] }, // customer service = attitudes + support
+  '4.3': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-1'] },
+  '4.4': { 'AU-SA': ['SDIP-5'], AU: ['ADS-3'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] }, // safety & emergencies
+  '4.5': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-1'] },
+  '4.6': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-1'] },
+  '4.7': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-1'] },
   // Organisation / policy & operations
-  '5.1': { 'AU-SA': ['SDIP-1', 'SDIP-5'], AU: ['ADS-2', 'ADS-3'], 'AU-VIC': ['VIC-C', 'VIC-D'], 'AU-NSW': ['NSW-1', 'NSW-4'] }, // policy & inclusion = culture + rights
-  '5.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-C'], 'AU-NSW': ['NSW-1'] },
-  '5.4': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
-  '5.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-C'], 'AU-NSW': ['NSW-1'] },
-  '5.6': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'] },
+  '5.1': { 'AU-SA': ['SDIP-1', 'SDIP-5'], AU: ['ADS-2', 'ADS-3'], 'AU-VIC': ['VIC-C', 'VIC-D'], 'AU-NSW': ['NSW-1', 'NSW-4'], 'AU-WA': ['WA-1'] }, // policy & inclusion = culture + rights
+  '5.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-C'], 'AU-NSW': ['NSW-1'], 'AU-WA': ['WA-1'] },
+  '5.4': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-1'] },
+  '5.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-C'], 'AU-NSW': ['NSW-1'], 'AU-WA': ['WA-6'] }, // engagement/consultation
+  '5.6': { 'AU-SA': ['SDIP-3'], AU: ['ADS-4'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-4'], 'AU-WA': ['WA-1'] },
   // Employment (inclusive working environments + employment opportunities)
-  '5.7': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B'], 'AU-NSW': ['NSW-3'] },
-  '5.8': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B'], 'AU-NSW': ['NSW-3'] },
-  '5.9': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B'], 'AU-NSW': ['NSW-3'] },
-  '5.10': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B', 'VIC-D'], 'AU-NSW': ['NSW-3', 'NSW-1'] }, // retention/culture adds attitudes
+  '5.7': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B'], 'AU-NSW': ['NSW-3'], 'AU-WA': ['WA-7'] },
+  '5.8': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B'], 'AU-NSW': ['NSW-3'], 'AU-WA': ['WA-7'] },
+  '5.9': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B'], 'AU-NSW': ['NSW-3'], 'AU-WA': ['WA-7'] },
+  '5.10': { 'AU-SA': ['SDIP-2', 'SDIP-1'], AU: ['ADS-1', 'ADS-2'], 'AU-VIC': ['VIC-B', 'VIC-D'], 'AU-NSW': ['NSW-3', 'NSW-1'], 'AU-WA': ['WA-7'] }, // retention/culture adds attitudes
   // Events
-  '6.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
-  '6.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
-  '6.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
-  '6.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
-  '6.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '6.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
+  '6.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
+  '6.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
+  '6.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
+  '6.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
   // Major events
-  '7.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
-  '7.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
-  '7.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
-  '7.4': { 'AU-SA': ['SDIP-1', 'SDIP-2'], AU: ['ADS-2', 'ADS-1'], 'AU-VIC': ['VIC-C', 'VIC-B'], 'AU-NSW': ['NSW-2', 'NSW-3'] }, // performer access = participation + employment
-  '7.5': { 'AU-SA': ['SDIP-1', 'SDIP-2'], AU: ['ADS-2', 'ADS-1'], 'AU-VIC': ['VIC-C', 'VIC-B'], 'AU-NSW': ['NSW-2', 'NSW-3'] }, // volunteers/staff = participation + workforce
-  '7.6': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
-  '7.7': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'] },
+  '7.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
+  '7.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
+  '7.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
+  '7.4': { 'AU-SA': ['SDIP-1', 'SDIP-2'], AU: ['ADS-2', 'ADS-1'], 'AU-VIC': ['VIC-C', 'VIC-B'], 'AU-NSW': ['NSW-2', 'NSW-3'], 'AU-WA': ['WA-1', 'WA-7'] }, // performer access = participation + employment
+  '7.5': { 'AU-SA': ['SDIP-1', 'SDIP-2'], AU: ['ADS-2', 'ADS-1'], 'AU-VIC': ['VIC-C', 'VIC-B'], 'AU-NSW': ['NSW-2', 'NSW-3'], 'AU-WA': ['WA-1', 'WA-7'] }, // volunteers/staff = participation + workforce
+  '7.6': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
+  '7.7': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A', 'VIC-C'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-1'] },
 };
 
 // The general "when they're here" on-site experience modules. Only these pick up

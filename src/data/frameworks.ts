@@ -23,6 +23,16 @@ export interface Framework {
   name: string;
   short: string;
   citation: string;
+  /**
+   * Whether a local council is legally required to report against this
+   * framework. Drives the "statutory" vs "voluntary alignment" badge so we
+   * never overstate a council's obligation.
+   *   statutory - council must report against it (NSW, SA, VIC via s38, WA)
+   *   voluntary - no council mandate; offered as an alignment aid (QLD, TAS, NT)
+   *   national  - the federal backbone/default (Australia's Disability Strategy)
+   *   na        - no councils exist in the jurisdiction (ACT)
+   */
+  mandate?: 'statutory' | 'voluntary' | 'national' | 'na';
   domains: FrameworkDomain[];
   /**
    * The "inclusive environments/communities" domain. Modules mapped to this
@@ -39,6 +49,7 @@ export const FRAMEWORKS: Record<string, Framework> = {
     name: "Australia's Disability Strategy 2021-2031",
     short: 'ADS',
     citation: "Australia's Disability Strategy 2021-2031 (Commonwealth)",
+    mandate: 'national',
     generalDomainId: 'ADS-2',
     domains: [
       { id: 'ADS-1', name: 'Employment and financial security', short: 'Employment' },
@@ -58,6 +69,7 @@ export const FRAMEWORKS: Record<string, Framework> = {
     short: 'SDIP',
     citation:
       'Disability Inclusion Act 2018 (SA), as amended by the Disability Inclusion (Review Recommendations) Amendment Act 2024',
+    mandate: 'statutory',
     generalDomainId: 'SDIP-1',
     domains: [
       {
@@ -109,6 +121,7 @@ export const FRAMEWORKS: Record<string, Framework> = {
     name: 'Disability Action Plan objectives (Disability Act 2006)',
     short: 'DAP',
     citation: 'Disability Act 2006 (Vic) s 38(1)',
+    mandate: 'statutory',
     generalDomainId: 'VIC-A',
     domains: [
       {
@@ -142,6 +155,7 @@ export const FRAMEWORKS: Record<string, Framework> = {
     name: 'Disability Inclusion Action Plan focus areas',
     short: 'DIAP',
     citation: 'Disability Inclusion Act 2014 (NSW) s 12',
+    mandate: 'statutory',
     generalDomainId: 'NSW-2',
     domains: [
       {
@@ -166,6 +180,59 @@ export const FRAMEWORKS: Record<string, Framework> = {
       },
     ],
   },
+
+  // Western Australia - Disability Services Act 1993 (WA) s28 requires every
+  // local government ("public authority") to have a Disability Access and
+  // Inclusion Plan addressing the seven "desired outcomes" in the Disability
+  // Services Regulations 2004 (WA) Schedule 3 (outcome names paraphrased from
+  // the Schedule; the seventh, employment, was added to the original six).
+  // These remain the statutory framework; the "WA for Everyone 2020-2030" state
+  // strategy is policy overlay and does not replace them.
+  'AU-WA': {
+    key: 'AU-WA',
+    name: 'Disability Access and Inclusion Plan desired outcomes',
+    short: 'DAIP',
+    citation: 'Disability Services Act 1993 (WA) s 28; Disability Services Regulations 2004 (WA) sch 3',
+    mandate: 'statutory',
+    generalDomainId: 'WA-2',
+    domains: [
+      {
+        id: 'WA-1',
+        name: 'Access to services and events organised by the authority',
+        short: 'Services & events',
+      },
+      {
+        id: 'WA-2',
+        name: 'Access to buildings and other facilities',
+        short: 'Buildings & facilities',
+      },
+      {
+        id: 'WA-3',
+        name: 'Access to information in accessible formats',
+        short: 'Accessible information',
+      },
+      {
+        id: 'WA-4',
+        name: 'Same level and quality of service from staff',
+        short: 'Quality of service',
+      },
+      {
+        id: 'WA-5',
+        name: 'Opportunity to make complaints',
+        short: 'Complaints',
+      },
+      {
+        id: 'WA-6',
+        name: 'Opportunity to participate in public consultation',
+        short: 'Public consultation',
+      },
+      {
+        id: 'WA-7',
+        name: 'Opportunity to obtain and maintain employment',
+        short: 'Employment',
+      },
+    ],
+  },
 };
 
 // SA priority groups councils must explicitly address (DAIP Guidelines).
@@ -185,7 +252,7 @@ export const DEFAULT_JURISDICTION = 'AU';
 
 // Jurisdictions with a fully defined framework + module mappings shipped so far.
 // Add keys here as each state's mappings land (Session 2+).
-export const SUPPORTED_JURISDICTIONS: string[] = ['AU', 'AU-SA', 'AU-VIC', 'AU-NSW'];
+export const SUPPORTED_JURISDICTIONS: string[] = ['AU', 'AU-SA', 'AU-VIC', 'AU-NSW', 'AU-WA'];
 
 export function getFramework(key: string | null | undefined): Framework {
   return (key && FRAMEWORKS[key]) || FRAMEWORKS[DEFAULT_JURISDICTION];
