@@ -63,6 +63,10 @@ begin
     where d.organisation_id = v_council
   ) x;
 
+  -- Lead with Pulse Check (not Deep Dive) timing for this demo.
+  update discovery_data set review_mode = 'pulse-check', updated_at = now()
+   where organisation_id = v_conv;
+
   select count(*) into v_n from diap_items where organisation_id = v_conv;
-  raise notice 'Venue DIAP rebuilt from council content: % items across % sites.', v_n, array_length(v_sites, 1);
+  raise notice 'Venue DIAP rebuilt (% items), review mode set to Pulse Check.', v_n;
 end $$;
