@@ -37,6 +37,10 @@ interface AuthContextValue {
 
   // Access state
   accessState: UserAccessState;
+  // True while the current user's access fetch (cloud restore + membership
+  // lookup) is in flight. Distinguishes "org load still pending" from
+  // "resolved, genuinely no org" so routing does not decide prematurely.
+  accessLoading: boolean;
 
   // Auth actions
   signUp: (email: string, password: string) => Promise<{ error: AuthError | null }>;
@@ -146,6 +150,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [accessLoading, setAccessLoading] = useState(false);
   const [accessState, setAccessStateRaw] = useState<UserAccessState>(getCachedAccessState);
   const setAccessState = useCallback((newState: UserAccessState) => {
     setAccessStateRaw(prev => {
@@ -246,7 +251,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           // Only fetch if we don't have cached state with an org
           const cached = getCachedAccessState();
           if (!cached.organisation) {
-            fetchAccessState(initialSession.user.id).then(setAccessState);
+            setAccessLoading(true);
+            fetchAccessState(initialSession.user.id)
+              .then(setAccessState)
+              .finally(() => setAccessLoading(false));
           }
         }
 
@@ -278,11 +286,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         localStorage.setItem(LAST_USER_KEY, newSession.user.id);
 
-        // Restore cloud data to localStorage before fetching access state
-        await restoreFromCloud(newSession.user.id);
+        // Mark access as loading before any await so it batches with setUser
+        // above: routing must not see isAuthenticated flip true while the org
+        // fetch is still pending.
+        setAccessLoading(true);
+        try {
+          // Restore cloud data to localStorage before fetching access state
+          await restoreFromCloud(newSession.user.id);
 
-        const newAccessState = await fetchAccessState(newSession.user.id);
-        setAccessState(newAccessState);
+          const newAccessState = await fetchAccessState(newSession.user.id);
+          setAccessState(newAccessState);
+        } finally {
+          setAccessLoading(false);
+        }
       } else {
         setAccessState(defaultAccessState);
       }
@@ -782,6 +798,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isLoading,
       isAuthenticated: !!user,
       accessState,
+      accessLoading,
       signUp,
       signIn,
       signOut,
@@ -800,6 +817,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       session,
       isLoading,
       accessState,
+      accessLoading,
       signUp,
       signIn,
       signOut,

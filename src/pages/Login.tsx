@@ -11,7 +11,7 @@ export default function Login() {
   usePageTitle('Sign In');
   const navigate = useNavigate();
   const location = useLocation();
-  const { signIn, resetPassword, isAuthenticated, isLoading: authLoading, user, accessState } = useAuth();
+  const { signIn, resetPassword, isAuthenticated, isLoading: authLoading, user, accessState, accessLoading } = useAuth();
 
   const [mode, setMode] = useState<AuthMode>('signin');
   const [email, setEmail] = useState('');
@@ -62,7 +62,13 @@ export default function Login() {
       return;
     }
 
-    // Wait for accessState to finish loading
+    // No org yet. Wait for the access fetch (cloud restore + membership
+    // lookup) to finish before routing, otherwise an existing account whose
+    // org has not loaded from the cloud yet gets dropped into onboarding.
+    if (accessLoading) return;
+
+    // Fallback for the pre-fetch mount window: a cached, un-fetched state
+    // still reads as unauthenticated here.
     if (!accessState.isAuthenticated) return;
 
     // No org - check localStorage for onboarding progress
@@ -74,7 +80,7 @@ export default function Login() {
 
     // Truly new user
     navigate(getResumeRoute(), { replace: true });
-  }, [isAuthenticated, authLoading, navigate, user, accessState]);
+  }, [isAuthenticated, authLoading, accessLoading, navigate, user, accessState]);
 
   // Show loading while checking auth
   if (authLoading) {
