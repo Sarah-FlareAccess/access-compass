@@ -160,8 +160,8 @@ begin
     update discovery_data set recommended_modules = v_modules, review_mode = coalesce(nullif(review_mode, ''), 'deep-dive'), updated_at = now()
      where organisation_id = v_org;
   else
-    insert into discovery_data (organisation_id, user_id, recommended_modules, review_mode, created_at, updated_at)
-    values (v_org, v_user, v_modules, 'deep-dive', now() - interval '60 days', now());
+    insert into discovery_data (session_id, organisation_id, user_id, recommended_modules, review_mode, created_at, updated_at)
+    values ('seed-venue-org-session', v_org, v_user, v_modules, 'deep-dive', now() - interval '60 days', now());
   end if;
 
   select count(*) into v_fill from module_progress where organisation_id = v_org;
