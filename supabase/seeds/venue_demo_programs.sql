@@ -41,6 +41,33 @@ declare
   v_progs    int;
   v_biz      int;
   v_mp       int;
+  v_mc       jsonb;
+  -- Real, module-specific accessibility findings so the cohort report reads
+  -- as genuine content, not placeholder text. Keyed by module id; each has a
+  -- priority action, two strengths (doingWell), and one area to explore.
+  v_content  jsonb := jsonb_build_object(
+    '3.1', jsonb_build_object('priority','high','action','Provide a choice of seating heights with armrests and keep circulation routes at least 1200mm wide in all public areas.','strengths',jsonb_build_array('Clear space is kept between furniture so mobility-aid users can move through freely.','A mix of seating with and without armrests is offered in waiting areas.'),'explore','Whether floor-to-furniture colour contrast is strong enough for people with low vision.'),
+    '3.4', jsonb_build_object('priority','medium','action','Lower a section of each service counter and make assistive equipment such as hearing loops available on request.','strengths',jsonb_build_array('Frequently used equipment is within easy reach from a seated position.','Staff know how to set up and test the hearing loop before sessions.'),'explore','Whether assistive equipment is checked and maintained on a regular schedule.'),
+    '4.1', jsonb_build_object('priority','medium','action','Offer at least two contact channels and publish the National Relay Service option for Deaf and hard-of-hearing customers.','strengths',jsonb_build_array('Contact details are easy to find on the home page and in the footer.','Enquiries can be made by both phone and email.'),'explore','Whether the website contact forms work with screen readers.'),
+    '4.2', jsonb_build_object('priority','high','action','Run disability-awareness and communication-access training so front-line staff can confidently assist a range of access needs.','strengths',jsonb_build_array('Staff offer assistance without waiting to be asked.','Team members are comfortable using plain language and assistive devices.'),'explore','How to support customers who are non-speaking or have communication disability.'),
+    '4.3', jsonb_build_object('priority','medium','action','Let customers record access requirements and book companion or wheelchair spaces online without phoning ahead.','strengths',jsonb_build_array('Access requirements can be captured at the time of booking.','Companion Card bookings are honoured.'),'explore','Whether the online booking flow is fully keyboard accessible.'),
+    '4.4', jsonb_build_object('priority','high','action','Document a personal emergency evacuation plan (PEEP) process and ensure visual and audible alarms cover all public areas.','strengths',jsonb_build_array('Emergency exits are step-free and clearly signed.','Staff are briefed on assisting visitors who cannot use stairs.'),'explore','Whether evacuation procedures have been tested with people with disability.'),
+    '4.5', jsonb_build_object('priority','low','action','Provide an accessible feedback channel that works with screen readers and route access issues to a named person to action.','strengths',jsonb_build_array('Customers can give feedback in more than one format.','Access-related feedback reaches a named staff member.'),'explore','Whether feedback is reaching the right person to act on access issues.'),
+    '5.1', jsonb_build_object('priority','medium','action','Adopt a written accessibility and inclusion policy with named responsibility and review it with staff each year.','strengths',jsonb_build_array('Leadership has publicly committed to accessibility.','Inclusion is covered in induction for new staff.'),'explore','How to measure whether the policy is changing day-to-day practice.'),
+    '5.7', jsonb_build_object('priority','medium','action','State that adjustments are available in every job ad and remove non-essential physical requirements from position descriptions.','strengths',jsonb_build_array('Job ads are written in plain language.','Applicants are told how to request adjustments during recruitment.'),'explore','Whether recruitment platforms and forms are accessible to applicants with disability.'),
+    '6.1', jsonb_build_object('priority','high','action','Add an access information line to all event promotion (how to request Auslan, captioning or a companion seat) and name an access contact.','strengths',jsonb_build_array('Event listings state the venue is wheelchair accessible.','An access contact is offered for attendee enquiries.'),'explore','Whether promotional images and video include alt text and captions.'),
+    '6.2', jsonb_build_object('priority','high','action','Audit the accessible path of travel from drop-off and parking to the event space and keep it clear of cables, signage and furniture on the day.','strengths',jsonb_build_array('Accessible parking and a step-free entrance are available.','Accessible toilets are within easy reach of the event space.'),'explore','Whether temporary event layouts keep the accessible path of travel clear.'),
+    '6.3', jsonb_build_object('priority','medium','action','Provide event information in accessible formats (large print, plain language, screen-reader-friendly PDFs) and caption promotional video.','strengths',jsonb_build_array('Key event information is available in more than one format.','Signage uses clear text with good colour contrast.'),'explore','Whether digital event documents meet WCAG for screen-reader users.'),
+    '6.4', jsonb_build_object('priority','medium','action','Offer a hearing augmentation system and a quiet or low-sensory space, and test AV captioning before doors open.','strengths',jsonb_build_array('A hearing loop is available in the main space.','Lighting and sound can be adjusted for sensory comfort.'),'explore','Whether hearing augmentation coverage reaches the whole space.'),
+    '6.5', jsonb_build_object('priority','medium','action','Brief all event staff and volunteers on the access features and the location of accessible facilities before doors open.','strengths',jsonb_build_array('A staffed help point is available for attendees.','Accessible facilities are signed and kept clear during the event.'),'explore','Whether all casual event staff receive the access briefing.'),
+    '7.1', jsonb_build_object('priority','medium','action','Publish a consistent accessible wayfinding scheme across all venues and shared spaces in the precinct.','strengths',jsonb_build_array('Accessible routes between venues are mapped.','Wayfinding signage is coordinated across the precinct.'),'explore','Whether wayfinding is consistent across every venue in the precinct.'),
+    '7.2', jsonb_build_object('priority','high','action','Schedule accessible performances (Auslan-interpreted, captioned, audio-described and relaxed sessions) across the whole program.','strengths',jsonb_build_array('At least one accessible session is programmed per event.','Accessible sessions are promoted alongside the main program.'),'explore','How often accessible sessions are scheduled across the full program.'),
+    '7.3', jsonb_build_object('priority','medium','action','Enable online booking of accessible and companion seats and train box-office staff on access ticketing and the Companion Card.','strengths',jsonb_build_array('Accessible seating can be booked without phoning.','Companion Card is accepted at the box office.'),'explore','Whether the online ticketing platform exposes accessible seats clearly.'),
+    '7.4', jsonb_build_object('priority','medium','action','Make backstage, green rooms and the stage accessible, and ask performers about access requirements during contracting.','strengths',jsonb_build_array('Access requirements are discussed with visiting artists.','There is step-free access to at least one performance area.'),'explore','Whether backstage and green-room areas are step-free.'),
+    '7.5', jsonb_build_object('priority','medium','action','Provide accessibility briefings for all volunteers and rostered staff and make sure volunteer roles are open to people with disability.','strengths',jsonb_build_array('Volunteers receive an access briefing before shifts.','Rest areas are provided for staff and volunteers.'),'explore','Whether volunteer roles are genuinely open to people with disability.'),
+    '7.6', jsonb_build_object('priority','high','action','Set up a clearly signed accessibility hub with mobility-aid charging, a quiet space and trained staff for the duration of the event.','strengths',jsonb_build_array('An accessibility information point is staffed during the event.','A quiet space is available for attendees who need it.'),'explore','Whether the accessibility hub is staffed for the whole event.'),
+    '7.7', jsonb_build_object('priority','medium','action','Provide accessible overnight facilities (step-free amenities, accessible showers, a powered site for equipment) and confirm needs with guests in advance.','strengths',jsonb_build_array('At least one accessible amenities block is available on site.','Guests can flag overnight access needs when booking.'),'explore','Whether overnight amenities meet accessible design standards.')
+  );
 begin
   select id, name into v_org, v_name from organisations
    where name ilike '%convention%' order by created_at limit 1;
@@ -217,31 +244,36 @@ begin
         if v_mstatus is null then continue; end if;
 
         v_conf := case (v_mi % 3) when 0 then 'strong' when 1 then 'mixed' else 'needs-work' end;
+        v_mc := v_content -> v_mod;
 
         insert into module_progress
           (session_id, module_id, module_code, status, confidence_snapshot, summary,
            started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
         values
           ('seed-prog-' || v_child || '-' || v_mod, v_mod, v_mod, v_mstatus, v_conf,
-           case when v_mstatus = 'completed' then
+           case when v_mstatus = 'completed' and v_mc is not null then
              jsonb_build_object(
-               'doingWell', jsonb_build_array(
-                 'Core requirements for module ' || v_mod || ' were reviewed and are in place.',
-                 'Staff are aware of the access considerations covered by module ' || v_mod || '.'),
+               'doingWell', v_mc -> 'strengths',
                'priorityActions', jsonb_build_array(
                  jsonb_build_object(
                    'questionId', v_mod || '-A-1',
-                   'questionText', 'Priority follow-up identified in module ' || v_mod || '.',
-                   'action', 'Address the priority items identified in module ' || v_mod || ' and confirm they meet the relevant standard.',
-                   'priority', 'medium',
+                   'questionText', v_mc ->> 'action',
+                   'action', v_mc ->> 'action',
+                   'priority', v_mc ->> 'priority',
                    'timeframe', '30-90 days')),
-               'areasToExplore', jsonb_build_array(),
+               'areasToExplore', jsonb_build_array(v_mc ->> 'explore'),
                'professionalReview', jsonb_build_array())
            else null end,
            v_enrolled + interval '1 day',
            case when v_mstatus = 'completed' then coalesce(v_completed, v_submitted, now() - interval '3 days') else null end,
            v_child, null, null, null)
-        on conflict (organisation_id, site_id, module_id) do nothing;
+        on conflict (organisation_id, site_id, module_id) do update
+          set status = excluded.status,
+              confidence_snapshot = excluded.confidence_snapshot,
+              summary = excluded.summary,
+              started_at = excluded.started_at,
+              completed_at = excluded.completed_at,
+              updated_at = now();
       end loop;
     end if;
   end loop;

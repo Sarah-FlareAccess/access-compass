@@ -28,6 +28,7 @@ declare
   v_modaggs    jsonb;
   v_prios      jsonb;
   v_strengths  jsonb;
+  v_areas      jsonb;
   v_payload    jsonb;
   v_gen_at     timestamptz := now() - interval '3 days';
   v_report_name text;
@@ -121,6 +122,21 @@ begin
          group by sw.value
       ) t;
 
+    -- Top areas to explore across the cohort (topics flagged as unsure)
+    select coalesce(jsonb_agg(
+             jsonb_build_object('text', txt, 'count', cnt)
+             order by cnt desc, txt), '[]'::jsonb)
+      into v_areas
+      from (
+        select ae.value as txt, count(*) as cnt
+          from module_progress mp
+          join program_enrolments pe
+            on pe.organisation_id = mp.organisation_id and pe.program_id = v_prog.id
+          cross join lateral jsonb_array_elements_text(coalesce(mp.summary->'areasToExplore', '[]'::jsonb)) as ae(value)
+         where mp.module_id = any(v_prog.required_module_ids)
+         group by ae.value
+      ) t;
+
     -- Assemble the ProgramReportPayload. outcomes is omitted (optional) — the
     -- report page hides the statutory-framework section when it is absent.
     v_payload := jsonb_build_object(
@@ -133,7 +149,7 @@ begin
       'moduleAggregates', v_modaggs,
       'topPriorityActions', v_prios,
       'topStrengths', v_strengths,
-      'topAreasToExplore', '[]'::jsonb,
+      'topAreasToExplore', v_areas,
       'methodology', v_methodology
     );
 
