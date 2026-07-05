@@ -393,6 +393,8 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     completed: number; inProgress: number; total: number;
     doingWell: number; actions: number; answered: number; evidence: number;
     byGroup: Record<string, { completed: number; total: number }>;
+    byVenue: Record<string, { completed: number; inProgress: number; actions: number }>;
+    modulesPerVenue: number;
   } | null>(null);
 
   useEffect(() => {
@@ -411,13 +413,13 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       const siteCount = sites.length;
 
       const [mpRes, respRes, evRes] = await Promise.all([
-        sb.from('module_progress').select('module_id, status, summary').eq('organisation_id', oid),
+        sb.from('module_progress').select('module_id, status, summary, site_id').eq('organisation_id', oid),
         sb.from('module_responses').select('id', { count: 'exact', head: true }).eq('organisation_id', oid),
         sb.from('evidence_files').select('id', { count: 'exact', head: true }).eq('organisation_id', oid),
       ]);
       if (cancelled) return;
 
-      const rows = ((mpRes.data as { module_id: string; status: string; summary: unknown }[]) || [])
+      const rows = ((mpRes.data as { module_id: string; status: string; summary: unknown; site_id: string | null }[]) || [])
         .filter(r => moduleGroupById.has(r.module_id));
 
       const byGroup: Record<string, { completed: number; total: number }> = {};
@@ -426,18 +428,26 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
         if (modulesInGroup > 0) byGroup[g.id] = { completed: 0, total: modulesInGroup * siteCount };
       }
 
+      const byVenue: Record<string, { completed: number; inProgress: number; actions: number }> = {};
+      for (const s of sites) byVenue[s.id] = { completed: 0, inProgress: 0, actions: 0 };
+
       let completed = 0, inProgress = 0, doingWell = 0, actions = 0;
       for (const r of rows) {
+        const venue = r.site_id && byVenue[r.site_id] ? byVenue[r.site_id] : null;
         if (r.status === 'completed') {
           completed++;
           const gid = moduleGroupById.get(r.module_id);
           if (gid && byGroup[gid]) byGroup[gid].completed++;
+          if (venue) venue.completed++;
         } else if (r.status === 'in-progress') {
           inProgress++;
+          if (venue) venue.inProgress++;
         }
         const summary = r.summary as { doingWell?: unknown[]; priorityActions?: unknown[] } | null;
         doingWell += summary?.doingWell?.length || 0;
-        actions += summary?.priorityActions?.length || 0;
+        const rowActions = summary?.priorityActions?.length || 0;
+        actions += rowActions;
+        if (venue) venue.actions += rowActions;
       }
 
       setOrgWideRollup({
@@ -449,6 +459,8 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
         answered: respRes.count || 0,
         evidence: evRes.count || 0,
         byGroup,
+        byVenue,
+        modulesPerVenue: recommendedModules.length,
       });
     })().catch(() => { if (!cancelled) setOrgWideRollup(null); });
     return () => { cancelled = true; };
@@ -567,6 +579,21 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       totalCount: g.totalCount,
     }));
   }, [orgWideRollup, groupedModules]);
+
+  // Per-venue league table for the organisation-wide view. Only populated on a
+  // multi-site org (org scope), from the cross-venue rollup. Sorted strongest
+  // first so laggards surface at the bottom.
+  const progressByVenue = useMemo(() => {
+    if (!orgWideRollup) return null;
+    const per = orgWideRollup.modulesPerVenue || 0;
+    return sites
+      .map(s => {
+        const v = orgWideRollup.byVenue[s.id] || { completed: 0, inProgress: 0, actions: 0 };
+        const pct = per > 0 ? Math.round((v.completed / per) * 100) : 0;
+        return { id: s.id, name: s.name, completed: v.completed, total: per, pct, findings: v.actions };
+      })
+      .sort((a, b) => b.pct - a.pct);
+  }, [orgWideRollup, sites]);
 
   // Assessment progress over time: a cumulative line built from when each
   // module was completed. Honest and self-contained (no reassessment-score
@@ -1034,8 +1061,42 @@ Thanks!`;
                 </section>
               )}
 
-              {/* Group Progress Snapshot */}
-              {overallStats.modulesCompleted > 0 && (
+              {/* Progress breakdown - per venue at org scope, per journey area
+                  at a single site */}
+              {progressByVenue ? (
+                <section className="dashboard-snapshot dashboard-progress-venue">
+                  <h2>Progress by venue</h2>
+                  <div className="venue-list">
+                    <div className="venue-head">
+                      <span>Venue</span>
+                      <span>Progress</span>
+                      <span className="r">%</span>
+                      <span className="r">Open</span>
+                      <span className="r">Status</span>
+                    </div>
+                    {progressByVenue.map(v => {
+                      const tier = v.pct >= 70 ? 'good' : v.pct >= 40 ? 'warn' : 'crit';
+                      const label = v.pct >= 70 ? 'On track' : v.pct >= 40 ? 'In progress' : 'Needs focus';
+                      return (
+                        <div key={v.id} className="venue-row">
+                          <div className="venue-name">
+                            <b>{v.name}</b>
+                            <small>{v.completed}/{v.total} areas complete</small>
+                          </div>
+                          <div className="venue-bar">
+                            <i className={`venue-fill venue-fill-${tier}`} style={{ width: `${v.pct}%` }} />
+                          </div>
+                          <div className={`venue-pct venue-pct-${tier}`}>{v.pct}</div>
+                          <div className="venue-open">{v.findings}</div>
+                          <div className="venue-status">
+                            <span className={`venue-chip ${tier}`}>{label}</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </section>
+              ) : overallStats.modulesCompleted > 0 && (
                 <section className="dashboard-snapshot dashboard-progress-area">
                   <h2>Progress by area</h2>
                   <div className="group-progress-list">

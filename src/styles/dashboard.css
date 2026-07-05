@@ -3507,6 +3507,128 @@ details[open] > .evidence-module-heading::before {
   }
 }
 
+/* Progress by venue - the org-scope league table */
+.venue-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.venue-head,
+.venue-row {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 46px 60px 104px;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.venue-head {
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(62, 43, 47, 0.12);
+}
+
+.venue-head span {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+.venue-head .r {
+  text-align: right;
+}
+
+.venue-row {
+  padding: 0.7rem 0;
+  border-top: 1px solid rgba(62, 43, 47, 0.08);
+}
+
+.venue-row:first-of-type {
+  border-top: 0;
+}
+
+.venue-name b {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary, #2d2420);
+}
+
+.venue-name small {
+  font-size: 0.7rem;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+.venue-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--ivory-pure, #F7F5F3);
+  overflow: hidden;
+}
+
+.venue-fill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.venue-fill-good { background: #16A34A; }
+.venue-fill-warn { background: #D97706; }
+.venue-fill-crit { background: #C4553D; }
+
+.venue-pct {
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-primary, #2d2420);
+}
+
+.venue-pct-good { color: #16A34A; }
+.venue-pct-crit { color: #C4553D; }
+
+.venue-open {
+  text-align: right;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+.venue-status {
+  justify-self: end;
+}
+
+.venue-chip {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.venue-chip.good { background: rgba(22, 163, 74, 0.14); color: #157A46; }
+.venue-chip.warn { background: rgba(217, 119, 6, 0.14); color: #B45309; }
+.venue-chip.crit { background: rgba(196, 85, 61, 0.16); color: #B23A22; }
+
+@media (max-width: 640px) {
+  .venue-head {
+    display: none;
+  }
+  .venue-row {
+    grid-template-columns: 1fr auto;
+    gap: 0.4rem 0.9rem;
+  }
+  .venue-row .venue-bar {
+    grid-column: 1 / -1;
+    order: 5;
+  }
+  .venue-open {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   .wins-grid {
     grid-template-columns: 1fr;
