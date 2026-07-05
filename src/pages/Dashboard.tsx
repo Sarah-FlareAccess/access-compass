@@ -945,7 +945,7 @@ Thanks!`;
             {/* Dashboard overview cards - two-column grid on wide screens */}
             <div className="dashboard-grid">
             {/* Accessibility maturity - practice-based level near the top */}
-            {activeTab !== 'activity' && maturity.started && (
+            {activeTab === 'overview' && maturity.started && (
               <section className="dashboard-snapshot dashboard-maturity">
                 <div className="maturity-top">
                   <div className="maturity-level">
@@ -987,8 +987,8 @@ Thanks!`;
                 <p className="maturity-note">Reflects the accessibility practice you've tracked here and how you follow through, not the size of your organisation or barriers outside your control. A self-review signal, not a compliance grade, certification, or benchmark, so it may not capture everything you do.</p>
               </section>
             )}
-            {/* Overall Progress Card - hide on activity tab */}
-            {activeTab !== 'activity' && <section className="progress-section">
+            {/* Overall Progress Card - dashboard overview only */}
+            {activeTab === 'overview' && <section className="progress-section">
             <div className="progress-card">
               <div className="progress-card-inner">
                 <div
@@ -1035,7 +1035,7 @@ Thanks!`;
           </section>}
 
           {/* Progress over time - cumulative completion sparkline */}
-          {activeTab !== 'activity' && progressTrend && (
+          {activeTab === 'overview' && progressTrend && (
             <section className="dashboard-snapshot dashboard-trend">
               <div className="snapshot-header">
                 <h2>Progress over time</h2>

@@ -3904,7 +3904,7 @@ details[open] > .evidence-module-heading::before {
 .trend-delta {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #16A34A;
+  color: #157A46;
   background: rgba(22, 163, 74, 0.12);
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
@@ -4038,8 +4038,8 @@ details[open] > .evidence-module-heading::before {
   color: var(--text-primary, #2d2420);
 }
 
-.venue-pct-good { color: #16A34A; }
-.venue-pct-crit { color: #C4553D; }
+.venue-pct-good { color: #157A46; }
+.venue-pct-crit { color: #B23A22; }
 
 .venue-open {
   text-align: right;
