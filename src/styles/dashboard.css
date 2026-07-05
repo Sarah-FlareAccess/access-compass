@@ -1118,6 +1118,7 @@
   min-width: 0;
 }
 
+.dashboard-grid > .dashboard-maturity,
 .dashboard-grid > .progress-section,
 .dashboard-grid > .dashboard-trend,
 .dashboard-grid > .dashboard-wins,
@@ -1126,6 +1127,211 @@
 .dashboard-grid > .dashboard-progress-venue,
 .dashboard-grid > .dashboard-progress-area {
   grid-column: 1 / -1;
+}
+
+/* Accessibility maturity card */
+.maturity-top {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.maturity-level {
+  flex: none;
+}
+
+.maturity-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary, #5C4A4E);
+  background: var(--ivory-pure, #F7F5F3);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.maturity-word {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.maturity-word.mat-0 { color: #D97706; }
+.maturity-word.mat-1 { color: #2563EB; }
+.maturity-word.mat-2 { color: #16A34A; }
+.maturity-word.mat-3 { color: var(--amethyst-diamond, #490E67); }
+
+.maturity-sub {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-secondary, #5C4A4E);
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.maturity-meter-wrap {
+  flex: 1;
+  min-width: 240px;
+}
+
+.maturity-meter {
+  display: flex;
+  gap: 5px;
+}
+
+.mat-seg {
+  flex: 1;
+  height: 12px;
+  border-radius: 6px;
+  background: var(--ivory-pure, #F7F5F3);
+}
+
+.mat-seg-on.mat-0 { background: #D97706; }
+.mat-seg-on.mat-1 { background: #2563EB; }
+.mat-seg-on.mat-2 { background: #16A34A; }
+.mat-seg-on.mat-3 { background: var(--amethyst-diamond, #490E67); }
+
+.maturity-meter-labels {
+  display: flex;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.maturity-meter-labels span {
+  flex: 1;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-secondary, #5C4A4E);
+  text-align: center;
+}
+
+.maturity-meter-labels span.cur {
+  font-weight: 800;
+  color: var(--text-primary, #2d2420);
+}
+
+.maturity-coverage {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+.maturity-conf {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.conf-high { background: #E7F3EE; color: #157A46; }
+.conf-medium { background: #FBF0D8; color: #B45309; }
+.conf-low { background: #F6E5E0; color: #B23A22; }
+
+.maturity-ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-top: 22px;
+}
+
+.mat-step {
+  position: relative;
+  text-align: center;
+  padding: 0 6px;
+}
+
+.mat-rail {
+  position: absolute;
+  top: 14px;
+  left: -50%;
+  right: 50%;
+  height: 3px;
+  background: #16A34A;
+  z-index: 0;
+}
+
+.mat-step-future .mat-rail {
+  background: var(--ivory-pure, #F7F5F3);
+}
+
+.mat-step:first-child .mat-rail {
+  display: none;
+}
+
+.mat-dot {
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  background: #16A34A;
+  color: #ffffff;
+  border: 3px solid var(--surface-2, #ffffff);
+  box-shadow: 0 0 0 2px #16A34A;
+}
+
+.mat-step-current .mat-dot {
+  background: var(--aussie-sunrise, #FF9015);
+  color: #3a1600;
+  box-shadow: 0 0 0 2px var(--aussie-sunrise, #FF9015);
+}
+
+.mat-step-future .mat-dot {
+  background: var(--ivory-pure, #F7F5F3);
+  color: var(--text-secondary, #5C4A4E);
+  box-shadow: 0 0 0 2px #E5E0DC;
+}
+
+.mat-name {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 7px;
+}
+
+.mat-step-future .mat-name {
+  color: var(--faint, #948C9C);
+  font-weight: 600;
+}
+
+.maturity-note {
+  margin: 18px 0 0;
+  font-size: 0.72rem;
+  color: var(--faint, #948C9C);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .maturity-ladder {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .mat-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    padding: 0;
+  }
+  .mat-rail {
+    display: none;
+  }
+  .mat-name {
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 900px) {

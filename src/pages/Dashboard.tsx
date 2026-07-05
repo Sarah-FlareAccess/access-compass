@@ -611,6 +611,50 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     return { linePoints, areaPoints, endX, endY, total, recent };
   }, [progress]);
 
+  // Accessibility maturity: a practice-based level (not a pass-rate). Reflects
+  // how far the org has moved through the improvement cycle, gated by coverage
+  // and performance so partial or self-selected data can't overclaim. Every
+  // input already exists in overallStats, so it works at site and org scope.
+  const maturity = useMemo(() => {
+    const cov = overallStats.progressPercentage;
+    const rated = overallStats.totalDoingWell + overallStats.totalActions;
+    const perf = rated > 0 ? Math.round((overallStats.totalDoingWell / rated) * 100) : 0;
+    const started = overallStats.modulesCompleted + overallStats.modulesInProgress > 0;
+    const hasPlan = overallStats.diapItemCount > 0;
+    const acting = overallStats.diapAchieved + overallStats.diapInProgress > 0;
+    const embedding = overallStats.diapOngoing > 0;
+
+    const stages = ['Aware', 'Assessing', 'Planning', 'Acting', 'Embedding'];
+    let stage = started ? 0 : -1;
+    if (cov >= 40) stage = Math.max(stage, 1);
+    if (hasPlan) stage = Math.max(stage, 2);
+    if (acting) stage = Math.max(stage, 3);
+    if (embedding) stage = Math.max(stage, 4);
+
+    const confidence = cov >= 70 ? 'High' : cov >= 40 ? 'Medium' : 'Low';
+
+    const levels = ['Emerging', 'Developing', 'Established', 'Leading'];
+    let levelIdx: number;
+    if (stage <= 1) levelIdx = 0;
+    else if (stage === 2) levelIdx = 1;
+    else if (stage === 3) levelIdx = cov >= 50 ? 2 : 1;
+    else levelIdx = cov >= 70 && perf >= 70 ? 3 : 2;
+    // Low coverage can never present above Developing, however deep the practice.
+    if (confidence === 'Low' && levelIdx > 1) levelIdx = 1;
+
+    return {
+      started,
+      levelIdx,
+      level: levels[levelIdx],
+      stageIdx: stage,
+      stages,
+      confidence,
+      coveragePct: cov,
+      performancePct: perf,
+      nextStage: stage >= 0 && stage < stages.length - 1 ? stages[stage + 1] : null,
+    };
+  }, [overallStats]);
+
   // Get action button text and style based on status
   const getActionButton = (status: 'not-started' | 'in-progress' | 'completed') => {
     switch (status) {
@@ -852,6 +896,49 @@ Thanks!`;
 
             {/* Dashboard overview cards - two-column grid on wide screens */}
             <div className="dashboard-grid">
+            {/* Accessibility maturity - practice-based level near the top */}
+            {activeTab !== 'activity' && maturity.started && (
+              <section className="dashboard-snapshot dashboard-maturity">
+                <div className="maturity-top">
+                  <div className="maturity-level">
+                    <span className="maturity-tag">Accessibility maturity</span>
+                    <b className={`maturity-word mat-${maturity.levelIdx}`}>{maturity.level}</b>
+                    <span className="maturity-sub">
+                      {maturity.nextStage ? <>Next: reach <b>{maturity.nextStage}</b></> : 'Sustaining and improving'}
+                    </span>
+                  </div>
+                  <div className="maturity-meter-wrap">
+                    <div className="maturity-meter" role="img" aria-label={`Maturity level ${maturity.level}, ${maturity.levelIdx + 1} of 4`}>
+                      {['Emerging', 'Developing', 'Established', 'Leading'].map((lv, i) => (
+                        <div key={lv} className={`mat-seg ${i <= maturity.levelIdx ? `mat-seg-on mat-${i}` : ''}`} />
+                      ))}
+                    </div>
+                    <div className="maturity-meter-labels">
+                      {['Emerging', 'Developing', 'Established', 'Leading'].map((lv, i) => (
+                        <span key={lv} className={i === maturity.levelIdx ? 'cur' : ''}>{lv}</span>
+                      ))}
+                    </div>
+                    <div className="maturity-coverage">
+                      <span className={`maturity-conf conf-${maturity.confidence.toLowerCase()}`}>{maturity.confidence} confidence</span>
+                      <span>Based on {overallStats.modulesCompleted} of {overallStats.modulesTotal} areas assessed ({maturity.coveragePct}%) · {maturity.performancePct}% doing well</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="maturity-ladder">
+                  {maturity.stages.map((s, i) => {
+                    const state = i < maturity.stageIdx ? 'done' : i === maturity.stageIdx ? 'current' : 'future';
+                    return (
+                      <div key={s} className={`mat-step mat-step-${state}`}>
+                        <span className="mat-rail" />
+                        <span className="mat-dot">{state === 'future' ? i + 1 : state === 'current' ? '◆' : '✓'}</span>
+                        <span className="mat-name">{s}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="maturity-note">A self-review signal of your accessibility practice, not a compliance grade, certification, or benchmark.</p>
+              </section>
+            )}
             {/* Overall Progress Card - hide on activity tab */}
             {activeTab !== 'activity' && <section className="progress-section">
             <div className="progress-card">
