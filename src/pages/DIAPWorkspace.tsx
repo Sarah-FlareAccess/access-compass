@@ -319,6 +319,11 @@ export default function DIAPWorkspace() {
   const [showImportModal, setShowImportModal] = useState(false);
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const [isImporting, setIsImporting] = useState(false);
+  // Manual paste import: type/paste actions and categorise them yourself. No
+  // upload, nothing sent anywhere — items are created locally.
+  const [pasteText, setPasteText] = useState('');
+  const [pasteCategory, setPasteCategory] = useState<DIAPCategory>('physical-access');
+  const [pasteStatus, setPasteStatus] = useState<DIAPStatus>('not-started');
   const filtersRef = useRef<HTMLDetailsElement>(null);
   const csvInputRef = useRef<HTMLInputElement>(null);
   const excelInputRef = useRef<HTMLInputElement>(null);
@@ -1066,6 +1071,27 @@ export default function DIAPWorkspace() {
     }
   };
 
+  // Manual paste: one action per non-empty line, added with the category and
+  // status the user chose. Fully client-side (nothing is sent anywhere) and it
+  // feeds the maturity score like any other action because status is set.
+  const handlePasteAdd = () => {
+    const lines = pasteText.split('\n').map(l => l.trim()).filter(Boolean);
+    if (lines.length === 0) return;
+    lines.forEach(line => {
+      createItem({
+        objective: line,
+        action: line,
+        category: pasteCategory,
+        priority: 'medium',
+        status: pasteStatus,
+        timeframe: '',
+        importSource: 'manual',
+      });
+    });
+    setImportResult({ success: true, imported: lines.length, errors: [], items: [] });
+    setPasteText('');
+  };
+
   // Handle generating DIAP items from completed assessments
   const handleGenerateFromAssessment = useCallback(() => {
     setIsGenerating(true);
@@ -1498,6 +1524,43 @@ export default function DIAPWorkspace() {
                     </p>
 
                     <div className="import-options">
+                      {/* Manual paste - fully client-side, nothing uploaded */}
+                      <div className="import-option recommended">
+                        <div className="import-option-icon">✍️</div>
+                        <h3>Type or paste your actions</h3>
+                        <p>Paste one action per line, choose a category and status, then add them. Nothing is uploaded — your plan stays in your browser, and it still counts toward your maturity score.</p>
+                        <textarea
+                          className="paste-actions-input"
+                          value={pasteText}
+                          onChange={(e) => setPasteText(e.target.value)}
+                          rows={5}
+                          placeholder={"Publish accessibility information on the website\nInstall a hearing loop at the main desk\nTrain front-counter staff in disability awareness"}
+                          aria-label="Paste your actions, one per line"
+                        />
+                        <div className="paste-actions-controls">
+                          <label>
+                            Category
+                            <select value={pasteCategory} onChange={(e) => setPasteCategory(e.target.value as DIAPCategory)}>
+                              {getAllCategories().map(cat => (
+                                <option key={cat.id} value={cat.id}>{getCategoryDisplayName(cat.id)}</option>
+                              ))}
+                            </select>
+                          </label>
+                          <label>
+                            Status
+                            <select value={pasteStatus} onChange={(e) => setPasteStatus(e.target.value as DIAPStatus)}>
+                              <option value="not-started">Not started</option>
+                              <option value="in-progress">In progress</option>
+                              <option value="achieved">Achieved</option>
+                              <option value="ongoing">Ongoing</option>
+                            </select>
+                          </label>
+                          <button type="button" className="btn btn-primary" onClick={handlePasteAdd} disabled={!pasteText.trim()}>
+                            Add to plan
+                          </button>
+                        </div>
+                      </div>
+
                       {/* Excel Import - Primary Option */}
                       <div className="import-option recommended">
                         <div className="import-option-icon">📗</div>
@@ -1569,6 +1632,27 @@ export default function DIAPWorkspace() {
                           Note: PDF import works best with well-structured documents.
                           You may need to review and adjust imported items.
                         </p>
+                      </div>
+
+                      {/* AI-assisted (opt-in) - pros + security, consent required. Coming soon. */}
+                      <div className="import-option import-option-ai">
+                        <div className="import-option-icon">✨</div>
+                        <h3>AI-assisted import <span className="import-badge">Coming soon</span></h3>
+                        <p>Upload a messy PDF or Word DIAP and let Access Compass structure it into actions and categories for you to review.</p>
+                        <ul className="import-ai-pros">
+                          <li>Handles table-formatted PDFs and Word documents the other imports can't read</li>
+                          <li>Suggests a category and status for each action — you confirm before anything is saved</li>
+                          <li>Turns a long plan into a reviewable list in seconds</li>
+                        </ul>
+                        <div className="import-ai-consent">
+                          <strong>Opt-in, with safeguards.</strong> If you choose AI:
+                          <ul>
+                            <li>Processed <strong>onshore in Australia</strong> (Sydney) — your data stays in-country</li>
+                            <li><strong>Never used to train</strong> any AI model</li>
+                            <li>Processed once to extract your actions, then <strong>discarded</strong></li>
+                            <li>Prefer not to? The manual and spreadsheet options never send your plan anywhere.</li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </>
