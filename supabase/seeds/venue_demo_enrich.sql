@@ -54,7 +54,7 @@ begin
 
   -- ---- Part B: enrich the DIAP with a range of allocations + due dates ----
   with ranked as (
-    select id, status, row_number() over (order by created_at, id) as rn
+    select id, status, (row_number() over (order by created_at, id))::int as rn
     from diap_items where organisation_id = v_conv
   )
   update diap_items d set
