@@ -1218,7 +1218,7 @@ export default function Pricing() {
           </div>
           <nav className="header-nav">
             <a href="mailto:hello@accesscompass.com.au" className="nav-link">Contact</a>
-            <Link to="/login" className="nav-link">Login</Link>
+            <Link to="/login" className="nav-link">Sign in</Link>
             <Link to="/disclaimer" className="btn btn-nav">Get started</Link>
           </nav>
         </div>

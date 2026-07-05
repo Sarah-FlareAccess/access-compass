@@ -97,7 +97,7 @@ export default function NavBar() {
                 </button>
               </>
             ) : (
-              <Link to="/disclaimer" className="nav-link sign-in">
+              <Link to="/login" className="nav-link sign-in">
                 Sign in
               </Link>
             )}

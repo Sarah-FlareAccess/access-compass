@@ -278,38 +278,13 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     let currentSession = getSession();
     const currentDiscovery = getDiscoveryData();
 
-    // DEV MODE: Create a mock session ONLY if no session exists at all
-    // Don't overwrite existing sessions that have user data
-    if (!currentSession) {
-      // Create a default session when none exists
-      const devSession = {
-        session_id: 'dev-session',
-        created_at: new Date().toISOString(),
-        last_updated: new Date().toISOString(),
-        business_snapshot: {
-          organisation_name: 'Test Organisation',
-          organisation_size: 'small' as const,
-          business_types: ['hospitality' as const],
-          user_role: 'owner' as const,
-          has_physical_venue: true,
-          has_online_presence: true,
-          serves_public_customers: true,
-          has_online_services: false,
-        },
-        selected_modules: [],
-        discovery_responses: {},
-        constraints: {
-          budget_range: 'not_sure' as const,
-          capacity: 'not_sure' as const,
-          timeframe: 'exploring' as const,
-        },
-        ai_response: null,
-      };
-      localStorage.setItem('access_compass_session', JSON.stringify(devSession));
-      currentSession = devSession;
-    } else if (!currentSession.session_id) {
-      // Session exists but missing session_id - add it without overwriting data
-      currentSession.session_id = currentSession.session_id || 'session-' + Date.now();
+    // Never fabricate a placeholder session. A mock "Test Organisation"
+    // session used to be created here whenever none existed, which polluted
+    // localStorage right after sign-out and hijacked post-login routing into
+    // onboarding with dummy data. Only backfill a missing id on a real,
+    // already-existing session.
+    if (currentSession && !currentSession.session_id) {
+      currentSession.session_id = 'session-' + Date.now();
       localStorage.setItem('access_compass_session', JSON.stringify(currentSession));
     }
 
