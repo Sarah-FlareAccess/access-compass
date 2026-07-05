@@ -25,6 +25,41 @@ const STATUS_LABELS: Record<string, string> = {
   withdrawn: 'Withdrawn',
 };
 
+// Group modules into plain-English access categories so the cohort heatmap
+// reads at a glance (physical, comms, service...) instead of module numbers.
+const CATEGORY_ORDER = [
+  'Physical access & spaces',
+  'Communication & sensory access',
+  'Customer service & staff',
+  'Events & programming',
+  'Policy & people',
+];
+
+const CATEGORY_OVERRIDES: Record<string, string> = {
+  '4.1': 'Communication & sensory access',
+  '6.2': 'Physical access & spaces',
+  '6.3': 'Communication & sensory access',
+  '6.4': 'Communication & sensory access',
+  '7.1': 'Physical access & spaces',
+  '7.3': 'Customer service & staff',
+  '7.5': 'Customer service & staff',
+};
+
+function moduleCategory(moduleId: string): string {
+  const override = CATEGORY_OVERRIDES[moduleId];
+  if (override) return override;
+  switch (moduleId.split('.')[0]) {
+    case '1': return 'Communication & sensory access';
+    case '2':
+    case '3': return 'Physical access & spaces';
+    case '4': return 'Customer service & staff';
+    case '5': return 'Policy & people';
+    case '6':
+    case '7': return 'Events & programming';
+    default: return 'Other';
+  }
+}
+
 export default function AuthorityDashboard() {
   usePageTitle('Authority Portal');
   const { accessState } = useAuth();
@@ -142,33 +177,29 @@ export default function AuthorityDashboard() {
     return Array.from(map.values()).sort((a, b) => b.count - a.count).slice(0, 5);
   }, [filteredSnapshots]);
 
-  // Per-module aggregates for the heatmap (merge same module across programs
-  // when "All" is selected).
-  const moduleHeatmap = useMemo(() => {
-    const map = new Map<string, { strong: number; mixed: number; needsWork: number; total: number }>();
+  // Roll module aggregates up into plain-English access categories so the
+  // heatmap is graspable at a glance rather than 20+ numbered rows.
+  const categoryHeatmap = useMemo(() => {
+    const map = new Map<string, { strong: number; mixed: number; needsWork: number; total: number; modules: Set<string> }>();
     filteredSnapshots.forEach(s => {
       s.snapshot_data.moduleAggregates.forEach(m => {
-        const existing = map.get(m.module_id);
-        if (existing) {
-          existing.strong += m.confidence_strong;
-          existing.mixed += m.confidence_mixed;
-          existing.needsWork += m.confidence_needs_work;
-          existing.total = existing.strong + existing.mixed + existing.needsWork;
-        } else {
-          const total = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
-          map.set(m.module_id, {
-            strong: m.confidence_strong,
-            mixed: m.confidence_mixed,
-            needsWork: m.confidence_needs_work,
-            total,
-          });
-        }
+        const cat = moduleCategory(m.module_id);
+        const existing = map.get(cat) ?? { strong: 0, mixed: 0, needsWork: 0, total: 0, modules: new Set<string>() };
+        existing.strong += m.confidence_strong;
+        existing.mixed += m.confidence_mixed;
+        existing.needsWork += m.confidence_needs_work;
+        existing.total = existing.strong + existing.mixed + existing.needsWork;
+        existing.modules.add(m.module_id);
+        map.set(cat, existing);
       });
     });
-    return Array.from(map.entries())
-      .map(([moduleId, counts]) => ({ moduleId, ...counts }))
-      .filter(m => m.total > 0)
-      .sort((a, b) => a.moduleId.localeCompare(b.moduleId, undefined, { numeric: true }));
+    return CATEGORY_ORDER
+      .filter(cat => map.has(cat))
+      .map(cat => {
+        const c = map.get(cat)!;
+        return { category: cat, strong: c.strong, mixed: c.mixed, needsWork: c.needsWork, total: c.total, moduleCount: c.modules.size };
+      })
+      .filter(r => r.total > 0);
   }, [filteredSnapshots]);
 
   // Last 7 days enrolment activity (for the activity pulse card)
@@ -278,7 +309,7 @@ export default function AuthorityDashboard() {
         topPriorities={cohortTopPriorities}
         topStrengths={cohortTopStrengths}
         topAreasToExplore={cohortAreasToExplore}
-        moduleHeatmap={moduleHeatmap}
+        categoryHeatmap={categoryHeatmap}
         recentActivity={recentActivity}
         hasReports={latestSnapshots.length > 0}
         programs={programs}
@@ -402,7 +433,7 @@ interface CohortSnapshotProps {
   topPriorities: Array<{ action: string; count: number; priority?: string; programIds: string[] }>;
   topStrengths: Array<{ text: string; count: number }>;
   topAreasToExplore: Array<{ text: string; count: number }>;
-  moduleHeatmap: Array<{ moduleId: string; strong: number; mixed: number; needsWork: number; total: number }>;
+  categoryHeatmap: Array<{ category: string; strong: number; mixed: number; needsWork: number; total: number; moduleCount: number }>;
   recentActivity: { sevenDays: number; priorSeven: number; delta: number };
   hasReports: boolean;
   programs: AuthorityProgram[];
@@ -411,7 +442,7 @@ interface CohortSnapshotProps {
   programCount: number;
 }
 
-function CohortSnapshot({ maturity, topPriorities, topStrengths, topAreasToExplore, moduleHeatmap, recentActivity, hasReports, programs, filterProgramId, setFilterProgramId, programCount }: CohortSnapshotProps) {
+function CohortSnapshot({ maturity, topPriorities, topStrengths, topAreasToExplore, categoryHeatmap, recentActivity, hasReports, programs, filterProgramId, setFilterProgramId, programCount }: CohortSnapshotProps) {
   if (programCount === 0) return null;
 
   if (!hasReports) {
@@ -550,17 +581,17 @@ function CohortSnapshot({ maturity, topPriorities, topStrengths, topAreasToExplo
           )}
         </div>
 
-        {/* Per-module heatmap */}
-        {moduleHeatmap.length > 0 && (
+        {/* Category heatmap */}
+        {categoryHeatmap.length > 0 && (
           <div className="cohort-card cohort-card--span2">
             <div className="cohort-card__header">
-              <h3>Module maturity heatmap</h3>
+              <h3>Maturity by access category</h3>
               <span className="cohort-card__subtitle">
-                Confidence distribution per module. Wider green = cohort is genuinely doing well.
+                Confidence grouped by area of access. Wider green = cohort is genuinely doing well.
                 Wider red = needs collective attention.
               </span>
             </div>
-            <ModuleHeatmap rows={moduleHeatmap} />
+            <ModuleHeatmap rows={categoryHeatmap} />
           </div>
         )}
 
@@ -590,17 +621,22 @@ function CohortSnapshot({ maturity, topPriorities, topStrengths, topAreasToExplo
   );
 }
 
-function ModuleHeatmap({ rows }: { rows: Array<{ moduleId: string; strong: number; mixed: number; needsWork: number; total: number }> }) {
+function ModuleHeatmap({ rows }: { rows: Array<{ category: string; strong: number; mixed: number; needsWork: number; total: number; moduleCount: number }> }) {
   return (
-    <div className="cohort-heatmap" role="table" aria-label="Per-module confidence heatmap">
+    <div className="cohort-heatmap" role="table" aria-label="Confidence heatmap by access category">
+      <div className="cohort-heatmap__legend" aria-hidden="true">
+        <span><span className="dot dot--green" /> Strong</span>
+        <span><span className="dot dot--amber" /> Mixed</span>
+        <span><span className="dot dot--red" /> Needs work</span>
+      </div>
       {rows.map(r => {
         const strongPct = r.total > 0 ? (r.strong / r.total) * 100 : 0;
         const mixedPct = r.total > 0 ? (r.mixed / r.total) * 100 : 0;
         const needsWorkPct = r.total > 0 ? (r.needsWork / r.total) * 100 : 0;
         return (
-          <div key={r.moduleId} className="cohort-heatmap__row" role="row">
+          <div key={r.category} className="cohort-heatmap__row" role="row">
             <div className="cohort-heatmap__label" role="rowheader">
-              {r.moduleId}
+              {r.category}
             </div>
             <div
               className="cohort-heatmap__bar"
