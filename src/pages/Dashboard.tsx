@@ -568,6 +568,44 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     }));
   }, [orgWideRollup, groupedModules]);
 
+  // Assessment progress over time: a cumulative line built from when each
+  // module was completed. Honest and self-contained (no reassessment-score
+  // aggregation); the endpoint lines up with the overall progress figure.
+  // Geometry is precomputed here so the SVG stays declarative.
+  const progressTrend = useMemo(() => {
+    const dates: number[] = [];
+    for (const moduleId in progress) {
+      const p = progress[moduleId];
+      if (p?.status === 'completed' && p.completedAt) {
+        const t = new Date(p.completedAt).getTime();
+        if (!Number.isNaN(t)) dates.push(t);
+      }
+    }
+    if (dates.length < 2) return null;
+    dates.sort((a, b) => a - b);
+
+    const total = dates.length;
+    const first = dates[0];
+    const last = dates[total - 1];
+    // When every completion shares a timestamp, time-based spacing collapses
+    // onto one x; fall back to even spacing so it still reads as a rising line.
+    const evenSpacing = last === first;
+    const span = Math.max(1, last - first);
+    const W = 320, H = 96, padX = 8, padTop = 14, padBot = 18;
+    const coords = dates.map((t, i) => {
+      const frac = evenSpacing ? i / (total - 1) : (t - first) / span;
+      const x = padX + frac * (W - padX * 2);
+      const y = (H - padBot) - (i / (total - 1)) * ((H - padBot) - padTop);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    });
+    const linePoints = coords.join(' ');
+    const areaPoints = `${linePoints} ${W - padX},${H} ${padX},${H}`;
+    const [endX, endY] = coords[total - 1].split(',');
+    const recent = dates.filter(t => Date.now() - t <= 90 * 24 * 60 * 60 * 1000).length;
+
+    return { linePoints, areaPoints, endX, endY, total, recent };
+  }, [progress]);
+
   // Get action button text and style based on status
   const getActionButton = (status: 'not-started' | 'in-progress' | 'completed') => {
     switch (status) {
@@ -847,6 +885,49 @@ Thanks!`;
             </div>
 
           </section>}
+
+          {/* Progress over time - cumulative completion sparkline */}
+          {activeTab !== 'activity' && progressTrend && (
+            <section className="dashboard-snapshot dashboard-trend">
+              <div className="snapshot-header">
+                <h2>Progress over time</h2>
+                {progressTrend.recent > 0 && (
+                  <span className="trend-delta">▲ {progressTrend.recent} in the last 90 days</span>
+                )}
+              </div>
+              <div className="trend-body">
+                <div className="trend-figure">
+                  <span className="trend-val">{overallStats.progressPercentage}%</span>
+                  <span className="trend-val-label">assessed</span>
+                </div>
+                <svg
+                  className="trend-spark"
+                  viewBox="0 0 320 96"
+                  preserveAspectRatio="none"
+                  role="img"
+                  aria-label={`Assessment progress rising to ${overallStats.progressPercentage} percent across ${progressTrend.total} completed areas`}
+                >
+                  <defs>
+                    <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stopColor="#16A34A" stopOpacity="0.24" />
+                      <stop offset="1" stopColor="#16A34A" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <polygon fill="url(#trendFill)" points={progressTrend.areaPoints} />
+                  <polyline
+                    fill="none"
+                    stroke="#16A34A"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    points={progressTrend.linePoints}
+                  />
+                  <circle cx={progressTrend.endX} cy={progressTrend.endY} r="4.5" fill="#16A34A" />
+                </svg>
+              </div>
+              <p className="trend-foot">Based on when each area was completed. Reassess to keep the line moving.</p>
+            </section>
+          )}
 
           {/* Dashboard Overview Stats - only on overview */}
           {activeTab === 'overview' && (
