@@ -1519,8 +1519,8 @@ export default function DIAPWorkspace() {
                 {!importResult ? (
                   <>
                     <p className="import-intro">
-                      Import your existing Disability Inclusion Action Plan from Excel, CSV, or PDF.
-                      Items will be added to your current DIAP.
+                      Add your existing Disability Inclusion Action Plan — paste it in, or upload from Excel, CSV, or PDF.
+                      Items are added to your current plan.
                     </p>
 
                     <div className="import-options">
@@ -1567,17 +1567,22 @@ export default function DIAPWorkspace() {
                         <h3>Import from Excel (Recommended)</h3>
                         <p>Import directly from your existing Excel DIAP spreadsheet (.xlsx files).</p>
                         <div className="import-option-actions">
-                          <label className="btn btn-primary">
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => excelInputRef.current?.click()}
+                            disabled={isImporting}
+                          >
                             {isImporting ? 'Importing...' : 'Select Excel File'}
-                            <input
-                              ref={excelInputRef}
-                              type="file"
-                              accept=".xlsx,.xls"
-                              onChange={handleExcelImport}
-                              hidden
-                              disabled={isImporting}
-                            />
-                          </label>
+                          </button>
+                          <input
+                            ref={excelInputRef}
+                            type="file"
+                            accept=".xlsx,.xls"
+                            onChange={handleExcelImport}
+                            hidden
+                            disabled={isImporting}
+                          />
                         </div>
                         <p className="import-note">
                           Your spreadsheet should have columns for Action/Task, and optionally: Priority, Status, Due Date, Responsible Person.
@@ -1596,17 +1601,22 @@ export default function DIAPWorkspace() {
                           >
                             Download Template
                           </button>
-                          <label className="btn btn-primary">
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => csvInputRef.current?.click()}
+                            disabled={isImporting}
+                          >
                             {isImporting ? 'Importing...' : 'Select CSV File'}
-                            <input
-                              ref={csvInputRef}
-                              type="file"
-                              accept=".csv"
-                              onChange={handleCSVImport}
-                              hidden
-                              disabled={isImporting}
-                            />
-                          </label>
+                          </button>
+                          <input
+                            ref={csvInputRef}
+                            type="file"
+                            accept=".csv"
+                            onChange={handleCSVImport}
+                            hidden
+                            disabled={isImporting}
+                          />
                         </div>
                       </div>
 
@@ -1616,17 +1626,22 @@ export default function DIAPWorkspace() {
                         <h3>Import from PDF</h3>
                         <p>Extract action items from an existing DIAP PDF document.</p>
                         <div className="import-option-actions">
-                          <label className="btn btn-primary">
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => pdfInputRef.current?.click()}
+                            disabled={isImporting}
+                          >
                             {isImporting ? 'Parsing PDF...' : 'Select PDF File'}
-                            <input
-                              ref={pdfInputRef}
-                              type="file"
-                              accept=".pdf"
-                              onChange={handlePDFImport}
-                              hidden
-                              disabled={isImporting}
-                            />
-                          </label>
+                          </button>
+                          <input
+                            ref={pdfInputRef}
+                            type="file"
+                            accept=".pdf"
+                            onChange={handlePDFImport}
+                            hidden
+                            disabled={isImporting}
+                          />
                         </div>
                         <p className="import-note">
                           Note: PDF import works best with well-structured documents.
