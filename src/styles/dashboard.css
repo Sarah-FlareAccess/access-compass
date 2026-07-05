@@ -1101,7 +1101,40 @@
 }
 
 .dashboard-container {
-  max-width: 900px;
+  max-width: 1200px;
+}
+
+/* Overview cards laid out two-up on wide screens (single column narrow).
+   Big cards span the full width; ratio + evidence pair into two columns. */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-md, 24px);
+  align-items: start;
+}
+
+.dashboard-grid > * {
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+.dashboard-grid > .progress-section,
+.dashboard-grid > .dashboard-trend,
+.dashboard-grid > .dashboard-wins,
+.dashboard-grid > .dashboard-actionplan,
+.dashboard-grid > .dashboard-answered-note,
+.dashboard-grid > .dashboard-progress-venue,
+.dashboard-grid > .dashboard-progress-area {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-grid > * {
+    grid-column: 1 / -1;
+  }
 }
 
 .dashboard-footer-link {

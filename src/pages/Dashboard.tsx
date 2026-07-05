@@ -847,6 +847,8 @@ Thanks!`;
               </div>
             )}
 
+            {/* Dashboard overview cards - two-column grid on wide screens */}
+            <div className="dashboard-grid">
             {/* Overall Progress Card - hide on activity tab */}
             {activeTab !== 'activity' && <section className="progress-section">
             <div className="progress-card">
@@ -1013,7 +1015,7 @@ Thanks!`;
 
               {/* Action Plan Snapshot */}
               {overallStats.diapItemCount > 0 && (
-                <section className="dashboard-snapshot">
+                <section className="dashboard-snapshot dashboard-actionplan">
                   <h2>
                     Action Plan (DIAP)
                     <InfoTooltip text="Shows the venue you're working in; Organisation-wide totals every venue's actions. Action plans are generated automatically from each venue's completed assessment." />
@@ -1123,6 +1125,7 @@ Thanks!`;
 
             </>
           )}
+            </div>
 
           {/* Mobile Quick Links - visible only on mobile where sidebar is hidden */}
           <div className="mobile-quick-links">
