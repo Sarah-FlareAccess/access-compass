@@ -1,26 +1,30 @@
 -- =====================================================
--- Major Venue demo org: "Southgate Convention & Exhibition Centre"
+-- Major Venue demo: "Southgate Convention & Exhibition Centre"
 -- =====================================================
--- Creates a venue-shaped demo org so a convention/exhibition centre sees
--- itself: internal spaces AND on-site F&B tenants as sites, a completed
--- assessment (incl. events modules), a DIAP with real statuses, and the
--- session + discovery rows so it restores on sign-in.
+-- Seeds a venue-shaped demo org so a convention/exhibition centre sees itself:
+-- internal spaces AND on-site F&B tenants as sites, a completed assessment
+-- (incl. events modules), a DIAP with real statuses, and the session +
+-- discovery rows for restore.
 --
--- Owner = the same account that owns Redgum (so you can demo it on your login).
--- Idempotent. Jurisdiction AU-VIC (so VIC framework alignment shows).
--- After running: sign out and back in — Southgate becomes your active org.
+-- SEPARATE LOGIN: create the org via the app first, under its OWN demo account
+-- (so Southgate and Redgum are two independent logins, no org-switching):
+--   1. Sign up a fresh demo account (new email + password) in the app.
+--   2. In onboarding, create an org named "Southgate Convention & Exhibition
+--      Centre" (any name containing "southgate"), reach the dashboard.
+--   3. Run THIS script, then sign out and back in on that demo account.
+--
+-- Idempotent. Targets the Southgate org by name; does NOT touch Redgum.
 -- =====================================================
 do $$
 declare
   v_org   uuid;
   v_user  uuid;
-  v_name  text := 'Southgate Convention & Exhibition Centre';
   v_sites text[] := array[
     'Grand Plenary', 'Exhibition Hall A', 'Exhibition Hall B',
     'Riverview Foyer & Wayfinding', 'Meeting & Function Suites',
     'The Atrium Cafe', 'Southbank Restaurant', 'Terrace Bar'
   ];
-  v_site   text;
+  v_site    text;
   v_site_id uuid;
   v_modules text[] := array[
     '1.1','1.2','1.3','1.4','1.5','1.6',
@@ -31,52 +35,37 @@ declare
     '6.1','6.2','6.3','6.4','6.5',
     '7.1','7.2','7.3','7.4','7.5','7.6','7.7'
   ];
-  v_mod    text;
-  v_idx    int;
-  v_cut    int;
-  v_status text;
-  v_days   int;
-  v_rec    record;
-  v_ord    int := 0;
+  v_mod     text;
+  v_idx     int;
+  v_cut     int;
+  v_status  text;
+  v_days    int;
+  v_rec     record;
+  v_ord     int := 0;
   v_dstatus text;
-  v_fill   int;
-  v_diap   int;
+  v_name    text;
+  v_fill    int;
+  v_diap    int;
 begin
-  -- Owner = the account that owns Redgum (same person demoing).
-  select m.user_id into v_user
-    from organisation_memberships m
-    join organisations o on o.id = m.organisation_id
-   where o.name ilike '%redgum%' and m.status = 'active'
-   order by m.created_at limit 1;
-  if v_user is null then raise exception 'Could not find your user via a Redgum membership'; end if;
+  select id, name into v_org, v_name from organisations
+   where name ilike '%southgate%' order by created_at limit 1;
+  if v_org is null then
+    raise exception 'No org name contains "southgate" — sign up the demo account and create the org via onboarding first, then re-run.';
+  end if;
+  select user_id into v_user from organisation_memberships
+   where organisation_id = v_org and status = 'active' order by created_at limit 1;
+  if v_user is null then raise exception 'Southgate org has no active member'; end if;
 
+  update organisations set jurisdiction = 'AU-VIC' where id = v_org;
   alter table diap_items drop constraint if exists diap_items_status_check;
 
-  -- 1. The org (idempotent by name)
-  select id into v_org from organisations where name = v_name limit 1;
-  if v_org is null then
-    insert into organisations (name, slug, size, max_members, org_type, contact_email, contact_name, invite_code, jurisdiction)
-    values (v_name, 'southgate-cec-' || substr(md5(random()::text), 1, 6), 'large', 50, 'standard',
-            'demo@flareaccess.com', 'Venue Demo', upper(substr(md5(random()::text), 1, 8)), 'AU-VIC')
-    returning id into v_org;
-  else
-    update organisations set jurisdiction = 'AU-VIC' where id = v_org;
-  end if;
-
-  -- 2. Owner membership for your account
-  if not exists (select 1 from organisation_memberships where organisation_id = v_org and user_id = v_user) then
-    insert into organisation_memberships (organisation_id, user_id, role, status, invite_accepted_at)
-    values (v_org, v_user, 'owner', 'active', now());
-  end if;
-
-  -- 3. Sites: internal spaces + on-site F&B tenants
+  -- Sites: internal spaces + on-site F&B tenants
   foreach v_site in array v_sites loop
     insert into sites (organisation_id, name) values (v_org, v_site)
     on conflict (organisation_id, name) do nothing;
   end loop;
 
-  -- 4. Completed assessment across every site (varied 60/70/80% so the league
-  --    table shows a spread; tail left in-progress / not-started).
+  -- Completed assessment across every site (varied 60/70/80%)
   for v_site_id, v_site in
     select id, name from sites where organisation_id = v_org
   loop
@@ -121,7 +110,7 @@ begin
     end loop;
   end loop;
 
-  -- 5. DIAP items from the completed assessments (valid statuses only)
+  -- DIAP items from the completed assessments (valid statuses only)
   delete from diap_items where organisation_id = v_org and session_id like 'seed-venue-%';
 
   for v_rec in
@@ -154,7 +143,7 @@ begin
        v_user);
   end loop;
 
-  -- 6. Org session + discovery so the account restores on sign-in
+  -- Session + discovery so the demo account restores on sign-in
   insert into sessions (session_id, organisation_id, user_id, business_snapshot, selected_modules, created_at, updated_at)
   values ('seed-venue-org-session', v_org, v_user,
     jsonb_build_object('organisation_name', v_name, 'organisation_size', 'large',
@@ -177,5 +166,5 @@ begin
 
   select count(*) into v_fill from module_progress where organisation_id = v_org;
   select count(*) into v_diap from diap_items where organisation_id = v_org;
-  raise notice 'Done. Southgate org %, module_progress rows: %, DIAP items: %. Sign out and back in.', v_org, v_fill, v_diap;
+  raise notice 'Done. % — module_progress rows: %, DIAP items: %. Sign out and back in on the demo account.', v_name, v_fill, v_diap;
 end $$;
