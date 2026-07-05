@@ -193,3 +193,18 @@
     padding-bottom: calc(72px + env(safe-area-inset-bottom, 16px));
   }
 }
+
+/* WCAG 1.4.10 Reflow: at very short viewports (e.g. 400% zoom), a pinned
+   bottom bar swallows the limited screen. Let it scroll with the page
+   instead, and drop the reserved padding since it no longer overlaps. */
+@media (max-width: 768px) and (max-height: 400px) {
+  .bottom-tab-bar {
+    position: static;
+    box-shadow: none;
+  }
+  .dashboard-page,
+  .dashboard-main,
+  main[role="main"] {
+    padding-bottom: 0;
+  }
+}
