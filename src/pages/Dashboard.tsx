@@ -656,7 +656,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       ? (overallStats.diapAchieved + overallStats.diapOngoing + overallStats.diapInProgress) / overallStats.diapItemCount
       : 0;
 
-    const levels = ['Emerging', 'Developing', 'Established', 'Leading'];
+    const levels = ['Emerging', 'Developing', 'Established', 'Embedded'];
     let levelIdx: number;
     if (stage <= 1) levelIdx = 0;
     else if (stage === 2) levelIdx = 1;
@@ -957,12 +957,12 @@ Thanks!`;
                   </div>
                   <div className="maturity-meter-wrap">
                     <div className="maturity-meter" role="img" aria-label={`Maturity level ${maturity.level}, ${maturity.levelIdx + 1} of 4`}>
-                      {['Emerging', 'Developing', 'Established', 'Leading'].map((lv, i) => (
+                      {['Emerging', 'Developing', 'Established', 'Embedded'].map((lv, i) => (
                         <div key={lv} className={`mat-seg ${i <= maturity.levelIdx ? `mat-seg-on mat-${i}` : ''}`} />
                       ))}
                     </div>
                     <div className="maturity-meter-labels">
-                      {['Emerging', 'Developing', 'Established', 'Leading'].map((lv, i) => (
+                      {['Emerging', 'Developing', 'Established', 'Embedded'].map((lv, i) => (
                         <span key={lv} className={i === maturity.levelIdx ? 'cur' : ''}>{lv}</span>
                       ))}
                     </div>

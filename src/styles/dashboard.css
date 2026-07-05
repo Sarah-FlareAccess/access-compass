@@ -1139,7 +1139,7 @@
   padding-top: 2px;
 }
 .na-chip {
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -1151,7 +1151,7 @@
 }
 .na-crit { background: #F6E5E0; color: #B23A22; }
 .na-warn { background: #FBF0D8; color: #B45309; }
-.na-info { background: #E6EFF6; color: #2563EB; }
+.na-info { background: #E6EFF6; color: #1D4ED8; }
 .na-body {
   flex: 1;
   min-width: 0;
@@ -1189,7 +1189,7 @@
 
 .maturity-tag {
   display: inline-block;
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -1251,7 +1251,7 @@
 
 .maturity-meter-labels span {
   flex: 1;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-secondary, #5C4A4E);
   text-align: center;
@@ -1349,14 +1349,14 @@
 }
 
 .mat-step-future .mat-name {
-  color: var(--faint, #948C9C);
+  color: var(--text-secondary, #5C4A4E);
   font-weight: 600;
 }
 
 .maturity-note {
   margin: 18px 0 0;
   font-size: 0.72rem;
-  color: var(--faint, #948C9C);
+  color: var(--text-secondary, #5C4A4E);
   line-height: 1.5;
 }
 
@@ -1481,7 +1481,7 @@
 }
 
 .diap-donut-center span {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--text-secondary, #5C4A4E);
   text-transform: uppercase;
@@ -3814,8 +3814,9 @@ details[open] > .evidence-module-heading::before {
   min-width: 0;
 }
 
-.ratio-well { background: #16A34A; }
-.ratio-action { background: #D97706; }
+/* Darker fills so the white percentage labels clear WCAG AA (4.5:1) */
+.ratio-well { background: #157A46; }
+.ratio-action { background: #B45309; }
 
 .ratio-legend {
   display: flex;
@@ -3980,7 +3981,7 @@ details[open] > .evidence-module-heading::before {
 }
 
 .venue-head span {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 700;
@@ -4052,7 +4053,7 @@ details[open] > .evidence-module-heading::before {
 }
 
 .venue-chip {
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -4061,7 +4062,7 @@ details[open] > .evidence-module-heading::before {
   white-space: nowrap;
 }
 
-.venue-chip.good { background: rgba(22, 163, 74, 0.14); color: #157A46; }
+.venue-chip.good { background: rgba(22, 163, 74, 0.14); color: #0F6B3A; }
 .venue-chip.warn { background: rgba(217, 119, 6, 0.14); color: #B45309; }
 .venue-chip.crit { background: rgba(196, 85, 61, 0.16); color: #B23A22; }
 
