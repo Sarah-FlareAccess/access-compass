@@ -48,9 +48,9 @@ declare
   v_diap    int;
 begin
   select id, name into v_org, v_name from organisations
-   where name ilike '%southgate%' order by created_at limit 1;
+   where name ilike '%convention%' order by created_at limit 1;
   if v_org is null then
-    raise exception 'No org name contains "southgate" — sign up the demo account and create the org via onboarding first, then re-run.';
+    raise exception 'No org name contains "convention" — sign up the demo account and create the org via onboarding first, then re-run.';
   end if;
   select user_id into v_user from organisation_memberships
    where organisation_id = v_org and status = 'active' order by created_at limit 1;
