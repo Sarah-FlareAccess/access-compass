@@ -146,12 +146,13 @@ begin
      order by mp.site_id, mp.module_id, act.ord
   loop
     v_ord := v_ord + 1;
+    -- Only valid DIAPStatus values (no 'planned'): achieved / ongoing /
+    -- in-progress / not-started. 'not-started' covers planned-but-unstarted.
     v_dstatus := case (v_ord % 10)
       when 0 then 'achieved'    when 1 then 'achieved'      -- ~20%
       when 2 then 'ongoing'                                 -- ~10%
       when 3 then 'in-progress' when 4 then 'in-progress' when 5 then 'in-progress'  -- ~30%
-      when 6 then 'planned'     when 7 then 'planned'       -- ~20%
-      else 'not-started'                                    -- ~20%
+      else 'not-started'                                    -- ~40%
     end;
 
     insert into diap_items

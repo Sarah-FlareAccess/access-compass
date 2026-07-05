@@ -1137,6 +1137,174 @@
   }
 }
 
+/* Hero progress ring (replaces the flat bar) */
+.progress-card-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg, 32px);
+}
+
+.progress-card-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.progress-ring-hero {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  flex: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.progress-ring-hero::after {
+  content: '';
+  position: absolute;
+  inset: 15px;
+  border-radius: 50%;
+  background: var(--surface-2, #ffffff);
+}
+
+.progress-ring-hero-center {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.progress-ring-hero-center b {
+  display: block;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--amethyst-diamond, #490E67);
+  line-height: 1;
+}
+
+.progress-ring-hero-center span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary, #5C4A4E);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Action plan donut */
+.diap-donut-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg, 32px);
+}
+
+.diap-donut {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  flex: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.diap-donut::after {
+  content: '';
+  position: absolute;
+  inset: 24%;
+  border-radius: 50%;
+  background: var(--surface-2, #ffffff);
+}
+
+.diap-donut-center {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.diap-donut-center b {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--amethyst-diamond, #490E67);
+  line-height: 1;
+}
+
+.diap-donut-center span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-secondary, #5C4A4E);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.diap-legend {
+  display: grid;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.diap-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-primary, #2d2420);
+}
+
+.diap-legend-row b {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.diap-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  flex: none;
+}
+
+/* Win tile badges */
+.win-tile {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-left: 0;
+  border-left: 0;
+}
+
+.win-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  flex: none;
+  background: color-mix(in srgb, var(--win-accent, #16A34A) 14%, transparent);
+  color: var(--win-accent, #16A34A);
+}
+
+.win-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+@media (max-width: 560px) {
+  .progress-card-inner,
+  .diap-donut-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .progress-ring-hero,
+  .diap-donut {
+    align-self: center;
+  }
+}
+
 .dashboard-footer-link {
   text-align: center;
   padding: var(--spacing-lg) 0 var(--spacing-sm);

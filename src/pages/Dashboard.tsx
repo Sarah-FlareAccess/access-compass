@@ -466,6 +466,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     const diapTotal = scopedDiap.length;
     const diapAchievedCount = scopedDiap.filter(i => i.status === 'achieved').length;
     const diapOngoingCount = scopedDiap.filter(i => i.status === 'ongoing').length;
+    const diapInProgressCount = scopedDiap.filter(i => i.status === 'in-progress').length;
     const diapPct = diapTotal > 0 ? Math.round((diapAchievedCount / diapTotal) * 100) : 0;
 
     const totalModules = groupedModules.reduce((sum, g) => sum + g.totalCount, 0);
@@ -509,6 +510,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
         diapItemCount: diapTotal,
         diapAchieved: diapAchievedCount,
         diapOngoing: diapOngoingCount,
+        diapInProgress: diapInProgressCount,
         diapCompletedPercentage: diapPct,
         totalDoingWell: orgWideRollup.doingWell,
         totalActions: orgWideRollup.actions,
@@ -526,6 +528,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       diapItemCount: diapTotal,
       diapAchieved: diapAchievedCount,
       diapOngoing: diapOngoingCount,
+      diapInProgress: diapInProgressCount,
       diapCompletedPercentage: diapPct,
       totalDoingWell,
       totalActions,
@@ -852,21 +855,25 @@ Thanks!`;
             {/* Overall Progress Card - hide on activity tab */}
             {activeTab !== 'activity' && <section className="progress-section">
             <div className="progress-card">
-              <div className="progress-header">
-                <h2 className="progress-title">Assessment Progress</h2>
-                <span className="progress-count">
-                  {overallStats.modulesCompleted} of {overallStats.modulesTotal} modules completed
-                </span>
-              </div>
-              <div className="progress-bar-wrapper">
-                <div className="progress-bar">
-                  <div
-                    className="progress-bar-fill"
-                    style={{ width: `${overallStats.progressPercentage}%` }}
-                  />
+              <div className="progress-card-inner">
+                <div
+                  className="progress-ring-hero"
+                  style={{ background: `conic-gradient(var(--amethyst-diamond, #490E67) 0 ${overallStats.progressPercentage}%, #E5E0DC ${overallStats.progressPercentage}% 100%)` }}
+                  role="img"
+                  aria-label={`${overallStats.progressPercentage} percent assessed`}
+                >
+                  <div className="progress-ring-hero-center">
+                    <b>{overallStats.progressPercentage}%</b>
+                    <span>assessed</span>
+                  </div>
                 </div>
-                <span className="progress-percentage">{overallStats.progressPercentage}%</span>
-              </div>
+                <div className="progress-card-main">
+                  <div className="progress-header">
+                    <h2 className="progress-title">Assessment Progress</h2>
+                    <span className="progress-count">
+                      {overallStats.modulesCompleted} of {overallStats.modulesTotal} modules completed
+                    </span>
+                  </div>
 
               {/* Progress Status Summary */}
               <div className="progress-status-summary">
@@ -884,6 +891,8 @@ Thanks!`;
                   <span className="status-dot"></span>
                   <span className="status-count">{overallStats.modulesNotStarted}</span>
                   <span className="status-label">Not started</span>
+                </div>
+              </div>
                 </div>
               </div>
             </div>
@@ -945,19 +954,28 @@ Thanks!`;
                     <h2>What you've achieved</h2>
                     <div className="wins-grid">
                       <div className="win-tile win-good">
-                        <span className="win-value">{overallStats.totalDoingWell}</span>
-                        <span className="win-label">Doing well</span>
-                        <span className="win-desc">Areas already meeting good practice.</span>
+                        <span className="win-badge" aria-hidden="true">★</span>
+                        <div className="win-body">
+                          <span className="win-value">{overallStats.totalDoingWell}</span>
+                          <span className="win-label">Doing well</span>
+                          <span className="win-desc">Areas already meeting good practice.</span>
+                        </div>
                       </div>
                       <div className="win-tile win-achieved">
-                        <span className="win-value">{overallStats.diapAchieved}</span>
-                        <span className="win-label">Actions achieved</span>
-                        <span className="win-desc">Completed and verified.</span>
+                        <span className="win-badge" aria-hidden="true">✓</span>
+                        <div className="win-body">
+                          <span className="win-value">{overallStats.diapAchieved}</span>
+                          <span className="win-label">Actions achieved</span>
+                          <span className="win-desc">Completed and verified.</span>
+                        </div>
                       </div>
                       <div className="win-tile win-ongoing">
-                        <span className="win-value">{overallStats.diapOngoing}</span>
-                        <span className="win-label">Embedded as ongoing</span>
-                        <span className="win-desc">Now standard practice, not one-off fixes.</span>
+                        <span className="win-badge" aria-hidden="true">↻</span>
+                        <div className="win-body">
+                          <span className="win-value">{overallStats.diapOngoing}</span>
+                          <span className="win-label">Embedded as ongoing</span>
+                          <span className="win-desc">Now standard practice, not one-off fixes.</span>
+                        </div>
                       </div>
                     </div>
                   </section>
@@ -1014,29 +1032,45 @@ Thanks!`;
               )}
 
               {/* Action Plan Snapshot */}
-              {overallStats.diapItemCount > 0 && (
-                <section className="dashboard-snapshot dashboard-actionplan">
-                  <h2>
-                    Action Plan (DIAP)
-                    <InfoTooltip text="Shows the venue you're working in; Organisation-wide totals every venue's actions. Action plans are generated automatically from each venue's completed assessment." />
-                  </h2>
-                  <div className="snapshot-row">
-                    <div className="snapshot-stat">
-                      <span className="snapshot-value">{overallStats.diapItemCount}</span>
-                      <span className="snapshot-label">Total actions</span>
+              {overallStats.diapItemCount > 0 && (() => {
+                const t = overallStats.diapItemCount;
+                const other = Math.max(0, t - overallStats.diapAchieved - overallStats.diapOngoing - overallStats.diapInProgress);
+                const seg = (n: number) => (n / t) * 100;
+                const s1 = seg(overallStats.diapAchieved);
+                const s2 = s1 + seg(overallStats.diapOngoing);
+                const s3 = s2 + seg(overallStats.diapInProgress);
+                const donut = `conic-gradient(#16A34A 0 ${s1}%, #2563EB ${s1}% ${s2}%, #D97706 ${s2}% ${s3}%, #B4AEB8 ${s3}% 100%)`;
+                return (
+                  <section className="dashboard-snapshot dashboard-actionplan">
+                    <div className="snapshot-header">
+                      <h2>
+                        Action Plan (DIAP)
+                        <InfoTooltip text="Shows the venue you're working in; Organisation-wide totals every venue's actions. Action plans are generated automatically from each venue's completed assessment." />
+                      </h2>
+                      <Link to="/diap" className="snapshot-link">View action plan</Link>
                     </div>
-                    <div className="snapshot-stat">
-                      <span className="snapshot-value">{overallStats.diapAchieved}</span>
-                      <span className="snapshot-label">Achieved</span>
+                    <div className="diap-donut-wrap">
+                      <div
+                        className="diap-donut"
+                        style={{ background: donut }}
+                        role="img"
+                        aria-label={`${overallStats.diapCompletedPercentage} percent of ${t} actions resolved`}
+                      >
+                        <div className="diap-donut-center">
+                          <b>{overallStats.diapCompletedPercentage}%</b>
+                          <span>complete</span>
+                        </div>
+                      </div>
+                      <div className="diap-legend">
+                        <div className="diap-legend-row"><span className="diap-dot" style={{ background: '#16A34A' }} />Achieved<b>{overallStats.diapAchieved}</b></div>
+                        <div className="diap-legend-row"><span className="diap-dot" style={{ background: '#2563EB' }} />Ongoing<b>{overallStats.diapOngoing}</b></div>
+                        <div className="diap-legend-row"><span className="diap-dot" style={{ background: '#D97706' }} />In progress<b>{overallStats.diapInProgress}</b></div>
+                        <div className="diap-legend-row"><span className="diap-dot" style={{ background: '#B4AEB8' }} />Not started<b>{other}</b></div>
+                      </div>
                     </div>
-                    <div className="snapshot-stat">
-                      <span className="snapshot-value">{overallStats.diapCompletedPercentage}%</span>
-                      <span className="snapshot-label">Complete</span>
-                    </div>
-                    <Link to="/diap" className="snapshot-link">View action plan</Link>
-                  </div>
-                </section>
-              )}
+                  </section>
+                );
+              })()}
 
               {/* Progress breakdown - per venue at org scope, per journey area
                   at a single site */}
