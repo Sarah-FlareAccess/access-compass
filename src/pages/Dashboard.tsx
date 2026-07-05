@@ -370,6 +370,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     byGroup: Record<string, { completed: number; total: number }>;
     byVenue: Record<string, { completed: number; inProgress: number; actions: number }>;
     modulesPerVenue: number;
+    completionDates: string[];
   } | null>(null);
 
   useEffect(() => {
@@ -388,13 +389,13 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       const siteCount = sites.length;
 
       const [mpRes, respRes, evRes] = await Promise.all([
-        sb.from('module_progress').select('module_id, status, summary, site_id').eq('organisation_id', oid),
+        sb.from('module_progress').select('module_id, status, summary, site_id, completed_at').eq('organisation_id', oid),
         sb.from('module_responses').select('id', { count: 'exact', head: true }).eq('organisation_id', oid),
         sb.from('evidence_files').select('id', { count: 'exact', head: true }).eq('organisation_id', oid),
       ]);
       if (cancelled) return;
 
-      const rows = ((mpRes.data as { module_id: string; status: string; summary: unknown; site_id: string | null }[]) || [])
+      const rows = ((mpRes.data as { module_id: string; status: string; summary: unknown; site_id: string | null; completed_at: string | null }[]) || [])
         .filter(r => moduleGroupById.has(r.module_id));
 
       const byGroup: Record<string, { completed: number; total: number }> = {};
@@ -406,11 +407,13 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       const byVenue: Record<string, { completed: number; inProgress: number; actions: number }> = {};
       for (const s of sites) byVenue[s.id] = { completed: 0, inProgress: 0, actions: 0 };
 
+      const completionDates: string[] = [];
       let completed = 0, inProgress = 0, doingWell = 0, actions = 0;
       for (const r of rows) {
         const venue = r.site_id && byVenue[r.site_id] ? byVenue[r.site_id] : null;
         if (r.status === 'completed') {
           completed++;
+          if (r.completed_at) completionDates.push(r.completed_at);
           const gid = moduleGroupById.get(r.module_id);
           if (gid && byGroup[gid]) byGroup[gid].completed++;
           if (venue) venue.completed++;
@@ -436,6 +439,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
         byGroup,
         byVenue,
         modulesPerVenue: recommendedModules.length,
+        completionDates,
       });
     })().catch(() => { if (!cancelled) setOrgWideRollup(null); });
     return () => { cancelled = true; };
@@ -579,11 +583,20 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
   // Geometry is precomputed here so the SVG stays declarative.
   const progressTrend = useMemo(() => {
     const dates: number[] = [];
-    for (const moduleId in progress) {
-      const p = progress[moduleId];
-      if (p?.status === 'completed' && p.completedAt) {
-        const t = new Date(p.completedAt).getTime();
+    if (orgWideRollup) {
+      // Organisation-wide: use completion dates from the cross-venue rollup,
+      // since the local progress blob only holds the active site.
+      for (const iso of orgWideRollup.completionDates) {
+        const t = new Date(iso).getTime();
         if (!Number.isNaN(t)) dates.push(t);
+      }
+    } else {
+      for (const moduleId in progress) {
+        const p = progress[moduleId];
+        if (p?.status === 'completed' && p.completedAt) {
+          const t = new Date(p.completedAt).getTime();
+          if (!Number.isNaN(t)) dates.push(t);
+        }
       }
     }
     if (dates.length < 2) return null;
@@ -609,7 +622,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     const recent = dates.filter(t => Date.now() - t <= 90 * 24 * 60 * 60 * 1000).length;
 
     return { linePoints, areaPoints, endX, endY, total, recent };
-  }, [progress]);
+  }, [progress, orgWideRollup]);
 
   // Accessibility maturity: a practice-based level (not a pass-rate). Reflects
   // how far the org has moved through the improvement cycle, gated by coverage
@@ -633,12 +646,22 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
 
     const confidence = cov >= 70 ? 'High' : cov >= 40 ? 'Medium' : 'Low';
 
+    // Follow-through: of the findings raised, how many are being acted on
+    // (achieved / ongoing / in progress). This rewards doing what you can,
+    // NOT feature-perfection — so a small org with barriers it cannot remove
+    // (heritage building, leased premises) can still reach the top by acting
+    // on everything within its control. Performance (% doing well) is shown
+    // as context but never gates the level.
+    const followThrough = overallStats.diapItemCount > 0
+      ? (overallStats.diapAchieved + overallStats.diapOngoing + overallStats.diapInProgress) / overallStats.diapItemCount
+      : 0;
+
     const levels = ['Emerging', 'Developing', 'Established', 'Leading'];
     let levelIdx: number;
     if (stage <= 1) levelIdx = 0;
     else if (stage === 2) levelIdx = 1;
     else if (stage === 3) levelIdx = cov >= 50 ? 2 : 1;
-    else levelIdx = cov >= 70 && perf >= 70 ? 3 : 2;
+    else levelIdx = cov >= 70 && followThrough >= 0.7 ? 3 : 2;
     // Low coverage can never present above Developing, however deep the practice.
     if (confidence === 'Low' && levelIdx > 1) levelIdx = 1;
 
@@ -654,6 +677,31 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       nextStage: stage >= 0 && stage < stages.length - 1 ? stages[stage + 1] : null,
     };
   }, [overallStats]);
+
+  // "Needs attention" triage: what to do next, from data already on the page.
+  // Org scope surfaces the venue furthest behind; site scope nudges unfinished
+  // areas. Then unscheduled actions and un-assessed areas. Top 3 only.
+  const needsAttention = useMemo(() => {
+    const items: { key: string; chip: string; chipClass: string; title: string; detail: string; linkText: string; linkTo: string }[] = [];
+    const notStartedActions = Math.max(0, overallStats.diapItemCount - overallStats.diapAchieved - overallStats.diapOngoing - overallStats.diapInProgress);
+
+    if (progressByVenue && progressByVenue.length > 0) {
+      const weakest = progressByVenue[progressByVenue.length - 1];
+      if (weakest && weakest.pct < 60) {
+        items.push({ key: 'venue', chip: 'Focus', chipClass: 'crit', title: `${weakest.name} is furthest behind`, detail: `${weakest.pct}% assessed · ${weakest.findings} open findings`, linkText: 'Open venue', linkTo: '/assessment' });
+      }
+    } else if (overallStats.modulesInProgress > 0) {
+      items.push({ key: 'inprogress', chip: 'Continue', chipClass: 'warn', title: `${overallStats.modulesInProgress} areas in progress`, detail: 'Finish these to raise your coverage.', linkText: 'Continue', linkTo: '/assessment' });
+    }
+
+    if (notStartedActions > 0) {
+      items.push({ key: 'actions', chip: 'Plan', chipClass: 'info', title: `${notStartedActions} actions not yet started`, detail: 'Schedule them into your action plan.', linkText: 'Open plan', linkTo: '/diap' });
+    }
+    if (overallStats.modulesNotStarted > 0) {
+      items.push({ key: 'assess', chip: 'Assess', chipClass: 'info', title: `${overallStats.modulesNotStarted} areas not yet assessed`, detail: 'Assessing more raises your confidence.', linkText: 'Assess', linkTo: '/assessment' });
+    }
+    return items.slice(0, 3);
+  }, [progressByVenue, overallStats]);
 
   // Get action button text and style based on status
   const getActionButton = (status: 'not-started' | 'in-progress' | 'completed') => {
@@ -936,7 +984,7 @@ Thanks!`;
                     );
                   })}
                 </div>
-                <p className="maturity-note">A self-review signal of your accessibility practice, not a compliance grade, certification, or benchmark.</p>
+                <p className="maturity-note">Reflects the accessibility practice you've tracked here and how you follow through, not the size of your organisation or barriers outside your control. A self-review signal, not a compliance grade, certification, or benchmark, so it may not capture everything you do.</p>
               </section>
             )}
             {/* Overall Progress Card - hide on activity tab */}
@@ -1119,6 +1167,22 @@ Thanks!`;
               )}
 
               {/* Action Plan Snapshot */}
+              {needsAttention.length > 0 && (
+                <section className="dashboard-snapshot dashboard-needs">
+                  <h2>Needs attention</h2>
+                  {needsAttention.map(it => (
+                    <div key={it.key} className="na-row">
+                      <span className={`na-chip na-${it.chipClass}`}>{it.chip}</span>
+                      <div className="na-body">
+                        <b>{it.title}</b>
+                        <small>{it.detail}</small>
+                      </div>
+                      <Link to={it.linkTo} className="na-go">{it.linkText} →</Link>
+                    </div>
+                  ))}
+                </section>
+              )}
+
               {overallStats.diapItemCount > 0 && (() => {
                 const t = overallStats.diapItemCount;
                 const other = Math.max(0, t - overallStats.diapAchieved - overallStats.diapOngoing - overallStats.diapInProgress);

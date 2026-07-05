@@ -1119,15 +1119,61 @@
 }
 
 .dashboard-grid > .dashboard-maturity,
-.dashboard-grid > .progress-section,
-.dashboard-grid > .dashboard-trend,
 .dashboard-grid > .dashboard-wins,
-.dashboard-grid > .dashboard-actionplan,
 .dashboard-grid > .dashboard-answered-note,
 .dashboard-grid > .dashboard-progress-venue,
 .dashboard-grid > .dashboard-progress-area {
   grid-column: 1 / -1;
 }
+
+/* Needs attention triage list (pairs with the action-plan donut) */
+.na-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border, rgba(62,43,47,0.1));
+}
+.na-row:first-of-type {
+  border-top: 0;
+  padding-top: 2px;
+}
+.na-chip {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 4px 8px;
+  border-radius: 6px;
+  flex: none;
+  min-width: 62px;
+  text-align: center;
+}
+.na-crit { background: #F6E5E0; color: #B23A22; }
+.na-warn { background: #FBF0D8; color: #B45309; }
+.na-info { background: #E6EFF6; color: #2563EB; }
+.na-body {
+  flex: 1;
+  min-width: 0;
+}
+.na-body b {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary, #2d2420);
+}
+.na-body small {
+  font-size: 0.78rem;
+  color: var(--text-secondary, #5C4A4E);
+}
+.na-go {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond, #490E67);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.na-go:hover { text-decoration: underline; }
 
 /* Accessibility maturity card */
 .maturity-top {
