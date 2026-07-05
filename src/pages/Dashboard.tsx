@@ -278,19 +278,44 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     let currentSession = getSession();
     const currentDiscovery = getDiscoveryData();
 
-    // Never fabricate a placeholder session. A mock "Test Organisation"
-    // session used to be created here whenever none existed, which polluted
-    // localStorage right after sign-out and hijacked post-login routing into
-    // onboarding with dummy data. Only backfill a missing id on a real,
-    // already-existing session.
+    // Never fabricate a placeholder org. But an authenticated user with a real
+    // org must never dead-end on "select modules" just because the cloud
+    // session did not restore (fresh device / restore miss). Rebuild a minimal
+    // session from the REAL org so the dashboard renders its cloud-backed data.
     if (currentSession && !currentSession.session_id) {
       currentSession.session_id = 'session-' + Date.now();
       localStorage.setItem('access_compass_session', JSON.stringify(currentSession));
+    } else if (!currentSession && accessState.organisation) {
+      const restored = {
+        session_id: 'session-' + Date.now(),
+        created_at: new Date().toISOString(),
+        last_updated: new Date().toISOString(),
+        business_snapshot: {
+          organisation_name: accessState.organisation.name,
+          organisation_size: 'small' as const,
+          business_types: ['hospitality' as const],
+          user_role: 'owner' as const,
+          has_physical_venue: true,
+          has_online_presence: true,
+          serves_public_customers: true,
+          has_online_services: false,
+        },
+        selected_modules: [],
+        discovery_responses: {},
+        constraints: {
+          budget_range: 'not_sure' as const,
+          capacity: 'not_sure' as const,
+          timeframe: 'exploring' as const,
+        },
+        ai_response: null,
+      };
+      localStorage.setItem('access_compass_session', JSON.stringify(restored));
+      currentSession = restored;
     }
 
     setSession(currentSession);
     setDiscoveryData(currentDiscovery);
-  }, [navigate, accessState.isAuthenticated, user]);
+  }, [navigate, accessState.isAuthenticated, accessState.organisation, user]);
 
   // Get current review mode from discovery data
   const currentReviewMode = discoveryData?.review_mode || 'deep-dive';
