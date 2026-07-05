@@ -478,6 +478,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       : diapItems;
     const diapTotal = scopedDiap.length;
     const diapAchievedCount = scopedDiap.filter(i => i.status === 'achieved').length;
+    const diapOngoingCount = scopedDiap.filter(i => i.status === 'ongoing').length;
     const diapPct = diapTotal > 0 ? Math.round((diapAchievedCount / diapTotal) * 100) : 0;
 
     const totalModules = groupedModules.reduce((sum, g) => sum + g.totalCount, 0);
@@ -520,6 +521,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
         progressPercentage: total > 0 ? Math.round((completed / total) * 100) : 0,
         diapItemCount: diapTotal,
         diapAchieved: diapAchievedCount,
+        diapOngoing: diapOngoingCount,
         diapCompletedPercentage: diapPct,
         totalDoingWell: orgWideRollup.doingWell,
         totalActions: orgWideRollup.actions,
@@ -536,6 +538,7 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
       progressPercentage: totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0,
       diapItemCount: diapTotal,
       diapAchieved: diapAchievedCount,
+      diapOngoing: diapOngoingCount,
       diapCompletedPercentage: diapPct,
       totalDoingWell,
       totalActions,
@@ -848,27 +851,81 @@ Thanks!`;
           {/* Dashboard Overview Stats - only on overview */}
           {activeTab === 'overview' && (
             <>
-              {/* Stat Cards - assessment findings (distinct from the DIAP
-                  action plan below, which counts tracked action items) */}
+              {/* Assessment overview - lead with wins and a single ratio
+                  instead of four raw volume counts. All values come straight
+                  from overallStats (site-scoped or cross-venue rollup). */}
               {overallStats.totalAnswered > 0 && (
-                <div className="dashboard-stat-cards">
-                  <div className="dash-stat-card">
-                    <div className="dash-stat-value">{overallStats.totalAnswered}</div>
-                    <div className="dash-stat-label">Questions answered</div>
-                  </div>
-                  <div className="dash-stat-card dash-stat-good">
-                    <div className="dash-stat-value">{overallStats.totalDoingWell}</div>
-                    <div className="dash-stat-label">Doing well</div>
-                  </div>
-                  <div className="dash-stat-card dash-stat-actions">
-                    <div className="dash-stat-value">{overallStats.totalActions}</div>
-                    <div className="dash-stat-label">Priority findings</div>
-                  </div>
-                  <div className="dash-stat-card">
-                    <div className="dash-stat-value">{overallStats.totalEvidence}</div>
-                    <div className="dash-stat-label">Evidence items</div>
-                  </div>
-                </div>
+                <>
+                  <section className="dashboard-wins">
+                    <h2>What you've achieved</h2>
+                    <div className="wins-grid">
+                      <div className="win-tile win-good">
+                        <span className="win-value">{overallStats.totalDoingWell}</span>
+                        <span className="win-label">Doing well</span>
+                        <span className="win-desc">Areas already meeting good practice.</span>
+                      </div>
+                      <div className="win-tile win-achieved">
+                        <span className="win-value">{overallStats.diapAchieved}</span>
+                        <span className="win-label">Actions achieved</span>
+                        <span className="win-desc">Completed and verified.</span>
+                      </div>
+                      <div className="win-tile win-ongoing">
+                        <span className="win-value">{overallStats.diapOngoing}</span>
+                        <span className="win-label">Embedded as ongoing</span>
+                        <span className="win-desc">Now standard practice, not one-off fixes.</span>
+                      </div>
+                    </div>
+                  </section>
+
+                  {(overallStats.totalDoingWell + overallStats.totalActions) > 0 && (() => {
+                    const rated = overallStats.totalDoingWell + overallStats.totalActions;
+                    const wellPct = Math.round((overallStats.totalDoingWell / rated) * 100);
+                    const actionPct = 100 - wellPct;
+                    return (
+                      <section className="dashboard-snapshot dashboard-ratio">
+                        <div className="snapshot-header">
+                          <h2>Rated areas</h2>
+                          <span className="ratio-total">{rated} assessed points</span>
+                        </div>
+                        <div className="ratio-bar" role="img" aria-label={`${wellPct}% doing well, ${actionPct}% need action`}>
+                          {overallStats.totalDoingWell > 0 && (
+                            <div className="ratio-seg ratio-well" style={{ width: `${wellPct}%` }}>{wellPct >= 8 ? `${wellPct}%` : ''}</div>
+                          )}
+                          {overallStats.totalActions > 0 && (
+                            <div className="ratio-seg ratio-action" style={{ width: `${actionPct}%` }}>{actionPct >= 8 ? `${actionPct}%` : ''}</div>
+                          )}
+                        </div>
+                        <div className="ratio-legend">
+                          <span><span className="ratio-dot ratio-dot-well"></span>{overallStats.totalDoingWell} doing well</span>
+                          <span><span className="ratio-dot ratio-dot-action"></span>{overallStats.totalActions} need action</span>
+                        </div>
+                      </section>
+                    );
+                  })()}
+
+                  {overallStats.totalEvidence === 0 ? (
+                    <section className="dashboard-snapshot dashboard-evidence-prompt">
+                      <div className="evidence-prompt-ico" aria-hidden="true">📎</div>
+                      <div className="evidence-prompt-text">
+                        <strong>No evidence attached yet</strong>
+                        <p>Photos and documents strengthen your action plan and speed sign-off.</p>
+                      </div>
+                      <Link to="/evidence" className="evidence-prompt-cta">Add evidence</Link>
+                    </section>
+                  ) : (
+                    <section className="dashboard-snapshot dashboard-evidence-count">
+                      <div className="snapshot-row">
+                        <div className="snapshot-stat">
+                          <span className="snapshot-value">{overallStats.totalEvidence}</span>
+                          <span className="snapshot-label">Evidence items attached</span>
+                        </div>
+                        <Link to="/evidence" className="snapshot-link">Manage evidence</Link>
+                      </div>
+                    </section>
+                  )}
+
+                  <p className="dashboard-answered-note">{overallStats.totalAnswered.toLocaleString()} questions answered across your assessment.</p>
+                </>
               )}
 
               {/* Action Plan Snapshot */}

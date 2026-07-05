@@ -3281,6 +3281,181 @@ details[open] > .evidence-module-heading::before {
   margin-top: 0.25rem;
 }
 
+/* Wins strip - achievements, balances the findings so the board does not
+   read as a wall of problems */
+.dashboard-wins {
+  background: var(--surface-2, #ffffff);
+  border: 1px solid rgba(22, 163, 74, 0.28);
+  border-radius: var(--radius-lg, 16px);
+  padding: var(--spacing-md, 24px);
+  margin-bottom: var(--spacing-md, 24px);
+  box-shadow: 0 1px 2px rgba(62, 43, 47, 0.08);
+}
+
+.dashboard-wins > h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary, #2d2420);
+  margin: 0 0 var(--spacing-sm, 16px);
+}
+
+.wins-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md, 24px);
+}
+
+.win-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--win-accent, #16A34A);
+}
+
+.win-good { --win-accent: #16A34A; }
+.win-achieved { --win-accent: #16A34A; }
+.win-ongoing { --win-accent: #2563EB; }
+
+.win-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--win-accent, #16A34A);
+}
+
+.win-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary, #2d2420);
+}
+
+.win-desc {
+  font-size: 0.75rem;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+/* Rated areas - the doing-well and priority-findings counts shown as one
+   ratio instead of two intimidating tiles */
+.ratio-total {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+.ratio-bar {
+  display: flex;
+  height: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ivory-pure, #F7F5F3);
+}
+
+.ratio-seg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  min-width: 0;
+}
+
+.ratio-well { background: #16A34A; }
+.ratio-action { background: #D97706; }
+
+.ratio-legend {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 0.7rem;
+}
+
+.ratio-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+.ratio-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: none;
+}
+
+.ratio-dot-well { background: #16A34A; }
+.ratio-dot-action { background: #D97706; }
+
+/* Evidence - a zero is turned into a prompt, never a lonely count */
+.dashboard-evidence-prompt {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm, 16px);
+  border-style: dashed;
+}
+
+.evidence-prompt-ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  background: var(--ivory-pure, #F7F5F3);
+  flex: none;
+}
+
+.evidence-prompt-text {
+  flex: 1;
+}
+
+.evidence-prompt-text strong {
+  font-size: 0.95rem;
+  color: var(--text-primary, #2d2420);
+}
+
+.evidence-prompt-text p {
+  margin: 0.15rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+.evidence-prompt-cta {
+  background: var(--aussie-sunrise, #FF9015);
+  color: #3a1600;
+  font-weight: 800;
+  font-size: 0.8125rem;
+  padding: 0.6rem 1rem;
+  border-radius: 9px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.evidence-prompt-cta:focus-visible {
+  outline: 3px solid var(--amethyst-diamond, #490E67);
+  outline-offset: 2px;
+}
+
+.dashboard-answered-note {
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #5C4A4E);
+  margin: 0 0 var(--spacing-md, 24px);
+}
+
+@media (max-width: 640px) {
+  .wins-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm, 16px);
+  }
+  .dashboard-evidence-prompt {
+    flex-wrap: wrap;
+  }
+}
+
 /* Dashboard snapshot sections */
 .dashboard-snapshot {
   background: var(--surface-2, #ffffff);
