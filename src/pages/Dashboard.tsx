@@ -16,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getSession, getDiscoveryData } from '../utils/session';
 import { getSignedUrl } from '../utils/signedUrlCache';
 import { normalizeModuleCode } from '../utils/moduleCompat';
+import { computeMaturity } from '../utils/maturityModel';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
@@ -649,59 +650,19 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     return { linePoints, areaPoints, endX, endY, total, recent };
   }, [progress, orgWideRollup]);
 
-  // Accessibility maturity: a practice-based level (not a pass-rate). Reflects
-  // how far the org has moved through the improvement cycle, gated by coverage
-  // and performance so partial or self-selected data can't overclaim. Every
-  // input already exists in overallStats, so it works at site and org scope.
-  const maturity = useMemo(() => {
-    const cov = overallStats.progressPercentage;
-    const rated = overallStats.totalDoingWell + overallStats.totalActions;
-    const perf = rated > 0 ? Math.round((overallStats.totalDoingWell / rated) * 100) : 0;
-    const started = overallStats.modulesCompleted + overallStats.modulesInProgress > 0;
-    const hasPlan = overallStats.diapItemCount > 0;
-    const acting = overallStats.diapAchieved + overallStats.diapInProgress > 0;
-    const embedding = overallStats.diapOngoing > 0;
-
-    const stages = ['Aware', 'Assessing', 'Planning', 'Acting', 'Embedding'];
-    let stage = started ? 0 : -1;
-    if (cov >= 40) stage = Math.max(stage, 1);
-    if (hasPlan) stage = Math.max(stage, 2);
-    if (acting) stage = Math.max(stage, 3);
-    if (embedding) stage = Math.max(stage, 4);
-
-    const confidence = cov >= 70 ? 'High' : cov >= 40 ? 'Medium' : 'Low';
-
-    // Follow-through: of the findings raised, how many are being acted on
-    // (achieved / ongoing / in progress). This rewards doing what you can,
-    // NOT feature-perfection — so a small org with barriers it cannot remove
-    // (heritage building, leased premises) can still reach the top by acting
-    // on everything within its control. Performance (% doing well) is shown
-    // as context but never gates the level.
-    const followThrough = overallStats.diapItemCount > 0
-      ? (overallStats.diapAchieved + overallStats.diapOngoing + overallStats.diapInProgress) / overallStats.diapItemCount
-      : 0;
-
-    const levels = ['Emerging', 'Developing', 'Established', 'Embedded'];
-    let levelIdx: number;
-    if (stage <= 1) levelIdx = 0;
-    else if (stage === 2) levelIdx = 1;
-    else if (stage === 3) levelIdx = cov >= 50 ? 2 : 1;
-    else levelIdx = cov >= 70 && followThrough >= 0.7 ? 3 : 2;
-    // Low coverage can never present above Developing, however deep the practice.
-    if (confidence === 'Low' && levelIdx > 1) levelIdx = 1;
-
-    return {
-      started,
-      levelIdx,
-      level: levels[levelIdx],
-      stageIdx: stage,
-      stages,
-      confidence,
-      coveragePct: cov,
-      performancePct: perf,
-      nextStage: stage >= 0 && stage < stages.length - 1 ? stages[stage + 1] : null,
-    };
-  }, [overallStats]);
+  // Accessibility maturity: a practice-based level (not a pass-rate). Shared with
+  // the generated report via computeMaturity so both surfaces always agree.
+  const maturity = useMemo(() => computeMaturity({
+    progressPercentage: overallStats.progressPercentage,
+    totalDoingWell: overallStats.totalDoingWell,
+    totalActions: overallStats.totalActions,
+    modulesCompleted: overallStats.modulesCompleted,
+    modulesInProgress: overallStats.modulesInProgress,
+    diapItemCount: overallStats.diapItemCount,
+    diapAchieved: overallStats.diapAchieved,
+    diapOngoing: overallStats.diapOngoing,
+    diapInProgress: overallStats.diapInProgress,
+  }), [overallStats]);
 
   // "Needs attention" triage: what to do next, from data already on the page.
   // Org scope surfaces the venue furthest behind; site scope nudges unfinished

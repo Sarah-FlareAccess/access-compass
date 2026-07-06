@@ -193,6 +193,9 @@ function CategorisedList({
               <span className="categorised-module-code">{group.moduleCode}</span>
               <span className="categorised-module-name">{group.moduleName}</span>
               {showPriority && <PrioritySummary items={group.items} />}
+              {showPriority && group.items[0]?.ownerArea && (
+                <span className="categorised-owner">Suggested owner: {group.items[0].ownerArea}</span>
+              )}
             </div>
             {tiers.map(tier => (
               <div key={tier.priority || 'all'} className={tier.priority ? `action-tier action-tier-${tier.priority}` : undefined}>
@@ -454,6 +457,46 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
             {/* Executive Summary */}
             <section className="report-section report-executive-summary">
               <h2>Executive Summary</h2>
+
+              {/* Accessibility maturity — the headline "where are we" */}
+              {report.maturity.started && (
+                <div className="report-maturity">
+                  <div className="report-maturity-head">
+                    <span className="report-maturity-tag">Accessibility maturity</span>
+                    <b className={`report-maturity-level mat-${report.maturity.levelIdx}`}>{report.maturity.level}</b>
+                    {report.maturity.nextStage && (
+                      <span className="report-maturity-next">Next: reach {report.maturity.nextStage}</span>
+                    )}
+                  </div>
+                  <div
+                    className="report-maturity-meter"
+                    role="img"
+                    aria-label={`Maturity level ${report.maturity.level}, ${report.maturity.levelIdx + 1} of 4`}
+                  >
+                    {[0, 1, 2, 3].map(i => (
+                      <div key={i} className={`mat-seg${i <= report.maturity.levelIdx ? ` mat-seg-on mat-${i}` : ''}`} />
+                    ))}
+                  </div>
+                  <div className="report-maturity-labels" aria-hidden="true">
+                    {['Emerging', 'Developing', 'Established', 'Embedded'].map((lv, i) => (
+                      <span key={lv} className={i === report.maturity.levelIdx ? 'cur' : ''}>{lv}</span>
+                    ))}
+                  </div>
+                  <div className="report-maturity-coverage">
+                    <span className={`report-maturity-conf conf-${report.maturity.confidence.toLowerCase()}`}>
+                      {report.maturity.confidence} confidence
+                    </span>
+                    <span>
+                      Based on {report.executiveSummary.modulesCompleted} of {report.executiveSummary.totalModules} areas
+                      assessed ({report.maturity.coveragePct}%) · {report.maturity.performancePct}% doing well
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Plain-language summary of what it means */}
+              {report.narrative && <p className="report-narrative">{report.narrative}</p>}
+
               <div className="summary-stats">
                 <div className="stat-card">
                   <div className="stat-number">{report.executiveSummary.modulesCompleted}</div>
@@ -472,17 +515,41 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                   <div className="stat-label">To Investigate</div>
                 </div>
               </div>
-              <div className="completion-progress">
-                <div className="progress-label">
-                  Overall Completion: {report.executiveSummary.completionPercentage}%
+
+              {/* Director numbers — how many, how hard, who does it */}
+              <div className="director-numbers">
+                <div className="dir-tile dir-high">
+                  <b>{report.directorNumbers.high}</b><span>High priority</span>
                 </div>
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill"
-                    style={{ width: `${report.executiveSummary.completionPercentage}%` }}
-                  />
+                <div className="dir-tile dir-internal">
+                  <b>{report.directorNumbers.internal}</b><span>Can be done in-house</span>
+                </div>
+                <div className="dir-tile dir-specialist">
+                  <b>{report.directorNumbers.specialist}</b><span>May need a specialist</span>
+                </div>
+                <div className="dir-tile dir-quickwin">
+                  <b>{report.directorNumbers.quickWins}</b><span>Quick wins</span>
                 </div>
               </div>
+
+              {/* Performance by area */}
+              {report.themeBreakdown.length > 0 && (
+                <div className="theme-breakdown">
+                  <h3>Performance by area</h3>
+                  <div className="theme-rows">
+                    {report.themeBreakdown.map(t => (
+                      <div key={t.group} className="theme-row">
+                        <span className="theme-label">{t.label}</span>
+                        <span className="theme-bar">
+                          <span className={`theme-bar-fill perf-${t.performancePct >= 67 ? 'good' : t.performancePct >= 34 ? 'mid' : 'low'}`} style={{ width: `${t.performancePct}%` }} />
+                        </span>
+                        <span className="theme-pct">{t.performancePct}%</span>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="theme-note">Share of checks already going well in each area assessed. Lower bars are where to focus.</p>
+                </div>
+              )}
 
               {report.reportContext && report.reportContext.filterType !== 'all' && (
                 <div className="report-context-info">
@@ -589,7 +656,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
 
           {/* === ASSESSMENT EVIDENCE GROUP === */}
           {report.moduleEvidence && report.moduleEvidence.length > 0 && (
-            <ReportGroup id="section-evidence" title="Assessment Evidence" defaultOpen={false}>
+            <ReportGroup id="section-evidence" title="Assessment Evidence" defaultOpen={true}>
               <section className="report-section report-module-evidence">
                 <h2>Modules Reviewed</h2>
                 <p className="section-intro">
@@ -1044,6 +1111,11 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
           {/* === NEXT STEPS GROUP === */}
           <ReportGroup id="section-next-steps" title="Next Steps" defaultOpen={true}>
             <section className="report-section report-next-steps">
+              <p className="next-steps-platform-note">
+                The priority actions in this report can be added to your action plan in Access Compass, where each one can be
+                assigned to a responsible team, given a due date, tracked, evidenced and reported on over time. This assessment
+                is the starting point. The platform helps you manage delivery.
+              </p>
               <div className="next-steps-container">
                 <div className="next-steps-column">
                   <h3>Things you can explore now</h3>

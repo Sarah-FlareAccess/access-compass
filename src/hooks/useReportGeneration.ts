@@ -19,6 +19,8 @@ import { getHelpByQuestionId } from '../data/help';
 import { calculateQuestionPriority } from '../utils/priorityCalculation';
 import type { ReportConfig } from '../components/ReportConfigSelector';
 import { generateModuleSummary } from '../utils/generateModuleSummary';
+import { computeMaturity, groupLabel, groupOwnerArea, groupOrderIndex } from '../utils/maturityModel';
+import type { MaturityResult } from '../utils/maturityModel';
 
 export interface CategorisedItem {
   text: string;
@@ -28,6 +30,27 @@ export interface CategorisedItem {
   priority?: 'high' | 'medium' | 'low';
   complianceLevel?: 'mandatory' | 'best-practice' | 'wcag-aa' | 'dda-compliant';
   safetyRelated?: boolean;
+  // Suggested owning area, derived from the module's journey group. A starting
+  // point for routing actions to a team, not a fixed org chart.
+  ownerArea?: string;
+}
+
+export interface ThemeScore {
+  group: string;
+  label: string;
+  performancePct: number;
+  assessed: number;
+  strengths: number;
+  actions: number;
+}
+
+export interface DirectorNumbers {
+  high: number;
+  medium: number;
+  low: number;
+  internal: number;
+  specialist: number;
+  quickWins: number;
 }
 
 export interface ReportSection {
@@ -138,6 +161,18 @@ export interface Report {
     areasToExploreCount: number;
     completionPercentage: number;
   };
+
+  // Practice-based maturity signal (shared with the dashboard).
+  maturity: MaturityResult;
+
+  // Plain-language summary of what the assessment means, for executive readers.
+  narrative: string;
+
+  // Per-theme performance, so readers can see where to focus at a glance.
+  themeBreakdown: ThemeScore[];
+
+  // Headline counts a director asks for: how many, how hard, who does it.
+  directorNumbers: DirectorNumbers;
 
   // Module completion evidence (who did what, when)
   moduleEvidence: ModuleCompletionEvidence[];
@@ -378,7 +413,7 @@ export function useReportGeneration(
             summary.priorityActions.forEach(a => {
               const text = a.action;
               allPriorityActions.push(`${a.action} (${a.priority} priority)`);
-              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel, safetyRelated: a.safetyRelated });
+              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel, safetyRelated: a.safetyRelated, ownerArea: groupOwnerArea(mod?.group || '') });
             });
           }
           if (summary?.areasToExplore) {
@@ -504,6 +539,64 @@ export function useReportGeneration(
           : 0,
       };
 
+      // Maturity signal, using the same model as the dashboard so both agree.
+      const maturity = computeMaturity({
+        progressPercentage: executiveSummary.completionPercentage,
+        totalDoingWell: allStrengths.length,
+        totalActions: allPriorityActions.length,
+        modulesCompleted: completedModules.length,
+        modulesInProgress: 0,
+        diapItemCount: diapItems.length,
+        diapAchieved: diapItems.filter(i => i.status === 'achieved').length,
+        diapOngoing: diapItems.filter(i => i.status === 'ongoing').length,
+        diapInProgress: diapItems.filter(i => i.status === 'in-progress').length,
+      });
+
+      // Per-theme performance, aggregated from module evidence by journey group.
+      const themeAgg = new Map<string, { assessed: number; strengths: number; actions: number }>();
+      for (const ev of moduleEvidence) {
+        const g = getModuleById(ev.moduleId)?.group || 'other';
+        const t = themeAgg.get(g) || { assessed: 0, strengths: 0, actions: 0 };
+        t.assessed += 1;
+        t.strengths += ev.strengthsCount;
+        t.actions += ev.actionsCount;
+        themeAgg.set(g, t);
+      }
+      const themeBreakdown: ThemeScore[] = Array.from(themeAgg.entries())
+        .map(([group, t]) => ({
+          group,
+          label: groupLabel(group),
+          performancePct: t.strengths + t.actions > 0
+            ? Math.round((t.strengths / (t.strengths + t.actions)) * 100)
+            : 0,
+          assessed: t.assessed,
+          strengths: t.strengths,
+          actions: t.actions,
+        }))
+        .sort((a, b) => groupOrderIndex(a.group) - groupOrderIndex(b.group));
+
+      // Headline counts for a director: how many, how hard, who does it.
+      const specialistCount = allProfessionalReview.length;
+      const directorNumbers: DirectorNumbers = {
+        high: catPriorityActions.filter(i => i.priority === 'high').length,
+        medium: catPriorityActions.filter(i => i.priority === 'medium').length,
+        low: catPriorityActions.filter(i => i.priority === 'low').length,
+        specialist: specialistCount,
+        internal: Math.max(0, allPriorityActions.length - specialistCount),
+        quickWins: quickWins.length,
+      };
+
+      // Plain-language executive summary paragraph.
+      const narrative = buildNarrative({
+        organisation: organisationName,
+        maturity,
+        modulesCompleted: completedModules.length,
+        actionsCount: allPriorityActions.length,
+        themeBreakdown,
+        internal: directorNumbers.internal,
+        specialist: directorNumbers.specialist,
+      });
+
       // Generate progress comparison if enabled
       let progressComparison: Report['progressComparison'] = undefined;
 
@@ -598,6 +691,10 @@ export function useReportGeneration(
         organisation: organisationName,
         siteName,
         executiveSummary,
+        maturity,
+        narrative,
+        themeBreakdown,
+        directorNumbers,
         moduleEvidence,
         urlAnalysisResults,
         mediaAnalysisResults,
@@ -648,6 +745,64 @@ export function useReportGeneration(
     isReady,
     getModuleRuns,
   };
+}
+
+// Helper: Build the plain-language executive narrative from data we already have.
+function buildNarrative(input: {
+  organisation: string;
+  maturity: MaturityResult;
+  modulesCompleted: number;
+  actionsCount: number;
+  themeBreakdown: ThemeScore[];
+  internal: number;
+  specialist: number;
+}): string {
+  const { organisation, maturity, modulesCompleted, actionsCount, themeBreakdown, internal, specialist } = input;
+
+  if (!maturity.started || modulesCompleted === 0) {
+    return `This report will summarise ${organisation}'s accessibility once the first assessment is complete.`;
+  }
+
+  const sentences: string[] = [];
+  const areaWord = modulesCompleted === 1 ? 'area' : 'areas';
+  sentences.push(
+    `Overall, ${organisation} shows ${maturity.level.toLowerCase()} accessibility practice across the ${modulesCompleted} ${areaWord} assessed, with ${maturity.performancePct}% of checks already going well.`
+  );
+
+  const rated = themeBreakdown.filter(t => t.strengths + t.actions > 0);
+  if (rated.length >= 2) {
+    const strongest = rated.reduce((a, b) => (b.performancePct > a.performancePct ? b : a));
+    const weakest = rated.reduce((a, b) => (b.performancePct < a.performancePct ? b : a));
+    if (strongest.group !== weakest.group) {
+      sentences.push(
+        `Performance is strongest in ${strongest.label.toLowerCase()} and has the most room to grow in ${weakest.label.toLowerCase()}.`
+      );
+    }
+  }
+
+  if (actionsCount > 0) {
+    if (specialist === 0) {
+      sentences.push(
+        `All ${actionsCount} recommended actions can be progressed in-house, so most can move without major capital works.`
+      );
+    } else if (internal >= specialist) {
+      sentences.push(
+        `Most of the ${actionsCount} recommended actions can be progressed in-house, with ${specialist} likely to need specialist input.`
+      );
+    } else {
+      sentences.push(
+        `Of the ${actionsCount} recommended actions, ${specialist} are likely to need specialist input and the rest can be progressed in-house.`
+      );
+    }
+  }
+
+  if (maturity.nextStage) {
+    sentences.push(
+      `The next step is to move from ${maturity.stages[maturity.stageIdx].toLowerCase()} to ${maturity.nextStage.toLowerCase()}.`
+    );
+  }
+
+  return sentences.join(' ');
 }
 
 // Helper: Identify quick wins

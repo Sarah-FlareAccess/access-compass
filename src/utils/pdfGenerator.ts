@@ -9,6 +9,7 @@ import jsPDF from 'jspdf';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 import { accessModules } from '../data/accessModules';
 import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from './professionalSupportGroups';
+import { groupOwnerArea } from './maturityModel';
 
 // Brand Colors - matching Access Compass design system
 const COLORS = {
@@ -564,6 +565,76 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   yPosition += 38;
 
+  // --- Accessibility maturity snapshot (the headline "where are we") ---
+  if (report.maturity.started) {
+    checkNewPage(34);
+    const mx = PAGE.marginLeft;
+    const mw = PAGE.contentWidth;
+    const boxTop = yPosition;
+    doc.setFillColor(250, 247, 251);
+    doc.roundedRect(mx, boxTop, mw, 30, 3, 3, 'F');
+    doc.setDrawColor(230, 224, 236);
+    doc.setLineWidth(0.3);
+    doc.roundedRect(mx, boxTop, mw, 30, 3, 3, 'S');
+
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(107, 114, 128);
+    doc.text('ACCESSIBILITY MATURITY', mx + 5, boxTop + 7);
+
+    const levelColors = ['#b45309', '#a16207', '#4d7c0f', '#15803d'];
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(levelColors[report.maturity.levelIdx] || '#a16207');
+    doc.text(report.maturity.level, mx + 5, boxTop + 15);
+
+    if (report.maturity.nextStage) {
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(107, 114, 128);
+      doc.text(`Next: reach ${report.maturity.nextStage}`, mx + mw - 5, boxTop + 15, { align: 'right' });
+    }
+
+    const segColors = ['#d97706', '#ca8a04', '#65a30d', '#16a34a'];
+    const segGap = 3;
+    const segW = (mw - 10 - segGap * 3) / 4;
+    const segY = boxTop + 19;
+    for (let i = 0; i < 4; i++) {
+      doc.setFillColor(i <= report.maturity.levelIdx ? segColors[i] : '#e5e7eb');
+      doc.roundedRect(mx + 5 + i * (segW + segGap), segY, segW, 2.5, 1, 1, 'F');
+    }
+
+    doc.setFontSize(7.5);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(75, 85, 99);
+    doc.text(
+      `${report.maturity.confidence} confidence  ·  Based on ${report.executiveSummary.modulesCompleted} of ${report.executiveSummary.totalModules} areas assessed (${report.maturity.coveragePct}%)  ·  ${report.maturity.performancePct}% doing well`,
+      mx + 5, boxTop + 27
+    );
+
+    doc.setTextColor(0, 0, 0);
+    doc.setDrawColor(0, 0, 0);
+    yPosition = boxTop + 30 + 6;
+  }
+
+  // --- Plain-language narrative ---
+  if (report.narrative) {
+    addParagraph(report.narrative, 9.5);
+  }
+
+  // --- Director numbers: how many, how hard, who does it ---
+  {
+    checkNewPage(34);
+    const bw = 38;
+    const gap = 6;
+    const sx = PAGE.marginLeft;
+    addStatBox(sx, yPosition, bw, String(report.directorNumbers.high), 'High priority', '#b91c1c');
+    addStatBox(sx + (bw + gap), yPosition, bw, String(report.directorNumbers.internal), 'In-house', COLORS.green, '#15803d');
+    addStatBox(sx + (bw + gap) * 2, yPosition, bw, String(report.directorNumbers.specialist), 'Specialist', COLORS.amber, '#92400e');
+    addStatBox(sx + (bw + gap) * 3, yPosition, bw, String(report.directorNumbers.quickWins), 'Quick wins', COLORS.amethystDiamond);
+    yPosition += 34;
+  }
+
   // ============================================
   // SUMMARY-ONLY EARLY-EXIT: top priorities + top strengths
   // For board/exec audiences. Skips the rest of the report.
@@ -616,6 +687,42 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     }
 
     return doc;
+  }
+
+  // --- Performance by area (theme breakdown) ---
+  if (report.themeBreakdown.length > 0) {
+    addSectionTitle('Performance by Area');
+    const labelW = 55;
+    const barX = PAGE.marginLeft + labelW + 2;
+    const barW = PAGE.contentWidth - labelW - 2 - 14;
+    const rowH = 7;
+    for (const t of report.themeBreakdown) {
+      checkNewPage(rowH + 2);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(31, 41, 55);
+      doc.text(doc.splitTextToSize(t.label, labelW)[0], PAGE.marginLeft, yPosition + 2);
+
+      doc.setFillColor(236, 234, 240);
+      doc.roundedRect(barX, yPosition - 1.5, barW, 4, 1, 1, 'F');
+      const fillColor = t.performancePct >= 67 ? '#16a34a' : t.performancePct >= 34 ? '#ca8a04' : '#dc2626';
+      doc.setFillColor(fillColor);
+      doc.roundedRect(barX, yPosition - 1.5, Math.max(1.5, barW * t.performancePct / 100), 4, 1, 1, 'F');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(31, 41, 55);
+      doc.text(`${t.performancePct}%`, PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
+      yPosition += rowH;
+    }
+    yPosition += 1;
+    checkNewPage(8);
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(7.5);
+    doc.setTextColor(107, 114, 128);
+    doc.text('Share of checks already going well in each area assessed. Lower bars are where to focus.', PAGE.marginLeft, yPosition + 2);
+    yPosition += 10;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
   }
 
   // ============================================
@@ -949,6 +1056,14 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     if (mod.group !== lastGroup) {
       lastGroup = mod.group;
       addGroupHeader(getGroupLabel(mod.group), true);
+      // Suggested owning area for this group of actions
+      checkNewPage(6);
+      doc.setFontSize(7.5);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(107, 114, 128);
+      doc.text(`Suggested owner: ${groupOwnerArea(mod.group)}`, PAGE.marginLeft + 5, yPosition);
+      yPosition += 5;
+      doc.setTextColor(0, 0, 0);
     }
 
     // 6mm space before module card
@@ -1146,6 +1261,26 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // SUGGESTED NEXT STEPS
   // ============================================
   addSectionTitle('Suggested Next Steps');
+
+  // Management-platform note: this assessment feeds the action plan
+  {
+    const noteText = 'The priority actions in this report can be added to your action plan in Access Compass, where each one can be assigned to a team, given a due date, tracked, evidenced and reported on over time. This assessment is the starting point. The platform helps you manage delivery.';
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'normal');
+    const lines = doc.splitTextToSize(noteText, PAGE.contentWidth - 12);
+    const boxH = lines.length * 4 + 8;
+    checkNewPage(boxH + 6);
+    doc.setFillColor(250, 247, 251);
+    doc.roundedRect(PAGE.marginLeft, yPosition - 3, PAGE.contentWidth, boxH, 2, 2, 'F');
+    doc.setFillColor(COLORS.amethystDiamond);
+    doc.roundedRect(PAGE.marginLeft, yPosition - 3, 3, boxH, 2, 2, 'F');
+    doc.setTextColor(COLORS.text);
+    for (let i = 0; i < lines.length; i++) {
+      doc.text(lines[i], PAGE.marginLeft + 6, yPosition + 2 + i * 4);
+    }
+    doc.setTextColor(0, 0, 0);
+    yPosition += boxH + 4;
+  }
 
   // "Things you can explore now" section
   checkNewPage(20);
