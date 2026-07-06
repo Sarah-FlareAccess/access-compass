@@ -8,7 +8,7 @@ export interface ProfessionalSupportGroup {
 }
 
 export const FLARE_CONTACT = {
-  label: 'Flare Access provides expert support across all of these areas.',
+  label: 'Flare Access provides accessibility consulting and specialist support to help you act on the findings in this report, from advice on individual items to a full implementation plan.',
   email: 'info@flareaccess.com',
   website: 'flareaccess.com.au',
 };

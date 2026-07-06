@@ -503,6 +503,13 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 </div>
               )}
 
+              {report.coveredSites && report.coveredSites.length > 0 && (
+                <p className="report-scope">
+                  <span className="report-scope-label">This organisation-wide report aggregates self-review assessments across {report.coveredSites.length} {report.coveredSites.length === 1 ? 'venue' : 'venues'}:</span>{' '}
+                  <span className="report-scope-list">{report.coveredSites.join(', ')}</span>
+                </p>
+              )}
+
               {report.analysis.headline && (
                 <p className="report-headline"><strong>Overall finding:</strong> {report.analysis.headline}</p>
               )}

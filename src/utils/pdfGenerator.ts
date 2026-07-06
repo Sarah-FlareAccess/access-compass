@@ -627,6 +627,21 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   addGroupHeader('Overview');
   addSectionTitle('Accessibility Performance Summary');
 
+  // Scope: which venues an organisation-wide report aggregates.
+  if (report.coveredSites && report.coveredSites.length > 0) {
+    const n = report.coveredSites.length;
+    const scopeText = `This organisation-wide report aggregates self-review assessments across ${n} ${n === 1 ? 'venue' : 'venues'}: ${report.coveredSites.join(', ')}.`;
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(90, 90, 90);
+    const sLines = doc.splitTextToSize(scopeText, PAGE.contentWidth);
+    checkNewPage(sLines.length * 5 + 4);
+    doc.text(sLines, PAGE.marginLeft, yPosition);
+    yPosition += sLines.length * 5 + 4;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(40, 40, 40);
+  }
+
   // Headline: the one-line "are we doing well?" answer, above the metrics.
   if (report.analysis.headline) {
     doc.setFontSize(11);
@@ -1842,28 +1857,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     );
   }
 
-  // Flare Access CTA card
-  checkNewPage(24);
-  doc.setFillColor(73, 14, 103); // amethystDiamond
-  doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, 20, 3, 3, 'F');
-
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(255, 255, 255);
-  doc.text(FLARE_CONTACT.label, PAGE.marginLeft + 8, yPosition + 7);
-
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(255, 144, 21); // brand orange
-  doc.text(FLARE_CONTACT.email, PAGE.marginLeft + 8, yPosition + 14);
-  const emailWidth = doc.getTextWidth(FLARE_CONTACT.email);
-  doc.setTextColor(255, 255, 255);
-  doc.text('  |  ', PAGE.marginLeft + 8 + emailWidth, yPosition + 14);
-  doc.setTextColor(255, 144, 21);
-  doc.text(FLARE_CONTACT.website, PAGE.marginLeft + 8 + emailWidth + doc.getTextWidth('  |  '), yPosition + 14);
-
-  doc.setTextColor(0, 0, 0);
-  yPosition += 26;
-
   // Assessment evidence sits at the back as an appendix (proof of what was
   // reviewed, by whom), out of the executive flow.
   renderAssessmentEvidence();
@@ -1899,6 +1892,35 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     yPosition += 5;
   });
   doc.setDrawColor(0, 0, 0);
+
+  // ============================================
+  // FLARE ACCESS CONSULTING NOTE (closing, restrained - kept out of the body)
+  // ============================================
+  yPosition += 8;
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'normal');
+  const flareLines = doc.splitTextToSize(FLARE_CONTACT.label, PAGE.contentWidth - 14);
+  const flareBoxH = flareLines.length * 5 + 16;
+  checkNewPage(flareBoxH + 4);
+  doc.setFillColor(250, 247, 251); // light amethyst tint
+  doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, flareBoxH, 2, 2, 'F');
+  doc.setFillColor(73, 14, 103); // amethystDiamond accent
+  doc.roundedRect(PAGE.marginLeft, yPosition, 3, flareBoxH, 1, 1, 'F');
+  doc.setDrawColor(73, 14, 103);
+  doc.setLineWidth(0.3);
+  doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, flareBoxH, 2, 2, 'S');
+  let flareY = yPosition + 7;
+  doc.setTextColor(COLORS.text);
+  flareLines.forEach((line: string) => {
+    doc.text(line, PAGE.marginLeft + 7, flareY);
+    flareY += 5;
+  });
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(73, 14, 103);
+  doc.text(`${FLARE_CONTACT.email}   |   ${FLARE_CONTACT.website}`, PAGE.marginLeft + 7, flareY + 1);
+  doc.setDrawColor(0, 0, 0);
+  doc.setTextColor(0, 0, 0);
+  yPosition += flareBoxH + 4;
 
   // Add final footer
   addFooter();

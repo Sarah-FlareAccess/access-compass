@@ -379,6 +379,21 @@
   margin-bottom: 20px;
 }
 
+/* Scope statement for org-wide reports */
+.report-scope {
+  background: #f9fafb;
+  border: 1px solid #ececf0;
+  border-left: 3px solid var(--amethyst-diamond, #490E67);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 0 0 16px;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.report-scope-label { color: #4b5563; }
+.report-scope-list { color: var(--text-primary, #2d2420); font-weight: 600; }
+
 /* Overall finding headline */
 .report-headline {
   font-size: 1rem;

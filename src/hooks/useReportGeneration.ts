@@ -157,6 +157,8 @@ export interface Report {
   // Active venue this report is scoped to (multi-site orgs). Undefined = the
   // organisation-wide report.
   siteName?: string;
+  // Venues aggregated into an organisation-wide report, for a scope statement.
+  coveredSites?: string[];
 
   // Executive summary
   executiveSummary: {
@@ -286,7 +288,7 @@ export interface Report {
 }
 
 interface UseReportGenerationReturn {
-  generateReport: (reviewMode: ReviewMode, organisationName?: string, reportConfig?: ReportConfig, siteName?: string, jurisdiction?: string) => Report;
+  generateReport: (reviewMode: ReviewMode, organisationName?: string, reportConfig?: ReportConfig, siteName?: string, jurisdiction?: string, coveredSites?: string[]) => Report;
   isReady: boolean;
   getModuleRuns: (moduleId: string) => ModuleRun[];
 }
@@ -306,7 +308,7 @@ export function useReportGeneration(
   const isReady = hasOverride ? true : (!isLoading && Object.keys(progress).length > 0);
 
   const generateReport = useMemo(() => {
-    return (reviewMode: ReviewMode, organisationName: string = 'Your Organisation', reportConfig?: ReportConfig, siteName?: string, jurisdiction: string = 'AU'): Report => {
+    return (reviewMode: ReviewMode, organisationName: string = 'Your Organisation', reportConfig?: ReportConfig, siteName?: string, jurisdiction: string = 'AU', coveredSites?: string[]): Report => {
       const now = new Date().toISOString();
 
       // Build module progress list based on report config
@@ -762,6 +764,7 @@ export function useReportGeneration(
         generatedAt: now,
         organisation: organisationName,
         siteName,
+        coveredSites: coveredSites && coveredSites.length > 0 ? coveredSites : undefined,
         executiveSummary,
         maturity,
         narrative,
