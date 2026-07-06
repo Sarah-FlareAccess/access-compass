@@ -516,16 +516,16 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 </div>
               </div>
 
-              {/* Director numbers — how many, how hard, who does it */}
+              {/* Director numbers — the priority load at a glance */}
               <div className="director-numbers">
                 <div className="dir-tile dir-high">
                   <b>{report.directorNumbers.high}</b><span>High priority</span>
                 </div>
-                <div className="dir-tile dir-internal">
-                  <b>{report.directorNumbers.internal}</b><span>Can be done in-house</span>
+                <div className="dir-tile dir-medium">
+                  <b>{report.directorNumbers.medium}</b><span>Medium priority</span>
                 </div>
-                <div className="dir-tile dir-specialist">
-                  <b>{report.directorNumbers.specialist}</b><span>May need a specialist</span>
+                <div className="dir-tile dir-low">
+                  <b>{report.directorNumbers.low}</b><span>Low priority</span>
                 </div>
                 <div className="dir-tile dir-quickwin">
                   <b>{report.directorNumbers.quickWins}</b><span>Quick wins</span>

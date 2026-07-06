@@ -48,8 +48,6 @@ export interface DirectorNumbers {
   high: number;
   medium: number;
   low: number;
-  internal: number;
-  specialist: number;
   quickWins: number;
 }
 
@@ -403,32 +401,51 @@ export function useReportGeneration(
             ? generateModuleSummary(moduleProgress.responses, mod.questions)
             : moduleProgress.summary;
 
+          // Dedupe within each module: different questions can generate the
+          // same action or strength text, and the same sentence repeated is
+          // noise, not signal. Keep the first occurrence.
           if (summary?.doingWell) {
-            allStrengths.push(...summary.doingWell);
-            summary.doingWell.forEach(text =>
-              catStrengths.push({ text, moduleCode: mCode, moduleName: mName })
-            );
+            const seen = new Set<string>();
+            summary.doingWell.forEach(text => {
+              const key = text.trim().toLowerCase();
+              if (seen.has(key)) return;
+              seen.add(key);
+              allStrengths.push(text);
+              catStrengths.push({ text, moduleCode: mCode, moduleName: mName });
+            });
           }
           if (summary?.priorityActions) {
+            const seen = new Set<string>();
             summary.priorityActions.forEach(a => {
+              const key = a.action.trim().toLowerCase();
+              if (seen.has(key)) return;
+              seen.add(key);
               const text = a.action;
               allPriorityActions.push(`${a.action} (${a.priority} priority)`);
               catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel, safetyRelated: a.safetyRelated, ownerArea: groupOwnerArea(mod?.group || '') });
             });
           }
           if (summary?.areasToExplore) {
+            const seen = new Set<string>();
             summary.areasToExplore.forEach(item => {
               const text = typeof item === 'string' ? item : item.action;
+              const key = text.trim().toLowerCase();
+              if (seen.has(key)) return;
+              seen.add(key);
               const questionId = typeof item === 'string' ? undefined : item.questionId;
               allAreasToExplore.push(text);
               catAreasToExplore.push({ text, moduleCode: mCode, moduleName: mName, questionId });
             });
           }
           if (summary?.professionalReview) {
-            allProfessionalReview.push(...summary.professionalReview);
-            summary.professionalReview.forEach(text =>
-              catProfessionalReview.push({ text, moduleCode: mCode, moduleName: mName })
-            );
+            const seen = new Set<string>();
+            summary.professionalReview.forEach(text => {
+              const key = text.trim().toLowerCase();
+              if (seen.has(key)) return;
+              seen.add(key);
+              allProfessionalReview.push(text);
+              catProfessionalReview.push({ text, moduleCode: mCode, moduleName: mName });
+            });
           }
         }
 
@@ -575,14 +592,11 @@ export function useReportGeneration(
         }))
         .sort((a, b) => groupOrderIndex(a.group) - groupOrderIndex(b.group));
 
-      // Headline counts for a director: how many, how hard, who does it.
-      const specialistCount = allProfessionalReview.length;
+      // Headline counts for a director: the priority load at a glance.
       const directorNumbers: DirectorNumbers = {
         high: catPriorityActions.filter(i => i.priority === 'high').length,
         medium: catPriorityActions.filter(i => i.priority === 'medium').length,
         low: catPriorityActions.filter(i => i.priority === 'low').length,
-        specialist: specialistCount,
-        internal: Math.max(0, allPriorityActions.length - specialistCount),
         quickWins: quickWins.length,
       };
 
@@ -593,8 +607,8 @@ export function useReportGeneration(
         modulesCompleted: completedModules.length,
         actionsCount: allPriorityActions.length,
         themeBreakdown,
-        internal: directorNumbers.internal,
-        specialist: directorNumbers.specialist,
+        highCount: directorNumbers.high,
+        strengthsCount: allStrengths.length,
       });
 
       // Generate progress comparison if enabled
@@ -754,10 +768,10 @@ function buildNarrative(input: {
   modulesCompleted: number;
   actionsCount: number;
   themeBreakdown: ThemeScore[];
-  internal: number;
-  specialist: number;
+  highCount: number;
+  strengthsCount: number;
 }): string {
-  const { organisation, maturity, modulesCompleted, actionsCount, themeBreakdown, internal, specialist } = input;
+  const { organisation, maturity, modulesCompleted, actionsCount, themeBreakdown, highCount, strengthsCount } = input;
 
   if (!maturity.started || modulesCompleted === 0) {
     return `This report will summarise ${organisation}'s accessibility once the first assessment is complete.`;
@@ -780,20 +794,14 @@ function buildNarrative(input: {
     }
   }
 
-  if (actionsCount > 0) {
-    if (specialist === 0) {
-      sentences.push(
-        `All ${actionsCount} recommended actions can be progressed in-house, so most can move without major capital works.`
-      );
-    } else if (internal >= specialist) {
-      sentences.push(
-        `Most of the ${actionsCount} recommended actions can be progressed in-house, with ${specialist} likely to need specialist input.`
-      );
-    } else {
-      sentences.push(
-        `Of the ${actionsCount} recommended actions, ${specialist} are likely to need specialist input and the rest can be progressed in-house.`
-      );
-    }
+  if (actionsCount > 0 && highCount > 0) {
+    sentences.push(
+      `Of the ${actionsCount} recommended actions, ${highCount} ${highCount === 1 ? 'is' : 'are'} high priority and a clear place to start.`
+    );
+  } else if (strengthsCount > 0) {
+    sentences.push(
+      `The assessment also recognised ${strengthsCount} good practices already in place.`
+    );
   }
 
   if (maturity.nextStage) {

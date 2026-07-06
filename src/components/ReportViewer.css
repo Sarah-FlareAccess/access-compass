@@ -387,8 +387,8 @@
 }
 
 .dir-tile.dir-high { border-left: 4px solid #b91c1c; }
-.dir-tile.dir-internal { border-left: 4px solid #15803d; }
-.dir-tile.dir-specialist { border-left: 4px solid #a16207; }
+.dir-tile.dir-medium { border-left: 4px solid #d97706; }
+.dir-tile.dir-low { border-left: 4px solid #1a4fd6; }
 .dir-tile.dir-quickwin { border-left: 4px solid var(--amethyst-diamond); }
 
 /* Performance by area (theme breakdown) */

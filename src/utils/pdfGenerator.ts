@@ -9,7 +9,7 @@ import jsPDF from 'jspdf';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 import { accessModules } from '../data/accessModules';
 import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from './professionalSupportGroups';
-import { groupOwnerArea } from './maturityModel';
+import { groupOwnerArea, groupLabel, groupOrderIndex } from './maturityModel';
 
 // Brand Colors - matching Access Compass design system
 const COLORS = {
@@ -163,14 +163,16 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     return false;
   };
 
-  // Helper: Add group header (left-border accent style matching app)
-  const addGroupHeader = (title: string, isFindings: boolean = false) => {
-    checkNewPage(40);
+  // Helper: Add group header (left-border accent style matching app).
+  // reserve = space that must remain so the header is not stranded at the
+  // foot of a page with its content pushed onto the next one.
+  const addGroupHeader = (title: string, isFindings: boolean = false, reserve: number = 48) => {
+    checkNewPage(reserve);
 
     // Add extra spacing before groups (except if at top of page)
     if (yPosition > PAGE.marginTop + 5) {
       yPosition += 10;
-      checkNewPage(40);
+      checkNewPage(reserve);
     }
 
     if (isFindings) {
@@ -203,9 +205,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFont('helvetica', 'normal');
   };
 
-  // Helper: Add section title with visual depth (11pt, not 13pt)
-  const addSectionTitle = (title: string, accentColor: string = COLORS.amethystDiamond) => {
-    checkNewPage(20);
+  // Helper: Add section title with visual depth (11pt, not 13pt).
+  // reserve keeps the title with the first lines of its content.
+  const addSectionTitle = (title: string, accentColor: string = COLORS.amethystDiamond, reserve: number = 30) => {
+    checkNewPage(reserve);
 
     // Background bar for section header
     doc.setFillColor(250, 248, 245); // ivory
@@ -629,8 +632,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     const gap = 6;
     const sx = PAGE.marginLeft;
     addStatBox(sx, yPosition, bw, String(report.directorNumbers.high), 'High priority', '#b91c1c');
-    addStatBox(sx + (bw + gap), yPosition, bw, String(report.directorNumbers.internal), 'In-house', COLORS.green, '#15803d');
-    addStatBox(sx + (bw + gap) * 2, yPosition, bw, String(report.directorNumbers.specialist), 'Specialist', COLORS.amber, '#92400e');
+    addStatBox(sx + (bw + gap), yPosition, bw, String(report.directorNumbers.medium), 'Medium priority', COLORS.amber, '#92400e');
+    addStatBox(sx + (bw + gap) * 2, yPosition, bw, String(report.directorNumbers.low), 'Low priority', '#1a4fd6');
     addStatBox(sx + (bw + gap) * 3, yPosition, bw, String(report.directorNumbers.quickWins), 'Quick wins', COLORS.amethystDiamond);
     yPosition += 34;
   }
@@ -665,7 +668,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Skip table of contents + all detail sections. Run the
     // page-numbering second pass so the footer is correct.
     const totalPages = doc.getNumberOfPages();
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 2; i <= totalPages; i++) {
       doc.setPage(i);
       const fy = PAGE.height - 12;
       doc.setFillColor(250, 248, 245);
@@ -776,68 +779,83 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   if (report.moduleEvidence && report.moduleEvidence.length > 0) {
     addSectionTitle('Modules Reviewed');
 
-    report.moduleEvidence.forEach((evidence) => {
-      checkNewPage(28);
+    // Column header
+    checkNewPage(14);
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(107, 114, 128);
+    doc.text('MODULE', PAGE.marginLeft + 1, yPosition);
+    doc.text('GOOD', PAGE.marginLeft + 122, yPosition, { align: 'right' });
+    doc.text('ACTIONS', PAGE.marginLeft + 147, yPosition, { align: 'right' });
+    doc.text('CONFIDENCE', PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
+    yPosition += 2;
+    doc.setDrawColor(220, 216, 226);
+    doc.setLineWidth(0.3);
+    doc.line(PAGE.marginLeft, yPosition, PAGE.width - PAGE.marginRight, yPosition);
+    yPosition += 4.5;
 
-      // Module card with shadow effect
-      doc.setFillColor(220, 220, 220);
-      doc.roundedRect(PAGE.marginLeft + 1, yPosition, PAGE.contentWidth, 22, 3, 3, 'F');
+    // Group modules by journey area for context
+    const evByGroup = new Map<string, typeof report.moduleEvidence>();
+    for (const ev of report.moduleEvidence) {
+      const g = getModuleGroup(ev.moduleCode);
+      if (!evByGroup.has(g)) evByGroup.set(g, []);
+      evByGroup.get(g)!.push(ev);
+    }
+    const orderedGroups = Array.from(evByGroup.keys()).sort((a, b) => groupOrderIndex(a) - groupOrderIndex(b));
 
-      // Card background (warm ivory)
-      doc.setFillColor(250, 248, 245);
-      doc.roundedRect(PAGE.marginLeft, yPosition - 1, PAGE.contentWidth, 22, 3, 3, 'F');
-
-      // Left accent bar (purple)
-      doc.setFillColor(73, 14, 103); // amethystDiamond
-      doc.roundedRect(PAGE.marginLeft, yPosition - 1, 3, 22, 2, 2, 'F');
-
-      // Module code badge (light purple bg, purple text - matching app)
-      doc.setFillColor(240, 233, 245);
-      doc.roundedRect(PAGE.marginLeft + 8, yPosition + 3, 18, 7, 2, 2, 'F');
-      doc.setFontSize(7);
+    let rowAlt = false;
+    for (const g of orderedGroups) {
+      checkNewPage(16);
+      doc.setFontSize(8);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(73, 14, 103);
-      doc.text(evidence.moduleCode, PAGE.marginLeft + 17, yPosition + 8, { align: 'center' });
+      doc.text(groupLabel(g), PAGE.marginLeft + 1, yPosition + 1);
+      yPosition += 5;
 
-      // Module name
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(58, 11, 82); // amethystDark
-      doc.text(evidence.moduleName, PAGE.marginLeft + 30, yPosition + 8);
+      const rows = evByGroup.get(g)!.slice().sort((a, b) => a.moduleCode.localeCompare(b.moduleCode, undefined, { numeric: true }));
+      for (const ev of rows) {
+        const rowH = 6.5;
+        checkNewPage(rowH + 2);
+        if (rowAlt) {
+          doc.setFillColor(250, 248, 245);
+          doc.rect(PAGE.marginLeft - 1, yPosition - 3.4, PAGE.contentWidth + 2, rowH, 'F');
+        }
+        rowAlt = !rowAlt;
 
-      doc.setFontSize(8);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(COLORS.gray);
+        doc.setFillColor(240, 233, 245);
+        const bw = 13;
+        doc.roundedRect(PAGE.marginLeft, yPosition - 3, bw, 5, 1.5, 1.5, 'F');
+        doc.setFontSize(7);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(73, 14, 103);
+        doc.text(ev.moduleCode, PAGE.marginLeft + bw / 2, yPosition + 0.4, { align: 'center' });
 
-      let metaText = '';
-      if (evidence.completedAt) {
-        metaText += `${new Date(evidence.completedAt).toLocaleDateString('en-AU')}`;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.setTextColor(COLORS.text);
+        doc.text(doc.splitTextToSize(ev.moduleName, 95)[0], PAGE.marginLeft + 16, yPosition + 0.6);
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8.5);
+        doc.setTextColor(ev.strengthsCount > 0 ? '#15803d' : '#9ca3af');
+        doc.text(String(ev.strengthsCount), PAGE.marginLeft + 122, yPosition + 0.6, { align: 'right' });
+        doc.setTextColor(ev.actionsCount > 0 ? '#b91c1c' : '#9ca3af');
+        doc.text(String(ev.actionsCount), PAGE.marginLeft + 147, yPosition + 0.6, { align: 'right' });
+
+        const conf = ev.confidenceSnapshot;
+        const confLabel = conf === 'strong' ? 'Strong' : conf === 'mixed' ? 'Mixed' : conf === 'needs-work' ? 'Needs work' : '—';
+        const confColor = conf === 'strong' ? '#15803d' : conf === 'mixed' ? '#92400e' : conf === 'needs-work' ? '#b91c1c' : '#9ca3af';
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(confColor);
+        doc.text(confLabel, PAGE.width - PAGE.marginRight, yPosition + 0.6, { align: 'right' });
+
+        yPosition += rowH;
       }
-      if (evidence.completedBy) {
-        metaText += metaText ? ' · ' : '';
-        metaText += evidence.completedBy;
-      }
-      if (metaText) {
-        doc.text(metaText, PAGE.marginLeft + 30, yPosition + 15);
-      }
-
-      // Stats badges (contrast-safe text colors)
-      doc.setFillColor(220, 252, 231); // greenLight
-      doc.roundedRect(PAGE.width - PAGE.marginRight - 52, yPosition + 3, 24, 7, 2, 2, 'F');
-      doc.setFontSize(7);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor('#15803d'); // dark green for contrast on light green bg
-      doc.text(`${evidence.strengthsCount} good`, PAGE.width - PAGE.marginRight - 40, yPosition + 8, { align: 'center' });
-
-      doc.setFillColor(254, 226, 226); // redLight
-      doc.roundedRect(PAGE.width - PAGE.marginRight - 26, yPosition + 3, 24, 7, 2, 2, 'F');
-      doc.setTextColor('#991b1b'); // dark red for contrast on light red bg
-      doc.text(`${evidence.actionsCount} action`, PAGE.width - PAGE.marginRight - 14, yPosition + 8, { align: 'center' });
-
-      doc.setTextColor(0, 0, 0);
-      yPosition += 28;
-    });
-    yPosition += 5;
+      yPosition += 2;
+    }
+    doc.setTextColor(0, 0, 0);
+    yPosition += 3;
   }
 
   // ============================================
@@ -1128,104 +1146,64 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     yPosition += moduleCardHeight - 1;
     doc.setDrawColor(0, 0, 0);
 
-    // Card-style item renderer: colored left-border cards (matching app)
-    const renderCardSection = (
+    // Compact item renderer: a thin coloured marker per item, tight text,
+    // no padded card. Condenses the findings list without losing colour coding.
+    const renderActionSection = (
       items: CategorisedItem[],
       heading: string,
       headingColor: string,
-      cardBg: [number, number, number],
       accentColor: string,
     ) => {
       if (items.length === 0) return;
 
-      // Section heading (colored text, no background bar)
-      checkNewPage(14);
+      checkNewPage(16);
       doc.setFontSize(9);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(headingColor);
       doc.text(`${heading} (${items.length})`, PAGE.marginLeft + 6, yPosition + 1);
-      yPosition += 6;
+      yPosition += 5;
 
-      // Individual cards with left-border accent
-      const cardLeft = PAGE.marginLeft + 4;
-      const cardWidth = PAGE.contentWidth - 6;
-      const textInset = 8; // text offset from card left edge
-
+      const textX = PAGE.marginLeft + 11;
+      const textW = PAGE.contentWidth - 13;
       for (const item of items) {
         const cleanText = stripSuffix(item.text);
-        doc.setFontSize(9);
-        const lines = doc.splitTextToSize(cleanText, cardWidth - textInset - 4);
-        const lineHeight = 4.2;
-        const cardPadY = 3;
-        const cardHeight = lines.length * lineHeight + cardPadY * 2;
-
-        checkNewPage(cardHeight + 2);
-
-        // Card background
-        doc.setFillColor(cardBg[0], cardBg[1], cardBg[2]);
-        doc.roundedRect(cardLeft, yPosition, cardWidth, cardHeight, 2, 2, 'F');
-
-        // Left accent border
-        doc.setFillColor(accentColor);
-        doc.roundedRect(cardLeft, yPosition, 2.5, cardHeight, 1, 1, 'F');
-
-        // Text
+        doc.setFontSize(8.5);
         doc.setFont('helvetica', 'normal');
+        const lines = doc.splitTextToSize(cleanText, textW);
+        const lineH = 4;
+        const blockH = lines.length * lineH;
+
+        checkNewPage(blockH + 3);
+
+        // Thin coloured marker down the left of the item
+        doc.setFillColor(accentColor);
+        doc.roundedRect(PAGE.marginLeft + 6, yPosition - 2.6, 1.6, blockH + 0.4, 0.8, 0.8, 'F');
+
         doc.setTextColor(COLORS.text);
         for (let i = 0; i < lines.length; i++) {
-          doc.text(lines[i], cardLeft + textInset, yPosition + cardPadY + (i * lineHeight) + 3);
+          doc.text(lines[i], textX, yPosition + i * lineH);
         }
 
-        yPosition += cardHeight + 2; // 2mm gap between cards
+        yPosition += blockH + 2.4;
       }
 
       yPosition += 2;
     };
 
-    // High priority (red cards)
-    renderCardSection(
-      mod.highActions,
-      'High priority',
-      '#991b1b',
-      [255, 241, 241],     // light red bg
-      '#ef4444',           // red accent
-    );
+    // High priority (red)
+    renderActionSection(mod.highActions, 'High priority', '#991b1b', '#ef4444');
 
-    // Medium priority (amber cards)
-    renderCardSection(
-      mod.mediumActions,
-      'Medium priority',
-      '#78350f',
-      [255, 249, 235],     // light amber bg
-      '#d97706',           // amber accent
-    );
+    // Medium priority (amber)
+    renderActionSection(mod.mediumActions, 'Medium priority', '#78350f', '#d97706');
 
-    // Low priority (blue cards)
-    renderCardSection(
-      mod.lowActions,
-      'Low priority',
-      '#1e3a8a',
-      [239, 246, 255],     // light blue bg
-      '#3b82f6',           // blue accent
-    );
+    // Low priority (blue)
+    renderActionSection(mod.lowActions, 'Low priority', '#1e3a8a', '#3b82f6');
 
-    // Areas to explore (purple/violet cards - distinct from amber medium)
-    renderCardSection(
-      mod.explores,
-      'Areas to explore: from "Unable to check" responses',
-      '#5b1897',
-      [245, 240, 255],     // light violet bg
-      '#8b5cf6',           // violet accent
-    );
+    // Areas to explore (violet - distinct from amber medium)
+    renderActionSection(mod.explores, 'Areas to explore: from "Unable to check" responses', '#5b1897', '#8b5cf6');
 
-    // Strengths (green cards - at end so actions come first)
-    renderCardSection(
-      mod.strengths,
-      "What's going well",
-      '#166534',
-      [236, 253, 243],     // light mint bg
-      '#22c55e',           // green accent
-    );
+    // Strengths (green - at end so actions come first)
+    renderActionSection(mod.strengths, "What's going well", '#166534', '#22c55e');
 
     // 4mm extra space after each module's findings block
     yPosition += 4;
@@ -1457,9 +1435,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // Add final footer
   addFooter();
 
-  // Second pass: overwrite page numbers with "Page X of Y"
+  // Second pass: overwrite page numbers with "Page X of Y".
+  // Skip page 1 (the cover) so no footer box is drawn over the title art.
   const totalPages = doc.getNumberOfPages();
-  for (let i = 1; i <= totalPages; i++) {
+  for (let i = 2; i <= totalPages; i++) {
     doc.setPage(i);
     const footerY = PAGE.height - 12;
 
