@@ -793,6 +793,7 @@ export default function ReportPage() {
                 assessed ({report.maturity.coveragePct}%) · {report.maturity.performancePct}% doing well
               </span>
             </div>
+            <p className="rp-maturity-meaning">{report.maturity.meaning}</p>
           </div>
         )}
 

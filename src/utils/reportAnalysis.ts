@@ -212,8 +212,9 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
 
   // --- Executive interpretation: tight, hedged, and supported by the data ---
   const interpretation: string[] = [];
+  const article = /^[aeiou]/i.test(maturity.level) ? 'an' : 'a';
   interpretation.push(
-    `Within the areas assessed, ${organisation} demonstrates an ${maturity.level.toLowerCase()} level of accessibility maturity` +
+    `Within the areas assessed, ${organisation} demonstrates ${article} ${maturity.level.toLowerCase()} level of accessibility maturity` +
     (strongest ? `, with its strongest practice in ${strongest.label.toLowerCase()}.` : '.')
   );
   if (topDomain) {

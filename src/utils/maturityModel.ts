@@ -31,7 +31,18 @@ export interface MaturityResult {
   coveragePct: number;
   performancePct: number;
   nextStage: string | null;
+  /** Plain-language meaning of the level, generic to any organisation. */
+  meaning: string;
 }
+
+// What each maturity level means and where the focus goes next. Level-generic
+// (never assumes the gaps are physical or operational for a given org).
+const LEVEL_MEANING: string[] = [
+  'Accessibility is in the early stages of being built into how the organisation works. The focus now is to assess more areas and begin planning.',
+  'Accessibility foundations are forming across the organisation. The focus now is to turn the assessment into a plan and start acting on it.',
+  'Strong accessibility foundations are in place across most assessed areas. The focus now shifts from putting systems in place to acting on the plan and embedding continuous improvement.',
+  'Accessibility is part of everyday operations. The focus now is to sustain it, keep measuring progress, and keep improving.',
+];
 
 export function computeMaturity(s: MaturityStats): MaturityResult {
   const cov = s.progressPercentage;
@@ -80,6 +91,7 @@ export function computeMaturity(s: MaturityStats): MaturityResult {
     coveragePct: cov,
     performancePct: perf,
     nextStage: stage >= 0 && stage < stages.length - 1 ? stages[stage + 1] : null,
+    meaning: LEVEL_MEANING[levelIdx] || LEVEL_MEANING[0],
   };
 }
 

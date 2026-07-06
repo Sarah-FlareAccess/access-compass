@@ -708,7 +708,19 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     doc.setTextColor(0, 0, 0);
     doc.setDrawColor(0, 0, 0);
-    yPosition = boxTop + boxH + 12;
+    yPosition = boxTop + boxH + 6;
+
+    // What this maturity level means (level-generic)
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(75, 85, 99);
+    for (const l of doc.splitTextToSize(report.maturity.meaning, PAGE.contentWidth)) {
+      checkNewPage(6);
+      doc.text(l, PAGE.marginLeft, yPosition);
+      yPosition += 5;
+    }
+    yPosition += 8;
+    doc.setTextColor(0, 0, 0);
   }
 
   // --- Executive interpretation: what the data means ---
@@ -803,6 +815,9 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         addParagraph(`• ${label}`, 10);
       }
     }
+
+    // Legislative alignment on the exec one-pager: the council differentiator.
+    renderLegislativeAlignment();
 
     // Skip table of contents + all detail sections. Run the
     // page-numbering second pass so the footer is correct. Skip page 1 only
@@ -1164,8 +1179,9 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   }
 
   // ============================================
-  // GROUP 2: ASSESSMENT EVIDENCE
+  // ASSESSMENT EVIDENCE (appendix; defined here, rendered near the end)
   // ============================================
+  function renderAssessmentEvidence() {
   // Assessment Evidence starts on a fresh page for a clean section break.
   if (yPosition > PAGE.marginTop + 20) {
     addFooter();
@@ -1276,6 +1292,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setTextColor(0, 0, 0);
     yPosition += 3;
   }
+  } // end renderAssessmentEvidence
 
   // ============================================
   // GROUP 3: ANALYSIS RESULTS (conditional)
@@ -1821,6 +1838,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   doc.setTextColor(0, 0, 0);
   yPosition += 26;
+
+  // Assessment evidence sits at the back as an appendix (proof of what was
+  // reviewed, by whom), out of the executive flow.
+  renderAssessmentEvidence();
 
   // ============================================
   // DISCLAIMER

@@ -491,6 +491,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                       assessed ({report.maturity.coveragePct}%) · {report.maturity.performancePct}% doing well
                     </span>
                   </div>
+                  <p className="report-maturity-meaning">{report.maturity.meaning}</p>
                 </div>
               )}
 

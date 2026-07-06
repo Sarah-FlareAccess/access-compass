@@ -347,6 +347,15 @@
 .report-maturity-conf.conf-medium { background: rgba(202, 138, 4, 0.14); color: #a16207; }
 .report-maturity-conf.conf-low { background: rgba(217, 119, 6, 0.14); color: #b45309; }
 
+.report-maturity-meaning {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #4b5563;
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(73, 14, 103, 0.1);
+}
+
 /* Plain-language narrative */
 .report-narrative {
   font-size: 1rem;
