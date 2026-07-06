@@ -30,6 +30,7 @@ export interface AnalysisInput {
   actions: AnalysisAction[];
   strengths: { group?: string }[];
   quickWinsCount: number;
+  areasToExploreCount: number;
   themeBreakdown: { group: string; label: string; performancePct: number; assessed: number; strengths: number; actions: number }[];
   high: number;
   medium: number;
@@ -39,6 +40,18 @@ export interface AnalysisInput {
 export interface ThemeLead {
   theme: string;
   lead: string;
+}
+
+export interface EffortBreakdown {
+  quickWins: number;
+  operational: number;
+  capital: number;
+  investigate: number;
+}
+
+export interface PriorityGroup {
+  heading: string;
+  items: string[];
 }
 
 export interface ThematicSummary {
@@ -56,7 +69,11 @@ export interface SequenceStep {
 }
 
 export interface ReportAnalysis {
+  headline: string;
   interpretation: string[];
+  whyItMatters: string;
+  effort: EffortBreakdown;
+  priorityGroups: PriorityGroup[];
   recurringThemes: AnalysisTheme[];
   recurringInsight: string;
   themeLeads: ThemeLead[];
@@ -147,10 +164,14 @@ function countThemes(actions: AnalysisAction[], limit = 6, minCount = 1): Analys
 }
 
 export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
-  const { organisation, maturity, actions, strengths, quickWinsCount, themeBreakdown, high, medium, low } = input;
+  const { organisation, maturity, actions, strengths, quickWinsCount, areasToExploreCount, themeBreakdown, high, medium, low } = input;
 
   const empty: ReportAnalysis = {
+    headline: '',
     interpretation: [],
+    whyItMatters: '',
+    effort: { quickWins: 0, operational: 0, capital: 0, investigate: 0 },
+    priorityGroups: [],
     recurringThemes: [],
     recurringInsight: '',
     themeLeads: [],
@@ -210,6 +231,24 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     lead: THEME_LEADS[t.label] || 'To be assigned',
   }));
 
+  // Structural (built-environment / capital) vs operational split.
+  const structuralCount = actions.filter(a => {
+    const t = a.text.toLowerCase();
+    return STRUCTURAL_KWS.some(k => t.includes(k));
+  }).length;
+  const operationalShare = totalActions > 0 ? 1 - structuralCount / totalActions : 1;
+  const highPct = totalActions > 0 ? Math.round((high / totalActions) * 100) : 0;
+
+  // --- Headline: the one-line answer to "are we doing well?" ---
+  const levelPhrase = maturity.levelIdx >= 3 ? 'strongly embedded'
+    : maturity.levelIdx === 2 ? 'well established'
+      : maturity.levelIdx === 1 ? 'developing'
+        : 'in the early stages';
+  let headline = `Within the areas assessed, accessibility foundations are ${levelPhrase}`;
+  headline += topDomain
+    ? `. The greatest opportunities for improvement relate to ${topDomain.label.toLowerCase()}${topDomainThemes.length ? `, particularly ${joinLower(topDomainThemes)}` : ''}.`
+    : '.';
+
   // --- Executive interpretation: tight, hedged, and supported by the data ---
   const interpretation: string[] = [];
   const article = /^[aeiou]/i.test(maturity.level) ? 'an' : 'a';
@@ -224,24 +263,49 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     );
   }
   if (totalActions > 0) {
-    const highPct = Math.round((high / totalActions) * 100);
     interpretation.push(
       highPct >= 40
         ? `${highPct}% of the actions identified are high priority, so several important compliance and experience gaps sit alongside existing strengths.`
         : `Most of the actions identified are lower-risk refinements, with ${highPct}% high priority.`
     );
-
-    const structuralCount = actions.filter(a => {
-      const t = a.text.toLowerCase();
-      return STRUCTURAL_KWS.some(k => t.includes(k));
-    }).length;
-    const operationalShare = 1 - structuralCount / totalActions;
     interpretation.push(
       operationalShare >= 0.5
         ? 'Most improvements are operational rather than structural, so meaningful progress is achievable now without major capital works.'
         : 'Many actions involve the built environment, but the operational improvements and quick wins can be actioned immediately, even where major works are not currently feasible (for example in heritage or leased premises).'
     );
   }
+
+  // --- Why this matters (executive framing; operational-first, non-deterring) ---
+  const whyItMatters = totalActions > 0
+    ? 'Addressing the identified barriers reduces accessibility and legal risk, and improves the experience for a wide range of community members. '
+      + (operationalShare >= 0.5
+          ? 'Most improvements are operational and can begin immediately, without major capital works. '
+          : 'Many improvements are operational and can begin immediately, with larger infrastructure works planned into future capital budgets. ')
+      + 'Tracking these actions over time demonstrates measurable progress against your obligations.'
+    : '';
+
+  // --- Estimated effort, for budgeting (approximate; capital is keyword-based) ---
+  const effort: EffortBreakdown = {
+    quickWins: quickWinsCount,
+    operational: Math.max(0, totalActions - structuralCount),
+    capital: structuralCount,
+    investigate: areasToExploreCount,
+  };
+
+  // --- Top priorities grouped strategically by theme (each action listed once) ---
+  const highByTheme = new Map<string, string[]>();
+  for (const a of highActions) {
+    const t = a.text.toLowerCase();
+    const theme = THEME_KEYWORDS.find(th => th.kws.some(k => t.includes(k)));
+    if (theme) {
+      if (!highByTheme.has(theme.label)) highByTheme.set(theme.label, []);
+      highByTheme.get(theme.label)!.push(a.text);
+    }
+  }
+  const priorityGroups: PriorityGroup[] = Array.from(highByTheme.entries())
+    .sort((x, y) => y[1].length - x[1].length)
+    .slice(0, 3)
+    .map(([label, items]) => ({ heading: `Improve ${label.toLowerCase()}`, items: items.slice(0, 3) }));
 
   // --- Strengths, grouped by area ---
   const strengthMap = new Map<string, number>();
@@ -276,5 +340,5 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
   if (shortTerm.length) startingSequence.push({ heading: 'Short term (3-12 months)', items: shortTerm });
   startingSequence.push({ heading: 'Long term', items: longTerm });
 
-  return { interpretation, recurringThemes, recurringInsight, themeLeads, thematicSummaries, strengthsByTheme, startingSequence };
+  return { headline, interpretation, whyItMatters, effort, priorityGroups, recurringThemes, recurringInsight, themeLeads, thematicSummaries, strengthsByTheme, startingSequence };
 }

@@ -1715,6 +1715,60 @@
   .rp-maturity-next { margin-left: 0; }
 }
 
+/* Overall finding headline */
+.rp-headline {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text-primary, #2d2420);
+  background: #faf7fb;
+  border-left: 4px solid var(--amethyst-diamond, #490E67);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 0 0 18px;
+}
+
+.rp-headline strong { color: var(--amethyst-diamond, #490E67); }
+
+/* Estimated effort tiles */
+.rp-effort {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.rp-effort-tile {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid var(--amethyst-diamond, #490E67);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rp-effort-tile b {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary, #2d2420);
+  line-height: 1;
+}
+
+.rp-effort-tile span { font-size: 0.75rem; font-weight: 600; color: #6b7280; }
+
+.rp-effort-tile.rp-effort-op { border-left-color: #15803d; }
+.rp-effort-tile.rp-effort-cap { border-left-color: #b91c1c; }
+.rp-effort-tile.rp-effort-inv { border-left-color: #d97706; }
+
+/* Why this matters */
+.rp-why p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-primary, #2d2420);
+  margin: 0;
+}
+
 /* Executive interpretation */
 .rp-interpretation {
   background: #faf7fb;

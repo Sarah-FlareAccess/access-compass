@@ -503,10 +503,14 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 </div>
               )}
 
+              {report.analysis.headline && (
+                <p className="report-headline"><strong>Overall finding:</strong> {report.analysis.headline}</p>
+              )}
+
               <div className="summary-stats">
                 <div className="stat-card">
                   <div className="stat-number">{report.executiveSummary.modulesCompleted}</div>
-                  <div className="stat-label">Modules Completed</div>
+                  <div className="stat-label">Areas reviewed</div>
                 </div>
                 <div className="stat-card stat-positive">
                   <div className="stat-number">{report.executiveSummary.strengthsCount}</div>
@@ -522,19 +526,19 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 </div>
               </div>
 
-              {/* Director numbers — the priority load at a glance */}
+              {/* Estimated effort — the budgeting view */}
               <div className="director-numbers">
-                <div className="dir-tile dir-high">
-                  <b>{report.directorNumbers.high}</b><span>High priority</span>
+                <div className="dir-tile dir-quickwin">
+                  <b>{report.analysis.effort.quickWins}</b><span>Quick wins</span>
                 </div>
                 <div className="dir-tile dir-medium">
-                  <b>{report.directorNumbers.medium}</b><span>Medium priority</span>
+                  <b>{report.analysis.effort.operational}</b><span>Operational</span>
+                </div>
+                <div className="dir-tile dir-high">
+                  <b>{report.analysis.effort.capital}</b><span>Capital works likely</span>
                 </div>
                 <div className="dir-tile dir-low">
-                  <b>{report.directorNumbers.low}</b><span>Low priority</span>
-                </div>
-                <div className="dir-tile dir-quickwin">
-                  <b>{report.directorNumbers.quickWins}</b><span>Quick wins</span>
+                  <b>{report.analysis.effort.investigate}</b><span>To investigate</span>
                 </div>
               </div>
 
@@ -692,6 +696,14 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                       </div>
                     ))}
                   </div>
+                </div>
+              )}
+
+              {/* Why this matters */}
+              {report.analysis.whyItMatters && (
+                <div className="report-analysis-block">
+                  <h3>Why this matters</h3>
+                  <p className="report-why">{report.analysis.whyItMatters}</p>
                 </div>
               )}
 

@@ -760,6 +760,11 @@ export default function ReportPage() {
           </details>
         </div>
 
+        {/* Overall finding - the one-line "are we doing well?" answer */}
+        {report.analysis.headline && (
+          <p className="rp-headline"><strong>Overall finding:</strong> {report.analysis.headline}</p>
+        )}
+
         {/* Accessibility maturity - the headline "where are we" */}
         {report.maturity.started && (
           <div className="rp-maturity">
@@ -809,7 +814,7 @@ export default function ReportPage() {
         <div className="rp-summary-stats">
           <div className="rp-stat-card">
             <div className="rp-stat-number">{report.executiveSummary.modulesCompleted}</div>
-            <div className="rp-stat-label">Modules completed</div>
+            <div className="rp-stat-label">Areas reviewed</div>
           </div>
           <div className="rp-stat-card rp-stat-positive">
             <div className="rp-stat-number">{report.executiveSummary.strengthsCount}</div>
@@ -823,6 +828,14 @@ export default function ReportPage() {
             <div className="rp-stat-number">{report.executiveSummary.areasToExploreCount}</div>
             <div className="rp-stat-label">To investigate</div>
           </div>
+        </div>
+
+        {/* Estimated effort - the budgeting view */}
+        <div className="rp-effort">
+          <div className="rp-effort-tile"><b>{report.analysis.effort.quickWins}</b><span>Quick wins</span></div>
+          <div className="rp-effort-tile rp-effort-op"><b>{report.analysis.effort.operational}</b><span>Operational</span></div>
+          <div className="rp-effort-tile rp-effort-cap"><b>{report.analysis.effort.capital}</b><span>Capital works likely</span></div>
+          <div className="rp-effort-tile rp-effort-inv"><b>{report.analysis.effort.investigate}</b><span>To investigate</span></div>
         </div>
 
         {/* Priority distribution */}
@@ -1022,6 +1035,14 @@ export default function ReportPage() {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Why this matters */}
+        {report.analysis.whyItMatters && (
+          <div className="rp-analysis-block rp-why">
+            <h2>Why this matters</h2>
+            <p>{report.analysis.whyItMatters}</p>
           </div>
         )}
 

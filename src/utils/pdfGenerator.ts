@@ -341,6 +341,42 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     }
   };
 
+  // Helper: Render the roadmap as a vertical timeline (dots + connectors).
+  const renderRoadmap = (steps: { heading: string; items: string[] }[]) => {
+    const dotX = PAGE.marginLeft + 2;
+    const textX = PAGE.marginLeft + 9;
+    const textW = PAGE.contentWidth - 9;
+    for (let s = 0; s < steps.length; s++) {
+      const step = steps[s];
+      checkNewPage(18);
+      const startY = yPosition;
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(COLORS.amethystDiamond);
+      doc.text(step.heading, textX, yPosition);
+      yPosition += 5.5;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+      doc.setTextColor(COLORS.text);
+      for (const l of doc.splitTextToSize(step.items.join(', '), textW)) {
+        checkNewPage(6);
+        doc.text(l, textX, yPosition);
+        yPosition += 5;
+      }
+      const endY = yPosition;
+      // Connector down to the next step, then the dot on top.
+      if (s < steps.length - 1) {
+        doc.setDrawColor(COLORS.amethystDiamond);
+        doc.setLineWidth(0.5);
+        doc.line(dotX, startY - 1, dotX, endY + 4);
+      }
+      doc.setFillColor(COLORS.amethystDiamond);
+      doc.circle(dotX, startY - 1.5, 1.8, 'F');
+      yPosition += 5;
+      doc.setTextColor(0, 0, 0);
+    }
+  };
+
   // Helper: Add bullet list
   const addBulletList = (items: string[], bulletColor: string = COLORS.gray) => {
     doc.setFontSize(9);
@@ -543,7 +579,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Flat, section-level outline. Every item maps to a rendered heading, so a
     // second pass can stamp its true page number next to it.
     const tocItems: string[] = [
-      'Executive Summary',
+      'Accessibility Performance Summary',
       ...(report.frameworkAlignment ? ['Legislative Alignment'] : []),
       'About This Report',
       ...(report.themeBreakdown.length ? ['Performance by Area'] : []),
@@ -589,10 +625,27 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // GROUP 1: OVERVIEW
   // ============================================
   addGroupHeader('Overview');
-  addSectionTitle('Executive Summary');
+  addSectionTitle('Accessibility Performance Summary');
 
-  // Stats boxes with clean style (white bg, colored left border). Widened so
-  // the longest label ("Modules Completed") fits at 11pt without overflow.
+  // Headline: the one-line "are we doing well?" answer, above the metrics.
+  if (report.analysis.headline) {
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    const hLines = doc.splitTextToSize(report.analysis.headline, PAGE.contentWidth - 12);
+    const hBoxH = hLines.length * 5.5 + 8;
+    checkNewPage(hBoxH + 6);
+    doc.setFillColor(250, 247, 251);
+    doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, hBoxH, 2, 2, 'F');
+    doc.setFillColor(COLORS.amethystDiamond);
+    doc.roundedRect(PAGE.marginLeft, yPosition, 3, hBoxH, 1, 1, 'F');
+    doc.setTextColor(COLORS.text);
+    let hy = yPosition + 6.5;
+    for (const l of hLines) { doc.text(l, PAGE.marginLeft + 6, hy); hy += 5.5; }
+    yPosition += hBoxH + 7;
+    doc.setTextColor(0, 0, 0);
+  }
+
+  // Stats boxes with clean style (white bg, colored left border).
   const boxWidth = 41;
   const boxGap = 5;
   const startX = PAGE.marginLeft;
@@ -605,7 +658,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     yPosition,
     boxWidth,
     String(report.executiveSummary.modulesCompleted),
-    'Modules Completed',
+    'Areas reviewed',
     COLORS.amethystDiamond
   );
   addStatBox(
@@ -637,16 +690,17 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   yPosition += 27;
 
-  // --- Director numbers: priority load at a glance (grouped with the stats
-  // above so the two tile rows stay together and never orphan) ---
+  // --- Estimated effort: the budgeting view (grouped with the stats above so
+  // the two tile rows stay together and never orphan) ---
   {
     const bw = 41;
     const gap = 5;
     const sx = PAGE.marginLeft;
-    addStatBox(sx, yPosition, bw, String(report.directorNumbers.high), 'High priority', '#b91c1c');
-    addStatBox(sx + (bw + gap), yPosition, bw, String(report.directorNumbers.medium), 'Medium priority', COLORS.amber, '#92400e');
-    addStatBox(sx + (bw + gap) * 2, yPosition, bw, String(report.directorNumbers.low), 'Low priority', '#1a4fd6');
-    addStatBox(sx + (bw + gap) * 3, yPosition, bw, String(report.directorNumbers.quickWins), 'Quick wins', COLORS.amethystDiamond);
+    const ef = report.analysis.effort;
+    addStatBox(sx, yPosition, bw, String(ef.quickWins), 'Quick wins', COLORS.amethystDiamond);
+    addStatBox(sx + (bw + gap), yPosition, bw, String(ef.operational), 'Operational', COLORS.green, '#15803d');
+    addStatBox(sx + (bw + gap) * 2, yPosition, bw, String(ef.capital), 'Capital works likely', '#b91c1c');
+    addStatBox(sx + (bw + gap) * 3, yPosition, bw, String(ef.investigate), 'To investigate', COLORS.amber, '#92400e');
     yPosition += 30;
   }
 
@@ -750,12 +804,34 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       .slice()
       .sort((a, b) => rankKey(a) - rankKey(b))
       .slice(0, 3);
-    if (topActions.length > 0) {
+    if (report.analysis.priorityGroups.length > 0) {
+      addSectionTitle('Top Priorities');
+      for (const g of report.analysis.priorityGroups) {
+        checkNewPage(18);
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(COLORS.text);
+        doc.text(g.heading, PAGE.marginLeft, yPosition);
+        yPosition += 6;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(11);
+        doc.setTextColor(COLORS.text);
+        for (const item of g.items) {
+          for (const l of doc.splitTextToSize(`• ${item}`, PAGE.contentWidth - 6)) {
+            checkNewPage(6);
+            doc.text(l, PAGE.marginLeft + 4, yPosition);
+            yPosition += 5;
+          }
+        }
+        yPosition += 3;
+      }
+      doc.setTextColor(0, 0, 0);
+    } else if (topActions.length > 0) {
       addSectionTitle('Top Priorities');
       for (const item of topActions) {
         const label = item.text || '';
         if (!label) continue;
-        addParagraph(`• ${label}`, 10);
+        addParagraph(`• ${label}`, 11);
       }
       yPosition += 2;
     }
@@ -763,36 +839,24 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Suggested starting sequence
     if (report.analysis.startingSequence.length > 0) {
       addSectionTitle('Suggested Implementation Roadmap');
-      for (const step of report.analysis.startingSequence) {
-        checkNewPage(12);
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(COLORS.amethystDiamond);
-        doc.text(step.heading, PAGE.marginLeft, yPosition);
-        const headW = doc.getTextWidth(step.heading);
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(COLORS.text);
-        const lines = doc.splitTextToSize(step.items.join(', '), PAGE.contentWidth - headW - 8);
-        doc.text(lines[0] || '', PAGE.marginLeft + headW + 4, yPosition);
-        yPosition += 5.3;
-        for (let i = 1; i < lines.length; i++) {
-          checkNewPage(6);
-          doc.text(lines[i], PAGE.marginLeft + 4, yPosition);
-          yPosition += 5.3;
-        }
-        yPosition += 1.5;
-      }
+      renderRoadmap(report.analysis.startingSequence);
       yPosition += 2;
     }
 
     const topStrengths = (report.sections.strengths.categorised || []).slice(0, 3);
     if (topStrengths.length > 0) {
-      addSectionTitle('What\'s Going Well', '#166534');
+      addSectionTitle('Key Strengths', '#166534');
       for (const item of topStrengths) {
         const label = item.text || '';
         if (!label) continue;
-        addParagraph(`• ${label}`, 10);
+        addParagraph(`• ${label}`, 11);
       }
+    }
+
+    // Why this matters (executive framing)
+    if (report.analysis.whyItMatters) {
+      addSectionTitle('Why This Matters');
+      addParagraph(report.analysis.whyItMatters, 11);
     }
 
     // Legislative alignment on the exec one-pager: the council differentiator.
@@ -811,7 +875,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.rect(PAGE.marginLeft, fy - 6, 40, 1, 'F');
       doc.setFontSize(7);
       doc.setTextColor(107, 114, 128);
-      doc.text('Access Compass — Executive Summary', PAGE.marginLeft, fy);
+      doc.text('Access Compass — Accessibility Performance Summary', PAGE.marginLeft, fy);
       doc.setTextColor(73, 14, 103);
       doc.text(
         new Date(report.generatedAt).toLocaleDateString('en-AU', {
