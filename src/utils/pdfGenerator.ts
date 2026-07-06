@@ -710,26 +710,28 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // --- Performance by area (theme breakdown) ---
   if (report.themeBreakdown.length > 0) {
     addSectionTitle('Performance by Area');
+    yPosition += 5; // breathing room between the subheading and the bars
     const labelW = 55;
     const barX = PAGE.marginLeft + labelW + 2;
     const barW = PAGE.contentWidth - labelW - 2 - 14;
-    const rowH = 7;
+    const rowH = 8.5;
+    const barH = 3.5;
     for (const t of report.themeBreakdown) {
       checkNewPage(rowH + 2);
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8.5);
       doc.setTextColor(31, 41, 55);
-      doc.text(doc.splitTextToSize(t.label, labelW)[0], PAGE.marginLeft, yPosition + 2);
+      doc.text(doc.splitTextToSize(t.label, labelW)[0], PAGE.marginLeft, yPosition + 1.5);
 
       doc.setFillColor(236, 234, 240);
-      doc.roundedRect(barX, yPosition - 1.5, barW, 4, 1, 1, 'F');
+      doc.roundedRect(barX, yPosition - 1, barW, barH, 1, 1, 'F');
       const fillColor = t.performancePct >= 67 ? '#16a34a' : t.performancePct >= 34 ? '#ca8a04' : '#dc2626';
       doc.setFillColor(fillColor);
-      doc.roundedRect(barX, yPosition - 1.5, Math.max(1.5, barW * t.performancePct / 100), 4, 1, 1, 'F');
+      doc.roundedRect(barX, yPosition - 1, Math.max(1.5, barW * t.performancePct / 100), barH, 1, 1, 'F');
 
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(31, 41, 55);
-      doc.text(`${t.performancePct}%`, PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
+      doc.text(`${t.performancePct}%`, PAGE.width - PAGE.marginRight, yPosition + 1.5, { align: 'right' });
       yPosition += rowH;
     }
     yPosition += 1;
