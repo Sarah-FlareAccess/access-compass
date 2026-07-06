@@ -254,6 +254,33 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     yPosition += 3;
   };
 
+  // Helper: Add a labelled frequency bar list (recurring themes, strengths).
+  const renderFreqBars = (items: { label: string; count: number }[], barColor: string) => {
+    if (!items.length) return;
+    yPosition += 3;
+    const labelW = 60;
+    const barX = PAGE.marginLeft + labelW + 2;
+    const barW = PAGE.contentWidth - labelW - 2 - 12;
+    const maxC = items[0].count || 1;
+    for (const it of items) {
+      checkNewPage(9);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(31, 41, 55);
+      doc.text(doc.splitTextToSize(it.label, labelW)[0], PAGE.marginLeft, yPosition + 1.5);
+      doc.setFillColor(236, 234, 240);
+      doc.roundedRect(barX, yPosition - 1, barW, 3.5, 1, 1, 'F');
+      doc.setFillColor(barColor);
+      doc.roundedRect(barX, yPosition - 1, Math.max(1.5, barW * it.count / maxC), 3.5, 1, 1, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(31, 41, 55);
+      doc.text(String(it.count), PAGE.width - PAGE.marginRight, yPosition + 1.5, { align: 'right' });
+      yPosition += 8.5;
+    }
+    yPosition += 2;
+    doc.setTextColor(0, 0, 0);
+  };
+
   // Helper: Add bullet list
   const addBulletList = (items: string[], bulletColor: string = COLORS.gray) => {
     doc.setFontSize(9);
@@ -341,95 +368,94 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // COVER PAGE
   // ============================================
   if (includeCoverPage) {
-    // Deep purple background with simulated gradient
-    doc.setFillColor(58, 11, 82); // amethystDark
-    doc.rect(0, 0, PAGE.width, PAGE.height, 'F');
+    const ccx = PAGE.width / 2;
 
-    // Lighter purple overlay for gradient effect (right side)
+    // Amethyst top band (single tone, not layered) + light lower area, so the
+    // cover reads lighter than the previous all-purple layering.
     doc.setFillColor(73, 14, 103); // amethystDiamond
-    doc.rect(PAGE.width * 0.3, 0, PAGE.width * 0.7, PAGE.height * 0.5, 'F');
+    doc.rect(0, 0, PAGE.width, PAGE.height * 0.44, 'F');
+    doc.setFillColor(250, 247, 245); // warm ivory
+    doc.rect(0, PAGE.height * 0.44 + 3, PAGE.width, PAGE.height - (PAGE.height * 0.44 + 3), 'F');
 
-    // Decorative light ellipse effect (simulated with rect)
-    doc.setFillColor(91, 24, 151); // lighter purple
-    doc.ellipse(PAGE.width * 0.8, PAGE.height * 0.2, 60, 80, 'F');
-
-    // Orange accent bar (brand orange)
-    doc.setFillColor(255, 144, 21); // brand orange
-    doc.rect(0, PAGE.height * 0.42, PAGE.width, 4, 'F');
-
-    // Secondary thin accent
-    doc.setFillColor(255, 144, 21); // brand orange
-    doc.rect(0, PAGE.height * 0.42 + 4, PAGE.width * 0.4, 1, 'F');
-
-    // Title
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(36);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Accessibility', PAGE.width / 2, PAGE.height * 0.28, { align: 'center' });
-    doc.text('Self-Review Report', PAGE.width / 2, PAGE.height * 0.28 + 16, { align: 'center' });
-
-    // Report type badge (dark text on light amber for contrast)
-    const reportTypeText =
-      report.reportType === 'pulse-check' ? 'Pulse Check' : 'Deep Dive';
-    doc.setFillColor(255, 237, 200); // light amber bg
-    const badgeWidth = 50;
-    doc.roundedRect(PAGE.width / 2 - badgeWidth / 2, PAGE.height * 0.5 - 5, badgeWidth, 12, 3, 3, 'F');
-    doc.setDrawColor(224, 125, 0); // aussieDark border
-    doc.setLineWidth(0.5);
-    doc.roundedRect(PAGE.width / 2 - badgeWidth / 2, PAGE.height * 0.5 - 5, badgeWidth, 12, 3, 3, 'S');
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(120, 53, 0); // dark amber text for contrast
-    doc.text(reportTypeText, PAGE.width / 2, PAGE.height * 0.5 + 3, { align: 'center' });
+    // Subtle tone-on-tone compass watermark in the band (echoes the site hero)
+    const ccy = PAGE.height * 0.2;
+    doc.setDrawColor(96, 42, 134); // slightly lighter purple
+    doc.setLineWidth(0.6);
+    doc.circle(ccx, ccy, 44, 'S');
+    doc.circle(ccx, ccy, 31, 'S');
+    doc.setLineWidth(0.9);
+    doc.line(ccx, ccy - 44, ccx, ccy - 37); // N
+    doc.line(ccx, ccy + 37, ccx, ccy + 44); // S
+    doc.line(ccx - 44, ccy, ccx - 37, ccy); // W
+    doc.line(ccx + 37, ccy, ccx + 44, ccy); // E
+    doc.setFillColor(124, 66, 166);
+    doc.triangle(ccx, ccy - 27, ccx - 4, ccy, ccx + 4, ccy, 'F'); // needle N
+    doc.setFillColor(90, 32, 128);
+    doc.triangle(ccx, ccy + 21, ccx - 4, ccy, ccx + 4, ccy, 'F'); // needle S
+    doc.setFillColor(255, 144, 21);
+    doc.circle(ccx, ccy, 1.8, 'F'); // orange hub
     doc.setDrawColor(0, 0, 0);
 
-    // Organisation name with background card
-    doc.setFillColor(255, 255, 255);
-    const orgCardHeight = 35;
-    doc.roundedRect(PAGE.marginLeft + 10, PAGE.height * 0.56, PAGE.contentWidth - 20, orgCardHeight, 4, 4, 'F');
-
-    // Purple accent on org card
-    doc.setFillColor(73, 14, 103);
-    doc.roundedRect(PAGE.marginLeft + 10, PAGE.height * 0.56, 4, orgCardHeight, 2, 2, 'F');
-
-    doc.setFontSize(20);
+    // Title over the band
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(32);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(73, 14, 103); // amethystDiamond
-    doc.text(report.organisation, PAGE.width / 2, PAGE.height * 0.56 + (report.siteName ? 13 : 15), { align: 'center' });
+    doc.text('Accessibility', ccx, ccy - 3, { align: 'center' });
+    doc.text('Self-Review Report', ccx, ccy + 12, { align: 'center' });
+
+    // Orange divider
+    doc.setFillColor(255, 144, 21);
+    doc.rect(0, PAGE.height * 0.44, PAGE.width, 3, 'F');
+
+    // Report type badge, straddling the divider
+    const reportTypeText =
+      report.reportType === 'pulse-check' ? 'Pulse Check' : 'Deep Dive';
+    const badgeWidth = 50;
+    doc.setFillColor(255, 237, 200); // light amber bg
+    doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'F');
+    doc.setDrawColor(224, 125, 0);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'S');
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(120, 53, 0);
+    doc.text(reportTypeText, ccx, PAGE.height * 0.44 + 19, { align: 'center' });
+    doc.setDrawColor(0, 0, 0);
+
+    // Organisation name (dark on the light area)
+    doc.setFontSize(22);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(73, 14, 103);
+    doc.text(report.organisation, ccx, PAGE.height * 0.62, { align: 'center' });
 
     if (report.siteName) {
-      doc.setFontSize(12);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(73, 14, 103);
-      doc.text(report.siteName, PAGE.width / 2, PAGE.height * 0.56 + 22, { align: 'center' });
+      doc.setFontSize(13);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(90, 60, 120);
+      doc.text(report.siteName, ccx, PAGE.height * 0.62 + 9, { align: 'center' });
     }
 
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(107, 114, 128);
     doc.text(
-      `Generated: ${new Date(report.generatedAt).toLocaleDateString('en-AU', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
+      `Generated ${new Date(report.generatedAt).toLocaleDateString('en-AU', {
+        day: 'numeric', month: 'long', year: 'numeric',
       })}`,
-      PAGE.width / 2,
-      PAGE.height * 0.56 + (report.siteName ? 30 : 26),
+      ccx,
+      PAGE.height * 0.62 + (report.siteName ? 18 : 10),
       { align: 'center' }
     );
 
     // Branding at bottom
-    doc.setFillColor(255, 255, 255);
-    doc.roundedRect(PAGE.width / 2 - 40, PAGE.height * 0.84, 80, 20, 3, 3, 'F');
-
     doc.setFontSize(13);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(73, 14, 103);
-    doc.text('Access Compass', PAGE.width / 2, PAGE.height * 0.84 + 9, { align: 'center' });
+    doc.text('Access Compass', ccx, PAGE.height * 0.9, { align: 'center' });
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(107, 114, 128);
-    doc.text('by Flare Access', PAGE.width / 2, PAGE.height * 0.84 + 15, { align: 'center' });
+    doc.text('by Flare Access', ccx, PAGE.height * 0.9 + 6, { align: 'center' });
 
     // Start new page for content
     addNewPage();
@@ -658,8 +684,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // For board/exec audiences. Skips the rest of the report.
   // ============================================
   if (summaryOnly) {
-    // Where the priorities sit (the exec "so what")
+    // Where the priorities sit (the exec "so what") — on its own page.
     if (report.analysis.thematicSummaries.length > 0) {
+      addFooter();
+      addNewPage();
       addSectionTitle('Where the Priorities Sit');
       for (const s of report.analysis.thematicSummaries) {
         checkNewPage(18);
@@ -672,11 +700,18 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       }
     }
 
-    // Top priorities, highest priority first (not just first in list order)
-    const rank: Record<string, number> = { high: 0, medium: 1, low: 2 };
+    // Top priorities: rank genuinely by risk, not list order.
+    // Safety-related first, then mandatory-compliance gaps, then by priority.
+    const rank: Record<string, number> = { high: 0, medium: 100, low: 200 };
+    const rankKey = (it: CategorisedItem): number => {
+      let s = rank[it.priority || 'low'];
+      if (it.safetyRelated) s -= 20;
+      if (it.complianceLevel === 'mandatory') s -= 10;
+      return s;
+    };
     const topActions = (report.sections.priorityActions.categorised || [])
       .slice()
-      .sort((a, b) => (rank[a.priority || 'low'] - rank[b.priority || 'low']))
+      .sort((a, b) => rankKey(a) - rankKey(b))
       .slice(0, 3);
     if (topActions.length > 0) {
       addSectionTitle('Top Priorities');
@@ -724,9 +759,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     }
 
     // Skip table of contents + all detail sections. Run the
-    // page-numbering second pass so the footer is correct.
+    // page-numbering second pass so the footer is correct. Skip page 1 only
+    // when it is a cover; the exec summary has no cover, so number from page 1.
     const totalPages = doc.getNumberOfPages();
-    for (let i = 2; i <= totalPages; i++) {
+    for (let i = includeCoverPage ? 2 : 1; i <= totalPages; i++) {
       doc.setPage(i);
       const fy = PAGE.height - 12;
       doc.setFillColor(250, 248, 245);
@@ -797,11 +833,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
-    doc.text('How often each theme appears across the recommendations.', PAGE.marginLeft, yPosition);
-    yPosition += 6;
+    doc.text('Themes that appear across multiple recommendations, most frequent first.', PAGE.marginLeft, yPosition);
+    yPosition += 4;
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(0, 0, 0);
-    addParagraph(report.analysis.recurringThemes.map(t => `${t.label} (${t.count})`).join('    ·    '), 9.5);
+    renderFreqBars(report.analysis.recurringThemes, COLORS.amethystDiamond);
   }
 
   // --- Where the priorities sit ---
@@ -821,7 +857,14 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // --- Where you're strongest ---
   if (report.analysis.strengthsByTheme.length > 0) {
     addSectionTitle("Where You're Strongest");
-    addParagraph(report.analysis.strengthsByTheme.map(t => `${t.label} (${t.count})`).join('    ·    '), 9.5);
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(107, 114, 128);
+    doc.text('Areas with the most strengths identified, highest first.', PAGE.marginLeft, yPosition);
+    yPosition += 4;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    renderFreqBars(report.analysis.strengthsByTheme, '#16a34a');
   }
 
   // --- Suggested starting sequence ---
@@ -901,6 +944,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // ============================================
   // GROUP 2: ASSESSMENT EVIDENCE
   // ============================================
+  // Assessment Evidence starts on a fresh page for a clean section break.
+  if (yPosition > PAGE.marginTop + 20) {
+    addFooter();
+    addNewPage();
+  }
   addGroupHeader('Assessment Evidence');
 
   // ============================================
@@ -1618,7 +1666,7 @@ export function downloadPDFReport(report: Report): void {
  * want the headline, not the workpaper.
  */
 export function downloadExecutiveSummaryPDF(report: Report): void {
-  const doc = generatePDFReport({ report, summaryOnly: true, includeTableOfContents: false });
+  const doc = generatePDFReport({ report, summaryOnly: true, includeTableOfContents: false, includeCoverPage: false });
   const scope = report.siteName ? `${report.siteName.replace(/[^a-z0-9]/gi, '-')}-` : '';
   const fileName = `${report.organisation.replace(/[^a-z0-9]/gi, '-')}-${scope}executive-summary-${
     new Date().toISOString().split('T')[0]

@@ -212,15 +212,18 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     .slice(0, 6);
 
   // --- Suggested starting sequence (not a fixed schedule) ---
+  // Each step names the concrete themes at that priority, so nothing reads as a
+  // vague placeholder.
   const startHere = countThemes(highActions, 3).map(t => t.label);
   if (quickWinsCount > 0) startHere.push('Quick wins');
-  const buildOn = countThemes(actions.filter(a => a.priority === 'medium'), 3).map(t => t.label);
+  const next = countThemes(actions.filter(a => a.priority === 'medium'), 3).map(t => t.label);
+  const later = countThemes(actions.filter(a => a.priority === 'low'), 3).map(t => t.label);
 
   const startingSequence: SequenceStep[] = [];
   if (startHere.length) startingSequence.push({ heading: 'Start here', items: startHere });
-  if (buildOn.length) startingSequence.push({ heading: 'Build on it', items: buildOn });
-  if (low > 0) startingSequence.push({ heading: 'Then', items: ['Lower-risk best-practice improvements'] });
-  startingSequence.push({ heading: 'Sustain', items: ['Reassess to measure progress', 'Embed actions into your action plan'] });
+  if (next.length) startingSequence.push({ heading: 'Next', items: next });
+  if (later.length) startingSequence.push({ heading: 'Later', items: later });
+  startingSequence.push({ heading: 'Ongoing', items: ['Reassess to measure progress', 'Embed actions into your action plan'] });
 
   return { interpretation, recurringThemes, thematicSummaries, strengthsByTheme, startingSequence };
 }
