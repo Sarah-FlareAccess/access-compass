@@ -212,17 +212,26 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     .slice(0, 6);
 
   // --- Suggested starting sequence (not a fixed schedule) ---
-  // Each step names the concrete themes at that priority, so nothing reads as a
-  // vague placeholder.
-  const startHere = countThemes(highActions, 3).map(t => t.label);
+  // Each step names concrete themes. A theme appears in only one step, its
+  // highest-priority bucket, so the same area is never listed as both "start
+  // here" and "later".
+  const startThemes = countThemes(highActions, 3).map(t => t.label);
+  const seenThemes = new Set(startThemes);
+  const nextThemes = countThemes(actions.filter(a => a.priority === 'medium'), 3)
+    .map(t => t.label)
+    .filter(l => !seenThemes.has(l));
+  nextThemes.forEach(l => seenThemes.add(l));
+  const laterThemes = countThemes(actions.filter(a => a.priority === 'low'), 3)
+    .map(t => t.label)
+    .filter(l => !seenThemes.has(l));
+
+  const startHere = [...startThemes];
   if (quickWinsCount > 0) startHere.push('Quick wins');
-  const next = countThemes(actions.filter(a => a.priority === 'medium'), 3).map(t => t.label);
-  const later = countThemes(actions.filter(a => a.priority === 'low'), 3).map(t => t.label);
 
   const startingSequence: SequenceStep[] = [];
   if (startHere.length) startingSequence.push({ heading: 'Start here', items: startHere });
-  if (next.length) startingSequence.push({ heading: 'Next', items: next });
-  if (later.length) startingSequence.push({ heading: 'Later', items: later });
+  if (nextThemes.length) startingSequence.push({ heading: 'Next', items: nextThemes });
+  if (laterThemes.length) startingSequence.push({ heading: 'Later', items: laterThemes });
   startingSequence.push({ heading: 'Ongoing', items: ['Reassess to measure progress', 'Embed actions into your action plan'] });
 
   return { interpretation, recurringThemes, thematicSummaries, strengthsByTheme, startingSequence };
