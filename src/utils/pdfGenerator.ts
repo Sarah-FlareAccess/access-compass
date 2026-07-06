@@ -78,6 +78,17 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   const { report, includeCoverPage = true, includeTableOfContents = true, summaryOnly = false } = options;
   const doc = new jsPDF('p', 'mm', 'a4');
 
+  // Document-level accessibility metadata. Full PDF/UA tagging is not produced
+  // by jsPDF, but a document language and descriptive properties help assistive
+  // technology and are a baseline expectation.
+  doc.setLanguage('en-AU');
+  doc.setProperties({
+    title: `Accessibility Self-Review Report — ${report.organisation}`,
+    subject: 'Accessibility self-review report',
+    author: 'Access Compass by Flare Access',
+    creator: 'Access Compass',
+  });
+
   let currentPage = 1;
   let yPosition = PAGE.marginTop;
 
@@ -231,6 +242,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // Helper: Add paragraph text with word wrapping
   const addParagraph = (text: string, fontSize: number = 9) => {
     doc.setFontSize(fontSize);
+    doc.setFont('helvetica', 'normal');
     const lines = doc.splitTextToSize(text, PAGE.contentWidth);
     const lineHeight = fontSize * 0.4;
 
