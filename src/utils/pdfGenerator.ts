@@ -764,7 +764,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     const topStrengths = (report.sections.strengths.categorised || []).slice(0, 3);
     if (topStrengths.length > 0) {
-      addSectionTitle('What\'s Going Well', COLORS.green);
+      addSectionTitle('What\'s Going Well', '#166534');
       for (const item of topStrengths) {
         const label = item.text || '';
         if (!label) continue;
