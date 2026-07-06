@@ -571,26 +571,41 @@ function domainsForModule(rawCode: string | undefined): Domain[] {
   return MODULE_DOMAINS[code] || ALL_DOMAINS;
 }
 
+// Pick the in-domain topic whose keyword appears earliest in the question. A
+// question like "adequate lighting throughout circulation paths" names its
+// subject first, so leftmost-match chooses lighting over paths where plain
+// list order would wrongly pick paths. Ties keep the earlier (more specific)
+// TOPICS entry.
+function matchTopic(moduleCode: string | undefined, questionText: string): DiapTopic | null {
+  const domains = domainsForModule(moduleCode);
+  const lower = (questionText || '').toLowerCase();
+  let best: DiapTopic | null = null;
+  let bestPos = Infinity;
+  for (const t of TOPICS) {
+    if (!t.domains.some(d => domains.includes(d))) continue;
+    const pos = lower.search(t.pattern);
+    if (pos >= 0 && pos < bestPos) {
+      bestPos = pos;
+      best = t;
+    }
+  }
+  return best;
+}
+
 /**
  * Select the action steps and success indicators for a question, scoped to its
  * module's domain so unrelated topics can never be matched.
  */
 export function selectDiapContent(moduleCode: string | undefined, questionText: string): { steps: [string, string]; indicators: string[] } {
+  const t = matchTopic(moduleCode, questionText);
+  if (t) return { steps: t.steps, indicators: t.indicators };
   const domains = domainsForModule(moduleCode);
-  const lower = (questionText || '').toLowerCase();
-  for (const t of TOPICS) {
-    if (!t.domains.some(d => domains.includes(d))) continue;
-    if (t.pattern.test(lower)) return { steps: t.steps, indicators: t.indicators };
-  }
   return DOMAIN_DEFAULT[domains[0]] || DOMAIN_DEFAULT.service;
 }
 
 // Returns the matched topic key (or `default:<domain>`). For auditing/tests.
 export function selectDiapTopicKey(moduleCode: string | undefined, questionText: string): string {
-  const domains = domainsForModule(moduleCode);
-  const lower = (questionText || '').toLowerCase();
-  for (const t of TOPICS) {
-    if (t.domains.some(d => domains.includes(d)) && t.pattern.test(lower)) return t.key;
-  }
-  return `default:${domains[0]}`;
+  const t = matchTopic(moduleCode, questionText);
+  if (t) return t.key;
+  return `default:${domainsForModule(moduleCode)[0]}`;
 }

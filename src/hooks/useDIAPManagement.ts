@@ -269,6 +269,34 @@ function getLocalItems(): DIAPItem[] {
     }
   }
 
+  // One-time migration v7: regenerate action steps and success indicators for
+  // auto-generated items using the module-domain content model. Fixes the
+  // cross-domain topic mismatches and gives every audit item a clean 3-step
+  // action. Only touches audit-source items; manual/CSV/PDF imports are left
+  // as the user entered them.
+  if (!localStorage.getItem('diap_content_v7')) {
+    let v7Changed = false;
+    for (const item of items) {
+      if (!item.moduleSource || item.importSource !== 'audit') continue;
+      const moduleCode = extractModuleCode(item.moduleSource);
+      if (!moduleCode) continue;
+      const mod = getModuleById(moduleCode);
+      const baseQuestionId = item.questionSource?.replace(/-(media|url)-\d+$/, '') || '';
+      const question = mod
+        ? getQuestionsForMode(mod, 'deep-dive').find(q => q.id === baseQuestionId || q.id === item.questionSource)
+        : undefined;
+      if (question) {
+        item.action = generateDIAPActions(question, item.sourceAnswer || 'no', moduleCode);
+        item.successIndicators = generateSuccessIndicator(question, moduleCode);
+        v7Changed = true;
+      }
+    }
+    localStorage.setItem('diap_content_v7', 'done');
+    if (v7Changed) {
+      localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
+    }
+  }
+
   // Deduplicate items by questionSource (keep the first occurrence)
   const seen = new Set<string>();
   let deduped = false;
