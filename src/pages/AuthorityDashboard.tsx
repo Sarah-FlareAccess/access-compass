@@ -306,9 +306,6 @@ export default function AuthorityDashboard() {
       {/* Cohort snapshot - rich visuals from latest program reports */}
       <CohortSnapshot
         maturity={cohortMaturity}
-        topPriorities={cohortTopPriorities}
-        topStrengths={cohortTopStrengths}
-        topAreasToExplore={cohortAreasToExplore}
         categoryHeatmap={categoryHeatmap}
         recentActivity={recentActivity}
         hasReports={latestSnapshots.length > 0}
@@ -398,6 +395,15 @@ export default function AuthorityDashboard() {
         </div>
       )}
 
+      {/* Cohort narrative lists - detailed read, kept at the foot of the page */}
+      {latestSnapshots.length > 0 && programs.length > 0 && (
+        <CohortActionLists
+          topPriorities={cohortTopPriorities}
+          topStrengths={cohortTopStrengths}
+          topAreasToExplore={cohortAreasToExplore}
+        />
+      )}
+
       {/* Quick links */}
       <div className="authority-quicklinks">
         <Link to="/authority/programs" className="authority-quicklink">
@@ -430,9 +436,6 @@ export default function AuthorityDashboard() {
 // =====================================================
 interface CohortSnapshotProps {
   maturity: { strong: number; mixed: number; needsWork: number; total: number };
-  topPriorities: Array<{ action: string; count: number; priority?: string; programIds: string[] }>;
-  topStrengths: Array<{ text: string; count: number }>;
-  topAreasToExplore: Array<{ text: string; count: number }>;
   categoryHeatmap: Array<{ category: string; strong: number; mixed: number; needsWork: number; total: number; moduleCount: number }>;
   recentActivity: { sevenDays: number; priorSeven: number; delta: number };
   hasReports: boolean;
@@ -442,7 +445,7 @@ interface CohortSnapshotProps {
   programCount: number;
 }
 
-function CohortSnapshot({ maturity, topPriorities, topStrengths, topAreasToExplore, categoryHeatmap, recentActivity, hasReports, programs, filterProgramId, setFilterProgramId, programCount }: CohortSnapshotProps) {
+function CohortSnapshot({ maturity, categoryHeatmap, recentActivity, hasReports, programs, filterProgramId, setFilterProgramId, programCount }: CohortSnapshotProps) {
   if (programCount === 0) return null;
 
   if (!hasReports) {
@@ -553,6 +556,23 @@ function CohortSnapshot({ maturity, topPriorities, topStrengths, topAreasToExplo
           </div>
         )}
 
+      </div>
+    </section>
+  );
+}
+
+// The narrative cohort lists live at the foot of the dashboard: the visual
+// snapshot up top reads at a glance, these detailed reads come last.
+interface CohortActionListsProps {
+  topPriorities: Array<{ action: string; count: number; priority?: string; programIds: string[] }>;
+  topStrengths: Array<{ text: string; count: number }>;
+  topAreasToExplore: Array<{ text: string; count: number }>;
+}
+
+function CohortActionLists({ topPriorities, topStrengths, topAreasToExplore }: CohortActionListsProps) {
+  return (
+    <section className="cohort-snapshot">
+      <div className="cohort-snapshot__grid">
         {/* Top priorities */}
         <div className="cohort-card cohort-card--span2">
           <div className="cohort-card__header">
