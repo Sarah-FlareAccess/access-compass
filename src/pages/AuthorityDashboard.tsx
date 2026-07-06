@@ -539,6 +539,20 @@ function CohortSnapshot({ maturity, topPriorities, topStrengths, topAreasToExplo
           </div>
         </div>
 
+        {/* Category heatmap - the visual companion to the maturity donut */}
+        {categoryHeatmap.length > 0 && (
+          <div className="cohort-card cohort-card--span2">
+            <div className="cohort-card__header">
+              <h3>Maturity by access category</h3>
+              <span className="cohort-card__subtitle">
+                Confidence grouped by area of access. Wider green = cohort is genuinely doing well.
+                Wider red = needs collective attention.
+              </span>
+            </div>
+            <ModuleHeatmap rows={categoryHeatmap} />
+          </div>
+        )}
+
         {/* Top priorities */}
         <div className="cohort-card cohort-card--span2">
           <div className="cohort-card__header">
@@ -580,20 +594,6 @@ function CohortSnapshot({ maturity, topPriorities, topStrengths, topAreasToExplo
             <p className="cohort-card__empty">No strengths captured yet.</p>
           )}
         </div>
-
-        {/* Category heatmap */}
-        {categoryHeatmap.length > 0 && (
-          <div className="cohort-card cohort-card--span2">
-            <div className="cohort-card__header">
-              <h3>Maturity by access category</h3>
-              <span className="cohort-card__subtitle">
-                Confidence grouped by area of access. Wider green = cohort is genuinely doing well.
-                Wider red = needs collective attention.
-              </span>
-            </div>
-            <ModuleHeatmap rows={categoryHeatmap} />
-          </div>
-        )}
 
         {/* Top areas to explore */}
         {topAreasToExplore.length > 0 && (
