@@ -274,7 +274,7 @@ function getLocalItems(): DIAPItem[] {
   // cross-domain topic mismatches and gives every audit item a clean 3-step
   // action. Only touches audit-source items; manual/CSV/PDF imports are left
   // as the user entered them.
-  if (!localStorage.getItem('diap_content_v7')) {
+  if (!localStorage.getItem('diap_content_v8')) {
     let v7Changed = false;
     for (const item of items) {
       if (!item.moduleSource || item.importSource !== 'audit') continue;
@@ -291,7 +291,7 @@ function getLocalItems(): DIAPItem[] {
         v7Changed = true;
       }
     }
-    localStorage.setItem('diap_content_v7', 'done');
+    localStorage.setItem('diap_content_v8', 'done');
     if (v7Changed) {
       localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
     }
@@ -2089,8 +2089,13 @@ function stripFillerSteps(action: string): string {
   for (const pattern of fillerPatterns) {
     cleaned = cleaned.replace(pattern, '');
   }
-  // If the action was "1. [real action]" and we stripped steps 2+3, remove the leading "1. "
-  cleaned = cleaned.replace(/^\s*1\.\s+/, '').trim();
+  cleaned = cleaned.trim();
+  // Only drop the leading "1. " when stripping filler left a single step. If a
+  // numbered step 2 remains, keep the "1." so the list stays consistently
+  // numbered (otherwise the first step shows unnumbered next to 2. and 3.).
+  if (!/(^|\n)\s*2\.\s/.test(cleaned)) {
+    cleaned = cleaned.replace(/^\s*1\.\s+/, '').trim();
+  }
   return cleaned;
 }
 
