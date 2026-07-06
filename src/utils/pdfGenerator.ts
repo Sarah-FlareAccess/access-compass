@@ -779,13 +779,28 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   if (report.moduleEvidence && report.moduleEvidence.length > 0) {
     addSectionTitle('Modules Reviewed');
 
+    // Caption so the columns are self-explanatory
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(107, 114, 128);
+    const capLines = doc.splitTextToSize(
+      'Strengths: things already done well. Actions: improvements identified. Confidence: how complete and certain the responses were for that module.',
+      PAGE.contentWidth
+    );
+    for (const cl of capLines) {
+      checkNewPage(6);
+      doc.text(cl, PAGE.marginLeft, yPosition);
+      yPosition += 4;
+    }
+    yPosition += 3;
+
     // Column header
     checkNewPage(14);
     doc.setFontSize(7);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(107, 114, 128);
     doc.text('MODULE', PAGE.marginLeft + 1, yPosition);
-    doc.text('GOOD', PAGE.marginLeft + 122, yPosition, { align: 'right' });
+    doc.text('STRENGTHS', PAGE.marginLeft + 122, yPosition, { align: 'right' });
     doc.text('ACTIONS', PAGE.marginLeft + 147, yPosition, { align: 'right' });
     doc.text('CONFIDENCE', PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
     yPosition += 2;
