@@ -239,17 +239,19 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFont('helvetica', 'normal');
   };
 
-  // Helper: Add paragraph text with word wrapping
-  const addParagraph = (text: string, fontSize: number = 9) => {
-    doc.setFontSize(fontSize);
+  // Helper: Add paragraph text with word wrapping. Body copy is floored at
+  // 11pt for print accessibility.
+  const addParagraph = (text: string, fontSize: number = 11) => {
+    const fs = Math.max(11, fontSize);
+    doc.setFontSize(fs);
     doc.setFont('helvetica', 'normal');
     const lines = doc.splitTextToSize(text, PAGE.contentWidth);
-    const lineHeight = fontSize * 0.4;
+    const lineHeight = fs * 0.5;
 
     for (const line of lines) {
       checkNewPage(lineHeight + 2);
       doc.text(line, PAGE.marginLeft, yPosition);
-      yPosition += lineHeight + 1;
+      yPosition += lineHeight;
     }
     yPosition += 3;
   };
@@ -377,31 +379,33 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFillColor(250, 247, 245); // warm ivory
     doc.rect(0, PAGE.height * 0.44 + 3, PAGE.width, PAGE.height - (PAGE.height * 0.44 + 3), 'F');
 
-    // Subtle tone-on-tone compass watermark in the band (echoes the site hero)
-    const ccy = PAGE.height * 0.2;
+    // Subtle tone-on-tone compass, offset to the lower-right of the band so it
+    // sits beside the title rather than under it (mirrors the site hero layout).
+    const cpx = PAGE.width * 0.70;
+    const cpy = PAGE.height * 0.31;
     doc.setDrawColor(96, 42, 134); // slightly lighter purple
     doc.setLineWidth(0.6);
-    doc.circle(ccx, ccy, 44, 'S');
-    doc.circle(ccx, ccy, 31, 'S');
+    doc.circle(cpx, cpy, 30, 'S');
+    doc.circle(cpx, cpy, 21, 'S');
     doc.setLineWidth(0.9);
-    doc.line(ccx, ccy - 44, ccx, ccy - 37); // N
-    doc.line(ccx, ccy + 37, ccx, ccy + 44); // S
-    doc.line(ccx - 44, ccy, ccx - 37, ccy); // W
-    doc.line(ccx + 37, ccy, ccx + 44, ccy); // E
+    doc.line(cpx, cpy - 30, cpx, cpy - 25); // N
+    doc.line(cpx, cpy + 25, cpx, cpy + 30); // S
+    doc.line(cpx - 30, cpy, cpx - 25, cpy); // W
+    doc.line(cpx + 25, cpy, cpx + 30, cpy); // E
     doc.setFillColor(124, 66, 166);
-    doc.triangle(ccx, ccy - 27, ccx - 4, ccy, ccx + 4, ccy, 'F'); // needle N
+    doc.triangle(cpx, cpy - 18, cpx - 3.5, cpy, cpx + 3.5, cpy, 'F'); // needle N
     doc.setFillColor(90, 32, 128);
-    doc.triangle(ccx, ccy + 21, ccx - 4, ccy, ccx + 4, ccy, 'F'); // needle S
+    doc.triangle(cpx, cpy + 14, cpx - 3.5, cpy, cpx + 3.5, cpy, 'F'); // needle S
     doc.setFillColor(255, 144, 21);
-    doc.circle(ccx, ccy, 1.8, 'F'); // orange hub
+    doc.circle(cpx, cpy, 1.6, 'F'); // orange hub
     doc.setDrawColor(0, 0, 0);
 
-    // Title over the band
+    // Title, left-aligned on clean purple beside the compass
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(32);
+    doc.setFontSize(30);
     doc.setFont('helvetica', 'bold');
-    doc.text('Accessibility', ccx, ccy - 3, { align: 'center' });
-    doc.text('Self-Review Report', ccx, ccy + 12, { align: 'center' });
+    doc.text('Accessibility', PAGE.marginLeft + 4, PAGE.height * 0.19, { align: 'left' });
+    doc.text('Self-Review Report', PAGE.marginLeft + 4, PAGE.height * 0.19 + 13, { align: 'left' });
 
     // Orange divider
     doc.setFillColor(255, 144, 21);
@@ -691,11 +695,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       addSectionTitle('Where the Priorities Sit');
       for (const s of report.analysis.thematicSummaries) {
         checkNewPage(18);
-        doc.setFontSize(9.5);
+        doc.setFontSize(11);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(COLORS.text);
         doc.text(s.title, PAGE.marginLeft, yPosition);
-        yPosition += 5;
+        yPosition += 5.5;
         addParagraph(s.body, 9);
       }
     }
@@ -727,21 +731,21 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     if (report.analysis.startingSequence.length > 0) {
       addSectionTitle('Suggested Starting Sequence');
       for (const step of report.analysis.startingSequence) {
-        checkNewPage(10);
-        doc.setFontSize(9);
+        checkNewPage(12);
+        doc.setFontSize(11);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(COLORS.amethystDiamond);
         doc.text(step.heading, PAGE.marginLeft, yPosition);
         const headW = doc.getTextWidth(step.heading);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(COLORS.text);
-        const lines = doc.splitTextToSize(step.items.join(', '), PAGE.contentWidth - headW - 6);
+        const lines = doc.splitTextToSize(step.items.join(', '), PAGE.contentWidth - headW - 8);
         doc.text(lines[0] || '', PAGE.marginLeft + headW + 4, yPosition);
-        yPosition += 4.5;
+        yPosition += 5.3;
         for (let i = 1; i < lines.length; i++) {
-          checkNewPage(5);
+          checkNewPage(6);
           doc.text(lines[i], PAGE.marginLeft + 4, yPosition);
-          yPosition += 4.5;
+          yPosition += 5.3;
         }
         yPosition += 1.5;
       }
@@ -1222,30 +1226,32 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     { label: 'Low', color: '#1a4fd6', desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower legal risk.' },
   ];
   for (const item of legendItems) {
+    // Reserve label + first description line so the label never orphans.
+    checkNewPage(12);
     // Label in priority color
-    doc.setFontSize(9);
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(item.color);
     doc.text(`${item.label}`, PAGE.marginLeft + 4, yPosition);
-    yPosition += 4;
+    yPosition += 5;
 
     // Description wrapped
-    doc.setFontSize(8);
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(COLORS.gray);
     const descLines = doc.splitTextToSize(item.desc, PAGE.contentWidth - 10);
     for (const line of descLines) {
-      checkNewPage(4);
+      checkNewPage(5.5);
       doc.text(line, PAGE.marginLeft + 4, yPosition);
-      yPosition += 3.5;
+      yPosition += 5;
     }
-    yPosition += 2;
+    yPosition += 3;
   }
   yPosition += 2;
 
   // Encouragement text (shown once)
-  checkNewPage(14);
-  doc.setFontSize(8);
+  checkNewPage(16);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(COLORS.gray);
   const encLines = doc.splitTextToSize(
@@ -1253,9 +1259,9 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     PAGE.contentWidth - 8
   );
   for (const line of encLines) {
-    checkNewPage(5);
+    checkNewPage(5.5);
     doc.text(line, PAGE.marginLeft + 4, yPosition);
-    yPosition += 4;
+    yPosition += 5;
   }
   yPosition += 6;
 
@@ -1309,7 +1315,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text(mod.moduleCode, PAGE.marginLeft + 8 + badgeW / 2, yPosition + 1.5, { align: 'center' });
 
     // Module name
-    doc.setFontSize(10);
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(COLORS.text);
     doc.text(mod.moduleName, PAGE.marginLeft + 8 + badgeW + 3, yPosition + 1.5);
@@ -1349,35 +1355,36 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     ) => {
       if (items.length === 0) return;
 
-      checkNewPage(18);
-      doc.setFontSize(9);
+      // Reserve heading + first line so a priority heading never orphans.
+      checkNewPage(24);
+      doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(headingColor);
       doc.text(`${heading} (${items.length})`, PAGE.marginLeft + 6, yPosition + 1);
-      yPosition += 7.5;
+      yPosition += 8;
 
       const textX = PAGE.marginLeft + 11;
       const textW = PAGE.contentWidth - 13;
       for (const item of items) {
         const cleanText = stripSuffix(item.text);
-        doc.setFontSize(8.5);
+        doc.setFontSize(11);
         doc.setFont('helvetica', 'normal');
         const lines = doc.splitTextToSize(cleanText, textW);
-        const lineH = 4;
+        const lineH = 5.3;
         const blockH = lines.length * lineH;
 
         checkNewPage(blockH + 3);
 
         // Thin coloured marker down the left of the item
         doc.setFillColor(accentColor);
-        doc.roundedRect(PAGE.marginLeft + 6, yPosition - 2.6, 1.6, blockH + 0.4, 0.8, 0.8, 'F');
+        doc.roundedRect(PAGE.marginLeft + 6, yPosition - 3.3, 1.8, blockH + 0.4, 0.8, 0.8, 'F');
 
         doc.setTextColor(COLORS.text);
         for (let i = 0; i < lines.length; i++) {
           doc.text(lines[i], textX, yPosition + i * lineH);
         }
 
-        yPosition += blockH + 2.4;
+        yPosition += blockH + 3;
       }
 
       yPosition += 2;
@@ -1462,9 +1469,9 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   yPosition += 6;
 
   for (const item of report.nextSteps.exploreNow) {
-    doc.setFontSize(9);
+    doc.setFontSize(11);
     const lines = doc.splitTextToSize(item, PAGE.contentWidth - 14);
-    const itemHeight = lines.length * 4.2 + 6;
+    const itemHeight = lines.length * 5.3 + 6;
     checkNewPage(itemHeight);
 
     // Card with green left accent
@@ -1476,7 +1483,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(COLORS.text);
     for (let j = 0; j < lines.length; j++) {
-      doc.text(lines[j], PAGE.marginLeft + 9, yPosition + 2 + j * 4.2);
+      doc.text(lines[j], PAGE.marginLeft + 9, yPosition + 2 + j * 5.3);
     }
     yPosition += itemHeight;
   }
@@ -1491,9 +1498,9 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   yPosition += 6;
 
   for (const item of report.nextSteps.planForLater) {
-    doc.setFontSize(9);
+    doc.setFontSize(11);
     const lines = doc.splitTextToSize(item, PAGE.contentWidth - 14);
-    const itemHeight = lines.length * 4.2 + 6;
+    const itemHeight = lines.length * 5.3 + 6;
     checkNewPage(itemHeight);
 
     // Card with purple left accent
@@ -1505,7 +1512,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(COLORS.text);
     for (let j = 0; j < lines.length; j++) {
-      doc.text(lines[j], PAGE.marginLeft + 9, yPosition + 2 + j * 4.2);
+      doc.text(lines[j], PAGE.marginLeft + 9, yPosition + 2 + j * 5.3);
     }
     yPosition += itemHeight;
   }
@@ -1598,30 +1605,30 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // ============================================
   addSectionTitle('Important Disclaimer', '#92400e');
 
-  checkNewPage(30);
-  doc.setFillColor(255, 251, 235);
-  doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, 35, 2, 2, 'F');
-  // Dark amber left accent bar for contrast
-  doc.setFillColor('#92400e');
-  doc.roundedRect(PAGE.marginLeft, yPosition, 3, 35, 1, 1, 'F');
-  // Subtle border
-  doc.setDrawColor(217, 119, 6); // amber-600
-  doc.setLineWidth(0.3);
-  doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, 35, 2, 2, 'S');
-
-  yPosition += 5;
-  doc.setFontSize(9);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(COLORS.text); // dark text for contrast on light yellow bg
-
   const disclaimerLines = doc.splitTextToSize(
     'This guidance is for information only. It is not legal advice, a compliance certificate, or a substitute for professional accessibility auditing. Actions are suggestions based on your responses. This review is indicative only and based on self-reported information. It does not verify accuracy or confirm compliance with accessibility standards or legal requirements.',
     PAGE.contentWidth - 12
   );
+  const disclaimerBoxH = disclaimerLines.length * 5 + 8;
 
+  checkNewPage(disclaimerBoxH + 4);
+  doc.setFillColor(255, 251, 235);
+  doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, disclaimerBoxH, 2, 2, 'F');
+  // Dark amber left accent bar for contrast
+  doc.setFillColor('#92400e');
+  doc.roundedRect(PAGE.marginLeft, yPosition, 3, disclaimerBoxH, 1, 1, 'F');
+  // Subtle border
+  doc.setDrawColor(217, 119, 6); // amber-600
+  doc.setLineWidth(0.3);
+  doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, disclaimerBoxH, 2, 2, 'S');
+
+  yPosition += 6;
+  doc.setTextColor(COLORS.text); // dark text for contrast on light yellow bg
   disclaimerLines.forEach((line: string) => {
     doc.text(line, PAGE.marginLeft + 7, yPosition);
-    yPosition += 4;
+    yPosition += 5;
   });
   doc.setDrawColor(0, 0, 0);
 
