@@ -20,6 +20,7 @@ import type { DIAPComment } from '../types/activity';
 import { getModuleById, getQuestionsForMode } from '../data/accessModules';
 import { generateActionText } from '../components/questions/QuestionFlow';
 import { selectDiapContent } from '../utils/diapContent';
+import { DIAP_QUESTION_CONTENT } from '../data/diapQuestionContent';
 import { generateModuleSummary } from '../utils/generateModuleSummary';
 
 export type DIAPCategory =
@@ -274,7 +275,7 @@ function getLocalItems(): DIAPItem[] {
   // cross-domain topic mismatches and gives every audit item a clean 3-step
   // action. Only touches audit-source items; manual/CSV/PDF imports are left
   // as the user entered them.
-  if (!localStorage.getItem('diap_content_v8')) {
+  if (!localStorage.getItem('diap_content_v9')) {
     let v7Changed = false;
     for (const item of items) {
       if (!item.moduleSource || item.importSource !== 'audit') continue;
@@ -291,7 +292,7 @@ function getLocalItems(): DIAPItem[] {
         v7Changed = true;
       }
     }
-    localStorage.setItem('diap_content_v8', 'done');
+    localStorage.setItem('diap_content_v9', 'done');
     if (v7Changed) {
       localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
     }
@@ -888,7 +889,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         id: uuidv4(),
         sessionId: session?.session_id || '',
         objective: generateObjective({ text: response.questionText }, response.answer, response.moduleCode),
-        action: generateDIAPActions({ text: response.questionText }, response.answer, response.moduleCode),
+        action: generateDIAPActions({ id: response.questionId, text: response.questionText }, response.answer, response.moduleCode),
         category: response.category || 'operations-policy-procedure',
         priority,
         timeframe,
@@ -2188,6 +2189,10 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
 
 
 function generateSuccessIndicator(question: any, moduleCode?: string): string {
+  const perQuestion = question.id ? DIAP_QUESTION_CONTENT[question.id] : undefined;
+  if (perQuestion) {
+    return perQuestion.indicators.map(s => `• ${s}`).join('\n');
+  }
   return selectDiapContent(moduleCode, question.text || '').indicators.join('\n');
 }
 
@@ -2215,6 +2220,10 @@ function generateObjective(question: any, _answer: string, moduleCode?: string):
 
 
 function generateDIAPActions(question: any, answer: string, moduleCode?: string): string {
+  const perQuestion = question.id ? DIAP_QUESTION_CONTENT[question.id] : undefined;
+  if (perQuestion) {
+    return perQuestion.steps.map((s, i) => `${i + 1}. ${s}`).join('\n');
+  }
   const primaryAction = getDIAPActionText(question, answer);
   const { steps } = selectDiapContent(moduleCode, question.text || '');
   return [primaryAction, ...steps].map((s, i) => `${i + 1}. ${s}`).join('\n');
