@@ -370,32 +370,33 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     textColor?: string
   ) => {
     const numColor = textColor || borderColor;
+    const h = 23;
 
     // White background with subtle border
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(x, y, width, 28, 3, 3, 'F');
+    doc.roundedRect(x, y, width, h, 3, 3, 'F');
 
     // Light border
     doc.setDrawColor(230, 230, 230);
     doc.setLineWidth(0.3);
-    doc.roundedRect(x, y, width, 28, 3, 3, 'S');
+    doc.roundedRect(x, y, width, h, 3, 3, 'S');
 
     // Colored left border (3px)
     doc.setFillColor(borderColor);
-    doc.roundedRect(x, y, 3, 28, 2, 0, 'F');
-    doc.rect(x + 1, y, 2, 28, 'F');
+    doc.roundedRect(x, y, 3, h, 2, 0, 'F');
+    doc.rect(x + 1, y, 2, h, 'F');
 
     // Value in contrast-safe color
-    doc.setFontSize(22);
+    doc.setFontSize(19);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(numColor);
-    doc.text(value, x + width / 2, y + 13, { align: 'center' });
+    doc.text(value, x + width / 2, y + 10.5, { align: 'center' });
 
     // Label in dark gray below
     doc.setFontSize(7);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(75, 85, 99);
-    doc.text(label, x + width / 2, y + 21, { align: 'center' });
+    doc.text(label, x + width / 2, y + 18, { align: 'center' });
 
     doc.setTextColor(0, 0, 0);
     doc.setDrawColor(0, 0, 0);
@@ -528,22 +529,42 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       (report.urlAnalysisResults && report.urlAnalysisResults.length > 0) ||
       (report.mediaAnalysisResults && report.mediaAnalysisResults.length > 0);
 
+    const keyFindingModules = (() => {
+      const modCodes = new Set<string>();
+      for (const s of [
+        ...(report.sections.strengths.categorised || []),
+        ...(report.sections.priorityActions.categorised || []),
+        ...(report.sections.areasToExplore.categorised || []),
+      ]) {
+        modCodes.add(s.moduleCode);
+      }
+      const sorted = Array.from(modCodes).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+      return sorted.map(code => {
+        const mod = accessModules.find(m => m.code === code);
+        return `${code}  ${mod?.name || code}`;
+      });
+    })();
+
     const tocGroups: { group: string; items: string[] }[] = [
       {
         group: 'Overview',
         items: [
           'Executive Summary',
+          ...(report.frameworkAlignment ? ['Legislative Alignment'] : []),
           'About This Report',
           'Your Obligations',
+          'Methodology',
           ...(report.progressComparison?.enabled ? ['Progress Comparison'] : []),
         ],
       },
       {
-        group: 'Assessment Evidence',
+        group: 'Analysis & Priorities',
         items: [
-          ...(report.moduleEvidence?.length ? ['Modules Reviewed'] : []),
-          ...(report.questionNotes?.length ? ['Your Notes & Observations'] : []),
-          ...(report.questionEvidence?.length ? ['Supporting Evidence'] : []),
+          ...(report.themeBreakdown.length ? ['Performance by Area'] : []),
+          ...(report.analysis.recurringThemes.length ? ['Recurring Themes'] : []),
+          ...(report.analysis.thematicSummaries.length ? ['Where the Priorities Sit'] : []),
+          ...(report.analysis.strengthsByTheme.length ? ["Where You're Strongest"] : []),
+          ...(report.analysis.startingSequence.length ? ['Suggested Implementation Roadmap'] : []),
         ],
       },
       ...(hasAnalysisData
@@ -557,22 +578,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         : []),
       {
         group: 'Key Findings',
-        items: (() => {
-          // List modules that have findings
-          const modCodes = new Set<string>();
-          for (const s of [
-            ...(report.sections.strengths.categorised || []),
-            ...(report.sections.priorityActions.categorised || []),
-            ...(report.sections.areasToExplore.categorised || []),
-          ]) {
-            modCodes.add(s.moduleCode);
-          }
-          const sorted = Array.from(modCodes).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-          return sorted.map(code => {
-            const mod = accessModules.find(m => m.code === code);
-            return `${code}  ${mod?.name || code}`;
-          });
-        })(),
+        items: keyFindingModules,
       },
       {
         group: 'Next Steps & Guidance',
@@ -580,7 +586,15 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
           'Suggested Next Steps',
           'Professional Support',
           'Compliance Note',
-          'Disclaimer',
+        ],
+      },
+      {
+        group: 'Appendix',
+        items: [
+          ...(report.moduleEvidence?.length ? ['Assessment Evidence'] : []),
+          ...(report.questionNotes?.length ? ['Your Notes & Observations'] : []),
+          ...(report.questionEvidence?.length ? ['Supporting Evidence'] : []),
+          'Important Disclaimer',
         ],
       },
     ];
@@ -619,7 +633,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   const boxGap = 5;
   const startX = PAGE.marginLeft;
 
-  checkNewPage(40);
+  // Reserve both tile rows so the stats and director tiles stay together.
+  checkNewPage(58);
 
   addStatBox(
     startX,
@@ -656,7 +671,20 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     '#92400e'
   );
 
-  yPosition += 38;
+  yPosition += 27;
+
+  // --- Director numbers: priority load at a glance (grouped with the stats
+  // above so the two tile rows stay together and never orphan) ---
+  {
+    const bw = 41;
+    const gap = 5;
+    const sx = PAGE.marginLeft;
+    addStatBox(sx, yPosition, bw, String(report.directorNumbers.high), 'High priority', '#b91c1c');
+    addStatBox(sx + (bw + gap), yPosition, bw, String(report.directorNumbers.medium), 'Medium priority', COLORS.amber, '#92400e');
+    addStatBox(sx + (bw + gap) * 2, yPosition, bw, String(report.directorNumbers.low), 'Low priority', '#1a4fd6');
+    addStatBox(sx + (bw + gap) * 3, yPosition, bw, String(report.directorNumbers.quickWins), 'Quick wins', COLORS.amethystDiamond);
+    yPosition += 30;
+  }
 
   // --- Accessibility maturity snapshot (the headline "where are we") ---
   if (report.maturity.started) {
@@ -729,19 +757,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     for (const para of report.analysis.interpretation) {
       addParagraph(para, 9.5);
     }
-  }
-
-  // --- Director numbers: how many, how hard, who does it ---
-  {
-    checkNewPage(34);
-    const bw = 41;
-    const gap = 5;
-    const sx = PAGE.marginLeft;
-    addStatBox(sx, yPosition, bw, String(report.directorNumbers.high), 'High priority', '#b91c1c');
-    addStatBox(sx + (bw + gap), yPosition, bw, String(report.directorNumbers.medium), 'Medium priority', COLORS.amber, '#92400e');
-    addStatBox(sx + (bw + gap) * 2, yPosition, bw, String(report.directorNumbers.low), 'Low priority', '#1a4fd6');
-    addStatBox(sx + (bw + gap) * 3, yPosition, bw, String(report.directorNumbers.quickWins), 'Quick wins', COLORS.amethystDiamond);
-    yPosition += 34;
   }
 
   // ============================================
@@ -864,7 +879,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     11
   );
 
-  addSectionTitle('Your Obligations', COLORS.amethystLight);
+  addSectionTitle('Your Obligations');
 
   addParagraph(
     'All organisations have responsibilities under the Disability Discrimination Act 1992 to provide equitable and dignified access to premises, goods and services. Disability is broadly defined and includes physical, intellectual, sensory, neurological, cognitive and psychosocial conditions.',
@@ -879,7 +894,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     11
   );
 
-  addSectionTitle('Methodology', COLORS.amethystLight);
+  addSectionTitle('Methodology');
 
   addParagraph(
     'This report reflects a structured self-review completed by the organisation through the Access Compass platform. Each module presents a sequence of questions with embedded guidance, examples and links to applicable standards. Respondents select from response options that map to compliance status (compliant, partial, gap) and to whether a response represents minimum compliance or best practice.',
