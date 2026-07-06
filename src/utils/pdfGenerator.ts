@@ -709,7 +709,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // --- Performance by area (theme breakdown) ---
   if (report.themeBreakdown.length > 0) {
-    addSectionTitle('Performance by Area');
+    // Reserve the whole block (title + bars + note) so it is not split across
+    // a page break or stranded at the foot of a page.
+    const perfReserve = 33 + report.themeBreakdown.length * 8.5;
+    addSectionTitle('Performance by Area', COLORS.amethystDiamond, perfReserve);
     yPosition += 5; // breathing room between the subheading and the bars
     const labelW = 55;
     const barX = PAGE.marginLeft + labelW + 2;
@@ -1255,12 +1258,12 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     ) => {
       if (items.length === 0) return;
 
-      checkNewPage(16);
+      checkNewPage(18);
       doc.setFontSize(9);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(headingColor);
       doc.text(`${heading} (${items.length})`, PAGE.marginLeft + 6, yPosition + 1);
-      yPosition += 5;
+      yPosition += 7.5;
 
       const textX = PAGE.marginLeft + 11;
       const textW = PAGE.contentWidth - 13;
