@@ -1864,7 +1864,7 @@ export default function Pricing() {
                 <div style={{ marginBottom: '1.5rem' }}>
                   <p style={{ color: colors.amethyst, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', marginTop: 0, marginBottom: '0.375rem' }}>Pricing</p>
                   <h3 style={{ color: colors.walnut, fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.625rem', lineHeight: 1.2 }}>
-                    From $4,900/yr platform plus $149 per business
+                    From $2,500 setup plus from $97 per business
                   </h3>
                   <p style={{ color: colors.subtleText, fontSize: '0.875rem', margin: 0, lineHeight: 1.55, fontStyle: 'italic' }}>
                     One consultant assesses 5 venues over 6 months. One Network Program assesses 50 in the same window, at a fraction of the per-business cost.
@@ -1883,14 +1883,14 @@ export default function Pricing() {
                   gap: '1.25rem',
                 }}>
                   <div>
-                    <p style={{ color: colors.sunrise, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 0, marginBottom: '0.375rem' }}>Platform fee</p>
-                    <p style={{ color: colors.amethyst, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1 }}>From $4,900</p>
-                    <p style={{ color: colors.subtleText, fontSize: '0.75rem', margin: '0.25rem 0 0' }}>per year</p>
+                    <p style={{ color: colors.sunrise, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 0, marginBottom: '0.375rem' }}>Program setup</p>
+                    <p style={{ color: colors.amethyst, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1 }}>From $2,500</p>
+                    <p style={{ color: colors.subtleText, fontSize: '0.75rem', margin: '0.25rem 0 0' }}>per program</p>
                   </div>
                   <div>
                     <p style={{ color: colors.sunrise, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 0, marginBottom: '0.375rem' }}>Per business</p>
-                    <p style={{ color: colors.amethyst, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1 }}>From $149</p>
-                    <p style={{ color: colors.subtleText, fontSize: '0.75rem', margin: '0.25rem 0 0' }}>5-module bundle</p>
+                    <p style={{ color: colors.amethyst, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1 }}>From $97</p>
+                    <p style={{ color: colors.subtleText, fontSize: '0.75rem', margin: '0.25rem 0 0' }}>banded by module count</p>
                   </div>
                   <div>
                     <p style={{ color: colors.sunrise, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 0, marginBottom: '0.375rem' }}>Up to</p>
