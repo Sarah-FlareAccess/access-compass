@@ -355,6 +355,119 @@
   margin-bottom: 20px;
 }
 
+/* Executive interpretation */
+.report-interpretation {
+  background: #faf7fb;
+  border-left: 4px solid var(--amethyst-diamond);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+
+.report-interpretation h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+  margin: 0 0 8px;
+}
+
+.report-interpretation p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+}
+
+.report-interpretation p:last-child { margin-bottom: 0; }
+
+/* Analysis blocks */
+.report-analysis-block { margin-bottom: 22px; }
+
+.report-analysis-block h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond);
+  margin: 0 0 10px;
+}
+
+.report-analysis-sub {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin: -4px 0 10px;
+}
+
+.report-theme-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.report-theme-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.report-theme-chip b { font-weight: 800; color: var(--amethyst-diamond); }
+
+.report-theme-chip.report-chip-good {
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+
+.report-theme-chip.report-chip-good b { color: #15803d; }
+
+.report-thematic { margin-bottom: 12px; }
+
+.report-thematic h4 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.report-thematic p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.report-sequence {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.report-sequence-step {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.report-sequence-head {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--amethyst-diamond);
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+
+.report-sequence-step ul { margin: 0; padding-left: 16px; }
+
+.report-sequence-step li {
+  font-size: 0.83rem;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
 /* Director numbers */
 .director-numbers {
   display: grid;

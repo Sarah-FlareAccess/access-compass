@@ -494,8 +494,13 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 </div>
               )}
 
-              {/* Plain-language summary of what it means */}
-              {report.narrative && <p className="report-narrative">{report.narrative}</p>}
+              {/* Executive interpretation - what the data means */}
+              {report.analysis.interpretation.length > 0 && (
+                <div className="report-interpretation">
+                  <h3>Executive interpretation</h3>
+                  {report.analysis.interpretation.map((p, i) => <p key={i}>{p}</p>)}
+                </div>
+              )}
 
               <div className="summary-stats">
                 <div className="stat-card">
@@ -548,6 +553,59 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                     ))}
                   </div>
                   <p className="theme-note">Share of checks already going well in each area assessed. Lower bars are where to focus.</p>
+                </div>
+              )}
+
+              {/* Recurring themes */}
+              {report.analysis.recurringThemes.length > 0 && (
+                <div className="report-analysis-block">
+                  <h3>Recurring themes</h3>
+                  <div className="report-theme-chips">
+                    {report.analysis.recurringThemes.map(t => (
+                      <span key={t.label} className="report-theme-chip"><b>{t.count}</b> {t.label}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Where the priorities sit */}
+              {report.analysis.thematicSummaries.length > 0 && (
+                <div className="report-analysis-block">
+                  <h3>Where the priorities sit</h3>
+                  {report.analysis.thematicSummaries.map((s, i) => (
+                    <div key={i} className="report-thematic">
+                      <h4>{s.title}</h4>
+                      <p>{s.body}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Where you're strongest */}
+              {report.analysis.strengthsByTheme.length > 0 && (
+                <div className="report-analysis-block">
+                  <h3>Where you're strongest</h3>
+                  <div className="report-theme-chips">
+                    {report.analysis.strengthsByTheme.map(t => (
+                      <span key={t.label} className="report-theme-chip report-chip-good"><b>{t.count}</b> {t.label}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Suggested starting sequence */}
+              {report.analysis.startingSequence.length > 0 && (
+                <div className="report-analysis-block">
+                  <h3>Suggested starting sequence</h3>
+                  <p className="report-analysis-sub">A suggested order to work through the actions. A starting point for your own planning, not a fixed schedule.</p>
+                  <div className="report-sequence">
+                    {report.analysis.startingSequence.map((step, i) => (
+                      <div key={i} className="report-sequence-step">
+                        <div className="report-sequence-head">{step.heading}</div>
+                        <ul>{step.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 

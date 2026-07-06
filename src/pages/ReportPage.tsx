@@ -785,7 +785,13 @@ export default function ReportPage() {
           </div>
         )}
 
-        {report.narrative && <p className="rp-narrative">{report.narrative}</p>}
+        {/* Executive interpretation - what the data means */}
+        {report.analysis.interpretation.length > 0 && (
+          <div className="rp-interpretation">
+            <h2>Executive interpretation</h2>
+            {report.analysis.interpretation.map((p, i) => <p key={i}>{p}</p>)}
+          </div>
+        )}
 
         {/* Executive summary stats */}
         <div className="rp-summary-stats">
@@ -855,6 +861,60 @@ export default function ReportPage() {
               ))}
             </div>
             <p className="rp-theme-note">Share of checks already going well in each area assessed. Lower bars are where to focus.</p>
+          </div>
+        )}
+
+        {/* Recurring themes across recommendations */}
+        {report.analysis.recurringThemes.length > 0 && (
+          <div className="rp-analysis-block">
+            <h2>Recurring themes</h2>
+            <p className="rp-analysis-sub">How often each theme appears across the recommendations.</p>
+            <div className="rp-theme-chips">
+              {report.analysis.recurringThemes.map(t => (
+                <span key={t.label} className="rp-theme-chip"><b>{t.count}</b> {t.label}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Where the priorities sit */}
+        {report.analysis.thematicSummaries.length > 0 && (
+          <div className="rp-analysis-block">
+            <h2>Where the priorities sit</h2>
+            {report.analysis.thematicSummaries.map((s, i) => (
+              <div key={i} className="rp-thematic">
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Where you're strongest */}
+        {report.analysis.strengthsByTheme.length > 0 && (
+          <div className="rp-analysis-block">
+            <h2>Where you're strongest</h2>
+            <div className="rp-theme-chips">
+              {report.analysis.strengthsByTheme.map(t => (
+                <span key={t.label} className="rp-theme-chip rp-chip-good"><b>{t.count}</b> {t.label}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Suggested starting sequence */}
+        {report.analysis.startingSequence.length > 0 && (
+          <div className="rp-analysis-block">
+            <h2>Suggested starting sequence</h2>
+            <p className="rp-analysis-sub">A suggested order to work through the actions. A starting point for your own planning, not a fixed schedule.</p>
+            <div className="rp-sequence">
+              {report.analysis.startingSequence.map((step, i) => (
+                <div key={i} className="rp-sequence-step">
+                  <div className="rp-sequence-head">{step.heading}</div>
+                  <ul>{step.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

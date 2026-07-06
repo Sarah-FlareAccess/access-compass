@@ -620,9 +620,12 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     yPosition = boxTop + 30 + 6;
   }
 
-  // --- Plain-language narrative ---
-  if (report.narrative) {
-    addParagraph(report.narrative, 9.5);
+  // --- Executive interpretation: what the data means ---
+  if (report.analysis.interpretation.length > 0) {
+    addSectionTitle('Executive Interpretation');
+    for (const para of report.analysis.interpretation) {
+      addParagraph(para, 9.5);
+    }
   }
 
   // --- Director numbers: how many, how hard, who does it ---
@@ -725,6 +728,73 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text('Share of checks already going well in each area assessed. Lower bars are where to focus.', PAGE.marginLeft, yPosition + 2);
     yPosition += 10;
     doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+  }
+
+  // --- Recurring themes across recommendations ---
+  if (report.analysis.recurringThemes.length > 0) {
+    addSectionTitle('Recurring Themes');
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(107, 114, 128);
+    doc.text('How often each theme appears across the recommendations.', PAGE.marginLeft, yPosition);
+    yPosition += 6;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    addParagraph(report.analysis.recurringThemes.map(t => `${t.label} (${t.count})`).join('    ·    '), 9.5);
+  }
+
+  // --- Where the priorities sit ---
+  if (report.analysis.thematicSummaries.length > 0) {
+    addSectionTitle('Where the Priorities Sit');
+    for (const s of report.analysis.thematicSummaries) {
+      checkNewPage(18);
+      doc.setFontSize(9.5);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(COLORS.text);
+      doc.text(s.title, PAGE.marginLeft, yPosition);
+      yPosition += 5;
+      addParagraph(s.body, 9);
+    }
+  }
+
+  // --- Where you're strongest ---
+  if (report.analysis.strengthsByTheme.length > 0) {
+    addSectionTitle("Where You're Strongest");
+    addParagraph(report.analysis.strengthsByTheme.map(t => `${t.label} (${t.count})`).join('    ·    '), 9.5);
+  }
+
+  // --- Suggested starting sequence ---
+  if (report.analysis.startingSequence.length > 0) {
+    addSectionTitle('Suggested Starting Sequence');
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(107, 114, 128);
+    const seqNote = doc.splitTextToSize('A suggested order to work through the actions. A starting point for your own planning, not a fixed schedule.', PAGE.contentWidth);
+    for (const l of seqNote) { checkNewPage(6); doc.text(l, PAGE.marginLeft, yPosition); yPosition += 4; }
+    yPosition += 2;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    for (const step of report.analysis.startingSequence) {
+      checkNewPage(10);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(COLORS.amethystDiamond);
+      doc.text(step.heading, PAGE.marginLeft, yPosition);
+      const headW = doc.getTextWidth(step.heading);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(COLORS.text);
+      const lines = doc.splitTextToSize(step.items.join(', '), PAGE.contentWidth - headW - 6);
+      doc.text(lines[0] || '', PAGE.marginLeft + headW + 4, yPosition);
+      yPosition += 4.5;
+      for (let i = 1; i < lines.length; i++) {
+        checkNewPage(5);
+        doc.text(lines[i], PAGE.marginLeft + 4, yPosition);
+        yPosition += 4.5;
+      }
+      yPosition += 1.5;
+    }
+    yPosition += 2;
     doc.setTextColor(0, 0, 0);
   }
 

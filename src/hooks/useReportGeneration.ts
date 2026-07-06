@@ -21,6 +21,8 @@ import type { ReportConfig } from '../components/ReportConfigSelector';
 import { generateModuleSummary } from '../utils/generateModuleSummary';
 import { computeMaturity, groupLabel, groupOwnerArea, groupOrderIndex } from '../utils/maturityModel';
 import type { MaturityResult } from '../utils/maturityModel';
+import { buildAnalysis } from '../utils/reportAnalysis';
+import type { ReportAnalysis } from '../utils/reportAnalysis';
 
 export interface CategorisedItem {
   text: string;
@@ -33,6 +35,8 @@ export interface CategorisedItem {
   // Suggested owning area, derived from the module's journey group. A starting
   // point for routing actions to a team, not a fixed org chart.
   ownerArea?: string;
+  // Journey group id (before-arrival, getting-in, ...), for analysis.
+  group?: string;
 }
 
 export interface ThemeScore {
@@ -171,6 +175,9 @@ export interface Report {
 
   // Headline counts a director asks for: how many, how hard, who does it.
   directorNumbers: DirectorNumbers;
+
+  // Interpretation layer: what the data means, patterns, and a suggested order.
+  analysis: ReportAnalysis;
 
   // Module completion evidence (who did what, when)
   moduleEvidence: ModuleCompletionEvidence[];
@@ -411,7 +418,7 @@ export function useReportGeneration(
               if (seen.has(key)) return;
               seen.add(key);
               allStrengths.push(text);
-              catStrengths.push({ text, moduleCode: mCode, moduleName: mName });
+              catStrengths.push({ text, moduleCode: mCode, moduleName: mName, group: mod?.group });
             });
           }
           if (summary?.priorityActions) {
@@ -422,7 +429,7 @@ export function useReportGeneration(
               seen.add(key);
               const text = a.action;
               allPriorityActions.push(`${a.action} (${a.priority} priority)`);
-              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel, safetyRelated: a.safetyRelated, ownerArea: groupOwnerArea(mod?.group || '') });
+              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel, safetyRelated: a.safetyRelated, ownerArea: groupOwnerArea(mod?.group || ''), group: mod?.group });
             });
           }
           if (summary?.areasToExplore) {
@@ -611,6 +618,19 @@ export function useReportGeneration(
         strengthsCount: allStrengths.length,
       });
 
+      // Interpretation layer: turn the counts into what they mean.
+      const analysis = buildAnalysis({
+        organisation: organisationName,
+        maturity,
+        actions: catPriorityActions.map(a => ({ text: a.text, priority: a.priority, group: a.group })),
+        strengths: catStrengths.map(s => ({ group: s.group })),
+        quickWinsCount: quickWins.length,
+        themeBreakdown,
+        high: directorNumbers.high,
+        medium: directorNumbers.medium,
+        low: directorNumbers.low,
+      });
+
       // Generate progress comparison if enabled
       let progressComparison: Report['progressComparison'] = undefined;
 
@@ -709,6 +729,7 @@ export function useReportGeneration(
         narrative,
         themeBreakdown,
         directorNumbers,
+        analysis,
         moduleEvidence,
         urlAnalysisResults,
         mediaAnalysisResults,

@@ -1705,3 +1705,128 @@
   }
   .rp-maturity-next { margin-left: 0; }
 }
+
+/* Executive interpretation */
+.rp-interpretation {
+  background: #faf7fb;
+  border-left: 4px solid var(--amethyst-diamond, #490E67);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
+.rp-interpretation h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond, #490E67);
+  margin: 0 0 8px;
+}
+
+.rp-interpretation p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-primary, #2d2420);
+  margin: 0 0 8px;
+}
+
+.rp-interpretation p:last-child { margin-bottom: 0; }
+
+/* Analysis blocks */
+.rp-analysis-block {
+  margin-bottom: 24px;
+}
+
+.rp-analysis-block h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--amethyst-diamond, #490E67);
+  margin: 0 0 6px;
+}
+
+.rp-analysis-sub {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0 0 12px;
+}
+
+.rp-theme-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rp-theme-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.85rem;
+  color: var(--text-primary, #2d2420);
+}
+
+.rp-theme-chip b {
+  font-weight: 800;
+  color: var(--amethyst-diamond, #490E67);
+}
+
+.rp-theme-chip.rp-chip-good {
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+
+.rp-theme-chip.rp-chip-good b { color: #15803d; }
+
+/* Thematic summaries */
+.rp-thematic {
+  margin-bottom: 12px;
+}
+
+.rp-thematic h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary, #2d2420);
+  margin: 0 0 4px;
+}
+
+.rp-thematic p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-primary, #2d2420);
+  margin: 0;
+}
+
+/* Suggested starting sequence */
+.rp-sequence {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.rp-sequence-step {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.rp-sequence-head {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--amethyst-diamond, #490E67);
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+
+.rp-sequence-step ul {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.rp-sequence-step li {
+  font-size: 0.85rem;
+  color: var(--text-primary, #2d2420);
+  margin-bottom: 3px;
+}
