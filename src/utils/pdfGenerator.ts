@@ -800,6 +800,46 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     return doc;
   }
 
+  // ============================================
+  // ABOUT / OBLIGATIONS / METHODOLOGY (context, right after the summary)
+  // ============================================
+  addSectionTitle('About This Report');
+
+  const reportTypeIntro = report.reportType === 'pulse-check'
+    ? 'a pulse check, providing a high-level snapshot of current accessibility across selected areas'
+    : 'an accessibility review covering detailed findings across selected accessibility areas';
+
+  addParagraph(
+    `This report summarises the findings of ${reportTypeIntro} conducted using Access Compass. Findings are benchmarked against the Disability (Access to Premises-Buildings) Standards 2010, the National Construction Code, relevant Australian Standards including AS 1428.1, and the Web Content Accessibility Guidelines (WCAG) 2.2 for digital content. Recommendations that extend beyond mandatory compliance are identified as best practice.`,
+    11
+  );
+
+  addSectionTitle('Your Obligations', COLORS.amethystLight);
+
+  addParagraph(
+    'All organisations have responsibilities under the Disability Discrimination Act 1992 to provide equitable and dignified access to premises, goods and services. Disability is broadly defined and includes physical, intellectual, sensory, neurological, cognitive and psychosocial conditions.',
+    11
+  );
+  addParagraph(
+    'The Disability (Access to Premises-Buildings) Standards 2010 set minimum access requirements for new buildings and those undergoing significant upgrade or refurbishment. Mandatory compliance requirements are triggered when building work requires development approval. However, organisations can voluntarily make accessibility improvements at any time. Elements not covered by the Premises Standards remain subject to the broader provisions of the DDA.',
+    11
+  );
+  addParagraph(
+    'Regardless of whether building work is planned, any person with disability may lodge a complaint under the DDA if they experience discrimination in accessing premises, goods or services. Proactively addressing accessibility barriers reduces this risk and demonstrates a commitment to equitable access.',
+    11
+  );
+
+  addSectionTitle('Methodology', COLORS.amethystLight);
+
+  addParagraph(
+    'This report reflects a structured self-review completed by the organisation through the Access Compass platform. Each module presents a sequence of questions with embedded guidance, examples and links to applicable standards. Respondents select from response options that map to compliance status (compliant, partial, gap) and to whether a response represents minimum compliance or best practice.',
+    11
+  );
+  addParagraph(
+    'Findings represent the organisation\'s view of its current accessibility at the time of completion. Access Compass does not independently verify responses. For statutory certification or formal compliance audit, independent professional review is recommended. Recommendations in this report are generated from the response pattern and a curated library of accessibility actions; prioritisation reflects both legal exposure and impact on people with disability.',
+    11
+  );
+
   // --- Performance by area (theme breakdown) ---
   if (report.themeBreakdown.length > 0) {
     // Reserve the whole block (title + bars + note) so it is not split across
@@ -1044,46 +1084,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(0, 0, 0);
   }
-
-  // ============================================
-  // INTRODUCTION
-  // ============================================
-  addSectionTitle('About This Report');
-
-  const reportTypeIntro = report.reportType === 'pulse-check'
-    ? 'a pulse check, providing a high-level snapshot of current accessibility across selected areas'
-    : 'an accessibility review covering detailed findings across selected accessibility areas';
-
-  addParagraph(
-    `This report summarises the findings of ${reportTypeIntro} conducted using Access Compass. Findings are benchmarked against the Disability (Access to Premises-Buildings) Standards 2010, the National Construction Code, relevant Australian Standards including AS 1428.1, and the Web Content Accessibility Guidelines (WCAG) 2.2 for digital content. Recommendations that extend beyond mandatory compliance are identified as best practice.`,
-    9
-  );
-
-  addSectionTitle('Your Obligations', COLORS.amethystLight);
-
-  addParagraph(
-    'All organisations have responsibilities under the Disability Discrimination Act 1992 to provide equitable and dignified access to premises, goods and services. Disability is broadly defined and includes physical, intellectual, sensory, neurological, cognitive and psychosocial conditions.',
-    9
-  );
-  addParagraph(
-    'The Disability (Access to Premises-Buildings) Standards 2010 set minimum access requirements for new buildings and those undergoing significant upgrade or refurbishment. Mandatory compliance requirements are triggered when building work requires development approval. However, organisations can voluntarily make accessibility improvements at any time. Elements not covered by the Premises Standards remain subject to the broader provisions of the DDA.',
-    9
-  );
-  addParagraph(
-    'Regardless of whether building work is planned, any person with disability may lodge a complaint under the DDA if they experience discrimination in accessing premises, goods or services. Proactively addressing accessibility barriers reduces this risk and demonstrates a commitment to equitable access.',
-    9
-  );
-
-  addSectionTitle('Methodology', COLORS.amethystLight);
-
-  addParagraph(
-    'This report reflects a structured self-review completed by the organisation through the Access Compass platform. Each module presents a sequence of questions with embedded guidance, examples and links to applicable standards. Respondents select from response options that map to compliance status (compliant, partial, gap) and to whether a response represents minimum compliance or best practice.',
-    9
-  );
-  addParagraph(
-    'Findings represent the organisation\'s view of its current accessibility at the time of completion. Access Compass does not independently verify responses. For statutory certification or formal compliance audit, independent professional review is recommended. Recommendations in this report are generated from the response pattern and a curated library of accessibility actions; prioritisation reflects both legal exposure and impact on people with disability.',
-    9
-  );
 
   // ============================================
   // GROUP 2: ASSESSMENT EVIDENCE

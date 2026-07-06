@@ -596,9 +596,10 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                       fontSize: '0.9375rem',
                     }}
                   >
-                    {Object.values(FRAMEWORKS).map((f) => (
-                      <option key={f.key} value={f.key}>{f.name}</option>
-                    ))}
+                    {Object.values(FRAMEWORKS).map((f) => {
+                      const region = f.key === 'AU' ? 'National' : f.key.replace('AU-', '');
+                      return <option key={f.key} value={f.key}>({region}) {f.name}</option>;
+                    })}
                   </select>
                   <span
                     aria-live="polite"
