@@ -920,6 +920,113 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   }
 
   // ============================================
+  // LEGISLATIVE ALIGNMENT (own page)
+  // ============================================
+  if (report.frameworkAlignment) {
+    const fa = report.frameworkAlignment;
+    if (yPosition > PAGE.marginTop + 20) { addFooter(); addNewPage(); }
+    addGroupHeader('Legislative Alignment');
+
+    // Mandate badge + framework name
+    const badgeText = fa.mandate === 'statutory' ? 'Statutory reporting framework'
+      : fa.mandate === 'voluntary' ? 'Voluntary alignment aid'
+      : fa.mandate === 'national' ? 'National framework' : 'Reference framework';
+    const badgeColors: Record<string, [string, string]> = {
+      statutory: ['#fde8e8', '#b91c1c'], voluntary: ['#fef3d6', '#a16207'], national: ['#efe7f5', '#490E67'], na: ['#f3f4f6', '#6b7280'],
+    };
+    const [bBg, bFg] = badgeColors[fa.mandate] || badgeColors.national;
+    yPosition += 2;
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    const bTextW = doc.getTextWidth(badgeText) + 8;
+    doc.setFillColor(bBg);
+    doc.roundedRect(PAGE.marginLeft, yPosition - 4.5, bTextW, 7, 2, 2, 'F');
+    doc.setTextColor(bFg);
+    doc.text(badgeText, PAGE.marginLeft + 4, yPosition);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(COLORS.text);
+    doc.text(fa.frameworkName, PAGE.marginLeft + bTextW + 4, yPosition);
+    yPosition += 8;
+
+    addParagraph("How your self-review aligns to this framework's outcome domains, and where coverage gaps remain. This is an alignment aid to support planning and reporting, not a compliance audit or certification.", 11);
+
+    // Legend
+    checkNewPage(8);
+    const legend: Array<[string, string]> = [['#16a34a', 'Doing well'], ['#ca8a04', 'Mixed'], ['#dc2626', 'Needs work'], ['#d1d5db', 'Not yet assessed']];
+    let lx = PAGE.marginLeft;
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    for (const [c, label] of legend) {
+      doc.setFillColor(c);
+      doc.roundedRect(lx, yPosition - 3, 3.5, 3.5, 0.8, 0.8, 'F');
+      doc.setTextColor(75, 85, 99);
+      doc.text(label, lx + 5, yPosition);
+      lx += 6 + doc.getTextWidth(label) + 8;
+    }
+    yPosition += 8;
+    doc.setTextColor(0, 0, 0);
+
+    // Per-domain rows
+    for (const d of fa.domains) {
+      checkNewPage(22);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(COLORS.text);
+      doc.text(d.name, PAGE.marginLeft, yPosition);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      if (d.total === 0) {
+        doc.setTextColor(107, 114, 128);
+        doc.text('Not yet assessed', PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
+      } else {
+        doc.setTextColor(75, 85, 99);
+        doc.text(`${d.moduleIds.length} area${d.moduleIds.length !== 1 ? 's' : ''} assessed`, PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
+      }
+      yPosition += 5.5;
+
+      if (d.outcomeStatement) {
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(107, 114, 128);
+        for (const l of doc.splitTextToSize(d.outcomeStatement, PAGE.contentWidth)) {
+          checkNewPage(6);
+          doc.text(l, PAGE.marginLeft, yPosition);
+          yPosition += 5;
+        }
+      }
+
+      if (d.total > 0) {
+        const barW = PAGE.contentWidth;
+        doc.setFillColor(236, 234, 240);
+        doc.roundedRect(PAGE.marginLeft, yPosition, barW, 4, 1, 1, 'F');
+        let cx = PAGE.marginLeft;
+        const segs: Array<[number, string]> = [[d.strong, '#16a34a'], [d.mixed, '#ca8a04'], [d.needsWork, '#dc2626']];
+        for (const [n, c] of segs) {
+          if (n > 0) { const w = barW * n / d.total; doc.setFillColor(c); doc.rect(cx, yPosition, w, 4, 'F'); cx += w; }
+        }
+        yPosition += 4 + 5;
+      } else {
+        yPosition += 3;
+      }
+      yPosition += 2;
+      doc.setTextColor(0, 0, 0);
+    }
+
+    // Citation
+    checkNewPage(10);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(107, 114, 128);
+    for (const l of doc.splitTextToSize(fa.citation, PAGE.contentWidth)) {
+      doc.text(l, PAGE.marginLeft, yPosition);
+      yPosition += 5;
+    }
+    yPosition += 4;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+  }
+
+  // ============================================
   // INTRODUCTION
   // ============================================
   addSectionTitle('About This Report');

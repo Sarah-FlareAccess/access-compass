@@ -23,6 +23,10 @@ import { computeMaturity, groupLabel, groupOwnerArea, groupOrderIndex } from '..
 import type { MaturityResult } from '../utils/maturityModel';
 import { buildAnalysis } from '../utils/reportAnalysis';
 import type { ReportAnalysis } from '../utils/reportAnalysis';
+import { getFramework, FRAMEWORKS } from '../data/frameworks';
+import { aggregateDomains, normaliseBand } from '../lib/outcomesAggregation';
+import type { DomainAggregate } from '../lib/outcomesAggregation';
+import { normalizeModuleCode } from '../utils/moduleCompat';
 
 export interface CategorisedItem {
   text: string;
@@ -179,6 +183,17 @@ export interface Report {
   // Interpretation layer: what the data means, patterns, and a suggested order.
   analysis: ReportAnalysis;
 
+  // How the self-review aligns to the jurisdiction's disability framework.
+  // Alignment aid and coverage/gap view, NOT a compliance certification.
+  frameworkAlignment?: {
+    frameworkName: string;
+    frameworkShort: string;
+    citation: string;
+    mandate: 'statutory' | 'voluntary' | 'national' | 'na';
+    jurisdiction: string;
+    domains: DomainAggregate[];
+  };
+
   // Module completion evidence (who did what, when)
   moduleEvidence: ModuleCompletionEvidence[];
 
@@ -271,7 +286,7 @@ export interface Report {
 }
 
 interface UseReportGenerationReturn {
-  generateReport: (reviewMode: ReviewMode, organisationName?: string, reportConfig?: ReportConfig, siteName?: string) => Report;
+  generateReport: (reviewMode: ReviewMode, organisationName?: string, reportConfig?: ReportConfig, siteName?: string, jurisdiction?: string) => Report;
   isReady: boolean;
   getModuleRuns: (moduleId: string) => ModuleRun[];
 }
@@ -291,7 +306,7 @@ export function useReportGeneration(
   const isReady = hasOverride ? true : (!isLoading && Object.keys(progress).length > 0);
 
   const generateReport = useMemo(() => {
-    return (reviewMode: ReviewMode, organisationName: string = 'Your Organisation', reportConfig?: ReportConfig, siteName?: string): Report => {
+    return (reviewMode: ReviewMode, organisationName: string = 'Your Organisation', reportConfig?: ReportConfig, siteName?: string, jurisdiction: string = 'AU'): Report => {
       const now = new Date().toISOString();
 
       // Build module progress list based on report config
@@ -631,6 +646,28 @@ export function useReportGeneration(
         low: directorNumbers.low,
       });
 
+      // Legislative alignment: map the self-review to the jurisdiction's
+      // framework domains (coverage + honest gaps). Alignment aid, not a
+      // compliance certification.
+      let frameworkAlignment: Report['frameworkAlignment'];
+      if (moduleEvidence.length > 0) {
+        const jKey = FRAMEWORKS[jurisdiction] ? jurisdiction : 'AU';
+        const fw = getFramework(jKey);
+        const alignmentRows = moduleEvidence.map(ev => ({
+          businessId: 'self',
+          moduleId: normalizeModuleCode(ev.moduleCode),
+          band: normaliseBand(ev.confidenceSnapshot),
+        }));
+        frameworkAlignment = {
+          frameworkName: fw.name,
+          frameworkShort: fw.short,
+          citation: fw.citation,
+          mandate: fw.mandate ?? 'national',
+          jurisdiction: jKey,
+          domains: aggregateDomains(alignmentRows, { self: [] }, jKey),
+        };
+      }
+
       // Generate progress comparison if enabled
       let progressComparison: Report['progressComparison'] = undefined;
 
@@ -730,6 +767,7 @@ export function useReportGeneration(
         themeBreakdown,
         directorNumbers,
         analysis,
+        frameworkAlignment,
         moduleEvidence,
         urlAnalysisResults,
         mediaAnalysisResults,
