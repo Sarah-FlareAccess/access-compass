@@ -2174,7 +2174,7 @@ const QUESTION_SUCCESS_INDICATORS: { pattern: RegExp; indicators: string[] }[] =
     '• Staff process in place to report and clear path obstructions within 1 hour',
   ]},
   // Ramps, steps, levels
-  { pattern: /\bramps?\b|\bsteps?\b|\bstair|\blevel\b|\bgradient/i, indicators: [
+  { pattern: /\bramps?\b|\bstairs?\b|\bgradient\b|\bstep-free\b|\bnosing\b|\bhandrail|\blevel change|\bkerb\b|\bthreshold/i, indicators: [
     '• All primary access ramps to meet AS 1428.1 gradient requirements within 12 months; secondary ramps within 24 months',
     '• Non-slip strips and handrails inspected quarterly',
     '• Alternative level access route signed at all stepped entries within 6 months',
@@ -2450,7 +2450,7 @@ const SUPPORTING_STEPS: { pattern: RegExp; steps: [string, string] }[] = [
     'Measure primary circulation paths and identify any pinch points below 1000mm width',
     'Establish a process for staff to report and clear path obstructions promptly',
   ]},
-  { pattern: /\bramps?\b|\bsteps?\b|\bstair|\blevel\b|\bgradient/i, steps: [
+  { pattern: /\bramps?\b|\bstairs?\b|\bgradient\b|\bstep-free\b|\bnosing\b|\bhandrail|\blevel change|\bkerb\b|\bthreshold/i, steps: [
     'Assess ramp gradients and handrail condition against AS 1428.1 requirements',
     'Install or improve signage directing visitors to alternative level access routes',
   ]},
