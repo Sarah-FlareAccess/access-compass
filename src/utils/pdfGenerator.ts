@@ -78,6 +78,13 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   const { report, includeCoverPage = true, includeTableOfContents = true, summaryOnly = false } = options;
   const doc = new jsPDF('p', 'mm', 'a4');
 
+  // Accessibility: enforce an 11pt minimum font size across the entire
+  // document. Any setFontSize below 11 is raised to 11 so no text, including
+  // labels, captions and footers, falls under the minimum.
+  const _origSetFontSize = doc.setFontSize.bind(doc);
+  (doc as unknown as { setFontSize: (n: number) => jsPDF }).setFontSize = (n: number) =>
+    _origSetFontSize(Math.max(11, n));
+
   // Document-level accessibility metadata. Full PDF/UA tagging is not produced
   // by jsPDF, but a document language and descriptive properties help assistive
   // technology and are a baseline expectation.
@@ -196,7 +203,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.roundedRect(PAGE.marginLeft - 3, yPosition - 4, 3, 10, 2, 2, 'F');
 
       // Dark text
-      doc.setFontSize(12);
+      doc.setFontSize(16);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(COLORS.text);
       doc.text(title, PAGE.marginLeft + 5, yPosition + 3);
@@ -205,7 +212,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.setFillColor(73, 14, 103); // amethystDiamond
       doc.roundedRect(PAGE.marginLeft - 3, yPosition - 4, PAGE.contentWidth + 6, 10, 2, 2, 'F');
 
-      doc.setFontSize(12);
+      doc.setFontSize(16);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(255, 255, 255);
       doc.text(title, PAGE.marginLeft + 4, yPosition + 3);
@@ -229,11 +236,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFillColor(accentColor);
     doc.roundedRect(PAGE.marginLeft - 3, yPosition - 5, 3, 14, 1, 1, 'F');
 
-    doc.setFontSize(11);
+    doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(accentColor);
-    doc.text(title, PAGE.marginLeft + 4, yPosition + 4);
-    yPosition += 16;
+    doc.text(title, PAGE.marginLeft + 4, yPosition + 4.5);
+    yPosition += 17;
 
     doc.setTextColor(0, 0, 0);
     doc.setFont('helvetica', 'normal');
@@ -260,24 +267,25 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   const renderFreqBars = (items: { label: string; count: number }[], barColor: string) => {
     if (!items.length) return;
     yPosition += 3;
-    const labelW = 60;
+    const labelW = 64;
     const barX = PAGE.marginLeft + labelW + 2;
-    const barW = PAGE.contentWidth - labelW - 2 - 12;
+    const barW = PAGE.contentWidth - labelW - 2 - 14;
     const maxC = items[0].count || 1;
     for (const it of items) {
-      checkNewPage(9);
+      checkNewPage(11);
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8.5);
+      doc.setFontSize(11);
       doc.setTextColor(31, 41, 55);
-      doc.text(doc.splitTextToSize(it.label, labelW)[0], PAGE.marginLeft, yPosition + 1.5);
+      doc.text(doc.splitTextToSize(it.label, labelW)[0], PAGE.marginLeft, yPosition + 2);
       doc.setFillColor(236, 234, 240);
-      doc.roundedRect(barX, yPosition - 1, barW, 3.5, 1, 1, 'F');
+      doc.roundedRect(barX, yPosition - 0.5, barW, 4, 1, 1, 'F');
       doc.setFillColor(barColor);
-      doc.roundedRect(barX, yPosition - 1, Math.max(1.5, barW * it.count / maxC), 3.5, 1, 1, 'F');
+      doc.roundedRect(barX, yPosition - 0.5, Math.max(1.5, barW * it.count / maxC), 4, 1, 1, 'F');
       doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
       doc.setTextColor(31, 41, 55);
-      doc.text(String(it.count), PAGE.width - PAGE.marginRight, yPosition + 1.5, { align: 'right' });
-      yPosition += 8.5;
+      doc.text(String(it.count), PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
+      yPosition += 10;
     }
     yPosition += 2;
     doc.setTextColor(0, 0, 0);
@@ -612,54 +620,55 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // --- Accessibility maturity snapshot (the headline "where are we") ---
   if (report.maturity.started) {
-    checkNewPage(34);
+    checkNewPage(50);
     const mx = PAGE.marginLeft;
     const mw = PAGE.contentWidth;
     const boxTop = yPosition;
+    const boxH = 42;
     doc.setFillColor(250, 247, 251);
-    doc.roundedRect(mx, boxTop, mw, 30, 3, 3, 'F');
+    doc.roundedRect(mx, boxTop, mw, boxH, 3, 3, 'F');
     doc.setDrawColor(230, 224, 236);
     doc.setLineWidth(0.3);
-    doc.roundedRect(mx, boxTop, mw, 30, 3, 3, 'S');
+    doc.roundedRect(mx, boxTop, mw, boxH, 3, 3, 'S');
 
-    doc.setFontSize(7);
-    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
     doc.setTextColor(107, 114, 128);
-    doc.text('ACCESSIBILITY MATURITY', mx + 5, boxTop + 7);
+    doc.text('Accessibility maturity', mx + 6, boxTop + 9);
 
     const levelColors = ['#b45309', '#a16207', '#4d7c0f', '#15803d'];
-    doc.setFontSize(16);
+    doc.setFontSize(18);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(levelColors[report.maturity.levelIdx] || '#a16207');
-    doc.text(report.maturity.level, mx + 5, boxTop + 15);
+    doc.text(report.maturity.level, mx + 6, boxTop + 19);
 
     if (report.maturity.nextStage) {
-      doc.setFontSize(8);
+      doc.setFontSize(11);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(107, 114, 128);
-      doc.text(`Next: reach ${report.maturity.nextStage}`, mx + mw - 5, boxTop + 15, { align: 'right' });
+      doc.text(`Next: reach ${report.maturity.nextStage}`, mx + mw - 6, boxTop + 19, { align: 'right' });
     }
 
     const segColors = ['#d97706', '#ca8a04', '#65a30d', '#16a34a'];
     const segGap = 3;
-    const segW = (mw - 10 - segGap * 3) / 4;
-    const segY = boxTop + 19;
+    const segW = (mw - 12 - segGap * 3) / 4;
+    const segY = boxTop + 25;
     for (let i = 0; i < 4; i++) {
       doc.setFillColor(i <= report.maturity.levelIdx ? segColors[i] : '#e5e7eb');
-      doc.roundedRect(mx + 5 + i * (segW + segGap), segY, segW, 2.5, 1, 1, 'F');
+      doc.roundedRect(mx + 6 + i * (segW + segGap), segY, segW, 3, 1, 1, 'F');
     }
 
-    doc.setFontSize(7.5);
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(75, 85, 99);
     doc.text(
-      `${report.maturity.confidence} confidence  ·  Based on ${report.executiveSummary.modulesCompleted} of ${report.executiveSummary.totalModules} areas assessed (${report.maturity.coveragePct}%)  ·  ${report.maturity.performancePct}% doing well`,
-      mx + 5, boxTop + 27
+      `${report.maturity.confidence} confidence  ·  ${report.executiveSummary.modulesCompleted} of ${report.executiveSummary.totalModules} areas assessed (${report.maturity.coveragePct}%)  ·  ${report.maturity.performancePct}% doing well`,
+      mx + 6, boxTop + 37
     );
 
     doc.setTextColor(0, 0, 0);
     doc.setDrawColor(0, 0, 0);
-    yPosition = boxTop + 30 + 6;
+    yPosition = boxTop + boxH + 6;
   }
 
   // --- Executive interpretation: what the data means ---
@@ -695,11 +704,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       addSectionTitle('Where the Priorities Sit');
       for (const s of report.analysis.thematicSummaries) {
         checkNewPage(18);
-        doc.setFontSize(11);
+        doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(COLORS.text);
         doc.text(s.title, PAGE.marginLeft, yPosition);
-        yPosition += 5.5;
+        yPosition += 6;
         addParagraph(s.body, 9);
       }
     }
@@ -732,7 +741,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       addSectionTitle('Suggested Starting Sequence');
       for (const step of report.analysis.startingSequence) {
         checkNewPage(12);
-        doc.setFontSize(11);
+        doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(COLORS.amethystDiamond);
         doc.text(step.heading, PAGE.marginLeft, yPosition);
@@ -794,39 +803,43 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   if (report.themeBreakdown.length > 0) {
     // Reserve the whole block (title + bars + note) so it is not split across
     // a page break or stranded at the foot of a page.
-    const perfReserve = 33 + report.themeBreakdown.length * 8.5;
+    const perfReserve = 36 + report.themeBreakdown.length * 10;
     addSectionTitle('Performance by Area', COLORS.amethystDiamond, perfReserve);
     yPosition += 5; // breathing room between the subheading and the bars
-    const labelW = 55;
+    const labelW = 64;
     const barX = PAGE.marginLeft + labelW + 2;
-    const barW = PAGE.contentWidth - labelW - 2 - 14;
-    const rowH = 8.5;
-    const barH = 3.5;
+    const barW = PAGE.contentWidth - labelW - 2 - 16;
+    const rowH = 10;
+    const barH = 4;
     for (const t of report.themeBreakdown) {
       checkNewPage(rowH + 2);
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8.5);
+      doc.setFontSize(11);
       doc.setTextColor(31, 41, 55);
-      doc.text(doc.splitTextToSize(t.label, labelW)[0], PAGE.marginLeft, yPosition + 1.5);
+      doc.text(doc.splitTextToSize(t.label, labelW)[0], PAGE.marginLeft, yPosition + 2);
 
       doc.setFillColor(236, 234, 240);
-      doc.roundedRect(barX, yPosition - 1, barW, barH, 1, 1, 'F');
+      doc.roundedRect(barX, yPosition - 0.5, barW, barH, 1, 1, 'F');
       const fillColor = t.performancePct >= 67 ? '#16a34a' : t.performancePct >= 34 ? '#ca8a04' : '#dc2626';
       doc.setFillColor(fillColor);
-      doc.roundedRect(barX, yPosition - 1, Math.max(1.5, barW * t.performancePct / 100), barH, 1, 1, 'F');
+      doc.roundedRect(barX, yPosition - 0.5, Math.max(1.5, barW * t.performancePct / 100), barH, 1, 1, 'F');
 
       doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
       doc.setTextColor(31, 41, 55);
-      doc.text(`${t.performancePct}%`, PAGE.width - PAGE.marginRight, yPosition + 1.5, { align: 'right' });
+      doc.text(`${t.performancePct}%`, PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
       yPosition += rowH;
     }
     yPosition += 1;
-    checkNewPage(8);
+    checkNewPage(10);
     doc.setFont('helvetica', 'italic');
-    doc.setFontSize(7.5);
+    doc.setFontSize(11);
     doc.setTextColor(107, 114, 128);
-    doc.text('Share of checks already going well in each area assessed. Lower bars are where to focus.', PAGE.marginLeft, yPosition + 2);
-    yPosition += 10;
+    for (const l of doc.splitTextToSize('Share of checks already going well in each area assessed. Lower bars are where to focus.', PAGE.contentWidth)) {
+      doc.text(l, PAGE.marginLeft, yPosition + 2);
+      yPosition += 5;
+    }
+    yPosition += 5;
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(0, 0, 0);
   }
@@ -848,13 +861,13 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   if (report.analysis.thematicSummaries.length > 0) {
     addSectionTitle('Where the Priorities Sit');
     for (const s of report.analysis.thematicSummaries) {
-      checkNewPage(18);
-      doc.setFontSize(9.5);
+      checkNewPage(22);
+      doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(COLORS.text);
       doc.text(s.title, PAGE.marginLeft, yPosition);
-      yPosition += 5;
-      addParagraph(s.body, 9);
+      yPosition += 6;
+      addParagraph(s.body, 11);
     }
   }
 
@@ -878,7 +891,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
     const seqNote = doc.splitTextToSize('A suggested order to work through the actions. A starting point for your own planning, not a fixed schedule.', PAGE.contentWidth);
-    for (const l of seqNote) { checkNewPage(6); doc.text(l, PAGE.marginLeft, yPosition); yPosition += 4; }
+    for (const l of seqNote) { checkNewPage(6); doc.text(l, PAGE.marginLeft, yPosition); yPosition += 5.3; }
     yPosition += 2;
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(0, 0, 0);
@@ -962,7 +975,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     addSectionTitle('Modules Reviewed');
 
     // Caption so the columns are self-explanatory
-    doc.setFontSize(8);
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
     const capLines = doc.splitTextToSize(
@@ -972,24 +985,28 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     for (const cl of capLines) {
       checkNewPage(6);
       doc.text(cl, PAGE.marginLeft, yPosition);
-      yPosition += 4;
+      yPosition += 5;
     }
     yPosition += 3;
 
+    // Column layout (offsets from marginLeft)
+    const colStrengths = 108;
+    const colActions = 134;
+
     // Column header
-    checkNewPage(14);
-    doc.setFontSize(7);
+    checkNewPage(16);
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(107, 114, 128);
-    doc.text('MODULE', PAGE.marginLeft + 1, yPosition);
-    doc.text('STRENGTHS', PAGE.marginLeft + 122, yPosition, { align: 'right' });
-    doc.text('ACTIONS', PAGE.marginLeft + 147, yPosition, { align: 'right' });
-    doc.text('CONFIDENCE', PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
-    yPosition += 2;
+    doc.text('Module', PAGE.marginLeft + 1, yPosition);
+    doc.text('Strengths', PAGE.marginLeft + colStrengths, yPosition, { align: 'right' });
+    doc.text('Actions', PAGE.marginLeft + colActions, yPosition, { align: 'right' });
+    doc.text('Confidence', PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
+    yPosition += 2.5;
     doc.setDrawColor(220, 216, 226);
     doc.setLineWidth(0.3);
     doc.line(PAGE.marginLeft, yPosition, PAGE.width - PAGE.marginRight, yPosition);
-    yPosition += 4.5;
+    yPosition += 6;
 
     // Group modules by journey area for context
     const evByGroup = new Map<string, typeof report.moduleEvidence>();
@@ -1002,50 +1019,50 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     let rowAlt = false;
     for (const g of orderedGroups) {
-      checkNewPage(16);
-      doc.setFontSize(8);
+      checkNewPage(20);
+      doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(73, 14, 103);
       doc.text(groupLabel(g), PAGE.marginLeft + 1, yPosition + 1);
-      yPosition += 5;
+      yPosition += 6.5;
 
       const rows = evByGroup.get(g)!.slice().sort((a, b) => a.moduleCode.localeCompare(b.moduleCode, undefined, { numeric: true }));
       for (const ev of rows) {
-        const rowH = 6.5;
+        const rowH = 9;
         checkNewPage(rowH + 2);
         if (rowAlt) {
           doc.setFillColor(250, 248, 245);
-          doc.rect(PAGE.marginLeft - 1, yPosition - 3.4, PAGE.contentWidth + 2, rowH, 'F');
+          doc.rect(PAGE.marginLeft - 1, yPosition - 4.5, PAGE.contentWidth + 2, rowH, 'F');
         }
         rowAlt = !rowAlt;
 
         doc.setFillColor(240, 233, 245);
-        const bw = 13;
-        doc.roundedRect(PAGE.marginLeft, yPosition - 3, bw, 5, 1.5, 1.5, 'F');
-        doc.setFontSize(7);
+        const bw = 18;
+        doc.roundedRect(PAGE.marginLeft, yPosition - 4, bw, 7, 1.5, 1.5, 'F');
+        doc.setFontSize(11);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(73, 14, 103);
-        doc.text(ev.moduleCode, PAGE.marginLeft + bw / 2, yPosition + 0.4, { align: 'center' });
+        doc.text(ev.moduleCode, PAGE.marginLeft + bw / 2, yPosition + 0.6, { align: 'center' });
 
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8.5);
+        doc.setFontSize(11);
         doc.setTextColor(COLORS.text);
-        doc.text(doc.splitTextToSize(ev.moduleName, 95)[0], PAGE.marginLeft + 16, yPosition + 0.6);
+        doc.text(doc.splitTextToSize(ev.moduleName, 74)[0], PAGE.marginLeft + 22, yPosition + 0.8);
 
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(8.5);
+        doc.setFontSize(11);
         doc.setTextColor(ev.strengthsCount > 0 ? '#15803d' : '#9ca3af');
-        doc.text(String(ev.strengthsCount), PAGE.marginLeft + 122, yPosition + 0.6, { align: 'right' });
+        doc.text(String(ev.strengthsCount), PAGE.marginLeft + colStrengths, yPosition + 0.8, { align: 'right' });
         doc.setTextColor(ev.actionsCount > 0 ? '#b91c1c' : '#9ca3af');
-        doc.text(String(ev.actionsCount), PAGE.marginLeft + 147, yPosition + 0.6, { align: 'right' });
+        doc.text(String(ev.actionsCount), PAGE.marginLeft + colActions, yPosition + 0.8, { align: 'right' });
 
         const conf = ev.confidenceSnapshot;
         const confLabel = conf === 'strong' ? 'Strong' : conf === 'mixed' ? 'Mixed' : conf === 'needs-work' ? 'Needs work' : '—';
         const confColor = conf === 'strong' ? '#15803d' : conf === 'mixed' ? '#92400e' : conf === 'needs-work' ? '#b91c1c' : '#9ca3af';
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8);
+        doc.setFontSize(11);
         doc.setTextColor(confColor);
-        doc.text(confLabel, PAGE.width - PAGE.marginRight, yPosition + 0.6, { align: 'right' });
+        doc.text(confLabel, PAGE.width - PAGE.marginRight, yPosition + 0.8, { align: 'right' });
 
         yPosition += rowH;
       }
@@ -1214,11 +1231,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   checkNewPage(50);
 
   // Subheading for priority legend
-  doc.setFontSize(10);
+  doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(COLORS.amethystDiamond);
   doc.text('Understanding Priority Levels', PAGE.marginLeft, yPosition);
-  yPosition += 7;
+  yPosition += 8;
 
   const legendItems: { label: string; color: string; desc: string }[] = [
     { label: 'High', color: '#b91c1c', desc: 'Gaps in mandatory compliance requirements (Premises Standards, WCAG, NCC) and safety-related items. Highest legal and safety risk.' },
@@ -1229,7 +1246,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Reserve label + first description line so the label never orphans.
     checkNewPage(12);
     // Label in priority color
-    doc.setFontSize(11);
+    doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(item.color);
     doc.text(`${item.label}`, PAGE.marginLeft + 4, yPosition);
@@ -1285,7 +1302,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     // 6mm space before module card
     yPosition += 6;
-    checkNewPage(25);
+    checkNewPage(30);
 
     // Count summary badges for this module
     const mCount = mod.mediumActions.length;
@@ -1298,7 +1315,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setLineWidth(0.3);
     // Top + right + bottom border in light gray
     const moduleCardTop = yPosition - 5;
-    const moduleCardHeight = 12;
+    const moduleCardHeight = 15;
     doc.roundedRect(PAGE.marginLeft + 2, moduleCardTop, PAGE.contentWidth - 2, moduleCardHeight, 2, 2, 'S');
     // Purple left accent
     doc.setFillColor(COLORS.amethystDiamond);
@@ -1306,35 +1323,35 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     // Module code badge (light purple bg, purple text)
     doc.setFillColor(240, 233, 245);
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'bold');
-    const codeWidth = doc.getTextWidth(mod.moduleCode) + 5;
-    const badgeW = Math.max(codeWidth, 14);
-    doc.roundedRect(PAGE.marginLeft + 8, yPosition - 2.5, badgeW, 6, 2, 2, 'F');
-    doc.setTextColor(COLORS.amethystDiamond);
-    doc.text(mod.moduleCode, PAGE.marginLeft + 8 + badgeW / 2, yPosition + 1.5, { align: 'center' });
-
-    // Module name
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
+    const codeWidth = doc.getTextWidth(mod.moduleCode) + 6;
+    const badgeW = Math.max(codeWidth, 16);
+    doc.roundedRect(PAGE.marginLeft + 8, yPosition - 3.5, badgeW, 7, 2, 2, 'F');
+    doc.setTextColor(COLORS.amethystDiamond);
+    doc.text(mod.moduleCode, PAGE.marginLeft + 8 + badgeW / 2, yPosition + 1, { align: 'center' });
+
+    // Module name
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
     doc.setTextColor(COLORS.text);
-    doc.text(mod.moduleName, PAGE.marginLeft + 8 + badgeW + 3, yPosition + 1.5);
+    doc.text(mod.moduleName, PAGE.marginLeft + 8 + badgeW + 4, yPosition + 1);
 
     // Summary count badges on the right (like app: "6M 4L")
-    const badgeY = yPosition - 1.5;
+    const badgeY = yPosition - 2.5;
     let badgeX = PAGE.width - PAGE.marginRight - 5;
 
     const renderCountBadge = (count: number, label: string, bgColor: string, textColor: string) => {
       if (count === 0) return;
-      doc.setFontSize(7);
+      doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
       const badgeText = `${count}${label}`;
-      const tw = doc.getTextWidth(badgeText) + 4;
+      const tw = doc.getTextWidth(badgeText) + 5;
       badgeX -= tw + 2;
       doc.setFillColor(bgColor);
-      doc.roundedRect(badgeX, badgeY, tw, 5, 1.5, 1.5, 'F');
+      doc.roundedRect(badgeX, badgeY, tw, 7, 1.5, 1.5, 'F');
       doc.setTextColor(textColor);
-      doc.text(badgeText, badgeX + tw / 2, badgeY + 3.5, { align: 'center' });
+      doc.text(badgeText, badgeX + tw / 2, badgeY + 4.8, { align: 'center' });
     };
 
     // Render badges right-to-left: L, M, H
@@ -1357,7 +1374,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
       // Reserve heading + first line so a priority heading never orphans.
       checkNewPage(24);
-      doc.setFontSize(11);
+      doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(headingColor);
       doc.text(`${heading} (${items.length})`, PAGE.marginLeft + 6, yPosition + 1);
@@ -1462,11 +1479,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // "Things you can explore now" section
   checkNewPage(20);
-  doc.setFontSize(10);
+  doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor('#166534');
   doc.text('Things you can explore now', PAGE.marginLeft + 4, yPosition);
-  yPosition += 6;
+  yPosition += 7;
 
   for (const item of report.nextSteps.exploreNow) {
     doc.setFontSize(11);
@@ -1491,11 +1508,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // "Things to plan for later" section
   checkNewPage(20);
-  doc.setFontSize(10);
+  doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(COLORS.amethystDiamond);
   doc.text('Things to plan for later', PAGE.marginLeft + 4, yPosition);
-  yPosition += 6;
+  yPosition += 7;
 
   for (const item of report.nextSteps.planForLater) {
     doc.setFontSize(11);
