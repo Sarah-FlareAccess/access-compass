@@ -100,6 +100,15 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   let currentPage = 1;
   let yPosition = PAGE.marginTop;
 
+  // Contents-page support: record the page each section title lands on, and
+  // where each contents line was drawn, so a second pass can fill in accurate
+  // page numbers (the pages are not known when the contents page is drawn).
+  const sectionPages = new Map<string, number>();
+  const tocEntries: { title: string; page: number; y: number }[] = [];
+  const recordSection = (title: string) => {
+    if (!sectionPages.has(title)) sectionPages.set(title, doc.getNumberOfPages());
+  };
+
   // Helper: Add header to current page
   const addHeader = () => {
     // Purple gradient effect (simulated with two rects)
@@ -193,6 +202,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       yPosition += 10;
       checkNewPage(reserve);
     }
+    recordSection(title);
 
     if (isFindings) {
       // Findings group headers: light ivory bg with purple left accent bar (matching app)
@@ -228,6 +238,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // reserve keeps the title with the first lines of its content.
   const addSectionTitle = (title: string, accentColor: string = COLORS.amethystDiamond, reserve: number = 30) => {
     checkNewPage(reserve);
+    recordSection(title);
 
     // Background bar for section header
     doc.setFillColor(250, 248, 245); // ivory
@@ -529,93 +540,46 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       (report.urlAnalysisResults && report.urlAnalysisResults.length > 0) ||
       (report.mediaAnalysisResults && report.mediaAnalysisResults.length > 0);
 
-    const keyFindingModules = (() => {
-      const modCodes = new Set<string>();
-      for (const s of [
-        ...(report.sections.strengths.categorised || []),
-        ...(report.sections.priorityActions.categorised || []),
-        ...(report.sections.areasToExplore.categorised || []),
-      ]) {
-        modCodes.add(s.moduleCode);
-      }
-      const sorted = Array.from(modCodes).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-      return sorted.map(code => {
-        const mod = accessModules.find(m => m.code === code);
-        return `${code}  ${mod?.name || code}`;
-      });
-    })();
-
-    const tocGroups: { group: string; items: string[] }[] = [
-      {
-        group: 'Overview',
-        items: [
-          'Executive Summary',
-          ...(report.frameworkAlignment ? ['Legislative Alignment'] : []),
-          'About This Report',
-          'Your Obligations',
-          'Methodology',
-          ...(report.progressComparison?.enabled ? ['Progress Comparison'] : []),
-        ],
-      },
-      {
-        group: 'Analysis & Priorities',
-        items: [
-          ...(report.themeBreakdown.length ? ['Performance by Area'] : []),
-          ...(report.analysis.recurringThemes.length ? ['Recurring Themes'] : []),
-          ...(report.analysis.thematicSummaries.length ? ['Where the Priorities Sit'] : []),
-          ...(report.analysis.strengthsByTheme.length ? ["Where You're Strongest"] : []),
-          ...(report.analysis.startingSequence.length ? ['Suggested Implementation Roadmap'] : []),
-        ],
-      },
-      ...(hasAnalysisData
-        ? [{
-            group: 'Analysis Results',
-            items: [
-              ...(report.urlAnalysisResults?.length ? ['Website Accessibility Analysis'] : []),
-              ...(report.mediaAnalysisResults?.length ? ['Media Analysis Results'] : []),
-            ],
-          }]
-        : []),
-      {
-        group: 'Key Findings',
-        items: keyFindingModules,
-      },
-      {
-        group: 'Next Steps & Guidance',
-        items: [
-          'Suggested Next Steps',
-          'Professional Support',
-          'Compliance Note',
-        ],
-      },
-      {
-        group: 'Appendix',
-        items: [
-          ...(report.moduleEvidence?.length ? ['Assessment Evidence'] : []),
-          ...(report.questionNotes?.length ? ['Your Notes & Observations'] : []),
-          ...(report.questionEvidence?.length ? ['Supporting Evidence'] : []),
-          'Important Disclaimer',
-        ],
-      },
+    // Flat, section-level outline. Every item maps to a rendered heading, so a
+    // second pass can stamp its true page number next to it.
+    const tocItems: string[] = [
+      'Executive Summary',
+      ...(report.frameworkAlignment ? ['Legislative Alignment'] : []),
+      'About This Report',
+      ...(report.themeBreakdown.length ? ['Performance by Area'] : []),
+      ...(report.analysis.recurringThemes.length ? ['Recurring Themes'] : []),
+      ...(report.analysis.thematicSummaries.length ? ['Where the Priorities Sit'] : []),
+      ...(report.analysis.strengthsByTheme.length ? ["Where You're Strongest"] : []),
+      ...(report.analysis.startingSequence.length ? ['Suggested Implementation Roadmap'] : []),
+      ...(hasAnalysisData ? ['Analysis Results'] : []),
+      'Key Findings',
+      'Next Steps & Guidance',
+      ...(report.moduleEvidence?.length ? ['Assessment Evidence'] : []),
+      'Important Disclaimer',
     ];
 
-    tocGroups.forEach((tocGroup) => {
-      if (tocGroup.items.length === 0) return;
-      doc.setFontSize(11);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(COLORS.amethystDiamond);
-      doc.text(tocGroup.group, PAGE.marginLeft + 3, yPosition);
-      yPosition += 6;
-
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(0, 0, 0);
-      tocGroup.items.forEach((item) => {
-        doc.text(item, PAGE.marginLeft + 10, yPosition);
-        yPosition += 6;
-      });
-      yPosition += 2;
-    });
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    for (const item of tocItems) {
+      checkNewPage(11);
+      doc.setTextColor(COLORS.text);
+      doc.text(item, PAGE.marginLeft + 3, yPosition);
+      // Dotted leader between the title and where the page number will go.
+      const titleW = doc.getTextWidth(item);
+      const dotsStart = PAGE.marginLeft + 3 + titleW + 3;
+      const dotsEnd = PAGE.width - PAGE.marginRight - 10;
+      if (dotsEnd > dotsStart) {
+        doc.setTextColor(200, 196, 206);
+        doc.setLineDashPattern([0.6, 1.2], 0);
+        doc.setDrawColor(200, 196, 206);
+        doc.setLineWidth(0.3);
+        doc.line(dotsStart, yPosition - 1, dotsEnd, yPosition - 1);
+        doc.setLineDashPattern([], 0);
+      }
+      tocEntries.push({ title: item, page: doc.getNumberOfPages(), y: yPosition });
+      yPosition += 9;
+    }
+    doc.setTextColor(0, 0, 0);
 
     addFooter();
     addNewPage();
@@ -1892,6 +1856,21 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // Add final footer
   addFooter();
+
+  // Second pass: stamp the real page number next to each contents-page line,
+  // now that every section's page is known.
+  for (const e of tocEntries) {
+    const p = sectionPages.get(e.title);
+    if (!p) continue;
+    doc.setPage(e.page);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(COLORS.amethystDiamond);
+    doc.text(String(p), PAGE.width - PAGE.marginRight, e.y, { align: 'right' });
+  }
+  // Return to the last page before the footer numbering pass.
+  doc.setPage(doc.getNumberOfPages());
+  doc.setTextColor(0, 0, 0);
 
   // Second pass: overwrite page numbers with "Page X of Y".
   // Skip page 1 (the cover) so no footer box is drawn over the title art.
