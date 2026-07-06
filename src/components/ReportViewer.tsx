@@ -193,9 +193,6 @@ function CategorisedList({
               <span className="categorised-module-code">{group.moduleCode}</span>
               <span className="categorised-module-name">{group.moduleName}</span>
               {showPriority && <PrioritySummary items={group.items} />}
-              {showPriority && group.items[0]?.ownerArea && (
-                <span className="categorised-owner">Suggested owner: {group.items[0].ownerArea}</span>
-              )}
             </div>
             {tiers.map(tier => (
               <div key={tier.priority || 'all'} className={tier.priority ? `action-tier action-tier-${tier.priority}` : undefined}>
@@ -630,16 +627,6 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                   </div>
                   {report.analysis.recurringInsight && (
                     <p className="report-analysis-insight">{report.analysis.recurringInsight}</p>
-                  )}
-                  {report.analysis.themeLeads.length > 0 && (
-                    <table className="report-leads">
-                      <thead><tr><th>Theme</th><th>Suggested lead</th></tr></thead>
-                      <tbody>
-                        {report.analysis.themeLeads.map(l => (
-                          <tr key={l.theme}><td>{l.theme}</td><td>{l.lead}</td></tr>
-                        ))}
-                      </tbody>
-                    </table>
                   )}
                 </div>
               )}

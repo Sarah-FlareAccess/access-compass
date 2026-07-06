@@ -982,16 +982,6 @@ export default function ReportPage() {
             {report.analysis.recurringInsight && (
               <p className="rp-analysis-insight">{report.analysis.recurringInsight}</p>
             )}
-            {report.analysis.themeLeads.length > 0 && (
-              <table className="rp-leads">
-                <thead><tr><th>Theme</th><th>Suggested lead</th></tr></thead>
-                <tbody>
-                  {report.analysis.themeLeads.map(l => (
-                    <tr key={l.theme}><td>{l.theme}</td><td>{l.lead}</td></tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
           </div>
         )}
 

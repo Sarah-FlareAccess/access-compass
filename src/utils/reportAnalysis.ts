@@ -37,11 +37,6 @@ export interface AnalysisInput {
   low: number;
 }
 
-export interface ThemeLead {
-  theme: string;
-  lead: string;
-}
-
 export interface EffortBreakdown {
   quickWins: number;
   operational: number;
@@ -76,7 +71,6 @@ export interface ReportAnalysis {
   priorityGroups: PriorityGroup[];
   recurringThemes: AnalysisTheme[];
   recurringInsight: string;
-  themeLeads: ThemeLead[];
   thematicSummaries: ThematicSummary[];
   strengthsByTheme: AnalysisTheme[];
   startingSequence: SequenceStep[];
@@ -113,23 +107,6 @@ const STRUCTURAL_KWS = [
 const STRUCTURAL_THEMES = new Set<string>([
   'Parking & arrival', 'Entrances & doors', 'Paths & circulation', 'Toilets & amenities', 'Lighting',
 ]);
-
-// Suggested lead area per theme. A starting point for routing, not a fixed org
-// chart, and worded so any organisation can map it to their own structure.
-const THEME_LEADS: Record<string, string> = {
-  'Signage & wayfinding': 'Facilities',
-  'Parking & arrival': 'Facilities & Assets',
-  'Entrances & doors': 'Assets',
-  'Paths & circulation': 'Assets',
-  'Toilets & amenities': 'Facilities & Assets',
-  'Lighting': 'Facilities',
-  'Digital & website': 'Communications & Digital',
-  'Information & formats': 'Communications',
-  'Staff awareness & training': 'People & Culture',
-  'Policy & procurement': 'Governance',
-  'Hearing & sensory': 'Facilities',
-  'Bookings & ticketing': 'Customer Service',
-};
 
 function joinLower(items: string[]): string {
   const l = items.map(s => s.toLowerCase());
@@ -174,7 +151,6 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     priorityGroups: [],
     recurringThemes: [],
     recurringInsight: '',
-    themeLeads: [],
     thematicSummaries: [],
     strengthsByTheme: [],
     startingSequence: [],
@@ -226,10 +202,6 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
   if (recurringThemes.length >= 2) {
     recurringInsight = `Addressing ${recurringThemes[0].label.toLowerCase()} and ${recurringThemes[1].label.toLowerCase()} would remove several barriers at once.`;
   }
-  const themeLeads: ThemeLead[] = recurringThemes.slice(0, 6).map(t => ({
-    theme: t.label,
-    lead: THEME_LEADS[t.label] || 'To be assigned',
-  }));
 
   // Structural (built-environment / capital) vs operational split.
   const structuralCount = actions.filter(a => {
@@ -340,5 +312,5 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
   if (shortTerm.length) startingSequence.push({ heading: 'Short term (3-12 months)', items: shortTerm });
   startingSequence.push({ heading: 'Long term', items: longTerm });
 
-  return { headline, interpretation, whyItMatters, effort, priorityGroups, recurringThemes, recurringInsight, themeLeads, thematicSummaries, strengthsByTheme, startingSequence };
+  return { headline, interpretation, whyItMatters, effort, priorityGroups, recurringThemes, recurringInsight, thematicSummaries, strengthsByTheme, startingSequence };
 }

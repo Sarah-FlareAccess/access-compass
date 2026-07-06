@@ -9,7 +9,7 @@ import jsPDF from 'jspdf';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 import { accessModules } from '../data/accessModules';
 import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from './professionalSupportGroups';
-import { groupOwnerArea, groupLabel, groupOrderIndex } from './maturityModel';
+import { groupLabel, groupOrderIndex } from './maturityModel';
 import type { ThematicSummary } from './reportAnalysis';
 
 // Brand Colors - matching Access Compass design system
@@ -681,7 +681,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   addStatBox(col(1), yPosition, tileW, String(ef.capital), 'Capital works likely', '#b91c1c');
   addStatBox(col(2), yPosition, tileW, String(report.executiveSummary.areasToExploreCount), 'To Investigate', COLORS.amber, '#92400e');
 
-  yPosition += 30;
+  yPosition += 34;
 
   {
     doc.setFont('helvetica', 'italic');
@@ -799,25 +799,28 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       .slice(0, 3);
     if (report.analysis.priorityGroups.length > 0) {
       addSectionTitle('Top Priorities');
+      // Exec view: the strategic priority themes, not the full action steps.
+      // Detailed steps for each sit in the full report.
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(11);
+      doc.setTextColor(107, 114, 128);
+      const pNote = doc.splitTextToSize('The priority themes where the greatest improvements sit. Detailed action steps for each are in the full report.', PAGE.contentWidth);
+      for (const l of pNote) { checkNewPage(6); doc.text(l, PAGE.marginLeft, yPosition); yPosition += 5; }
+      yPosition += 3;
       for (const g of report.analysis.priorityGroups) {
-        checkNewPage(18);
+        checkNewPage(9);
         doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');
-        doc.setTextColor(COLORS.text);
+        doc.setTextColor(COLORS.amethystDiamond);
         doc.text(g.heading, PAGE.marginLeft, yPosition);
-        yPosition += 6;
-        doc.setFont('helvetica', 'normal');
+        const n = g.items.length;
         doc.setFontSize(11);
-        doc.setTextColor(COLORS.text);
-        for (const item of g.items) {
-          for (const l of doc.splitTextToSize(`• ${item}`, PAGE.contentWidth - 6)) {
-            checkNewPage(6);
-            doc.text(l, PAGE.marginLeft + 4, yPosition);
-            yPosition += 5;
-          }
-        }
-        yPosition += 3;
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(107, 114, 128);
+        doc.text(`${n} priority ${n === 1 ? 'action' : 'actions'}`, PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
+        yPosition += 7.5;
       }
+      yPosition += 1;
       doc.setTextColor(0, 0, 0);
     } else if (topActions.length > 0) {
       addSectionTitle('Top Priorities');
@@ -870,7 +873,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.rect(PAGE.marginLeft, fy - 6, 40, 1, 'F');
       doc.setFontSize(7);
       doc.setTextColor(107, 114, 128);
-      doc.text('Access Compass — Accessibility Performance Summary', PAGE.marginLeft, fy);
+      doc.text('Access Compass by Flare Access', PAGE.marginLeft, fy);
       doc.setTextColor(73, 14, 103);
       doc.text(
         new Date(report.generatedAt).toLocaleDateString('en-AU', {
@@ -1007,32 +1010,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.setTextColor(0, 0, 0);
     }
 
-    if (report.analysis.themeLeads.length > 0) {
-      checkNewPage(14);
-      doc.setFontSize(11);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(107, 114, 128);
-      doc.text('THEME', PAGE.marginLeft, yPosition);
-      doc.text('SUGGESTED LEAD', PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
-      yPosition += 2;
-      doc.setDrawColor(220, 216, 226);
-      doc.setLineWidth(0.3);
-      doc.line(PAGE.marginLeft, yPosition, PAGE.width - PAGE.marginRight, yPosition);
-      yPosition += 5.5;
-      for (const l of report.analysis.themeLeads) {
-        checkNewPage(7);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(11);
-        doc.setTextColor(COLORS.text);
-        doc.text(l.theme, PAGE.marginLeft, yPosition);
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(COLORS.amethystDiamond);
-        doc.text(l.lead, PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
-        yPosition += 6;
-      }
-      yPosition += 3;
-      doc.setTextColor(0, 0, 0);
-    }
   }
 
   // --- Where the priorities sit ---
@@ -1552,14 +1529,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     if (mod.group !== lastGroup) {
       lastGroup = mod.group;
       addGroupHeader(getGroupLabel(mod.group), true);
-      // Suggested owning area for this group of actions
-      checkNewPage(6);
-      doc.setFontSize(7.5);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(107, 114, 128);
-      doc.text(`Suggested owner: ${groupOwnerArea(mod.group)}`, PAGE.marginLeft + 5, yPosition);
-      yPosition += 5;
-      doc.setTextColor(0, 0, 0);
     }
 
     // 6mm space before module card
