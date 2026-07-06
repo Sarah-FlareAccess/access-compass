@@ -1045,25 +1045,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     yPosition += 2;
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(0, 0, 0);
-    for (const step of report.analysis.startingSequence) {
-      checkNewPage(10);
-      doc.setFontSize(9);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(COLORS.amethystDiamond);
-      doc.text(step.heading, PAGE.marginLeft, yPosition);
-      const headW = doc.getTextWidth(step.heading);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(COLORS.text);
-      const lines = doc.splitTextToSize(step.items.join(', '), PAGE.contentWidth - headW - 6);
-      doc.text(lines[0] || '', PAGE.marginLeft + headW + 4, yPosition);
-      yPosition += 4.5;
-      for (let i = 1; i < lines.length; i++) {
-        checkNewPage(5);
-        doc.text(lines[i], PAGE.marginLeft + 4, yPosition);
-        yPosition += 4.5;
-      }
-      yPosition += 1.5;
-    }
+    renderRoadmap(report.analysis.startingSequence);
     yPosition += 2;
     doc.setTextColor(0, 0, 0);
   }
