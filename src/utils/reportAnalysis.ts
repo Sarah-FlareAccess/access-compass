@@ -37,8 +37,12 @@ export interface AnalysisInput {
 }
 
 export interface ThematicSummary {
-  title: string;
-  body: string;
+  label: string;
+  pct: number;
+  count: number;
+  total: number;
+  barriers: string[];
+  scopeHigh: boolean;
 }
 
 export interface SequenceStep {
@@ -102,13 +106,6 @@ function countThemes(actions: AnalysisAction[], limit = 6, minCount = 1): Analys
     .map(([label, count]) => ({ label, count }))
     .sort((a, b) => b.count - a.count)
     .slice(0, limit);
-}
-
-function joinList(items: string[]): string {
-  const lower = items.map(s => s.toLowerCase());
-  if (lower.length <= 1) return lower[0] || '';
-  if (lower.length === 2) return `${lower[0]} and ${lower[1]}`;
-  return `${lower.slice(0, -1).join(', ')} and ${lower[lower.length - 1]}`;
 }
 
 export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
@@ -186,18 +183,15 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     .filter(d => d.count > 0)
     .sort((a, b) => b.count - a.count);
 
-  const thematicSummaries: ThematicSummary[] = domainCounts.slice(0, 2).map(d => {
-    const pct = totalForDomains > 0 ? Math.round((d.count / totalForDomains) * 100) : 0;
-    const topThemes = countThemes(d.actions, 3, 2).map(t => t.label);
-    const scope = highActions.length > 0 ? 'the high-priority actions' : 'the actions identified';
-    return {
-      title: d.label,
-      body:
-        `The ${d.label.toLowerCase()} accounts for about ${pct}% of ${scope} (${d.count} of ${totalForDomains}).` +
-        (topThemes.length ? ` The most common barriers relate to ${joinList(topThemes)}.` : '') +
-        ' Addressing these early removes barriers that affect the whole visitor journey.',
-    };
-  });
+  const scopeHigh = highActions.length > 0;
+  const thematicSummaries: ThematicSummary[] = domainCounts.slice(0, 3).map(d => ({
+    label: d.label,
+    pct: totalForDomains > 0 ? Math.round((d.count / totalForDomains) * 100) : 0,
+    count: d.count,
+    total: totalForDomains,
+    barriers: countThemes(d.actions, 3, 2).map(t => t.label),
+    scopeHigh,
+  }));
 
   // --- Strengths, grouped by area ---
   const strengthMap = new Map<string, number>();

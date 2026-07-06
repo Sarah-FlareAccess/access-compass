@@ -439,20 +439,11 @@
   text-align: right;
 }
 
-.report-thematic { margin-bottom: 12px; }
-
-.report-thematic h4 {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 4px;
-}
-
-.report-thematic p {
-  font-size: 0.88rem;
-  line-height: 1.55;
-  color: var(--text-primary);
-  margin: 0;
+.report-thematic-sub {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #6b7280;
+  margin: 3px 0 8px;
 }
 
 .report-sequence {

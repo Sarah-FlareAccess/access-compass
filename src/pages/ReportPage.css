@@ -1779,23 +1779,16 @@
 
 .rp-theme-chip.rp-chip-good b { color: #15803d; }
 
-/* Thematic summaries */
-.rp-thematic {
-  margin-bottom: 12px;
+/* Thematic summaries (bar rows + barriers subline) */
+.rp-thematic-row {
+  margin-bottom: 6px;
 }
 
-.rp-thematic h3 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-primary, #2d2420);
-  margin: 0 0 4px;
-}
-
-.rp-thematic p {
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: var(--text-primary, #2d2420);
-  margin: 0;
+.rp-thematic-sub {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #6b7280;
+  margin: 3px 0 0;
 }
 
 /* Suggested starting sequence */

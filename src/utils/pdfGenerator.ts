@@ -10,6 +10,7 @@ import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 import { accessModules } from '../data/accessModules';
 import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from './professionalSupportGroups';
 import { groupOwnerArea, groupLabel, groupOrderIndex } from './maturityModel';
+import type { ThematicSummary } from './reportAnalysis';
 
 // Brand Colors - matching Access Compass design system
 const COLORS = {
@@ -289,6 +290,42 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     }
     yPosition += 2;
     doc.setTextColor(0, 0, 0);
+  };
+
+  // Helper: Render "Where the priorities sit" as bar rows + barriers subline,
+  // matching the report's other bar sections.
+  const renderThematicSummaries = (summaries: ThematicSummary[]) => {
+    const labelW = 64;
+    const barX = PAGE.marginLeft + labelW + 2;
+    const barW = PAGE.contentWidth - labelW - 2 - 14;
+    for (const s of summaries) {
+      checkNewPage(16);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+      doc.setTextColor(31, 41, 55);
+      doc.text(doc.splitTextToSize(s.label, labelW)[0], PAGE.marginLeft, yPosition + 2);
+      doc.setFillColor(236, 234, 240);
+      doc.roundedRect(barX, yPosition - 0.5, barW, 4, 1, 1, 'F');
+      doc.setFillColor(COLORS.amethystDiamond);
+      doc.roundedRect(barX, yPosition - 0.5, Math.max(1.5, barW * s.pct / 100), 4, 1, 1, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.text(`${s.pct}%`, PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
+      yPosition += 6.5;
+
+      const sub = `${s.count} of ${s.total} ${s.scopeHigh ? 'high-priority' : 'total'} actions`
+        + (s.barriers.length ? ` · Barriers: ${s.barriers.join(', ')}` : '');
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+      doc.setTextColor(107, 114, 128);
+      for (const l of doc.splitTextToSize(sub, PAGE.contentWidth)) {
+        checkNewPage(6);
+        doc.text(l, PAGE.marginLeft, yPosition);
+        yPosition += 5;
+      }
+      yPosition += 3;
+      doc.setTextColor(0, 0, 0);
+    }
   };
 
   // Helper: Add bullet list
@@ -703,15 +740,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       addFooter();
       addNewPage();
       addSectionTitle('Where the Priorities Sit');
-      for (const s of report.analysis.thematicSummaries) {
-        checkNewPage(18);
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(COLORS.text);
-        doc.text(s.title, PAGE.marginLeft, yPosition);
-        yPosition += 6;
-        addParagraph(s.body, 9);
-      }
+      yPosition += 4;
+      renderThematicSummaries(report.analysis.thematicSummaries);
     }
 
     // Top priorities: rank genuinely by risk, not list order.
@@ -901,15 +931,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // --- Where the priorities sit ---
   if (report.analysis.thematicSummaries.length > 0) {
     addSectionTitle('Where the Priorities Sit');
-    for (const s of report.analysis.thematicSummaries) {
-      checkNewPage(22);
-      doc.setFontSize(12);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(COLORS.text);
-      doc.text(s.title, PAGE.marginLeft, yPosition);
-      yPosition += 6;
-      addParagraph(s.body, 11);
-    }
+    yPosition += 4;
+    renderThematicSummaries(report.analysis.thematicSummaries);
   }
 
   // --- Where you're strongest ---
