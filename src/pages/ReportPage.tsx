@@ -749,6 +749,44 @@ export default function ReportPage() {
           </details>
         </div>
 
+        {/* Accessibility maturity - the headline "where are we" */}
+        {report.maturity.started && (
+          <div className="rp-maturity">
+            <div className="rp-maturity-head">
+              <span className="rp-maturity-tag">Accessibility maturity</span>
+              <b className={`rp-maturity-level rp-mat-${report.maturity.levelIdx}`}>{report.maturity.level}</b>
+              {report.maturity.nextStage && (
+                <span className="rp-maturity-next">Next: reach {report.maturity.nextStage}</span>
+              )}
+            </div>
+            <div
+              className="rp-maturity-meter"
+              role="img"
+              aria-label={`Maturity level ${report.maturity.level}, ${report.maturity.levelIdx + 1} of 4`}
+            >
+              {[0, 1, 2, 3].map(i => (
+                <div key={i} className={`rp-mat-seg${i <= report.maturity.levelIdx ? ` rp-mat-seg-on rp-mat-${i}` : ''}`} />
+              ))}
+            </div>
+            <div className="rp-maturity-labels" aria-hidden="true">
+              {['Emerging', 'Developing', 'Established', 'Embedded'].map((lv, i) => (
+                <span key={lv} className={i === report.maturity.levelIdx ? 'cur' : ''}>{lv}</span>
+              ))}
+            </div>
+            <div className="rp-maturity-coverage">
+              <span className={`rp-maturity-conf rp-conf-${report.maturity.confidence.toLowerCase()}`}>
+                {report.maturity.confidence} confidence
+              </span>
+              <span>
+                Based on {report.executiveSummary.modulesCompleted} of {report.executiveSummary.totalModules} areas
+                assessed ({report.maturity.coveragePct}%) · {report.maturity.performancePct}% doing well
+              </span>
+            </div>
+          </div>
+        )}
+
+        {report.narrative && <p className="rp-narrative">{report.narrative}</p>}
+
         {/* Executive summary stats */}
         <div className="rp-summary-stats">
           <div className="rp-stat-card">
@@ -795,6 +833,28 @@ export default function ReportPage() {
               <span className="rp-legend-item"><span className="rp-legend-dot rp-dot-medium" /> Medium ({priorityDistribution.medium}) - {priorityDistribution.total > 0 ? Math.round((priorityDistribution.medium / priorityDistribution.total) * 100) : 0}%</span>
               <span className="rp-legend-item"><span className="rp-legend-dot rp-dot-low" /> Low ({priorityDistribution.low}) - {priorityDistribution.total > 0 ? Math.round((priorityDistribution.low / priorityDistribution.total) * 100) : 0}%</span>
             </div>
+          </div>
+        )}
+
+        {/* Performance by area (theme breakdown) */}
+        {report.themeBreakdown.length > 0 && (
+          <div className="rp-theme-breakdown">
+            <h2>Performance by area</h2>
+            <div className="rp-theme-rows">
+              {report.themeBreakdown.map(t => (
+                <div key={t.group} className="rp-theme-row">
+                  <span className="rp-theme-label">{t.label}</span>
+                  <span className="rp-theme-bar">
+                    <span
+                      className={`rp-theme-bar-fill rp-perf-${t.performancePct >= 67 ? 'good' : t.performancePct >= 34 ? 'mid' : 'low'}`}
+                      style={{ width: `${t.performancePct}%` }}
+                    />
+                  </span>
+                  <span className="rp-theme-pct">{t.performancePct}%</span>
+                </div>
+              ))}
+            </div>
+            <p className="rp-theme-note">Share of checks already going well in each area assessed. Lower bars are where to focus.</p>
           </div>
         )}
 
