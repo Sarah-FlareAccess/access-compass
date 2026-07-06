@@ -275,10 +275,13 @@ function getLocalItems(): DIAPItem[] {
   // cross-domain topic mismatches and gives every audit item a clean 3-step
   // action. Only touches audit-source items; manual/CSV/PDF imports are left
   // as the user entered them.
-  if (!localStorage.getItem('diap_content_v9')) {
+  if (!localStorage.getItem('diap_content_v10')) {
     let v7Changed = false;
     for (const item of items) {
-      if (!item.moduleSource || item.importSource !== 'audit') continue;
+      // Auto-generated items only: importSource 'audit' or unset. Never touch
+      // manual, CSV or PDF imports.
+      if (!item.moduleSource) continue;
+      if (item.importSource && item.importSource !== 'audit') continue;
       const moduleCode = extractModuleCode(item.moduleSource);
       if (!moduleCode) continue;
       const mod = getModuleById(moduleCode);
@@ -292,7 +295,7 @@ function getLocalItems(): DIAPItem[] {
         v7Changed = true;
       }
     }
-    localStorage.setItem('diap_content_v9', 'done');
+    localStorage.setItem('diap_content_v10', 'done');
     if (v7Changed) {
       localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
     }
@@ -885,17 +888,21 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       const priority = calculatePriority(response);
       const timeframe = calculateTimeframe(priority);
 
+      const genQuestion = { id: response.questionId, text: response.questionText };
       const item: DIAPItem = {
         id: uuidv4(),
         sessionId: session?.session_id || '',
-        objective: generateObjective({ text: response.questionText }, response.answer, response.moduleCode),
-        action: generateDIAPActions({ id: response.questionId, text: response.questionText }, response.answer, response.moduleCode),
+        objective: generateObjective(genQuestion, response.answer, response.moduleCode),
+        action: generateDIAPActions(genQuestion, response.answer, response.moduleCode),
         category: response.category || 'operations-policy-procedure',
         priority,
         timeframe,
         status: 'not-started',
         moduleSource: response.moduleCode,
         questionSource: response.questionId,
+        sourceAnswer: response.answer,
+        importSource: 'audit',
+        successIndicators: generateSuccessIndicator(genQuestion, response.moduleCode),
         impactStatement: response.safetyRelated
           ? 'This is a safety-related item requiring immediate attention.'
           : undefined,
@@ -1557,7 +1564,6 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     const pushItem = (
       questionId: string,
       questionText: string,
-      action: string,
       priority: DIAPPriority,
       impactStatement: string | undefined,
     ) => {
@@ -1571,7 +1577,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         id: uuidv4(),
         sessionId: session?.session_id || '',
         objective: generateObjective(q, sourceAnswer || 'no', moduleCodeForObj),
-        action: action || generateDIAPActions(q, 'no', moduleCodeForObj),
+        action: generateDIAPActions(q, sourceAnswer || 'no', moduleCodeForObj),
         category: mapModuleToCategory(moduleName),
         priority,
         status: 'not-started',
@@ -1590,11 +1596,11 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
     };
 
     for (const pa of summary.priorityActions) {
-      pushItem(pa.questionId, pa.questionText, pa.action, (pa.priority as DIAPPriority) || 'medium', pa.impactStatement);
+      pushItem(pa.questionId, pa.questionText, (pa.priority as DIAPPriority) || 'medium', pa.impactStatement);
     }
     for (const ae of summary.areasToExplore) {
       if (typeof ae === 'string') continue;
-      pushItem(ae.questionId, ae.questionText, ae.action, 'low', 'This area needs further investigation to confirm current status.');
+      pushItem(ae.questionId, ae.questionText, 'low', 'This area needs further investigation to confirm current status.');
     }
 
     if (newItems.length > 0) {
