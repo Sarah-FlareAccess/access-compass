@@ -88,7 +88,7 @@ const DOMAINS: { label: string; groups: string[] }[] = [
   { label: 'Events', groups: ['events', 'major-events'] },
 ];
 
-function countThemes(actions: AnalysisAction[], limit = 6): AnalysisTheme[] {
+function countThemes(actions: AnalysisAction[], limit = 6, minCount = 1): AnalysisTheme[] {
   const counts = new Map<string, number>();
   for (const theme of THEME_KEYWORDS) {
     let n = 0;
@@ -96,7 +96,7 @@ function countThemes(actions: AnalysisAction[], limit = 6): AnalysisTheme[] {
       const t = a.text.toLowerCase();
       if (theme.kws.some(k => t.includes(k))) n += 1;
     }
-    if (n > 0) counts.set(theme.label, n);
+    if (n >= minCount) counts.set(theme.label, n);
   }
   return Array.from(counts.entries())
     .map(([label, count]) => ({ label, count }))
@@ -170,7 +170,8 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
   }
 
   // --- Recurring themes across all recommendations ---
-  const recurringThemes = countThemes(actions);
+  // A theme only "recurs" if it appears at least twice.
+  const recurringThemes = countThemes(actions, 6, 2);
 
   // --- Thematic summaries: where the high-priority load sits by domain ---
   const highActions = actions.filter(a => a.priority === 'high');
@@ -187,7 +188,7 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
 
   const thematicSummaries: ThematicSummary[] = domainCounts.slice(0, 2).map(d => {
     const pct = totalForDomains > 0 ? Math.round((d.count / totalForDomains) * 100) : 0;
-    const topThemes = countThemes(d.actions, 3).map(t => t.label);
+    const topThemes = countThemes(d.actions, 3, 2).map(t => t.label);
     const scope = highActions.length > 0 ? 'the high-priority actions' : 'the actions identified';
     return {
       title: d.label,

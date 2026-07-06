@@ -1830,3 +1830,54 @@
   color: var(--text-primary, #2d2420);
   margin-bottom: 3px;
 }
+
+/* Frequency bar list (recurring themes, strengths by area) */
+.rp-freq-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rp-freq-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 240px) 1fr 32px;
+  align-items: center;
+  gap: 12px;
+}
+
+.rp-freq-label {
+  font-size: 0.9rem;
+  color: var(--text-primary, #2d2420);
+  font-weight: 600;
+}
+
+.rp-freq-bar {
+  height: 12px;
+  background: #eceaf0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.rp-freq-fill {
+  display: block;
+  height: 100%;
+  border-radius: 6px;
+  background: var(--amethyst-diamond, #490E67);
+  min-width: 4px;
+}
+
+.rp-freq-fill.rp-freq-fill-good { background: #16a34a; }
+
+.rp-freq-count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary, #2d2420);
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .rp-freq-row {
+    grid-template-columns: minmax(90px, 1fr) 2fr 28px;
+    gap: 8px;
+  }
+}

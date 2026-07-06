@@ -560,9 +560,16 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
               {report.analysis.recurringThemes.length > 0 && (
                 <div className="report-analysis-block">
                   <h3>Recurring themes</h3>
-                  <div className="report-theme-chips">
+                  <p className="report-analysis-sub">Themes that appear across multiple recommendations, most frequent first.</p>
+                  <div className="report-freq-rows">
                     {report.analysis.recurringThemes.map(t => (
-                      <span key={t.label} className="report-theme-chip"><b>{t.count}</b> {t.label}</span>
+                      <div key={t.label} className="report-freq-row">
+                        <span className="report-freq-label">{t.label}</span>
+                        <span className="report-freq-bar">
+                          <span className="report-freq-fill" style={{ width: `${Math.round((t.count / report.analysis.recurringThemes[0].count) * 100)}%` }} />
+                        </span>
+                        <span className="report-freq-count">{t.count}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -585,9 +592,16 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
               {report.analysis.strengthsByTheme.length > 0 && (
                 <div className="report-analysis-block">
                   <h3>Where you're strongest</h3>
-                  <div className="report-theme-chips">
+                  <p className="report-analysis-sub">Areas with the most strengths identified, highest first.</p>
+                  <div className="report-freq-rows">
                     {report.analysis.strengthsByTheme.map(t => (
-                      <span key={t.label} className="report-theme-chip report-chip-good"><b>{t.count}</b> {t.label}</span>
+                      <div key={t.label} className="report-freq-row">
+                        <span className="report-freq-label">{t.label}</span>
+                        <span className="report-freq-bar">
+                          <span className="report-freq-fill report-freq-fill-good" style={{ width: `${Math.round((t.count / report.analysis.strengthsByTheme[0].count) * 100)}%` }} />
+                        </span>
+                        <span className="report-freq-count">{t.count}</span>
+                      </div>
                     ))}
                   </div>
                 </div>

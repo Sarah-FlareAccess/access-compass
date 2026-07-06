@@ -396,32 +396,48 @@
   margin: -4px 0 10px;
 }
 
-.report-theme-chips {
+.report-freq-rows {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
 }
 
-.report-theme-chip {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
-  border-radius: 999px;
-  padding: 5px 12px;
+.report-freq-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 220px) 1fr 30px;
+  align-items: center;
+  gap: 12px;
+}
+
+.report-freq-label {
   font-size: 0.85rem;
   color: var(--text-primary);
+  font-weight: 600;
 }
 
-.report-theme-chip b { font-weight: 800; color: var(--amethyst-diamond); }
-
-.report-theme-chip.report-chip-good {
-  background: rgba(22, 163, 74, 0.08);
-  border-color: rgba(22, 163, 74, 0.25);
+.report-freq-bar {
+  height: 12px;
+  background: #eceaf0;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.report-theme-chip.report-chip-good b { color: #15803d; }
+.report-freq-fill {
+  display: block;
+  height: 100%;
+  border-radius: 6px;
+  background: var(--amethyst-diamond);
+  min-width: 4px;
+}
+
+.report-freq-fill.report-freq-fill-good { background: #16a34a; }
+
+.report-freq-count {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: right;
+}
 
 .report-thematic { margin-bottom: 12px; }
 

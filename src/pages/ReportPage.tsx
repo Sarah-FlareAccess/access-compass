@@ -868,10 +868,16 @@ export default function ReportPage() {
         {report.analysis.recurringThemes.length > 0 && (
           <div className="rp-analysis-block">
             <h2>Recurring themes</h2>
-            <p className="rp-analysis-sub">How often each theme appears across the recommendations.</p>
-            <div className="rp-theme-chips">
+            <p className="rp-analysis-sub">Themes that appear across multiple recommendations, most frequent first.</p>
+            <div className="rp-freq-rows">
               {report.analysis.recurringThemes.map(t => (
-                <span key={t.label} className="rp-theme-chip"><b>{t.count}</b> {t.label}</span>
+                <div key={t.label} className="rp-freq-row">
+                  <span className="rp-freq-label">{t.label}</span>
+                  <span className="rp-freq-bar">
+                    <span className="rp-freq-fill" style={{ width: `${Math.round((t.count / report.analysis.recurringThemes[0].count) * 100)}%` }} />
+                  </span>
+                  <span className="rp-freq-count">{t.count}</span>
+                </div>
               ))}
             </div>
           </div>
@@ -894,9 +900,16 @@ export default function ReportPage() {
         {report.analysis.strengthsByTheme.length > 0 && (
           <div className="rp-analysis-block">
             <h2>Where you're strongest</h2>
-            <div className="rp-theme-chips">
+            <p className="rp-analysis-sub">Areas with the most strengths identified, highest first.</p>
+            <div className="rp-freq-rows">
               {report.analysis.strengthsByTheme.map(t => (
-                <span key={t.label} className="rp-theme-chip rp-chip-good"><b>{t.count}</b> {t.label}</span>
+                <div key={t.label} className="rp-freq-row">
+                  <span className="rp-freq-label">{t.label}</span>
+                  <span className="rp-freq-bar">
+                    <span className="rp-freq-fill rp-freq-fill-good" style={{ width: `${Math.round((t.count / report.analysis.strengthsByTheme[0].count) * 100)}%` }} />
+                  </span>
+                  <span className="rp-freq-count">{t.count}</span>
+                </div>
               ))}
             </div>
           </div>
