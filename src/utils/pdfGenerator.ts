@@ -681,7 +681,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   addStatBox(col(1), yPosition, tileW, String(ef.capital), 'Capital works likely', '#b91c1c');
   addStatBox(col(2), yPosition, tileW, String(report.executiveSummary.areasToExploreCount), 'To Investigate', COLORS.amber, '#92400e');
 
-  yPosition += 25;
+  yPosition += 30;
 
   {
     doc.setFont('helvetica', 'italic');
