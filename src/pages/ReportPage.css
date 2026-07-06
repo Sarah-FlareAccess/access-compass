@@ -264,6 +264,13 @@
 .rp-stat-positive { border-left: 3px solid #2a9d8f; }
 .rp-stat-action { border-left: 3px solid #e07a3a; }
 .rp-stat-explore { border-left: 3px solid #7c6178; }
+.rp-stat-op { border-left: 3px solid #15803d; }
+.rp-stat-cap { border-left: 3px solid #b91c1c; }
+
+.rp-summary-three {
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 14px;
+}
 
 /* Priority distribution */
 .rp-priority-distribution {

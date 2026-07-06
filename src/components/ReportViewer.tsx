@@ -507,7 +507,8 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 <p className="report-headline"><strong>Overall finding:</strong> {report.analysis.headline}</p>
               )}
 
-              <div className="summary-stats">
+              {/* Summary tiles: two even rows of three */}
+              <div className="summary-stats summary-three">
                 <div className="stat-card">
                   <div className="stat-number">{report.executiveSummary.modulesCompleted}</div>
                   <div className="stat-label">Areas reviewed</div>
@@ -520,26 +521,22 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                   <div className="stat-number">{report.executiveSummary.actionsCount}</div>
                   <div className="stat-label">Priority Actions</div>
                 </div>
+              </div>
+              <div className="summary-stats summary-three">
+                <div className="stat-card stat-op">
+                  <div className="stat-number">{report.analysis.effort.operational}</div>
+                  <div className="stat-label">Operational</div>
+                </div>
+                <div className="stat-card stat-cap">
+                  <div className="stat-number">{report.analysis.effort.capital}</div>
+                  <div className="stat-label">Capital works likely</div>
+                </div>
                 <div className="stat-card stat-explore">
                   <div className="stat-number">{report.executiveSummary.areasToExploreCount}</div>
                   <div className="stat-label">To Investigate</div>
                 </div>
               </div>
-
-              {/* Estimated effort — priority actions split by effort (To
-                  investigate already sits in the stat row above) */}
-              <div className="director-numbers effort-three">
-                <div className="dir-tile dir-quickwin">
-                  <b>{report.analysis.effort.quickWins}</b><span>Quick wins</span>
-                </div>
-                <div className="dir-tile dir-medium">
-                  <b>{report.analysis.effort.operational}</b><span>Operational</span>
-                </div>
-                <div className="dir-tile dir-high">
-                  <b>{report.analysis.effort.capital}</b><span>Capital works likely</span>
-                </div>
-              </div>
-              <p className="effort-caption">Estimated effort. Operational covers changes that can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.</p>
+              <p className="effort-caption">The priority actions split by the nature of the change. Operational items can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.</p>
 
               {/* Legislative alignment - right after the executive summary */}
               {report.frameworkAlignment && (

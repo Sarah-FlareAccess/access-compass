@@ -810,8 +810,8 @@ export default function ReportPage() {
           </div>
         )}
 
-        {/* Executive summary stats */}
-        <div className="rp-summary-stats">
+        {/* Summary tiles: two even rows of three */}
+        <div className="rp-summary-stats rp-summary-three">
           <div className="rp-stat-card">
             <div className="rp-stat-number">{report.executiveSummary.modulesCompleted}</div>
             <div className="rp-stat-label">Areas reviewed</div>
@@ -824,19 +824,22 @@ export default function ReportPage() {
             <div className="rp-stat-number">{report.executiveSummary.actionsCount}</div>
             <div className="rp-stat-label">Priority actions</div>
           </div>
+        </div>
+        <div className="rp-summary-stats rp-summary-three">
+          <div className="rp-stat-card rp-stat-op">
+            <div className="rp-stat-number">{report.analysis.effort.operational}</div>
+            <div className="rp-stat-label">Operational</div>
+          </div>
+          <div className="rp-stat-card rp-stat-cap">
+            <div className="rp-stat-number">{report.analysis.effort.capital}</div>
+            <div className="rp-stat-label">Capital works likely</div>
+          </div>
           <div className="rp-stat-card rp-stat-explore">
             <div className="rp-stat-number">{report.executiveSummary.areasToExploreCount}</div>
             <div className="rp-stat-label">To investigate</div>
           </div>
         </div>
-
-        {/* Estimated effort - the budgeting view */}
-        <div className="rp-effort rp-effort-three">
-          <div className="rp-effort-tile"><b>{report.analysis.effort.quickWins}</b><span>Quick wins</span></div>
-          <div className="rp-effort-tile rp-effort-op"><b>{report.analysis.effort.operational}</b><span>Operational</span></div>
-          <div className="rp-effort-tile rp-effort-cap"><b>{report.analysis.effort.capital}</b><span>Capital works likely</span></div>
-        </div>
-        <p className="rp-effort-caption">Estimated effort. Operational covers changes that can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.</p>
+        <p className="rp-effort-caption">The priority actions split by the nature of the change. Operational items can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.</p>
 
         {/* Priority distribution */}
         {priorityDistribution.total > 0 && (

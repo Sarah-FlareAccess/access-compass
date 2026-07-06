@@ -645,69 +645,35 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setTextColor(0, 0, 0);
   }
 
-  // Stats boxes with clean style (white bg, colored left border).
-  const boxWidth = 41;
-  const boxGap = 5;
-  const startX = PAGE.marginLeft;
+  // Summary tiles: two even rows of three. Row 1 is what the review found;
+  // row 2 is the outstanding work and how the priority actions split by the
+  // nature of the change (operational vs capital).
+  const tileGap = 6;
+  const tileW = (PAGE.contentWidth - tileGap * 2) / 3;
+  const col = (i: number) => PAGE.marginLeft + (tileW + tileGap) * i;
+  const ef = report.analysis.effort;
 
-  // Reserve both tile rows so the stats and director tiles stay together.
-  checkNewPage(58);
+  // Reserve both rows so they never orphan across a page break.
+  checkNewPage(56);
 
-  addStatBox(
-    startX,
-    yPosition,
-    boxWidth,
-    String(report.executiveSummary.modulesCompleted),
-    'Areas reviewed',
-    COLORS.amethystDiamond
-  );
-  addStatBox(
-    startX + boxWidth + boxGap,
-    yPosition,
-    boxWidth,
-    String(report.executiveSummary.strengthsCount),
-    'Strengths',
-    COLORS.green,
-    '#15803d'
-  );
-  addStatBox(
-    startX + (boxWidth + boxGap) * 2,
-    yPosition,
-    boxWidth,
-    String(report.executiveSummary.actionsCount),
-    'Priority Actions',
-    '#b91c1c'
-  );
-  addStatBox(
-    startX + (boxWidth + boxGap) * 3,
-    yPosition,
-    boxWidth,
-    String(report.executiveSummary.areasToExploreCount),
-    'To Investigate',
-    COLORS.amber,
-    '#92400e'
-  );
+  addStatBox(col(0), yPosition, tileW, String(report.executiveSummary.modulesCompleted), 'Areas reviewed', COLORS.amethystDiamond);
+  addStatBox(col(1), yPosition, tileW, String(report.executiveSummary.strengthsCount), 'Strengths', COLORS.green, '#15803d');
+  addStatBox(col(2), yPosition, tileW, String(report.executiveSummary.actionsCount), 'Priority Actions', '#b91c1c');
 
   yPosition += 27;
 
-  // --- Estimated effort: the budgeting view (grouped with the stats above so
-  // the two tile rows stay together and never orphan). Three tiles: the
-  // priority actions split by effort. "To investigate" is not repeated here
-  // (it already sits in the stat row above). ---
+  addStatBox(col(0), yPosition, tileW, String(ef.operational), 'Operational', COLORS.green, '#15803d');
+  addStatBox(col(1), yPosition, tileW, String(ef.capital), 'Capital works likely', '#b91c1c');
+  addStatBox(col(2), yPosition, tileW, String(report.executiveSummary.areasToExploreCount), 'To Investigate', COLORS.amber, '#92400e');
+
+  yPosition += 25;
+
   {
-    const gap = 5;
-    const bw = (boxWidth * 4 + boxGap * 3 - gap * 2) / 3;
-    const sx = PAGE.marginLeft;
-    const ef = report.analysis.effort;
-    addStatBox(sx, yPosition, bw, String(ef.quickWins), 'Quick wins', COLORS.amethystDiamond);
-    addStatBox(sx + (bw + gap), yPosition, bw, String(ef.operational), 'Operational', COLORS.green, '#15803d');
-    addStatBox(sx + (bw + gap) * 2, yPosition, bw, String(ef.capital), 'Capital works likely', '#b91c1c');
-    yPosition += 25;
     doc.setFont('helvetica', 'italic');
     doc.setFontSize(11);
     doc.setTextColor(90, 90, 90);
     const cap = doc.splitTextToSize(
-      'Estimated effort. Operational covers changes that can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.',
+      'The priority actions split by the nature of the change. Operational items can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.',
       PAGE.contentWidth
     );
     doc.text(cap, PAGE.marginLeft, yPosition);
