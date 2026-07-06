@@ -271,7 +271,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
     if (sortedNeeds.length > 0 && sortedNeeds[0].confidence_needs_work > 0) {
       const m = sortedNeeds[0];
       const t = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
-      insights.push(`Module ${m.module_id} shows the most NEEDS-WORK signal (${m.confidence_needs_work} of ${t} assessments). Prioritise for cohort-wide support.`);
+      insights.push(`${getModuleName(m.module_id)} (${m.module_id}) shows the most NEEDS-WORK signal (${m.confidence_needs_work} of ${t} assessments). Prioritise for cohort-wide support.`);
     }
 
     if (topPriorityActions.length > 0) {
@@ -387,7 +387,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
             return (
               <div key={m.module_id} className="report-heatmap__row">
                 <div className="report-heatmap__label">
-                  <strong>{m.module_id}</strong> {getModuleName(m.module_id)}
+                  {getModuleName(m.module_id)} <strong>({m.module_id})</strong>
                 </div>
                 <div className="report-heatmap__bar" role="img" aria-label={`Strong ${m.confidence_strong}, Mixed ${m.confidence_mixed}, Needs work ${m.confidence_needs_work}`}>
                   {strongP > 0 && <div className="seg seg--strong" style={{ width: `${strongP}%` }}>{strongP >= 10 && <span>{m.confidence_strong}</span>}</div>}
@@ -480,7 +480,7 @@ function OutcomesView({ outcomes }: { outcomes: OutcomesSnapshot }) {
                 </div>
                 <p className="outcome-modules">
                   <span className="outcome-modules__label">Contributing modules:</span>{' '}
-                  {d.moduleIds.map(mId => `${mId} ${getModuleName(mId)}`).join(' · ')}
+                  {d.moduleIds.map(mId => `${getModuleName(mId)} (${mId})`).join(' · ')}
                 </p>
               </>
             ) : (

@@ -156,7 +156,7 @@ function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, c
   });
   if (sortedByNeeds.length > 0 && sortedByNeeds[0].confidence_needs_work > 0) {
     const m = sortedByNeeds[0];
-    insights.push(`Module ${m.module_id} shows the most NEEDS-WORK signal (${m.confidence_needs_work} of ${m.confidence_strong + m.confidence_mixed + m.confidence_needs_work} assessments). Prioritise for cohort-wide support.`);
+    insights.push(`${moduleName(m.module_id)} (${m.module_id}) shows the most NEEDS-WORK signal (${m.confidence_needs_work} of ${m.confidence_strong + m.confidence_mixed + m.confidence_needs_work} assessments). Prioritise for cohort-wide support.`);
   }
 
   // Insight 3: top priority action frequency
@@ -342,7 +342,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...hexToRgb(COLORS.text));
-    doc.text(`${moduleId} ${moduleName(moduleId)}`, PAGE.marginX, yPos);
+    doc.text(`${moduleName(moduleId)} (${moduleId})`, PAGE.marginX, yPos);
 
     const total = agg?.total_enrolments ?? 0;
     const completed = agg?.completed ?? 0;
@@ -623,7 +623,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) > 0)
     .sort((a, b) => b.confidence_needs_work - a.confidence_needs_work)[0];
   const interpModuleText = topNeeds && topNeeds.confidence_needs_work > 0
-    ? `What this means: Module ${topNeeds.module_id} shows the strongest needs-work signal across the cohort. A group training or shared resource focused here will lift multiple businesses at once.`
+    ? `What this means: ${moduleName(topNeeds.module_id)} (${topNeeds.module_id}) shows the strongest needs-work signal across the cohort. A group training or shared resource focused here will lift multiple businesses at once.`
     : `What this means: confidence is reasonably consistent across modules. No single module dominates as a sector-wide concern, so support can be distributed.`;
   drawWhatThisMeans(interpModuleText);
 
@@ -649,7 +649,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      const moduleLabel = pa.moduleIds.length > 0 ? `, modules ${pa.moduleIds.join(', ')}` : '';
+      const moduleLabel = pa.moduleIds.length > 0 ? `, from ${pa.moduleIds.map(id => `${moduleName(id)} (${id})`).join('; ')}` : '';
       const meta = `Appears in ${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''}${moduleLabel}`;
       doc.text(meta, PAGE.marginX, yPos);
       yPos += 7;
