@@ -1761,6 +1761,16 @@
 .rp-effort-tile.rp-effort-cap { border-left-color: #b91c1c; }
 .rp-effort-tile.rp-effort-inv { border-left-color: #d97706; }
 
+.rp-effort-three { margin-bottom: 8px; }
+
+.rp-effort-caption {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
 /* Why this matters */
 .rp-why p {
   font-size: 0.95rem;

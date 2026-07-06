@@ -691,17 +691,29 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   yPosition += 27;
 
   // --- Estimated effort: the budgeting view (grouped with the stats above so
-  // the two tile rows stay together and never orphan) ---
+  // the two tile rows stay together and never orphan). Three tiles: the
+  // priority actions split by effort. "To investigate" is not repeated here
+  // (it already sits in the stat row above). ---
   {
-    const bw = 41;
     const gap = 5;
+    const bw = (boxWidth * 4 + boxGap * 3 - gap * 2) / 3;
     const sx = PAGE.marginLeft;
     const ef = report.analysis.effort;
     addStatBox(sx, yPosition, bw, String(ef.quickWins), 'Quick wins', COLORS.amethystDiamond);
     addStatBox(sx + (bw + gap), yPosition, bw, String(ef.operational), 'Operational', COLORS.green, '#15803d');
     addStatBox(sx + (bw + gap) * 2, yPosition, bw, String(ef.capital), 'Capital works likely', '#b91c1c');
-    addStatBox(sx + (bw + gap) * 3, yPosition, bw, String(ef.investigate), 'To investigate', COLORS.amber, '#92400e');
-    yPosition += 30;
+    yPosition += 25;
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(11);
+    doc.setTextColor(90, 90, 90);
+    const cap = doc.splitTextToSize(
+      'Estimated effort. Operational covers changes that can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.',
+      PAGE.contentWidth
+    );
+    doc.text(cap, PAGE.marginLeft, yPosition);
+    yPosition += cap.length * 5 + 4;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(40, 40, 40);
   }
 
   // --- Accessibility maturity snapshot (the headline "where are we") ---
@@ -836,8 +848,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       yPosition += 2;
     }
 
-    // Suggested starting sequence
+    // Suggested starting sequence — start on a fresh page so the journey
+    // reads as one continuous timeline, not split across a page break.
     if (report.analysis.startingSequence.length > 0) {
+      if (yPosition > PAGE.marginTop + 4) { addFooter(); addNewPage(); }
       addSectionTitle('Suggested Implementation Roadmap');
       renderRoadmap(report.analysis.startingSequence);
       yPosition += 2;
@@ -903,7 +917,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     : 'an accessibility review covering detailed findings across selected accessibility areas';
 
   addParagraph(
-    `This report summarises the findings of ${reportTypeIntro} conducted using Access Compass. Findings are benchmarked against the Disability (Access to Premises-Buildings) Standards 2010, the National Construction Code, relevant Australian Standards including AS 1428.1, and the Web Content Accessibility Guidelines (WCAG) 2.2 for digital content. Recommendations that extend beyond mandatory compliance are identified as best practice.`,
+    `This report summarises the findings of ${reportTypeIntro} conducted using Access Compass. Findings are benchmarked against the Disability (Access to Premises-Buildings) Standards 2010, the National Construction Code, relevant Australian Standards including AS 1428.1 and the Web Content Accessibility Guidelines (WCAG) 2.2 for digital content. Recommendations that extend beyond mandatory compliance are identified as best practice.`,
     11
   );
 
@@ -1061,7 +1075,9 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   }
 
   // --- Suggested starting sequence ---
+  // Start on a fresh page so the timeline journey stays whole.
   if (report.analysis.startingSequence.length > 0) {
+    if (yPosition > PAGE.marginTop + 4) { addFooter(); addNewPage(); }
     addSectionTitle('Suggested Implementation Roadmap');
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'italic');
@@ -1124,7 +1140,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text(fa.frameworkName, PAGE.marginLeft + bTextW + 4, yPosition);
     yPosition += 8;
 
-    addParagraph("How your self-review aligns to this framework's outcome domains, and where coverage gaps remain. This is an alignment aid to support planning and reporting, not a compliance audit or certification.", 11);
+    addParagraph("How your self-review aligns to this framework's outcome domains and where coverage gaps remain. This is an alignment aid to support planning and reporting, not a compliance audit or certification.", 11);
 
     // Nudge to set jurisdiction when still on the national default
     if (fa.mandate === 'national') {
@@ -1504,7 +1520,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   const legendItems: { label: string; color: string; desc: string }[] = [
     { label: 'High', color: '#b91c1c', desc: 'Gaps in mandatory compliance requirements (Premises Standards, WCAG, NCC) and safety-related items. Highest legal and safety risk.' },
-    { label: 'Medium', color: '#945a00', desc: 'High-impact improvements that significantly affect the experience of people with disability, and items needing further investigation.' },
+    { label: 'Medium', color: '#945a00', desc: 'High-impact improvements that significantly affect the experience of people with disability and items needing further investigation.' },
     { label: 'Low', color: '#1a4fd6', desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower legal risk.' },
   ];
   for (const item of legendItems) {
@@ -1703,7 +1719,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(COLORS.gray);
   const noteLines = doc.splitTextToSize(
-    'For detailed recommendations, action guides, and resource links for each item, refer to the in-app report.',
+    'For detailed recommendations, action guides and resource links for each item, refer to the in-app report.',
     PAGE.contentWidth - 12
   );
   for (let i = 0; i < noteLines.length; i++) {

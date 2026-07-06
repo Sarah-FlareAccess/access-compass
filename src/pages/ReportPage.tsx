@@ -725,7 +725,7 @@ export default function ReportPage() {
               ? 'A pulse check provides a high-level snapshot of current accessibility across selected areas.'
               : 'The review covers detailed findings across selected accessibility areas.'
             } Findings are benchmarked against the Disability (Access to Premises-Buildings) Standards 2010,
-            the National Construction Code, relevant Australian Standards including AS 1428.1, and the
+            the National Construction Code, relevant Australian Standards including AS 1428.1 and the
             Web Content Accessibility Guidelines (WCAG) 2.2 for digital content.
             Recommendations that extend beyond mandatory compliance are identified as best practice.
           </p>
@@ -831,12 +831,12 @@ export default function ReportPage() {
         </div>
 
         {/* Estimated effort - the budgeting view */}
-        <div className="rp-effort">
+        <div className="rp-effort rp-effort-three">
           <div className="rp-effort-tile"><b>{report.analysis.effort.quickWins}</b><span>Quick wins</span></div>
           <div className="rp-effort-tile rp-effort-op"><b>{report.analysis.effort.operational}</b><span>Operational</span></div>
           <div className="rp-effort-tile rp-effort-cap"><b>{report.analysis.effort.capital}</b><span>Capital works likely</span></div>
-          <div className="rp-effort-tile rp-effort-inv"><b>{report.analysis.effort.investigate}</b><span>To investigate</span></div>
         </div>
+        <p className="rp-effort-caption">Estimated effort. Operational covers changes that can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.</p>
 
         {/* Priority distribution */}
         {priorityDistribution.total > 0 && (
@@ -881,7 +881,7 @@ export default function ReportPage() {
               <span className="rp-legal-fw">{report.frameworkAlignment.frameworkName}</span>
             </div>
             <p className="rp-legal-note">
-              How your self-review aligns to this framework's outcome domains, and where coverage gaps remain. This is an
+              How your self-review aligns to this framework's outcome domains and where coverage gaps remain. This is an
               alignment aid to support planning and reporting, not a compliance audit or certification.
             </p>
             {report.frameworkAlignment.mandate === 'national' && (

@@ -277,7 +277,7 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
 
   // --- Why this matters (executive framing; operational-first, non-deterring) ---
   const whyItMatters = totalActions > 0
-    ? 'Addressing the identified barriers reduces accessibility and legal risk, and improves the experience for a wide range of community members. '
+    ? 'Addressing the identified barriers reduces accessibility and legal risk while improving the experience for a wide range of community members.'
       + (operationalShare >= 0.5
           ? 'Most improvements are operational and can begin immediately, without major capital works. '
           : 'Many improvements are operational and can begin immediately, with larger infrastructure works planned into future capital budgets. ')

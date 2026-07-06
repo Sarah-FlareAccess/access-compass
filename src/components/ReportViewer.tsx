@@ -526,8 +526,9 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 </div>
               </div>
 
-              {/* Estimated effort — the budgeting view */}
-              <div className="director-numbers">
+              {/* Estimated effort — priority actions split by effort (To
+                  investigate already sits in the stat row above) */}
+              <div className="director-numbers effort-three">
                 <div className="dir-tile dir-quickwin">
                   <b>{report.analysis.effort.quickWins}</b><span>Quick wins</span>
                 </div>
@@ -537,10 +538,8 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 <div className="dir-tile dir-high">
                   <b>{report.analysis.effort.capital}</b><span>Capital works likely</span>
                 </div>
-                <div className="dir-tile dir-low">
-                  <b>{report.analysis.effort.investigate}</b><span>To investigate</span>
-                </div>
               </div>
+              <p className="effort-caption">Estimated effort. Operational covers changes that can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.</p>
 
               {/* Legislative alignment - right after the executive summary */}
               {report.frameworkAlignment && (
@@ -555,7 +554,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                     <span className="report-legal-fw">{report.frameworkAlignment.frameworkName}</span>
                   </div>
                   <p className="report-analysis-sub">
-                    How your self-review aligns to this framework's outcome domains, and where coverage gaps remain. An
+                    How your self-review aligns to this framework's outcome domains and where coverage gaps remain. An
                     alignment aid, not a compliance audit or certification.
                   </p>
                   {report.frameworkAlignment.mandate === 'national' && (

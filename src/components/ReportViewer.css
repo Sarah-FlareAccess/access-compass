@@ -571,6 +571,16 @@
   margin-bottom: 24px;
 }
 
+.director-numbers.effort-three { margin-bottom: 8px; }
+
+.effort-caption {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
 .dir-tile {
   background: #f9fafb;
   border: 1px solid #e5e7eb;

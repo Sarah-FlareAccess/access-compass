@@ -41,7 +41,7 @@ const LEVEL_MEANING: string[] = [
   'Accessibility is in the early stages of being built into how the organisation works. The focus now is to assess more areas and begin planning.',
   'Accessibility foundations are forming across the organisation. The focus now is to turn the assessment into a plan and start acting on it.',
   'Strong accessibility foundations are in place across most assessed areas. The focus now shifts from putting systems in place to acting on the plan and embedding continuous improvement.',
-  'Accessibility is part of everyday operations. The focus now is to sustain it, keep measuring progress, and keep improving.',
+  'Accessibility is part of everyday operations. The focus now is to sustain it, keep measuring progress and keep improving.',
 ];
 
 export function computeMaturity(s: MaturityStats): MaturityResult {
