@@ -506,6 +506,7 @@
 .report-legal-seg.report-legal-mixed { background: #ca8a04; }
 .report-legal-seg.report-legal-needs { background: #dc2626; }
 .report-legal-cite { font-size: 0.73rem; color: #6b7280; font-style: italic; margin: 12px 0 0; }
+.report-legal-nudge { font-size: 0.82rem; line-height: 1.55; color: #92400e; background: #fef3d6; border-left: 4px solid #d97706; border-radius: 6px; padding: 9px 12px; margin: 0 0 10px; }
 
 /* Director numbers */
 .director-numbers {

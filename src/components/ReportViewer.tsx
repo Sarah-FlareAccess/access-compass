@@ -639,6 +639,12 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                     How your self-review aligns to this framework's outcome domains, and where coverage gaps remain. An
                     alignment aid, not a compliance audit or certification.
                   </p>
+                  {report.frameworkAlignment.mandate === 'national' && (
+                    <p className="report-legal-nudge">
+                      You're viewing alignment to the national framework. Set your reporting jurisdiction in Organisation
+                      settings to align to your state or territory's statutory disability plan.
+                    </p>
+                  )}
                   <div className="report-legal-domains">
                     {report.frameworkAlignment.domains.map(d => (
                       <div key={d.domainId} className="report-legal-domain">

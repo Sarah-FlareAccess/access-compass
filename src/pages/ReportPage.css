@@ -1932,6 +1932,17 @@
   margin: 0 0 12px;
 }
 
+.rp-legal-nudge {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #92400e;
+  background: #fef3d6;
+  border-left: 4px solid #d97706;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 0 0 14px;
+}
+
 .rp-legal-legend {
   display: flex;
   flex-wrap: wrap;

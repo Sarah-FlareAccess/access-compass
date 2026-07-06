@@ -950,6 +950,25 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     addParagraph("How your self-review aligns to this framework's outcome domains, and where coverage gaps remain. This is an alignment aid to support planning and reporting, not a compliance audit or certification.", 11);
 
+    // Nudge to set jurisdiction when still on the national default
+    if (fa.mandate === 'national') {
+      const nudge = "You're viewing alignment to the national framework. If you report against a state or territory disability plan, set your reporting jurisdiction in Organisation settings to align this report to that statutory framework.";
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      const nLines = doc.splitTextToSize(nudge, PAGE.contentWidth - 10);
+      const nH = nLines.length * 5 + 6;
+      checkNewPage(nH + 4);
+      doc.setFillColor(254, 243, 214);
+      doc.roundedRect(PAGE.marginLeft, yPosition - 2, PAGE.contentWidth, nH, 2, 2, 'F');
+      doc.setFillColor('#d97706');
+      doc.roundedRect(PAGE.marginLeft, yPosition - 2, 3, nH, 1, 1, 'F');
+      doc.setTextColor('#92400e');
+      let ny = yPosition + 3;
+      for (const l of nLines) { doc.text(l, PAGE.marginLeft + 6, ny); ny += 5; }
+      yPosition += nH + 4;
+      doc.setTextColor(0, 0, 0);
+    }
+
     // Legend
     checkNewPage(8);
     const legend: Array<[string, string]> = [['#16a34a', 'Doing well'], ['#ca8a04', 'Mixed'], ['#dc2626', 'Needs work'], ['#d1d5db', 'Not yet assessed']];

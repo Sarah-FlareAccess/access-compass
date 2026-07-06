@@ -959,6 +959,13 @@ export default function ReportPage() {
               How your self-review aligns to this framework's outcome domains, and where coverage gaps remain. This is an
               alignment aid to support planning and reporting, not a compliance audit or certification.
             </p>
+            {report.frameworkAlignment.mandate === 'national' && (
+              <p className="rp-legal-nudge">
+                You're viewing alignment to the national framework. If you report against a state or territory disability
+                plan (for example South Australia's Inclusive SA), set your reporting jurisdiction in Organisation
+                settings to align this report to that statutory framework.
+              </p>
+            )}
             <div className="rp-legal-legend" aria-hidden="true">
               <span><span className="rp-legal-dot rp-legal-strong" /> Doing well</span>
               <span><span className="rp-legal-dot rp-legal-mixed" /> Mixed</span>
