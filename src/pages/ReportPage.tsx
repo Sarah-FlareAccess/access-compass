@@ -899,14 +899,14 @@ export default function ReportPage() {
           <div className="rp-analysis-block">
             <h2>Where the priorities sit</h2>
             <p className="rp-analysis-sub">The domains carrying the most high-priority actions. Address these first, they affect the whole visitor journey.</p>
-            <div className="rp-freq-rows">
+            <div className="rp-thematic-rows">
               {report.analysis.thematicSummaries.map((s) => (
                 <div key={s.label} className="rp-thematic-row">
-                  <div className="rp-freq-row">
-                    <span className="rp-freq-label">{s.label}</span>
-                    <span className="rp-freq-bar"><span className="rp-freq-fill" style={{ width: `${s.pct}%` }} /></span>
-                    <span className="rp-freq-count">{s.pct}%</span>
+                  <div className="rp-thematic-head">
+                    <span className="rp-thematic-name">{s.label}</span>
+                    <span className="rp-thematic-pct">{s.pct}%</span>
                   </div>
+                  <div className="rp-thematic-bar"><span className="rp-thematic-fill" style={{ width: `${s.pct}%` }} /></div>
                   <p className="rp-thematic-sub">
                     {s.count} of {s.total} {s.scopeHigh ? 'high-priority' : 'total'} actions
                     {s.barriers.length > 0 ? ` · Barriers: ${s.barriers.join(', ')}` : ''}

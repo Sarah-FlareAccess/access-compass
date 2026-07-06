@@ -439,11 +439,17 @@
   text-align: right;
 }
 
+.report-thematic-rows { display: flex; flex-direction: column; gap: 14px; }
+.report-thematic-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 5px; }
+.report-thematic-name { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); }
+.report-thematic-pct { font-size: 0.88rem; font-weight: 800; color: var(--amethyst-diamond); }
+.report-thematic-bar { height: 12px; background: #eceaf0; border-radius: 6px; overflow: hidden; }
+.report-thematic-fill { display: block; height: 100%; border-radius: 6px; background: var(--amethyst-diamond); min-width: 4px; }
 .report-thematic-sub {
   font-size: 0.8rem;
   line-height: 1.5;
   color: #6b7280;
-  margin: 3px 0 8px;
+  margin: 6px 0 0;
 }
 
 .report-sequence {

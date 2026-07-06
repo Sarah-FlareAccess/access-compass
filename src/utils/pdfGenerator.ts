@@ -295,24 +295,26 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // Helper: Render "Where the priorities sit" as bar rows + barriers subline,
   // matching the report's other bar sections.
   const renderThematicSummaries = (summaries: ThematicSummary[]) => {
-    const labelW = 64;
-    const barX = PAGE.marginLeft + labelW + 2;
-    const barW = PAGE.contentWidth - labelW - 2 - 14;
     for (const s of summaries) {
-      checkNewPage(16);
-      doc.setFont('helvetica', 'normal');
+      checkNewPage(22);
+      // Row 1: domain name (left) + percentage (right)
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(12);
+      doc.setTextColor(COLORS.text);
+      doc.text(s.label, PAGE.marginLeft, yPosition);
       doc.setFontSize(11);
       doc.setTextColor(31, 41, 55);
-      doc.text(doc.splitTextToSize(s.label, labelW)[0], PAGE.marginLeft, yPosition + 2);
-      doc.setFillColor(236, 234, 240);
-      doc.roundedRect(barX, yPosition - 0.5, barW, 4, 1, 1, 'F');
-      doc.setFillColor(COLORS.amethystDiamond);
-      doc.roundedRect(barX, yPosition - 0.5, Math.max(1.5, barW * s.pct / 100), 4, 1, 1, 'F');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(11);
-      doc.text(`${s.pct}%`, PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
-      yPosition += 6.5;
+      doc.text(`${s.pct}%`, PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
+      yPosition += 3;
 
+      // Row 2: full-width bar
+      doc.setFillColor(236, 234, 240);
+      doc.roundedRect(PAGE.marginLeft, yPosition, PAGE.contentWidth, 4, 1, 1, 'F');
+      doc.setFillColor(COLORS.amethystDiamond);
+      doc.roundedRect(PAGE.marginLeft, yPosition, Math.max(1.5, PAGE.contentWidth * s.pct / 100), 4, 1, 1, 'F');
+      yPosition += 8;
+
+      // Row 3: count + barriers subline
       const sub = `${s.count} of ${s.total} ${s.scopeHigh ? 'high-priority' : 'total'} actions`
         + (s.barriers.length ? ` · Barriers: ${s.barriers.join(', ')}` : '');
       doc.setFont('helvetica', 'normal');
@@ -323,7 +325,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         doc.text(l, PAGE.marginLeft, yPosition);
         yPosition += 5;
       }
-      yPosition += 3;
+      yPosition += 5;
       doc.setTextColor(0, 0, 0);
     }
   };

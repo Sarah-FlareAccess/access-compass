@@ -580,14 +580,14 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 <div className="report-analysis-block">
                   <h3>Where the priorities sit</h3>
                   <p className="report-analysis-sub">The domains carrying the most high-priority actions. Address these first.</p>
-                  <div className="report-freq-rows">
+                  <div className="report-thematic-rows">
                     {report.analysis.thematicSummaries.map((s) => (
-                      <div key={s.label}>
-                        <div className="report-freq-row">
-                          <span className="report-freq-label">{s.label}</span>
-                          <span className="report-freq-bar"><span className="report-freq-fill" style={{ width: `${s.pct}%` }} /></span>
-                          <span className="report-freq-count">{s.pct}%</span>
+                      <div key={s.label} className="report-thematic-row">
+                        <div className="report-thematic-head">
+                          <span className="report-thematic-name">{s.label}</span>
+                          <span className="report-thematic-pct">{s.pct}%</span>
                         </div>
+                        <div className="report-thematic-bar"><span className="report-thematic-fill" style={{ width: `${s.pct}%` }} /></div>
                         <p className="report-thematic-sub">
                           {s.count} of {s.total} {s.scopeHigh ? 'high-priority' : 'total'} actions
                           {s.barriers.length > 0 ? ` · Barriers: ${s.barriers.join(', ')}` : ''}

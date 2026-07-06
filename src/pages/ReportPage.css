@@ -1779,16 +1779,49 @@
 
 .rp-theme-chip.rp-chip-good b { color: #15803d; }
 
-/* Thematic summaries (bar rows + barriers subline) */
-.rp-thematic-row {
-  margin-bottom: 6px;
+/* Thematic summaries: name + % on top, full-width bar, barriers subline */
+.rp-thematic-rows { display: flex; flex-direction: column; gap: 14px; }
+
+.rp-thematic-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.rp-thematic-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary, #2d2420);
+}
+
+.rp-thematic-pct {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--amethyst-diamond, #490E67);
+}
+
+.rp-thematic-bar {
+  height: 12px;
+  background: #eceaf0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.rp-thematic-fill {
+  display: block;
+  height: 100%;
+  border-radius: 6px;
+  background: var(--amethyst-diamond, #490E67);
+  min-width: 4px;
 }
 
 .rp-thematic-sub {
   font-size: 0.8rem;
   line-height: 1.5;
   color: #6b7280;
-  margin: 3px 0 0;
+  margin: 6px 0 0;
 }
 
 /* Suggested starting sequence */
