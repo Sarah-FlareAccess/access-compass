@@ -658,9 +658,26 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // For board/exec audiences. Skips the rest of the report.
   // ============================================
   if (summaryOnly) {
-    const topActions = (report.sections.priorityActions.categorised || []).slice(0, 3);
-    const topStrengths = (report.sections.strengths.categorised || []).slice(0, 3);
+    // Where the priorities sit (the exec "so what")
+    if (report.analysis.thematicSummaries.length > 0) {
+      addSectionTitle('Where the Priorities Sit');
+      for (const s of report.analysis.thematicSummaries) {
+        checkNewPage(18);
+        doc.setFontSize(9.5);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(COLORS.text);
+        doc.text(s.title, PAGE.marginLeft, yPosition);
+        yPosition += 5;
+        addParagraph(s.body, 9);
+      }
+    }
 
+    // Top priorities, highest priority first (not just first in list order)
+    const rank: Record<string, number> = { high: 0, medium: 1, low: 2 };
+    const topActions = (report.sections.priorityActions.categorised || [])
+      .slice()
+      .sort((a, b) => (rank[a.priority || 'low'] - rank[b.priority || 'low']))
+      .slice(0, 3);
     if (topActions.length > 0) {
       addSectionTitle('Top Priorities');
       for (const item of topActions) {
@@ -668,9 +685,35 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         if (!label) continue;
         addParagraph(`• ${label}`, 10);
       }
-      yPosition += 4;
+      yPosition += 2;
     }
 
+    // Suggested starting sequence
+    if (report.analysis.startingSequence.length > 0) {
+      addSectionTitle('Suggested Starting Sequence');
+      for (const step of report.analysis.startingSequence) {
+        checkNewPage(10);
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(COLORS.amethystDiamond);
+        doc.text(step.heading, PAGE.marginLeft, yPosition);
+        const headW = doc.getTextWidth(step.heading);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(COLORS.text);
+        const lines = doc.splitTextToSize(step.items.join(', '), PAGE.contentWidth - headW - 6);
+        doc.text(lines[0] || '', PAGE.marginLeft + headW + 4, yPosition);
+        yPosition += 4.5;
+        for (let i = 1; i < lines.length; i++) {
+          checkNewPage(5);
+          doc.text(lines[i], PAGE.marginLeft + 4, yPosition);
+          yPosition += 4.5;
+        }
+        yPosition += 1.5;
+      }
+      yPosition += 2;
+    }
+
+    const topStrengths = (report.sections.strengths.categorised || []).slice(0, 3);
     if (topStrengths.length > 0) {
       addSectionTitle('What\'s Going Well', COLORS.green);
       for (const item of topStrengths) {
