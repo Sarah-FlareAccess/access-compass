@@ -1622,7 +1622,7 @@ export default function Pricing() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
                   {[
                     { title: 'Sector-wide reach', desc: 'Reach the 5.5 million Australians with disability through every business in your network, not one assessment at a time.' },
-                    { title: 'Aggregate data, not anecdotes', desc: 'See progress across your whole network in one dashboard. Report to ministers, boards, members and funders with numbers, not stories.' },
+                    { title: 'Aggregate data, not anecdotes', desc: 'See progress across your whole network in one dashboard. Report to ministers, boards, members and funders with numbers, not stories — evidence you can put straight into DIAP progress and grant acquittals.' },
                     { title: 'Equip your network to meet your standard', desc: 'Set the bar for accessibility, then give every business in your network the assessment, structure and accountability to reach it, including the ones that would not act on their own.' },
                     { title: 'Inclusion that shows up at the counter', desc: 'Programs make the experience consistent across every business in your network. Real change happens at the moment of service, not on the policy page.' },
                   ].map((o, i) => (
