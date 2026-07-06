@@ -853,105 +853,6 @@ export default function ReportPage() {
           </div>
         )}
 
-        {/* Performance by area (theme breakdown) */}
-        {report.themeBreakdown.length > 0 && (
-          <div className="rp-theme-breakdown">
-            <h2>Performance by area</h2>
-            <div className="rp-theme-rows">
-              {report.themeBreakdown.map(t => (
-                <div key={t.group} className="rp-theme-row">
-                  <span className="rp-theme-label">{t.label}</span>
-                  <span className="rp-theme-bar">
-                    <span
-                      className={`rp-theme-bar-fill rp-perf-${t.performancePct >= 67 ? 'good' : t.performancePct >= 34 ? 'mid' : 'low'}`}
-                      style={{ width: `${t.performancePct}%` }}
-                    />
-                  </span>
-                  <span className="rp-theme-pct">{t.performancePct}%</span>
-                </div>
-              ))}
-            </div>
-            <p className="rp-theme-note">Share of checks already going well in each area assessed. Lower bars are where to focus.</p>
-          </div>
-        )}
-
-        {/* Recurring themes across recommendations */}
-        {report.analysis.recurringThemes.length > 0 && (
-          <div className="rp-analysis-block">
-            <h2>Recurring themes</h2>
-            <p className="rp-analysis-sub">Themes that appear across multiple recommendations, most frequent first.</p>
-            <div className="rp-freq-rows">
-              {report.analysis.recurringThemes.map(t => (
-                <div key={t.label} className="rp-freq-row">
-                  <span className="rp-freq-label">{t.label}</span>
-                  <span className="rp-freq-bar">
-                    <span className="rp-freq-fill" style={{ width: `${Math.round((t.count / report.analysis.recurringThemes[0].count) * 100)}%` }} />
-                  </span>
-                  <span className="rp-freq-count">{t.count}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Where the priorities sit */}
-        {report.analysis.thematicSummaries.length > 0 && (
-          <div className="rp-analysis-block">
-            <h2>Where the priorities sit</h2>
-            <p className="rp-analysis-sub">The domains carrying the most high-priority actions. Address these first, they affect the whole visitor journey.</p>
-            <div className="rp-thematic-rows">
-              {report.analysis.thematicSummaries.map((s) => (
-                <div key={s.label} className="rp-thematic-row">
-                  <div className="rp-thematic-head">
-                    <span className="rp-thematic-name">{s.label}</span>
-                    <span className="rp-thematic-pct">{s.pct}%</span>
-                  </div>
-                  <div className="rp-thematic-bar"><span className="rp-thematic-fill" style={{ width: `${s.pct}%` }} /></div>
-                  <p className="rp-thematic-sub">
-                    {s.count} of {s.total} {s.scopeHigh ? 'high-priority' : 'total'} actions
-                    {s.barriers.length > 0 ? ` · Barriers: ${s.barriers.join(', ')}` : ''}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Where you're strongest */}
-        {report.analysis.strengthsByTheme.length > 0 && (
-          <div className="rp-analysis-block">
-            <h2>Where you're strongest</h2>
-            <p className="rp-analysis-sub">Areas with the most strengths identified, highest first.</p>
-            <div className="rp-freq-rows">
-              {report.analysis.strengthsByTheme.map(t => (
-                <div key={t.label} className="rp-freq-row">
-                  <span className="rp-freq-label">{t.label}</span>
-                  <span className="rp-freq-bar">
-                    <span className="rp-freq-fill rp-freq-fill-good" style={{ width: `${Math.round((t.count / report.analysis.strengthsByTheme[0].count) * 100)}%` }} />
-                  </span>
-                  <span className="rp-freq-count">{t.count}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Suggested starting sequence */}
-        {report.analysis.startingSequence.length > 0 && (
-          <div className="rp-analysis-block">
-            <h2>Suggested starting sequence</h2>
-            <p className="rp-analysis-sub">A suggested order to work through the actions. A starting point for your own planning, not a fixed schedule.</p>
-            <div className="rp-sequence">
-              {report.analysis.startingSequence.map((step, i) => (
-                <div key={i} className="rp-sequence-step">
-                  <div className="rp-sequence-head">{step.heading}</div>
-                  <ul>{step.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* Legislative alignment - coverage & gaps against the jurisdiction's framework */}
         {report.frameworkAlignment && (
           <div className="rp-legal">
@@ -1003,6 +904,123 @@ export default function ReportPage() {
               ))}
             </div>
             <p className="rp-legal-cite">{report.frameworkAlignment.citation}</p>
+          </div>
+        )}
+
+        {/* Performance by area (theme breakdown) */}
+        {report.themeBreakdown.length > 0 && (
+          <div className="rp-theme-breakdown">
+            <h2>Performance by area</h2>
+            <div className="rp-theme-rows">
+              {report.themeBreakdown.map(t => {
+                const noFindings = t.strengths + t.actions === 0;
+                return (
+                  <div key={t.group} className="rp-theme-row">
+                    <span className="rp-theme-label">{t.label}</span>
+                    <span className="rp-theme-bar">
+                      {!noFindings && (
+                        <span
+                          className={`rp-theme-bar-fill rp-perf-${t.performancePct >= 67 ? 'good' : t.performancePct >= 34 ? 'mid' : 'low'}`}
+                          style={{ width: `${t.performancePct}%` }}
+                        />
+                      )}
+                    </span>
+                    <span className={`rp-theme-pct${noFindings ? ' rp-theme-na' : ''}`}>{noFindings ? 'No findings' : `${t.performancePct}%`}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="rp-theme-note">Share of checks already going well in each area assessed. Lower bars are where to focus.</p>
+          </div>
+        )}
+
+        {/* Recurring themes across recommendations */}
+        {report.analysis.recurringThemes.length > 0 && (
+          <div className="rp-analysis-block">
+            <h2>Recurring themes</h2>
+            <p className="rp-analysis-sub">Themes that appear across multiple recommendations, most frequent first.</p>
+            <div className="rp-freq-rows">
+              {report.analysis.recurringThemes.map(t => (
+                <div key={t.label} className="rp-freq-row">
+                  <span className="rp-freq-label">{t.label}</span>
+                  <span className="rp-freq-bar">
+                    <span className="rp-freq-fill" style={{ width: `${Math.round((t.count / report.analysis.recurringThemes[0].count) * 100)}%` }} />
+                  </span>
+                  <span className="rp-freq-count">{t.count}</span>
+                </div>
+              ))}
+            </div>
+            {report.analysis.recurringInsight && (
+              <p className="rp-analysis-insight">{report.analysis.recurringInsight}</p>
+            )}
+            {report.analysis.themeLeads.length > 0 && (
+              <table className="rp-leads">
+                <thead><tr><th>Theme</th><th>Suggested lead</th></tr></thead>
+                <tbody>
+                  {report.analysis.themeLeads.map(l => (
+                    <tr key={l.theme}><td>{l.theme}</td><td>{l.lead}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        )}
+
+        {/* Where the priorities sit */}
+        {report.analysis.thematicSummaries.length > 0 && (
+          <div className="rp-analysis-block">
+            <h2>Where the priorities sit</h2>
+            <p className="rp-analysis-sub">The domains carrying the most high-priority actions. Address these first, they affect the whole visitor journey.</p>
+            <div className="rp-thematic-rows">
+              {report.analysis.thematicSummaries.map((s) => (
+                <div key={s.label} className="rp-thematic-row">
+                  <div className="rp-thematic-head">
+                    <span className="rp-thematic-name">{s.label}</span>
+                    <span className="rp-thematic-pct">{s.pct}%</span>
+                  </div>
+                  <div className="rp-thematic-bar"><span className="rp-thematic-fill" style={{ width: `${s.pct}%` }} /></div>
+                  <p className="rp-thematic-sub">
+                    {s.count} of {s.total} {s.scopeHigh ? 'high-priority' : 'total'} actions
+                    {s.barriers.length > 0 ? ` · Barriers: ${s.barriers.join(', ')}` : ''}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Where you're strongest */}
+        {report.analysis.strengthsByTheme.length > 0 && (
+          <div className="rp-analysis-block">
+            <h2>Where you're strongest</h2>
+            <p className="rp-analysis-sub">Areas with the most strengths identified, highest first.</p>
+            <div className="rp-freq-rows">
+              {report.analysis.strengthsByTheme.map(t => (
+                <div key={t.label} className="rp-freq-row">
+                  <span className="rp-freq-label">{t.label}</span>
+                  <span className="rp-freq-bar">
+                    <span className="rp-freq-fill rp-freq-fill-good" style={{ width: `${Math.round((t.count / report.analysis.strengthsByTheme[0].count) * 100)}%` }} />
+                  </span>
+                  <span className="rp-freq-count">{t.count}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Suggested starting sequence */}
+        {report.analysis.startingSequence.length > 0 && (
+          <div className="rp-analysis-block">
+            <h2>Suggested implementation roadmap</h2>
+            <p className="rp-analysis-sub">Indicative time bands to work through the actions, with the achievable operational items first. A starting point for your own planning, not a fixed schedule.</p>
+            <div className="rp-sequence">
+              {report.analysis.startingSequence.map((step, i) => (
+                <div key={i} className="rp-sequence-step">
+                  <div className="rp-sequence-head">{step.heading}</div>
+                  <ul>{step.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

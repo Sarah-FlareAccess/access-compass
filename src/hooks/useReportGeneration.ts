@@ -640,7 +640,7 @@ export function useReportGeneration(
         actions: catPriorityActions.map(a => ({ text: a.text, priority: a.priority, group: a.group })),
         strengths: catStrengths.map(s => ({ group: s.group })),
         quickWinsCount: quickWins.length,
-        themeBreakdown,
+        themeBreakdown: themeBreakdown.map(t => ({ group: t.group, label: t.label, performancePct: t.performancePct, assessed: t.assessed, strengths: t.strengths, actions: t.actions })),
         high: directorNumbers.high,
         medium: directorNumbers.medium,
         low: directorNumbers.low,

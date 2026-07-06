@@ -396,6 +396,34 @@
   margin: -4px 0 10px;
 }
 
+.report-analysis-insight {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 12px 0 0;
+}
+
+.report-leads {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 0.85rem;
+}
+
+.report-leads th {
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #6b7280;
+  padding: 4px 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.report-leads td { padding: 5px 8px; border-bottom: 1px solid #f3f4f6; color: var(--text-primary); }
+.report-leads td:last-child { font-weight: 600; color: var(--amethyst-diamond); }
+
 .report-freq-rows {
   display: flex;
   flex-direction: column;

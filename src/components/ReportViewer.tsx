@@ -537,20 +537,68 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                 </div>
               </div>
 
+              {/* Legislative alignment - right after the executive summary */}
+              {report.frameworkAlignment && (
+                <div className="report-legal">
+                  <h3>Legislative alignment</h3>
+                  <div className="report-legal-head">
+                    <span className={`report-legal-badge report-legal-badge-${report.frameworkAlignment.mandate}`}>
+                      {report.frameworkAlignment.mandate === 'statutory' ? 'Statutory reporting framework'
+                        : report.frameworkAlignment.mandate === 'voluntary' ? 'Voluntary alignment aid'
+                        : report.frameworkAlignment.mandate === 'national' ? 'National framework' : 'Reference framework'}
+                    </span>
+                    <span className="report-legal-fw">{report.frameworkAlignment.frameworkName}</span>
+                  </div>
+                  <p className="report-analysis-sub">
+                    How your self-review aligns to this framework's outcome domains, and where coverage gaps remain. An
+                    alignment aid, not a compliance audit or certification.
+                  </p>
+                  {report.frameworkAlignment.mandate === 'national' && (
+                    <p className="report-legal-nudge">
+                      You're viewing alignment to the national framework. Set your reporting jurisdiction in Organisation
+                      settings to align to your state or territory's statutory disability plan.
+                    </p>
+                  )}
+                  <div className="report-legal-domains">
+                    {report.frameworkAlignment.domains.map(d => (
+                      <div key={d.domainId} className="report-legal-domain">
+                        <div className="report-legal-domain-head">
+                          <span className="report-legal-domain-name">{d.name}</span>
+                          {d.total === 0
+                            ? <span className="report-legal-gap-chip">Not yet assessed</span>
+                            : <span className="report-legal-count">{d.moduleIds.length} area{d.moduleIds.length !== 1 ? 's' : ''} assessed</span>}
+                        </div>
+                        {d.total > 0 && (
+                          <div className="report-legal-bar" role="img" aria-label={`${d.strongPct}% doing well, ${d.mixedPct}% mixed, ${d.needsWorkPct}% needs work`}>
+                            {d.strong > 0 && <span className="report-legal-seg report-legal-strong" style={{ flex: d.strong }} />}
+                            {d.mixed > 0 && <span className="report-legal-seg report-legal-mixed" style={{ flex: d.mixed }} />}
+                            {d.needsWork > 0 && <span className="report-legal-seg report-legal-needs" style={{ flex: d.needsWork }} />}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="report-legal-cite">{report.frameworkAlignment.citation}</p>
+                </div>
+              )}
+
               {/* Performance by area */}
               {report.themeBreakdown.length > 0 && (
                 <div className="theme-breakdown">
                   <h3>Performance by area</h3>
                   <div className="theme-rows">
-                    {report.themeBreakdown.map(t => (
-                      <div key={t.group} className="theme-row">
-                        <span className="theme-label">{t.label}</span>
-                        <span className="theme-bar">
-                          <span className={`theme-bar-fill perf-${t.performancePct >= 67 ? 'good' : t.performancePct >= 34 ? 'mid' : 'low'}`} style={{ width: `${t.performancePct}%` }} />
-                        </span>
-                        <span className="theme-pct">{t.performancePct}%</span>
-                      </div>
-                    ))}
+                    {report.themeBreakdown.map(t => {
+                      const noFindings = t.strengths + t.actions === 0;
+                      return (
+                        <div key={t.group} className="theme-row">
+                          <span className="theme-label">{t.label}</span>
+                          <span className="theme-bar">
+                            {!noFindings && <span className={`theme-bar-fill perf-${t.performancePct >= 67 ? 'good' : t.performancePct >= 34 ? 'mid' : 'low'}`} style={{ width: `${t.performancePct}%` }} />}
+                          </span>
+                          <span className="theme-pct">{noFindings ? 'No findings' : `${t.performancePct}%`}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                   <p className="theme-note">Share of checks already going well in each area assessed. Lower bars are where to focus.</p>
                 </div>
@@ -572,6 +620,19 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                       </div>
                     ))}
                   </div>
+                  {report.analysis.recurringInsight && (
+                    <p className="report-analysis-insight">{report.analysis.recurringInsight}</p>
+                  )}
+                  {report.analysis.themeLeads.length > 0 && (
+                    <table className="report-leads">
+                      <thead><tr><th>Theme</th><th>Suggested lead</th></tr></thead>
+                      <tbody>
+                        {report.analysis.themeLeads.map(l => (
+                          <tr key={l.theme}><td>{l.theme}</td><td>{l.lead}</td></tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
                 </div>
               )}
 
@@ -620,8 +681,8 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
               {/* Suggested starting sequence */}
               {report.analysis.startingSequence.length > 0 && (
                 <div className="report-analysis-block">
-                  <h3>Suggested starting sequence</h3>
-                  <p className="report-analysis-sub">A suggested order to work through the actions. A starting point for your own planning, not a fixed schedule.</p>
+                  <h3>Suggested implementation roadmap</h3>
+                  <p className="report-analysis-sub">Indicative time bands, with the achievable operational items first. A starting point for your own planning, not a fixed schedule.</p>
                   <div className="report-sequence">
                     {report.analysis.startingSequence.map((step, i) => (
                       <div key={i} className="report-sequence-step">
@@ -630,51 +691,6 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
-
-              {/* Legislative alignment */}
-              {report.frameworkAlignment && (
-                <div className="report-legal">
-                  <h3>Legislative alignment</h3>
-                  <div className="report-legal-head">
-                    <span className={`report-legal-badge report-legal-badge-${report.frameworkAlignment.mandate}`}>
-                      {report.frameworkAlignment.mandate === 'statutory' ? 'Statutory reporting framework'
-                        : report.frameworkAlignment.mandate === 'voluntary' ? 'Voluntary alignment aid'
-                        : report.frameworkAlignment.mandate === 'national' ? 'National framework' : 'Reference framework'}
-                    </span>
-                    <span className="report-legal-fw">{report.frameworkAlignment.frameworkName}</span>
-                  </div>
-                  <p className="report-analysis-sub">
-                    How your self-review aligns to this framework's outcome domains, and where coverage gaps remain. An
-                    alignment aid, not a compliance audit or certification.
-                  </p>
-                  {report.frameworkAlignment.mandate === 'national' && (
-                    <p className="report-legal-nudge">
-                      You're viewing alignment to the national framework. Set your reporting jurisdiction in Organisation
-                      settings to align to your state or territory's statutory disability plan.
-                    </p>
-                  )}
-                  <div className="report-legal-domains">
-                    {report.frameworkAlignment.domains.map(d => (
-                      <div key={d.domainId} className="report-legal-domain">
-                        <div className="report-legal-domain-head">
-                          <span className="report-legal-domain-name">{d.name}</span>
-                          {d.total === 0
-                            ? <span className="report-legal-gap-chip">Not yet assessed</span>
-                            : <span className="report-legal-count">{d.moduleIds.length} area{d.moduleIds.length !== 1 ? 's' : ''} assessed</span>}
-                        </div>
-                        {d.total > 0 && (
-                          <div className="report-legal-bar" role="img" aria-label={`${d.strongPct}% doing well, ${d.mixedPct}% mixed, ${d.needsWorkPct}% needs work`}>
-                            {d.strong > 0 && <span className="report-legal-seg report-legal-strong" style={{ flex: d.strong }} />}
-                            {d.mixed > 0 && <span className="report-legal-seg report-legal-mixed" style={{ flex: d.mixed }} />}
-                            {d.needsWork > 0 && <span className="report-legal-seg report-legal-needs" style={{ flex: d.needsWork }} />}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  <p className="report-legal-cite">{report.frameworkAlignment.citation}</p>
                 </div>
               )}
 

@@ -30,10 +30,15 @@ export interface AnalysisInput {
   actions: AnalysisAction[];
   strengths: { group?: string }[];
   quickWinsCount: number;
-  themeBreakdown: { group: string; label: string; performancePct: number; assessed: number }[];
+  themeBreakdown: { group: string; label: string; performancePct: number; assessed: number; strengths: number; actions: number }[];
   high: number;
   medium: number;
   low: number;
+}
+
+export interface ThemeLead {
+  theme: string;
+  lead: string;
 }
 
 export interface ThematicSummary {
@@ -53,6 +58,8 @@ export interface SequenceStep {
 export interface ReportAnalysis {
   interpretation: string[];
   recurringThemes: AnalysisTheme[];
+  recurringInsight: string;
+  themeLeads: ThemeLead[];
   thematicSummaries: ThematicSummary[];
   strengthsByTheme: AnalysisTheme[];
   startingSequence: SequenceStep[];
@@ -82,6 +89,37 @@ const STRUCTURAL_KWS = [
   'handrail', 'lighting', 'install', 'construct', 'widen', 'kerb', 'threshold',
   'gradient', 'resurface', 'surface',
 ];
+
+// Themes that typically involve built-environment / capital works, as opposed
+// to operational changes. Used to sort the roadmap so operational items sit in
+// the immediate band and never get held up behind capital works.
+const STRUCTURAL_THEMES = new Set<string>([
+  'Parking & arrival', 'Entrances & doors', 'Paths & circulation', 'Toilets & amenities', 'Lighting',
+]);
+
+// Suggested lead area per theme. A starting point for routing, not a fixed org
+// chart, and worded so any organisation can map it to their own structure.
+const THEME_LEADS: Record<string, string> = {
+  'Signage & wayfinding': 'Facilities',
+  'Parking & arrival': 'Facilities & Assets',
+  'Entrances & doors': 'Assets',
+  'Paths & circulation': 'Assets',
+  'Toilets & amenities': 'Facilities & Assets',
+  'Lighting': 'Facilities',
+  'Digital & website': 'Communications & Digital',
+  'Information & formats': 'Communications',
+  'Staff awareness & training': 'People & Culture',
+  'Policy & procurement': 'Governance',
+  'Hearing & sensory': 'Facilities',
+  'Bookings & ticketing': 'Customer Service',
+};
+
+function joinLower(items: string[]): string {
+  const l = items.map(s => s.toLowerCase());
+  if (l.length <= 1) return l[0] || '';
+  if (l.length === 2) return `${l[0]} and ${l[1]}`;
+  return `${l.slice(0, -1).join(', ')} and ${l[l.length - 1]}`;
+}
 
 // Higher-level domains, each a grouping of journey groups.
 const DOMAINS: { label: string; groups: string[] }[] = [
@@ -114,6 +152,8 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
   const empty: ReportAnalysis = {
     interpretation: [],
     recurringThemes: [],
+    recurringInsight: '',
+    themeLeads: [],
     thematicSummaries: [],
     strengthsByTheme: [],
     startingSequence: [],
@@ -123,56 +163,21 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
   }
 
   const totalActions = high + medium + low;
-  const rated = themeBreakdown.filter(t => t.assessed > 0);
-  const strongest = rated.length ? rated.reduce((a, b) => (b.performancePct > a.performancePct ? b : a)) : null;
-  const weakest = rated.length ? rated.reduce((a, b) => (b.performancePct < a.performancePct ? b : a)) : null;
-
-  // --- Executive interpretation ---
-  const interpretation: string[] = [];
-  interpretation.push(
-    `${organisation} demonstrates an ${maturity.level.toLowerCase()} level of accessibility maturity` +
-    (strongest ? `, with its strongest practice in ${strongest.label.toLowerCase()}.` : '.')
-  );
-
-  const embeddedPhrase = maturity.levelIdx >= 2
-    ? 'is increasingly part of everyday operations'
-    : maturity.levelIdx === 1
-      ? 'is developing across the organisation'
-      : 'is in the early stages of being built into operations';
-  interpretation.push(
-    `This suggests accessibility ${embeddedPhrase}` +
-    (weakest && (!strongest || weakest.group !== strongest.group)
-      ? `, while the clearest opportunities remain in ${weakest.label.toLowerCase()}.`
-      : '.')
-  );
-
-  if (totalActions > 0) {
-    const highPct = Math.round((high / totalActions) * 100);
-    interpretation.push(
-      highPct >= 40
-        ? `${highPct}% of the actions identified are high priority, indicating that alongside existing foundations there are several important compliance and experience gaps to close.`
-        : `Most of the actions identified are lower-risk refinements, with ${highPct}% high priority.`
-    );
-
-    const structuralCount = actions.filter(a => {
-      const t = a.text.toLowerCase();
-      return STRUCTURAL_KWS.some(k => t.includes(k));
-    }).length;
-    const operationalShare = 1 - structuralCount / totalActions;
-    interpretation.push(
-      operationalShare >= 0.6
-        ? 'Most recommended improvements appear operational rather than structural, so meaningful progress is achievable without major capital works.'
-        : 'A number of the improvements involve the physical environment and are likely to need capital planning alongside operational changes.'
-    );
-  }
-
-  // --- Recurring themes across all recommendations ---
-  // A theme only "recurs" if it appears at least twice.
-  const recurringThemes = countThemes(actions, 6, 2);
-
-  // --- Thematic summaries: where the high-priority load sits by domain ---
   const highActions = actions.filter(a => a.priority === 'high');
-  const baseForDomains = highActions.length > 0 ? highActions : actions;
+  const mediumActions = actions.filter(a => a.priority === 'medium');
+  const lowActions = actions.filter(a => a.priority === 'low');
+  const scopeHigh = highActions.length > 0;
+
+  // Only themes with real findings are "rated". A theme at 0% with no findings
+  // means it was not assessed enough to judge, NOT that performance is poor, so
+  // it must never be surfaced as the weak spot or an "opportunity".
+  const ratedThemes = themeBreakdown.filter(t => (t.strengths + t.actions) > 0);
+  const strongest = ratedThemes.length
+    ? ratedThemes.reduce((a, b) => (b.performancePct > a.performancePct ? b : a))
+    : null;
+
+  // --- Where the priority load sits, by domain ---
+  const baseForDomains = scopeHigh ? highActions : actions;
   const totalForDomains = baseForDomains.length;
   const domainCounts = DOMAINS
     .map(d => ({
@@ -182,8 +187,9 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     }))
     .filter(d => d.count > 0)
     .sort((a, b) => b.count - a.count);
+  const topDomain = domainCounts[0] || null;
+  const topDomainThemes = topDomain ? countThemes(topDomain.actions, 3, 2).map(t => t.label) : [];
 
-  const scopeHigh = highActions.length > 0;
   const thematicSummaries: ThematicSummary[] = domainCounts.slice(0, 3).map(d => ({
     label: d.label,
     pct: totalForDomains > 0 ? Math.round((d.count / totalForDomains) * 100) : 0,
@@ -192,6 +198,49 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     barriers: countThemes(d.actions, 3, 2).map(t => t.label),
     scopeHigh,
   }));
+
+  // --- Recurring themes across all recommendations (appearing at least twice) ---
+  const recurringThemes = countThemes(actions, 6, 2);
+  let recurringInsight = '';
+  if (recurringThemes.length >= 2) {
+    recurringInsight = `Addressing ${recurringThemes[0].label.toLowerCase()} and ${recurringThemes[1].label.toLowerCase()} would remove several barriers at once.`;
+  }
+  const themeLeads: ThemeLead[] = recurringThemes.slice(0, 6).map(t => ({
+    theme: t.label,
+    lead: THEME_LEADS[t.label] || 'To be assigned',
+  }));
+
+  // --- Executive interpretation: tight, hedged, and supported by the data ---
+  const interpretation: string[] = [];
+  interpretation.push(
+    `Within the areas assessed, ${organisation} demonstrates an ${maturity.level.toLowerCase()} level of accessibility maturity` +
+    (strongest ? `, with its strongest practice in ${strongest.label.toLowerCase()}.` : '.')
+  );
+  if (topDomain) {
+    interpretation.push(
+      `The clearest opportunities for improvement relate to ${topDomain.label.toLowerCase()}` +
+      (topDomainThemes.length ? `, particularly ${joinLower(topDomainThemes)}.` : '.')
+    );
+  }
+  if (totalActions > 0) {
+    const highPct = Math.round((high / totalActions) * 100);
+    interpretation.push(
+      highPct >= 40
+        ? `${highPct}% of the actions identified are high priority, so several important compliance and experience gaps sit alongside existing strengths.`
+        : `Most of the actions identified are lower-risk refinements, with ${highPct}% high priority.`
+    );
+
+    const structuralCount = actions.filter(a => {
+      const t = a.text.toLowerCase();
+      return STRUCTURAL_KWS.some(k => t.includes(k));
+    }).length;
+    const operationalShare = 1 - structuralCount / totalActions;
+    interpretation.push(
+      operationalShare >= 0.5
+        ? 'Most improvements are operational rather than structural, so meaningful progress is achievable now without major capital works.'
+        : 'Many actions involve the built environment, but the operational improvements and quick wins can be actioned immediately, even where major works are not currently feasible (for example in heritage or leased premises).'
+    );
+  }
 
   // --- Strengths, grouped by area ---
   const strengthMap = new Map<string, number>();
@@ -205,28 +254,26 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     .sort((a, b) => b.count - a.count)
     .slice(0, 6);
 
-  // --- Suggested starting sequence (not a fixed schedule) ---
-  // Each step names concrete themes. A theme appears in only one step, its
-  // highest-priority bucket, so the same area is never listed as both "start
-  // here" and "later".
-  const startThemes = countThemes(highActions, 3).map(t => t.label);
-  const seenThemes = new Set(startThemes);
-  const nextThemes = countThemes(actions.filter(a => a.priority === 'medium'), 3)
-    .map(t => t.label)
-    .filter(l => !seenThemes.has(l));
-  nextThemes.forEach(l => seenThemes.add(l));
-  const laterThemes = countThemes(actions.filter(a => a.priority === 'low'), 3)
-    .map(t => t.label)
-    .filter(l => !seenThemes.has(l));
+  // --- Suggested implementation roadmap (time bands; operational first, so the
+  // achievable low-cost work is never held up behind capital projects) ---
+  const isStructural = (label: string) => STRUCTURAL_THEMES.has(label);
+  const seen = new Set<string>();
+  const take = (labels: string[]) => labels.filter(l => !seen.has(l) && (seen.add(l), true));
+  const highT = countThemes(highActions, 6).map(t => t.label);
+  const medT = countThemes(mediumActions, 6).map(t => t.label);
+  const lowT = countThemes(lowActions, 6).map(t => t.label);
 
-  const startHere = [...startThemes];
-  if (quickWinsCount > 0) startHere.push('Quick wins');
+  const immediate: string[] = [];
+  if (quickWinsCount > 0) immediate.push('Quick wins');
+  immediate.push(...take([...highT.filter(l => !isStructural(l)), ...medT.filter(l => !isStructural(l))]));
+  const shortTerm = take([...highT.filter(isStructural), ...medT.filter(isStructural)]);
+  const longTerm = take([...lowT]);
+  longTerm.push('Reassess to measure progress');
 
   const startingSequence: SequenceStep[] = [];
-  if (startHere.length) startingSequence.push({ heading: 'Start here', items: startHere });
-  if (nextThemes.length) startingSequence.push({ heading: 'Next', items: nextThemes });
-  if (laterThemes.length) startingSequence.push({ heading: 'Later', items: laterThemes });
-  startingSequence.push({ heading: 'Ongoing', items: ['Reassess to measure progress', 'Embed actions into your action plan'] });
+  if (immediate.length) startingSequence.push({ heading: 'Immediate (0-3 months)', items: immediate });
+  if (shortTerm.length) startingSequence.push({ heading: 'Short term (3-12 months)', items: shortTerm });
+  startingSequence.push({ heading: 'Long term', items: longTerm });
 
-  return { interpretation, recurringThemes, thematicSummaries, strengthsByTheme, startingSequence };
+  return { interpretation, recurringThemes, recurringInsight, themeLeads, thematicSummaries, strengthsByTheme, startingSequence };
 }

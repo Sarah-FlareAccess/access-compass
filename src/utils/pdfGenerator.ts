@@ -771,7 +771,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     // Suggested starting sequence
     if (report.analysis.startingSequence.length > 0) {
-      addSectionTitle('Suggested Starting Sequence');
+      addSectionTitle('Suggested Implementation Roadmap');
       for (const step of report.analysis.startingSequence) {
         checkNewPage(12);
         doc.setFontSize(12);
@@ -832,8 +832,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     return doc;
   }
 
+  // Legislative alignment sits immediately after the executive summary.
+  renderLegislativeAlignment();
+
   // ============================================
-  // ABOUT / OBLIGATIONS / METHODOLOGY (context, right after the summary)
+  // ABOUT / OBLIGATIONS / METHODOLOGY (context, after the summary)
   // ============================================
   addSectionTitle('About This Report');
 
@@ -886,6 +889,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     const barH = 4;
     for (const t of report.themeBreakdown) {
       checkNewPage(rowH + 2);
+      const noFindings = t.strengths + t.actions === 0;
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(11);
       doc.setTextColor(31, 41, 55);
@@ -893,14 +897,21 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
       doc.setFillColor(236, 234, 240);
       doc.roundedRect(barX, yPosition - 0.5, barW, barH, 1, 1, 'F');
-      const fillColor = t.performancePct >= 67 ? '#16a34a' : t.performancePct >= 34 ? '#ca8a04' : '#dc2626';
-      doc.setFillColor(fillColor);
-      doc.roundedRect(barX, yPosition - 0.5, Math.max(1.5, barW * t.performancePct / 100), barH, 1, 1, 'F');
+      if (!noFindings) {
+        const fillColor = t.performancePct >= 67 ? '#16a34a' : t.performancePct >= 34 ? '#ca8a04' : '#dc2626';
+        doc.setFillColor(fillColor);
+        doc.roundedRect(barX, yPosition - 0.5, Math.max(1.5, barW * t.performancePct / 100), barH, 1, 1, 'F');
+      }
 
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(11);
-      doc.setTextColor(31, 41, 55);
-      doc.text(`${t.performancePct}%`, PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
+      if (noFindings) {
+        doc.setTextColor(156, 163, 175);
+        doc.text('No findings', PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
+      } else {
+        doc.setTextColor(31, 41, 55);
+        doc.text(`${t.performancePct}%`, PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
+      }
       yPosition += rowH;
     }
     yPosition += 1;
@@ -928,6 +939,47 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(0, 0, 0);
     renderFreqBars(report.analysis.recurringThemes, COLORS.amethystDiamond);
+
+    if (report.analysis.recurringInsight) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(COLORS.text);
+      for (const l of doc.splitTextToSize(report.analysis.recurringInsight, PAGE.contentWidth)) {
+        checkNewPage(6);
+        doc.text(l, PAGE.marginLeft, yPosition);
+        yPosition += 5;
+      }
+      yPosition += 4;
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0, 0, 0);
+    }
+
+    if (report.analysis.themeLeads.length > 0) {
+      checkNewPage(14);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(107, 114, 128);
+      doc.text('THEME', PAGE.marginLeft, yPosition);
+      doc.text('SUGGESTED LEAD', PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
+      yPosition += 2;
+      doc.setDrawColor(220, 216, 226);
+      doc.setLineWidth(0.3);
+      doc.line(PAGE.marginLeft, yPosition, PAGE.width - PAGE.marginRight, yPosition);
+      yPosition += 5.5;
+      for (const l of report.analysis.themeLeads) {
+        checkNewPage(7);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(11);
+        doc.setTextColor(COLORS.text);
+        doc.text(l.theme, PAGE.marginLeft, yPosition);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(COLORS.amethystDiamond);
+        doc.text(l.lead, PAGE.width - PAGE.marginRight, yPosition, { align: 'right' });
+        yPosition += 6;
+      }
+      yPosition += 3;
+      doc.setTextColor(0, 0, 0);
+    }
   }
 
   // --- Where the priorities sit ---
@@ -952,11 +1004,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // --- Suggested starting sequence ---
   if (report.analysis.startingSequence.length > 0) {
-    addSectionTitle('Suggested Starting Sequence');
+    addSectionTitle('Suggested Implementation Roadmap');
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
-    const seqNote = doc.splitTextToSize('A suggested order to work through the actions. A starting point for your own planning, not a fixed schedule.', PAGE.contentWidth);
+    const seqNote = doc.splitTextToSize('Indicative time bands, with the achievable operational items first. A starting point for your own planning, not a fixed schedule.', PAGE.contentWidth);
     for (const l of seqNote) { checkNewPage(6); doc.text(l, PAGE.marginLeft, yPosition); yPosition += 5.3; }
     yPosition += 2;
     doc.setFont('helvetica', 'normal');
@@ -985,9 +1037,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   }
 
   // ============================================
-  // LEGISLATIVE ALIGNMENT (own page)
+  // LEGISLATIVE ALIGNMENT definition (hoisted; invoked after the summary above)
   // ============================================
-  if (report.frameworkAlignment) {
+  function renderLegislativeAlignment() {
+    if (!report.frameworkAlignment) return;
     const fa = report.frameworkAlignment;
     if (yPosition > PAGE.marginTop + 20) { addFooter(); addNewPage(); }
     addGroupHeader('Legislative Alignment');
