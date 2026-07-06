@@ -1001,7 +1001,7 @@ const majorVenueTiers: Tier[] = [
       assessment: 'Deep Dive (all relevant modules)',
       sites: '1 complex',
       zones: 'Unlimited zones',
-      users: '20',
+      users: '40',
       diap: 'Full (assign, track, export)',
       diapImport: true,
       teamAllocation: true,
@@ -1016,7 +1016,7 @@ const majorVenueTiers: Tier[] = [
       consultantTime: 'Quarterly + 4 hours consultation',
       report: 'PDF + interactive + cross-zone summary',
       resourceHub: '12 months',
-      seatExpansion: '$500/seat',
+      seatExpansion: '$250/seat',
       training: 'Add-on: from $300',
       support: 'Named consultant + priority onboarding'
     }
