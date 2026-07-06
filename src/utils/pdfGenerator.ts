@@ -574,9 +574,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   addGroupHeader('Overview');
   addSectionTitle('Executive Summary');
 
-  // Stats boxes with clean style (white bg, colored left border)
-  const boxWidth = 38;
-  const boxGap = 6;
+  // Stats boxes with clean style (white bg, colored left border). Widened so
+  // the longest label ("Modules Completed") fits at 11pt without overflow.
+  const boxWidth = 41;
+  const boxGap = 5;
   const startX = PAGE.marginLeft;
 
   checkNewPage(40);
@@ -668,7 +669,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     doc.setTextColor(0, 0, 0);
     doc.setDrawColor(0, 0, 0);
-    yPosition = boxTop + boxH + 6;
+    yPosition = boxTop + boxH + 12;
   }
 
   // --- Executive interpretation: what the data means ---
@@ -682,8 +683,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // --- Director numbers: how many, how hard, who does it ---
   {
     checkNewPage(34);
-    const bw = 38;
-    const gap = 6;
+    const bw = 41;
+    const gap = 5;
     const sx = PAGE.marginLeft;
     addStatBox(sx, yPosition, bw, String(report.directorNumbers.high), 'High priority', '#b91c1c');
     addStatBox(sx + (bw + gap), yPosition, bw, String(report.directorNumbers.medium), 'Medium priority', COLORS.amber, '#92400e');
