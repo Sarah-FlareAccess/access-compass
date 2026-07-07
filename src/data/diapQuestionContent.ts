@@ -5478,4 +5478,261 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Accessibility re-checked when the process changes',
     ],
   },
+
+  // ============================================================
+  // Module 5.1 - Policy and inclusion
+  // ============================================================
+  '5.1-F-1': {
+    steps: [
+      'Develop a formal accessibility or disability inclusion policy referencing the DDA 1992 as the legal baseline',
+      'Align it with AHRC guidance on inclusive service delivery and communicate it to staff',
+    ],
+    indicators: [
+      'Accessibility policy documented within 6 months',
+      'Policy communicated to all staff',
+      'Policy reviewed at least annually',
+    ],
+  },
+  '5.1-F-3': {
+    steps: [
+      'Develop a Disability Inclusion Action Plan (DIAP) with measurable targets, timeframes and accountability',
+      'Use the AHRC framework or your state disability inclusion legislation as a guide',
+    ],
+    indicators: [
+      'DIAP developed within 12 months',
+      'Targets, timeframes and owners assigned',
+      'Progress against the DIAP reported to leadership',
+    ],
+  },
+  '5.1-F-4': {
+    steps: [
+      'Register as a Companion Card affiliate with your state or territory program',
+      'Train staff to accept it so carers and support people attend free of charge',
+    ],
+    indicators: [
+      'Companion Card affiliation in place within 6 months',
+      'Staff trained to accept the card',
+      'Companion concession applied consistently',
+    ],
+  },
+  '5.1-F-5': {
+    steps: [
+      'Introduce concession pricing for people with disability (free or discounted entry for Companion Card holders, pensioners, NDIS participants)',
+      'Make the pricing clear and easy to find',
+    ],
+    indicators: [
+      'Concession pricing introduced within 6 months',
+      'Pricing published clearly and easy to find',
+      'Uptake reviewed on a regular schedule',
+    ],
+  },
+  '5.1-F-6': {
+    steps: [
+      'Establish a formal assistance animal policy aligned with the DDA 1992 and state legislation (refusing entry is unlawful)',
+      'Train all staff on their obligations, including recognising different types of accreditation',
+    ],
+    indicators: [
+      'Assistance animal policy documented within 3 months',
+      'All staff trained on the policy',
+      'Policy reviewed at least annually',
+    ],
+  },
+  '5.1-F-7': {
+    steps: [
+      'Establish a single accessibility information register covering physical access, sensory access, communication options, support services and exceptions',
+      'Map every customer-facing channel to it as a downstream reference',
+    ],
+    indicators: [
+      'Accessibility information register established within 6 months',
+      'All customer-facing channels reference the register',
+      'Register kept current by a named owner',
+    ],
+  },
+  '5.1-D-6': {
+    steps: [
+      'Include accessibility considerations in your marketing and communications strategy, with diverse representation including people with disability',
+      'Produce all content in accessible formats',
+    ],
+    indicators: [
+      'Accessibility built into the marketing strategy within 6 months',
+      'Diverse representation featured in marketing',
+      'Marketing content produced in accessible formats',
+    ],
+  },
+  '5.1-D-7': {
+    steps: [
+      'Establish formal mechanisms to engage people with disability in service planning and review (advisory committee, consultation sessions, co-design workshops)',
+      'Compensate participants and act on their input',
+    ],
+    indicators: [
+      'Engagement mechanism established within 12 months',
+      'Participants compensated for their input',
+      'Recommendations acted on and tracked',
+    ],
+  },
+  '5.1-D-8': {
+    steps: [
+      'Implement a system to track accessibility improvements over time (what changed, when, impact)',
+      'Report progress to leadership at least quarterly',
+    ],
+    indicators: [
+      'Improvement tracking system in place within 6 months',
+      'Improvements logged with impact',
+      'Progress reported to leadership at least quarterly',
+    ],
+  },
+  '5.1-D-9': {
+    steps: [
+      'Appoint a senior leader as executive sponsor for accessibility',
+      'Give the role authority to allocate resources, champion accessibility at board level and hold teams accountable',
+    ],
+    indicators: [
+      'Executive sponsor appointed within 3 months',
+      'Sponsor has authority over resources and accountability',
+      'Sponsor reports on accessibility to the board',
+    ],
+  },
+  '5.1-D-10': {
+    steps: [
+      'Allocate a dedicated budget line for accessibility improvements',
+      'Include both capital works and ongoing operational costs',
+    ],
+    indicators: [
+      'Dedicated accessibility budget allocated within 12 months',
+      'Budget covers capital and operational costs',
+      'Budget reviewed each planning cycle',
+    ],
+  },
+  '5.1-D-11': {
+    steps: [
+      'Brief all staff on obligations under the DDA 1992, relevant state anti-discrimination legislation and the Premises Standards where applicable',
+      'Make this part of mandatory induction',
+    ],
+    indicators: [
+      'Staff briefed on legal obligations within 6 months',
+      'Obligations included in mandatory induction',
+      'Refresher completed periodically',
+    ],
+  },
+  '5.1-D-12': {
+    steps: [
+      'Establish a formal process for handling accessibility-related complaints (logging, investigating, resolving, following up)',
+      'Ensure the process itself is accessible (multiple contact methods, accessible forms, plain language)',
+    ],
+    indicators: [
+      'Complaints process documented within 3 months',
+      'Process itself is accessible',
+      'Complaints resolved within set timeframes',
+    ],
+  },
+  '5.1-D-13': {
+    steps: [
+      'Investigate accessibility accreditation or certification relevant to your sector (registering a DIAP with the AHRC, sector programs, Australia\'s Disability Strategy alignment)',
+      'Pursue the option that best fits and provides a framework for improvement',
+    ],
+    indicators: [
+      'Accreditation options investigated within 12 months',
+      'A suitable accreditation or framework adopted',
+      'Progress against the framework tracked',
+    ],
+  },
+  '5.1-D-14': {
+    steps: [
+      'Add accessibility as a standing item on your board or senior leadership meeting agenda',
+      'Provide regular reporting to ensure strategic visibility and accountability',
+    ],
+    indicators: [
+      'Accessibility a standing agenda item within 3 months',
+      'Regular reporting provided at board level',
+      'Decisions and actions tracked to completion',
+    ],
+  },
+  '5.1-D-15': {
+    steps: [
+      'Expand your DIAP to cover service delivery, employment, community engagement and organisational culture',
+      'Use the AHRC DIAP framework to ensure no area is overlooked',
+    ],
+    indicators: [
+      'DIAP scope expanded within 12 months',
+      'All key areas covered against the AHRC framework',
+      'Coverage reviewed each DIAP cycle',
+    ],
+  },
+  '5.1-D-16': {
+    steps: [
+      'Create clear progression pathways into leadership for people with disability (mentoring and sponsorship, inclusive promotion and selection criteria, leadership development)',
+      'Set representation targets and track progress',
+    ],
+    indicators: [
+      'Leadership progression pathways established within 12 months',
+      'Representation targets set and tracked',
+      'Progress reviewed with leadership annually',
+    ],
+  },
+  '5.1-D-17': {
+    steps: [
+      'Make key information available in alternative formats without a specific request (Easy Read, large print, Auslan video, audio description, accessible digital)',
+      'Advertise format availability',
+    ],
+    indicators: [
+      'Key information available in alternative formats within 12 months',
+      'Format availability advertised',
+      'Formats updated whenever the standard version changes',
+    ],
+  },
+  '5.1-D-18': {
+    steps: [
+      'Publish an accessibility statement on your website covering current features, known limitations, planned improvements and how to request assistance',
+      'Follow WCAG 2.2 guidance on accessibility statements',
+    ],
+    indicators: [
+      'Accessibility statement published within 3 months',
+      'Statement covers features, limitations and how to get help',
+      'Statement reviewed for accuracy every 6 months',
+    ],
+  },
+  '5.1-D-19': {
+    steps: [
+      'Extend your accessibility policy to explicitly cover all digital channels (website, apps, social media, online booking, email, kiosks)',
+      'Reference WCAG 2.2 Level AA as the minimum standard for web content',
+    ],
+    indicators: [
+      'Policy extended to digital channels within 6 months',
+      'WCAG 2.2 AA set as the minimum standard',
+      'Digital accessibility reviewed against the policy',
+    ],
+  },
+  '5.1-D-20': {
+    steps: [
+      'Add accessibility to your risk register and business continuity planning (DDA non-compliance, inaccessible emergency procedures, digital failures, reputational impact)',
+      'Assign risk owners and mitigation actions',
+    ],
+    indicators: [
+      'Accessibility risks added to the register within 6 months',
+      'Risk owners and mitigations assigned',
+      'Risks reviewed each risk cycle',
+    ],
+  },
+  '5.1-D-21': {
+    steps: [
+      'Name a specific role (not a committee) as owner of the accessibility register',
+      'Establish a monthly review cadence and quarterly full audit, documenting leave cover',
+    ],
+    indicators: [
+      'Register owner named within 1 month',
+      'Monthly review and quarterly audit cadence in place',
+      'Leave cover documented',
+    ],
+  },
+  '5.1-D-22': {
+    steps: [
+      'Document a change-propagation process listing every channel that publishes accessibility information',
+      'Set a 24-hour SLA for updates after any access change, including third-party listings',
+    ],
+    indicators: [
+      'Change-propagation process documented within 3 months',
+      'All access changes propagated within 24 hours',
+      'Third-party listings kept current',
+    ],
+  },
 };
