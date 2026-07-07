@@ -6705,4 +6705,173 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Complaints handled within a set timeframe',
     ],
   },
+
+  // ============================================================
+  // Module 5.9 - Onboarding and workplace adjustments
+  // ============================================================
+  '5.9-PC-1': {
+    steps: [
+      'Add a workplace adjustment meeting to the onboarding checklist for every new hire in their first two weeks',
+      'Train managers on how to run it',
+    ],
+    indicators: [
+      'Adjustment meeting added to onboarding within 3 months',
+      'Every new hire offered the conversation in their first two weeks',
+      'Managers trained to run it',
+    ],
+  },
+  '5.9-PC-2': {
+    steps: [
+      'Design a workplace adjustment passport template and pilot it with volunteer employees',
+      'Roll it out via HR communications with manager training, so it travels with employees across role changes',
+    ],
+    indicators: [
+      'Adjustment passport piloted within 6 months',
+      'Passport rolled out with manager training within 12 months',
+      'Passport travels with employees across role changes',
+    ],
+  },
+  '5.9-PC-3': {
+    steps: [
+      'Brief HR and hiring managers on the JobAccess Employment Assistance Fund (EAF) and add it to the adjustment workflow',
+      'Identify current or recent adjustments that might have qualified',
+    ],
+    indicators: [
+      'HR and managers briefed on the EAF within 3 months',
+      'EAF built into the adjustment workflow',
+      'EAF used for eligible adjustments',
+    ],
+  },
+  '5.9-PC-4': {
+    steps: [
+      'Audit onboarding content and fix captions, PDF tagging and readability',
+      'Set a standard that new content meets WCAG 2.2 AA before publishing',
+    ],
+    indicators: [
+      'Onboarding content audited within 3 months',
+      'Accessible onboarding content within 12 months',
+      'WCAG 2.2 AA set as the standard for new content',
+    ],
+  },
+  '5.9-PC-5': {
+    steps: [
+      'Schedule disability-confident management training for all people managers, covering how to have adjustment conversations',
+      'Require completion within 6 months of starting',
+    ],
+    indicators: [
+      'Manager training scheduled within 3 months',
+      'People managers complete it within 6 months of starting',
+      'Refresher completed periodically',
+    ],
+  },
+  '5.9-PC-6': {
+    steps: [
+      'Draft a documented workplace adjustment process with timeframes and escalation, and publish it',
+      'Train HR and managers on it',
+    ],
+    indicators: [
+      'Adjustment process documented and published within 6 months',
+      'HR and managers trained on the process',
+      'Requests handled within the set timeframes',
+    ],
+  },
+  '5.9-DD-1': {
+    steps: [
+      'Designate a Workplace Adjustment Champion or coordinator to own the process across the organisation',
+      'Allocate time and budget and publish the role',
+    ],
+    indicators: [
+      'Adjustment coordinator designated within 3 months',
+      'Time and budget allocated to the role',
+      'Role published and known to staff',
+    ],
+  },
+  '5.9-DD-2': {
+    steps: [
+      'Redesign the induction process to personalise from day one',
+      'Explicitly cover each new hire\'s adjustment needs and communication preferences',
+    ],
+    indicators: [
+      'Personalised induction process in place within 6 months',
+      'Adjustment needs and preferences covered from day one',
+      'Approach reviewed via new-hire feedback',
+    ],
+  },
+  '5.9-DD-3': {
+    steps: [
+      'Establish a PEEP process and offer a PEEP to every employee with disability',
+      'Practise each PEEP, not just document it, before the next drill',
+    ],
+    indicators: [
+      'PEEP process established within 6 months',
+      'PEEP offered to every employee who needs one',
+      'PEEPs practised in drills, not only documented',
+    ],
+  },
+  '5.9-DD-4': {
+    steps: [
+      'Design a structured 30/60/90-day check-in template with explicit adjustment prompts',
+      'Review adjustments, workload and inclusion experience, not only performance',
+    ],
+    indicators: [
+      'Structured 30/60/90 check-in template in place within 6 months',
+      'Check-ins cover adjustments and inclusion, not just performance',
+      'Check-ins completed for all new hires',
+    ],
+  },
+  '5.9-DD-5': {
+    steps: [
+      'Build a pre-approved assistive technology list with a standing budget',
+      'Cut the approval cycle so equipment is provisioned within 2 weeks of identified need',
+    ],
+    indicators: [
+      'Pre-approved assistive technology list and budget in place within 6 months',
+      'Equipment provisioned within 2 weeks of identified need',
+      'Provisioning times tracked and reviewed',
+    ],
+  },
+  '5.9-DD-6': {
+    steps: [
+      'Build a targeted module for first-time managers on supporting employees with disability',
+      'Mandate it before they first manage someone with a disclosed disability',
+    ],
+    indicators: [
+      'First-time manager module built within 6 months',
+      'Completed before first managing a disclosed report',
+      'Module reviewed and updated periodically',
+    ],
+  },
+  '5.9-DD-7': {
+    steps: [
+      'Build a structured return-to-work process for return after disability-related leave (injury, mental health, chronic illness flare)',
+      'Train HR and managers to run it',
+    ],
+    indicators: [
+      'Return-to-work process in place within 6 months',
+      'HR and managers trained to run it',
+      'Process applied consistently, confirmed via feedback',
+    ],
+  },
+  '5.9-DD-8': {
+    steps: [
+      'Add a named second-level review step for probation decisions involving disabled staff',
+      'Review adjustment implementation evidence before a probation fails',
+    ],
+    indicators: [
+      'Second-level probation review step added within 6 months',
+      'Adjustment evidence reviewed before any probation fails',
+      'Probation outcomes monitored for bias',
+    ],
+  },
+  '5.9-DD-9': {
+    steps: [
+      'Audit the promotion channels for the EAP, occupational health and mental health support',
+      'Refresh visibility quarterly so entry paths are known',
+    ],
+    indicators: [
+      'Support-service promotion audited within 3 months',
+      'Entry paths refreshed and promoted quarterly',
+      'Staff awareness of support services confirmed via survey',
+    ],
+  },
 };
