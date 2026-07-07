@@ -5904,4 +5904,162 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Scenarios kept relevant to your venue and services',
     ],
   },
+
+  // ============================================================
+  // Module 5.4 - Accessible procurement
+  // ============================================================
+  '5.4-F-1': {
+    steps: [
+      'Integrate accessibility criteria into your supplier and partner selection process as a weighted evaluation criterion',
+      'Weight it alongside price, quality and delivery',
+    ],
+    indicators: [
+      'Accessibility criteria added to supplier selection within 6 months',
+      'Accessibility weighted in evaluations',
+      'Approach reviewed each procurement cycle',
+    ],
+  },
+  '5.4-F-2': {
+    steps: [
+      'Add accessibility requirements to all contracts and tenders, specifying standards (WCAG 2.2 AA for digital, AS 1428.1 for physical)',
+      'Require compliance evidence and include remediation clauses',
+    ],
+    indicators: [
+      'Accessibility requirements in contracts and tenders within 6 months',
+      'Compliance evidence required and checked',
+      'Remediation clauses enforced where needed',
+    ],
+  },
+  '5.4-D-1': {
+    steps: [
+      'Include accessibility questions in your supplier assessment (accessibility policy, WCAG compliance, physical accessibility, employment of people with disability)',
+      'Use the responses in your selection decision',
+    ],
+    indicators: [
+      'Accessibility questions added to supplier assessment within 6 months',
+      'Responses factored into selection',
+      'Approach reviewed each procurement cycle',
+    ],
+  },
+  '5.4-D-2': {
+    steps: [
+      'Give preference to suppliers with strong accessibility practices where capability and price are comparable',
+      'Make the preference explicit in your evaluation criteria',
+    ],
+    indicators: [
+      'Accessibility preference in evaluation criteria within 6 months',
+      'Preference applied in comparable bids',
+      'Impact reviewed on a regular schedule',
+    ],
+  },
+  '5.4-D-3': {
+    steps: [
+      'Implement accessibility verification for delivered products and services (WCAG 2.2 AA for digital, AS 1428.1 for physical works)',
+      'Include people with disability in user acceptance testing where possible',
+    ],
+    indicators: [
+      'Accessibility verification process in place within 6 months',
+      'Deliverables verified against the relevant standard',
+      'People with disability involved in testing where possible',
+    ],
+  },
+  '5.4-D-4': {
+    steps: [
+      'Review your supply categories for products and services suitable to source from Australian Disability Enterprises (ADEs) or disability-led businesses',
+      'Use the DSS information on ADE programs and pathways to find suppliers',
+    ],
+    indicators: [
+      'ADE and disability-led supply opportunities identified within 6 months',
+      'At least one category sourced from an ADE or disability-led business within 12 months',
+      'Opportunities reviewed each procurement cycle',
+    ],
+  },
+  '5.4-D-5': {
+    steps: [
+      'Apply EN 301 549 or equivalent ICT accessibility standards when purchasing technology, requiring WCAG 2.2 AA for web products',
+      'Request VPATs or Accessibility Conformance Reports from vendors',
+    ],
+    indicators: [
+      'ICT accessibility standards applied to purchasing within 6 months',
+      'VPATs or conformance reports requested and reviewed',
+      'Standard applied to all new technology purchases',
+    ],
+  },
+  '5.4-D-6': {
+    steps: [
+      'Include physical accessibility as a mandatory criterion when selecting event venues or partner locations',
+      'Use an accessibility checklist (entrances, pathways, toilets, hearing augmentation, signage, emergency egress) before confirming any venue',
+    ],
+    indicators: [
+      'Venue accessibility checklist in use within 3 months',
+      'Physical accessibility checked before confirming any venue',
+      'Checklist kept current with standards',
+    ],
+  },
+  '5.4-D-7': {
+    steps: [
+      'Include people with accessibility expertise in procurement decision-making (internal specialist, external consultant or advisory panel including people with disability)',
+      'Use their input on specification and evaluation',
+    ],
+    indicators: [
+      'Accessibility expertise included in procurement within 6 months',
+      'Input used on specifications and evaluations',
+      'Approach reviewed each procurement cycle',
+    ],
+  },
+  '5.4-D-8': {
+    steps: [
+      'Implement regular accessibility reviews of ongoing suppliers and partners (contract renewals, annual reviews, performance assessments)',
+      'Address any decline in standards through formal contract management',
+    ],
+    indicators: [
+      'Ongoing supplier accessibility reviews in place within 6 months',
+      'Accessibility included in renewals and reviews',
+      'Declines addressed through contract management',
+    ],
+  },
+  '5.4-D-9': {
+    steps: [
+      'Require key partners and suppliers to demonstrate their own accessibility commitments (policy, DIAP or accreditation evidence)',
+      'Factor this into partner selection and renewal',
+    ],
+    indicators: [
+      'Partner accessibility commitments requested within 6 months',
+      'Commitments factored into selection and renewal',
+      'Shared commitment reviewed on a regular schedule',
+    ],
+  },
+  '5.4-D-10': {
+    steps: [
+      'Set social procurement targets for purchasing from disability enterprises (even 3-5% of addressable spend)',
+      'Track and report progress against the targets',
+    ],
+    indicators: [
+      'Social procurement targets set within 12 months',
+      'Spend with disability enterprises tracked',
+      'Progress against targets reported to leadership',
+    ],
+  },
+  '5.4-D-11': {
+    steps: [
+      'Review your procurement and tendering processes for accessibility (accessible tender documents, assistive-technology-compatible portals, accessible briefing venues)',
+      'Provide alternative submission methods',
+    ],
+    indicators: [
+      'Procurement process accessibility reviewed within 6 months',
+      'Accessible tender documents and portals provided within 12 months',
+      'Alternative submission methods available',
+    ],
+  },
+  '5.4-D-12': {
+    steps: [
+      'Factor accessibility into total cost-of-ownership calculations',
+      'Include remediation, support and potential complaint or legal costs, not just purchase price',
+    ],
+    indicators: [
+      'Accessibility included in total cost-of-ownership within 6 months',
+      'Remediation and support costs factored into evaluations',
+      'Approach applied to major purchases',
+    ],
+  },
 };
