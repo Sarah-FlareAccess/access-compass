@@ -131,6 +131,15 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   let currentPage = 1;
   let yPos = PAGE.marginY;
 
+  // Contents-page support: record the page each section lands on, and where each
+  // contents line was drawn, so a second pass can stamp accurate page numbers
+  // (the pages are not known when the contents page is first drawn).
+  const sectionPages = new Map<string, number>();
+  const tocEntries: { title: string; page: number; y: number }[] = [];
+  const recordSection = (title: string) => {
+    if (!sectionPages.has(title)) sectionPages.set(title, doc.getNumberOfPages());
+  };
+
   // ========================================
   // HELPERS
   // ========================================
@@ -203,6 +212,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       yPos += 8;
       checkNewPage(20);
     }
+    recordSection(title);
 
     if (style === 'band') {
       doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
@@ -278,85 +288,92 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // ========================================
   // COVER PAGE
   // ========================================
-  doc.setFillColor(...hexToRgb(COLORS.amethystDark));
-  doc.rect(0, 0, PAGE.width, PAGE.height, 'F');
+  const ccx = PAGE.width / 2;
 
+  // Amethyst top band (single tone) + warm ivory lower area, so the cover reads
+  // lighter than the previous full-purple layering (matches the report cover).
   doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.rect(PAGE.width * 0.3, 0, PAGE.width * 0.7, PAGE.height * 0.5, 'F');
+  doc.rect(0, 0, PAGE.width, PAGE.height * 0.44, 'F');
+  doc.setFillColor(250, 247, 245); // warm ivory
+  doc.rect(0, PAGE.height * 0.44 + 3, PAGE.width, PAGE.height - (PAGE.height * 0.44 + 3), 'F');
 
-  doc.setFillColor(91, 24, 151);
-  doc.ellipse(PAGE.width * 0.8, PAGE.height * 0.2, 60, 80, 'F');
-
+  // Subtle tone-on-tone compass, offset to the lower-right of the band so it
+  // sits beside the title rather than under it.
+  const cpx = PAGE.width * 0.70;
+  const cpy = PAGE.height * 0.31;
+  doc.setDrawColor(96, 42, 134);
+  doc.setLineWidth(0.6);
+  doc.circle(cpx, cpy, 30, 'S');
+  doc.circle(cpx, cpy, 21, 'S');
+  doc.setLineWidth(0.9);
+  doc.line(cpx, cpy - 30, cpx, cpy - 25); // N
+  doc.line(cpx, cpy + 25, cpx, cpy + 30); // S
+  doc.line(cpx - 30, cpy, cpx - 25, cpy); // W
+  doc.line(cpx + 25, cpy, cpx + 30, cpy); // E
+  doc.setFillColor(124, 66, 166);
+  doc.triangle(cpx, cpy - 18, cpx - 3.5, cpy, cpx + 3.5, cpy, 'F'); // needle N
+  doc.setFillColor(90, 32, 128);
+  doc.triangle(cpx, cpy + 14, cpx - 3.5, cpy, cpx + 3.5, cpy, 'F'); // needle S
   doc.setFillColor(...hexToRgb(COLORS.aussieLight));
-  doc.rect(0, PAGE.height * 0.42, PAGE.width, 4, 'F');
-  doc.rect(0, PAGE.height * 0.42 + 4, PAGE.width * 0.4, 1, 'F');
+  doc.circle(cpx, cpy, 1.6, 'F'); // orange hub
+  doc.setDrawColor(0, 0, 0);
 
-  // Title
+  // Title, left-aligned on clean purple beside the compass
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(36);
+  doc.setFontSize(30);
   doc.setFont('helvetica', 'bold');
-  doc.text('Disability Inclusion', PAGE.width / 2, PAGE.height * 0.26, { align: 'center' });
-  doc.text('Action Plan', PAGE.width / 2, PAGE.height * 0.26 + 16, { align: 'center' });
+  doc.text('Disability Inclusion', PAGE.marginX + 4, PAGE.height * 0.19, { align: 'left' });
+  doc.text('Action Plan', PAGE.marginX + 4, PAGE.height * 0.19 + 13, { align: 'left' });
 
-  // Org name card
-  doc.setFillColor(255, 255, 255);
-  const orgCardY = PAGE.height * 0.54;
-  doc.roundedRect(PAGE.marginX + 10, orgCardY, PAGE.contentWidth - 20, 35, 4, 4, 'F');
-  doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.roundedRect(PAGE.marginX + 10, orgCardY, 4, 35, 2, 2, 'F');
+  // Orange divider
+  doc.setFillColor(...hexToRgb(COLORS.aussieLight));
+  doc.rect(0, PAGE.height * 0.44, PAGE.width, 3, 'F');
 
-  doc.setFontSize(20);
+  // Statutory-framework badge straddling the divider. Only shown when a
+  // framework grouping is present, so it carries information the title does not
+  // already state (avoids a redundant "Action Plan" chip under the title).
+  if (frameworkGrouping?.short) {
+    const badgeText = frameworkGrouping.short;
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    const badgeWidth = Math.max(50, doc.getTextWidth(badgeText) + 16);
+    doc.setFillColor(255, 237, 200); // light amber bg
+    doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'F');
+    doc.setDrawColor(224, 125, 0);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'S');
+    doc.setTextColor(120, 53, 0);
+    doc.text(badgeText, ccx, PAGE.height * 0.44 + 19, { align: 'center' });
+    doc.setDrawColor(0, 0, 0);
+  }
+
+  // Organisation name (dark on the light area)
+  doc.setFontSize(22);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text(orgName, PAGE.width / 2, orgCardY + (siteName ? 13 : 15), { align: 'center' });
+  doc.text(orgName, ccx, PAGE.height * 0.62, { align: 'center' });
 
   if (siteName) {
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-    doc.text(siteName, PAGE.width / 2, orgCardY + 22, { align: 'center' });
+    doc.setFontSize(13);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(90, 60, 120);
+    doc.text(siteName, ccx, PAGE.height * 0.62 + 9, { align: 'center' });
   }
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(107, 114, 128);
-  doc.text(`Generated: ${formattedDate}`, PAGE.width / 2, orgCardY + (siteName ? 30 : 26), { align: 'center' });
+  doc.text(`Generated ${formattedDate}`, ccx, PAGE.height * 0.62 + (siteName ? 18 : 10), { align: 'center' });
 
-  // Summary stats on cover
-  const coverStatsY = PAGE.height * 0.68;
-  doc.setFillColor(255, 255, 255);
-  doc.roundedRect(PAGE.marginX + 10, coverStatsY, PAGE.contentWidth - 20, 30, 4, 4, 'F');
-
-  const coverStatsBoxWidth = (PAGE.contentWidth - 20) / 4;
-  const coverStats = [
-    { val: String(totalItems), label: 'Total Items', color: COLORS.amethystDiamond },
-    { val: String(highItems.length), label: 'High Priority', color: COLORS.statusHigh },
-    { val: String(medItems.length), label: 'Medium Priority', color: COLORS.statusMedium },
-    { val: String(lowItems.length), label: 'Low Priority', color: COLORS.statusLow },
-  ];
-  coverStats.forEach((s, idx) => {
-    const x = PAGE.marginX + 10 + idx * coverStatsBoxWidth;
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...hexToRgb(s.color));
-    doc.text(s.val, x + coverStatsBoxWidth / 2, coverStatsY + 13, { align: 'center' });
-    doc.setFontSize(7);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(75, 85, 99);
-    doc.text(s.label, x + coverStatsBoxWidth / 2, coverStatsY + 21, { align: 'center' });
-  });
-
-  // Branding
-  doc.setFillColor(255, 255, 255);
-  doc.roundedRect(PAGE.width / 2 - 40, PAGE.height * 0.84, 80, 20, 3, 3, 'F');
+  // Branding at bottom
   doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text('Access Compass', PAGE.width / 2, PAGE.height * 0.84 + 9, { align: 'center' });
+  doc.text('Access Compass', ccx, PAGE.height * 0.9, { align: 'center' });
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(107, 114, 128);
-  doc.text('by Flare Access', PAGE.width / 2, PAGE.height * 0.84 + 15, { align: 'center' });
+  doc.text('by Flare Access', ccx, PAGE.height * 0.9 + 6, { align: 'center' });
 
   // ========================================
   // TABLE OF CONTENTS
@@ -390,22 +407,38 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
   tocSections.forEach((tocGroup) => {
     if (tocGroup.items.length === 0) return;
+    checkNewPage(14);
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
     doc.text(tocGroup.group, PAGE.marginX + 3, yPos);
-    yPos += 6;
+    yPos += 7;
 
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(0, 0, 0);
     tocGroup.items.forEach((item) => {
       if (item === '') { yPos += 2; return; }
+      checkNewPage(8);
+      doc.setTextColor(...hexToRgb(COLORS.text));
       doc.text(item, PAGE.marginX + 10, yPos);
-      yPos += 6;
+      // Dotted leader between the title and where the page number will go.
+      const titleW = doc.getTextWidth(item);
+      const dotsStart = PAGE.marginX + 10 + titleW + 3;
+      const dotsEnd = PAGE.width - PAGE.marginX - 10;
+      if (dotsEnd > dotsStart) {
+        doc.setDrawColor(200, 196, 206);
+        doc.setLineDashPattern([0.6, 1.2], 0);
+        doc.setLineWidth(0.3);
+        doc.line(dotsStart, yPos - 1, dotsEnd, yPos - 1);
+        doc.setLineDashPattern([], 0);
+        doc.setDrawColor(0, 0, 0);
+      }
+      tocEntries.push({ title: item, page: doc.getNumberOfPages(), y: yPos });
+      yPos += 7;
     });
     yPos += 4;
   });
+  doc.setTextColor(0, 0, 0);
 
   addFooter();
 
@@ -414,6 +447,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // ========================================
   addNewPage();
 
+  recordSection('Progress Overview');
   doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
@@ -514,11 +548,26 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     for (const d of frameworkGrouping.domains) {
       if (d.items.length === 0) continue;
+
+      // Collapse to unique objectives. Multiple plan actions often share one
+      // objective, which would otherwise repeat line-for-line here; the full
+      // per-action detail (with status) already appears in the action items
+      // section, so this alignment view lists each objective once.
+      const seenLabels = new Set<string>();
+      const uniqueLabels: string[] = [];
+      for (const item of d.items) {
+        const label = (item.objective || item.action || '').trim();
+        if (!label || seenLabels.has(label)) continue;
+        seenLabels.add(label);
+        uniqueLabels.push(label);
+      }
+      if (uniqueLabels.length === 0) continue;
+
       checkNewPage(16);
       doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-      doc.text(`${d.name} (${d.items.length})`, PAGE.marginX, yPos);
+      doc.text(`${d.name} (${uniqueLabels.length})`, PAGE.marginX, yPos);
       yPos += 6;
 
       if (d.outcomeStatement) {
@@ -533,9 +582,8 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       doc.setFontSize(9);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.text));
-      for (const item of d.items) {
-        const label = item.objective || item.action || '';
-        const lines = wrapText(`- ${label}  [${item.status}]`, PAGE.contentWidth - 4);
+      for (const label of uniqueLabels) {
+        const lines = wrapText(`- ${label}`, PAGE.contentWidth - 4);
         checkNewPage(lines.length * 5 + 2);
         lines.forEach((l, idx) => { doc.text(l, PAGE.marginX + (idx === 0 ? 0 : 4), yPos); yPos += 5; });
       }
@@ -858,11 +906,26 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // Add final footer
   addFooter();
 
+  // Second pass: stamp the real page number next to each contents-page line,
+  // now that every section's page is known.
+  for (const e of tocEntries) {
+    const p = sectionPages.get(e.title);
+    if (!p) continue;
+    doc.setPage(e.page);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+    doc.text(String(p), PAGE.width - PAGE.marginX, e.y, { align: 'right' });
+  }
+  doc.setPage(doc.getNumberOfPages());
+  doc.setTextColor(0, 0, 0);
+
   // ========================================
   // SECOND PASS: Page X of Y
   // ========================================
+  // Skip page 1 (the cover) so no footer box is drawn over the title art.
   const totalPages = doc.getNumberOfPages();
-  for (let i = 1; i <= totalPages; i++) {
+  for (let i = 2; i <= totalPages; i++) {
     doc.setPage(i);
     const fy = PAGE.height - 12;
 
