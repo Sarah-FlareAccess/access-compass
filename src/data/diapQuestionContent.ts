@@ -6536,4 +6536,173 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Outcomes measured and the program scaled where successful',
     ],
   },
+
+  // ============================================================
+  // Module 5.8 - Accessible interviews and selection
+  // ============================================================
+  '5.8-PC-1': {
+    steps: [
+      'Update the interview SOP to send questions 24-48 hours in advance to every shortlisted candidate',
+      'Train hiring managers on the rationale',
+    ],
+    indicators: [
+      'Interview SOP updated within 3 months',
+      'Questions sent in advance to all shortlisted candidates',
+      'Hiring managers briefed on the practice',
+    ],
+  },
+  '5.8-PC-2': {
+    steps: [
+      'Add a choice of interview format (in person, video, phone, written) to the interview SOP',
+      'Train panels to run each format fairly and review scoring rubrics for format neutrality',
+    ],
+    indicators: [
+      'Format choice added to the interview SOP within 3 months',
+      'Panels able to run each format fairly',
+      'Scoring rubrics checked for format neutrality',
+    ],
+  },
+  '5.8-PC-3': {
+    steps: [
+      'Audit all interview venues and document their access (entry, lift, accessible toilet, parking)',
+      'Add access information to every interview invitation by default',
+    ],
+    indicators: [
+      'Interview venue access documented within 3 months',
+      'Access information included in every invitation',
+      'Venue access re-checked if venues change',
+    ],
+  },
+  '5.8-PC-4': {
+    steps: [
+      'Schedule disability-confident interviewing and lawful-questioning training for interview panels',
+      'Require completion before interviewing',
+    ],
+    indicators: [
+      'Panel training scheduled within 3 months',
+      'Panellists trained before interviewing',
+      'Refresher completed periodically',
+    ],
+  },
+  '5.8-PC-5': {
+    steps: [
+      'Identify two or three roles where a panel interview is a weak signal',
+      'Design and pilot an alternative (paid work trial, portfolio review, scenario-based task) and measure outcomes over 12 months',
+    ],
+    indicators: [
+      'Roles for alternative assessment identified within 6 months',
+      'An alternative assessment piloted within 12 months',
+      'Outcomes measured and the approach scaled where it works',
+    ],
+  },
+  '5.8-PC-6': {
+    steps: [
+      'Add a voluntary disclosure field at application',
+      'Build a simple quarterly drop-off report by stage and review it annually with leadership',
+    ],
+    indicators: [
+      'Voluntary disclosure field added within 3 months',
+      'Drop-off reported quarterly by stage',
+      'Findings reviewed annually with leadership',
+    ],
+  },
+  '5.8-DD-1': {
+    steps: [
+      'Build behavioural anchors for your most-used interview questions, starting with one role family',
+      'Use the structured rubric to score every interview',
+    ],
+    indicators: [
+      'Behavioural anchors built for key questions within 6 months',
+      'Structured rubric used to score interviews',
+      'Rubrics extended to more role families over time',
+    ],
+  },
+  '5.8-DD-2': {
+    steps: [
+      'Add a sensory check to the interview prep checklist (lighting, background noise, camera framing)',
+      'Default to captions on video interviews',
+    ],
+    indicators: [
+      'Sensory check added to the prep checklist within 3 months',
+      'Captions on by default for video interviews',
+      'Sensory conditions confirmed before each interview',
+    ],
+  },
+  '5.8-DD-3': {
+    steps: [
+      'Add a break offer to the interview open and train panels to honour mid-interview pauses',
+      'Offer extended time or multi-session interviews where helpful',
+    ],
+    indicators: [
+      'Break flexibility added to the interview process within 3 months',
+      'Breaks and extra time offered as standard',
+      'Panels honour pauses, confirmed via candidate feedback',
+    ],
+  },
+  '5.8-DD-4': {
+    steps: [
+      'Audit your current psychometric, cognitive and technical assessments for disability bias',
+      'Replace or supplement the worst offenders',
+    ],
+    indicators: [
+      'Assessment tools audited for bias within 6 months',
+      'Biased tools replaced or supplemented within 12 months',
+      'New tools checked for bias before use',
+    ],
+  },
+  '5.8-DD-5': {
+    steps: [
+      'Add the offer to bring a support person, interpreter or advocate to interview invitations',
+      'Brief panels on how to work with a support person',
+    ],
+    indicators: [
+      'Support person offer added to invitations within 3 months',
+      'Panels briefed on working with support persons',
+      'Requests accommodated consistently',
+    ],
+  },
+  '5.8-DD-6': {
+    steps: [
+      'Introduce a simple reimbursement policy for interview-related costs (travel, support person, care, assistive tech rental) with a modest cap',
+      'Communicate it to candidates',
+    ],
+    indicators: [
+      'Interview cost reimbursement policy in place within 6 months',
+      'Policy communicated to candidates',
+      'Reimbursements processed promptly',
+    ],
+  },
+  '5.8-DD-7': {
+    steps: [
+      'Structure your reference questions',
+      'Add a bias review step acknowledging that disabled candidates may have gaps or complicated relationships with past employers',
+    ],
+    indicators: [
+      'Reference questions structured within 6 months',
+      'Bias review step added to reference checking',
+      'Reference process reviewed for fairness',
+    ],
+  },
+  '5.8-DD-8': {
+    steps: [
+      'Design a tiered feedback process',
+      'Provide specific, respectful feedback to interviewed candidates as a minimum',
+    ],
+    indicators: [
+      'Tiered feedback process designed within 6 months',
+      'Interviewed candidates receive specific feedback',
+      'Feedback quality reviewed via candidate experience surveys',
+    ],
+  },
+  '5.8-DD-9': {
+    steps: [
+      'Establish a named candidate complaints contact for selection decisions with a defined escalation path',
+      'Include it in every rejection communication',
+    ],
+    indicators: [
+      'Candidate complaints contact established within 3 months',
+      'Contact included in every rejection communication',
+      'Complaints handled within a set timeframe',
+    ],
+  },
 };
