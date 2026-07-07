@@ -10772,4 +10772,118 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Text descriptions provided for maps and tours',
     ],
   },
+
+  // ============================================================
+  // Module 1.6 - Marketing and representation
+  // ============================================================
+  '1.6-PC-1': {
+    steps: [
+      'Include people with a range of visible and non-visible disabilities in your marketing imagery',
+      'Feature them as active participants, not just in accessibility-specific content',
+    ],
+    indicators: [
+      'Disability representation in marketing imagery within 12 months',
+      'Visible and non-visible disability featured',
+      'People shown as active participants',
+    ],
+  },
+  '1.6-PC-2': {
+    steps: [
+      'Review promotional materials for stereotypical or "inspiration porn" depictions of disability',
+      'Show people with disability as regular customers enjoying your services',
+    ],
+    indicators: [
+      'Promotional materials reviewed for stereotypes within 6 months',
+      'Inspiration-porn depictions removed',
+      'People with disability shown as regular customers',
+    ],
+  },
+  '1.6-PC-3': {
+    steps: [
+      'Make marketing materials accessible with sufficient contrast, readable font sizes (minimum 12pt print), clear layouts and alt text',
+      'Provide large print or Easy Read versions',
+    ],
+    indicators: [
+      'Marketing materials made accessible within 6 months',
+      'Contrast, font size, layout and alt text addressed',
+      'Large print or Easy Read versions available',
+    ],
+  },
+  '1.6-PC-4': {
+    steps: [
+      'Feature accessibility as a positive attribute in your marketing, not just compliance',
+      'Highlight inclusive experiences and welcoming service as part of your value proposition',
+    ],
+    indicators: [
+      'Accessibility featured positively in marketing within 6 months',
+      'Inclusive experiences and welcoming service highlighted',
+      'Accessibility part of the brand value proposition',
+    ],
+  },
+  '1.6-PC-5': {
+    steps: [
+      'Source imagery from disability-inclusive stock libraries or feature real customers with informed consent',
+      'Avoid generic stock images that tokenise or misrepresent disability',
+    ],
+    indicators: [
+      'Disability-inclusive imagery sourced within 6 months',
+      'Real customers featured with informed consent where used',
+      'Tokenising stock images avoided',
+    ],
+  },
+  '1.6-DD-2a': {
+    steps: [
+      'Draw on the expertise of people with disability through paid consultants, an advisory panel or community members',
+      'Compensate people for their time and do not rely on disabled staff for unpaid work outside their role',
+    ],
+    indicators: [
+      'Lived-experience expertise drawn on within 12 months',
+      'Contributors compensated for their time',
+      'Representation informed by people with disability',
+    ],
+  },
+  '1.6-DD-3a': {
+    steps: [
+      'Test marketing materials for colour contrast (minimum 4.5:1 per WCAG 2.2), font readability, layout clarity and alt text',
+      'Use automated tools for initial checks and manual review for nuanced issues',
+    ],
+    indicators: [
+      'Marketing materials tested for accessibility within 6 months',
+      'Contrast meets 4.5:1 per WCAG 2.2',
+      'Automated and manual review both applied',
+    ],
+  },
+  '1.6-DD-1a': {
+    steps: [
+      'Develop formal guidelines for disability representation in new marketing materials',
+      'Cover imagery sourcing, language, representation across disability types and review processes',
+    ],
+    indicators: [
+      'Disability representation guidelines developed within 6 months',
+      'Imagery, language and representation standards covered',
+      'Applied to new marketing materials',
+    ],
+  },
+  '1.6-DD-5a': {
+    steps: [
+      'Advertise through disability-specific channels such as disability organisation newsletters and accessible tourism directories',
+      'Reach audiences who may not encounter your mainstream marketing',
+    ],
+    indicators: [
+      'Disability-specific channels used within 12 months',
+      'Newsletters and accessible tourism directories reached',
+      'Audiences beyond mainstream marketing engaged',
+    ],
+  },
+  '1.6-DD-5b': {
+    steps: [
+      'Develop relationships with disability organisations for cross-promotion or co-marketing',
+      'Partner with local advocacy groups, peak bodies or accessible tourism networks to extend reach',
+    ],
+    indicators: [
+      'Disability organisation relationships developed within 12 months',
+      'Cross-promotion or co-marketing in place',
+      'Reach into the disability community extended',
+    ],
+  },
 };
