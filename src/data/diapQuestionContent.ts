@@ -7862,4 +7862,250 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Promoted during registration',
     ],
   },
+
+  // ============================================================
+  // Module 6.5 - On-the-day operations
+  // ============================================================
+  '6.5-PC-1': {
+    steps: [
+      'Provide disability awareness training to all staff and volunteers before the event',
+      'Cover the specific accessibility provisions you have planned so staff can deliver them confidently',
+    ],
+    indicators: [
+      'Staff and volunteers trained before the event',
+      'Training covers the planned accessibility provisions',
+      'Included in the event onboarding for each event',
+    ],
+  },
+  '6.5-PC-2': {
+    steps: [
+      'Implement priority entry or express queuing for people with disability',
+      'Communicate it in pre-event information and clearly sign the priority entry point',
+    ],
+    indicators: [
+      'Priority entry provided at the event',
+      'Communicated in pre-event information',
+      'Priority entry point clearly signed',
+    ],
+  },
+  '6.5-PC-3': {
+    steps: [
+      'Develop an accessible food and beverage policy (allergen labelling, dietary options, accessible serving heights, adaptive utensils, seated eating, staff assistance)',
+      'Communicate options in advance',
+    ],
+    indicators: [
+      'Accessible food and beverage policy in place for the event',
+      'Options communicated in advance',
+      'Policy applied by catering on the day',
+    ],
+  },
+  '6.5-PC-4': {
+    steps: [
+      'Develop a service animal policy compliant with the DDA 1992 (access to all areas, a relief area, no proof requests, no refusal)',
+      'Brief security and door staff and include the policy in event information',
+    ],
+    indicators: [
+      'Service animal policy in place for the event',
+      'Security and door staff briefed',
+      'Relief area provided and policy published',
+    ],
+  },
+  '6.5-PC-5': {
+    steps: [
+      'Develop an accessible emergency evacuation plan (PEEPs, accessible egress, refuge points, evacuation equipment, multi-modal alarms, trained marshals)',
+      'Test the plan before the event',
+    ],
+    indicators: [
+      'Accessible evacuation plan in place for the event',
+      'Plan tested before the event',
+      'Marshals trained on the plan',
+    ],
+  },
+  '6.5-D-1': {
+    steps: [
+      'Designate a named person responsible for accessibility on the day with authority to make decisions and allocate resources',
+      'Make them identifiable and reachable by radio, briefed on all pre-registered accommodations, and named in the run sheet',
+    ],
+    indicators: [
+      'Accessibility lead designated for the day',
+      'Lead identifiable, reachable and briefed on accommodations',
+      'Named in the event run sheet',
+    ],
+  },
+  '6.5-D-2': {
+    steps: [
+      'Provide accessible feedback channels during and after the event (on-site paper and digital forms, text/app option, WCAG 2.2 AA post-event survey, direct contact)',
+      'Ask specifically about the accessibility experience',
+    ],
+    indicators: [
+      'Accessible feedback channels available for the event',
+      'Feedback asks specifically about accessibility',
+      'Findings used to improve the next event',
+    ],
+  },
+  '6.5-D-3': {
+    steps: [
+      'Provide equipment for loan (wheelchairs, hearing loop receivers, ear defenders, magnifying sheets, portable seats, chargers, communication boards)',
+      'Advertise availability in pre-event communications and at the information desk',
+    ],
+    indicators: [
+      'Loan equipment available at the event',
+      'Availability advertised before and during the event',
+      'Equipment maintained and signed out simply',
+    ],
+  },
+  '6.5-D-4': {
+    steps: [
+      'Develop a protocol for handling late or on-the-day accessibility requests, with a contingency budget and backup supplier contacts',
+      'Empower the accessibility lead to approve reasonable requests without escalation',
+    ],
+    indicators: [
+      'Late-request protocol in place for the event',
+      'Contingency budget and backup suppliers available',
+      'Reasonable requests approved without escalation',
+    ],
+  },
+  '6.5-D-5': {
+    steps: [
+      'Provide a rest area for carers and companions, separate from the quiet/sensory room, with comfortable seating, power outlets and water',
+      'Locate it close to the main event area',
+    ],
+    indicators: [
+      'Carer rest area provided at the event',
+      'Area separate from the sensory room with the right facilities',
+      'Located close to the main event area',
+    ],
+  },
+  '6.5-D-6': {
+    steps: [
+      'Conduct a structured post-event accessibility review (analyse feedback, review incidents, document lessons, set targets)',
+      'Include people with disability in the review process',
+    ],
+    indicators: [
+      'Post-event accessibility review completed',
+      'Lessons documented and targets set',
+      'People with disability involved in the review',
+    ],
+  },
+  '6.5-D-7': {
+    steps: [
+      'Reserve front-row or near-front seating for attendees who are Deaf or hard of hearing, for clear sightlines to interpreters, captioning and speaker faces',
+      'Mark these seats clearly and brief front-of-house staff to manage them',
+    ],
+    indicators: [
+      'Front seating reserved for Deaf attendees at the event',
+      'Seats clearly marked',
+      'Front-of-house staff manage them',
+    ],
+  },
+  '6.5-D-8': {
+    steps: [
+      'Include finger foods, pre-cut items and food in handled bowls, avoiding items that require two-handed use or precise utensil work',
+      'Provide straws, adaptive utensils and seated eating areas',
+    ],
+    indicators: [
+      'Easy-to-eat catering options provided at the event',
+      'Adaptive utensils and seated eating available',
+      'Options communicated to attendees',
+    ],
+  },
+  '6.5-D-9': {
+    steps: [
+      'Ensure consistent, adequate lighting on speakers, presenters and Auslan interpreters, illuminating faces for lip-reading and avoiding backlighting',
+      'Test lighting under actual event conditions',
+    ],
+    indicators: [
+      'Adequate lighting on speakers and interpreters at the event',
+      'Faces clearly lit for lip-reading',
+      'Lighting tested under event conditions',
+    ],
+  },
+  '6.5-D-10': {
+    steps: [
+      'Assign dedicated accessibility stewards, clearly identifiable and trained, positioned at key locations (entry, information desk, accessible seating)',
+      'Empower them to resolve issues and brief them on all pre-registered accommodations',
+    ],
+    indicators: [
+      'Accessibility stewards on site for the event',
+      'Stewards identifiable, trained and positioned at key points',
+      'Briefed on pre-registered accommodations',
+    ],
+  },
+  '6.5-D-11': {
+    steps: [
+      'Implement a re-entry policy that accommodates sensory breaks, medical management, assistance animal relief and equipment charging',
+      'Use a hand stamp, wristband or ticket system that does not penalise people who need to step out',
+    ],
+    indicators: [
+      'Accessible re-entry policy in place for the event',
+      'Re-entry allowed for access-related reasons',
+      'Policy communicated to attendees',
+    ],
+  },
+  '6.5-D-12': {
+    steps: [
+      'Adopt the Sunflower lanyard scheme (or equivalent hidden disability indicator) and include recognition in your event accessibility information',
+      'Train all staff and volunteers to recognise it and respond appropriately without requiring people to explain their disability',
+    ],
+    indicators: [
+      'Sunflower lanyard scheme adopted for the event',
+      'Staff and volunteers trained to recognise it',
+      'Recognition included in event accessibility information',
+    ],
+  },
+  '6.5-D-13': {
+    steps: [
+      'Provide first aid officers trained in disability-specific scenarios (seizures, insulin management, communication with non-verbal patients) and accessible first aid stations',
+      'Provide medical equipment storage and a clear escalation path to emergency services',
+    ],
+    indicators: [
+      'Disability-aware medical support provided at the event',
+      'First aid stations accessible',
+      'Escalation path to emergency services in place',
+    ],
+  },
+  '6.5-D-14': {
+    steps: [
+      'Require all third-party contractors and partners (security, catering, AV, cleaning) to complete accessibility awareness training before the event',
+      'Include accessibility requirements in contractor agreements and verify compliance during setup',
+    ],
+    indicators: [
+      'Contractors trained on accessibility before the event',
+      'Accessibility requirements in contractor agreements',
+      'Compliance verified during setup',
+    ],
+  },
+  '6.5-D-15': {
+    steps: [
+      'Review security screening for accessibility (private screening option, remaining seated, visual instructions for Deaf attendees)',
+      'Train security staff to interact respectfully with people with disability',
+    ],
+    indicators: [
+      'Security screening reviewed for accessibility before the event',
+      'Private and seated screening options available',
+      'Security staff trained to interact respectfully',
+    ],
+  },
+  '6.5-D-16': {
+    steps: [
+      'Develop a protocol for supporting attendees who become distressed, disoriented or separated (recognise signs, approach calmly, offer specific assistance)',
+      'Set a designated meeting point, a plan for finding carers and a calm space to wait',
+    ],
+    indicators: [
+      'Distress-support protocol in place for the event',
+      'Staff trained to recognise and respond',
+      'A meeting point and calm space provided',
+    ],
+  },
+  '6.5-D-17': {
+    steps: [
+      'Create a system to actively manage pre-registered accommodations on the day, with staff verifying each is in place before opening',
+      'Check in with attendees who requested support and resolve issues immediately, using a checklist linked to registration data',
+    ],
+    indicators: [
+      'Accommodation management system in place for the event',
+      'Each accommodation verified before opening',
+      'Requesting attendees checked in with on the day',
+    ],
+  },
 };
