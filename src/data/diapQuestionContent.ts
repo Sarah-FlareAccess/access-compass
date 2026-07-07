@@ -8885,4 +8885,195 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Processes reviewed after each event',
     ],
   },
+
+  // ============================================================
+  // Module 7.5 - Workforce and cross-event coordination
+  // ============================================================
+  '7.5-PC-1': {
+    steps: [
+      'Develop a scaled volunteer accessibility briefing system that covers all volunteers consistently',
+      'Use a train-the-trainer model to reach hundreds of volunteers',
+    ],
+    indicators: [
+      'Scaled volunteer briefing system developed within 6 months',
+      'All volunteers briefed consistently, not just the access team',
+      'Train-the-trainer model in place',
+    ],
+  },
+  '7.5-PC-2': {
+    steps: [
+      'Standardise identifying clothing for all staff showing role',
+      'Make the access team distinctly identifiable with colour and clear "ACCESS" text',
+    ],
+    indicators: [
+      'Identifying clothing standardised within 6 months',
+      'Access team distinctly identifiable',
+      'Attendees can locate access support on sight',
+    ],
+  },
+  '7.5-PC-3': {
+    steps: [
+      'Develop inclusive evacuation processes covering visual alerts, accessible refuge, sensory awareness and a trained support team',
+      'Drill them before opening',
+    ],
+    indicators: [
+      'Inclusive evacuation processes developed within 6 months',
+      'Visual alerts, accessible refuge and sensory awareness covered',
+      'Processes drilled before opening',
+    ],
+  },
+  '7.5-PC-4': {
+    steps: [
+      'Set up a dedicated access communication channel for real-time issues',
+      'Include all venue leads, rovers, info points and the central team',
+    ],
+    indicators: [
+      'Dedicated access communication channel set up within 3 months',
+      'All venue leads, rovers and info points included',
+      'Real-time issues resolved through the channel',
+    ],
+  },
+  '7.5-PC-5': {
+    steps: [
+      'Develop accessibility planning for VIP, sponsor and press cohorts',
+      'Brief cohort hosts and managers',
+    ],
+    indicators: [
+      'Cohort accessibility planning developed within 6 months',
+      'VIP, sponsor and press cohorts covered',
+      'Cohort hosts and managers briefed',
+    ],
+  },
+  '7.5-PC-6': {
+    steps: [
+      'Establish an Auslan rover team and captioned screens at info points',
+      'Brief PA announcers to cue the captioner',
+    ],
+    indicators: [
+      'Auslan rovers and captioned info screens established within 12 months',
+      'Access extended beyond programmed shows',
+      'PA announcers cue the captioner',
+    ],
+  },
+  '7.5-DD-1': {
+    steps: [
+      'Develop a comprehensive volunteer accessibility kit (lanyard, scripts, location maps, communication boards)',
+      'Issue it at onboarding and brief volunteers on its use',
+    ],
+    indicators: [
+      'Volunteer accessibility kit developed within 6 months',
+      'Kit issued at onboarding',
+      'Volunteers briefed on its use',
+    ],
+  },
+  '7.5-DD-2': {
+    steps: [
+      'Recruit and train an access champion network',
+      'Distribute champions across venue clusters, not a single point',
+    ],
+    indicators: [
+      'Access champion network established within 12 months',
+      'Champions distributed across venue clusters',
+      'Every cluster has a trained champion',
+    ],
+  },
+  '7.5-DD-3': {
+    steps: [
+      'Engage paid disabled trainers for volunteer training',
+      'Co-design the content with them',
+    ],
+    indicators: [
+      'Paid disabled trainers engaged for next event',
+      'Training content co-designed with them',
+      'Trainers paid at professional rates',
+    ],
+  },
+  '7.5-DD-4': {
+    steps: [
+      'Add an access update as a standard agenda item at every shift briefing',
+      'Carry forward issues from previous shifts',
+    ],
+    indicators: [
+      'Access update a standard briefing agenda item within 3 months',
+      'Issues carried forward between shifts',
+      'Volunteers act on previous-shift updates',
+    ],
+  },
+  '7.5-DD-5': {
+    steps: [
+      'Establish volunteer welfare provisions: dedicated rest area, food and water, sensory regulation',
+      'Provide a mental health contact',
+    ],
+    indicators: [
+      'Volunteer welfare provisions established within 6 months',
+      'Rest area, food, water and sensory regulation available',
+      'Mental health contact provided',
+    ],
+  },
+  '7.5-DD-6': {
+    steps: [
+      'Build active recruitment partnerships and audit role descriptions for assumed-ability barriers',
+      'Document the adjustment process',
+    ],
+    indicators: [
+      'Recruitment partnerships built within 12 months',
+      'Role descriptions audited for assumed-ability barriers',
+      'Adjustment process documented',
+    ],
+  },
+  '7.5-DD-7': {
+    steps: [
+      'Develop a sponsor activation accessibility checklist',
+      'Make it a sponsorship contract requirement',
+    ],
+    indicators: [
+      'Sponsor activation accessibility checklist developed within 6 months',
+      'Checklist a sponsorship contract requirement',
+      'Activations vetted before approval',
+    ],
+  },
+  '7.5-DD-8': {
+    steps: [
+      'Audit press provisions: camera positions, press release format, interview spaces and contact channel',
+      'Address each gap',
+    ],
+    indicators: [
+      'Press provisions audited within 6 months',
+      'Camera positions, formats, spaces and contact addressed',
+      'Press areas accessible before the next event',
+    ],
+  },
+  '7.5-DD-9': {
+    steps: [
+      'Specify accessibility requirements in VIP and hospitality design (counter heights, knee clearance, accessible toilets nearby)',
+      'Audit during set-up',
+    ],
+    indicators: [
+      'Accessibility specified in VIP and hospitality design within 6 months',
+      'Counter heights, knee clearance and nearby accessible toilets provided',
+      'Audited during set-up',
+    ],
+  },
+  '7.5-DD-10': {
+    steps: [
+      'Redesign accreditation with large print, tactile elements and accessible lanyards',
+      'Apply the design to all passes',
+    ],
+    indicators: [
+      'Accreditation redesigned for accessibility within 12 months',
+      'Large print, tactile elements and accessible lanyards used',
+      'Design applied to all passes',
+    ],
+  },
+  '7.5-DD-11': {
+    steps: [
+      'Run an inclusive evacuation drill before opening with multiple disability-access scenarios',
+      'Engage paid disabled actors for authenticity',
+    ],
+    indicators: [
+      'Inclusive evacuation drill run before opening',
+      'Multiple disability-access scenarios included',
+      'Paid disabled actors engaged',
+    ],
+  },
 };
