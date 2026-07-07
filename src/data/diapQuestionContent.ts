@@ -7524,4 +7524,173 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Location communicated in pre-event information and signage',
     ],
   },
+
+  // ============================================================
+  // Module 6.3 - Communication and information
+  // ============================================================
+  '6.3-PC-1': {
+    steps: [
+      'Install clear, accessible wayfinding signage (min 70% contrast, sans-serif min 18pt, consistent placement, pictograms)',
+      'Make signs to accessible facilities (toilets, quiet rooms, lifts) prominent',
+    ],
+    indicators: [
+      'Accessible wayfinding signage installed for the event',
+      'Signs to accessible facilities prominent',
+      'Signage reviewed at each event',
+    ],
+  },
+  '6.3-PC-2': {
+    steps: [
+      'Provide event information in accessible formats (large print, WCAG 2.2 AA digital, Easy Read, audio, Braille on request)',
+      'Ensure at minimum that digital information is screen-reader compatible',
+    ],
+    indicators: [
+      'Event information available in accessible formats',
+      'Digital information screen-reader compatible',
+      'Formats reviewed for each event',
+    ],
+  },
+  '6.3-PC-3': {
+    steps: [
+      'Implement multi-modal announcements: audio PA plus visual displays, text/app notifications and Auslan interpretation for live announcements',
+      'Ensure emergency announcements are both audible and visible, per the DDA 1992',
+    ],
+    indicators: [
+      'Multi-modal announcements in place for the event',
+      'Emergency announcements both audible and visible',
+      'Announcement channels tested before the event',
+    ],
+  },
+  '6.3-PC-4': {
+    steps: [
+      'Set up an information or help desk near the main entrance with an accessible counter section (max 850mm for part of it)',
+      'Staff it with people trained in disability awareness and sign it clearly',
+    ],
+    indicators: [
+      'Accessible information desk provided at the event',
+      'Desk staffed by disability-aware people',
+      'Desk clearly signed near the entrance',
+    ],
+  },
+  '6.3-D-1': {
+    steps: [
+      'Add QR codes to key signage linking to accessible digital versions of event information',
+      'Ensure the linked pages meet WCAG 2.2 AA',
+    ],
+    indicators: [
+      'QR codes to accessible information on key signage',
+      'Linked pages meet WCAG 2.2 AA',
+      'QR content updated for each event',
+    ],
+  },
+  '6.3-D-2': {
+    steps: [
+      'Provide tactile wayfinding: TGSIs at key decision points (per AS 1428.4.1), tactile signage with raised lettering and Braille at room entries, and tactile maps at information points',
+      'Maintain the elements through the event',
+    ],
+    indicators: [
+      'Tactile wayfinding provided at the event',
+      'TGSIs and tactile signage compliant with AS 1428.4.1',
+      'Tactile elements maintained through the event',
+    ],
+  },
+  '6.3-D-3': {
+    steps: [
+      'Create a sensory map or guide indicating noise levels, lighting, crowd density and sensory hotspots, including quiet spaces and low-sensory routes',
+      'Make it available in advance online and on the day at the information desk',
+    ],
+    indicators: [
+      'Sensory map created for the event',
+      'Available online in advance and on the day',
+      'Map updated for each event',
+    ],
+  },
+  '6.3-D-4': {
+    steps: [
+      'Develop social stories or visual narratives covering arrival, what the event looks like, where to get help and what happens at key moments',
+      'Publish them on the event website at least two weeks beforehand',
+    ],
+    indicators: [
+      'Social story or visual narrative developed for the event',
+      'Published at least two weeks beforehand',
+      'Content updated for each event',
+    ],
+  },
+  '6.3-D-5': {
+    steps: [
+      'Establish multiple channels for communicating program changes (PA, on-screen displays, app notifications, SMS, information desk)',
+      'Ensure at least two channels are accessible for each sensory modality',
+    ],
+    indicators: [
+      'Multiple change-communication channels in place for the event',
+      'At least two accessible channels per sensory modality',
+      'Channels tested before the event',
+    ],
+  },
+  '6.3-D-6': {
+    steps: [
+      'Provide communication aids at the event (picture boards, communication apps on tablets, key-word signing guides, pen and paper)',
+      'Train staff to use them patiently without assumptions about cognitive ability',
+    ],
+    indicators: [
+      'Communication aids available at the event',
+      'Staff trained to use them respectfully',
+      'Aids maintained and available at service points',
+    ],
+  },
+  '6.3-D-7': {
+    steps: [
+      'Provide a range of microphone options for diverse presenters (lapel, headset, gooseneck at adjustable lecterns, handheld) and feed the sound system into the hearing loop',
+      'Test all equipment with presenters before their session',
+    ],
+    indicators: [
+      'Range of microphone options provided for the event',
+      'Sound system feeds the hearing loop',
+      'Equipment tested with presenters beforehand',
+    ],
+  },
+  '6.3-D-8': {
+    steps: [
+      'Consider providing an accessible digital wayfinding or navigation app (screen-reader compatible, high contrast, accessible routes, key facilities)',
+      'Prioritise it for large events to improve independence and reduce anxiety',
+    ],
+    indicators: [
+      'Digital wayfinding option scoped for large events',
+      'App accessible and shows accessible routes',
+      'App reviewed via attendee feedback',
+    ],
+  },
+  '6.3-D-9': {
+    steps: [
+      'Brief all speakers on accessible presentation practices (describe visuals, face the audience, plain language, pause for interpreters, slides in advance, high-contrast design)',
+      'Circulate a written accessibility guide as part of speaker onboarding',
+    ],
+    indicators: [
+      'Speakers briefed on accessible presentation before the event',
+      'Written accessibility guide part of speaker onboarding',
+      'Practices followed, confirmed via feedback',
+    ],
+  },
+  '6.3-D-10': {
+    steps: [
+      'Write all event communications in plain language (short sentences, common words, active voice, clear structure, no jargon)',
+      'Test key documents with a readability tool, aiming for a Grade 8 reading level',
+    ],
+    indicators: [
+      'Event communications written in plain language',
+      'Key documents tested for readability',
+      'Plain-language standard applied to new communications',
+    ],
+  },
+  '6.3-D-11': {
+    steps: [
+      'Test your event app against WCAG 2.2 Level AA (screen readers, keyboard, contrast, text resizing, 24x24px touch targets)',
+      'Fix critical issues before launch and provide a non-app alternative for any inaccessible features',
+    ],
+    indicators: [
+      'Event app tested for WCAG 2.2 AA before launch',
+      'Critical issues fixed before launch',
+      'A non-app alternative available for key features',
+    ],
+  },
 };
