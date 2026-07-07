@@ -2297,4 +2297,184 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'At least one Easy Read version of key information provided',
     ],
   },
+
+  // ============================================================
+  // Module 3.6 - Menus and printed materials
+  // ============================================================
+  '3.6-1-1': {
+    steps: [
+      'Identify key customer-facing documents (menus, brochures, forms, pricelists)',
+      'Produce large print versions (min 18pt, sans-serif font)',
+    ],
+    indicators: [
+      'Key documents identified within 1 month',
+      'Large print versions available within 6 months',
+      'Large print updated whenever the standard version changes',
+    ],
+  },
+  '3.6-1-2': {
+    steps: [
+      'Train staff to read menus, forms and information aloud on request, using clear speech, an appropriate pace and privacy awareness',
+      'Give staff a discreet way to offer this so customers do not have to ask',
+    ],
+    indicators: [
+      'Staff trained to offer reading assistance within 3 months',
+      'Reading assistance offered proactively, confirmed via feedback',
+      'Reading assistance included in induction for new staff',
+    ],
+  },
+  '3.6-1-3': {
+    steps: [
+      'Create digital versions of key materials accessible via QR codes or short URLs',
+      'Ensure the digital content meets WCAG 2.2 Level AA',
+    ],
+    indicators: [
+      'Digital versions of key materials available within 6 months',
+      'Digital content meets WCAG 2.2 AA',
+      'Digital versions kept in step with the printed ones',
+    ],
+  },
+  '3.6-1-4': {
+    steps: [
+      'Develop Easy Read or Plain English versions of key documents using simple sentences, common words and supporting images',
+      'Follow recognised Easy Read guidelines',
+    ],
+    indicators: [
+      'Easy Read or Plain English versions of key documents produced within 12 months',
+      'Versions follow recognised Easy Read guidelines',
+      'Versions updated whenever the standard version changes',
+    ],
+  },
+  '3.6-1-5': {
+    steps: [
+      'Ensure dietary information and allergen labelling is clearly visible on all menus and food displays',
+      'Use consistent symbols, plain language and accessible formats',
+    ],
+    indicators: [
+      'Allergen and dietary labelling reviewed within 3 months',
+      'Clear, consistent labelling on all menus within 6 months',
+      'Labelling updated whenever menu items change',
+    ],
+  },
+  '3.6-D-1': {
+    steps: [
+      'Test QR code destinations for WCAG 2.2 AA (heading structure, alt text, colour contrast, keyboard navigation, screen reader compatibility)',
+      'Fix issues found, testing with VoiceOver and TalkBack',
+    ],
+    indicators: [
+      'QR destinations tested for WCAG 2.2 AA within 3 months',
+      'Critical issues fixed within 6 months',
+      'Accessibility check included when QR content changes',
+    ],
+  },
+  '3.6-D-2': {
+    steps: [
+      'Resize QR codes to at least 30x30mm and position them 900-1200mm high, on a contrasting background away from glare',
+      'Add a short text description of where the code leads',
+    ],
+    indicators: [
+      'QR code size and placement reviewed within 3 months',
+      'Compliant QR codes in place within 6 months',
+      'New QR codes follow the size and placement standard',
+    ],
+  },
+  '3.6-D-3': {
+    steps: [
+      'Engage a certified Braille transcription service to produce Braille versions of key materials (menus, safety information, visitor guides)',
+      'Store copies at reception and advertise their availability in pre-visit information',
+    ],
+    indicators: [
+      'Braille versions of key materials produced within 12 months',
+      'Copies available at reception and advertised',
+      'Braille updated whenever the standard version changes',
+    ],
+  },
+  '3.6-D-4': {
+    steps: [
+      'Develop audio descriptions or audio guides for key content, exhibitions or experiences with professional narration and wayfinding cues',
+      'Make them available via an app, QR code or loanable audio player',
+    ],
+    indicators: [
+      'Audio guide need scoped within 6 months',
+      'Audio descriptions or guides available within 24 months',
+      'Audio content kept in step with the experience',
+    ],
+  },
+  '3.6-D-5': {
+    steps: [
+      'Identify the most common languages spoken by your visitors',
+      'Produce translations of key materials, and consider Auslan video for Deaf visitors, prioritising safety and wayfinding information',
+    ],
+    indicators: [
+      'Top community languages identified within 3 months',
+      'Key materials translated into priority languages within 12 months',
+      'Safety and wayfinding available in the top community languages',
+    ],
+  },
+  '3.6-D-6': {
+    steps: [
+      'Commission tactile maps or models for key areas, with raised pathways, textured zones and Braille labels',
+      'Position them at the main entrance at a height accessible from a seated position',
+    ],
+    indicators: [
+      'Tactile map or model provided within 24 months',
+      'Positioned at the entrance at accessible height',
+      'Map updated after any layout change',
+    ],
+  },
+  '3.6-D-7': {
+    steps: [
+      'Identify all video and multimedia content lacking accurate captions',
+      'Add accurate captions (not auto-generated) including dialogue, speaker identification and relevant sound effects per WCAG 2.2 SC 1.2.2',
+    ],
+    indicators: [
+      'Uncaptioned video identified within 3 months',
+      'All new video captioned before publishing',
+      'Top existing videos captioned within 12 months',
+    ],
+  },
+  '3.6-D-8': {
+    steps: [
+      'Add audio description to videos with important visual information not conveyed by the soundtrack',
+      'Describe key visual elements during natural pauses per WCAG 2.2 SC 1.2.5',
+    ],
+    indicators: [
+      'Videos needing audio description identified within 3 months',
+      'Audio description added to priority videos within 12 months',
+      'Audio description considered for all new video',
+    ],
+  },
+  '3.6-D-9': {
+    steps: [
+      'Provide materials that are easy to handle: sturdy card or rigid clipboards, large-print versions (min 16pt), pages turnable with one hand',
+      'Avoid laminated surfaces that cause glare',
+    ],
+    indicators: [
+      'Handling of printed materials reviewed within 3 months',
+      'Easy-to-handle, glare-free materials provided within 12 months',
+      'Handling considered when materials are reprinted',
+    ],
+  },
+  '3.6-D-10': {
+    steps: [
+      'Establish a process to update alternative format materials (Braille, large print, audio, Easy Read) whenever the standard version changes',
+      'Assign responsibility and set review dates',
+    ],
+    indicators: [
+      'Update process for alternative formats in place within 3 months',
+      'Responsibility assigned with review dates set',
+      'Alternative formats confirmed current at each review',
+    ],
+  },
+  '3.6-D-11': {
+    steps: [
+      'Display prices in large, high-contrast text (min 18pt) at a readable height (1000-1600mm)',
+      'Include prices on menus, product labels and digital displays, avoiding small print or awkward placement',
+    ],
+    indicators: [
+      'Pricing display reviewed within 3 months',
+      'Large, high-contrast pricing at readable height within 12 months',
+      'Pricing legibility maintained when displays change',
+    ],
+  },
 };
