@@ -5735,4 +5735,173 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Third-party listings kept current',
     ],
   },
+
+  // ============================================================
+  // Module 5.3 - Staff training and awareness
+  // ============================================================
+  '5.3-F-1': {
+    steps: [
+      'Implement disability awareness training for all customer-facing staff, developed or delivered by people with lived experience',
+      'Cover respectful communication, common barriers, assistance animal obligations and how to offer help appropriately',
+    ],
+    indicators: [
+      'Disability awareness training delivered within 6 months',
+      'Training drawn on lived experience',
+      'All customer-facing staff trained',
+    ],
+  },
+  '5.3-F-2': {
+    steps: [
+      'Add disability awareness to your staff onboarding program (legal obligations under the DDA 1992, your accessibility policy, respectful communication)',
+      'Include where to find accessibility resources and support',
+    ],
+    indicators: [
+      'Disability awareness added to onboarding within 3 months',
+      'All new staff complete it before customer contact',
+      'Onboarding content reviewed annually',
+    ],
+  },
+  '5.3-F-3': {
+    steps: [
+      'Ensure all relevant staff can operate the accessibility features and equipment at your venue',
+      'Create a quick-reference guide covering each item, its location and basic operation',
+    ],
+    indicators: [
+      'Staff trained on accessibility features within 3 months',
+      'Quick-reference guide available to staff',
+      'Included in induction for new staff',
+    ],
+  },
+  '5.3-D-1': {
+    steps: [
+      'Schedule regular disability training refreshers, at minimum annually',
+      'Update content as standards, technology and best practice evolve',
+    ],
+    indicators: [
+      'Refresher schedule in place within 3 months',
+      'Refresher completed at least annually',
+      'Content kept current with standards and practice',
+    ],
+  },
+  '5.3-D-3': {
+    steps: [
+      'Create an internal resource hub or toolkit with quick-reference guides, external links (JobAccess, AHRC) and your accessibility policies',
+      'Keep it current and accessible to all staff',
+    ],
+    indicators: [
+      'Accessibility resource hub available within 6 months',
+      'Staff can access resources when needed',
+      'Hub reviewed and updated on a regular schedule',
+    ],
+  },
+  '5.3-D-4': {
+    steps: [
+      'Expand training to cover hidden and non-apparent disabilities (chronic pain, mental health, autism, ADHD, learning disabilities, epilepsy, chronic fatigue)',
+      'Emphasise that most disabilities are not visible',
+    ],
+    indicators: [
+      'Hidden disabilities covered in training within 6 months',
+      'Staff understand non-apparent disabilities, confirmed via evaluation',
+      'Included in induction for new staff',
+    ],
+  },
+  '5.3-D-5': {
+    steps: [
+      'Include practical communication techniques in training (speak directly to the person, offer assistance without assuming, plain language, facing Deaf people, AAC)',
+      'Reinforce them with practice',
+    ],
+    indicators: [
+      'Communication techniques included in training within 6 months',
+      'Techniques used in practice, confirmed via feedback',
+      'Included in induction for new staff',
+    ],
+  },
+  '5.3-D-6': {
+    steps: [
+      'Include disability-specific scenarios in your emergency evacuation training',
+      'Ensure training covers the procedures and equipment in your emergency preparedness plan',
+    ],
+    indicators: [
+      'Disability scenarios in evacuation training within 6 months',
+      'Training aligned to the emergency plan',
+      'Practised in drills at least annually',
+    ],
+  },
+  '5.3-D-7': {
+    steps: [
+      'Implement evaluation of disability training effectiveness beyond satisfaction surveys (observe interactions, survey customers with disability, track complaint trends)',
+      'Use the results to improve training',
+    ],
+    indicators: [
+      'Training effectiveness evaluation in place within 6 months',
+      'Behaviour change measured, not just satisfaction',
+      'Findings used to improve training',
+    ],
+  },
+  '5.3-D-8': {
+    steps: [
+      'Designate and publicise a clear point of contact for accessibility advice (accessibility champion, dedicated role or external advisory service)',
+      'Ensure staff know how to reach them',
+    ],
+    indicators: [
+      'Accessibility contact designated within 3 months',
+      'Contact publicised to all staff',
+      'Staff use the contact when they need advice',
+    ],
+  },
+  '5.3-D-9': {
+    steps: [
+      'Include Auslan and Deaf communication awareness in training (basic greetings, booking an interpreter, the National Relay Service, communication tips)',
+      'Provide a quick-reference for staff',
+    ],
+    indicators: [
+      'Auslan and Deaf awareness in training within 6 months',
+      'Staff able to book an interpreter and use the NRS',
+      'Quick-reference available to staff',
+    ],
+  },
+  '5.3-D-10': {
+    steps: [
+      'Add autism and neurodivergence training (sensory sensitivities, communication preferences, predictability, social stories, quiet spaces)',
+      'Cover how to respond supportively during sensory overload',
+    ],
+    indicators: [
+      'Autism and neurodivergence covered in training within 6 months',
+      'Staff respond supportively, confirmed via feedback',
+      'Included in induction for new staff',
+    ],
+  },
+  '5.3-D-11': {
+    steps: [
+      'Extend disability awareness training to contractors, casuals and agency staff',
+      'Provide an abbreviated accessibility induction as a minimum for short-term staff',
+    ],
+    indicators: [
+      'Training extended to contractors and casuals within 6 months',
+      'Short-term staff complete an accessibility induction',
+      'Coverage tracked across all staff types',
+    ],
+  },
+  '5.3-D-12': {
+    steps: [
+      'Include assistive technology awareness in training (screen readers, magnification, hearing aids and cochlear implants and their interaction with hearing loops, mobility aids, communication devices)',
+      'Reinforce it with practical examples',
+    ],
+    indicators: [
+      'Assistive technology covered in training within 6 months',
+      'Staff understand common assistive technologies',
+      'Included in induction for new staff',
+    ],
+  },
+  '5.3-D-13': {
+    steps: [
+      'Incorporate practical scenarios and role-playing exercises into disability training, using realistic venue-specific situations',
+      'Debrief to reinforce learning',
+    ],
+    indicators: [
+      'Practical scenarios included in training within 6 months',
+      'Staff report increased confidence, confirmed via survey',
+      'Scenarios kept relevant to your venue and services',
+    ],
+  },
 };
