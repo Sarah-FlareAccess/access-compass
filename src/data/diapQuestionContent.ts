@@ -9950,4 +9950,393 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Meets WCAG 2.2 SC 2.2.1',
     ],
   },
+
+  // ============================================================
+  // Module 1.3 - Booking and ticketing systems
+  // ============================================================
+  '1.3-PC-2': {
+    steps: [
+      'Add a clear, optional field in your booking or enquiry process for accessibility requirements',
+      'Use it to prepare appropriate support before the visit',
+    ],
+    indicators: [
+      'Accessibility requirements field added within 3 months',
+      'Requirements used to prepare support before the visit',
+      'Field completed by customers who need it',
+    ],
+  },
+  '1.3-DD-2b': {
+    steps: [
+      'Provide a free-text field where customers can explain their accessibility needs in their own words',
+      'Do not rely on predefined categories alone',
+    ],
+    indicators: [
+      'Free-text accessibility field provided within 3 months',
+      'Customers can describe needs in their own words',
+      'Diverse needs captured beyond checkboxes',
+    ],
+  },
+  '1.3-DD-2c': {
+    steps: [
+      'Add the accessibility requirements field to all booking paths: group, phone, third-party and express flows',
+      'Keep it consistent across every path',
+    ],
+    indicators: [
+      'Accessibility field present on all booking paths within 3 months',
+      'Group, phone, third-party and express flows covered',
+      'Consistent labelling across paths',
+    ],
+  },
+  '1.3-DD-2a': {
+    steps: [
+      'Label the accessibility requirements field clearly (e.g. "Accessibility or special requirements")',
+      'Position it prominently, not hidden behind an expandable section or at the very end',
+    ],
+    indicators: [
+      'Accessibility field clearly labelled within 3 months',
+      'Field positioned prominently in the form',
+      'Customers can find it without searching',
+    ],
+  },
+  '1.3-PC-4': {
+    steps: [
+      'Assign a specific person or role to review and act on accessibility requests from bookings',
+      'Make ownership clear so requests are not missed',
+    ],
+    indicators: [
+      'Ownership of booking accessibility requests assigned within 1 month',
+      'Named person or role responsible',
+      'Requests actioned consistently',
+    ],
+  },
+  '1.3-PC-3': {
+    steps: [
+      'Establish a process to follow up with customers who share accessibility requirements before their visit',
+      'Confirm arrangements and ask if anything else is needed',
+    ],
+    indicators: [
+      'Pre-visit follow-up process established within 3 months',
+      'Arrangements confirmed before the visit',
+      'Issues on arrival reduced',
+    ],
+  },
+  '1.3-DD-3b': {
+    steps: [
+      'Send customers confirmation that their accessibility requirements have been received and noted',
+      'Include the actions to be taken and a contact point',
+    ],
+    indicators: [
+      'Requirements confirmation sent within 3 months of implementation',
+      'Confirmation states actions to be taken',
+      'Contact point provided for further questions',
+    ],
+  },
+  '1.3-DD-1d': {
+    steps: [
+      'Provide clear, upfront instructions before customers begin booking',
+      'Include estimated time, information needed and available accessibility features',
+    ],
+    indicators: [
+      'Upfront booking instructions provided within 3 months',
+      'Estimated time and required information stated',
+      'Accessibility features noted before starting',
+    ],
+  },
+  '1.3-PC-6': {
+    steps: [
+      'Provide alternative ways to book (phone, email or in-person) for customers who cannot use the online system',
+      'Meet the DDA 1992 requirement for equitable access',
+    ],
+    indicators: [
+      'Alternative booking channels available within 3 months',
+      'Customers who cannot use online can still book',
+      'Equitable access maintained per DDA 1992',
+    ],
+  },
+  '1.3-DD-6c': {
+    steps: [
+      'Offer real-time assistance during booking (live chat, phone support or callback)',
+      'Make it available to customers who hit barriers partway through',
+    ],
+    indicators: [
+      'Real-time booking assistance offered within 6 months',
+      'Customers can get help partway through',
+      'Abandoned bookings recovered',
+    ],
+  },
+  '1.3-PC-7': {
+    steps: [
+      'Assess whether your third-party booking platform meets WCAG 2.2 Level AA',
+      'If it does not, provide an accessible alternative and raise requirements with the provider',
+    ],
+    indicators: [
+      'Third-party platform assessed within 6 months',
+      'Accessible alternative provided where needed',
+      'Accessibility requirements raised with the provider',
+    ],
+  },
+  '1.3-PC-8': {
+    steps: [
+      'Enable accessible options (wheelchair spaces, companion seats, accessible rooms) through the same booking process as all customers',
+      'Remove separate or manual processes',
+    ],
+    indicators: [
+      'Accessible options bookable through the standard process within 6 months',
+      'Separate or manual processes removed',
+      'Equal booking experience for all customers',
+    ],
+  },
+  '1.3-PC-1': {
+    steps: [
+      'Test and fix your booking process for full keyboard operability per WCAG 2.2 SC 2.1.1',
+      'Make every step from date selection to payment usable without a mouse',
+    ],
+    indicators: [
+      'Booking process tested for keyboard operability within 3 months',
+      'Every step usable without a mouse',
+      'Meets WCAG 2.2 SC 2.1.1',
+    ],
+  },
+  '1.3-DD-1a': {
+    steps: [
+      'Conduct a keyboard-only walkthrough of the entire booking process',
+      'Document and prioritise fixes for payment, date selection and form submission',
+    ],
+    indicators: [
+      'Keyboard-only walkthrough completed within 3 months',
+      'Failure points documented',
+      'Payment, date and submission fixes prioritised',
+    ],
+  },
+  '1.3-PC-5': {
+    steps: [
+      'Implement clear, specific error messages in booking forms per WCAG 2.2 SC 3.3.1 and SC 3.3.3',
+      'Identify the field, explain the issue and suggest the fix',
+    ],
+    indicators: [
+      'Clear booking error messages implemented within 3 months',
+      'Errors identify the field and suggest the fix',
+      'Meets WCAG 2.2 SC 3.3.1 and SC 3.3.3',
+    ],
+  },
+  '1.3-DD-5b': {
+    steps: [
+      'Announce booking form errors to screen reader users via aria-live regions or by moving focus to the error summary per WCAG 2.2 SC 4.1.3',
+      'Remove silent errors',
+    ],
+    indicators: [
+      'Booking errors announced to screen reader users within 3 months',
+      'Silent errors removed',
+      'Meets WCAG 2.2 SC 4.1.3',
+    ],
+  },
+  '1.3-DD-5c': {
+    steps: [
+      'Provide booking information in plain language',
+      'Create an Easy Read version with short sentences, common words and supporting images',
+    ],
+    indicators: [
+      'Plain-language booking information provided within 6 months',
+      'Easy Read version available',
+      'Short sentences and supporting images used',
+    ],
+  },
+  '1.3-DD-1b': {
+    steps: [
+      'Test your booking process with screen readers (NVDA, JAWS, VoiceOver) and voice control tools',
+      'Fix labelling and dynamic-content announcement issues per WCAG 2.2 SC 4.1.2',
+    ],
+    indicators: [
+      'Booking process tested with assistive technology within 6 months',
+      'Labelling and dynamic-content issues fixed',
+      'Meets WCAG 2.2 SC 4.1.2',
+    ],
+  },
+  '1.3-DD-1c': {
+    steps: [
+      'Extend booking time limits or let users request more time per WCAG 2.2 SC 2.2.1',
+      'Warn users before timeout and give at least 20 seconds to extend',
+    ],
+    indicators: [
+      'Booking time limits extended or adjustable within 3 months',
+      'Users warned before timeout',
+      'Meets WCAG 2.2 SC 2.2.1',
+    ],
+  },
+  '1.3-PC-9': {
+    steps: [
+      'Make the booking process fully functional on mobile devices',
+      'Test on iOS and Android with touch gestures, magnification and mobile screen readers',
+    ],
+    indicators: [
+      'Booking process usable on mobile within 3 months',
+      'Tested on iOS and Android',
+      'Works with magnification and mobile screen readers',
+    ],
+  },
+  '1.3-DD-1f': {
+    steps: [
+      'Implement save-and-return functionality in the booking process',
+      'Let customers who experience fatigue or cognitive overload resume later',
+    ],
+    indicators: [
+      'Save-and-return functionality implemented within 6 months',
+      'Customers can pause and resume a booking',
+      'Bookings completed across multiple sessions',
+    ],
+  },
+  '1.3-DD-1g': {
+    steps: [
+      'Make the payment step fully keyboard-accessible, screen reader-compatible and autofill-friendly per WCAG 2.2 Level AA',
+      'Confirm the payment journey completes without a mouse',
+    ],
+    indicators: [
+      'Payment step made accessible within 3 months',
+      'Keyboard, screen reader and autofill supported',
+      'Meets WCAG 2.2 Level AA',
+    ],
+  },
+  '1.3-DD-3d': {
+    steps: [
+      'Make booking confirmation emails and pages accessible with semantic HTML, sufficient contrast and plain language',
+      'Include accessibility arrangements in the confirmation',
+    ],
+    indicators: [
+      'Booking confirmations made accessible within 3 months',
+      'Semantic HTML, contrast and plain language used',
+      'Accessibility arrangements included',
+    ],
+  },
+  '1.3-DD-3e': {
+    steps: [
+      'Set up automatic delivery of relevant accessibility information when customers indicate requirements',
+      'Include venue access details, supports and a contact point',
+    ],
+    indicators: [
+      'Automatic access information delivery set up within 6 months',
+      'Triggered when requirements are indicated',
+      'Venue access, supports and contact included',
+    ],
+  },
+  '1.3-DD-4b': {
+    steps: [
+      'Document common accessibility requests and the arrangements available for each',
+      'Give booking staff a reference card listing accommodations and how to action them',
+    ],
+    indicators: [
+      'Accessibility requests and arrangements documented within 3 months',
+      'Booking staff have a reference card',
+      'Requests actioned consistently',
+    ],
+  },
+  '1.3-DD-4c': {
+    steps: [
+      'Establish an escalation process for requests that cannot be met through standard procedures',
+      'Designate a decision-maker who can authorise reasonable adjustments and communicate the outcome',
+    ],
+    indicators: [
+      'Escalation process established within 3 months',
+      'Decision-maker designated for reasonable adjustments',
+      'Outcomes communicated to customers',
+    ],
+  },
+  '1.3-DD-7b': {
+    steps: [
+      'Investigate which accessibility features can be configured in your booking platform',
+      'Contact the provider for accessibility configuration documentation',
+    ],
+    indicators: [
+      'Configurable accessibility features identified within 3 months',
+      'Provider configuration documentation obtained',
+      'Available features enabled',
+    ],
+  },
+  '1.3-DD-7d': {
+    steps: [
+      'Include accessibility requirements (WCAG 2.2 AA, keyboard, screen reader) in procurement criteria for booking systems',
+      'Request a VPAT or accessibility conformance report from vendors',
+    ],
+    indicators: [
+      'Accessibility included in booking-system procurement within 6 months',
+      'WCAG 2.2 AA required in criteria',
+      'VPAT or conformance report requested from vendors',
+    ],
+  },
+  '1.3-DD-8b': {
+    steps: [
+      'Enable companion or support worker tickets through the standard booking process',
+      'Remove any separate process or phone-call requirement',
+    ],
+    indicators: [
+      'Companion tickets bookable through the standard process within 6 months',
+      'Separate process or phone-call requirement removed',
+      'Companion tickets booked online',
+    ],
+  },
+  '1.3-DD-8c': {
+    steps: [
+      'Display pricing for accessible options clearly alongside standard options',
+      'Ensure customers with disability do not pay more for accessible seating, rooms or services',
+    ],
+    indicators: [
+      'Accessible option pricing displayed transparently within 3 months',
+      'No premium charged for accessible options',
+      'Pricing shown alongside standard options',
+    ],
+  },
+  '1.3-DD-8d': {
+    steps: [
+      'Make the booking process for accessible options equivalent to standard bookings',
+      'Match steps, convenience and available features',
+    ],
+    indicators: [
+      'Accessible option booking made equivalent within 6 months',
+      'Steps and features match standard bookings',
+      'No added friction for accessible options',
+    ],
+  },
+  '1.3-DD-8e': {
+    steps: [
+      'Extend all promotional offers, packages and discounts to accessible bookings',
+      'Remove exclusions, which are discriminatory under the DDA 1992',
+    ],
+    indicators: [
+      'Promotions extended to accessible bookings within 3 months',
+      'No promotional exclusions on accessible options',
+      'Compliant with the DDA 1992',
+    ],
+  },
+  '1.3-DD-8f': {
+    steps: [
+      'Enable customers to modify or cancel accessible bookings online, as with standard bookings',
+      'Remove the phone-call-only requirement',
+    ],
+    indicators: [
+      'Online modify and cancel enabled for accessible bookings within 6 months',
+      'Phone-call-only requirement removed',
+      'Changes made independently by customers',
+    ],
+  },
+  '1.3-DD-8g': {
+    steps: [
+      'Implement flexible cancellation for disability-related circumstances such as health fluctuations, carer availability or hospitalisation',
+      'Apply it as a reasonable adjustment under the DDA 1992',
+    ],
+    indicators: [
+      'Flexible cancellation policy implemented within 3 months',
+      'Disability-related circumstances covered',
+      'Applied as a reasonable adjustment',
+    ],
+  },
+  '1.3-D-9': {
+    steps: [
+      'Add the ability for group organisers to specify accessibility requirements for individual members',
+      'Capture diverse needs at the booking stage',
+    ],
+    indicators: [
+      'Group booking accessibility field added within 6 months',
+      'Requirements captured per group member',
+      'Diverse needs known before the visit',
+    ],
+  },
 };
