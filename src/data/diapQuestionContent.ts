@@ -8310,4 +8310,206 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Service reviewed via attendee feedback',
     ],
   },
+
+  // ============================================================
+  // Module 7.2 - Accessibility programming curation
+  // ============================================================
+  '7.2-PC-1': {
+    steps: [
+      'Begin curating an accessibility programming track (relaxed, audio-described, captioned, Auslan-interpreted formats)',
+      'Apply the formats across your main programming strands',
+    ],
+    indicators: [
+      'Accessibility programming track curated within 12 months',
+      'Formats applied across main programming strands',
+      'Track grown year on year',
+    ],
+  },
+  '7.2-PC-2': {
+    steps: [
+      'Develop an artist accessibility brief and include it in every contract pack',
+      'Follow up with a conversation for first-time artists or those new to inclusive performance design',
+    ],
+    indicators: [
+      'Artist accessibility brief in every contract pack within 6 months',
+      'First-time artists briefed directly',
+      'Brief reviewed and updated periodically',
+    ],
+  },
+  '7.2-PC-3': {
+    steps: [
+      'Bring accessibility-formatted shows into mainstream marketing with consistent icons',
+      'Include them in trailers and social posts and quote disabled artists',
+    ],
+    indicators: [
+      'Accessibility-formatted shows in mainstream marketing within 6 months',
+      'Consistent access icons used across marketing',
+      'Disabled artists featured in promotion',
+    ],
+  },
+  '7.2-PC-4': {
+    steps: [
+      'Establish a named accessibility programming budget line, separate from contingency',
+      'Apply for accessibility-specific grants to seed it and present it at Board level annually',
+    ],
+    indicators: [
+      'Accessibility programming budget line established within 12 months',
+      'Grants pursued to seed the budget',
+      'Budget presented at Board level annually',
+    ],
+  },
+  '7.2-PC-5': {
+    steps: [
+      'Identify and engage one or two disability-led arts partners',
+      'Start with a paid advisory relationship before moving to programming partnerships',
+    ],
+    indicators: [
+      'Disability-led arts partners engaged within 12 months',
+      'Advisory relationship paid',
+      'Partnership deepened over time',
+    ],
+  },
+  '7.2-PC-6': {
+    steps: [
+      'Add detailed content warnings to every show listing',
+      'Cover sensory and thematic factors using a standardised format',
+    ],
+    indicators: [
+      'Content warnings on every show listing within 6 months',
+      'Standardised format covering sensory and thematic factors',
+      'Warnings reviewed for accuracy each program',
+    ],
+  },
+  '7.2-DD-1': {
+    steps: [
+      'Develop written guidelines for inclusive performance design, co-designed with disability-led arts organisations',
+      'Make them part of every artist contract pack',
+    ],
+    indicators: [
+      'Inclusive performance guidelines developed within 12 months',
+      'Guidelines co-designed with disability-led organisations',
+      'Guidelines included in every contract pack',
+    ],
+  },
+  '7.2-DD-2': {
+    steps: [
+      'Add accessibility to every programming brief as a standard line',
+      'Include supports available, formats expected and budget',
+    ],
+    indicators: [
+      'Accessibility a standard line in programming briefs within 6 months',
+      'Briefs specify supports, formats and budget',
+      'Approach applied to all programming',
+    ],
+  },
+  '7.2-DD-3': {
+    steps: [
+      'Engage paid autistic and sensory-sensitive consultants to design relaxed performances',
+      'Pilot one performance before full rollout',
+    ],
+    indicators: [
+      'Consultants engaged to design relaxed performances within 12 months',
+      'One relaxed performance piloted',
+      'Consultants paid for their input',
+    ],
+  },
+  '7.2-DD-4': {
+    steps: [
+      'Engage certified human audio description and captioning providers',
+      'Avoid auto-generated alternatives, which damage trust',
+    ],
+    indicators: [
+      'Certified AD and captioning providers engaged within 6 months',
+      'No auto-generated captioning used for programmed access',
+      'Provider quality reviewed via feedback',
+    ],
+  },
+  '7.2-DD-5': {
+    steps: [
+      'Add standard accessibility clauses to artist contracts',
+      'Cover both what the event provides and what the artist commits to',
+    ],
+    indicators: [
+      'Accessibility clauses in artist contracts within 6 months',
+      'Clauses cover event and artist commitments',
+      'Commitments tracked to delivery',
+    ],
+  },
+  '7.2-DD-6': {
+    steps: [
+      'Run a workshop on inclusive performance design, partnering with a disability arts organisation for delivery',
+      'Pay all participants',
+    ],
+    indicators: [
+      'Inclusive performance workshop run within 12 months',
+      'Delivered in partnership with a disability arts organisation',
+      'All participants paid',
+    ],
+  },
+  '7.2-DD-7': {
+    steps: [
+      'Establish baseline accessibility programming metrics',
+      'Set 3-year growth targets and report annually to leadership and in your DIAP',
+    ],
+    indicators: [
+      'Baseline programming metrics established within 6 months',
+      '3-year growth targets set',
+      'Progress reported annually and in the DIAP',
+    ],
+  },
+  '7.2-DD-8': {
+    steps: [
+      'Adopt a paid-consultancy policy for any accessibility advice from disabled artists, on top of their performance fee',
+      'Set hourly rates and end the unpaid-labour expectation',
+    ],
+    indicators: [
+      'Paid-consultancy policy adopted within 6 months',
+      'Disabled artists paid for accessibility advice',
+      'Rates set and applied consistently',
+    ],
+  },
+  '7.2-DD-9': {
+    steps: [
+      'Publish detailed sensory information per show (decibel ranges, lighting effects, themes), captured during tech rehearsal',
+      'Use a standardised template across the program',
+    ],
+    indicators: [
+      'Per-show sensory information published within 6 months',
+      'Information captured during tech rehearsal',
+      'Standardised template used across the program',
+    ],
+  },
+  '7.2-DD-10': {
+    steps: [
+      'Reschedule accessibility-formatted shows into peak attendance times',
+      'Audit scheduling annually to prevent drift',
+    ],
+    indicators: [
+      'Accessibility-formatted shows scheduled at peak times within 12 months',
+      'Scheduling audited annually',
+      'Shows not buried in off-peak slots',
+    ],
+  },
+  '7.2-DD-11': {
+    steps: [
+      'Develop standard accessibility programming agreements for partner venues',
+      'Use the agreements to fund capability uplift over time',
+    ],
+    indicators: [
+      'Accessibility programming agreements with partner venues within 12 months',
+      'Agreements fund capability uplift',
+      'Venue capability reviewed over time',
+    ],
+  },
+  '7.2-DD-12': {
+    steps: [
+      'Introduce basic attendance and satisfaction measurement for accessibility-programmed events',
+      'Use even simple post-show surveys to inform future programming',
+    ],
+    indicators: [
+      'Attendance and satisfaction measured for accessibility programming within 6 months',
+      'Post-show surveys collected',
+      'Findings used to inform future programming',
+    ],
+  },
 };
