@@ -5276,4 +5276,206 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Page reviewed for accuracy every 6 months',
     ],
   },
+
+  // ============================================================
+  // Module 4.7 - Keeping in touch
+  // ============================================================
+  '4.7-PC-1': {
+    steps: [
+      'Review your written communications (letters, emails, invoices) against accessibility basics (min 12pt sans-serif, left-aligned, clear headings, plain language, white space)',
+      'Update templates to remove justified text and decorative fonts',
+    ],
+    indicators: [
+      'Written communications reviewed within 3 months',
+      'Accessible templates in use within 6 months',
+      'Standard applied to new communications',
+    ],
+  },
+  '4.7-PC-2': {
+    steps: [
+      'Design emails for accessibility: semantic HTML headings, alt text, readable with images disabled, plain-text version, sufficient contrast, meaningful link text',
+      'Test them before sending',
+    ],
+    indicators: [
+      'Email accessibility reviewed within 3 months',
+      'Accessible email design in use within 6 months',
+      'Screen reader check built into the send process',
+    ],
+  },
+  '4.7-PC-3': {
+    steps: [
+      'Create PDFs accessibly: tagged structure, heading hierarchy, alt text, meaningful links, specified language and logical reading order, using PDF/UA as the benchmark',
+      'Never distribute scanned image-only PDFs',
+    ],
+    indicators: [
+      'PDF accessibility reviewed within 3 months',
+      'New PDFs created to PDF/UA within 6 months',
+      'No image-only PDFs distributed',
+    ],
+  },
+  '4.7-PC-4': {
+    steps: [
+      'Create accessible email templates for common communications (confirmations, receipts, newsletters, updates) with heading structure, alt text placeholders, high contrast and meaningful links',
+      'Test each with a screen reader before use',
+    ],
+    indicators: [
+      'Accessible email templates created within 6 months',
+      'Templates tested with a screen reader',
+      'Staff use the accessible templates by default',
+    ],
+  },
+  '4.7-PC-5': {
+    steps: [
+      'Create accessible Word and InDesign templates for common document types (letters, reports, flyers, menus, forms) with pre-set heading styles, alt text prompts, accessible palettes and min 12pt body text',
+      'Roll them out as the default for staff',
+    ],
+    indicators: [
+      'Accessible document templates created within 6 months',
+      'Templates adopted as the default within 12 months',
+      'Templates reviewed and updated as needs change',
+    ],
+  },
+  '4.7-PC-6': {
+    steps: [
+      'Establish a process for providing important documents in alternative formats on request (large print min 18pt, audio, Easy Read, Braille, tagged PDF/HTML)',
+      'Set turnaround time targets',
+    ],
+    indicators: [
+      'Alternative-format process in place within 6 months',
+      'Requests fulfilled within the set turnaround targets',
+      'Process reviewed via customer feedback',
+    ],
+  },
+  '4.7-PC-7': {
+    steps: [
+      'Record customer communication preferences (format, channel, font size) in your CRM',
+      'Apply them automatically to ongoing correspondence, flagged so all staff can see and follow them',
+    ],
+    indicators: [
+      'Communication preferences recorded within 6 months',
+      'Preferences applied to ongoing correspondence',
+      'Preferences visible to all relevant staff',
+    ],
+  },
+  '4.7-PC-8': {
+    steps: [
+      'Audit your subscription and unsubscribe process for accessibility (keyboard navigation, screen reader compatibility, clear confirmations, accessible preference centre)',
+      'Simplify unsubscribe to avoid multi-step login requirements',
+    ],
+    indicators: [
+      'Subscription and unsubscribe process audited within 3 months',
+      'Accessible, simple subscription management provided within 6 months',
+      'Accessibility re-checked when the tool changes',
+    ],
+  },
+  '4.7-DD-1a': {
+    steps: [
+      'Conduct an accessibility review of all customer-facing written communications (letters, emails, invoices, receipts, forms, policies, terms)',
+      'Check for plain language, font size, heading structure and alternative format availability',
+    ],
+    indicators: [
+      'Written communications reviewed within 6 months',
+      'Priority communications remediated within 12 months',
+      'Accessible creation set as the default',
+    ],
+  },
+  '4.7-DD-2a': {
+    steps: [
+      'Test your customer emails with a screen reader (NVDA or VoiceOver) and with images disabled',
+      'Verify keyboard navigation and contrast on desktop and mobile',
+    ],
+    indicators: [
+      'Email accessibility testing completed within 3 months',
+      'Issues found fixed within 6 months',
+      'Testing built into the email production process',
+    ],
+  },
+  '4.7-DD-3a': {
+    steps: [
+      'Identify all document types you produce and assess which are created accessibly',
+      'Remediate the most frequently used first and make accessible creation the default',
+    ],
+    indicators: [
+      'Document types assessed for accessibility within 6 months',
+      'Most-used documents remediated within 12 months',
+      'Accessible creation set as the default',
+    ],
+  },
+  '4.7-DD-3b': {
+    steps: [
+      'Create accessible document templates with built-in heading styles, alt text prompts and correct table structure',
+      'Add an accessibility checklist to your document review process',
+    ],
+    indicators: [
+      'Accessible document templates provided within 6 months',
+      'Accessibility checklist added to document review',
+      'Staff use the templates and checklist consistently',
+    ],
+  },
+  '4.7-DD-4a': {
+    steps: [
+      'Create accessible email templates for each communication type (transactional, marketing, service)',
+      'Test each with a screen reader before deployment',
+    ],
+    indicators: [
+      'Accessible email templates created for each type within 6 months',
+      'Templates tested with a screen reader',
+      'Templates used by default for each communication type',
+    ],
+  },
+  '4.7-DD-5a': {
+    steps: [
+      'Create accessible templates for all document types staff produce (letters, reports, proposals, flyers, menus, forms, signage)',
+      'Include built-in heading styles, accessible palettes, alt text prompts and minimum font sizes',
+    ],
+    indicators: [
+      'Accessible templates provided for all document types within 12 months',
+      'Templates adopted as the default',
+      'Templates reviewed and updated as needs change',
+    ],
+  },
+  '4.7-DD-6a': {
+    steps: [
+      'Document a process for alternative format requests (who receives it, turnaround targets, approved suppliers, tracking)',
+      'Set targets (48 hours large print, 5 days Easy Read, 10 days Braille)',
+    ],
+    indicators: [
+      'Alternative-format request process documented within 3 months',
+      'Requests fulfilled within the set targets',
+      'Requests tracked to completion',
+    ],
+  },
+  '4.7-DD-7a': {
+    steps: [
+      'Store customer communication preferences in your CRM, booking system or database (preferred format, channel and specific needs)',
+      'Make them visible to staff before contact',
+    ],
+    indicators: [
+      'Communication preferences stored within 6 months',
+      'Preferences visible to staff before contact',
+      'Preference data reviewed for completeness',
+    ],
+  },
+  '4.7-DD-7b': {
+    steps: [
+      'Configure your systems to automatically apply customer communication preferences (e.g. generate large-print versions by default)',
+      'Where automation is not possible, implement staff checklists',
+    ],
+    indicators: [
+      'Automatic preference application configured within 12 months',
+      'Preferences applied automatically where possible',
+      'Staff checklists in place where automation is not possible',
+    ],
+  },
+  '4.7-DD-8a': {
+    steps: [
+      'Test your mailing list subscription and unsubscribe process with keyboard and screen reader, including confirmation emails and the preference centre',
+      'Fix any barriers found',
+    ],
+    indicators: [
+      'Subscription and unsubscribe process tested within 3 months',
+      'Barriers found fixed within 6 months',
+      'Accessibility re-checked when the process changes',
+    ],
+  },
 };
