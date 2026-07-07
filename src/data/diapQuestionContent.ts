@@ -1476,6 +1476,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Assess whether you have a compliant accessible toilet, or identify the nearest one',
       'Install or upgrade to meet AS 1428.1 Clause 15 (circulation space, grab rails, accessible fixtures)',
+      'Sign the accessible toilet clearly and brief staff so they can direct customers to it',
     ],
     indicators: [
       'Accessible toilet provision assessed within 3 months',
@@ -1487,6 +1488,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Identify the nearest accessible toilet (on-site or nearby) and confirm its availability and compliance',
       'Brief all staff so they can direct customers to it',
+      'Add the location to your website and pre-visit information',
     ],
     indicators: [
       'Nearest accessible toilet identified and its location documented within 1 month',
@@ -1497,7 +1499,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.2-1-3': {
     steps: [
       'Install signage with tactile lettering, Braille and the International Symbol of Access at each accessible toilet',
-      'Position it at 1200-1600mm height per AS 1428.1',
+      'Position it at 1200-1600mm height on the latch side of the door per AS 1428.1',
+      'Confirm the signage can be read by touch and is not obstructed',
     ],
     indicators: [
       'Accessible-toilet signage reviewed within 3 months',
@@ -1509,6 +1512,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Remove all stored items (cleaning supplies, spare furniture, stock) from the accessible toilet',
       'Put a policy in place prohibiting storage in the facility',
+      'Add a check to the daily cleaning routine to keep it clear',
     ],
     indicators: [
       'Accessible toilet cleared of storage within 1 month',
@@ -1520,17 +1524,19 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Install an emergency alarm cord or button reachable from floor level per AS 1428.1 Clause 15, connected to a monitored point',
       'Set a regular test schedule',
+      'Train staff on how to respond when the alarm is activated',
     ],
     indicators: [
       'Emergency alarm installed within 12 months',
       'Alarm connected to a monitored point and reachable from floor level',
-      'Alarm tested on a regular schedule',
+      'Alarm tested on a regular schedule and staff know how to respond',
     ],
   },
   '3.2-D-1': {
     steps: [
       'Replace toilet door hardware with lever handles or D-pulls and a sliding-bolt lock operable with one hand',
       'Ensure the accessible toilet door opens outward or slides, with min 850mm clear opening per AS 1428.1:2021 Cl 19',
+      'Test the door and lock can be operated one-handed with minimal force',
     ],
     indicators: [
       'Toilet door hardware and swing reviewed within 3 months',
@@ -1542,6 +1548,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Install at least one baby change station at accessible height (max 900mm folded down) with clear wheelchair floor space',
       'Make it accessible from the accessible toilet or a separate accessible room, not female-only',
+      'Sign the location and include it in your facility information',
     ],
     indicators: [
       'Baby change accessibility reviewed within 3 months',
@@ -1551,7 +1558,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.2-D-3': {
     steps: [
+      'Confirm whether an ambulant accessible cubicle is needed and identify a suitable location',
       'Install an ambulant accessible cubicle per AS 1428.1:2021 Cl 20: min 900mm width, side-wall grab rail, 540mm from the pan centreline to the near wall, and an outward-opening door',
+      'Sign the cubicle with the ambulant accessible symbol',
     ],
     indicators: [
       'Ambulant toilet need assessed within 3 months',
@@ -1561,7 +1570,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.2-D-4': {
     steps: [
-      'Replace taps in accessible facilities with lever, sensor or push-type taps usable without gripping or twisting per AS 1428.1:2021 Cl 19.5',
+      'Review taps in accessible facilities for grip or twist operation',
+      'Replace with lever, sensor or push-type taps usable without gripping or twisting per AS 1428.1:2021 Cl 19.5',
       'Set sensor taps to stay on for at least 10 seconds',
     ],
     indicators: [
@@ -1574,6 +1584,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Install soap dispensers and hand dryers at 900-1100mm, reachable from a seated position, push-button or sensor-operated',
       'Position them near the washbasin with visual contrast against the wall',
+      'Confirm they can be operated one-handed from a seated position',
     ],
     indicators: [
       'Dispenser and dryer heights reviewed within 3 months',
@@ -1585,6 +1596,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Provide sanitary disposal and waste bins in the accessible toilet at 500-1100mm, within reach of the toilet, operable with one hand',
       'Provide them regardless of the user\'s gender',
+      'Add the bins to the regular servicing schedule',
     ],
     indicators: [
       'Bin provision and placement reviewed within 3 months',
@@ -1596,6 +1608,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Assess the need and space for an adult change facility (Changing Places standard)',
       'Install a height-adjustable adult change table (min 1800x750mm), ceiling hoist, clear floor space and a privacy screen, separate from the standard accessible toilet',
+      'Register the facility on the National Changing Places map and set a servicing schedule',
     ],
     indicators: [
       'Adult change facility need and feasibility assessed within 6 months',
@@ -1605,8 +1618,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.2-D-8': {
     steps: [
-      'Install grab rails per AS 1428.1:2021 Cl 19.3: a 600mm drop-down rail on the transfer side at 800-810mm and a fixed rail on the wall side',
-      'Ensure both support 1100N with 30-40mm diameter and 35-45mm wall clearance',
+      'Review grab rail compliance against AS 1428.1:2021 Cl 19.3',
+      'Install a 600mm drop-down rail on the transfer side at 800-810mm and a fixed rail on the wall side',
+      'Confirm both rails support 1100N with 30-40mm diameter and 35-45mm wall clearance',
     ],
     indicators: [
       'Grab rail compliance reviewed within 3 months',
@@ -1616,8 +1630,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.2-D-9': {
     steps: [
-      'Reconfigure the accessible toilet to provide min 900mm clear space on the transfer side and 1160mm circulation space per AS 1428.1:2021 Cl 19',
-      'Remove any obstructions in the transfer zone',
+      'Assess the transfer-side and circulation space in the accessible toilet',
+      'Reconfigure to provide min 900mm clear space on the transfer side and 1160mm circulation space per AS 1428.1:2021 Cl 19',
+      'Remove any obstructions in the transfer zone and keep it clear',
     ],
     indicators: [
       'Transfer-space layout reviewed within 3 months',
@@ -1627,8 +1642,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.2-D-10': {
     steps: [
+      'Review the washbasin height, knee clearance and pipe protection',
       'Install a washbasin with the rim at max 830mm, min 600mm knee clearance and insulated or recessed pipes per AS 1428.1:2021 Cl 19.5',
-      'Ensure it is reachable from a wheelchair without obstruction',
+      'Confirm it is reachable from a wheelchair without obstruction',
     ],
     indicators: [
       'Washbasin accessibility reviewed within 3 months',
@@ -1638,7 +1654,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.2-D-11': {
     steps: [
-      'Reposition fittings within reach of the toilet: flush within 300mm of the cistern front on the transfer side, toilet paper 600-700mm from the floor within arm reach, and coat hook at 1200mm per AS 1428.1:2021',
+      'Check the reach to fittings from the toilet (flush, toilet paper, coat hook)',
+      'Reposition them to compliant, reachable locations: flush within 300mm of the cistern front on the transfer side, toilet paper 600-700mm from the floor within arm reach, and coat hook at 1200mm per AS 1428.1:2021',
+      'Confirm each fitting can be reached from the seated position on the toilet',
     ],
     indicators: [
       'Fitting positions reviewed within 3 months',
@@ -1648,7 +1666,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.2-D-12': {
     steps: [
-      'Install a mirror with the bottom edge at 900mm or lower and the top edge at 1850mm or higher, or a tilted mirror, to serve standing and seated users per AS 1428.1:2021',
+      'Check whether the mirror is usable from both standing and seated positions',
+      'Install a mirror with the bottom edge at 900mm or lower and the top edge at 1850mm or higher, or a tilted mirror, per AS 1428.1:2021',
+      'Confirm the reflection is usable from a seated position',
     ],
     indicators: [
       'Mirror height reviewed within 3 months',
@@ -1658,7 +1678,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.2-D-13': {
     steps: [
-      'Install a padded backrest behind the cistern or wall-mounted at an appropriate height to support users needing trunk support, per AS 1428.1:2021',
+      'Assess whether the toilet provides trunk support for users who need it',
+      'Install a padded backrest behind the cistern or wall-mounted at an appropriate height, as specified in AS 1428.1:2021',
+      'Confirm the backrest is securely fixed and positioned for support',
     ],
     indicators: [
       'Backrest need reviewed within 3 months',
@@ -1668,7 +1690,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.2-D-14': {
     steps: [
-      'Improve visual contrast of toilet fittings (grab rails, flush buttons, door handles, sanitary fittings) to min 30% luminance contrast against their background per AS 1428.1:2021 Cl 19',
+      'Review the visual contrast of toilet fittings (grab rails, flush buttons, door handles, sanitary fittings) against their background',
+      'Upgrade fittings to min 30% luminance contrast per AS 1428.1:2021 Cl 19',
+      'Apply the contrast requirement to any future fixture replacement',
     ],
     indicators: [
       'Fitting contrast reviewed within 3 months',
@@ -1693,7 +1717,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.3-1-2': {
     steps: [
-      'Designate a quiet space with reduced lighting, minimal noise and comfortable seating for a sensory break',
+      'Identify a suitable location for a quiet space, away from noise and on an accessible path',
+      'Set it up with reduced lighting, minimal noise and comfortable seating for a sensory break',
+      'Sign it and let visitors and staff know where it is',
     ],
     indicators: [
       'Quiet space identified and available within 6 months',
@@ -1780,7 +1806,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.3-D-2': {
     steps: [
-      'Improve lighting at service counters, reception and information points to min 300 lux, evenly distributed, without shadows on faces',
+      'Measure lighting levels at service counters, reception and information points',
+      'Improve lighting to min 300 lux, evenly distributed, without shadows on faces',
+      'Confirm faces are evenly lit for lipreading, without glare',
     ],
     indicators: [
       'Service-point lighting measured within 3 months',
@@ -1790,7 +1818,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.3-D-3': {
     steps: [
-      'Address glare with non-reflective floor surfaces, matte counter finishes, blinds or window film, and transitional lighting at entrances',
+      'Identify glare sources (reflective floors, glossy counters, windows, entrance transitions)',
+      'Address them with non-reflective floor surfaces, matte counter finishes, blinds or window film, and transitional lighting at entrances',
     ],
     indicators: [
       'Glare sources identified within 3 months',
@@ -1888,7 +1917,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.3-D-12': {
     steps: [
-      'Add sensory information to your website and pre-visit materials: noise levels, lighting, quiet spaces and potential triggers',
+      'Gather the sensory details visitors need: noise levels, lighting, quiet spaces and potential triggers',
+      'Publish them on your website and in pre-visit materials',
     ],
     indicators: [
       'Sensory information published within 3 months',
@@ -1898,6 +1928,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.3-D-13': {
     steps: [
+      'Identify where visitors get disoriented or lose their way',
       'Introduce colour-coded zones, visual landmarks or themed wayfinding to aid navigation for people with cognitive disability or unfamiliar visitors',
     ],
     indicators: [
@@ -1908,7 +1939,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.3-D-14': {
     steps: [
-      'Incorporate tactile elements: TGSIs at key locations, raised lettering on room signage, and tactile maps or models at entry points per AS 1428.4.1',
+      'Identify key locations that would benefit from tactile elements (entries, room signage, decision points)',
+      'Incorporate TGSIs at key locations, raised lettering on room signage, and tactile maps or models at entry points per AS 1428.4.1',
     ],
     indicators: [
       'Tactile wayfinding reviewed within 6 months',
@@ -1966,7 +1998,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.4-F-4': {
     steps: [
-      'Remove charges for accessibility equipment and factor the costs into general operating budgets',
+      'Remove charges for accessibility equipment',
+      'Factor equipment costs into general operating budgets',
     ],
     indicators: [
       'Charges for accessibility equipment removed within 3 months',
@@ -2042,7 +2075,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.4-D-7': {
     steps: [
-      'Expand equipment to cover different body sizes: bariatric wheelchairs (min 600mm seat width), extra-large sensory headphones, adjustable-height mobility aids',
+      'Review your equipment range against different body sizes and needs',
+      'Expand it to include bariatric wheelchairs (min 600mm seat width), extra-large sensory headphones and adjustable-height mobility aids',
     ],
     indicators: [
       'Equipment size range reviewed within 3 months',
@@ -2166,7 +2200,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.5-1-3': {
     steps: [
-      'Install directional signage to all accessible facilities (toilets, lifts, parking, entrances) using the ISA, tactile lettering and Braille per AS 1428.1',
+      'Identify all accessible facilities that need directional signage (toilets, lifts, parking, entrances)',
+      'Install directional signage to each using the ISA, tactile lettering and Braille per AS 1428.1',
     ],
     indicators: [
       'Accessible-facility signage reviewed within 3 months',
