@@ -8692,4 +8692,197 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Release decisions reviewed for each event',
     ],
   },
+
+  // ============================================================
+  // Module 7.4 - Performer and talent accessibility
+  // ============================================================
+  '7.4-PC-1': {
+    steps: [
+      'Audit performer access to every stage',
+      'For raised stages add ramps (max 1:14 gradient) or lifts',
+      'Specify accessibility in stage hire contracts',
+    ],
+    indicators: [
+      'Performer stage access audited within 6 months',
+      'Ramps or lifts provided for raised stages within 24 months',
+      'Accessibility specified in stage hire contracts',
+    ],
+  },
+  '7.4-PC-2': {
+    steps: [
+      'Audit dressing rooms for counter heights, accessible toilet and fitting space for mobility aids',
+      'Specify accessibility in venue contracts',
+      'Communicate dimensions to touring artists in advance',
+    ],
+    indicators: [
+      'Dressing rooms audited within 6 months',
+      'Accessibility specified in venue contracts',
+      'Dimensions communicated to touring artists in advance',
+    ],
+  },
+  '7.4-PC-3': {
+    steps: [
+      'Establish an accessible green room with quiet space and sensory regulation',
+      'Provide accessible refreshments and charging',
+    ],
+    indicators: [
+      'Accessible green room established within 12 months',
+      'Quiet space and sensory regulation provided',
+      'Accessible refreshments and charging available',
+    ],
+  },
+  '7.4-PC-4': {
+    steps: [
+      'Develop a performer accessibility brief and include it in every contract pack',
+      'Pair it with a Q&A for first-time artists',
+    ],
+    indicators: [
+      'Performer accessibility brief developed within 3 months',
+      'Brief included in every contract pack',
+      'Q&A offered to first-time artists',
+    ],
+  },
+  '7.4-PC-5': {
+    steps: [
+      'Establish a paid production accessibility advisor role',
+      'Develop a disabled-performer mentoring programme',
+    ],
+    indicators: [
+      'Paid accessibility advisor role established within 12 months',
+      'Disabled-performer mentoring programme running',
+      'Advisor engaged on every production',
+    ],
+  },
+  '7.4-PC-6': {
+    steps: [
+      'Develop multi-day welfare provisions covering rest, sensory recovery and mental health support',
+      'Include nutrition provisions',
+    ],
+    indicators: [
+      'Multi-day welfare provisions developed within 6 months',
+      'Rest, sensory recovery and mental health support provided',
+      'Nutrition provisions included',
+    ],
+  },
+  '7.4-DD-1': {
+    steps: [
+      'Develop a pre-show accessibility check covering performer-side and audience-side needs',
+      'Complete it before every show',
+    ],
+    indicators: [
+      'Pre-show accessibility check developed within 3 months',
+      'Check completed before every show',
+      'Both performer and audience needs covered',
+    ],
+  },
+  '7.4-DD-2': {
+    steps: [
+      'Establish accessible talent transport partnerships and train operators',
+      'Factor accessible transport into talent rider negotiations',
+    ],
+    indicators: [
+      'Accessible talent transport partnerships in place within 12 months',
+      'Operators trained on accessibility',
+      'Accessible transport factored into rider negotiations',
+    ],
+  },
+  '7.4-DD-3': {
+    steps: [
+      'Stock multiple mic types (handheld, lapel, headset)',
+      'Ask performer preference at the production meeting',
+    ],
+    indicators: [
+      'Multiple mic types stocked within 6 months',
+      'Performer preference asked at production meeting',
+      'Preferred mic provided on the day',
+    ],
+  },
+  '7.4-DD-4': {
+    steps: [
+      'Add a performer accessibility review to lighting design (sensory considerations, cueing visibility)',
+      'Run a pre-show check with performers',
+    ],
+    indicators: [
+      'Performer accessibility review added to lighting design within 6 months',
+      'Pre-show check run with performers',
+      'Sensory and cueing needs accommodated',
+    ],
+  },
+  '7.4-DD-5': {
+    steps: [
+      'Establish a pre-production briefing between performers, stage management and the access lead',
+      'Cover cueing alternatives, communication preferences and mobility considerations',
+    ],
+    indicators: [
+      'Pre-production accessibility briefing established within 6 months',
+      'Cueing, communication and mobility needs covered',
+      'Briefing held for every production',
+    ],
+  },
+  '7.4-DD-6': {
+    steps: [
+      'Add accessibility provisions to the standard tour rider',
+      'Make them default, not an add-on requested individually',
+    ],
+    indicators: [
+      'Accessibility provisions added to standard tour rider within 6 months',
+      'Provisions applied by default',
+      'No retrofitting on individual request',
+    ],
+  },
+  '7.4-DD-7': {
+    steps: [
+      'Document reasonable adjustments at contract and share them across the full production team',
+      'Brief the adjustments at the production meeting',
+    ],
+    indicators: [
+      'Reasonable adjustments documented at contract within 3 months',
+      'Adjustments shared across the production team',
+      'Adjustments honoured, confirmed via performer feedback',
+    ],
+  },
+  '7.4-DD-8': {
+    steps: [
+      'Develop an on-site disabled artist mentoring programme',
+      'Partner with disability arts organisations',
+    ],
+    indicators: [
+      'On-site disabled artist mentoring programme developed within 12 months',
+      'Partnership with a disability arts organisation in place',
+      'Paid mentor pairs offered',
+    ],
+  },
+  '7.4-DD-9': {
+    steps: [
+      'Develop accessible press provisions covering interview rooms, captioned recording and NRS contact',
+      'Apply them to all performer press',
+    ],
+    indicators: [
+      'Accessible press provisions developed within 6 months',
+      'Interview rooms, captioned recording and NRS contact covered',
+      'Provisions applied to all performer press',
+    ],
+  },
+  '7.4-DD-10': {
+    steps: [
+      'Establish a backstage accessibility kit (sensory tools, communication boards, charging) in the green room',
+      'Brief stage management to offer it proactively',
+    ],
+    indicators: [
+      'Backstage accessibility kit established within 6 months',
+      'Kit located in the green room',
+      'Stage management briefed to offer it proactively',
+    ],
+  },
+  '7.4-DD-11': {
+    steps: [
+      'Develop performer evacuation processes',
+      'Drill them with disability-access scenarios before opening',
+    ],
+    indicators: [
+      'Performer evacuation processes documented within 6 months',
+      'Processes drilled with disability-access scenarios before opening',
+      'Processes reviewed after each event',
+    ],
+  },
 };
