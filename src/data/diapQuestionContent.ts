@@ -9726,4 +9726,228 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Distributed to customers pre-visit',
     ],
   },
+
+  // ============================================================
+  // Module 1.2 - Website basics
+  // ============================================================
+  '1.2-1-1': {
+    steps: [
+      'Test all interactive elements (menus, forms, modals, carousels) using only Tab, Enter and Arrow keys',
+      'Fix any that cannot be reached or activated',
+    ],
+    indicators: [
+      'Keyboard operability tested within 3 months',
+      'All interactive elements reachable and operable by keyboard',
+      'Keyboard traps removed',
+    ],
+  },
+  '1.2-1-1a': {
+    steps: [
+      'Audit each interactive component type (navigation menus, form controls, modal dialogs, video players) for keyboard operability',
+      'Document where access breaks down and fix it',
+    ],
+    indicators: [
+      'Component-by-component keyboard audit completed within 3 months',
+      'Breakdown points documented',
+      'Identified issues fixed',
+    ],
+  },
+  '1.2-1-1b': {
+    steps: [
+      'Add a clearly visible focus outline (minimum 2px solid, 3:1 contrast against adjacent colours) to all focusable elements per WCAG 2.2 SC 2.4.7',
+      'Confirm focus is always visible when navigating by keyboard',
+    ],
+    indicators: [
+      'Visible focus indicator added within 3 months',
+      'Meets WCAG 2.2 SC 2.4.7',
+      'Focus visible on every focusable element',
+    ],
+  },
+  '1.2-1-2': {
+    steps: [
+      'Add meaningful alt text to all informative images',
+      'Mark decorative images with empty alt attributes (alt="") per WCAG 2.2 SC 1.1.1',
+    ],
+    indicators: [
+      'Alt text added to informative images within 3 months',
+      'Decorative images marked with empty alt',
+      'Meets WCAG 2.2 SC 1.1.1',
+    ],
+  },
+  '1.2-1-2a': {
+    steps: [
+      'Establish an image audit process covering all pages',
+      'Prioritise alt text for hero images, product photos and infographics',
+    ],
+    indicators: [
+      'Image audit process established within 3 months',
+      'Alt text consistent across pages',
+      'Priority images covered first',
+    ],
+  },
+  '1.2-1-3': {
+    steps: [
+      'Measure all text-to-background colour combinations with a contrast checker',
+      'Update any below 4.5:1 for normal text or 3:1 for large text per WCAG 2.2 SC 1.4.3',
+    ],
+    indicators: [
+      'Text contrast measured within 3 months',
+      'Failing combinations updated',
+      'Meets WCAG 2.2 SC 1.4.3',
+    ],
+  },
+  '1.2-1-3a': {
+    steps: [
+      'Run a full-site contrast audit using an automated tool such as axe or WAVE',
+      'Document all failures with their WCAG SC 1.4.3 ratios and fix them',
+    ],
+    indicators: [
+      'Full-site contrast audit completed within 3 months',
+      'Failures documented with ratios',
+      'Failures fixed',
+    ],
+  },
+  '1.2-1-3b': {
+    steps: [
+      'Review all instances of text on images or coloured backgrounds',
+      'Add solid overlays, text shadows or alternative colours to reach 4.5:1 contrast',
+    ],
+    indicators: [
+      'Text-on-image instances reviewed within 3 months',
+      'Overlays or alternatives applied',
+      '4.5:1 contrast achieved',
+    ],
+  },
+  '1.2-1-4': {
+    steps: [
+      'Test your website at 200% browser zoom',
+      'Fix any content that overflows, overlaps, becomes hidden or loses functionality per WCAG 2.2 SC 1.4.4',
+    ],
+    indicators: [
+      'Website tested at 200% zoom within 3 months',
+      'Content usable without loss at 200%',
+      'Meets WCAG 2.2 SC 1.4.4',
+    ],
+  },
+  '1.2-1-5': {
+    steps: [
+      'Test all key user journeys on iOS and Android devices',
+      'Fix layout issues, tap target sizes (minimum 24x24 CSS pixels per WCAG 2.2 SC 2.5.8) and touch interactions',
+    ],
+    indicators: [
+      'Key journeys tested on iOS and Android within 3 months',
+      'Layout and touch issues fixed',
+      'Tap targets meet WCAG 2.2 SC 2.5.8',
+    ],
+  },
+  '1.2-1-5c': {
+    steps: [
+      'Increase all tap targets (buttons, links, form fields) to at least 24x24 CSS pixels per WCAG 2.2 SC 2.5.8',
+      'Add adequate spacing to prevent accidental activation',
+    ],
+    indicators: [
+      'Tap targets enlarged within 3 months',
+      'All targets at least 24x24 CSS pixels',
+      'Adequate spacing prevents accidental activation',
+    ],
+  },
+  '1.2-1-6': {
+    steps: [
+      'Document all video and audio content on the website',
+      'Create an accessibility plan for captions, transcripts and audio descriptions',
+    ],
+    indicators: [
+      'Video and audio content documented within 3 months',
+      'Accessibility plan created',
+      'Captions, transcripts and descriptions scheduled',
+    ],
+  },
+  '1.2-1-6a': {
+    steps: [
+      'Add synchronised captions to all video content per WCAG 2.2 SC 1.2.2',
+      'Include speaker identification and relevant sound effects',
+    ],
+    indicators: [
+      'Synchronised captions added within 6 months',
+      'Speaker identification and sound effects included',
+      'Meets WCAG 2.2 SC 1.2.2',
+    ],
+  },
+  '1.2-1-6b': {
+    steps: [
+      'Create transcripts or written summaries for all video and audio content per WCAG 2.2 SC 1.2.1',
+      'Capture spoken content, on-screen text and meaningful visual information',
+    ],
+    indicators: [
+      'Transcripts or summaries created within 6 months',
+      'Spoken, on-screen and visual information captured',
+      'Meets WCAG 2.2 SC 1.2.1',
+    ],
+  },
+  '1.2-1-7': {
+    steps: [
+      'Replace vague link text ("click here", "read more") with descriptive labels per WCAG 2.2 SC 2.4.4',
+      'Make link text meaningful out of context',
+    ],
+    indicators: [
+      'Vague link text replaced within 3 months',
+      'Links describe their destination',
+      'Meets WCAG 2.2 SC 2.4.4',
+    ],
+  },
+  '1.2-1-8': {
+    steps: [
+      'Conduct a screen reader test using NVDA (Windows) or VoiceOver (Mac/iOS)',
+      'Fix navigation, labelling and reading order issues found',
+    ],
+    indicators: [
+      'Screen reader test completed within 6 months',
+      'Navigation, labelling and reading order issues fixed',
+      'Site usable with a screen reader',
+    ],
+  },
+  '1.2-1-8b': {
+    steps: [
+      'Engage Access Compass or a qualified accessibility consultant for a professional assistive technology review',
+      'Action the findings',
+    ],
+    indicators: [
+      'Professional accessibility review commissioned within 6 months',
+      'Findings documented',
+      'Findings actioned',
+    ],
+  },
+  '1.2-1-9': {
+    steps: [
+      'Add visible labels to every form field and associate them programmatically using <label> elements',
+      'Provide clear error messages and instructions per WCAG 2.2 SC 1.3.1 and SC 3.3.2',
+    ],
+    indicators: [
+      'Form labels and instructions added within 3 months',
+      'Labels programmatically associated',
+      'Meets WCAG 2.2 SC 1.3.1 and SC 3.3.2',
+    ],
+  },
+  '1.2-F-10': {
+    steps: [
+      'Implement clear, specific error messages explaining what went wrong and how to fix it per WCAG 2.2 SC 3.3.1 and SC 3.3.3',
+      'Make errors identifiable by text, not colour alone',
+    ],
+    indicators: [
+      'Clear form error messages implemented within 3 months',
+      'Errors explain the fix',
+      'Errors identifiable by text, meeting WCAG 2.2 SC 3.3.1 and SC 3.3.3',
+    ],
+  },
+  '1.2-D-10': {
+    steps: [
+      'Implement extended session timeouts and warnings before automatic logout per WCAG 2.2 SC 2.2.1',
+      'Let users turn off, adjust or extend time limits',
+    ],
+    indicators: [
+      'Session timeout warnings implemented within 3 months',
+      'Users can turn off, adjust or extend limits',
+      'Meets WCAG 2.2 SC 2.2.1',
+    ],
+  },
 };
