@@ -10339,4 +10339,437 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Diverse needs known before the visit',
     ],
   },
+
+  // ============================================================
+  // Module 1.4 - Social media, video and audio
+  // ============================================================
+  '1.4-PC-1': {
+    steps: [
+      'Add captions or subtitles to all published videos per WCAG 2.2 SC 1.2.2',
+      'Ensure they support Deaf and hard of hearing viewers',
+    ],
+    indicators: [
+      'Captions added to all published videos within 6 months',
+      'Deaf and hard of hearing viewers supported',
+      'Meets WCAG 2.2 SC 1.2.2',
+    ],
+  },
+  '1.4-PC-2': {
+    steps: [
+      'Add audio descriptions where important visual content is not conveyed through the audio per WCAG 2.2 SC 1.2.5',
+      'Describe key actions, on-screen text and scene changes',
+    ],
+    indicators: [
+      'Audio descriptions added where needed within 12 months',
+      'Key actions, text and scene changes described',
+      'Meets WCAG 2.2 SC 1.2.5',
+    ],
+  },
+  '1.4-PC-3': {
+    steps: [
+      'Add descriptive alt text to all images posted on social media',
+      'Describe the content and context, not just "photo" or "image"',
+    ],
+    indicators: [
+      'Alt text added to social media images within 3 months',
+      'Descriptions convey content and context',
+      'Applied across all platforms used',
+    ],
+  },
+  '1.4-DD-3f': {
+    steps: [
+      'Add descriptive alt text to each image in carousel or multi-image posts',
+      'Give every image its own description',
+    ],
+    indicators: [
+      'Per-image alt text added to carousel posts within 3 months',
+      'Each image individually described',
+      'Screen reader users can navigate each image',
+    ],
+  },
+  '1.4-PC-4': {
+    steps: [
+      'Ensure video players support keyboard controls and assistive technology per WCAG 2.2 SC 2.1.1',
+      'Let users play, pause, adjust volume and toggle captions without a mouse',
+    ],
+    indicators: [
+      'Video players made keyboard operable within 6 months',
+      'Play, pause, volume and captions usable without a mouse',
+      'Meets WCAG 2.2 SC 2.1.1',
+    ],
+  },
+  '1.4-DD-4b': {
+    steps: [
+      'Disable video autoplay, or mute autoplaying video by default with easy pause/stop controls',
+      'Meet WCAG 2.2 SC 1.4.2 and SC 2.2.2',
+    ],
+    indicators: [
+      'Autoplay disabled or muted by default within 3 months',
+      'Easy pause and stop controls provided',
+      'Meets WCAG 2.2 SC 1.4.2 and SC 2.2.2',
+    ],
+  },
+  '1.4-PC-5': {
+    steps: [
+      'Provide content warnings for flashing, loud sounds, distressing imagery or medical procedures',
+      'Place warnings before the content begins',
+    ],
+    indicators: [
+      'Content warnings provided within 3 months',
+      'Warnings cover flashing, loud sound and distressing content',
+      'Warnings placed before the content',
+    ],
+  },
+  '1.4-PC-6': {
+    steps: [
+      'Include authentic representation of people with disability in video and social media content',
+      'Feature visible and non-visible disability beyond accessibility-specific contexts',
+    ],
+    indicators: [
+      'Authentic disability representation included within 12 months',
+      'Visible and non-visible disability featured',
+      'Representation extends beyond accessibility content',
+    ],
+  },
+  '1.4-PC-7': {
+    steps: [
+      'Implement live captions (CART or auto-generated) for live video content',
+      'Add sign language interpretation and verbal description of key visuals where appropriate',
+    ],
+    indicators: [
+      'Live captions implemented for live video within 12 months',
+      'Sign language and verbal description added where appropriate',
+      'Live content accessible to Deaf and blind audiences',
+    ],
+  },
+  '1.4-DD-1a': {
+    steps: [
+      'Use professionally written or carefully reviewed captions rather than raw auto-generated',
+      'Review and correct auto-generated captions before publishing',
+    ],
+    indicators: [
+      'Caption accuracy process in place within 6 months',
+      'Auto-generated captions reviewed before publishing',
+      'Captions accurate on published video',
+    ],
+  },
+  '1.4-DD-1b': {
+    steps: [
+      'Include speaker identification and relevant sound descriptions in captions (e.g. [music playing], [applause])',
+      'Cover meaningful non-speech audio',
+    ],
+    indicators: [
+      'Speaker identification and sound descriptions added within 6 months',
+      'Meaningful non-speech audio captioned',
+      'Content fully understandable from captions',
+    ],
+  },
+  '1.4-DD-1c': {
+    steps: [
+      'Synchronise captions accurately with the audio',
+      'Ensure they appear and disappear in time with the spoken words',
+    ],
+    indicators: [
+      'Captions synchronised with audio within 6 months',
+      'Timing matches the spoken words',
+      'Comprehension not reduced by timing errors',
+    ],
+  },
+  '1.4-DD-1d': {
+    steps: [
+      'Ensure sufficient contrast, appropriate size and a clear sans-serif typeface for captions',
+      'Use a semi-transparent background behind captions on variable video backgrounds',
+    ],
+    indicators: [
+      'Caption readability improved within 6 months',
+      'Contrast, size and typeface adequate',
+      'Captions legible over variable backgrounds',
+    ],
+  },
+  '1.4-DD-3d': {
+    steps: [
+      'Verify alt text is preserved when reposting, resharing or cross-posting',
+      'Re-add alt text manually when a platform strips it',
+    ],
+    indicators: [
+      'Alt text preservation checked within 3 months',
+      'Stripped alt text re-added manually',
+      'Alt text present after sharing',
+    ],
+  },
+  '1.4-DD-3e': {
+    steps: [
+      'Ensure text overlaid on images meets 4.5:1 (normal) or 3:1 (large) per WCAG 2.2 SC 1.4.3',
+      'Use a semi-transparent background behind text over variable image backgrounds',
+    ],
+    indicators: [
+      'Text-over-image contrast corrected within 3 months',
+      'Meets WCAG 2.2 SC 1.4.3',
+      'Overlaid text readable over images',
+    ],
+  },
+  '1.4-DD-5c': {
+    steps: [
+      'Test all videos for flashing or strobing per WCAG 2.2 SC 2.3.1 (no more than three flashes per second)',
+      'Use a tool such as PEAT for automated testing',
+    ],
+    indicators: [
+      'Videos tested for flashing within 6 months',
+      'No content flashes more than three times per second',
+      'Meets WCAG 2.2 SC 2.3.1',
+    ],
+  },
+  '1.4-DD-6b': {
+    steps: [
+      'Adopt inclusive language in video scripts and social media copy',
+      'Use person-first or preference-aligned language and avoid euphemisms like "differently abled"',
+    ],
+    indicators: [
+      'Inclusive language adopted within 3 months',
+      'Person-first or preference-aligned language used',
+      'Euphemisms removed from copy',
+    ],
+  },
+  '1.4-DD-8b': {
+    steps: [
+      'Write hashtags in CamelCase (e.g. #AccessibleTourism)',
+      'Help screen readers distinguish individual words',
+    ],
+    indicators: [
+      'CamelCase hashtags adopted within 1 month',
+      'Screen readers read hashtags word by word',
+      'Applied consistently across posts',
+    ],
+  },
+  '1.4-DD-8c': {
+    steps: [
+      'Place emojis at the end of sentences or posts rather than scattered throughout',
+      'Prevent screen reader interruptions mid-sentence',
+    ],
+    indicators: [
+      'Emoji placement standard adopted within 1 month',
+      'Emojis grouped at the end of text',
+      'Screen reader comprehension not interrupted',
+    ],
+  },
+  '1.4-D-9': {
+    steps: [
+      'Provide text transcripts for all audio-only content such as podcasts and audio guides per WCAG 2.2 SC 1.2.1',
+      'Include speaker identification and all spoken content',
+    ],
+    indicators: [
+      'Transcripts provided for audio-only content within 6 months',
+      'Speaker identification and spoken content included',
+      'Meets WCAG 2.2 SC 1.2.1',
+    ],
+  },
+  '1.5-PC-1': {
+    steps: [
+      'Review and rewrite website and communication content in clear, plain language',
+      'Use short sentences, common words and active voice for a broad audience',
+    ],
+    indicators: [
+      'Key content rewritten in plain language within 6 months',
+      'Short sentences and common words used',
+      'Content accessible to a broad audience',
+    ],
+  },
+  '1.5-PC-2': {
+    steps: [
+      'Adopt person-centred language across all communications: "people with disability", avoiding terms like "handicapped" or "wheelchair-bound"',
+      'Follow the style guidance of People with Disability Australia',
+    ],
+    indicators: [
+      'Person-centred language adopted within 3 months',
+      'Outdated terms removed from communications',
+      'Style guidance followed consistently',
+    ],
+  },
+  '1.5-PC-3': {
+    steps: [
+      'Reframe accessibility information to focus on what is available rather than what is not',
+      'Lead with features such as step-free access and an accessible bathroom',
+    ],
+    indicators: [
+      'Accessibility language reframed within 3 months',
+      'Information leads with available features',
+      'Tone welcoming and customer-focused',
+    ],
+  },
+  '1.5-PC-4': {
+    steps: [
+      'Add accessibility information to your main navigation or footer with a clear label such as "Accessibility"',
+      'Do not bury it under unrelated sections',
+    ],
+    indicators: [
+      'Accessibility information surfaced in navigation or footer within 3 months',
+      'Clear label used',
+      'Information no longer buried',
+    ],
+  },
+  '1.5-PC-5': {
+    steps: [
+      'Expand accessibility information to cover physical access, parking, transport, toilets and sensory environment',
+      'Include available supports and what to expect on arrival',
+    ],
+    indicators: [
+      'Practical planning details published within 3 months',
+      'Access, parking, transport, toilets and sensory covered',
+      'Customers can plan their visit from the information',
+    ],
+  },
+  '1.5-PC-6': {
+    steps: [
+      'Add an accessibility statement describing your approach and ongoing improvement efforts',
+      'Explain how customers can give feedback or request support',
+    ],
+    indicators: [
+      'Accessibility statement published within 3 months',
+      'Approach and improvement efforts described',
+      'Feedback and support routes included',
+    ],
+  },
+  '1.5-PC-7': {
+    steps: [
+      'Inform customers that key information is available in large print, Easy Read, audio or Braille on request',
+      'Include the offer on your website, print materials and communications',
+    ],
+    indicators: [
+      'Alternative format offer published within 3 months',
+      'Offer shown across website, print and communications',
+      'Requests fulfilled on request',
+    ],
+  },
+  '1.5-PC-8': {
+    steps: [
+      'Add photos, videos or virtual tours showing entrances, pathways, toilets and service areas',
+      'Help autistic customers and those anxious about unfamiliar environments plan ahead',
+    ],
+    indicators: [
+      'Visual content added within 6 months',
+      'Entrances, pathways, toilets and service areas shown',
+      'Customers can preview the venue before visiting',
+    ],
+  },
+  '1.5-DD-1a': {
+    steps: [
+      'Test website content for readability using a tool such as Flesch-Kincaid or Hemingway Editor',
+      'Aim for a reading level of Year 8 or below for general content',
+    ],
+    indicators: [
+      'Readability tested within 3 months',
+      'General content at Year 8 reading level or below',
+      'Complex content simplified',
+    ],
+  },
+  '1.5-DD-1b': {
+    steps: [
+      'Create content guidelines covering readability, heading structure, link text, disability language and alt text',
+      'Apply them to all published content',
+    ],
+    indicators: [
+      'Content guidelines created within 6 months',
+      'Readability, structure, links and alt text covered',
+      'Guidelines applied to published content',
+    ],
+  },
+  '1.5-DD-1c': {
+    steps: [
+      'Train content creators on plain language and accessible writing',
+      'Provide a style guide covering readability targets, heading structure, meaningful link text and alt text',
+    ],
+    indicators: [
+      'Content creators trained within 6 months',
+      'Style guide available as the standard',
+      'Published content follows the guide',
+    ],
+  },
+  '1.5-DD-2a': {
+    steps: [
+      'Adopt a disability language style guide documenting preferred terminology and terms to avoid',
+      'Add a review process for content before publication',
+    ],
+    indicators: [
+      'Disability language style guide adopted within 3 months',
+      'Preferred and avoided terms documented',
+      'Pre-publication review process in place',
+    ],
+  },
+  '1.5-DD-2b': {
+    steps: [
+      'Audit your website and marketing materials for outdated or problematic disability language',
+      'Search for and replace terms such as "handicapped", "wheelchair-bound" and "suffers from"',
+    ],
+    indicators: [
+      'Language audit completed within 3 months',
+      'Problematic terms identified and replaced',
+      'Materials use respectful language',
+    ],
+  },
+  '1.5-DD-5a': {
+    steps: [
+      'Expand accessibility information to cover physical access, sensory environment, communication supports and assistive technology',
+      'Include transport, toilets, dietary needs, companion policies and service animal access',
+    ],
+    indicators: [
+      'Accessibility topic coverage expanded within 6 months',
+      'All relevant topics covered',
+      'Gaps in information closed',
+    ],
+  },
+  '1.5-DD-6a': {
+    steps: [
+      'Communicate your accessibility commitment through a website statement, social media and staff training',
+      'Reinforce it with email signatures and physical signage',
+    ],
+    indicators: [
+      'Accessibility commitment communicated through multiple channels within 6 months',
+      'Website, social media and training used',
+      'Commitment visible to customers and staff',
+    ],
+  },
+  '1.5-DD-7a': {
+    steps: [
+      'Develop capability to provide key documents in large print, Easy Read, audio, electronic text and Braille',
+      'Prioritise the formats most commonly requested in your sector',
+    ],
+    indicators: [
+      'Alternative format capability developed within 12 months',
+      'Priority formats available',
+      'Requests fulfilled within stated timeframes',
+    ],
+  },
+  '1.5-DD-7b': {
+    steps: [
+      'Establish a documented process for customers to request alternative formats',
+      'Include turnaround times, who is responsible and how to make the request',
+    ],
+    indicators: [
+      'Alternative format request process documented within 3 months',
+      'Turnaround times and responsibility defined',
+      'Requests handled consistently',
+    ],
+  },
+  '1.5-DD-8a': {
+    steps: [
+      'Provide venue photos, video walkthroughs, virtual tours and maps with accessible routes marked',
+      'Add social stories or visual narratives',
+    ],
+    indicators: [
+      'Range of visual accessibility content provided within 6 months',
+      'Photos, walkthroughs, tours and accessible-route maps available',
+      'Social stories or visual narratives included',
+    ],
+  },
+  '1.5-DD-8b': {
+    steps: [
+      'Add alt text to all photos and captions to all videos',
+      'Provide text descriptions for maps and virtual tours',
+    ],
+    indicators: [
+      'Visual content made accessible within 6 months',
+      'Alt text and captions added',
+      'Text descriptions provided for maps and tours',
+    ],
+  },
 };
