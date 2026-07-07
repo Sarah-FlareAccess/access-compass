@@ -7065,4 +7065,195 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'External experts engaged and paid where needed',
     ],
   },
+
+  // ============================================================
+  // Module 6.1 - Event planning and promotion
+  // ============================================================
+  '6.1-PC-1': {
+    steps: [
+      'Integrate accessibility into your event planning checklist from the earliest concept stage',
+      'Design accommodations in rather than retrofitting them',
+    ],
+    indicators: [
+      'Accessibility in the event planning checklist within 3 months',
+      'Accessibility considered from the concept stage of each event',
+      'Approach reviewed after each event',
+    ],
+  },
+  '6.1-PC-2': {
+    steps: [
+      'Add accessibility details to all event promotion (what accommodations are available, how to request support, who to contact)',
+      'Publish it on the event website, social media and printed collateral',
+    ],
+    indicators: [
+      'Accessibility information in event promotion within 3 months',
+      'Published across all promotional channels',
+      'Information reviewed for each event',
+    ],
+  },
+  '6.1-PC-3': {
+    steps: [
+      'Add an accessibility accommodation request field to your registration or ticketing process',
+      'Provide a clear, private way to communicate needs before the event, per the DDA 1992 duty to make reasonable adjustments',
+    ],
+    indicators: [
+      'Accommodation request field added within 3 months',
+      'Requests captured privately and actioned before the event',
+      'Request handling reviewed via attendee feedback',
+    ],
+  },
+  '6.1-PC-4': {
+    steps: [
+      'Register as a Companion Card affiliate',
+      'Offer free companion tickets to Companion Card holders',
+    ],
+    indicators: [
+      'Companion Card affiliation in place within 6 months',
+      'Free companion tickets offered',
+      'Card recognised at ticketing and entry',
+    ],
+  },
+  '6.1-PC-5': {
+    steps: [
+      'Audit your registration and ticketing platform against WCAG 2.2 Level AA (screen reader, keyboard, contrast)',
+      'Provide an alternative booking method (phone or email) for people who cannot use the online system',
+    ],
+    indicators: [
+      'Registration platform audited for WCAG 2.2 AA within 3 months',
+      'Critical issues fixed within 6 months',
+      'An alternative booking method available',
+    ],
+  },
+  '6.1-D-1': {
+    steps: [
+      'Allocate a specific accessibility budget line for your event (Auslan, captioning, hearing augmentation, accessible materials, equipment hire, contingency)',
+      'Set it at a realistic proportion of the overall event budget (typically 5-15%)',
+    ],
+    indicators: [
+      'Accessibility budget line allocated within 3 months',
+      'Budget covers interpreting, captioning, equipment and contingency',
+      'Budget reviewed against actual spend after each event',
+    ],
+  },
+  '6.1-D-2': {
+    steps: [
+      'Engage people with disability in your event planning (advisory group, paid consultants or partnership with disability organisations)',
+      'Consult early enough to influence decisions and compensate participants',
+    ],
+    indicators: [
+      'People with disability engaged in planning within 6 months',
+      'Consultation happens early enough to influence decisions',
+      'Participants compensated for their input',
+    ],
+  },
+  '6.1-D-3': {
+    steps: [
+      'Develop an event accessibility statement covering physical access, available supports, sensory environment, quiet spaces, accessible transport, food, service animal policy and a contact',
+      'Publish it across event channels',
+    ],
+    indicators: [
+      'Event accessibility statement published within 3 months',
+      'Statement covers access, supports, sensory and contacts',
+      'Statement updated for each event',
+    ],
+  },
+  '6.1-D-4': {
+    steps: [
+      'Produce promotional materials in accessible formats (WCAG 2.2 AA digital documents, captioned video, audio-described content, Easy Read, large print)',
+      'Include alt text on images in digital channels',
+    ],
+    indicators: [
+      'Promotional materials produced in accessible formats within 6 months',
+      'Video captioned and images have alt text',
+      'Accessible production set as the standard',
+    ],
+  },
+  '6.1-D-5': {
+    steps: [
+      'Set a clear deadline for accommodation requests (typically 2-4 weeks before) and communicate it prominently',
+      'Establish a process for handling late or on-the-day requests',
+    ],
+    indicators: [
+      'Accommodation request deadline set and communicated within 3 months',
+      'A process for late and on-the-day requests in place',
+      'Requests met within the timeframe',
+    ],
+  },
+  '6.1-D-6': {
+    steps: [
+      'Consider offering discounted or free tickets for people with disability',
+      'Establish clear eligibility and make the concession easy to access',
+    ],
+    indicators: [
+      'Concession ticketing reviewed within 6 months',
+      'A concession offered with clear eligibility',
+      'Uptake reviewed after each event',
+    ],
+  },
+  '6.1-D-7': {
+    steps: [
+      'Explore virtual or hybrid attendance options (livestream, recorded sessions, virtual participation)',
+      'Provide at least partial hybrid coverage for people who cannot attend in person',
+    ],
+    indicators: [
+      'Virtual or hybrid options scoped within 6 months',
+      'At least partial hybrid coverage offered within 12 months',
+      'Virtual attendance reviewed via participant feedback',
+    ],
+  },
+  '6.1-D-8': {
+    steps: [
+      'Ensure volunteers and staff with disability can fully participate (accessible briefing materials, access to staff-only areas, flexible shifts)',
+      'Offer them the same accommodation request process as attendees',
+    ],
+    indicators: [
+      'Volunteer and staff accessibility reviewed within 3 months',
+      'Accessible briefings and staff areas provided',
+      'Same accommodation process available to staff and volunteers',
+    ],
+  },
+  '6.1-D-9': {
+    steps: [
+      'Include accessibility requirements in all supplier and vendor contracts (stalls, stages, temporary structures, digital platforms, services)',
+      'Hold suppliers accountable to the relevant standards',
+    ],
+    indicators: [
+      'Accessibility requirements in vendor contracts within 6 months',
+      'Suppliers held accountable to the standards',
+      'Compliance checked before and during the event',
+    ],
+  },
+  '6.1-D-10': {
+    steps: [
+      'Contact all attendees who requested accommodations at least one week before the event to confirm arrangements and provide specific details',
+      'Offer a point of contact for the day',
+    ],
+    indicators: [
+      'Confirmation process in place within 3 months',
+      'Requesting attendees confirmed at least a week before',
+      'A day-of contact provided',
+    ],
+  },
+  '6.1-D-11': {
+    steps: [
+      'Actively seek to include people with disability as speakers, performers, panellists or facilitators',
+      'Provide accessible presentation conditions and pay them fairly',
+    ],
+    indicators: [
+      'People with disability included in programming within 12 months',
+      'Accessible presentation conditions provided',
+      'Presenters paid fairly',
+    ],
+  },
+  '6.1-D-12': {
+    steps: [
+      'Designate a named accessibility contact person with authority to make decisions and arrange accommodations',
+      'Include their details on all event communications and signage',
+    ],
+    indicators: [
+      'Named accessibility contact designated within 3 months',
+      'Contact listed on all event communications',
+      'Contact empowered to arrange accommodations',
+    ],
+  },
 };
