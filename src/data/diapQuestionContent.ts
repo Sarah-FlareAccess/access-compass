@@ -6062,4 +6062,184 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Approach applied to major purchases',
     ],
   },
+
+  // ============================================================
+  // Module 5.5 - Continuous improvement and reporting
+  // ============================================================
+  '5.5-F-1': {
+    steps: [
+      'Establish a regular cadence (at least quarterly) for reviewing accessibility performance (complaint trends, DIAP progress, audit findings, customer feedback)',
+      'Use the results to adjust priorities and allocate resources',
+    ],
+    indicators: [
+      'Regular accessibility performance review in place within 3 months',
+      'Review held at least quarterly',
+      'Findings used to adjust priorities',
+    ],
+  },
+  '5.5-F-2': {
+    steps: [
+      'Set specific, measurable, time-bound accessibility improvement goals linked to your DIAP or strategic plan',
+      'Track progress against them',
+    ],
+    indicators: [
+      'Accessibility improvement goals set within 6 months',
+      'Goals measurable and time-bound',
+      'Progress tracked and reported',
+    ],
+  },
+  '5.5-F-3': {
+    steps: [
+      'Implement regular reporting on accessibility progress to leadership and stakeholders (DIAP progress, complaints, audits, training, budget)',
+      'Consider publishing an annual accessibility progress report',
+    ],
+    indicators: [
+      'Regular accessibility reporting in place within 6 months',
+      'Reports provided to leadership on a regular schedule',
+      'An annual progress report published',
+    ],
+  },
+  '5.5-D-1': {
+    steps: [
+      'Implement a regular accessibility audit program (physical against AS 1428.1, digital against WCAG 2.2 AA, service delivery)',
+      'Engage people with disability as auditors where possible',
+    ],
+    indicators: [
+      'Accessibility audit program in place within 12 months',
+      'Physical, digital and service audits completed',
+      'People with disability involved where possible',
+    ],
+  },
+  '5.5-D-2': {
+    steps: [
+      'Define and track accessibility KPIs (WCAG 2.2 AA coverage, physical access compliance, training completion, complaint resolution time, satisfaction)',
+      'Report them on a regular schedule',
+    ],
+    indicators: [
+      'Accessibility KPIs defined within 6 months',
+      'KPIs tracked and reported regularly',
+      'KPIs used to prioritise improvements',
+    ],
+  },
+  '5.5-D-3': {
+    steps: [
+      'Publish accessibility information publicly (annual accessibility report, DIAP and progress updates, accessibility statement)',
+      'Consider registering the DIAP with the AHRC and reporting against Australia\'s Disability Strategy',
+    ],
+    indicators: [
+      'Accessibility information published publicly within 12 months',
+      'Progress updates published on a regular schedule',
+      'Reporting aligned to a recognised framework',
+    ],
+  },
+  '5.5-D-4': {
+    steps: [
+      'Benchmark your accessibility against industry standards and peer organisations',
+      'Align with Australia\'s Disability Strategy outcome indicators and use a relevant maturity framework',
+    ],
+    indicators: [
+      'Accessibility benchmarked within 12 months',
+      'Targets set from the benchmark',
+      'Progress against peers tracked',
+    ],
+  },
+  '5.5-D-5': {
+    steps: [
+      'Implement a systematic process for learning from accessibility complaints and incidents (root cause analysis, systemic issues, corrective actions)',
+      'Share learnings across the organisation to prevent recurrence',
+    ],
+    indicators: [
+      'Learning process for complaints in place within 6 months',
+      'Root causes analysed and corrective actions taken',
+      'Recurrence of the same issues reduced over time',
+    ],
+  },
+  '5.5-D-6': {
+    steps: [
+      'Commission an external accessibility audit or review by qualified access consultants (physical, digital, service delivery)',
+      'Act on the findings and benchmark performance',
+    ],
+    indicators: [
+      'External accessibility audit commissioned within 12 months',
+      'Findings acted on with a clear plan',
+      'Re-audit scheduled to confirm progress',
+    ],
+  },
+  '5.5-D-7': {
+    steps: [
+      'Establish ongoing engagement with disability organisations and community groups (advisory panel, consultation sessions, partnership with peak bodies)',
+      'Compensate participants for their time and expertise',
+    ],
+    indicators: [
+      'Ongoing community engagement established within 12 months',
+      'Participants compensated for their input',
+      'Their input acted on and tracked',
+    ],
+  },
+  '5.5-D-8': {
+    steps: [
+      'Establish processes to stay informed about emerging accessibility practices and technology (sector publications, AHRC, conferences, Standards Australia)',
+      'Feed relevant changes into your plans',
+    ],
+    indicators: [
+      'Horizon-scanning process in place within 6 months',
+      'Relevant changes tracked and assessed',
+      'Plans updated as standards and practice evolve',
+    ],
+  },
+  '5.5-D-9': {
+    steps: [
+      'Celebrate accessibility achievements and recognise staff who contribute (internal communications, awards nominations, individual acknowledgement)',
+      'Reinforce that accessibility matters',
+    ],
+    indicators: [
+      'Recognition approach in place within 6 months',
+      'Achievements celebrated and contributions recognised',
+      'Recognition sustained over time',
+    ],
+  },
+  '5.5-D-10': {
+    steps: [
+      'Implement specific satisfaction measurement for customers with disability (accessibility-specific questions, accessible survey formats)',
+      'Consider partnering with disability organisations for independent feedback',
+    ],
+    indicators: [
+      'Disability-specific satisfaction measurement in place within 6 months',
+      'Surveys offered in accessible formats',
+      'Results used to improve services',
+    ],
+  },
+  '5.5-D-11': {
+    steps: [
+      'Implement separate tracking and reporting for accessibility-related complaints (tag by type, track resolution times)',
+      'Analyse trends and use the data to prioritise improvements',
+    ],
+    indicators: [
+      'Separate accessibility complaint tracking in place within 6 months',
+      'Complaints tagged and resolution times tracked',
+      'Trends used to prioritise improvements',
+    ],
+  },
+  '5.5-D-12': {
+    steps: [
+      'Develop a multi-year accessibility roadmap with phased targets (physical works, digital compliance, training maturity, cultural change)',
+      'Align it with capital planning and budget cycles',
+    ],
+    indicators: [
+      'Multi-year accessibility roadmap developed within 12 months',
+      'Roadmap aligned to capital and budget planning',
+      'Roadmap reviewed and updated each cycle',
+    ],
+  },
+  '5.5-D-13': {
+    steps: [
+      'Share your accessibility learnings and best practices with your industry or sector (conferences, case studies, working groups)',
+      'Contribute to sector-specific accessibility guidelines',
+    ],
+    indicators: [
+      'Learnings shared with the sector within 12 months',
+      'Contribution made to industry working groups or guidelines',
+      'Sharing sustained over time',
+    ],
+  },
 };
