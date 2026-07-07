@@ -11,7 +11,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "check:diap-capture": "node scripts/checkDiapCapture.mjs"
+    "check:diap-capture": "node scripts/checkDiapCapture.mjs",
+    "check:diap-content": "tsx scripts/checkDiapContent.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.88.0",
