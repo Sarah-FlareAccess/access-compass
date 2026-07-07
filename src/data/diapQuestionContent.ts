@@ -3763,4 +3763,217 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Scheduled checks completed and logged',
     ],
   },
+
+  // ============================================================
+  // Module 3.12 - Playgrounds and play spaces
+  // ============================================================
+  '3.12-PC-1': {
+    steps: [
+      'Assess the path from parking, drop-off and amenities to the playground for gaps (gravel sections, missing kerb ramps)',
+      'Provide a continuous accessible path (at least 1200mm wide, firm, level) to the playground entry',
+    ],
+    indicators: [
+      'Path to the playground assessed within 6 months',
+      'Continuous accessible path provided within 24 months',
+      'Path condition inspected on a regular schedule',
+    ],
+  },
+  '3.12-PC-2': {
+    steps: [
+      'Assess the playground surface and transitions for wheelchair and mobility aid access',
+      'Replace or supplement loose-fill with rubber soft fall or synthetic turf on key routes, with flush transitions from path to play surface',
+    ],
+    indicators: [
+      'Playground surface assessed within 6 months',
+      'Firm, level surface on key routes provided within 24 months',
+      'Surface condition and transitions checked on a regular schedule',
+    ],
+  },
+  '3.12-PC-3': {
+    steps: [
+      'Review play equipment for options children of different abilities can use together',
+      'Add inclusive equipment (basket swings, flush carousels, ground-level trampolines, sensory panels) co-located with standard equipment',
+    ],
+    indicators: [
+      'Inclusive play provision reviewed within 6 months',
+      'Inclusive equipment installed alongside standard equipment within 24 months',
+      'Equipment maintained and range reviewed regularly',
+    ],
+  },
+  '3.12-PC-4': {
+    steps: [
+      'Review the playground for sensory play elements alongside physical equipment',
+      'Add sensory elements (musical instruments, sand and water play, textured panels, nature play) reachable from a seated position',
+    ],
+    indicators: [
+      'Sensory play reviewed within 6 months',
+      'Sensory play elements provided within 24 months',
+      'Elements maintained on a regular schedule',
+    ],
+  },
+  '3.12-PC-5': {
+    steps: [
+      'Assess the playground boundary for containment needs',
+      'Install fencing with self-closing gates to allow full enclosure',
+    ],
+    indicators: [
+      'Playground enclosure reviewed within 6 months',
+      'Fencing with self-closing gates installed within 24 months',
+      'Fencing and gates maintained on a regular schedule',
+    ],
+  },
+  '3.12-PC-6': {
+    steps: [
+      'Review seating near the playground for back support, armrests, shade and wheelchair space',
+      'Install seating with shade and clear sight lines to play zones, with space alongside for wheelchair users',
+    ],
+    indicators: [
+      'Caregiver seating reviewed within 3 months',
+      'Shaded accessible seating with sight lines provided within 12 months',
+      'Seating condition checked on a regular schedule',
+    ],
+  },
+  '3.12-PC-7': {
+    steps: [
+      'Review supporting facilities (toilets, drinking water, bins) for accessibility and proximity to the playground',
+      'Provide accessible toilets (with adult change), drinking water at accessible heights and bins within a short accessible walk',
+    ],
+    indicators: [
+      'Supporting facilities reviewed within 6 months',
+      'Accessible facilities provided within a short accessible walk within 24 months',
+      'Facilities maintained on a regular schedule',
+    ],
+  },
+  '3.12-D-1': {
+    steps: [
+      'Install a transfer platform or ramp on at least one elevated play structure at wheelchair seat height with a firm approach',
+      'Connect it to a meaningful play experience',
+    ],
+    indicators: [
+      'Transfer access reviewed within 6 months',
+      'Transfer platform or ramp provided on an elevated structure within 24 months',
+      'Transfer point maintained and kept clear',
+    ],
+  },
+  '3.12-D-2': {
+    steps: [
+      'Create a quiet area adjacent to the playground with natural screening, comfortable seating and reduced noise and visual stimulation',
+      'Mark it and let caregivers know it is there',
+    ],
+    indicators: [
+      'Quiet zone need reviewed within 6 months',
+      'Quiet area provided and marked within 12 months',
+      'Area maintained on a regular schedule',
+    ],
+  },
+  '3.12-D-3': {
+    steps: [
+      'Add visual symbols, pictographs or photographs to playground signage',
+      'Include a visual layout map at the entry to support children with cognitive disabilities and pre-readers',
+    ],
+    indicators: [
+      'Playground signage reviewed within 3 months',
+      'Visual signage and entry layout map provided within 12 months',
+      'Signage maintained and updated after changes',
+    ],
+  },
+  '3.12-D-4': {
+    steps: [
+      'Review water play features for seated or ground-level access',
+      'Provide ground-level splash pads, raised water tables with knee clearance and lever-handle taps on firm, non-slip surfaces',
+    ],
+    indicators: [
+      'Water play accessibility reviewed within 6 months',
+      'Accessible water play features provided within 24 months',
+      'Features maintained on a regular schedule',
+    ],
+  },
+  '3.12-D-5': {
+    steps: [
+      'Assess playground surfaces against AS 4422 (impact attenuation) and AS 4685 (general requirements)',
+      'Upgrade to rubber soft fall or other compliant surfaces on key routes and fall zones',
+    ],
+    indicators: [
+      'Surface compliance assessed within 6 months',
+      'Compliant surfaces on key routes and fall zones within 24 months',
+      'Surface condition inspected on a regular schedule',
+    ],
+  },
+  '3.12-D-6': {
+    steps: [
+      'Assess playground circulation for wheelchair-using caregivers, including around and under equipment',
+      'Provide firm surfaces throughout, remove lip edges at zone boundaries and maintain 1200mm clearance between equipment',
+    ],
+    indicators: [
+      'Caregiver circulation assessed within 6 months',
+      'Firm surfaces and 1200mm clearance provided within 24 months',
+      'Circulation maintained after any equipment change',
+    ],
+  },
+  '3.12-D-7': {
+    steps: [
+      'Review the playground for nature play elements in accessible locations',
+      'Incorporate nature play (logs, boulders, plants, sand, water) via firm surfaces, with raised beds and sand tables for wheelchair users',
+    ],
+    indicators: [
+      'Nature play reviewed within 6 months',
+      'Accessible nature play elements provided within 24 months',
+      'Elements maintained on a regular schedule',
+    ],
+  },
+  '3.12-D-8': {
+    steps: [
+      'Review playground facilities (drinking fountains, bins, hand wash stations) for child and wheelchair-user heights',
+      'Install dual-height facilities operable by both children and wheelchair users',
+    ],
+    indicators: [
+      'Facility heights reviewed within 3 months',
+      'Dual-height accessible facilities provided within 12 months',
+      'Facilities maintained on a regular schedule',
+    ],
+  },
+  '3.12-D-9': {
+    steps: [
+      'Review the range of play experiences across heights and challenge levels',
+      'Add equipment at multiple heights and difficulties, with low-level options alongside climbing structures',
+    ],
+    indicators: [
+      'Range of play experiences reviewed within 6 months',
+      'Multiple heights and challenge levels provided within 24 months',
+      'Range reviewed as equipment is renewed',
+    ],
+  },
+  '3.12-D-10': {
+    steps: [
+      'Engage local community, including Aboriginal and Torres Strait Islander groups, on the playground design',
+      'Incorporate local stories, materials and cultural elements',
+    ],
+    indicators: [
+      'Community engagement undertaken within 12 months',
+      'Local cultural elements incorporated into the design',
+      'Community input sought for future upgrades',
+    ],
+  },
+  '3.12-D-11': {
+    steps: [
+      'Create a maintenance schedule covering inclusive equipment (harness swings, carousels, sensory panels) and accessible surfaces',
+      'Include checks for trip hazards, flush edges and equipment wear',
+    ],
+    indicators: [
+      'Inclusive-play maintenance schedule in place within 3 months',
+      'Scheduled checks completed and logged',
+      'Faults repaired promptly to keep features usable',
+    ],
+  },
+  '3.12-D-12': {
+    steps: [
+      'Install entry signage with a layout map showing equipment, accessible routes and facilities (toilets, water, parking)',
+      'Use pictographs, high contrast and mount at 1000-1200mm centre height for wheelchair readability',
+    ],
+    indicators: [
+      'Entry signage reviewed within 3 months',
+      'Accessible entry layout signage provided within 12 months',
+      'Signage updated after any layout change',
+    ],
+  },
 };
