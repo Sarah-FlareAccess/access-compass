@@ -7693,4 +7693,173 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'A non-app alternative available for key features',
     ],
   },
+
+  // ============================================================
+  // Module 6.4 - Sensory access and technology
+  // ============================================================
+  '6.4-PC-1': {
+    steps: [
+      'Plan hearing access services (Auslan interpreters, live captioning/CART, hearing loops, assistive listening devices)',
+      'Communicate availability in advance so attendees can plan, per the DDA 1992 duty to make reasonable adjustments',
+    ],
+    indicators: [
+      'Hearing access services planned for the event',
+      'Availability communicated in advance',
+      'Services confirmed before the event',
+    ],
+  },
+  '6.4-PC-2': {
+    steps: [
+      'Plan vision access services (audio description, large print, screen-reader-compatible content, sighted guide volunteers, tactile maps)',
+      'Communicate available services in advance so attendees can plan',
+    ],
+    indicators: [
+      'Vision access services planned for the event',
+      'Availability communicated in advance',
+      'Services confirmed before the event',
+    ],
+  },
+  '6.4-PC-3': {
+    steps: [
+      'Address sensory needs for neurodivergent attendees (quiet room, ear defenders, advance trigger warnings, sensory map, early entry, low-stimulation routes)',
+      'Promote these supports in pre-event information',
+    ],
+    indicators: [
+      'Sensory supports provided at the event',
+      'Supports promoted in pre-event information',
+      'Supports reviewed via attendee feedback',
+    ],
+  },
+  '6.4-D-1': {
+    steps: [
+      'Position Auslan interpreters where clearly visible (well-lit, plain dark background, close to the speaker, at the same level) and reserve front-of-house seating for Deaf attendees',
+      'Consult your interpreters on optimal positioning',
+    ],
+    indicators: [
+      'Interpreter positioning planned for the event',
+      'Front-of-house seating reserved for Deaf attendees',
+      'Interpreters consulted on positioning',
+    ],
+  },
+  '6.4-D-2': {
+    steps: [
+      'Display live captioning on screens visible from all accessible seating (dedicated screen or lower-third overlay)',
+      'Use minimum 48pt, high-contrast text positioned so attendees can see both the speaker and the captions',
+    ],
+    indicators: [
+      'Live captioning displayed at the event',
+      'Captions visible from all accessible seating',
+      'Caption text meets size and contrast requirements',
+    ],
+  },
+  '6.4-D-3': {
+    steps: [
+      'Install or hire hearing loop systems covering all presentation and seated areas, meeting AS 60118.4',
+      'Test coverage with a loop receiver before the event and display the hearing loop symbol prominently',
+    ],
+    indicators: [
+      'Hearing loop coverage provided for the event',
+      'Coverage confirmed against AS 60118.4',
+      'Loop symbol displayed prominently',
+    ],
+  },
+  '6.4-D-4': {
+    steps: [
+      'Arrange audio description for visual content (live describers, pre-recorded description, described programs) with receivers or a dedicated audio channel',
+      'Promote availability in pre-event communications',
+    ],
+    indicators: [
+      'Audio description arranged for the event',
+      'Receivers or a dedicated channel provided',
+      'Availability promoted before the event',
+    ],
+  },
+  '6.4-D-5': {
+    steps: [
+      'Provide assistive listening devices (FM receivers, infrared systems or personal amplifiers) for areas without hearing loop coverage',
+      'Ensure an adequate supply and a simple sign-out process',
+    ],
+    indicators: [
+      'Assistive listening devices provided at the event',
+      'Adequate supply and a simple sign-out process',
+      'Devices tested and maintained',
+    ],
+  },
+  '6.4-D-6': {
+    steps: [
+      'Explore haptic devices for music events (wearable bass vests, vibrating wristbands, tactile flooring)',
+      'Partner with specialist providers and promote availability in advance',
+    ],
+    indicators: [
+      'Haptic device options explored for music events',
+      'Provided in partnership with specialist providers where feasible',
+      'Availability promoted in advance',
+    ],
+  },
+  '6.4-D-7': {
+    steps: [
+      'Provide advance warnings for sensory triggers (strobe lights, pyrotechnics, loud noises, smoke/haze, strong scents)',
+      'Display warnings in pre-event materials, at venue entry and immediately before the trigger, per DDA obligations',
+    ],
+    indicators: [
+      'Sensory trigger warnings provided for the event',
+      'Warnings in pre-event materials, at entry and before triggers',
+      'Warnings reviewed for each event',
+    ],
+  },
+  '6.4-D-8': {
+    steps: [
+      'Offer relaxed or low-sensory sessions (reduced volume, house lights up, no strobe or smoke, flexible audience behaviour, lower crowd density)',
+      'Schedule them at practical times and promote them as part of your main program',
+    ],
+    indicators: [
+      'Relaxed session offered for the event',
+      'Scheduled at a practical time',
+      'Promoted as part of the main program',
+    ],
+  },
+  '6.4-D-9': {
+    steps: [
+      'Explore multi-sensory music experiences for Deaf attendees (tactile sound floors, signed song or visual DJ, bass-heavy speaker placement, LED wristbands synced to music)',
+      'Promote them as part of the experience',
+    ],
+    indicators: [
+      'Multi-sensory music options explored for the event',
+      'At least one provided where feasible',
+      'Promoted as part of the experience',
+    ],
+  },
+  '6.4-D-10': {
+    steps: [
+      'Implement a fragrance-free or scent-aware policy and communicate it to attendees, staff and vendors in advance',
+      'Avoid scented cleaning products, manage food odours, and provide a scent-free zone',
+    ],
+    indicators: [
+      'Scent-aware policy in place for the event',
+      'Communicated to attendees, staff and vendors',
+      'A scent-free zone provided',
+    ],
+  },
+  '6.4-D-11': {
+    steps: [
+      'Manage lighting for accessibility: maintain ambient lighting for lip-reading and wayfinding, avoid flashing over 3 flashes per second (WCAG 2.3.1), keep consistent lighting on interpreters and captioning',
+      'Provide warnings before lighting changes',
+    ],
+    indicators: [
+      'Lighting managed for accessibility at the event',
+      'Flashing kept within WCAG 2.3.1 limits',
+      'Warnings provided before lighting changes',
+    ],
+  },
+  '6.4-D-12': {
+    steps: [
+      'Offer touch tours or pre-event familiarisation visits so attendees can explore the venue layout and locate key facilities before crowds arrive',
+      'Schedule at least one session before the event and promote it during registration',
+    ],
+    indicators: [
+      'Touch tour or familiarisation session offered before the event',
+      'At least one session scheduled',
+      'Promoted during registration',
+    ],
+  },
 };
