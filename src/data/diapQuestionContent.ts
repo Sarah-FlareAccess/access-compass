@@ -6874,4 +6874,195 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Staff awareness of support services confirmed via survey',
     ],
   },
+
+  // ============================================================
+  // Module 5.10 - Retention, ERGs and inclusive culture
+  // ============================================================
+  '5.10-PC-1': {
+    steps: [
+      'Add a voluntary disclosure field to HR records',
+      'Build an annual retention analysis by disclosure status and review it with leadership',
+    ],
+    indicators: [
+      'Voluntary disclosure field added within 3 months',
+      'Retention analysed annually by disclosure status',
+      'Findings reviewed with leadership',
+    ],
+  },
+  '5.10-PC-2': {
+    steps: [
+      'Invite interested staff to co-design an Employee Resource Group for staff with disability',
+      'Allocate time, budget and an executive sponsor before launch',
+    ],
+    indicators: [
+      'ERG co-designed within 12 months',
+      'ERG resourced with time, budget and an exec sponsor',
+      'ERG input acted on by the organisation',
+    ],
+  },
+  '5.10-PC-3': {
+    steps: [
+      'Add disclosure status to promotion data and review senior representation honestly',
+      'Set representation targets and track progress',
+    ],
+    indicators: [
+      'Promotion data captures disclosure status within 6 months',
+      'Representation targets set and tracked',
+      'Progress reviewed with leadership annually',
+    ],
+  },
+  '5.10-PC-4': {
+    steps: [
+      'Add disability-specific prompts to exit interviews',
+      'Build an annual review cycle and act on what you hear',
+    ],
+    indicators: [
+      'Disability prompts added to exit interviews within 3 months',
+      'Exit themes reviewed annually',
+      'Actions taken in response to findings',
+    ],
+  },
+  '5.10-PC-5': {
+    steps: [
+      'Identify current and upcoming policy work affecting disabled staff',
+      'Rebuild the processes to include co-design with disabled staff from day one',
+    ],
+    indicators: [
+      'Policy work affecting disabled staff identified within 6 months',
+      'Co-design built into policy processes',
+      'Disabled staff compensated for their input',
+    ],
+  },
+  '5.10-PC-6': {
+    steps: [
+      'Add disability-specific items to the next culture or engagement survey cycle',
+      'Report on the results publicly',
+    ],
+    indicators: [
+      'Disability items added to the culture survey within 12 months',
+      'Results reported on',
+      'Findings used to improve inclusion',
+    ],
+  },
+  '5.10-DD-1': {
+    steps: [
+      'Publish meeting inclusion norms (agendas in advance, recording option, captions, break pacing, clear speaking order)',
+      'Workshop them with leadership to embed them',
+    ],
+    indicators: [
+      'Meeting inclusion norms published within 3 months',
+      'Norms adopted across the organisation',
+      'Norms reviewed via staff feedback',
+    ],
+  },
+  '5.10-DD-2': {
+    steps: [
+      'Build a visible channel for development opportunities (conferences, training, stretch projects, mentoring)',
+      'Proactively offer them to disabled staff and track allocation by disclosure status',
+    ],
+    indicators: [
+      'Development opportunity channel in place within 6 months',
+      'Opportunities offered proactively, not only on request',
+      'Allocation tracked by disclosure status',
+    ],
+  },
+  '5.10-DD-3': {
+    steps: [
+      'Add disclosure status to your pay equity analysis',
+      'Report the results and act on any gaps',
+    ],
+    indicators: [
+      'Pay equity analysis includes disclosure status within 12 months',
+      'Results reported to leadership',
+      'Gaps addressed with a clear plan',
+    ],
+  },
+  '5.10-DD-4': {
+    steps: [
+      'Identify upcoming customer-facing decisions where disabled staff expertise is relevant',
+      'Invite and pay disabled staff to contribute',
+    ],
+    indicators: [
+      'Relevant customer-facing decisions identified within 6 months',
+      'Disabled staff invited and paid to contribute',
+      'Their input reflected in decisions',
+    ],
+  },
+  '5.10-DD-5': {
+    steps: [
+      'Introduce a short recurring psychological safety pulse survey, cut by disclosure status',
+      'Build team-level reporting with action plans owned at team level',
+    ],
+    indicators: [
+      'Psychological safety pulse survey introduced within 6 months',
+      'Results cut by disclosure status',
+      'Team-level action plans owned and tracked',
+    ],
+  },
+  '5.10-DD-6': {
+    steps: [
+      'Identify one or two relevant Disabled-led organisations (DPOs)',
+      'Propose a paid pilot engagement, not goodwill',
+    ],
+    indicators: [
+      'Relevant DPOs identified within 6 months',
+      'A paid pilot engagement established within 12 months',
+      'Engagement sustained and reviewed',
+    ],
+  },
+  '5.10-DD-7': {
+    steps: [
+      'Identify priority intersections (disability x gender, Aboriginal and Torres Strait Islander status, LGBTQ+, age)',
+      'Add them to the next analytical cycle where sample size allows',
+    ],
+    indicators: [
+      'Priority intersections identified within 6 months',
+      'Intersectional data analysed where sample size allows',
+      'Findings used to target inclusion efforts',
+    ],
+  },
+  '5.10-DD-8': {
+    steps: [
+      'Build a disability inclusion dashboard for the Board and Executive (recruitment, retention, engagement)',
+      'Tie leadership accountability to the measurable outcomes',
+    ],
+    indicators: [
+      'Disability inclusion dashboard built within 12 months',
+      'Reviewed at Board or Executive level',
+      'Leadership KPIs tied to the outcomes',
+    ],
+  },
+  '5.10-DD-9': {
+    steps: [
+      'Design a pilot mentoring or sponsorship program for disabled staff',
+      'Recruit trained mentors, match voluntarily and measure progression outcomes',
+    ],
+    indicators: [
+      'Mentoring program piloted within 12 months',
+      'Mentors trained and matches voluntary',
+      'Progression outcomes measured and the program scaled',
+    ],
+  },
+  '5.10-DD-10': {
+    steps: [
+      'Audit current leave policies for chronic illness and mental health fit',
+      'Draft additions beyond statutory minimums (flexible sick leave banking, recovery leave, flexible start/end times for medication cycles)',
+    ],
+    indicators: [
+      'Leave policies audited within 6 months',
+      'Flexible arrangements beyond the minimum introduced within 12 months',
+      'Arrangements reviewed via staff feedback',
+    ],
+  },
+  '5.10-DD-11': {
+    steps: [
+      'Create ways to include Disabled staff in relevant customer-facing decisions (product, service, venue) as a valued, resourced part of their role',
+      'Keep participation voluntary, never assume disclosure, and engage external experts (paid) where in-house expertise is limited',
+    ],
+    indicators: [
+      'Ways to include Disabled staff in decisions created within 12 months',
+      'Participation voluntary and resourced',
+      'External experts engaged and paid where needed',
+    ],
+  },
 };
