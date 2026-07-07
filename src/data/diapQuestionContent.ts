@@ -9076,4 +9076,309 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Paid disabled actors engaged',
     ],
   },
+
+  // ============================================================
+  // Module 7.6 - Precinct-wide sensory and experience provisions
+  // ============================================================
+  '7.6-PC-1': {
+    steps: [
+      'Establish at least one quiet sensory room at a hub and one stimulating sensory room',
+      'For multi-venue events, distribute sensory rooms across the precinct',
+    ],
+    indicators: [
+      'Quiet and stimulating sensory rooms established within 12 months',
+      'Rooms distributed across the precinct for multi-venue events',
+      'Rooms staffed and signposted',
+    ],
+  },
+  '7.6-PC-2': {
+    steps: [
+      'Introduce app-based ordering or pre-order options for food and merchandise',
+      'Offer seat delivery as an optional paid service',
+    ],
+    indicators: [
+      'App-based ordering or pre-order introduced within 12 months',
+      'Queue burden reduced for attendees',
+      'Seat delivery offered as an option',
+    ],
+  },
+  '7.6-PC-3': {
+    steps: [
+      'Develop social stories with photos for major venues',
+      'Add in-person sensory preview sessions before opening day',
+    ],
+    indicators: [
+      'Social stories with photos developed within 6 months',
+      'In-person sensory previews offered before opening',
+      'Familiarisation reaches attendees pre-event',
+    ],
+  },
+  '7.6-PC-4': {
+    steps: [
+      'Develop a precinct-wide coloured zoning system with WCAG-compliant colour selection',
+      'Apply it consistently across maps, signs and staff scripts',
+    ],
+    indicators: [
+      'Precinct-wide coloured zoning system developed within 12 months',
+      'WCAG-compliant colours selected',
+      'Zoning applied across maps, signs and staff scripts',
+    ],
+  },
+  '7.6-PC-5': {
+    steps: [
+      'Establish a QR-code info network at every venue and key zone',
+      'Link it to live info via your central accessibility register',
+    ],
+    indicators: [
+      'QR-code info network established within 12 months',
+      'Live access info available at every venue and key zone',
+      'Linked to the central accessibility register',
+    ],
+  },
+  '7.6-PC-6': {
+    steps: [
+      'Schedule at least one precinct-wide sensory-friendly window per event',
+      'Brief all venues, vendors and entertainment',
+    ],
+    indicators: [
+      'Precinct-wide sensory-friendly window scheduled each event',
+      'All venues, vendors and entertainment briefed',
+      'Low-stim conditions delivered during the window',
+    ],
+  },
+  '7.6-DD-1': {
+    steps: [
+      'Establish service animal relief areas across the precinct with water and clear signage',
+      'Brief all staff on service animal access rights',
+    ],
+    indicators: [
+      'Service animal relief areas established within 12 months',
+      'Water and clear signage provided',
+      'All staff briefed on service animal access rights',
+    ],
+  },
+  '7.6-DD-2': {
+    steps: [
+      'Audit major routes between venues for rest gaps',
+      'Hire portable rest seating to fill the gaps',
+      'Mark rest seating on the event map',
+    ],
+    indicators: [
+      'Major routes audited for rest gaps within 6 months',
+      'Rest seating provided at appropriate intervals',
+      'Rest seating marked on the event map',
+    ],
+  },
+  '7.6-DD-3': {
+    steps: [
+      'Develop accessible food and drink standards and apply them to vendor selection',
+      'Publish vendor-by-vendor dietary info',
+    ],
+    indicators: [
+      'Accessible food and drink standards developed within 6 months',
+      'Standards applied to vendor selection',
+      'Vendor-by-vendor dietary info published',
+    ],
+  },
+  '7.6-DD-4': {
+    steps: [
+      'Add captioned signs and app notifications to lost-and-found communication',
+      'Do not rely on PA announcements alone',
+    ],
+    indicators: [
+      'Captioned signs and app notifications added within 6 months',
+      'Lost-and-found communication not reliant on PA alone',
+      'Multiple formats reach attendees',
+    ],
+  },
+  '7.6-DD-5': {
+    steps: [
+      'Develop a sensory map and distribute it in the pre-event pack to all ticket buyers',
+      'Co-design it with autistic adults',
+    ],
+    indicators: [
+      'Sensory map developed within 6 months',
+      'Distributed in the pre-event pack to all ticket buyers',
+      'Co-designed with autistic adults',
+    ],
+  },
+  '7.6-DD-6': {
+    steps: [
+      'Develop social stories with photos for major venues, co-designed with the autistic community',
+      'Distribute them in pre-event communication',
+    ],
+    indicators: [
+      'Per-venue social stories developed within 6 months',
+      'Co-designed with the autistic community',
+      'Distributed in pre-event communication',
+    ],
+  },
+  '7.6-DD-7': {
+    steps: [
+      'Add virtual familiarisation tours for low-cost, high reach',
+      'Add in-person tours for major events',
+    ],
+    indicators: [
+      'Virtual familiarisation tours offered within 12 months',
+      'In-person tours added for major events',
+      'Tours promoted pre-event',
+    ],
+  },
+  '7.6-DD-8': {
+    steps: [
+      'Add visual schedules at every venue in high-contrast, sans-serif, large type',
+      'Position them at each entrance',
+    ],
+    indicators: [
+      'Visual schedules added at every venue within 12 months',
+      'High-contrast, sans-serif, large type used',
+      'Positioned at each entrance',
+    ],
+  },
+  '7.6-DD-9': {
+    steps: [
+      'Audit hearing augmentation per venue',
+      'Map it on the event map with standardised symbols and pickup info',
+    ],
+    indicators: [
+      'Hearing augmentation audited per venue within 6 months',
+      'Availability mapped with standardised symbols',
+      'Pickup info published',
+    ],
+  },
+  '7.6-DD-10': {
+    steps: [
+      'Establish a rover team with identifiable clothing',
+      'Set up contact channels (SMS, app, phone)',
+    ],
+    indicators: [
+      'Roving access support team established within 6 months',
+      'Team clearly identifiable',
+      'Contactable by SMS, app and phone',
+    ],
+  },
+  '7.6-DD-11': {
+    steps: [
+      'Develop a documented access rest pass / re-entry policy for sensory breaks',
+      'Communicate it in the pre-event email',
+    ],
+    indicators: [
+      'Access rest pass / re-entry policy documented within 6 months',
+      'Policy communicated in the pre-event email',
+      'Re-entry for sensory breaks honoured',
+    ],
+  },
+  '7.6-DD-12': {
+    steps: [
+      'Develop a communication board with trained staff at info points',
+      'Co-design it with AAC users',
+    ],
+    indicators: [
+      'Communication boards available at info points within 6 months',
+      'Staff trained to use them',
+      'Co-designed with AAC users',
+    ],
+  },
+  '7.6-DD-13': {
+    steps: [
+      'Develop sensory kits with input from autistic adults',
+      'Stock them at multiple info points',
+      'Train staff to offer them proactively',
+    ],
+    indicators: [
+      'Sensory kits developed within 6 months',
+      'Stocked at multiple info points',
+      'Staff trained to offer them proactively',
+    ],
+  },
+  '7.6-DD-14': {
+    steps: [
+      'Pilot haptic devices at the next event, hired from accessibility tech specialists',
+      'Promote them to the Deaf community',
+    ],
+    indicators: [
+      'Haptic devices piloted at the next event',
+      'Hired from accessibility tech specialists',
+      'Promoted to the Deaf community',
+    ],
+  },
+  '7.6-DD-15': {
+    steps: [
+      'Audit accessible viewing platforms at every stage',
+      'Add companion seating',
+      'Test sight lines from every position',
+    ],
+    indicators: [
+      'Viewing platforms audited at every stage within 6 months',
+      'Companion seating added',
+      'Sight lines tested from every position',
+    ],
+  },
+  '7.6-DD-16': {
+    steps: [
+      'Pilot a multisensory zone at the next event, co-designed with disabled artists',
+      'Position it as artistic programming, not just an accessibility provision',
+    ],
+    indicators: [
+      'Multisensory zone piloted at the next event',
+      'Co-designed with disabled artists',
+      'Positioned as artistic programming',
+    ],
+  },
+  '7.6-DD-17': {
+    steps: [
+      'Establish a support worker rest area with food, water and charging',
+      'Communicate the provisions proactively',
+    ],
+    indicators: [
+      'Support worker rest area established within 6 months',
+      'Food, water and charging provided',
+      'Provisions communicated proactively',
+    ],
+  },
+  '7.6-DD-18': {
+    steps: [
+      'Produce pocket communication cards for every customer-facing staff member',
+      'Co-design the icons with AAC users',
+    ],
+    indicators: [
+      'Pocket communication cards produced within 6 months',
+      'Carried by every customer-facing staff member',
+      'Icons co-designed with AAC users',
+    ],
+  },
+  '7.6-DD-19': {
+    steps: [
+      'Establish an equipment loan service with a range of mobility equipment',
+      'Source it from medical hire or build a pool',
+    ],
+    indicators: [
+      'Equipment loan service established within 12 months',
+      'Range of mobility equipment available',
+      'Loans taken up by attendees',
+    ],
+  },
+  '7.6-DD-20': {
+    steps: [
+      'Establish charging stations, medicine fridges and an accessible medical waiting room',
+      'Communicate availability proactively',
+    ],
+    indicators: [
+      'Charging, medicine fridges and accessible medical room established within 12 months',
+      'Availability communicated proactively',
+      'Facilities used by attendees who need them',
+    ],
+  },
+  '7.6-DD-21': {
+    steps: [
+      'Programme inclusive interactive activities',
+      'Co-design them with disability sport bodies or disability arts',
+      'Pay the facilitators',
+    ],
+    indicators: [
+      'Inclusive interactive activities programmed within 12 months',
+      'Co-designed with disability sport or arts bodies',
+      'Facilitators paid',
+    ],
+  },
 };
