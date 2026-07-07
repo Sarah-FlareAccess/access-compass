@@ -8512,4 +8512,184 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Findings used to inform future programming',
     ],
   },
+
+  // ============================================================
+  // Module 7.3 - Ticketing and box office accessibility
+  // ============================================================
+  '7.3-PC-1': {
+    steps: [
+      'Configure your ticketing platform to support companion ticketing across multiple shows in one transaction',
+      'Register as a Companion Card affiliate',
+    ],
+    indicators: [
+      'Companion ticketing across shows supported within 12 months',
+      'Companion Card affiliation in place',
+      'Companion concession applied automatically',
+    ],
+  },
+  '7.3-PC-2': {
+    steps: [
+      'Commission an independent WCAG 2.2 AA audit of your booking flow end-to-end',
+      'Address critical issues before the next event opening',
+    ],
+    indicators: [
+      'Booking flow audited for WCAG 2.2 AA within 6 months',
+      'Critical issues fixed before the next event opening',
+      'Accessibility re-checked when the flow changes',
+    ],
+  },
+  '7.3-PC-3': {
+    steps: [
+      'Add voluntary disability disclosure at booking, using opt-in language with clear privacy assurance',
+      'Use the information to plan support before the event',
+    ],
+    indicators: [
+      'Voluntary disclosure at booking added within 6 months',
+      'Disclosure used to plan support before the event',
+      'Privacy assurance provided at disclosure',
+    ],
+  },
+  '7.3-PC-4': {
+    steps: [
+      'Establish formal box office disability-confident customer service training with a specialist provider',
+      'Run it before each event opens, not just at onboarding',
+    ],
+    indicators: [
+      'Box office accessibility training established within 6 months',
+      'Training run before each event opens',
+      'Delivered by a specialist provider',
+    ],
+  },
+  '7.3-PC-5': {
+    steps: [
+      'Surface accessible pricing options (concession, companion-free, support worker) at the point of selection',
+      'Audit pricing pages annually',
+    ],
+    indicators: [
+      'Accessible pricing options surfaced at selection within 6 months',
+      'Pricing pages audited annually',
+      'Options easy to find without asking',
+    ],
+  },
+  '7.3-PC-6': {
+    steps: [
+      'Add detailed access information at the point of ticket purchase (venue access, seat accessibility, sensory factors, formats)',
+      'Keep it visible, not buried',
+    ],
+    indicators: [
+      'Access information shown at point of purchase within 6 months',
+      'Information covers venue, seat, sensory and formats',
+      'Information updated for each event',
+    ],
+  },
+  '7.3-DD-1': {
+    steps: [
+      'Add multiple ticket delivery formats: accessible HTML email, SMS and accessible PDF',
+      'Let customers choose their format',
+    ],
+    indicators: [
+      'Multiple accessible ticket formats available within 6 months',
+      'Customers can choose their format',
+      'Formats tested with assistive technology',
+    ],
+  },
+  '7.3-DD-2': {
+    steps: [
+      'Establish a phone booking option staffed by trained agents during sales periods',
+      'Accept National Relay Service calls',
+    ],
+    indicators: [
+      'Staffed phone booking available during sales periods within 6 months',
+      'National Relay Service calls accepted',
+      'Agents trained on accessibility',
+    ],
+  },
+  '7.3-DD-3': {
+    steps: [
+      'Develop a written accessibility refund/exchange policy covering common triggers',
+      'Brief box office staff on it',
+    ],
+    indicators: [
+      'Accessibility refund/exchange policy in place within 6 months',
+      'Box office staff briefed on the policy',
+      'Policy applied consistently, confirmed via feedback',
+    ],
+  },
+  '7.3-DD-4': {
+    steps: [
+      'Request an accessibility audit from your booking platform vendor',
+      'Make audit availability a procurement requirement going forward',
+    ],
+    indicators: [
+      'Vendor accessibility audit requested within 3 months',
+      'Audit availability a procurement requirement',
+      'Vendor accessibility reviewed at renewal',
+    ],
+  },
+  '7.3-DD-5': {
+    steps: [
+      'Audit box office physical accessibility (counter height, hearing loop, accessible queue)',
+      'Upgrade to meet the baseline',
+    ],
+    indicators: [
+      'Box office physical accessibility audited within 6 months',
+      'Counter height, hearing loop and queue accessibility provided within 24 months',
+      'Accessibility maintained on a regular schedule',
+    ],
+  },
+  '7.3-DD-6': {
+    steps: [
+      'Procure EFTPOS terminals with a tactile keypad and contactless',
+      'Avoid touchscreen-only EFTPOS, which excludes vision-impaired users',
+    ],
+    indicators: [
+      'Accessible EFTPOS terminals procured within 12 months',
+      'Tactile keypad and contactless available',
+      'No touchscreen-only EFTPOS without an alternative',
+    ],
+  },
+  '7.3-DD-7': {
+    steps: [
+      'Add group booking support for support workers and personal care attendants',
+      'Allocate accessible seats in groups',
+    ],
+    indicators: [
+      'Group booking for support workers available within 6 months',
+      'Accessible seats allocated in groups',
+      'Group bookings handled smoothly, confirmed via feedback',
+    ],
+  },
+  '7.3-DD-8': {
+    steps: [
+      'Document the in-person booking process for accessibility needs',
+      'Make it available at all box office workstations',
+    ],
+    indicators: [
+      'In-person accessibility booking process documented within 3 months',
+      'Available at all box office workstations',
+      'Process followed consistently',
+    ],
+  },
+  '7.3-DD-9': {
+    steps: [
+      'Set up automated post-purchase access communication (what to expect, where to ask, who to contact)',
+      'Trigger it a week before the event, personalised to the seat purchased',
+    ],
+    indicators: [
+      'Post-purchase access communication set up within 6 months',
+      'Triggered a week before the event',
+      'Personalised to the seat purchased',
+    ],
+  },
+  '7.3-DD-10': {
+    steps: [
+      'Implement an accessible seat allocation policy',
+      'Hold accessible allocations longer than standard seats before releasing to general sale',
+    ],
+    indicators: [
+      'Accessible seat allocation policy in place within 6 months',
+      'Allocations held longer than standard seats',
+      'Release decisions reviewed for each event',
+    ],
+  },
 };
