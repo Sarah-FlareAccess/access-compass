@@ -4222,4 +4222,338 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Response performance reviewed on a regular schedule',
     ],
   },
+
+  // ============================================================
+  // Module 4.2 - Customer service and staff confidence
+  // ============================================================
+  '4.2-F-1': {
+    steps: [
+      'Implement disability awareness and inclusion training for all customer-facing staff',
+      'Source training that includes lived-experience perspectives and practical scenario-based exercises, not just online modules',
+    ],
+    indicators: [
+      'Disability awareness training delivered within 6 months',
+      'Training included in induction for new staff',
+      'Refresher completed each year',
+    ],
+  },
+  '4.2-F-2': {
+    steps: [
+      'Train all staff on assistance animal rights under the DDA 1992',
+      'Ensure staff know they cannot refuse entry, request proof of disability or charge extra for assistance animals',
+    ],
+    indicators: [
+      'Assistance animal training delivered within 3 months',
+      'Staff correctly welcome assistance animals, confirmed via feedback',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-F-3': {
+    steps: [
+      'Provide practical communication training covering interactions with people who are Deaf, blind, have intellectual disabilities, use wheelchairs or have speech differences',
+      'Include role-play exercises',
+    ],
+    indicators: [
+      'Communication training delivered within 6 months',
+      'Staff report increased confidence, confirmed via survey',
+      'Refresher completed each year',
+    ],
+  },
+  '4.2-F-4': {
+    steps: [
+      'Create a process for customers to request assistance before arriving, in the booking flow, website contact page and confirmations',
+      'Nominate a staff member to action requests',
+    ],
+    indicators: [
+      'Pre-arrival assistance process in place within 3 months',
+      'Requests actioned before arrival',
+      'Process reviewed via customer feedback',
+    ],
+  },
+  '4.2-F-5': {
+    steps: [
+      'Train staff in varied communication strategies: clear moderate-pace speech, plain language, written information, gestures or visual aids',
+      'Teach them to adjust their approach based on customer cues',
+    ],
+    indicators: [
+      'Communication strategy training delivered within 6 months',
+      'Strategies used consistently, confirmed via feedback',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-F-6': {
+    steps: [
+      'Ensure all staff know the location of accessible toilets, lifts, hearing loops, quiet spaces and accessible parking',
+      'Include it in onboarding and display a staff reference map',
+    ],
+    indicators: [
+      'Staff briefed on accessible facility locations within 3 months',
+      'Reference map available to staff',
+      'Included in onboarding for new staff',
+    ],
+  },
+  '4.2-F-7': {
+    steps: [
+      'Document a clear process for handling accessibility complaints and feedback (who receives them, response timeframes, escalation)',
+      'Communicate outcomes back to the customer',
+    ],
+    indicators: [
+      'Complaints process documented within 3 months',
+      'Complaints responded to within the set timeframe',
+      'Complaint trends reviewed to inform improvements',
+    ],
+  },
+  '4.2-D-9': {
+    steps: [
+      'Train staff to offer assistance respectfully: ask "Can I help with anything?" rather than assuming, and speak directly to the customer',
+      'Have staff follow the customer\'s lead on what help they want',
+    ],
+    indicators: [
+      'Respectful-assistance training delivered within 6 months',
+      'Assistance offered respectfully, confirmed via feedback',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-D-10': {
+    steps: [
+      'Train staff on communicating with Deaf and hard of hearing customers: face them, reduce background noise, offer pen and paper, use gestures',
+      'Ensure staff know how to book an Auslan interpreter when needed',
+    ],
+    indicators: [
+      'Deaf-communication training delivered within 6 months',
+      'Staff able to book an interpreter when needed',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-D-11': {
+    steps: [
+      'Keep pen and paper (or a whiteboard and marker) at all customer service points',
+      'Brief staff to offer written communication when helpful',
+    ],
+    indicators: [
+      'Written-communication materials at all service points within 1 month',
+      'Staff offer written communication when helpful',
+      'Materials restocked on a regular schedule',
+    ],
+  },
+  '4.2-D-12': {
+    steps: [
+      'Train staff to allow extra time for customers with cognitive, intellectual or psychosocial disabilities',
+      'Teach them to use plain language, break information into steps, offer to repeat or write things down, and avoid rushing',
+    ],
+    indicators: [
+      'Extra-time communication training delivered within 6 months',
+      'Staff adapt pace and language, confirmed via feedback',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-D-13': {
+    steps: [
+      'Designate a quiet, low-stimulus space where overwhelmed customers can decompress',
+      'Ensure staff know where it is and can offer it proactively when a customer appears distressed',
+    ],
+    indicators: [
+      'Quiet space identified within 3 months',
+      'Space available and offered proactively within 6 months',
+      'Space kept available and suitable',
+    ],
+  },
+  '4.2-D-14': {
+    steps: [
+      'Develop and document a policy on serving customers with disabilities',
+      'Bring existing procedures together into a single accessible document all staff can consult',
+    ],
+    indicators: [
+      'Customer service disability policy documented within 6 months',
+      'Policy accessible to all staff',
+      'Policy reviewed at least annually',
+    ],
+  },
+  '4.2-D-15': {
+    steps: [
+      'Include accessibility and disability awareness training as a mandatory part of new staff onboarding',
+      'Cover assistance animal rights, communication strategies, accessible facility locations and the complaints process',
+    ],
+    indicators: [
+      'Accessibility training added to onboarding within 3 months',
+      'All new staff complete it before customer contact',
+      'Onboarding content reviewed annually',
+    ],
+  },
+  '4.2-D-16': {
+    steps: [
+      'Ensure staff are aware of accessible evacuation procedures, including refuge area locations and how to assist customers with different needs',
+      'Reinforce this in emergency drills',
+    ],
+    indicators: [
+      'Staff briefed on accessible evacuation within 3 months',
+      'Accessible evacuation practised in drills at least annually',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-D-17': {
+    steps: [
+      'Ensure all staff know what accessibility equipment is available (hearing loops, wheelchairs, portable ramps, magnifiers)',
+      'Train them on where it is and how to operate or deploy it',
+    ],
+    indicators: [
+      'Staff briefed on available equipment within 3 months',
+      'Staff able to locate and operate equipment',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-D-18': {
+    steps: [
+      'Assess what assistive technology or equipment would benefit your customers (hearing loop, magnifying sheet, loan wheelchair, portable ramp, communication tablet)',
+      'Procure and make available the most impactful items',
+    ],
+    indicators: [
+      'Assistive technology needs assessed within 6 months',
+      'High-impact items procured and available within 12 months',
+      'Range reviewed against demand regularly',
+    ],
+  },
+  '4.2-D-18b': {
+    steps: [
+      'Establish a relationship with an Auslan interpreting service so you can arrange interpretation for planned appointments',
+      'Set up access to on-demand video remote interpreting (VRI)',
+    ],
+    indicators: [
+      'Auslan interpreting arrangement in place within 6 months',
+      'Interpretation arranged promptly when requested',
+      'VRI available for on-demand needs',
+    ],
+  },
+  '4.2-D-19': {
+    steps: [
+      'Develop guidelines for welcoming carers and support people: offer a seat, direct conversation to the customer, honour the Companion Card (no charge)',
+      'Ask the customer how they would like to be supported',
+    ],
+    indicators: [
+      'Carer and support-person guidelines in place within 3 months',
+      'Companion Card honoured and carers welcomed, confirmed via feedback',
+      'Guidelines included in staff induction',
+    ],
+  },
+  '4.2-D-20': {
+    steps: [
+      'Establish a process for providing key documents in alternative formats (large print, Easy Read, audio, Braille, digital), with a responsible person and response timeframes',
+      'Train staff to offer this proactively',
+    ],
+    indicators: [
+      'Alternative-format process in place within 6 months',
+      'Requests fulfilled within the set timeframe',
+      'Staff offer formats proactively',
+    ],
+  },
+  '4.2-D-21': {
+    steps: [
+      'Document an assistance animal policy aligned with the DDA 1992 (permitted in all public areas, no proof requests, no surcharges)',
+      'Train all staff on the policy',
+    ],
+    indicators: [
+      'Assistance animal policy documented within 3 months',
+      'All staff trained on the policy',
+      'Policy reviewed at least annually',
+    ],
+  },
+  '4.2-D-22': {
+    steps: [
+      'Train staff to respond to complaints about assistance animals by explaining the handler\'s legal right under the DDA 1992, and that the animal must not be removed',
+      'Offer the complaining customer an alternative seat or area if possible',
+    ],
+    indicators: [
+      'Staff trained to handle assistance animal complaints within 3 months',
+      'Handlers\' rights upheld in practice',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-D-23': {
+    steps: [
+      'Implement priority access options for customers who cannot stand or wait for extended periods',
+      'Communicate expected wait times in accessible formats and allow flexible service delivery',
+    ],
+    indicators: [
+      'Priority access options in place within 6 months',
+      'Wait times communicated in accessible formats',
+      'Flexible service delivery available on request',
+    ],
+  },
+  '4.2-D-25': {
+    steps: [
+      'Identify barriers to your standard service for some customers',
+      'Offer alternatives: home delivery, phone ordering, assisted shopping, table service or appointment-based service',
+    ],
+    indicators: [
+      'Service barriers identified within 6 months',
+      'At least one alternative service method offered within 12 months',
+      'Alternatives promoted and reviewed via feedback',
+    ],
+  },
+  '4.2-D-26': {
+    steps: [
+      'Train staff to proactively offer assistance when they notice a customer may need support, using a respectful approach ("Is there anything I can help you with?")',
+      'Include it in induction for new staff',
+    ],
+    indicators: [
+      'Proactive-assistance training delivered within 6 months',
+      'Assistance offered proactively and respectfully, confirmed via feedback',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-D-27': {
+    steps: [
+      'Create a simple feedback mechanism for service interactions (receipts, follow-up emails, a visible feedback point)',
+      'Review results regularly to inform staff training',
+    ],
+    indicators: [
+      'Service-interaction feedback mechanism in place within 3 months',
+      'Feedback reviewed on a regular schedule',
+      'Findings used to inform training',
+    ],
+  },
+  '4.2-D-28': {
+    steps: [
+      'Include intersectionality in disability awareness training (culture, gender identity, age, language, past negative experiences)',
+      'Teach staff to avoid one-size-fits-all assumptions',
+    ],
+    indicators: [
+      'Intersectionality included in training within 6 months',
+      'Staff apply an individualised approach, confirmed via feedback',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.2-D-31': {
+    steps: [
+      'Allow customers to request increased or reduced levels of service interaction',
+      'Offer a way to signal preference (assistance-available badges, quiet shopping options)',
+    ],
+    indicators: [
+      'Service-level options in place within 6 months',
+      'Customers can signal their preference',
+      'Options reviewed via customer feedback',
+    ],
+  },
+  '4.2-D-32': {
+    steps: [
+      'Involve people with disabilities in reviewing or co-designing your customer service approach (paid consultants, advisory panel or co-design workshop)',
+      'Ensure participants are compensated',
+    ],
+    indicators: [
+      'People with disability engaged in review or co-design within 12 months',
+      'Participants compensated for their input',
+      'Their recommendations acted on and tracked',
+    ],
+  },
+  '4.2-D-33': {
+    steps: [
+      'Provide a way for customers to discuss accessibility needs privately, away from public counters (quiet consultation area, phone/email option or discreet card system)',
+      'Brief staff to offer the private option',
+    ],
+    indicators: [
+      'Private-discussion option in place within 6 months',
+      'Staff offer the private option when appropriate',
+      'Option reviewed via customer feedback',
+    ],
+  },
 };
