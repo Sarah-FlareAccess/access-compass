@@ -9381,4 +9381,349 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Facilitators paid',
     ],
   },
+
+  // ============================================================
+  // Module 1.1 - Pre-visit information
+  // ============================================================
+  '1.1-F-1': {
+    steps: [
+      'Create and publish accessibility information covering physical access, sensory environment and available supports',
+      'Publish it before customers visit, as expected under the DDA 1992',
+    ],
+    indicators: [
+      'Accessibility information published within 3 months',
+      'Physical access, sensory environment and supports covered',
+      'Information available to customers before they visit',
+    ],
+  },
+  '1.1-F-3A': {
+    steps: [
+      'Identify the channel most customers use to plan visits (website, Google Business Profile or social media)',
+      'Start sharing accessibility information there',
+    ],
+    indicators: [
+      'Primary planning channel identified within 1 month',
+      'Accessibility information shared on that channel',
+      'Customers can find it where they already look',
+    ],
+  },
+  '1.1-F-2B': {
+    steps: [
+      'Share specific accessibility information: physical access, sensory environment, supports and equipment, transport options and what to expect on arrival',
+      'Cover each type rather than a single generic statement',
+    ],
+    indicators: [
+      'Specific accessibility information shared within 3 months',
+      'All key information types covered',
+      'Generic statements replaced with detail',
+    ],
+  },
+  '1.1-D-2a': {
+    steps: [
+      'Add specific physical access details: entrance type, step counts, ramp availability, door widths, surface types, accessible parking proximity and lift access',
+      'Keep the detail concrete so customers can plan confidently',
+    ],
+    indicators: [
+      'Specific physical access details published within 3 months',
+      'Entrance, steps, ramps, doors and lift access covered',
+      'Customers able to plan from the detail provided',
+    ],
+  },
+  '1.1-D-2b': {
+    steps: [
+      'Add sensory and social environment descriptions covering noise, lighting, crowd density and background music',
+      'Flag any potentially overwhelming stimuli',
+    ],
+    indicators: [
+      'Sensory and social environment described within 3 months',
+      'Noise, lighting, crowd and music covered',
+      'Overwhelming stimuli flagged for planning',
+    ],
+  },
+  '1.1-D-1a': {
+    steps: [
+      'Publish your accessibility information as a dedicated page on your website',
+      'Add it to your Google Business Profile, social media and third-party listings',
+    ],
+    indicators: [
+      'Dedicated accessibility page published within 3 months',
+      'Information added to Google Business Profile and listings',
+      'Consistent across platforms',
+    ],
+  },
+  '1.1-D-1b': {
+    steps: [
+      'Make accessibility information findable within two clicks from your homepage',
+      'Add a prominent link in your main navigation, footer or header',
+    ],
+    indicators: [
+      'Accessibility information reachable within two clicks',
+      'Prominent link added to navigation, footer or header',
+      'Information not buried under generic headings',
+    ],
+  },
+  '1.1-F-3B': {
+    steps: [
+      'Conduct a physical walkthrough comparing published details against actual conditions',
+      'Establish a process to verify accuracy going forward',
+    ],
+    indicators: [
+      'Verification walkthrough completed within 3 months',
+      'Published details confirmed against actual conditions',
+      'Ongoing accuracy process established',
+    ],
+  },
+  '1.1-D-3a': {
+    steps: [
+      'Review your accessibility information now',
+      'Establish a regular review cycle at least every 6 months, or whenever physical changes occur',
+    ],
+    indicators: [
+      'Accessibility information reviewed within 1 month',
+      'Regular review cycle established at least every 6 months',
+      'Information updated whenever the venue changes',
+    ],
+  },
+  '1.1-D-3b': {
+    steps: [
+      'Verify your accessibility information against a physical site audit and customer feedback',
+      'Cross-reference relevant Australian Standards (AS 1428.1)',
+    ],
+    indicators: [
+      'Information verified against a site audit within 3 months',
+      'Customer feedback used to check accuracy',
+      'Cross-referenced against AS 1428.1',
+    ],
+  },
+  '1.1-D-9': {
+    steps: [
+      'Audit all platforms where your accessibility information appears',
+      'Align them so website, Google listing, social media and third-party platforms match',
+    ],
+    indicators: [
+      'All platforms audited for consistency within 3 months',
+      'Discrepancies between platforms resolved',
+      'Information matches across all channels',
+    ],
+  },
+  '1.1-D-10': {
+    steps: [
+      'Clearly state known barriers or limitations on your accessibility page',
+      'Give customers honest information so they can plan rather than discover barriers on arrival',
+    ],
+    indicators: [
+      'Known barriers stated on the accessibility page within 3 months',
+      'Limitations described honestly',
+      'Customers can plan around barriers in advance',
+    ],
+  },
+  '1.1-D-11': {
+    steps: [
+      'Add a clear invitation for customers to give feedback on the accuracy of your accessibility information',
+      'Include a contact method and indicate how feedback will be used',
+    ],
+    indicators: [
+      'Feedback invitation added within 3 months',
+      'Contact method provided',
+      'Feedback used to improve accuracy',
+    ],
+  },
+  '1.1-D-12': {
+    steps: [
+      'Assign a specific person or role to maintain your accessibility information',
+      'Make ownership clear so information does not become outdated',
+    ],
+    indicators: [
+      'Ownership of accessibility information assigned within 1 month',
+      'Named person or role responsible',
+      'Information kept current under clear ownership',
+    ],
+  },
+  '1.1-F-5': {
+    steps: [
+      'Provide multiple ways to ask accessibility questions before visiting: phone, email, online chat, contact form and social media messaging',
+      'Avoid relying on a single channel',
+    ],
+    indicators: [
+      'Multiple contact channels available within 3 months',
+      'Phone and non-phone options both provided',
+      'No customer excluded by a single-channel approach',
+    ],
+  },
+  '1.1-D-5a': {
+    steps: [
+      'Establish a clear process for handling accessibility enquiries: who responds, response times, escalation paths and how to source accurate answers',
+      'Document it so handling is consistent',
+    ],
+    indicators: [
+      'Enquiry-handling process established within 3 months',
+      'Responder, response times and escalation defined',
+      'Enquiries handled consistently',
+    ],
+  },
+  '1.1-D-5b': {
+    steps: [
+      'Provide at least one non-phone option for accessibility questions, such as email, live chat or an online contact form',
+      'Make it available to customers who cannot use phone-only channels',
+    ],
+    indicators: [
+      'Non-phone contact option available within 3 months',
+      'Accessible to Deaf, hard-of-hearing and speech-disability customers',
+      'Enquiries received through the channel',
+    ],
+  },
+  '1.1-D-5c': {
+    steps: [
+      'Add a clear prompt inviting accessibility questions on your website, in booking confirmations and on marketing materials',
+      'Use welcoming phrasing that signals openness',
+    ],
+    indicators: [
+      'Proactive prompt added within 3 months',
+      'Prompt shown on website, confirmations and marketing',
+      'Customers encouraged to ask before visiting',
+    ],
+  },
+  '1.1-D-5d': {
+    steps: [
+      'Have people with disability attempt to use each contact channel',
+      'Check forms are keyboard-accessible, chat supports screen readers and phone systems work with TTY/relay',
+    ],
+    indicators: [
+      'Contact channels tested with people with disability within 6 months',
+      'Keyboard, screen reader and relay compatibility checked',
+      'Barriers found in testing addressed',
+    ],
+  },
+  '1.1-D-5e': {
+    steps: [
+      'Prioritise testing your most-used contact channels for accessibility',
+      'Test at least your website contact form for keyboard and screen reader compatibility per WCAG 2.2 AA',
+    ],
+    indicators: [
+      'Most-used channels tested within 6 months',
+      'Contact form meets WCAG 2.2 AA',
+      'Priority channels confirmed accessible',
+    ],
+  },
+  '1.1-D-5f': {
+    steps: [
+      'Request an Access Compass review of your contact channels',
+      'Use it to identify barriers not apparent through internal testing',
+    ],
+    indicators: [
+      'Contact channel review requested within 3 months',
+      'Barriers beyond internal testing identified',
+      'Findings actioned',
+    ],
+  },
+  '1.1-F-6': {
+    steps: [
+      'Prepare a reference guide of common accessibility enquiries and accurate answers',
+      'Include accessible parking location, entrance type, available supports and who to escalate to',
+    ],
+    indicators: [
+      'Staff reference guide prepared within 3 months',
+      'Common enquiries and accurate answers covered',
+      'Staff respond confidently, confirmed via feedback',
+    ],
+  },
+  '1.1-D-6a': {
+    steps: [
+      'Create formal guidance for responding to accessibility enquiries, such as an FAQ, response templates or a knowledge base',
+      'Replace ad hoc approaches so experiences are consistent',
+    ],
+    indicators: [
+      'Formal enquiry guidance created within 3 months',
+      'Guidance accessible to all relevant staff',
+      'Responses consistent across staff',
+    ],
+  },
+  '1.1-D-6b': {
+    steps: [
+      'Establish a clear escalation path for questions front-line staff cannot answer',
+      'Designate a knowledgeable person and set expected turnaround times',
+    ],
+    indicators: [
+      'Escalation path established within 3 months',
+      'Knowledgeable escalation point designated',
+      'Turnaround times set and met',
+    ],
+  },
+  '1.1-F-7': {
+    steps: [
+      'Offer familiarisation visits or virtual orientation sessions for customers with disability',
+      'Use them to help customers plan their route and understand the sensory environment',
+    ],
+    indicators: [
+      'Familiarisation visits or virtual orientation offered within 12 months',
+      'Customers can plan route and sensory environment in advance',
+      'Uptake tracked',
+    ],
+  },
+  '1.1-D-7a': {
+    steps: [
+      'Identify and document the specific barriers preventing familiarisation visits',
+      'Explore low-resource alternatives such as virtual tours or detailed photo guides',
+    ],
+    indicators: [
+      'Barriers to familiarisation visits documented within 3 months',
+      'Low-resource alternatives explored',
+      'A pre-visit option offered within 12 months',
+    ],
+  },
+  '1.1-D-7b': {
+    steps: [
+      'Promote familiarisation visits on your accessibility page, in the booking process and social media',
+      'Mention them when responding to accessibility enquiries',
+    ],
+    indicators: [
+      'Familiarisation visits promoted within 3 months',
+      'Promoted across accessibility page, booking and social media',
+      'Mentioned when answering accessibility enquiries',
+    ],
+  },
+  '1.1-F-8': {
+    steps: [
+      'Add accessible transport information: nearest accessible public transport stops, taxi and rideshare drop-off, and walking route details',
+      'Cover the route from transport stops to your entrance',
+    ],
+    indicators: [
+      'Accessible transport information published within 3 months',
+      'Public transport, taxi and rideshare options covered',
+      'Route from transport to entrance described',
+    ],
+  },
+  '1.1-D-8a': {
+    steps: [
+      'Make transport information specific to accessibility needs: lift access at nearby stations, kerb ramp locations, accessible taxi ranks and gradients',
+      'Replace generic directions with accessible-feature detail',
+    ],
+    indicators: [
+      'Accessibility-specific transport detail published within 3 months',
+      'Lift access, kerb ramps and gradients covered',
+      'Generic directions replaced with specifics',
+    ],
+  },
+  '1.1-D-8b': {
+    steps: [
+      'Describe the last 50 metres from the nearest transport stop or parking to your entrance',
+      'Include surface type, gradient, kerb ramps, crossings and any obstacles',
+    ],
+    indicators: [
+      'Last-50-metres description published within 3 months',
+      'Surface, gradient, kerb ramps and crossings covered',
+      'Obstacles flagged for planning',
+    ],
+  },
+  '1.1-D-13': {
+    steps: [
+      'Create a social story or visual narrative showing what to expect from arrival to departure',
+      'Make it a step-by-step visual guide',
+    ],
+    indicators: [
+      'Social story or visual narrative created within 6 months',
+      'Covers arrival through to departure step by step',
+      'Distributed to customers pre-visit',
+    ],
+  },
 };

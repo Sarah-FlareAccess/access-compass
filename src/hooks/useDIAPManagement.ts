@@ -278,7 +278,7 @@ function getLocalItems(): DIAPItem[] {
   // cross-domain topic mismatches and gives every audit item a clean 3-step
   // action. Only touches audit-source items; manual/CSV/PDF imports are left
   // as the user entered them.
-  if (!localStorage.getItem('diap_content_v54')) {
+  if (!localStorage.getItem('diap_content_v55')) {
     let v7Changed = false;
     for (const item of items) {
       // Auto-generated items only: importSource 'audit' or unset. Never touch
@@ -299,7 +299,7 @@ function getLocalItems(): DIAPItem[] {
         v7Changed = true;
       }
     }
-    localStorage.setItem('diap_content_v54', 'done');
+    localStorage.setItem('diap_content_v55', 'done');
     if (v7Changed) {
       localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
     }
