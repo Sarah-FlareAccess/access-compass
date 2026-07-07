@@ -2712,4 +2712,426 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'New displays specified to the accessible standard',
     ],
   },
+
+  // ============================================================
+  // Module 3.8 - Participating in experiences and activities
+  // ============================================================
+  '3.8-1-1': {
+    steps: [
+      'Document all experience and activity types offered at your venue',
+      'Determine which accessibility requirements apply to each',
+    ],
+    indicators: [
+      'All experience and activity types documented within 3 months',
+      'Accessibility requirements mapped to each type',
+      'Register reviewed when offerings change',
+    ],
+  },
+  '3.8-1-2': {
+    steps: [
+      'Review each activity or experience for how it can be modified (alternative formats, adjusted pace, adaptive equipment, companion support)',
+      'Build the modifications into how each activity is delivered',
+    ],
+    indicators: [
+      'Modification options identified for each activity within 6 months',
+      'Modifications available on request within 12 months',
+      'Options reviewed with community feedback',
+    ],
+  },
+  '3.8-1-3': {
+    steps: [
+      'Review activities for where participants are forced to keep pace',
+      'Redesign scheduling to allow self-paced participation, including options to pause, repeat segments or take breaks without disadvantage',
+    ],
+    indicators: [
+      'Self-paced options introduced within 12 months',
+      'Participants can pause or repeat without disadvantage',
+      'Approach reviewed via participant feedback',
+    ],
+  },
+  '3.8-D-1': {
+    steps: [
+      'Introduce a pause or break policy so customers can step away and return without penalty or restarting',
+      'Communicate this option clearly at the start of experiences',
+    ],
+    indicators: [
+      'Pause/break policy in place within 6 months',
+      'Option communicated at the start of experiences',
+      'Staff apply it consistently, confirmed via feedback',
+    ],
+  },
+  '3.8-D-2': {
+    steps: [
+      'Publish specific information about walking distances (in metres), terrain, gradient, physical demands and rest points for all experiences',
+      'Include it on the website, booking page and at the start of each activity',
+    ],
+    indicators: [
+      'Physical-demand information published within 6 months',
+      'Information covers distance, terrain, gradient and rest points',
+      'Information reviewed for accuracy every 6 months',
+    ],
+  },
+  '3.8-D-3': {
+    steps: [
+      'Provide designated wheelchair spaces per AS 1428.1:2021 and the Premises Standards, dispersed across price categories on an accessible path',
+      'Ensure each is at least 900mm x 1300mm on a level surface',
+    ],
+    indicators: [
+      'Wheelchair spaces reviewed within 6 months',
+      'Compliant, dispersed wheelchair spaces provided within 24 months',
+      'Spaces confirmed on an accessible path',
+    ],
+  },
+  '3.8-D-4': {
+    steps: [
+      'Provide ambulant accessible (Easy Access) seats with wider dimensions, armrests, extra legroom and step-free aisle access',
+      'Locate them at end-of-row positions near accessible paths',
+    ],
+    indicators: [
+      'Easy Access seating reviewed within 6 months',
+      'Easy Access seats provided near accessible paths within 24 months',
+      'Seating confirmed against accessibility requirements',
+    ],
+  },
+  '3.8-D-5': {
+    steps: [
+      'Install companion seats immediately adjacent to every wheelchair space, at the same level',
+      'Provide at least one companion seat per wheelchair space',
+    ],
+    indicators: [
+      'Companion seating reviewed within 3 months',
+      'A companion seat provided beside every wheelchair space within 12 months',
+      'Companion seating maintained when seating is reconfigured',
+    ],
+  },
+  '3.8-D-6': {
+    steps: [
+      'Reposition wheelchair spaces or install raised platforms so wheelchair users keep clear sightlines when patrons stand',
+      'Consider elevated or front-of-section placement where standing is likely',
+    ],
+    indicators: [
+      'Wheelchair sightlines reviewed within 6 months',
+      'Clear sightlines maintained when patrons stand, within 24 months',
+      'Sightlines confirmed after any seating reconfiguration',
+    ],
+  },
+  '3.8-D-7': {
+    steps: [
+      'Make accessible seating available through all standard booking channels from the moment tickets go on sale',
+      'Remove any separate process, callback or proof-of-disability requirement',
+    ],
+    indicators: [
+      'Accessible seating booking reviewed within 3 months',
+      'Accessible seating bookable through all channels at on-sale within 6 months',
+      'No proof-of-disability barrier remains',
+    ],
+  },
+  '3.8-D-8': {
+    steps: [
+      'Identify spectator areas (including premium, VIP and hospitality) that lack step-free access',
+      'Provide step-free access (ramps, lifts or level routes) to all spectator areas',
+    ],
+    indicators: [
+      'Step-free access to all spectator areas reviewed within 6 months',
+      'Step-free access to premium and standard areas alike within 24 months',
+      'Interim access arrangements provided while works are planned',
+    ],
+  },
+  '3.8-D-9': {
+    steps: [
+      'Ensure meeting rooms have level access, min 1540mm turning circle and 900mm clear aisles with an accessible presentation area',
+      'Include hearing augmentation and adjustable lighting',
+    ],
+    indicators: [
+      'Meeting room accessibility reviewed within 6 months',
+      'Rooms provide level access, turning space and accessible layout within 24 months',
+      'Accessibility confirmed after any reconfiguration',
+    ],
+  },
+  '3.8-D-10': {
+    steps: [
+      'Install hearing loops or infrared/FM assistive listening in all meeting rooms per AS 1428.5 and AS 60118.4',
+      'Display the international hearing loop symbol and test systems monthly',
+    ],
+    indicators: [
+      'Meeting room hearing augmentation installed within 12 months',
+      'Systems confirmed against AS 60118.4 and signed',
+      'Systems tested monthly and confirmed operational',
+    ],
+  },
+  '3.8-D-11': {
+    steps: [
+      'Establish capability for Auslan interpreting and live captioning in meeting spaces',
+      'Provide interpreter lighting, clear sightlines from accessible seating and a screen for captions',
+    ],
+    indicators: [
+      'Auslan and captioning capability established within 12 months',
+      'Interpreter lighting and caption screen provided',
+      'Requests arranged with adequate lead time',
+    ],
+  },
+  '3.8-D-12': {
+    steps: [
+      'Provide tables at 750-830mm height with min 700mm knee clearance height and 500mm depth per AS 1428.1:2021',
+      'Ensure some tables in each room let wheelchair users sit alongside other participants',
+    ],
+    indicators: [
+      'Table accessibility reviewed within 3 months',
+      'Accessible-height tables available in each room within 12 months',
+      'Accessible tables kept in each room layout',
+    ],
+  },
+  '3.8-D-13': {
+    steps: [
+      'Install rest seating with backrests and armrests at regular intervals (every 60m maximum) along activity routes',
+      'Include shade outdoors and ensure seats are on firm level ground accessible from the path',
+    ],
+    indicators: [
+      'Rest-point gaps identified within 3 months',
+      'Rest seating installed along activity routes within 12 months',
+      'Seating condition checked on a regular schedule',
+    ],
+  },
+  '3.8-D-14': {
+    steps: [
+      'Provide accessible transport (wheelchair-accessible vehicle, buggy or ramped cart) between activity locations for visitors who cannot walk the distance',
+      'Communicate availability in advance and on arrival',
+    ],
+    indicators: [
+      'Accessible transport need reviewed within 6 months',
+      'Accessible transport available between locations within 24 months',
+      'Availability communicated in advance and on site',
+    ],
+  },
+  '3.8-D-15': {
+    steps: [
+      'Map and sign alternative accessible routes that avoid stairs, steep gradients (over 1:14) and rough terrain',
+      'Communicate alternatives in advance and with on-site signage, leading to the same destinations',
+    ],
+    indicators: [
+      'Alternative routes mapped within 6 months',
+      'Accessible alternative routes signed within 12 months',
+      'Alternatives reviewed after any layout change',
+    ],
+  },
+  '3.8-D-16': {
+    steps: [
+      'Publish detailed route information for all experiences: distance in metres, surface type, gradient, rest points, shade and accessibility rating',
+      'Include it on the website, at trailheads and in booking information',
+    ],
+    indicators: [
+      'Route information published within 6 months',
+      'Information covers distance, surface, gradient and rest points',
+      'Information reviewed for accuracy every 6 months',
+    ],
+  },
+  '3.8-D-17': {
+    steps: [
+      'Source adaptive equipment appropriate to your activities (sports wheelchairs, tandem bikes, modified bats or racquets, seated options)',
+      'Partner with disability sport organisations for guidance on selection',
+    ],
+    indicators: [
+      'Adaptive equipment need scoped within 6 months',
+      'Appropriate adaptive equipment provided within 24 months',
+      'Equipment maintained and range reviewed regularly',
+    ],
+  },
+  '3.8-D-18': {
+    steps: [
+      'Develop inclusive programs (sensory-friendly sessions, adaptive classes, quiet hours, guided experiences) designed for people with disability',
+      'Co-design them with community members and disability organisations',
+    ],
+    indicators: [
+      'Inclusive programs co-designed within 12 months',
+      'At least one inclusive program offered regularly',
+      'Programs reviewed via participant feedback',
+    ],
+  },
+  '3.8-D-19': {
+    steps: [
+      'Provide accessible change rooms with min 1540mm turning circle, an accessible shower with fold-down seat and grab rails, non-slip flooring and coat hooks at two heights per AS 1428.1:2021',
+      'Locate them near the activity area',
+    ],
+    indicators: [
+      'Activity change-room accessibility reviewed within 6 months',
+      'Compliant accessible change and shower provided within 24 months',
+      'Facility maintained on a regular schedule',
+    ],
+  },
+  '3.8-D-19a': {
+    steps: [
+      'Review gym and fitness equipment for accessibility (adjustable machines, pathways, benches, heights)',
+      'Provide accessible gym equipment: adjustable machines usable from a wheelchair, min 900mm pathways, accessible weight benches, and at least one of each major type at accessible height',
+    ],
+    indicators: [
+      'Gym equipment accessibility reviewed within 6 months',
+      'Accessible equipment and pathways provided within 24 months',
+      'At least one of each major equipment type accessible',
+    ],
+  },
+  '3.8-D-20': {
+    steps: [
+      'Review treatment rooms for wheelchair access (turning circle, table height, clear floor space)',
+      'Reconfigure to provide min 1540mm turning circle, height-adjustable tables (or an accessible transfer option) and clear floor space beside the treatment area',
+    ],
+    indicators: [
+      'Treatment space accessibility reviewed within 6 months',
+      'Accessible treatment space provided within 24 months',
+      'Accessible option available on request',
+    ],
+  },
+  '3.8-D-21': {
+    steps: [
+      'Identify where treatments and sessions may need modifying for different physical needs',
+      'Develop a modification framework so staff can adapt them (seated alternatives, adjusted intensity, flexible timing, individual consultation)',
+    ],
+    indicators: [
+      'Treatment modification framework in place within 6 months',
+      'Staff able to adapt treatments to individual needs',
+      'Framework reviewed via client feedback',
+    ],
+  },
+  '3.8-D-22': {
+    steps: [
+      'Engage professional audio describers for performances with significant visual content',
+      'Provide descriptions via a dedicated headset channel, offer a pre-show touch tour where possible, and advertise described performances',
+    ],
+    indicators: [
+      'Audio description capability established within 12 months',
+      'Described performances scheduled and advertised',
+      'Uptake reviewed and the offering adjusted',
+    ],
+  },
+  '3.8-D-23': {
+    steps: [
+      'Provide live captioning or surtitles for spoken and sung performances, positioned visible from accessible seating',
+      'Schedule regular captioned performances and advertise them',
+    ],
+    indicators: [
+      'Captioning capability established within 12 months',
+      'Regular captioned performances scheduled and advertised',
+      'Caption visibility confirmed from accessible seating',
+    ],
+  },
+  '3.8-D-24': {
+    steps: [
+      'Introduce relaxed or sensory-friendly sessions with reduced lighting and sound, no sudden effects and a relaxed attitude to movement and noise',
+      'Sign quiet spaces nearby and publish pre-visit information about the session',
+    ],
+    indicators: [
+      'Relaxed session trialled within 12 months',
+      'Pre-visit information and signed quiet spaces provided',
+      'Sessions reviewed via participant feedback and repeated where valued',
+    ],
+  },
+  '3.8-D-25': {
+    steps: [
+      'Install a hearing loop (or infrared/FM system) in performance and event spaces per AS 1428.5 and AS 60118.4, covering the entire accessible seating area',
+      'Display the international hearing loop symbol and test before every event',
+    ],
+    indicators: [
+      'Performance-space hearing augmentation installed within 12 months',
+      'Coverage confirmed across accessible seating',
+      'System tested before every event',
+    ],
+  },
+  '3.8-D-26': {
+    steps: [
+      'Allow customers to bring their own food and drinks when they have specific dietary, allergy or medical needs',
+      'Communicate the policy on the website and at entry, and train staff to support it without challenge',
+    ],
+    indicators: [
+      'Own-food policy in place within 3 months',
+      'Policy communicated on the website and at entry',
+      'Staff support it consistently, confirmed via feedback',
+    ],
+  },
+  '3.8-D-27': {
+    steps: [
+      'Train kitchen and service staff to accommodate sensory food needs (foods not touching, specific textures, plain options, consistent presentation)',
+      'Include these options on the menu or make them available on request',
+    ],
+    indicators: [
+      'Staff trained on sensory food accommodations within 6 months',
+      'Options available on the menu or on request',
+      'Accommodations included in kitchen and service induction',
+    ],
+  },
+  '3.8-D-28': {
+    steps: [
+      'Source divided or segmented plates',
+      'Offer them proactively to customers who need foods kept separate',
+    ],
+    indicators: [
+      'Divided plates available within 3 months',
+      'Plates offered proactively where helpful',
+      'Stock maintained and replaced as needed',
+    ],
+  },
+  '3.8-D-29': {
+    steps: [
+      'Install accessible boardwalks, compacted gravel paths or sealed surfaces through key natural areas, with min 1200mm width, max 1:14 gradient, edge protection and rest points',
+      'Prioritise routes to main attractions and viewpoints',
+    ],
+    indicators: [
+      'Natural-area access reviewed within 6 months',
+      'Accessible paths to key attractions provided within 24 months',
+      'Paths maintained and re-checked after weather damage',
+    ],
+  },
+  '3.8-D-30': {
+    steps: [
+      'Provide beach wheelchairs (floating and sand models) and install mobi-mats or accessible boardwalks to the water edge',
+      'Advertise availability online and at the beach entry, and train lifeguards on beach wheelchair use',
+    ],
+    indicators: [
+      'Beach access reviewed within 6 months',
+      'Beach wheelchairs and matting provided within 24 months',
+      'Lifeguards trained and equipment maintained',
+    ],
+  },
+  '3.8-D-31': {
+    steps: [
+      'Upgrade playground equipment to include transfer platforms, accessible swings, ground-level sensory play and accessible rubber surfacing',
+      'Provide a wheelchair-accessible path to all play zones',
+    ],
+    indicators: [
+      'Playground accessibility reviewed within 6 months',
+      'Inclusive equipment and accessible surfacing provided within 24 months',
+      'Accessible path to all play zones confirmed',
+    ],
+  },
+  '3.8-D-32': {
+    steps: [
+      'Develop accessible camping or glamping options with firm level surfaces, accessible platforms or hard-floor cabins, and accessible paths to common areas',
+      'Include at least one fully accessible option near accessible amenities',
+    ],
+    indicators: [
+      'Accessible camping option scoped within 6 months',
+      'At least one fully accessible option provided within 24 months',
+      'Option kept bookable and maintained',
+    ],
+  },
+  '3.8-D-33': {
+    steps: [
+      'Review lookouts and viewing platforms for accessibility (railing height, level surface, path from the trail)',
+      'Construct accessible lookouts with wheelchair-height railings (max 1000mm for seated views), level surfaces, rest seating and accessible paths from the main trail',
+    ],
+    indicators: [
+      'Lookout accessibility reviewed within 6 months',
+      'Accessible lookouts provided within 24 months',
+      'Accessible path from the trail confirmed',
+    ],
+  },
+  '3.8-D-34': {
+    steps: [
+      'Implement an accessibility trail rating system covering surface type, average and maximum gradient, width, rest-point spacing, hazards and wheelchair suitability',
+      'Display it at trailheads, on the website and in trail brochures',
+    ],
+    indicators: [
+      'Trail rating system implemented within 12 months',
+      'Ratings displayed at trailheads and online',
+      'Ratings reviewed after trail changes or weather damage',
+    ],
+  },
 };
