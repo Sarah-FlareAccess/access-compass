@@ -3976,4 +3976,250 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Signage updated after any layout change',
     ],
   },
+
+  // ============================================================
+  // Module 4.1 - Ways to reach us
+  // ============================================================
+  '4.1-PC-1': {
+    steps: [
+      'Provide at least two non-phone contact options (email, live chat, SMS, online form)',
+      'Display them alongside your phone number across your channels',
+    ],
+    indicators: [
+      'Non-phone contact options provided within 3 months',
+      'Options displayed alongside the phone number on all channels',
+      'Response times monitored across channels',
+    ],
+  },
+  '4.1-PC-2': {
+    steps: [
+      'Register with the National Relay Service (NRS) and display the NRS number alongside your main phone number',
+      'Train all customer-facing staff to receive and handle NRS calls',
+    ],
+    indicators: [
+      'NRS registered and number displayed within 3 months',
+      'Customer-facing staff trained to handle NRS calls within 6 months',
+      'NRS handling included in induction for new staff',
+    ],
+  },
+  '4.1-PC-3': {
+    steps: [
+      'Add a communication preferences field to your customer records (preferred contact method, format needs)',
+      'Ask at first contact and store the preference for future use',
+    ],
+    indicators: [
+      'Communication preferences captured within 6 months',
+      'Preferences recorded at first contact',
+      'Preferences applied on future contact',
+    ],
+  },
+  '4.1-PC-4': {
+    steps: [
+      'Set equivalent service-level targets for non-phone channels',
+      'Enforce them so email and chat receive responses within the same window as phone calls',
+    ],
+    indicators: [
+      'Equivalent response-time targets set within 3 months',
+      'Non-phone channels meeting the same targets as phone within 6 months',
+      'Response times reviewed on a regular schedule',
+    ],
+  },
+  '4.1-PC-5': {
+    steps: [
+      'Provide staff training on communicating with people who have speech disabilities, strong accents or who use AAC devices',
+      'Include practical scenarios and allow extra time in interactions',
+    ],
+    indicators: [
+      'Communication training delivered within 6 months',
+      'Training included in induction for new staff',
+      'Refresher completed each year',
+    ],
+  },
+  '4.1-PC-6': {
+    steps: [
+      'Train staff on what AAC devices are, how they work and how to interact respectfully with people who use them',
+      'Include examples of low-tech (picture boards) and high-tech (speech apps) AAC',
+    ],
+    indicators: [
+      'AAC awareness training delivered within 6 months',
+      'Staff able to interact respectfully with AAC users',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.1-PC-7': {
+    steps: [
+      'Designate a quiet, low-stimulus space for conversations with customers who need a calmer environment (private office, meeting room or screened area)',
+      'Let staff know when and how to use it',
+    ],
+    indicators: [
+      'Quiet communication space identified within 3 months',
+      'Space available and known to staff within 6 months',
+      'Space kept available and suitable',
+    ],
+  },
+  '4.1-PC-8': {
+    steps: [
+      'Offer written confirmation (email, SMS or letter) after important phone or in-person conversations',
+      'Cover bookings, service changes and access arrangements',
+    ],
+    indicators: [
+      'Written confirmation process in place within 3 months',
+      'Confirmation offered after important conversations',
+      'Offered in the customer\'s preferred format',
+    ],
+  },
+  '4.1-PC-9': {
+    steps: [
+      'Offer at least three feedback channels (phone, email, in-person, mail, SMS)',
+      'Ensure at least one does not require internet and at least one does not require verbal communication',
+    ],
+    indicators: [
+      'At least three feedback channels available within 6 months',
+      'Channels span internet-free and voice-free options',
+      'Channel use reviewed on a regular schedule',
+    ],
+  },
+  '4.1-PC-10': {
+    steps: [
+      'Establish a process for responding to customers in their stated preferred format (large print, email instead of phone, Easy Read)',
+      'Document preferences and ensure all staff follow them',
+    ],
+    indicators: [
+      'Preferred-format response process in place within 6 months',
+      'Customers responded to in their preferred format',
+      'Process followed consistently, confirmed via feedback',
+    ],
+  },
+  '4.1-DD-1a': {
+    steps: [
+      'Identify at least two non-phone contact options to actively promote',
+      'Display them alongside your phone number on your website, signage and printed materials',
+    ],
+    indicators: [
+      'Promoted non-phone options identified within 3 months',
+      'Options displayed alongside the phone number within 6 months',
+      'Promotion reviewed when channels change',
+    ],
+  },
+  '4.1-DD-1b': {
+    steps: [
+      'Review where phone alternatives appear relative to your phone number',
+      'Display non-phone options with equal prominence on your website, Google Business listing and printed materials, not buried in sub-pages',
+    ],
+    indicators: [
+      'Prominence of contact options reviewed within 3 months',
+      'Non-phone options given equal prominence within 6 months',
+      'Prominence maintained on new materials',
+    ],
+  },
+  '4.1-DD-2a': {
+    steps: [
+      'Deliver NRS training to all customer-facing, reception and phone-handling staff',
+      'Include practical exercises handling NRS voice relay and TTY relay calls',
+    ],
+    indicators: [
+      'NRS training delivered to relevant staff within 6 months',
+      'Staff confident handling relay calls',
+      'Training included in induction for new staff',
+    ],
+  },
+  '4.1-DD-3a': {
+    steps: [
+      'Add communication preference fields to your CRM, booking system or customer database',
+      'Capture preferred contact method, document format and communication support needs at first interaction',
+    ],
+    indicators: [
+      'Preference fields added to systems within 6 months',
+      'Preferences captured at first interaction',
+      'Preference data reviewed for completeness',
+    ],
+  },
+  '4.1-DD-3b': {
+    steps: [
+      'Make communication preferences visible in the customer record before staff make outbound contact',
+      'Add preference flags or alerts to your CRM or booking system',
+    ],
+    indicators: [
+      'Preferences visible to staff before outbound contact within 6 months',
+      'Preference flags in place in the CRM',
+      'Staff use preferences consistently, confirmed via feedback',
+    ],
+  },
+  '4.1-DD-5a': {
+    steps: [
+      'Deliver practical training on communicating with people who have speech disabilities (allowing extra time, using yes/no questions, offering writing materials, working with AAC)',
+      'Include it in induction for new staff',
+    ],
+    indicators: [
+      'Speech-communication training delivered within 6 months',
+      'Included in induction for new staff',
+      'Refresher completed each year',
+    ],
+  },
+  '4.1-DD-6a': {
+    steps: [
+      'Provide staff with basic AAC resources: a communication board with common service phrases, a picture menu (if applicable), pen and paper and a reference guide',
+      'Keep the resources at key service points',
+    ],
+    indicators: [
+      'AAC resources provided within 6 months',
+      'Resources available at key service points',
+      'Resources maintained and replaced when worn',
+    ],
+  },
+  '4.1-DD-8a': {
+    steps: [
+      'Make written confirmation of important conversations (bookings, service changes, complaints) a standard practice offered to all customers',
+      'Brief staff to offer it proactively, not only on request',
+    ],
+    indicators: [
+      'Standard written-confirmation practice in place within 3 months',
+      'Confirmation offered proactively to all customers',
+      'Practice included in staff induction',
+    ],
+  },
+  '4.1-DD-9a': {
+    steps: [
+      'Establish at least three feedback channels spanning different access needs (online form, email, phone, in-person, postal)',
+      'Ensure at least one works without internet and one without voice',
+    ],
+    indicators: [
+      'At least three accessible feedback channels available within 6 months',
+      'Channels cover internet-free and voice-free options',
+      'Channel accessibility reviewed on a regular schedule',
+    ],
+  },
+  '4.1-DD-10a': {
+    steps: [
+      'Develop the capability to respond in alternative formats: large print (min 18pt), Easy Read, audio, email and Braille (via a transcription service if needed)',
+      'Offer the format the customer requested',
+    ],
+    indicators: [
+      'Alternative response formats available within 12 months',
+      'Customers responded to in their requested format',
+      'Format capability reviewed on a regular schedule',
+    ],
+  },
+  '4.1-DD-11a': {
+    steps: [
+      'Audit your website contact page against WCAG 2.2 AA (keyboard navigation, screen reader compatibility, no inaccessible CAPTCHAs, labelled fields, clear errors)',
+      'Fix the issues found',
+    ],
+    indicators: [
+      'Contact page audited for WCAG 2.2 AA within 3 months',
+      'Critical issues fixed within 6 months',
+      'Accessibility re-checked when the contact page changes',
+    ],
+  },
+  '4.1-DD-12a': {
+    steps: [
+      'Provide accessible after-hours or emergency contact options',
+      'Ensure at least one non-phone option (email, SMS, online form) is monitored outside business hours for urgent accessibility enquiries',
+    ],
+    indicators: [
+      'After-hours accessible contact provided within 6 months',
+      'At least one non-phone option monitored outside business hours',
+      'Response performance reviewed on a regular schedule',
+    ],
+  },
 };
