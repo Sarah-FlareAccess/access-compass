@@ -977,7 +977,9 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '2.2-F-8': {
     steps: [
-      'Install warning TGSIs at the top and bottom of steps and ramps, and directional TGSIs to guide visitors where the path is not otherwise detectable, per AS 1428.4.1',
+      'Identify entry points that need warning TGSIs (steps, ramps) or directional TGSIs (where the path is not otherwise detectable)',
+      'Install warning TGSIs at the top and bottom of steps and ramps, and directional TGSIs along the route, per AS 1428.4.1',
+      'Confirm min 30% luminance contrast between the TGSIs and the surrounding surface',
     ],
     indicators: [
       'Key entry points without TGSIs identified within 3 months',
@@ -1064,7 +1066,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '2.2-D-22': {
     steps: [
-      'Make your entrance distinguishable from neighbouring businesses with prominent name signage at accessible height, contrasting door or frame colours, or a canopy',
+      'Add prominent name signage at accessible reading height, contrasting door or frame colours, or a canopy to distinguish your entrance from neighbouring businesses',
+      'Confirm the entrance is identifiable from the street and main approach, including after dark',
     ],
     indicators: [
       'Entrance distinctiveness reviewed within 6 months',
@@ -1112,6 +1115,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.4-1-3': {
     steps: [
       'Train front-of-house staff on queue accommodation: when to offer priority access, assisting people with mobility aids and communicating with Deaf customers',
+      'Give staff a short reference procedure covering priority access and the assistance options available',
     ],
     indicators: [
       'Front-of-house staff trained on queue accommodation within 3 months',
@@ -1290,7 +1294,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.1-1-2': {
     steps: [
-      'Designate clear wheelchair spaces (min 800mm x 1300mm per AS 1428.1) adjacent to standard seating',
+      'Identify seating areas that lack a wheelchair space beside standard seating',
+      'Designate clear wheelchair spaces (min 800mm x 1300mm per AS 1428.1) adjacent to standard seating, on an accessible path',
     ],
     indicators: [
       'Wheelchair companion spaces provided within 12 months',
@@ -1300,7 +1305,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.1-1-3': {
     steps: [
-      'Provide tables and counters with at least 750mm knee clearance underneath and a surface no higher than 850mm',
+      'Measure table and counter heights and the knee clearance underneath',
+      'Provide tables and counters with at least 750mm knee clearance and a surface no higher than 850mm',
     ],
     indicators: [
       'Table and counter heights checked within 3 months',
@@ -1332,6 +1338,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.1-D-3': {
     steps: [
+      'Review the service counter for a wheelchair-accessible section',
       'Install a lowered counter section at max 830mm height with min 800mm knee clearance depth, or establish a clearly signed alternative service point, per AS 1428.1:2021',
     ],
     indicators: [
@@ -1408,7 +1415,8 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.1-D-10': {
     steps: [
-      'Provide an accessible writing surface where forms or paperwork are completed: a table or counter at 750-830mm height with min 800mm knee clearance and clear floor space for a wheelchair',
+      'Identify the points where customers complete forms or paperwork',
+      'Provide an accessible writing surface there: a table or counter at 750-830mm height with min 800mm knee clearance and clear floor space for a wheelchair',
     ],
     indicators: [
       'Writing-surface accessibility reviewed within 3 months',
