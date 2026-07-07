@@ -2138,4 +2138,128 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Charging points kept working on a regular schedule',
     ],
   },
+
+  // ============================================================
+  // Module 3.5 - Signage and wayfinding
+  // ============================================================
+  '3.5-1-1': {
+    steps: [
+      'Audit all signage for contrast (min 3:1 for large text per AS 1428.1), font size (min 15mm character height at 1m) and sans-serif legibility',
+      'Upgrade signs that fall short',
+    ],
+    indicators: [
+      'Signage audit completed within 3 months',
+      'Substandard signs upgraded to the AS 1428.1 legibility standard within 12 months',
+      'Legibility standard applied to new signage from now on',
+    ],
+  },
+  '3.5-1-2': {
+    steps: [
+      'Standardise sign mounting heights to 1200-1600mm per AS 1428.1',
+      'Place signs consistently on the same side of doorways throughout the venue',
+    ],
+    indicators: [
+      'Sign placement reviewed within 3 months',
+      'Signs standardised to consistent heights and positions within 12 months',
+      'Placement standard applied when signs are added or moved',
+    ],
+  },
+  '3.5-1-3': {
+    steps: [
+      'Install directional signage to all accessible facilities (toilets, lifts, parking, entrances) using the ISA, tactile lettering and Braille per AS 1428.1',
+    ],
+    indicators: [
+      'Accessible-facility signage reviewed within 3 months',
+      'Directional signage to all accessible facilities installed within 12 months',
+      'Signage reviewed after any layout change',
+    ],
+  },
+  '3.5-1-4': {
+    steps: [
+      'Walk the venue as a first-time visitor and note every decision point where signage is missing, confusing or not visible',
+      'Add directional signage at each',
+    ],
+    indicators: [
+      'First-time-visitor walk-through completed within 3 months',
+      'Directional signage added at each gap within 12 months',
+      'Re-walked after any layout change',
+    ],
+  },
+  '3.5-D-1': {
+    steps: [
+      'Add tactile lettering and Grade 1 Braille to key signs (room identification, toilets, exits, level indicators) per AS 1428.1:2021 Cl 18 and AS 1428.4.2',
+      'Mount at 1250-1500mm on the latch side of doors',
+    ],
+    indicators: [
+      'Key signs without tactile/Braille identified within 3 months',
+      'Tactile and Braille signage installed on key signs within 12 months',
+      'Tactile signage maintained and replaced when worn',
+    ],
+  },
+  '3.5-D-2': {
+    steps: [
+      'Upgrade signage to min 70% luminance contrast between text and background per AS 1428.1:2021 Cl 18',
+      'Use sans-serif characters and avoid patterned backgrounds',
+    ],
+    indicators: [
+      'Signage contrast reviewed within 3 months',
+      'Compliant contrast achieved on key signs within 12 months',
+      'Contrast standard applied to new signage',
+    ],
+  },
+  '3.5-D-3': {
+    steps: [
+      'Install directional signage at every navigation decision point (corridor intersections, floor landings, major room entries)',
+      'Include arrows, distances and key facility locations (toilets, exits, lifts) per AS 1428.1:2021',
+    ],
+    indicators: [
+      'Decision points mapped within 3 months',
+      'Directional signage present at every decision point within 12 months',
+      'Signage reviewed after any layout change',
+    ],
+  },
+  '3.5-D-4': {
+    steps: [
+      'Create an accessible map or directory showing accessible toilets, lifts, exits, quiet spaces, hearing loops and accessible parking',
+      'Provide it in large print, digital and tactile formats at the entrance',
+    ],
+    indicators: [
+      'Accessible map or directory produced within 12 months',
+      'Available in large print, digital and tactile formats',
+      'Map updated within 2 weeks of any layout change',
+    ],
+  },
+  '3.5-D-5': {
+    steps: [
+      'Install clear, high-contrast signage on the approach and at the entrance, including the venue name, entrance location and accessibility symbols',
+      'Ensure signs are visible from the street and car park',
+    ],
+    indicators: [
+      'Approach and entrance signage reviewed within 3 months',
+      'Clear signage visible from the street and car park within 12 months',
+      'Signage condition checked on a regular schedule',
+    ],
+  },
+  '3.5-D-6': {
+    steps: [
+      'Install illuminated emergency exit signs per AS 2293 at all exits and along escape routes, with the running-person pictogram and battery backup',
+      'Ensure they are visible from the accessible path of travel',
+    ],
+    indicators: [
+      'Emergency exit signage reviewed within 3 months',
+      'Compliant illuminated exit signs installed within 12 months',
+      'Exit signs and battery backup tested during emergency checks',
+    ],
+  },
+  '3.5-D-7': {
+    steps: [
+      'Add universally recognised pictograms to key signs (toilets, exits, lifts, reception)',
+      'Provide Easy Read versions of complex information (venue rules, instructions) for people with intellectual disability',
+    ],
+    indicators: [
+      'Pictogram and Easy Read gaps identified within 3 months',
+      'Pictograms added to key signs within 12 months',
+      'At least one Easy Read version of key information provided',
+    ],
+  },
 };
