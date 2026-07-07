@@ -7256,4 +7256,272 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Contact empowered to arrange accommodations',
     ],
   },
+
+  // ============================================================
+  // Module 6.2 - Venue and physical access
+  // ============================================================
+  '6.2-PC-1': {
+    steps: [
+      'Assess the venue for wheelchair accessibility (entrances, circulation, stages, amenities, emergency egress) against the Premises Standards',
+      'Identify modifications or choose an alternative venue where there are barriers',
+    ],
+    indicators: [
+      'Venue accessibility assessed before booking',
+      'Barriers addressed or an accessible alternative chosen',
+      'Assessment repeated for each new venue',
+    ],
+  },
+  '6.2-PC-2': {
+    steps: [
+      'Provide accessible parking compliant with AS/NZS 2890.6 and a drop-off zone close to an accessible entrance',
+      'Where on-site parking is unavailable, arrange accessible shuttle services',
+    ],
+    indicators: [
+      'Accessible parking and drop-off provided for the event',
+      'Compliant with AS/NZS 2890.6',
+      'Accessible shuttle arranged where parking is unavailable',
+    ],
+  },
+  '6.2-PC-3': {
+    steps: [
+      'Provide accessible toilets compliant with AS 1428.1 (hire accessible portable units for temporary or outdoor events)',
+      'Ensure at least 1 accessible toilet per 100 attendees, on level ground, signed and connected by accessible paths',
+    ],
+    indicators: [
+      'Accessible toilets provided at the required ratio',
+      'Toilets compliant with AS 1428.1 and signed',
+      'Toilets on level ground with accessible paths',
+    ],
+  },
+  '6.2-PC-4': {
+    steps: [
+      'Provide diverse accessible seating: integrated wheelchair spaces, companion seating, extra-width seats, end-of-row seats and back support',
+      'Ensure wheelchair spaces have clear dimensions and sightlines per AS 1428.1',
+    ],
+    indicators: [
+      'Diverse accessible seating provided for the event',
+      'Wheelchair spaces integrated, not segregated',
+      'Clear dimensions and sightlines confirmed',
+    ],
+  },
+  '6.2-PC-5': {
+    steps: [
+      'Designate a quiet or low-sensory space away from the main event area with comfortable seating, reduced lighting and minimal noise',
+      'Staff or monitor it and promote its location in event materials',
+    ],
+    indicators: [
+      'Quiet space provided at the event',
+      'Space away from noise with the right features',
+      'Location promoted in event materials',
+    ],
+  },
+  '6.2-D-1': {
+    steps: [
+      'Conduct an accessibility site visit well before the event, walking the full attendee journey (arrival, entry, registration, seating, amenities, food, exits)',
+      'Include a person with disability or access consultant in the walk-through',
+    ],
+    indicators: [
+      'Accessibility site visit completed before the event',
+      'Full attendee journey walked',
+      'A person with disability or consultant involved',
+    ],
+  },
+  '6.2-D-2': {
+    steps: [
+      'Ensure the stage has step-free access via a ramp (1:14 or gentler) or platform lift',
+      'Provide an accessible height-adjustable lectern, presenter lighting and hearing augmentation coverage',
+    ],
+    indicators: [
+      'Step-free stage access provided for the event',
+      'Accessible lectern and presenter lighting provided',
+      'Hearing augmentation covers the presentation area',
+    ],
+  },
+  '6.2-D-3': {
+    steps: [
+      'Check the Changing Places website for a facility near your venue',
+      'For large events, consider hiring a temporary Changing Places unit, and communicate the nearest facility in your accessibility information',
+    ],
+    indicators: [
+      'Nearest Changing Places facility identified before the event',
+      'Temporary unit considered for large events',
+      'Facility location communicated to attendees',
+    ],
+  },
+  '6.2-D-4': {
+    steps: [
+      'Research accessible transport options (public transport stops, accessible taxi/rideshare, shuttles, parking)',
+      'Communicate specific details like distance from stops to entrance and surface conditions',
+    ],
+    indicators: [
+      'Accessible transport options researched before the event',
+      'Specific details communicated to attendees',
+      'Information reviewed for each event',
+    ],
+  },
+  '6.2-D-5': {
+    steps: [
+      'Assess all surfaces and terrain for firmness, level and slip-resistance',
+      'Provide temporary accessible pathways over grass, gravel or uneven ground, and address gradients and cross-falls',
+    ],
+    indicators: [
+      'Surfaces and terrain assessed before the event',
+      'Temporary accessible pathways provided where needed',
+      'Surfaces maintained throughout the event',
+    ],
+  },
+  '6.2-D-6': {
+    steps: [
+      'Implement an accessible seating management plan: reserve and mark wheelchair spaces and companion seats',
+      'Train staff to manage them and set a process for reallocating seats if demand exceeds supply',
+    ],
+    indicators: [
+      'Accessible seating management plan in place for the event',
+      'Wheelchair and companion seats reserved and marked',
+      'Staff trained to manage them',
+    ],
+  },
+  '6.2-D-7': {
+    steps: [
+      'Provide designated accessible viewing areas at standing events with clear sightlines, level firm ground and companion spaces',
+      'Position them where the atmosphere is still part of the experience and protect them from crowd crush',
+    ],
+    indicators: [
+      'Accessible viewing areas provided at standing events',
+      'Clear sightlines and companion spaces provided',
+      'Areas protected from crowd crush',
+    ],
+  },
+  '6.2-D-8': {
+    steps: [
+      'Implement trip hazard management: mobility-aid-rated cable covers, secured wiring, marked or eliminated level changes',
+      'Conduct regular walk-throughs during the event',
+    ],
+    indicators: [
+      'Trip hazard management in place for the event',
+      'Cable covers rated for mobility aids used',
+      'Regular walk-throughs conducted during the event',
+    ],
+  },
+  '6.2-D-9': {
+    steps: [
+      'Provide at least one accessible baby change facility with wheelchair space, an accessible-height change table and disposal facilities',
+      'Locate it in a gender-neutral position',
+    ],
+    indicators: [
+      'Accessible baby change provided at the event',
+      'Facility gender-neutral and accessible',
+      'Facility kept clean and stocked',
+    ],
+  },
+  '6.2-D-10': {
+    steps: [
+      'Mark all stage and platform edges with a high-contrast, non-slip strip (min 50mm) that is visually and tactilely detectable',
+      'Provide adequate edge lighting and guardrails where the drop exceeds 250mm',
+    ],
+    indicators: [
+      'Stage and platform edges marked for the event',
+      'Edges visually and tactilely detectable',
+      'Guardrails provided where the drop exceeds 250mm',
+    ],
+  },
+  '6.2-D-11': {
+    steps: [
+      'Designate a secure, staffed area near the main event space for storing mobility aids and equipment',
+      'Make it accessible and clearly signed, and brief staff to handle equipment carefully',
+    ],
+    indicators: [
+      'Mobility aid storage provided at the event',
+      'Area secure, staffed and accessible',
+      'Staff briefed to handle equipment carefully',
+    ],
+  },
+  '6.2-D-12': {
+    steps: [
+      'Develop a weather contingency plan for accessible routes and facilities (temporary coverings, alternative paths, cooling/heating stations)',
+      'Communicate changes to attendees with disability',
+    ],
+    indicators: [
+      'Weather contingency plan for accessible routes in place',
+      'Alternative accessible paths planned',
+      'Changes communicated to attendees with disability',
+    ],
+  },
+  '6.2-D-13': {
+    steps: [
+      'Require all stalls, vendors and pop-up stands to be accessible: counters at 850mm or lower, clear approach space, readable price labels, accessible payment',
+      'Include this in vendor agreements',
+    ],
+    indicators: [
+      'Vendor accessibility requirements set for the event',
+      'Requirements included in vendor agreements',
+      'Compliance checked during the event',
+    ],
+  },
+  '6.2-D-14': {
+    steps: [
+      'Provide elevated viewing platforms for wheelchair users and people of short stature with ramp access, guardrails and companion spaces',
+      'Position them for sightlines equivalent to a standing adult and a genuine event experience',
+    ],
+    indicators: [
+      'Elevated viewing platforms provided where needed',
+      'Ramp access, guardrails and companion spaces provided',
+      'Sightlines equivalent to a standing adult',
+    ],
+  },
+  '6.2-D-15': {
+    steps: [
+      'Install accessible pathway surfaces (aluminium trackway, interlocking event matting or compacted surfaces) across all pedestrian routes',
+      'Keep them firm, level, slip-resistant, securely fixed and maintained throughout the event',
+    ],
+    indicators: [
+      'Accessible pathway surfaces installed across routes',
+      'Surfaces firm, level and securely fixed',
+      'Surfaces maintained throughout the event',
+    ],
+  },
+  '6.2-D-16': {
+    steps: [
+      'Provide accessible transport within the venue for large events (accessible golf carts, shuttle buses or buggies)',
+      'Make it available on request and at regular intervals on accessible routes',
+    ],
+    indicators: [
+      'In-venue accessible transport provided for large events',
+      'Available on request and at regular intervals',
+      'Operates on accessible routes',
+    ],
+  },
+  '6.2-D-17': {
+    steps: [
+      'Provide accessible charging points for electric wheelchairs and mobility devices near seating areas',
+      'Ensure standard outlets at accessible heights and include the locations in your event map',
+    ],
+    indicators: [
+      'Accessible charging points provided at the event',
+      'Outlets at accessible heights near seating',
+      'Locations shown on the event map',
+    ],
+  },
+  '6.2-D-18': {
+    steps: [
+      'Ensure all crowd barriers, bollards and queuing systems provide wheelchair-width gaps (min 900mm, ideally 1000mm)',
+      'Train crowd management staff to assist people with disability and avoid dead-ends without accessible alternatives',
+    ],
+    indicators: [
+      'Crowd barriers provide wheelchair-width gaps',
+      'Crowd management staff trained to assist',
+      'No dead-ends without an accessible alternative',
+    ],
+  },
+  '6.2-D-19': {
+    steps: [
+      'Establish clearly marked accessible drop-off and pick-up areas close to the accessible entrance, with firm surfaces, kerb ramps and lighting',
+      'Staff them to manage traffic flow and communicate the location in pre-event information and signage',
+    ],
+    indicators: [
+      'Accessible drop-off and pick-up areas established for the event',
+      'Areas marked, lit and actively managed',
+      'Location communicated in pre-event information and signage',
+    ],
+  },
 };
