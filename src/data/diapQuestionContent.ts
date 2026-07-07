@@ -1676,4 +1676,255 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Contrast written into future fixture selection',
     ],
   },
+
+  // ============================================================
+  // Module 3.3 - Lighting, sound and sensory environment
+  // ============================================================
+  '3.3-1-1': {
+    steps: [
+      'Assess lighting levels throughout the venue for flickering, harsh fluorescents and dark spots',
+      'Address issues that affect people with low vision, migraines or sensory sensitivities',
+    ],
+    indicators: [
+      'Lighting assessment completed within 3 months',
+      'Flicker, harsh lighting and dark spots resolved within 12 months',
+      'Lighting reviewed after any fit-out change',
+    ],
+  },
+  '3.3-1-2': {
+    steps: [
+      'Designate a quiet space with reduced lighting, minimal noise and comfortable seating for a sensory break',
+    ],
+    indicators: [
+      'Quiet space identified and available within 6 months',
+      'Space has reduced lighting, low noise and comfortable seating',
+      'Location communicated to visitors and staff',
+    ],
+  },
+  '3.3-1-3': {
+    steps: [
+      'Measure noise levels in key areas',
+      'Reduce background noise through acoustic treatment, music volume limits or quieter zones for hearing aid users and people who lip-read',
+    ],
+    indicators: [
+      'Noise levels measured in key areas within 3 months',
+      'Noise reduced in problem areas within 12 months',
+      'Quieter zones or times offered where suitable',
+    ],
+  },
+  '3.3-1-4': {
+    steps: [
+      'Audit the venue for flashing lights (strobes, digital signage, beacons) and sudden loud noises',
+      'Eliminate them or provide advance warnings, per WCAG 2.2 SC 2.3.1 (three-flash threshold)',
+    ],
+    indicators: [
+      'Flashing-light and loud-noise audit completed within 3 months',
+      'Triggers eliminated or clearly warned within 12 months',
+      'Checked when new equipment or content is introduced',
+    ],
+  },
+  '3.3-1-5': {
+    steps: [
+      'Confirm temperature controls are available and functioning',
+      'Consider designating warmer or cooler zones for people with temperature regulation difficulties',
+    ],
+    indicators: [
+      'Temperature control reviewed within 6 months',
+      'Controls functioning and a warmer or cooler option available where practical',
+      'Temperature comfort reviewed via feedback',
+    ],
+  },
+  '3.3-1-6': {
+    steps: [
+      'Create sensory support kits (noise-reducing headphones, fidget tools, sunglasses, communication cards)',
+      'Make them available for loan at reception or entry points',
+    ],
+    indicators: [
+      'Sensory support kits available for loan within 6 months',
+      'Kits promoted on the website and by staff',
+      'Kit contents maintained and restocked on a regular schedule',
+    ],
+  },
+  '3.3-1-7': {
+    steps: [
+      'Plan and trial a relaxed or sensory-friendly session with reduced lighting, lower music and fewer crowds',
+      'Provide advance social stories or visual guides',
+    ],
+    indicators: [
+      'A relaxed session trialled within 12 months',
+      'Advance social story or visual guide published',
+      'Sessions reviewed via participant feedback and repeated where valued',
+    ],
+  },
+  '3.3-1-8': {
+    steps: [
+      'Install a hearing loop or portable hearing augmentation in key service areas (reception, meeting rooms, counters)',
+      'Display the hearing loop symbol per AS 1428.5',
+    ],
+    indicators: [
+      'Hearing augmentation installed in key service areas within 12 months',
+      'Hearing loop symbol displayed at each location',
+      'System tested monthly and confirmed operational',
+    ],
+  },
+  '3.3-D-1': {
+    steps: [
+      'Install dimmable lighting or provide areas with adjustable light levels',
+      'Ensure controls are accessible at 900-1100mm height',
+    ],
+    indicators: [
+      'Adjustable lighting provided in key areas within 12 months',
+      'Lighting controls at accessible height',
+      'Lighting flexibility maintained after any fit-out',
+    ],
+  },
+  '3.3-D-2': {
+    steps: [
+      'Improve lighting at service counters, reception and information points to min 300 lux, evenly distributed, without shadows on faces',
+    ],
+    indicators: [
+      'Service-point lighting measured within 3 months',
+      'Min 300 lux even lighting achieved at service points within 12 months',
+      'Lighting re-checked after any change',
+    ],
+  },
+  '3.3-D-3': {
+    steps: [
+      'Address glare with non-reflective floor surfaces, matte counter finishes, blinds or window film, and transitional lighting at entrances',
+    ],
+    indicators: [
+      'Glare sources identified within 3 months',
+      'Priority glare issues resolved within 12 months',
+      'Glare re-checked after any surface or lighting change',
+    ],
+  },
+  '3.3-D-4': {
+    steps: [
+      'Introduce acoustic measures (sound-absorbing ceiling panels, carpet or soft flooring, fabric furnishings, acoustic screens)',
+      'Target background noise below 45dB in customer service areas',
+    ],
+    indicators: [
+      'Acoustic assessment completed within 6 months',
+      'Background noise reduced below 45dB in service areas within 24 months',
+      'Acoustic performance re-checked after any refurbishment',
+    ],
+  },
+  '3.3-D-5': {
+    steps: [
+      'Install zone controls so background music can be reduced or muted in service areas',
+      'Keep music below 50dB where communication happens',
+    ],
+    indicators: [
+      'Music zone controls installed within 12 months',
+      'Music kept below 50dB in service areas',
+      'Volume management briefed to staff',
+    ],
+  },
+  '3.3-D-6': {
+    steps: [
+      'Install visual display screens showing text versions of PA announcements at key locations',
+      'Ensure safety and emergency alerts always have a visual alternative per the DDA',
+    ],
+    indicators: [
+      'Visual announcement displays installed at key locations within 12 months',
+      'All emergency announcements have a visual alternative',
+      'Displays tested during emergency drills',
+    ],
+  },
+  '3.3-D-7': {
+    steps: [
+      'Install hearing (induction) loops at service counters, ticketing, information desks and performance or meeting spaces per AS 1428.5 and AS 60118.4',
+      'Confirm field strength of 400mA/m within plus or minus 3dB',
+    ],
+    indicators: [
+      'Hearing loops installed at key points within 12 months',
+      'Field strength confirmed against AS 60118.4',
+      'Loops tested monthly and confirmed operational',
+    ],
+  },
+  '3.3-D-8': {
+    steps: [
+      'Install the international hearing loop symbol (blue ear with T) at every operational loop, at eye level and visible before the counter',
+      'Ensure signs comply with AS 1428.1 for size and contrast',
+    ],
+    indicators: [
+      'Hearing loop signage installed at every loop within 6 months',
+      'Symbols visible before reaching the counter',
+      'Signage reviewed when loops are added or moved',
+    ],
+  },
+  '3.3-D-9': {
+    steps: [
+      'Equip the quiet space with dimmable lighting, comfortable seating, minimal visual stimuli, noise-reducing features and clear signage',
+      'Add a timer or visual cue and locate it away from noisy areas',
+    ],
+    indicators: [
+      'Quiet space equipped within 12 months',
+      'Space located away from noise with the listed features',
+      'Space condition maintained on a regular schedule',
+    ],
+  },
+  '3.3-D-10': {
+    steps: [
+      'Create a sensory map showing noise levels, lighting, quiet zones and potential triggers',
+      'Make it available online and in print at reception',
+    ],
+    indicators: [
+      'Sensory map created and published within 12 months',
+      'Map available online and at reception',
+      'Map updated after any layout change',
+    ],
+  },
+  '3.3-D-11': {
+    steps: [
+      'Develop a scent and fragrance policy avoiding strong air fresheners and reducing scented cleaning products',
+      'Communicate fragrance expectations to staff',
+    ],
+    indicators: [
+      'Scent and fragrance policy in place within 6 months',
+      'Scented products reduced in public areas',
+      'Policy communicated to staff and reviewed annually',
+    ],
+  },
+  '3.3-D-12': {
+    steps: [
+      'Add sensory information to your website and pre-visit materials: noise levels, lighting, quiet spaces and potential triggers',
+    ],
+    indicators: [
+      'Sensory information published within 3 months',
+      'Information covers noise, lighting, quiet spaces and triggers',
+      'Information reviewed for accuracy every 6 months',
+    ],
+  },
+  '3.3-D-13': {
+    steps: [
+      'Introduce colour-coded zones, visual landmarks or themed wayfinding to aid navigation for people with cognitive disability or unfamiliar visitors',
+    ],
+    indicators: [
+      'Wayfinding aids reviewed within 6 months',
+      'Colour-coded or landmark wayfinding introduced within 12 months',
+      'Wayfinding reviewed after any layout change',
+    ],
+  },
+  '3.3-D-14': {
+    steps: [
+      'Incorporate tactile elements: TGSIs at key locations, raised lettering on room signage, and tactile maps or models at entry points per AS 1428.4.1',
+    ],
+    indicators: [
+      'Tactile wayfinding reviewed within 6 months',
+      'Tactile elements provided at key points within 12 months',
+      'Tactile elements maintained and replaced when worn',
+    ],
+  },
+  '3.3-D-15': {
+    steps: [
+      'Install visual emergency alerting (flashing strobes) throughout the venue, including accessible toilets, meeting rooms and all public areas',
+      'Set flash rate between 1-3Hz per AS 1670.4 and the NCC',
+    ],
+    indicators: [
+      'Visual emergency alerting coverage reviewed within 3 months',
+      'Strobes installed across all public areas within 24 months',
+      'Visual alerts tested during emergency drills',
+    ],
+  },
 };
