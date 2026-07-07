@@ -4938,4 +4938,162 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Process tested during drills',
     ],
   },
+
+  // ============================================================
+  // Module 4.5 - Feedback and reviews
+  // ============================================================
+  '4.5-F-1': {
+    steps: [
+      'Create a way for customers to provide feedback specifically about accessibility',
+      'Offer both general channels and a dedicated accessibility feedback option (email, form or phone line)',
+    ],
+    indicators: [
+      'Accessibility feedback option in place within 3 months',
+      'Option promoted across channels',
+      'Feedback reviewed on a regular schedule',
+    ],
+  },
+  '4.5-F-2': {
+    steps: [
+      'Audit your surveys and feedback forms against WCAG 2.2 AA (keyboard navigation, screen reader compatibility, clear labels, adequate time)',
+      'Provide alternative formats (phone, paper, Easy Read)',
+    ],
+    indicators: [
+      'Surveys and forms audited within 3 months',
+      'Accessible surveys and alternative formats provided within 6 months',
+      'Accessibility re-checked when forms change',
+    ],
+  },
+  '4.5-F-3': {
+    steps: [
+      'Set up monitoring for accessibility-related mentions in Google Reviews, TripAdvisor, social media and industry platforms',
+      'Respond to accessibility concerns promptly and publicly, showing you are acting on them',
+    ],
+    indicators: [
+      'Review monitoring in place within 3 months',
+      'Accessibility concerns responded to promptly',
+      'Review themes fed into improvements',
+    ],
+  },
+  '4.5-F-4': {
+    steps: [
+      'Establish a regular review cycle (at least quarterly) for accessibility feedback, with assigned responsibility for reviewing, categorising and prioritising',
+      'Report back to customers on changes made',
+    ],
+    indicators: [
+      'Regular feedback review cycle in place within 3 months',
+      'Feedback reviewed at least quarterly with clear responsibility',
+      'Changes communicated back to customers',
+    ],
+  },
+  '4.5-D-1': {
+    steps: [
+      'Offer at least three feedback channels (online form, email, phone, in-person, postal)',
+      'Ensure at least one does not require internet and one does not require verbal communication',
+    ],
+    indicators: [
+      'At least three feedback channels available within 6 months',
+      'Channels span internet-free and voice-free options',
+      'Channel accessibility reviewed on a regular schedule',
+    ],
+  },
+  '4.5-D-2': {
+    steps: [
+      'Respond to accessibility-related reviews publicly and promptly, acknowledging the concern and explaining what action you are taking',
+      'Invite the reviewer to contact you directly, avoiding defensive language',
+    ],
+    indicators: [
+      'Review response approach in place within 3 months',
+      'Accessibility reviews responded to promptly and constructively',
+      'Response quality reviewed on a regular schedule',
+    ],
+  },
+  '4.5-D-3': {
+    steps: [
+      'Implement a system for tracking and categorising accessibility feedback (date, channel, category, action taken, outcome)',
+      'Review it quarterly for patterns',
+    ],
+    indicators: [
+      'Feedback tracking system in place within 3 months',
+      'Feedback categorised and logged consistently',
+      'Patterns reviewed quarterly to inform priorities',
+    ],
+  },
+  '4.5-D-4': {
+    steps: [
+      'Set target response times for accessibility complaints (acknowledge within 24 hours, substantive response within 5 business days, resolve within 20)',
+      'Communicate these timeframes to customers',
+    ],
+    indicators: [
+      'Target response times set within 3 months',
+      'Timeframes met and communicated to customers',
+      'Performance against targets reviewed on a regular schedule',
+    ],
+  },
+  '4.5-D-5': {
+    steps: [
+      'Develop a process for communicating accessibility improvements back to customers (update your accessibility page, newsletters, social media)',
+      'Directly notify customers who provided the original feedback',
+    ],
+    indicators: [
+      'Improvement-communication process in place within 6 months',
+      'Improvements shared with customers and the community',
+      'Original feedback-givers notified of changes',
+    ],
+  },
+  '4.5-D-6': {
+    steps: [
+      'Document an escalation process for serious accessibility complaints (define what is serious, who it escalates to, expected resolution timeframe)',
+      'Brief staff on when and how to escalate',
+    ],
+    indicators: [
+      'Escalation process documented within 3 months',
+      'Staff know when and how to escalate',
+      'Escalated complaints resolved within the set timeframe',
+    ],
+  },
+  '4.5-D-7': {
+    steps: [
+      'Offer at least one anonymous feedback channel (anonymous online form, suggestion box or third-party service)',
+      'Make sure customers know the option exists',
+    ],
+    indicators: [
+      'Anonymous feedback channel available within 3 months',
+      'Anonymous option promoted to customers',
+      'Anonymous feedback reviewed on a regular schedule',
+    ],
+  },
+  '4.5-D-8': {
+    steps: [
+      'Engage people with disabilities in reviewing and improving your services (paid advisory panel, co-design workshops or commissioned reviews)',
+      'Ensure participants are compensated',
+    ],
+    indicators: [
+      'People with disability engaged in service review within 12 months',
+      'Participants compensated for their input',
+      'Their recommendations acted on and tracked',
+    ],
+  },
+  '4.5-D-9': {
+    steps: [
+      'Commission accessibility audits or mystery visits by people with lived experience of disability, covering physical, sensory, digital and customer service',
+      'Act on findings and re-audit annually',
+    ],
+    indicators: [
+      'Lived-experience audit commissioned within 12 months',
+      'Findings acted on with a clear plan',
+      'Re-audit completed annually',
+    ],
+  },
+  '4.5-D-10': {
+    steps: [
+      'Benchmark your accessibility performance against industry standards, peer organisations or frameworks (Australia\'s Disability Strategy outcome indicators, AHRC reporting guidance)',
+      'Use results to set targets and track progress',
+    ],
+    indicators: [
+      'Accessibility performance benchmarked within 12 months',
+      'Targets set from the benchmark',
+      'Progress against targets tracked and reported',
+    ],
+  },
 };
