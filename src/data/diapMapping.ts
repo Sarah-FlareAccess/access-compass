@@ -14,6 +14,7 @@
 
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { syncRecord, deleteRecord } from '../utils/cloudSync';
+import { accessModules } from './accessModules';
 
 // Background sync helper for non-React context
 function bgSyncCategory(table: string, data: Record<string, unknown>) {
@@ -330,7 +331,31 @@ export interface ObjectiveGroup<T> {
  * Group items by category group, then by shared objective within each group.
  * Items sharing the same objective string are clustered together.
  */
-export function groupItemsByCategoryAndObjective<T extends { category?: string; priority?: string; objective?: string }>(
+// Global assessment order for each question. Used to keep DIAP objective
+// groups in venue-journey order (arrival, entry, paths, toilets, ...) so
+// related items stay together instead of scattering by priority.
+let _questionSeq: Map<string, number> | null = null;
+function questionSequence(): Map<string, number> {
+  if (_questionSeq) return _questionSeq;
+  _questionSeq = new Map();
+  let i = 0;
+  for (const m of accessModules) {
+    for (const q of m.questions) _questionSeq.set(q.id, i++);
+  }
+  return _questionSeq;
+}
+function journeyKey(groupItems: { questionSource?: string }[]): number {
+  const seq = questionSequence();
+  let min = Number.POSITIVE_INFINITY;
+  for (const it of groupItems) {
+    const qid = (it.questionSource || '').replace(/-(media|url)-\d+$/, '');
+    const s = seq.get(qid);
+    if (s !== undefined && s < min) min = s;
+  }
+  return min;
+}
+
+export function groupItemsByCategoryAndObjective<T extends { category?: string; priority?: string; objective?: string; questionSource?: string }>(
   items: T[]
 ): { group: DIAPCategoryGroup; objectiveGroups: ObjectiveGroup<T>[]; totalItems: number }[] {
   const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 };
@@ -359,12 +384,10 @@ export function groupItemsByCategoryAndObjective<T extends { category?: string; 
       objectiveGroups.push({ objective, items: groupItems });
     });
 
-    // Sort objective groups by highest-priority item in each (high-priority groups first)
-    objectiveGroups.sort((a, b) => {
-      const aPri = priorityOrder[a.items[0]?.priority || 'low'] ?? 2;
-      const bPri = priorityOrder[b.items[0]?.priority || 'low'] ?? 2;
-      return aPri - bPri;
-    });
+    // Order objective groups by where they sit in the assessment journey
+    // (arrival, entry, paths, toilets, ...) so related areas stay together for
+    // context. Priority still orders items within each group.
+    objectiveGroups.sort((a, b) => journeyKey(a.items) - journeyKey(b.items));
 
     result.push({ group, objectiveGroups, totalItems: allCategoryItems.length });
   });

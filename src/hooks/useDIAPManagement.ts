@@ -101,6 +101,9 @@ export interface DIAPItem {
   budgetEstimate?: string;
   notes?: string;
   successIndicators?: string; // How success will be measured
+  // Set once a user manually edits the action or success indicators. Content
+  // refresh migrations skip these so a user's own wording is never overwritten.
+  contentEdited?: boolean;
 
   // Per-item attachments (evidence, quotes, research)
   attachments?: DIAPAttachment[];
@@ -279,7 +282,8 @@ function getLocalItems(): DIAPItem[] {
     let v7Changed = false;
     for (const item of items) {
       // Auto-generated items only: importSource 'audit' or unset. Never touch
-      // manual, CSV or PDF imports.
+      // manual, CSV or PDF imports, or items a user has edited.
+      if (item.contentEdited) continue;
       if (!item.moduleSource) continue;
       if (item.importSource && item.importSource !== 'audit') continue;
       const moduleCode = extractModuleCode(item.moduleSource);
@@ -533,6 +537,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       budget_estimate: item.budgetEstimate || null,
       notes: item.notes || null,
       success_indicators: item.successIndicators || null,
+      content_edited: item.contentEdited ?? false,
       due_date: item.dueDate || null,
       comments: item.comments ? JSON.stringify(item.comments) : null,
       sort_order: item.sortOrder ?? null,
@@ -603,6 +608,7 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
                   budgetEstimate: row.budget_estimate as string | undefined,
                   notes: row.notes as string | undefined,
                   successIndicators: row.success_indicators as string | undefined,
+                  contentEdited: (row.content_edited as boolean) ?? false,
                   createdAt: row.created_at as string,
                   updatedAt: cloudUpdatedAt,
                   completedAt: row.completed_at as string | undefined,
@@ -620,6 +626,8 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
                     status: (row.status as DIAPStatus) || merged[idx].status,
                     priority: (row.priority as DIAPPriority) || merged[idx].priority,
                     notes: row.notes as string | undefined,
+                    successIndicators: row.success_indicators as string | undefined,
+                    contentEdited: (row.content_edited as boolean) ?? merged[idx].contentEdited ?? false,
                     updatedAt: cloudUpdatedAt,
                     completedAt: row.completed_at as string | undefined,
                   };
@@ -850,6 +858,15 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
             ...updates,
             updatedAt: new Date().toISOString(),
           };
+
+          // Once a user changes the action or indicators, protect their wording
+          // from future content-refresh migrations.
+          const editedContent =
+            (updates.action !== undefined && updates.action !== item.action) ||
+            (updates.successIndicators !== undefined && updates.successIndicators !== item.successIndicators);
+          if (item.contentEdited || editedContent) {
+            newItem.contentEdited = true;
+          }
 
           if (updates.status === 'achieved' && item.status !== 'achieved') {
             newItem.completedAt = new Date().toISOString();
