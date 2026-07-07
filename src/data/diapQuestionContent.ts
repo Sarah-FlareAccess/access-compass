@@ -5096,4 +5096,184 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Progress against targets tracked and reported',
     ],
   },
+
+  // ============================================================
+  // Module 4.6 - Staying connected
+  // ============================================================
+  '4.6-F-1': {
+    steps: [
+      'Audit your marketing emails and newsletters for accessibility (semantic HTML, alt text, colour contrast, single-column layout)',
+      'Test with a screen reader before sending',
+    ],
+    indicators: [
+      'Email accessibility audited within 3 months',
+      'Accessible email templates in use within 6 months',
+      'Screen reader check built into the send process',
+    ],
+  },
+  '4.6-F-2': {
+    steps: [
+      'Ensure customers can manage communication preferences: frequency, format (HTML, plain text, large print), channel and content interests',
+      'Make the preference centre accessible and keyboard navigable',
+    ],
+    indicators: [
+      'Preference centre reviewed within 3 months',
+      'Accessible preference management available within 12 months',
+      'Preferences applied consistently across channels',
+    ],
+  },
+  '4.6-F-3': {
+    steps: [
+      'Ensure promotional offers are accessible: available in text (not image-only), redeemable through accessible channels, with clear plain-language terms',
+      'Avoid time-limited offers that disadvantage people who need more time',
+    ],
+    indicators: [
+      'Promotional accessibility reviewed within 3 months',
+      'Offers available in accessible formats within 6 months',
+      'Redemption channels confirmed accessible',
+    ],
+  },
+  '4.6-F-4': {
+    steps: [
+      'Audit your loyalty or rewards program for accessibility (join and manage with assistive technology, keyboard-navigable signup)',
+      'Communicate points and rewards in accessible formats',
+    ],
+    indicators: [
+      'Loyalty program audited within 6 months',
+      'Accessible signup and account management provided within 12 months',
+      'Rewards communicated in accessible formats',
+    ],
+  },
+  '4.6-D-1': {
+    steps: [
+      'Offer SMS or text alternatives to email for key communications (appointment reminders, confirmations, service updates, offers)',
+      'Allow customers to opt in to SMS as their preferred channel',
+    ],
+    indicators: [
+      'SMS alternative available within 6 months',
+      'Customers can opt in to SMS as preferred channel',
+      'SMS delivery reviewed on a regular schedule',
+    ],
+  },
+  '4.6-D-2': {
+    steps: [
+      'Audit your referral program for accessibility (keyboard navigation, screen reader compatibility, non-digital channels)',
+      'Make referral codes easy to share in any format',
+    ],
+    indicators: [
+      'Referral program audited within 6 months',
+      'Accessible referral process available within 12 months',
+      'Referral codes shareable in any format',
+    ],
+  },
+  '4.6-D-3': {
+    steps: [
+      'Include accessibility information in regular communications (mention accessible facilities in newsletters, highlight new features)',
+      'Include access details in event promotions',
+    ],
+    indicators: [
+      'Accessibility information included in communications within 3 months',
+      'Access details included in event promotions',
+      'Approach reviewed on a regular schedule',
+    ],
+  },
+  '4.6-D-4': {
+    steps: [
+      'Make social media posts accessible: alt text on images, captions on videos, camelCase hashtags, no information conveyed by colour alone',
+      'Write in plain language and avoid flashing or rapidly moving content',
+    ],
+    indicators: [
+      'Social media accessibility reviewed within 3 months',
+      'Accessible posting practices adopted within 6 months',
+      'Practices included in the social media style guide',
+    ],
+  },
+  '4.6-D-5': {
+    steps: [
+      'Audit your live chat or online messaging against WCAG 2.2 AA (keyboard navigation, screen reader compatibility, timeout warnings, zoom)',
+      'Fix the issues found',
+    ],
+    indicators: [
+      'Live chat audited for WCAG 2.2 AA within 6 months',
+      'Critical issues fixed within 12 months',
+      'Accessibility re-checked when the tool changes',
+    ],
+  },
+  '4.6-D-6': {
+    steps: [
+      'Implement a system for storing customer accessibility preferences (seating, communication format, assistance needs) applied automatically on future visits',
+      'Store the data securely with customer consent',
+    ],
+    indicators: [
+      'Preference storage implemented within 12 months',
+      'Preferences applied automatically on future visits',
+      'Data stored securely with consent',
+    ],
+  },
+  '4.6-D-7': {
+    steps: [
+      'Communicate accessibility improvements to customers (update your website, post on social media, include in newsletters)',
+      'Send targeted notifications to customers who previously flagged related needs',
+    ],
+    indicators: [
+      'Improvement-notification approach in place within 6 months',
+      'Improvements communicated across channels',
+      'Customers who raised issues notified of changes',
+    ],
+  },
+  '4.6-D-8': {
+    steps: [
+      'Test app push notifications with VoiceOver (iOS) and TalkBack (Android)',
+      'Ensure notifications are announced by screen readers, contain meaningful text and link to accessible content',
+    ],
+    indicators: [
+      'Push notifications tested with screen readers within 6 months',
+      'Notifications accessible and meaningful within 12 months',
+      'Accessibility re-checked with each app release',
+    ],
+  },
+  '4.6-D-9': {
+    steps: [
+      'Identify key information to provide in Auslan (welcome messages, safety information, service explanations)',
+      'Engage qualified Auslan interpreters to produce the content',
+    ],
+    indicators: [
+      'Auslan content need scoped within 6 months',
+      'Key information available in Auslan within 24 months',
+      'Content produced by qualified interpreters',
+    ],
+  },
+  '4.6-D-10': {
+    steps: [
+      'Caption all video content to WCAG 2.2 AA accuracy standards',
+      'Provide audio description for videos that convey important visual information, across website, social media and in-venue',
+    ],
+    indicators: [
+      'Uncaptioned video identified within 3 months',
+      'All new video captioned before publishing',
+      'Audio description added to priority videos within 12 months',
+    ],
+  },
+  '4.6-D-11': {
+    steps: [
+      'Ensure event invitations are accessible (alt text, structured HTML, plain language) with an accessibility requirements field on RSVPs',
+      'Send invitations in multiple formats and provide a non-digital RSVP option',
+    ],
+    indicators: [
+      'Event invitation accessibility reviewed within 3 months',
+      'Accessible invitations and RSVP options in use within 6 months',
+      'Accessibility requirements captured at RSVP',
+    ],
+  },
+  '4.6-D-12': {
+    steps: [
+      'Create a dedicated accessibility page describing your accessible features, services, equipment and any known limitations',
+      'Link to it from your main navigation, footer and Google Business listing, and keep it updated',
+    ],
+    indicators: [
+      'Accessibility page published within 3 months',
+      'Linked from navigation, footer and Google Business listing',
+      'Page reviewed for accuracy every 6 months',
+    ],
+  },
 };
