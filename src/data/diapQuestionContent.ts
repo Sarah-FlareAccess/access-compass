@@ -3134,4 +3134,251 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Ratings reviewed after trail changes or weather damage',
     ],
   },
+
+  // ============================================================
+  // Module 3.9 - Accessible accommodation
+  // ============================================================
+  '3.9-1-1': {
+    steps: [
+      'Document all accommodation types offered',
+      'Assess each for accessibility features, gaps and compliance with AS 1428.1 and the Premises Standards',
+    ],
+    indicators: [
+      'All accommodation types documented within 3 months',
+      'Accessibility gaps identified for each type within 6 months',
+      'Register reviewed when room offerings change',
+    ],
+  },
+  '3.9-1-2': {
+    steps: [
+      'Measure clear floor space in accessible rooms',
+      'Provide a min 1540mm turning circle (or 1500mm x 2000mm rectangle) clear of furniture per AS 1428.1 Cl 7',
+    ],
+    indicators: [
+      'Clear floor space measured within 3 months',
+      'Compliant wheelchair circulation space provided within 24 months',
+      'Furniture layout checked to maintain the clear space',
+    ],
+  },
+  '3.9-1-3': {
+    steps: [
+      'Review in-room bathrooms in accessible rooms for roll-in shower, grab rails and shower seat',
+      'Install a hobless (roll-in) shower, grab rails per AS 1428.1 Cl 15 and a fold-down shower seat',
+    ],
+    indicators: [
+      'Accessible-room bathrooms reviewed within 6 months',
+      'Compliant roll-in shower, rails and seat provided within 24 months',
+      'Bathroom fittings inspected on a regular schedule',
+    ],
+  },
+  '3.9-1-4': {
+    steps: [
+      'Check room doors and in-room paths for accessible handles, clear width and obstructions',
+      'Fit lever handles, provide min 850mm clear width per AS 1428.1 and keep in-room paths free of obstructions',
+    ],
+    indicators: [
+      'Room door and path accessibility reviewed within 3 months',
+      'Lever handles and compliant clear width provided within 12 months',
+      'In-room paths kept clear, confirmed at housekeeping',
+    ],
+  },
+  '3.9-1-5': {
+    steps: [
+      'Review the distribution of accessible rooms across room categories',
+      'Ensure accessible rooms are available across standard, premium and suite categories and price points',
+    ],
+    indicators: [
+      'Accessible room distribution reviewed within 6 months',
+      'Accessible rooms available across categories and price points within 24 months',
+      'Distribution maintained as room stock changes',
+    ],
+  },
+  '3.9-D-1': {
+    steps: [
+      'Check the bed height and under-bed clearance in accessible rooms',
+      'Provide beds at 480-500mm to the top of the mattress with min 150mm clearance for portable hoists',
+      'Offer bed blocks or adjustable bases on request',
+    ],
+    indicators: [
+      'Bed height and clearance reviewed within 3 months',
+      'Compliant bed height and hoist clearance provided within 12 months',
+      'Adjustable options offered at booking',
+    ],
+  },
+  '3.9-D-2': {
+    steps: [
+      'Equip accessible rooms with clear turning space (1540mm circle), accessible wardrobe (rail at 1200mm, shelf at 900-1100mm), bedside controls, visual and vibrating alerts and lever handles throughout',
+      'Confirm each feature against AS 1428.1',
+    ],
+    indicators: [
+      'Accessible bedroom features reviewed within 3 months',
+      'Full set of accessible bedroom features provided within 24 months',
+      'Features maintained and checked on a regular schedule',
+    ],
+  },
+  '3.9-D-3': {
+    steps: [
+      'Provide vibrating pillow alerts for fire alarm, door knock and phone, a visual door-knock indicator, visual fire strobe, TTY or captioned phone and a portable hearing loop for the in-room TV',
+      'Keep the alerting kit maintained and offer it at booking',
+    ],
+    indicators: [
+      'Deaf and hard-of-hearing alerting aids reviewed within 3 months',
+      'Alerting and communication kit available within 12 months',
+      'Kit tested and maintained on a regular schedule',
+    ],
+  },
+  '3.9-D-4': {
+    steps: [
+      'Install an emergency call cord or button beside the toilet, reachable from floor level (within 150mm), connected to a monitored system with visual and audible alerts per AS 1428.1:2021',
+      'Train staff on how to respond when the call is activated',
+    ],
+    indicators: [
+      'Bathroom emergency call reviewed within 3 months',
+      'Compliant monitored call system installed within 12 months',
+      'Alarm tested regularly and staff know how to respond',
+    ],
+  },
+  '3.9-D-5': {
+    steps: [
+      'Check the bathroom mirror is usable from a seated position',
+      'Install a mirror with the bottom edge at 900mm or lower (or a tilting mirror) extending to at least 1850mm for standing users',
+    ],
+    indicators: [
+      'Mirror height reviewed within 3 months',
+      'Compliant mirror installed within 12 months',
+      'Mirror kept clean and undamaged',
+    ],
+  },
+  '3.9-D-6': {
+    steps: [
+      'Review kitchenette counters and appliance controls for accessible height',
+      'Lower countertops to max 830mm with 700mm knee clearance, position appliances on the accessible benchtop, and provide front-mounted controls operable with one hand',
+    ],
+    indicators: [
+      'Kitchenette accessibility reviewed within 6 months',
+      'Accessible counter heights and controls provided within 24 months',
+      'Appliance accessibility maintained when equipment changes',
+    ],
+  },
+  '3.9-D-7': {
+    steps: [
+      'Equip the accessible kitchenette with lever taps, D-pull handles, front-controlled cooktop, side-opening oven, pull-out lower shelves and benchtop appliances',
+      'Position power points at 900-1100mm',
+    ],
+    indicators: [
+      'Kitchenette features reviewed within 6 months',
+      'Full set of accessible kitchenette features provided within 24 months',
+      'Features maintained on a regular schedule',
+    ],
+  },
+  '3.9-D-8': {
+    steps: [
+      'Provide accessible in-room amenities: grab rails, portable magnifying mirror, non-slip bath mat, accessible ironing height, lever-operated or motorised blinds and easy-open toiletry packaging',
+      'Confirm amenities are in place and maintained in each accessible room',
+    ],
+    indicators: [
+      'In-room amenities reviewed within 3 months',
+      'Accessible amenities provided in each accessible room within 12 months',
+      'Amenities checked and restocked at housekeeping',
+    ],
+  },
+  '3.9-D-9': {
+    steps: [
+      'Check the key card reader height, door handle, operating force and one-handed operation',
+      'Position the reader at 900-1100mm, fit a lever handle, keep operating force under 20N and consider contactless entry',
+    ],
+    indicators: [
+      'Room entry system reviewed within 3 months',
+      'Accessible reader height, handle and force provided within 12 months',
+      'Entry system re-checked after any upgrade',
+    ],
+  },
+  '3.9-D-10': {
+    steps: [
+      'Install tactile room numbers with raised lettering and Braille at 1250-1500mm on the latch side of accessible room doors per AS 1428.1:2021 Cl 18',
+      'Ensure min 70% luminance contrast between text and background',
+    ],
+    indicators: [
+      'Accessible room signage reviewed within 3 months',
+      'Compliant tactile, high-contrast room numbers installed within 12 months',
+      'Signage maintained and replaced when worn',
+    ],
+  },
+  '3.9-D-11': {
+    steps: [
+      'Produce the room directory, safety card, TV guide and hotel information in large print (min 18pt), accessible digital format and Braille, with audio on request',
+      'Include evacuation procedures in all formats',
+    ],
+    indicators: [
+      'Guest information formats reviewed within 3 months',
+      'Accessible guest information available within 12 months',
+      'Formats updated whenever the standard version changes',
+    ],
+  },
+  '3.9-D-12': {
+    steps: [
+      'Add accessibility feature fields to the booking process (online and phone) so guests can specify needs (shower chair, bed height, hearing kit, room location)',
+      'Ensure requests are actioned before arrival',
+    ],
+    indicators: [
+      'Booking accessibility fields added within 6 months',
+      'Guest requests actioned before arrival',
+      'Request handling reviewed via guest feedback',
+    ],
+  },
+  '3.9-D-13': {
+    steps: [
+      'Implement an accessible room management policy: never sell accessible rooms to non-disabled guests when other rooms are available',
+      'Maintain equipment in good condition and track accessible room bookings separately in the property management system',
+    ],
+    indicators: [
+      'Accessible room management policy in place within 3 months',
+      'Accessible rooms held for guests who need them, tracked in the PMS',
+      'Policy reviewed via booking data and feedback',
+    ],
+  },
+  '3.9-D-14': {
+    steps: [
+      'Audit shared facilities (laundry, pool, gym, breakfast area) for wheelchair access, accessible controls and clear paths',
+      'Ensure at least one of each type is fully accessible, prioritising the most used',
+    ],
+    indicators: [
+      'Shared facilities audited within 6 months',
+      'At least one of each facility type made fully accessible within 24 months',
+      'Facility access maintained on a regular schedule',
+    ],
+  },
+  '3.9-D-15': {
+    steps: [
+      'Install non-slip flooring (min R10 wet) in the bathroom and shower',
+      'Ensure lighting is min 300 lux at floor level with no dark spots per AS 1428.1:2021',
+    ],
+    indicators: [
+      'Bathroom slip-resistance and lighting reviewed within 3 months',
+      'Non-slip flooring and compliant lighting provided within 12 months',
+      'Slip-resistance and lighting confirmed after any refurbishment',
+    ],
+  },
+  '3.9-D-16': {
+    steps: [
+      'Review the location of accessible rooms relative to lifts and shared facilities',
+      'Locate accessible rooms close to amenities with step-free paths of min 1000mm width, avoiding isolated locations',
+    ],
+    indicators: [
+      'Accessible room locations reviewed within 6 months',
+      'Accessible rooms near amenities with step-free paths within 24 months',
+      'Location considered in any refurbishment or expansion',
+    ],
+  },
+  '3.9-D-17': {
+    steps: [
+      'Provide an in-room bar fridge for medication, adequate power points for medical equipment and secure storage for supplies',
+      'Offer these as standard in accessible rooms and on request in other rooms',
+    ],
+    indicators: [
+      'Medication and equipment storage reviewed within 3 months',
+      'Fridge, power points and secure storage provided in accessible rooms within 12 months',
+      'Available on request in other rooms',
+    ],
+  },
 };
