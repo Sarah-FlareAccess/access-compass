@@ -3539,4 +3539,228 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Aisle clearance checked after every restock',
     ],
   },
+
+  // ============================================================
+  // Module 3.11 - Outdoor spaces and grounds
+  // ============================================================
+  '3.11-PC-1': {
+    steps: [
+      'Assess outdoor path surfaces, widths and gradients against DDA requirements, prioritising the main route from parking to key areas',
+      'Resurface, widen or regrade paths that fall short',
+    ],
+    indicators: [
+      'Outdoor paths assessed within 6 months',
+      'Priority paths made firm, level and wide enough within 24 months',
+      'Path condition inspected on a regular schedule',
+    ],
+  },
+  '3.11-PC-2': {
+    steps: [
+      'Review outdoor seating for variety of heights and wheelchair-adjacent space',
+      'Add varied seating with wheelchair-adjacent space in key outdoor areas',
+    ],
+    indicators: [
+      'Outdoor seating reviewed within 3 months',
+      'Varied accessible seating provided within 12 months',
+      'Seating condition checked on a regular schedule',
+    ],
+  },
+  '3.11-PC-3': {
+    steps: [
+      'Assess outdoor lighting along paths, seating, steps and transitions',
+      'Install even, glare-free lighting, prioritising the route from parking to key destinations',
+    ],
+    indicators: [
+      'Outdoor lighting assessed within 6 months',
+      'Even, glare-free lighting on priority routes within 24 months',
+      'Lighting checked and lamps replaced on a regular schedule',
+    ],
+  },
+  '3.11-PC-4': {
+    steps: [
+      'Identify key seating and activity areas that lack shade or weather protection',
+      'Install shade structures (sails, pergolas or shelters) over key rest, eating and waiting areas',
+    ],
+    indicators: [
+      'Shade needs identified within 6 months',
+      'Shade or weather protection provided in priority areas within 24 months',
+      'Structures maintained in good condition',
+    ],
+  },
+  '3.11-PC-5': {
+    steps: [
+      'Audit all outdoor hazards (steps, drop-offs, water features, level changes)',
+      'Install TGSIs, contrasting edge strips, barriers or fencing as required, prioritising high-traffic areas and the main accessible path',
+    ],
+    indicators: [
+      'Outdoor hazard audit completed within 3 months',
+      'Priority hazards marked or guarded within 12 months',
+      'Hazard marking re-checked after weather or works',
+    ],
+  },
+  '3.11-PC-6': {
+    steps: [
+      'Identify key outdoor areas that can only be reached by stairs',
+      'Provide step-free alternatives (ramps, graded paths or alternative routes) to all key outdoor areas',
+    ],
+    indicators: [
+      'Step-only outdoor areas identified within 3 months',
+      'Step-free access to key outdoor areas provided within 24 months',
+      'Interim access arrangements provided while works are planned',
+    ],
+  },
+  '3.11-D-1': {
+    steps: [
+      'Install TGSIs at the top and bottom of all outdoor stairs, at path edges near drop-offs and at key transitions per AS 1428.4.1',
+      'Ensure 30% luminance contrast with surrounding surfaces',
+    ],
+    indicators: [
+      'Outdoor hazard points without TGSIs identified within 3 months',
+      'Compliant TGSIs installed within 12 months',
+      'TGSI condition and contrast checked annually',
+    ],
+  },
+  '3.11-D-2': {
+    steps: [
+      'Identify outdoor paths lacking rest points',
+      'Install seating with back support and armrests at max 60m intervals, positioned off the path with adjacent wheelchair space',
+    ],
+    indicators: [
+      'Rest-point gaps identified within 3 months',
+      'Rest seating installed at recommended intervals within 12 months',
+      'Seating condition checked on a regular schedule',
+    ],
+  },
+  '3.11-D-3': {
+    steps: [
+      'Trim overhanging vegetation and reposition ground planters',
+      'Maintain at least 1200mm clear width and 2000mm height clearance on all paths, adding path clearance to the maintenance schedule',
+    ],
+    indicators: [
+      'Path clearance reviewed within 3 months',
+      'Minimum 1200mm width and 2000mm height clearance maintained within 6 months',
+      'Vegetation clearance added to the maintenance schedule',
+    ],
+  },
+  '3.11-D-4': {
+    steps: [
+      'Install or retrofit at least one drinking fountain at wheelchair-accessible height (750-800mm) with lever or push-button controls',
+      'Ensure clear approach space for wheelchair users',
+    ],
+    indicators: [
+      'Drinking fountain accessibility reviewed within 3 months',
+      'At least one accessible fountain provided within 12 months',
+      'Approach space kept clear and fountain maintained',
+    ],
+  },
+  '3.11-D-5': {
+    steps: [
+      'Review outdoor signage for contrast, font and height',
+      'Upgrade to high-contrast, sans-serif signage at 1400-1700mm, with directional signs at all decision points',
+    ],
+    indicators: [
+      'Outdoor signage reviewed within 3 months',
+      'High-contrast signage at decision points within 12 months',
+      'Signage condition checked on a regular schedule',
+    ],
+  },
+  '3.11-D-6': {
+    steps: [
+      'Implement a regular outdoor surface inspection and repair schedule',
+      'Address tree root damage, cracked pavers, loose materials and pooling water on priority paths first',
+    ],
+    indicators: [
+      'Outdoor surface inspection schedule in place within 3 months',
+      'Priority trip hazards repaired within 6 months',
+      'New hazards flagged and made safe promptly',
+    ],
+  },
+  '3.11-D-7': {
+    steps: [
+      'Designate a quiet outdoor area away from main activity zones, with seating, shade and natural screening',
+      'Mark it on your venue map',
+    ],
+    indicators: [
+      'Quiet outdoor zone identified within 6 months',
+      'Quiet area provided and marked on the map within 12 months',
+      'Area maintained on a regular schedule',
+    ],
+  },
+  '3.11-D-8': {
+    steps: [
+      'Provide accessible outdoor dining tables (750-800mm height, 700mm knee clearance, no centre pedestal)',
+      'Ensure level ground surfaces and maintain 1200mm circulation space between tables',
+    ],
+    indicators: [
+      'Outdoor dining accessibility reviewed within 3 months',
+      'Accessible tables and circulation space provided within 12 months',
+      'Layout checked to maintain circulation space',
+    ],
+  },
+  '3.11-D-9': {
+    steps: [
+      'Provide accessible toilets within reasonable distance (approx 100m) of outdoor areas, connected by an accessible path',
+      'Install clear directional signage with the ISA',
+    ],
+    indicators: [
+      'Toilet access from outdoor areas reviewed within 6 months',
+      'Accessible toilet and signed accessible path provided within 24 months',
+      'Signage and path maintained on a regular schedule',
+    ],
+  },
+  '3.11-D-10': {
+    steps: [
+      'Develop emergency procedures for outdoor areas with accessible evacuation routes, visible signage and accessible assembly points',
+      'Include communication methods for people with disability',
+    ],
+    indicators: [
+      'Outdoor emergency procedures in place within 6 months',
+      'Accessible routes and assembly points established',
+      'Procedures tested in a drill at least annually',
+    ],
+  },
+  '3.11-D-11': {
+    steps: [
+      'Map the routes between outdoor zones (garden to dining, pool to seating, trail to facilities)',
+      'Create accessible routes with at least 1200mm width, firm surfaces and wayfinding at decision points',
+    ],
+    indicators: [
+      'Inter-zone routes mapped within 6 months',
+      'Accessible routes between outdoor zones provided within 24 months',
+      'Routes reviewed after any grounds change',
+    ],
+  },
+  '3.11-D-12': {
+    steps: [
+      'Make communal outdoor facilities accessible: BBQ controls at 900-1100mm with front approach, wheelchair-accessible picnic tables and firm level ground',
+      'Maintain 1200mm circulation space',
+    ],
+    indicators: [
+      'Communal outdoor facilities reviewed within 6 months',
+      'Accessible BBQ, tables and surfaces provided within 24 months',
+      'Facilities maintained on a regular schedule',
+    ],
+  },
+  '3.11-D-13': {
+    steps: [
+      'Develop accessible information for outdoor areas: large-print maps, QR codes to audio or web content, tactile maps at decision points and Easy Read guides',
+      'Keep the information current and available at entry points',
+    ],
+    indicators: [
+      'Accessible outdoor information produced within 12 months',
+      'Information available in multiple formats at entry points',
+      'Information updated after any grounds change',
+    ],
+  },
+  '3.11-D-14': {
+    steps: [
+      'Establish a maintenance schedule covering outdoor accessibility features: path condition, lighting, TGSIs, signage and vegetation clearance',
+      'Include a reporting mechanism for emerging issues',
+    ],
+    indicators: [
+      'Outdoor accessibility maintenance schedule in place within 3 months',
+      'Reporting mechanism for issues established',
+      'Scheduled checks completed and logged',
+    ],
+  },
 };
