@@ -1072,4 +1072,194 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Signage kept in good condition',
     ],
   },
+
+  // ============================================================
+  // Module 2.4 - Queues and busy times
+  // ============================================================
+  '2.4-1-1': {
+    steps: [
+      'Provide seating (fixed or portable) in queue areas for people who cannot stand for long',
+      'Position it so people can keep their place in the queue',
+    ],
+    indicators: [
+      'Seating available in queue areas within 6 months',
+      'Seating positioned so a place in the queue is kept',
+      'Seating condition and placement checked on a regular schedule',
+    ],
+  },
+  '2.4-1-2': {
+    steps: [
+      'Establish a clear priority-access process and train customer-facing staff to offer it',
+      'Display signage informing customers that priority access is available',
+    ],
+    indicators: [
+      'Priority-access process documented and staff trained within 3 months',
+      'Signage advertising priority access displayed at queue areas',
+      'Priority access offered consistently, reviewed via customer feedback',
+    ],
+  },
+  '2.4-1-2a': {
+    steps: [
+      'Create a streamlined accessible entry pathway that bypasses the main queue',
+      'Sign it clearly and brief staff so customers can use it independently',
+    ],
+    indicators: [
+      'Accessible bypass entry established within 6 months',
+      'Clear signage in place and staff aware of the pathway',
+      'Customers can use it without staff prompting, confirmed by feedback',
+    ],
+  },
+  '2.4-1-3': {
+    steps: [
+      'Train front-of-house staff on queue accommodation: when to offer priority access, assisting people with mobility aids and communicating with Deaf customers',
+    ],
+    indicators: [
+      'Front-of-house staff trained on queue accommodation within 3 months',
+      'Queue accommodation included in induction for new staff',
+      'Refresher completed each year',
+    ],
+  },
+  '2.4-D-4': {
+    steps: [
+      'Redesign the queue layout for at least 1000mm clear width throughout and a 2070mm turning circle at the service point',
+      'Remove barriers that impede wheelchairs (narrow stanchion spacing, high rope barriers) and ensure a level, firm surface',
+    ],
+    indicators: [
+      'Queue layout assessed within 3 months',
+      'Queue provides 1000mm clear width and a compliant turning circle within 12 months',
+      'Layout re-checked after any reconfiguration',
+    ],
+  },
+  '2.4-D-5': {
+    steps: [
+      'Install signage at the entrance to queue areas stating assistance is available, with the ISA and a brief prompt (e.g. "Ask a team member for queue assistance")',
+      'Position it at eye level (1400-1600mm)',
+    ],
+    indicators: [
+      'Queue-assistance signage installed within 6 months',
+      'Signs at eye level with the ISA and a clear prompt',
+      'Signage reviewed after any layout change',
+    ],
+  },
+  '2.4-D-6': {
+    steps: [
+      'Introduce at least one alternative queue option (SMS or app notification, numbered tickets, call-ahead, or queue-from-seated)',
+      'Advertise it with signage and on your website',
+    ],
+    indicators: [
+      'At least one alternative queue option offered within 12 months',
+      'Alternative advertised on signage and the website',
+      'Uptake reviewed and the option refined as needed',
+    ],
+  },
+  '2.4-D-7': {
+    steps: [
+      'Implement a way to communicate expected wait times (digital display, staff announcements, app or chalkboard), updated at regular intervals',
+      'Provide the information in both visual and auditory formats',
+    ],
+    indicators: [
+      'Wait-time communication in place within 6 months',
+      'Information provided in both visual and auditory formats',
+      'Estimates updated at regular intervals during opening hours',
+    ],
+  },
+  '2.4-D-8': {
+    steps: [
+      'Develop a crowd-management plan that protects accessible pathways during peak periods',
+      'Assign staff to monitor key routes, use barriers that keep 1000mm clear width, and never block accessible paths, ramps or lifts with overflow',
+    ],
+    indicators: [
+      'Crowd-management plan protecting accessible routes in place within 3 months',
+      'Accessible pathways kept clear during peaks, confirmed by spot checks',
+      'Plan reviewed after each major event or peak season',
+    ],
+  },
+  '2.4-D-9': {
+    steps: [
+      'Publish queuing and busy-period information on your website and booking confirmations: typical wait times, peak periods, quieter alternatives and priority-access options',
+      'Update regularly for seasonal or event changes',
+    ],
+    indicators: [
+      'Queuing and busy-period information published within 3 months',
+      'Information covers wait times, peaks, quieter times and priority access',
+      'Information reviewed for accuracy every 6 months',
+    ],
+  },
+  '2.4-D-10': {
+    steps: [
+      'Provide seating with armrests in or beside queue areas, with a mix of seat heights and firm backrests',
+      'Leave a clear space for a wheelchair beside the seating',
+    ],
+    indicators: [
+      'Armrest seating provided in queue areas within 6 months',
+      'Seat-height variety and a wheelchair space alongside provided',
+      'Seating condition checked on a regular schedule',
+    ],
+  },
+  '2.4-D-11': {
+    steps: [
+      'Make queue barriers (ropes, tapes, stanchions) visually detectable with min 30% luminance contrast against the floor and background',
+      'Add cane-detectable elements at the base and avoid clear or thin barriers',
+    ],
+    indicators: [
+      'Low-visibility queue barriers identified within 3 months',
+      'Barriers made detectable and contrasting within 12 months',
+      'Barrier visibility maintained as equipment is replaced',
+    ],
+  },
+  '2.4-D-12': {
+    steps: [
+      'Check queue-area floors are firm, level and slip-resistant',
+      'Repair uneven surfaces and cracks, apply anti-slip treatment where needed, and avoid matting with raised edges',
+    ],
+    indicators: [
+      'Queue-area floors assessed within 3 months',
+      'Surfaces made firm, level and slip-resistant within 12 months',
+      'Floor condition monitored on a regular schedule',
+    ],
+  },
+  '2.4-D-13': {
+    steps: [
+      'Improve audibility of announcements in queue areas (PA, portable speakers or staff positioned to project clearly)',
+      'Supplement audio with visual displays (screens, number boards) for Deaf and hard of hearing customers',
+    ],
+    indicators: [
+      'Announcement audibility reviewed within 6 months',
+      'Announcements provided in both audio and visual formats within 12 months',
+      'Coverage confirmed across all queue areas',
+    ],
+  },
+  '2.4-D-14': {
+    steps: [
+      'Document your accessible entry and priority-access policy: what is offered, who is eligible and how to request it',
+      'Publish it on your website, in booking confirmations and at the venue entrance',
+    ],
+    indicators: [
+      'Accessible entry and priority-access policy documented within 3 months',
+      'Policy published on the website, in confirmations and at the entrance',
+      'Policy applied consistently, reviewed via feedback',
+    ],
+  },
+  '2.4-D-15': {
+    steps: [
+      'Register as a Companion Card affiliate (or your state equivalent) and brief staff on accepting it',
+      'Display the Companion Card logo at the entrance and ticketing points, and consider other relevant access schemes',
+    ],
+    indicators: [
+      'Companion Card affiliation in place within 6 months',
+      'Logo displayed and staff able to accept the card',
+      'Other relevant access schemes considered and adopted where suitable',
+    ],
+  },
+  '2.4-D-16': {
+    steps: [
+      'Provide large, high-contrast visual displays with number or name callouts alongside audible announcements',
+      'Position screens at accessible viewing heights (1200-1600mm) and consider a vibrating pager or SMS option',
+    ],
+    indicators: [
+      'Queue display accessibility reviewed within 3 months',
+      'Displays provide synchronised visual and audible information within 12 months',
+      'Screens at accessible viewing heights, with a pager or SMS alternative offered',
+    ],
+  },
 };
