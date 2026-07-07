@@ -2477,4 +2477,239 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Pricing legibility maintained when displays change',
     ],
   },
+
+  // ============================================================
+  // Module 3.7 - Information when you're here
+  // ============================================================
+  '3.7-PC-1': {
+    steps: [
+      'Produce alternative formats of key information: large print (min 18pt, sans-serif), Easy Read and audio',
+      'Make them available at reception and key information points without a special request',
+    ],
+    indicators: [
+      'Alternative formats produced within 12 months',
+      'Available at reception and key points without special request',
+      'Formats updated whenever the standard version changes',
+    ],
+  },
+  '3.7-PC-2': {
+    steps: [
+      'Provide digital access to venue information via QR codes, a mobile-friendly website or a dedicated app',
+      'Ensure digital content is WCAG 2.2 AA and works with screen readers and assistive technology',
+    ],
+    indicators: [
+      'Digital access to venue information available within 6 months',
+      'Digital content meets WCAG 2.2 AA',
+      'Digital content re-checked when it changes',
+    ],
+  },
+  '3.7-PC-5': {
+    steps: [
+      'Install tactile signage (raised lettering and Braille) per AS 1428.4.2 and provide tactile maps at entry points',
+      'Mount all tactile signs at 1250-1500mm height, and consider tactile models of key features',
+    ],
+    indicators: [
+      'Tactile information reviewed within 6 months',
+      'Tactile signage and maps installed within 24 months',
+      'Tactile elements maintained and replaced when worn',
+    ],
+  },
+  '3.7-PC-6': {
+    steps: [
+      'Install the international hearing loop symbol (blue ear with T) at every location where hearing support is available, at eye level',
+      'Add signage at reception indicating what hearing support is available venue-wide',
+    ],
+    indicators: [
+      'Hearing support signage reviewed within 3 months',
+      'Symbols displayed at every support location within 6 months',
+      'Signage updated when support locations change',
+    ],
+  },
+  '3.7-PC-7': {
+    steps: [
+      'Engage a CART (Communication Access Realtime Translation) provider for live presentations, tours and events',
+      'Position the caption display clearly visible from accessible seating and allow captioning to be booked when events are scheduled',
+    ],
+    indicators: [
+      'CART provider relationship established within 6 months',
+      'Captioning offered for scheduled events within 12 months',
+      'Caption display visibility confirmed from accessible seating',
+    ],
+  },
+  '3.7-PC-8': {
+    steps: [
+      'Develop audio guides, verbal descriptions or announcements covering key content for visitors who are blind, have low vision or have print disability',
+      'Deliver via app, loanable devices or staff-led descriptions',
+    ],
+    indicators: [
+      'Audio information scoped within 6 months',
+      'Audio guides or descriptions available within 24 months',
+      'Audio content kept in step with the venue',
+    ],
+  },
+  '3.7-PC-9': {
+    steps: [
+      'Provide communication supports: picture communication boards (with venue-specific vocabulary), pen and paper, and a tablet with a communication app',
+      'Make them visible at reception and key service points',
+    ],
+    indicators: [
+      'Communication supports provided within 6 months',
+      'Supports visible at reception and key service points',
+      'Supports maintained and kept accessible',
+    ],
+  },
+  '3.7-PC-10': {
+    steps: [
+      'Develop a process to communicate changes (closures, event modifications, disruptions) in multiple accessible formats: visual displays, website, social media, email and verbal announcements',
+      'Ensure emergency changes include visual alerts',
+    ],
+    indicators: [
+      'Accessible change-communication process in place within 6 months',
+      'Changes communicated in multiple accessible formats',
+      'Emergency changes always include a visual alert',
+    ],
+  },
+  '3.7-DD-1a': {
+    steps: [
+      'Develop large print (min 18pt sans-serif), Easy Read, Braille and audio versions of key visitor information',
+      'Prioritise safety information, venue maps and exhibit guides',
+    ],
+    indicators: [
+      'Priority information identified within 3 months',
+      'Alternative formats of priority information produced within 12 months',
+      'Formats updated whenever the standard version changes',
+    ],
+  },
+  '3.7-DD-1b': {
+    steps: [
+      'Train staff to proactively offer alternative formats rather than waiting for requests, including it in greeting scripts and induction',
+      'Display signs at service points listing available formats',
+    ],
+    indicators: [
+      'Staff trained to proactively offer formats within 3 months',
+      'Available formats signed at service points',
+      'Proactive offering included in induction for new staff',
+    ],
+  },
+  '3.7-DD-2a': {
+    steps: [
+      'Audit interactive exhibits and touchscreens for screen reader access and touchscreen-only barriers',
+      'Provide physical alternatives (buttons, switches), position at 900-1100mm and include audio and visual output',
+    ],
+    indicators: [
+      'Interactive exhibits audited for accessibility within 6 months',
+      'Physical alternatives and audio/visual output provided within 24 months',
+      'New interactive displays specified as accessible',
+    ],
+  },
+  '3.7-DD-5a': {
+    steps: [
+      'Install TGSIs at stairs, ramps and escalators per AS 1428.4.1',
+      'Add tactile and Braille room signs per AS 1428.4.2, and consider tactile maps and models at main entry points',
+    ],
+    indicators: [
+      'Tactile elements reviewed within 6 months',
+      'TGSIs and tactile signage installed within 24 months',
+      'Tactile elements maintained and replaced when worn',
+    ],
+  },
+  '3.7-DD-6a': {
+    steps: [
+      'Install hearing loops at service counters, presentation spaces, tour gathering points and meeting rooms per AS 60118.4',
+      'Display the international symbol at each',
+    ],
+    indicators: [
+      'Hearing loops installed at key points within 12 months',
+      'Field strength and frequency response confirmed against AS 60118.4',
+      'Loops tested monthly and confirmed operational',
+    ],
+  },
+  '3.7-DD-6b': {
+    steps: [
+      'Establish a monthly testing schedule for all hearing loops using a loop listener or field-strength meter, checking for interference',
+      'Keep a maintenance log and engage a specialist for annual calibration',
+    ],
+    indicators: [
+      'Monthly loop testing schedule in place within 3 months',
+      'Maintenance log kept and up to date',
+      'Annual specialist calibration completed',
+    ],
+  },
+  '3.7-DD-7a': {
+    steps: [
+      'Research and establish a relationship with an accredited CART or captioning provider',
+      'Agree response times, pricing and technical requirements so captioning can be arranged promptly',
+    ],
+    indicators: [
+      'CART or captioning provider engaged within 6 months',
+      'Response times and requirements agreed',
+      'Provider relationship reviewed annually',
+    ],
+  },
+  '3.7-DD-7b': {
+    steps: [
+      'Add a question about captioning or communication needs to event registration, tour booking and group enquiry forms',
+      'Allow adequate lead time (min 2 weeks) to arrange services',
+    ],
+    indicators: [
+      'Captioning/communication needs question added to booking forms within 3 months',
+      'Minimum 2 weeks lead time built into the process',
+      'Requests actioned and tracked',
+    ],
+  },
+  '3.7-DD-8a': {
+    steps: [
+      'Develop audio content covering permanent exhibitions, key displays, wayfinding and safety information',
+      'Include vivid descriptions of visual elements and spatial orientation cues, delivered via app, QR codes or loanable devices',
+    ],
+    indicators: [
+      'Audio content scope agreed within 6 months',
+      'Audio guides covering key content available within 24 months',
+      'Audio content updated when displays change',
+    ],
+  },
+  '3.7-DD-9a': {
+    steps: [
+      'Develop communication boards with venue-specific symbols covering common requests (toilet, help, pain, drink, directions), emotions and key activities',
+      'Use standardised symbol sets (e.g. Boardmaker or SymbolStix) and laminate for durability',
+    ],
+    indicators: [
+      'Communication boards developed within 6 months',
+      'Boards cover common requests using standardised symbols',
+      'Boards replaced when worn or when needs change',
+    ],
+  },
+  '3.7-DD-9b': {
+    steps: [
+      'Install communication boards at key service points with simple instructions for use',
+      'Train staff to use them and to support customers who communicate differently',
+    ],
+    indicators: [
+      'Communication boards installed at key service points within 6 months',
+      'Staff trained to use the boards within 3 months',
+      'Board use included in induction for new staff',
+    ],
+  },
+  '3.7-DD-10a': {
+    steps: [
+      'Produce emergency and safety information in large print, Easy Read, Braille and audio formats, covering evacuation, assembly points and how to request assistance',
+      'Display it at key locations and include it in room information packs',
+    ],
+    indicators: [
+      'Accessible emergency information produced within 12 months',
+      'Displayed at key locations and in room packs',
+      'Updated whenever procedures change',
+    ],
+  },
+  '3.7-DD-11a': {
+    steps: [
+      'Ensure real-time displays (screens, timetables, boards) have min 20mm character height, high contrast and no reliance on colour alone',
+      'Provide an audible alternative and position at a readable height and angle for seated users',
+    ],
+    indicators: [
+      'Real-time displays reviewed within 3 months',
+      'Accessible displays with an audible alternative provided within 12 months',
+      'New displays specified to the accessible standard',
+    ],
+  },
 };
