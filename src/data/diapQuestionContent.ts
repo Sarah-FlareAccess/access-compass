@@ -1468,4 +1468,212 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Outdoor access maintained through seasonal changes',
     ],
   },
+
+  // ============================================================
+  // Module 3.2 - Toilets and amenities
+  // ============================================================
+  '3.2-1-1': {
+    steps: [
+      'Assess whether you have a compliant accessible toilet, or identify the nearest one',
+      'Install or upgrade to meet AS 1428.1 Clause 15 (circulation space, grab rails, accessible fixtures)',
+    ],
+    indicators: [
+      'Accessible toilet provision assessed within 3 months',
+      'A compliant accessible toilet available or scheduled within 24 months',
+      'Facility checked against AS 1428.1 after any works',
+    ],
+  },
+  '3.2-1-2': {
+    steps: [
+      'Identify the nearest accessible toilet (on-site or nearby) and confirm its availability and compliance',
+      'Brief all staff so they can direct customers to it',
+    ],
+    indicators: [
+      'Nearest accessible toilet identified and its location documented within 1 month',
+      'All staff able to direct customers to it within 3 months',
+      'Availability re-confirmed on a regular schedule',
+    ],
+  },
+  '3.2-1-3': {
+    steps: [
+      'Install signage with tactile lettering, Braille and the International Symbol of Access at each accessible toilet',
+      'Position it at 1200-1600mm height per AS 1428.1',
+    ],
+    indicators: [
+      'Accessible-toilet signage reviewed within 3 months',
+      'Compliant tactile and Braille signage installed within 12 months',
+      'Signage condition checked on a regular schedule',
+    ],
+  },
+  '3.2-1-4': {
+    steps: [
+      'Remove all stored items (cleaning supplies, spare furniture, stock) from the accessible toilet',
+      'Put a policy in place prohibiting storage in the facility',
+    ],
+    indicators: [
+      'Accessible toilet cleared of storage within 1 month',
+      'No-storage policy in place and communicated to staff',
+      'Toilet confirmed clear on regular checks',
+    ],
+  },
+  '3.2-1-5': {
+    steps: [
+      'Install an emergency alarm cord or button reachable from floor level per AS 1428.1 Clause 15, connected to a monitored point',
+      'Set a regular test schedule',
+    ],
+    indicators: [
+      'Emergency alarm installed within 12 months',
+      'Alarm connected to a monitored point and reachable from floor level',
+      'Alarm tested on a regular schedule',
+    ],
+  },
+  '3.2-D-1': {
+    steps: [
+      'Replace toilet door hardware with lever handles or D-pulls and a sliding-bolt lock operable with one hand',
+      'Ensure the accessible toilet door opens outward or slides, with min 850mm clear opening per AS 1428.1:2021 Cl 19',
+    ],
+    indicators: [
+      'Toilet door hardware and swing reviewed within 3 months',
+      'Compliant handles, lock and clear opening provided within 12 months',
+      'Door operation re-checked after any hardware change',
+    ],
+  },
+  '3.2-D-2': {
+    steps: [
+      'Install at least one baby change station at accessible height (max 900mm folded down) with clear wheelchair floor space',
+      'Make it accessible from the accessible toilet or a separate accessible room, not female-only',
+    ],
+    indicators: [
+      'Baby change accessibility reviewed within 3 months',
+      'Accessible, non-gender-restricted baby change provided within 12 months',
+      'Change facility kept clear and available',
+    ],
+  },
+  '3.2-D-3': {
+    steps: [
+      'Install an ambulant accessible cubicle per AS 1428.1:2021 Cl 20: min 900mm width, side-wall grab rail, 540mm from the pan centreline to the near wall, and an outward-opening door',
+    ],
+    indicators: [
+      'Ambulant toilet need assessed within 3 months',
+      'Compliant ambulant cubicle provided within 24 months',
+      'Cubicle confirmed against AS 1428.1 Cl 20',
+    ],
+  },
+  '3.2-D-4': {
+    steps: [
+      'Replace taps in accessible facilities with lever, sensor or push-type taps usable without gripping or twisting per AS 1428.1:2021 Cl 19.5',
+      'Set sensor taps to stay on for at least 10 seconds',
+    ],
+    indicators: [
+      'Taps reviewed within 3 months',
+      'Compliant taps installed within 12 months',
+      'Tap operation confirmed after any fixture change',
+    ],
+  },
+  '3.2-D-5': {
+    steps: [
+      'Install soap dispensers and hand dryers at 900-1100mm, reachable from a seated position, push-button or sensor-operated',
+      'Position them near the washbasin with visual contrast against the wall',
+    ],
+    indicators: [
+      'Dispenser and dryer heights reviewed within 3 months',
+      'Accessible dispensers and dryers installed within 12 months',
+      'Fittings kept in working order on a regular schedule',
+    ],
+  },
+  '3.2-D-6': {
+    steps: [
+      'Provide sanitary disposal and waste bins in the accessible toilet at 500-1100mm, within reach of the toilet, operable with one hand',
+      'Provide them regardless of the user\'s gender',
+    ],
+    indicators: [
+      'Bin provision and placement reviewed within 3 months',
+      'Accessible bins provided in the accessible toilet within 6 months',
+      'Bins kept serviced and within reach',
+    ],
+  },
+  '3.2-D-7': {
+    steps: [
+      'Assess the need and space for an adult change facility (Changing Places standard)',
+      'Install a height-adjustable adult change table (min 1800x750mm), ceiling hoist, clear floor space and a privacy screen, separate from the standard accessible toilet',
+    ],
+    indicators: [
+      'Adult change facility need and feasibility assessed within 6 months',
+      'Changing Places facility provided or scheduled within 24 months',
+      'Facility registered and serviced where installed',
+    ],
+  },
+  '3.2-D-8': {
+    steps: [
+      'Install grab rails per AS 1428.1:2021 Cl 19.3: a 600mm drop-down rail on the transfer side at 800-810mm and a fixed rail on the wall side',
+      'Ensure both support 1100N with 30-40mm diameter and 35-45mm wall clearance',
+    ],
+    indicators: [
+      'Grab rail compliance reviewed within 3 months',
+      'Compliant grab rails installed within 12 months',
+      'Rail fixings load-tested and inspected on a regular schedule',
+    ],
+  },
+  '3.2-D-9': {
+    steps: [
+      'Reconfigure the accessible toilet to provide min 900mm clear space on the transfer side and 1160mm circulation space per AS 1428.1:2021 Cl 19',
+      'Remove any obstructions in the transfer zone',
+    ],
+    indicators: [
+      'Transfer-space layout reviewed within 3 months',
+      'Compliant transfer and circulation space provided within 24 months',
+      'Transfer zone kept clear of obstructions',
+    ],
+  },
+  '3.2-D-10': {
+    steps: [
+      'Install a washbasin with the rim at max 830mm, min 600mm knee clearance and insulated or recessed pipes per AS 1428.1:2021 Cl 19.5',
+      'Ensure it is reachable from a wheelchair without obstruction',
+    ],
+    indicators: [
+      'Washbasin accessibility reviewed within 3 months',
+      'Compliant washbasin installed within 12 months',
+      'Pipe insulation and clearance confirmed after any plumbing change',
+    ],
+  },
+  '3.2-D-11': {
+    steps: [
+      'Reposition fittings within reach of the toilet: flush within 300mm of the cistern front on the transfer side, toilet paper 600-700mm from the floor within arm reach, and coat hook at 1200mm per AS 1428.1:2021',
+    ],
+    indicators: [
+      'Fitting positions reviewed within 3 months',
+      'Fittings repositioned to compliant, reachable locations within 12 months',
+      'Reach confirmed after any refit',
+    ],
+  },
+  '3.2-D-12': {
+    steps: [
+      'Install a mirror with the bottom edge at 900mm or lower and the top edge at 1850mm or higher, or a tilted mirror, to serve standing and seated users per AS 1428.1:2021',
+    ],
+    indicators: [
+      'Mirror height reviewed within 3 months',
+      'Compliant mirror installed within 12 months',
+      'Mirror kept clean and undamaged',
+    ],
+  },
+  '3.2-D-13': {
+    steps: [
+      'Install a padded backrest behind the cistern or wall-mounted at an appropriate height to support users needing trunk support, per AS 1428.1:2021',
+    ],
+    indicators: [
+      'Backrest need reviewed within 3 months',
+      'Compliant backrest installed within 12 months',
+      'Backrest fixings inspected on a regular schedule',
+    ],
+  },
+  '3.2-D-14': {
+    steps: [
+      'Improve visual contrast of toilet fittings (grab rails, flush buttons, door handles, sanitary fittings) to min 30% luminance contrast against their background per AS 1428.1:2021 Cl 19',
+    ],
+    indicators: [
+      'Fitting contrast reviewed within 3 months',
+      'Compliant contrast provided on key fittings within 12 months',
+      'Contrast written into future fixture selection',
+    ],
+  },
 };
