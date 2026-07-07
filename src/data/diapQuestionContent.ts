@@ -4556,4 +4556,228 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Option reviewed via customer feedback',
     ],
   },
+
+  // ============================================================
+  // Module 4.3 - Bookings and ticketing
+  // ============================================================
+  '4.3-1-1': {
+    steps: [
+      'Enable flexible booking modifications (date, time, accessibility requirements) through all booking channels',
+      'Communicate the process clearly to customers',
+    ],
+    indicators: [
+      'Flexible booking modifications available within 6 months',
+      'Modification process communicated at booking',
+      'Modifications handled consistently, confirmed via feedback',
+    ],
+  },
+  '4.3-1-2': {
+    steps: [
+      'Check payment terminal height and approach space',
+      'Reposition terminals to be usable from a seated position (800-1100mm per AS 1428.1) with clear approach space',
+    ],
+    indicators: [
+      'Payment terminal heights reviewed within 3 months',
+      'Accessible terminal height and approach provided within 12 months',
+      'Approach space kept clear',
+    ],
+  },
+  '4.3-1-3': {
+    steps: [
+      'Provide portable or wireless payment terminals',
+      'Train staff to offer table-side or counter-side payment when a customer cannot reach the fixed terminal',
+    ],
+    indicators: [
+      'Portable payment option available within 6 months',
+      'Staff offer table-side payment when needed',
+      'Portable terminals maintained and charged',
+    ],
+  },
+  '4.3-1-4': {
+    steps: [
+      'Introduce flexible cancellation and modification terms for disability-related changes (health flare-ups, carer unavailability)',
+      'Communicate this policy clearly during booking',
+    ],
+    indicators: [
+      'Flexible cancellation policy in place within 3 months',
+      'Policy communicated at booking',
+      'Policy applied consistently, confirmed via feedback',
+    ],
+  },
+  '4.3-D-1': {
+    steps: [
+      'Audit your online booking system against WCAG 2.2 AA (keyboard navigation, screen reader compatibility, clear labels and errors, 200% zoom)',
+      'Fix the issues found and provide a phone or email alternative',
+    ],
+    indicators: [
+      'Booking system audited for WCAG 2.2 AA within 3 months',
+      'Critical issues fixed within 12 months',
+      'A phone or email booking alternative available',
+    ],
+  },
+  '4.3-D-2': {
+    steps: [
+      'Add an accessibility requirements field to your booking process (wheelchair access, hearing loop, Auslan interpreter, quiet seating, assistance animal, free text)',
+      'Ensure requests are actioned before the visit',
+    ],
+    indicators: [
+      'Accessibility requirements field added within 6 months',
+      'Requests actioned before the visit',
+      'Request handling reviewed via feedback',
+    ],
+  },
+  '4.3-D-3': {
+    steps: [
+      'Register as a Companion Card affiliate through your state or territory scheme',
+      'Train staff to recognise and accept the card, and apply the companion concession automatically',
+    ],
+    indicators: [
+      'Companion Card affiliation in place within 6 months',
+      'Staff recognise and accept the card',
+      'Companion concession applied automatically',
+    ],
+  },
+  '4.3-D-4': {
+    steps: [
+      'Review what concession pricing or reduced fees you could offer people with disability and their companions',
+      'Establish clear eligibility criteria and a simple verification process',
+    ],
+    indicators: [
+      'Concession pricing reviewed within 6 months',
+      'Concession offered with clear eligibility within 12 months',
+      'Uptake reviewed and criteria refined',
+    ],
+  },
+  '4.3-D-5': {
+    steps: [
+      'Accept a range of payment methods including contactless (tap-and-go), chip and PIN, cash and online payment',
+      'Promote contactless as important for customers with fine motor difficulties',
+    ],
+    indicators: [
+      'Payment methods reviewed within 3 months',
+      'A range of accessible payment methods accepted within 6 months',
+      'Payment options confirmed after any system change',
+    ],
+  },
+  '4.3-D-6': {
+    steps: [
+      'Ensure booking confirmations and receipts are well-structured HTML email (not image-only), with a plain-text option',
+      'Provide large print on request and screen-reader-compatible PDFs',
+    ],
+    indicators: [
+      'Confirmation and receipt formats reviewed within 3 months',
+      'Accessible confirmations and receipts provided within 6 months',
+      'Formats re-checked when templates change',
+    ],
+  },
+  '4.3-D-7': {
+    steps: [
+      'Enable customers to book accessible spaces, seating or equipment (wheelchair spaces, hearing loop seats, accessible rooms) in advance through your standard booking system',
+      'Confirm the booked feature is held and ready',
+    ],
+    indicators: [
+      'Advance booking of accessible features available within 6 months',
+      'Booked features held and ready on arrival',
+      'Booking reliability reviewed via feedback',
+    ],
+  },
+  '4.3-D-8': {
+    steps: [
+      'Offer multiple ways to request assistance when booking (online field, dedicated phone line, email, note option in third-party platforms)',
+      'Ensure requests are actioned before the visit',
+    ],
+    indicators: [
+      'Multiple assistance-request channels available within 6 months',
+      'Requests actioned before the visit',
+      'Request handling reviewed via feedback',
+    ],
+  },
+  '4.3-D-9': {
+    steps: [
+      'Publish pricing information in accessible formats: website (WCAG 2.2 AA), large print at the venue, Easy Read or audio on request',
+      'Avoid pricing only in images or non-tagged PDFs',
+    ],
+    indicators: [
+      'Pricing formats reviewed within 3 months',
+      'Accessible pricing available within 6 months',
+      'Pricing formats updated when prices change',
+    ],
+  },
+  '4.3-D-10': {
+    steps: [
+      'Promote concessions and discounts on your website, at point of sale and in confirmations',
+      'Include eligibility, how to claim and what evidence is needed, without requiring customers to ask',
+    ],
+    indicators: [
+      'Concessions clearly promoted within 3 months',
+      'Eligibility and claiming process published',
+      'Uptake reviewed on a regular schedule',
+    ],
+  },
+  '4.3-D-11': {
+    steps: [
+      'Confirm customers with disability can use all the same payment methods as other customers',
+      'Where any method is inaccessible, provide an equally convenient alternative',
+    ],
+    indicators: [
+      'Payment accessibility reviewed within 3 months',
+      'Equally convenient alternatives provided where needed within 12 months',
+      'Payment accessibility confirmed after any system change',
+    ],
+  },
+  '4.3-D-12': {
+    steps: [
+      'Audit EFTPOS and payment terminals for accessibility (tactile buttons, audio feedback, screen contrast, reachable height 900-1100mm, handheld option)',
+      'Replace or supplement inaccessible terminals',
+    ],
+    indicators: [
+      'Payment terminals audited within 3 months',
+      'Accessible terminals in place within 12 months',
+      'Accessibility confirmed when terminals are replaced',
+    ],
+  },
+  '4.3-D-13': {
+    steps: [
+      'Ensure receipts and invoices are min 12pt on print, well-structured HTML email and tagged PDF',
+      'Provide large print or audio on request',
+    ],
+    indicators: [
+      'Receipt and invoice formats reviewed within 3 months',
+      'Accessible receipts and invoices provided within 6 months',
+      'Formats re-checked when templates change',
+    ],
+  },
+  '4.3-D-14': {
+    steps: [
+      'Audit self-service kiosks for accessibility (reachable screen height, screen reader or audio output, high contrast, timeout extensions, tactile controls)',
+      'Ensure a staffed alternative is always available',
+    ],
+    indicators: [
+      'Self-service kiosks audited within 6 months',
+      'Accessible kiosk features provided within 24 months',
+      'A staffed alternative always available',
+    ],
+  },
+  '4.3-D-15': {
+    steps: [
+      'Audit your digital queuing or ticket system for accessibility (screen reader compatibility, keyboard navigation, visual and audio queue alerts)',
+      'Provide an alternative for customers who cannot use the digital system',
+    ],
+    indicators: [
+      'Digital queuing system audited within 6 months',
+      'Accessible queuing features and an alternative provided within 12 months',
+      'Accessibility re-checked when the system changes',
+    ],
+  },
+  '4.3-D-16': {
+    steps: [
+      'Audit self-checkout machines for accessibility (screen height, audio feedback and screen reader mode, bagging layout for wheelchair trays, weight tolerance, clear instructions)',
+      'Ensure a staffed checkout is always available',
+    ],
+    indicators: [
+      'Self-checkout accessibility audited within 6 months',
+      'Accessible self-checkout configuration in place within 12 months',
+      'A staffed checkout always available',
+    ],
+  },
 };
