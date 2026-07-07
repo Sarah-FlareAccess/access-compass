@@ -4780,4 +4780,162 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'A staffed checkout always available',
     ],
   },
+
+  // ============================================================
+  // Module 4.4 - Safety and emergencies
+  // ============================================================
+  '4.4-1-1': {
+    steps: [
+      'Update your emergency management plan to include specific procedures for evacuating people with mobility, sensory, cognitive and psychosocial disabilities',
+      'Confirm the plan meets DDA 1992 obligations',
+    ],
+    indicators: [
+      'Emergency plan updated for disability-inclusive evacuation within 6 months',
+      'Plan confirmed against DDA obligations',
+      'Plan reviewed at least annually',
+    ],
+  },
+  '4.4-1-2': {
+    steps: [
+      'Audit all emergency exits for step-free access, min 850mm door width per AS 1428.1 and clear approach paths',
+      'Rectify exits that are not accessible',
+    ],
+    indicators: [
+      'Emergency exits audited within 3 months',
+      'Accessible emergency egress provided within 24 months',
+      'Exit paths kept clear, confirmed on regular checks',
+    ],
+  },
+  '4.4-1-3': {
+    steps: [
+      'Install dual-mode alarm systems with both audible alarms and visual strobes in all areas, including toilets and quiet spaces, per AS 1670.4 and the Premises Standards',
+      'Test both modes during regular alarm checks',
+    ],
+    indicators: [
+      'Alarm coverage reviewed within 3 months',
+      'Audible and visual alarms provided across all areas within 24 months',
+      'Both modes tested during regular alarm checks',
+    ],
+  },
+  '4.4-1-4': {
+    steps: [
+      'Conduct disability-inclusive evacuation training for all staff (wheelchair assistance, guiding a blind person, communicating with Deaf people, supporting people with anxiety or confusion)',
+      'Reinforce it in regular drills',
+    ],
+    indicators: [
+      'Disability-inclusive evacuation training delivered within 6 months',
+      'Practised in drills at least every six months',
+      'Included in induction for new staff',
+    ],
+  },
+  '4.4-D-1': {
+    steps: [
+      'Implement Personal Emergency Evacuation Plans (PEEPs) for staff and regular visitors who need them',
+      'Develop generic PEEPs for casual visitors covering common disability types',
+    ],
+    indicators: [
+      'PEEPs implemented within 6 months',
+      'Generic PEEPs available for casual visitors',
+      'PEEPs reviewed at least annually',
+    ],
+  },
+  '4.4-D-2': {
+    steps: [
+      'Identify and clearly sign designated refuge areas on all floors above and below ground level',
+      'Ensure each is fire-rated with two-way communication to the control point and included in your emergency procedures, per the NCC and AS 1428.1',
+    ],
+    indicators: [
+      'Refuge area provision reviewed within 6 months',
+      'Compliant, signed refuge areas provided within 24 months',
+      'Refuge communication tested during drills',
+    ],
+  },
+  '4.4-D-3': {
+    steps: [
+      'Procure appropriate evacuation equipment (evacuation chairs, slide sheets or carry chairs) for all multi-storey areas',
+      'Train designated staff in their use and run regular practice sessions',
+    ],
+    indicators: [
+      'Evacuation equipment need reviewed within 3 months',
+      'Equipment procured and staff trained within 12 months',
+      'Equipment maintained and practised regularly',
+    ],
+  },
+  '4.4-D-4': {
+    steps: [
+      'Implement visual emergency alerts (flashing beacons, digital signage) alongside audible alarms',
+      'Train staff to use written instructions, gestures and physical guidance to direct Deaf visitors during evacuation',
+    ],
+    indicators: [
+      'Visual emergency alerts installed within 24 months',
+      'Staff trained to direct Deaf visitors in an emergency',
+      'Visual alerts tested during drills',
+    ],
+  },
+  '4.4-D-5': {
+    steps: [
+      'Display emergency procedures in accessible formats: tactile and Braille evacuation maps at key points, large print, high-contrast schemes and Easy Read at reception',
+      'Include accessible formats in pre-visit information',
+    ],
+    indicators: [
+      'Emergency procedure formats reviewed within 3 months',
+      'Accessible emergency information provided within 12 months',
+      'Formats updated whenever procedures change',
+    ],
+  },
+  '4.4-D-6': {
+    steps: [
+      'Develop procedures for supporting people with anxiety, autism, intellectual disability or cognitive differences during emergencies',
+      'Train staff on calm communication, sensory overload management and buddy systems',
+    ],
+    indicators: [
+      'Support procedures developed within 6 months',
+      'Staff trained on calm communication and buddy systems',
+      'Procedures practised in drills',
+    ],
+  },
+  '4.4-D-7': {
+    steps: [
+      'Include assistance animals in your emergency evacuation procedures, keeping the animal with its handler',
+      'Train staff never to separate an assistance animal from its handler and plan for animal welfare at assembly points',
+    ],
+    indicators: [
+      'Assistance animals included in evacuation procedures within 3 months',
+      'Staff trained never to separate animal from handler',
+      'Animal welfare planned for at assembly points',
+    ],
+  },
+  '4.4-D-8': {
+    steps: [
+      'Conduct evacuation drills at least every six months that include disability scenarios (wheelchair user, blind person, Deaf visitor, person with cognitive disability)',
+      'Document outcomes and improve procedures based on findings',
+    ],
+    indicators: [
+      'Disability scenarios included in drills within 6 months',
+      'Drills held at least every six months',
+      'Findings documented and procedures improved',
+    ],
+  },
+  '4.4-D-9': {
+    steps: [
+      'Brief visitors with disabilities on emergency procedures on arrival: nearest accessible exit, refuge location, how alarms are communicated and who to contact',
+      'Include this in any pre-visit information pack',
+    ],
+    indicators: [
+      'Arrival emergency briefing process in place within 6 months',
+      'Visitors with disabilities briefed on arrival',
+      'Briefing included in pre-visit information',
+    ],
+  },
+  '4.4-D-10': {
+    steps: [
+      'Develop a process to communicate visitor disability information to external emergency services on arrival',
+      'Maintain a register of visitors with PEEPs (location, mobility and communication needs, assistance animal) available to the chief warden',
+    ],
+    indicators: [
+      'Emergency-services communication process in place within 6 months',
+      'PEEP register maintained and available to the chief warden',
+      'Process tested during drills',
+    ],
+  },
 };
