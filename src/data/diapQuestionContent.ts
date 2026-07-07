@@ -6367,4 +6367,173 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Local accessible alternatives used where the provider cannot fix gaps',
     ],
   },
+
+  // ============================================================
+  // Module 5.7 - Inclusive job design and advertising
+  // ============================================================
+  '5.7-PC-1': {
+    steps: [
+      'Review all job description templates and identify inherent requirements (genuine, non-negotiable)',
+      'Reclassify the rest as desirable and remove requirements like a driver\'s licence unless core to the role',
+    ],
+    indicators: [
+      'Job description templates reviewed within 6 months',
+      'Inherent requirements separated from desirable ones',
+      'Non-essential requirements removed from ads',
+    ],
+  },
+  '5.7-PC-2': {
+    steps: [
+      'Rewrite ad templates in plain language and test readability before posting',
+      'Commit to disclosing salary ranges on all ads',
+    ],
+    indicators: [
+      'Ad templates rewritten in plain language within 6 months',
+      'Salary ranges disclosed on all ads',
+      'Readability tested before posting',
+    ],
+  },
+  '5.7-PC-3': {
+    steps: [
+      'Add a named-contact access statement to every ad template, inviting candidates to request adjustments',
+      'Offer multiple formats and contact methods, and make clear disclosure is not required',
+    ],
+    indicators: [
+      'Access statement on every ad template within 3 months',
+      'A named contact provided for adjustment requests',
+      'Requests actioned promptly',
+    ],
+  },
+  '5.7-PC-4': {
+    steps: [
+      'Identify one or two DES providers or disability-led networks for your sector',
+      'Build ongoing relationships and advertise roles through them, not one-off posts',
+    ],
+    indicators: [
+      'Disability-led advertising channels identified within 6 months',
+      'Roles advertised through them ongoing',
+      'Reach and outcomes reviewed on a regular schedule',
+    ],
+  },
+  '5.7-PC-5': {
+    steps: [
+      'Test your ATS with a screen reader and keyboard only and document failures',
+      'Offer a named alternative application path on every ad and request VPATs from vendors at renewal',
+    ],
+    indicators: [
+      'Application process tested for accessibility within 6 months',
+      'An alternative application path offered on every ad',
+      'Vendor VPATs requested at renewal',
+    ],
+  },
+  '5.7-PC-6': {
+    steps: [
+      'Plan a careers content update, inviting Disabled staff to contribute (paid)',
+      'Replace generic DEI statements with visible, authentic representation',
+    ],
+    indicators: [
+      'Careers content update planned within 6 months',
+      'Authentic disability representation featured within 12 months',
+      'Contributors compensated for their input',
+    ],
+  },
+  '5.7-DD-1': {
+    steps: [
+      'Name a reviewer responsible for signing off inherent requirements before a role is advertised',
+      'Add a short sign-off step to the hiring workflow',
+    ],
+    indicators: [
+      'Sign-off owner named within 3 months',
+      'Inherent requirements signed off before advertising',
+      'Sign-off step embedded in the hiring workflow',
+    ],
+  },
+  '5.7-DD-2': {
+    steps: [
+      'Add a flexibility review to the pre-advertising checklist for every role',
+      'Consider part-time, job-share or flexible arrangements before advertising full-time only',
+    ],
+    indicators: [
+      'Flexibility review added to the checklist within 3 months',
+      'Every role considered for flexibility before advertising',
+      'Flexible arrangements offered where feasible',
+    ],
+  },
+  '5.7-DD-3': {
+    steps: [
+      'Offer job ads and application information in plain text email as a minimum',
+      'Plan Easy Read and Auslan versions for high-volume or strategic roles',
+    ],
+    indicators: [
+      'Plain text application information available within 3 months',
+      'Easy Read and Auslan planned for key roles',
+      'Alternative formats provided on request',
+    ],
+  },
+  '5.7-DD-4': {
+    steps: [
+      'Pilot CV-blind or name-blind shortlisting on two or three high-volume roles',
+      'Measure the change in shortlist diversity',
+    ],
+    indicators: [
+      'Blind shortlisting piloted within 12 months',
+      'Shortlist diversity change measured',
+      'Approach scaled where it improves outcomes',
+    ],
+  },
+  '5.7-DD-5': {
+    steps: [
+      'Draft a recruiter accessibility brief covering your standards and access statement wording',
+      'Share it with existing agencies and add a clause at the next contract renewal',
+    ],
+    indicators: [
+      'Recruiter accessibility brief drafted within 3 months',
+      'Shared with all current agencies',
+      'Accessibility clause added at renewal',
+    ],
+  },
+  '5.7-DD-6': {
+    steps: [
+      'Extend your inclusive advertising templates and standards to volunteer, casual, contractor and intern advertising',
+      'Apply them consistently across all advertising',
+    ],
+    indicators: [
+      'Standards extended to all advertising types within 6 months',
+      'Templates applied consistently',
+      'Coverage reviewed on a regular schedule',
+    ],
+  },
+  '5.7-DD-7': {
+    steps: [
+      'Pull ABS disability prevalence for your sector and compare it to your last 12 months of applicant data',
+      'Review applicant diversity (disclosure, shortlist, offer) annually against the benchmark',
+    ],
+    indicators: [
+      'Applicant diversity benchmarked within 12 months',
+      'Diversity reviewed annually against the benchmark',
+      'Findings used to improve recruitment',
+    ],
+  },
+  '5.7-DD-8': {
+    steps: [
+      'Add careers page, employer-brand video and candidate testimonial content to the annual accessibility audit scope',
+      'Audit the ATS portal specifically against WCAG 2.2 AA',
+    ],
+    indicators: [
+      'Careers content added to the audit scope within 6 months',
+      'Careers content and ATS audited annually against WCAG 2.2 AA',
+      'Issues found remediated',
+    ],
+  },
+  '5.7-DD-9': {
+    steps: [
+      'Identify one disability-led or sector-specific partner and scope a small pilot (two or three placements)',
+      'Measure the outcomes and scale what works',
+    ],
+    indicators: [
+      'Pipeline partner identified within 12 months',
+      'A small pilot placement program run',
+      'Outcomes measured and the program scaled where successful',
+    ],
+  },
 };
