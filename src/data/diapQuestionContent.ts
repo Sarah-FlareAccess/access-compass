@@ -1927,4 +1927,215 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Visual alerts tested during emergency drills',
     ],
   },
+
+  // ============================================================
+  // Module 3.4 - Equipment and resources
+  // ============================================================
+  '3.4-F-1': {
+    steps: [
+      'Introduce equipment and resources customers can use during their visit',
+      'Start with high-impact items (portable hearing loops, magnifiers, wheelchairs, sensory kits)',
+    ],
+    indicators: [
+      'Equipment provision reviewed within 3 months',
+      'High-impact equipment available within 12 months',
+      'Range reviewed against visitor needs on a regular schedule',
+    ],
+  },
+  '3.4-F-2': {
+    steps: [
+      'Add available equipment information to your website, booking confirmations and social media',
+      'Include what is available, how to request it and whether booking is required',
+    ],
+    indicators: [
+      'Equipment information published within 3 months',
+      'Information covers availability, the request process and booking',
+      'Information reviewed for accuracy every 6 months',
+    ],
+  },
+  '3.4-F-3': {
+    steps: [
+      'Create a simple on-arrival process: place items at reception or a clearly signed collection point',
+      'Train front-line staff on what is available and require no justification from customers',
+    ],
+    indicators: [
+      'On-arrival equipment process in place within 3 months',
+      'Staff provide equipment without customers having to justify need',
+      'Collection point clearly signed',
+    ],
+  },
+  '3.4-F-4': {
+    steps: [
+      'Remove charges for accessibility equipment and factor the costs into general operating budgets',
+    ],
+    indicators: [
+      'Charges for accessibility equipment removed within 3 months',
+      'Equipment costs included in the operating budget',
+      'No-charge policy communicated to staff',
+    ],
+  },
+  '3.4-D-1': {
+    steps: [
+      'Build an equipment library (portable hearing loops, wheelchairs, magnifiers, communication boards, sensory kits, large-print materials)',
+      'Prioritise based on your visitor profile and venue type',
+    ],
+    indicators: [
+      'Equipment library established within 12 months',
+      'Range prioritised to the visitor profile',
+      'Inventory reviewed and expanded on a regular schedule',
+    ],
+  },
+  '3.4-D-2': {
+    steps: [
+      'Establish a designated quiet space with dimmable lighting, comfortable seating, low-stimulation decor and clear signage',
+      'Locate it away from noisy areas on an accessible path',
+    ],
+    indicators: [
+      'Quiet space established within 12 months',
+      'Space on an accessible path away from noise',
+      'Space maintained on a regular schedule',
+    ],
+  },
+  '3.4-D-3': {
+    steps: [
+      'Provide a range of manual wheelchairs (regular and bariatric), and consider motorised scooters for larger venues',
+      'Store them near the entrance and train staff on safe operation and basic adjustments',
+    ],
+    indicators: [
+      'Wheelchairs and mobility aids provided within 12 months',
+      'Range includes bariatric sizes, stored near the entrance',
+      'Staff trained on safe operation',
+    ],
+  },
+  '3.4-D-4': {
+    steps: [
+      'Assemble sensory support kits (noise-cancelling headphones, fidget tools, sunglasses, weighted lap pads, visual timers)',
+      'Make them available at reception for free loan',
+    ],
+    indicators: [
+      'Sensory support kits available within 6 months',
+      'Kits offered free at reception',
+      'Kit contents maintained and restocked regularly',
+    ],
+  },
+  '3.4-D-5': {
+    steps: [
+      'Provide communication aids (picture communication boards, pen and paper, a tablet with a communication app, clear face masks for lipreading)',
+      'Train staff to use them confidently',
+    ],
+    indicators: [
+      'Communication aids provided within 6 months',
+      'Staff trained and confident using them',
+      'Aids maintained and kept accessible',
+    ],
+  },
+  '3.4-D-6': {
+    steps: [
+      'Establish a maintenance schedule (cleaning, battery checks, functionality testing, prompt repair or replacement)',
+      'Log checks and assign responsibility',
+    ],
+    indicators: [
+      'Equipment maintenance schedule in place within 3 months',
+      'Checks logged with clear responsibility',
+      'Faulty equipment repaired or replaced promptly',
+    ],
+  },
+  '3.4-D-7': {
+    steps: [
+      'Expand equipment to cover different body sizes: bariatric wheelchairs (min 600mm seat width), extra-large sensory headphones, adjustable-height mobility aids',
+    ],
+    indicators: [
+      'Equipment size range reviewed within 3 months',
+      'Options for a range of body sizes provided within 12 months',
+      'Range reviewed against demand on a regular schedule',
+    ],
+  },
+  '3.4-D-8': {
+    steps: [
+      'Train customer-facing staff on the full inventory, storage, operation of each item, and how to offer it proactively and respectfully',
+      'Include this in onboarding',
+    ],
+    indicators: [
+      'Staff trained on the equipment inventory within 3 months',
+      'Equipment training included in onboarding',
+      'Refresher completed each year',
+    ],
+  },
+  '3.4-D-9': {
+    steps: [
+      'Conduct a needs assessment via customer feedback, staff observations and benchmarking against similar venues',
+      'Identify which additional equipment would have the greatest impact',
+    ],
+    indicators: [
+      'Equipment needs assessment completed within 6 months',
+      'Priority additions identified and planned',
+      'Needs reassessed annually',
+    ],
+  },
+  '3.4-D-10': {
+    steps: [
+      'Install accessible pool entry per AS 1428.1:2021 (pool hoist min 136kg, zero-depth/beach entry, or submersible ramp)',
+      'Provide at least one independent entry option',
+    ],
+    indicators: [
+      'Pool entry accessibility reviewed within 6 months',
+      'At least one compliant independent entry option provided within 24 months',
+      'Entry equipment maintained and tested regularly',
+    ],
+  },
+  '3.4-D-11': {
+    steps: [
+      'Provide at least one aquatic wheelchair rated for pool use, including a bariatric option for larger venues',
+      'Store it near the pool entrance with clear instructions and train lifeguards on safe use',
+    ],
+    indicators: [
+      'Aquatic wheelchair provided within 12 months',
+      'Stored near the pool with instructions',
+      'Lifeguards trained on safe use',
+    ],
+  },
+  '3.4-D-12': {
+    steps: [
+      'Provide accessible change rooms and showers near the pool per AS 1428.1:2021 (roll-in shower with fold-down seat, grab rails, non-slip flooring, min 1540mm turning circle)',
+      'Ensure a direct accessible route to the pool',
+    ],
+    indicators: [
+      'Poolside change and shower accessibility reviewed within 6 months',
+      'Compliant accessible change and shower provided within 24 months',
+      'Direct accessible route to the pool confirmed',
+    ],
+  },
+  '3.4-D-13': {
+    steps: [
+      'Install visual (flashing lights) and audible (alarm/siren) warnings that activate before wave machines or water features start',
+      'Give at least 30 seconds warning and add signage explaining the system',
+    ],
+    indicators: [
+      'Water-feature warning system reviewed within 6 months',
+      'Visual and audible warnings with 30 seconds notice provided within 12 months',
+      'Warning system tested on a regular schedule',
+    ],
+  },
+  '3.4-D-14': {
+    steps: [
+      'Provide free WiFi throughout public areas to support assistive technology apps (navigation, communication, hearing, translation)',
+      'Ensure coverage includes outdoor areas and all levels',
+    ],
+    indicators: [
+      'WiFi coverage reviewed within 3 months',
+      'Free WiFi available across public areas within 12 months',
+      'Coverage confirmed across levels and outdoor areas',
+    ],
+  },
+  '3.4-D-15': {
+    steps: [
+      'Install accessible charging points (USB and power outlets) at reception, waiting areas and rest seating',
+      'Position them at 600-1100mm height so wheelchair users can reach them independently',
+    ],
+    indicators: [
+      'Charging point provision reviewed within 3 months',
+      'Accessible charging points installed at key locations within 12 months',
+      'Charging points kept working on a regular schedule',
+    ],
+  },
 };
