@@ -1262,4 +1262,202 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Screens at accessible viewing heights, with a pager or SMS alternative offered',
     ],
   },
+
+  // ============================================================
+  // Module 3.1 - Seating, furniture and layout
+  // ============================================================
+  '3.1-1-1': {
+    steps: [
+      'Review seating for variety in arm, height and depth options',
+      'Provide a mix so people with different mobility, size and support needs can find comfortable seating',
+    ],
+    indicators: [
+      'Seating variety reviewed within 3 months',
+      'A mix of seat heights, and seats with and without arms, available within 12 months',
+      'Seating mix maintained as furniture is replaced',
+    ],
+  },
+  '3.1-D-1': {
+    steps: [
+      'Audit current seating provision',
+      'Introduce a variety of options: movable chairs, seats with armrests, and spaces for wheelchair users alongside companions',
+    ],
+    indicators: [
+      'Seating provision audited within 3 months',
+      'Movable chairs, armrest seats and wheelchair-companion spaces provided within 12 months',
+      'Provision reviewed as furniture is replaced',
+    ],
+  },
+  '3.1-1-2': {
+    steps: [
+      'Designate clear wheelchair spaces (min 800mm x 1300mm per AS 1428.1) adjacent to standard seating',
+    ],
+    indicators: [
+      'Wheelchair companion spaces provided within 12 months',
+      'Spaces meet the AS 1428.1 minimum dimensions',
+      'Spaces kept clear and available',
+    ],
+  },
+  '3.1-1-3': {
+    steps: [
+      'Provide tables and counters with at least 750mm knee clearance underneath and a surface no higher than 850mm',
+    ],
+    indicators: [
+      'Table and counter heights checked within 3 months',
+      'Accessible-height tables and counters provided within 12 months',
+      'Accessible surfaces kept available and unobstructed',
+    ],
+  },
+  '3.1-1-4': {
+    steps: [
+      'Replace or supplement fixed furniture with movable options',
+      'Enable staff to rearrange layouts for wheelchair users, mobility aids or service animals',
+    ],
+    indicators: [
+      'Movable furniture options provided within 12 months',
+      'Staff able to rearrange layouts on request',
+      'Flexibility maintained as furniture is replaced',
+    ],
+  },
+  '3.1-D-2': {
+    steps: [
+      'Measure aisles and pathways between furniture',
+      'Rearrange to achieve min 1000mm clear width (1200mm preferred, 1800mm at passing points) per AS 1428.1:2021 Cl 7',
+    ],
+    indicators: [
+      'Aisle widths measured within 3 months',
+      'Minimum 1000mm clear width achieved throughout within 12 months',
+      'Furniture layout checked regularly to maintain clearances',
+    ],
+  },
+  '3.1-D-3': {
+    steps: [
+      'Install a lowered counter section at max 830mm height with min 800mm knee clearance depth, or establish a clearly signed alternative service point, per AS 1428.1:2021',
+    ],
+    indicators: [
+      'Counter accessibility reviewed within 3 months',
+      'Lowered counter section or signed alternative service point provided within 12 months',
+      'Accessible service point kept staffed and available',
+    ],
+  },
+  '3.1-D-4': {
+    steps: [
+      'Provide wheelchair spaces, extra-width seats, companion seating and Easy Access (ambulant) seats in fixed seating areas',
+      'Ensure wheelchair spaces are on an accessible path with 900mm min width and 1300mm depth per AS 1428.1:2021',
+    ],
+    indicators: [
+      'Fixed-seating accessibility reviewed within 3 months',
+      'Range of accessible seat types provided within 24 months',
+      'Wheelchair spaces confirmed on an accessible path',
+    ],
+  },
+  '3.1-D-5': {
+    steps: [
+      'Install rest seating at regular intervals along walking routes (every 60m recommended), near high-traffic areas and at points of interest',
+      'Include seats with armrests and backrests at 450mm seat height',
+    ],
+    indicators: [
+      'Rest-seating gaps identified within 3 months',
+      'Rest seating installed at recommended intervals within 12 months',
+      'Seating condition checked on a regular schedule',
+    ],
+  },
+  '3.1-D-6': {
+    steps: [
+      'Ensure seating areas can accommodate assistance animals with floor space beside or under tables, without blocking exits',
+      'Brief staff that recognised assistance animals must not be refused entry under the DDA 1992',
+    ],
+    indicators: [
+      'Seating reviewed for assistance-animal space within 3 months',
+      'Adequate space provided and exits kept clear',
+      'Staff briefed on assistance-animal rights within 3 months',
+    ],
+  },
+  '3.1-D-7': {
+    steps: [
+      'Establish a designated assistance-animal relief area with a suitable surface, drainage, waste disposal and clear signage',
+      'Locate it within reasonable distance of main areas and communicate its location to visitors',
+    ],
+    indicators: [
+      'Assistance-animal relief area established within 12 months',
+      'Area has surface, drainage, waste disposal and signage',
+      'Location communicated on the website and by staff',
+    ],
+  },
+  '3.1-D-8': {
+    steps: [
+      'Install coat hooks and shelving at two heights: 900-1100mm and 1500-1700mm',
+      'Provide lockers with accessible locks at 900-1100mm',
+    ],
+    indicators: [
+      'Hook, locker and shelf heights reviewed within 3 months',
+      'Accessible-height options provided within 12 months',
+      'Accessible options kept available',
+    ],
+  },
+  '3.1-D-9': {
+    steps: [
+      'Relocate or supplement controls (light switches, outlets, thermostats) to 900-1100mm from the floor',
+      'Ensure they are operable with one hand from a seated position without tight grasping or twisting, per AS 1428.1:2021 Cl 16',
+    ],
+    indicators: [
+      'Control heights and operability reviewed within 6 months',
+      'Accessible controls provided within 12 months',
+      'Control standard applied to any fit-out change',
+    ],
+  },
+  '3.1-D-10': {
+    steps: [
+      'Provide an accessible writing surface where forms or paperwork are completed: a table or counter at 750-830mm height with min 800mm knee clearance and clear floor space for a wheelchair',
+    ],
+    indicators: [
+      'Writing-surface accessibility reviewed within 3 months',
+      'Accessible writing surface provided at form-completion points within 12 months',
+      'Surface kept clear and available',
+    ],
+  },
+  '3.1-D-12': {
+    steps: [
+      'Reposition wheelchair spaces or install raised platforms so wheelchair users have equivalent sightlines, including when others stand',
+      'Ensure sightlines are not obstructed by barriers or railings per AS 1428.1:2021',
+    ],
+    indicators: [
+      'Wheelchair-space sightlines reviewed within 6 months',
+      'Equivalent sightlines provided within 24 months',
+      'Sightlines confirmed after any seating reconfiguration',
+    ],
+  },
+  '3.1-D-13': {
+    steps: [
+      'Enable accessible seating booking through all standard channels (online, phone, in-person) with no separate process',
+      'Remove any special-number or proof-of-disability requirements',
+    ],
+    indicators: [
+      'Accessible-seating booking process reviewed within 3 months',
+      'Accessible seating bookable through all standard channels within 6 months',
+      'No proof-of-disability barrier remains',
+    ],
+  },
+  '3.1-D-14': {
+    steps: [
+      'Improve visual contrast between furniture and flooring using colour and luminance',
+      'Aim for at least 30% luminance contrast between furniture edges and the floor',
+    ],
+    indicators: [
+      'Furniture-floor contrast reviewed within 6 months',
+      'At least 30% luminance contrast achieved on key furniture within 12 months',
+      'Contrast written into future furniture selection',
+    ],
+  },
+  '3.1-D-15': {
+    steps: [
+      'Provide a level, firm surface, shade or weather protection, an accessible path from indoors and proximity to accessible toilets',
+      'Include movable furniture and a wheelchair-accessible table',
+    ],
+    indicators: [
+      'Outdoor seating accessibility reviewed within 6 months',
+      'Level surface, shade, accessible path and wheelchair table provided within 24 months',
+      'Outdoor access maintained through seasonal changes',
+    ],
+  },
 };
