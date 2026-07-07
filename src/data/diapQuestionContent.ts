@@ -396,4 +396,324 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Re-walk completed annually to confirm barriers are being removed',
     ],
   },
+
+  // ============================================================
+  // Module 2.1 - Arrival, parking and drop-off
+  // ============================================================
+  '2.1-F-1': {
+    steps: [
+      'Provide at least one designated accessible parking space per the Premises Standards and AS/NZS 2890.6',
+      'Size each space to min 2400mm wide with a 2400mm shared area (3200mm for a single space) and 5400mm long',
+      'Mark the space with both ground-level and vertical ISA signage',
+    ],
+    indicators: [
+      'At least one compliant accessible parking space provided within 12 months',
+      'Space dimensions and shared area confirmed against AS/NZS 2890.6',
+      'Bay markings and signage inspected and kept clear on a regular schedule',
+    ],
+  },
+  '2.1-F-2': {
+    steps: [
+      'Identify the parking space nearest the accessible entry path',
+      'Relocate or redesignate accessible parking as close as practicable to the main entrance per AS/NZS 2890.6',
+    ],
+    indicators: [
+      'Accessible parking sited on the shortest practicable route to the entrance within 12 months',
+      'Route from the accessible bay to the entrance confirmed step-free and continuous',
+    ],
+  },
+  '2.1-F-3': {
+    steps: [
+      'Establish a designated drop-off zone near the main entrance, marked with clear signage',
+      'Connect the drop-off zone to the accessible path of travel',
+      'Allow a minimum 6000mm length to accommodate larger accessible vehicles',
+    ],
+    indicators: [
+      'Signed accessible drop-off zone provided near the entrance within 12 months',
+      'Drop-off zone connects to a step-free accessible path',
+      'Zone kept clear and usable during operating hours',
+    ],
+  },
+  '2.1-F-3a': {
+    steps: [
+      'Regrade or modify the drop-off zone to a firm, level surface flush with the adjacent footpath',
+      'Install a kerb ramp or dropped kerb per AS 1428.1 Cl 10 where there is a level change between roadway and path',
+    ],
+    indicators: [
+      'Drop-off zone made level and flush with the footpath within 12 months',
+      'Any level change resolved with a compliant kerb ramp',
+      'Surface checked for trip hazards on a regular schedule',
+    ],
+  },
+  '2.1-F-4': {
+    steps: [
+      'Survey the path from accessible parking to the entrance for surface condition, trip hazards and crossfall',
+      'Resurface or regrade to a firm, slip-resistant, continuous accessible path with max 1:40 crossfall per AS 1428.1 Cl 7',
+      'Repair or remove trip hazards along the route',
+    ],
+    indicators: [
+      'Path from accessible parking to the entrance surveyed within 3 months',
+      'Continuous firm, slip-resistant accessible path with compliant crossfall within 12 months',
+      'Path condition inspected on a regular schedule and after any works',
+    ],
+  },
+  '2.1-F-5': {
+    steps: [
+      'Measure the path to the entrance and identify sections below 1000mm clear width',
+      'Widen to at least 1000mm (1200mm preferred, 1800mm at passing points) per AS 1428.1 Cl 7',
+      'Remove obstructions that narrow the effective width (overhanging vegetation, bins, signage)',
+    ],
+    indicators: [
+      'Path widths measured within 3 months',
+      'Path widened to at least 1000mm clear width within 12 months, with 1800mm passing points where feasible',
+      'Effective width kept clear of obstructions on a regular schedule',
+    ],
+  },
+  '2.1-F-6': {
+    steps: [
+      'Install directional signage on the road approach to accessible parking, using the ISA with a directional arrow',
+      'Position signs at each decision point, visible from the vehicle approach',
+    ],
+    indicators: [
+      'Directional signage to accessible parking installed on the road approach within 6 months',
+      'ISA and arrows visible from the vehicle approach at each decision point',
+      'Signage condition checked on a regular schedule',
+    ],
+  },
+  '2.1-F-6a': {
+    steps: [
+      'Install wayfinding signage from accessible parking to the entrance with the ISA and directional arrows',
+      'Position signs at each turn or decision point, compliant with AS 1428.1 Cl 8 for height and contrast',
+    ],
+    indicators: [
+      'Wayfinding signage from parking to entrance installed within 6 months',
+      'Signs present at every decision point along the route',
+      'Signage reviewed after any layout change',
+    ],
+  },
+  '2.1-F-6b': {
+    steps: [
+      'Sign the point where the accessible route diverges from the main pedestrian path, using the ISA and directional arrows',
+      'Make signs visible from both directions and add distance or travel time where helpful',
+    ],
+    indicators: [
+      'Divergence point signed within 6 months',
+      'Accessible route can be followed without backtracking, confirmed by a walk-through',
+      'Signage reviewed after any layout change',
+    ],
+  },
+  '2.1-F-7': {
+    steps: [
+      'Train customer-facing staff on the location of accessible parking, the accessible entry route and how to give clear directions',
+      'Include this in induction and refresher training, with a simple reference map at reception',
+    ],
+    indicators: [
+      'All customer-facing staff briefed on accessible parking and entry routes within 3 months',
+      'Reference map available at reception',
+      'Accessible arrival routes included in induction for new staff from now on',
+    ],
+  },
+  '2.1-F-8': {
+    steps: [
+      'Assess lighting across the parking area, accessible bays, the path to the entrance and any level changes',
+      'Provide uniform illumination of at least 40 lux at ground level per AS/NZS 1158',
+    ],
+    indicators: [
+      'Parking-area lighting assessed within 3 months',
+      'At least 40 lux at ground level achieved across bays and the path within 12 months',
+      'Lighting checked and lamps replaced on a regular schedule',
+    ],
+  },
+  '2.1-D-9': {
+    steps: [
+      'Identify how accessible bays get blocked during busy periods, events or temporary setups',
+      'Put protection measures in place (bollards, no-standing enforcement, staff monitoring)',
+      'Address accessible bays explicitly in event and traffic management plans',
+    ],
+    indicators: [
+      'Accessible bays kept available during busy periods, confirmed by spot checks',
+      'Event and traffic management plans explicitly protect accessible bays',
+      'Blocking incidents logged and reduced over time',
+    ],
+  },
+  '2.1-D-9a': {
+    steps: [
+      'Inspect the surface of accessible parking spaces for firmness and slip-resistance',
+      'Resurface with a firm, slip-resistant material (sealed concrete or asphalt); replace gravel, loose pebbles or worn bitumen',
+    ],
+    indicators: [
+      'Accessible bay surfaces inspected within 3 months',
+      'Bays resurfaced to a firm, slip-resistant standard within 12 months',
+      'Surface condition checked on a regular schedule',
+    ],
+  },
+  '2.1-D-9c': {
+    steps: [
+      'Review the parking payment method for accessibility barriers',
+      'Provide an accessible option: contactless tap-and-go, a screen-reader-compatible app, or a meter at 900-1100mm with large buttons and a high-contrast display',
+      'Avoid touch-screen-only meters without an alternative',
+    ],
+    indicators: [
+      'Parking payment reviewed for accessibility within 6 months',
+      'At least one accessible payment method available within 12 months',
+      'Accessible payment confirmed after any change to the payment system',
+    ],
+  },
+  '2.1-D-13': {
+    steps: [
+      'Mark accessible bays with ground-level ISA symbols painted on the bay surface',
+      'Add vertical signage on a post or wall at min 1200mm height, per AS/NZS 2890.6 Cl 2.4',
+    ],
+    indicators: [
+      'Accessible bays marked with both ground and vertical ISA signage within 6 months',
+      'Signage compliant with AS/NZS 2890.6 Cl 2.4',
+      'Markings and signs repainted or replaced when worn',
+    ],
+  },
+  '2.1-D-10': {
+    steps: [
+      'Identify the most weather-exposed sections of the path from parking to the entrance',
+      'Install weather protection (awnings, covered walkways or canopies), prioritising the drop-off zone and entrance',
+    ],
+    indicators: [
+      'Most-exposed path sections identified within 6 months',
+      'Weather protection installed on priority sections within 24 months',
+      'Weather protection maintained in good condition',
+    ],
+  },
+  '2.1-D-11': {
+    steps: [
+      'Identify longer sections of the path to the entrance that lack rest points',
+      'Install seating with armrests and backrests, best practice every 30 metres',
+    ],
+    indicators: [
+      'Rest seating installed on longer arrival paths within 12 months',
+      'Each seat has armrests and a backrest, with a clear space alongside',
+      'Seating positioned so it does not reduce path clear width',
+    ],
+  },
+  '2.1-D-12b': {
+    steps: [
+      'Identify every point where the accessible path crosses a vehicle area or changes level',
+      'Install kerb ramps or dropped kerbs with max 1:8 gradient, warning TGSIs at the base and a slip-resistant surface per AS 1428.1 Cl 10',
+    ],
+    indicators: [
+      'Level changes and vehicle crossings identified within 3 months',
+      'Compliant kerb ramps installed at each point within 12 months',
+      'Ramp gradient, TGSIs and surface confirmed against AS 1428.1',
+    ],
+  },
+  '2.1-D-12c': {
+    steps: [
+      'Identify paths that blend into surrounding surfaces without a detectable edge',
+      'Define path edges with contrasting materials, raised kerbs or tactile edging',
+    ],
+    indicators: [
+      'Paths without detectable edges identified within 6 months',
+      'Detectable edges provided on accessible routes within 12 months',
+      'Edge definition maintained and re-checked after resurfacing',
+    ],
+  },
+  '2.1-D-15': {
+    steps: [
+      'Add arrival information to your website: accessible parking location, drop-off zones, the route to the entrance, public transport and any steps or ramps',
+      'Include photos or a map where possible',
+    ],
+    indicators: [
+      'Arrival and access information published on the website within 3 months',
+      'Information covers parking, drop-off, the entrance route and public transport',
+      'Information reviewed for accuracy every 6 months and after any changes',
+    ],
+  },
+  '2.1-D-16': {
+    steps: [
+      'Assess lighting along the walking route from parking to the entrance after dark',
+      'Upgrade lighting so surfaces and signage are clearly visible, targeting at least 40 lux at ground level per AS/NZS 1158',
+      'Make wayfinding signs illuminated or retroreflective',
+    ],
+    indicators: [
+      'After-dark lighting on the arrival route assessed within 3 months',
+      'At least 40 lux at ground level achieved within 12 months',
+      'Signage legible after dark, confirmed on a night check',
+    ],
+  },
+  '2.1-D-17': {
+    steps: [
+      'Audit wayfinding signage for consistent use of the International Symbol of Access',
+      'Replace outdated or non-standard accessibility symbols so the ISA appears at every accessible bay, junction and entrance',
+    ],
+    indicators: [
+      'Signage audited for consistent ISA use within 3 months',
+      'ISA standardised across all accessibility signage within 12 months',
+      'ISA applied to any new signage from now on',
+    ],
+  },
+  '2.1-D-18': {
+    steps: [
+      'Map decision points (intersections, turns, forks) along the route from parking and public transport to the entrance',
+      'Install wayfinding signage at each, visible from the previous sign',
+    ],
+    indicators: [
+      'Decision points mapped within 3 months',
+      'Wayfinding signage present at every decision point within 12 months',
+      'Visitors can navigate independently, confirmed by a walk-through',
+    ],
+  },
+  '2.1-D-19': {
+    steps: [
+      'Check wayfinding signage against AS 1428.1 Cl 8 for contrast, font and character height',
+      'Upgrade to min 70% luminance contrast, sans-serif font and character height suited to the viewing distance (min 15mm per metre)',
+      'Use matt finishes to avoid glare',
+    ],
+    indicators: [
+      'Signage legibility audited within 3 months',
+      'Wayfinding signage upgraded to the AS 1428.1 Cl 8 standard within 12 months',
+      'Legibility standard applied to new signage from now on',
+    ],
+  },
+  '2.1-D-20': {
+    steps: [
+      'Install directional TGSIs (elongated bars) along the accessible route and warning TGSIs (truncated domes) at hazards and decision points per AS 1428.4.1',
+      'Ensure min 30% luminance contrast with the surrounding surface',
+    ],
+    indicators: [
+      'TGSIs installed along the accessible route to the entrance within 12 months',
+      'Directional and warning TGSIs used correctly per AS 1428.4.1',
+      'TGSI condition and contrast checked annually',
+    ],
+  },
+  '2.1-D-22': {
+    steps: [
+      'Inspect all wayfinding signage for fading, damage, obscuring vegetation or inaccuracy',
+      'Repair or replace substandard signs and set a maintenance schedule of at least quarterly',
+    ],
+    indicators: [
+      'Full signage inspection completed within 3 months',
+      'Faded, damaged or obscured signs repaired or replaced within 6 months',
+      'Quarterly signage maintenance schedule in place',
+    ],
+  },
+  '2.1-D-23': {
+    steps: [
+      'Review the departure experience: exit wayfinding, checkout counter height, farewell communication and a step-free route to the exit',
+      'Provide a lowered checkout section and exit wayfinding as clear as the entry wayfinding',
+    ],
+    indicators: [
+      'Departure experience reviewed for accessibility within 6 months',
+      'Step-free exit route and clear exit wayfinding confirmed',
+      'Checkout has a lowered accessible section',
+    ],
+  },
+  '2.1-D-24': {
+    steps: [
+      'Designate an accessible waiting area near the main exit for customers awaiting pick-up',
+      'Include weather protection, seating with armrests and backrests, adequate lighting and clear signage',
+      'Connect it to a level kerb or drop-off zone accessible to vehicles',
+    ],
+    indicators: [
+      'Accessible pick-up waiting area designated within 12 months',
+      'Area has seating, weather protection, lighting and signage',
+      'Area connects to a level, vehicle-accessible kerb or drop-off zone',
+    ],
+  },
 };
