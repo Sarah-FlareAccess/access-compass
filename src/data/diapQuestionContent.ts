@@ -3381,4 +3381,162 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Available on request in other rooms',
     ],
   },
+
+  // ============================================================
+  // Module 3.10 - Retail and shopping accessibility
+  // ============================================================
+  '3.10-1-1': {
+    steps: [
+      'Document the types of retail environment you operate',
+      'Determine which accessibility requirements apply to your layout and customer interactions',
+    ],
+    indicators: [
+      'Retail environment documented within 3 months',
+      'Applicable accessibility requirements identified',
+      'Review repeated when the store layout changes',
+    ],
+  },
+  '3.10-PC-1': {
+    steps: [
+      'Train staff to offer assistance proactively when they notice someone browsing or struggling with products',
+      'Install call buttons or service bells at accessible height in aisles, and ensure staff can reach, carry and describe products',
+    ],
+    indicators: [
+      'Staff trained to offer product assistance within 3 months',
+      'Accessible-height call points provided within 12 months',
+      'Assistance offered proactively, confirmed via feedback',
+    ],
+  },
+  '3.10-PC-2': {
+    steps: [
+      'Review product labels, price tags and shelf information for readability and height',
+      'Improve to min 14pt text, high-contrast tags and shelf-edge labels at 900-1400mm, avoiding handwritten tags',
+    ],
+    indicators: [
+      'Labelling and pricing reviewed within 3 months',
+      'Readable, high-contrast labels at accessible height within 12 months',
+      'Labelling standard applied to new stock',
+    ],
+  },
+  '3.10-PC-3': {
+    steps: [
+      'Provide accessible shopping aids: shallow trolleys or baskets with accessible-height handles, motorised scooters for large stores, personal shopping assistance and trolleys with magnifier attachments',
+      'Promote availability and keep the aids maintained',
+    ],
+    indicators: [
+      'Shopping aids reviewed within 3 months',
+      'Accessible shopping aids available within 12 months',
+      'Aids promoted and maintained on a regular schedule',
+    ],
+  },
+  '3.10-PC-4': {
+    steps: [
+      'Ensure at least one checkout has a lowered counter (max 830mm), clear floor space, an EFTPOS terminal at 900-1100mm and wheelchair width',
+      'Maintain a staffed checkout as an alternative to self-service',
+    ],
+    indicators: [
+      'Checkout accessibility reviewed within 3 months',
+      'At least one fully accessible checkout provided within 12 months',
+      'A staffed checkout kept available at all times',
+    ],
+  },
+  '3.10-D-1': {
+    steps: [
+      'Provide at least one wheelchair-accessible fitting room with min 1400x1500mm clear space, outward-opening or curtain door (min 850mm), grab rails, fold-down seat, angled full-length mirror and coat hooks at two heights',
+      'Confirm the fitting room against AS 1428.1',
+    ],
+    indicators: [
+      'Fitting room accessibility reviewed within 6 months',
+      'At least one compliant accessible fitting room provided within 24 months',
+      'Fitting room kept clear and maintained',
+    ],
+  },
+  '3.10-D-2': {
+    steps: [
+      'Install an emergency call button or pull cord in all accessible fitting rooms, reachable from floor level (within 150mm), connected to a monitored staff alert with visual and audible notification',
+      'Train staff on how to respond when the call is activated',
+    ],
+    indicators: [
+      'Fitting room emergency call reviewed within 3 months',
+      'Compliant monitored call system installed within 12 months',
+      'Alarm tested regularly and staff know how to respond',
+    ],
+  },
+  '3.10-D-3': {
+    steps: [
+      'Train staff to offer fitting room assistance respectfully when requested (garments, size alternatives, bringing items), maintaining privacy',
+      'Ensure a same-gender staff member can be made available',
+    ],
+    indicators: [
+      'Staff trained on fitting room assistance within 3 months',
+      'Assistance offered respectfully on request',
+      'Assistance included in induction for new staff',
+    ],
+  },
+  '3.10-D-4': {
+    steps: [
+      'Review self-checkout machines for accessibility (screen height/angle, audio, timing, reach, weight tolerance)',
+      'Configure adjustable screen height, audio guidance, extended time, reachable scanner and bagging, and a weight tolerance that does not reject items on a wheelchair tray',
+    ],
+    indicators: [
+      'Self-checkout accessibility reviewed within 6 months',
+      'Accessible self-checkout configuration in place within 12 months',
+      'Accessibility settings confirmed after any software update',
+    ],
+  },
+  '3.10-D-5': {
+    steps: [
+      'Offer bag packing assistance at checkout for customers who need it, proactively without being asked',
+      'Ensure it is available at all checkout types including self-checkout',
+    ],
+    indicators: [
+      'Bag packing assistance reviewed within 3 months',
+      'Assistance offered proactively at all checkout types',
+      'Assistance included in checkout staff induction',
+    ],
+  },
+  '3.10-D-6': {
+    steps: [
+      'Ensure the returns process is accessible via multiple channels (in-store, online, phone, post)',
+      'Remove original-packaging requirements where they create a barrier, extend windows for access-related reasons and provide accessible forms',
+    ],
+    indicators: [
+      'Returns process reviewed for accessibility within 6 months',
+      'Accessible returns available through multiple channels within 12 months',
+      'Access-related flexibility applied consistently',
+    ],
+  },
+  '3.10-D-7': {
+    steps: [
+      'Introduce accessible alternatives to in-store shopping: click-and-collect with accessible pickup points, curbside collection and home delivery',
+      'Ensure the online ordering platform meets WCAG 2.2 AA',
+    ],
+    indicators: [
+      'Accessible shopping alternatives reviewed within 6 months',
+      'Click-and-collect, curbside or delivery offered within 12 months',
+      'Online ordering platform meets WCAG 2.2 AA',
+    ],
+  },
+  '3.10-D-8': {
+    steps: [
+      'Enable staff to provide product information verbally, in large print or digitally (emailed or on a tablet)',
+      'Ensure staff can describe products including colour, material, care instructions and ingredients when asked',
+    ],
+    indicators: [
+      'Accessible product information reviewed within 3 months',
+      'Staff able to provide information in accessible formats within 6 months',
+      'Included in staff induction',
+    ],
+  },
+  '3.10-D-9': {
+    steps: [
+      'Rearrange displays and stock to maintain min 1000mm clear aisle width (1200mm preferred) throughout the store per AS 1428.1:2021',
+      'Avoid temporary displays, promotional bins or stock trolleys that reduce clearance, and audit after restocking',
+    ],
+    indicators: [
+      'Aisle widths measured within 3 months',
+      'Minimum 1000mm clear aisles maintained within 12 months',
+      'Aisle clearance checked after every restock',
+    ],
+  },
 };
