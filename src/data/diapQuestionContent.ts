@@ -716,4 +716,360 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Area connects to a level, vehicle-accessible kerb or drop-off zone',
     ],
   },
+
+  // ============================================================
+  // Module 2.2 - Entry and doors
+  // ============================================================
+  '2.2-F-1': {
+    steps: [
+      'Assess your main entrance for level access, ramps, steps, lifts or escalators',
+      'Provide at least one step-free entry as required under the Premises Standards',
+      'Plan modifications where no step-free entry currently exists',
+    ],
+    indicators: [
+      'Main entrance access assessed and any step-free gap identified within 3 months',
+      'At least one compliant step-free entrance provided or scheduled within 24 months',
+      'Interim access arrangements provided while works are planned',
+    ],
+  },
+  '2.2-D-23': {
+    steps: [
+      'Check entrance stairs for handrails on both sides',
+      'Install compliant handrails: continuous, 865-1000mm above the nosing, extending 300mm beyond top and bottom, 30-50mm graspable profile per AS 1428.1 Cl 11',
+    ],
+    indicators: [
+      'Missing or non-compliant entrance-stair handrails identified within 3 months',
+      'Compliant handrails fitted to both sides within 12 months',
+      'Handrail fixings inspected annually',
+    ],
+  },
+  '2.2-D-24': {
+    steps: [
+      'Check every entrance step for contrasting nosing',
+      'Apply nosing strips with min 30% luminance contrast against tread and riser, full width, 50-75mm on the tread and 30mm on the riser per AS 1428.1 Cl 11',
+    ],
+    indicators: [
+      'Entrance steps without compliant nosing identified within 3 months',
+      'Contrasting nosing applied to every entrance step edge within 12 months',
+      'Nosing condition inspected annually and re-applied when worn',
+    ],
+  },
+  '2.2-D-25': {
+    steps: [
+      'Identify open risers on entrance stairs',
+      'Install riser panels to close all gaps per AS 1428.1 Cl 11',
+    ],
+    indicators: [
+      'Open-riser entrance stairs identified within 3 months',
+      'All open risers enclosed within 12 months',
+      'Riser panels checked during annual stair inspection',
+    ],
+  },
+  '2.2-D-26': {
+    steps: [
+      'Check for warning TGSIs at the top and bottom of entrance stairs',
+      'Install truncated-dome TGSIs extending 600mm from the nosing across the full width, min 30% luminance contrast, per AS 1428.4.1',
+    ],
+    indicators: [
+      'Entrance stairs without compliant TGSIs identified within 3 months',
+      'Warning TGSIs installed at the top and bottom within 12 months',
+      'TGSI condition and contrast checked annually',
+    ],
+  },
+  '2.2-D-27': {
+    steps: [
+      'Check the entrance ramp for handrails on both sides',
+      'Install compliant handrails: continuous, 865-1000mm above the ramp surface, extending 300mm beyond top and bottom, 30-50mm graspable profile per AS 1428.1 Cl 10',
+    ],
+    indicators: [
+      'Missing or non-compliant entrance-ramp handrails identified within 3 months',
+      'Compliant handrails fitted to both sides within 12 months',
+      'Handrail fixings inspected annually',
+    ],
+  },
+  '2.2-D-28': {
+    steps: [
+      'Measure the entrance ramp gradient and landings',
+      'Regrade or rebuild to max 1:14 for runs up to 9m (1:8 for kerb ramps), with min 1200mm landings at top, bottom and every 9m per AS 1428.1 Cl 10',
+      'Aim for 1:20 or gentler as best practice',
+    ],
+    indicators: [
+      'Entrance ramp gradient and landings measured within 3 months',
+      'Non-compliant ramp regraded within 24 months',
+      'Interim signage to an accessible alternative provided while works are planned',
+    ],
+  },
+  '2.2-D-29': {
+    steps: [
+      'Check for warning TGSIs at the top and bottom of the entrance ramp',
+      'Install truncated-dome TGSIs extending 600mm from the ramp edge across the full width, min 30% luminance contrast, per AS 1428.4.1',
+    ],
+    indicators: [
+      'Entrance ramp without compliant TGSIs identified within 3 months',
+      'Warning TGSIs installed at the top and bottom within 12 months',
+      'TGSI condition and contrast checked annually',
+    ],
+  },
+  '2.2-D-30': {
+    steps: [
+      'Test the entrance ramp surface for slip-resistance in wet and dry conditions',
+      'Apply a slip-resistant finish (broomed concrete, anti-slip coating or R11+ tiles) per AS 1428.1 Cl 10',
+    ],
+    indicators: [
+      'Ramp slip-resistance tested within 3 months',
+      'Slip-resistant finish applied within 12 months',
+      'Slip-resistance confirmed after any resurfacing or cleaning-method change',
+    ],
+  },
+  '2.2-D-31': {
+    steps: [
+      'Check the entrance lift internal dimensions and door opening against AS 1735.12 (min 1400mm deep x 1100mm wide, 900mm door)',
+      'Plan replacement or modification where the lift does not meet the minimums',
+    ],
+    indicators: [
+      'Entrance lift dimensions checked within 3 months',
+      'Lift meets AS 1735.12 minimums, or replacement scheduled, within 24 months',
+      'Lift accessibility confirmed during routine servicing',
+    ],
+  },
+  '2.2-D-32': {
+    steps: [
+      'Identify anything preventing independent use of the entrance lift',
+      'Install call buttons at 900-1100mm, set door hold-open to at least 8 seconds per AS 1735.12, and provide accessible operating instructions',
+    ],
+    indicators: [
+      'Barriers to independent lift use identified within 3 months',
+      'Entrance lift usable independently within 12 months',
+      'Independent operation confirmed after any servicing',
+    ],
+  },
+  '2.2-D-33': {
+    steps: [
+      'Identify whether a step-free alternative exists where the escalator is a primary means of access',
+      'Provide a lift or ramp adjacent to or clearly signed from the escalator per the Premises Standards',
+    ],
+    indicators: [
+      'Escalator-only access points identified within 3 months',
+      'Signed step-free alternative available within 24 months',
+      'Alternative confirmed operational during all opening hours',
+    ],
+  },
+  '2.2-D-13': {
+    steps: [
+      'Measure the entrance door threshold height',
+      'Reduce to max 5mm (bevelled if 5-13mm) per AS 1428.1 Cl 13 by grinding down, adding a threshold ramp or replacing the strip',
+    ],
+    indicators: [
+      'Threshold height measured within 3 months',
+      'Threshold reduced to a compliant height within 12 months',
+      'Threshold checked for wear on a regular schedule',
+    ],
+  },
+  '2.2-D-18': {
+    steps: [
+      'Check entrance mats and surface changes are flush and secure (max 3mm lip)',
+      'Replace mats that curl, have thick pile or sit in a raised-edge frame',
+    ],
+    indicators: [
+      'Entrance mats and surface changes checked within 3 months',
+      'Non-compliant mats replaced within 6 months',
+      'Mat condition monitored on a regular schedule',
+    ],
+  },
+  '2.2-D-12': {
+    steps: [
+      'Provide a level clear space of at least 1200mm x 1200mm on both sides of the entrance door per AS 1428.1 Cl 13',
+      'Remove any obstructions from the door approach',
+    ],
+    indicators: [
+      'Door approach clear space assessed within 3 months',
+      'Compliant clear space provided on both sides within 12 months',
+      'Approach space kept clear, confirmed on regular floor walks',
+    ],
+  },
+  '2.2-F-2': {
+    steps: [
+      'Measure the main entrance door clear opening width',
+      'Widen to at least 850mm (900-950mm preferred) per AS 1428.1 Cl 13',
+    ],
+    indicators: [
+      'Entrance door width measured within 3 months',
+      'Door provides at least 850mm clear opening within 24 months, or an accessible alternative entrance is provided',
+      'Clear width preserved when the door is replaced',
+    ],
+  },
+  '2.2-F-3': {
+    steps: [
+      'Test the opening force and hardware of entrance doors',
+      'Fit automatic openers, power-assist devices or lever handles, keeping opening force within AS 1428.1 Cl 13 limits',
+    ],
+    indicators: [
+      'Entrance door force and hardware assessed within 6 months',
+      'Doors openable with minimal force and no tight grip within 12 months',
+      'Door operation re-checked after any hardware or closer adjustment',
+    ],
+  },
+  '2.2-D-11': {
+    steps: [
+      'Check entrance door handle height',
+      'Reposition to 900-1100mm from the floor and fit D-pull or lever handles operable with one hand per AS 1428.1 Cl 13',
+    ],
+    indicators: [
+      'Door handle height and type checked within 3 months',
+      'Handles repositioned and upgraded within 12 months',
+      'Handle standard applied to any door replacement',
+    ],
+  },
+  '2.2-D-16': {
+    steps: [
+      'Relocate the intercom or bell to 900-1200mm from the floor',
+      'Ensure it is operable with one hand, has a visual activation indicator and a visual or vibrating response option for Deaf visitors',
+    ],
+    indicators: [
+      'Intercom or bell height and operability checked within 3 months',
+      'Accessible intercom or bell provided within 12 months',
+      'Visual response option available for Deaf visitors',
+    ],
+  },
+  '2.2-F-4': {
+    steps: [
+      'Improve entrance visibility with contrasting colours on the door and frame, prominent signage and adequate lighting',
+      'Add the ISA where the accessible entrance is elsewhere',
+    ],
+    indicators: [
+      'Entrance visibility reviewed within 6 months',
+      'Entrance visually distinguishable from the surrounding facade within 12 months',
+      'ISA displayed where the accessible entrance differs from the main one',
+    ],
+  },
+  '2.2-F-5': {
+    steps: [
+      'Install prominent signage at the main entrance directing visitors to the accessible alternative',
+      'Include the ISA, a directional arrow and estimated distance, at accessible height and high contrast per AS 1428.1 Cl 8',
+    ],
+    indicators: [
+      'Signage to the accessible entrance installed within 6 months',
+      'Sign includes ISA, direction and distance at accessible height',
+      'Accessible route can be followed without staff help, confirmed by a walk-through',
+    ],
+  },
+  '2.2-F-6': {
+    steps: [
+      'Train customer-facing staff to assist visitors entering the building: door holding, guiding someone with vision impairment, wheelchair etiquette (always ask first) and the accessible entrance location',
+      'Include this in induction and refresher training',
+    ],
+    indicators: [
+      'Staff briefed on entrance assistance within 3 months',
+      'Entrance assistance included in induction for new staff from now on',
+      'Refresher completed each year',
+    ],
+  },
+  '2.2-F-7': {
+    steps: [
+      'Increase entrance lighting to at least 150 lux at floor level, evenly, without harsh glare or deep shadows',
+      'Light the door, threshold, any steps or ramp, intercom and signage',
+    ],
+    indicators: [
+      'Entrance lighting assessed within 3 months',
+      'At least 150 lux at floor level achieved within 12 months',
+      'Lighting checked and lamps replaced on a regular schedule',
+    ],
+  },
+  '2.2-F-8': {
+    steps: [
+      'Install warning TGSIs at the top and bottom of steps and ramps, and directional TGSIs to guide visitors where the path is not otherwise detectable, per AS 1428.4.1',
+    ],
+    indicators: [
+      'Key entry points without TGSIs identified within 3 months',
+      'TGSIs installed at key entry points within 12 months',
+      'TGSI condition and contrast checked annually',
+    ],
+  },
+  '2.2-D-14': {
+    steps: [
+      'Apply contrasting manifestation to all full-height glass doors and sidelights',
+      'Use 75mm strips at 1000mm and 1500mm from the floor, min 30% luminance contrast, per AS 1428.1 Cl 13',
+    ],
+    indicators: [
+      'Unmarked glass doors and sidelights identified within 3 months',
+      'Compliant manifestation applied within 6 months',
+      'Manifestation checked for wear on a regular schedule',
+    ],
+  },
+  '2.2-D-15a': {
+    steps: [
+      'Remove obstructions from the entrance area (A-frames, display stands, stacked stock, outdoor furniture)',
+      'Maintain a minimum 1200mm clear path and set a daily checklist to keep the entrance zone clear',
+    ],
+    indicators: [
+      'Entrance obstructions cleared within 1 month',
+      'Minimum 1200mm clear path maintained, confirmed by daily checks',
+      'No recurring obstructions found on spot checks over any rolling 3-month period',
+    ],
+  },
+  '2.2-D-15b': {
+    steps: [
+      'Develop a busy-period plan covering queue overflow, propped doors, temporary signage and crowd management',
+      'Assign a staff member to monitor entrance access during peak times',
+    ],
+    indicators: [
+      'Busy-period access plan in place within 3 months',
+      'Entrance access maintained during peak times, confirmed by spot checks',
+      'Plan reviewed after each major event or peak season',
+    ],
+  },
+  '2.2-D-17': {
+    steps: [
+      'Adjust automatic door timing to stay open at least 8 seconds or until the sensor detects the person has cleared the doorway',
+      'Set a slow closing speed and use presence sensors rather than motion-only activation',
+    ],
+    indicators: [
+      'Automatic door timing checked within 3 months',
+      'Doors hold open long enough for slow-moving visitors within 6 months',
+      'Door timing and sensors confirmed during routine servicing',
+    ],
+  },
+  '2.2-D-18c': {
+    steps: [
+      'Install a vision panel in the entrance door extending from at least 500mm to 1500mm above the floor per AS 1428.1 Cl 13',
+      'Use safety glass and ensure clear visibility',
+    ],
+    indicators: [
+      'Doors without a vision panel identified within 3 months',
+      'Compliant vision panel installed within 12 months',
+      'Vision panel kept clear and unobstructed',
+    ],
+  },
+  '2.2-D-18d': {
+    steps: [
+      'Apply at least 30% luminance contrast between the door, frame and surrounding wall per AS 1428.1',
+      'Paint the frame a contrasting colour or use a distinctly different door finish',
+    ],
+    indicators: [
+      'Door and frame contrast assessed within 6 months',
+      'Compliant contrast applied within 12 months',
+      'Contrast requirement written into the redecoration specification',
+    ],
+  },
+  '2.2-D-21': {
+    steps: [
+      'Install directional signage inside the entrance to reception, toilets, lifts and main service areas',
+      'Position at eye level (1400-1600mm), high-contrast, with standard symbols alongside text',
+    ],
+    indicators: [
+      'Internal directional signage installed within 6 months',
+      'Signs present for key destinations at accessible height',
+      'Signage reviewed after any layout change',
+    ],
+  },
+  '2.2-D-22': {
+    steps: [
+      'Make your entrance distinguishable from neighbouring businesses with prominent name signage at accessible height, contrasting door or frame colours, or a canopy',
+    ],
+    indicators: [
+      'Entrance distinctiveness reviewed within 6 months',
+      'Clear identifying signage and visual cues in place within 12 months',
+      'Signage kept in good condition',
+    ],
+  },
 };
