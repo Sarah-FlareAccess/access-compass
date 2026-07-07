@@ -8108,4 +8108,206 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Requesting attendees checked in with on the day',
     ],
   },
+
+  // ============================================================
+  // Module 7.1 - Precinct and multi-venue coordination
+  // ============================================================
+  '7.1-PC-1': {
+    steps: [
+      'Develop a multi-venue accessibility coordination plan, defining your minimum venue standard',
+      'Name a single owner accountable across all venues',
+    ],
+    indicators: [
+      'Multi-venue coordination plan documented within 6 months',
+      'A single owner named across all venues',
+      'Plan reviewed for each major event',
+    ],
+  },
+  '7.1-PC-2': {
+    steps: [
+      'Name a senior role as precinct-wide accessibility owner',
+      'Give them documented authority, budget and direct reporting to the Event Director',
+    ],
+    indicators: [
+      'Precinct accessibility owner named within 3 months',
+      'Owner has documented authority and budget',
+      'Owner reports directly to the Event Director',
+    ],
+  },
+  '7.1-PC-3': {
+    steps: [
+      'Establish a central accessibility register covering every venue accurately',
+      'Set a 24-hour SLA for updates across all customer-facing channels',
+    ],
+    indicators: [
+      'Central venue accessibility register established within 6 months',
+      'Every venue covered accurately',
+      'Updates propagated within 24 hours',
+    ],
+  },
+  '7.1-PC-4': {
+    steps: [
+      'Develop a documented minimum venue accessibility standard',
+      'Make it a contract requirement for all participating venues',
+    ],
+    indicators: [
+      'Minimum venue accessibility standard documented within 6 months',
+      'Standard a contract requirement for all venues',
+      'Compliance verified before contracting',
+    ],
+  },
+  '7.1-PC-5': {
+    steps: [
+      'Develop a precinct-wide wayfinding standard with a consistent visual style across all venues',
+      'Provide accessible alternatives (tactile maps, audio descriptions in the event app)',
+    ],
+    indicators: [
+      'Precinct wayfinding standard in place within 12 months',
+      'Consistent wayfinding across all venues',
+      'Accessible wayfinding alternatives provided',
+    ],
+  },
+  '7.1-PC-6': {
+    steps: [
+      'Produce an accessible event-wide map (WCAG 2.2 AA digital, high-contrast large-type print)',
+      'Add tactile and Easy Read versions for major events',
+    ],
+    indicators: [
+      'Accessible event-wide map produced within 6 months',
+      'Digital map meets WCAG 2.2 AA',
+      'Tactile and Easy Read versions provided for major events',
+    ],
+  },
+  '7.1-DD-1': {
+    steps: [
+      'Introduce pre-audit of at least main-stage and high-traffic venues against your minimum standard before contracting',
+      'Use an accessibility consultant or trained internal auditor',
+    ],
+    indicators: [
+      'Venue pre-audit process in place within 6 months',
+      'Main-stage and high-traffic venues pre-audited',
+      'Audits conducted by a qualified auditor',
+    ],
+  },
+  '7.1-DD-2': {
+    steps: [
+      'Add per-venue access summaries to your program using a consistent template',
+      'Include limitations honestly, not just positive features',
+    ],
+    indicators: [
+      'Per-venue access summaries in the program within 6 months',
+      'Summaries use a consistent template',
+      'Limitations disclosed honestly',
+    ],
+  },
+  '7.1-DD-3': {
+    steps: [
+      'Investigate accessible inter-venue transport options',
+      'At minimum, partner with a local accessible taxi service and list their contact in the access information',
+    ],
+    indicators: [
+      'Inter-venue transport options investigated within 6 months',
+      'At least one accessible option listed in access information',
+      'Options reviewed for each major event',
+    ],
+  },
+  '7.1-DD-4': {
+    steps: [
+      'Audit accessible parking and drop-off at every venue',
+      'Add it to the central map and per-venue access summaries',
+    ],
+    indicators: [
+      'Accessible parking audited at every venue within 6 months',
+      'Parking mapped centrally and in venue summaries',
+      'Mapping kept current',
+    ],
+  },
+  '7.1-DD-5': {
+    steps: [
+      'Set up venue manager briefings on event-specific accessibility expectations',
+      'Document the expectations and provide a one-page briefing card for on-day reference',
+    ],
+    indicators: [
+      'Venue manager briefings held before the event',
+      'Expectations documented',
+      'Briefing card provided for on-day reference',
+    ],
+  },
+  '7.1-DD-6': {
+    steps: [
+      'Develop a precinct-wide evacuation strategy with disability-access scenarios, coordinated with emergency services',
+      'Run a drill before the event opens',
+    ],
+    indicators: [
+      'Precinct evacuation strategy in place before the event',
+      'Coordinated with emergency services',
+      'Drill run before the event opens',
+    ],
+  },
+  '7.1-DD-7': {
+    steps: [
+      'Establish a single accessibility complaint channel with a named owner and publish it prominently',
+      'Run a daily review during the event',
+    ],
+    indicators: [
+      'Single accessibility complaint channel in place for the event',
+      'Channel published prominently',
+      'Complaints reviewed daily during the event',
+    ],
+  },
+  '7.1-DD-8': {
+    steps: [
+      'Document a real-time access status update process (lift outage, accessible toilet closure), defining the trigger and pre-writing templates',
+      'Assign a single channel owner',
+    ],
+    indicators: [
+      'Real-time update process documented before the event',
+      'Templates pre-written and a channel owner assigned',
+      'Access changes communicated in real time during the event',
+    ],
+  },
+  '7.1-DD-9': {
+    steps: [
+      'Introduce basic venue-level accessibility metrics (complaint count and satisfaction score per venue)',
+      'Compare them venue by venue to target improvements',
+    ],
+    indicators: [
+      'Venue-level accessibility metrics introduced within 12 months',
+      'Metrics compared across venues',
+      'Findings used to target improvements',
+    ],
+  },
+  '7.1-DD-10': {
+    steps: [
+      'Add a precinct-wide post-event accessibility review, aggregating venue data',
+      'Run a focus group with disabled attendees and publish key findings',
+    ],
+    indicators: [
+      'Precinct-wide post-event review completed',
+      'Focus group with disabled attendees held',
+      'Key findings published',
+    ],
+  },
+  '7.1-DD-11': {
+    steps: [
+      'Track accessible parking demand year over year and use disclosure data to anticipate demographic demand',
+      'Expand capacity beyond minimum compliance for accessibility-engaged audiences',
+    ],
+    indicators: [
+      'Accessible parking demand tracked year over year',
+      'Capacity planned against anticipated demand',
+      'Capacity expanded beyond minimum where needed',
+    ],
+  },
+  '7.1-DD-12': {
+    steps: [
+      'Establish intra-precinct accessible transport (scheduled loop or on-call buggy service) for large sites',
+      'Train operators on disability-confident transport',
+    ],
+    indicators: [
+      'Intra-precinct accessible transport provided for large sites',
+      'Operators trained on disability-confident transport',
+      'Service reviewed via attendee feedback',
+    ],
+  },
 };
