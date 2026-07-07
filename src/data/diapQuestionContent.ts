@@ -6242,4 +6242,129 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Sharing sustained over time',
     ],
   },
+
+  // ============================================================
+  // Module 5.6 - Supplier and third-party accessibility
+  // ============================================================
+  '5.6-PC-1': {
+    steps: [
+      'Develop documented accessibility standards for third-party service delivery, with briefing packs covering venue features, customer communication and emergency procedures',
+      'Require disability awareness induction for all provider staff',
+    ],
+    indicators: [
+      'Third-party accessibility standards documented within 6 months',
+      'Provider staff complete a disability awareness induction',
+      'Standards included in provider agreements',
+    ],
+  },
+  '5.6-PC-2': {
+    steps: [
+      'Test all third-party booking or ticketing platforms for accessibility (screen reader, keyboard) and request VPATs from providers',
+      'Offer alternative booking methods (phone, email) for customers who cannot use the platform',
+    ],
+    indicators: [
+      'Third-party booking platforms tested within 6 months',
+      'VPATs requested and reviewed',
+      'An alternative booking method available',
+    ],
+  },
+  '5.6-PC-3': {
+    steps: [
+      'Brief all delivery and service partners on your accessibility standards',
+      'Include accessibility in SLAs and specify accessible delivery locations and service expectations',
+    ],
+    indicators: [
+      'Delivery and service partners briefed within 6 months',
+      'Accessibility included in SLAs',
+      'Partner performance reviewed against the standards',
+    ],
+  },
+  '5.6-PC-4': {
+    steps: [
+      'Include disability awareness in all vendor briefings and induction packs',
+      'Observe third-party interactions, collect customer feedback and raise accessibility in vendor reviews',
+    ],
+    indicators: [
+      'Disability awareness in vendor briefings within 6 months',
+      'Third-party service observed and feedback collected',
+      'Accessibility raised in vendor reviews',
+    ],
+  },
+  '5.6-PC-5': {
+    steps: [
+      'Establish a single accessibility standard for all service providers on your premises and brief contractors on it',
+      'Monitor consistency through observation or mystery shopping and collect customer feedback',
+    ],
+    indicators: [
+      'Single accessibility standard for providers in place within 6 months',
+      'Consistency monitored through observation or mystery shopping',
+      'Gaps addressed with specific providers',
+    ],
+  },
+  '5.6-D-1': {
+    steps: [
+      'Add accessibility as a scored criterion in procurement and tender evaluations',
+      'Specify DDA compliance, WCAG for digital and disability awareness training as minimum requirements',
+    ],
+    indicators: [
+      'Accessibility scored in procurement within 6 months',
+      'Minimum accessibility requirements specified',
+      'Criteria applied to all new procurements',
+    ],
+  },
+  '5.6-D-2': {
+    steps: [
+      'Assess all third-party digital platforms (apps, payment systems, kiosks) against WCAG 2.1 AA, requesting VPATs from providers',
+      'Test with screen readers and keyboard navigation',
+    ],
+    indicators: [
+      'Third-party digital platforms assessed within 6 months',
+      'VPATs obtained and issues raised with providers',
+      'Assessment repeated when platforms change',
+    ],
+  },
+  '5.6-D-3': {
+    steps: [
+      'Create an accessibility induction sheet for all contractors, temporary staff and event vendors',
+      'Include it in your standard site induction alongside safety procedures',
+    ],
+    indicators: [
+      'Accessibility induction sheet created within 3 months',
+      'Included in the standard site induction',
+      'All contractors and vendors complete it',
+    ],
+  },
+  '5.6-D-4': {
+    steps: [
+      'Establish an accessible feedback process for customers to report accessibility issues with third-party services',
+      'Track complaints by provider and address patterns with specific vendors',
+    ],
+    indicators: [
+      'Third-party feedback process in place within 6 months',
+      'Complaints tracked by provider',
+      'Patterns addressed with specific vendors',
+    ],
+  },
+  '5.6-D-5': {
+    steps: [
+      'Add accessibility performance as a formal criterion in contract renewals and vendor assessments',
+      'Review customer complaints, observation findings and compliance with contractual accessibility clauses',
+    ],
+    indicators: [
+      'Accessibility included in vendor assessments within 6 months',
+      'Performance reviewed at renewal',
+      'Underperformance addressed through contract management',
+    ],
+  },
+  '5.6-D-6': {
+    steps: [
+      'Assess all franchise, brand or platform templates (menus, signage, booking forms) for accessibility (font sizes, contrast, digital accessibility, layout)',
+      'Raise gaps with the provider',
+    ],
+    indicators: [
+      'Brand and platform templates assessed within 6 months',
+      'Gaps raised with the provider',
+      'Local accessible alternatives used where the provider cannot fix gaps',
+    ],
+  },
 };
