@@ -119,10 +119,44 @@ function drawDonutSegment(
 
 // Plain-English interpretation generators
 function describeCohortMaturity(strongPct: number): string {
-  if (strongPct >= 60) return 'a strong cohort overall, with most modules assessed at high confidence. Use the strength patterns below as case studies for the rest of the cohort.';
-  if (strongPct >= 40) return 'a developing cohort with good foundations and visible areas for improvement. Focus shared support on the modules with high needs-work proportions.';
-  if (strongPct >= 20) return 'an emerging cohort with significant collective opportunity. Sector-wide training, shared resources, and group programs will accelerate progress on the top priority actions below.';
-  return 'a cohort at the start of its journey. Capacity-building investment now will pay off in measurable progress within 6-12 months.';
+  if (strongPct >= 60) return 'an established cohort. Most businesses have solid accessibility foundations and are assessing at high confidence. The opportunity now is to capture what the strongest businesses do well as shared case studies and lift the rest to the same standard.';
+  if (strongPct >= 40) return 'a developing cohort. Businesses have good foundations and clear, visible areas to improve. Shared support focused on the themes with the highest needs signal will move several businesses forward at once.';
+  if (strongPct >= 20) return 'an emerging cohort. Businesses are beginning to establish accessibility foundations - most have started the journey but still need structured guidance and practical implementation support. Sector-wide training and shared resources will accelerate progress on the priorities below.';
+  return 'a cohort at the very start of its journey. Capacity-building investment now, targeted at the most common barriers, will produce measurable progress within 6 to 12 months.';
+}
+
+function maturityBand(strongPct: number): string {
+  if (strongPct >= 60) return 'Established';
+  if (strongPct >= 40) return 'Developing';
+  if (strongPct >= 20) return 'Emerging';
+  return 'Early';
+}
+
+// Templated shared-response suggestion per DIAP-category theme. Generic wording
+// only - no invented figures, costs or benchmarks.
+const THEME_SHARED_RESPONSE: Record<string, string> = {
+  'physical-access': 'a shared works grant or bulk procurement (e.g. ramps, signage, hearing augmentation)',
+  'information-communication-marketing': 'a shared accessible-information template or group communications training',
+  'customer-service': 'a group disability-awareness and service training session',
+  'operations-policy-procedure': 'a shared policy template or joint procedure workshop',
+  'people-culture': 'a cohort-wide capability and inclusion training program',
+};
+function sharedResponseFor(themeKey?: string): string {
+  return (themeKey && THEME_SHARED_RESPONSE[themeKey]) || 'a shared initiative or group program';
+}
+
+interface ThemeGroup<T> { key: string; label: string; total: number; items: T[]; }
+function groupByTheme<T extends { count: number; theme?: { key: string; label: string } }>(items: T[]): ThemeGroup<T>[] {
+  const map = new Map<string, ThemeGroup<T>>();
+  for (const it of items) {
+    const key = it.theme?.key ?? 'other';
+    const label = it.theme?.label ?? 'Other';
+    let g = map.get(key);
+    if (!g) { g = { key, label, total: 0, items: [] }; map.set(key, g); }
+    g.total += it.count;
+    g.items.push(it);
+  }
+  return Array.from(map.values()).sort((a, b) => b.total - a.total);
 }
 
 function describeCompletion(completedPct: number, total: number): string {
@@ -204,7 +238,7 @@ interface ProgramReportPdfOptions {
 
 export function generateProgramReportPdf(options: ProgramReportPdfOptions): void {
   const { payload, reportName, generatedAt } = options;
-  const { program, authority, enrolment, moduleAggregates, topPriorityActions, topStrengths, topAreasToExplore, methodology } = payload;
+  const { program, authority, enrolment, moduleAggregates, topPriorityActions, topStrengths, topAreasToExplore } = payload;
 
   const formattedDate = formatDate(generatedAt);
   const fileDate = new Date(generatedAt).toISOString().split('T')[0];
@@ -384,7 +418,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     } else if (total > 0) {
       // No confidence data yet, show completion vs not-started in grey/pastel
       const completedPct = completed / total;
-      let x = PAGE.marginX;
+      const x = PAGE.marginX;
       if (completedPct > 0) {
         const w = completedPct * barW;
         doc.setFillColor(...hexToRgb(COLORS.strongFill));
@@ -560,7 +594,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.setFontSize(8);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text('COHORT MATURITY', interpX, yPos + 6);
+  doc.text(`COHORT MATURITY: ${maturityBand(strongPct).toUpperCase()}`, interpX, yPos + 6);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...hexToRgb(COLORS.text));
   doc.setFontSize(9);
@@ -610,6 +644,41 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.setLineWidth(0.3);
   }
 
+  // =====================================================
+  // Program impact + recommended council response
+  // =====================================================
+  const sharedOpps = topPriorityActions.filter(a => a.count >= 2);
+  const activeThemes = new Set(topPriorityActions.map(a => a.theme?.key ?? 'other')).size;
+
+  addSectionHeader('Program impact');
+  ensureSpace(30);
+  const impactW = (PAGE.contentWidth - 9) / 4;
+  addStatBox(PAGE.marginX, yPos, impactW, String(enrolment.total), 'Businesses reached', COLORS.amethystDiamond);
+  addStatBox(PAGE.marginX + impactW + 3, yPos, impactW, String(completedDisplay), 'Assessments done', COLORS.strongText);
+  addStatBox(PAGE.marginX + 2 * (impactW + 3), yPos, impactW, String(sharedOpps.length), 'Shared opportunities', COLORS.aussieLight);
+  addStatBox(PAGE.marginX + 3 * (impactW + 3), yPos, impactW, String(activeThemes), 'Themes active', COLORS.mixedText);
+  yPos += 30;
+  addParagraph('Shared opportunities are actions recommended for two or more businesses - the strongest candidates for a single council-funded initiative rather than business-by-business support.', 9);
+
+  if (sharedOpps.length > 0) {
+    ensureSpace(24);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+    doc.text('Recommended council response', PAGE.marginX, yPos);
+    yPos += 6;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(...hexToRgb(COLORS.text));
+    sharedOpps.slice(0, 3).forEach(op => {
+      const line = `- ${op.action} (${op.count} businesses) -> ${sharedResponseFor(op.theme?.key)}`;
+      doc.splitTextToSize(line, PAGE.contentWidth).forEach((l: string, i: number) => { ensureSpace(5); doc.text(l, PAGE.marginX + (i === 0 ? 0 : 4), yPos); yPos += 4.5; });
+      yPos += 1;
+    });
+    yPos += 2;
+    doc.setTextColor(0, 0, 0);
+  }
+
   addSectionHeader('Module progress');
   addParagraph('Completion rate and confidence band distribution for each module in scope. Pastel fills match the in-app heatmap. Wider green means the cohort is doing well, wider red means collective attention is needed.', 9);
 
@@ -631,38 +700,55 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Top priority actions
   // =====================================================
   if (topPriorityActions.length > 0) {
-    addSectionHeader('Top priority actions across the cohort');
-    addParagraph('Recommended actions appearing most often across business assessments. Useful for sector-wide initiatives, group training, or shared infrastructure investment.');
+    addSectionHeader('Priority actions by theme');
+    addParagraph('The most common recommended actions, grouped by area. The count is how many businesses each action appears in - higher counts are the strongest candidates for a shared, council-led response.');
 
-    topPriorityActions.forEach((pa, idx) => {
+    groupByTheme(topPriorityActions).forEach(g => {
+      ensureSpace(16);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+      doc.text(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.marginX, yPos);
+      yPos += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      g.items.slice(0, 3).forEach(pa => {
+        const line = `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})`;
+        doc.splitTextToSize(line, PAGE.contentWidth - 4).forEach((l: string, i: number) => { ensureSpace(5); doc.text(l, PAGE.marginX + (i === 0 ? 0 : 4), yPos); yPos += 4.5; });
+      });
+      if (g.items.length > 3) {
+        doc.setFontSize(8);
+        doc.setTextColor(...hexToRgb(COLORS.textMuted));
+        doc.text(`...and ${g.items.length - 3} more in this theme`, PAGE.marginX + 4, yPos);
+        yPos += 5;
+        doc.setFontSize(9);
+        doc.setTextColor(...hexToRgb(COLORS.text));
+      }
+      yPos += 3;
+    });
+    addParagraph('The full action list for each business is available in Access Compass.', 8);
+  }
+
+  // =====================================================
+  // Recommended program investments (shared opportunities)
+  // =====================================================
+  if (sharedOpps.length > 0) {
+    addSectionHeader('Recommended program investments');
+    addParagraph('Where a single initiative would serve many businesses at once. Each is drawn from the actions most commonly recommended across the cohort; the suggested response is a starting point for council planning, not a costed commitment.');
+    sharedOpps.slice(0, 6).forEach((op, idx) => {
       ensureSpace(14);
       doc.setFontSize(10);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.text));
-      const numbered = `${idx + 1}. ${pa.action}`;
-      const lines = doc.splitTextToSize(numbered, PAGE.contentWidth);
-      lines.forEach((line: string) => {
-        ensureSpace(5);
-        doc.text(line, PAGE.marginX, yPos);
-        yPos += 5;
-      });
+      doc.splitTextToSize(`${idx + 1}. ${op.action}`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8);
+      doc.setFontSize(9);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      const moduleLabel = pa.moduleIds.length > 0 ? `, from ${pa.moduleIds.map(id => `${moduleName(id)} (${id})`).join('; ')}` : '';
-      const meta = `Appears in ${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''}${moduleLabel}`;
-      doc.text(meta, PAGE.marginX, yPos);
-      yPos += 7;
+      doc.splitTextToSize(`${op.count} businesses share this - consider ${sharedResponseFor(op.theme?.key)}.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+      yPos += 3;
       doc.setTextColor(0, 0, 0);
     });
-
-    // What this means
-    const topPa = topPriorityActions[0];
-    if (topPa && topPa.count >= 3) {
-      drawWhatThisMeans(`What this means: the top action affects ${topPa.count} businesses. Treating this as a cohort-wide initiative (group training, shared infrastructure, council-funded works) is likely more efficient than each business addressing it alone.`);
-    } else {
-      drawWhatThisMeans('What this means: priority actions are spread across the cohort rather than concentrated. Tailored business-by-business support may be more effective than blanket initiatives.');
-    }
   }
 
   // =====================================================
@@ -670,39 +756,40 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (topStrengths.length > 0) {
     addSectionHeader('Strengths across the cohort');
-    addParagraph('Practices already in place across multiple businesses. Worth celebrating publicly and using as case studies.');
-    topStrengths.forEach(s => {
-      ensureSpace(10);
+    addParagraph('Practices already in place, grouped by area. Worth celebrating publicly and using as case studies.');
+    groupByTheme(topStrengths).forEach(g => {
+      ensureSpace(14);
       doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+      doc.text(g.label, PAGE.marginX, yPos);
+      yPos += 6;
       doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
       doc.setTextColor(...hexToRgb(COLORS.text));
-      const text = `- ${s.text} (${s.count} business${s.count !== 1 ? 'es' : ''})`;
-      const lines = doc.splitTextToSize(text, PAGE.contentWidth);
-      lines.forEach((line: string) => {
-        ensureSpace(5);
-        doc.text(line, PAGE.marginX, yPos);
-        yPos += 5;
+      g.items.forEach(s => {
+        const text = `- ${s.text} (${s.count} business${s.count !== 1 ? 'es' : ''})`;
+        doc.splitTextToSize(text, PAGE.contentWidth - 4).forEach((line: string, i: number) => { ensureSpace(5); doc.text(line, PAGE.marginX + (i === 0 ? 0 : 4), yPos); yPos += 4.5; });
       });
-      yPos += 1;
+      yPos += 3;
     });
 
-    drawWhatThisMeans('What this means: these are proof points. Use them in council communications, grant applications and award nominations to demonstrate sector progress and reassure community members that local businesses are responsive.');
+    drawWhatThisMeans('What this means: these are proof points. Use them in council communications, grant applications and award nominations to demonstrate sector progress and reassure the community that local businesses are responsive.');
   }
 
   // =====================================================
   // Areas to explore
   // =====================================================
   if (topAreasToExplore.length > 0) {
-    addSectionHeader('Areas to explore');
-    addParagraph('Topics businesses flagged as "unable to check" or "unsure". These often indicate where the cohort would benefit from clearer guidance, training, or sector-wide support.');
+    addSectionHeader('Capability gaps');
+    addParagraph('Topics businesses flagged as "unable to check" or "unsure". This measures where the cohort lacks knowledge, not where it is failing - each gap is a low-cost training or guidance opportunity.');
     topAreasToExplore.forEach(a => {
       ensureSpace(10);
       doc.setFontSize(10);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.text));
-      const text = `- ${a.text} (${a.count})`;
-      const lines = doc.splitTextToSize(text, PAGE.contentWidth);
-      lines.forEach((line: string) => {
+      const text = `- ${a.text} (${a.count} business${a.count !== 1 ? 'es' : ''})`;
+      doc.splitTextToSize(text, PAGE.contentWidth).forEach((line: string) => {
         ensureSpace(5);
         doc.text(line, PAGE.marginX, yPos);
         yPos += 5;
@@ -714,10 +801,49 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   }
 
   // =====================================================
-  // Methodology
+  // Statutory framework alignment (optional; from payload.outcomes)
+  // =====================================================
+  if (payload.outcomes && payload.outcomes.domains.some(d => d.total > 0)) {
+    const fw = payload.outcomes;
+    addSectionHeader(`Alignment with ${fw.frameworkShort}`);
+    addParagraph(`The cohort's confidence bands mapped to the ${fw.frameworkName} outcome domains, ready for statutory reporting.`, 9);
+    fw.domains.forEach(d => {
+      if (d.total === 0) return;
+      ensureSpace(16);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      doc.text(d.name, PAGE.marginX, yPos);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(...hexToRgb(COLORS.textMuted));
+      doc.text(`${d.total} assessed`, PAGE.width - PAGE.marginX, yPos, { align: 'right' });
+      yPos += 3;
+      const barW = PAGE.contentWidth;
+      const barH = 4;
+      doc.setFillColor(...hexToRgb(COLORS.greyBar));
+      doc.roundedRect(PAGE.marginX, yPos, barW, barH, 1, 1, 'F');
+      let x = PAGE.marginX;
+      const seg = (v: number, color: string) => {
+        if (v > 0) { const w = (v / d.total) * barW; doc.setFillColor(...hexToRgb(color)); doc.rect(x, yPos, w, barH, 'F'); x += w; }
+      };
+      seg(d.strong, COLORS.strongFill);
+      seg(d.mixed, COLORS.mixedFill);
+      seg(d.needsWork, COLORS.needsFill);
+      yPos += barH + 3;
+      doc.setFontSize(8);
+      doc.setTextColor(...hexToRgb(COLORS.textMuted));
+      doc.text(`Strong ${d.strong}  -  Mixed ${d.mixed}  -  Needs work ${d.needsWork}`, PAGE.marginX, yPos);
+      yPos += 5;
+      doc.setTextColor(0, 0, 0);
+    });
+  }
+
+  // =====================================================
+  // Methodology (concise)
   // =====================================================
   addSectionHeader('Methodology and privacy');
-  addParagraph(methodology, 9);
+  addParagraph('This report aggregates completion and confidence bands across enrolled businesses; individual business responses are never shown. Priority actions and strengths are the narrative generated from each business assessment, counted by how many businesses share each one. Figures are a point-in-time snapshot and update as more businesses complete or re-assess.', 9);
 
   addFooter();
 

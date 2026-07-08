@@ -18,6 +18,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import type { AuthorityProgram, AccessLevel } from '../types/access';
+import { DIAP_CATEGORIES, DIAP_SECTIONS, MODULE_TO_DIAP_MAPPING } from '../data/diapMapping';
 import { getFramework } from '../data/frameworks';
 import { hasMappings } from '../data/frameworkMappings';
 import {
@@ -58,17 +59,28 @@ interface ModuleSummaryJson {
   areasToExplore?: Array<string | { action: string }>;
 }
 
+// A DIAP-category theme derived from an aggregate's source modules, so actions
+// and strengths can be grouped by area (e.g. "Information & Communication").
+// Optional: absent on snapshots generated before theming, and treated as
+// "Other" by the report.
+export interface AggregateTheme {
+  key: string;
+  label: string;
+}
+
 export interface PriorityActionAggregate {
   action: string;
   count: number;
   priority?: string;
   moduleIds: string[];
+  theme?: AggregateTheme;
 }
 
 export interface StrengthAggregate {
   text: string;
   count: number;
   moduleIds: string[];
+  theme?: AggregateTheme;
 }
 
 export interface AreaToExploreAggregate {
@@ -327,6 +339,32 @@ export function useProgramReport(programId: string | null) {
 // JS-side aggregation
 // =====================================================
 
+// module code -> DIAP category, via the section mapping. Used to theme cohort
+// actions/strengths by area for grouping in the report.
+const SECTION_TO_CATEGORY: Record<string, string> = Object.fromEntries(
+  DIAP_SECTIONS.map(s => [s.id, s.categoryId]),
+);
+const CATEGORY_LABEL: Record<string, string> = Object.fromEntries(
+  DIAP_CATEGORIES.map(c => [c.id, c.name]),
+);
+
+function diapThemeForModules(moduleIds: string[]): AggregateTheme {
+  // Tally the DIAP category of each source module and pick the most common.
+  const tally = new Map<string, number>();
+  for (const mid of moduleIds) {
+    const code = mid.match(/\d+\.\d+/)?.[0] ?? mid;
+    const sectionId = MODULE_TO_DIAP_MAPPING[code] || MODULE_TO_DIAP_MAPPING['default'];
+    const catId = SECTION_TO_CATEGORY[sectionId] || 'operations-policy-procedure';
+    tally.set(catId, (tally.get(catId) ?? 0) + 1);
+  }
+  let bestKey = 'operations-policy-procedure';
+  let bestN = -1;
+  for (const [k, n] of tally) {
+    if (n > bestN) { bestN = n; bestKey = k; }
+  }
+  return { key: bestKey, label: CATEGORY_LABEL[bestKey] ?? 'Other' };
+}
+
 function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
   topPriorityActions: PriorityActionAggregate[];
   topStrengths: StrengthAggregate[];
@@ -385,9 +423,12 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
 
   const byCount = <T extends { count: number }>(a: T, b: T) => b.count - a.count;
 
+  const withTheme = <T extends { moduleIds: string[] }>(x: T): T & { theme: AggregateTheme } =>
+    ({ ...x, theme: diapThemeForModules(x.moduleIds) });
+
   return {
-    topPriorityActions: Array.from(priorityMap.values()).sort(byCount).slice(0, 20),
-    topStrengths: Array.from(strengthMap.values()).sort(byCount).slice(0, 15),
+    topPriorityActions: Array.from(priorityMap.values()).map(withTheme).sort(byCount).slice(0, 20),
+    topStrengths: Array.from(strengthMap.values()).map(withTheme).sort(byCount).slice(0, 15),
     topAreasToExplore: Array.from(areaMap.values()).sort(byCount).slice(0, 10),
   };
 }
