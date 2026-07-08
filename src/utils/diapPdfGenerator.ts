@@ -1132,9 +1132,9 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       addNewPage();
     }
 
-    // Group header (full purple band; addSectionHeader adds spacing or breaks to
-    // a new page if the legend leaves too little room).
-    addSectionHeader(`${heading} (${groupItems.length})`);
+    // Group header (full purple band). Extra reserve so the header, intro and
+    // mini-dashboard stay together rather than orphaning at a page foot.
+    addSectionHeader(`${heading} (${groupItems.length})`, 'band', 34);
 
     // Optional intro: category context, or the outcome domain's statement.
     if (subtitle) {
@@ -1142,8 +1142,60 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       doc.setFont('helvetica', 'italic');
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
       wrapText(subtitle, PAGE.contentWidth).forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
-      yPos += 4;
+      yPos += 3;
       doc.setFont('helvetica', 'normal');
+    }
+
+    // Mini-dashboard: a quick read on the group before the actions - total,
+    // priority split, completion, and the modules it draws on most.
+    {
+      const total = groupItems.length;
+      const hi = groupItems.filter(i => i.priority === 'high').length;
+      const med = groupItems.filter(i => i.priority === 'medium').length;
+      const low = total - hi - med;
+      const done = groupItems.filter(i => i.status === 'achieved').length;
+      const completion = total > 0 ? Math.round((done / total) * 100) : 0;
+      const themeTally = new Map<string, number>();
+      for (const it of groupItems) {
+        if (!it.moduleSource) continue;
+        const code = it.moduleSource.match(/(\d+\.\d+)/)?.[1];
+        const name = code ? getModuleById(code)?.name : undefined;
+        if (name) themeTally.set(name, (themeTally.get(name) ?? 0) + 1);
+      }
+      const topThemes = [...themeTally.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(e => e[0]);
+
+      const dashH = topThemes.length > 0 ? 21 : 16;
+      checkNewPage(dashH + 4);
+      const top = yPos;
+      doc.setFillColor(...hexToRgb(COLORS.ivory));
+      doc.roundedRect(PAGE.marginX - 3, top, PAGE.contentWidth + 6, dashH, 2, 2, 'F');
+
+      doc.setFontSize(16);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+      doc.text(String(total), PAGE.marginX + 1, top + 9);
+      doc.setFontSize(7.5);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...hexToRgb(COLORS.textMuted));
+      doc.text(total === 1 ? 'action' : 'actions', PAGE.marginX + 1, top + 14);
+
+      const cx = PAGE.marginX + 28;
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.statusHigh)); doc.text(`High ${hi}`, cx, top + 6);
+      doc.setTextColor(...hexToRgb(COLORS.statusMedium)); doc.text(`Medium ${med}`, cx + 24, top + 6);
+      doc.setTextColor(...hexToRgb(COLORS.statusLow)); doc.text(`Low ${low}`, cx + 58, top + 6);
+      doc.setTextColor(...hexToRgb(COLORS.text)); doc.text(`${completion}% complete`, cx, top + 12);
+
+      if (topThemes.length > 0) {
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...hexToRgb(COLORS.textMuted));
+        doc.text(wrapText(`Focus areas: ${topThemes.join(', ')}`, PAGE.contentWidth - 4)[0], PAGE.marginX + 1, top + 18);
+      }
+
+      yPos = top + dashH + 4;
+      doc.setTextColor(0, 0, 0);
     }
 
     const rankOf = (item: DIAPItem) => priorityOrder[item.priority || 'low'] ?? 2;
