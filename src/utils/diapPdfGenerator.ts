@@ -593,6 +593,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
   statusRows.forEach(row => {
     if (row.count === 0) return;
+    checkNewPage(8);
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
 
@@ -630,6 +631,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     categoryBreakdownRows.push({ label: OTHER_CATEGORY_LABEL, count: otherCategoryItems.length });
   }
   categoryBreakdownRows.forEach(({ label, count }) => {
+    checkNewPage(8);
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...hexToRgb(COLORS.text));
