@@ -179,7 +179,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.text('Access Compass', PAGE.marginX, 10);
+    doc.text(orgName, PAGE.marginX, 10);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     doc.text('Disability Inclusion Action Plan', PAGE.width - PAGE.marginX, 10, { align: 'right' });
@@ -197,7 +197,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     doc.setFontSize(7);
     doc.setTextColor(107, 114, 128);
-    doc.text('Access Compass by Flare Access', PAGE.marginX, fy);
+    doc.text('Prepared with Access Compass by Flare Access', PAGE.marginX, fy);
     doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
     doc.text(formattedDate, PAGE.width / 2, fy, { align: 'center' });
     doc.setTextColor(107, 114, 128);
@@ -449,15 +449,12 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.setTextColor(107, 114, 128);
   doc.text(`Generated ${formattedDate}`, ccx, PAGE.height * 0.62 + (siteName ? 18 : 10), { align: 'center' });
 
-  // Branding at bottom
-  doc.setFontSize(13);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text('Access Compass', ccx, PAGE.height * 0.9, { align: 'center' });
-  doc.setFontSize(9);
+  // Discreet credit line only (branding kept to a small, footer-style credit so
+  // the plan reads as the organisation's own submittable document).
+  doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(107, 114, 128);
-  doc.text('by Flare Access', ccx, PAGE.height * 0.9 + 6, { align: 'center' });
+  doc.setTextColor(120, 120, 128);
+  doc.text('Prepared with Access Compass by Flare Access', ccx, PAGE.height * 0.93, { align: 'center' });
 
   // ========================================
   // TABLE OF CONTENTS
@@ -1029,13 +1026,22 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // Render one category as a page: purple band header, a short "why this
   // matters" intro, then the actions grouped by objective (each objective heads
   // its distinct actions once, rather than repeating inside every card).
+  // The first category flows on from the priority-legend page rather than
+  // forcing a new one (avoids a near-empty legend page); later categories each
+  // start on their own page.
+  let firstActionCategory = true;
   const renderCategoryBlock = (catKey: string, catLabel: string, catItems: DIAPItem[]) => {
     if (catItems.length === 0) return;
 
-    addFooter();
-    addNewPage();
+    if (firstActionCategory) {
+      firstActionCategory = false;
+    } else {
+      addFooter();
+      addNewPage();
+    }
 
-    // Category header (full purple band)
+    // Category header (full purple band; addSectionHeader adds spacing or breaks
+    // to a new page if the legend leaves too little room).
     addSectionHeader(`${catLabel} (${catItems.length})`);
 
     // Why this matters: generically-true context for the category.
@@ -1095,44 +1101,6 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   }
   // Catch-all so items with an unmapped category are never dropped
   renderCategoryBlock('__other__', OTHER_CATEGORY_LABEL, otherCategoryItems);
-
-  // ========================================
-  // USING THIS DIAP (closing call to action)
-  // Only lists features that ship today (assign, due dates, evidence, status,
-  // re-run the self-review) so the plan promises nothing it cannot deliver.
-  // ========================================
-  addSectionHeader('Using this DIAP', 'accent');
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(...hexToRgb(COLORS.text));
-  wrapText('This plan is a living document. In your Access Compass workspace you can:', PAGE.contentWidth)
-    .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
-  yPos += 2;
-
-  const usingPoints = [
-    'Assign each action to a team member or responsible officer',
-    'Set a due date and track it through to completion',
-    'Attach evidence as work is delivered',
-    'Update status as actions move from not started to achieved',
-    'Re-run the self-review at any time to refresh your progress',
-  ];
-  for (const point of usingPoints) {
-    const lines = wrapText(point, PAGE.contentWidth - 10);
-    checkNewPage(lines.length * 4.8 + 1);
-    doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
-    doc.circle(PAGE.marginX + 2, yPos - 1.2, 0.9, 'F');
-    doc.setTextColor(...hexToRgb(COLORS.text));
-    lines.forEach(l => { doc.text(l, PAGE.marginX + 7, yPos); yPos += 4.8; });
-    yPos += 1;
-  }
-  yPos += 2;
-  doc.setFontSize(8.5);
-  doc.setFont('helvetica', 'italic');
-  doc.setTextColor(...hexToRgb(COLORS.textMuted));
-  wrapText('As you update actions in the workspace, regenerate this PDF to produce an up-to-date plan for reporting.', PAGE.contentWidth)
-    .forEach(l => { checkNewPage(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(0, 0, 0);
 
   addFooter();
 
