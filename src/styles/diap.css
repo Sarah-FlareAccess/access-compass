@@ -2790,6 +2790,28 @@ button.evidence-layer-header {
   outline-offset: 2px;
 }
 
+.diap-title-input {
+  min-height: 40px;
+  min-width: 220px;
+  padding: 8px 12px;
+  border: 1.5px solid rgba(73, 14, 103, 0.2);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--amethyst-diamond);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.diap-title-input::placeholder {
+  color: rgba(73, 14, 103, 0.5);
+  font-weight: 500;
+}
+
+.diap-title-input:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
+}
+
 /* Modal Overlay */
 .modal-overlay {
   position: fixed;

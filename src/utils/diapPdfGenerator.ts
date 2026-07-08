@@ -98,6 +98,10 @@ const STATUS_COLORS: Record<string, string> = {
 interface DIAPPdfOptions {
   items: DIAPItem[];
   orgName?: string;
+  // The plan's title, shown on the cover and the running header. Defaults to
+  // "Disability Inclusion Action Plan"; callers pass a jurisdiction-aware value
+  // (e.g. SA's "Disability Access and Inclusion Plan") or a per-export override.
+  planTitle?: string;
   siteName?: string;
   generatedDate?: string;
   customCategoryNames?: Record<string, string>;
@@ -152,7 +156,7 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 export function generateDIAPPdf(options: DIAPPdfOptions): void {
-  const { items, orgName = 'Your Organisation', siteName, generatedDate, customCategoryNames = {}, frameworkGrouping, siteNames = {}, grouping } = options;
+  const { items, orgName = 'Your Organisation', planTitle = 'Disability Inclusion Action Plan', siteName, generatedDate, customCategoryNames = {}, frameworkGrouping, siteNames = {}, grouping } = options;
 
   // Tag each action with its site only in an org-wide report (no single site
   // selected); when scoped to one site every item shares it, so a tag is noise.
@@ -225,7 +229,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.text(orgName, PAGE.marginX, 10);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.text('Disability Inclusion Action Plan', PAGE.width - PAGE.marginX, 10, { align: 'right' });
+    doc.text(planTitle, PAGE.width - PAGE.marginX, 10, { align: 'right' });
     doc.setTextColor(0, 0, 0);
   };
 
@@ -445,28 +449,21 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.circle(cpx, cpy, 1.6, 'F'); // orange hub
   doc.setDrawColor(0, 0, 0);
 
-  // Title, left-aligned on clean purple beside the compass
+  // Title, left-aligned on clean purple beside the compass. Wrapped so a longer
+  // jurisdiction title (e.g. "Disability Access and Inclusion Plan") still fits
+  // clear of the compass.
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(30);
+  doc.setFontSize(28);
   doc.setFont('helvetica', 'bold');
-  doc.text('Disability Inclusion', PAGE.marginX + 4, PAGE.height * 0.19, { align: 'left' });
-  doc.text('Action Plan', PAGE.marginX + 4, PAGE.height * 0.19 + 13, { align: 'left' });
+  const titleLines = doc.splitTextToSize(planTitle, 95);
+  titleLines.forEach((line: string, idx: number) => {
+    doc.text(line, PAGE.marginX + 4, PAGE.height * 0.19 + idx * 12, { align: 'left' });
+  });
 
   // Orange divider
   doc.setFillColor(...hexToRgb(COLORS.aussieLight));
   doc.rect(0, PAGE.height * 0.44, PAGE.width, 3, 'F');
 
-  // Statutory-framework line under the divider. Only shown when a framework
-  // grouping is present. Uses the framework's full name (not an abbreviation)
-  // and states the relationship plainly, so a council reader knows the plan
-  // aligns to the statutory framework without decoding a chip.
-  if (frameworkGrouping?.name) {
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(120, 53, 0);
-    doc.text(`Aligned to the ${frameworkGrouping.name}`, ccx, PAGE.height * 0.44 + 17, { align: 'center' });
-    doc.setTextColor(0, 0, 0);
-  }
 
   // Organisation name (dark on the light area)
   doc.setFontSize(22);

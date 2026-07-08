@@ -229,6 +229,9 @@ export default function DIAPWorkspace() {
   // How the exported PDF groups its action items. Independent of the board so it
   // can be chosen from either view at export time.
   const [exportGroupBy, setExportGroupBy] = useState<'category' | 'domain' | 'sections' | 'site'>('category');
+  // Optional per-export override of the plan title. Empty = use the
+  // jurisdiction-aware default (e.g. SA -> "Disability Access and Inclusion Plan").
+  const [exportTitle, setExportTitle] = useState('');
   // Custom board columns (Asana-style sections), shared per org. The reserved
   // "__unassigned__" entry stores the (editable) label of the pinned catch-all
   // column; the rest are the user's sections in order.
@@ -974,11 +977,19 @@ export default function DIAPWorkspace() {
   // in full for those sites: status/priority/category display filters are
   // ignored so a screen filter (e.g. "low priority only") can't produce a DIAP
   // that misrepresents the real state. Uses the authenticated org name.
+  // The plan's title. Defaults to the term used in the org's jurisdiction (SA
+  // councils produce a "Disability Access and Inclusion Plan"), overridable per
+  // export so a council can match its own local name.
+  const defaultPlanTitle = jurisdiction === 'AU-SA'
+    ? 'Disability Access and Inclusion Plan'
+    : 'Disability Inclusion Action Plan';
+
   const handleExportPDF = () => {
     const session = getSession();
     const orgName = accessState.organisation?.name
       || session?.business_snapshot?.organisation_name
       || 'Your Organisation';
+    const planTitle = exportTitle.trim() || defaultPlanTitle;
 
     // Items for the selected sites only (site filter), all statuses/priorities.
     const exportItems = items.filter(matchesSite);
@@ -1047,7 +1058,7 @@ export default function DIAPWorkspace() {
     }
 
     const siteNames = Object.fromEntries(sites.map(s => [s.id, s.name]));
-    generateDIAPPdf({ items: exportItems, orgName, siteName: exportSiteName, customCategoryNames, frameworkGrouping, siteNames, grouping });
+    generateDIAPPdf({ items: exportItems, orgName, planTitle, siteName: exportSiteName, customCategoryNames, frameworkGrouping, siteNames, grouping });
   };
 
   // Handle download CSV template
@@ -1359,6 +1370,16 @@ export default function DIAPWorkspace() {
             <button className="btn-export" onClick={handleExportCSV}>
               Export CSV
             </button>
+            <label className="diap-groupby">
+              <span className="diap-groupby__label">Plan title</span>
+              <input
+                type="text"
+                className="diap-title-input"
+                value={exportTitle}
+                placeholder={defaultPlanTitle}
+                onChange={e => setExportTitle(e.target.value)}
+              />
+            </label>
             {(frameworkOutcomes || boardColumns.length > 0 || (!activeSiteId && sites.length > 0)) && (
               <label className="diap-groupby">
                 <span className="diap-groupby__label">Group PDF by</span>
