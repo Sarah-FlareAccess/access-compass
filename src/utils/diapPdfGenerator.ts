@@ -456,22 +456,16 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.setFillColor(...hexToRgb(COLORS.aussieLight));
   doc.rect(0, PAGE.height * 0.44, PAGE.width, 3, 'F');
 
-  // Statutory-framework badge straddling the divider. Only shown when a
-  // framework grouping is present, so it carries information the title does not
-  // already state (avoids a redundant "Action Plan" chip under the title).
-  if (frameworkGrouping?.short) {
-    const badgeText = frameworkGrouping.short;
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'bold');
-    const badgeWidth = Math.max(50, doc.getTextWidth(badgeText) + 16);
-    doc.setFillColor(255, 237, 200); // light amber bg
-    doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'F');
-    doc.setDrawColor(224, 125, 0);
-    doc.setLineWidth(0.5);
-    doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'S');
+  // Statutory-framework line under the divider. Only shown when a framework
+  // grouping is present. Uses the framework's full name (not an abbreviation)
+  // and states the relationship plainly, so a council reader knows the plan
+  // aligns to the statutory framework without decoding a chip.
+  if (frameworkGrouping?.name) {
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
     doc.setTextColor(120, 53, 0);
-    doc.text(badgeText, ccx, PAGE.height * 0.44 + 19, { align: 'center' });
-    doc.setDrawColor(0, 0, 0);
+    doc.text(`Aligned to the ${frameworkGrouping.name}`, ccx, PAGE.height * 0.44 + 17, { align: 'center' });
+    doc.setTextColor(0, 0, 0);
   }
 
   // Organisation name (dark on the light area)
@@ -537,7 +531,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
         'Status Breakdown',
         'Items by Category',
         ...(achievedItems.length > 0 ? ['Achievements to date'] : []),
-        ...(frameworkGrouping ? [`Against the ${frameworkGrouping.short}`] : []),
+        ...(frameworkGrouping ? [`Alignment with ${frameworkGrouping.short}`] : []),
       ],
     },
     {
@@ -766,7 +760,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // STATUTORY FRAMEWORK ALIGNMENT (optional)
   // ========================================
   if (frameworkGrouping && frameworkGrouping.domains.some(d => d.items.length > 0)) {
-    addSectionHeader(`Against the ${frameworkGrouping.short}`, 'accent');
+    addSectionHeader(`Alignment with ${frameworkGrouping.short}`, 'accent');
 
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');

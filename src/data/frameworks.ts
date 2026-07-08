@@ -66,7 +66,7 @@ export const FRAMEWORKS: Record<string, Framework> = {
   'AU-SA': {
     key: 'AU-SA',
     name: 'State Disability Inclusion Plan 2025-2029 (Inclusive SA)',
-    short: 'SDIP',
+    short: 'Inclusive SA',
     citation:
       'Disability Inclusion Act 2018 (SA), as amended by the Disability Inclusion (Review Recommendations) Amendment Act 2024',
     mandate: 'statutory',
