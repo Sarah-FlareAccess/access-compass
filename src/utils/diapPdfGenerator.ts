@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf';
 import type { DIAPItem } from '../hooks/useDIAPManagement';
 import { getCustomCategories } from '../data/diapMapping';
+import { getModuleById } from '../data/accessModules';
 
 const COLORS = {
   amethystDark: '#3a0b52',
@@ -228,11 +229,15 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     return doc.splitTextToSize(text, maxWidth);
   };
 
-  const addSectionHeader = (title: string, style: 'band' | 'accent' = 'band') => {
-    checkNewPage(20);
+  const addSectionHeader = (title: string, style: 'band' | 'accent' = 'band', reserveAfter = 14) => {
+    // Reserve room for the header band (~14mm) plus the first chunk of its
+    // content, so a header is never left orphaned at the foot of a page while
+    // its rows break to the next.
+    const needed = 14 + reserveAfter;
+    checkNewPage(needed);
     if (yPos > PAGE.marginY + 5) {
       yPos += 8;
-      checkNewPage(20);
+      checkNewPage(needed);
     }
     recordSection(title);
 
@@ -559,8 +564,8 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   }
   yPos += 3;
 
-  // Stat boxes row
-  addSectionHeader('At a glance', 'accent');
+  // Stat boxes row (reserve the full box height so the header keeps them)
+  addSectionHeader('At a glance', 'accent', 40);
   const boxWidth = (PAGE.contentWidth - 12) / 4;
   const statBoxes = [
     { val: `${completionRate}%`, label: 'Completion Rate', color: COLORS.green },
@@ -649,25 +654,28 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   if (achievedItems.length > 0) {
     addSectionHeader('Achievements to date', 'accent');
 
+    // Summarise completed work by area rather than listing individual actions.
+    // A static PDF cannot expand a truncated list, so a per-category count shows
+    // the breadth of progress without a dangling "and N more".
     doc.setFontSize(9);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(...hexToRgb(COLORS.textMuted));
-    wrapText('Actions your organisation has already completed. Recognising progress matters as much as planning what comes next.', PAGE.contentWidth)
+    wrapText(`${completedCount} action${completedCount === 1 ? '' : 's'} completed so far, spanning these areas. Recognising progress matters as much as planning the work ahead.`, PAGE.contentWidth)
       .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
     yPos += 3;
 
-    const seenAchieved = new Set<string>();
-    const achievedLabels: string[] = [];
-    for (const item of achievedItems) {
-      const label = (item.objective || item.action || '').trim();
-      if (!label || seenAchieved.has(label)) continue;
-      seenAchieved.add(label);
-      achievedLabels.push(label);
-    }
+    const achievedByCat = [...Object.keys(categoryLabels), '__other__']
+      .map(key => ({
+        label: key === '__other__' ? OTHER_CATEGORY_LABEL : categoryLabels[key],
+        count: key === '__other__'
+          ? otherCategoryItems.filter(i => i.status === 'achieved').length
+          : items.filter(i => i.category === key && i.status === 'achieved').length,
+      }))
+      .filter(c => c.count > 0)
+      .sort((a, b) => b.count - a.count);
 
-    for (const label of achievedLabels.slice(0, 6)) {
-      const lines = wrapText(label, PAGE.contentWidth - 12);
-      checkNewPage(lines.length * 5 + 2);
+    for (const c of achievedByCat) {
+      checkNewPage(7);
       // Green tick drawn as two strokes (helvetica has no check glyph).
       const tx = PAGE.marginX + 3;
       doc.setDrawColor(...hexToRgb(COLORS.green));
@@ -678,16 +686,13 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       doc.setFontSize(9);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.text));
-      lines.forEach(l => { doc.text(l, PAGE.marginX + 9, yPos); yPos += 5; });
-      yPos += 1;
-    }
-    if (achievedLabels.length > 6) {
-      checkNewPage(6);
-      doc.setFontSize(8.5);
-      doc.setFont('helvetica', 'italic');
-      doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.text(`...and ${achievedLabels.length - 6} more completed`, PAGE.marginX + 9, yPos);
-      yPos += 6;
+      doc.text(c.label, PAGE.marginX + 9, yPos);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.green));
+      doc.text(`${c.count} completed`, PAGE.marginX + PAGE.contentWidth, yPos, { align: 'right' });
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      yPos += 6.5;
     }
   }
 
@@ -700,7 +705,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
-    wrapText(`Your action plan mapped to the ${frameworkGrouping.name} outcome domains, ready for statutory reporting. The domain-by-domain detail is in the appendix.`, PAGE.contentWidth)
+    wrapText(`This action plan is mapped to the ${frameworkGrouping.name} outcome domains for statutory reporting. Domain-by-domain detail appears in the appendix.`, PAGE.contentWidth)
       .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
     yPos += 4;
 
@@ -806,7 +811,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(...hexToRgb(COLORS.textMuted));
   const encLines = wrapText(
-    'Every action here is worth doing. Priority levels help you decide where to start, not what to skip. Even "low" priority items can have a meaningful impact on someone\'s experience. Start wherever you can and build from there.',
+    'Every action here is worth doing. Priority levels indicate where to start, not what to skip. Even "low" priority items can have a meaningful impact on someone\'s experience. Progress can begin wherever capacity allows.',
     PAGE.contentWidth - 8
   );
   for (const line of encLines) {
@@ -821,6 +826,47 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // ========================================
   const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 };
 
+  const CARD_TEXT_MAX_WIDTH = (PAGE.contentWidth - 2) - 8 - 4;
+
+  // Always show the module name alongside its number. moduleSource comes through
+  // inconsistently ("2.1", "2.1: Arrival...", "Module 2.1: Arrival..."), so pull
+  // the code and resolve the canonical title; fall back to the raw string if the
+  // module is not found.
+  const moduleLabel = (moduleSource: string): string => {
+    const code = moduleSource.match(/(\d+\.\d+)/)?.[1];
+    const mod = code ? getModuleById(code) : undefined;
+    return mod ? `${mod.code}: ${mod.name}` : moduleSource;
+  };
+
+  const buildOptionalFields = (item: DIAPItem): { label: string; value: string }[] => {
+    const fields: { label: string; value: string }[] = [];
+    if (item.responsibleRole) fields.push({ label: 'Owner', value: item.responsibleRole });
+    if (item.responsibleTeam) fields.push({ label: 'Team', value: item.responsibleTeam });
+    if (item.timeframe) fields.push({ label: 'Timeframe', value: item.timeframe });
+    if (item.dueDate) {
+      fields.push({
+        label: 'Due Date',
+        value: new Date(item.dueDate).toLocaleDateString('en-AU', {
+          day: 'numeric', month: 'short', year: 'numeric',
+        }),
+      });
+    }
+    if (item.moduleSource) fields.push({ label: 'Module', value: moduleLabel(item.moduleSource) });
+    if (item.budgetEstimate) fields.push({ label: 'Budget', value: item.budgetEstimate });
+    return fields;
+  };
+
+  // Rough card height, used both to decide the card's own page break and to
+  // reserve room under an objective heading so the heading is never orphaned.
+  const estimateCardHeight = (item: DIAPItem): number => {
+    let h = 10 + wrapText(item.action, CARD_TEXT_MAX_WIDTH).length * 4.5;
+    h += buildOptionalFields(item).length * 5.5;
+    h += 8;
+    if (item.notes) h += 6 + wrapText(item.notes, CARD_TEXT_MAX_WIDTH).length * 4.5;
+    if (item.successIndicators) h += 6 + wrapText(item.successIndicators, CARD_TEXT_MAX_WIDTH).length * 4.5;
+    return h;
+  };
+
   const renderItemCard = (item: DIAPItem) => {
     const cardX = PAGE.marginX + 2;
     const cardWidth = PAGE.contentWidth - 2;
@@ -834,36 +880,9 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     const accentColor = PRIORITY_ACCENT[itemPriority] || PRIORITY_COLORS[itemPriority] || COLORS.statusLow;
     const priorityColor = PRIORITY_COLORS[itemPriority] || COLORS.statusLow;
 
-    let estimatedHeight = 10 + actionLines.length * 4.5;
+    const optionalFields = buildOptionalFields(item);
 
-    const optionalFields: { label: string; value: string }[] = [];
-    if (item.responsibleRole) optionalFields.push({ label: 'Owner', value: item.responsibleRole });
-    if (item.responsibleTeam) optionalFields.push({ label: 'Team', value: item.responsibleTeam });
-    if (item.timeframe) optionalFields.push({ label: 'Timeframe', value: item.timeframe });
-    if (item.dueDate) {
-      optionalFields.push({
-        label: 'Due Date',
-        value: new Date(item.dueDate).toLocaleDateString('en-AU', {
-          day: 'numeric', month: 'short', year: 'numeric',
-        }),
-      });
-    }
-    if (item.moduleSource) optionalFields.push({ label: 'Module', value: item.moduleSource });
-    if (item.budgetEstimate) optionalFields.push({ label: 'Budget', value: item.budgetEstimate });
-
-    estimatedHeight += optionalFields.length * 5.5;
-    estimatedHeight += 8;
-
-    if (item.notes) {
-      const noteLines = wrapText(item.notes, textMaxWidth);
-      estimatedHeight += 6 + noteLines.length * 4.5;
-    }
-    if (item.successIndicators) {
-      const siLines = wrapText(item.successIndicators, textMaxWidth);
-      estimatedHeight += 6 + siLines.length * 4.5;
-    }
-
-    checkNewPage(Math.min(estimatedHeight, 80));
+    checkNewPage(Math.min(estimateCardHeight(item), 80));
 
     const cardStartY = yPos;
 
@@ -984,11 +1003,13 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // An objective heading shown once above its group of action cards (ivory bar,
   // left accent set to the group's highest-priority colour). Objective text may
   // wrap, so the bar is sized to the number of lines.
-  const renderObjectiveHeading = (objective: string, accent: string) => {
+  const renderObjectiveHeading = (objective: string, accent: string, reserveAfter = 30) => {
     const lines = wrapText(objective, PAGE.contentWidth - 8);
     const lineH = 5;
     const boxH = lines.length * lineH + 3;
-    checkNewPage(boxH + 18);
+    // Keep the heading with the start of its first card (reserveAfter) so a
+    // heading is never left stranded at the foot of a page.
+    checkNewPage(boxH + 6 + reserveAfter);
     if (yPos > PAGE.marginY + 5) yPos += 4;
 
     const boxTop = yPos - 4;
@@ -1051,7 +1072,11 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     for (const g of groups) {
       const topPriority = g.items[0].priority || 'low';
-      renderObjectiveHeading(g.objective, PRIORITY_COLORS[topPriority] || COLORS.statusLow);
+      renderObjectiveHeading(
+        g.objective,
+        PRIORITY_COLORS[topPriority] || COLORS.statusLow,
+        Math.min(estimateCardHeight(g.items[0]), 80),
+      );
       for (const item of g.items) renderItemCard(item);
     }
 
@@ -1130,7 +1155,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
-    wrapText(`Every objective in your plan grouped under its ${frameworkGrouping.name} outcome domain.`, PAGE.contentWidth)
+    wrapText(`Every objective grouped under its ${frameworkGrouping.name} outcome domain.`, PAGE.contentWidth)
       .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
     yPos += 3;
 
