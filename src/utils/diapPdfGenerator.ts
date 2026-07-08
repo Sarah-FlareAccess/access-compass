@@ -1150,6 +1150,23 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // Catch-all so items with an unmapped category are never dropped
   renderCategoryBlock('__other__', OTHER_CATEGORY_LABEL, otherCategoryItems);
 
+  // Closing provenance note: the plan is a living document; this PDF is a
+  // point-in-time snapshot. Neutral and third-person so it suits a submittable
+  // document.
+  yPos += 6;
+  checkNewPage(18);
+  doc.setDrawColor(210, 206, 216);
+  doc.setLineWidth(0.3);
+  doc.line(PAGE.marginX, yPos, PAGE.marginX + PAGE.contentWidth, yPos);
+  yPos += 6;
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'italic');
+  doc.setTextColor(...hexToRgb(COLORS.textMuted));
+  wrapText('This action plan is managed within Access Compass, where actions can be assigned, updated, evidenced, reported and reviewed over time. This PDF provides a point-in-time snapshot.', PAGE.contentWidth)
+    .forEach(l => { checkNewPage(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(0, 0, 0);
+
   addFooter();
 
   // ========================================
