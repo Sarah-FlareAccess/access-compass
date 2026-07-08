@@ -485,6 +485,19 @@ export default function Dashboard({ view = 'overview' }: { view?: DashboardView 
     return { moduleLabel: `${target.module.code} ${target.module.name}`, moduleId: target.module.id, text: pick };
   }, [groupedModules]);
 
+  // Periodic re-assessment nudge: prompt a fresh review when the most recent
+  // completed assessment is ~12 months old, so progress can be tracked over time
+  // (and, for cohort programs, so before/after improvement data accrues).
+  const [reviewNudgeDismissed, setReviewNudgeDismissed] = useState(false);
+  const [reviewStale, setReviewStale] = useState<{ months: number } | null>(null);
+  useEffect(() => {
+    const dates = orgWideRollup?.completionDates ?? [];
+    if (dates.length === 0) { setReviewStale(null); return; }
+    const last = dates.reduce((a, b) => (a > b ? a : b));
+    const months = (Date.now() - new Date(last).getTime()) / (1000 * 60 * 60 * 24 * 30.44);
+    setReviewStale(months >= 12 ? { months: Math.round(months) } : null);
+  }, [orgWideRollup]);
+
   // Calculate overall stats
   const overallStats = useMemo(() => {
     // Scope the action-plan snapshot to the active venue so it lines up with
@@ -864,6 +877,27 @@ Thanks!`;
               </div>
             )}
             <PageGuide pageId="dashboard" features={DASHBOARD_FEATURES} />
+            {reviewStale && !reviewNudgeDismissed && (
+              <div className="site-setup-nudge review-nudge" role="status">
+                <div className="site-setup-nudge-body">
+                  <span className="site-setup-nudge-icon" aria-hidden="true">🔄</span>
+                  <div className="site-setup-nudge-text">
+                    <span className="site-setup-nudge-title">Time for a fresh review</span>
+                    <span className="site-setup-nudge-message">
+                      It's been about {reviewStale.months} months since your last assessment. Re-assessing keeps your reports current and shows how far you've come over time.
+                    </span>
+                  </div>
+                </div>
+                <div className="site-setup-nudge-actions">
+                  <button type="button" className="site-setup-nudge-cta" onClick={() => navigate('/assessment')}>
+                    Re-assess
+                  </button>
+                  <button type="button" className="site-setup-nudge-dismiss" onClick={() => setReviewNudgeDismissed(true)} aria-label="Dismiss review reminder">
+                    Not now
+                  </button>
+                </div>
+              </div>
+            )}
             {/* Primary Action Hero - Clickable */}
             {overallStats.modulesInProgress > 0 ? (
               <button
