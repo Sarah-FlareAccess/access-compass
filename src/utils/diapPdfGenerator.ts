@@ -109,6 +109,10 @@ interface DIAPPdfOptions {
     short: string;
     domains: { name: string; outcomeStatement?: string; items: DIAPItem[] }[];
   };
+  // Map of site id -> site name. When the report is org-wide (no siteName), each
+  // action is tagged with the site it belongs to so items from different venues
+  // are not mixed together anonymously. Ignored for single-site reports.
+  siteNames?: Record<string, string>;
 }
 
 // Filesystem-safe fragment from a display name (spaces to dashes, strip the
@@ -132,7 +136,30 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 export function generateDIAPPdf(options: DIAPPdfOptions): void {
-  const { items, orgName = 'Your Organisation', siteName, generatedDate, customCategoryNames = {}, frameworkGrouping } = options;
+  const { items, orgName = 'Your Organisation', siteName, generatedDate, customCategoryNames = {}, frameworkGrouping, siteNames = {} } = options;
+
+  // Tag each action with its site only in an org-wide report (no single site
+  // selected); when scoped to one site every item shares it, so a tag is noise.
+  const orgWideReport = !siteName;
+
+  // The distinct sites this report actually covers, derived from the items in
+  // scope (so it stays accurate whatever selection produced them). Used to state
+  // the scope on the cover and near the intro.
+  const coveredSiteNames = orgWideReport
+    ? [...new Set(
+        items
+          .map(i => i.siteId)
+          .filter((id): id is string => !!id && !!siteNames[id])
+          .map(id => siteNames[id]),
+      )].sort((a, b) => a.localeCompare(b))
+    : [];
+
+  // Concise scope label for the cover: an explicit site name, a single covered
+  // site, or a count when the plan spans several (the full list sits by the intro).
+  const coverScope = siteName
+    ? siteName
+    : coveredSiteNames.length === 1 ? coveredSiteNames[0]
+    : coveredSiteNames.length > 1 ? `${coveredSiteNames.length} sites` : '';
 
   // Build category labels with custom categories and name overrides
   const categoryLabels: Record<string, string> = { ...CATEGORY_LABELS };
@@ -437,17 +464,17 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
   doc.text(orgName, ccx, PAGE.height * 0.62, { align: 'center' });
 
-  if (siteName) {
+  if (coverScope) {
     doc.setFontSize(13);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(90, 60, 120);
-    doc.text(siteName, ccx, PAGE.height * 0.62 + 9, { align: 'center' });
+    doc.text(coverScope, ccx, PAGE.height * 0.62 + 9, { align: 'center' });
   }
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(107, 114, 128);
-  doc.text(`Generated ${formattedDate}`, ccx, PAGE.height * 0.62 + (siteName ? 18 : 10), { align: 'center' });
+  doc.text(`Generated ${formattedDate}`, ccx, PAGE.height * 0.62 + (coverScope ? 18 : 10), { align: 'center' });
 
   // Discreet credit line only (branding kept to a small, footer-style credit so
   // the plan reads as the organisation's own submittable document).
@@ -545,6 +572,22 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
   doc.text('Progress Overview', PAGE.marginX, yPos);
   yPos += 14;
+
+  // Sites covered: name the venues this org-wide plan spans, so the scope is
+  // explicit alongside the per-item site tags. Skipped for single-site reports
+  // (the site is already on the cover) and when no sites resolve.
+  if (orgWideReport && coveredSiteNames.length > 0) {
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+    doc.text(coveredSiteNames.length === 1 ? 'Site covered' : `Sites covered (${coveredSiteNames.length})`, PAGE.marginX, yPos);
+    yPos += 5;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...hexToRgb(COLORS.text));
+    wrapText(coveredSiteNames.join(', '), PAGE.contentWidth)
+      .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+    yPos += 5;
+  }
 
   // Executive analysis: a short computed narrative so the plan opens with
   // direction (what it covers, where the weight sits, what to do first) rather
@@ -837,6 +880,11 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
   const buildOptionalFields = (item: DIAPItem): { label: string; value: string }[] => {
     const fields: { label: string; value: string }[] = [];
+    // Site comes first in an org-wide report so it is clear which venue each
+    // action belongs to. Only shown when the id resolves to a known site.
+    if (orgWideReport && item.siteId && siteNames[item.siteId]) {
+      fields.push({ label: 'Site', value: siteNames[item.siteId] });
+    }
     if (item.responsibleRole) fields.push({ label: 'Owner', value: item.responsibleRole });
     if (item.responsibleTeam) fields.push({ label: 'Team', value: item.responsibleTeam });
     if (item.timeframe) fields.push({ label: 'Timeframe', value: item.timeframe });

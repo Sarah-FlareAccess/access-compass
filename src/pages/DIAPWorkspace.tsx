@@ -986,7 +986,8 @@ export default function DIAPWorkspace() {
           })),
         }
       : undefined;
-    generateDIAPPdf({ items: siteScopedItems, orgName, siteName: activeSiteName, customCategoryNames, frameworkGrouping });
+    const siteNames = Object.fromEntries(sites.map(s => [s.id, s.name]));
+    generateDIAPPdf({ items: siteScopedItems, orgName, siteName: activeSiteName, customCategoryNames, frameworkGrouping, siteNames });
   };
 
   // Handle download CSV template
