@@ -104,6 +104,19 @@ export interface OutcomesSnapshot {
   domains: DomainAggregate[];
 }
 
+// Before/after improvement across the cohort, computed only from businesses that
+// have assessed more than once (a baseline archived to snapshots plus a current
+// run). Readiness is a band-weighted score (strong 100 / mixed 50 / needs-work
+// 0). Absent when the baseline RPC (migration 037) is unavailable or no business
+// has re-assessed yet - so it is never a fabricated "before".
+export interface ProgramImprovement {
+  reassessedCount: number;
+  improvedCount: number;
+  avgBaselineReadiness: number;
+  avgCurrentReadiness: number;
+  avgDelta: number;
+}
+
 export interface ProgramReportPayload {
   generatedAt: string;
   program: {
@@ -126,6 +139,9 @@ export interface ProgramReportPayload {
   /** Statutory framework domain roll-up. Absent on snapshots generated before
    *  the Statutory Plan Alignment feature, or when jurisdiction has no mappings. */
   outcomes?: OutcomesSnapshot;
+  /** Before/after readiness improvement for the re-assessed subset. Absent when
+   *  migration 037 is not applied or no business has re-assessed. */
+  improvement?: ProgramImprovement;
 }
 
 export interface ProgramReportRow {
@@ -229,6 +245,10 @@ export function useProgramReport(programId: string | null) {
         // stays accurate to this point in time (privacy: domain counts only).
         const outcomes = await computeOutcomes(programId, program.organisation_id, cohortSummaries);
 
+        // Before/after improvement (re-assessed subset only; omitted if the
+        // baseline RPC is unavailable or nobody has re-assessed).
+        const improvement = await computeImprovement(programId, cohortSummaries);
+
         const payload: ProgramReportPayload = {
           generatedAt: new Date().toISOString(),
           program: {
@@ -249,6 +269,7 @@ export function useProgramReport(programId: string | null) {
           topAreasToExplore,
           methodology: METHODOLOGY_NOTE,
           outcomes,
+          improvement,
         };
 
         const dateLabel = new Date().toLocaleDateString('en-AU', {
@@ -485,5 +506,82 @@ async function computeOutcomes(
     frameworkShort: fw.short,
     citation: fw.citation,
     domains,
+  };
+}
+
+// Band-weighted readiness score for a single module assessment.
+function bandScore(band: string | null | undefined): number | null {
+  switch ((band ?? '').toLowerCase().replace(/[_\s]+/g, '-')) {
+    case 'strong': return 100;
+    case 'mixed': return 50;
+    case 'needs-work': return 0;
+    default: return null;
+  }
+}
+
+// Cohort before/after improvement. Baseline = earliest archived confidence per
+// (business, module) from the get_program_baseline_readiness RPC; current = the
+// live band from the cohort summaries. Compared per business over the modules
+// where BOTH exist, so only genuinely re-assessed businesses count. Tolerates
+// the RPC being absent (migration 037 not applied) - returns undefined so the
+// report simply omits the section rather than inventing a "before".
+async function computeImprovement(
+  programId: string,
+  cohortSummaries: CohortSummaryRow[],
+): Promise<ProgramImprovement | undefined> {
+  if (!supabase) return undefined;
+  let baselineRows: { child_org_id: string; module_id: string; baseline_confidence: string | null }[] = [];
+  try {
+    const res = await supabase.rpc('get_program_baseline_readiness', { p_program_id: programId });
+    if (res.error || !Array.isArray(res.data)) return undefined;
+    baselineRows = res.data as typeof baselineRows;
+  } catch {
+    return undefined;
+  }
+  if (baselineRows.length === 0) return undefined;
+
+  const baseline = new Map<string, number>();
+  for (const r of baselineRows) {
+    const s = bandScore(r.baseline_confidence);
+    if (s !== null) baseline.set(`${r.child_org_id}|${r.module_id}`, s);
+  }
+  const current = new Map<string, number>();
+  for (const r of cohortSummaries) {
+    const s = bandScore(r.confidence_snapshot);
+    if (s !== null) current.set(`${r.child_org_id}|${r.module_id}`, s);
+  }
+
+  // Per business, average baseline vs current over modules present in both.
+  const perBiz = new Map<string, { base: number[]; curr: number[] }>();
+  for (const [key, baseScore] of baseline) {
+    const currScore = current.get(key);
+    if (currScore === undefined) continue;
+    const org = key.split('|')[0];
+    let e = perBiz.get(org);
+    if (!e) { e = { base: [], curr: [] }; perBiz.set(org, e); }
+    e.base.push(baseScore);
+    e.curr.push(currScore);
+  }
+  if (perBiz.size === 0) return undefined;
+
+  const mean = (a: number[]) => a.reduce((sum, x) => sum + x, 0) / a.length;
+  let improved = 0;
+  const baseAvgs: number[] = [];
+  const currAvgs: number[] = [];
+  for (const { base, curr } of perBiz.values()) {
+    const b = mean(base);
+    const c = mean(curr);
+    baseAvgs.push(b);
+    currAvgs.push(c);
+    if (c > b) improved += 1;
+  }
+  const avgBaselineReadiness = Math.round(mean(baseAvgs));
+  const avgCurrentReadiness = Math.round(mean(currAvgs));
+  return {
+    reassessedCount: perBiz.size,
+    improvedCount: improved,
+    avgBaselineReadiness,
+    avgCurrentReadiness,
+    avgDelta: avgCurrentReadiness - avgBaselineReadiness,
   };
 }

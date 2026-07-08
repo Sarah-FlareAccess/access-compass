@@ -660,6 +660,21 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   yPos += 30;
   addParagraph('Shared opportunities are actions recommended for two or more businesses - the strongest candidates for a single council-funded initiative rather than business-by-business support.', 9);
 
+  // Before/after improvement - only when the re-assessed subset exists.
+  if (payload.improvement && payload.improvement.reassessedCount > 0) {
+    const imp = payload.improvement;
+    addSectionHeader('Program impact over time');
+    ensureSpace(30);
+    const impW = (PAGE.contentWidth - 9) / 4;
+    const deltaColor = imp.avgDelta > 0 ? COLORS.strongText : imp.avgDelta < 0 ? COLORS.needsText : COLORS.textMuted;
+    addStatBox(PAGE.marginX, yPos, impW, String(imp.avgBaselineReadiness), 'Avg readiness before', COLORS.textMuted);
+    addStatBox(PAGE.marginX + impW + 3, yPos, impW, String(imp.avgCurrentReadiness), 'Avg readiness now', COLORS.amethystDiamond);
+    addStatBox(PAGE.marginX + 2 * (impW + 3), yPos, impW, `${imp.avgDelta >= 0 ? '+' : ''}${imp.avgDelta}`, 'Change', deltaColor);
+    addStatBox(PAGE.marginX + 3 * (impW + 3), yPos, impW, `${imp.improvedCount}/${imp.reassessedCount}`, 'Businesses improved', COLORS.strongText);
+    yPos += 30;
+    addParagraph(`Measured only for the ${imp.reassessedCount} business${imp.reassessedCount !== 1 ? 'es' : ''} that have re-assessed since joining - a fair before-and-after needs two assessments. Readiness is a 0 to 100 score weighted by confidence (strong 100, mixed 50, needs work 0). Businesses assessed once are not counted here until they re-assess.`, 9);
+  }
+
   if (sharedOpps.length > 0) {
     ensureSpace(24);
     doc.setFontSize(10);
