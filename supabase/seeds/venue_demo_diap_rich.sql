@@ -5,6 +5,9 @@
 -- REAL, varied actions, spread across all 5 categories, 6 owners/teams, four
 -- timeframes, three priorities, and a range of due dates (some overdue). Keeps
 -- the council's status mix (progress), assigned round-robin across venue sites.
+-- Underway items (status <> 'not-started') also get an owner+team, due date,
+-- budget and status-matched notes, so this rebuild is self-sufficient (no
+-- separate enrich pass needed); not-started items stay bare on purpose.
 -- Run after venue_demo_seed. Idempotent (rebuilds from scratch each run).
 -- =====================================================
 do $$
@@ -39,7 +42,7 @@ begin
   insert into diap_items
     (id, session_id, site_id, organisation_id, objective, action, category, priority,
      timeframe, responsible_role, responsible_team, status, module_source, question_source,
-     impact_statement, due_date, created_at, updated_at, completed_at, user_id)
+     impact_statement, due_date, budget_estimate, notes, created_at, updated_at, completed_at, user_id)
   select
     gen_random_uuid(),
     'seed-venue-diap-' || x.rn,
@@ -49,10 +52,27 @@ begin
     (array['physical-access','information-communication-marketing','customer-service','operations-policy-procedure','people-culture'])[1 + (x.rn % 5)],
     (array['high','medium','low'])[1 + (x.rn % 3)],
     (array['0-30 days','30-90 days','3-12 months','Ongoing'])[1 + (x.rn % 4)],
-    (array['Facilities Manager','Events Coordinator','Marketing Lead','Front of House Manager','People & Culture Partner','Venue Operations Manager'])[1 + (x.rn % 6)],
-    (array['Facilities','Events','Marketing & Comms','Guest Services','People & Culture','Operations'])[1 + (x.rn % 6)],
+    -- Owner + team, due, budget and notes are set only for items that are
+    -- underway (status <> 'not-started'); not-started items stay bare because
+    -- nothing has been actioned on them yet.
+    case when x.status = 'not-started' then null else (array['Facilities Manager','Events Coordinator','Marketing Lead','Front of House Manager','People & Culture Partner','Venue Operations Manager'])[1 + (x.rn % 6)] end,
+    case when x.status = 'not-started' then null else (array['Facilities','Events','Marketing & Comms','Guest Services','People & Culture','Operations'])[1 + (x.rn % 6)] end,
     x.status, x.module_source, x.question_source, x.impact_statement,
-    case when x.status = 'achieved' then null else current_date + (((x.rn % 10) - 2) * 21) end,
+    case when x.status in ('not-started','achieved') then null else current_date + (((x.rn % 10) - 2) * 21) end,
+    case when x.status = 'not-started' then null else case (x.rn % 5)
+      when 0 then (array['$8,000','$15,000','$25,000','$40,000'])[1 + (x.rn % 4)]
+      when 4 then (array['$2,500','$4,000','$6,000'])[1 + (x.rn % 3)]
+      else (array['$1,200','$2,500','$4,500','$7,500'])[1 + (x.rn % 4)]
+    end end,
+    case
+      when x.status = 'not-started' then null
+      when x.status = 'in-progress' then (array['Quotes in progress.','Works scheduled with the contractor.','Underway; first milestone met.','Draft prepared and in review.'])[1 + (x.rn % 4)]
+      when x.status = 'on-hold' then (array['On hold pending budget approval.','Paused awaiting a council decision.','Deferred to the next capital cycle.'])[1 + (x.rn % 3)]
+      when x.status = 'ongoing' then (array['Embedded in business as usual; reviewed each quarter.','Ongoing; monitored by the responsible team.'])[1 + (x.rn % 2)]
+      when x.status in ('completed','achieved') then (array['Completed and verified.','Delivered and signed off.','Implemented; confirmed with a spot check.'])[1 + (x.rn % 3)]
+      when x.status = 'cancelled' then 'Superseded by a related action.'
+      else 'In planning.'
+    end,
     now() - interval '40 days', now() - interval '5 days',
     case when x.status = 'achieved' then now() - interval '7 days' else null end,
     v_user

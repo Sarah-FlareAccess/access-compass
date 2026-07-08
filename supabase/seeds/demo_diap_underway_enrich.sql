@@ -9,8 +9,11 @@
 --
 -- Values are deterministic per item (hash of id) so a re-run is stable, and only
 -- EMPTY fields are filled (coalesce), so this is idempotent and never clobbers
--- data the seeds already set. Run after the demo seeds (and after any rebuild of
--- venue_demo_diap_rich.sql, which does not set budget/notes).
+-- data the seeds already set. Run after the demo seeds.
+--
+-- Note: the convention-centre rebuild (venue_demo_diap_rich.sql) now sets these
+-- fields itself, so in practice this pass mainly enriches the COUNCIL DIAP; it
+-- remains a harmless safety net for the venue (coalesce fills nothing there).
 -- =====================================================
 do $$
 declare
