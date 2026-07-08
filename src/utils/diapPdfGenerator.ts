@@ -38,6 +38,28 @@ const CATEGORY_LABELS: Record<string, string> = {
   'people-culture': 'People & Culture',
 };
 
+// Lower-case phrases used in the computed executive-analysis narrative so it
+// reads as prose rather than a list of category labels.
+const CATEGORY_PHRASES: Record<string, string> = {
+  'physical-access': 'the physical environment',
+  'information-communication-marketing': 'information and communication',
+  'customer-service': 'customer service',
+  'operations-policy-procedure': 'operations, policy and procedure',
+  'people-culture': 'people and culture',
+  '__other__': 'other areas',
+};
+
+// Short, generically-true context printed under each category band so the plan
+// explains why the area matters, not just what to do. Intentionally free of
+// figures, benchmarks or org-specific claims (nothing that could be fabricated).
+const CATEGORY_WHY: Record<string, string> = {
+  'physical-access': 'The physical environment decides who can enter, move through and use a space independently. Barriers here often carry the greatest legal exposure under the Premises Standards and the National Construction Code, and are usually the most visible to visitors.',
+  'information-communication-marketing': 'People can only use a service they can find, understand and act on. Accessible information, communication and marketing let everyone plan a visit, complete a booking and know what to expect before they arrive.',
+  'customer-service': 'Confident, well-prepared staff turn accessible facilities into a genuinely welcoming experience. Service and support actions close the gap between what a space offers and how included a visitor actually feels.',
+  'operations-policy-procedure': 'Policies and procedures set a standard that outlasts any single staff member. Embedding accessibility into how the organisation runs keeps improvements consistent and makes them easier to sustain and report on.',
+  'people-culture': 'An inclusive workforce and culture shape every decision the organisation makes. Building capability and representation from within is what keeps accessibility moving beyond a one-off project.',
+};
+
 // Keep in sync with DIAPStatus in useDIAPManagement. STATUS_ORDER drives the
 // status breakdown so every status is represented and percentages sum to 100.
 const STATUS_LABELS: Record<string, string> = {
@@ -276,7 +298,8 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   const highItems = items.filter(i => i.priority === 'high');
   const medItems = items.filter(i => i.priority === 'medium');
   const lowItems = items.filter(i => i.priority === 'low');
-  const completedCount = items.filter(i => i.status === 'achieved').length;
+  const achievedItems = items.filter(i => i.status === 'achieved');
+  const completedCount = achievedItems.length;
   const completionRate = totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0;
 
   // Any item whose category is not a known label (standard or custom) is
@@ -284,6 +307,62 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   const OTHER_CATEGORY_LABEL = 'Other / Uncategorised';
   const knownCategoryKeys = new Set(Object.keys(categoryLabels));
   const otherCategoryItems = items.filter(i => !knownCategoryKeys.has(i.category));
+
+  // ----------------------------------------
+  // EXECUTIVE ANALYSIS (computed, not authored)
+  // A short, data-derived narrative so the plan opens with direction rather
+  // than raw metrics. Everything here is calculated from the items in front of
+  // us: no benchmarks, comparisons or claims that are not in the data.
+  // ----------------------------------------
+  const catPhrase = (key: string): string =>
+    CATEGORY_PHRASES[key] || (categoryLabels[key] ? categoryLabels[key].toLowerCase() : 'other areas');
+
+  const catCounts = [...Object.keys(categoryLabels), '__other__']
+    .map(key => ({
+      key,
+      count: key === '__other__'
+        ? otherCategoryItems.length
+        : items.filter(i => i.category === key).length,
+    }))
+    .filter(c => c.count > 0)
+    .sort((a, b) => b.count - a.count);
+
+  const highByCat = [...Object.keys(categoryLabels), '__other__']
+    .map(key => ({
+      key,
+      count: key === '__other__'
+        ? otherCategoryItems.filter(i => i.priority === 'high').length
+        : items.filter(i => i.category === key && i.priority === 'high').length,
+    }))
+    .filter(c => c.count > 0)
+    .sort((a, b) => b.count - a.count);
+
+  const phaseSentence =
+    completionRate < 15 ? 'The plan is in its early implementation phase, with foundational planning underway.'
+    : completionRate < 50 ? 'The plan is actively underway, with a number of actions already in progress.'
+    : completionRate < 85 ? 'The plan is well progressed, with most actions started or complete.'
+    : 'The plan is largely delivered and moving into maintenance and review.';
+
+  const execParas: string[] = [];
+  execParas.push(
+    `This plan sets out ${totalItems} action${totalItems === 1 ? '' : 's'} to improve accessibility across the visitor journey, organisational systems and workforce capability.`,
+  );
+  if (catCounts[0] && totalItems > 0) {
+    const top = catCounts[0];
+    let weight = `The largest concentration of work sits in ${catPhrase(top.key)} (${Math.round((top.count / totalItems) * 100)}% of actions)`;
+    if (catCounts[1]) {
+      weight += `, followed by ${catPhrase(catCounts[1].key)} (${Math.round((catCounts[1].count / totalItems) * 100)}%)`;
+    }
+    execParas.push(weight + '.');
+  }
+  if (highItems.length > 0 && highByCat[0]) {
+    execParas.push(
+      `Most high-priority actions relate to ${catPhrase(highByCat[0].key)}, where legal-compliance and safety risk is greatest. Progressing these early reduces exposure while improving the visitor experience.`,
+    );
+  }
+  execParas.push(
+    phaseSentence + (highItems.length > 0 ? ' Immediate attention should focus on the high-priority actions to reduce compliance risk.' : ''),
+  );
 
   // ========================================
   // COVER PAGE
@@ -397,12 +476,23 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   const tocSections: { group: string; items: string[] }[] = [
     {
       group: 'Overview',
-      items: ['Progress Overview', 'Status Breakdown', 'Items by Category'],
+      items: [
+        'Executive Analysis',
+        'Progress Overview',
+        'Status Breakdown',
+        'Items by Category',
+        ...(achievedItems.length > 0 ? ['Achievements to date'] : []),
+        ...(frameworkGrouping ? [`Against the ${frameworkGrouping.short}`] : []),
+      ],
     },
     {
       group: 'Action Items by Category',
       items: catTocItems,
     },
+    ...(frameworkGrouping ? [{
+      group: 'Appendix',
+      items: [`${frameworkGrouping.short} detailed mapping`],
+    }] : []),
   ];
 
   tocSections.forEach((tocGroup) => {
@@ -452,9 +542,25 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
   doc.text('Progress Overview', PAGE.marginX, yPos);
-  yPos += 15;
+  yPos += 14;
+
+  // Executive analysis: a short computed narrative so the plan opens with
+  // direction (what it covers, where the weight sits, what to do first) rather
+  // than raw metrics.
+  addSectionHeader('Executive Analysis', 'accent');
+  doc.setFontSize(9.5);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(...hexToRgb(COLORS.text));
+  for (const para of execParas) {
+    const lines = wrapText(para, PAGE.contentWidth);
+    checkNewPage(lines.length * 5 + 3);
+    for (const l of lines) { doc.text(l, PAGE.marginX, yPos); yPos += 5; }
+    yPos += 2.5;
+  }
+  yPos += 3;
 
   // Stat boxes row
+  addSectionHeader('At a glance', 'accent');
   const boxWidth = (PAGE.contentWidth - 12) / 4;
   const statBoxes = [
     { val: `${completionRate}%`, label: 'Completion Rate', color: COLORS.green },
@@ -534,6 +640,56 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   });
 
   // ========================================
+  // ACHIEVEMENTS TO DATE (optional)
+  // Surfaces completed actions so the plan recognises progress, not just the
+  // work still outstanding. Objectives deduped so shared objectives list once.
+  // ========================================
+  if (achievedItems.length > 0) {
+    addSectionHeader('Achievements to date', 'accent');
+
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(...hexToRgb(COLORS.textMuted));
+    wrapText('Actions your organisation has already completed. Recognising progress matters as much as planning what comes next.', PAGE.contentWidth)
+      .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+    yPos += 3;
+
+    const seenAchieved = new Set<string>();
+    const achievedLabels: string[] = [];
+    for (const item of achievedItems) {
+      const label = (item.objective || item.action || '').trim();
+      if (!label || seenAchieved.has(label)) continue;
+      seenAchieved.add(label);
+      achievedLabels.push(label);
+    }
+
+    for (const label of achievedLabels.slice(0, 6)) {
+      const lines = wrapText(label, PAGE.contentWidth - 12);
+      checkNewPage(lines.length * 5 + 2);
+      // Green tick drawn as two strokes (helvetica has no check glyph).
+      const tx = PAGE.marginX + 3;
+      doc.setDrawColor(...hexToRgb(COLORS.green));
+      doc.setLineWidth(0.8);
+      doc.line(tx, yPos - 1.4, tx + 1.5, yPos);
+      doc.line(tx + 1.5, yPos, tx + 4, yPos - 3.4);
+      doc.setDrawColor(0, 0, 0);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      lines.forEach(l => { doc.text(l, PAGE.marginX + 9, yPos); yPos += 5; });
+      yPos += 1;
+    }
+    if (achievedLabels.length > 6) {
+      checkNewPage(6);
+      doc.setFontSize(8.5);
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(...hexToRgb(COLORS.textMuted));
+      doc.text(`...and ${achievedLabels.length - 6} more completed`, PAGE.marginX + 9, yPos);
+      yPos += 6;
+    }
+  }
+
+  // ========================================
   // STATUTORY FRAMEWORK ALIGNMENT (optional)
   // ========================================
   if (frameworkGrouping && frameworkGrouping.domains.some(d => d.items.length > 0)) {
@@ -542,53 +698,61 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
-    wrapText(`Your action plan mapped to the ${frameworkGrouping.name} outcome domains, ready for statutory reporting.`, PAGE.contentWidth)
+    wrapText(`Your action plan mapped to the ${frameworkGrouping.name} outcome domains, ready for statutory reporting. The domain-by-domain detail is in the appendix.`, PAGE.contentWidth)
       .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
-    yPos += 3;
+    yPos += 4;
+
+    // Summary table: one row per outcome domain with an action count and a
+    // status split, so the reader sees coverage and progress at a glance. Counts
+    // are derived from the items grouped under each domain.
+    const colActions = PAGE.marginX + 107;
+    const colDone = PAGE.marginX + 128;
+    const colProg = PAGE.marginX + 150;
+    const colRem = PAGE.marginX + 168;
+
+    checkNewPage(14);
+    doc.setFontSize(7.5);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...hexToRgb(COLORS.textMuted));
+    doc.text('Outcome domain', PAGE.marginX, yPos);
+    doc.text('Actions', colActions, yPos, { align: 'right' });
+    doc.text('Done', colDone, yPos, { align: 'right' });
+    doc.text('In prog.', colProg, yPos, { align: 'right' });
+    doc.text('Remaining', colRem, yPos, { align: 'right' });
+    yPos += 2;
+    doc.setDrawColor(210, 206, 216);
+    doc.setLineWidth(0.3);
+    doc.line(PAGE.marginX, yPos, PAGE.marginX + PAGE.contentWidth, yPos);
+    doc.setDrawColor(0, 0, 0);
+    yPos += 5;
 
     for (const d of frameworkGrouping.domains) {
       if (d.items.length === 0) continue;
+      const actions = d.items.length;
+      const done = d.items.filter(i => i.status === 'achieved').length;
+      const prog = d.items.filter(i => i.status === 'in-progress').length;
+      const rem = actions - done - prog;
 
-      // Collapse to unique objectives. Multiple plan actions often share one
-      // objective, which would otherwise repeat line-for-line here; the full
-      // per-action detail (with status) already appears in the action items
-      // section, so this alignment view lists each objective once.
-      const seenLabels = new Set<string>();
-      const uniqueLabels: string[] = [];
-      for (const item of d.items) {
-        const label = (item.objective || item.action || '').trim();
-        if (!label || seenLabels.has(label)) continue;
-        seenLabels.add(label);
-        uniqueLabels.push(label);
-      }
-      if (uniqueLabels.length === 0) continue;
-
-      checkNewPage(16);
-      doc.setFontSize(11);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-      doc.text(`${d.name} (${uniqueLabels.length})`, PAGE.marginX, yPos);
-      yPos += 6;
-
-      if (d.outcomeStatement) {
-        doc.setFontSize(8);
-        doc.setFont('helvetica', 'italic');
-        doc.setTextColor(107, 114, 128);
-        wrapText(d.outcomeStatement, PAGE.contentWidth)
-          .forEach(l => { checkNewPage(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
-        yPos += 1;
-      }
-
+      const nameLines = wrapText(d.name, 82);
+      checkNewPage(nameLines.length * 4.5 + 3);
+      const rowY = yPos;
       doc.setFontSize(9);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.text));
-      for (const label of uniqueLabels) {
-        const lines = wrapText(`- ${label}`, PAGE.contentWidth - 4);
-        checkNewPage(lines.length * 5 + 2);
-        lines.forEach((l, idx) => { doc.text(l, PAGE.marginX + (idx === 0 ? 0 : 4), yPos); yPos += 5; });
-      }
-      yPos += 5;
+      nameLines.forEach(l => { doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      doc.text(String(actions), colActions, rowY, { align: 'right' });
+      doc.setTextColor(...hexToRgb(COLORS.green));
+      doc.text(String(done), colDone, rowY, { align: 'right' });
+      doc.setTextColor(...hexToRgb(COLORS.statusMedium));
+      doc.text(String(prog), colProg, rowY, { align: 'right' });
+      doc.setTextColor(...hexToRgb(COLORS.textMuted));
+      doc.text(String(rem), colRem, rowY, { align: 'right' });
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      yPos += 2;
     }
+    yPos += 2;
   }
 
   addFooter();
@@ -661,13 +825,14 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     const textInset = 8;
     const textMaxWidth = cardWidth - textInset - 4;
 
-    const objectiveLines = wrapText(item.objective, textMaxWidth);
+    // The objective is now printed once as the group heading above these cards,
+    // so the card body carries only the action and its detail.
     const actionLines = wrapText(item.action, textMaxWidth);
     const itemPriority = item.priority || 'low';
     const accentColor = PRIORITY_ACCENT[itemPriority] || PRIORITY_COLORS[itemPriority] || COLORS.statusLow;
     const priorityColor = PRIORITY_COLORS[itemPriority] || COLORS.statusLow;
 
-    let estimatedHeight = 14 + objectiveLines.length * 5 + actionLines.length * 4.5;
+    let estimatedHeight = 10 + actionLines.length * 4.5;
 
     const optionalFields: { label: string; value: string }[] = [];
     if (item.responsibleRole) optionalFields.push({ label: 'Owner', value: item.responsibleRole });
@@ -700,19 +865,8 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     const cardStartY = yPos;
 
-    // Objective
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...hexToRgb(COLORS.text));
+    // Action text (the objective is the group heading above this card)
     yPos += 4;
-    for (const line of objectiveLines) {
-      checkNewPage(6);
-      doc.text(line, cardX + textInset, yPos);
-      yPos += 5;
-    }
-    yPos += 1;
-
-    // Action text
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...hexToRgb(COLORS.text));
@@ -825,12 +979,35 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     yPos += 4;
   };
 
-  // Render one category as a page: purple band header, then priority sub-groups.
-  const renderCategoryBlock = (catLabel: string, catItems: DIAPItem[]) => {
-    if (catItems.length === 0) return;
+  // An objective heading shown once above its group of action cards (ivory bar,
+  // left accent set to the group's highest-priority colour). Objective text may
+  // wrap, so the bar is sized to the number of lines.
+  const renderObjectiveHeading = (objective: string, accent: string) => {
+    const lines = wrapText(objective, PAGE.contentWidth - 8);
+    const lineH = 5;
+    const boxH = lines.length * lineH + 3;
+    checkNewPage(boxH + 18);
+    if (yPos > PAGE.marginY + 5) yPos += 4;
 
-    // Sort by priority within category
-    catItems.sort((a, b) => (priorityOrder[a.priority || 'low'] ?? 2) - (priorityOrder[b.priority || 'low'] ?? 2));
+    const boxTop = yPos - 4;
+    doc.setFillColor(...hexToRgb(COLORS.ivory));
+    doc.roundedRect(PAGE.marginX - 3, boxTop, PAGE.contentWidth + 6, boxH, 2, 2, 'F');
+    doc.setFillColor(...hexToRgb(accent));
+    doc.roundedRect(PAGE.marginX - 3, boxTop, 1.5, boxH, 0.75, 0.75, 'F');
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...hexToRgb(COLORS.text));
+    lines.forEach((l, idx) => { doc.text(l, PAGE.marginX + 3, boxTop + 5 + idx * lineH); });
+    yPos = boxTop + boxH + 5;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont('helvetica', 'normal');
+  };
+
+  // Render one category as a page: purple band header, a short "why this
+  // matters" intro, then the actions grouped by objective (each objective heads
+  // its distinct actions once, rather than repeating inside every card).
+  const renderCategoryBlock = (catKey: string, catLabel: string, catItems: DIAPItem[]) => {
+    if (catItems.length === 0) return;
 
     addFooter();
     addNewPage();
@@ -838,73 +1015,166 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     // Category header (full purple band)
     addSectionHeader(`${catLabel} (${catItems.length})`);
 
-    // Priority sub-groups within the category
-    const prioritySubs: { priority: string; label: string; items: DIAPItem[] }[] = [
-      { priority: 'high', label: 'High priority', items: catItems.filter(i => i.priority === 'high') },
-      { priority: 'medium', label: 'Medium priority', items: catItems.filter(i => i.priority === 'medium') },
-      { priority: 'low', label: 'Low priority', items: catItems.filter(i => i.priority === 'low') },
-    ];
-    // Any item with a missing/unknown priority still renders under Low.
-    const knownPriorities = new Set(['high', 'medium', 'low']);
-    const otherPriority = catItems.filter(i => !knownPriorities.has(i.priority));
-    if (otherPriority.length > 0) prioritySubs[2].items.push(...otherPriority);
+    // Why this matters: generically-true context for the category.
+    const why = CATEGORY_WHY[catKey];
+    if (why) {
+      doc.setFontSize(8.5);
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(...hexToRgb(COLORS.textMuted));
+      wrapText(why, PAGE.contentWidth).forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+      yPos += 4;
+      doc.setFont('helvetica', 'normal');
+    }
 
-    for (const sub of prioritySubs) {
-      if (sub.items.length === 0) continue;
+    const rankOf = (item: DIAPItem) => priorityOrder[item.priority || 'low'] ?? 2;
 
-      // Priority sub-header (ivory bg + colored left accent)
-      checkNewPage(20);
-      if (yPos > PAGE.marginY + 20) yPos += 4;
+    // Group actions by objective. Items with no objective are collected and
+    // rendered without a heading so they are never dropped.
+    const groupsMap = new Map<string, DIAPItem[]>();
+    const noObjective: DIAPItem[] = [];
+    for (const item of catItems) {
+      const key = (item.objective || '').trim();
+      if (!key) { noObjective.push(item); continue; }
+      if (!groupsMap.has(key)) groupsMap.set(key, []);
+      groupsMap.get(key)!.push(item);
+    }
 
-      const subColor = PRIORITY_COLORS[sub.priority] || COLORS.statusLow;
+    // Order groups by their best (lowest) priority rank; within a group, order
+    // the actions the same way.
+    const groups = [...groupsMap.entries()].map(([objective, gItems]) => {
+      gItems.sort((a, b) => rankOf(a) - rankOf(b));
+      return { objective, items: gItems, bestRank: Math.min(...gItems.map(rankOf)) };
+    });
+    groups.sort((a, b) => a.bestRank - b.bestRank);
 
-      doc.setFillColor(...hexToRgb(COLORS.ivory));
-      doc.roundedRect(PAGE.marginX - 3, yPos - 4, PAGE.contentWidth + 6, 10, 2, 2, 'F');
-      doc.setFillColor(...hexToRgb(subColor));
-      doc.roundedRect(PAGE.marginX - 3, yPos - 4, 1.5, 10, 0.75, 0.75, 'F');
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(...hexToRgb(subColor));
-      doc.text(`${sub.label} (${sub.items.length})`, PAGE.marginX + 3, yPos + 3);
-      yPos += 14;
+    for (const g of groups) {
+      const topPriority = g.items[0].priority || 'low';
+      renderObjectiveHeading(g.objective, PRIORITY_COLORS[topPriority] || COLORS.statusLow);
+      for (const item of g.items) renderItemCard(item);
+    }
 
-      for (const item of sub.items) {
-        renderItemCard(item);
-      }
+    // Actions with no objective render on their own beneath the groups.
+    if (noObjective.length > 0) {
+      noObjective.sort((a, b) => rankOf(a) - rankOf(b));
+      for (const item of noObjective) renderItemCard(item);
     }
 
     yPos += 4;
   };
 
-  // Render by category, then priority within each category
+  // Render by category, then objective within each category
   for (const [catKey, catLabel] of Object.entries(categoryLabels)) {
-    renderCategoryBlock(catLabel, items.filter(i => i.category === catKey));
+    renderCategoryBlock(catKey, catLabel, items.filter(i => i.category === catKey));
   }
   // Catch-all so items with an unmapped category are never dropped
-  renderCategoryBlock(OTHER_CATEGORY_LABEL, otherCategoryItems);
+  renderCategoryBlock('__other__', OTHER_CATEGORY_LABEL, otherCategoryItems);
 
-  // Info note (matching report style)
-  yPos += 4;
-  checkNewPage(14);
-  doc.setFillColor(240, 249, 255);
-  doc.roundedRect(PAGE.marginX, yPos - 3, PAGE.contentWidth, 14, 2, 2, 'F');
-  doc.setDrawColor(180, 210, 240);
-  doc.setLineWidth(0.3);
-  doc.roundedRect(PAGE.marginX, yPos - 3, PAGE.contentWidth, 14, 2, 2, 'S');
-  doc.setFontSize(8);
+  // ========================================
+  // USING THIS DIAP (closing call to action)
+  // Only lists features that ship today (assign, due dates, evidence, status,
+  // re-run the self-review) so the plan promises nothing it cannot deliver.
+  // ========================================
+  addSectionHeader('Using this DIAP', 'accent');
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(...hexToRgb(COLORS.text));
+  wrapText('This plan is a living document. In your Access Compass workspace you can:', PAGE.contentWidth)
+    .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
+  yPos += 2;
+
+  const usingPoints = [
+    'Assign each action to a team member or responsible officer',
+    'Set a due date and track it through to completion',
+    'Attach evidence as work is delivered',
+    'Update status as actions move from not started to achieved',
+    'Re-run the self-review at any time to refresh your progress',
+  ];
+  for (const point of usingPoints) {
+    const lines = wrapText(point, PAGE.contentWidth - 10);
+    checkNewPage(lines.length * 4.8 + 1);
+    doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
+    doc.circle(PAGE.marginX + 2, yPos - 1.2, 0.9, 'F');
+    doc.setTextColor(...hexToRgb(COLORS.text));
+    lines.forEach(l => { doc.text(l, PAGE.marginX + 7, yPos); yPos += 4.8; });
+    yPos += 1;
+  }
+  yPos += 2;
+  doc.setFontSize(8.5);
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(...hexToRgb(COLORS.textMuted));
-  const infoLines = wrapText(
-    'For detailed recommendations, resource links, and to update action item status, refer to your DIAP workspace in Access Compass.',
-    PAGE.contentWidth - 12
-  );
-  for (let i = 0; i < infoLines.length; i++) {
-    doc.text(infoLines[i], PAGE.marginX + 6, yPos + 1 + i * 4);
-  }
-  doc.setDrawColor(0, 0, 0);
+  wrapText('As you update actions in the workspace, regenerate this PDF to produce an up-to-date plan for reporting.', PAGE.contentWidth)
+    .forEach(l => { checkNewPage(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(0, 0, 0);
 
-  // Add final footer
   addFooter();
+
+  // ========================================
+  // APPENDIX: framework detailed mapping (optional, at the very end)
+  // The domain-by-domain objective list, deduped, kept out of the overview so
+  // the summary table can lead. Councils can lift this straight into a report.
+  // ========================================
+  if (frameworkGrouping && frameworkGrouping.domains.some(d => d.items.length > 0)) {
+    addNewPage();
+
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+    doc.text('Appendix', PAGE.marginX, yPos);
+    yPos += 12;
+
+    addSectionHeader(`${frameworkGrouping.short} detailed mapping`, 'accent');
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(107, 114, 128);
+    wrapText(`Every objective in your plan grouped under its ${frameworkGrouping.name} outcome domain.`, PAGE.contentWidth)
+      .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
+    yPos += 3;
+
+    for (const d of frameworkGrouping.domains) {
+      if (d.items.length === 0) continue;
+
+      // Collapse to unique objectives; multiple actions often share one.
+      const seenLabels = new Set<string>();
+      const uniqueLabels: string[] = [];
+      for (const item of d.items) {
+        const label = (item.objective || item.action || '').trim();
+        if (!label || seenLabels.has(label)) continue;
+        seenLabels.add(label);
+        uniqueLabels.push(label);
+      }
+      if (uniqueLabels.length === 0) continue;
+
+      checkNewPage(16);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+      doc.text(`${d.name} (${uniqueLabels.length})`, PAGE.marginX, yPos);
+      yPos += 6;
+
+      if (d.outcomeStatement) {
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'italic');
+        doc.setTextColor(107, 114, 128);
+        wrapText(d.outcomeStatement, PAGE.contentWidth)
+          .forEach(l => { checkNewPage(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+        yPos += 1;
+      }
+
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      for (const label of uniqueLabels) {
+        const lines = wrapText(`- ${label}`, PAGE.contentWidth - 4);
+        checkNewPage(lines.length * 5 + 2);
+        lines.forEach((l, idx) => { doc.text(l, PAGE.marginX + (idx === 0 ? 0 : 4), yPos); yPos += 5; });
+      }
+      yPos += 5;
+    }
+
+    addFooter();
+  }
 
   // Second pass: stamp the real page number next to each contents-page line,
   // now that every section's page is known.
