@@ -2754,6 +2754,40 @@ button.evidence-layer-header {
 .diap-header-actions {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* "Group PDF by" export control, styled to sit alongside the export buttons */
+.diap-groupby {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond);
+}
+
+.diap-groupby__label {
+  white-space: nowrap;
+}
+
+.diap-groupby__select {
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1.5px solid rgba(73, 14, 103, 0.2);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--amethyst-diamond);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.diap-groupby__select:focus-visible {
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
 }
 
 /* Modal Overlay */

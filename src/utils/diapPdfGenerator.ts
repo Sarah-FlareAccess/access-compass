@@ -113,6 +113,22 @@ interface DIAPPdfOptions {
   // action is tagged with the site it belongs to so items from different venues
   // are not mixed together anonymously. Ignored for single-site reports.
   siteNames?: Record<string, string>;
+  // Optional grouping override for the action-items body. When absent, actions
+  // are grouped by category (the default). When present, the caller supplies the
+  // top-level groups already computed (e.g. by statutory outcome domain, custom
+  // section or site), and the generator renders them in order. dimensionLabel
+  // names the grouping for the TOC and a caption; itemFootnotes carries an
+  // optional per-item line (e.g. "Also contributes to: ...") for actions that
+  // span more than one group.
+  grouping?: {
+    dimensionLabel: string;
+    groups: { key: string; heading: string; subtitle?: string; items: DIAPItem[] }[];
+    itemFootnotes?: Record<string, string>;
+    // When the body is already grouped by the statutory outcome domains, the
+    // separate framework "detailed mapping" appendix repeats it, so the caller
+    // sets this to drop the appendix (the summary table is still kept).
+    omitFrameworkAppendix?: boolean;
+  };
 }
 
 // Filesystem-safe fragment from a display name (spaces to dashes, strip the
@@ -136,7 +152,7 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 export function generateDIAPPdf(options: DIAPPdfOptions): void {
-  const { items, orgName = 'Your Organisation', siteName, generatedDate, customCategoryNames = {}, frameworkGrouping, siteNames = {} } = options;
+  const { items, orgName = 'Your Organisation', siteName, generatedDate, customCategoryNames = {}, frameworkGrouping, siteNames = {}, grouping } = options;
 
   // Tag each action with its site only in an org-wide report (no single site
   // selected); when scoped to one site every item shares it, so a tag is noise.
@@ -494,13 +510,23 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.text('Table of Contents', PAGE.marginX, yPos);
   yPos += 15;
 
-  // Build category TOC items
-  const catTocItems: string[] = [];
-  for (const [key, label] of Object.entries(categoryLabels)) {
-    const count = items.filter(i => i.category === key).length;
-    if (count > 0) catTocItems.push(`${label} (${count})`);
+  // Build the action-items TOC entries from the active grouping (the caller's
+  // groups when supplied, else by category). Headings must match the section
+  // headers drawn by renderGroupBlock so the page numbers resolve.
+  const actionTocItems: string[] = [];
+  if (grouping) {
+    for (const g of grouping.groups) {
+      if (g.items.length > 0) actionTocItems.push(`${g.heading} (${g.items.length})`);
+    }
+  } else {
+    for (const [key, label] of Object.entries(categoryLabels)) {
+      const count = items.filter(i => i.category === key).length;
+      if (count > 0) actionTocItems.push(`${label} (${count})`);
+    }
+    if (otherCategoryItems.length > 0) actionTocItems.push(`${OTHER_CATEGORY_LABEL} (${otherCategoryItems.length})`);
   }
-  if (otherCategoryItems.length > 0) catTocItems.push(`${OTHER_CATEGORY_LABEL} (${otherCategoryItems.length})`);
+  const actionTocGroupLabel = `Action Items by ${grouping ? grouping.dimensionLabel : 'Category'}`;
+  const showFrameworkAppendix = !!frameworkGrouping && !grouping?.omitFrameworkAppendix;
 
   const tocSections: { group: string; items: string[] }[] = [
     {
@@ -515,10 +541,10 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       ],
     },
     {
-      group: 'Action Items by Category',
-      items: catTocItems,
+      group: actionTocGroupLabel,
+      items: actionTocItems,
     },
-    ...(frameworkGrouping ? [{
+    ...(showFrameworkAppendix ? [{
       group: 'Appendix',
       items: [`${frameworkGrouping.short} detailed mapping`],
     }] : []),
@@ -813,7 +839,14 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
   doc.text('Action Items', PAGE.marginX, yPos);
-  yPos += 12;
+  yPos += 7;
+
+  // Caption stating how the actions below are grouped.
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'italic');
+  doc.setTextColor(...hexToRgb(COLORS.textMuted));
+  doc.text(`Grouped by ${grouping ? grouping.dimensionLabel : 'category'}.`, PAGE.marginX, yPos);
+  yPos += 8;
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
@@ -909,6 +942,8 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     h += 8;
     if (item.notes) h += 6 + wrapText(item.notes, CARD_TEXT_MAX_WIDTH).length * 4.5;
     if (item.successIndicators) h += 6 + wrapText(item.successIndicators, CARD_TEXT_MAX_WIDTH).length * 4.5;
+    const footnote = grouping?.itemFootnotes?.[item.id];
+    if (footnote) h += 2 + wrapText(footnote, CARD_TEXT_MAX_WIDTH).length * 4;
     return h;
   };
 
@@ -1031,6 +1066,23 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       }
     }
 
+    // Cross-reference note (e.g. the other outcome domains an action also maps
+    // to under domain grouping), so a single-placement action still shows its
+    // full coverage.
+    const footnote = grouping?.itemFootnotes?.[item.id];
+    if (footnote) {
+      yPos += 2;
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(107, 114, 128);
+      const fnLines = wrapText(footnote, textMaxWidth);
+      for (const line of fnLines) {
+        checkNewPage(5);
+        doc.text(line, cardX + textInset, yPos);
+        yPos += 4;
+      }
+    }
+
     yPos += 3;
 
     const cardHeight = yPos - cardStartY;
@@ -1071,34 +1123,34 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.setFont('helvetica', 'normal');
   };
 
-  // Render one category as a page: purple band header, a short "why this
-  // matters" intro, then the actions grouped by objective (each objective heads
-  // its distinct actions once, rather than repeating inside every card).
-  // The first category flows on from the priority-legend page rather than
-  // forcing a new one (avoids a near-empty legend page); later categories each
-  // start on their own page.
-  let firstActionCategory = true;
-  const renderCategoryBlock = (catKey: string, catLabel: string, catItems: DIAPItem[]) => {
-    if (catItems.length === 0) return;
+  // Render one top-level group as a page: purple band header, an optional intro
+  // (category "why this matters", or a domain's outcome statement), then the
+  // actions grouped by objective (each objective heads its distinct actions
+  // once, rather than repeating inside every card).
+  // The first group flows on from the priority-legend page rather than forcing a
+  // new one (avoids a near-empty legend page); later groups each start on their
+  // own page.
+  let firstActionGroup = true;
+  const renderGroupBlock = (heading: string, subtitle: string | undefined, groupItems: DIAPItem[]) => {
+    if (groupItems.length === 0) return;
 
-    if (firstActionCategory) {
-      firstActionCategory = false;
+    if (firstActionGroup) {
+      firstActionGroup = false;
     } else {
       addFooter();
       addNewPage();
     }
 
-    // Category header (full purple band; addSectionHeader adds spacing or breaks
-    // to a new page if the legend leaves too little room).
-    addSectionHeader(`${catLabel} (${catItems.length})`);
+    // Group header (full purple band; addSectionHeader adds spacing or breaks to
+    // a new page if the legend leaves too little room).
+    addSectionHeader(`${heading} (${groupItems.length})`);
 
-    // Why this matters: generically-true context for the category.
-    const why = CATEGORY_WHY[catKey];
-    if (why) {
+    // Optional intro: category context, or the outcome domain's statement.
+    if (subtitle) {
       doc.setFontSize(8.5);
       doc.setFont('helvetica', 'italic');
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      wrapText(why, PAGE.contentWidth).forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+      wrapText(subtitle, PAGE.contentWidth).forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
       yPos += 4;
       doc.setFont('helvetica', 'normal');
     }
@@ -1109,7 +1161,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     // rendered without a heading so they are never dropped.
     const groupsMap = new Map<string, DIAPItem[]>();
     const noObjective: DIAPItem[] = [];
-    for (const item of catItems) {
+    for (const item of groupItems) {
       const key = (item.objective || '').trim();
       if (!key) { noObjective.push(item); continue; }
       if (!groupsMap.has(key)) groupsMap.set(key, []);
@@ -1118,13 +1170,13 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     // Order groups by their best (lowest) priority rank; within a group, order
     // the actions the same way.
-    const groups = [...groupsMap.entries()].map(([objective, gItems]) => {
+    const objGroups = [...groupsMap.entries()].map(([objective, gItems]) => {
       gItems.sort((a, b) => rankOf(a) - rankOf(b));
       return { objective, items: gItems, bestRank: Math.min(...gItems.map(rankOf)) };
     });
-    groups.sort((a, b) => a.bestRank - b.bestRank);
+    objGroups.sort((a, b) => a.bestRank - b.bestRank);
 
-    for (const g of groups) {
+    for (const g of objGroups) {
       const topPriority = g.items[0].priority || 'low';
       renderObjectiveHeading(
         g.objective,
@@ -1143,12 +1195,17 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     yPos += 4;
   };
 
-  // Render by category, then objective within each category
-  for (const [catKey, catLabel] of Object.entries(categoryLabels)) {
-    renderCategoryBlock(catKey, catLabel, items.filter(i => i.category === catKey));
+  if (grouping) {
+    // Caller-supplied grouping (outcome domain, custom section or site).
+    for (const g of grouping.groups) renderGroupBlock(g.heading, g.subtitle, g.items);
+  } else {
+    // Default: by category, with the "why this matters" context per category.
+    for (const [catKey, catLabel] of Object.entries(categoryLabels)) {
+      renderGroupBlock(catLabel, CATEGORY_WHY[catKey], items.filter(i => i.category === catKey));
+    }
+    // Catch-all so items with an unmapped category are never dropped.
+    renderGroupBlock(OTHER_CATEGORY_LABEL, undefined, otherCategoryItems);
   }
-  // Catch-all so items with an unmapped category are never dropped
-  renderCategoryBlock('__other__', OTHER_CATEGORY_LABEL, otherCategoryItems);
 
   // Closing provenance note: the plan is a living document; this PDF is a
   // point-in-time snapshot. Neutral and third-person so it suits a submittable
@@ -1173,8 +1230,9 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // APPENDIX: framework detailed mapping (optional, at the very end)
   // The domain-by-domain objective list, deduped, kept out of the overview so
   // the summary table can lead. Councils can lift this straight into a report.
+  // Skipped when the body is already grouped by domain (it would just repeat).
   // ========================================
-  if (frameworkGrouping && frameworkGrouping.domains.some(d => d.items.length > 0)) {
+  if (showFrameworkAppendix && frameworkGrouping && frameworkGrouping.domains.some(d => d.items.length > 0)) {
     addNewPage();
 
     doc.setFontSize(20);

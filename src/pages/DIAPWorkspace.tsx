@@ -226,6 +226,9 @@ export default function DIAPWorkspace() {
   // How the board groups its columns. Categories mirrors the list's grouping;
   // domains = the jurisdiction framework; sections = custom user columns.
   const [boardGroupBy, setBoardGroupBy] = useState<'category' | 'domain' | 'sections' | 'status'>('category');
+  // How the exported PDF groups its action items. Independent of the board so it
+  // can be chosen from either view at export time.
+  const [exportGroupBy, setExportGroupBy] = useState<'category' | 'domain' | 'sections' | 'site'>('category');
   // Custom board columns (Asana-style sections), shared per org. The reserved
   // "__unassigned__" entry stores the (editable) label of the pinned catch-all
   // column; the rest are the user's sections in order.
@@ -1007,8 +1010,44 @@ export default function DIAPWorkspace() {
     const onlySiteId = distinctSiteIds.size === 1 ? [...distinctSiteIds][0] : null;
     const exportSiteName = onlySiteId ? sites.find(s => s.id === onlySiteId)?.name : undefined;
 
+    // Optional grouping override for the action-items body. Category is the
+    // generator's default (no grouping passed); the other modes are computed
+    // here using the same mappings the on-screen board uses.
+    let grouping: Parameters<typeof generateDIAPPdf>[0]['grouping'];
+    if (exportGroupBy === 'domain' && jurisdiction && hasMappings(jurisdiction)) {
+      const fw = getFramework(jurisdiction);
+      const domainName = new Map(fw.domains.map(d => [d.id, d.name]));
+      // Each action sits once under its primary (first) mapped domain.
+      const groups = fw.domains.map(d => ({
+        key: d.id,
+        heading: d.name,
+        subtitle: d.outcomeStatement,
+        items: exportItems.filter(i => itemDomains(i)[0] === d.id),
+      }));
+      const unmapped = exportItems.filter(i => itemDomains(i).length === 0);
+      if (unmapped.length) groups.push({ key: '__unmapped__', heading: 'Not yet mapped to an outcome domain', subtitle: undefined, items: unmapped });
+      // Flag the other domains a multi-domain action also contributes to.
+      const itemFootnotes: Record<string, string> = {};
+      for (const i of exportItems) {
+        const ds = itemDomains(i);
+        if (ds.length > 1) itemFootnotes[i.id] = `Also contributes to: ${ds.slice(1).map(id => domainName.get(id) ?? id).join(', ')}`;
+      }
+      grouping = { dimensionLabel: `${fw.short} outcome domain`, groups: groups.filter(g => g.items.length > 0), itemFootnotes, omitFrameworkAppendix: true };
+    } else if (exportGroupBy === 'sections') {
+      const assignedIds = new Set(boardColumns.map(c => c.id));
+      const groups = boardColumns.map(c => ({ key: c.id, heading: c.name, items: exportItems.filter(i => i.boardColumn === c.id) }));
+      const unassigned = exportItems.filter(i => !i.boardColumn || !assignedIds.has(i.boardColumn));
+      if (unassigned.length) groups.push({ key: '__unassigned__', heading: unassignedLabel, items: unassigned });
+      grouping = { dimensionLabel: 'section', groups: groups.filter(g => g.items.length > 0) };
+    } else if (exportGroupBy === 'site') {
+      const groups = sites.map(s => ({ key: s.id, heading: s.name, items: exportItems.filter(i => i.siteId === s.id) }));
+      const orgWide = exportItems.filter(i => !i.siteId);
+      if (orgWide.length) groups.push({ key: '__orgwide__', heading: 'Organisation-wide', items: orgWide });
+      grouping = { dimensionLabel: 'site', groups: groups.filter(g => g.items.length > 0) };
+    }
+
     const siteNames = Object.fromEntries(sites.map(s => [s.id, s.name]));
-    generateDIAPPdf({ items: exportItems, orgName, siteName: exportSiteName, customCategoryNames, frameworkGrouping, siteNames });
+    generateDIAPPdf({ items: exportItems, orgName, siteName: exportSiteName, customCategoryNames, frameworkGrouping, siteNames, grouping });
   };
 
   // Handle download CSV template
@@ -1320,6 +1359,21 @@ export default function DIAPWorkspace() {
             <button className="btn-export" onClick={handleExportCSV}>
               Export CSV
             </button>
+            {(frameworkOutcomes || boardColumns.length > 0 || (!activeSiteId && sites.length > 0)) && (
+              <label className="diap-groupby">
+                <span className="diap-groupby__label">Group PDF by</span>
+                <select
+                  className="diap-groupby__select"
+                  value={exportGroupBy}
+                  onChange={e => setExportGroupBy(e.target.value as 'category' | 'domain' | 'sections' | 'site')}
+                >
+                  <option value="category">Category</option>
+                  {frameworkOutcomes && <option value="domain">{frameworkOutcomes.fw.short} outcomes</option>}
+                  {boardColumns.length > 0 && <option value="sections">My sections</option>}
+                  {!activeSiteId && sites.length > 0 && <option value="site">Site</option>}
+                </select>
+              </label>
+            )}
             <button className="btn-export" onClick={handleExportPDF}>
               Export PDF
             </button>
