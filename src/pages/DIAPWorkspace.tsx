@@ -966,28 +966,49 @@ export default function DIAPWorkspace() {
     URL.revokeObjectURL(url);
   };
 
-  // Handle export to PDF. Always export the full venue plan (siteScopedItems),
-  // never the filtered on-screen subset, so a screen filter (e.g. "low priority
-  // only") can't produce a DIAP that misrepresents the real state. Uses the
-  // authenticated org name (not the stale onboarding business_snapshot).
+  // Handle export to PDF. Scope is the SITE selection (respects the site filter,
+  // so the PDF matches the venues the user has chosen), but the plan is exported
+  // in full for those sites: status/priority/category display filters are
+  // ignored so a screen filter (e.g. "low priority only") can't produce a DIAP
+  // that misrepresents the real state. Uses the authenticated org name.
   const handleExportPDF = () => {
     const session = getSession();
     const orgName = accessState.organisation?.name
       || session?.business_snapshot?.organisation_name
       || 'Your Organisation';
-    const frameworkGrouping = frameworkOutcomes
-      ? {
-          name: frameworkOutcomes.fw.name,
-          short: frameworkOutcomes.fw.short,
-          domains: frameworkOutcomes.domains.map(d => ({
-            name: d.name,
-            outcomeStatement: d.outcomeStatement,
-            items: d.items,
-          })),
-        }
-      : undefined;
+
+    // Items for the selected sites only (site filter), all statuses/priorities.
+    const exportItems = items.filter(matchesSite);
+
+    // Rebuild the framework grouping from exactly these items, using the same
+    // domain mapping as the on-screen outcomes, so the statutory section matches
+    // the exported scope rather than the active venue.
+    let frameworkGrouping;
+    if (jurisdiction && hasMappings(jurisdiction)) {
+      const fw = getFramework(jurisdiction);
+      const buckets = new Map<string, DIAPItem[]>(fw.domains.map(d => [d.id, []]));
+      for (const item of exportItems) {
+        for (const domainId of itemDomains(item)) buckets.get(domainId)?.push(item);
+      }
+      frameworkGrouping = {
+        name: fw.name,
+        short: fw.short,
+        domains: fw.domains.map(d => ({
+          name: d.name,
+          outcomeStatement: d.outcomeStatement,
+          items: buckets.get(d.id) ?? [],
+        })),
+      };
+    }
+
+    // Single explicit site name only when the export resolves to exactly one
+    // site; otherwise the generator shows the multi-site scope (count + tags).
+    const distinctSiteIds = new Set(exportItems.map(i => i.siteId ?? null));
+    const onlySiteId = distinctSiteIds.size === 1 ? [...distinctSiteIds][0] : null;
+    const exportSiteName = onlySiteId ? sites.find(s => s.id === onlySiteId)?.name : undefined;
+
     const siteNames = Object.fromEntries(sites.map(s => [s.id, s.name]));
-    generateDIAPPdf({ items: siteScopedItems, orgName, siteName: activeSiteName, customCategoryNames, frameworkGrouping, siteNames });
+    generateDIAPPdf({ items: exportItems, orgName, siteName: exportSiteName, customCategoryNames, frameworkGrouping, siteNames });
   };
 
   // Handle download CSV template
