@@ -167,50 +167,42 @@ function describeCompletion(completedPct: number, total: number): string {
   return 'Very early in the program. Treat the figures below as preliminary signal, not conclusion.';
 }
 
-function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, completedPct: number): string[] {
-  const insights: string[] = [];
-  const { moduleAggregates, topPriorityActions, topStrengths } = payload;
+interface GroupedInsights { strengths: string[]; barriers: string[]; opportunity: string[]; }
 
-  // Insight 1: cohort posture
-  if (strongPct >= 50) {
-    insights.push(`${strongPct}% of assessed modules show STRONG confidence - the cohort is doing well overall.`);
-  } else if (strongPct >= 25) {
-    insights.push(`${strongPct}% STRONG, with mixed results elsewhere - clear opportunities for targeted support.`);
-  } else {
-    insights.push(`Cohort maturity is in development. ${strongPct}% STRONG suggests significant collective work ahead.`);
+function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, completedPct: number): GroupedInsights {
+  const { moduleAggregates, topPriorityActions, topStrengths } = payload;
+  const strengths: string[] = [];
+  const barriers: string[] = [];
+  const opportunity: string[] = [];
+
+  if (strongPct >= 50) strengths.push(`${strongPct}% of assessed modules show strong confidence - the cohort is doing well overall.`);
+  else if (strongPct >= 25) strengths.push(`${strongPct}% of assessed modules are already strong - a solid base to build on.`);
+  if (topStrengths.length > 0) {
+    const t = topStrengths[0];
+    strengths.push(`"${t.text}" is in place across ${t.count} business${t.count !== 1 ? 'es' : ''} - worth highlighting publicly.`);
   }
 
-  // Insight 2: top need-work module
-  const sortedByNeeds = [...moduleAggregates].filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) > 0).sort((a, b) => {
-    const aTotal = a.confidence_strong + a.confidence_mixed + a.confidence_needs_work;
-    const bTotal = b.confidence_strong + b.confidence_mixed + b.confidence_needs_work;
-    const aPct = aTotal > 0 ? a.confidence_needs_work / aTotal : 0;
-    const bPct = bTotal > 0 ? b.confidence_needs_work / bTotal : 0;
-    return bPct - aPct;
-  });
+  const sortedByNeeds = [...moduleAggregates]
+    .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) > 0)
+    .sort((a, b) => {
+      const at = a.confidence_strong + a.confidence_mixed + a.confidence_needs_work;
+      const bt = b.confidence_strong + b.confidence_mixed + b.confidence_needs_work;
+      return (b.confidence_needs_work / bt) - (a.confidence_needs_work / at);
+    });
   if (sortedByNeeds.length > 0 && sortedByNeeds[0].confidence_needs_work > 0) {
     const m = sortedByNeeds[0];
-    insights.push(`${moduleName(m.module_id)} (${m.module_id}) shows the most NEEDS-WORK signal (${m.confidence_needs_work} of ${m.confidence_strong + m.confidence_mixed + m.confidence_needs_work} assessments). Prioritise for cohort-wide support.`);
+    const tot = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
+    barriers.push(`${moduleName(m.module_id)} (${m.module_id}) shows the most needs-work signal (${m.confidence_needs_work} of ${tot}). Prioritise for cohort-wide support.`);
   }
+  if (strongPct < 25) barriers.push(`Cohort maturity is still developing (${strongPct}% strong), so meaningful collective work remains.`);
 
-  // Insight 3: top priority action frequency
   if (topPriorityActions.length > 0) {
-    const top = topPriorityActions[0];
-    insights.push(`The most common recommended action is "${top.action}" (appears in ${top.count} business${top.count !== 1 ? 'es' : ''}). Consider this for a sector-wide initiative.`);
+    const t = topPriorityActions[0];
+    opportunity.push(`"${t.action}" appears in ${t.count} business${t.count !== 1 ? 'es' : ''} - the strongest candidate for a single shared initiative.`);
   }
+  if (completedPct >= 40 && completedPct < 80) opportunity.push(`At ${completedPct}% completion, re-running in 4 to 6 weeks will firm up findings before public reporting.`);
 
-  // Insight 4: strength to celebrate
-  if (topStrengths.length > 0) {
-    const top = topStrengths[0];
-    insights.push(`"${top.text}" is already in place across ${top.count} business${top.count !== 1 ? 'es' : ''} - worth highlighting publicly.`);
-  }
-
-  // Insight 5: completion velocity context
-  if (completedPct >= 40 && completedPct < 80) {
-    insights.push(`${completedPct}% completion. Re-run this report in 4-6 weeks to capture the in-progress cohort and firm up findings before public reporting.`);
-  }
-
-  return insights.slice(0, 4);
+  return { strengths, barriers, opportunity };
 }
 
 function moduleName(moduleId: string): string {
@@ -612,34 +604,72 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   const completionText = `Completion: ${completedPct}% of enrolled businesses have finished. ${describeCompletion(completedPct, enrolment.total)}`;
   addParagraph(completionText, 9);
 
-  // Key insights callout
+  // Program at a glance - the quotable summary for a council reader.
+  {
+    const paThemes = groupByTheme(payload.topPriorityActions);
+    const glance: string[] = [`Cohort readiness: ${maturityBand(strongPct)} (${strongPct}% strong)`];
+    if (paThemes[0]) glance.push(`Most common barrier area: ${paThemes[0].label} (${paThemes[0].total} recommendation${paThemes[0].total !== 1 ? 's' : ''})`);
+    if (payload.topStrengths[0]) glance.push(`Standout strength: ${payload.topStrengths[0].text}`);
+    if (payload.topPriorityActions[0]) glance.push(`Top shared investment: ${payload.topPriorityActions[0].action} (${payload.topPriorityActions[0].count} business${payload.topPriorityActions[0].count !== 1 ? 'es' : ''})`);
+    if (payload.improvement && payload.improvement.reassessedCount > 0) glance.push(`Readiness change: ${payload.improvement.avgDelta >= 0 ? '+' : ''}${payload.improvement.avgDelta} points across ${payload.improvement.reassessedCount} re-assessed`);
+
+    const gH = 9 + glance.length * 5.5;
+    ensureSpace(gH + 6);
+    doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
+    doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, gH, 3, 3, 'F');
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 255, 255);
+    doc.text('PROGRAM AT A GLANCE (FOR COUNCIL)', PAGE.marginX + 5, yPos + 6);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    let gy = yPos + 12;
+    for (const g of glance) {
+      doc.setFillColor(...hexToRgb(COLORS.aussieLight));
+      doc.circle(PAGE.marginX + 6, gy - 1, 0.8, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.text(doc.splitTextToSize(g, PAGE.contentWidth - 14)[0], PAGE.marginX + 10, gy);
+      gy += 5.5;
+    }
+    yPos += gH + 5;
+    doc.setTextColor(0, 0, 0);
+  }
+
+  // Key insights callout, grouped into Strengths / Common barriers / Opportunity.
   const insights = generateKeyInsights(payload, strongPct, completedPct);
-  if (insights.length > 0) {
-    ensureSpace(20 + insights.length * 8);
-    const calloutH = 12 + insights.length * 7;
+  const insightGroups = [
+    { label: 'Strengths', items: insights.strengths },
+    { label: 'Common barriers', items: insights.barriers },
+    { label: 'Biggest opportunity', items: insights.opportunity },
+  ].filter(g => g.items.length > 0);
+  if (insightGroups.length > 0) {
+    const totalRows = insightGroups.reduce((n, g) => n + 1 + g.items.length, 0);
+    const calloutH = 6 + totalRows * 5.2 + insightGroups.length * 1;
+    ensureSpace(calloutH + 6);
     doc.setFillColor(...hexToRgb(COLORS.insightBg));
     doc.setDrawColor(...hexToRgb(COLORS.insightBorder));
     doc.setLineWidth(0.5);
     doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, calloutH, 3, 3, 'FD');
     doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
     doc.rect(PAGE.marginX, yPos, 2, calloutH, 'F');
-
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-    doc.text('KEY INSIGHTS', PAGE.marginX + 6, yPos + 6);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(...hexToRgb(COLORS.text));
-    insights.forEach((insight, idx) => {
-      const yI = yPos + 11 + idx * 7;
-      doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
-      doc.circle(PAGE.marginX + 7, yI - 1, 0.8, 'F');
-      const lines = doc.splitTextToSize(insight, PAGE.contentWidth - 14);
-      doc.text(lines[0], PAGE.marginX + 11, yI);
-      // truncate to one line for layout simplicity
-    });
+    let iy = yPos + 6;
+    for (const g of insightGroups) {
+      doc.setFontSize(8.5);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+      doc.text(g.label.toUpperCase(), PAGE.marginX + 6, iy);
+      iy += 5;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      for (const it of g.items) {
+        doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
+        doc.circle(PAGE.marginX + 8, iy - 1, 0.7, 'F');
+        doc.text(doc.splitTextToSize(it, PAGE.contentWidth - 16)[0], PAGE.marginX + 12, iy);
+        iy += 5.2;
+      }
+      iy += 1;
+    }
     yPos += calloutH + 4;
     doc.setLineWidth(0.3);
   }
@@ -695,7 +725,22 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   }
 
   addSectionHeader('Module progress');
-  addParagraph('Completion rate and confidence band distribution for each module in scope. Pastel fills match the in-app heatmap. Wider green means the cohort is doing well, wider red means collective attention is needed.', 9);
+  addParagraph('Completion rate and confidence band distribution for each module in scope. Wider green means the cohort is doing well, wider red means collective attention is needed.', 9);
+
+  // Legend for the confidence bars
+  ensureSpace(8);
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  let lx = PAGE.marginX;
+  for (const li of [{ c: COLORS.strongFill, l: 'Strong' }, { c: COLORS.mixedFill, l: 'Mixed' }, { c: COLORS.needsFill, l: 'Needs work' }]) {
+    doc.setFillColor(...hexToRgb(li.c));
+    doc.rect(lx, yPos - 2.6, 3, 3, 'F');
+    doc.setTextColor(...hexToRgb(COLORS.textMuted));
+    doc.text(li.l, lx + 4.5, yPos);
+    lx += 4.5 + doc.getTextWidth(li.l) + 8;
+  }
+  yPos += 7;
+  doc.setTextColor(0, 0, 0);
 
   program.moduleIds.forEach(mid => {
     const agg = moduleAggregates.find(a => a.module_id === mid);
