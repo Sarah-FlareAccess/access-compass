@@ -488,6 +488,56 @@ function getDIAPActionText(question: any, answer: string): string {
   return generateActionText(question.text);
 }
 
+// Comments are stored in Supabase as a JSON string. Parse defensively.
+function parseCloudComments(raw: unknown): DIAPComment[] | undefined {
+  if (!raw) return undefined;
+  if (Array.isArray(raw)) return raw as DIAPComment[];
+  try {
+    return JSON.parse(raw as string) as DIAPComment[];
+  } catch {
+    return undefined;
+  }
+}
+
+// Map a diap_items cloud row to a DIAPItem. Covers every field the write path
+// (syncItemToCloud) sends, so cross-device merges never silently drop fields
+// like board column, responsible person, timeframe, due date, budget or sort
+// order. Fields not stored in the cloud (frameworkDomains, sourceAnswer,
+// compliance*, attachments) are absent here so a spread over the local item
+// preserves them.
+function mapCloudRowToItem(row: Record<string, unknown>): DIAPItem {
+  return {
+    id: row.id as string,
+    sessionId: row.session_id as string,
+    siteId: (row.site_id as string | null) ?? null,
+    boardColumn: (row.board_column as string | null) ?? null,
+    objective: row.objective as string,
+    action: row.action as string,
+    category: (row.category as DIAPCategory) || 'physical-access',
+    priority: (row.priority as DIAPPriority) || 'medium',
+    timeframe: (row.timeframe as string) || '',
+    dueDate: (row.due_date as string | null) ?? undefined,
+    responsibleRole: (row.responsible_role as string | null) ?? undefined,
+    responsibleTeam: (row.responsible_team as string | null) ?? undefined,
+    status: (row.status as DIAPStatus) || 'not-started',
+    moduleSource: (row.module_source as string | null) ?? undefined,
+    questionSource: (row.question_source as string | null) ?? undefined,
+    impactStatement: (row.impact_statement as string | null) ?? undefined,
+    dependencies: (row.dependencies as string[]) || [],
+    resources: (row.resources as string[]) || [],
+    budgetEstimate: (row.budget_estimate as string | null) ?? undefined,
+    notes: (row.notes as string | null) ?? undefined,
+    successIndicators: (row.success_indicators as string | null) ?? undefined,
+    contentEdited: (row.content_edited as boolean) ?? false,
+    comments: parseCloudComments(row.comments),
+    sortOrder: (row.sort_order as number | null) ?? undefined,
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+    completedAt: (row.completed_at as string | null) ?? undefined,
+    importSource: (row.import_source as DIAPItem['importSource']) || 'audit',
+  };
+}
+
 export function useDIAPManagement(): UseDIAPManagementReturn {
   const [items, setItems] = useState<DIAPItem[]>([]);
   const [documents, setDocuments] = useState<DIAPDocument[]>([]);
@@ -587,49 +637,17 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
 
               if (!localItem) {
                 // Cloud has an item we don't have locally
-                merged.push({
-                  id,
-                  sessionId: row.session_id as string,
-                  siteId: (row.site_id as string | null) ?? null,
-                  boardColumn: (row.board_column as string | null) ?? null,
-                  objective: row.objective as string,
-                  action: row.action as string,
-                  category: (row.category as DIAPCategory) || 'physical-access',
-                  priority: (row.priority as DIAPPriority) || 'medium',
-                  timeframe: (row.timeframe as string) || '',
-                  responsibleRole: row.responsible_role as string | undefined,
-                  responsibleTeam: row.responsible_team as string | undefined,
-                  status: (row.status as DIAPStatus) || 'not-started',
-                  moduleSource: row.module_source as string | undefined,
-                  questionSource: row.question_source as string | undefined,
-                  impactStatement: row.impact_statement as string | undefined,
-                  dependencies: (row.dependencies as string[]) || [],
-                  resources: (row.resources as string[]) || [],
-                  budgetEstimate: row.budget_estimate as string | undefined,
-                  notes: row.notes as string | undefined,
-                  successIndicators: row.success_indicators as string | undefined,
-                  contentEdited: (row.content_edited as boolean) ?? false,
-                  createdAt: row.created_at as string,
-                  updatedAt: cloudUpdatedAt,
-                  completedAt: row.completed_at as string | undefined,
-                  importSource: (row.import_source as DIAPItem['importSource']) || 'audit',
-                });
+                merged.push(mapCloudRowToItem(row));
                 hasChanges = true;
               } else if (resolveByTimestamp(localUpdatedAt, cloudUpdatedAt) === 'cloud') {
-                // Cloud is newer, update local
+                // Cloud is newer, update local. Apply every synced field (spread
+                // preserves local-only fields the cloud does not store, e.g.
+                // attachments and framework domains).
                 const idx = merged.findIndex(i => i.id === id);
                 if (idx >= 0) {
                   merged[idx] = {
                     ...merged[idx],
-                    objective: row.objective as string,
-                    action: row.action as string,
-                    status: (row.status as DIAPStatus) || merged[idx].status,
-                    priority: (row.priority as DIAPPriority) || merged[idx].priority,
-                    notes: row.notes as string | undefined,
-                    successIndicators: row.success_indicators as string | undefined,
-                    contentEdited: (row.content_edited as boolean) ?? merged[idx].contentEdited ?? false,
-                    updatedAt: cloudUpdatedAt,
-                    completedAt: row.completed_at as string | undefined,
+                    ...mapCloudRowToItem(row),
                   };
                   hasChanges = true;
                 }
