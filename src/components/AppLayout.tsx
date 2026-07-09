@@ -19,6 +19,7 @@ import { TabBlockedOverlay } from './TabBlockedOverlay';
 import { OrgPresenceBanner } from './OrgPresenceBanner';
 import { StorageWarningBanner } from './StorageWarningBanner';
 import { OfflineBanner } from './OfflineBanner';
+import { SyncErrorBanner } from './SyncErrorBanner';
 import { useTabLock } from '../hooks/useTabLock';
 import { useAuth } from '../contexts/AuthContext';
 import { useCloudSync } from '../hooks/useCloudSync';
@@ -128,6 +129,7 @@ export default function AppLayout() {
 
       <OfflineBanner />
       <StorageWarningBanner />
+      <SyncErrorBanner />
 
       {showNav && <NavBar />}
       {showSidebar ? (

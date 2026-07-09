@@ -147,6 +147,31 @@ export function getPendingCount(): number {
 // CORE SYNC OPERATIONS
 // ============================================
 
+// Server rejections (missing column, RLS, constraint) are otherwise swallowed
+// into the retry queue, so a broken write is invisible. Log every failure, and
+// for server-side rejections (not transient network drops) raise a throttled
+// window event so a banner can tell the user a change did not reach the cloud.
+// See feature-surface-sync-errors.
+let lastSyncErrorDispatchAt = 0;
+function reportSyncFailure(
+  table: string,
+  error: unknown,
+  opts?: { transient?: boolean }
+): void {
+  console.warn(`[cloudSync] ${table} write failed:`, error);
+  // Network drops are expected offline and covered by the OfflineBanner.
+  if (opts?.transient) return;
+  if (typeof window === 'undefined') return;
+  const now = Date.now();
+  if (now - lastSyncErrorDispatchAt < 20000) return; // throttle: 1 banner / 20s
+  lastSyncErrorDispatchAt = now;
+  window.dispatchEvent(
+    new CustomEvent('access-compass:sync-error', {
+      detail: { table, message: (error as { message?: string })?.message },
+    })
+  );
+}
+
 /**
  * Upsert a record to Supabase. If offline or failed, queues for retry.
  * Always non-blocking: returns immediately, sync happens in background.
@@ -190,12 +215,14 @@ export async function syncRecord(
       : await supabase.from(table).upsert(record);
 
     if (error) {
+      reportSyncFailure(table, error);
       addToSyncQueue(table, 'upsert', record);
       return false;
     }
 
     return true;
   } catch (err) {
+    reportSyncFailure(table, err, { transient: true });
     addToSyncQueue(table, 'upsert', { ...data, user_id: userId, organisation_id: organisationId });
     return false;
   }
@@ -257,12 +284,14 @@ export async function syncOrgRecord(
       : await supabase.from(table).upsert(record);
 
     if (error) {
+      reportSyncFailure(table, error);
       addToSyncQueue(table, 'upsert', record);
       return false;
     }
 
     return true;
-  } catch {
+  } catch (err) {
+    reportSyncFailure(table, err, { transient: true });
     addToSyncQueue(table, 'upsert', {
       ...data,
       organisation_id: orgId,
