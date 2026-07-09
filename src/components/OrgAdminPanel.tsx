@@ -10,6 +10,7 @@ import { createPortal } from 'react-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useOrgAdmin } from '../hooks/useOrgAdmin';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
+import { MemberSiteAccessControl } from './MemberSiteAccessControl';
 import { supabase } from '../utils/supabase';
 import { FRAMEWORKS } from '../data/frameworks';
 import type {
@@ -744,6 +745,16 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                             </button>
                           </div>
                         )}
+                        {sites.length > 0 &&
+                          member.role !== 'owner' &&
+                          member.role !== 'admin' && (
+                            <MemberSiteAccessControl
+                              membershipId={member.id}
+                              sites={sites}
+                              getAccess={orgAdmin.getMemberSiteAccess}
+                              setAccess={orgAdmin.setMemberSiteAccess}
+                            />
+                          )}
                       </div>
                     ))}
                 </div>

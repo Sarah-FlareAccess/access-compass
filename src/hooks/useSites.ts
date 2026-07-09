@@ -7,10 +7,11 @@
  * have zero sites; the UI hides the picker until at least one exists.
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { logActivityStandalone } from './useActivityLog';
+import { useScopeAccess } from './useScopeAccess';
 
 export interface Site {
   id: string;
@@ -173,7 +174,25 @@ export function useSites(): UseSitesResult {
     [orgId, sites, userId],
   );
 
-  return { sites, isLoading, error, reload, createSite, updateSite, deleteSite };
+  // Scoped access (phase 1a): a member restricted to specific sites only sees
+  // those in every picker. Admins/owners and unrestricted members see all.
+  const { canAccessSite } = useScopeAccess();
+  const visibleSites = useMemo(
+    () => sites.filter(s => canAccessSite(s.id)),
+    [sites, canAccessSite]
+  );
+
+  // If the active site is no longer one the member can access, move them to the
+  // first site they can (or org-wide/null).
+  useEffect(() => {
+    if (sites.length === 0) return;
+    const active = getActiveSiteId();
+    if (active && !visibleSites.some(s => s.id === active)) {
+      setActiveSiteId(visibleSites[0]?.id ?? null);
+    }
+  }, [visibleSites, sites.length]);
+
+  return { sites: visibleSites, isLoading, error, reload, createSite, updateSite, deleteSite };
 }
 
 /**

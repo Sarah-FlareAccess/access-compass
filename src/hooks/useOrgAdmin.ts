@@ -36,6 +36,8 @@ interface UseOrgAdminResult {
   reactivateMember: (membershipId: string) => Promise<boolean>;
   changeRole: (membershipId: string, newRole: OrgRole) => Promise<boolean>;
   removeMember: (membershipId: string) => Promise<boolean>;
+  getMemberSiteAccess: (membershipId: string) => Promise<string[]>;
+  setMemberSiteAccess: (membershipId: string, siteIds: string[]) => Promise<boolean>;
 
   // Ownership management
   transferOwnership: (orgId: string, newOwnerUserId: string) => Promise<{ success: boolean; message: string }>;
@@ -305,6 +307,51 @@ export function useOrgAdmin(): UseOrgAdminResult {
       return true;
     } catch (err) {
       setError('Failed to remove member');
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // ---- Scoped access (phase 1a): per-member site grants ----
+  // Empty grant list = full org access (default open). A non-empty list
+  // restricts the member to exactly those sites.
+  const getMemberSiteAccess = useCallback(async (membershipId: string): Promise<string[]> => {
+    if (!supabase) return [];
+    try {
+      const { data, error: fetchError } = await supabase
+        .from('membership_scope_access')
+        .select('scope_id')
+        .eq('membership_id', membershipId)
+        .eq('scope_type', 'site');
+      if (fetchError) {
+        setError(fetchError.message);
+        return [];
+      }
+      return ((data ?? []) as { scope_id: string }[]).map(r => r.scope_id);
+    } catch {
+      setError('Failed to load member access');
+      return [];
+    }
+  }, []);
+
+  const setMemberSiteAccess = useCallback(async (membershipId: string, siteIds: string[]): Promise<boolean> => {
+    if (!supabase) return false;
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { error: rpcError } = await supabase.rpc('set_member_scope_access', {
+        p_membership_id: membershipId,
+        p_scope_type: 'site',
+        p_scope_ids: siteIds,
+      });
+      if (rpcError) {
+        setError(rpcError.message);
+        return false;
+      }
+      return true;
+    } catch {
+      setError('Failed to update member access');
       return false;
     } finally {
       setIsLoading(false);
@@ -834,6 +881,8 @@ export function useOrgAdmin(): UseOrgAdminResult {
     reactivateMember,
     changeRole,
     removeMember,
+    getMemberSiteAccess,
+    setMemberSiteAccess,
     transferOwnership,
     leaveOrganisation,
     getOrgOwner,
