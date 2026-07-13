@@ -17,6 +17,7 @@ import { PRIORITY_LEGEND, PRIORITY_ENCOURAGEMENT } from '../utils/priorityCalcul
 import { FLARE_CONTACT, groupModuleCodesByExpertise } from '../utils/professionalSupportGroups';
 import { generateDIAPPdf } from '../utils/diapPdfGenerator';
 import { getSession } from '../utils/session';
+import { convertQuestionToStatement } from '../utils/generateModuleSummary';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
@@ -1342,7 +1343,7 @@ export default function DIAPWorkspace() {
         onClick={() => { dismissHint(); setDetailItemId(item.id); }}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissHint(); setDetailItemId(item.id); } }}
       >
-        <span className="diap-board__card-title">{firstActionLine(item.action) || questionLabelForItem(item) || item.objective}</span>
+        <span className="diap-board__card-title">{outcomeForItem(item) || firstActionLine(item.action) || questionLabelForItem(item) || item.objective}</span>
         {item.objective && <span className="diap-board__card-sub">{item.objective}</span>}
         <div className="diap-board__card-meta">
           {!activeSiteId && item.siteId && (
@@ -2444,7 +2445,7 @@ export default function DIAPWorkspace() {
                                     <span className={`diap-row__status status-${item.status}`} aria-hidden="true" />
                                     <span className="diap-row__main">
                                       <span className="diap-row__title">
-                                        {firstActionLine(item.action) || questionLabelForItem(item) || item.objective}
+                                        {outcomeForItem(item) || firstActionLine(item.action) || questionLabelForItem(item) || item.objective}
                                         {changedItems[item.id] && <span className="diap-row__changed" title="Assessment answer changed">updated</span>}
                                       </span>
                                     </span>
@@ -2820,6 +2821,18 @@ function questionLabelForItem(item: DIAPItem): string | null {
   const ctx = getQuestionContext(item.questionSource, item.moduleSource);
   if (!ctx?.questionText) return null;
   return questionToLabel(ctx.questionText);
+}
+
+// Level-3 Objective: the accessibility OUTCOME ("what good looks like") for an
+// item, derived from its source question (e.g. "Do ramps have handrails on both
+// sides?" -> "Your ramps have handrails on both sides"). This sits between the
+// Group heading and the action steps. Auto-derived for now; wording will be
+// refined/curated in a later pass.
+function outcomeForItem(item: DIAPItem): string | null {
+  const ctx = getQuestionContext(item.questionSource, item.moduleSource);
+  if (!ctx?.questionText) return null;
+  const s = convertQuestionToStatement(ctx.questionText).trim();
+  return s || null;
 }
 
 function getChangeMessage(oldAnswer: string, newAnswer: string): string {
