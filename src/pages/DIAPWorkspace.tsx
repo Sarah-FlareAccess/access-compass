@@ -12,7 +12,7 @@
 
 import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDIAPManagement } from '../hooks/useDIAPManagement';
+import { useDIAPManagement, isDiagnosticQuestion } from '../hooks/useDIAPManagement';
 import { PRIORITY_LEGEND, PRIORITY_ENCOURAGEMENT } from '../utils/priorityCalculation';
 import { FLARE_CONTACT, groupModuleCodesByExpertise } from '../utils/professionalSupportGroups';
 import { generateDIAPPdf } from '../utils/diapPdfGenerator';
@@ -174,7 +174,7 @@ function useFocusTrap<T extends HTMLElement>(active: boolean) {
 export default function DIAPWorkspace() {
   usePageTitle('Action plan');
   const {
-    items,
+    items: allItems,
     documents,
     isLoading,
     createItem,
@@ -193,6 +193,12 @@ export default function DIAPWorkspace() {
     removeAttachment,
     addComment,
   } = useDIAPManagement();
+
+  // Hide items generated from diagnostic/scoping questions (matching the
+  // generation-side filter) so plans created before that filter read cleanly.
+  // Non-destructive: nothing is deleted from storage; removing this filter
+  // brings them straight back.
+  const items = useMemo(() => allItems.filter(i => !itemIsDiagnostic(i)), [allItems]);
 
   const { sites } = useSites();
   const { accessState } = useAuth();
@@ -2765,6 +2771,26 @@ function getQuestionContext(questionSource?: string, moduleSource?: string): { q
   const question = questions.find(q => q.id === baseId || q.id === questionSource);
   if (!question) return null;
   return { questionText: question.text, answerLabel: '' };
+}
+
+// Resolve the full source question for an item (not just its text) so the
+// diagnostic rule can inspect its type/options/actionText.
+function resolveQuestionForItem(item: DIAPItem): any | null {
+  const moduleCode = item.moduleSource?.match(/(\d+\.\d+)/)?.[1];
+  if (!moduleCode || !item.questionSource) return null;
+  const mod = getModuleById(moduleCode);
+  if (!mod) return null;
+  const questions = getQuestionsForMode(mod, 'deep-dive');
+  const baseId = item.questionSource.replace(/-(media|url)-\d+$/, '');
+  return questions.find(q => q.id === baseId || q.id === item.questionSource) || null;
+}
+
+// True when an item came from a diagnostic/scoping question. Used to hide such
+// items generated before the generation-side filter existed, so older plans read
+// cleanly. Non-destructive - the item stays in storage, it just isn't shown.
+function itemIsDiagnostic(item: DIAPItem): boolean {
+  const q = resolveQuestionForItem(item);
+  return q ? isDiagnosticQuestion(q) : false;
 }
 
 // Turn an assessment question into a concise statement label for list/board

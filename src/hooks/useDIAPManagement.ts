@@ -2176,7 +2176,7 @@ const DIAGNOSTIC_QUESTION_PATTERNS: RegExp[] = [
   /^where (?:is|are|do you) .*(?:publish|share)/i,
 ];
 
-function isDiagnosticQuestion(q: any): boolean {
+export function isDiagnosticQuestion(q: any): boolean {
   if (!q) return false;
   const text = String(q.text || '').trim();
   if (DIAGNOSTIC_QUESTION_PATTERNS.some(re => re.test(text))) return true;
