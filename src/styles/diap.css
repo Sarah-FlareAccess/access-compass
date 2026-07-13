@@ -193,6 +193,58 @@
   border-left: 3px solid var(--amethyst-diamond);
 }
 
+/* Achievements-to-date analysis block. Soft, faded brand tint so it reads as a
+   supportive highlight rather than a heavy banner. */
+.diap-achievements {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: rgba(73, 14, 103, 0.035);
+  border: 1px solid rgba(73, 14, 103, 0.10);
+  border-left: 3px solid var(--amethyst-light, #a06cd5);
+  border-radius: var(--radius-lg);
+}
+
+.diap-achievements__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.diap-achievements__head h2 {
+  font-size: 1.125rem;
+  color: var(--amethyst-diamond);
+  margin: 0;
+}
+
+.diap-achievements__count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--amethyst-diamond);
+}
+
+.diap-achievements__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.diap-achievements__list li {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #374151);
+  line-height: 1.4;
+}
+
+.diap-achievements__more {
+  margin: 6px 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
 .diap-framework {
   margin-bottom: var(--spacing-lg);
   padding: var(--spacing-md);
@@ -252,6 +304,15 @@
   opacity: 0.6;
   border-left-color: var(--text-muted);
   cursor: default;
+}
+
+/* Read-only alignment analysis: domains are informational, not interactive. */
+.diap-framework__domain--readonly {
+  cursor: default;
+}
+
+.diap-framework__domain--readonly:hover:not(.is-empty) {
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .diap-framework__domain-head {

@@ -752,6 +752,18 @@ export default function DIAPWorkspace() {
     return { total, high, medium, low, achieved, interpretation };
   }, [siteScopedItems, activeSiteName]);
 
+  // Achievements to date: completed actions, surfaced on the page as an analysis
+  // block that mirrors the PDF's "Achievements to date" section.
+  const achievements = useMemo(() => {
+    const done = siteScopedItems.filter(i => i.status === 'achieved');
+    const total = siteScopedItems.length;
+    return {
+      items: done,
+      count: done.length,
+      pct: total > 0 ? Math.round((done.length / total) * 100) : 0,
+    };
+  }, [siteScopedItems]);
+
   // Statutory framework for the org's jurisdiction (SA SDIP, national ADS, etc).
   // The DIAP is where direct statutory reporting happens, so we map the plan's
   // actions to the jurisdiction's outcome domains here.
@@ -1503,9 +1515,61 @@ export default function DIAPWorkspace() {
           </section>
         )}
 
-        {/* The statutory (SDIP) view now lives on the board: Board -> group by
-            "<framework> outcomes". The PDF export still prints the grouped plan
-            for reporting. The standalone filter block was removed as confusing. */}
+        {/* Achievements to date: a read-only analysis of completed actions,
+            mirroring the PDF section so the page reads as a plan with progress. */}
+        {achievements.count > 0 && (
+          <section className="diap-achievements" aria-label="Achievements to date">
+            <div className="diap-achievements__head">
+              <h2>Achievements to date</h2>
+              <span className="diap-achievements__count">
+                {achievements.count} of {siteSummary.total} achieved ({achievements.pct}%)
+              </span>
+            </div>
+            <ul className="diap-achievements__list">
+              {achievements.items.slice(0, 8).map(i => (
+                <li key={i.id}>{firstActionLine(i.action) || questionLabelForItem(i) || i.objective}</li>
+              ))}
+            </ul>
+            {achievements.items.length > 8 && (
+              <p className="diap-achievements__more">+{achievements.items.length - 8} more achieved</p>
+            )}
+          </section>
+        )}
+
+        {/* Alignment with the jurisdiction's statutory framework: a read-only
+            roll-up of how the plan's actions map to the outcome domains, so it
+            can be read straight into statutory reporting. The interactive filter
+            version lives on the board (group by "<framework> outcomes"). */}
+        {frameworkOutcomes && frameworkOutcomes.mapped > 0 && (
+          <section className="diap-framework" aria-label={`Alignment with ${frameworkOutcomes.fw.name}`}>
+            <div className="diap-framework__head">
+              <h2>Alignment with {frameworkOutcomes.fw.name}</h2>
+            </div>
+            <p className="diap-framework__cite">
+              How this plan&rsquo;s actions map to the {frameworkOutcomes.fw.short} outcome domains.
+              These headings mirror the framework, so they can be read straight into your statutory report.
+            </p>
+            <div className="diap-framework__domains">
+              {frameworkOutcomes.domains.map(d => (
+                <div key={d.id} className={`diap-framework__domain diap-framework__domain--readonly${d.total === 0 ? ' is-empty' : ''}`}>
+                  <div className="diap-framework__domain-head">
+                    <h3>{d.name}</h3>
+                    <span className="diap-framework__domain-count">{d.total}</span>
+                  </div>
+                  {d.total > 0 ? (
+                    <p className="diap-framework__breakdown">
+                      {d.achieved} achieved · {d.inProgress} in progress · {d.notStarted} not started
+                    </p>
+                  ) : (
+                    <p className="diap-framework__breakdown diap-framework__breakdown--empty">
+                      No actions mapped yet
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Filter alert: the summary card above counts the whole venue, but the
             list below is filtered, but the exported PDF is always the full plan
