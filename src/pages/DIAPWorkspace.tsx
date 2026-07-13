@@ -2835,7 +2835,16 @@ function questionLabelForItem(item: DIAPItem): string | null {
 // sides?" -> "Your ramps have handrails on both sides"). This sits between the
 // Group heading and the action steps. Auto-derived for now; wording will be
 // refined/curated in a later pass.
+// TEMPORARILY DISABLED (2026-07-13): auto-deriving the objective via
+// convertQuestionToStatement produces badly-formatted wording (fragments,
+// awkward phrasing). Reverting the display to the previous clean state until the
+// proper question->objective formatting is reinstated. A prior fix for this same
+// problem is believed to exist in the codebase/history - find and reuse it.
+// See task #12 and OUTSTANDING notes. Flip to true to re-enable.
+const ENABLE_AUTO_OBJECTIVE = false;
+
 function outcomeForItem(item: DIAPItem): string | null {
+  if (!ENABLE_AUTO_OBJECTIVE) return null;
   const ctx = getQuestionContext(item.questionSource, item.moduleSource);
   if (!ctx?.questionText) return null;
   const s = convertQuestionToStatement(ctx.questionText).trim();
