@@ -97,6 +97,10 @@ const STATUS_COLORS: Record<string, string> = {
 
 interface DIAPPdfOptions {
   items: DIAPItem[];
+  // Level-3 objective per item: the accessibility outcome ("what good looks
+  // like"), keyed by item id. Printed as the card heading with the action steps
+  // beneath it. Derived by the caller from each item's source question.
+  outcomes?: Record<string, string>;
   orgName?: string;
   // The plan's title, shown on the cover and the running header. Defaults to
   // "Disability Inclusion Action Plan"; callers pass a jurisdiction-aware value
@@ -156,7 +160,7 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 export function generateDIAPPdf(options: DIAPPdfOptions): void {
-  const { items, orgName = 'Your Organisation', planTitle = 'Disability Inclusion Action Plan', siteName, generatedDate, customCategoryNames = {}, frameworkGrouping, siteNames = {}, grouping } = options;
+  const { items, outcomes = {}, orgName = 'Your Organisation', planTitle = 'Disability Inclusion Action Plan', siteName, generatedDate, customCategoryNames = {}, frameworkGrouping, siteNames = {}, grouping } = options;
 
   // Tag each action with its site only in an org-wide report (no single site
   // selected); when scoped to one site every item shares it, so a tag is noise.
@@ -929,6 +933,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // reserve room under an objective heading so the heading is never orphaned.
   const estimateCardHeight = (item: DIAPItem): number => {
     let h = 10 + wrapText(item.action, CARD_TEXT_MAX_WIDTH).length * 4.5;
+    if (outcomes[item.id]) h += 8 + wrapText(outcomes[item.id], CARD_TEXT_MAX_WIDTH).length * 5;
     h += buildOptionalFields(item).length * 5.5;
     h += 8;
     if (item.notes) h += 6 + wrapText(item.notes, CARD_TEXT_MAX_WIDTH).length * 4.5;
@@ -957,8 +962,29 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     const cardStartY = yPos;
 
-    // Action text (the objective is the group heading above this card)
+    // Objective (outcome) heading - "what good looks like" for this item - with
+    // the recommended action steps listed beneath it. The group heading above
+    // the card is the broader Group (journey outcome); this is the item-level
+    // objective the actions are working towards.
     yPos += 4;
+    const outcome = outcomes[item.id];
+    if (outcome) {
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+      for (const line of wrapText(outcome, textMaxWidth)) {
+        checkNewPage(5.5);
+        doc.text(line, cardX + textInset, yPos);
+        yPos += 5;
+      }
+      yPos += 1;
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(107, 114, 128);
+      doc.text('Recommended actions:', cardX + textInset, yPos);
+      yPos += 4.5;
+    }
+    // Action steps
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...hexToRgb(COLORS.text));

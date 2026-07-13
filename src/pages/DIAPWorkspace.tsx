@@ -1080,7 +1080,14 @@ export default function DIAPWorkspace() {
     }
 
     const siteNames = Object.fromEntries(sites.map(s => [s.id, s.name]));
-    generateDIAPPdf({ items: exportItems, orgName, planTitle, siteName: exportSiteName, customCategoryNames, frameworkGrouping, siteNames, grouping });
+    // Level-3 objective (outcome) per item, derived from its source question, so
+    // the report reads Group -> Objective -> action steps.
+    const outcomes: Record<string, string> = {};
+    for (const it of exportItems) {
+      const o = outcomeForItem(it);
+      if (o) outcomes[it.id] = o;
+    }
+    generateDIAPPdf({ items: exportItems, outcomes, orgName, planTitle, siteName: exportSiteName, customCategoryNames, frameworkGrouping, siteNames, grouping });
   };
 
   // Handle download CSV template
