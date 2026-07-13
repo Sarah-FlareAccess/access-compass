@@ -154,14 +154,18 @@ function getLocalItems(): DIAPItem[] {
   if (!data) return [];
   const items: DIAPItem[] = JSON.parse(data);
 
-  // Migrate old 'completed' status to 'achieved'
-  if (!localStorage.getItem('diap_status_migration_v1')) {
+  // Normalise legacy status values on every read (idempotent). 'completed'
+  // predates 'achieved'; 'planned' predates the current vocabulary and has no
+  // label/board column, so it surfaces as a raw grey pill. The cloud-row path
+  // (mapCloudRowToItem) already maps 'planned' -> 'not-started'; do the same for
+  // items that only ever lived in localStorage. Not gated behind a one-time flag
+  // so any stragglers are always caught, then persisted if anything changed.
+  {
     let statusChanged = false;
     for (const item of items) {
-      if ((item.status as string) === 'completed') {
-        (item as unknown as Record<string, unknown>).status = 'achieved';
-        statusChanged = true;
-      }
+      const s = item.status as string;
+      if (s === 'completed') { (item as unknown as Record<string, unknown>).status = 'achieved'; statusChanged = true; }
+      else if (s === 'planned') { (item as unknown as Record<string, unknown>).status = 'not-started'; statusChanged = true; }
     }
     if (statusChanged) {
       localStorage.setItem(DIAP_ITEMS_KEY, JSON.stringify(items));
@@ -1614,9 +1618,14 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       if (!questionId || existingQuestionSources.has(questionId) || added.has(questionId)) return;
       added.add(questionId);
       const q: any = questions.find((qq: any) => qq.id === questionId) || { text: questionText };
-      // Diagnostic/scoping questions gather context; they are not gap-based
-      // actions, so keep them off the action plan.
-      if (isDiagnosticQuestion(q)) return;
+      // Every answered question that surfaces a gap contributes to the DIAP and
+      // is analysed individually (via its own curated action steps + success
+      // indicators). Generation is already gap-driven — only 'no'/'partially'/
+      // 'unable-to-check'/incomplete multi-select answers reach here — so nothing
+      // is manufactured for things already done. (Previously diagnostic/scoping
+      // questions were filtered out here via isDiagnosticQuestion; that was
+      // reversed 2026-07-13 so they too contribute, now that title-wording is
+      // handled cleanly.)
       const resp: any = respByQ.get(questionId);
       const sourceAnswer = resp?.answer
         || (resp?.multiSelectValues?.length ? resp.multiSelectValues.join(',') : undefined);

@@ -12,12 +12,11 @@
 
 import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDIAPManagement, isDiagnosticQuestion } from '../hooks/useDIAPManagement';
+import { useDIAPManagement } from '../hooks/useDIAPManagement';
 import { PRIORITY_LEGEND, PRIORITY_ENCOURAGEMENT } from '../utils/priorityCalculation';
 import { FLARE_CONTACT, groupModuleCodesByExpertise } from '../utils/professionalSupportGroups';
 import { generateDIAPPdf } from '../utils/diapPdfGenerator';
 import { getSession } from '../utils/session';
-import { convertQuestionToStatement } from '../utils/generateModuleSummary';
 import { PageFooter } from '../components/PageFooter';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
@@ -195,11 +194,11 @@ export default function DIAPWorkspace() {
     addComment,
   } = useDIAPManagement();
 
-  // Hide items generated from diagnostic/scoping questions (matching the
-  // generation-side filter) so plans created before that filter read cleanly.
-  // Non-destructive: nothing is deleted from storage; removing this filter
-  // brings them straight back.
-  const items = useMemo(() => allItems.filter(i => !itemIsDiagnostic(i)), [allItems]);
+  // All items show on the plan, including those from diagnostic/scoping
+  // questions — each is analysed individually via its own actions and success
+  // indicators. (A diagnostic display-hide was removed 2026-07-13 alongside the
+  // matching generation-side filter.)
+  const items = allItems;
 
   const { sites } = useSites();
   const { accessState } = useAuth();
@@ -2781,26 +2780,6 @@ function getQuestionContext(questionSource?: string, moduleSource?: string): { q
   return { questionText: question.text, answerLabel: '' };
 }
 
-// Resolve the full source question for an item (not just its text) so the
-// diagnostic rule can inspect its type/options/actionText.
-function resolveQuestionForItem(item: DIAPItem): any | null {
-  const moduleCode = item.moduleSource?.match(/(\d+\.\d+)/)?.[1];
-  if (!moduleCode || !item.questionSource) return null;
-  const mod = getModuleById(moduleCode);
-  if (!mod) return null;
-  const questions = getQuestionsForMode(mod, 'deep-dive');
-  const baseId = item.questionSource.replace(/-(media|url)-\d+$/, '');
-  return questions.find(q => q.id === baseId || q.id === item.questionSource) || null;
-}
-
-// True when an item came from a diagnostic/scoping question. Used to hide such
-// items generated before the generation-side filter existed, so older plans read
-// cleanly. Non-destructive - the item stays in storage, it just isn't shown.
-function itemIsDiagnostic(item: DIAPItem): boolean {
-  const q = resolveQuestionForItem(item);
-  return q ? isDiagnosticQuestion(q) : false;
-}
-
 // Turn an assessment question into a concise statement label for list/board
 // rows, e.g. "Is there at least 2m of overhead clearance along all paths?" ->
 // "At least 2m of overhead clearance along all paths". Strips the leading
@@ -2831,24 +2810,175 @@ function questionLabelForItem(item: DIAPItem): string | null {
 }
 
 // Level-3 Objective: the accessibility OUTCOME ("what good looks like") for an
-// item, derived from its source question (e.g. "Do ramps have handrails on both
-// sides?" -> "Your ramps have handrails on both sides"). This sits between the
-// Group heading and the action steps. Auto-derived for now; wording will be
-// refined/curated in a later pass.
-// TEMPORARILY DISABLED (2026-07-13): auto-deriving the objective via
-// convertQuestionToStatement produces badly-formatted wording (fragments,
-// awkward phrasing). Reverting the display to the previous clean state until the
-// proper question->objective formatting is reinstated. A prior fix for this same
-// problem is believed to exist in the codebase/history - find and reuse it.
-// See task #12 and OUTSTANDING notes. Flip to true to re-enable.
-const ENABLE_AUTO_OBJECTIVE = false;
+// item, derived from its source question (e.g. "Do entrance ramps have handrails
+// on both sides?" -> "Entrance ramps have handrails on both sides"). This sits
+// between the Group heading and the action steps, so the plan reads
+// Category -> Group objective -> per-item outcome -> action steps.
+//
+// deriveOutcome turns an assessment question into an affirmative outcome
+// statement, handling each interrogative form grammatically:
+//   - "Can <subj> be <participle>..."  -> "<subj> can be <participle>..."
+//   - "Does <subj> <verb>..."          -> "<subj> <verb-s>..." (3rd-person via
+//                                          a known-verb list to locate the verb)
+//   - "Is/Are <subj> <predicate>..."   -> "<subj> is/are <predicate>..." (insert
+//                                          the copula the base converter drops)
+//   - "If/When/... <cond>, <main>?"    -> resolves the conditional / pronoun
+// Anything it can't convert cleanly returns null, so the row falls back to the
+// action step rather than showing a fragment. Validated against all 962
+// assessment questions (see scratchpad deriver/validate).
+
+// 3rd-person singular for the verbs used in "Does ..." / conditional questions.
+function conjugateThirdPerson(verb: string): string {
+  const irregular: Record<string, string> = { have: 'has', do: 'does', go: 'goes', be: 'is' };
+  const lower = verb.toLowerCase();
+  if (irregular[lower]) return irregular[lower];
+  if (/(s|x|z|ch|sh)$/i.test(verb)) return verb + 'es';
+  if (/[^aeiou]y$/i.test(verb)) return verb.slice(0, -1) + 'ies';
+  return verb + 's';
+}
+
+// Verbs that follow the subject in "Does <subject> <verb> ..." questions, so we
+// find the real verb rather than treating a noun in the subject as the verb.
+const DOES_VERBS = 'have|include|cover|support|work|provide|offer|meet|allow|display|show|list|state|reflect|welcome|help|feature|contain|require|explain|link|invite|disclose|identify|indicate|use|address|apply|stay|remain|give|come|comply|integrate|connect|adapt|accommodate|anticipate|contrast|cater|receive|recognise|recognize|feel|incorporate|ensure|enable|respond|follow|permit|capture|reduce|prevent|detect|describe|label|caption|prioritise|prioritize|maintain|monitor|publish|communicate|consider|account|allocate|assign|track|report|handle|send|make|take|keep|hold|run|set';
+// Verbs after the subject in "Can <subject> <verb> ..." questions.
+const CAN_VERBS = 'fit|access|request|store|enter|move|control|resize|navigate|use|book|find|get|reach|adjust|operate|park|transfer|see|hear|understand|complete|submit|contact|choose|select|order|pay|register|download|read|watch|listen|follow|receive|provide|arrange|manage|configure|customise|customize|zoom|scroll|type|swipe|tap|bring|discuss|ask|modify|explain|specify|take|cancel|accommodate|pause|apply|opt|change|update|leave|join|attend|participate|purchase|browse|search|filter|sort|save|share|report|raise|flag';
+const DOES_VERB_RE = new RegExp(`^Does (your |the )?(.+?) \\b(${DOES_VERBS})\\b (.+)$`, 'i');
+const CAN_VERB_RE = new RegExp(`^Can (.+?) \\b(${CAN_VERBS})\\b (.+)$`, 'i');
+
+// Predicate markers: the word that begins a copula predicate (adjective /
+// participle / preposition / adverb). Used to split "Is <subject> <predicate>".
+const OUTCOME_PRED = new Set(['accessible','available','clear','easy','large','small','consistent','compatible','readable','legible','visible','suitable','comfortable','safe','secure','present','current','accurate','complete','adequate','sufficient','appropriate','wide','level','free','open','clean','tidy','well','high','low','bright','quiet','calm','functional','usable','operable','reliable','robust','inclusive','welcoming','dignified','prominent','obvious','intuitive','familiar','standard','formal','informal','regular','ongoing','proactive','responsive','flexible','affordable','reasonable','genuine','active','enough','firm','stable','step-free','barrier-free','ready','aware','trained','knowledgeable','confident','competent','capable','simple','fit','big','short','long','tall','deep','slip-resistant','non-slip','detectable','flush','flat','sturdy','durable','spacious','roomy','portable','adjustable','removable','foldable','designed','created','tagged','captioned','subtitled','synchronised','synchronized','positioned','communicated','located','provided','kept','marked','labelled','labeled','written','published','tested','checked','audited','reviewed','updated','maintained','monitored','documented','recorded','displayed','signed','signposted','enclosed','covered','protected','lit','illuminated','defined','measured','calibrated','configured','integrated','connected','aligned','based','geared','tailored','adapted','equipped','staffed','resourced','funded','budgeted','scheduled','planned','embedded','established','implemented','enforced','applied','followed','offered','given','made','held','shared','stored','captured','collected','gathered','presented','formatted','structured','organised','organized','arranged','installed','fitted','set','placed','mounted','still','always','clearly','easily','readily','consistently','regularly','properly','fully']);
+// Prepositions handled separately: a prepositional phrase is often part of the
+// subject ("controls within the space"), so it must only start the predicate
+// when no adjective/participle follows ("the toilet is on the ground floor").
+const OUTCOME_PREP = new Set(['in','at','on','within','across','throughout','for','with','without','of','from','into','over','under','above','below','near','beside','around','between']);
+const OUTCOME_PRED_PHRASE = [/^(.+?)\s+(easy to .*)$/i, /^(.+?)\s+(free (?:of|from) .*)$/i, /^(.+?)\s+(kept clear.*)$/i, /^(.+?)\s+(able to .*)$/i];
+
+// Curated overrides for the rare item whose auto-derived outcome still reads
+// awkwardly. Keyed by base question id (suffixes like "-media-0" are stripped
+// before lookup). Add entries here to perfect specific rows.
+const OUTCOME_OVERRIDES: Record<string, string> = {
+  '2.2-D-27': 'Entrance ramps include handrails on both sides',
+};
+
+const capFirst = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+// True when a token begins a copula predicate (adjective / participle / adverb,
+// or a morphological match). Excludes prepositions (handled separately) and -ing
+// (too many subject nouns: seating, lighting).
+function isOutcomePredStart(tok: string): boolean {
+  const t = tok.toLowerCase().replace(/[),.]+$/, '');
+  if (OUTCOME_PREP.has(t)) return false;
+  if (OUTCOME_PRED.has(t)) return true;
+  if (/-(accessible|friendly|ready|vetted|free|resistant|compliant|proof|based|lit|maintained|signed|type|operated|paced|balanced|coded|coloured|colored)$/.test(t)) return true;
+  if (/^(specific|prone|due|apt|akin)$/.test(t)) return true;
+  if (/(ed|ible|able|ive|ent|ant|ory|ful|less)$/.test(t) && t.length > 4) return true;
+  return false;
+}
+
+// Insert the copula (is/are) before the predicate in "<subject> <predicate>".
+function insertCopula(rest: string, verb: string): string | null {
+  const toks = rest.split(/\s+/);
+  const depthAt = (i: number) => { const u = toks.slice(0, i).join(' '); return (u.match(/\(/g) || []).length - (u.match(/\)/g) || []).length; };
+  // Pass 1: prefer an adjective/participle/adverb marker over a preposition that
+  // may belong to the subject. List guard: don't split right after a comma
+  // (that means we matched an adjective inside an "A, B, or C <noun>" list).
+  for (let i = 1; i < toks.length; i++) {
+    if (depthAt(i) === 0 && isOutcomePredStart(toks[i]) && !/,$/.test(toks[i - 1])) {
+      // Back up over a bare pre-modifier so "fitting rooms wheelchair accessible"
+      // -> "fitting rooms are wheelchair accessible", not "...wheelchair are...".
+      let j = i;
+      if (i >= 2 && /^(wheelchair|pushchair|pram|stroller|user|child)$/i.test(toks[i - 1])) j = i - 1;
+      return `${toks.slice(0, j).join(' ')} ${verb} ${toks.slice(j).join(' ')}`;
+    }
+  }
+  for (const re of OUTCOME_PRED_PHRASE) { const m = rest.match(re); if (m) return `${m[1]} ${verb} ${m[2]}`; }
+  // Pass 2: only now allow a prepositional predicate.
+  for (let i = 1; i < toks.length; i++) {
+    if (depthAt(i) === 0 && OUTCOME_PREP.has(toks[i].toLowerCase().replace(/[),.]+$/, '')) && !/,$/.test(toks[i - 1]))
+      return `${toks.slice(0, i).join(' ')} ${verb} ${toks.slice(i).join(' ')}`;
+  }
+  return null;
+}
+
+function deriveOutcome(qRaw: string): string | null {
+  const s = qRaw.replace(/\?.*$/, '').replace(/[.:]\s*(select all that apply|choose all|tick all).*$/i, '').trim();
+  let m: RegExpMatchArray | null;
+
+  // Open-ended / diagnostic questions have no affirmative outcome — bail so the
+  // row falls back to its action step (these are also filtered from generating
+  // items upstream, but guard here too so no nonsense statement is ever shown,
+  // e.g. "Is there anything else...?" -> would read "There is anything else...").
+  if (/^(What|How|Which|Who|Why)\b/i.test(s) || /\banything else\b/i.test(s) || /^Would you like\b/i.test(s)) return null;
+
+  // ---- Conditionals: "If/When/During/Where/Once/In/For <cond>, <main>?" ----
+  if (/^(If|When|During|Where|Once|In|For)\b/i.test(s)) {
+    const cond = s.match(/^(If|When|During|Where|Once|In|For)\b.*?,\s*((?:does|do|is|are|has|have|can|it|they|you|your|the)\b.+)$/i);
+    if (!cond) return null;
+    const condClause = s.slice(0, s.length - cond[2].length).replace(/^(If|When|During|Where|Once|In|For)\b\s*/i, '').replace(/,\s*$/, '').trim();
+    const main = cond[2];
+    // Pronoun subject ("it"/"they") -> resolve from the condition's noun.
+    const pron = main.match(/^(does it|do they|is it|are they|has it|have they|can it|can they)\b(.*)$/i);
+    if (pron) {
+      let noun: string | null = null, plural = false, n: RegExpMatchArray | null;
+      if ((n = condClause.match(/^there is (?:a|an) (.+)$/i))) noun = n[1];
+      else if ((n = condClause.match(/^there are (.+)$/i))) { noun = n[1]; plural = true; }
+      else if ((n = condClause.match(/^(?:you |your .+? )?(?:offer|have|has|use|create|provide) (?:a |an )?(.+)$/i))) { noun = n[1]; plural = /\bor\b/i.test(n[1]); }
+      else if ((n = condClause.match(/^(.+?) (?:are|is) (?:used|available|present|provided|in use)$/i))) { noun = n[1]; plural = /\bare\b/i.test(condClause); }
+      if (!noun) return null;
+      const lead = pron[1].toLowerCase(); const vp = pron[2].trim();
+      if (/^does it|^do they/.test(lead)) { const vm = vp.match(/^([a-z]+)\b(.*)$/i); if (!vm) return null; return capFirst(`${noun} ${/^do they/.test(lead) || plural ? vm[1] : conjugateThirdPerson(vm[1])}${vm[2]}`).trim(); }
+      if (/^is it|^are they/.test(lead)) return capFirst(`${noun} ${plural || /^are they/.test(lead) ? 'are' : 'is'} ${vp}`).trim();
+      if (/^has it|^have they/.test(lead)) return capFirst(`${noun} ${plural ? 'have' : 'has'} ${vp}`).trim();
+      if (/^can it|^can they/.test(lead)) return capFirst(`${noun} can ${vp}`).trim();
+    }
+    // Main clause has its own subject: convert it, drop existentials.
+    const d = deriveOutcome(main);
+    if (d === null || /^(If|When|During|Where|Once|Is |Are |Do |Does |Can |Has |Have )/i.test(d) || /^There (is|are)\b/i.test(d)) return null;
+    return d;
+  }
+
+  // ---- Can ----
+  if ((m = s.match(/^Can (.+?) be (.+)$/i))) return capFirst(`${m[1]} can be ${m[2]}`).trim();
+  if ((m = s.match(CAN_VERB_RE))) return capFirst(`${m[1]} can ${m[2]} ${m[3]}`).trim();
+  if ((m = s.match(/^Can (you) (.+)$/i))) return capFirst(`You can ${m[2]}`).trim();
+
+  // ---- Does ----
+  if ((m = s.match(DOES_VERB_RE))) return capFirst(`${m[1] || ''}${m[2]} ${conjugateThirdPerson(m[3])} ${m[4]}`).trim();
+
+  // ---- Do ----
+  if ((m = s.match(/^Do you have (.+)$/i))) return capFirst(`You have ${m[1]}`).trim();
+  if ((m = s.match(/^Do (you|your .+?|staff|customers|visitors|people) (.+)$/i))) return capFirst(`${m[1]} ${m[2]}`).trim();
+  if ((m = s.match(/^Do (.+)$/i))) return capFirst(m[1]).trim();
+
+  // ---- Is / Are (copula) ----
+  if ((m = s.match(/^Is there (.+)$/i))) return capFirst(`There is ${m[1]}`).trim();
+  if ((m = s.match(/^Are there (.+)$/i))) return capFirst(`There are ${m[1]}`).trim();
+  if ((m = s.match(/^(Is|Are) (your |the |all )?(.+)$/i))) {
+    const verb = /^Is$/i.test(m[1]) ? 'is' : 'are';
+    const rest = `${m[2] || ''}${m[3]}`.trim();
+    const c = insertCopula(rest, verb);
+    return c ? capFirst(c).trim() : null;
+  }
+
+  // ---- Have / Has ----
+  if ((m = s.match(/^Have you (.+)$/i))) return capFirst(`You have ${m[1]}`).trim();
+  if ((m = s.match(/^Have your (.+)$/i))) return capFirst(`Your ${m[1]}`).trim();
+  if ((m = s.match(/^Have (.+?) been (.+)$/i))) return capFirst(`${m[1]} have been ${m[2]}`).trim();
+  if ((m = s.match(/^Have (.+?) (received|completed|undertaken|attended|established|adopted|implemented|published|documented|reviewed|tested|checked|considered) (.+)$/i))) return capFirst(`${m[1]} have ${m[2]} ${m[3]}`).trim();
+  if ((m = s.match(/^Has (.+?) been (.+)$/i))) return capFirst(`${m[1]} has been ${m[2]}`).trim();
+  if ((m = s.match(/^Has your (.+)$/i))) return capFirst(`Your ${m[1]}`).trim();
+  if ((m = s.match(/^Has the (.+)$/i))) return capFirst(`The ${m[1]}`).trim();
+
+  return null; // unknown shape -> caller falls back to the action step
+}
 
 function outcomeForItem(item: DIAPItem): string | null {
-  if (!ENABLE_AUTO_OBJECTIVE) return null;
+  const baseId = item.questionSource?.replace(/-(media|url)-\d+$/, '') ?? '';
+  if (baseId && OUTCOME_OVERRIDES[baseId]) return OUTCOME_OVERRIDES[baseId];
   const ctx = getQuestionContext(item.questionSource, item.moduleSource);
   if (!ctx?.questionText) return null;
-  const s = convertQuestionToStatement(ctx.questionText).trim();
-  return s || null;
+  return deriveOutcome(ctx.questionText);
 }
 
 function getChangeMessage(oldAnswer: string, newAnswer: string): string {
