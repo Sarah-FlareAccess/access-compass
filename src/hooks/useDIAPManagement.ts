@@ -522,7 +522,10 @@ function mapCloudRowToItem(row: Record<string, unknown>): DIAPItem {
     dueDate: (row.due_date as string | null) ?? undefined,
     responsibleRole: (row.responsible_role as string | null) ?? undefined,
     responsibleTeam: (row.responsible_team as string | null) ?? undefined,
-    status: (row.status as DIAPStatus) || 'not-started',
+    // 'planned' is a legacy status value that predates the current vocabulary;
+    // normalise it (and any empty value) to 'not-started' so labels, board
+    // columns, filters and the exported PDF stay consistent.
+    status: (row.status === 'planned' ? 'not-started' : (row.status as DIAPStatus)) || 'not-started',
     moduleSource: (row.module_source as string | null) ?? undefined,
     questionSource: (row.question_source as string | null) ?? undefined,
     impactStatement: (row.impact_statement as string | null) ?? undefined,

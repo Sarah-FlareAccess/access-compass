@@ -1321,7 +1321,7 @@ export default function DIAPWorkspace() {
         onClick={() => { dismissHint(); setDetailItemId(item.id); }}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissHint(); setDetailItemId(item.id); } }}
       >
-        <span className="diap-board__card-title">{questionLabelForItem(item) || firstActionLine(item.action) || item.objective}</span>
+        <span className="diap-board__card-title">{firstActionLine(item.action) || questionLabelForItem(item) || item.objective}</span>
         {item.objective && <span className="diap-board__card-sub">{item.objective}</span>}
         <div className="diap-board__card-meta">
           {!activeSiteId && item.siteId && (
@@ -1331,7 +1331,7 @@ export default function DIAPWorkspace() {
           {item.responsibleRole && <span className="diap-board__card-owner">{item.responsibleRole}</span>}
           {item.dueDate && (
             <span className={`diap-row__due ${overdue ? 'is-overdue' : ''}`}>
-              {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
+              {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
             </span>
           )}
         </div>
@@ -2368,7 +2368,7 @@ export default function DIAPWorkspace() {
                                     <span className={`diap-row__status status-${item.status}`} aria-hidden="true" />
                                     <span className="diap-row__main">
                                       <span className="diap-row__title">
-                                        {questionLabelForItem(item) || firstActionLine(item.action) || item.objective}
+                                        {firstActionLine(item.action) || questionLabelForItem(item) || item.objective}
                                         {changedItems[item.id] && <span className="diap-row__changed" title="Assessment answer changed">updated</span>}
                                       </span>
                                     </span>
@@ -2378,7 +2378,7 @@ export default function DIAPWorkspace() {
                                     {item.responsibleRole && <span className="diap-row__owner">{item.responsibleRole}</span>}
                                     {item.dueDate && (
                                       <span className={`diap-row__due ${overdue ? 'is-overdue' : ''}`}>
-                                        {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
+                                        {new Date(item.dueDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
                                       </span>
                                     )}
                                     <span className={`diap-row__priority prio-${item.priority}`}>{item.priority}</span>

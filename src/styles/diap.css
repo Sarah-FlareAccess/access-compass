@@ -391,6 +391,9 @@ details[open] .diap-framework__domain-summary::after {
   align-items: center;
   gap: 12px;
   margin-bottom: var(--spacing-md);
+  /* Wrap the toggles onto a new line rather than letting them shrink and clip
+     their labels (e.g. "Inclusive SA outcomes") even at 100% zoom. */
+  flex-wrap: wrap;
 }
 
 .diap-view-toggle {
@@ -398,6 +401,9 @@ details[open] .diap-framework__domain-summary::after {
   border: 1px solid rgba(73, 14, 103, 0.2);
   border-radius: var(--radius-md);
   overflow: hidden;
+  /* Never shrink below the width of the button labels; overflow:hidden would
+     otherwise clip the text. */
+  flex-shrink: 0;
 }
 
 .diap-view-toggle button {
@@ -801,6 +807,32 @@ details[open] .diap-framework__domain-summary::after {
   font-style: italic;
   padding: 4px 2px;
   margin: 0;
+}
+
+/* Reflow (WCAG 1.4.10): at high zoom / narrow viewports the kanban board must
+   stack its columns vertically instead of forcing horizontal (2-D) scrolling.
+   ~640px CSS width corresponds to roughly 200-400% browser zoom, where a
+   fixed-width column row would otherwise overflow sideways. */
+@media (max-width: 640px) {
+  .diap-board {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+
+  .diap-board__col {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .diap-board__cards {
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .diap-board__add-col {
+    flex: 1 1 auto;
+    width: 100%;
+  }
 }
 
 /* Compact action rows (list) that open the detail side-panel */
