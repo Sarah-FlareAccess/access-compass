@@ -231,7 +231,10 @@ export default function DIAPWorkspace() {
   const [exportGroupBy, setExportGroupBy] = useState<'category' | 'domain' | 'sections' | 'site'>('category');
   // Optional per-export override of the plan title. Empty = use the
   // jurisdiction-aware default (e.g. SA -> "Disability Access and Inclusion Plan").
-  const [exportTitle, setExportTitle] = useState('');
+  // Persisted to localStorage so a typed title remains until the user edits it.
+  const [exportTitle, setExportTitle] = useState(() => {
+    try { return localStorage.getItem('diap_plan_title') || ''; } catch { return ''; }
+  });
   // Custom board columns (Asana-style sections), shared per org. The reserved
   // "__unassigned__" entry stores the (editable) label of the pinned catch-all
   // column; the rest are the user's sections in order.
@@ -1377,7 +1380,10 @@ export default function DIAPWorkspace() {
                 className="diap-title-input"
                 value={exportTitle}
                 placeholder={defaultPlanTitle}
-                onChange={e => setExportTitle(e.target.value)}
+                onChange={e => {
+                  setExportTitle(e.target.value);
+                  try { localStorage.setItem('diap_plan_title', e.target.value); } catch { /* ignore */ }
+                }}
               />
             </label>
             {(frameworkOutcomes || boardColumns.length > 0 || (!activeSiteId && sites.length > 0)) && (

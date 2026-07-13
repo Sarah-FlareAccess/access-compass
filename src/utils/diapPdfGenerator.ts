@@ -1049,6 +1049,10 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       yPos += 4;
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.text));
+      // Match the action-text size (9pt) so the two content blocks read as one
+      // consistent hierarchy rather than the action looking larger than its
+      // success measures.
+      doc.setFontSize(9);
       const siLines = wrapText(item.successIndicators, textMaxWidth);
       for (const line of siLines) {
         checkNewPage(5);
