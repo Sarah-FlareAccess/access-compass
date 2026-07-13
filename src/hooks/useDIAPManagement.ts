@@ -1614,6 +1614,9 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
       if (!questionId || existingQuestionSources.has(questionId) || added.has(questionId)) return;
       added.add(questionId);
       const q: any = questions.find((qq: any) => qq.id === questionId) || { text: questionText };
+      // Diagnostic/scoping questions gather context; they are not gap-based
+      // actions, so keep them off the action plan.
+      if (isDiagnosticQuestion(q)) return;
       const resp: any = respByQ.get(questionId);
       const sourceAnswer = resp?.answer
         || (resp?.multiSelectValues?.length ? resp.multiSelectValues.join(',') : undefined);
@@ -2154,6 +2157,36 @@ function stripFillerSteps(action: string): string {
 function extractModuleCode(moduleSource: string): string | undefined {
   const match = moduleSource.match(/(\d+\.\d+)/);
   return match ? match[1] : undefined;
+}
+
+// A diagnostic/scoping question gathers context (identifying barriers, current
+// state, confidence) rather than describing an accessibility gap to fix. These
+// should not become DIAP action items - they read as questions on the plan and
+// aren't actionable. Detected by discovery-style lead-ins, or structurally as
+// multi-selects whose options are all neutral and which carry no prescriptive
+// actionText.
+const DIAGNOSTIC_QUESTION_PATTERNS: RegExp[] = [
+  /^how confident/i,
+  /^how easy is it/i,
+  /^how well do/i,
+  /^where would it be easiest/i,
+  /^what types? of .* do you currently/i,
+  /^which .* do you currently/i,
+  /^what(?:'s| is) (?:currently )?(?:a |your )?(?:barrier|challenge)/i,
+  /^where (?:is|are|do you) .*(?:publish|share)/i,
+];
+
+function isDiagnosticQuestion(q: any): boolean {
+  if (!q) return false;
+  const text = String(q.text || '').trim();
+  if (DIAGNOSTIC_QUESTION_PATTERNS.some(re => re.test(text))) return true;
+  // Structural: a multi-select with all-neutral options and no prescriptive
+  // action is a "tell us about your situation" question, not a gap to fix.
+  if (q.type === 'multi-select' && Array.isArray(q.options) && !q.actionText) {
+    const allNeutral = q.options.every((o: any) => !o?.sentiment || o.sentiment === 'neutral');
+    if (allNeutral) return true;
+  }
+  return false;
 }
 
 // Helper: Generate outcome-focused objective from question topic
