@@ -225,6 +225,14 @@
   color: var(--amethyst-diamond);
 }
 
+.diap-achievements__summary,
+.diap-framework__summary {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #4a4340);
+  line-height: 1.45;
+  margin: 0 0 var(--spacing-sm);
+}
+
 .diap-achievements__list {
   margin: 0;
   padding-left: 1.1rem;

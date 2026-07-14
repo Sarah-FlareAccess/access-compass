@@ -763,10 +763,15 @@ export default function DIAPWorkspace() {
   const achievements = useMemo(() => {
     const done = siteScopedItems.filter(i => i.status === 'achieved');
     const total = siteScopedItems.length;
+    // Where the completed work sits, so the summary can name the strongest areas.
+    const catTally = new Map<string, number>();
+    for (const i of done) { const c = i.category || 'other'; catTally.set(c, (catTally.get(c) ?? 0) + 1); }
+    const topCats = [...catTally.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2).map(([c]) => getCategoryDisplayName(c));
     return {
       items: done,
       count: done.length,
       pct: total > 0 ? Math.round((done.length / total) * 100) : 0,
+      topCats,
     };
   }, [siteScopedItems]);
 
@@ -1538,6 +1543,11 @@ export default function DIAPWorkspace() {
                 {achievements.count} of {siteSummary.total} achieved ({achievements.pct}%)
               </span>
             </div>
+            <p className="diap-achievements__summary">
+              {achievements.count} of {siteSummary.total} action{siteSummary.total !== 1 ? 's' : ''} in this plan {achievements.count === 1 ? 'is' : 'are'} complete ({achievements.pct}%)
+              {achievements.topCats.length > 0 && `, with the strongest progress in ${achievements.topCats.join(' and ')}`}.
+              {achievements.pct >= 50 ? ' The plan is well progressed.' : achievements.pct > 0 ? ' Momentum is building — keep the completed work evidenced for statutory reporting.' : ''}
+            </p>
             <ul className="diap-achievements__list">
               {achievements.items.slice(0, 8).map(i => (
                 <li key={i.id}>{firstActionLine(i.action) || questionLabelForItem(i) || i.objective}</li>
@@ -1555,6 +1565,9 @@ export default function DIAPWorkspace() {
             version lives on the board (group by "<framework> outcomes"). */}
         {frameworkOutcomes && frameworkOutcomes.mapped > 0 && (() => {
           const maxDomainTotal = Math.max(1, ...frameworkOutcomes.domains.map(d => d.total));
+          const covered = frameworkOutcomes.domains.filter(d => d.total > 0);
+          const gaps = frameworkOutcomes.domains.filter(d => d.total === 0);
+          const strongest = [...frameworkOutcomes.domains].sort((a, b) => b.total - a.total)[0];
           return (
           <section className="diap-framework" aria-label={`Alignment with ${frameworkOutcomes.fw.name}`}>
             <div className="diap-framework__head">
@@ -1563,6 +1576,13 @@ export default function DIAPWorkspace() {
             <p className="diap-framework__cite">
               How this plan&rsquo;s actions map to the {frameworkOutcomes.fw.short} outcome domains.
               These headings mirror the framework, so they can be read straight into your statutory report.
+            </p>
+            <p className="diap-framework__summary">
+              This plan&rsquo;s actions cover {covered.length} of {frameworkOutcomes.domains.length} {frameworkOutcomes.fw.short} outcome domains
+              {strongest && strongest.total > 0 && `, most under “${strongest.name}”`}.
+              {gaps.length > 0
+                ? ` No actions are mapped yet to ${gaps.map(d => d.name).join(', ')} — review whether ${gaps.length === 1 ? 'this domain applies' : 'these domains apply'} to this venue, or add actions to strengthen coverage.`
+                : ' Every outcome domain has at least one action.'}
             </p>
             <div className="diap-fw-legend">
               <span className="diap-fw-legend__item"><span className="diap-fw-legend__swatch is-achieved" aria-hidden="true" />Achieved</span>
