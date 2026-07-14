@@ -1129,7 +1129,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // An objective heading shown once above its group of action cards (ivory bar,
   // left accent set to the group's highest-priority colour). Objective text may
   // wrap, so the bar is sized to the number of lines.
-  const renderObjectiveHeading = (objective: string, accent: string, reserveAfter = 30) => {
+  const renderObjectiveHeading = (objective: string, _accent: string, reserveAfter = 30) => {
     const lines = wrapText(objective, PAGE.contentWidth - 8);
     const lineH = 5;
     const boxH = lines.length * lineH + 3;
@@ -1142,14 +1142,16 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     // Align the heading box and its accent bar to the same left edge as the
     // action cards below (marginX + 2), so the accent bars form one clean
     // vertical line instead of clashing at a 5mm offset.
+    // Ivory band only — no coloured accent bar on the heading. The action cards
+    // below each carry a priority-coloured bar; giving the heading one too made a
+    // second bar clash against the card bars at the group junctions. The heading
+    // stays clearly distinct via its ivory fill and bold text.
     doc.setFillColor(...hexToRgb(COLORS.ivory));
     doc.roundedRect(PAGE.marginX + 2, boxTop, PAGE.contentWidth - 2, boxH, 2, 2, 'F');
-    doc.setFillColor(...hexToRgb(accent));
-    doc.roundedRect(PAGE.marginX + 2, boxTop, 1.5, boxH, 0.75, 0.75, 'F');
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...hexToRgb(COLORS.text));
-    lines.forEach((l, idx) => { doc.text(l, PAGE.marginX + 7, boxTop + 5 + idx * lineH); });
+    lines.forEach((l, idx) => { doc.text(l, PAGE.marginX + 5, boxTop + 5 + idx * lineH); });
     yPos = boxTop + boxH + 5;
     doc.setTextColor(0, 0, 0);
     doc.setFont('helvetica', 'normal');
