@@ -528,3 +528,51 @@
   line-height: 1.45;
   color: #3e2b2f;
 }
+
+/* ===== Priorities by planning horizon ===== */
+.report-horizons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 860px) {
+  .report-horizons { grid-template-columns: 1fr; }
+}
+.report-horizon {
+  border: 1px solid rgba(62, 43, 47, 0.1);
+  border-top: 3px solid #9ca3af;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  background: #fff;
+}
+.report-horizon--red { border-top-color: #DC2626; }
+.report-horizon--amber { border-top-color: #F59E0B; }
+.report-horizon--blue { border-top-color: #2563EB; }
+.report-horizon__head h3 { margin: 0; font-size: 0.95rem; color: #3e2b2f; }
+.report-horizon__head span { font-size: 0.72rem; color: #6b5b60; }
+.report-horizon__list {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.report-horizon__list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #3e2b2f;
+  line-height: 1.35;
+}
+.report-horizon__text { flex: 1; }
+.report-horizon__count {
+  flex: none;
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: var(--amethyst-diamond, #490E67);
+  background: #F5EFFA;
+  border-radius: 10px;
+  padding: 1px 8px;
+}

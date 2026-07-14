@@ -338,6 +338,16 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
     return recs.slice(0, 6);
   }, [moduleAggregates, topPriorityActions, topAreasToExplore, topStrengths, enrolment]);
 
+  // Priorities grouped by planning horizon (maps onto council planning cycles).
+  const priorityHorizons = useMemo(() => {
+    const at = (lvl: string) => topPriorityActions.filter(p => (p.priority || 'low').toLowerCase() === lvl);
+    return [
+      { key: 'immediate', label: 'Immediate', hint: 'High priority — act this cycle', accent: 'red', items: at('high') },
+      { key: 'medium', label: 'Medium-term', hint: 'Plan into the next 6–12 months', accent: 'amber', items: at('medium') },
+      { key: 'long', label: 'Longer-term', hint: 'Build into the multi-year roadmap', accent: 'blue', items: at('low') },
+    ].filter(g => g.items.length > 0);
+  }, [topPriorityActions]);
+
   return (
     <div className="program-report">
       {/* Network Accessibility Maturity Score — the headline, trackable metric */}
@@ -444,6 +454,10 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         </section>
       )}
 
+      {/* Statutory framework outcomes — moved high: for many authorities this is
+          the reason they buy (it saves statutory reporting). */}
+      {data.outcomes && <OutcomesView outcomes={data.outcomes} />}
+
       {/* Plain-English interpretation */}
       <section className="report-interpretation">
         <p>
@@ -453,9 +467,6 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
           <strong>Completion:</strong> {completionPct}% of enrolled businesses have finished. {describeCompletion(completionPct, enrolment.total)}
         </p>
       </section>
-
-      {/* Statutory framework outcomes view */}
-      {data.outcomes && <OutcomesView outcomes={data.outcomes} />}
 
       {/* Module heatmap */}
       <section className="authority-form-card report-section">
@@ -487,24 +498,42 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
       </section>
 
       {/* Side-by-side priorities and strengths */}
-      <div className="report-two-col">
-        {topPriorityActions.length > 0 && (
-          <ExpandableSection
-            title="Top priorities across the cohort"
-            subtitle="Actions appearing most often across business assessments."
-            items={topPriorityActions.map(pa => ({ key: pa.action, text: pa.action, count: pa.count, priority: pa.priority }))}
-            accent="amber"
-          />
-        )}
-        {topStrengths.length > 0 && (
-          <ExpandableSection
-            title="What's working well"
-            subtitle="Practices already in place across multiple businesses — worth celebrating and showcasing."
-            items={topStrengths.map(s => ({ key: s.text, text: s.text, count: s.count }))}
-            accent="green"
-          />
-        )}
-      </div>
+      {priorityHorizons.length > 0 && (
+        <section className="authority-form-card report-section">
+          <h2>Priorities by planning horizon</h2>
+          <p className="report-section__subtitle">
+            The cohort&rsquo;s most common recommended actions, grouped so they map onto your planning cycles.
+          </p>
+          <div className="report-horizons">
+            {priorityHorizons.map(g => (
+              <div key={g.key} className={`report-horizon report-horizon--${g.accent}`}>
+                <div className="report-horizon__head">
+                  <h3>{g.label}</h3>
+                  <span>{g.hint}</span>
+                </div>
+                <ol className="report-horizon__list">
+                  {g.items.slice(0, 6).map((p, i) => (
+                    <li key={p.action + i}>
+                      <span className="report-horizon__text">{p.action}</span>
+                      <span className="report-horizon__count">{p.count}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {topStrengths.length > 0 && (
+        <ExpandableSection
+          title="What's working well"
+          subtitle="Practices already in place across multiple businesses — worth celebrating and showcasing."
+          items={topStrengths.map(s => ({ key: s.text, text: s.text, count: s.count }))}
+          accent="green"
+          wide
+        />
+      )}
 
       {topAreasToExplore.length > 0 && (
         <ExpandableSection
